@@ -20,7 +20,7 @@ Use the functional list below to find commands for a specific task area that you
   These functions perform a calculation across a set of rows, returning a single value.
 
 * [Array functions](#array-functions)  
-  Used for the manipulation and querying of `ARRAY`-typed columns, such as transforming and filtering. Includes Lambda array functions.
+  Used for the manipulation and querying of `ARRAY`-typed columns, such as transforming and filtering. Includes [Lambda functions](#lambda-functions).
 
 * [Conditional and miscellaneous functions](#conditional-and-miscellaneous-functions)  
   These functions include various methods for modifying data types and applying conditional operations.   
@@ -29,7 +29,7 @@ Use the functional list below to find commands for a specific task area that you
   Functions for manipulating date and time data types.   
 
 * [JSON functions](#json-functions)  
-  These functions extract and transform raw JSON into Firebolt native types, or JSON sub-objects. They are used either during the ELT process or applied to columns storing JSON objects as plain `TEXT`.
+  These functions extract and transform JSON into Firebolt native types, or JSON sub-objects. They are used either during the ELT process or applied to columns storing JSON objects as plain `TEXT`.
 
 * [Numeric functions](#numeric-functions)  
   Functions for manipulating data types including `INT`, `LONG`, `DOUBLE`, and other numeric types.

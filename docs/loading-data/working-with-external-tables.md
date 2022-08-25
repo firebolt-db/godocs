@@ -19,11 +19,11 @@ Although you can run a query over an external table to return query results, we 
 
 1. For a simple end-to-end workflow that demonstrates loading data into Firebolt, see the [Getting started tutorial](../getting-started.html).  
 
-2. For a workflow that demonstrates incrementally loading data into Firebolt, see [Incrementally loading data with Airflow](incremrm entally-loading-data.md).
+2. For a workflow that demonstrates incrementally loading data into Firebolt, see [Incrementally loading data with Airflow](incrementally-loading-data.md).
 
 ## Supported file formats
 
-Firebolt supports loading the following source file formats from S3: `PARQUET`, `CSV`, `TSV`, `JSON`, and `ORC`. We are quick to add support for more types, so make sure to let us know if you need it.
+Firebolt supports loading the following source file formats from S3: `PARQUET`, `CSV`, `TSV`, `JSON` ([JSON Lines](https://jsonlines.org/)), and `ORC`. We are quick to add support for more types, so make sure to let us know if you need it.
 
 ## Using metadata virtual columns
 
