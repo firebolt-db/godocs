@@ -109,6 +109,7 @@ Firebolt uses cookies in your client to save the state of unsaved scripts automa
 
 * Choose the vertical ellipses next to the script in the left pane and then choose **Make script global**.  
   ![](../assets/images/global_script.png)  
+<<<<<<< HEAD
 
   Firebolt moves the script to the **Global scripts** list.  
   ![](../assets/images/global_script_list.png)
@@ -123,6 +124,22 @@ Firebolt uses cookies in your client to save the state of unsaved scripts automa
 
 **To export a script and download it as a .sql file**<a name="scriptexport"></a>
 
+=======
+
+  Firebolt moves the script to the **Global scripts** list.  
+  ![](../assets/images/global_script_list.png)
+  
+**To rename a script**<a name="scriptrename"></a>
+
+* Choose the vertical ellipses next to the script name in the left pane, choose **Rename script**, type a new name, and then press ENTER.
+
+**To copy a script**<a name="scriptcopy"></a>
+
+* Choose the vertical ellipses next to the script name in the left pane, choose **Duplicate script**, and then press ENTER. Firebolt saves a new script with the pattern `<original_script>_copy. If you copy a global script, the new script inherits the global setting.
+
+**To export a script and download it as a .sql file**<a name="scriptexport"></a>
+
+>>>>>>> b7f6b427353e5eba9ab5f90b1a97969cd7187d10
 *   Choose the vertical ellipses next to the script name in the left pane, and then choose **Export script**.
 
     Firebolt downloads the file to your browser's default download directory using the file pattern `<your_script_name>.sql`.
@@ -151,7 +168,9 @@ You can run all statements in a script or select snippets of SQL to run.
 
 ### Viewing results
 
-After you run a script or query statement, results appear below the script editor, along with statistics about query execution.
+While your script is running, its status is displayed at the top of the browser tab so you can switch to other tabs in your browser and still track how your script is running. The Firebolt icon dislays a colored dot to indicate status, and updates the tab title with a description. For example, when a green dot displays, your script has completed successfully. The tab script status remains displayed in the tab for one minute after the script completes.
+
+After you run a script or query statement, more results appear below the script editor, along with statistics about query execution.
 
 ![](../assets/images/workspace_statistics.png)
 

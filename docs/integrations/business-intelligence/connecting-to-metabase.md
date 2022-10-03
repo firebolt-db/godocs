@@ -17,11 +17,18 @@ If you are using Metabase Cloud, you can skip to [Creating a connection](#creati
 {:toc}
 
 ### Setting up the Firebolt connector (on-premises only)
+<<<<<<< HEAD
 
 To set up the Firebolt connector on a self-hosted Metabase instance, download the following files and save them to the `/plugins` directory on your Metabase host system. By default, `/plugins` is a subdirectory of the directory where the `metabase.jar` file executes.
 
 * Download the latest Firebolt JDBC driver from its [GitHub Releases page](https://github.com/firebolt-db/jdbc/releases).
 * Download the latest Firebolt Metabase driver from its [GitHub Releases page](https://github.com/firebolt-db/metabase-firebolt-driver/releases).
+=======
+
+To set up the Firebolt connector on a self-hosted Metabase instance:
+1. Download the latest Firebolt Metabase driver from its [GitHub Releases page](https://github.com/firebolt-db/metabase-firebolt-driver/releases).
+2. Move the driver to the `/plugins` directory on your Metabase host system. By default, `/plugins` is a subdirectory of the directory where the `metabase.jar` file executes.
+>>>>>>> b7f6b427353e5eba9ab5f90b1a97969cd7187d10
 
 ### Creating a connection
 
@@ -45,6 +52,7 @@ You are now ready to run Metabase with your Firebolt databases.
 
 | Field                          | Description                                                                  | 
 | ------------------------------ | ---------------------------------------------------------------------------- |
+<<<<<<< HEAD
 | **Name**                       | A title to refer to your database in Metabase. For simplicity, we recommend using the same name as your Firebolt database. | 
 | **Host**                       | The Firebolt host to connect to. It is always `api.app.firebolt.io`.         |              
 | **Port**                       | The port to use for the connection. It is `8123`.                            |              
@@ -52,5 +60,14 @@ You are now ready to run Metabase with your Firebolt databases.
 | **Username**                   | The username to connect with, for example, `janedoe@mycompany.com`. | 
 | **Password**                   | The password associated with the username above.                             | 
 | **Additional JDBC parameters** | Any additional JDBC parameters to pass along with the connection, such as `engine=<my_database_engine_1>`. See [here](https://docs.firebolt.io/developing-with-firebolt/connecting-with-jdbc.html#available-connection-parameters) for a list of all available JDBC connection parameters. | 
+=======
+| **Display Name**               | A title to refer to your database in Metabase. For simplicity, we recommend using the same name as your Firebolt database. |
+| **Database name**              | The name of the Firebolt database to connect to.                             |
+| **Username**                   | The username to connect with, for example, `janedoe@mycompany.com`.          |
+| **Password**                   | The password associated with the username above.                             |
+| **Account name**               | The Firebolt account to log in to.                                           |
+| **Engine name**                | The Firebolt engine to run queries with.                                     |
+| **Additional JDBC options**    | Any additional JDBC parameters to pass along with the connection, such as `connection_timeout_millis=10000`. See [here](https://docs.firebolt.io/developing-with-firebolt/connecting-with-jdbc.html#available-connection-parameters) for a list of all available JDBC connection parameters. |
+>>>>>>> b7f6b427353e5eba9ab5f90b1a97969cd7187d10
 
 Be sure to select **Save** after entering all your information. After saving, you should get a message saying your Firebolt database was successfully added.
