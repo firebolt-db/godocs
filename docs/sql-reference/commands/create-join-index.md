@@ -9,6 +9,9 @@ parent: SQL commands
 
 Join indexes can accelerate queries that use `JOIN` operations on dimension tables. Under certain circumstances, a join index can significantly reduce the compute requirements to perform a join at query runtime. For more information, see [Using join indexes](../../using-indexes/using-join-indexes.md).
 
+{: .note}
+Following release of DB version 3.19.0, you no longer need to manually create join indexes. 
+
 ## Syntax
 
 ```sql
@@ -35,7 +38,7 @@ CREATE DIMENSION TABLE my_cstmr_dim (
   cstmr_id BIGINT UNIQUE,
   name TEXT,
   email TEXT,
-  hs_nm INT,
+  hs_nm INTEGER,
   street TEXT,
   city TEXT,
   st_pvnc TEXT,

@@ -17,24 +17,25 @@ This topic lists the data types available in Firebolt.
 
 ## Numeric
 
-### INT
-A whole number ranging from -2,147,483,648 to 2,147,483,647. `INT` data types require 4 bytes of storage.
-Synonyms: `INTEGER`, `INT4`.
+### INTEGER
+A whole number ranging from -2,147,483,648 to 2,147,483,647. `INTEGER` data types require 4 bytes of storage.
+Synonyms: `INT`, `INT4`.
 
-### DECIMAL
-An exact numeric data type defined by its precision (total number of digits) and scale (number of digits to the right of the decimal point). For more information, see [DECIMAL data type](decimal-data-type.md).
+### NUMERIC
+An exact numeric data type defined by its precision (total number of digits) and scale (number of digits to the right of the decimal point). For more information, see [NUMERIC data type](numeric-data-type.md). 
+Synonyms: `DECIMAL`.
 
 ### BIGINT
 A whole number ranging from -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807. `BIGINT` data types require 8 bytes of storage.
 Synonyms: `LONG`, `INT8`.
 
-### FLOAT
-A floating-point number that has six decimal-digit precision. Decimal (fixed point) types are not supported. `FLOAT` data types require 4 bytes of storage.
-Synonyms: `REAL`, `FLOAT4`, `FLOAT(p)` where 1 <= p <= 24.
+### REAL
+A floating-point number that has six decimal-digit precision. Decimal (fixed point) types are not supported. `REAL` data types require 4 bytes of storage.
+Synonyms: `FLOAT`, `FLOAT4`.
 
-### DOUBLE
+### DOUBLE PRECISION
 A floating-point number that has 15 decimal-digit precision. Decimal (fixed point) types are not supported. `DOUBLE` data types require 8 bytes.
-Synonyms: `DOUBLE PRECISION`, `FLOAT8`, `FLOAT(p)` where 25 <= p <= 53.
+Synonyms: `DOUBLE`, `FLOAT8`, `FLOAT(p)` where 25 <= p <= 53.
 
 ## String
 
@@ -44,8 +45,37 @@ Synonyms: `STRING`, `VARCHAR`
 
 ## Date and time
 
-### DATE
-A year, month and day in the format *YYYY-MM-DD*. The minimum `DATE` value is `1970-01-01`. The maximum `DATE` value is `2105-12-31`. It does not specify a time zone.
+Firebolt supports five date- and time-related data types:
+
+| Name                 | Size    | Minimum                          | Maximum                          | Resolution    |
+| :------------------- | :------ | :------------------------------- | :------------------------------- | :------------ |
+| `PGDATE`             | 4 bytes | `0001-01-01`                     | `9999-12-31`                     | 1 day         |
+| `TIMESTAMPNTZ`       | 8 bytes | `0001-01-01 00:00:00.000000`     | `9999-12-31 23:59:59.999999`     | 1 microsecond |
+| `TIMESTAMPTZ`        | 8 bytes | `0001-01-01 00:00:00.000000 UTC` | `9999-12-31 23:59:59.999999 UTC` | 1 microsecond |
+| `DATE` (legacy)      | 2 bytes | `1970-01-01`                     | `2105-12-31`                     | 1 day         |
+| `TIMESTAMP` (legacy) | 4 bytes | `1970-01-01 00:00:00`            | `2105-12-31 23:59.59`            | 1 second      |
+
+Dates are counted according to the [proleptic Gregorian calendar](https://en.wikipedia.org/wiki/Proleptic_Gregorian_calendar).
+Each year consists of 365 days, with leap days added to February in leap years.
+
+### PGDATE
+
+A year, month, and day calendar date independent of a time zone. For more information, see [PGDATE data type](date-data-type.md).
+
+### TIMESTAMPNTZ
+
+A year, month, day, hour, minute, second, and microsecond timestamp independent of a time zone. For more information, see [TIMESTAMPNTZ data type](timestampntz-data-type.md).
+
+### TIMESTAMPTZ
+
+A year, month, day, hour, minute, second, and microsecond timestamp associated with a time zone. For more information, see [TIMESTAMPTZ data type](timestamptz-data-type.md).
+
+### DATE (legacy)
+
+A year, month and day in the format *YYYY-MM-DD*. `DATE` is independent of a time zone. 
+
+{: .caution}
+`DATE` (legacy) is planned for deprecation. Using the `PGDATE` type is recommended.
 
 Arithmetic operations can be executed on `DATE` values. The examples below show the addition and subtraction of integers.
 
@@ -54,11 +84,12 @@ Arithmetic operations can be executed on `DATE` values. The examples below show 
 Returns: `2019-08-04`
 
 `CAST(‘2019-07-31' AS DATE) - 4`
+
 Returns: `2019-07-27`
 
 #### Working with dates outside the allowed range
 {:.no_toc}
-Arithmetic, conditional, and comparative operations are not supported for date values outside the supported range. These operations return inaccurate results because they are based on the minimum and maximum dates in the range rather than the actual dates provided or expected to be returned.  
+Arithmetic, conditional, and comparative operations are not supported for date values outside the supported range. These operations return inaccurate results because they are based on the minimum and maximum dates in the range rather than the actual dates provided or expected to be returned. `PGDATE` data type has a much wider range, and we recommend using this type instead. 
 
 The arithmetic operations in the examples below return inaccurate results as shown because the dates returned are outside the supported range.  
 
@@ -100,9 +131,12 @@ FROM
 GROUP BY
   SUBSTR(date_as_text,6,2);
 ```
-### TIMESTAMP
+### TIMESTAMP (legacy)
 
 A year, month, day, hour, minute and second in the format *YYYY-MM-DD hh:mm:ss*.
+
+{: .caution}
+`TIMESTAMP` (legacy) is planned for deprecation. Using the `TIMESTAMPNTZ` type is recommended.
 
 The minimum `TIMESTAMP` value is `1970-01-01 00:00:00`. The maximum `TIMESTAMP` value is `2105-12-31 23:59.59`
 
@@ -119,12 +153,65 @@ Synonyms: `BOOL`
 ### ARRAY
 Represents an array of values. All elements of the array must have same data type. Elements of the array can be of any supported data type including nested arrays (array with arrays).
 
-A column whose type is `ARRAY` can't be nullable, but the elements of an `ARRAY` can be nullable.
+Array columns must be defined with the data type of the array elements, and optionally whether or not those elements are nullable. The following syntax options are supported: 
 
-For example, the following is an illegal type definition:
+* `ARRAY(<data-type> [NULL | NOT NULL])`
+* `<data-type> ARRAY`
+* `<data-type>[]`
 
-`array_with_null ARRAY(INT) NULL`
+For example, the following three queries will create tables with the same nullable `demo_array` column of `TEXT` elements: 
 
-This, on the other hand, is a valid definition:
+  ```sql
+  CREATE DIMENSION TABLE demo1 (
+  demo_array ARRAY(TEXT NULL) 
+  );
+  
+  CREATE DIMENSION TABLE demo2 (
+  demo_array TEXT[]
+  );
 
-`nullElements ARRAY(INT NULL)`
+  CREATE DIMENSION TABLE demo3 (
+  demo_array TEXT ARRAY 
+  );
+  ```
+
+  You can also specify that an array be NOT NULL, but you must then use the `ARRAY(<data-type> NOT NULL)` syntax.
+
+#### Example
+{: .no_toc}
+
+The following `CREATE TABLE` statement shows arrays of different element types and different nullabilities.
+```sql
+CREATE DIMENSION TABLE demo (
+  a_t ARRAY(TEXT NULL) NULL,
+  a_i ARRAY(INT NULL) NOT NULL,
+  a_d ARRAY(DATE NOT NULL) NULL,
+  a_f ARRAY(FLOAT NOT NULL) NOT NULL,
+  a_a ARRAY(ARRAY(INT NULL) NULL) NULL
+);
+```
+And the following `INSERT INTO` statement demonstrates examples of values for these arrays:
+
+```sql
+INSERT INTO demo VALUES
+  (
+    ['Hello', NULL, 'world'],
+    [1, 42, NULL],
+    [DATE '2000-01-01'],
+    [3.14, 2.71, 9.8],
+    [ [1, 2], [NULL], NULL]
+  ),
+  (
+    NULL,
+    [],
+    NULL,
+    [],
+    NULL
+  )
+```
+
+## Binary
+
+### BYTEA
+Represents variable size binary data. A binary string is a sequence of bytes - unlike TEXT, there is no character set. The `BYTEA` data type is nullable.
+For more information, see [BYTEA data type](bytea-data-type.md).

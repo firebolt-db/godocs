@@ -1,24 +1,27 @@
 ---
 layout: default
-title: TO_CHAR
+title: TO_CHAR (legacy)
 description: Reference material for TO_CHAR function
 parent: SQL functions
 ---
 
-# TO_CHAR
+# TO_CHAR (legacy)
 
 Converts a `TIMESTAMP` or a `NUMERIC` data type to a formatted string.
+
+{: .note}
+The functions works with legacy `DATE` and `TIMESTAMP` data types. If you are using new `PGDATE`, `TIMESTAMPTZ`, and `TIMESTAMPNTZ` data types, see [TO_CHAR (new)](../functions-reference/to-char-new.md).
 
 ## Syntax
 
 ```sql
-TO_CHAR(<expr>[, '<format>'])
+TO_CHAR(<expression>[, '<format>'])
 ```
 
 |   Parameter   |                       Description                          |
 | :-------------| :---------------------------------------------------------|                           
-|  `<expr>`   | An expression that resolves to a value with a `TIMESTAMP` or `NUMERIC` data type, which will be converted to a string.       |
-|  `<format>`   | One or more optional format element(s) for datetime values.|                       
+|  `<expression>`   | An expression that resolves to a value with a `TIMESTAMP` or `NUMERIC` data type, which will be converted to text. |
+|  `<format>`   | One or more optional format element(s) for datetime values. |                       
 
 For descriptions of the accepted `<format>` options, see below.
 

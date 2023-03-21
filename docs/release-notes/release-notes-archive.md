@@ -3,7 +3,6 @@ layout: default
 title: Release notes archive
 description: Release notes archive for the Firebolt data warehouse.
 parent: Release notes
-grand_parent: General reference
 nav_order: 1
 sitemap: false
 ---
@@ -15,6 +14,380 @@ We provide an archive of release notes for your historical reference.
 
 * Topic ToC
 {:toc}
+
+## DB version 3.20.0 
+**March 2023**
+
+* [Enhancements, changes, and new integrations](#enhancements-changes-and-new-integrations)
+* [Resolved issues](#resolved-issues)
+  
+### Enhancements, changes, and new integrations
+
+* <!--- FIR-20900 —--> **Function support added for new `PGDATE`, `TIMESTAMPTZ`, and `TIMESTAMPNTZ` data types**
+
+  The following new and updated functions can now be used with new data types `PGDATE`, `TIMESTAMPTZ`, and `TIMESTAMPNTZ`.
+
+  * [TO_CHAR](../sql-reference/functions-reference/to-char-new.md)
+  * [CURRENT_PGDATE](../sql-reference/functions-reference/current-pgdate.md)
+  * [LOCALTIMESTAMPNTZ](../sql-reference/functions-reference/localtimestampntz.md)
+  * [CURRENT_TIMESTAMPTZ](../sql-reference/functions-reference/current-timestamptz.md)
+  * [TO_TIMESTAMPTZ](../sql-reference/functions-reference/to-timestamptz.md)
+
+{: .warning}
+  >**To use the new data types, new external and dimension/fact tables must be created. Reingest will be required to recognize new precision.**
+  >* To ingest from an existing table into a new table using the new types, simply cast a column of type `DATE` to `PGDATE` and a column of type >`TIMESTAMP` to `TIMESTAMPNTZ`. 
+  >* To ingest into a new table using the new types from external data, create an external table with the new types.
+  >
+  >In a future version, you will have the option to use the type names `DATE` and `TIMESTAMP` instead of new type names `PGDATE` and `TIMESTAMPNTZ`, but data must be reingested using the new types before this option is enabled. `TIMESTAMPTZ` will remain the same, as that is a new type added. Please raise any questions or feedback with your Customer Success team. 
+
+* <!--- FIR-18850 —--> **Changed NULL behavior of `CONCAT` function**
+
+  NULL inputs to [the `CONCAT` function](../sql-reference/functions-reference/concat.md) are now treated as empty strings, therefore any NULL inputs are ignored. When all inputs are NULL, the result will be an empty string. When using `||`, any NULL input still results in a NULL output.
+
+{: .warning}
+  >If you are using the `CONCAT` function on strings with NULL inputs and you don't want NULL values to be ignored, you will need to use the `||` function instead.
+  
+* <!--- FIR-21015 —--> **Additional syntax for ARRAY data type names**
+
+  Syntax options for defining columns with [the `ARRAY` data type](../general-reference/data-types.md#array) have been updated to include `<data-type>[]` and `<data-type> ARRAY`. Array element type is nullable when using the new syntax options. 
+
+  For example, the following three queries will create tables with the same `demo_array` column of type `ARRAY` of nullable `TEXT`.
+
+  ```sql
+  CREATE DIMENSION TABLE demo1 (
+  demo_array ARRAY(TEXT NULL)
+  );
+  
+  CREATE DIMENSION TABLE demo2 (
+  demo_array TEXT[]
+  );
+
+  CREATE DIMENSION TABLE demo3 (
+  demo_array TEXT ARRAY
+  );
+  ```
+ To specify the constraint for an array element to be not nullable, you must then use `ARRAY(<data-type> NOT NULL)` syntax.
+
+* <!--- FIR-20822 —--> **Added flag support for `REGEXP_LIKE`**
+
+  The [`REGEXP_LIKE` function](../sql-reference/functions-reference/regexp-like.md) now supports an optional `<flag>` input, to allow additional controls over the regular's expression matching behavior.
+
+  For example, the `i` flag causes the regular expression matching in the following query to be case-insensitive. Without this flag, the query would not find a match and would return `0`.
+
+  ```sql
+  SELECT
+	  REGEXP_LIKE('ABC', '[a-z]', 'i'); ---> 1
+  ```
+
+* <!--- FIR-20808 —--> **Parquet and ORC support added for binary data type**
+
+  Binary type data from external Parquet or ORC file types will now be ingested directly with [the data type `BYTEA`](../general-reference/bytea-data-type.md#importing-bytea-from-external-source). Previously, data were ingested as type `TEXT` and then converted to data type `BYTEA`. 
+
+* <!--- FIR-21179 —--> **Export all results from the SQL Workspace**  (UI release)
+
+  [Exporting the entire results section](../using-the-sql-workspace/using-the-sql-workspace.md#exporting-results-to-a-local-hard-drive) from the SQL Workspace in CSV or JSON format is now supported.
+
+* <!--- FIR-19287 —--> **Renamed column from `information_schema.tables`**
+
+  Renamed the `number_of_segments` column from `information_schema.tables` to `number_of_tablets` to better reflect Firebolt's data structure.
+
+* <!--- FIR-21118 —--> **Added support for empty statements**
+
+  Empty statements containing comments only are now supported and will run without error. 
+
+  ```sql
+  SELECT
+	  REGEXP_LIKE('ABC', '[a-z]', 'i'); ---> 1
+  ```
+
+* <!--- FIR-20808 —--> **Parquet and ORC support added for binary data type**
+
+  Binary type data from external Parquet or ORC file types will now be ingested directly with the data type `BYTEA`. Previously, data were ingested as type `TEXT` and then converted to data type `BYTEA`. 
+
+* <!--- FIR-21118 —--> **Added support for empty statements**
+
+  Empty statements containing comments only are now supported and will run without error. 
+
+* <!--- FIR-21179 —--> **Export all results from the SQL Workspace**
+
+  [Exporting the entire results section](../using-the-sql-workspace/using-the-sql-workspace.md#exporting-results-to-a-local-hard-drive) from the SQL Workspace in CSV or JSON format is now supported.
+
+* <!--- FIR-19287 —--> **Renamed column from `information_schema.tables`**
+
+  Renamed the `number_of_segments` column from `information_schema.tables` to `number_of_tablets` to better reflect Firebolt's data structure.
+
+* <!--- FIR-21118 —--> **Added support for empty statements**
+
+  Empty statements containing comments only are now supported and will run without error. 
+
+### Resolved issues
+
+* <!--- FIR-20808 —-->Fixed an issue where `AVG` and `SUM` functions performed on large `DECIMAL` columns produced an error; results now use the same precision and scale as the input type. 
+
+## DB version 3.19.0 
+**February 2023**
+
+* [New features](#new-features)
+* [Enhancements, changes, and new integrations](#enhancements-changes-and-new-integrations)
+
+### New features
+
+* <!--- FIR-16297 —--> **New date and time data types**
+
+  Added support for new date and timestamp data types:
+
+  * [PGDATE](../general-reference/date-data-type.md)
+  * [TIMESTAMPNTZ](../general-reference/timestampntz-data-type.md)
+  * [TIMESTAMPTZ](../general-reference/timestamptz-data-type.md)
+
+  The new data types use an improved memory layout providing a much higher supported range, now extending from `0001-01-01[ 00:00:00.000000]` to `9999-12-31[ 23:59:59.999999]`. This change also extends the syntax for specifying intervals used for arithmetic with dates and timestamps. In addition to the previously supported interval syntax, you can now also write `interval 'N' unit`, where `N` is a possibly signed integer, and `unit` is one of `year`, `month`, `day`, `hour`, `minute`, or `second`, matched case-insensitively.
+
+  The previously supported `DATE` and `TIMESTAMP` data types are planned for deprecation in the future. New features and functionality will be built to support the new date and timestamp data types, rather than these legacy types. 
+  
+  **To use the new data types, new external and dimension/fact tables must be created. Reingest will be required to recognize new precision.**
+  * To ingest from an existing table into a new table using the new types, simply cast a column of type `DATE` to `PGDATE` and a column of type `TIMESTAMP` to `TIMESTAMPNTZ`. 
+  * To ingest into a new table using the new types from external data, create an external table with the new types.
+
+  {: .warning}
+  The new syntax can break the semantics of existing SQL queries. Previously, the `unit` part of the expression was treated as a column alias, and now it's treated as part of the interval literal. For example, if you wrote `SELECT DATE '2023-01-10' + interval '42' day;`, you would get back a table with one column called `day` and the value `2023-01-10 00:00:42`. Now, you will get a back a table with one column (unspecified name) and the value `2023-02-21 00:00:00`.<br>If you want to retain the old behavior, use `AS`, for example: `SELECT DATE '2023-01-10' + interval '42' AS day;`.
+
+* <!--- ---> **New setting for time zone**
+
+  [New setting](../general-reference/system-settings.md#set-time-zone) `time_zone` controls the session time zone. The default value of the `time_zone` setting is UTC.
+
+* <!--- FIR-13488, FIR-20666 ---> **New keyboard shortcuts** (UI release)
+
+  Use new [keyboard shortcuts](../using-the-sql-workspace/keyboard-shortcuts-for-sql-workspace.md) in the SQL workspace to cancel a query, or go to a specific line in your script.  
+
+    * Cancel a running script with **Ctrl + Alt + k** for Windows & Linux, or **⌘ + Option + k** for Mac
+    * Go to a desired line with **Ctrl + l** for Windows & Linux, or **⌘ + l** for Mac
+  
+### Enhancements, changes, and new integrations
+
+* <!--- FIR-16389 —--> **Improved join index performance**
+
+  [Join indexes](../using-indexes/using-join-indexes.md) just got better: profit from their extreme performance benefits without any configuration. Moreover, there is no more need to manually create or refresh – the results are always up to date even if the underlying data changed.  With this optimization, we've seen real-world, production queries run 200x faster.
+
+  To see how this works, let’s look at an example. Say we have the following query pattern which is run hundreds of times per second with different values for `l.player_id` and `l.date`:
+
+  ```sql
+  SELECT r.name, SUM(l.score) 
+  FROM   game_plays as l
+  JOIN   player_info as r 
+  ON     l.player_id = r.player_id
+  WHERE  l.player_id = XXX AND l.date = YYY
+  GROUP  BY r.name;
+  ```
+
+  On the first run of this query, the relevant data from the right-hand side table `player_info` is read and stored in a specialized data structure, which is cached in RAM. This can take tens of seconds if the `player_info` table is large (e.g., contains millions of rows). However, on subsequent runs of the query pattern, the cached data structure can be reused - so all subsequent queries will only take a few milliseconds (if the left-hand side with potential field restrictions is small, as here).
+
+  **Requirements for query optimization**
+    * The right side of the join in the query must be directly a table. Subselects are not supported.
+    * Restrictions on fields from the right side of the join need to be applied in an `OUTER SELECT`, wrapping the query.
+    * Since the join index data structure is cached in RAM, the right side table may not be too large (by default the size of the cache is limited to 20% of the RAM).
+    * All types of joins (INNER, LEFT, RIGHT, …) are supported.
+    * The right table in the join can be a FACT or DIMENSION table.  
+
+* <!--- FIR-11922 —-->**Improved cache eviction**
+
+  Cache eviction process and stability has been improved. Tablet eviction is now managed by a Least Recently Used (LRU) algorithm, which provides smarter eviction and keeps the data that is most likely to be accessed in the engine cache.
+
+* <!--- FIR-17198 —-->**Added syntax option for setting TYPE options in CREATE EXTERNAL TABLE**
+  
+  Added the option to set type options for S3 source files at the same level as `TYPE` is set. [Type option](../sql-reference/commands/create-external-table.md#type) can now be defined as in the example below:
+
+  ```sql
+  CREATE EXTERNAL TABLE ex_table( ... )
+  TYPE=(CSV)
+  ALLOW_COLUMN_MISMATCH=true
+  ...
+  ```
+
+  as well as with the original syntax: 
+
+  ```sql
+  CREATE EXTERNAL TABLE ex_table(...)
+  TYPE=(CSV ALLOW_COLUMN_MISMATCH=true)
+  ...
+  ```
+
+* <!--- FIR-20566 —-->**Default DECIMAL scale changed**
+
+  The default scale for the `DECIMAL` [data type](../general-reference/decimal-data-type.md) has been updated from 0 to 9. 
+
+
+## DB version 3.17.0
+February 2023
+
+* [New features](#new-features)
+* [Enhancements, changes, and new integrations](#enhancements-changes-and-new-integrations)
+* [Resolved issues](#resolved-issues)
+
+### New features
+
+* <!--- FIR--17030 --->**Added support for GROUP BY ALL**
+
+  Instead of explicitly listing all grouping elements in the `GROUP BY` clause, [use `GROUP BY ALL`](../sql-reference/commands/select.md#group-by-all) to automatically infer them from the `SELECT` list.
+
+* <!--- FIR-16795 —-->**New BYTEA data type**
+
+  Use the new [`BYTEA` data type](../general-reference/bytea-data-type.md) to store binary data, like images, other multimedia files, or raw bytes of information.
+
+* <!--- FIR-16922 —-->**New functions [ENCODE](../sql-reference/functions-reference/encode.md) and [DECODE](../sql-reference/functions-reference/decode.md)**
+
+  Use [these functions](../sql-reference/functions-reference/index.md#bytea-functions) with the new `BYTEA` data type to encode binary data into a SQL expression of type `TEXT`, and decode from type `TEXT` to type `BYTEA`.
+
+* <!--- FIR-17196 --->**Added support for EXCLUDE columns in `SELECT *`**
+
+  [Added support for `EXCLUDE` columns in SELECT *](../sql-reference/commands/select.md#select-wildcard) to define which columns to exclude from a SELECT wildcard expansion. 
+
+* <!--- FIR-16745 --->**New setting for parsing literal strings**
+
+  [New setting](../general-reference/system-settings.md#enable-parsing-for-literal-strings) `standard_conforming_strings` controls whether strings are parsed without escaping, treating backslashes literally.
+
+* <!--- FIR-13489 --->**New keyboard shortcuts** (UI release)
+
+  Use new [keyboard shortcuts](../using-the-sql-workspace/keyboard-shortcuts-for-sql-workspace.md) in the SQL workspace to save and close scripts, and expand or collapse the results pane. 
+
+    * Close the current script in the SQL workspace with **Ctrl + Alt + x** for Windows & Linux, or **⌘ + Option + x** for Mac
+    * Close all scripts in the SQL workspace with **Ctrl + Alt + g** for Windows & Linux, or **⌘ + Option + g** for Mac
+    * Close all scripts except the one you are working on in the SQL workspace with **Ctrl + Alt + o** for Windows & Linux, or **⌘ + Option + o** for Mac
+    * Save the current script in the SQL workspace with **Ctrl + Alt + s** for Windows & Linux, or **⌘ + Option + s** for Mac
+    * Expand or collapse the results pane in the SQL workspace with **Ctrl + Alt + e** for Windows & Linux, or **⌘ + Option + e** for Mac
+
+### Enhancements, changes, and new integrations
+
+* <!--- FIR-12244 —-->**Added support for CREATE TABLE as an alias for CREATE FACT TABLE**
+
+  [Added support for `CREATE TABLE` syntax](../sql-reference/commands/create-fact-dimension-table.md), with the default as fact table. `PRIMARY INDEX` is now also optional for fact tables.
+
+* <!--- FIR-17189 --->**Added support for the DECIMAL data type with the ARRAY\_SORT function**
+
+  [ARRAY_SORT](../sql-reference/functions-reference/array-sort.md) has been added as a function supporting the [DECIMAL data type](../general-reference/decimal-data-type.md#supported-functions-beta-release).
+
+* <!--- FIR-11888 --->**Minimize results in the SQL workspace** (UI release)
+
+  The results pane in the SQL workspace can now be minimized. Expand or collapse by double-clicking on the "Results" pane header, using the height control button to drag and change the size of the pane as desired, or using the keyboard shortcut **Ctrl + Alt + e**  for Windows & Linux, or **⌘ + Option + e** for Mac.
+
+  ![](../assets/images/release-notes/expandcollapse.gif)
+
+* <!--- FIR-10855 --->**Primary index columns highlighted in columns object viewer** (UI release)
+
+  The columns pane in the object viewer now highlights columns that are part of a table's primary index, making it easier to identify primary indexes and the order of the columns in the primary index. 
+
+  ![](../assets/images/release-notes/pihighlight.png)
+
+### Resolved issues
+
+* <!--- FIR-9797 —-->Fixed an issue where `COPY TO` export file size was limited to 2GB.
+
+* <!--- FIR-14828 --->Fixed an issue that allowed more than one argument in `CONCAT`.
+
+* <!--- FIR-11381 —-->Returns an error when dynamic functions are used in aggregating indexes. 
+
+## December 2022
+
+* [New features](#new-features)
+* [Enhancements, changes, and new integrations](#enhancements-changes-and-new-integrations)
+
+### New features
+
+*  <!--- FIR-3917 —-->**Added support for CSV TYPE options on ingest** (DB version 3.14.0)
+
+  Added support for additional TYPE options for the [CREATE EXTERNAL TABLE command](../sql-reference/commands/create-external-table.md#type), to allow configuration for ingesting different CSV file formats. Some of these options may be available in previous versions. 
+
+  * `[ALLOW_DOUBLE_QUOTES = {TRUE|FALSE}]`, `[ALLOW_SINGLE_QUOTES = {TRUE|FALSE}]`: Define that unescaped double or single quotes in CSV input file will not cause an error to be generated on ingest. 
+
+  * `[ALLOW_COLUMN_MISMATCH = {TRUE|FALSE}]`: Defines that the number of delimited columns in a CSV input file can be fewer than the number of columns in the corresponding table. 
+
+  * `[ALLOW_UNKNOWN_FIELDS = {TRUE|FALSE}]`: Defines that the number of delimited columns in a CSV input file can be more than the number of columns in the corresponding table. 
+
+  * `[ESCAPE_CHARACTER = {‘<character>’|NONE}`: Defines which character is used to escape, to change interpretations from the original. 
+
+  * `[FIELD_DELIMITER = '<field_delimeter>']`: Defines a custom field delimiter to separate fields for ingest. 
+
+  * `[NEW_LINE_CHARACTER = '<new_line_character>']`: Defines a custom new line delimiter to separate entries for ingest. 
+
+  * `[NULL_CHARACTER = '<null_character>']`: Defines which character is interpreted as `NULL`. 
+
+  * `[SKIP_BLANK_LINES {TRUE|FALSE}]`: Defines that any blank lines encountered in the CSV input file will be skipped. 
+
+### Enhancements, changes, and new integrations
+
+* <!--- FIR-16182 —--> **Added support for nullable arrays** (DB version 3.11.0)
+
+  Nullable type is now generally available for arrays, enabled for DB version 3.11 and above. 
+
+## November 2022
+
+* [New features](#new-features)
+* [Enhancements, changes, and new integrations](#enhancements-changes-and-new-integrations)
+* [Resolved issues](#resolved-issues)
+
+### New features
+
+* <!--- FIR-15968, FIR-15744 —-->**Added support for functions** (DB version 3.13.0)
+
+  * [FIRST_VALUE](../sql-reference/functions-reference/first-value.md): Returns the first value evaluated in the specified window frame.
+  * [NTH_VALUE](../sql-reference/functions-reference/nth-value.md): Returns the value evaluated of the nth row of the specified window frame (starting at the first row).
+  * [NTILE](../sql-reference/functions-reference/ntile.md): Divides an ordered data set equally into a specified number of buckets.
+  * [CUME\_DIST](../sql-reference/functions-reference/cume-dist.md): Calculates the relative rank (cumulative distribution) of the current row in relation to other rows in the same partition within an ordered data set.
+  * [PERCENT\_RANK](../sql-reference/functions-reference/percent-rank.md): Calculates the relative rank of the current row within an ordered data set.
+  * [PERCENTILE\_CONT (aggregation function)](../sql-reference/functions-reference/percentile-cont.md): Calculates a percentile, assuming a continuous distribution of values.
+  * [PERCENTILE\_CONT (window function)](../sql-reference/functions-reference/percentile-cont-window.md): Calculates a percentile over a partition, assuming a continuous distribution of values.
+  * [PERCENTILE\_DISC (aggregation function)](../sql-reference/functions-reference/percentile-disc.md): Returns a percentile for an ordered data set, equal to a specific column value.
+  * [PERCENTILE\_DISC (window function)](../sql-reference/functions-reference/percentile-disc-window.md): Returns a percentile over a partition for an ordered data set, equal to a specific column value.
+
+
+* <!--- FIR-15007 —-->**Added support for TRUNCATE TABLE command** (DB version 3.11.0)
+  
+  Use the [TRUNCATE TABLE](../sql-reference/commands/truncate-table.md) command to remove all rows from a table. 
+
+* <!--- FIR-12587 —-->**Added support for DECIMAL data type** (DB version 3.13.0)
+
+  Beta support for the [DECIMAL](decimal-data-type.md) data type is coming in version 3.13. 
+
+  {: .warning}
+  In previous versions, DECIMAL type columns are stored as DOUBLE type. Therefore, this change may require your action. Restart analytics engines before general purpose engines to use this new feature, and see below for additional actions. 
+  
+  **If your existing data model contains tables defined with DOUBLE type columns:**
+  * If you want to preserve the DOUBLE data type going forward, no change is required. The DECIMAL data type can be used for new tables/columns.
+   
+  **If your existing data model contains tables defined with DECIMAL type columns:**
+   * If you do not want to change your tables, no action is required. These columns will just show up as type DOUBLE. You can safely use the DECIMAL type for new tables/columns.
+
+   * If your table defined with columns as DECIMAL are recreated periodically (by your ELT process), new columns will be defined as DECIMAL(38,0) – default precision and scale. If you don’t want to switch to the DECIMAL data type for the existing data flows, you can change your ELT flows and replace the DECIMAL keyword with DOUBLE.
+
+   * If you are using a function with a DECIMAL type in your ELT process, ensure that function is [supported for the DECIMAL data type](decimal-data-type.md#supported-functions-beta-release).  
+
+   * To change the data type of columns defined as DECIMAL but stored as DOUBLE, you will need to recreate the table with the new definition (column defined as DECIMAL(p,s)). To avoid precision loss, we highly recommend re-ingesting the data from the source (i.e., via external table) rather than casting values to decimal from the existing table (i.e., `INSERT INTO new_table(d) SELECT CAST(d as DECIMAL(38,9)) FROM old_table;`).
+   
+   * To avoid any downtime for the end-users in scenarios involving re-creating and re-ingesting the table, we suggest creating a view that reads from the existing table (`old_table`). After the new table (`new_table`) is created and data is ingested, repoint the view to the new table name (`new_table`) using the `CREATE OR REPLACE VIEW` command. 
+ 
+  **Examples of changes in behavior**
+ 
+  * Comparing two values that differ by a small offset yields different results when stored as DECIMAL vs. DOUBLE, because DOUBLE is a variable-precision data type, whereas DECIMAL is exact with fixed precision:
+  ```sql
+      SELECT '1.00000000000000000000000005'::DECIMAL(38,30) = '1.00000000000000000000000004999'::DECIMAL(38,30); -- false
+      SELECT '1.00000000000000000000000005'::DOUBLE = '1.00000000000000000000000004999'::DOUBLE;  --true
+  ```
+
+  * Expressions involving DECIMAL data types with different precision and scale will yield an error:
+  ```sql
+    SELECT 3::DECIMAL + 2::DECIMAL(3,1); -- Invalid operation error: Operations between decimals with different precision and scale is not supported at the moment. Explicitly cast one of the decimals to other decimal precision and scale.
+  ```
+
+  * Functions `ROUND`, `TO_STRING`, and `TO_TEXT` applied on DECIMAL will return the data type matching the input data type. 
+
+### Enhancements, changes, and new integrations
+
+* <!--- FIR-16295 —-->**Information schema updated** (DB version 3.13.0)
+
+  Added `cpu_usage_us` and `cpu_delay_us` columns to the [information_schema.query_history view](../general-reference/information-schema/query-history-view.md) view.
+  
+### Resolved issues
+
+* Fixed an issue that caused degraded performance of the cache evictor. (DB version 3.13.0)
 
 
 ## October 2022
@@ -76,7 +449,7 @@ We provide an archive of release notes for your historical reference.
 
   query\_history and running\_queries views can now be queried via the information\_schema.
 
-  For more information, see [Information schema for query history](information-schema/query-history-view.html) and [Information schema for running queries](information-schema/running-queries.md).
+  For more information, see [Information schema for query history](../general-reference/information-schema/query-history-view.md) and [Information schema for running queries](../general-reference/information-schema/running-queries.md).
 
 * **Added support for Multi-factor authentication (MFA)**
   **(Beta)**

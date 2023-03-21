@@ -21,10 +21,11 @@ COUNT([ DISTINCT ] <expr>)
 | :--------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `<expr>`  | Valid values for the expression include column names or functions that return a column name. When `DISTINCT` is being used, counts only the unique number of rows with no `NULL` values. |
 
+
+`COUNT(*)` returns a total count of all rows in the table, while `COUNT(<column_name>)` returns a count of non-NULL rows in the specified `<column_name>`.
+
 {: .note}
-> `COUNT(*)` returns a total count of all rows in the table, while `COUNT(<column_name>)` returns a count of non-NULL rows in the specified `<column_name>`.
->
-> By default, `COUNT(DISTINCT)` returns approximate results. To get a precise result, with a performance penalty, use `SET firebolt_optimization_enable_exact_count_distinct=1;`
+> By default, `COUNT(DISTINCT)` returns approximate results. If you require a precise result (with a performance penalty), please contact Firebolt Support through the Help menu support form. 
 
 ## Example
 {: .no_toc}
@@ -71,3 +72,26 @@ FROM
 ```
 
 **Returns**: `5`
+
+To understand the difference between `COUNT(DISTINCT pk)` with exact precision enabled and using default approximation, consider a table, `count_test` with 8,388,608 unique `pk` values. The `APPROX_COUNT_DISTINCT` function returns the same approximate results as the `COUNT(DISTINCT)` function with exact precision disabled, so we can see the difference between these methods with the following example. 
+
+```sql
+SELECT
+	COUNT(DISTINCT pk) as count_distinct,
+	APPROX_COUNT_DISTINCT(pk) as approx_count
+FROM
+	count_test;
+```
+
+**Returns**: 
+
+Assuming 8,388,608 unique pk values, we will see results like: 
+
+
+```sql
+' +----------------+--------------+
+' | count_distinct | approx_count |
+' +----------------+--------------+
+' |      8,388,608 |    8,427,387 |
+' +----------------+--------------+
+```

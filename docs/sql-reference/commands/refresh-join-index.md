@@ -11,6 +11,9 @@ Recreates a join index or all join indices associated with a dimension table on 
 
 Join indexes are not updated automatically in an engine when a partition is dropped. You must refresh all indexes on all engines with queries that use the indexes, otherwise the queries return results from before the partition drop.
 
+{: .note}
+Following release of DB version 3.19.0, you no longer need to manually refresh join indexes - the results are always up to date even if the underlying data changed. This command will be deprecated in future. 
+
 Refreshing join indexes is a memory-intensive operation because join indexes are stored in node RAM. When refreshing join indexes, use [SHOW INDEXES](show-indexes.md) to get the `size_compressed` of all indexes to refresh. Ensure that node RAM is greater than the sum of `size_compressed` for all join indexes to be refreshed.
 
 ## Syntax

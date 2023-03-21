@@ -22,6 +22,9 @@ Use the functional list below to find commands for a specific task area that you
 * [Database objects](#database-objects)  
   DDL. Create, alter, drop, and otherwise manage objects like databases, tables, and views in your Firebolt account.
 
+* [Data manipulation (beta)](#data-manipulation)  
+  DML. Update data or delete data from tables in your Firebolt account. 
+
 * [Queries and query optimization](#queries-and-query-optimization)  
   Analyze data with `SELECT`. Tune and optimize query performance with other commands.
 
@@ -54,32 +57,35 @@ Use the functional list below to find commands for a specific task area that you
 * [CREATE DATABASE](create-database.md)
 * [CREATE EXTERNAL TABLE](create-external-table.md)
 * [CREATE FACT or DIMENSION TABLE](create-fact-dimension-table.md)
-* [CREATE JOIN INDEX](create-join-index.md)
+* [CREATE JOIN INDEX](create-join-index.md) (legacy)
 * [CREATE VIEW](create-view.md)
 * [DESCRIBE](describe.md)
 * [DROP DATABASE](drop-database.md)
 * [DROP TABLE](drop-table.md)
 * [DROP VIEW](drop-view.md)
 * [INSERT INTO](insert-into.md)
-* [REFRESH JOIN INDEX](refresh-join-index.md)
+* [REFRESH JOIN INDEX](refresh-join-index.md) (legacy)
 * [SHOW COLUMNS](show-columns.md)
 * [SHOW DATABASES](show-databases.md)
 * [SHOW TABLES](show-tables.md)
 * [TRUNCATE TABLE](truncate-table.md)
 
+## Data manipulation
+
+* [UPDATE (beta)](update.md)
+* [DELETE (beta)](delete.md)
 
 ## Queries and query optimization
 
 * [CREATE AGGREGATING INDEX](create-aggregating-index.md)
-* [CREATE JOIN INDEX](create-join-index.md)
 * [DROP INDEX](drop-index.md)
 * [EXPLAIN](explain.md)
-* [REFRESH JOIN INDEX](refresh-join-index.md)
 * [SELECT](select.md)
 * [SHOW INDEXES](show-indexes.md)
 * [COPY TO](copy-to.md)
+* [VACUUM (beta)](vacuum.md)
 
-## Information schema
+## Metadata
 
 * [DESCRIBE](describe.md)
 * [SHOW CACHE](show-cache.md)

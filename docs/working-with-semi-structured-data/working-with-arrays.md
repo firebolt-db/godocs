@@ -16,7 +16,7 @@ This section covers querying and manipulating arrays in Firebolt.
 
 ## Declaring ARRAY data types in table definitions
 
-Array types are declared using `ARRAY(<type>)` where `<type>` can be any data type that Firebolt supports. This includes the `ARRAY` data type, so arrays can be arbitrarily nested. The innermost type (the scalar) can be nullable, but `ARRAY`-typed columns cannot be nullable.
+Array types are declared using `ARRAY(<type>)` where `<type>` can be any data type that Firebolt supports. This includes the `ARRAY` data type, so arrays can be arbitrarily nested.
 
 Array literals are also supported. For example, the `SELECT` statement shown below is valid.
 
@@ -27,7 +27,7 @@ SELECT [1,2,3,4]
 ### Basis for examples
 {: .no_toc}
 
-All examples in this topic are based on the table below, named `visits`. The column `id` is of type `INT`. All other columns are of type `ARRAY(TEXT)`.
+All examples in this topic are based on the table below, named `visits`. The column `id` is of type `INTEGER`. All other columns are of type `ARRAY(TEXT)`.
 
 ![](../assets/images/array_example_table.png)
 
@@ -274,7 +274,7 @@ UNNEST(agent_props_vals as a_vals)
 
 ```
 +-----+------------+------------------+
-| INT | a_keys     |   a_values       |
+| INTEGER | a_keys     |   a_values       |
 +-----+------------+------------------+
 |   1 | agent      | "Mozilla/5.0"    |
 |   1 | agent      | "Windows NT 6.1" |

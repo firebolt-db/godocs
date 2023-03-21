@@ -53,7 +53,7 @@ Ingesting data into Firebolt is a three-step process. You:
 3. Run an `INSERT INTO` command from the external table to the fact or dimension table.
 
 ### Create an external table
-An *external table* is a special, virtual table that serves as a connector to your data source. After the external table is created, you ingest data by running an `INSERT INTO` command from that external table into a *fact table* or *dimension table*. The `INSERT INTO` command must run on a general purpose engine. After the data is available in fact and dimension tables, you can run analytics queries over those tables using any engine. Although it's possible, we don't recommend running analytics queries on external tables. For more information, see [CREATE EXTERNAL TABLE](/sql-reference/commands/create-external-table.md).
+An *external table* is a special, virtual table that serves as a connector to your data source. After the external table is created, you ingest data by running an `INSERT INTO` command from that external table into a *fact table* or *dimension table*. The `INSERT INTO` command must run on a general purpose engine. After the data is available in fact and dimension tables, you can run analytics queries over those tables using any engine. Although it's possible, we don't recommend running analytics queries on external tables. For more information, see [CREATE EXTERNAL TABLE](/sql-reference/commands/create-external-table.md) and [Using AWS roles to access S3](/loading-data/configuring-aws-role-to-access-amazon-s3.md).
 
 **To create an external table**
 1. Choose the plus symbol (**+**) next to **Script 1** to create a new script tab, **Script 2**, in the SQL workspace.
@@ -64,14 +64,14 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ex_lineitem (
 -- Column definitions map to data fields
 -- in the source data file and are specified
 -- as sources in the INSERT INTO statement for ingestion.
-  l_orderkey              LONG,
-  l_partkey               LONG,
-  l_suppkey               LONG,
-  l_linenumber            INT,
-  l_quantity              LONG,
-  l_extendedprice         LONG,
-  l_discount              LONG,
-  l_tax                   LONG,
+  l_orderkey              BIGINT,
+  l_partkey               BIGINT,
+  l_suppkey               BIGINT,
+  l_linenumber            INTEGER,
+  l_quantity              BIGINT,
+  l_extendedprice         BIGINT,
+  l_discount              BIGINT,
+  l_tax                   BIGINT,
   l_returnflag            TEXT,
   l_linestatus            TEXT,
   l_shipdate              TEXT,
@@ -113,14 +113,14 @@ Every fact table in Firebolt must have a *primary index* specified when you crea
 CREATE FACT TABLE IF NOT EXISTS lineitem (
 -- In this example, these fact table columns
 -- map directly to the external table columns.
-  l_orderkey              LONG,
-  l_partkey               LONG,
-  l_suppkey               LONG,
-  l_linenumber            INT,
-  l_quantity              LONG,
-  l_extendedprice         LONG,
-  l_discount              LONG,
-  l_tax                   LONG,
+  l_orderkey              BIGINT,
+  l_partkey               BIGINT,
+  l_suppkey               BIGINT,
+  l_linenumber            INTEGER,
+  l_quantity              BIGINT,
+  l_extendedprice         BIGINT,
+  l_discount              BIGINT,
+  l_tax                   BIGINT,
   l_returnflag            TEXT,
   l_linestatus            TEXT,
   l_shipdate              TEXT,
@@ -141,6 +141,9 @@ Firebolt creates the fact table. When finished, the table `lineitem` appears on 
 
 ### Use INSERT INTO to ingest data
 You can now use the `INSERT INTO` command to copy the data from the external table into the fact table. During the INSERT INTO operation, Firebolt ingests the data from your source into Firebolt.
+
+{: .note}
+Use `source_file_name` in the `WHERE` clause to specify which records to load from Amazon S3 and improve the performance of the read from S3. 
 
 **To run an `INSERT INTO` command that ingests data**
 1. Create a new script tab.
@@ -182,7 +185,7 @@ An aggregating index enables you to take a subset of table columns and predefine
 From the `lineitem` fact table that you created in the previous step, assume you typically run queries to look at the `SUM(l_quantity)`, `SUM(l_extendedprice)`, and `AVG(l_discount)`, grouped by different combinations of `l_suppkey` and `l_partkey`. You can create an aggregating index to speed up these queries by running the statement below.
 
 ```sql
-CREATE AND GENERATE AGGREGATING INDEX
+CREATE AGGREGATING INDEX
   agg_lineitem
 ON lineitem (
   l_suppkey,

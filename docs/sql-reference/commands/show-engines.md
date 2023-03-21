@@ -21,12 +21,10 @@ The returned table has the following columns.
 
 | Column name                 | Data Type   | Description |
 | :---------------------------| :-----------| :-----------|
-| engine_name                 | STRING      | The name of the engine. |
-| region                      | STRING      | The AWS Region in which the engine was created. |
-| spec                        | STRING      | The specification of nodes comprising the engine. |
-| scale                       | INT         | The number of nodes in the engine. |
-| status                      | STRING      | The engine status. For more information, see [Viewing and understanding engine status](../../working-with-engines/understanding-engine-fundamentals.md#viewing-and-understanding-engine-status). |
-| attached_to                 | STRING      | The name of the database to which the engine is attached. |
-| type                        | STRING      | One of `ANALYTICS` or `GENERAL PURPOSE`. |
-| auto_stop                   | INT         | The auto-stop interval in minutes, which is the amount of inactive time after which the engine will automatically stop. |
-| warmup_policy               | STRING      | One of `MINIMAL`, `PRELOAD_INDEXES`, or `PRELOAD_ALL_DATA`. For more information about warmup methods, see [Warmup method](../../working-with-engines/understanding-engine-fundamentals.md#warmup-method). |
+| engine_name                 | TEXT      | The name of the engine. |
+| region                      | TEXT      | The AWS Region in which the engine was created. |
+| spec                        | TEXT      | The specification of nodes comprising the engine. |
+| scale                       | INTEGER         | The number of nodes in the engine. |
+| status                      | TEXT      | The engine status. For more information, see [Viewing and understanding engine status](../../working-with-engines/understanding-engine-fundamentals.md#viewing-and-understanding-engine-status). |
+| attached_to                 | TEXT      | The name of the database to which the engine is attached. |
+| version                     | TEXT      | The engine version. |

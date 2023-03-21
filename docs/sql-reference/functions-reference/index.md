@@ -32,7 +32,7 @@ Use the functional list below to find commands for a specific task area that you
   These functions extract and transform JSON into Firebolt native types, or JSON sub-objects. They are used either during the ELT process or applied to columns storing JSON objects as plain `TEXT`.
 
 * [Numeric functions](#numeric-functions)  
-  Functions for manipulating data types including `INT`, `LONG`, `DOUBLE`, and other numeric types.
+  Functions for manipulating data types including `INTEGER`, `BIGINT`, `DOUBLE PRECISION`, and other numeric types.
 
 * [String functions](#string-functions)  
   Functions for manipulating string data types
@@ -60,6 +60,8 @@ When combined with a `GROUP BY` clause, these operations will be performed on al
 
 * [ANY_VALUE](any_value.md)  
 
+* [APPROX_COUNT_DISTINCT](approx-count-distinct.md)  
+
 * [APPROX_PERCENTILE](approx-percentile.md)  
 
 * [AVG](avg.md)
@@ -67,6 +69,8 @@ When combined with a `GROUP BY` clause, these operations will be performed on al
 * [CHECKSUM](checksum.md)  
 
 * [COUNT](count.md)  
+
+* [HLL_COUNT_DISTINCT](hll-count-distinct.md)  
 
 * [MAX](max.md)  
 
@@ -153,6 +157,16 @@ For more information about using Lambda functions, see [Manipulating arrays with
 * [FILTER](filter.md)  
 
 * [TRANSFORM](transform.md)  
+
+## Bytea functions
+
+* [CONCAT](concat.md)
+
+* [DECODE](decode.md)
+
+* [ENCODE](encode.md)
+
+* [LENGTH](length.md)
 
 ## Conditional and miscellaneous functions
 
@@ -381,6 +395,8 @@ Usage examples for JSON functions in this reference are based on the JSON docume
 * [ILIKE](ilike.md)  
 
 * [LENGTH](length.md)  
+
+* [LIKE](like.md)
 
 * [LOWER](lower.md)  
 

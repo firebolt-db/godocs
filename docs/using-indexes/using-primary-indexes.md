@@ -43,10 +43,6 @@ After you create a table, you can’t modify the primary index. To change the in
 
 The columns that you choose for the primary index and the order in which you specify them are important. Use the following recommendations to guide your choices. To see these guidelines in action, see [Primary index examples](#primary-index-examples).
 
-### Use columns without NULLs
-
-Columns that you specify in a primary index must not contain `NULL`. Consider defining columns that you use in a primary index with the `NOT NULL` constraint as a preventive measure. Columns in Firebolt are `NOT NULL` by default.
-
 ### Include columns used in WHERE clauses
 
 Include all columns that are used in query `WHERE` clauses to filter query results.
@@ -73,7 +69,7 @@ The primary index isn’t effective if Firebolt can’t determine the values in 
   PRIMARY INDEX asset_id
 ```
 
-In the example analytics query over the `events_log` table, Firebolt can’t use the primary index with the `WHERE` clause. This is because the function with `assset_id` is on the left side of the comparison. To satisfy the conditions of comparison, Firebolt must read all values of `asset_id` to apply the `UPPER` function.
+In the example analytics query over the `events_log` table, Firebolt can’t use the primary index with the `WHERE` clause. This is because the function with `asset_id` is on the left side of the comparison. To satisfy the conditions of comparison, Firebolt must read all values of `asset_id` to apply the `UPPER` function.
 
 ![](../assets/images/Red_X_resized.png)  
 
@@ -111,7 +107,7 @@ Conversely, on the dimension table side, there is no benefit to including the jo
 
 In most cases, partitioning isn’t necessary because of the efficiency of primary indexes (and aggregating indexes). If you use partitions, the partition column is the first stage of sorting. Firebolt divides the table data into file segments according to the `PARTITION BY` definition. Then, within each of those segments, Firebolt applies the primary index to prune and sort the data into even smaller data ranges as described above.
 
-For more information, see [Using partitions](../working-with-partitions.html).
+For more information, see [Working with partitions](../working-with-partitions.html).
 
 ## Primary index examples
 
@@ -131,7 +127,7 @@ CREATE FACT TABLE events_log (
   asset_id TEXT,
   customer_id TEXT NOT NULL,
   event_type TEXT,
-  event_count INT NOT NULL
+  event_count INTEGER NOT NULL
 )
 PRIMARY INDEX <see examples below>;
 ```
@@ -274,7 +270,7 @@ CREATE FACT TABLE events_log (
   asset_id TEXT,
   customer_id TEXT NOT NULL,
   event_type TEXT,
-  event_count INT NOT NULL,
+  event_count INTEGER NOT NULL,
   uppder_customer_id TEXT NOT NULL
 )
 PRIMARY INDEX visit_date, upper _customer_id;
