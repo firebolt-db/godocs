@@ -2,7 +2,8 @@
 layout: default
 title: TIMEZONE
 description: Reference material for TIMEZONE function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Date and time functions
 ---
 
 # TIMEZONE

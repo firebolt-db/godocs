@@ -2,7 +2,8 @@
 layout: default
 title: TO_YEAR
 description: Reference material for TO_YEAR function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Date and time functions
 ---
 
 # TO\_YEAR

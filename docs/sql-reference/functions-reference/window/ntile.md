@@ -2,7 +2,8 @@
 layout: default
 title: NTILE 
 description: Reference material for NTILE function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Window functions
 ---
 
 # NTILE

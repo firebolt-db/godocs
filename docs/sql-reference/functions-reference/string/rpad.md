@@ -2,7 +2,8 @@
 layout: default
 title: RPAD
 description: Reference material for RPAD function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # RPAD

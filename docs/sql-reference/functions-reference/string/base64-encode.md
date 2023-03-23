@@ -2,7 +2,8 @@
 layout: default
 title: BASE64_ENCODE
 description: Reference material for BASE64_ENCODE function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # BASE64\_ENCODE

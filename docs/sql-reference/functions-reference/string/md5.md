@@ -2,7 +2,8 @@
 layout: default
 title: MD5
 description: Reference material for MD5 function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # MD5

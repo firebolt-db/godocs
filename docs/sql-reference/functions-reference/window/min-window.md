@@ -2,7 +2,8 @@
 layout: default
 title: MIN (window function)
 description: Reference material for MIN function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Window functions
 ---
 
 # MIN

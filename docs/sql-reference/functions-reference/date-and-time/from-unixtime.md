@@ -2,7 +2,8 @@
 layout: default
 title: FROM_UNIXTIME
 description: Reference material for FROM_UNIXTIME function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Date and time functions
 ---
 
 # FROM\_UNIXTIME

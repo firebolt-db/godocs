@@ -2,7 +2,8 @@
 layout: default
 title: LPAD
 description: Reference material for LPAD function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # LPAD

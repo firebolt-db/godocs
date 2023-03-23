@@ -2,7 +2,8 @@
 layout: default
 title: SUM (window function)
 description: Reference material for SUM function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Window functions
 ---
 
 # SUM (window function)

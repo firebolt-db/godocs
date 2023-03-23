@@ -2,7 +2,8 @@
 layout: default
 title: SUBSTR
 description: Reference material for SUBSTR function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 ## SUBSTR
 

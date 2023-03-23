@@ -2,7 +2,8 @@
 layout: default
 title: DATE_TRUNC (legacy)
 description: Reference material for DATE_TRUNC function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Date and time functions
 ---
 
 # DATE\_TRUNC (legacy)

@@ -2,7 +2,8 @@
 layout: default
 title: TO_TIMESTAMPTZ
 description: Reference material for TO_TIMESTAMPTZ function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # TO_TIMESTAMPTZ

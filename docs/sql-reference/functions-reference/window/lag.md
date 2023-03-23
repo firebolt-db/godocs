@@ -2,7 +2,8 @@
 layout: default
 title: LAG
 description: Reference material for LAG function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Window functions
 ---
 
 # LAG

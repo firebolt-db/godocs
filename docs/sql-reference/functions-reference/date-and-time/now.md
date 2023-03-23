@@ -2,7 +2,8 @@
 layout: default
 title: NOW
 description: Reference material for NOW
-parent: SQL functions
+grand_parent: SQL functions
+parent: Date and time functions
 ---
 
 # NOW

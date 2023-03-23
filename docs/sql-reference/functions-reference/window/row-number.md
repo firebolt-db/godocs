@@ -2,7 +2,8 @@
 layout: default
 title: ROW_NUMBER
 description: Reference material for ROW_NUMBER function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Window functions
 ---
 
 # ROW\_NUMBER

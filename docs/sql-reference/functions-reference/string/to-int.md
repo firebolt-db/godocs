@@ -2,7 +2,8 @@
 layout: default
 title: TO_INT
 description: Reference material for TO_INT function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # TO\_INT

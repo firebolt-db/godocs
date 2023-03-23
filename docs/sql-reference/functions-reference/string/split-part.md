@@ -2,7 +2,8 @@
 layout: default
 title: SPLIT_PART
 description: Reference material for SPLIT_PART function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # SPLIT_PART

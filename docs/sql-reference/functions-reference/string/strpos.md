@@ -2,7 +2,8 @@
 layout: default
 title: STRPOS
 description: Reference material for STRPOSR function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # STRPOS

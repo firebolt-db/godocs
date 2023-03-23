@@ -2,7 +2,8 @@
 layout: default
 title: LENGTH (string function)
 description: Reference material for LENGTH function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # LENGTH

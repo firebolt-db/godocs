@@ -2,7 +2,8 @@
 layout: default
 title: TO_MONTH
 description: Reference material for TO_MONTH function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Date and time functions
 ---
 
 # TO\_MONTH

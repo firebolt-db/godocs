@@ -2,7 +2,8 @@
 layout: default
 title: MAX (window function)
 description: Reference material for MAX function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Window functions
 ---
 
 # MAX (window function)

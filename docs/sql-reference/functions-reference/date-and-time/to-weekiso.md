@@ -2,7 +2,8 @@
 layout: default
 title: TO_WEEKISO
 description: Reference material for TO_WEEKISO function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Date and time functions
 ---
 
 # TO\_WEEKISO

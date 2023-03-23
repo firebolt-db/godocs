@@ -2,7 +2,8 @@
 layout: default
 title: REGEXP_MATCHES
 description: Reference material for REGEXP_MATCHES function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # REGEXP\_MATCHES

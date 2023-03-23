@@ -2,7 +2,8 @@
 layout: default
 title: COUNT (window function)
 description: Reference material for COUNT function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Window functions
 ---
 
 # COUNT

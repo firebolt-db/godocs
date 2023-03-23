@@ -2,7 +2,8 @@
 layout: default
 title: PERCENT_RANK
 description: Reference material for PERCENT_RANK window function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Window functions
 ---
 
 # PERCENT_RANK

@@ -2,7 +2,8 @@
 layout: default
 title: DATE_ADD
 description: Reference material for DATE_ADD function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Date and time functions
 ---
 
 # DATE\_ADD

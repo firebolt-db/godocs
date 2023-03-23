@@ -2,7 +2,8 @@
 layout: default
 title: TO_UNIXTIME
 description: Reference material for TO_UNIXTIME function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # TO\_UNIXTIME

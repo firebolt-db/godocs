@@ -2,7 +2,8 @@
 layout: default
 title: ARRAY_FILL
 description: Reference material for ARRAY_FILL function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Lambda functions
 ---
 
 # ARRAY\_FILL

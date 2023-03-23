@@ -2,7 +2,8 @@
 layout: default
 title: TO_DOUBLE
 description: Reference material for TO_DOUBLE function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # TO\_DOUBLE

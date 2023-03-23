@@ -2,7 +2,8 @@
 layout: default
 title: LIKE
 description: Reference material for LIKE function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # LIKE

@@ -2,7 +2,8 @@
 layout: default
 title: EXTRACT_ALL
 description: Reference material for EXTRACT_ALL function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # EXTRACT\_ALL

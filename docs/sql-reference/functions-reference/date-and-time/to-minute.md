@@ -2,7 +2,8 @@
 layout: default
 title: TO_MINUTE
 description: Reference material for TO_MINUTE function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Date and time functions
 ---
 
 # TO\_MINUTE

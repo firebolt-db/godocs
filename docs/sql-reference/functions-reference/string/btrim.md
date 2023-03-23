@@ -2,7 +2,8 @@
 layout: default
 title: BTRIM
 description: Reference material for BTRIM function.
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # BTRIM

@@ -2,7 +2,8 @@
 layout: default
 title: LTRIM
 description: Reference material for LTRIM function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # LTRIM

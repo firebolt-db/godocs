@@ -2,7 +2,8 @@
 layout: default
 title: CURRENT_PGDATE
 description: Reference material for CURRENT_PGDATE function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Date and time functions
 ---
 
 # CURRENT_PGDATE

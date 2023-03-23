@@ -2,7 +2,8 @@
 layout: default
 title: TO_DAY_OF_WEEK
 description: Referece material for TO_DAY_OF_WEEK function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Date and time functions
 ---
 
 # TO\_DAY\_OF\_WEEK

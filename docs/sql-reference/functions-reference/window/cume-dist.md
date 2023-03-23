@@ -2,7 +2,8 @@
 layout: default
 title: CUME_DIST
 description: Reference material for CUME_DIST window function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Window functions
 ---
 
 # CUME_DIST

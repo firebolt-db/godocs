@@ -2,7 +2,8 @@
 layout: default
 title: TO_FLOAT
 description: Reference material for TO_FLOAT function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # TO\_FLOAT

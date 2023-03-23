@@ -2,7 +2,8 @@
 layout: default
 title: RANK
 description: Reference material for RANK function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Window functions
 ---
 
 # RANK

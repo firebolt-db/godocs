@@ -2,7 +2,8 @@
 layout: default
 title: TO_UNIX_TIMESTAMP
 description: Reference material for TO_UNIX_TIMESTAMP function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # TO\_UNIX\_TIMESTAMP

@@ -2,7 +2,8 @@
 layout: default
 title: UPPER
 description: Reference material for UPPER function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # UPPER

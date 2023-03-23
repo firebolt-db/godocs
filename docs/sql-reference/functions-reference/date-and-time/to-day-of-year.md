@@ -1,7 +1,8 @@
 ---
 layout: default
 title: TO_DAY_OF_YEAR
-parent: SQL functions
+grand_parent: SQL functions
+parent: Date and time functions
 ---
 
 # TO\_DAY\_OF\_YEAR

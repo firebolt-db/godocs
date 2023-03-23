@@ -1,7 +1,8 @@
 ---
 layout: default
 title: TO_HOUR
-parent: SQL functions
+grand_parent: SQL functions
+parent: Date and time functions
 ---
 
 # TO\_HOUR

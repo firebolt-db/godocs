@@ -2,7 +2,8 @@
 layout: default
 title: RTRIM
 description: Reference material for RTRIM function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # RTRIM

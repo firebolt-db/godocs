@@ -2,7 +2,8 @@
 layout: default
 title: ARRAY_SUM
 description: Reference material for ARRAY_SUM function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Lambda functions
 ---
 
 # ARRAY\_SUM

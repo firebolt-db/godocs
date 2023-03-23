@@ -2,7 +2,8 @@
 layout: default
 title: REPEAT
 description: Reference material for REPEAT function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # REPEAT

@@ -2,7 +2,8 @@
 layout: default
 title: FILTER
 description: Reference material for FILTER function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Lambda functions
 ---
 
 # FILTER

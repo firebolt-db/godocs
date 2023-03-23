@@ -2,7 +2,8 @@
 layout: default
 title: TO_DATE
 description: Reference material for TO_DATE function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # TO\_DATE

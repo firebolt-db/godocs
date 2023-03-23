@@ -2,7 +2,8 @@
 layout: default
 title: ARRAY_COUNT
 description: Reference material for ARRAY_COUNT function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Lambda functions
 ---
 
 # ARRAY\_COUNT

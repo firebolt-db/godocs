@@ -2,7 +2,8 @@
 layout: default
 title: MD5_NUMBER_LOWER64
 description: Reference material for MD5_NUMBER_LOWER64 function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # MD5\_NUMBER\_LOWER64

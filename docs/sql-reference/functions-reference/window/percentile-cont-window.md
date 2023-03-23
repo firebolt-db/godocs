@@ -2,7 +2,8 @@
 layout: default
 title: PERCENTILE_CONT (window function)
 description: Reference material for PERCENTILE_CONT window function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Window functions
 ---
 
 # PERCENTILE_CONT

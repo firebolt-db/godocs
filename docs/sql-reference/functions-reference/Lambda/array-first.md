@@ -2,7 +2,8 @@
 layout: default
 title: ARRAY_FIRST
 description: Reference material for ARRAY_FIRST function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Lambda functions
 ---
 
 # ARRAY\_FIRST

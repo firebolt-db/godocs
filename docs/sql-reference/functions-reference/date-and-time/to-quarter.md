@@ -2,7 +2,8 @@
 layout: default
 title: TO_QUARTER
 description: Reference material for TO_QUARTER function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Date and time functions
 ---
 
 # TO\_QUARTER

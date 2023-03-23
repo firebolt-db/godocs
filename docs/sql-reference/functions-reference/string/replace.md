@@ -2,7 +2,8 @@
 layout: default
 title: REPLACE
 description: Reference material for REPLACE function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # REPLACE

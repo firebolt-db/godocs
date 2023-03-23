@@ -2,7 +2,8 @@
 layout: default
 title: TRANSFORM
 description: Reference material for TRANSFORM function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Lambda functions
 ---
 
 # TRANSFORM

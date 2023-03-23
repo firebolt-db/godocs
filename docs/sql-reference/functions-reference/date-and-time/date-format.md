@@ -2,7 +2,8 @@
 layout: default
 title: DATE_FORMAT
 description: Reference material for DATE_FORMAT function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Date and time functions
 ---
 
 # DATE\_FORMAT

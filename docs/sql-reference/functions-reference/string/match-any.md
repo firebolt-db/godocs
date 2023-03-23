@@ -2,7 +2,8 @@
 layout: default
 title: MATCH_ANY
 description: Reference material for MATCH_ANY function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # MATCH\_ANY

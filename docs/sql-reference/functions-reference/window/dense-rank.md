@@ -2,8 +2,8 @@
 layout: default
 title: DENSE_RANK
 description: Reference material for DENSE_RANK function
+grand_parent: SQL functions
 parent: Window functions
-parent: SQL functions
 ---
 
 # DENSE\_RANK

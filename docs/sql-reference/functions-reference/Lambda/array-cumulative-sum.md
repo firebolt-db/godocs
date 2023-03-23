@@ -2,7 +2,8 @@
 layout: default
 title: ARRAY_CUMULATIVE_SUM
 description: Reference material for ARRAY_CUMULATIVE_SUM function ( cumulative )
-parent: SQL functions
+grand_parent: SQL functions
+parent: Lambda functions
 ---
 
 # ARRAY\_CUMULATIVE\_SUM

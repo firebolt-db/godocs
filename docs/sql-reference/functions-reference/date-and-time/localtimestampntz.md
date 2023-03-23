@@ -2,7 +2,8 @@
 layout: default
 title: LOCALTIMESTAMPNTZ
 description: Reference material for LOCALTIMESTAMPNTZ function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Date and time functions
 ---
 
 # LOCALTIMESTAMPNTZ

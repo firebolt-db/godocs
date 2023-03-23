@@ -2,7 +2,8 @@
 layout: default
 title: ARRAY_REPLACE_BACKWARDS
 description: Reference material for ARRAY_REPLACE_BACKWARDS function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Lambda functions
 ---
 
 # ARRAY\_REPLACE\_BACKWARDS

@@ -2,7 +2,8 @@
 layout: default
 title: ALL_MATCH
 description: Reference material for ALL_MATCH function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Lambda functions
 ---
 
 # ALL_MATCH

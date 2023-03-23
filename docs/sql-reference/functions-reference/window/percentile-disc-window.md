@@ -2,7 +2,8 @@
 layout: default
 title: PERCENTILE_DISC (window function)
 description: Reference material for PERCENTILE_DISC window function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Window functions
 ---
 
 # PERCENTILE\_DISC

@@ -2,7 +2,8 @@
 layout: default
 title: REVERSE
 description: Reference material for REVERSE function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # REVERSE

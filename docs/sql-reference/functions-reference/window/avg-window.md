@@ -2,7 +2,8 @@
 layout: default
 title: AVG (window function)
 description: Reference material for AVG function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Window functions
 ---
 
 # AVG

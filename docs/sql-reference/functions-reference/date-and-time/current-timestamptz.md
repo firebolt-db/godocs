@@ -2,7 +2,8 @@
 layout: default
 title: CURRENT_TIMESTAMPTZ
 description: Reference material for CURRENT_TIMESTAMPTZ function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Date and time functions
 ---
 
 # CURRENT_TIMESTAMPTZ

@@ -2,7 +2,8 @@
 layout: default
 title: LEAD
 description: Reference material for LEAD function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Window functions
 ---
 
 # LEAD

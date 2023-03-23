@@ -2,7 +2,8 @@
 layout: default
 title: MATCH
 description: Reference material for MATCH function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 ---
 
 # MATCH

@@ -2,7 +2,8 @@
 layout: default
 title: ANY_MATCH
 description: Reference material for ANY_MATCH function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Lambda functions
 ---
 
 

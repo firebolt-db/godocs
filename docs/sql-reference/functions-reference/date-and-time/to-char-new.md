@@ -2,7 +2,8 @@
 layout: default
 title: TO_CHAR
 description: Reference material for TO_CHAR function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Date and time functions
 ---
 
 # TO_CHAR
