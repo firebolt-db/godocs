@@ -2,7 +2,8 @@
 layout: default
 title: HLL_COUNT_DISTINCT
 description: Reference material for HLL_COUNT_DISTINCT
-parent: SQL functions
+grand_parent: SQL functions
+parent: Aggregation functions
 ---
 
 

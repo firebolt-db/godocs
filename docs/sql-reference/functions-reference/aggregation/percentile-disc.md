@@ -2,7 +2,8 @@
 layout: default
 title: PERCENTILE_DISC (aggregation function)
 description: Reference material for PERCENTILE_DISC aggregate function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Aggregation functions
 ---
 
 # PERCENTILE\_DISC

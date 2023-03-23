@@ -2,7 +2,8 @@
 layout: default
 title: ARRAY_UNIQ
 description: Reference material for ARRAY_UNIQ function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Array functions
 ---
 
 # ARRAY\_UNIQ

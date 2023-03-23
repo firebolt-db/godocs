@@ -2,7 +2,8 @@
 layout: default
 title: INDEX_OF
 description: Reference material for INDEX_OF function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Array functions
 ---
 
 # INDEX\_OF

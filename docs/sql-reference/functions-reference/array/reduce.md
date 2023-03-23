@@ -2,7 +2,8 @@
 layout: default
 title: REDUCE
 description: Reference material for REDUCE function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Array functions
 ---
 
 # REDUCE

@@ -2,7 +2,8 @@
 layout: default
 title: ARRAY_MAX
 description: Reference material for ARRAY_MAX function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Array functions
 ---
 
 # ARRAY\_MAX

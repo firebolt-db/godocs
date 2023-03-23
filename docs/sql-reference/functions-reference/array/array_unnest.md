@@ -2,7 +2,8 @@
 layout: default
 title: ARRAY_UNNEST (deprecated)
 description: Reference material for the deprecated ARRAY_UNNEST function.
-parent: SQL functions
+grand_parent: SQL functions
+parent: Array functions
 ---
 
 # ARRAY_UNNEST (deprecated)

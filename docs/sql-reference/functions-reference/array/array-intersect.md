@@ -2,7 +2,8 @@
 layout: default
 title: ARRAY_INTERSECT
 description: Reference material for ARRAY_INTERSECT function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Array functions
 ---
 
 # ARRAY\_INTERSECT

@@ -2,7 +2,8 @@
 layout: default
 title: ANY
 description: Reference material for ANY
-parent: SQL functions
+grand_parent: SQL functions
+parent: Aggregation functions
 ---
 
 # ANY

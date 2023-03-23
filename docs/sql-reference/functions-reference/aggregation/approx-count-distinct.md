@@ -2,7 +2,8 @@
 layout: default
 title: APPROX_COUNT_DISTINCT
 description: Reference material for APPROX_COUNT_DISTINCT
-parent: SQL functions
+grand_parent: SQL functions
+parent: Aggregation functions
 ---
 
 

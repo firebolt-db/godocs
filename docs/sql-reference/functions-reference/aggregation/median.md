@@ -2,7 +2,8 @@
 layout: default
 title: MEDIAN
 description: Reference material for MEDIAN
-parent: SQL functions
+grand_parent: SQL functions
+parent: Aggregation functions
 ---
 
 

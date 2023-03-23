@@ -2,7 +2,8 @@
 layout: default
 title: MAX (aggregation function)
 description: Reference material for MAX
-parent: SQL functions
+grand_parent: SQL functions
+parent: Aggregation functions
 ---
 
 

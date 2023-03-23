@@ -2,7 +2,8 @@
 layout: default
 title: SUM (aggregation function)
 description: Reference material for SUM
-parent: SQL functions
+grand_parent: SQL functions
+parent: Aggregation functions
 ---
 
 # SUM

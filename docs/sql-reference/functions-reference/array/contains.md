@@ -2,7 +2,8 @@
 layout: default
 title: CONTAINS
 description: Reference material for CONTAINS function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Array functions
 ---
 
 # CONTAINS

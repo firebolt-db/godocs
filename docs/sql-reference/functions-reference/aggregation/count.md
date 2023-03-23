@@ -2,7 +2,8 @@
 layout: default
 title: COUNT (aggregation function)
 description: Reference material for COUNT
-parent: SQL functions
+grand_parent: SQL functions
+parent: Aggregation functions
 ---
 
 

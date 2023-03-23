@@ -2,7 +2,8 @@
 layout: default
 title: SLICE
 description: Reference material for SLICE function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Array functions
 ---
 
 # SLICE

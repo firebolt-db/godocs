@@ -2,7 +2,8 @@
 layout: default
 title: NEST
 description: Alias for ARRAY_AGG
-parent: SQL functions
+grand_parent: SQL functions
+parent: Aggregation functions
 ---
 
 # NEST

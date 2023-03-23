@@ -2,7 +2,8 @@
 layout: default
 title: ARRAY_CONCAT
 description: Reference material for ARRAY_CONCAT function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Array functions
 ---
 
 # ARRAY\_CONCAT

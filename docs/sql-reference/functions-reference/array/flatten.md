@@ -2,7 +2,8 @@
 layout: default
 title: FLATTEN
 description: Reference material for FLATTEN function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Array functions
 ---
 
 # FLATTEN

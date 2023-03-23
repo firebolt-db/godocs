@@ -2,7 +2,8 @@
 layout: default
 title: ARRAY_MIN
 description: Reference material for ARRAY_MIN function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Array functions
 ---
 
 # ARRAY\_MIN

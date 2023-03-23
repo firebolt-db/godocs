@@ -2,7 +2,8 @@
 layout: default
 title: ELEMENT_AT
 description: Reference material for ELEMENT_AT function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Array functions
 ---
 
 # ELEMENT\_AT

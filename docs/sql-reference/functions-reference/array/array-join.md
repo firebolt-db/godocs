@@ -2,7 +2,8 @@
 layout: default
 title: ARRAY_JOIN
 description: Reference material for ARRAY_JOIN function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Array functions
 ---
 
 # ARRAY\_JOIN

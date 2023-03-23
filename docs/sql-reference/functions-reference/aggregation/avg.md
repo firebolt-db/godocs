@@ -2,7 +2,8 @@
 layout: default
 title: AVG (aggregation function)
 description: Reference material for AVG
-parent: SQL functions
+grand_parent: SQL functions
+parent: Aggregation functions
 ---
 
 
