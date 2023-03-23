@@ -34,27 +34,6 @@ Each row has the following columns with information about each query in query hi
 | start_time                  | TIMESTAMP | The query execution start time (UTC). |
 | end_time                    | TIMESTAMP | The query execution end time (UTC). |
 | duration_usec               | BIGINT    | Duration of query execution (in microseconds). |
-<<<<<<< HEAD
-| status                      | STRING    | Can be one of the following values:<br>`STARTED_EXECUTION`&ndash;Successful start of query execution.<br>`ENDED_SUCCESSFULLY`&ndash;Successful end of query execution. <br>`CANCELED_EXECUTION`&ndash;Query cancelled during execution. <br>`PARSE_ERROR`&ndash;Exception before the start of query execution.<br>`EXECUTION_ERROR`&ndash;Exception during query execution. |
-| query_id                    | STRING    | The unique identifier of the SQL query. |
-| query_text                  | STRING    | Text of the SQL statement. |
-| error_message               | STRING    | The error message that was returned. |
-| scanned_rows                | LONG      | The total number of rows scanned. |
-| scanned_bytes               | LONG      | The total number of bytes scanned (both from cache and storage). |
-| scanned_bytes_cache         | LONG      | The total number of compressed bytes scanned from the engine's cache. |
-| scanned_bytes_storage       | LONG      | The total number of compressed bytes scanned from F3 storage. |
-| inserted_rows               | LONG      | The total number of rows written. |
-| inserted_bytes              | LONG      | The total number of bytes written (both to cache and storage). |
-| inserted_bytes_storage      | LONG      | The total number of compressed bytes written to F3 storage. |
-| spilled_bytes_compressed    | LONG      | The total number of compressed bytes spilled. |
-| spilled_bytes_uncompressed  | LONG      | The total number of uncompressed bytes spilled. |
-| total_ram_consumed          | LONG      | The total number of engine bytes in RAM consumed during query execution. |
-| returned_rows               | LONG      | The total number of rows returned from the query. |
-| returned_bytes              | LONG      | The total number of bytes returned from the query. |
-| cpu_usage_us                | LONG      | The query time spent on the CPU as reported by Linux kernel scheduler |
-| cpu_delay_us                | LONG      | The query time spent on the runqueue as reported by Linux kernel scheduler - The value may be greater than overall execution time of the query because query’s execution is parallelized and CPU times across all threads and nodes is summarized. |
-| time_in_queue_ms            | LONG      | The number of milliseconds the query spent in queue. |
-=======
 | status                      | TEXT    | Can be one of the following values:<br>`STARTED_EXECUTION`&ndash;Successful start of query execution.<br>`ENDED_SUCCESSFULLY`&ndash;Successful end of query execution. <br>`CANCELED_EXECUTION`&ndash;Query cancelled during execution. <br>`PARSE_ERROR`&ndash;Exception before the start of query execution.<br>`EXECUTION_ERROR`&ndash;Exception during query execution. |
 | query_id                    | TEXT    | The unique identifier of the SQL query. |
 | query_text                  | TEXT    | Text of the SQL statement. |
@@ -74,4 +53,3 @@ Each row has the following columns with information about each query in query hi
 | cpu_usage_us                | BIGINT     | The query time spent on the CPU as reported by Linux kernel scheduler |
 | cpu_delay_us                | BIGINT     | The query time spent on the runqueue as reported by Linux kernel scheduler - The value may be greater than overall execution time of the query because query’s execution is parallelized and CPU times across all threads and nodes is summarized. |
 | time_in_queue_ms            | BIGINT     | The number of milliseconds the query spent in queue. |
->>>>>>> 2254119af844cb301f600eb6b48785a1d5877390
