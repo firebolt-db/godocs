@@ -2,7 +2,8 @@
 layout: default
 title: DECODE
 description: Reference material for DECODE function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Binary functions
 ---
 
 # DECODE

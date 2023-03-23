@@ -2,7 +2,8 @@
 layout: default
 title: ENCODE
 description: Reference material for ENCODE function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Binary functions
 ---
 
 # ENCODE

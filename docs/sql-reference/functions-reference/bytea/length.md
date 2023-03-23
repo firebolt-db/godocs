@@ -2,7 +2,8 @@
 layout: default
 title: LENGTH (array function)
 description: Reference material for LENGTH function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Binary functions
 ---
 
 # LENGTH
