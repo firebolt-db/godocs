@@ -2,7 +2,8 @@
 layout: default
 title: NULLIF
 description: Reference material for NULLIF function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Conditional and miscellaneous functions
 ---
 
 # NULLIF

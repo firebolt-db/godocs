@@ -2,7 +2,8 @@
 layout: default
 title: COALESCE
 description: Reference material for COALESCE function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Conditional and miscellaneous functions
 ---
 
 # COALESCE

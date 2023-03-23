@@ -2,7 +2,8 @@
 layout: default
 title: ZEROIFNULL
 description: Reference material for ZEROIFNULL function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Conditional and miscellaneous functions
 ---
 
 # ZEROIFNULL

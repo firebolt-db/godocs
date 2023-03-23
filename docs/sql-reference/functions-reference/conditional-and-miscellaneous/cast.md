@@ -2,7 +2,8 @@
 layout: default
 title: CAST
 description: Reference material for CAST function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Conditional and miscellaneous functions
 ---
 
 
