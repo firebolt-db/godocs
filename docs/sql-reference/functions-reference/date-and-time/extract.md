@@ -2,7 +2,8 @@
 layout: default
 title: EXTRACT (legacy)
 description: Reference material for EXTRACT function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Date and time functions
 ---
 
 # EXTRACT (legacy)

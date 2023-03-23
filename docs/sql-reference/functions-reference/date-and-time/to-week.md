@@ -2,7 +2,8 @@
 layout: default
 title: TO_WEEK
 description: Reference material for TO_WEEK function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Date and time functions
 ---
 
 # TO\_WEEK
