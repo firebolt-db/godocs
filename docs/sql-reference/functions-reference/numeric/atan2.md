@@ -2,7 +2,8 @@
 layout: default
 title: ATAN2
 description: Reference material for ATAN2 function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Numeric functions
 ---
 
 # ATAN2

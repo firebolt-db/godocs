@@ -4,9 +4,9 @@ title: SQL functions
 description: Reference for SQL functions available in Firebolt.
 nav_order: 15
 has_children: true
-has_toc: false
+has_toc: true
 ---
-
+<!-- 
 # SQL functions
 
 Use the alphabetical list in the navigation pane to find the syntax for commands that you already know.
@@ -596,4 +596,4 @@ ORDER BY
 ' | Franco     | 12          | 94         | 89             | 95.67     | 94.75     | 89        |
 ' | Gary       | 12          | 100        | 89             | 97        | 95.67     | 89        |
   +------------+-------------+------------+----------------+-----------+-----------+-----------+
-```
+``` -->

@@ -1,7 +1,8 @@
 ---
-layout: redirects
-sitemap: false
-nav_exclude: true
-permalink: /sql-reference/functions-reference/date-and-time-functions.html
-redirect_to:  /sql-reference/functions-reference/#date-and-time-functions
+layout: default
+title: Date and time functions
+description: Reference for date and time functions
+parent: SQL Functions
+has_children: true
+has_toc: true
 ---

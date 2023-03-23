@@ -2,7 +2,8 @@
 layout: default
 title: DEGREES
 description: Reference material for DEGREES function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Numeric functions
 ---
 
 # DEGREES

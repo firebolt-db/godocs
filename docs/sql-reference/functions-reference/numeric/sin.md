@@ -2,7 +2,8 @@
 layout: default
 title: SIN
 description: Reference material for SIN function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Numeric functions
 ---
 
 # SIN

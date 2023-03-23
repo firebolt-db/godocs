@@ -2,7 +2,8 @@
 layout: default
 title: POW, POWER
 description: Reference material for POW, POWER functions
-parent: SQL functions
+grand_parent: SQL functions
+parent: Numeric functions
 ---
 
 # POW, POWER

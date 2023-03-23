@@ -2,7 +2,8 @@
 layout: default
 title: CBRT
 description: Reference material for CBRT function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Numeric functions
 ---
 
 # CBRT

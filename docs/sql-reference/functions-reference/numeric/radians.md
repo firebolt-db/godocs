@@ -2,7 +2,8 @@
 layout: default
 title: RADIANS
 description: Reference material for RADIANS function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Numeric functions
 ---
 
 # RADIANS

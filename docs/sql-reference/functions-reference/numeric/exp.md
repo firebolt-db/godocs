@@ -2,7 +2,8 @@
 layout: default
 title: EXP
 description: Reference material for EXP function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Numeric functions
 ---
 
 # EXP

@@ -2,7 +2,8 @@
 layout: default
 title: ASIN
 description: Reference material for ASIN function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Numeric functions
 ---
 
 # ASIN

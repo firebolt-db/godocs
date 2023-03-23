@@ -2,7 +2,8 @@
 layout: default
 title: COT
 description: Reference material for COT function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Numeric functions
 ---
 
 # COT

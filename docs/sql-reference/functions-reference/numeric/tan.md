@@ -2,7 +2,8 @@
 layout: default
 title: TAN
 description: Reference material for TAN function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Numeric functions
 ---
 
 # TAN

@@ -2,7 +2,8 @@
 layout: default
 title: TRUNC
 description: Reference material for TRUNC function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Numeric functions
 ---
 
 # TRUNC

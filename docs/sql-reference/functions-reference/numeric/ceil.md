@@ -2,7 +2,8 @@
 layout: default
 title: CEIL, CEILING
 description: Reference material for CEIL, CEILING functions
-parent: SQL functions
+grand_parent: SQL functions
+parent: Numeric functions
 ---
 
 # CEIL, CEILING

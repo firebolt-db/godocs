@@ -2,7 +2,8 @@
 layout: default
 title: ARRAY_AGG
 description: Reference material for ARRAY_AGG function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Aggregate array functions
 ---
 
 # ARRAY_AGG

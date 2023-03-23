@@ -1,7 +1,8 @@
 ---
-layout: redirects
-sitemap: false
-nav_exclude: true
-permalink: /sql-reference/functions-reference/string-functions.html
-redirect_to:  /sql-reference/functions-reference/#string-functions
+layout: default
+title: String functions
+description: Reference for string functions
+parent: SQL Functions
+has_children: true
+has_toc: true
 ---

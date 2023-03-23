@@ -2,7 +2,8 @@
 layout: default
 title: SQRT
 description: Reference material for SQRT function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Numeric functions
 ---
 
 # SQRT

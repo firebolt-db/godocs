@@ -2,7 +2,8 @@
 layout: default
 title: ARRAY_SUM_GLOBAL
 description: Reference material for ARRAY_SUM_GLOBAL function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Aggregate array functions
 ---
 
 # ARRAY\_SUM\_GLOBAL

@@ -1,7 +1,8 @@
 ---
-layout: redirects
-sitemap: false
-nav_exclude: true
-permalink: /sql-reference/functions-reference/window-functions.html
-redirect_to:  /sql-reference/functions-reference/#window-functions
+layout: default
+title: Window functions
+description: Reference for window functions
+parent: SQL Functions
+has_children: true
+has_toc: true
 ---

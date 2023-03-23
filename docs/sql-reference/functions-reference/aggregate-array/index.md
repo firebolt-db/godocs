@@ -1,7 +1,9 @@
 ---
-layout: redirects
-sitemap: false
-nav_exclude: true
-permalink: /sql-reference/functions-reference/semi-structured-functions/aggregate-array-functions.html
-redirect_to:  /sql-reference/functions-reference/#aggregate-array-functions
+layout: default
+title: Aggregate array functions
+description: Reference for aggregate array functions
+parent: SQL Functions
+has_children: true
+has_toc: true
 ---
+

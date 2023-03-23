@@ -2,7 +2,8 @@
 layout: default
 title: PI
 description: Reference material for PI function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Numeric functions
 ---
 
 # PI

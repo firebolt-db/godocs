@@ -2,7 +2,8 @@
 layout: default
 title: ACOS
 description: Reference material for ACOS function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Numeric functions
 ---
 
 # ACOS

@@ -2,7 +2,8 @@
 layout: default
 title: COS
 description: Reference material for COS function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Numeric functions
 ---
 
 # COS

@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Array functions
-description: Reference for array functions
+title: Lambda functions
+description: Reference for lambda functions
 parent: SQL Functions
 has_children: true
 has_toc: true

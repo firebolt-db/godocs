@@ -2,7 +2,8 @@
 layout: default
 title: SIGN
 description: Reference material for SIGN function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Numeric functions
 ---
 
 # SIGN
