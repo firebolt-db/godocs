@@ -2,7 +2,7 @@
 layout: default
 title: Window functions
 description: Reference for window functions
-parent: SQL Functions
+parent: SQL functions
 has_children: true
 has_toc: true
 ---

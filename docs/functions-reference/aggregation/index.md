@@ -3,7 +3,7 @@ layout: default
 title: Aggregation functions
 description: Reference for aggregation functions
 nav_order: 1
-parent: SQL Functions
+parent: SQL functions
 has_children: true
 #has_toc: true
 ---

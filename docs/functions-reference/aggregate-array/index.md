@@ -3,7 +3,7 @@ layout: default
 title: Aggregate array functions
 description: Reference for aggregate array functions
 nav_order: 1
-parent: SQL Functions
+parent: SQL functions
 has_children: true
 ---
 
