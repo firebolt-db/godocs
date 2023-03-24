@@ -3,7 +3,7 @@
 title: SQL functions
 description: Reference for SQL functions available in Firebolt.
 #nav_order: 15
-#has_children: true
+has_children: true
 #has_toc: false
 ---
 

@@ -4,7 +4,7 @@ title: Date and time functions
 description: Reference for date and time functions
 parent: SQL Functions
 has_children: true
-has_toc: true
+#has_toc: true
 ---
 
 ## Date and time functions
