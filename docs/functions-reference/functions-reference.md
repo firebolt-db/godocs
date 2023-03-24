@@ -1,10 +1,10 @@
 ---
 layout: default
-title: SQL functions
+title: SQL Functions
 description: Reference for SQL functions available in Firebolt.
-#nav_order: 15
+nav_order: 15
 has_children: true
-#has_toc: false
+has_toc: false
 ---
 
 # SQL functions
