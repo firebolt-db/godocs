@@ -1,7 +1,8 @@
 ---
-#layout: default
+layout: default
 title: Aggregate array functions
 description: Reference for aggregate array functions
+nav_order: 1
 parent: SQL Functions
 has_children: true
 ---

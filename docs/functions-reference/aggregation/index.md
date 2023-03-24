@@ -1,7 +1,8 @@
 ---
-#layout: default
+layout: default
 title: Aggregation functions
 description: Reference for aggregation functions
+nav_order: 1
 parent: SQL Functions
 has_children: true
 #has_toc: true

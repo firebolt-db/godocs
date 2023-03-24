@@ -1,5 +1,5 @@
 ---
-#layout: default
+layout: default
 title: SQL functions
 description: Reference for SQL functions available in Firebolt.
 #nav_order: 15
