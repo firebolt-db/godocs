@@ -2,22 +2,12 @@
 layout: default
 title: Semi-structured data functions
 description: Reference for JSON functions
+nav_order: 1
 parent: SQL functions
 has_children: true
-#has_toc: true
 ---
 
 ## JSON functions
-
-* [JSON_EXTRACT](json-extract.md)  
-
-* [JSON_EXTRACT_ARRAY_RAW](json-extract-array-raw.md)  
-
-* [JSON_EXTRACT_KEYS](json-extract-keys.md)  
-
-* [JSON_EXTRACT_RAW](json-extract-raw.md)  
-
-* [JSON_EXTRACT_VALUES](json-extract-values.md)  
 
 The reference for each JSON function uses common syntax and conventions as outlined below.
 

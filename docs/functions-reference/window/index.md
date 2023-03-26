@@ -2,46 +2,12 @@
 layout: default
 title: Window functions
 description: Reference for window functions
+nav_order: 1
 parent: SQL functions
 has_children: true
-has_toc: true
 ---
 
 ## Window functions
-
-* [AVG](avg-window.md)  
-
-* [COUNT](count-window.md)  
-
-* [CUME_DIST](cume-dist.md)
-
-* [DENSE_RANK](dense-rank.md)
-
-* [FIRST_VALUE](first-value.md)
-
-* [LAG](lag.md)
-
-* [LEAD](lead.md)
-
-* [MAX](max-window.md)
-
-* [MIN](min-window.md)
-
-* [NTH_VALUE](nth-value.md)
-
-* [NTILE](ntile.md)
-
-* [PERCENT_RANK](percent-rank.md)
-
-* [PERCENTILE_CONT](percentile-cont-window.md)
-
-* [PERCENTILE_DISC](percentile-disc-window.md)
-
-* [RANK](rank.md)  
-
-* [ROW_NUMBER](row-number.md)  
-
-* [SUM](sum-window.md)  
 
 Some functions support an optional `frame_clause`.
 

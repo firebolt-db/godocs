@@ -2,17 +2,10 @@
 layout: default
 title: Binary functions
 description: Reference for array functions
+nav_order: 1
 parent: SQL functions
 has_children: true
-#has_toc: true
 ---
 
 ## Binary functions
 
-* [CONCAT](concat.md)
-
-* [DECODE](decode.md)
-
-* [ENCODE](encode.md)
-
-* [LENGTH](length.md)
