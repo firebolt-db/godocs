@@ -1,12 +1,23 @@
 ---
 layout: default
-title: DATE_FORMAT
-description: Reference material for DATE_FORMAT function
+title: DATE_FORMAT (legacy)
+description: Reference material for DATE_FORMAT (legacy) function
+nav_exclude: true
 grand_parent: SQL functions
 parent: Date and time functions
 ---
 
-# DATE\_FORMAT
+# DATE\_FORMAT (legacy)
+
+{: .warning}
+  >You are looking at legacy documentation for Firebolt's deprecated date and timestamp type functions.
+  >New types were introduced in DB version 3.19 under the names `PGDATE` and `TIMESTAMPNTZ`, and made generally available in DB version 3.22.
+  >
+  >If you worked with Firebolt before DB version 3.22, you might still be using the legacy date and timestamp types.
+  >Determine which types you are using by executing the query `SELECT EXTRACT(CENTURY FROM DATE '2023-03-16');`.
+  >If this query returns an error, you are still using the legacy date and timestamp types and can continue with this documentation, or find instructions to use the new types [here](../../release-notes/release-notes-archive.html#db-version-322).
+  >If this query returns a result, you are already using the redesigned date and timestamp types and can use the [TO_CHAR](./to-char-new.md) function instead.
+
 
 Formats a `DATE` or `DATETIME` according to the given format expression.
 
