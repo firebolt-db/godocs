@@ -8,26 +8,19 @@ nav_order: 1
 has_toc: true
 
 feature_rows:
-  - title: "Release Notes"
-    excerpt: "See what's new"
-    url: "/release-notes/release-notes.html"
-    img_path: "docs_shedule_call_illustration.svg" 
-    img_alt: "Release Notes"
-  - title: "Getting started"
-    excerpt: "Take a test drive"
+  - title: "Overview"
     url: "/getting-started"
     img_path: "docs_getting_started_illustration.svg" 
-    img_alt: "Getting started"
-  - title: "Architecture"
-    excerpt: "Cover the basics"
+    img_alt: "Overview"
+  - title: "Guides"
+    url: "/release-notes/release-notes.html"
+    img_path: "docs_shedule_call_illustration.svg" 
+    img_alt: "Guides"
+  - title: "References"
     url: "/architecture-overview"
-    img_path: "docs_architecture_illustration.svg"
-    img_alt: "Architecture overview"
-  - title: "Whitepaper"
-    excerpt: "Dive into Firebolt's features"
-    url: "https://www.firebolt.io/resources/firebolt-cloud-data-warehouse-whitepaper"
     img_path: "docs_whitepaper_illustration.svg"
-    img_alt: "Whitepaper"
+    img_alt: "Reference"
+
 ---
 # Firebolt documentation
 {:.no_toc}
