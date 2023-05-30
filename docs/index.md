@@ -12,11 +12,7 @@ feature_rows:
     url: "/getting-started"
     img_path: "docs_getting_started_illustration.svg" 
     img_alt: "Overview"
-    <menu>
-        <li><button onclick="copy()">Copy</button></li>
-        <li><button onclick="cut()">Cut</button></li>
-        <li><button onclick="paste()">Paste</button></li>
-    </menu>
+    excerpt: "Firebolt at a glance<br>Organizations and accounts<br>Data model<br>[Engines](working-with-engines/)"
   - title: "Guides"
     url: "/release-notes/release-notes.html"
     img_path: "docs_shedule_call_illustration.svg" 
