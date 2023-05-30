@@ -9,16 +9,13 @@ has_toc: true
 
 feature_rows:
   - title: "Overview"
-    url: "/getting-started"
     img_path: "docs_getting_started_illustration.svg" 
     img_alt: "Overview"
     excerpt: "Firebolt at a glance<br>Organizations and accounts<br>Data model<br>[Engines](working-with-engines/)"
   - title: "Guides"
-    url: "/release-notes/release-notes.html"
     img_path: "docs_shedule_call_illustration.svg" 
     img_alt: "Guides"
   - title: "References"
-    url: "/architecture-overview"
     img_path: "docs_whitepaper_illustration.svg"
     img_alt: "Reference"
 
