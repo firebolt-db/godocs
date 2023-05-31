@@ -11,7 +11,7 @@ feature_rows:
   - title: "Overview"
     img_path: "docs_getting_started_illustration.svg" 
     img_alt: "Overview"
-    excerpt: "Firebolt at a glance<br>Organizations and accounts<br>Data model<br>[Engines](working-with-engines/)"
+    excerpt: "Firebolt at a glance<br>Organizations and accounts<br>Data model<br>Engines"
   - title: "Guides"
     img_path: "docs_shedule_call_illustration.svg" 
     img_alt: "Guides"
