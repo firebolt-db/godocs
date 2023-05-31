@@ -1,15 +1,10 @@
 ---
 layout: default
-<<<<<<< HEAD:docs/sql_reference/functions-reference/string/to-unix-timestamp.md
 title: TO_UNIX_TIMESTAMP (legacy)
 nav_exclude: true
 description: Reference material for TO_UNIX_TIMESTAMP function
 grand_parent: SQL functions
 parent: String functions
-=======
-
-parent: SQL functions
->>>>>>> d77a35b0a0c09265b00d33c70a5e0961afa1ec73:docs/sql-reference/functions-reference/to-unix-timestamp.md
 ---
 
 # TO\_UNIX\_TIMESTAMP (legacy)
