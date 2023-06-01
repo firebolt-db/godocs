@@ -2,7 +2,7 @@
 layout: default
 title: Guides
 description: Guides to doing stuff in Firebolt. 
-nav_order: 2
+nav_order: 3
 has_toc: true
 has_children: true
 ---

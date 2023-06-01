@@ -2,7 +2,7 @@
 layout: default
 title: General reference
 description: General reference for Firebolt.
-nav_order: 13
+nav_order: 4
 has_children: true
 ---
 
