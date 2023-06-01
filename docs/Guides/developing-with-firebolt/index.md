@@ -2,7 +2,7 @@
 layout: default
 title: Developing with Firebolt
 description: Learn about developing applications powered by Firebolt.
-nav_order: 12
+parent: Guides
 has_children: true
 ---
 
