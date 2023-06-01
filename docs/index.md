@@ -11,7 +11,6 @@ feature_rows:
   - title: "Overview"
     img_path: "docs_getting_started_illustration.svg" 
     img_alt: "Overview"
-    excerpt: "Firebolt at a glance<br>Organizations and accounts<br>Data model<br>Engines"
   - title: "Guides"
     img_path: "docs_shedule_call_illustration.svg" 
     img_alt: "Guides"
@@ -23,3 +22,5 @@ feature_rows:
 # Firebolt documentation
 {:.no_toc}
 Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics performance on massive, terabyte-scale data sets. Our documentation can help you load and model your data in Firebolt, optimize for performance, and build your analytics and data applications quickly.
+
+
