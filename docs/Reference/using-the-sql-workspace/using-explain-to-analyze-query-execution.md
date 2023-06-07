@@ -4,6 +4,7 @@ title: Using visual explain
 description: Learn to use Firebolt visual explain to analyze query execution plans to improve query performance and efficiency.
 nav_order: 1
 parent: Using the SQL workspace
+grand_parent: General reference
 ---
 
 # Analyze query execution plans with visual explain

@@ -2,7 +2,7 @@
 layout: default
 title: Account concepts and terminology
 description: Learn about Firebolt account concepts to help you administer and manage your Firebolt account.
-nav_order: 1
+nav_order: 2
 parent: Overview
 ---
 

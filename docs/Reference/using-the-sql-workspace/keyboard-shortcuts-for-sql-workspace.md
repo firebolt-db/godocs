@@ -4,6 +4,7 @@ title: Keyboard shortcuts
 description: Reference for efficient keyboard shortcuts when working in the Firebolt SQL workspace.
 nav_order: 1
 parent: Using the SQL workspace
+grand_parent: General reference
 ---
 
 # Keyboard shortcuts for SQL workspace

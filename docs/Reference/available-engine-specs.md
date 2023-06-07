@@ -2,7 +2,7 @@
 layout: default
 title: Available engine specs
 description: Provides engine spec's available in Firebolt.
-nav_order: 6
+nav_order: 8
 parent: General reference
 ---
 

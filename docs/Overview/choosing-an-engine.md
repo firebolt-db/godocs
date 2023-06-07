@@ -2,7 +2,7 @@
 layout: default
 title: Choosing an engine
 description: Choosing an engine configuration based on your data type and query patterns.
-nav_order: 2
+nav_order: 4
 parent: Overview
 ---
 

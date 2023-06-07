@@ -3,6 +3,7 @@ layout: default
 title: Primary indexes
 description: Learn about primary indexes in Firebolt and how to configure and use them.
 parent: Overview
+nav_order: 7
 ---
 
 # Using primary indexes
