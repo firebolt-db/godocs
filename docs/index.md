@@ -16,48 +16,42 @@ Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics
 
 <div class="row">
   <div class="column">
-    <img src="assets/images/docs_getting_started_illustration.png" alt="Overview" width="150" height="150">
+    <img src="assets/images/docs_getting_started_illustration.png" alt="Overview" width="200" height="200">
     <h2>Overview</h2>
-    <p>Firebolt at a glance
-    <br>Organizations and accounts
-    <br>Data model
-    <br>Engines
-    <br>Querying
-    <br>Workload management
-    <br>Security
-    <br>Observability
-    <br>APIs/SDKs
-    <br>Integrations in the ecosystem
-    <br>Business Continuity</p>
+    <p><strong><a href="https://docs.firebolt.io/architecture-overview">Architecture overview</a></strong>
+    <br><strong><a href="https://docs.firebolt.io/architecture-overview">Account concepts and terminology</a></strong>
+    <br><strong><a href="https://docs.firebolt.io/architecture-overview">Understanding engine fundamentals</a></strong>
+    <br><strong><a href="https://docs.firebolt.io/architecture-overview">Choosing an engine</a></strong>
+    <br><a href="https://docs.firebolt.io/architecture-overview">Working with tables</a>
+    <br><a href="https://docs.firebolt.io/architecture-overview">Working with indexes</a>
+    <br><a href="https://docs.firebolt.io/architecture-overview">Working with partitions</a></p>
   </div>
   <div class="column">
-    <img src="assets/images/docs_shedule_call_illustration.png" alt="Guides" width="150" height="150">
+    <img src="assets/images/docs_shedule_call_illustration.png" alt="Guides" width="200" height="200">
     <h2>Guides</h2>
-    <p>Getting started
-    <br>Administrating your organization
-    <br>Modeling your data
-    <br>Operating engines
-    <br>Loading and transforming data
-    <br>Querying data
-    <br>Managing workflows
-    <br>Managing security
-    <br>Monitoring observability
-    <br>Developing with Firebolt
-    <br>Using integrations
-    <br>Implementing recovery</p>
+    <p><a href="https://docs.firebolt.io/architecture-overview">Getting started</a>
+    <br><strong><a href="https://docs.firebolt.io/architecture-overview">Registering your organization</a></strong>
+    <br><strong><a href="https://docs.firebolt.io/architecture-overview">Loading data</a></strong>
+    <br><strong><a href="https://docs.firebolt.io/architecture-overview">Developing with Firebolt</a></strong>
+    <br><strong><a href="https://docs.firebolt.io/architecture-overview">Integrations</a></strong>
+    <br><a href="https://docs.firebolt.io/architecture-overview">Working with semi-structured data</a>
+    <br><a href="https://docs.firebolt.io/architecture-overview">Exporting query results</a></p>
   </div>
   <div class="column">
-    <img src="assets/images/docs_whitepaper_illustration.png" alt="Reference" width="150" height="150">
+    <img src="assets/images/docs_whitepaper_illustration.png" alt="Reference" width="200" height="200">
     <h2>Reference</h2>
-    <p>Release Notes
-    <br>SQL
-    <br>Data types
-    <br>Operators
-    <br>Engine specifications
-    <br>Available regions
-    <br>System settings
-    <br>Keyboard shortcuts
-    <br>API Docs
-    <br>Identifier requirements</p>
+    <p><a href="https://docs.firebolt.io/architecture-overview">Release Notes</a>
+    <br><a href="https://docs.firebolt.io/architecture-overview">SQL</a>
+    <br><a href="https://docs.firebolt.io/architecture-overview">Data types</a>
+    <br><a href="https://docs.firebolt.io/architecture-overview">Information schema and usage views</a>
+    <br><a href="https://docs.firebolt.io/architecture-overview">Operators</a>
+    <br><a href="https://docs.firebolt.io/architecture-overview">Engine specifications</a>
+    <br><a href="https://docs.firebolt.io/architecture-overview">Available regions</a>
+    <br><a href="https://docs.firebolt.io/architecture-overview">Index quick reference</a>
+    <br><a href="https://docs.firebolt.io/architecture-overview">System settings</a>
+    <br><a href="https://docs.firebolt.io/architecture-overview">Keyboard shortcuts</a>
+    <br><a href="https://docs.firebolt.io/architecture-overview">Identifier requirements</a>
+    <br><a href="https://docs.firebolt.io/architecture-overview">Using the CLI</a>
+    <br><a href="https://docs.firebolt.io/architecture-overview">Using the SQL workspace</a></p>
   </div>
 </div>

@@ -6,6 +6,7 @@ search_exclude: true
 toc_exclude: true
 description: Learn about managing database level roles for Firebolt users.
 parent: Account and user management
+grand_parent: Guides
 ---
 
 # Role-based access control (Alpha)

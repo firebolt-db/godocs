@@ -4,6 +4,7 @@ title: Service accounts (Beta)
 description: Learn about creating service account users for Firebolt.
 nav_order: 3
 parent: Account and user management
+grand_parent: Guides
 ---
 
 # Creating a service account (Beta)

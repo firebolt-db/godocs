@@ -4,6 +4,7 @@ title: Using AWS roles to access S3
 description: Learn how to use AWS IAM roles to allow Firebolt to access your data lake in Amazon S3.
 nav_order: 2
 parent: Loading data
+grand_parent: Guides
 ---
 
 # Using AWS roles to access Amazon S3

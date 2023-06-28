@@ -4,6 +4,7 @@ title: Working with Parquet arrays and maps
 description: Learn how to ingest (load) Parquet data into Firebolt and work with Parquet maps, structs, and arrays of structs.
 nav_order: 4
 parent: Working with semi-structured data
+grand_parent: Guides
 ---
 # Working with Parquet arrays and maps
 {: .no_toc}

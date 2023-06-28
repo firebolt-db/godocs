@@ -3,6 +3,7 @@ layout: default
 title: Loading data
 description: Understand options for loading data into Firebolt from your data lake.
 parent: Guides
+grand_parent: Guides
 has_children: true
 has_toc: false
 ---

@@ -3,8 +3,10 @@ layout: default
 title: Working with semi-structured data
 description: Learn how to handle semi-structured data in Firebolt.
 parent: Guides
+grand_parent: Guides
 has_children: true
 ---
+
 # Working with semi-structured data
 
 Semi-structured data is any data that does not adhere to a strict tabular schema, or data where some field types are not of the standard SQL data types. Semi-structured data usually has a nested structure and supports complex data types like arrays, maps, and structs (compound types).

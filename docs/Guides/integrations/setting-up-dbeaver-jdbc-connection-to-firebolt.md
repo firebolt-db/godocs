@@ -2,6 +2,8 @@
 layout: default
 title: DBeaver
 nav_exclude: true
+grand_parent: Guides
+parent: Integrations
 ---
 
 # Connecting to DBeaver

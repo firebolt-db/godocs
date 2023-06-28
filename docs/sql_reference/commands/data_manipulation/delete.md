@@ -2,6 +2,7 @@
 layout: default
 title: DELETE
 description: Reference and syntax for the DELETE command.
+great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Data manipulation commands
 ---

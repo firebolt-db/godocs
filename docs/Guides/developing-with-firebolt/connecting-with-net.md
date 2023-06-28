@@ -4,6 +4,7 @@ title: .NET
 description: Learn about using the .NET SDK for Firebolt.
 nav_order: 6
 parent: Developing with Firebolt
+grand_parent: Guides
 ---
 
 # .NET

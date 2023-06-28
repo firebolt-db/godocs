@@ -4,6 +4,7 @@ title: JDBC
 description: How to use the Firebolt JDBC driver
 nav_order: 5
 parent: Developing with Firebolt
+grand_parent: Guides
 ---
 
 # Using the JDBC driver

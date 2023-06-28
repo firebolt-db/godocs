@@ -4,6 +4,7 @@ title: Creating a Firebolt account
 description: Learn how to subscribe to Firebolt in the AWS Marketplace and create an account for a Firebolt data warehouse.
 nav_order: 2
 parent: Account and user management
+grand_parent: Guides
 ---
 
 # Subscribing to Firebolt and creating an account

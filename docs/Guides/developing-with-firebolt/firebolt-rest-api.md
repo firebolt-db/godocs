@@ -4,6 +4,7 @@ title: REST API
 description: Learn about using the Firebolt REST API to interact with Firebolt.
 nav_order: 3
 parent: Developing with Firebolt
+grand_parent: Guides
 ---
 
 # Firebolt REST API

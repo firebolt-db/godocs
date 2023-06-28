@@ -4,6 +4,7 @@ title: SQLAlchemy
 description: Learn about using the Firebolt adapter for the SQLAlchemy Python SQL toolkit.
 nav_order: 4
 parent: Developing with Firebolt
+grand_parent: Guides
 ---
 
 # Connecting with SQLAlchemy

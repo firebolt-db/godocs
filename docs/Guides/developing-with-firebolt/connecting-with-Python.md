@@ -4,6 +4,7 @@ title: Python
 description: Learn about using the Python SDK for Firebolt. 
 nav_order: 2
 parent: Developing with Firebolt
+grand_parent: Guides
 ---
 
 # Python

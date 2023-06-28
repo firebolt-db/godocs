@@ -3,6 +3,7 @@ layout: default
 title: System Engine (Beta)
 description: System engine documentation
 parent: Working with engines
+grand_parent: Guides
 ---
 
 # System Engine (Beta)
