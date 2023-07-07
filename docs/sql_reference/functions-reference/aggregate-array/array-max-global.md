@@ -21,34 +21,45 @@ ARRAY_MAX_GLOBAL(<arr>)
 
 | Parameter | Description                                                               |
 | :--------- | :------------------------------------------------------------------------- |
-| `<arr>`   | The array column over from which the function returns the maximum element |
+| `<arr>`   | The function returns the maximum element from the provided array column |
+
+
+<!-- Create an example that uses the customer dataset -->
 
 ## Example
 {: .no_toc}
 
-The example below uses the following table `T`:
+The example below uses the following table `Scores`:
 
-| Category | vals        |
-| :-------- | :----------- |
-| a        | \[1,3,4]    |
-| b        | \[3,5,6,7]  |
-| c        | \[30,50,60] |
+| nickname        | recent_scores |
+| :---------------| :-------------|
+| steven70        | \[1,3,4]      |
+| sanderserin     | \[3,5,6,7]    |
+| esimpson        | \[30,50,60]   |
+
+<!-- | Parameter | Description                                                               |
+| :--------- | :------------------------------------------------------------------------- |
+| `<arr>`   | The function returns the maximum element from the provided array column | -->
 
 
 ```sql
 SELECT
-	Category,
-	ARRAY_MAX_GLOBAL(vals) AS mx
+	nickname,
+	ARRAY_MAX_GLOBAL(recent_scores) AS max_score
 FROM
-	T
+	Scores
 GROUP BY
-	Category;
+	nickname;
 ```
 
 **Returns**:
 
-| category | mx |
-| :-------- | :-- |
-| a        | 4  |
-| b        | 7  |
-| c        | 60 |
+In this example, the function calculates the maximum score earned by each player's recent scores. For example, the user `esimpson` received a maximum score of `60`, so this value is returned in the `max_score` column. 
+
+| nickname         | max_score     |
+| :----------------| :------------ |
+| steven70         | 4             |
+| sanderserin      | 7             |
+| esimpson         | 60            |
+
+
