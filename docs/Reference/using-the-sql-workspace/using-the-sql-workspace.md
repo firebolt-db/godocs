@@ -2,8 +2,7 @@
 layout: default
 title: Using the SQL workspace
 description: Learn how to navigate and use the SQL workspace to work with your Firebolt database.
-parent: Using the SQL workspace
-grand_parent: General reference
+parent: General reference
 has_children: true
 has_toc: false
 ---
