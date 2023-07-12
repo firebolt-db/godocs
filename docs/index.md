@@ -12,8 +12,6 @@ has_toc: true
 {:.no_toc}
 Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics performance on massive, terabyte-scale data sets. Our documentation can help you load and model your data in Firebolt, optimize for performance, and build your analytics and data applications quickly.
 
-
-
 <div class="row">
   <div class="column">
     <div class="columnimg" src="assets/images/docs_getting_started_illustration.png" alt="Overview"></div>

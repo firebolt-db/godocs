@@ -10,22 +10,26 @@ parent: Aggregation functions
 
 Returns a single arbitrary value from the specified column. This function ignores `NULL`s, so the only time it will return `NULL` is when all inputs are `NULL`s.
 
+**Synonym:** `ANY`
+
 ## Syntax
 {: .no_toc}
 
-
 ```SQL
-ANY_VALUE(<col>)
+ANY_VALUE(<expression>)
 ```
 
-| Argument | Description                                  | Data Type |
+## Parameters
+{: .no_toc}
+
+| Parameter | Description                                  |Supported input types |
 | :-------- | :-------------------------------------------- | :--------- |
-| `<col>`  | The column from which the value is returned. | Any       |
+| `<expression>`  | The column from which the value is returned. | Any       |
 
 ##### Return Type
 {: .no_toc}
 
-Same as input argument
+Same as input type
 
 ## Example
 {: .no_toc}
