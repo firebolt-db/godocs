@@ -10,21 +10,24 @@ grand_parent:  SQL functions
 
 Returns the maximum element from all the array elements in each group.
 
-For more information and the sample data used in the example below, please refer to [Aggregate Array Functions](./aggregate-array-functions.md).
+<!-- For more information and the sample data used in the example below, please refer to [Aggregate Array Functions](./aggregate-array-functions.md). -->
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-ARRAY_MAX_GLOBAL(<arr>)
+ARRAY_MAX_GLOBAL(<array>)
 ```
 
-| Parameter | Description                                                               |
-| :--------- | :------------------------------------------------------------------------- |
-| `<arr>`   | The function returns the maximum element from the provided array column |
+| Parameter | Description                                                              | Supported input types   |
+| :--------- | :-----------------------------------------------------------------------|:------------------------|
+| `<array>`  | The function returns the maximum element from the provided array column | Any `<array>` column    |
 
 
 <!-- Create an example that uses the customer dataset -->
+
+## Return Types 
+`<array>`
 
 ## Example
 {: .no_toc}
@@ -41,6 +44,7 @@ The example below uses the following table `Scores`:
 | :--------- | :------------------------------------------------------------------------- |
 | `<arr>`   | The function returns the maximum element from the provided array column | -->
 
+In this example, the function calculates the maximum score earned by each player's recent scores. For example, the user `esimpson` received a maximum score of `60`, so this value is returned in the `max_score` column. 
 
 ```sql
 SELECT
@@ -53,8 +57,6 @@ GROUP BY
 ```
 
 **Returns**:
-
-In this example, the function calculates the maximum score earned by each player's recent scores. For example, the user `esimpson` received a maximum score of `60`, so this value is returned in the `max_score` column. 
 
 | nickname         | max_score     |
 | :----------------| :------------ |

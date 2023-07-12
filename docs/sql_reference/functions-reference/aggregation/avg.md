@@ -18,15 +18,17 @@ Calculates the average of an expression.
 AVG(<expr>)
 ```
 
-| Parameter | Description                                                                                                                                                                        |
-| :---------| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<expr>`  | The expression used to calculate the average. Valid values for the expression include column names or functions that return a column name for columns that contain numeric values. |
+| Parameter | Description                                  | Supported input types                                                                                                                                  |
+| :---------| :--------------------------------------------|:-----------------------------------------------|
+| `<expr>`  | The expression used to calculate the average | Names of <column>s that contain numeric values | 
+
+Valid values for the expression include column names or functions that return a column name for columns that contain numeric values.
 
 {: .note}
 The `AVG()` aggregation function ignores rows with NULL. For example, an `AVG` from 3 rows containing `1`, `2`, and NULL returns `1.5` because the NULL row is not counted. To calculate an average that includes NULL, use `SUM(COLUMN)/COUNT(*)`.
 
 ## Return Types
-The return types for this function includes `NUMERIC`, `REAL`, and `DOUBLE PRECISION`. 
+`NUMERIC`, `REAL`, `DOUBLE PRECISION`
 
 ## Example
 
@@ -40,10 +42,15 @@ The example below uses the following table `LevelPoints`. This table includes th
 | 4        | 200       |
 | 5        | 250       |
 
-**Returns**:
-In this example, the average of the `maxpoints` values is return. 
+In this example, the average of the `maxpoints` values is returned. 
 
-<!-- SELECT AVG(maxpoints) AS AverageMaxPoints FROM levels; -->
+```sql
+SELECT 
+    AVG(maxpoints) AS AverageMaxPoints 
+FROM levels;
+```
+
+**Returns**:
 | averagemaxpoints | 
 | :----------------| 
 | 150              |

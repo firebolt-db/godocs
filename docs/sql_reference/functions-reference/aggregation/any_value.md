@@ -18,9 +18,9 @@ Returns a single arbitrary value from the specified column. This function ignore
 ANY_VALUE(<col>)
 ```
 
-| Argument | Description                                  | Data Type |
+| Argument | Description                                    | Supported input Type | 
 | :-------- | :-------------------------------------------- | :--------- |
-| `<col>`  | The column from which the value is returned. | Any       |
+| `<column>`  | The column from which the random value is returned | Any       |
 
 ##### Return Type
 {: .no_toc}
@@ -50,3 +50,5 @@ SELECT
 FROM
 	players;
 ```
+
+**Returns** Any value from the provided column, excluding `NULL`
