@@ -56,3 +56,5 @@ SELECT
 FROM
 	players;
 ```
+
+**Returns** Any value from the provided column, excluding `NULL`
