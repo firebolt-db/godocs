@@ -21,12 +21,16 @@ LOWER(<string>)
 | :---------- | :--------------------------- |
 | `<string>` | The string to be converted. |
 
+## Return Type
+The return type for this function includes `CHAR`. 
+
 ## Example
 {: .no_toc}
+The following example converts a video game player's username from lower case syntax to all uppercase syntax:
 
 ```
 SELECT
-	LOWER('ABCD');
+	LOWER('ESIMPSON');
 ```
 
-**Returns**: `abcd`
+**Returns**: `esimpson`

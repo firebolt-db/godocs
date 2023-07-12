@@ -28,53 +28,47 @@ COUNT([ DISTINCT ] <expr>)
 {: .note}
 > By default, `COUNT(DISTINCT)` returns approximate results. If you require a precise result (with a performance penalty), please contact Firebolt Support through the Help menu support form. 
 
+## Return Types
+This function returns `NUMERIC` types. 
+
+## Return Types
+This function returns `NUMERIC` types. 
+
 ## Example
-{: .no_toc}
+For this example, see the following table `tournaments`: 
 
-For this example, we'll create a new table `number_test` as shown below.&#x20;
+| name                          | totalprizedollars |
+| :-----------------------------| :-----------------| 
+| The Drifting Thunderdome      | 24768             |
+| The Lost Track Showdown       | 5336              |
+| The Acceleration Championship | 19274             |
+| The Winter Wilderness Rally   | 21560             |
+| The Circuit Championship      | 9739              |
+| The Singapore Grand Prix      | 19274             |
 
-```sql
-CREATE DIMENSION TABLE IF NOT EXISTS number_test
-	(
-		num TEXT
-	);
-
-INSERT INTO
-	number_test
-VALUES
-	(1),
-	(1),
-	(2),
-	(3),
-	(3),
-	(3),
-	(4),
-	(5);
-```
-
-Doing a regular `COUNT` returns the total number of rows in the column. We inserted 8 rows earlier, so it should return the same number.
+Doing a regular `COUNT` returns the total number of rows in the column. As the `tournaments` table contains 6 rows, this should be the returned value. 
 
 ```sql
 SELECT
-	COUNT(num)
+	COUNT(name)
 FROM
-	number_test;
+	tournaments;
 ```
 
-**Returns**: `8`
+**Returns**: `6`
 
-A `COUNT(DISTINCT)` function on the same column returns the number of unique rows. There are five unique numbers that we inserted earlier.&#x20;
+A `COUNT(DISTINCT)` function on the same column returns the number of unique rows. When applied to the `totalprizedollars` column, the value returned is `5`, as there is a repeated number in the column. 
 
 ```sql
 SELECT
-	COUNT(DISTINCT num)
+	COUNT(DISTINCT totalprizedollars)
 FROM
-	number_test;
+	tournaments;
 ```
 
 **Returns**: `5`
 
-To understand the difference between `COUNT(DISTINCT pk)` with exact precision enabled and using default approximation, consider a table, `count_test` with 8,388,608 unique `pk` values. The `APPROX_COUNT_DISTINCT` function returns the same approximate results as the `COUNT(DISTINCT)` function with exact precision disabled, so we can see the difference between these methods with the following example. 
+<!-- To understand the difference between `COUNT(DISTINCT pk)` with exact precision enabled and using default approximation, consider a table, `count_test` with 8,388,608 unique `pk` values. The `APPROX_COUNT_DISTINCT` function returns the same approximate results as the `COUNT(DISTINCT)` function with exact precision disabled, so we can see the difference between these methods with the following example. 
 
 ```sql
 SELECT
@@ -95,4 +89,4 @@ Assuming 8,388,608 unique pk values, we will see results like:
 ' +----------------+--------------+
 ' |      8,388,608 |    8,427,387 |
 ' +----------------+--------------+
-```
+``` -->

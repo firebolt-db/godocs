@@ -21,12 +21,17 @@ UPPER(<string>)
 | :---------- | :------------------------------------------------------- |
 | `<string>` | The string to be converted to all uppercase characters. |
 
+## Return Type
+The return type for this function includes `CHAR`. 
+
 ## Example
 {: .no_toc}
 
+The following example converts a video game player's username from lower case syntax to all uppercase syntax:
+
 ```sql
 SELECT
-	UPPER('hello world')
+	UPPER('esimpson')
 ```
 
-**Returns**: `HELLO WORLD`
+**Returns**: `ESIMPSON`

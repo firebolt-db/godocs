@@ -22,6 +22,9 @@ EXTRACT_ALL( <expr>, '<regex_pattern>' )
 | `<expr>`          | Any expression that evaluates to a `TEXT` data type |
 | `<regex_pattern>` | An re2 regular expression used for matching.                                |
 
+## Return Types
+This function returns an `ARRAY`. 
+
 ## Example
 {: .no_toc}
 

@@ -8,7 +8,7 @@ parent: Array functions
 
 # FLATTEN
 
-Converts an array of arrays into a flat array. That is, for every element that is an array, this function extracts its elements into the new array. The resulting flattened array contains all the elements from all source arrays.
+Converts an array of arrays into a flat array. This means for every element that is an array, this function extracts its elements into the new array. The resulting flattened array contains all the elements from all source arrays.
 
 The function:
 
@@ -26,8 +26,12 @@ FLATTEN(<arr_of_arrs>)
 | :--------------- | :------------------------------------ |
 | `<arr_of_arrs>` | The array of arrays to be flattened. |
 
+## Return Types
+The return type for this function is `ARRAY`.
+
 ## Example
 {: .no_toc}
+The following example flattens multiple arrays of video game levels: 
 
 ```sql
 SELECT

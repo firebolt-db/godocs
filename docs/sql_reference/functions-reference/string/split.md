@@ -22,12 +22,16 @@ SPLIT( <delimiter>, <string> )
 | `<delimiter>` | The separator to split the string by. |
 | `<string>`    | The string to split.                  |
 
+## Return Types
+This function returns an `ARRAY`.
+
 ## Example
 {: .no_toc}
 
+The following example splits the nicknames of players into separate items in an array: 
 ```sql
 SELECT
-	SPLIT('|','this|is|my|test') AS res;
+	SPLIT('|','stephen70|esimpson|ruthgill|') AS nicknames;
 ```
 
-**Returns**: `["this","is","my","test"]`
+**Returns**: `["stephen70","esimpson","ruthgill"]`

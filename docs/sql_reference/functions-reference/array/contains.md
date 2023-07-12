@@ -22,21 +22,27 @@ CONTAINS(<arr>, <arg>)
 | `<arr>`   | The array to be checked for the given element.   |
 | `<arg>`   | The element to be searched for within the array. |
 
+## Return Types
+The function includes returned `NUMERIC` types. 
+
 ## Example
 {: .no_toc}
 
 ```sql
 SELECT
-	CONTAINS([ 1, 2, 3 ], 3) AS res;
+	CONTAINS([ 'sabrina21', 'rileyjon', 'ywilson', 'danielle53'], 'danielle53') AS players;
 ```
 
 **Returns**: `1`
+`1` is returned as "danielle53" is part of the `players` array.
 
 `CONTAINS` returns a `0` result when single character or substring matches only part of a longer string.
 
 ```
 SELECT
-	CONTAINS([ 'a', 'b', 'cookie' ], 'c') AS res;
+	CONTAINS([ 'sabrina21', 'rileyjon', 'ywilson'] , 'danielle53') AS players;
 ```
 
 **Returns**: `0`
+
+`0` is returned as "danielle53" is not part of the `players` array.

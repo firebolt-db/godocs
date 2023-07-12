@@ -22,13 +22,24 @@ SUM ([DISTINCT] <expr>)
 | `<expr>`   | The expression used to calculate the sum. Valid values for `<expr>` include column names or expressions that evaluate to numeric values. |
 | `DISTINCT` | When specified, removes duplicate values from `<expr>` before calculating the sum. |
 
+## Return Types
+This function returns `NUMERIC` types. 
+
 ## Example
 
-Consider a table `test_scores` with the following columns.
+For this example, see the following table `tournaments`: 
 
-+-----------+-------+
-| firstname | score |
-+-----------+-------+
+| name                          | totalprizedollars |
+| :-----------------------------| :-----------------| 
+| The Drifting Thunderdome      | 24768             |
+| The Lost Track Showdown       | 5336              |
+| The Acceleration Championship | 19274             |
+| The Winter Wilderness Rally   | 21560             |
+| The Circuit Championship      | 9739              |
+| The Singapore Grand Prix      | 19274             |
+
+<!-- | firstname | score |
+|:----------|:------|
 | Deborah   |    90 |
 | Albert    |    50 |
 | Carol     |    11 |
@@ -36,26 +47,25 @@ Consider a table `test_scores` with the following columns.
 | Thomas    |    85 |
 | Peter     |    50 |
 | Sammy     |    90 |
-| Humphrey  |    56 |
-+-----------+-------+
+| Humphrey  |    56 | -->
 
 
 ```
 SELECT
-	SUM(score)
+	SUM(totalprizedollars)
 FROM
-	test_scores
+	tournaments
 ```
 
-**Returns**: `519`
+**Returns**: `99951`
 
 ```
 SELECT
-	SUM (DISTINCT score)
+	SUM (DISTINCT totalprizedollars)
 FROM
-	test_scores
+	tournaments
 ```
 
-One each of the duplicated `90` and `50` scores are removed from the calculation.
+For this calculation, since both the Singapore Grand Prix and The Acceleration Championship both had the same total prize dollars of `19274`, only one of these values in this sum in included. 
 
-**Returns**: `379`
+**Returns**: `80677`

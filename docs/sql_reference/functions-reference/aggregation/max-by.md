@@ -25,25 +25,30 @@ MAX_BY(<arg>, <val>)
 | `<arg>`   | The column from which the value is returned.   |
 | `<val>`   | The column that is search for a maximum value. |
 
+## Return Types
+The return types for this function includes `CHAR`, `NUMERIC`, `REAL`, and `DOUBLE PRECISION`. 
+
 ## Example
 {: .no_toc}
 
-For this example, we will again use the `prices` table that was created above for the `MAX` function. The values for that table are below:
+For this example,  see the following table, `tournaments`:
 
-| item   | price |
-| :------ | :----- |
-| apple  | 4     |
-| banana | 25    |
-| orange | 11    |
-| kiwi   | 20    |
+| name                          | totalprizedollars |
+| :-----------------------------| :-----------------| 
+| The Drifting Thunderdome      | 24768             |
+| The Lost Track Showdown       | 5336              |
+| The Acceleration Championship | 19274             |
+| The French Grand Prix         | 237               |
+| The Circuit Championship      | 9739              |
 
-In this example below, `MAX_BY` is used to find the item with the largest price.&#x20;
+
+In this example below, `MAX_BY` is used to find the tournament  with the highest total prize dollars.
 
 ```sql
 SELECT
-	MAX_BY(item, price)
+	MAX_BY(name, totalprizedollars)
 FROM
-	prices;
+	tournaments;
 ```
 
-**Returns**: `banana`
+**Returns:** `The Drifting Thunderdome`

@@ -21,11 +21,16 @@ LENGTH(<string>)
 | :---------- | :------------------------------------------ |
 | `<string>` | The string for which to return the length. |
 
+## Return Types
+This function returns `NUMERIC` types. 
+
 ## Example
 {: .no_toc}
-
+The following example returns the length of a string, which is a name of a particular tournament: 
 ```sql
-SELECT LENGTH('abcd')
+SELECT LENGTH('The Accelerator Cup')
 ```
+As this string includes spaces, these spaces are calculated in the total length. 
 
-**Returns**: `4`
+**Returns**: `19`
+

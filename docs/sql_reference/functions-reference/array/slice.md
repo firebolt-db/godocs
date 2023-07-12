@@ -23,12 +23,16 @@ SLICE(<arr>, <offset>[, <length>])
 | `<offset>` | Indicates starting point of the array slice. A positive value indicates an offset on the left, and a negative value is an indent on the right.                     |
 | `<length>` | The length of the required slice.<br>If you omit this value, the function returns the slice from the `<offset>` to the end of the array. |
 
+## Return Types
+The return types for this function includes `CHAR`, `NUMERIC`, `REAL`, and `DOUBLE PRECISION`. 
+
 ## Example
 {: .no_toc}
 
+The following example slices the `levels` array to a different length: 
 ```sql
 SELECT
-	SLICE([ 1, 2, NULL, 4, 5 ], 2, 3) AS res;
+	SLICE([ 1, 2, 3, 4, 5 ], 1, 3) AS levels;
 ```
 
-**Returns**: `[2, null, 4]`
+**Returns**: `[1, 2, 3]`

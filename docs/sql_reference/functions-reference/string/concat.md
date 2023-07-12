@@ -31,17 +31,18 @@ NULL inputs to the `CONCAT` function are treated as empty strings and ignored. W
 When using `||`, any NULL input results in a NULL output.
 
 ## Return Types
-`TEXT`
+This function returns the `TEXT` type. 
 
 ## Example
 {: .no_toc}
 
-```sql
+<!-- ```sql
 SELECT
 	CONCAT('Hello ', 'World!');
 ```
 
-**Returns**: `Hello World!`
+**Returns**: `Hello World!` -->
+The following example combines the users' `nicknames` and `emails` from the players table, with the limit of `5`: 
 
 ```sql
 SELECT
@@ -50,17 +51,14 @@ FROM players
 LIMIT 5;
 ```
 
-**Returns**: 
+**Returns**:
+| user_info                              |
+| :--------------------------------------|
+| steven70: daniellegraham@example.net   | 
+| burchdenise: keith84@example.org       | 
+| stephanie86: zjenkins@example.org      |
+| sabrina21: brianna65@example.org       |
+| kennethpark: williamsdonna@example.com |
 
-```sql
-' +----------------------------------------+
-' | user_info                              |
-' +----------------------------------------+
-' | steven70: daniellegraham@example.net   | 
-' | burchdenise: keith84@example.org       | 
-' | stephanie86: zjenkins@example.org      |
-' | sabrina21: brianna65@example.org       |
-' | kennethpark: williamsdonna@example.com |
-' +----------------------------------------+
-```
+
 
