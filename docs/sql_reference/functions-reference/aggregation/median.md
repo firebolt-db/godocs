@@ -12,46 +12,38 @@ parent: Aggregation functions
 Calculates an approximate median for a given column.
 
 ## Syntax
-{: .no_toc}
+<!-- {: .no_toc} -->
 
 ```sql
 MEDIAN(<col>)
 ```
 
 | Parameter | Description                                                                                                        |
-| :--------- | :------------------------------------------------------------------------------------------------------------------ |
-| `<col>`   | The column used to calculate the median value. This column can consist of numeric data types or DATE and TIMESTAMP. |
+| :---------| :------------------------------------------------------------------------------------------------------------------|
+| `<col>`   | The column used to calculate the median value. This column can consist of numeric data types or DATE and TIMESTAMP.|
+
+## Return Types
+The return types for this function includes `NUMERIC`, `REAL`, `DOUBLE PRECISION`, `DATE`, and `TIMESTAMP`. 
 
 ## Example
-{: .no_toc}
+<!-- {: .no_toc} -->
+For this example,  see the following table, `tournaments`:
 
-For this example, we'll create a new table `num_test `as shown below:
-
-```sql
-CREATE DIMENSION TABLE IF NOT EXISTS num_test
-	(
-		num INT
-	);
-
-INSERT INTO
-	num_test
-VALUES
-	(1),
-	(7),
-	(12),
-	(30),
-	(59),
-	(76),
-	(100);
-```
+| name                          | totalprizedollars |
+| :-----------------------------| :-----------------| 
+| The Drift Championship        | 22048             |
+| The Lost Track Showdown       | 5336              |
+| The Acceleration Championship | 19274             |
+| The French Grand Prix         | 237               |
+| The Circuit Championship      | 9739              |
 
 `MEDIAN` returns the approximate middle value between the lower and higher halves of the values.
 
 ```sql
 SELECT
-	MEDIAN(num)
+	MEDIAN(totalprizedollars)
 FROM
-	number_test
+	tournaments;
 ```
 
-**Returns**: `30`
+**Returns**: `9739`

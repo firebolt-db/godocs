@@ -21,9 +21,13 @@ TO_INT(<expression>)
 | :--------- | :-------------------------------------------------------------------------------------------------------- |
 | `<expression>`  | A numeric data type expression that resolves to a `TEXT` data type. |
 
+## Return Types
+This function returns `NUMERIC` types. 
+
 ## Example
 {: .no_toc}
 
+The following examplesadjusts the inputted string value as the integer `10`: 
 ```sql
 SELECT
 	TO_INT('10');

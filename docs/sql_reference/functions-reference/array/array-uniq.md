@@ -21,6 +21,9 @@ ARRAY_UNIQ(<arr> [, ...n])
 | :---------------- | :----------------------------------- |
 | `<arr> [, ...n]` | The array or arrays to be analyzed. |
 
+## Return Types
+The return type for this function is `ARRAY`.
+
 ## Example
 {: .no_toc}
 
@@ -40,24 +43,24 @@ For example, two arrays \[1,1,1,1] and \[1,1,1,2] would be evaluated as individu
 
 ```
 SELECT
-	ARRAY_UNIQ ([ 1, 1, 1, 1 ], [ 1, 1, 1, 2 ]) AS res;
+	ARRAY_UNIQ ([ 1, 1, 1, 1 ], [ 1, 1, 1, 2 ]) AS levels;
 ```
 
 **Returns**: `2`
 
-In the example below, there are three different strings across all of the elements of the given arrays. However, there are only two unique tuples, ('apple', 'pie') and ('apple', 'jack').
+In the example below, there are three different video game usernames across all of the elements of the given arrays. However, there are only two unique tuples, ('tonytaylor', 'ruthgill') and ('tonytaylor', 'ywilson').
 
 ```
 SELECT
 	ARRAY_UNIQ (
-		[ 'apple',
-		'apple',
-		'apple',
-		'apple' ],
-		[ 'pie',
-		'pie',
-		'jack',
-		'jack' ]
+		[ 'tonytaylor',
+		'tonytaylor',
+		'tonytaylor',
+		'tonytaylor' ],
+		[ 'ruthgill',
+		'ruthgill',
+		'ywilson',
+		'ywilson' ]
 	) AS res;
 ```
 

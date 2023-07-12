@@ -8,4 +8,4 @@ parent: Aggregation functions
 
 # NEST
 
-Synonym for [ARRAY_AGG](array-agg.md).
+Synonym for [ARRAY_AGG](array-agg.md). See this page for further information and examples. 

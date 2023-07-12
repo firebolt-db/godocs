@@ -21,12 +21,16 @@ ARRAY_MIN(<arr>)
 | :--------- | :-------------------------------------------- |
 | `<arr>`   | The array or array-type column to be checked |
 
+## Return Types
+The function includes returned `NUMERIC` types.  
+
 ## Example
 {: .no_toc}
 
+The following examples calculates the maximum number in the `levels` array: 
 ```sql
 SELECT
-	ARRAY_MIN([ 1, 2, 3, 4 ]) AS res;
+	ARRAY_MIN([ 1, 2, 3, 4 ]) AS levels;
 ```
 
 **Returns**: `1`

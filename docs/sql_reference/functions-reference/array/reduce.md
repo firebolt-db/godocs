@@ -22,12 +22,15 @@ REDUCE(<agg_function>, <arr>)
 | `<agg_function>` | The name of an aggregate function which should be a constant string             |
 | `<arr>`          | Any number of array type columns as the parameters of the aggregation function. |
 
+## Return Types
+The return types for this function includes `CHAR`, `NUMERIC`, `REAL`, and `DOUBLE PRECISION`. 
+
 ## Examples
 {: .no_toc}
 
 ```sql
 SELECT
-	REDUCE('max', [ 1, 2, 3, 6 ]) AS res;
+	REDUCE('max', [ 1, 2, 3, 6 ]) AS levels;
 ```
 
 **Returns**: `6`
@@ -36,6 +39,6 @@ When using aggregation functions that take a constant as a parameter, the parame
 
 ```sql
 SELECT
-	REDUCE('approx_percentile(0.3)', [ 1, 2, 3, 4, 5, 6 ]) AS res;
+	REDUCE('approx_percentile(0.3)', [ 1, 2, 3, 4, 5, 6 ]) AS levels;
 ```
 **Returns**: `2.5`
