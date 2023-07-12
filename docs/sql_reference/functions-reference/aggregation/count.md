@@ -9,27 +9,27 @@ parent: Aggregation functions
 
 # COUNT
 
-Counts the number of rows or not NULL values.
+Counts the number of rows or not `NULL` values.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-COUNT([ DISTINCT ] <expr>)
+COUNT([ DISTINCT ] <expression>)
 ```
 
-| Parameter | Description                                                                                                                                                                                                           |
-| :--------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `<expr>`  | Valid values for the expression include column names or functions that return a column name. When `DISTINCT` is being used, counts only the unique number of rows with no `NULL` values. |
+## Parameters
+{: .no_toc}
+
+| Parameter | Description                         |Supported input types |
+| :--------- | :----------------------------------- | :---------------------|
+| `<expression>`  | The expression to count | Any | 
 
 
-`COUNT(*)` returns a total count of all rows in the table, while `COUNT(<column_name>)` returns a count of non-NULL rows in the specified `<column_name>`.
+Valid values for the input expression include column names or functions that return a column name. When `DISTINCT` is being used, counts only the unique number of rows with no `NULL` values. `COUNT(*)` returns a total count of all rows in the table, while `COUNT(<column_name>)` returns a count of non-null rows in the specified `<column_name>`.
 
 {: .note}
 > By default, `COUNT(DISTINCT)` returns approximate results. If you require a precise result (with a performance penalty), please contact Firebolt Support through the Help menu support form. 
-
-## Return Types
-This function returns `NUMERIC` types. 
 
 ## Return Types
 This function returns `NUMERIC` types. 
@@ -46,7 +46,7 @@ For this example, see the following table `tournaments`:
 | The Circuit Championship      | 9739              |
 | The Singapore Grand Prix      | 19274             |
 
-Doing a regular `COUNT` returns the total number of rows in the column. As the `tournaments` table contains 6 rows, this should be the returned value. 
+Doing a regular `COUNT` returns the total number of rows in the column. As the `tournaments` table contains 6 rows, this will be the returned value. 
 
 ```sql
 SELECT
@@ -68,7 +68,9 @@ FROM
 
 **Returns**: `5`
 
-<!-- To understand the difference between `COUNT(DISTINCT pk)` with exact precision enabled and using default approximation, consider a table, `count_test` with 8,388,608 unique `pk` values. The `APPROX_COUNT_DISTINCT` function returns the same approximate results as the `COUNT(DISTINCT)` function with exact precision disabled, so we can see the difference between these methods with the following example. 
+## Example of COUNT(DISTINCT) vs. APPROX_COUNT_DISTINCT
+
+To understand the difference between `COUNT(DISTINCT pk)` with exact precision enabled and using default approximation, consider a table, `count_test` with 8,388,608 unique `pk` values. The `APPROX_COUNT_DISTINCT` function returns the same approximate results as the `COUNT(DISTINCT)` function with exact precision disabled, so we can see the difference between these methods with the following example. 
 
 ```sql
 SELECT
@@ -89,4 +91,4 @@ Assuming 8,388,608 unique pk values, we will see results like:
 ' +----------------+--------------+
 ' |      8,388,608 |    8,427,387 |
 ' +----------------+--------------+
-``` -->
+```

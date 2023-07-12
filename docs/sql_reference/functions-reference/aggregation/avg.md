@@ -41,7 +41,7 @@ The example below uses the following table `LevelPoints`. This table includes th
 | 4        | 200       |
 | 5        | 250       |
 
-In this example, the average of the `maxpoints` values is returned. 
+Use the query below to find the average of the `maxpoints` value. 
 
 ```sql
 SELECT 
@@ -51,6 +51,6 @@ FROM levels;
 
 **Returns**:
 
-| averagemaxpoints | 
+| AverageMaxPoints | 
 | :----------------| 
 | 150              |

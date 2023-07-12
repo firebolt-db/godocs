@@ -18,85 +18,49 @@ Calculates the maximum value of an expression across all input values.
 MAX(<expression>)
 ```
 
-| Parameter       | Description                                                                                                                                        |
-| :---------------| :--------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<expression>`  | The expression used to calculate the maximum values. Valid values for the expression include a column name or functions that return a column name. |
+## Parameters
+{: .no_toc}
+
+| Parameter | Description                         |Supported input types |
+| :--------- | :----------------------------------- | :---------------------|
+| `<expression>`  | The expression used to calculate the maximum value | Any string, numeric or date/timestamp type |
+
+Valid values for the expression include a column name or functions that return a column name.
 
 ## Return Types
-The return types for this function includes `CHAR`, `NUMERIC`, `REAL`, and `DOUBLE PRECISION`. 
+
+Same as input type
 
 ## Example
 {: .no_toc}
-For this example,  see the following table, `tournaments`:
+For this example, see the following table, `tournaments`:
 
 | name                          | totalprizedollars |
 | :-----------------------------| :-----------------| 
-| The Drifting Thunderdome      | 24768             |
-| The Lost Track Showdown       | 5336              |
-| The Acceleration Championship | 19274             |
-| The Winter Wilderness Rally   | 21560             |
-| The Circuit Championship      | 9739              |
+| The Drifting Thunderdome      | 24,768             |
+| The Lost Track Showdown       | 5,336              |
+| The Acceleration Championship | 19,274             |
+| The Winter Wilderness Rally   | 21,560             |
+| The Circuit Championship      | 9,739              |
 
-When used on the `totalprizedollars` column, `max` will return the highest value.
+When used on the `totalprizedollars` column, `MAX` will return the highest value.
 
 ```sql
 SELECT
-	MAX(totalprizedollars)
+	MAX(totalprizedollars) as maxprize
 FROM
 	tournaments;
 ```
 
-**Returns**: `24768`
+**Returns**: `24,768`
 
 `MAX` can also work on text columns by returning the text row with the characters that are last in the lexicographic order. In this example, the function assesses the `name` column in the `tournaments` table.
 
 ```sql
 SELECT
-	MAX(name)
+	MAX(name) as maxtournament
 FROM
 	tournaments;
 ```
 
-**Returns**: `The Wilderness Rally`
-<!-- ## Example
-{: .no_toc}
-
-For this example, we'll create a new table `prices` as shown below.
-
-```sql
-CREATE DIMENSION TABLE IF NOT EXISTS prices
-    (
-        item TEXT,
-        price INTEGER
-    );
-
-INSERT INTO
-	prices
-VALUES
-	('apple', 4),
-	('banana', 25),
-	('orange', 11),
-	('kiwi', 20)
-```
-
-When used on the num column, `MAX` will return the largest value.
-
-```sql
-SELECT
-	MAX(price)
-FROM
-	prices;
-```
-
-**Returns**: `25`
-
-MAX can also work on text columns by returning the text row with the characters that are last in the lexicographic order.&#x20;
-
-```
-SELECT
-	MAX(item)
-FROM
-	prices;
-```
-
-**Returns:** `orange` -->
+**Returns**: `The Winter Wilderness Rally`
