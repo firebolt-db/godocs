@@ -20,12 +20,11 @@ AVG(<value>)
 
 | Parameter | Description                                  | Supported input types                                                                                                                                  |
 | :---------| :--------------------------------------------|:-----------------------------------------------|
-| `<value>`  | The expression used to calculate the average | Names of columns that contain numeric values | 
+| `<value>`  | The expression used to calculate the average | Any numeric type | 
 
-Valid values for the expression include column names or functions that return a column name or columns that contain numeric values.
+Valid values for the expression include column names or functions that return a column name (or columns) that contain numeric values.
 
-{: .note}
-The `AVG()` aggregation function ignores rows with NULL. For example, an `AVG` from 3 rows containing `1`, `2`, and NULL returns `1.5` because the NULL row is not counted. To calculate an average that includes NULL, use `SUM(COLUMN)/COUNT(*)`.
+The `AVG()` aggregation function ignores rows with `NULL` values. For example, an `AVG` from 3 rows containing `1`, `2`, and `NULL` returns `1.5` because the `NULL` row is not counted. To calculate an average that includes `NULL`, use `SUM(COLUMN)/COUNT(*)`.
 
 ## Return Types
 `NUMERIC`, `REAL`, `DOUBLE PRECISION`
@@ -51,6 +50,7 @@ FROM levels;
 ```
 
 **Returns**:
+
 | averagemaxpoints | 
 | :----------------| 
 | 150              |

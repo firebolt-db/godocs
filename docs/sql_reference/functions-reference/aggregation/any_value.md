@@ -8,7 +8,7 @@ parent: Aggregation functions
 
 # ANY_VALUE
 
-Returns a single arbitrary value from the specified column. This function ignores `NULL`s, so the only time it will return `NULL` is when all inputs are `NULL`s.
+Returns a single arbitrary value from the specified column. 
 
 **Synonym:** `ANY`
 
@@ -26,7 +26,9 @@ ANY_VALUE(<expression>)
 | :-------- | :-------------------------------------------- | :--------- |
 | `<expression>`  | The column from which the value is returned. | Any       |
 
-##### Return Type
+This function ignores `NULL` inputs, so the only time `NULL` will return is when all inputs are `NULL`.
+
+## Return Type
 {: .no_toc}
 
 Same as input type
