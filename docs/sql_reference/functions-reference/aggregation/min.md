@@ -18,12 +18,12 @@ Calculates the minimum value of an expression across all input values.
 MIN(<expression>)
 ```
 
-| Parameter | Description                                                                                                                                        |
-| :--------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `<expression>`  | The expression used to calculate the minimum values. Valid values for the expression include a column name or functions that return a column name. |
+| Parameter | Description                                               |Supported input types                                        |
+| :--------- | :--------------------------------------------------------|:------------------------------------------------------------|
+| `<expression>`  | The expression used to calculate the minimum values | `<column>` names, or a `<function>` that returns a column name | 
 
 ## Return Types
-The return types for this function includes `CHAR`, `NUMERIC`, `REAL`, and `DOUBLE PRECISION`. 
+`CHAR`, `NUMERIC`, `REAL`, `DOUBLE PRECISION` 
 
 ## Example
 {: .no_toc}

@@ -16,11 +16,11 @@ Calculates the sum of an expression.
 ```sql
 SUM ([DISTINCT] <expr>)
 ```
-
-| Parameter | Description                                                                                                                              |
-| :--------- | :---------------------------------------------------------------------------------------------------------------------------------------- |
-| `<expr>`   | The expression used to calculate the sum. Valid values for `<expr>` include column names or expressions that evaluate to numeric values. |
-| `DISTINCT` | When specified, removes duplicate values from `<expr>` before calculating the sum. |
+## Parameters 
+| Parameter | Description                                     | Supported input types|
+| :--------- | :----------------------------------------------|:-----------------------|
+| `<expression>`   | The expression used to calculate the sum | `<column>` names or `<expression>`s that evaluate to numeric values |
+| `DISTINCT` | When specified, removes duplicate values from `<expresssion>` before calculating the sum | `<column>` |
 
 ## Return Types
 This function returns `NUMERIC` types. 

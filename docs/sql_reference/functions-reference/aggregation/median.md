@@ -15,15 +15,15 @@ Calculates an approximate median for a given column.
 <!-- {: .no_toc} -->
 
 ```sql
-MEDIAN(<col>)
+MEDIAN(<column>)
 ```
-
-| Parameter | Description                                                                                                        |
-| :---------| :------------------------------------------------------------------------------------------------------------------|
-| `<col>`   | The column used to calculate the median value. This column can consist of numeric data types or DATE and TIMESTAMP.|
+## Parameters 
+| Parameter | Description                                       | Supported input types                        |
+| :---------| :-------------------------------------------------| :--------------------------------------------|
+| `<column>`   | The column used to calculate the median value | `<column>` of `DATE` or `TIMESTAMP` data types |
 
 ## Return Types
-The return types for this function includes `NUMERIC`, `REAL`, `DOUBLE PRECISION`, `DATE`, and `TIMESTAMP`. 
+`NUMERIC`, `REAL`, `DOUBLE PRECISION`, `DATE`, `TIMESTAMP`
 
 ## Example
 <!-- {: .no_toc} -->

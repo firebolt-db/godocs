@@ -17,13 +17,13 @@ Calculates the maximum value of an expression across all input values.
 ```sql
 MAX(<expression>)
 ```
-
-| Parameter       | Description                                                                                                                                        |
-| :---------------| :--------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<expression>`  | The expression used to calculate the maximum values. Valid values for the expression include a column name or functions that return a column name. |
+## Parameter 
+| Parameter | Description                                               |Supported input types                                        |
+| :--------- | :--------------------------------------------------------|:------------------------------------------------------------|
+| `<expression>`  | The expression used to calculate the maximum values | `<column>` names, or a `<function>` that returns a column name | 
 
 ## Return Types
-The return types for this function includes `CHAR`, `NUMERIC`, `REAL`, and `DOUBLE PRECISION`. 
+`CHAR`, `NUMERIC`, `REAL`, `DOUBLE PRECISION` 
 
 ## Example
 {: .no_toc}

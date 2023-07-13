@@ -18,21 +18,15 @@ Counts the number of rows or not NULL values.
 COUNT([ DISTINCT ] <expr>)
 ```
 
-| Parameter | Description                                                                                                                                                                                                           |
-| :--------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `<expr>`  | Valid values for the expression include column names or functions that return a column name. When `DISTINCT` is being used, counts only the unique number of rows with no `NULL` values. |
-
-
-`COUNT(*)` returns a total count of all rows in the table, while `COUNT(<column_name>)` returns a count of non-NULL rows in the specified `<column_name>`.
+| Parameter       | Description                   | Supported input types |
+| :---------      | :-----------------------------| :---------------------|
+| `<expression>`  | Rows that will be counted by the function | `<column>` names or `<function>`s that return a column name | 
 
 {: .note}
 > By default, `COUNT(DISTINCT)` returns approximate results. If you require a precise result (with a performance penalty), please contact Firebolt Support through the Help menu support form. 
 
 ## Return Types
-This function returns `NUMERIC` types. 
-
-## Return Types
-This function returns `NUMERIC` types. 
+`NUMERIC`
 
 ## Example
 For this example, see the following table `tournaments`: 

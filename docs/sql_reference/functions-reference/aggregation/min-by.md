@@ -9,7 +9,7 @@ parent: Aggregation functions
 
 # MIN\_BY
 
-The `MIN_BY` function returns the value of `arg` column at the row in which the `val` column is minimal.
+The `MIN_BY` function returns the value of `expression` column at the row in which the `value` column is minimal.
 
 If there is more than one minimal values in `val`, then the first will be used.
 
@@ -20,13 +20,13 @@ If there is more than one minimal values in `val`, then the first will be used.
 MIN_BY(arg, val)
 ```
 
-| Parameter | Description                                    |
-| :--------- | :---------------------------------------------|
-| `<arg>`   | The column from which the value is returned.   |
-| `<val>`   | The column that is search for a minimum value. |
+| Parameter | Description                                        | Supported input Type |
+| :--------- | :-------------------------------------------------|:---------------------|
+| `<expression>`   | The column from which the value is returned | `<column>`           |
+| `<value>`   | The column that is search for a minimum value    | `<column>`           |
 
 ## Return Types
-The return types for this function includes `CHAR`, `NUMERIC`, `REAL`, and `DOUBLE PRECISION`. 
+`CHAR`, `NUMERIC`, `REAL`, `DOUBLE PRECISION`
 
 ## Example
 {: .no_toc}
@@ -42,7 +42,7 @@ For this example,  see the following table, `tournaments`:
 | The Circuit Championship      | 9739              |
 
 
-In this example below, `MIN_BY` is used to find the tournament  with the lowest total prize dollars.
+In this example below, `MIN_BY` is used to find the tournament with the lowest total prize dollars. The function evaluates the `totalprizedollars` column for values and returns an entry from the `name` column. 
 
 ```sql
 SELECT
