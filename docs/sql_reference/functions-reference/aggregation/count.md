@@ -32,7 +32,7 @@ Valid values for the input expression include column names or functions that ret
 > By default, `COUNT(DISTINCT)` returns approximate results. If you require a precise result (with a performance penalty), please contact Firebolt Support through the Help menu support form. 
 
 ## Return Types
-This function returns `NUMERIC` types. 
+`NUMERIC`
 
 ## Example
 For this example, see the following table `tournaments`: 

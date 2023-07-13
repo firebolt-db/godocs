@@ -27,7 +27,7 @@ MEDIAN(<value>)
 
 
 ## Return Types
-The return types for this function includes `NUMERIC`, `REAL`, `DOUBLE PRECISION`, `DATE`, and `TIMESTAMP`. 
+`NUMERIC`, `REAL`, `DOUBLE PRECISION`, `DATE`, `TIMESTAMP`
 
 ## Example
 {: .no_toc}
