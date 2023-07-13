@@ -19,12 +19,12 @@ LENGTH(<string>)
 ## Parameters 
 {: .no_toc}
 
-| Parameter  | Description                                |
-| :---------- | :------------------------------------------ |
-| `<string>` | The string for which to return the length. |
+| Parameter      | Description                                  | Supported input types |
+| :--------------| :--------------------------------------------|:----------------------|
+| `<expression>` | The string for which to return the length    | Any string            |
 
 ## Return Types
-`NUMERIC` 
+`INTEGER` 
 
 ## Example
 {: .no_toc}
