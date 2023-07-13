@@ -26,14 +26,14 @@ CONCAT( <expression>[, ...n] );
 
 | Parameter | Description                         |Supported input types |
 | :--------- | :----------------------------------- | :---------------------|
-| `<expression>[, ...n]` | The string(s) to be concatenated. | `TEXT` |
+| `<expression>[, ...n]` | The string(s) to be concatenated. | Any string |
 
 NULL inputs to the `CONCAT` function are treated as empty strings and ignored. When all inputs are NULL, the result will be an empty string.
 
 When using `||`, any NULL input results in a NULL output.
 
 ## Return Types
-This function returns the `TEXT` type. 
+`TEXT`
 
 ## Example
 {: .no_toc}

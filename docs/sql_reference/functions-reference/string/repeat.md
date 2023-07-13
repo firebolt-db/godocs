@@ -14,20 +14,28 @@ This function repeats the provided string a requested number of times.
 {: .no_toc}
 
 ```sql
-REPEAT(<string>, <repeating_number>)
+REPEAT(<expression>, <value>)
 ```
 
-| Parameter            | Description                                                                                                    |
-| :-------------------- | :-------------------------------------------------------------------------------------------------------------- |
-| `<string>`           | The string to be repeated.                                                                                     |
-| `<repeating_number>` | The number of needed repetitions. The minimum valid repeating number is `0`, which results in an empty string. |
+## Parameters 
+{: .no_toc}
+
+| Parameter            | Description                  | Supported input types | 
+| :-------------------- | :---------------------------|:----------------------|
+| `<expression>`           | The string to be repeated | Any string               |                                                                     |
+| `<value>` | The number of needed repetitions | Any integer greater than 0 |
+
+## Return types 
+`TEXT`
 
 ## Example
 {: .no_toc}
 
+The following example repeats the author of a a video game 5 times. 
+
 ```sql
 SELECT
-	REPEAT('repeat 3 times ' , 3);
+	REPEAT('UFG Inc.' , 5);
 ```
 
-**Returns**: `repeat 3 times repeat 3 times repeat 3 times`
+**Returns**: `UFG Inc. UFG Inc. UFG Inc. UFG Inc. UFG Inc.`
