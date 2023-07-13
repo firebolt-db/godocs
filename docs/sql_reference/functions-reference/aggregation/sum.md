@@ -25,7 +25,7 @@ SUM ([DISTINCT] <expr>)
 | `DISTINCT` | When specified, removes duplicate values from `<expresssion>` before calculating the sum | `<column>` |
 
 ## Return Types
-This function returns `NUMERIC` types. 
+`NUMERIC` 
 
 ## Example
 

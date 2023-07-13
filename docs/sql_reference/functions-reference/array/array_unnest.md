@@ -18,10 +18,11 @@ This function "unfolds" a given array by creating a column result containing the
 ```sql
 ARRAY_UNNEST(<arr>)
 ```
-
+## Parameters 
+{: .no_toc}
 | Parameter | Description               |
 | :--------- | :------------------------- |
-| `<arr>`   | The array to be unfolded. |
+| `<array>`   | The array to be unfolded. |
 
 ## Example
 {: .no_toc}

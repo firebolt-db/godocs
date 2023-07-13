@@ -16,17 +16,23 @@ Encodes a string into Base64 notation.
 ```sql
 BASE64_ENCODE(<expression>)
 ```
+## Parameters
+{: .no_toc}
+| Parameter | Description                                                                 | Supported input types| 
+| :--------- | :--------------------------------------------------------------------------|:----------|
+| `<expression>`  | Any expression to be encoded | Any expression that evaluates to a `TEXT` data type |
 
-| Parameter | Description                                                                 |
-| :--------- | :--------------------------------------------------------------------------- |
-| `<expression>`  | Any expression that evaluates to a `TEXT` data type |
+### Return Types
+{: .no_toc}
+`VARCHAT(8000)`, `VARCHAR(MAX)`
 
 ## Example
 {: .no_toc}
+The following examples encodes a video game user's nickname to Base64 notation: 
 
 ```sql
 SELECT
-	BASE64_ENCODE('Hello World');
+	BASE64_ENCODE('esimpson');
 ```
 
-**Returns**: `SGVsbG8gV29ybGQ=`
+**Returns**: `SZXNpbXBzb24=`
