@@ -23,7 +23,7 @@ Allows matching of strings based on comparison to a pattern. `ILIKE` is normally
 | `<pattern>` | Specifies the pattern to match (case-insensitive). | Any string. SQL wildcards are supported: <br> <br>* Use an underscore (`_`) to match any single character<br>* Use a percent sign (`%`) to match any number of any characters, including no characters. |
 
 ## Return Types
-
+`TEXT`
 
 ## Example
 

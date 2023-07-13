@@ -16,13 +16,15 @@ Returns an array containing only the _unique_ elements of the given array. If th
 ```sql
 ARRAY_DISTINCT(<arr>)
 ```
+## Parameters 
+{: .no_toc}
 
-| Parameter | Description                                  |
-| :--------- | :-------------------------------------------- |
-| `<arr>`   | The array to be analyzed for unique members. |
+| Parameter | Description                                  | Supported input types 
+| :--------- | :-------------------------------------------- | :----------|
+| `<array>`   | The array to be analyzed for unique members | `<array>` |
 
 ## Return Types
-The return type for this function is `ARRAY`.
+`ARRAY`
 
 ## Example
 {: .no_toc}

@@ -19,7 +19,8 @@ If there is more than one minimal values in `val`, then the first will be used.
 ```sql
 MIN_BY(arg, val)
 ```
-
+## Parameters 
+{: .no_toc}
 | Parameter | Description                                        | Supported input Type |
 | :--------- | :-------------------------------------------------|:---------------------|
 | `<expression>`   | The column from which the value is returned | `<column>`           |

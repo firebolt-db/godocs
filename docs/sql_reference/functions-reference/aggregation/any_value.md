@@ -17,6 +17,8 @@ Returns a single arbitrary value from the specified column. This function ignore
 ```SQL
 ANY_VALUE(<col>)
 ```
+## Parameters 
+{: .no_toc}
 
 | Argument | Description                                    | Supported input Type | 
 | :-------- | :-------------------------------------------- | :--------- |

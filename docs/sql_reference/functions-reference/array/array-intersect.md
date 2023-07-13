@@ -17,9 +17,12 @@ Evaluates all arrays that are provided as arguments and returns an array of any 
 ARRAY_INTERSECT(<arr>)
 ```
 
-| Parameter | Description                                            |
-| :--------- | :------------------------------------------------------ |
-| `<arr>`   | A series of arrays to be analyzed for mutual elements. |
+## Parameters 
+{: .no_toc} 
+
+| Parameter | Description                                            | Supported input types | 
+| :--------- | :------------------------------------------------------ | :-----|
+| `<array>`   | A series of arrays to be analyzed for mutual elements. | `<array>` |
 
 ## Examples
 {: .no_toc}

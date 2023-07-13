@@ -16,10 +16,11 @@ This function returns a string of the same size as the original string, with the
 ```sql
 REVERSE(<string>)
 ```
-
+## Parameters 
+{: .no_toc}
 | Parameter  | Description                | Supported Input Types |
 | :---------- | :--------------------------|:---------------------|
-| `<string>` | The string to be reversed. |
+| `<string>` | The string to be reversed. | `<TEXT>` | 
 
 ## Example
 {: .no_toc}
@@ -30,4 +31,4 @@ SELECT
 	REVERSE('esimpson') AS username; 
 ```
 
-**Returns**: `'dcba'`
+**Returns**: `'nospmise'`

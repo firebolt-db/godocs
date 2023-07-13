@@ -16,14 +16,15 @@ Extracts fragments within a string that match a specified regex pattern. String 
 ```sql
 EXTRACT_ALL( <expr>, '<regex_pattern>' )
 ```
-
+## Parameters 
+{: .no_toc}
 | Parameter         | Description                                                                 |
 | :----------------- | :--------------------------------------------------------------------------- |
-| `<expr>`          | Any expression that evaluates to a `TEXT` data type |
-| `<regex_pattern>` | An re2 regular expression used for matching.                                |
+| `<expression>`          | Any expression that evaluates to a `TEXT` data type |
+| `<regex_pattern>` | An re2 regular expression used for matching                                |
 
 ## Return Types
-This function returns an `ARRAY`. 
+`ARRAY` 
 
 ## Example
 {: .no_toc}

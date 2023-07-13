@@ -17,6 +17,8 @@ Calculates the sum of an expression.
 SUM ([DISTINCT] <expr>)
 ```
 ## Parameters 
+{: .no_toc} 
+
 | Parameter | Description                                     | Supported input types|
 | :--------- | :----------------------------------------------|:-----------------------|
 | `<expression>`   | The expression used to calculate the sum | `<column>` names or `<expression>`s that evaluate to numeric values |

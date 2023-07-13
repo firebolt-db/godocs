@@ -17,6 +17,8 @@ Calculates the minimum value of an expression across all input values.
 ```sql
 MIN(<expression>)
 ```
+## Parameters 
+{: .no_toc}
 
 | Parameter | Description                                               |Supported input types                                        |
 | :--------- | :--------------------------------------------------------|:------------------------------------------------------------|

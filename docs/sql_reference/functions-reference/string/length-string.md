@@ -16,13 +16,15 @@ Calculates the string length.
 ```sql
 LENGTH(<string>)
 ```
+## Parameters 
+{: .no_toc}
 
 | Parameter  | Description                                |
 | :---------- | :------------------------------------------ |
 | `<string>` | The string for which to return the length. |
 
 ## Return Types
-This function returns `NUMERIC` types. 
+`NUMERIC` 
 
 ## Example
 {: .no_toc}

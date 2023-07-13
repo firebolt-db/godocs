@@ -17,11 +17,12 @@ Returns an array of the same size as the original array, with the elements in re
 ARRAY_REVERSE(<arr>)
 ```
 ## Return Types
-The return type for this function is `ARRAY`.
+`ARRAY`
 
-| Parameter | Description               |
-| :--------- | :------------------------- |
-| `<arr>`   | The array to be reversed. |
+## Parameters 
+| Parameter | Description               | Supported input types |
+| :--------- | :------------------------- | :--------| 
+| `<array>`   | The array to be reversed | `<array>` |
 
 ## Example
 {: .no_toc}

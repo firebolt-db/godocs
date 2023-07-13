@@ -17,7 +17,8 @@ Calculates the maximum value of an expression across all input values.
 ```sql
 MAX(<expression>)
 ```
-## Parameter 
+## Parameters 
+{: .no_toc}
 | Parameter | Description                                               |Supported input types                                        |
 | :--------- | :--------------------------------------------------------|:------------------------------------------------------------|
 | `<expression>`  | The expression used to calculate the maximum values | `<column>` names, or a `<function>` that returns a column name | 

@@ -18,6 +18,8 @@ Calculates an approximate median for a given column.
 MEDIAN(<column>)
 ```
 ## Parameters 
+{: .no_toc}
+
 | Parameter | Description                                       | Supported input types                        |
 | :---------| :-------------------------------------------------| :--------------------------------------------|
 | `<column>`   | The column used to calculate the median value | `<column>` of `DATE` or `TIMESTAMP` data types |
@@ -26,7 +28,7 @@ MEDIAN(<column>)
 `NUMERIC`, `REAL`, `DOUBLE PRECISION`, `DATE`, `TIMESTAMP`
 
 ## Example
-<!-- {: .no_toc} -->
+{: .no_toc}
 For this example,  see the following table, `tournaments`:
 
 | name                          | totalprizedollars |

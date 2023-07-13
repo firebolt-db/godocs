@@ -18,7 +18,8 @@ Returns the maximum element from all the array elements in each group.
 ```sql
 ARRAY_MAX_GLOBAL(<array>)
 ```
-
+## Parameters 
+{: .no_toc}
 | Parameter | Description                                                              | Supported input types   |
 | :--------- | :-----------------------------------------------------------------------|:------------------------|
 | `<array>`  | The function returns the maximum element from the provided array column | Any `<array>` column    |
@@ -27,7 +28,7 @@ ARRAY_MAX_GLOBAL(<array>)
 <!-- Create an example that uses the customer dataset -->
 
 ## Return Types 
-`<array>`
+`ARRAY`
 
 ## Example
 {: .no_toc}

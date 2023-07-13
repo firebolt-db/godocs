@@ -17,12 +17,15 @@ Combines one or more arrays that are passed as arguments.
 ARRAY_CONCAT(<arr1> [, ...n])
 ```
 
-| Parameter        | Description                                                                            |
-| :---------------- | :-------------------------------------------------------------------------------------- |
-| `<arr> [, ...n]` | The arrays to be combined. If only one array is given, an identical array is returned. |
+## Parameters 
+{: .no_toc} 
+
+| Parameter        | Description                                                                            | Supported input types |
+| :---------------- | :-------------------------------------------------------------------------------------- | :----------|
+| `<array> [, ...n]` | The arrays to be combined. If only one array is given, an identical array is returned. | `<array>`
 
 ## Return Types
-The return type for this function is `ARRAY`.
+`ARRAY`
 
 ## Example
 {: .no_toc}

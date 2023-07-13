@@ -17,7 +17,8 @@ Counts the number of rows or not NULL values.
 ```sql
 COUNT([ DISTINCT ] <expr>)
 ```
-
+## Parameters 
+{: .no_toc}
 | Parameter       | Description                   | Supported input types |
 | :---------      | :-----------------------------| :---------------------|
 | `<expression>`  | Rows that will be counted by the function | `<column>` names or `<function>`s that return a column name | 
