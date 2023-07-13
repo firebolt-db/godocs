@@ -21,6 +21,8 @@ CONCAT( <expression>[, ...n] );
 ```sql
 <expression> || <expression2> || [ ...n]
 ```
+## Parameters 
+{: .no_toc}
 
 | Parameter | Description                         |Supported input types |
 | :--------- | :----------------------------------- | :---------------------|

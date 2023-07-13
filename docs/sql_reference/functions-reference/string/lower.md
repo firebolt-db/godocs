@@ -16,13 +16,15 @@ Converts the string to a lowercase format.
 ```sql
 LOWER(<string>)
 ```
+## Parameters 
+{: .no_toc}
 
 | Parameter  | Description                 |
 | :---------- | :--------------------------- |
 | `<string>` | The string to be converted. |
 
 ## Return Type
-The return type for this function includes `CHAR`. 
+`CHAR` 
 
 ## Example
 {: .no_toc}

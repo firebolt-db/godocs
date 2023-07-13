@@ -17,6 +17,8 @@ Calculates the average of an expression.
 ```sql
 AVG(<value>)
 ```
+## Parameters 
+{: .no_toc}
 
 ## Parameters
 {: .no_toc}

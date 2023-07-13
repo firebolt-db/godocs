@@ -18,6 +18,8 @@ Returns a single arbitrary value from the specified column.
 ```SQL
 ANY_VALUE(<expression>)
 ```
+## Parameters 
+{: .no_toc}
 
 ## Parameters
 {: .no_toc}

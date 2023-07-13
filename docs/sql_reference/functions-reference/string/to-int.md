@@ -16,13 +16,15 @@ Converts a string to a numeric `INTEGER` data type.
 ```sql
 TO_INT(<expression>)
 ```
+## Parameters 
+{: .no_toc}
 
 | Parameter | Description                                                                                              |
 | :--------- | :-------------------------------------------------------------------------------------------------------- |
-| `<expression>`  | A numeric data type expression that resolves to a `TEXT` data type. |
+| `<expression>`  | A numeric data type expression that resolves to a `TEXT` data type |
 
 ## Return Types
-This function returns `NUMERIC` types. 
+`NUMERIC` 
 
 ## Example
 {: .no_toc}

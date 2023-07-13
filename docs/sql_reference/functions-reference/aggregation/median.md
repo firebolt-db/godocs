@@ -31,7 +31,6 @@ MEDIAN(<value>)
 
 ## Example
 {: .no_toc}
-
 For this example,  see the following table, `tournaments`:
 
 | name                          | totalprizedollars |

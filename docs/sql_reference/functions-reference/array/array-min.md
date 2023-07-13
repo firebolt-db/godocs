@@ -16,13 +16,13 @@ Returns the minimum element in `<arr>`.
 ```sql
 ARRAY_MIN(<arr>)
 ```
-
-| Parameter | Description                                  |
-| :--------- | :-------------------------------------------- |
-| `<arr>`   | The array or array-type column to be checked |
+## Parameters 
+| Parameter | Description                                  | Supported input types | 
+| :--------- | :-------------------------------------------- | :----------|
+| `<array>`   | The array or array-type column to be checked | `<array>` | 
 
 ## Return Types
-The function includes returned `NUMERIC` types.  
+`NUMERIC` 
 
 ## Example
 {: .no_toc}

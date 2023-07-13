@@ -16,14 +16,15 @@ This function splits a given string by a given separator and returns the result 
 ```sql
 SPLIT( <delimiter>, <string> )
 ```
-
+## Parameters 
+{: .no_toc}
 | Parameter     | Description                           |
 | :------------- | :------------------------------------- |
 | `<delimiter>` | The separator to split the string by. |
 | `<string>`    | The string to split.                  |
 
 ## Return Types
-This function returns an `ARRAY`.
+`ARRAY`
 
 ## Example
 {: .no_toc}

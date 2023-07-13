@@ -17,12 +17,15 @@ Returns the number of elements in the array typed column accumulated over all ro
 ARRAY_COUNT_GLOBAL(<array>)
 ```
 
-| Parameter   | Description                                                      |
-| :----------- | :---------------------------------------------------------------- |
-| `<array>` | The array column over which the function will count the elements. |
+## Parameters 
+{: .no_toc}
+
+| Parameter   | Description                                                      | Supported input types 
+| :----------- | :---------------------------------------------------------------- |:-------|
+| `<array>` | The array column over which the function will count the elements | `<array>` |
 
 ## Return Types
-The function includes returned `NUMERIC` types.  
+`NUMERIC` 
 
 ## Example
 {: .no_toc}

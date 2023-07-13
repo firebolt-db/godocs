@@ -26,7 +26,11 @@ Allows matching of strings based on comparison to a pattern. `ILIKE` is normally
 | `<pattern>` | Specifies the pattern to match (case-insensitive). | Any string. SQL wildcards are supported: <br> <br>* Use an underscore (`_`) to match any single character<br>* Use a percent sign (`%`) to match any number of any characters, including no characters. |
 
 ## Return Types
+<<<<<<< HEAD
 `TEXT ARRAY`
+=======
+`TEXT`
+>>>>>>> 7790144 (more edits to array and string functions)
 
 ## Example
 
