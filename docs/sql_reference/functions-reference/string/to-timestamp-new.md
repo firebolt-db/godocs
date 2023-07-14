@@ -26,7 +26,7 @@ The functions returns the new date data type `TIMESTAMPTZ`. If you seek for the 
 ```sql
 TO_TIMESTAMP(<expression> [,'<format>'])
 ```
-
+## Parameters
 | Parameter      | Description                                                                                                                                                                                                                                                                                                                                | Supported input types |
 | :------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------- |
 | `<expression>` | The text to convert to a timestamp with time zone. If no optional `<format>` argument is given that can be use to parse the `<expression>`, the following format is required: any supported date format directly followed by `( \|T)[H]H:[m]m:[S]S[.F]`. (For supported date formats see [TO_DATE](../functions-reference/to-date-new.md)) | `TEXT`                |
