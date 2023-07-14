@@ -14,15 +14,15 @@ Converts the string to uppercase format.
 {: .no_toc}
 
 ```sql
-UPPER(<string>)
+UPPER(<expression>)
 ```
 
-| Parameter  | Description                                             |
-| :---------- | :------------------------------------------------------- |
-| `<string>` | The string to be converted to all uppercase characters. |
+| Parameter  | Description                                             | Supported input types |
+| :---------- | :------------------------------------------------------- |:---------|
+| `<expression>` | The string to be converted to all uppercase characters. | Any data type that is convertible to `VARCHAR`
 
 ## Return Type
-The return type for this function includes `CHAR`. 
+`VARCHAR` 
 
 ## Example
 {: .no_toc}

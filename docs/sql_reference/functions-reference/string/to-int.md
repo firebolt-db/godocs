@@ -19,9 +19,9 @@ TO_INT(<expression>)
 ## Parameters 
 {: .no_toc}
 
-| Parameter | Description                                                                                              |
-| :--------- | :-------------------------------------------------------------------------------------------------------- |
-| `<expression>`  | A numeric data type expression that resolves to a `TEXT` data type |
+| Parameter | Description                                                                                              | Supported Input Types | 
+| :--------- | :-------------------------------------------------------------------------------------------------------- | :-----------|
+| `<expression>`  | The expression to become an integer | A numeric data type expression that resolves to a `TEXT` data type |
 
 ## Return Types
 `NUMERIC` 
