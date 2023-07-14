@@ -12,21 +12,26 @@ parent: Aggregation functions
 Calculates an approximate median for a given column.
 
 ## Syntax
-<!-- {: .no_toc} -->
+{: .no_toc}
 
 ```sql
-MEDIAN(<col>)
+MEDIAN(<value>)
 ```
 
-| Parameter | Description                                                                                                        |
-| :---------| :------------------------------------------------------------------------------------------------------------------|
-| `<col>`   | The column used to calculate the median value. This column can consist of numeric data types or DATE and TIMESTAMP.|
+## Parameters
+{: .no_toc}
+
+| Parameter | Description                         |Supported input types |
+| :--------- | :----------------------------------- | :---------------------|
+| `<value>`   | The expression used to calculate the median value | Any numeric or date/timestamp type |
+
 
 ## Return Types
 The return types for this function includes `NUMERIC`, `REAL`, `DOUBLE PRECISION`, `DATE`, and `TIMESTAMP`. 
 
 ## Example
-<!-- {: .no_toc} -->
+{: .no_toc}
+
 For this example,  see the following table, `tournaments`:
 
 | name                          | totalprizedollars |

@@ -33,7 +33,7 @@ Same as input type
 
 ## Example
 {: .no_toc}
-For this example,  see the following table, `tournaments`:
+For this example, see the following table, `tournaments`:
 
 | name                          | totalprizedollars |
 | :-----------------------------| :-----------------| 
