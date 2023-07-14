@@ -18,8 +18,11 @@ Calculates the average of an expression.
 AVG(<value>)
 ```
 
-| Parameter | Description                                  | Supported input types                                                                                                                                  |
-| :---------| :--------------------------------------------|:-----------------------------------------------|
+## Parameters
+{: .no_toc}
+
+| Parameter | Description                         |Supported input types |
+| :--------- | :----------------------------------- | :---------------------|
 | `<value>`  | The expression used to calculate the average | Any numeric type | 
 
 Valid values for the expression include column names or functions that return a column name (or columns) that contain numeric values.
@@ -27,7 +30,8 @@ Valid values for the expression include column names or functions that return a 
 The `AVG()` aggregation function ignores rows with `NULL` values. For example, an `AVG` from 3 rows containing `1`, `2`, and `NULL` returns `1.5` because the `NULL` row is not counted. To calculate an average that includes `NULL`, use `SUM(COLUMN)/COUNT(*)`.
 
 ## Return Types
-`NUMERIC`, `REAL`, `DOUBLE PRECISION`
+* `NUMERIC` if the input is type `INTEGER`, `BIGINT` or `NUMERIC`
+* `DOUBLE PRECISION` if the input is type `REAL` or `DOUBLE PRECISION`
 
 ## Example
 
