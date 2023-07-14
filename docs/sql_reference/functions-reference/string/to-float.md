@@ -19,10 +19,10 @@ TO_FLOAT(<expression>)
 ## Parameters 
 | Parameter | Description                                                                                              | Supported input types |
 | :--------- | :-------------------------------------------------------------------------------------------------------- | :----------|
-| `<expression>`  | An expression to become a float | Any numeric data type or numeric characters that resolve to a `FLOAT` data type. |
+| `<expression>`  | An expression to become a float | Any numeric data type or numeric characters that resolve to a `TEXT` data type. |
 
 ## Return Types 
-`FLOAT` 
+`REAL` 
 
 ## Example
 {: .no_toc}

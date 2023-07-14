@@ -20,7 +20,10 @@ REVERSE(<string>)
 {: .no_toc}
 | Parameter  | Description                | Supported Input Types |
 | :---------- | :--------------------------|:---------------------|
-| `<string>` | The string to be reversed. | `<TEXT>` | 
+| `<expression>` | The string to be reversed. | `<TEXT>` | 
+
+## Return Types
+`TEXT`
 
 ## Example
 {: .no_toc}

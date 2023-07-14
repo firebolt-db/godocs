@@ -15,39 +15,51 @@ For more information and the sample data used in the example below, please refer
 ## Syntax
 {: .no_toc}
 
-The example below uses the following table `T`:
-
-| Category | vals        |
-| :-------- | :----------- |
-| a        | \[1,3,4]    |
-| b        | \[3,5,6,7]  |
-| a        | \[30,50,60] |
-
 ```sql
 ARRAY_MIN_GLOBAL(<arr>)
 ```
 
-| Parameter | Description                                                              |
-| :--------- | :------------------------------------------------------------------------ |
-| `<arr>`   | The array column from which the function will return the minimal element |
+| Parameter | Description                                                              | Supported input types |
+| :--------- | :------------------------------------------------------------------------ |: ------------------|
+| `<array>`   | The array column from which the function will return the minimal element | Array column       |
+
+## Return Types
+`NUMERIC`
 
 ## Example
 {: .no_toc}
 
+The example below uses the following table `Scores`:
+
+| nickname        | recent_scores |
+| :---------------| :-------------|
+| steven70        | \[1,3,4]      |
+| sanderserin     | \[3,5,6,7]    |
+| esimpson        | \[30,50,60]   |
+
+<!-- | Parameter | Description                                                               |
+| :--------- | :------------------------------------------------------------------------- |
+| `<arr>`   | The function returns the maximum element from the provided array column | -->
+
+In this example, the function calculates the minimum score earned by each player's recent scores. For example, the user `esimpson` received a minimum score of `30`, so this value is returned as `min_score`. 
+
 ```sql
 SELECT
-	Category,
-	ARRAY_MIN_GLOBAL(vals) AS mn
+	nickname,
+	ARRAY_MAX_GLOBAL(recent_scores) AS min_score
 FROM
-	T
+	Scores
 GROUP BY
-	Category;
+	nickname;
 ```
 
 **Returns**:
 
-| category | sm |
-| :-------- | :-- |
-| a        | 1  |
-| b        | 3  |
-| c        | 30 |
+| nickname         | min_score     |
+| :----------------| :------------ |
+| steven70         | 1             |
+| sanderserin      | 3             |
+| esimpson         | 30            |
+
+
+

@@ -16,14 +16,17 @@ Converts a string to a numeric `DOUBLE PRECISION` data type.
 ```sql
 TO_DOUBLE(<expression>)
 ```
+## Parameters 
+| Parameter       | Description                      | Supported input types                                                           | 
+| :---------------| :--------------------------------|:--------------------------------------------------------------------------------|
+| `<expression>`  | An expression to become a double | Any numeric data type or numeric characters that resolve to a `TEXT` data type. |
 
-| Parameter | Description                                                                                              |
-| :--------- | :-------------------------------------------------------------------------------------------------------- |
-| `<expression>`  | A numeric data type or numeric characters that resolve to a `TEXT` data type. |
+## Return Types
+`DOUBLE PRECISION`
 
 ## Example
 {: .no_toc}
-
+The following example takes the input of `100` and returns the value as a `DOUBLE`.
 ```sql
 SELECT
 	TO_DOUBLE('100');

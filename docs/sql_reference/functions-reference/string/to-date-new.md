@@ -23,7 +23,7 @@ Converts a string to `DATE` type using format.
 ```sql
 TO_DATE(<expression> [,'<format>'])
 ```
-
+## Parameters
 | Parameter      | Description                                                                                                                                                                                                                                                                                                                                                                         | Supported input types |
 | :------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------- |
 | `<expression>` | The text to convert to a date. If no optional `<format>` argument is given that can be use to parse the `<expression>`, the following formats are supported: `'YYYY-M[M]-D[D]'` (e.g., `2023-3-28`), `'YYYY-month-D[D]'` (e.g., `2023-FEB-12`), `'month-D[D]-YYYY'` (e.g., `Dec-01-2023`), `'D[D]-month-YYYY'` (e.g., `3-jun-2023`), and `'month D[D], YYYY'` (e.g., `august 12, 2023`) | `TEXT`                |
@@ -51,6 +51,9 @@ Accepted `<format>` patterns include the following specifications:
 - If the year format specification is `'YYY'`, `'YY'`, or `'Y'` and the supplied year is less than four digits, the year will be adjusted to be nearest to the year 2020, (e.g., `80` becomes `1980`).
 - More specification, such as `'HH'`, `'MI'`, or, `'TZH'`, are accepted but ignored for purposes of computing the `DATE` result.
 - Modifiers (e.g., `'FM'`) are not supported.
+
+## Return Types 
+`DATE`
 
 ## Examples
 

@@ -15,39 +15,48 @@ For more information and the sample data used in the example below, please refer
 ## Syntax
 {: .no_toc}
 
-The example below uses the following table `T`:
-
-| Category | vals        |
-| :-------- | :----------- |
-| a        | \[1,3,4]    |
-| b        | \[3,5,6,7]  |
-| c        | \[30,50,60] |
-
 ```sql
-ARRAY_SUM_GLOBAL(<arr>)
+ARRAY_SUM_GLOBAL(<array>)
 ```
+## Parameters
+| Parameter | Description                                                    | Supported input types | 
+| :--------- | :-------------------------------------------------------------- | :-------|
+| `<array>`   | The array column over which the function will sum the elements | Any `<array>` column |
 
-| Parameter | Description                                                    |
-| :--------- | :-------------------------------------------------------------- |
-| `<arr>`   | The array column over which the function will sum the elements |
+## Return Types
+`ARRAY`
 
 ## Example
 {: .no_toc}
 
+The example below uses the following table `Scores`:
+
+| nickname        | recent_scores |
+| :---------------| :-------------|
+| steven70        | \[1,3,4]      |
+| sanderserin     | \[3,5,6,7]    |
+| esimpson        | \[30,50,60]   |
+
+<!-- | Parameter | Description                                                               |
+| :--------- | :------------------------------------------------------------------------- |
+| `<arr>`   | The function returns the maximum element from the provided array column | -->
+
+In this example, the function calculates the sum of each player's recent scores. For example, the user `esimpson` received a sum of `140` points, so this value is returned in the `score_sum` column. 
+
 ```sql
 SELECT
-	Category,
-	ARRAY_SUM_GLOBAL(vals) AS sm
+	nickname,
+	ARRAY_MAX_GLOBAL(recent_scores) AS max_score
 FROM
-	T
+	Scores
 GROUP BY
-	Category;
+	nickname;
 ```
 
 **Returns**:
 
-| category | sm  |
-| :-------- | :--- |
-| a        | 8   |
-| b        | 21  |
-| c        | 140 |
+| nickname         | score_sum     |
+| :----------------| :------------ |
+| steven70         | 8             |
+| sanderserin      | 21            |
+| esimpson         | 140           |
