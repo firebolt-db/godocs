@@ -21,7 +21,7 @@ ACOS(<value>)
 ## Parameters 
 | Parameter | Description                                                                                                         | Supported input types |
 | :--------- | :------------------------------------------------------------------------------------------------------------------- | :-------------------|
-| `<value>`   | The number that the arc cosine value function is applied to | Column names, functions that return a column with numeric values, and constant numeric values |
+| `<value>`   | The number that the arc cosine value function is applied to | `DOUBLE PRECISION` |
 
 ## Return Types 
 `DOUBLE PRECISION`

@@ -9,22 +9,25 @@ great_grand_parent: SQL reference
 
 # ASIN
 
-Calculates the arc sinus. `ASIN` returns `NULL` if `<val>` is higher than 1.
+Calculates the arc sinus. `ASIN` returns `NULL` if `<value>` is higher than 1.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-ASIN(<val>)
+ASIN(<value>)
 ```
 
-| Parameter | Description                                                                                                         |
-| :--------- | :------------------------------------------------------------------------------------------------------------------- |
-| `<val>`   | Valid values include column names, functions that return a column with numeric values, and constant numeric values. |
+| Parameter | Description                                                                                                         | Supported input type | 
+| :--------- | :------------------------------------------------------------------------------------------------------------------- | :-----------| 
+| `<value>`   | The value which the `ASIN` function is applied to | `DOUBLE_PRECISION` |
+
+## Return Types 
+`DOUBLE_PRECISION`
 
 ## Example
 {: .no_toc}
-
+The following example calculates the arc sine of `1.0`:
 ```sql
 SELECT
     ASIN(1.0);

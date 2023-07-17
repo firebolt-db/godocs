@@ -20,10 +20,10 @@ ABS(<value>)
 ## Parameters 
 | Parameter | Description                                                                                                         | Supported input types |
 | :--------- | :------------------------------------------------------------------------------------------------------------------- | :-------------------|
-| `<value>`   | The number that the absolute value function is applied to | Column names, functions that return a column with numeric values, and constant numeric values |
+| `<numeric_type>`   | The number that the absolute value function is applied to | Any `NUMERIC TYPE` |
 
 ## Return Types 
-Same as input type
+`NUMERIC_TYPE`
 
 ## Example
 {: .no_toc}
