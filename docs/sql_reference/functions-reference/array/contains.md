@@ -43,6 +43,6 @@ SELECT
 	CONTAINS([ 'sabrina21', 'rileyjon', 'ywilson'] , 'danielle53') AS players;
 ```
 
-**Returns**: `0`
+**Returns**: `0` 
 
 `0` is returned as "danielle53" is not part of the `players` array.
