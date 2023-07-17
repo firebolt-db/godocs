@@ -8,7 +8,7 @@ parent: Array functions
 
 # ARRAY\_MAX
 
-Returns the maximum element in an array `<array>`.
+Returns the maximum element in an array.
 
 ## Syntax
 {: .no_toc}
@@ -17,9 +17,11 @@ Returns the maximum element in an array `<array>`.
 ARRAY_MAX(<array>)
 ```
 
-## Parameters 
-| Parameter | Description                                  | Supported input types |
-| :--------- | :-------------------------------------------- | :-------|
+## Parameters
+{: .no_toc}
+
+| Parameter | Description                         |Supported input types |
+| :--------- | :----------------------------------- | :---------------------|
 | `<array>`   | The array or array-type column to be checked | `<array>` | 
 
 ## Return Types
