@@ -8,22 +8,25 @@ parent: Numeric functions
 
 # ACOS
 
-Calculates the arc cosine of a value `<val>`. `ACOS` returns `NULL` if `<val>` is higher than 1.
+Calculates the arc cosine of a value `<value>`. `ACOS` returns `NULL` if `<value>` is higher than 1.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-ACOS(<val>)
+ACOS(<value>)
 ```
 
-| Parameter | Description                                                                                                         |
-| :--------- | :------------------------------------------------------------------------------------------------------------------- |
-| `<val>`   | Valid values include column names, functions that return a column with numeric values, and constant numeric values. |
+## Parameters 
+| Parameter | Description                                                                                                         | Supported input types |
+| :--------- | :------------------------------------------------------------------------------------------------------------------- | :-------------------|
+| `<value>`   | The number that the arc cosine value function is applied to | Column names, functions that return a column with numeric values, and constant numeric values |
+
+## Return Types 
+`DOUBLE PRECISION`
 
 ## Example
-{: .no_toc}
-
+The following example returns the arc cosine  of `0.5`:
 ```sql
 SELECT
     ACOS(0.5);

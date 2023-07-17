@@ -14,13 +14,14 @@ Decode binary data from a SQL expression of type `TEXT`.
 {: .no_toc}
 
 ```sql
-DECODE(<expression>, <format>)
+DECODE(<expression>, <expression>)
 ```
 
+## Parameters 
 | Parameter | Description                         |Supported input types |
 | :--------- | :----------------------------------- | :-------------------- |
 | `<expression>`  | A SQL expression of type `TEXT` | `TEXT` |
-| `<format` | Format to use to decode binary data | `HEX`, `ESCAPE`, `BASE64` (case insensitive) |   
+| `<expression>` | Format to use to decode binary data | `HEX`, `ESCAPE`, `BASE64` (case insensitive) |   
 
 The `HEX` format represents each 4 bits of data as one hexadecimal digit, 0 through f, writing the higher-order digit of each byte first. The `DECODE` function accepts the a-f characters in either upper or lower case. An error is raised when `DECODE` is given invalid hex data — including when given an odd number of characters.
 
@@ -34,6 +35,8 @@ THE `BASE64` format, per [RFC 2045 Secion 6.8](https://www.rfc-editor.org/rfc/rf
 ## Example
 {: .no_toc}
 
+The following examples decode expressions from the `HEX`, `ESCAPE`, and `BASE64` format:
+
 ```sql
 SELECT
 	DECODE('31323300343536', 'HEX');
@@ -41,12 +44,14 @@ SELECT
 
 **Returns**: `\x31323300343536`
 
+
 ```sql
 SELECT
 	DECODE('123\000456', 'ESCAPE');
 ```
 
 **Returns**: `\x31323300343536`
+
 
 ```sql
 SELECT
