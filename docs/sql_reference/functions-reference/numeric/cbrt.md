@@ -14,15 +14,19 @@ Returns the cubic-root of a non-negative numeric expression.
 {: .no_toc}
 
 ```sql
-CBRT(<val>);
+CBRT(<value>);
 ```
+## Parameters 
+| Parameter | Description                                                                                                         | Supported input types | 
+| :--------- | :------------------------------------------------------------------------------------------------------------------- | :--------| 
+| `<value>`   | Value that the `CBRT` function is applied to | `DOUBLE_PRECISION` |
 
-| Parameter | Description                                                                                                         |
-| :--------- | :------------------------------------------------------------------------------------------------------------------- |
-| `<val>`   | Valid values include column names, functions that return a column with numeric values, and constant numeric values. |
+## Return Types 
+`DOUBLE_PRECISION`
 
 ## Example
 {: .no_toc}
+The following example returns the cubic-root of 8: 
 
 ```sql
 SELECT

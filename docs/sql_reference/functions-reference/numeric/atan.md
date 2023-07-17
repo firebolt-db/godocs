@@ -14,17 +14,20 @@ Calculates the arc tangent of the real number returned by the specified expressi
 {: .no_toc}
 
 ```sql
-ATAN(<expr>)
+ATAN(<expression>)
 ```
+## Parameters 
+| Parameter | Description | Supported input types | 
+| :-------- | :-----------| :------|
+| `<expression>`  | The expression that the `ATAN` function is applied to | Any expression that evaluates to a real number |
 
-| Parameter | Description |
-| :-------- | :-----------|
-| `<expr>`  | Any expression that evaluates to a real number. |
+## Return Types 
+`DOUBLE PRECISION` 
 
 ## Example
 {: .no_toc}
 
-The following example returns the arc tangent of the specified literal value `90`.
+The following example returns the arc tangent of the specified literal value `90`:
 
 ```sql
 SELECT
