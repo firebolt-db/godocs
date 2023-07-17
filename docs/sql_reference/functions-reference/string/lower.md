@@ -15,17 +15,17 @@ Converts the string to a lowercase format.
 {: .no_toc}
 
 ```sql
-LOWER(<string>)
+LOWER(<expression>)
 ```
 ## Parameters 
 {: .no_toc}
 
-| Parameter  | Description                 |
-| :---------- | :--------------------------- |
-| `<string>` | The string to be converted. |
+| Parameter  | Description                 | Supported input types | 
+| :---------- | :--------------------------- | :-----------------|
+| `<expression>` | The string to be converted | Any string       |
 
 ## Return Type
-`CHAR` 
+`TEXT` 
 
 ## Example
 {: .no_toc}

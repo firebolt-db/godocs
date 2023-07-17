@@ -15,19 +15,19 @@ Returns the length (number of elements) of the given array.
 {: .no_toc}
 
 ```sql
-LENGTH(<arr>)
+LENGTH(<array>)
 ```
 
 | Parameter | Description                         |
 | :--------- | :----------------------------------- |
-| `<arr>`   | The array to be checked for length. |
+| `<array>`   | The array to be checked for length. |
 
 ## Example
 {: .no_toc}
 
 ```sql
 SELECT
-	LENGTH([ 1, 2, 3, 4 ]) AS res;
+	LENGTH([ 1, 2, 3, 4 ]) AS levels;
 ```
 
 **Returns**: `4`
