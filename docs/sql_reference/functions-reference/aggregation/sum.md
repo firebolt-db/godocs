@@ -33,12 +33,12 @@ For this example, see the following table `tournaments`:
 
 | name                          | totalprizedollars |
 | :-----------------------------| :-----------------| 
-| The Drifting Thunderdome      | 24768             |
-| The Lost Track Showdown       | 5336              |
-| The Acceleration Championship | 19274             |
-| The Winter Wilderness Rally   | 21560             |
-| The Circuit Championship      | 9739              |
-| The Singapore Grand Prix      | 19274             |
+| The Drifting Thunderdome      | 24,768             |
+| The Lost Track Showdown       | 5,336              |
+| The Acceleration Championship | 19,274             |
+| The Winter Wilderness Rally   | 21,560             |
+| The Circuit Championship      | 9,739              |
+| The Singapore Grand Prix      | 19,274             |
 
 <!-- | firstname | score |
 |:----------|:------|
@@ -59,7 +59,7 @@ FROM
 	tournaments
 ```
 
-**Returns**: `99951`
+**Returns**: `99,951`
 
 ```
 SELECT
@@ -68,6 +68,6 @@ FROM
 	tournaments
 ```
 
-For this calculation, since both the Singapore Grand Prix and The Acceleration Championship both had the same total prize dollars of `19274`, only one of these values in this sum in included. 
+For this calculation, since both the Singapore Grand Prix and The Acceleration Championship both had the same total prize dollars of `19,274`, only one of these values in this sum in included. 
 
-**Returns**: `80677`
+**Returns**: `80,677`

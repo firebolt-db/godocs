@@ -14,16 +14,16 @@ Returns `1` if a specified argument is present in the array, or `0` otherwise.
 {: .no_toc}
 
 ```sql
-CONTAINS(<arr>, <arg>)
+CONTAINS(<array>, <value>)
 ```
-
-| Parameter | Description                                      |
-| :--------- | :------------------------------------------------ |
-| `<arr>`   | The array to be checked for the given element.   |
-| `<arg>`   | The element to be searched for within the array. |
+## Parameters 
+| Parameter | Description                                      | Supported input types | 
+| :--------- | :------------------------------------------------ | :--------|
+| `<array>`   | The array to be checked for the given element.   | `<array>` | 
+| `<value>`   | The element to be searched for within the array | Any integer that corresponds to an element in the array | 
 
 ## Return Types
-The function includes returned `NUMERIC` types. 
+`NUMERIC`  
 
 ## Example
 {: .no_toc}
