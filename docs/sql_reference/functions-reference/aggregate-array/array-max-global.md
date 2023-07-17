@@ -22,7 +22,7 @@ ARRAY_MAX_GLOBAL(<array>)
 {: .no_toc}
 | Parameter | Description                                                              | Supported input types   |
 | :--------- | :-----------------------------------------------------------------------|:------------------------|
-| `<array>`  | The function returns the maximum element from the provided array column | Any `<array>` column    |
+| `<array>`  | The function returns the maximum element from the provided array column | c  |
 
 
 <!-- Create an example that uses the customer dataset -->

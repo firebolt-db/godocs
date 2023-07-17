@@ -14,16 +14,16 @@ Returns the index position of the first occurrence of the element in the array (
 {: .no_toc}
 
 ```sql
-INDEX_OF(<arr>, <x>)
+INDEX_OF(<array>, <value>)
 ```
-
-| Parameter | Description                                       |
-| :--------- | :------------------------------------------------- |
-| `<arr>`   | The array to be analyzed.                         |
-| `<x>`     | The element from the array that is to be matched. |
+## Parameters
+| Parameter | Description                                       | Supported input types | 
+| :--------- | :------------------------------------------------- | :----------|
+| `<arr>`   | The array to be analyzed                         | `<array>` | 
+| `<value>`     | The element from the array that is to be matched | Any integer that corresponds to an element in the array | 
 
 ## Return Types
-The function includes returned `NUMERIC` types. 
+`NUMERIC` 
 
 ## Example
 {: .no_toc}

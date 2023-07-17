@@ -16,12 +16,12 @@ For more information and the sample data used in the example below, please refer
 {: .no_toc}
 
 ```sql
-ARRAY_MIN_GLOBAL(<arr>)
+ARRAY_MIN_GLOBAL(<array>)
 ```
 
 | Parameter | Description                                                              | Supported input types |
 | :--------- | :------------------------------------------------------------------------ |: ------------------|
-| `<array>`   | The array column from which the function will return the minimal element | Array column       |
+| `<array>`   | The array column from which the function will return the minimal element | Any `<array>` column        |
 
 ## Return Types
 `NUMERIC`

@@ -19,15 +19,15 @@ The function:
 {: .no_toc}
 
 ```sql
-FLATTEN(<arr_of_arrs>)
+FLATTEN(<array>)
 ```
 
-| Parameter       | Description                          |
-| :--------------- | :------------------------------------ |
-| `<arr_of_arrs>` | The array of arrays to be flattened. |
+| Parameter       | Description                          | Supported input types | 
+| :--------------- | :------------------------------------ |:------|
+| `<array>` | The array of arrays to be flattened | `<array>` | 
 
 ## Return Types
-The return type for this function is `ARRAY`.
+`ARRAY`
 
 ## Example
 {: .no_toc}
