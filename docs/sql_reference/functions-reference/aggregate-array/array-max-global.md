@@ -4,13 +4,12 @@ title: ARRAY_MAX_GLOBAL
 description: Reference material for ARRAY_MAX_GLOBAL function
 parent: Aggregate array functions
 grand_parent:  SQL functions
+great_grand_parent: SQL reference
 ---
 
 # ARRAY\_MAX\_GLOBAL
 
 Returns the maximum element from all the array elements in each group.
-
-<!-- For more information and the sample data used in the example below, please refer to [Aggregate Array Functions](./aggregate-array-functions.md). -->
 
 ## Syntax
 {: .no_toc}
@@ -18,17 +17,17 @@ Returns the maximum element from all the array elements in each group.
 ```sql
 ARRAY_MAX_GLOBAL(<array>)
 ```
-## Parameters 
-{: .no_toc}
+
 | Parameter | Description                                                              | Supported input types   |
 | :--------- | :-----------------------------------------------------------------------|:------------------------|
-| `<array>`  | The function returns the maximum element from the provided array column | c  |
+| `<array>`  | The function returns the maximum element from the provided array column | Any `<array>` column    |
 
 
 <!-- Create an example that uses the customer dataset -->
 
 ## Return Types 
-`ARRAY`
+
+`<array>`
 
 ## Example
 {: .no_toc}

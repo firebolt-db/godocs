@@ -4,6 +4,7 @@ title: Aggregate array functions
 description: Reference for aggregate array functions
 nav_order: 1
 parent: SQL functions
+grand_parent: SQL reference
 has_children: true
 ---
 
