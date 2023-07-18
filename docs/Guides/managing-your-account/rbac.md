@@ -1,18 +1,18 @@
 ---
 layout: default
-title: RBAC (Alpha)
+title: RBAC
 nav_exclude: true
 search_exclude: true
 toc_exclude: true
-description: Learn about managing database level roles for Firebolt users.
+description: Learn about managing RBAC authorization for Firebolt users.
 parent: Account and user management
 grand_parent: Guides
 ---
 
-# Role-based access control (Alpha)
+# Role-based access control
 {: .no_toc}
 
-Database-level, role-based access control provides the ability to control privileges and determine who can access and perform operations on specific objects in Firebolt. Access privileges are assigned to roles that are, in turn, assigned to users. 
+Role-based access control provides the ability to control privileges and determine who can access and perform operations on specific objects in Firebolt. Access privileges are assigned to roles that are, in turn, assigned to users. 
 
 A user interacting with Firebolt must have the appropriate privileges to use an object. Privileges from all roles assigned to a user are considered in each interaction with a secured object. 
 
@@ -25,11 +25,6 @@ The key concepts to understanding access control in Firebolt with DB-level RBAC 
   **Privilege:** a defined level of access to an object.
 
   **User:** A user identity recognized by Firebolt. It can be associated with a person or a program. Each user can be assigned multiple roles.
-
-{: .caution}
->**Alpha Release** 
->
->As we learn more from you, we may change the behavior and add new features. We will communicate any such changes. Your engagement and feedback are vital.
 
 ## Role types
 Roles are entities to which privileges on securable objects are assigned. Roles are assigned to users to allow them to achieve the required tasks on the relevant objects to fulfill their business needs.
@@ -193,7 +188,3 @@ Revokes a privilege from a role.
 2. De-Select the privileges that must be revoked on the relevant secured object. 
 
 ## Known limitations and future release plans
-
-**Support RBAC for more objects**
-
-Currently, RBAC is supported on the DB and engine level only. Support for managing access on the table and view levels will be supported in future releases.
