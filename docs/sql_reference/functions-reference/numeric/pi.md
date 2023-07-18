@@ -18,9 +18,13 @@ Calculates π as a `REAL` value.
 PI() 
 ```
 
+## Return Types 
+`DOUBLE PRECISION` 
+
 ## Example
 {: .no_toc}
 
+This example returns π as a `DOUBLE PRECISION`: 
 ```
 SELECT
     PI();

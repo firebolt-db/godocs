@@ -17,14 +17,19 @@ Converts degrees to radians as a `REAL` value.
 ```sql
 RADIANS(<value>) 
 ```
+## Parameters 
+{: .no_toc}
+| Parameter | Description                                                                                                         | Supported input types | 
+| :--------- | :------------------------------------------------------------------------------------------------------------------- | :------------| 
+| `<value>`   | The value to be converted from radians | `DOUBLE PRECISION` |
 
-| Parameter | Description                                                                                                         |
-| :--------- | :------------------------------------------------------------------------------------------------------------------- |
-| `<value>`   | Valid values include column names, functions that return a column with numeric values, and constant numeric values. |
+## Return Types
+{: .no_toc}
+`DOUBLE PRECISION`
 
 ## Example
 {: .no_toc}
-
+The following example converts the value `180` in radians to a `REAL` value: 
 ```sql
 SELECT
     RADIANS(180);
