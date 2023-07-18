@@ -4,6 +4,7 @@ title: LPAD
 description: Reference material for LPAD function
 grand_parent: SQL functions
 parent: String functions
+great_grand_parent: SQL reference
 ---
 
 # LPAD

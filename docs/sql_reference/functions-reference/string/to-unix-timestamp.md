@@ -5,6 +5,7 @@ nav_exclude: true
 description: Reference material for TO_UNIX_TIMESTAMP function
 grand_parent: SQL functions
 parent: String functions
+great_grand_parent: SQL reference
 ---
 
 # TO\_UNIX\_TIMESTAMP (legacy)

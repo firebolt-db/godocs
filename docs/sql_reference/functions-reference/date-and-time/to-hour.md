@@ -4,6 +4,7 @@ title: TO_HOUR (legacy)
 nav_exclude: true
 grand_parent: SQL functions
 parent: Date and time functions
+great_grand_parent: SQL reference
 ---
 
 # TO\_HOUR (legacy)

@@ -4,6 +4,7 @@ title: SIN
 description: Reference material for SIN function
 grand_parent: SQL functions
 parent: Numeric functions
+great_grand_parent: SQL reference
 ---
 
 # SIN

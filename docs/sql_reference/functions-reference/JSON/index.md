@@ -2,8 +2,9 @@
 layout: default
 title: Semi-structured data functions
 description: Reference for JSON functions
-nav_order: 1
+nav_order: 7
 parent: SQL functions
+grand_parent: SQL reference
 has_children: true
 ---
 

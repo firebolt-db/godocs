@@ -31,7 +31,7 @@ has_toc: false
   Extract and transform JSON into Firebolt native types, or JSON sub-objects. Used either during the ELT process or applied to columns storing JSON objects as plain `TEXT`
 
 * [Numeric functions](./numeric/index.md)  
-  Manoipulate data types including `INTEGER`, `BIGINT`, `DOUBLE PRECISION`, and other numeric types
+  Manipulate data types including `INTEGER`, `BIGINT`, `DOUBLE PRECISION`, and other numeric types
 
 * [String functions](./string/index.md)  
   Manipulate string data types

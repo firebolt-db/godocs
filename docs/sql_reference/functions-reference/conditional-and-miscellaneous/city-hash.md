@@ -4,6 +4,7 @@ title: CITY_HASH
 description: Reference material for CITY_HASH function
 grand_parent: SQL functions
 parent: Conditional and miscellaneous functions
+great_grand_parent: SQL reference
 ---
 
 # CITY_HASH

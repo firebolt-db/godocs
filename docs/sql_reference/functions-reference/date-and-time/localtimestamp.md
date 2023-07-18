@@ -3,6 +3,7 @@ layout: default
 title: LOCALTIMESTAMP
 description: Reference material for LOCALTIMESTAMP function
 parent: SQL functions
+great_grand_parent: SQL reference
 ---
 
 {: .warning}

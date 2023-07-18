@@ -4,6 +4,7 @@ title: MATCH_ANY
 description: Reference material for MATCH_ANY function
 grand_parent: SQL functions
 parent: String functions
+great_grand_parent: SQL reference
 ---
 
 # MATCH\_ANY

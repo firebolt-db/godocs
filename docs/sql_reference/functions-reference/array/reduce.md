@@ -4,6 +4,7 @@ title: REDUCE
 description: Reference material for REDUCE function
 grand_parent: SQL functions
 parent: Array functions
+great_grand_parent: SQL reference
 ---
 
 # REDUCE

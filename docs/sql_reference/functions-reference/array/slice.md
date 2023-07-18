@@ -4,6 +4,7 @@ title: SLICE
 description: Reference material for SLICE function
 grand_parent: SQL functions
 parent: Array functions
+great_grand_parent: SQL reference
 ---
 
 # SLICE

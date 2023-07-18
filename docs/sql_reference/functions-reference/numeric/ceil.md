@@ -4,6 +4,7 @@ title: CEIL, CEILING
 description: Reference material for CEIL, CEILING functions
 grand_parent: SQL functions
 parent: Numeric functions
+great_grand_parent: SQL reference
 ---
 
 # CEIL, CEILING

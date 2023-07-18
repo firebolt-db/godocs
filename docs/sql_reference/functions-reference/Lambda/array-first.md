@@ -4,6 +4,7 @@ title: ARRAY_FIRST
 description: Reference material for ARRAY_FIRST function
 grand_parent: SQL functions
 parent: Lambda functions
+great_grand_parent: SQL reference
 ---
 
 # ARRAY\_FIRST

@@ -4,6 +4,7 @@ title: MD5_NUMBER_UPPER64
 description: Reference material for MD5_NUMBER_UPPER64 function
 grand_parent: SQL functions
 parent: String functions
+great_grand_parent: SQL reference
 ---
 
 # MD5\_NUMBER\_UPPER64

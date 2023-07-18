@@ -5,6 +5,7 @@ description: Reference material for TO_DATE (legacy) function
 nav_exclude: true
 grand_parent: SQL functions
 parent: String functions
+great_grand_parent: SQL reference
 ---
 
 # TO\_DATE (legacy)

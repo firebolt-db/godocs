@@ -4,6 +4,7 @@ title: COS
 description: Reference material for COS function
 grand_parent: SQL functions
 parent: Numeric functions
+great_grand_parent: SQL reference
 ---
 
 # COS

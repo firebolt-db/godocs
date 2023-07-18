@@ -4,6 +4,7 @@ title: TO_DOUBLE
 description: Reference material for TO_DOUBLE function
 grand_parent: SQL functions
 parent: String functions
+great_grand_parent: SQL reference
 ---
 
 # TO\_DOUBLE

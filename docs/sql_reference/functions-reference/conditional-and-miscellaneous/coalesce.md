@@ -4,6 +4,7 @@ title: COALESCE
 description: Reference material for COALESCE function
 grand_parent: SQL functions
 parent: Conditional and miscellaneous functions
+great_grand_parent: SQL reference
 ---
 
 # COALESCE

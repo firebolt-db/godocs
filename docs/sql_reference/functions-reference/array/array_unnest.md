@@ -4,6 +4,7 @@ title: ARRAY_UNNEST (deprecated)
 description: Reference material for the deprecated ARRAY_UNNEST function.
 grand_parent: SQL functions
 parent: Array functions
+great_grand_parent: SQL reference
 ---
 
 # ARRAY_UNNEST (deprecated)

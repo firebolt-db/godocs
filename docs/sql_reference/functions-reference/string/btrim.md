@@ -4,6 +4,7 @@ title: BTRIM
 description: Reference material for BTRIM function.
 grand_parent: SQL functions
 parent: String functions
+great_grand_parent: SQL reference
 ---
 
 # BTRIM

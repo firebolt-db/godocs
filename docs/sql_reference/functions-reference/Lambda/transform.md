@@ -4,6 +4,7 @@ title: TRANSFORM
 description: Reference material for TRANSFORM function
 grand_parent: SQL functions
 parent: Lambda functions
+great_grand_parent: SQL reference
 ---
 
 # TRANSFORM

@@ -5,6 +5,7 @@ nav_exclude: true
 description: Reference material for TO_QUARTER function
 grand_parent: SQL functions
 parent: Date and time functions
+great_grand_parent: SQL reference
 ---
 
 # TO\_QUARTER (legacy)

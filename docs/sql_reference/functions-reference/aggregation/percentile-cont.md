@@ -4,6 +4,7 @@ title: PERCENTILE_CONT (aggregation function)
 description: Reference material for PERCENTILE_CONT aggregate function
 grand_parent: SQL functions
 parent: Aggregation functions
+great_grand_parent: SQL reference
 ---
 
 # PERCENTILE_CONT

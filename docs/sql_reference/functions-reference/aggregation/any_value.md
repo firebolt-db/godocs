@@ -4,6 +4,7 @@ title: ANY_VALUE
 description: Reference material for ANY_VALUE
 grand_parent: SQL functions
 parent: Aggregation functions
+great_grand_parent: SQL reference
 ---
 
 # ANY_VALUE

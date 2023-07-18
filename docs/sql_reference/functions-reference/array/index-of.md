@@ -4,6 +4,7 @@ title: INDEX_OF
 description: Reference material for INDEX_OF function
 grand_parent: SQL functions
 parent: Array functions
+great_grand_parent: SQL reference
 ---
 
 # INDEX\_OF

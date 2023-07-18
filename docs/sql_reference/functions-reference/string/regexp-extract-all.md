@@ -3,6 +3,7 @@ layout: default
 title: REGEXP_EXTRACT_ALL
 description: Reference material for REGEXP_EXTRACT_ALL function
 parent: SQL functions
+great_grand_parent: SQL reference
 ---
 
 # REGEXP_EXTRACT_ALL

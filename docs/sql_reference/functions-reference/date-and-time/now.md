@@ -5,6 +5,7 @@ description: Reference material for NOW (legacy)
 grand_parent: SQL functions
 nav_exclude: true
 parent: Date and time functions
+great_grand_parent: SQL reference
 ---
 
 # NOW (legacy)

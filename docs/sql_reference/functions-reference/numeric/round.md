@@ -4,6 +4,7 @@ title: ROUND
 description: Reference material for ROUND function
 grand_parent: SQL functions
 parent: Numeric functions
+great_grand_parent: SQL reference
 ---
 
 # ROUND

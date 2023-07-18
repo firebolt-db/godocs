@@ -5,6 +5,7 @@ description: Reference material for TO_CHAR (legacy) function
 grand_parent: SQL functions
 nav_exclude: true
 parent: Date and time functions
+great_grand_parent: SQL reference
 ---
 
 # TO_CHAR (legacy)

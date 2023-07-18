@@ -4,6 +4,7 @@ title: MEDIAN
 description: Reference material for MEDIAN
 grand_parent: SQL functions
 parent: Aggregation functions
+great_grand_parent: SQL reference
 ---
 
 

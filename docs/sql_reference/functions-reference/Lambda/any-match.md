@@ -4,6 +4,7 @@ title: ANY_MATCH
 description: Reference material for ANY_MATCH function
 grand_parent: SQL functions
 parent: Lambda functions
+great_grand_parent: SQL reference
 ---
 
 

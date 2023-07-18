@@ -4,6 +4,7 @@ title: ARRAY_CUMULATIVE_SUM
 description: Reference material for ARRAY_CUMULATIVE_SUM function ( cumulative )
 grand_parent: SQL functions
 parent: Lambda functions
+great_grand_parent: SQL reference
 ---
 
 # ARRAY\_CUMULATIVE\_SUM

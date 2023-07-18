@@ -4,6 +4,7 @@ title: MIN (aggregation function)
 description: Reference material for MIN
 grand_parent: SQL functions
 parent: Aggregation functions
+great_grand_parent: SQL reference
 ---
 
 

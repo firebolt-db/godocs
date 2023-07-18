@@ -4,6 +4,7 @@ title: DENSE_RANK
 description: Reference material for DENSE_RANK function
 grand_parent: SQL functions
 parent: Window functions
+great_grand_parent: SQL reference
 ---
 
 # DENSE\_RANK

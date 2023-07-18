@@ -5,6 +5,7 @@ description: Reference material for CURRENT_PGDATE (legacy) function
 nav_exclude: true
 grand_parent: SQL functions
 parent: Date and time functions
+great_grand_parent: SQL reference
 ---
 
 # CURRENT_PGDATE (legacy)

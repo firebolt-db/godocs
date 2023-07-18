@@ -4,6 +4,7 @@ title: REPEAT
 description: Reference material for REPEAT function
 grand_parent: SQL functions
 parent: String functions
+great_grand_parent: SQL reference
 ---
 
 # REPEAT

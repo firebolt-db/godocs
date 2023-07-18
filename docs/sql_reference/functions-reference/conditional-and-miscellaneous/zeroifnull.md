@@ -4,6 +4,7 @@ title: ZEROIFNULL
 description: Reference material for ZEROIFNULL function
 grand_parent: SQL functions
 parent: Conditional and miscellaneous functions
+great_grand_parent: SQL reference
 ---
 
 # ZEROIFNULL

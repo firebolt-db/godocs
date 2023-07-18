@@ -4,6 +4,7 @@ title: UPPER
 description: Reference material for UPPER function
 grand_parent: SQL functions
 parent: String functions
+great_grand_parent: SQL reference
 ---
 
 # UPPER

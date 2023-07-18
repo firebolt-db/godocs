@@ -4,6 +4,7 @@ title: ATAN
 description: Reference material for ATAN function
 grand_parent: SQL functions
 parent: Numeric functions
+great_grand_parent: SQL reference
 ---
 
 # ATAN

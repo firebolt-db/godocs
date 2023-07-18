@@ -4,6 +4,7 @@ title: ARRAY_UNIQ
 description: Reference material for ARRAY_UNIQ function
 grand_parent: SQL functions
 parent: Array functions
+great_grand_parent: SQL reference
 ---
 
 # ARRAY\_UNIQ

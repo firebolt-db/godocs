@@ -4,6 +4,7 @@ title: MAX_BY
 description: Reference material for MAX_BY
 grand_parent: SQL functions
 parent: Aggregation functions
+great_grand_parent: SQL reference
 ---
 
 

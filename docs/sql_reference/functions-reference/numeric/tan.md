@@ -4,6 +4,7 @@ title: TAN
 description: Reference material for TAN function
 grand_parent: SQL functions
 parent: Numeric functions
+great_grand_parent: SQL reference
 ---
 
 # TAN
