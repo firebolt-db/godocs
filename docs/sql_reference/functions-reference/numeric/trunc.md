@@ -15,17 +15,24 @@ Returns the rounded absolute value of a numeric value. The returned value will a
 {: .no_toc}
 
 ```sql
-TRUNC(<value>[, <decimal>])
+TRUNC(<value>[, <value>])
 ```
+## Parameters
+{: .no_toc}
+| Parameter | Description                                                                                                                  | Supported input types | 
+| :--------- | :---------------------------------------------------------------------------------------------------------------------------- |:--------|
+| `<value>`   | Valid values include column names, functions that return a column with numeric values, and constant numeric values.          | `DOUBLE PRECISION` | 
+| `<value>`   | Optional. An `INTEGER` constant that defines the decimal range of the returned value. By default, `TRUNC` returns whole numbers. | `INTEGER` | 
 
-| Parameter | Description                                                                                                                  |
-| :--------- | :---------------------------------------------------------------------------------------------------------------------------- |
-| `<value>`   | Valid values include column names, functions that return a column with numeric values, and constant numeric values.          |
-| `<decimal>`   | Optional. An `INTEGER` constant that defines the decimal range of the returned value. By default, `TRUNC` returns whole numbers. |
+## Return Types
+{: .no_toc}
+
+`DOUBLE PRECISION` 
 
 ## Example
 {: .no_toc}
 
+The following example returns the truncated value of `-20.5`: 
 ```sql
 SELECT
     TRUNC(-20.5);
@@ -33,6 +40,7 @@ SELECT
 
 **Returns**: `-20`
 
+This example returns the truncated value of `-99.999999` to `3` decimal places: 
 ```sql
 SELECT
     TRUNC(-99.999999, 3);
