@@ -14,18 +14,22 @@ Returns the common (base 10) logarithm of a numerical expression, or the logarit
 {: .no_toc}
 
 ```sql
-LOG([<base>,] <num>);
+LOG([<value>,] <value>);
 ```
+## Parameters 
+{: .no_toc}
+| Parameter   | Description                                                                                                         | Supported input types |
+| :----------- | :------------------------------------------------------------------------------------------------------------------- |:--------------------|
+| `<value>`    | Optional. The base for the logarithm. The default base is 10.                                                       |  `DOUBLE PRECISION`
+| `<value>` | The exponent for the logarithm. | `DOUBLE PRECISION` |
 
-| Parameter   | Description                                                                                                         |
-| :----------- | :------------------------------------------------------------------------------------------------------------------- |
-| `<base>`    | Optional. The base for the logarithm. The default base is 10.                                                       |
-| `<numeric>` | Valid values include column names, functions that return a column with numeric values, and constant numeric values. |
+## Return Types
+`DOUBLE PRECISION`
 
 ## Example
 {: .no_toc}
 
-This example below returns the logarithm of 64.0 to base 2.
+This example below returns the logarithm of 64.0 to base 2:
 
 ```sql
 SELECT
@@ -34,7 +38,7 @@ SELECT
 
 **Returns**: `6`
 
-This example below returns the logarithm of 100.0 to the default base 10.
+This example below returns the logarithm of 100.0 to the default base 10:
 
 ```sql
 SELECT
