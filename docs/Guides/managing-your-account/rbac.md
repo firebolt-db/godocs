@@ -35,13 +35,37 @@ Users granted the account admin role can create custom roles to meet specific ne
 
 ## Privileges
 There is a set of privileges that can be granted for every securable object.
+### Account
+
+| Privilege          | Description |
+| :---------------   | :---------- |
+| MODIFY            |  |
+| METER             |  |
+| CREATE ENGINE     | Enables creating new engines in the account. |
+| CREATE DATABASE   | Enables creating new databases in the account. |
+| CREATE USER       | Enables creating new users in the account. |
+| CREATE ROLE       | Enables creating new users in the account. |
+| CONNECT USER      | |
+| MANAGE ROLE GRANT | | 
+
+### Roles
+
+| Privilege          | Description |
+| :---------------   | :---------- |
+| MODIFY             | Enables altering any properties of a role, granting/revoking it, granting/revoking privileges to/from it  |
+
+### Users
+
+| Privilege          | Description |
+| :---------------   | :---------- |
+| MODIFY              | Enables dropping or altering any properties of User  |
+
 ### Database
 
 | Privilege          | Description |
 | :---------------   | :---------- |
-| READ               | Enables running SELECT on the database’s tables, views, and ATTACH engines. |
-| WRITE              | Enables:<br>Running CREATE/DROP tables, views, and indexes on a database’s tables.<br>Running INSERT data into a database’s tables.<br>Altering the properties of a database.<br>Dropping a database. |
-| CREATE              | Enables creating new databases in the account. |
+| USAGE              | Enables running SELECT on the database's tables, views, and ATTACH engines. |
+| MODIFY              | Enables:<br>Running CREATE/DROP tables, views, and indexes on a database's tables.<br>Running INSERT data into a database's tables.<br>Altering the properties of a database.<br>Dropping a database. |
 
 ### Engine
 
@@ -49,10 +73,7 @@ There is a set of privileges that can be granted for every securable object.
 | :---------------   | :---------- |
 | USAGE              | Enables using an engine and, therefore, executing queries on it. |
 | OPERATE            | Enables changing the state of an engine (stop, start). |
-| CREATE             | Enables creating new engines in the account. |
-| DROP               | Enable executing drop engine on a specific engine. |
-| MODIFY             | Enables altering any properties of an engine. |
-
+| MODIFY             | Enables dropping or altering any properties of an engine. |
 
 ## System-defined roles
 **Account Admin**<br>
@@ -188,3 +209,4 @@ Revokes a privilege from a role.
 2. De-Select the privileges that must be revoked on the relevant secured object. 
 
 ## Known limitations and future release plans
+ 
