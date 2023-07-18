@@ -76,17 +76,16 @@ There is a set of privileges that can be granted for every securable object.
 | MODIFY             | Enables dropping or altering any properties of an engine. |
 
 ## System-defined roles
-**Account Admin**<br>
-A role that has the privileges to manage users, billing, and roles alongside all database and engine privileges to existing and future objects in the account.
 
-**DB Admin**<br>
-A role with all database and engine privileges in the account.
-
-**Viewer**<br>
-A role that has READ privilege on all existing and future databases in the account alongside USAGE privilege on all existing and future engines.
+| Role Name      | Description                                                    | Granted Privileges                                                                      |
+|:---------------|:---------------------------------------------------------------|:----------------------------------------------------------------------------------------|
+| account_admin  | A role that has the privileges to all objects in the account.  | ALL Privileges on Accounts, Users, Roles, Engines and Databases |
+| security_admin | Security admin to manage access control                        | ALL Privileges on Accounts, Users, Roles, Engines and Databases                         |
+| system_admin   | A role with all database and engine privileges in the account. | Create, Modify and Usage any Engine and Database in the account. can also manage grants |
+| public         | default public role                                            | Usage any database                                                                      |
 
 **Custom roles**<br>
-A user granted the Account Admin role can create custom roles. 
+A user granted the `account_admin` or `security_admin` roles can create custom roles. 
 
 ## Working with roles
 ### Create a custom role using SQL
