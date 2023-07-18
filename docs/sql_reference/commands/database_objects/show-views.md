@@ -2,7 +2,9 @@
 layout: default
 title: SHOW VIEWS
 description: Reference and syntax for the SHOW VIEWS command.
-parent: SQL commands
+great_grand_parent: SQL reference
+grand_parent:  SQL commands
+parent: Database object commands
 ---
 
 # SHOW VIEWS

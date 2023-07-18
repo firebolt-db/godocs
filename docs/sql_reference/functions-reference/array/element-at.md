@@ -4,6 +4,7 @@ title: ELEMENT_AT
 description: Reference material for ELEMENT_AT function
 grand_parent: SQL functions
 parent: Array functions
+great_grand_parent: SQL reference
 ---
 
 # ELEMENT\_AT

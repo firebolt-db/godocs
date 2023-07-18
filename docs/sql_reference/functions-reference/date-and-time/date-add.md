@@ -4,6 +4,7 @@ title: DATE_ADD
 description: Reference material for DATE_ADD function
 grand_parent: SQL functions
 parent: Date and time functions
+great_grand_parent: SQL reference
 ---
 
 # DATE\_ADD

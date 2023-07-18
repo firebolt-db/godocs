@@ -4,6 +4,7 @@ title: PI
 description: Reference material for PI function
 grand_parent: SQL functions
 parent: Numeric functions
+great_grand_parent: SQL reference
 ---
 
 # PI

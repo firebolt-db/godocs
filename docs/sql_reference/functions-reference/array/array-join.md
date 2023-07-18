@@ -4,6 +4,7 @@ title: ARRAY_JOIN
 description: Reference material for ARRAY_JOIN function
 grand_parent: SQL functions
 parent: Array functions
+great_grand_parent: SQL reference
 ---
 
 # ARRAY\_JOIN

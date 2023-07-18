@@ -4,6 +4,7 @@ title: MOD
 description: Reference material for MOD function
 grand_parent: SQL functions
 parent: Numeric functions
+great_grand_parent: SQL reference
 ---
 
 # MOD

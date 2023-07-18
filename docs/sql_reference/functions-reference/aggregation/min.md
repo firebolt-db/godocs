@@ -4,6 +4,7 @@ title: MIN (aggregation function)
 description: Reference material for MIN
 grand_parent: SQL functions
 parent: Aggregation functions
+great_grand_parent: SQL reference
 ---
 
 
@@ -20,30 +21,36 @@ MIN(<expression>)
 ## Parameters 
 {: .no_toc}
 
-| Parameter | Description                                               |Supported input types                                        |
-| :--------- | :--------------------------------------------------------|:------------------------------------------------------------|
-| `<expression>`  | The expression used to calculate the minimum values | `<column>` names, or a `<function>` that returns a column name | 
+## Parameters
+{: .no_toc}
+
+| Parameter | Description                         |Supported input types |
+| :--------- | :----------------------------------- | :---------------------|
+| `<expression>`  | The expression used to calculate the minimum value | Any string, numeric or date/timestamp type |
+
+Valid values for the expression include a column name or functions that return a column name.
 
 ## Return Types
-`CHAR`, `NUMERIC`, `REAL`, `DOUBLE PRECISION` 
+
+Same as input type
 
 ## Example
 {: .no_toc}
-For this example,  see the following table, `tournaments`:
+For this example, see the following table, `tournaments`:
 
 | name                          | totalprizedollars |
 | :-----------------------------| :-----------------| 
-| The Drift Championship        | 22048             |
-| The Lost Track Showdown       | 5336              |
-| The Acceleration Championship | 19274             |
+| The Drift Championship        | 22,048             |
+| The Lost Track Showdown       | 5,336              |
+| The Acceleration Championship | 19,274             |
 | The French Grand Prix         | 237               |
-| The Circuit Championship      | 9739              |
+| The Circuit Championship      | 9,739              |
 
 When used on the `totalprizedollars` column, `MIN` will return the smallest value.
 
 ```sql
 SELECT
-	MIN(totalprizedollars)
+	MIN(totalprizedollars) as minprize
 FROM
 	tournaments;
 ```
@@ -54,12 +61,9 @@ FROM
 
 ```sql
 SELECT
-	MIN(name)
+	MIN(name) as mintournament
 FROM
 	tournaments;
 ```
 
-**Returns**: `The Acceleration Tournament`
-
-<!-- SELECT min(name) FROM tournaments;
--- -- SELECT min(totalprizedollars) FROM tournaments; -->
+**Returns**: `The Acceleration Championship`

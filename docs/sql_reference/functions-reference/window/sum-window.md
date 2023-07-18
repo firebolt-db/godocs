@@ -4,6 +4,7 @@ title: SUM (window function)
 description: Reference material for SUM function
 grand_parent: SQL functions
 parent: Window functions
+great_grand_parent: SQL reference
 ---
 
 # SUM (window function)

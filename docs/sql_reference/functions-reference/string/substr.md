@@ -4,6 +4,7 @@ title: SUBSTR
 description: Reference material for SUBSTR function
 grand_parent: SQL functions
 parent: String functions
+great_grand_parent: SQL reference
 ---
 ## SUBSTR
 

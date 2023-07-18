@@ -4,6 +4,7 @@ title: TO_DAY_OF_YEAR (legacy)
 nav_exclude: true
 grand_parent: SQL functions
 parent: Date and time functions
+great_grand_parent: SQL reference
 ---
 
 # TO\_DAY\_OF\_YEAR (legacy)

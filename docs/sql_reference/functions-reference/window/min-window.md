@@ -4,6 +4,7 @@ title: MIN (window function)
 description: Reference material for MIN function
 grand_parent: SQL functions
 parent: Window functions
+great_grand_parent: SQL reference
 ---
 
 # MIN

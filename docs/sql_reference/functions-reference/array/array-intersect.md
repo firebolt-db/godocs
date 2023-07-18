@@ -4,6 +4,7 @@ title: ARRAY_INTERSECT
 description: Reference material for ARRAY_INTERSECT function
 grand_parent: SQL functions
 parent: Array functions
+great_grand_parent: SQL reference
 ---
 
 # ARRAY\_INTERSECT

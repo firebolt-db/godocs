@@ -4,6 +4,7 @@ title: FILTER
 description: Reference material for FILTER function
 grand_parent: SQL functions
 parent: Lambda functions
+great_grand_parent: SQL reference
 ---
 
 # FILTER

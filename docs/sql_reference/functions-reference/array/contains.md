@@ -4,6 +4,7 @@ title: CONTAINS
 description: Reference material for CONTAINS function
 grand_parent: SQL functions
 parent: Array functions
+great_grand_parent: SQL reference
 ---
 
 # CONTAINS

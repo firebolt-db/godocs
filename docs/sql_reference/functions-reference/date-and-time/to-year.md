@@ -5,6 +5,7 @@ nav_exclude: true
 description: Reference material for TO_YEAR function
 grand_parent: SQL functions
 parent: Date and time functions
+great_grand_parent: SQL reference
 ---
 
 # TO\_YEAR (legacy)

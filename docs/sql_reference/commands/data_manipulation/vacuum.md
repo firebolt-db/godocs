@@ -2,8 +2,9 @@
 layout: default
 title: VACUUM (Beta)
 description: Reference and syntax for the VACUUM command.
+great_grand_parent: SQL reference
 grand_parent:  SQL commands
-parent: Engine commands
+parent: Data manipulation commands
 ---
 
 # VACUUM (Beta)

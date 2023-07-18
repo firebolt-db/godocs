@@ -1,11 +1,10 @@
 ---
-layout: default
-title: NEST
-description: Alias for ARRAY_AGG
-grand_parent: SQL functions
-parent: Aggregation functions
+layout: redirects
+sitemap: false
+permalink: /sql-reference/functions-reference/nest.html
+redirect_to:  /sql-reference/functions-reference/array-agg.html
+toc_exclude: true
+nav_excude: true
 ---
 
-# NEST
-
-Synonym for [ARRAY_AGG](array-agg.md). See this page for further information and examples. 
+<!--- redirect NEST to ARRAY_AGG (synonym) --->

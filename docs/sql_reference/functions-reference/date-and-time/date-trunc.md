@@ -5,6 +5,7 @@ description: Reference material for DATE_TRUNC (legacy) function
 nav_exclude: true
 grand_parent: SQL functions
 parent: Date and time functions
+great_grand_parent: SQL reference
 ---
 
 # DATE\_TRUNC (legacy)

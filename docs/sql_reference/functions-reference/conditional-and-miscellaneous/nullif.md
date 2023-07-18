@@ -4,6 +4,7 @@ title: NULLIF
 description: Reference material for NULLIF function
 grand_parent: SQL functions
 parent: Conditional and miscellaneous functions
+great_grand_parent: SQL reference
 ---
 
 # NULLIF

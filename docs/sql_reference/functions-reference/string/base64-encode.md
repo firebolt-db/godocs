@@ -4,6 +4,7 @@ title: BASE64_ENCODE
 description: Reference material for BASE64_ENCODE function
 grand_parent: SQL functions
 parent: String functions
+great_grand_parent: SQL reference
 ---
 
 # BASE64\_ENCODE

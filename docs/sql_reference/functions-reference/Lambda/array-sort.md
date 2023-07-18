@@ -4,6 +4,7 @@ title: ARRAY_SORT
 description: Reference material for ARRAY_SORT function
 grand_parent: SQL functions
 parent: Lambda functions
+great_grand_parent: SQL reference
 ---
 
 # ARRAY\_SORT

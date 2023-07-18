@@ -2,6 +2,7 @@
 layout: default
 title: ALTER TABLE...DROP PARTITION
 description: Reference and syntax for the ALTER TABLE...DROP PARTITION command.
+great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Database object commands
 ---

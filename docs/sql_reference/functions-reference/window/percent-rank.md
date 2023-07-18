@@ -4,6 +4,7 @@ title: PERCENT_RANK
 description: Reference material for PERCENT_RANK window function
 grand_parent: SQL functions
 parent: Window functions
+great_grand_parent: SQL reference
 ---
 
 # PERCENT_RANK

@@ -4,6 +4,7 @@ title: AVG (aggregation function)
 description: Reference material for AVG
 grand_parent: SQL functions
 parent: Aggregation functions
+great_grand_parent: SQL reference
 ---
 
 
@@ -15,22 +16,25 @@ Calculates the average of an expression.
 {: .no_toc}
 
 ```sql
-AVG(<expr>)
+AVG(<value>)
 ```
 ## Parameters 
 {: .no_toc}
 
-| Parameter | Description                                  | Supported input types                                                                                                                                  |
-| :---------| :--------------------------------------------|:-----------------------------------------------|
-| `<expr>`  | The expression used to calculate the average | Names of <column>s that contain numeric values | 
+## Parameters
+{: .no_toc}
 
-Valid values for the expression include column names or functions that return a column name for columns that contain numeric values.
+| Parameter | Description                         |Supported input types |
+| :--------- | :----------------------------------- | :---------------------|
+| `<value>`  | The expression used to calculate the average | Any numeric type | 
 
-{: .note}
-The `AVG()` aggregation function ignores rows with NULL. For example, an `AVG` from 3 rows containing `1`, `2`, and NULL returns `1.5` because the NULL row is not counted. To calculate an average that includes NULL, use `SUM(COLUMN)/COUNT(*)`.
+Valid values for the expression include column names or functions that return a column name (or columns) that contain numeric values.
+
+The `AVG()` aggregation function ignores rows with `NULL` values. For example, an `AVG` from 3 rows containing `1`, `2`, and `NULL` returns `1.5` because the `NULL` row is not counted. To calculate an average that includes `NULL`, use `SUM(COLUMN)/COUNT(*)`.
 
 ## Return Types
-`NUMERIC`, `REAL`, `DOUBLE PRECISION`
+* `NUMERIC` if the input is type `INTEGER`, `BIGINT` or `NUMERIC`
+* `DOUBLE PRECISION` if the input is type `REAL` or `DOUBLE PRECISION`
 
 ## Example
 
@@ -44,7 +48,7 @@ The example below uses the following table `LevelPoints`. This table includes th
 | 4        | 200       |
 | 5        | 250       |
 
-In this example, the average of the `maxpoints` values is returned. 
+Use the query below to find the average of the `maxpoints` value. 
 
 ```sql
 SELECT 
@@ -53,6 +57,7 @@ FROM levels;
 ```
 
 **Returns**:
-| averagemaxpoints | 
+
+| AverageMaxPoints | 
 | :----------------| 
 | 150              |

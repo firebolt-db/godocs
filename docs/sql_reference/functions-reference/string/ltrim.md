@@ -4,6 +4,7 @@ title: LTRIM
 description: Reference material for LTRIM function
 grand_parent: SQL functions
 parent: String functions
+great_grand_parent: SQL reference
 ---
 
 # LTRIM

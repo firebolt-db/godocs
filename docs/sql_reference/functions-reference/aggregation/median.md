@@ -4,6 +4,7 @@ title: MEDIAN
 description: Reference material for MEDIAN
 grand_parent: SQL functions
 parent: Aggregation functions
+great_grand_parent: SQL reference
 ---
 
 
@@ -15,7 +16,7 @@ Calculates an approximate median for a given column.
 <!-- {: .no_toc} -->
 
 ```sql
-MEDIAN(<column>)
+MEDIAN(<value>)
 ```
 ## Parameters 
 {: .no_toc}
@@ -23,6 +24,14 @@ MEDIAN(<column>)
 | Parameter | Description                                       | Supported input types                        |
 | :---------| :-------------------------------------------------| :--------------------------------------------|
 | `<column>`   | The column used to calculate the median value | `<column>` of `DATE` or `TIMESTAMP` data types |
+
+## Parameters
+{: .no_toc}
+
+| Parameter | Description                         |Supported input types |
+| :--------- | :----------------------------------- | :---------------------|
+| `<value>`   | The expression used to calculate the median value | Any numeric or date/timestamp type |
+
 
 ## Return Types
 `NUMERIC`, `REAL`, `DOUBLE PRECISION`, `DATE`, `TIMESTAMP`

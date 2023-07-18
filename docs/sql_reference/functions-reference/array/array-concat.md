@@ -4,6 +4,7 @@ title: ARRAY_CONCAT
 description: Reference material for ARRAY_CONCAT function
 grand_parent: SQL functions
 parent: Array functions
+great_grand_parent: SQL reference
 ---
 
 # ARRAY\_CONCAT

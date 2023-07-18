@@ -4,6 +4,7 @@ title: LOWER
 description: Reference material for LOWER function
 grand_parent: SQL functions
 parent: String functions
+great_grand_parent: SQL reference
 ---
 
 # LOWER

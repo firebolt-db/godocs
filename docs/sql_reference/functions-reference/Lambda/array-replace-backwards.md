@@ -4,6 +4,7 @@ title: ARRAY_REPLACE_BACKWARDS
 description: Reference material for ARRAY_REPLACE_BACKWARDS function
 grand_parent: SQL functions
 parent: Lambda functions
+great_grand_parent: SQL reference
 ---
 
 # ARRAY\_REPLACE\_BACKWARDS

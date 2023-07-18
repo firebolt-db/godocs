@@ -2,6 +2,7 @@
 layout: default
 title: CREATE JOIN INDEX
 description: Reference and syntax for the CREATE JOIN INDEX command.
+great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Database object commands
 ---

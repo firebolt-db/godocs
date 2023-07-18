@@ -4,6 +4,7 @@ title: ARRAY_COUNT
 description: Reference material for ARRAY_COUNT function
 grand_parent: SQL functions
 parent: Lambda functions
+great_grand_parent: SQL reference
 ---
 
 # ARRAY\_COUNT

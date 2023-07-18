@@ -4,6 +4,7 @@ title: REGEXP_MATCHES
 description: Reference material for REGEXP_MATCHES function
 grand_parent: SQL functions
 parent: String functions
+great_grand_parent: SQL reference
 ---
 
 # REGEXP\_MATCHES

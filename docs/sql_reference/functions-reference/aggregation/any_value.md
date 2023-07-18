@@ -4,30 +4,37 @@ title: ANY_VALUE
 description: Reference material for ANY_VALUE
 grand_parent: SQL functions
 parent: Aggregation functions
+great_grand_parent: SQL reference
 ---
 
 # ANY_VALUE
 
-Returns a single arbitrary value from the specified column. This function ignores `NULL`s, so the only time it will return `NULL` is when all inputs are `NULL`s.
+Returns a single arbitrary value from the specified column. 
+
+**Synonym:** `ANY`
 
 ## Syntax
 {: .no_toc}
 
-
 ```SQL
-ANY_VALUE(<col>)
+ANY_VALUE(<expression>)
 ```
 ## Parameters 
 {: .no_toc}
 
-| Argument | Description                                    | Supported input Type | 
-| :-------- | :-------------------------------------------- | :--------- |
-| `<column>`  | The column from which the random value is returned | Any       |
-
-##### Return Type
+## Parameters
 {: .no_toc}
 
-Same as input argument
+| Parameter | Description                                  |Supported input types |
+| :-------- | :-------------------------------------------- | :--------- |
+| `<expression>`  | The column from which the value is returned. | Any       |
+
+This function ignores `NULL` inputs, so the only time `NULL` will return is when all inputs are `NULL`.
+
+## Return Type
+{: .no_toc}
+
+Same as input type
 
 ## Example
 {: .no_toc}

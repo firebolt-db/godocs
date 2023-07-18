@@ -4,6 +4,7 @@ title: TO_TIMESTAMPTZ
 description: Reference material for TO_TIMESTAMPTZ function
 grand_parent: SQL functions
 parent: String functions
+great_grand_parent: SQL reference
 ---
 
 # TO_TIMESTAMPTZ

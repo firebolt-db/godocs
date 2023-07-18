@@ -2,6 +2,7 @@
 layout: default
 title: REFRESH JOIN INDEX
 description: Reference and syntax for the REFRESH JOIN INDEX command.
+great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Database object commands
 ---

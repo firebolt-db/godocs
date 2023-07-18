@@ -1,11 +1,10 @@
 ---
-layout: default
-title: ANY
-description: Reference material for ANY
-grand_parent: SQL functions
-parent: Aggregation functions 
+layout: redirects
+sitemap: false
+permalink: /sql-reference/functions-reference/any.html
+redirect_to:  /sql-reference/functions-reference/any_value.html
+toc_exclude: true
+nav_excude: true
 ---
 
-# ANY
-
-Synonym for [ANY_VALUE](any_value.md). See this page for further information and examples. 
+<!--- redirect ANY to ANY_VALUE (synonym) --->

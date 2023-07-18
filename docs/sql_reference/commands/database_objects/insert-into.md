@@ -2,6 +2,7 @@
 layout: default
 title: INSERT INTO
 description: Reference and syntax for the INSERT INTO command.
+great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Database object commands
 ---
