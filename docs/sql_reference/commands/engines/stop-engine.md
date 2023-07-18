@@ -2,6 +2,7 @@
 layout: default
 title: STOP ENGINE
 description: Reference and syntax for the STOP ENGINE command.
+great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Engine commands
 ---
