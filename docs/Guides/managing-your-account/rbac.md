@@ -66,6 +66,8 @@ There is a set of privileges that can be granted for every securable object.
 | system_admin   | A role with all database and engine privileges in the account. | Create, Modify and Usage any Engine and Database in the account. can also manage grants |
 | public         | default public role                                            | Usage any database                                                                      |
 
+System defined roles cannot be modified nor dropped.
+
 **Custom roles**<br>
 A user granted the `account_admin` or `security_admin` roles can create custom roles. 
 
@@ -127,6 +129,34 @@ Revokes a role from a user or another role.
 ```sql
 REVOKE ROLE <role> FROM { USER <user_name> | ROLE <another_role> }
 ```
+
+## Roles Management from UI
+### Assigning Roles to a User
+From the menu, choose `Govern` > `Users`. In the opened page, all users are listed.
+choose the role you wish to edit, press the menu icon on the right, and in the toggled window choose `Edit User Details`.
+Alternatively, create a new one using `+ Create User` button on the top left.
+
+![Govern > Users](../assets/images/govern_users.png)
+
+In the `Create/Edit User` window opened, check all the roles you want assigned to the user.
+When done, press the `Create/Update` button
+
+![Create/Edit User](../assets/images/create_edit_user.png)
+
+see [User Reference Page](ask roy about it) for more information.
+
+### Assigning Privileges to a role
+From the menu, choose `Govern` > `Roles`. In the opened page, all roles are listed.
+choose the role you wish to edit, press the menu icon on the right, and in the toggled window choose `Edit role`
+Alternatively, create a new one using `+ New Role` button on the top left
+
+![Govern > Roles](../assets/images/govern_roles.png)
+
+In the `Create/Edit role` window, choose the privileges tab for the object type you want to manage privileges for,
+then checkbox the desired privileges. if you want to grant privileges over all objects of that type, choose the topmost line.
+When done, press the `Create/Update` button:
+
+![Create/Edit Role](../assets/images/create_edit_role.png)
 
 ## Known limitations and future release plans
  
