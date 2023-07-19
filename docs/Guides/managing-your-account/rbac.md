@@ -37,28 +37,10 @@ Users granted the account admin role can create custom roles to meet specific ne
 There is a set of privileges that can be granted for every securable object.
 ### Account
 
-| Privilege          | Description |
-| :---------------   | :---------- |
-| MODIFY            |  |
-| METER             |  |
-| CREATE ENGINE     | Enables creating new engines in the account. |
+| Privilege         | Description                                    |
+|:------------------|:-----------------------------------------------|
+| CREATE ENGINE     | Enables creating new engines in the account.   |
 | CREATE DATABASE   | Enables creating new databases in the account. |
-| CREATE USER       | Enables creating new users in the account. |
-| CREATE ROLE       | Enables creating new users in the account. |
-| CONNECT USER      | |
-| MANAGE ROLE GRANT | | 
-
-### Roles
-
-| Privilege          | Description |
-| :---------------   | :---------- |
-| MODIFY             | Enables altering any properties of a role, granting/revoking it, granting/revoking privileges to/from it  |
-
-### Users
-
-| Privilege          | Description |
-| :---------------   | :---------- |
-| MODIFY              | Enables dropping or altering any properties of User  |
 
 ### Database
 
