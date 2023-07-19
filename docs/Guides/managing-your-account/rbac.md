@@ -119,6 +119,12 @@ E.g, to grant usage over the database `my_db` to role `my_role`, execute:
 GRANT USAGE ON DATABASE my_db TO my_role
 ```
 
+To verify success, execute: 
+```sql
+SELECT object_type, privilege_type FROM information_schema.object_privileges WHERE grantee = '<role>'
+```
+result set should include the following row: `my_db, USAGE` 
+
 ### Revoke Privileges to a Role 
 Revokes a privilege from a role.
 ```sql
@@ -130,6 +136,12 @@ E.g, to revoke usage over the database `my_db` from role `my_role`, execute:
 REVOKE USAGE ON DATABASE my_db FROM my_role
 ```
 
+To verify success, execute: 
+```sql
+SELECT object_type, privilege_type FROM information_schema.object_privileges WHERE grantee = '<role>'
+```
+result set will not include following row: `my_db, USAGE` 
+
 ### Grant Role to a Role/User
 Grants a role to a user or another role.
 ```sql
@@ -140,7 +152,7 @@ To verify success, execute:
 ```sql
 SELECT grantee, role_name FROM information_schema.applicable_roles WHERE role_name = '<role>'
 ```
-result set should include a row per each assigned user or role, e.g `<user_name>, <role>`
+result set should include a row per each assigned user or role, e.g. `<user_name>, <role>'.
 
 ### Revoke Role from a Role/User
 Revokes a role from a user or another role.
