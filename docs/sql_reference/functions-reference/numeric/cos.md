@@ -9,22 +9,28 @@ great_grand_parent: SQL reference
 
 # COS
 
-Calculates the cosine.
+Trigonometric function that calculates the cosine of a specific value.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-COS(<exp>)
+COS(<value>)
 ```
+## Parameters 
+{: .no_toc}
 
-| Parameter | Description                                           |
-| :--------- | :----------------------------------------------------- |
-| `<exp>`   | Any expression that evaluates to a numeric data type. |
+| Parameter | Description                                           | Supported input types | 
+| :--------- | :----------------------------------------------------- | :--------| 
+| `<value>`   | The value that the `COS` function is applied to | `DOUBLE PRECISION` |
+
+## Return Types 
+`DOUBLE PRECISION`
 
 ## Example
 {: .no_toc}
 
+The following example returns the cosine of `180`: 
 ```sql
 SELECT
     COS(180);
