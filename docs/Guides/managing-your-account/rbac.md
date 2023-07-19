@@ -69,125 +69,64 @@ There is a set of privileges that can be granted for every securable object.
 **Custom roles**<br>
 A user granted the `account_admin` or `security_admin` roles can create custom roles. 
 
-## Working with roles
-### Create a custom role using SQL
-`CREATE ROLE <role>`
+## SQL Reference
 
-**Example**
-`CREATE ROLE my_role`
+Firebolt SQL includes statements for controlling roles and privileges
 
+### information schema views
+#### applicable_roles
+
+shows all roles in the account, full definition in the [information_schema]() section
+
+#### object_privileges
+
+shows all privileges in the account, full definition in the [information_schema]() section
+
+### Create Role
 Creates a custom role.
+```sql
+CREATE ROLE <role>
+```
 
-| Property           | Description |
-| :---------------   | :---------- |
-| role               | The name of the role. |
-
-### Create a custom role using the UI
-1. In the Firebolt manager, choose the Admin icon in the navigation pane, then choose Role Management.
-2. Under Role Name, enter the name of the role.
-
-### Add Database and Engine privileges:
-1. Under Role Privileges, choose the secured object you want to manage access for: choose either Databases or Engines respectively.
-2. Select the required privileges on the relevant secured object. You can either choose to enable the privilege for a specific object for all existing objects or bulk enable a privilege on all secured objects (this applies to all existing and future objects).
-
-### Delete custom role using SQL
-`DROP ROLE <role>`
-
-**Example**
-`DROP ROLE my_role`
-
+### Drop Role
 Deletes a custom role.
+```sql
+DROP ROLE <role>
+```
 
-| Property           | Description |
-| :---------------   | :---------- |
-| role               | The name of the role. |
+### Grant Privilege to a Role
+Grant a privilege over an object to a role.
+```sql
+GRANT <privilege> ON { <object_type> <object_name> | ANY <object_type> } TO <role>
+```
 
+E.g, to grant usage over the database `my_db` to role `my_role`, execute:
+```sql
+GRANT USAGE ON DATABASE my_db TO my_role
+```
 
-### Delete a custom role using the UI
-1. In the Firebolt manager, choose the Admin icon in the navigation pane, then choose Role Management.
-2. Locate the custom role you would like to delete, then choose Delete role.
-
-### Managing users' roles
-Roles can be granted to users upon creation or after a user is created. Granting roles to new users is done when the user is invited to your account using the UI.
-
-### Manage user’s roles using SQL
-`GRANT role to user`
-`GRANT ROLE <role> TO USER <user_name>`
-
-**Example**
-`GRANT ROLE my_role TO USER “john@acme.com”`
-
-Grants a role to a user.
-
-| Property           | Description |
-| :---------------   | :---------- |
-| role               | The name of the role. |
-| user_name          | The username (email - i.e: john@acme.com) | 
-
-
-`REVOKE role from user`
-`REVOKE ROLE <role> FROM USER <user_name>`
-
-**Example:**
-`REVOKE ROLE my_role FROM USER “john@acme.com”`
-
-Revokes a role from a user.
-
-| Property           | Description |
-| :---------------   | :---------- |
-| role               | The name of the role. |
-| user_name          | The username (email - i.e: john@acme.com) | 
-
-### Manage user’s roles using the UI
-Managing roles for existing users is performed as follows:
-1. In the Firebolt manager, choose the Admin icon in the navigation pane, then choose User Management.
-2. Locate the relevant user, then on the right, choose the options icon, then choose Edit user details.
-3. Select roles that need to be granted to the user and de-select roles that need to be revoked.
-4. Choose Update user details to save the changes.
-
-### Role management
-Roles are managed using SQL or on the role management page in Firebolt manager. To get to this page in the Firebolt manager, choose the Admin icon in the navigation pane, then choose Role Management.
-
-### Grant privilege to a role using SQL
-`GRANT <privilege> ON { <object_type> <object_name> | ANY <object_type>} TO <role>`
-             
-**Example**
-`GRANT USAGE ON DATABASE my_db TO my_role`
-
-Grant a privilege to a role.
-
-| Property              | Description |
-| :---------------      | :---------- |
-| privilege             | The privilege. | 
-| role                  | The name of the role. |
-| object_type           | The type of the secured object (database/engine). | 
-| object_name           | The name of the secured object (database/engine). | 
-| object_type_in_plural | The type of the secured object in plural(databases/engines). | 
-
-### Grant privilege to a role using the UI
-1. Under Role Privileges, choose the secured object you want to manage access for: choose either Databases or Engines respectively.
-2. Select the required privileges on the relevant secured object. You can either choose to enable the privilege for a specific object for all existing objects or bulk enable a privilege on all secured objects (this applies to all existing and future objects).
-
-### Revoke privilege from role using SQL
-`REVOKE <privilege> ON { <object_type> <object_name> | ANY <object_type>} FROM <role>`
-
-**Example**
-`REVOKE USAGE ON DATABASE my_db FROM my_role`
-
+### Revoke Privileges to a Role 
 Revokes a privilege from a role.
+```sql
+REVOKE <privilege> ON { <object_type> <object_name> | ANY <object_type> } FROM <role>
+```
 
-| Property              | Description |
-| :---------------      | :---------- |
-| privilege             | The privilege. | 
-| role                  | The name of the role. |
-| object_type           | The type of the secured object (database/engine). | 
-| object_name           | The name of the secured object (database/engine). | 
-| object_type_in_plural | The type of the secured object in plural(databases/engines). | 
+E.g, to revoke usage over the database `my_db` from role `my_role`, execute:
+```sql
+REVOKE USAGE ON DATABASE my_db FROM my_role
+```
 
+### Grant Role to a Role/User
+Grants a role to a user or another role.
+```sql
+GRANT ROLE <role> TO { USER <user_name> | ROLE <another_role> }
+```
 
-### Revoke privilege from role using the UI
-1. Under Role Privileges, choose the secured object you want to manage access for: choose either Databases or Engines respectively.
-2. De-Select the privileges that must be revoked on the relevant secured object. 
+### Revoke Role from a Role/User
+Revokes a role from a user or another role.
+```sql
+REVOKE ROLE <role> FROM { USER <user_name> | ROLE <another_role> }
+```
 
 ## Known limitations and future release plans
  
