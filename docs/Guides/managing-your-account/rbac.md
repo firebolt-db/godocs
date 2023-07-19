@@ -90,11 +90,23 @@ Creates a custom role.
 CREATE ROLE <role>
 ```
 
+To verify success, execute: 
+```sql
+SELECT grantee, role_name FROM information_schema.applicable_roles WHERE role_name = '<role>'
+```
+result set should include a single row, `null, <role>` since the role is not yet assigned
+
 ### Drop Role
 Deletes a custom role.
 ```sql
 DROP ROLE <role>
 ```
+
+To verify success, execute: 
+```sql
+SELECT grantee, role_name FROM information_schema.applicable_roles WHERE role_name = '<role>'
+```
+result set should be empty.
 
 ### Grant Privilege to a Role
 Grant a privilege over an object to a role.
@@ -124,11 +136,24 @@ Grants a role to a user or another role.
 GRANT ROLE <role> TO { USER <user_name> | ROLE <another_role> }
 ```
 
+To verify success, execute: 
+```sql
+SELECT grantee, role_name FROM information_schema.applicable_roles WHERE role_name = '<role>'
+```
+result set should include a row per each assigned user or role, e.g `<user_name>, <role>`
+
 ### Revoke Role from a Role/User
 Revokes a role from a user or another role.
 ```sql
 REVOKE ROLE <role> FROM { USER <user_name> | ROLE <another_role> }
 ```
+
+To verify success, execute: 
+```sql
+SELECT grantee, role_name FROM information_schema.applicable_roles WHERE role_name = '<role>'
+```
+result set should include a single row, `null, <role>` if it was the last role or user that was revoked from the role,
+otherwise, result set should include a row per each assigned user or role, without the revoked role/user in the `grantee` column
 
 ## Roles Management from UI
 ### Assigning Roles to a User
