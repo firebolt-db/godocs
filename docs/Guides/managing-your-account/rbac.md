@@ -167,10 +167,10 @@ Managing roles for existing users is performed as follows:
 Roles are managed using SQL or on the role management page in Firebolt manager. To get to this page in the Firebolt manager, choose the Admin icon in the navigation pane, then choose Role Management.
 
 ### Grant privilege to a role using SQL
-`GRANT <privilege> ON { <object_type> <object_name> | ALL FUTURE <object_type_in_plural>} TO ROLE <role>`
-
+`GRANT <privilege> ON { <object_type> <object_name> | ANY <object_type>} TO <role>`
+             
 **Example**
-`GRANT READ ON DATABASE my_db TO ROLE my_role`
+`GRANT USAGE ON DATABASE my_db TO my_role`
 
 Grant a privilege to a role.
 
@@ -187,10 +187,10 @@ Grant a privilege to a role.
 2. Select the required privileges on the relevant secured object. You can either choose to enable the privilege for a specific object for all existing objects or bulk enable a privilege on all secured objects (this applies to all existing and future objects).
 
 ### Revoke privilege from role using SQL
-`REVOKE <privilege> ON { <object_type> <object_name> | ALL FUTURE <object_type_in_plural>} FROM ROLE <role>`
+`REVOKE <privilege> ON { <object_type> <object_name> | ANY <object_type>} FROM <role>`
 
 **Example**
-`REVOKE READ ON DATABASE my_db FROM ROLE my_role`
+`REVOKE USAGE ON DATABASE my_db FROM my_role`
 
 Revokes a privilege from a role.
 
