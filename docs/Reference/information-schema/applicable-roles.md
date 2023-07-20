@@ -9,15 +9,15 @@ grand_parent: General reference
 
 # Information schema for applicable_roles
 
-You can use the `information_schema.applicable_roles` view to return information about [RBAC](../../managing-your-account/rbac.md) roles. 
+You can use the `information_schema.applicable_roles` view to return information about roles available in the account.
 You can use a `SELECT` query to return information about each role as shown in the example below.
-
 ```sql
 SELECT
   *
 FROM
   information_schema.applicable_roles;
 ```
+Read more about RBAC roles [here](../../managing-your-account/rbac.md).
 
 ## Columns in information_schema.applicable_roles
 
