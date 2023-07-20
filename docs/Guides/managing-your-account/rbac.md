@@ -59,12 +59,12 @@ There is a set of privileges that can be granted for every securable object.
 
 ## System-defined roles
 
-| Role Name      | Description                                                    | Granted Privileges                                                                      |
-|:---------------|:---------------------------------------------------------------|:----------------------------------------------------------------------------------------|
-| account_admin  | A role that has the privileges to all objects in the account.  | ALL Privileges on Accounts, Users, Roles, Engines and Databases |
-| security_admin | Security admin to manage access control                        | ALL Privileges on Accounts, Users, Roles, Engines and Databases                         |
-| system_admin   | A role with all database and engine privileges in the account. | Create, Modify and Usage any Engine and Database in the account. can also manage grants |
-| public         | default public role                                            | Usage any database                                                                      |
+| Role Name      | Description                                                                                                                                                                                                             | 
+|:---------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| public         | Enables using any database in the account. In addition, it allows creating tables (external tables) and views in the public schema and selecting from all I_S views.                                                    |
+| security_admin | Enables managing all account roles (with the ability to manage grants) and users.                                                                                                                                       |
+| system_admin   | Enables managing databases, engines, schemas, tables, views, external tables, and grants. In addition, it also enables access to observability functionality on all engines and setting database and engine properties. |
+| account_admin  | Provides everything system_admin and security_admin roles do alongside the ability to manage the account.                                                                                                               |
 
 System defined roles cannot be modified nor dropped.
 
