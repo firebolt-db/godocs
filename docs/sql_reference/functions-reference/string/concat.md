@@ -49,6 +49,7 @@ LIMIT 5;
 ```
 
 **Returns**:
+
 | user_info                              |
 | :--------------------------------------|
 | steven70: daniellegraham@example.net   | 
