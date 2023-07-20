@@ -9,15 +9,15 @@ grand_parent: General reference
 
 # Information schema for object_privileges
 
-You can use the `information_schema.object_privileges` view to return information about [RBAC](../../managing-your-account/rbac.md) privileges. 
+You can use the `information_schema.object_privileges` view to return information about permissions granted to each role.  
 You can use a `SELECT` query to return information about each privilege as shown in the example below.
-
 ```sql
 SELECT
   *
 FROM
   information_schema.object_privileges;
 ```
+Read more about RBAC privileges [here](../../managing-your-account/rbac.md).
 
 ## Columns in information_schema.object_privileges
 
