@@ -17,6 +17,7 @@ SELECT
 FROM
   information_schema.applicable_roles;
 ```
+{: .note}
 Read more about RBAC roles [here](../../managing-your-account/rbac.md).
 
 ## Columns in information_schema.applicable_roles

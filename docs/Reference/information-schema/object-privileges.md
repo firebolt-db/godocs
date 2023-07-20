@@ -17,6 +17,7 @@ SELECT
 FROM
   information_schema.object_privileges;
 ```
+{: .note}
 Read more about RBAC privileges [here](../../managing-your-account/rbac.md).
 
 ## Columns in information_schema.object_privileges
