@@ -194,6 +194,3 @@ then select the desired privileges. if you want to grant privileges over all obj
 When done, press the `Create/Update` button:
 
 ![Create/Edit Role](../assets/images/create_edit_role.png)
-
-## Known limitations and future release plans
- 
