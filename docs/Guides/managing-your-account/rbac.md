@@ -170,7 +170,7 @@ otherwise, result set should include a row per each assigned user or role, witho
 ## Roles Management from UI
 ### Assigning Roles to a User
 From the menu, choose `Govern` > `Users`. In the opened page, all users are listed.
-choose the role you wish to edit, press the menu icon on the right, and in the toggled window choose `Edit User Details`.
+Choose the user you wish to edit, press the menu icon on the right, and in the toggled window choose `Edit User Details`.
 Alternatively, create a new one using `+ Create User` button on the top left.
 
 ![Govern > Users](../assets/images/govern_users.png)
@@ -190,7 +190,7 @@ Alternatively, create a new one using `+ New Role` button on the top left
 ![Govern > Roles](../assets/images/govern_roles.png)
 
 In the `Create/Edit role` window, choose the privileges tab for the object type you want to manage privileges for,
-then checkbox the desired privileges. if you want to grant privileges over all objects of that type, choose the topmost line.
+then select the desired privileges. if you want to grant privileges over all objects of that type, choose the topmost line.
 When done, press the `Create/Update` button:
 
 ![Create/Edit Role](../assets/images/create_edit_role.png)
