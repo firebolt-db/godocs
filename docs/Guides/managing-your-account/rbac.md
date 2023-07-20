@@ -78,11 +78,11 @@ Firebolt SQL includes statements for controlling roles and privileges
 ### information schema views
 #### applicable_roles
 
-shows all roles in the account, full definition in the [information_schema]() section
+shows all roles in the account, full definition in [information_schema.applicable_roles](../general-reference/information-schema/applicable-roles.md).
 
 #### object_privileges
 
-shows all privileges in the account, full definition in the [information_schema]() section
+shows all privileges in the account, full definition in [information_schema.object_privileges](../general-reference/information-schema/object-privileges.md).
 
 ### Create Role
 Creates a custom role.
