@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # UPPER
 
-Converts the string to uppercase format.
+Converts the input string to uppercase characters.
 
 ## Syntax
 {: .no_toc}
@@ -18,21 +18,24 @@ Converts the string to uppercase format.
 UPPER(<expression>)
 ```
 
-| Parameter  | Description                                             | Supported input types |
-| :---------- | :------------------------------------------------------- |:---------|
-| `<expression>` | The string to be converted to all uppercase characters. | Any data type that is convertible to `VARCHAR`
+## Parameters
+{: .no_toc}
+
+| Parameter | Description                         |Supported input types |
+| :--------- | :----------------------------------- | :---------------------|
+| `<expression>` | The string to be converted to uppercase characters. | `TEXT` |
 
 ## Return Type
-`VARCHAR` 
+`TEXT` 
 
 ## Example
 {: .no_toc}
 
-The following example converts a video game player's username from lower case syntax to all uppercase syntax:
+The following example converts a game player's username from lowercase to uppercase characters:
 
 ```sql
 SELECT
-	UPPER('esimpson')
+	UPPER('esimpson') as username
 ```
 
 **Returns**: `ESIMPSON`
