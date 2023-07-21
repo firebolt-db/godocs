@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Using the SQL workspace
-description: Learn how to navigate and use the SQL workspace to work with your Firebolt database.
-parent: General reference
+title: Using the SQL editor
+description: Learn how to navigate and use the SQL editor to work with your Firebolt database.
+parent: Guides
 has_children: true
 has_toc: false
 ---
 
-# Using the SQL workspace
+# Using the SQL editor
 {: .no_toc}
 
 * Topic ToC
 {:toc}
 
-The Firebolt Manager has a SQL workspace that you use to edit, run, and save SQL scripts and view query results. Each database in Firebolt has a SQL workspace. When you open the SQL workspace for a database, you see the saved scripts and state for that particular database.
+The Firebolt Manager has a SQL editor that you use to edit, run, and save SQL scripts and view query results. Each database in Firebolt has a SQL editor. When you open the SQL editor for a database, you see the saved scripts and state for that particular database.
 
 ## Dark mode
 
@@ -22,21 +22,21 @@ Select the toggle at the bottom of the left navigation pane to turn dark mode on
 ![](../assets/images/dark_mode.png)
 
 
-## Opening a SQL workspace
+## Opening a SQL editor
 
-You can launch the SQL workspace for a database either from the left navigation pane or from the databases list.
+You can launch the SQL editor for a database either from the left navigation pane or from the databases list.
 
-**To start the SQL workspace for the last database you worked with**
+**To start the SQL editor for the last database you worked with**
 
 1.  Choose the **>\_** icon from the left navigation pane.
 
     ![](../assets/images/work-with-our-sql-editor-select-editor-from-nav.png)
 
-    The workspace for the database that you last worked with opens, and the database is selected from the list.
+    The editor for the database that you last worked with opens, and the database is selected from the list.
 
-2. To switch to the workspace for a different database, choose it from the **Select a database** list.
+2. To switch to the editor for a different database, choose it from the **Select a database** list.
 
-**To start the SQL workspace from the Databases list**
+**To start the SQL editor from the Databases list**
 
 *   From the Databases list, hover over the **Database name** and then choose the **>\_** icon.
 
@@ -44,9 +44,9 @@ You can launch the SQL workspace for a database either from the left navigation 
 
 ## Quick tour
 
-The SQL workspace is organized into three panes.
+The SQL editor is organized into three panes.
 
-* The left pane is the workspace navigation pane. Use it to navigate to different databases and to work with different scripts in your database.
+* The left pane is the editor navigation pane. Use it to navigate to different databases and to work with different scripts in your database.
 
 * The center pane is the SQL editor. Use it to edit scripts, save them, and run scripts. When you run a script, results are shown in the bottom part of the pane.
 
@@ -64,7 +64,7 @@ As you enter your code in a script tab, Firebolt suggests keywords and object na
 
 ### Using keyboard shortcuts
 
-You can click the keyboard icon to view available keyboard shortcuts, or you can view a full list on our [keyboard shortcuts page](keyboard-shortcuts-for-sql-workspace.md). You can also select an item from the list to perform that action.
+You can click the keyboard icon to view available keyboard shortcuts, or you can view a full list on our [keyboard shortcuts page](keyboard-shortcuts-for-sql-editor.md). You can also select an item from the list to perform that action.
 
 ![](../assets/images/work-with-our-sql-editor-select-editor-keyboard-shortcuts.png)
 
@@ -157,7 +157,7 @@ After you run a script or query statement, more results appear below the script 
 
 ![](../assets/images/workspace_statistics.png)
 
-When running a query, Firebolt provides several statistics to help you understand and monitor the performance. These statistics can be viewed in the SQL workspace, just above the query results table. From left to right, these icons represent the following:
+When running a query, Firebolt provides several statistics to help you understand and monitor the performance. These statistics can be viewed in the SQL editor, just above the query results table. From left to right, these icons represent the following:
 
 | Icon | Name  | Description |
 | :--- | :---- | :---------- |

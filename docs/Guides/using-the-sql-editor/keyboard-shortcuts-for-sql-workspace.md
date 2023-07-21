@@ -1,15 +1,15 @@
 ---
 layout: default
 title: Keyboard shortcuts
-description: Reference for efficient keyboard shortcuts when working in the Firebolt SQL workspace.
+description: Reference for efficient keyboard shortcuts when working in the Firebolt SQL editor.
 nav_order: 1
-parent: Using the SQL workspace
-grand_parent: General reference
+parent: Using the SQL editor
+grand_parent: Guides
 ---
 
-# Keyboard shortcuts for SQL workspace
+# Keyboard shortcuts for SQL editor
 
-Firebolt supports the following keyboard shortcuts in the SQL workspace.
+Firebolt supports the following keyboard shortcuts in the SQL editor.
 
 | Function | Windows & Linux shortcut | Mac shortcut |
 | :--- | :--- | :--- |

@@ -3,8 +3,8 @@ layout: default
 title: Using visual explain
 description: Learn to use Firebolt visual explain to analyze query execution plans to improve query performance and efficiency.
 nav_order: 1
-parent: Using the SQL workspace
-grand_parent: General reference
+parent: Using the SQL editor
+grand_parent: Guides
 ---
 
 # Analyze query execution plans with visual explain
@@ -13,7 +13,7 @@ grand_parent: General reference
 * Topic ToC
 {: toc}
 
-You can use Firebolt *visual explain* in the SQL workspace to analyze query execution plans. Analyzing query plans helps you identify opportunities to improve query performance by changing index configurations, joins, query structure, and more.
+You can use Firebolt *visual explain* in the SQL editor to analyze query execution plans. Analyzing query plans helps you identify opportunities to improve query performance by changing index configurations, joins, query structure, and more.
 
 You can use the [EXPLAIN statement](../sql-reference/commands/explain.md) to open visual explain without running the actual query. In the script tab, enter `EXPLAIN <query_statement_to_analyze>`, and then choose **Run script**.
 
