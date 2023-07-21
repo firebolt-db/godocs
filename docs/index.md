@@ -33,9 +33,9 @@ Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics
     <br><strong><a href="https://special-disco-436d3e6a.pages.github.io/Guides/developing-with-firebolt/">Developing with Firebolt</a></strong>
     <br><strong><a href="https://special-disco-436d3e6a.pages.github.io/Guides/integrations/">Integrations</a></strong>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/working-with-semi-structured-data/working-with-semi-structured-data.html">Working with semi-structured data</a>
-    <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/working-with-indexes.html" >Working with indexes</a><p>
-    <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/exporting-query-results.html">Exporting query results</a></p>
-    <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/using-the-sql-editor/using-the-sql-editor.html">Using the SQL editor</a>
+    <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/working-with-indexes.html">Working with indexes</a>
+    <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/exporting-query-results.html">Exporting query results</a>
+    <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/using-the-sql-editor/using-the-sql-editor.html">Using the SQL editor</a></p>
   </div>
   <div class="column">
     <div class="columnimg"  src="assets/images/docs_whitepaper_illustration.png" alt="Reference"></div>
