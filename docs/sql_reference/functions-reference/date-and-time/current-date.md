@@ -30,7 +30,7 @@ CURRENT_DATE
 CURRENT_DATE()
 ```
 
-## Return Type
+## Return Types
 
 `DATE`
 
@@ -44,12 +44,16 @@ Two simultaneous calls of the function can return different dates, due to time z
 {: .no_toc}
 
 The following example assumes that the current Unix timestamp is `2023-03-03 23:59:00 UTC`.
-Observe how we return different dates with different time zone settings:
+This example displays the current date in the set time zone of `Europe/Berlin`: 
 
 ```sql
 SET time_zone = 'Europe/Berlin';
-SELECT CURRENT_DATE;  --> 2023-03-04
-
-SET time_zone = 'America/New_York';
-SELECT CURRENT_DATE;  --> 2023-03-03
+SELECT CURRENT_DATE;  
 ```
+
+These functions return the current date in each of the timezones.  
+
+**Returns:**
+`2023-03-03`
+
+

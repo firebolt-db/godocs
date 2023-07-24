@@ -17,14 +17,18 @@ For additional window functions, see [Window Functions](./window-functions.md).
 {: .no_toc}
 
 ```sql
-AVG( <val> ) OVER ( [ PARTITION BY <exp> ] )
+AVG( <value> ) OVER ( [ PARTITION BY <expression> ] )
 ```
+## Parameters
+{: .no_toc}
 
-|           |                                                 |
-| :--------- | :----------------------------------------------- |
-| Parameter | Description                                     |
-| `<val>`   | An expression used for the `AVG()` function.    |
-| `<expr>`  | An expression used for the partition by clause. |
+| Parameter | Description | Supported input types | 
+| :--------- | :----------------------------------------------- | :----------|
+| `<value >`   | An value used for the `AVG()` function    | `<column>`  | 
+| `<expression>`  | An expression used for the `PARTITION BY` clause | `<column>` | 
+
+## Return Types 
+AVG (aggregation)
 
 ## Example
 {: .no_toc}

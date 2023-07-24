@@ -15,14 +15,14 @@ Returns `1` (true) when the Boolean expression `<Boolean_expr>` performed on all
 {: .no_toc}
 
 ```sql
-ALL_MATCH(<array_var> -> <Boolean_expr>, <array_expr>)
+ALL_MATCH(<array_var> -> <Boolean_expr>, <expression>)
 ```
 
-| Parameter      | Description                                   |
-| :------------- |:--------------------------------------------- |
+| Parameter      | Description                                   | Supported input types | 
+| :------------- |:--------------------------------------------- | :-----------| 
 | `<array_var>`  | A Lambda array variable that contains elements of the array specified using `<array_expr>`. For more information, see [Manipulating arrays with Lambda functions](../../working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions). |
 | `<Boolean_expr>` | A Boolean expression that evaluates each array value using a comparison operator. For available operators, see [Comparison operators](../../general-reference/operators.md#comparison). |
-| `<array_expr>` | An expression that evaluates to an `ARRAY` data type. |
+| `<expression>` | An expression that evaluates to an `ARRAY` data type. |
 
 ## Examples
 {: .no_toc}
@@ -31,7 +31,7 @@ Return `1` (true) if all elements in the array are greater than 0.
 
 ```sql
 SELECT
-	ALL_MATCH(x -> x > 0, [ 1, 2, 3, 9 ]) AS comparisons_result;
+	ALL_MATCH(x -> x > 0, [ 1, 2, 3, 9 ]) AS levels;
 ```
 
 **Returns**: 

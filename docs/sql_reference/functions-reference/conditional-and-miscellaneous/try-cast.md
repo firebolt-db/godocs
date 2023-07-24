@@ -27,7 +27,7 @@ TRY_CAST(<value> AS <type>)
 {: .no_toc}
 
 ```sql
-SELECT TRY_CAST('1' AS INTEGER) as res, TRY_CAST('test' AS INTEGER) as res1;
+SELECT TRY_CAST('1' AS INTEGER) as level, TRY_CAST('level 2' AS INTEGER) as current_level;
 ```
 
 **Returns**: `1,null`
