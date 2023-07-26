@@ -24,14 +24,17 @@ SUM([DISTINCT] <val> ) OVER ( [ PARTITION BY <expr> ] )
 
 | Parameter | Description                                      |
 | :--------- | :------------------------------------------------ |
-| `<val>`   | The expression used for the `SUM` function       |
-| `<expr>`  | An expression used for the `PARTITION BY` clause |
-| `DISTINCT` | When specified, removes duplicate values from `<expr>` before calculating the sum. |
+| `<value>`   | The expression used for the `SUM` function       |
+| `<expression>`  | An expression used for the `PARTITION BY` clause |
+| `DISTINCT` | When specified, removes duplicate values from `<expression>` before calculating the sum. |
+
+## Return Types
+See [SUM](../aggregation/sum.md)
 
 ## Example
 {: .no_toc}
 
-The example below shows how many vaccinated students are in the same grade level for each student.
+The example below shows how many players registered on a specific date: 
 
 ```sql
 SELECT

@@ -18,40 +18,36 @@ Counts the approximate number of unique or not NULL values. `APPROX_COUNT_DISTIN
 ```sql
 APPROX_COUNT_DISTINCT ( <expr> )
 ```
-
-| Parameter | Description                                                                                                                                                                                                           |
-| :--------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `<expr>`  | Valid values for the expression include column names or functions that return a column name. |
+## Parameters
+{: .no_toc}
+| Parameter | Description  | Supported input types | 
+| :--------- | :-----------|:----------|
+| `<expression>`  | Expression that the `APPROX_COUNT_DISTANCE function` is applied to | Any `<column>` name or any function that returns a `<column>` name | 
 
 {: .note}
 > By default, `APPROX_COUNT_DISTINCT` and `COUNT(DISTINCT)` return the same, approximate results. If you require a precise result for `COUNT(DISTINCT)` (with a performance penalty), please contact Firebolt Support through the Help menu support form. 
 
+## Return Types 
+`INTEGER`
+
 ## Example
 {: .no_toc}
 
-To understand the difference between `COUNT(DISTINCT pk)` with exact precision enabled, `APPROX_COUNT_DISTNCT(pk)`, and `HLL_COUNT_DISTINCT(pk, <precision>)`, consider a table, `count_test` with 8,388,608 unique `pk` values. 
+The following example draws from the `INTEGER` column `playerid` from the `players` table. The code calculates the `COUNT` of `playerid` values as well as the `APPROX_COUNT_DISTINCT` of these two values in a labeled table: 
 
 ```sql
 SELECT
-	COUNT(DISTINCT pk) as count_distinct,
-	APPROX_COUNT_DISTINCT(pk) as approx_count
-	HLL_COUNT_DISTINCT(pk, 12) as hll12_count,
-	HLL_COUNT_DISTINCT(pk, 20) as hll20_count
+	COUNT(DISTINCT playerid) as playerid_count_distinct,
+	APPROX_COUNT_DISTINCT(playerid) as playerid_approx_count
 FROM
-	count_test;
+	players;
 ```
 
 **Returns**: 
 
-Assuming 8,388,608 unique pk values, we will see results like: 
+
+| playerid_count_distinct | playerid_approx_count | 
+|:----------------|:--------------|
+|5,420 | 5,428 | 
 
 
-```sql
-' +----------------+--------------+-------------+-------------+
-' | count_distinct | approx_count | hll12_count | hll20_count |
-' +----------------+--------------+-------------+-------------+
-' |      8,388,608 |    8,427,387 |   8,667,274 |   8,377,014 |
-' +----------------+--------------+-------------+-------------+
-```
-
-where approx_count is using precision 17, hll12_count is using precision 12, and hll20_count is using precision 20, the most precise. 

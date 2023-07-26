@@ -18,6 +18,7 @@ Encode binary data into a SQL expression of type `TEXT`.
 ENCODE(<expression>, <expression>)
 ```
 ## Parameters 
+{: .no_toc}
 | Parameter | Description                         | Supported input types |
 | :--------- | :----------------------------------- | :-------------------- |
 | `<expression>`  | A SQL expression of type `BYTEA` | `BYTEA` |

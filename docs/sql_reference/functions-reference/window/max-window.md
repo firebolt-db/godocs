@@ -19,11 +19,16 @@ For more information on usage, please refer to [Window Functions](./window-funct
 ```sql
 MAX( <exp> ) OVER ( [ PARTITION BY <exp> ] )
 ```
+## Example
+{: .no_toc}
+| Parameter | Description                                       | Supported input types | 
+| :--------- | :------------------------------------------------- | :----------|
+| `<value>`   | A value used for the `MAX` function       |
+| `<exp>`   | An expression used for the `PARTITION BY` clause |
 
-| Parameter | Description                                       |
-| :--------- | :------------------------------------------------- |
-| `<val>`   | An expression used for the `MAX` function.        |
-| `<exp>`   | An expression used for the `PARTITION BY` clause. |
+## Return Types
+## Return Types
+See [MAX](../aggregation/max.md)
 
 ## Example
 {: .no_toc}

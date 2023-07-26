@@ -19,6 +19,8 @@ For more information on usage, please refer to [Window Functions](./window-funct
 ```sql
 COUNT( <value> ) OVER ( [ PARTITION BY <expression> ] )
 ```
+## Parameters 
+{: .no_toc}
 
 | Parameter | Description                                      | Supported input types | 
 | :--------- | :------------------------------------------------ | :------------| 

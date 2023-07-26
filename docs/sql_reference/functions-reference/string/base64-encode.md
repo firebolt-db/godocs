@@ -19,12 +19,12 @@ BASE64_ENCODE(<expression>)
 ```
 ## Parameters
 {: .no_toc}
+{: .no_toc}
 | Parameter | Description                                                                 | Supported input types| 
 | :--------- | :--------------------------------------------------------------------------|:----------|
 | `<expression>`  | Any expression to be encoded | Any expression that evaluates to a `TEXT` data type |
 
 ### Return Types
-{: .no_toc}
 `VARCHAT(8000)`, `VARCHAR(MAX)`
 
 ## Example

@@ -17,13 +17,14 @@ If one argument is passed, returns the number of different elements in the array
 ```sql
 ARRAY_UNIQ(<arr> [, ...n])
 ```
-
-| Parameter        | Description                         |
-| :---------------- | :----------------------------------- |
-| `<arr> [, ...n]` | The array or arrays to be analyzed. |
+## Parameters 
+{: .no_toc}
+| Parameter        | Description                         | Supported input types 
+| :---------------- | :----------------------------------- | :-------| 
+| `<array> [, ...n]` | The array or arrays to be analyzed. | `ARRAY` of any type | 
 
 ## Return Types
-The return type for this function is `ARRAY`.
+`ARRAY`
 
 ## Example
 {: .no_toc}

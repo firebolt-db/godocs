@@ -15,5 +15,5 @@ If the specified expression `<expr>` evaluates to `NULL`, returns a `0` instead 
 {: .no_toc}
 
 ```sql
-ZEROIFNULL(<expr>)
+ZEROIFNULL(<expression>)
 ```
