@@ -18,6 +18,7 @@ Returns the index position of the first occurrence of the element in the array (
 INDEX_OF(<array>, <value>)
 ```
 ## Parameters
+{: .no_toc}
 | Parameter | Description                                       | Supported input types | 
 | :--------- | :------------------------------------------------- | :----------|
 | `<arr>`   | The array to be analyzed                         | `<array>` | 

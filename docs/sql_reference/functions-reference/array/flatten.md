@@ -30,9 +30,8 @@ FLATTEN(<array>)
 | :--------- | :----------------------------------- | :---------------------|
 | `<array>` | The array of arrays to be flattened | Any `ARRAY` of `ARRAY` types | 
 
-## Return Type
-
-`ARRAY` of the same type as the input array
+## Return Types
+`ARRAY` of the same type as the inputted array
 
 ## Example
 {: .no_toc}

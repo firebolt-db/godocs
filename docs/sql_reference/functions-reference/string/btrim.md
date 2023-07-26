@@ -15,64 +15,47 @@ Removes all occurrences of optionally specified characters, `<trimchars_expr>`, 
 {: .no_toc}
 
 ```sql
-BTRIM(<srcstr_expr>[, <trimchars_expr>])
+BTRIM(<expression1>[, <expression2>])
 ```
 
-| Parameter        | Description                |
-| :--------------- | :------------------------- |
-| `<srcstr_expr>`  | An expression that returns the string to be trimmed. The string can be any of the [string data types](../../general-reference/data-types.md#string).|
-| `<trimchars_expr>` | Optional. An expression that returns characters to trim from both sides of the `<srcstr_expr>` string. If omitted, whitespace (ASCII Decimal 32) is assumed. |
+| Parameter        | Description                | Supported input types | 
+| :--------------- | :------------------------- | :----------|
+| `<expression1>`  | An expression that returns the string to be trimmed. The string can be any of the [string data types](../../general-reference/data-types.md#string).| `TEXT` | 
+| `<expression2>` | Optional. An expression that returns characters to trim from both sides of the `<expression1>` string. If omitted, whitespace (ASCII Decimal 32) is assumed. | `TEXT` | 
+
+## Return Types
+`TEXT`
 
 ## Examples
 {: .no_toc}
 
-Default whitespace trim.
+The following example returns a trimmed string with the default amount of whitespace applied: 
 
 ```sql
 SELECT
-  BTRIM('  Hello, world!     ') AS trmdstrng;
+  BTRIM('  The Acceleration Cup     ');
+```
+**Returns**:
+
+The Acceleration Cup
+
+This example returns the string without any `x`: 
+```sql
+SELECT
+  BTRIM('xxThe Acceleration Cupxxx', 'x') 
 ```
 
 **Returns**:
 
-```
-+------------+
-|trmdstrng   |
-+------------+
-|Hello,world!|
-+------------+
-```
+The Acceleration Cup
 
-Single character trim, with whitespace not specified and left as a remainder.
+This example completes a multiple character trim, with all specified characters removed, regardless of ordering:
 
 ```sql
 SELECT
-  BTRIM('xxHello, world!  xxx', 'x') AS trmdstrng;
+  BTRIM('xyxyThe Acceleration Cupyyxx', 'xy') AS trmdstrng;
 ```
 
 **Returns**:
 
-```
-+---------------+
-|trmdstrng      |
-+---------------+
-|Hello,world!   |
-+---------------+
-```
-
-Multiple character trim, with all specified characters removed, regardless of ordering.
-
-```sql
-SELECT
-  BTRIM('xyxyHello, world!yyxx', 'xy') AS trmdstrng;
-```
-
-**Returns**:
-
-```
-+------------+
-|trmdstrng   |
-+------------+
-|Hello,world!|
-+------------+
-```
+The Acceleration Cups

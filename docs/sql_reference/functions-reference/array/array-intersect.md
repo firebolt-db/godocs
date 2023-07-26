@@ -15,7 +15,7 @@ Evaluates all arrays that are provided as arguments and returns an array of any 
 {: .no_toc}
 
 ```sql
-ARRAY_INTERSECT(<arr>)
+ARRAY_INTERSECT(<array>)
 ```
 
 ## Parameters 
@@ -23,7 +23,7 @@ ARRAY_INTERSECT(<arr>)
 
 | Parameter | Description                                            | Supported input types | 
 | :--------- | :------------------------------------------------------ | :-----|
-| `<array>`   | A series of arrays to be analyzed for mutual elements. | `<array>` |
+| `<array>`   | A series of arrays to be analyzed for mutual elements | `<array>` series of the same data type |
 
 ## Examples
 {: .no_toc}

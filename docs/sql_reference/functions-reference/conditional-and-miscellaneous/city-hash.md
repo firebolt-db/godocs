@@ -20,7 +20,7 @@ CITY_HASH(<exp>, [, expr2 [,...]])
 
 | Parameter | Description                                                      |
 | :--------- | :---------------------------------------------------------------- |
-| `<exp>`   | An expression that returns any data type that Firebolt supports. |
+| `<expression>`   | An expression that returns any data type that Firebolt supports. |
 
 ## Example
 {: .no_toc}

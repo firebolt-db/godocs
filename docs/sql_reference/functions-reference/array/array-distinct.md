@@ -15,7 +15,7 @@ Returns an array containing only the _unique_ elements of the given array. If th
 {: .no_toc}
 
 ```sql
-ARRAY_DISTINCT(<arr>)
+ARRAY_DISTINCT(<array>)
 ```
 ## Parameters 
 {: .no_toc}
