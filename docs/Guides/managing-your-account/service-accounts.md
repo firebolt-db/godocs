@@ -3,7 +3,7 @@ layout: default
 title: Service accounts (Beta)
 description: Learn about creating service account users for Firebolt.
 nav_order: 3
-parent: Account and user management
+parent: Managing your organization
 grand_parent: Guides
 ---
 

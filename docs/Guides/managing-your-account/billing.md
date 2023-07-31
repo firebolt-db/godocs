@@ -3,7 +3,7 @@ layout: default
 title: Billing
 description: Understand how Firebolt bills for compute and storage through the AWS Marketplace and your AWS account.
 nav_order: 5
-parent: Account and user management
+parent: Managing your organization
 grand_parent: Guides
 ---
 

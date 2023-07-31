@@ -1,11 +1,8 @@
 ---
 layout: default
 title: RBAC
-nav_exclude: true
-search_exclude: true
-toc_exclude: true
 description: Learn about managing RBAC authorization for Firebolt users.
-parent: Account and user management
+parent: Managing your organization
 grand_parent: Guides
 ---
 
