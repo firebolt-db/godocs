@@ -20,9 +20,9 @@ JSON_EXTRACT(<json>, '<json_pointer_expression>', '<expected_type>')
 
 | Parameter                   | Type           | Description                                                                                       |
 | :--------------------------- | :-------------- | :------------------------------------------------------------------------------------------------- |
-| `<json>`                    | TEXT           | The JSON document from which the value is to be extracted.                                        |
-| `<json_pointer_expression>` | Literal string | A JSON pointer to the location of the array in the JSON. For more information, see [JSON pointer expression syntax](./index.md#json-pointer-expression-syntax).                                 |
-| `<expected_type>`           | Literal string | The expected data type of the key indicated by `<json_pointer_expression>`, such as `TEXT` or `INTEGER`. For more information, see [supported type parameters](index.md#supported-type-parameters). |
+| `<json>`                    | The JSON document from which the value is to be extracted.        |    `TEXT`                                |
+| `<expression>` | A JSON pointer to the location of the array in the JSON. For more information, see [JSON pointer expression syntax](./index.md#json-pointer-expression-syntax).                                 | Literal string | 
+| `<data_type>`           | The expected data type of the key indicated by `<json_pointer_expression>`, such as `TEXT` or `INTEGER`. For more information, see [supported type parameters](index.md#supported-type-parameters). | Any data type | 
 
 ## Example
 {: .no_toc}

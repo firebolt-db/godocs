@@ -15,13 +15,20 @@ Returns an array of string values from a JSON document using the key location sp
 {: .no_toc}
 
 ```sql
-JSON_EXTRACT_VALUES(<json>, '<json_pointer_expression>')
+JSON_EXTRACT_VALUES(<json>, '<expression>')
 ```
 
-| Parameter                   | Type           | Description                                                     |
-| :--------------------------- | :-------------- | :--------------------------------------------------------------- |
-| `<json>`                    | TEXT           | The JSON document from which the values are to be extracted.     |
-| `<json_pointer_expression>` | Literal string | A JSON pointer to the location of the array in the JSON. For more information, see [JSON pointer expression syntax](./index.md#json-pointer-expression-syntax). |
+# Parameters 
+{: .no_toc}
+
+| Parameter                   | Description                                               | Supported input types | 
+| :--------------------------- | :--------------------------------------------------------- | :----------|
+| `<json>`                    | The JSON document from which the array is to be extracted. | `TEXT` | 
+| `<expression>` | A JSON pointer to the location of the array in the JSON. For more information, see [JSON pointer expression syntax](./index.md#json-pointer-expression-syntax).    | Literal string | 
+
+# Return Types 
+* If key is provided, returns an `ARRAY` of string values
+* If no key is provided, returns `NULL` 
 
 ## Example
 {: .no_toc}

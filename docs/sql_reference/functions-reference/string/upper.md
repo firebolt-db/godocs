@@ -20,7 +20,7 @@ UPPER(<expression>)
 
 | Parameter  | Description                                             | Supported input types |
 | :---------- | :------------------------------------------------------- |:---------|
-| `<expression>` | The string to be converted to all uppercase characters. | Any data type that is convertible to `VARCHAR`
+| `<expression>` | The string to be converted to all uppercase characters. | Any data type that is convertible to `VARCHAR` | 
 
 ## Return Type
 `VARCHAR` 
