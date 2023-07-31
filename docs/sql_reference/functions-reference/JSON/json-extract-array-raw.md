@@ -17,13 +17,19 @@ This function is useful when working with heterogeneously typed arrays and array
 {: .no_toc}
 
 ```sql
-JSON_EXTRACT_ARRAY_RAW(<json>, '<json_pointer_expression>')
+JSON_EXTRACT_ARRAY_RAW(<json>, '<expression>')
 ```
+## Parameters S
+{: .no_toc}
 
-| Parameter                   | Type           | Description                                               |
-| :--------------------------- | :-------------- | :--------------------------------------------------------- |
-| `<json>`                    | TEXT           | The JSON document from which the array is to be extracted. |
-| `<json_pointer_expression>` | Literal string | A JSON pointer to the location of the array in the JSON. For more information, see [JSON pointer expression syntax](./index.md#json-pointer-expression-syntax).    |
+| Parameter                   | Description                                               | Supported input types | 
+| :--------------------------- | :--------------------------------------------------------- | :----------|
+| `<json>`                    | The JSON document from which the array is to be extracted. | `TEXT` | 
+| `<expression>` | A JSON pointer to the location of the array in the JSON. For more information, see [JSON pointer expression syntax](./index.md#json-pointer-expression-syntax).    | Literal string | 
+
+## Return Types
+* If the key exists, returns a string representation of a JSON `ARRAY`
+* If the key does not exist, returns an empty `ARRAY`
 
 ## Example
 {: .no_toc}

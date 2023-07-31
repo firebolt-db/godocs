@@ -1,42 +1,11 @@
 ---
 layout: default
-title: Registering to Firebolt
-description: Learn how to create an organization. 
-nav_order: 2
+title: Managing accounts
+description: Learn about how to add and remove accounts in a Firebolt organization.
+nav_order: 3
 parent: Managing your organization
 grand_parent: Guides
 ---
-
-# Registration to Firebolt 
-
-To start working with Firebolt, you first need to register and create your organization and first account. An organization provides a logical structure for managing accounts, billing, and authentication.  Read more about organizations and accounts and their benefits [here](../../Overview/organizations-accounts.md).
-
-When registering to Firebolt, the organization name is the same as the domain name you use in your email. Organization names are globally unique — no two organizations can have the same name. If you need two organizations under the same domain, contact the Firebolt support team for further assistance.
-
-## Create an organization
-To register to Firebolt and create an organization:
-1. Go to Firebolt’s registration page: [go.firebolt.io/signup](go.firebolt.io/signup)
-2. Enter the following information in the form:
-    - First name
-    - Last name
-    - Email - make sure you use a business email address, such as `you@anycorp.com`. Based on that, we infer the name of your company and organization. Firebolt does not support usernames with personal email addresses, such as `me@gmail.com` or `you@outlook.com`.
-    - Region in which to create your first account. You will be able to create additional accounts in other regions later on, if needed.
-3. Click on **Register**.
-4. An email will be sent to the address provided to verify the organization. When this email is received, click on **Activate**. 
-
-To move on to the next step, Firebolt needs to approve your registration request and validate your information. This step could take a couple of minutes to complete. 
-
-5. Once approved - you will get a welcome email. Click on **Go to Firebolt** in this email.
-6. Enter a password as instructed and choose **Set password**. 
-6. Choose **Log in**
-Enter your login information (email address and password) and click **Log in**.
-
-Congratulations - you have successfully set up your organization. Welcome to Firebolt! 
-
-Next steps:
-- Choose a name for your first account (you can also keep the default name).
-- Add users to your account (create logins, users, and manage roles ).
-- Create databases, engines, and load your data. Follow our [getting started tutorial](../getting-started.md) to try this out with sample data.
 
 ## Managing accounts
 
@@ -57,7 +26,7 @@ To create an account via the UI:
 1. Click **Configure** to open the configure space, then choose Accounts from the menu:
 
 2. From the accounts management page, choose **Create Account**.
-Type a name for the account and choose a region for it. You won't be able to change the region later, so choose carefully.
+Type a name for the account and choose a region for it. You won't be able to change the region for this account later, so choose carefully.
 
 3. Choose **Create**. 
 
@@ -97,7 +66,6 @@ Deleting an existing account in your organization can be done in two ways - usin
 ```sql
 DROP ACCOUNT my_account;
 ```
-
 
 To delete an account via the UI:
 1. Click **Configure** to open the configure space, then choose Accounts from the menu:

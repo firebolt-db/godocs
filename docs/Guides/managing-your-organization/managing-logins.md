@@ -2,7 +2,7 @@
 layout: default
 title: Managing logins
 description: Learn about user permissions and how to add and remove logins in a Firebolt account.
-nav_order: 3
+nav_order: 4
 parent: Managing your organization
 grand_parent: Guides
 ---

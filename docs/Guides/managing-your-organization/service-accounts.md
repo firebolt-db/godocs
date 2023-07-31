@@ -1,18 +1,23 @@
 ---
 layout: default
-title: Service accounts (Beta)
+title: Service accounts
 description: Learn about creating service account users for Firebolt.
-nav_order: 3
+nav_order: 8
 parent: Managing your organization
 grand_parent: Guides
 ---
 
-# Creating a service account (Beta)
+# Creating a service account 
 {: .no_toc}
 
-A service account user can access Firebolt programmatically **only**.
+Create service account for access programmatic access **only** to Firebolt. 
 
-## SQL commands for managing service account users
+{: .note}
+Creating a service account requires the org_admin role.
+
+Creating new a service account can be done in two ways - using SQL or the UI. Once the user is created, link the service account to users to allow them programmatic access. 
+
+## SQL commands for managing service account
 
 To create a service account user, follow these steps:
 

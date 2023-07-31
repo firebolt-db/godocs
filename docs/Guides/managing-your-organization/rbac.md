@@ -1,8 +1,9 @@
 ---
 layout: default
-title: RBAC
+title: Role-based access control
 description: Learn about managing RBAC authorization for Firebolt users.
 parent: Managing your organization
+nav_order: 6
 grand_parent: Guides
 ---
 
@@ -13,7 +14,7 @@ Role-based access control provides the ability to control privileges and determi
 
 A user interacting with Firebolt must have the appropriate privileges to use an object. Privileges from all roles assigned to a user are considered in each interaction with a secured object. 
 
-The key concepts to understanding access control in Firebolt with DB-level RBAC are:
+The key concepts to understanding access control in Firebolt with database-level RBAC are: (this should be a visualization)
 
   **Secured object:** an entity to which access can be granted: database, engine subscription.
 
@@ -23,65 +24,28 @@ The key concepts to understanding access control in Firebolt with DB-level RBAC 
 
   **User:** A user identity recognized by Firebolt. It can be associated with a person or a program. Each user can be assigned multiple roles.
 
-## Role types
-Roles are assigned to users to allow them to achieve the required tasks on the relevant objects to fulfill their business needs.
+## Roles
+Roles are assigned to users to allow them to complete tasks on relevant objects to fulfill their business needs.
 
-Firebolt comes with system-defined roles per each account. Those roles cannot be deleted from your account, the same as the privileges granted to the system-defined roles, which cannot be revoked. Users granted the `account_admin` role can create custom roles to meet specific needs. Moreover, users granted the `account_admin` role can grant roles to other users.
+### System-defined roles
 
-## System-defined roles
+Firebolt comes with system-defined roles per account.
 
 | Role Name      | Description                                                                                                                                                                                                             | 
 |:---------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| public         | Enables using any database in the account. In addition, it allows creating tables (external tables) and views in the public schema and selecting from all I_S views.                                                    |
+| public         | Enables using any database in the account. In addition, it allows creating tables (external tables) and views in the public schema and selecting from information_schema views.                                                    |
 | security_admin | Enables managing all account roles (with the ability to manage grants) and users.                                                                                                                                       |
 | system_admin   | Enables managing databases, engines, schemas, tables, views, external tables, and grants. In addition, it also enables access to observability functionality on all engines and setting database and engine properties. |
 | account_admin  | Provides everything system_admin and security_admin roles do alongside the ability to manage the account.                                                                                                               |
 
-System defined roles cannot be modified nor dropped.
+System defined roles cannot be modified nor dropped. Users granted the `account_admin` role can grant roles to other users.
 
-**Custom roles**<br>
-A user granted the `account_admin` or `security_admin` roles can create custom roles. 
+### Custom roles
 
-## Privileges
-A set of privileges can be granted for every securable object.
-
-### Account
-
-| Privilege         | Description                                    |
-|:------------------|:-----------------------------------------------|
-| CREATE ENGINE     | Enables creating new engines in the account.   |
-| CREATE DATABASE   | Enables creating new databases in the account. |
-
-### Database
-
-| Privilege          | Description |
-| :---------------   | :---------- |
-| USAGE              | Enables running SELECT on the database's tables, views, and ATTACH engines. |
-| MODIFY              | Enables:<br>Running CREATE/DROP tables, views, and indexes on a database's tables.<br>Running INSERT data into a database's tables.<br>Altering the properties of a database.<br>Dropping a database. |
-
-### Engine
-
-| Privilege          | Description |
-| :---------------   | :---------- |
-| USAGE              | Enables using an engine and, therefore, executing queries on it. |
-| OPERATE            | Enables changing the state of an engine (stop, start). |
-| MODIFY             | Enables dropping or altering any properties of an engine. |
+A user granted the `account_admin` or `security_admin` roles can create custom roles. You can create a custom role using SQL, or via the UI.  
 
 
-## SQL Reference
-
-Firebolt SQL provides statements for controlling roles and privileges.
-
-### information schema views
-#### applicable_roles
-
-shows all roles in the account, full definition in [information_schema.applicable_roles](../general-reference/information-schema/applicable-roles.md).
-
-#### object_privileges
-
-shows all privileges in the account, full definition in [information_schema.object_privileges](../general-reference/information-schema/object-privileges.md).
-
-### Create Role
+### Create role
 Creates a custom role.
 ```sql
 CREATE ROLE <role>
@@ -93,7 +57,7 @@ SELECT grantee, role_name FROM information_schema.applicable_roles WHERE role_na
 ```
 result set should include a single row, `null, <role>` since the role is not yet assigned
 
-### Drop Role
+### Delete role
 Deletes a custom role.
 ```sql
 DROP ROLE <role>
@@ -105,7 +69,7 @@ SELECT grantee, role_name FROM information_schema.applicable_roles WHERE role_na
 ```
 result set should be empty.
 
-### Grant Privilege to a Role
+### Grant privileges
 Grant a privilege over an object to a role.
 ```sql
 GRANT <privilege> ON { <object_type> <object_name> | ANY <object_type> } TO <role>
@@ -122,7 +86,7 @@ SELECT object_type, privilege_type FROM information_schema.object_privileges WHE
 ```
 result set should include the following row: `my_db, USAGE` 
 
-### Revoke Privileges to a Role 
+### Revoke privileges 
 Revokes a privilege from a role.
 ```sql
 REVOKE <privilege> ON { <object_type> <object_name> | ANY <object_type> } FROM <role>
@@ -139,7 +103,7 @@ SELECT object_type, privilege_type FROM information_schema.object_privileges WHE
 ```
 result set will not include following row: `my_db, USAGE` 
 
-### Grant Role to a Role/User
+### Grant role
 Grants a role to a user or another role.
 ```sql
 GRANT ROLE <role> TO { USER <user_name> | ROLE <another_role> }
@@ -151,7 +115,7 @@ SELECT grantee, role_name FROM information_schema.applicable_roles WHERE role_na
 ```
 result set should include a row per each assigned user or role, e.g. `<user_name>, <role>'.
 
-### Revoke Role from a Role/User
+### Revoke role 
 Revokes a role from a user or another role.
 ```sql
 REVOKE ROLE <role> FROM { USER <user_name> | ROLE <another_role> }
@@ -180,7 +144,7 @@ When done, press the `Create/Update` button
 
 see [User Reference Page](ask roy about it) for more information.
 
-### Assigning Privileges to a role
+### Assigning privileges
 From the menu, choose `Govern` > `Roles`. In the opened page, all roles are listed.
 choose the role you wish to edit, press the menu icon on the right, and in the toggled window choose `Edit role`
 Alternatively, create a new one using `+ New Role` button on the top left
@@ -192,3 +156,38 @@ then select the desired privileges. if you want to grant privileges over all obj
 When done, press the `Create/Update` button:
 
 ![Create/Edit Role](../assets/images/create_edit_role.png)
+
+To create a custom role, use [`CREATE ROLE`]. 
+
+#### applicable_roles
+
+shows all roles in the account, full definition in [information_schema.applicable_roles](../general-reference/information-schema/applicable-roles.md).
+
+## Privileges
+A set of privileges can be granted for every securable object. See below for which privileges are available for which objects. 
+
+### Account
+
+| Privilege         | Description                                    |
+|:------------------|:-----------------------------------------------|
+| CREATE ENGINE     | Enables creating new engines in the account.   |
+| CREATE DATABASE   | Enables creating new databases in the account. |
+
+### Database
+
+| Privilege          | Description |
+| :---------------   | :---------- |
+| USAGE              | Enables running SELECT on the database's tables, views, and ATTACH engines. |
+| MODIFY              | Enables:<br>Running CREATE/DROP tables, views, and indexes on a database's tables.<br>Running INSERT data into a database's tables.<br>Altering the properties of a database.<br>Dropping a database. |
+
+### Engine
+
+| Privilege          | Description |
+| :---------------   | :---------- |
+| USAGE              | Enables using an engine and, therefore, executing queries on it. |
+| OPERATE            | Enables changing the state of an engine (stop, start). |
+| MODIFY             | Enables dropping or altering any properties of an engine. |
+
+#### object_privileges
+
+shows all privileges in the account, full definition in [information_schema.object_privileges](../general-reference/information-schema/object-privileges.md).
