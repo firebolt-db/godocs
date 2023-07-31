@@ -15,6 +15,8 @@ If the pattern does not match, returns an empty array.
 ```sql
 REGEXP_MATCHES(<expression>, <pattern>[,'<flag>[...]'])
 ```
+## Parameters 
+{: .no_toc}
 
 | Parameter   | Description |Supported input types |
 | :----------- | :----------------------------------------- | :---------------------|
