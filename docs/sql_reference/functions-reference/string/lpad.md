@@ -17,27 +17,30 @@ The similar function to pad the end of a string is [`RPAD`](./rpad.md).
 {: .no_toc}
 
 ```sql
-LPAD(<str>, <length>[, <pad>])
+LPAD(<expression1>, <value>[, <expression2>])
 ```
 
-| Parameter  | Description                                                                                                                                                                                                                 |
-| :---------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `<str>`    | The original string. If the length of the original string is larger than the length parameter, this function removes the overflowing characters from the string.  `<str>` can be a literal string or the name of a column. |
-| `<length>` | The length of the string as an integer after it has been left-padded.  A negative number returns an empty string.                                                                                                          |
-| `<pad>`    | The string to add to the start of the primary string `<str>`. If left blank, `<pad>` defaults to whitespace characters.                                                                                                     |
+| Parameter  | Description                                      | Supported input types | 
+| :---------- | :---------------------------------------------- | :------------|
+| `<expression1>`    | The original string. If the length of the original string is larger than the length parameter, this function removes the overflowing characters from the string. | Any string or name of a column | 
+| `<value>` | The length of the string as an integer after it has been left-padded.  | `INTEGER` |                                                                                                         |
+| `<expression2>`    | The string to add to the start of the primary string `<expression1>`. If left blank, `<expression2>` defaults to whitespace characters.         | Any string |                                                                                            |
+
+## Return Types
+`TEXT`
 
 ## Example
 {: .no_toc}
 
-The following statement adds the string "ABC" in front of the string Firebolt repetitively until the resulting string is equivalent to 20 characters in length.
+The following statement adds the string "ABC" in front of the username string "esimpson" repetitively until the resulting string is equivalent to 17 characters in length.
 
 ```sql
 SELECT
-	LPAD('Firebolt', 20, 'ABC');
+	LPAD('esimpson', 17, 'UserName:');
 ```
 
 **Returns**:
 
 ```
-ABCABCABCABCFirebolt
+UserName:esimpson
 ```

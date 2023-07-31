@@ -19,11 +19,18 @@ Synonym for `MULTI_MATCH_ANY`
 ```sql
 MATCH_ANY(<string>, <pattern_array>)
 ```
+## Parameters 
+{: .no_toc}
 
-| Parameter         | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| :----------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `<string>`        | The string to search for a match.                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `<pattern_array>` | A series of one or more regular expression patterns to search for a match in the `<string>`.<br>`<pattern_array>`</code> must be enclosed in brackets. Each pattern must be enclosed in single quotes and separated with commas.<br>For example, the `<pattern_array>` below consists of two regular expression patterns:<br>`[ '\\d+', '\\[a-Z|A-Z]' ]` |
+| Parameter         | Description     | Supported input types | 
+| :----------------- | :------------------------------- | :----------| 
+| `<expression1>`        | The string to search for a match. | Any string |
+| `<expression2>` | A series of one or more regular expression patterns to search for a match in the `<string>`. | Any regular expression pattern | 
+
+## Remarks
+{: .no_toc}
+
+`<expression2>` must be enclosed in brackets. Each pattern must be enclosed in single quotes and separated with commas.For example, the `<expression2>` below consists of two regular expression patterns: `[ '\\d+', '\\[a-Z|A-Z]' ]`
 
 ## Example
 {: .no_toc}
@@ -32,7 +39,7 @@ The query below searches for any matches within the string `123` with the patter
 
 ```sql
 SELECT
-	MATCH_ANY('123', [ '\\d+', '\\[a-Z|A-Z]' ]) AS res;
+	MATCH_ANY('123', [ '\\d+', '\\[a-Z|A-Z]' ]) AS level;
 ```
 
 **Returns**: `1`

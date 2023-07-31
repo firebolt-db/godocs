@@ -15,64 +15,53 @@ Removes all occurrences of optionally specified characters, `<trimchars_expr>`, 
 {: .no_toc}
 
 ```sql
-LTRIM(<srcstr_expr>[, <trimchars_expr>])
+LTRIM(<expression1>[, <expression2>])
 ```
+## Parameters 
+{: .no_toc}
 
-| Parameter        | Description                |
-| :--------------- | :------------------------- |
-| `<srcstr_expr>`  | An expression that returns the string to be trimmed. The string can be any of the [string data types](../../general-reference/data-types.md#string).|
-| `<trimchars_expr>` | Optional. An expression that returns characters to trim from the left side of the `<srcstr_expr>` string. If omitted, whitespace (ASCII Decimal 32) is assumed. |
+| Parameter        | Description                | Supported input types | 
+| :--------------- | :------------------------- | :----------|
+| `<expression1>`  | An expression that returns the string to be trimmed. | Any [string data types](../../general-reference/data-types.md#string).|
+| `<expression2>` | Optional. An expression that returns characters to trim from the left side of the `<expression1>` string. If omitted, whitespace (ASCII Decimal 32) is assumed. | `TEXT` | 
+
+## Return Types 
+`TEXT`
 
 ## Examples
 {: .no_toc}
 
 Default whitespace trim.
 
+The following example returns the default whitespace trim, as there is no additional parameters provided: 
+
 ```sql
 SELECT
-  LTRIM('  Hello, world!     ') AS trmdstrng;
+  LTRIM('  The Acceleration Cup     ');
 ```
 
 **Returns**:
 
-```
-+-----------------+
-|trmdstrng        |
-+-----------------+
-|Hello,world!     |
-+-----------------+
-```
+The Acceleration Cup     
 
-Single character trim, with whitespace not specified and left as a remainder.
+This example displays a single character trim, with whitespace not specified and left as a remainder: 
 
 ```sql
 SELECT
-  LTRIM('xxx    Hello, world!', 'x') AS trmdstrng;
+  LTRIM('xxx    The Acceleration Cup', 'x');
 ```
 
 **Returns**:
 
-```
-+----------------+
-|trmdstrng       |
-+----------------+
-|    Hello,world!|
-+----------------+
-```
+The Acceleration Cup  
 
-Multiple character trim, with all specified characters removed, regardless of ordering.
+This example highlights a multiple character trim, with all specified characters removed, regardless of ordering: 
 
 ```sql
 SELECT
-  LTRIM('yyxxyx  Hello, world!', 'xy') AS trmdstrng;
+  LTRIM('yyxxyx  The Acceleration Cup', 'xy');
 ```
 
 **Returns**:
 
-```
-+--------------+
-|trmdstrng     |
-+--------------+
-|  Hello,world!|
-+--------------+
-```
+The Acceleration Cup  
