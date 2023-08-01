@@ -17,6 +17,7 @@ SELECT
 FROM
   information_schema.applicable_roles;
 ```
+
 {: .note}
 Read more about RBAC roles [here](../../managing-your-account/rbac.md).
 
@@ -24,13 +25,13 @@ Read more about RBAC roles [here](../../managing-your-account/rbac.md).
 
 Each row has the following columns with information about the role.
 
-| Name            | Data type | Description                                                     |
+|  Column Name    | Data Type | Description                                                     |
 |:----------------|:----------|:----------------------------------------------------------------|
 | grantee         | TEXT      | Role or user to whom the privilege is granted (TO USER\|ROLE).  |
 | role_name       | TEXT      | Name of the role.                                               |
 | is_grantable    | TEXT      | YES if the grantee has the admin option on the role, NO if not. |
-| description     | TEXT      | Description of the role                                         |
+| description     | TEXT      | Description of the role.                                        |
 | created         | TIMESTAMP | Creation time of the role.                                      |
 | role_owner      | TEXT      | Name of the user that created the role.                         |
-| last_altered    | TIMESTAMP | Last altered time of the role.                                  |
-| last_altered_by | TEXT      | Principal (USER) who edited the role last.                      |
+| last_altered    | TIMESTAMP | Time the role was last altered.                                 |
+| last_altered_by | TEXT      | Name of the last user to edit the role.                         |

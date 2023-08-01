@@ -9,7 +9,7 @@ grand_parent: Guides
 # Role-based access control
 {: .no_toc}
 
-Role-based access control provides the ability to control privileges and determine who can access and perform operations on specific objects in Firebolt. Access privileges are assigned to roles that are, in turn, assigned to users. 
+Role-based access control provides the ability to control privileges and determine who can access and perform operations on specific objects in Firebolt. Access privileges are assigned to roles which are, in turn, assigned to users. 
 
 A user interacting with Firebolt must have the appropriate privileges to use an object. Privileges from all roles assigned to a user are considered in each interaction with a secured object. 
 
@@ -24,14 +24,27 @@ The key concepts to understanding access control in Firebolt with DB-level RBAC 
   **User:** A user identity recognized by Firebolt. It can be associated with a person or a program. Each user can be assigned multiple roles.
 
 ## Role types
-Roles are entities to which privileges on securable objects are assigned. Roles are assigned to users to allow them to achieve the required tasks on the relevant objects to fulfill their business needs.
+Roles are assigned to users to allow them to achieve the required tasks on the relevant objects to fulfill their business needs.
 
-Firebolt comes out of the box with system-defined roles per each account. Those roles cannot be deleted from your account, the same as the privileges granted to the system-defined roles, which cannot be revoked.
+Firebolt comes with system-defined roles per each account. Those roles cannot be deleted from your account, the same as the privileges granted to the system-defined roles, which cannot be revoked. Users granted the `account_admin` role can create custom roles to meet specific needs. Moreover, users granted the `account_admin` role can grant roles to other users.
 
-Users granted the account admin role can create custom roles to meet specific needs. Moreover, users granted the account admin role can grant roles to other users.
+## System-defined roles
+
+| Role Name      | Description                                                                                                                                                                                                             | 
+|:---------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| public         | Enables using any database in the account. In addition, it allows creating tables (external tables) and views in the public schema and selecting from all I_S views.                                                    |
+| security_admin | Enables managing all account roles (with the ability to manage grants) and users.                                                                                                                                       |
+| system_admin   | Enables managing databases, engines, schemas, tables, views, external tables, and grants. In addition, it also enables access to observability functionality on all engines and setting database and engine properties. |
+| account_admin  | Provides everything system_admin and security_admin roles do alongside the ability to manage the account.                                                                                                               |
+
+System defined roles cannot be modified nor dropped.
+
+**Custom roles**<br>
+A user granted the `account_admin` or `security_admin` roles can create custom roles. 
 
 ## Privileges
-There is a set of privileges that can be granted for every securable object.
+A set of privileges can be granted for every securable object.
+
 ### Account
 
 | Privilege         | Description                                    |
@@ -54,23 +67,10 @@ There is a set of privileges that can be granted for every securable object.
 | OPERATE            | Enables changing the state of an engine (stop, start). |
 | MODIFY             | Enables dropping or altering any properties of an engine. |
 
-## System-defined roles
-
-| Role Name      | Description                                                                                                                                                                                                             | 
-|:---------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| public         | Enables using any database in the account. In addition, it allows creating tables (external tables) and views in the public schema and selecting from all I_S views.                                                    |
-| security_admin | Enables managing all account roles (with the ability to manage grants) and users.                                                                                                                                       |
-| system_admin   | Enables managing databases, engines, schemas, tables, views, external tables, and grants. In addition, it also enables access to observability functionality on all engines and setting database and engine properties. |
-| account_admin  | Provides everything system_admin and security_admin roles do alongside the ability to manage the account.                                                                                                               |
-
-System defined roles cannot be modified nor dropped.
-
-**Custom roles**<br>
-A user granted the `account_admin` or `security_admin` roles can create custom roles. 
 
 ## SQL Reference
 
-Firebolt SQL includes statements for controlling roles and privileges
+Firebolt SQL provides statements for controlling roles and privileges.
 
 ### information schema views
 #### applicable_roles
@@ -164,8 +164,9 @@ SELECT grantee, role_name FROM information_schema.applicable_roles WHERE role_na
 result set should include a single row, `null, <role>` if it was the last role or user that was revoked from the role,
 otherwise, result set should include a row per each assigned user or role, without the revoked role/user in the `grantee` column
 
-## Roles Management from UI
-### Assigning Roles to a User
+## Role management from the UI
+
+### Assigning roles 
 From the menu, choose `Govern` > `Users`. In the opened page, all users are listed.
 Choose the user you wish to edit, press the menu icon on the right, and in the toggled window choose `Edit User Details`.
 Alternatively, create a new one using `+ Create User` button on the top left.

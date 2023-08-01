@@ -24,7 +24,7 @@ Read more about RBAC privileges [here](../../managing-your-account/rbac.md).
 
 Each row has the following columns with information about the role.
 
-| Name           | Data Type | Description                                                       |
+| Column Name    | Data Type | Description                                                       |
 |:---------------|:----------|:------------------------------------------------------------------|
 | grantor        | TEXT      | Name of the role that granted the privilege.                      |
 | grantee        | TEXT      | Name of the role that the privilege was granted to (TO ROLE).     |
@@ -34,4 +34,4 @@ Each row has the following columns with information about the role.
 | object_type    | TEXT      | Type of the object on which the privilege is granted.             |
 | privilege_type | TEXT      | Defaulted to "USAGE" as this views shows only usage privilege.    |
 | is_grantable   | TEXT      | YES if the privilege is grantable, NO if not.                     |
-| CREATED        | TIMESTAMP | Creation time of the privilege.                                   |
+| created        | TIMESTAMP | Creation time of the privilege.                                   |
