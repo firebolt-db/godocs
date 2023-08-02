@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Engine commands
-description: Reference for engine commands
-nav_order: 4
+title: Metadata commands
+description: Reference for metadata commands
+nav_order: 6
 parent: SQL commands
 grand_parent: SQL reference
 has_toc: true 
 has_children: true
 ---
 
-## Engine commands
+## Metadata commands
 

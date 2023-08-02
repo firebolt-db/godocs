@@ -40,7 +40,6 @@ Use the functional list below to find commands for a specific task area that you
 * [ALTER ENGINE](alter-engine.md)
 * [ATTACH ENGINE](attach-engine.md)
 * [CREATE ENGINE](create-engine.md)
-* [DETACH ENGINE (deprecated)](detach-engine.md)
 * [DROP ENGINE](drop-engine.md)
 * [SHOW CACHE](show-cache.md)
 * [SHOW ENGINES](show-engines.md)
@@ -61,14 +60,12 @@ Use the functional list below to find commands for a specific task area that you
 * [CREATE DATABASE](create-database.md)
 * [CREATE EXTERNAL TABLE](create-external-table.md)
 * [CREATE FACT or DIMENSION TABLE](create-fact-dimension-table.md)
-* [CREATE JOIN INDEX](create-join-index.md) (legacy)
 * [CREATE VIEW](create-view.md)
 * [DESCRIBE](describe.md)
 * [DROP DATABASE](drop-database.md)
 * [DROP TABLE](drop-table.md)
 * [DROP VIEW](drop-view.md)
 * [INSERT INTO](insert-into.md)
-* [REFRESH JOIN INDEX](refresh-join-index.md) (legacy)
 * [SHOW COLUMNS](show-columns.md)
 * [SHOW DATABASES](show-databases.md)
 * [SHOW TABLES](show-tables.md)
@@ -81,13 +78,8 @@ Use the functional list below to find commands for a specific task area that you
 
 ## Queries and query optimization
 
-* [CREATE AGGREGATING INDEX](create-aggregating-index.md)
-* [DROP INDEX](drop-index.md)
-* [EXPLAIN](explain.md)
 * [SELECT](select.md)
-* [SHOW INDEXES](show-indexes.md)
-* [COPY TO](copy-to.md)
-* [VACUUM (Beta)](vacuum.md)
+* [EXPLAIN](explain.md)
 
 ## Metadata
 
