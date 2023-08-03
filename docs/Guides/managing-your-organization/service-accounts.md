@@ -2,7 +2,7 @@
 layout: default
 title: Service accounts
 description: Learn about creating service account users for Firebolt.
-nav_order: 8
+nav_order: 5
 parent: Managing your organization
 grand_parent: Guides
 ---
@@ -13,7 +13,6 @@ grand_parent: Guides
 Create service account for access programmatic access **only** to Firebolt. Service accounts can be linked to users, instead of logins for full access. For each service account, a secret is generated to use for authenticat 
 
 You can add, edit, delete and generate secrets for service accounts using SQL or in the UI. 
-
 
 ## Creating a service account 
 {: .note}

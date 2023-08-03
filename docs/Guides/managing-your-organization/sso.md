@@ -2,14 +2,14 @@
 layout: default
 title: Setting up SSO authentication
 description: Learn about setting up SSO authentication for Firebolt. 
-nav_order: 7
+nav_order: 8
 parent: Managing your organization
 grand_parent: Guides
 ---
 
 # Setting up SSO authentication
 
-This topic describes how to configure FIrebolt for Single Sign On (SSO) using SAML 2.0. This topic assumes that you have already [configured your identity provider to work with Firebolt].
+This topic describes how to configure Firebolt for Single Sign On (SSO) using SAML 2.0. This topic assumes that you have already [configured your identity provider to work with Firebolt].
 
 Firebolt supports the following identity providers (IDPs):
 - Okta
@@ -26,7 +26,7 @@ Configuring SSO requires the org_admin role.
 
 SSO can be configured in two ways - using SQL or the UI.  To configure SSO using SQL, use the [`ALTER ORGANIZATION`] statement. For example:
 
-```sql
+```
 ALTER ORGANIZATION SET SSO = ‘{
   “signOnUrl”: “https://abc.okta.com/app/okta_firebolt_app_id/sso/saml”,
   “signOutUrl”: “https://myapp.exampleco.com/saml/logout”, 
@@ -73,7 +73,7 @@ Editing SSO settings requires the org_admin role
 
 SSO settings can be edited in two ways - using SQL or the UI.  To edit SSO settings using SQL, use the [`ALTER ORGANIZATION`] statement. For example:
 
-```sql
+```
 ALTER ORGANIZATION SET SSO = ‘{
   “signOnUrl”: “https://abc.okta.com/app/okta_firebolt_app_id/sso/saml”,
   “signOutUrl”: “https://myapp.exampleco.com/saml/logout”, 
@@ -100,10 +100,7 @@ Deleting SSO requires the org_admin role
 
 To disable the ability to log in using SSO, SSO settings can be deleted in two ways - using SQL or the UI.  To edit SSO settings using SQL, use the following command:
 
-```sql
-ALTER ORGANIZATION SET SSO = DEFAULT;
-```
-
+```ALTER ORGANIZATION SET SSO = DEFAULT;```
 
 To edit SSO settings via the UI:
 1. Click **Configure** to open the configure space, then choose **SSO**.
