@@ -10,7 +10,7 @@ grand_parent: Guides
 # Managing service accounts
 {: .no_toc}
 
-Create service account for access programmatic access **only** to Firebolt. Service accounts can be linked to users, instead of logins for full access. 
+Create service account for access programmatic access **only** to Firebolt. Service accounts can be linked to users, instead of logins for full access. For each service account, a secret is generated to use for authenticat 
 
 You can add, edit, delete and generate secrets for service accounts using SQL or in the UI. 
 
@@ -23,7 +23,7 @@ Creating a service account requires the org_admin role.
 To create a service account using SQL, use the [`CREATE SERVICE ACCOUNT`] statement. For example:
 
 ```
-CREATE SERVICE ACCOUNT [ IF NOT EXISTS ] <name> [DESCRIPTION = <description> ] [NETWORK_POLICY = <network_policy_name> ];
+CREATE SERVICE ACCOUNT IF NOT EXISTS "sa1" DESCRIPTION = "service account 1";
 ```
 
 #### UI
@@ -53,22 +53,8 @@ To generate a secret for a service account user:
 
 To delete a service account user, use the [`DROP SERVICE ACCOUNT` command](#delete-a-service-account-user).
 
-## Create a service account user
-`CREATE SERVICE ACCOUNT <name> ROLE = <role> [DESCRIPTION = <description>]`
 
-Creates a service account user, where:
-
-| Property                          | Data type | Description |
-| :------------------------------   | :-------- | :---------- |
-| name                              | TEXT      | The name of the user. |
-| role                              | TEXT      | A role assigned to the user. |
-| description                       | TEXT      | The description of the user. |
-
-**Example**
-
-`CREATE SERVICE ACCOUNT tableau_user ROLE='viewer' DESCRIPTION='Used for Tableau dashboards'; `
-
-## Generate a secret for the service account user
+## Generate a secret for the service account
 `CALL firebolt.GENERATESERVICEACCOUNTKEY('<name>');`
 
 Generate a secret for the service account user, where:
@@ -86,7 +72,22 @@ The command returns both the service account ID and secret.
 {: .note}
 Generating a new secret for your service account user replaces any previous secret (which cannot be used once a new one is generated). Make a note of the secret and keep it in a secured location.
 
-## Delete a service account user
+## Editing a service account 
+
+#### SQL 
+To edit a service account using SQL, use the [`ALTER SERVICE ACCOUNT`] statement. For example:
+
+```ALTER SERVICE ACCOUNT <name> SET [ NETWORK_POLICY = <network_policy_name> | DEFAULT ] SET [ DESCRIPTION = <description> | DEFAULT ]```
+
+
+## Deleting a service account 
+
+#### SQL 
+To delete a service account using SQL, use the [`CREATE SERVICE ACCOUNT`] statement. For example:
+
+
+
+
 `DROP SERVICE ACCOUNT <name>;`
 
 Deletes a service account user by its name. The name can be retrieved by running the 

@@ -14,7 +14,7 @@ Role-based access control provides the ability to control privileges and determi
 
 A user interacting with Firebolt must have the appropriate privileges to use an object. Privileges from all roles assigned to a user are considered in each interaction with a secured object. 
 
-The key concepts to understanding access control in Firebolt with database-level RBAC are: (this should be a visualization)
+The key concepts to understanding access control in Firebolt with database-level RBAC are: < this should be a visualization > 
 
   **Secured object:** an entity to which access can be granted: database, engine subscription.
 
@@ -22,63 +22,57 @@ The key concepts to understanding access control in Firebolt with database-level
 
   **Privilege:** a defined level of access to an object.
 
-  **User:** A user identity recognized by Firebolt. It can be associated with a person or a program. Each user can be assigned multiple roles.
+  **User:** A user identity recognized by Firebolt. It can be associated with a person or a program. A user can be assigned multiple roles.
 
-## Roles
-Roles are assigned to users to allow them to complete tasks on relevant objects to fulfill their business needs.
 
-### System-defined roles
+## System-defined roles
 
-Firebolt comes with system-defined roles per account.
+Roles are assigned to users to allow them to complete tasks on relevant objects to fulfill their business needs. Firebolt comes with system-defined roles per account.
 
 | Role Name      | Description                                                                                                                                                                                                             | 
 |:---------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| public         | Enables using any database in the account. In addition, it allows creating tables (external tables) and views in the public schema and selecting from information_schema views.                                                    |
-| security_admin | Enables managing all account roles (with the ability to manage grants) and users.                                                                                                                                       |
-| system_admin   | Enables managing databases, engines, schemas, tables, views, external tables, and grants. In addition, it also enables access to observability functionality on all engines and setting database and engine properties. |
-| account_admin  | Provides everything system_admin and security_admin roles do alongside the ability to manage the account.                                                                                                               |
+| public         | Enables using any database in the account. In addition, the public role allows creating tables (external tables) and views in the public schema and selecting from information_schema views.                                                    |
+| security_admin | Enables managing all account roles (with the ability to manage grants) and users. |
+| system_admin   | Enables managing databases, engines, schemas, tables, views, external tables, and grants, as well as setting database and engine properties. In addition, the system_admin role enables access to the observability functionality on all engines. |
+| account_admin  | Enables all the privileges of the system_admin and security_admin roles alongside the ability to manage the account. |
 
 System defined roles cannot be modified nor dropped. Users granted the `account_admin` role can grant roles to other users.
 
-### Custom roles
+## Custom roles
 
 A user granted the `account_admin` or `security_admin` roles can create custom roles. You can create a custom role using SQL, or via the UI.  
 
-
 ### Create role
-Creates a custom role.
-```sql
-CREATE ROLE <role>
-```
+
+#### SQL
+To create a custom role using SQL, use the [`CREATE ROLE`] statement. For example:
+
+```CREATE ROLE <role>```
 
 To verify success, execute: 
-```sql
-SELECT grantee, role_name FROM information_schema.applicable_roles WHERE role_name = '<role>'
-```
+```SELECT grantee, role_name FROM information_schema.applicable_roles WHERE role_name = '<role>'```
 result set should include a single row, `null, <role>` since the role is not yet assigned
 
+#### UI
+To create a custom role via the UI:
+
+
+
 ### Delete role
-Deletes a custom role.
-```sql
-DROP ROLE <role>
-```
+To delete a custom role using SQL, use the [`DROP ROLE`] statement. For example:
+
+```DROP ROLE <role>```
 
 To verify success, execute: 
-```sql
-SELECT grantee, role_name FROM information_schema.applicable_roles WHERE role_name = '<role>'
-```
+```SELECT grantee, role_name FROM information_schema.applicable_roles WHERE role_name = '<role>'```
 result set should be empty.
 
 ### Grant privileges
-Grant a privilege over an object to a role.
-```sql
-GRANT <privilege> ON { <object_type> <object_name> | ANY <object_type> } TO <role>
-```
 
-E.g, to grant usage over the database `my_db` to role `my_role`, execute:
-```sql
-GRANT USAGE ON DATABASE my_db TO my_role
-```
+#### SQL 
+To grant a privilege to a role using SQL, use the [`GRANT`] statement. For example:
+
+```GRANT USAGE ON DATABASE my_db TO my_role``
 
 To verify success, execute: 
 ```sql
@@ -86,16 +80,23 @@ SELECT object_type, privilege_type FROM information_schema.object_privileges WHE
 ```
 result set should include the following row: `my_db, USAGE` 
 
-### Revoke privileges 
-Revokes a privilege from a role.
-```sql
-REVOKE <privilege> ON { <object_type> <object_name> | ANY <object_type> } FROM <role>
-```
+#### UI
+To grant a privilege to a role via the UI:
+1. Click **Govern** to open the govern space, then choose **Roles** from the menu:
 
-E.g, to revoke usage over the database `my_db` from role `my_role`, execute:
-```sql
-REVOKE USAGE ON DATABASE my_db FROM my_role
-```
+![Govern > Roles](../assets/images/govern_roles.png)
+
+2. Search for the relevant role using the top search filters, or by scrolling through the list of logins. Hover over the right-most column to make the role menu appear, then choose **Edit role**. 
+3. In the **Edit role** window, choose the privileges tab for the object type you want to manage privileges for, then select the desired privileges. To grant privileges over all objects of that type, choose the topmost line.
+When done, press the **Update** button:
+
+![Create/Edit Role](../assets/images/create_edit_role.png)
+
+### Revoke privileges 
+To revoke a privilege from a role using SQL, use the [`REVOKE`] statement. For example:
+
+```REVOKE USAGE ON DATABASE my_db FROM my_role```
+
 
 To verify success, execute: 
 ```sql
@@ -104,10 +105,11 @@ SELECT object_type, privilege_type FROM information_schema.object_privileges WHE
 result set will not include following row: `my_db, USAGE` 
 
 ### Grant role
-Grants a role to a user or another role.
-```sql
-GRANT ROLE <role> TO { USER <user_name> | ROLE <another_role> }
-```
+
+#### SQL
+To grant a role to a user or another role using SQL, use the [`GRANT ROLE`] statement. For example:
+
+```GRANT ROLE <role> TO { USER <user_name> | ROLE <another_role> }```
 
 To verify success, execute: 
 ```sql
@@ -115,11 +117,29 @@ SELECT grantee, role_name FROM information_schema.applicable_roles WHERE role_na
 ```
 result set should include a row per each assigned user or role, e.g. `<user_name>, <role>'.
 
+#### UI
+To grant a role to a user or another role via the UI:
+1. Click **Govern** to open the govern space, then choose **Users** from the menu:
+
+![Govern > Users](../assets/images/govern_users.png)
+
+2. Search for the relevant user using the top search filters, or by scrolling through the list of logins. Hover over the right-most column to make the user menu appear, then choose **Edit User Details**. 
+3. Edit the desired fields and choose **Save**.
+
+
+
+
+In the `Create/Edit User` window opened, check all the roles you want assigned to the user.
+When done, press the `Create/Update` button
+
+![Create/Edit User](../assets/images/create_edit_user.png)
+
+see [User Reference Page](ask roy about it) for more information.
+
 ### Revoke role 
-Revokes a role from a user or another role.
-```sql
-REVOKE ROLE <role> FROM { USER <user_name> | ROLE <another_role> }
-```
+To revoke a role from a user or another role using SQL, use the [`REVOKE ROLE`] statement. For example:
+
+```REVOKE ROLE <role> FROM { USER <user_name> | ROLE <another_role> }```
 
 To verify success, execute: 
 ```sql
@@ -129,35 +149,6 @@ result set should include a single row, `null, <role>` if it was the last role o
 otherwise, result set should include a row per each assigned user or role, without the revoked role/user in the `grantee` column
 
 ## Role management from the UI
-
-### Assigning roles 
-From the menu, choose `Govern` > `Users`. In the opened page, all users are listed.
-Choose the user you wish to edit, press the menu icon on the right, and in the toggled window choose `Edit User Details`.
-Alternatively, create a new one using `+ Create User` button on the top left.
-
-![Govern > Users](../assets/images/govern_users.png)
-
-In the `Create/Edit User` window opened, check all the roles you want assigned to the user.
-When done, press the `Create/Update` button
-
-![Create/Edit User](../assets/images/create_edit_user.png)
-
-see [User Reference Page](ask roy about it) for more information.
-
-### Assigning privileges
-From the menu, choose `Govern` > `Roles`. In the opened page, all roles are listed.
-choose the role you wish to edit, press the menu icon on the right, and in the toggled window choose `Edit role`
-Alternatively, create a new one using `+ New Role` button on the top left
-
-![Govern > Roles](../assets/images/govern_roles.png)
-
-In the `Create/Edit role` window, choose the privileges tab for the object type you want to manage privileges for,
-then select the desired privileges. if you want to grant privileges over all objects of that type, choose the topmost line.
-When done, press the `Create/Update` button:
-
-![Create/Edit Role](../assets/images/create_edit_role.png)
-
-To create a custom role, use [`CREATE ROLE`]. 
 
 #### applicable_roles
 
