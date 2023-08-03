@@ -7,21 +7,44 @@ parent: Managing your organization
 grand_parent: Guides
 ---
 
-# Creating a service account 
+# Managing service accounts
 {: .no_toc}
 
-Create service account for access programmatic access **only** to Firebolt. 
+Create service account for access programmatic access **only** to Firebolt. Service accounts can be linked to users, instead of logins for full access. 
 
+You can add, edit, delete and generate secrets for service accounts using SQL or in the UI. 
+
+
+## Creating a service account 
 {: .note}
 Creating a service account requires the org_admin role.
 
-Creating new a service account can be done in two ways - using SQL or the UI. Once the user is created, link the service account to users to allow them programmatic access. 
+#### SQL 
+To create a service account using SQL, use the [`CREATE SERVICE ACCOUNT`] statement. For example:
 
-## SQL commands for managing service account
+```
+CREATE SERVICE ACCOUNT [ IF NOT EXISTS ] <name> [DESCRIPTION = <description> ] [NETWORK_POLICY = <network_policy_name> ];
+```
 
-To create a service account user, follow these steps:
+#### UI
+To create a service account via the UI:
+1. Click **Configure** to open the configure space, then choose **Service accounts** from the menu:
 
-1. Create a service account user using the [`CREATE SERVICE ACCOUNT USER` command](#create-a-service-account-user). Make a note of the service account ID - you will need that to authenticate later. The ID can always be retrieved by querying the `service_account_users` view in Firebolt’s information schema - for more information see [Service account users in information schema](#service-account-users-in-informationschema).
+< screenshot >
+
+2. From the Service accounts page, choose **Create a service account**.
+3. Enter a unique name for your service account. This name must start with a letter, and may contain only alphanumeric characters.
+4. Optionally, you can:
+  - Choose a **network policy** to apply from the list of existing [network policies] configured for your organization. 
+  - Specify a description for the service account.
+5. Choose *Create*. 
+
+## Generating a secret for a service account
+
+{: .note}
+Generating a secret requires the org_admin role.
+
+To generate a secret for a service account user:
 
 2. Generate a secret for the service account user with [the generation function described below](#generate-a-secret-for-the-service-account-user). 
 **Make a note of the secret** - it can't be retrieved later.  In case the secret is lost (or needs to be rotated), you can always generate a new secret, calling the same generation function.

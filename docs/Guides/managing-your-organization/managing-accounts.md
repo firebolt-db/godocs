@@ -9,19 +9,21 @@ grand_parent: Guides
 
 ## Managing accounts
 
-Your organization comes prepared with one account for your convenience. To add more accounts or edit existing ones: 
+Your organization comes prepared with one account for your convenience. You can add more accounts or edit existing ones, using SQL or in the UI.
 
 ### Create new account
 
 {: .note}
 Creating an account requires the org_admin role.
 
-Creating new accounts in your organization can be done in two ways - using SQL or the UI. To create an account using SQL, use the `CREATE ACCOUNT` statement. For example:
+#### SQL
+ To create an account using SQL, use the `CREATE ACCOUNT` statement. For example:
 
-```sql
+```
 CREATE ACCOUNT my_account WITH REGION = “us-east-1”;
 ```
 
+#### UI 
 To create an account via the UI:
 1. Click **Configure** to open the configure space, then choose Accounts from the menu:
 
@@ -41,13 +43,14 @@ There can be up to twenty accounts per organization. If you need to create more,
 {: .note}
 Editing an account requires the account_admin or org_admin roles.
 
-Editing an existing account in your organization can be done in two ways - using SQL or the UI. To edit an existing account using SQL, use the `ALTER ACCOUNT` statement. For example:
+#### SQL 
+To edit an existing account using SQL, use the `ALTER ACCOUNT` statement. For example:
 
-```sql
+```
 ALTER ACCOUNT my_account RENAME TO my_dev_account;
 ```
 
-
+#### UI
 To edit an account via the UI:
 1. Click **Configure** to open the configure space, then choose Accounts from the menu:
 
@@ -61,12 +64,14 @@ Edit the name of the account:
 {: .note}
 Deleting an account requires the account_admin or org_admin roles.
 
-Deleting an existing account in your organization can be done in two ways - using SQL or the UI. To delete an existing account using SQL, use the `DROP ACCOUNT` statement. For example:
+#### SQL 
+To delete an existing account using SQL, use the `DROP ACCOUNT` statement. For example:
 
-```sql
+```
 DROP ACCOUNT my_account;
 ```
 
+#### UI
 To delete an account via the UI:
 1. Click **Configure** to open the configure space, then choose Accounts from the menu:
 
@@ -76,3 +81,4 @@ If your account is not empty (contains other objects such as users/databases/eng
 3. Choose **Confirm**.
 
 The account will be removed from the accounts management page (with all the sub-objects it contained).
+

@@ -2,85 +2,87 @@
 layout: default
 title: Managing logins
 description: Learn about user permissions and how to add and remove logins in a Firebolt account.
-nav_order: 4
+nav_order: 3
 parent: Managing your organization
 grand_parent: Guides
 ---
 
-# Managing Firebolt users
+# Managing logins
 {: .no_toc}
 
-## Managing users
+< Say something about what level logins live at (is it org or account?) and about how logins must be linked to users. > To view all logins, click **Configure** to open the configure space, then choose **Logins** from the menu, or query the [information_schema.logins](../../Reference/information-schema/logins.md) view. 
 
-### Create a new user
+You can add, edit or delete logins using SQL or in the UI. 
+
+### Create a new login
 
 {: .note}
-Creating a user requires the account_admin or security_admin roles.
+Creating a login requires the org_admin role.
 
-Creating new users in your account can be done in two ways - using SQL or the UI. To create a user using SQL, use the [`CREATE USER`] statement. For example:
+#### SQL 
+To create a login using SQL, use the [`CREATE LOGIN`] statement. For example:
 
-```sql
-CREATE USER "john";
+```
+CREATE LOGIN "alexs@acme.com" WITH FIRST_NAME = "Alex" LAST_NAME = "Summers";
 ```
 
-To create a user via the UI:
-1. Click **Govern** to open the govern space, then choose **Users** from the menu:
+#### UI
+To create a login via the UI:
+1. Click **Configure** to open the configure space, then choose **Accounts** from the menu:
 
-2. From the users management page, choose **Create user**.
-3. Enter the new user's name. This user name can be any string - it can contain spaces, and non-alpha-numeric characters such as exclamation points (!), percent signs (%), at sign(@), dot sign (.), underscore sign (_), minus sign (-), and asterisks (*), but if the string contains these spaces or non-alphanumeric characters, it must be enclosed in single or double quotes. 
+< screenshot >
 
+2. From the Logins page, choose **Create Login**.
+3. Enter the following details:
+    - First name: specifies the first name of the user that uses the login. 
+    - Last name: specifies the last name of the user that uses the login.
+    - Login name: specifies the login in the form of an email address. This must be unique within your organization.
 4. Optionally, you can:
-  - Choose **Associate a login** or **Associate a service account**, then choose the relevant login/service account from the list.
-  - Choose a **default database** for the user.
-  - Choose a **default engine** for the user. 
-  - Choose **roles** to be granted to the user. 
-
-### Edit an existing user
-
-{: .note}
-Editing a user requires the account_admin or security_admin roles.
-
-Editing an existing user in your account can be done in two ways - using SQL or the UI. To edit an existing user using SQL, use the [`ALTER USER`] statement. For example:
-
-```sql
-ALTER USER "john" rename to "john_new";
-```
+    - Associate a [network policy] with the login by choosing a network policy name under the network policy attached field.
+    - Enable password log, which specifies if the login can authenticate Firebolt using a password.
+    - Enable MFA. Read more about how to use MFA [here].
+    - Set the login as org_admin, which enables fully managing the organization.
 
 
-To edit a user via the UI:
-1. Click **Govern** to open the govern space, then choose **Users** from the menu:
-
-2. Search for the relevant user using the top search filters or by scrolling through the users' list. Hover over the right-most column and choose  then choose **Edit user**.
-3. Edit the desired fields and choose **Save**.
-
-
-### Deleting an existing user
+### Edit an existing login
 
 {: .note}
-Deleting a user requires the account_admin or security_admin roles.
+Editing a login requires the org_admin role.
 
-Deleting an existing user in your account can be done in two ways - using SQL or the UI. To delete an existing user using SQL, use the [`DROP USER`] statement. For example:
+#### SQL 
+To edit an existing login using SQL, use the [`ALTER LOGIN`] statement. For example:
 
-```sql
-DROP USER "john";
+```
+ALTER LOGIN "alexs@acme.com" SET IS_ORGANIZATION_ADMIN = True;
 ```
 
-To delete a user via the UI:
-1. Click **Govern** to open the govern space, then choose **Users** from the menu:
+#### UI
+To edit a login via the UI:
+1. Click **Configure** to open the configure space, then choose **Logins** from the menu:
 
-2. Search for the relevant user using the top search filters or by scrolling through the users list. Hover over the right-most column and choose  then choose **Delete user**.
-3. Choose Confirm.
+< screenshot >
 
+2. Search for the relevant login using the top search filters, or by scrolling through the list of logins. Hover over the right-most column to make the login menu appear, then choose **Edit login**.
+Edit the required fields and choose **Save**.
 
-### List users
+### Deleting an existing login
 
 {: .note}
-Listing users requires the account_admin or security admin roles. 
+Deleting a login requires the org_admin role.
 
-Listing the users in your account can be done in two ways - using SQL or the UI. To list users using SQL, query the [information_schema.users] view:
+#### SQL 
+To delete an existing login using SQL, use the [`DROP LOGIN`] statement. For example:
 
-```sql
-SELECT * FROM information_schema.users;
+```
+DROP LOGIN "alexs@acme.com";
 ```
 
-To list users via the UI, click **Govern** to open the govern space, then choose **Users** from the menu.
+#### UI
+To delete a login via the UI:
+1. Click **Configure** to open the configure space, then choose **Logins** from the menu:
+
+< screenshot >
+
+2. Search for the relevant login using the top search filters, or by scrolling through the logins list. Hover over the right-most column to make the login menu appear, then choose **Delete login**.
+
+If the login is linked to users, you will need to confirm that you will also be deleting those users by choosing **Delete users permanently**.
