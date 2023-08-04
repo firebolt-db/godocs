@@ -44,6 +44,34 @@ System defined roles can neither be modified nor dropped. Users with the `accoun
 
 A user with either the `account_admin` or `security_admin` role can create custom roles. You can create a custom role using SQL, or via the UI.  
 
+## Privileges
+A set of privileges can be granted for every securable object. See which privileges are available for accounts, databases and engines below. To view all privileges, query the [information_schema.object_privileges](../Reference/information-schema/object-privileges.md) view. 
+
+#### Account
+Privileges can be granted for accounts to allow creating databases and engines.
+
+| Privilege         | Description                                    |
+|:------------------|:-----------------------------------------------|
+| CREATE ENGINE     | Enables creating new engines in the account.   |
+| CREATE DATABASE   | Enables creating new databases in the account. |
+
+#### Database
+Privileges can be granted for databases to allow usage and modification of databases per account. 
+
+| Privilege          | Description |
+| :---------------   | :---------- |
+| USAGE              | Enables querying tables and views, and attaching engines to the database. |
+| MODIFY             | Enables:<br>Creating or dropping tables, views, and indexes on the database.<br>Inserting data into the database's tables.<br>Altering the properties of a database.<br>Dropping a database. |
+
+#### Engine
+Privileges can be granted for engines to allow usage, operation and modification of engines per account. 
+
+| Privilege          | Description |
+| :---------------   | :---------- |
+| USAGE              | Enables using the engine to execute queries. |
+| OPERATE            | Enables stopping and starting the engine. |
+| MODIFY             | Enables dropping or altering any properties of the engine. |
+
 ### Create role
 
 #### SQL
@@ -113,31 +141,3 @@ To grant a role to a user via the UI:
 To revoke a role from a user or another role using SQL, use the [`REVOKE ROLE`] statement. For example:
 
 ```REVOKE ROLE user_role FROM { USER alex | ROLE user2_role }```
-
-## Privileges
-A set of privileges can be granted for every securable object. See which privileges are available for objects below. To view all privileges, query the [information_schema.object_privileges](../Reference/information-schema/object-privileges.md) view. 
-
-### Account
-Privileges can be granted for accounts to allow creating databases and engines.
-
-| Privilege         | Description                                    |
-|:------------------|:-----------------------------------------------|
-| CREATE ENGINE     | Enables creating new engines in the account.   |
-| CREATE DATABASE   | Enables creating new databases in the account. |
-
-### Database
-Privileges can be granted for databases to allow usage and modification of databases per account. 
-
-| Privilege          | Description |
-| :---------------   | :---------- |
-| USAGE              | Enables querying tables and views, and attaching engines to the database. |
-| MODIFY             | Enables:<br>Creating or dropping tables, views, and indexes on the database.<br>Inserting data into the database's tables.<br>Altering the properties of a database.<br>Dropping a database. |
-
-### Engine
-Privileges can be granted for engines to allow usage, operation and modification of engines per account. 
-
-| Privilege          | Description |
-| :---------------   | :---------- |
-| USAGE              | Enables using the engine to execute queries. |
-| OPERATE            | Enables stopping and starting the engine. |
-| MODIFY             | Enables dropping or altering any properties of the engine. |
