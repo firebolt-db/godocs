@@ -105,13 +105,13 @@ To grant a privilege to a role using SQL, use the [`GRANT`] statement. For examp
 To grant a privilege to a role via the UI:
 1. Click **Govern** to open the govern space, then choose **Roles** from the menu:
 
-![Govern > Roles](../assets/images/govern_roles.png)
+![Govern > Roles](../../assets/images/govern_roles.png)
 
 2. Search for the relevant role using the top search filters, or by scrolling through the list of logins. Hover over the right-most column to make the role menu appear, then choose **Edit role**. 
 3. Choose the privileges tab for the object type you want to manage privileges for, then select the desired privileges. To grant privileges over all objects of that type, choose the topmost line.
 4. Click **Update**.
 
-![Create/Edit Role](../assets/images/create_edit_role.png)
+![Create/Edit Role](../../assets/images/create_edit_role.png)
 
 ### Revoke privileges 
 To revoke a privilege from a role using SQL, use the [`REVOKE`] statement. For example:
@@ -129,13 +129,13 @@ To grant a role to a user or another role using SQL, use the [`GRANT ROLE`] stat
 To grant a role to a user via the UI:
 1. Click **Govern** to open the govern space, then choose **Users** from the menu:
 
-![Govern > Users](../assets/images/govern_users.png)
+![Govern > Users](../../assets/images/govern_users.png)
 
 2. Search for the relevant user using the top search filters, or by scrolling through the list of logins. Hover over the right-most column to make the user menu appear, then choose **Edit User Details**. 
 3. Check all the roles you want assigned to the user.
 4. Click **Update**.
 
-![Create/Edit User](../assets/images/create_edit_user.png)
+![Create/Edit User](../../assets/images/create_edit_user.png)
 
 ### Revoke role 
 To revoke a role from a user or another role using SQL, use the [`REVOKE ROLE`] statement. For example:
