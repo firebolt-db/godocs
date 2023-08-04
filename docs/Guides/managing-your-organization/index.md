@@ -17,19 +17,20 @@ has_children: true
  * [Create service accounts](service-accounts.md)
  
 # Manage user permissions
-Create users, link logins and/or service accounts, and manage access control with roles to determine permissions at the account-level. 
+Learn how to create users, link logins and/or service accounts, and manage access control with roles to determine permissions at the account-level. 
 
+* [Set up role-based access control](rbac.md)
 * [Manage users](managing-users.md)
-* [Role-based access control](rbac.md)
 
 # Configure advanced authentication options 
-By default, Firebolt uses logins associated with email addresses, but you can also configure Single Sign-On (SSO) using SAML 2.0. You can also enable network policies and/or MFA for enhanced security. 
+Learn how to configure advanced authentication options for enhanced security; Single Sign-On (SSO) using SAML 2.0, network policies and multi-factor authentication (MFA). 
 
-* Configuring your identity provider for SSO
-* [Configuring Single Sign-On](sso.md)
-* Managing network policies
-* Enabling multi-factor authentication
+* Configure your identity provider for SSO
+* [Configure Single Sign-On](sso.md)
+* Manage network policies
+* Enable multi-factor authentication
 
 # Manage billing
+Learn how to manage billing. < say something else here, observability blah blah >
 
-* [Billing](billing.md)
+* [Manage billing](billing.md)

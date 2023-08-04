@@ -10,51 +10,44 @@ grand_parent: Guides
 # Managing logins
 {: .no_toc}
 
-< Say something about what level logins live at (is it org or account?) and about how logins must be linked to users. > To view all logins, click **Configure** to open the configure space, then choose **Logins** from the menu, or query the [information_schema.logins](../../Reference/information-schema/logins.md) view. 
+Logins are managed at the organization level and are typically combinations of email addresses and passwords, unless you've configured [Single Sign-On (SSO)](sso/sso.md). Logins are linked to users at the account level, so that roles may be managed separately per account. A user must be linked to either a login or a service account for programmatic use to gain access to Firebolt. You can add, edit or delete logins using SQL or in the UI. 
 
-You can add, edit or delete logins using SQL or in the UI. 
-
-### Create a new login
+To view all logins, click **Configure** to open the configure space, then choose **Logins** from the menu, or query the [information_schema.logins](../../Reference/information-schema/logins.md) view. 
 
 {: .note}
-Creating a login requires the org_admin role.
+Managing logins requires the org_admin role.
+
+### Create a new login
 
 #### SQL 
 To create a login using SQL, use the [`CREATE LOGIN`] statement. For example:
 
-```
-CREATE LOGIN "alexs@acme.com" WITH FIRST_NAME = "Alex" LAST_NAME = "Summers";
-```
+```CREATE LOGIN "alexs@acme.com" WITH FIRST_NAME = "Alex" LAST_NAME = "Summers";```
 
 #### UI
 To create a login via the UI:
-1. Click **Configure** to open the configure space, then choose **Accounts** from the menu:
+1. Click **Configure** to open the configure space, then choose **Logins** from the menu:
 
 < screenshot >
 
 2. From the Logins page, choose **Create Login**.
 3. Enter the following details:
-    - First name: specifies the first name of the user that uses the login. 
-    - Last name: specifies the last name of the user that uses the login.
+    - First name: specifies the first name of the user for the login. 
+    - Last name: specifies the last name of the user for the login.
     - Login name: specifies the login in the form of an email address. This must be unique within your organization.
 4. Optionally, you can:
-    - Associate a [network policy] with the login by choosing a network policy name under the network policy attached field.
-    - Enable password log, which specifies if the login can authenticate Firebolt using a password.
-    - Enable MFA. Read more about how to use MFA [here].
-    - Set the login as org_admin, which enables fully managing the organization.
+    - Associate a [network policy] with the login by choosing a network policy name under the **Network policy attached** field.
+    - Enable password login, which specifies if the login can authenticate Firebolt using a password.
+    - Enable multi-factor authentication (MFA). Read more about how to configure MFA [here].
+    - Set the login as **org_admin**, which enables fully managing the organization.
 
 
 ### Edit an existing login
 
-{: .note}
-Editing a login requires the org_admin role.
-
 #### SQL 
 To edit an existing login using SQL, use the [`ALTER LOGIN`] statement. For example:
 
-```
-ALTER LOGIN "alexs@acme.com" SET IS_ORGANIZATION_ADMIN = True;
-```
+```ALTER LOGIN "alexs@acme.com" SET IS_ORGANIZATION_ADMIN = true;```
 
 #### UI
 To edit a login via the UI:
@@ -63,19 +56,14 @@ To edit a login via the UI:
 < screenshot >
 
 2. Search for the relevant login using the top search filters, or by scrolling through the list of logins. Hover over the right-most column to make the login menu appear, then choose **Edit login**.
-Edit the required fields and choose **Save**.
+Edit the desired fields and choose **Save**.
 
 ### Deleting an existing login
-
-{: .note}
-Deleting a login requires the org_admin role.
 
 #### SQL 
 To delete an existing login using SQL, use the [`DROP LOGIN`] statement. For example:
 
-```
-DROP LOGIN "alexs@acme.com";
-```
+```DROP LOGIN "alexs@acme.com";```
 
 #### UI
 To delete a login via the UI:
