@@ -36,7 +36,7 @@ Engine names can be no longer than 63 characters and can contain letters, number
 
 ### Region
 
-This is the AWS Region in which Firebolt creates the engine. After you create an engine, you can’t change its Region. An engine must be in the same Region as its database. When you create an engine using the Firebolt Manager, Firebolt automatically creates the engine in the same Region as the database. When you create an engine using DDL, make sure that you create it in the same Region as the database you will attach it to.
+This is the AWS Region in which Firebolt creates the engine. The engine region is always the same with account region, is automatically inherited from account, and it can't be changed.
 
 ### Engine endpoint
 
