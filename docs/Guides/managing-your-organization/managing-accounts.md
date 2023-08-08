@@ -14,7 +14,7 @@ Your organization comes prepared with one account for your convenience. You can 
 ### Create a new account
 
 {: .note}
-Creating an account requires the org_admin role.
+Managing accounts requires the org_admin role.
 
 #### SQL
  To create an account using SQL, use the [`CREATE ACCOUNT`] statement. For example:
@@ -39,9 +39,6 @@ There can be up to twenty accounts per organization. If you need to create more,
 
 ### Edit an existing account
 
-{: .note}
-Editing an account requires the account_admin or org_admin role.
-
 #### SQL 
 To edit an existing account using SQL, use the [`ALTER ACCOUNT`] statement. For example:
 
@@ -61,9 +58,6 @@ Edit the name of the account:
 3. Choose **Save**. 
 
 ### Delete an existing account
-
-{: .note}
-Deleting an account requires the account_admin or org_admin role.
 
 #### SQL 
 To delete an existing account using SQL, use the [`DROP ACCOUNT`] statement. For example:
