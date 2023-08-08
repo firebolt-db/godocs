@@ -7,21 +7,21 @@ parent: Managing your organization
 grand_parent: Guides
 ---
 
-## Managing accounts
+# Managing accounts
 
 Your organization comes prepared with one account for your convenience. You can add more accounts, edit existing accounts, or delete accounts using SQL or in the UI.
 
-### Create a new account
+## Create a new account
 
 {: .note}
 Managing accounts requires the org_admin role.
 
-#### SQL
+### SQL
  To create an account using SQL, use the [`CREATE ACCOUNT`] statement. For example:
 
 ```CREATE ACCOUNT my_account WITH REGION = “us-east-1”;```
 
-#### UI 
+### UI 
 To create an account via the UI:
 1. Click **Configure** to open the configure space, then choose **Accounts** from the menu:
 
@@ -37,14 +37,14 @@ Then you will see your new account on the Accounts page. A user with the account
 {: .note}
 There can be up to twenty accounts per organization. If you need to create more, please contact the Firebolt support team.
 
-### Edit an existing account
+## Edit an existing account
 
-#### SQL 
+### SQL 
 To edit an existing account using SQL, use the [`ALTER ACCOUNT`] statement. For example:
 
 ```ALTER ACCOUNT my_account RENAME TO my_dev_account;```
 
-#### UI
+### UI
 To edit an account via the UI:
 1. Click **Configure** to open the configure space, then choose **Accounts** from the menu:
 
@@ -57,14 +57,14 @@ Edit the name of the account:
 
 3. Choose **Save**. 
 
-### Delete an existing account
+## Delete an existing account
 
-#### SQL 
+### SQL 
 To delete an existing account using SQL, use the [`DROP ACCOUNT`] statement. For example:
 
 ```DROP ACCOUNT my_account;```
 
-#### UI
+### UI
 To delete an account via the UI:
 1. Click **Configure** to open the configure space, then choose **Accounts** from the menu:
 
