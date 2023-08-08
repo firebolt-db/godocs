@@ -26,7 +26,7 @@ Learn how to create users, link logins and/or service accounts, and manage acces
 Learn how to configure advanced authentication options for enhanced security; Single Sign-On (SSO) using SAML 2.0, network policies and multi-factor authentication (MFA). 
 
 * Configure your identity provider for SSO
-* [Configure Single Sign-On](sso.md)
+* [Set up Single Sign-On](sso.md)
 * Manage network policies
 * Enable multi-factor authentication
 
