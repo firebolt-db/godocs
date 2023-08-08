@@ -10,9 +10,9 @@ grand_parent: Guides
 # Managing service accounts
 {: .no_toc}
 
-Create service account for access programmatic access **only** to Firebolt. Service accounts can be linked to users, instead of logins for full access. For each service account, a secret is generated to use for authentication. 
+Create a service account for programmatic access **only** to Firebolt. Service accounts can be linked to users, instead of logins which provide full access. For each service account, a secret is generated to use for authentication. You can add, edit, delete and generate secrets for service accounts using SQL or in the UI. 
 
-You can add, edit, delete and generate secrets for service accounts using SQL or in the UI. 
+To view all users, click **Govern** to open the govern space, then choose **Service Accounts** from the menu, or query the [information_schema.service_account_users](../../Reference/information-schema/service-account-users.md) view. 
 
 ## Creating a service account 
 {: .note}
@@ -21,9 +21,7 @@ Creating a service account requires the org_admin role.
 #### SQL 
 To create a service account using SQL, use the [`CREATE SERVICE ACCOUNT`] statement. For example:
 
-```
-CREATE SERVICE ACCOUNT IF NOT EXISTS "sa1" DESCRIPTION = "service account 1";
-```
+```CREATE SERVICE ACCOUNT IF NOT EXISTS "sa1" DESCRIPTION = "service account 1";```
 
 #### UI
 To create a service account via the UI:
@@ -76,7 +74,7 @@ Generating a new secret for your service account user replaces any previous secr
 #### SQL 
 To edit a service account using SQL, use the [`ALTER SERVICE ACCOUNT`] statement. For example:
 
-```ALTER SERVICE ACCOUNT <name> SET [ NETWORK_POLICY = <network_policy_name> | DEFAULT ] SET [ DESCRIPTION = <description> | DEFAULT ]```
+```ALTER SERVICE ACCOUNT sa1 SET [ NETWORK_POLICY = my_network_policy | DEFAULT ] SET [ DESCRIPTION = "new description" | DEFAULT ]```
 
 
 ## Deleting a service account 
@@ -84,10 +82,7 @@ To edit a service account using SQL, use the [`ALTER SERVICE ACCOUNT`] statement
 #### SQL 
 To delete a service account using SQL, use the [`CREATE SERVICE ACCOUNT`] statement. For example:
 
-
-
-
-`DROP SERVICE ACCOUNT <name>;`
+`DROP SERVICE ACCOUNT sa1;`
 
 Deletes a service account user by its name. The name can be retrieved by running the 
 `SELECT * FROM INFORMATION_SCHEMA.SERVICE_ACCOUNT_USERS` command, where:
@@ -95,37 +90,6 @@ Deletes a service account user by its name. The name can be retrieved by running
 | Property                          | Data type | Description |
 | :------------------------------   | :-------- | :---------- |
 | name                              | TEXT      | The name of the user. |
-
-
-**Example**
-`DROP SERVICE ACCOUNT tableau_user;`
-
-## Service account users in information_schema
-`SELECT * FROM information_schema.service_account_users;`
-
-Returns a list of service account users. 
-
-The command returns the following properties for each service account user:
-
-| Property                          | Data type | Description |
-| :------------------------------   | :-------- | :---------- |
-| name                              | TEXT      | The name of the user. |
-| id                                | TEXT      | The ID of the user. |
-| role                              | TEXT      | The role that was assigned to the user. The following values are possible: ‘Viewer,’ ‘DB admin,’ and ‘Account admin.’ The roles can be specified in upper or lower case. For accounts that support custom roles (DB RBAC), those can also be specified. |
-| description                       | TEXT      | The description of the user. |
-| created_on                        | TIMESTAMP | Time (UTC) that the user was created. |
-| last_altered                      | TIMESTAMP | Time (UTC) that the user was last edited. |
-
-**Example**
-
-`SELECT * FROM INFORMATION_SCHEMA.SERVICE_ACCOUNT_USERS; `
-
-**Returns**
-
-| name         | id            | role          | description                | created_on  | last_altered |
-| :------------| :------------ | :------------ | :------------------------- | :---------- | :---------- |
-| tableau_user | 217-3813-278  | Account Admin | Used for Tableau dasboards | 2021-01-01 12:00:00 | 2021-01-10 13:50:00 |
-
 
 ## Authenticate with a service account via the REST API
 To authenticate Firebolt using service accounts via Firebolt’s REST API, send the following request to receive an authentication token:

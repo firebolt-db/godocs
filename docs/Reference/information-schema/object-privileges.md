@@ -26,7 +26,7 @@ Each row has the following columns with information about the role.
 
 | Column Name    | Data Type | Description                                                       |
 |:---------------|:----------|:------------------------------------------------------------------|
-| grantor        | TEXT      | Name of the role that granted the privilege.                      |
+| grantor        | TEXT      | Name of the user that granted the privilege.                      |
 | grantee        | TEXT      | Name of the role that the privilege was granted to (TO ROLE).     |
 | object_catalog | TEXT      | Database containing the object on which the privilege is granted. |
 | object_schema  | TEXT      | Schema containing the object on which the privilege is granted.   |
