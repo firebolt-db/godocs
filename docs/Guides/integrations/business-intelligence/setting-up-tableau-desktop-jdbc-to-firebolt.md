@@ -24,12 +24,12 @@ Once the connector is installed, you can create a new connection to Firebolt fro
 
 | Field       | Required | Description                                                                                        |
 |-------------|----------|----------------------------------------------------------------------------------------------------|
-| Server      | Yes      | The host to connect to, which is api.app.firebolt.io.                                              |
-| Engine      | No       | The name (not the URL) of the Firebolt engine to use. If omitted, the default engine will be used. |
-| Account     | Yes      | Your Firebolt account.                                                                             |
+| Username    | Yes      | Your Firebolt username.                                                                            |
+| Password    | Yes      | Your Firebolt password.                                                                            |
+| Account     | No       | Your Firebolt account.                                                                             |
 | Database    | Yes      | The name of your Firebolt database.                                                                |
-| Username    | Yes      | Your Firebolt client ID.                                                                           |
-| Password    | Yes      | Your Firebolt client secret.                                                                       |
+| Engine Name | No       | The name (not the URL) of the Firebolt engine to use. If omitted, the default engine will be used. |
+| Host        | Yes      | The host to connect to, which is api.app.firebolt.io.                                              |
 
 
 ## Supported Features
