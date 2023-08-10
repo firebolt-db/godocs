@@ -15,15 +15,16 @@ Create a service account for programmatic access **only** to Firebolt. Service a
 To view all users, click **Govern** to open the govern space, then choose **Service Accounts** from the menu, or query the [information_schema.service_account_users](../../Reference/information-schema/service-account-users.md) view. 
 
 ## Creating a service account 
+
 {: .note}
 Creating a service account requires the org_admin role.
 
-#### SQL 
+### SQL 
 To create a service account using SQL, use the [`CREATE SERVICE ACCOUNT`] statement. For example:
 
 ```CREATE SERVICE ACCOUNT IF NOT EXISTS "sa1" DESCRIPTION = "service account 1";```
 
-#### UI
+### UI
 To create a service account via the UI:
 1. Click **Configure** to open the configure space, then choose **Service accounts** from the menu:
 
