@@ -9,7 +9,7 @@ parent: Overview
 # Firebolt organizations and accounts
 {: .no_toc}
 
-With organizations, achieve a seamless separation between different accounts within your organization, while benefiting from consolidated billing, unified authentication, and efficient account management across all accounts. 
+With organizations, achieve a seamless separation between different accounts within your organization. Additionally, benefit from consolidated billing, unified authentication, and efficient account management across all accounts. 
 
 Learn more about registering with Firebolt and creating your organization [here](../Guides/managing-your-organization/creating-an-account.md).
 
@@ -19,20 +19,18 @@ Learn more about registering with Firebolt and creating your organization [here]
 ## What is an organization?
 An organization is a fundamental object in Firebolt, providing a logical structure for managing accounts, billing, and authentication. When registering to Firebolt, the organization name you’ll provide is the same as the domain name you use in your email. Organization names are globally unique—no two organizations can have the same name - but can contain multiple accounts. Each account, in turn, contains users, roles, databases, tables, views, engines, and more.
 
-< Firebolt object model image here >
-
 Organizations are used to create a structure that fits your needs: by setting up accounts within organizations, you establish a structured framework that aligns with your business needs, data management requirements, and geographical considerations. This allows for better resource allocation, access control, and overall management of your accounts, using:
  
-- **Account Hierarchy:** Each organization can contain multiple accounts, allowing you to efficiently organize your data and resources. Each account is identified by its name. 
+- **Account Hierarchy:** Organize your data and resources across multiple accounts. 
 - **Authentication:** Handle user authentication and access control at the organization level. For each user a login is created, identified with a login name (represented by an email). 
-- **Programmatic access:** Grant programmatic access via [service accounts](../Guides/managing-your-organization/service-accounts.md), which can be linked to various accounts by linking a user within an account. 
+- **Programmatic access:** Grant programmatic access via [service accounts](../Guides/managing-your-organization/service-accounts.md), which can be linked to various accounts by connecting a user within an account. 
 
 ## What is an account?
 An account in Firebolt is an object within an organization that encapsulates resources for storing, querying, and managing data. Accounts provide:
  
-- **Region-specific management:** Each account is associated with a specific region, allowing you to store data close to your users and comply with data residency requirements.
-- **Data storage resources:** Each account has dedicated resources for securely storing data.
-- **Query processing administration:** Engines provide the power to execute queries and process data within each account. Engines are managed at the account level by users with appropriate privileges and can be used according to the account's security policy.
+- **Region-specific management:** Store data close to your users and comply with data residency requirements catered for specific regions.
+- **Data storage resources:** Access dedicated resources for securely storing data in each account.
+- **Query processing administration:** Execute queries and process data within each account through engines. Engines are managed at the account level by users with appropriate privileges and can be used according to the account's security policy.
 - **Database management:** Users can create databases within an account to organize and structure their data.
 
 ## Authentication and access control
@@ -55,5 +53,5 @@ Firebolt enforces network policies and provides multi-factor authentication (MFA
 ## Billing
 Firebolt provides billing at the organization level, but gives you billing observability at both organization and account levels. This allows: 
 
-- **Organization-level governance:** At the organization level, you can monitor and analyze the overall billing for all accounts to gain insights into the organization's cost distribution and resource utilization. 
-- **Account-level observability:** You can delve into detailed billing information specific to each account, allowing you to track individual accounts' usage, costs, storage, and compute consumption patterns.
+- **Organization-level governance:** Monitor and analyze the overall billing for all accounts to gain insights into the organization's cost distribution and resource utilization at the organization level. 
+- **Account-level observability:** Delve into detailed billing information specific to each account, allowing you to track individual accounts' usage, costs, storage, and compute consumption patterns.
