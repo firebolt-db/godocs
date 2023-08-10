@@ -10,8 +10,6 @@ grand_parent: Guides
 # Managing logins
 {: .no_toc}
 
-Logins are managed at the organization level and are typically combinations of email addresses and passwords, unless you've configured [Single Sign-On (SSO)](sso/sso.md). Logins are linked to users at the account level, so that roles may be managed separately per account. A user must be linked to either a login or a service account for programmatic use to gain access to Firebolt. You can add, edit or delete logins using SQL or in the UI. 
-
 Logins are managed at the organization level and are used for authentication. Logins are a combination of a login name (email), first name, last name, and password, unless you've configured [Single Sign-On (SSO)](sso/sso.md). Moreover, logins can be configured with advanced authentication properties such as [MFA](mfa.md) and [network policies]. Logins are linked to users at the account level, so that roles may be managed separately per account. A user must be linked to either a login or a service account for programmatic use to gain access to Firebolt. You can add, edit or delete logins using SQL or in the UI. 
 
 To view all logins, click **Configure** to open the configure space, then choose **Logins** from the menu, or query the [information_schema.logins](../../Reference/information-schema/logins.md) view. 
@@ -19,18 +17,18 @@ To view all logins, click **Configure** to open the configure space, then choose
 {: .note}
 Managing logins requires the org_admin role.
 
-### Create a new login
+## Create a new login
 
-#### SQL 
-To create a login using SQL, use the [`CREATE LOGIN`] statement. For example:
+### SQL 
+To create a login using SQL, use the [`CREATE LOGIN`](../../sql_reference/commands/database-objects/create-login.md) statement. For example:
 
 ```CREATE LOGIN "alexs@acme.com" WITH FIRST_NAME = "Alex" LAST_NAME = "Summers";```
 
-#### UI
+### UI
 To create a login via the UI:
 1. Click **Configure** to open the configure space, then choose **Logins** from the menu:
 
-< screenshot >
+![Configure > Logins](../../assets/images/loginspage.png)
 
 2. From the Logins page, choose **Create Login**.
 3. Enter the following details:
@@ -44,35 +42,35 @@ To create a login via the UI:
     - Set the login as **org_admin**, which enables fully managing the organization.
 
 
-### Edit an existing login
+## Edit an existing login
 
-#### SQL 
-To edit an existing login using SQL, use the [`ALTER LOGIN`] statement. For example:
+### SQL 
+To edit an existing login using SQL, use the [`ALTER LOGIN`](../../sql_reference/commands/database-objects/alter-login.md) statement. For example:
 
 ```ALTER LOGIN "alexs@acme.com" SET IS_ORGANIZATION_ADMIN = true;```
 
-#### UI
+### UI
 To edit a login via the UI:
-1. Click **Configure** to open the configure space, then choose **Logins** from the menu:
+1. Click **Configure** to open the configure space, then choose **Logins** from the menu.
 
-< screenshot >
-
-2. Search for the relevant login using the top search filters, or by scrolling through the list of logins. Hover over the right-most column to make the login menu appear, then choose **Edit login**.
+2. Search for the relevant login using the top search filters, or by scrolling through the list of logins. Hover over the right-most column to make the login menu appear, then choose **Edit login details**.
 Edit the desired fields and choose **Save**.
 
-### Deleting an existing login
+![Edit login](../../assets/images/editlogin.png)
 
-#### SQL 
+## Deleting an existing login
+
+### SQL 
 To delete an existing login using SQL, use the [`DROP LOGIN`] statement. For example:
 
 ```DROP LOGIN "alexs@acme.com";```
 
-#### UI
+### UI
 To delete a login via the UI:
-1. Click **Configure** to open the configure space, then choose **Logins** from the menu:
-
-< screenshot >
+1. Click **Configure** to open the configure space, then choose **Logins** from the menu.
 
 2. Search for the relevant login using the top search filters, or by scrolling through the logins list. Hover over the right-most column to make the login menu appear, then choose **Delete login**.
 
 If the login is linked to users, you will need to confirm that you will also be deleting those users by choosing **Delete users permanently**.
+
+![Delete login](../../assets/images/deletelogin.png)

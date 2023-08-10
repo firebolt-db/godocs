@@ -1,0 +1,34 @@
+---
+layout: default
+title: CREATE ACCOUNT
+description: Reference and syntax for the CREATE ACCOUNT command.
+great_grand_parent: SQL reference
+grand_parent:  SQL commands
+parent: Database object commands
+---
+
+# CREATE ACCOUNT
+Creates a new account.
+
+## Syntax
+
+```sql
+CREATE ACCOUNT [IF NOT EXISTS] <account_name>
+[WITH REGION = <region>]
+```
+
+where `<region>` specifies the region in which the account is configured.
+
+
+| Parameter  | Description |
+| :--------- | :---------- |
+| `<account_name>`                              | The name of the account, must start with an alphabetic character and cannot contain spaces or special characters except for underscores (_). |
+| `<region>`                      | The region in which the account is configured. Choose the same region as the Amazon S3 bucket that contains data you ingest. See [Available AWS Regions](../../general-reference/available-regions.md) If not specified, `us-east-1` (US East (N. Virginia) is the default. |                                                                                                    
+
+## Example
+
+The following command will create an account in the US East (N. Virginia) region.
+
+```sql
+CREATE ACCOUNT my_account WITH REGION = “us-east-1”
+```

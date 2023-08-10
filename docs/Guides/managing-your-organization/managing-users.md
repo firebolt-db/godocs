@@ -7,7 +7,7 @@ parent: Managing your organization
 grand_parent: Guides
 ---
 
-# Managing Firebolt users
+# Managing users
 {: .no_toc}
 
 Users are managed at the account level and are linked to logins or service accounts for programmatic use to gain access to Firebolt. Roles are granted to users to determine access to objects in Firebolt. You can add, edit or delete users using SQL or in the UI. 
@@ -17,14 +17,14 @@ To view all users, click **Govern** to open the govern space, then choose **User
 {: .note}
 Managing users requires either the account_admin or security_admin role.
 
-### Create a new user
+## Create a new user
 
-#### SQL 
+### SQL 
 To create a user using SQL, use the [`CREATE USER`] statement. For example:
 
 ```CREATE USER "alex";```
 
-#### UI
+### UI
 To create a user via the UI:
 1. Click **Govern** to open the govern space, then choose **Users** from the menu:
 
@@ -39,14 +39,14 @@ To create a user via the UI:
   - Choose a **default engine** for the user. 
   - Choose **roles** to be granted to the user. 
 
-### Edit an existing user
+## Edit an existing user
 
-#### SQL 
+### SQL 
 To edit an existing user using SQL, use the [`ALTER USER`] statement. For example:
 
 ```ALTER USER "alex" rename to "alexs";```
 
-#### UI
+### UI
 To edit a user via the UI:
 1. Click **Govern** to open the govern space, then choose **Users** from the menu:
 
@@ -56,14 +56,14 @@ To edit a user via the UI:
 3. Edit the desired fields and choose **Save**.
 
 
-### Deleting an existing user
+## Deleting an existing user
 
-#### SQL 
+### SQL 
 To delete an existing user using SQL, use the [`DROP USER`] statement. For example:
 
 ```DROP USER "alex";```
 
-#### UI
+### UI
 To delete a user via the UI:
 1. Click **Govern** to open the govern space, then choose **Users** from the menu:
 
