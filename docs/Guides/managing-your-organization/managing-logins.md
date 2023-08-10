@@ -61,7 +61,7 @@ Edit the desired fields and choose **Save**.
 ## Deleting an existing login
 
 ### SQL 
-To delete an existing login using SQL, use the [`DROP LOGIN`] statement. For example:
+To delete an existing login using SQL, use the [`DROP LOGIN`](../../sql_reference/commands/database-objects/drop-login.md) statement. For example:
 
 ```DROP LOGIN "alexs@acme.com";```
 

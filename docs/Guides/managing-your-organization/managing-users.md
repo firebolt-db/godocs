@@ -20,15 +20,15 @@ Managing users requires either the account_admin or security_admin role.
 ## Create a new user
 
 ### SQL 
-To create a user using SQL, use the [`CREATE USER`] statement. For example:
+To create a user using SQL, use the [`CREATE USER`](../../sql_reference/commands/database-objects/create-user.md) statement. For example:
 
-```CREATE USER "alex";```
+```CREATE USER alex;```
 
 ### UI
 To create a user via the UI:
 1. Click **Govern** to open the govern space, then choose **Users** from the menu:
 
-< screenshot >
+![Govern > Users](../../assets/images/userspage.png)
 
 2. From the Users page, choose **Create user**.
 3. Enter the new user's name. This user name can be any string - it can contain spaces, and non-alpha-numeric characters such as exclamation points (!), percent signs (%), at sign(@), dot sign (.), underscore sign (_), minus sign (-), and asterisks (*), but if the string contains these spaces or non-alphanumeric characters, it must be enclosed in single or double quotes. 
@@ -42,32 +42,29 @@ To create a user via the UI:
 ## Edit an existing user
 
 ### SQL 
-To edit an existing user using SQL, use the [`ALTER USER`] statement. For example:
+To edit an existing user using SQL, use the [`ALTER USER`](../../sql_reference/commands/database-objects/alter-user.md) statement. For example:
 
-```ALTER USER "alex" rename to "alexs";```
+```ALTER USER "alex" RENAME TO "alexs";``` or ```ALTER USER alex SET LOGIN_NAME="alexs@acme.com";```
 
 ### UI
 To edit a user via the UI:
-1. Click **Govern** to open the govern space, then choose **Users** from the menu:
-
-< screenshot >
-
-2. Search for the relevant user using the top search filters or by scrolling through the users' list. Hover over the right-most column to make the user menu appear,then choose **Edit user**.
+1. Click **Govern** to open the govern space, then choose **Users** from the menu.
+2. Search for the relevant user using the top search filters or by scrolling through the users' list. Hover over the right-most column to make the user menu appear, then choose **Edit user**.
 3. Edit the desired fields and choose **Save**.
 
+![Edit user](../../assets/images/edituser.png)
 
 ## Deleting an existing user
 
 ### SQL 
-To delete an existing user using SQL, use the [`DROP USER`] statement. For example:
+To delete an existing user using SQL, use the [`DROP USER`](../../sql_reference/commands/database-objects/drop-user.md) statement. For example:
 
 ```DROP USER "alex";```
 
 ### UI
 To delete a user via the UI:
-1. Click **Govern** to open the govern space, then choose **Users** from the menu:
-
-< screenshot >
-
+1. Click **Govern** to open the govern space, then choose **Users** from the menu.
 2. Search for the relevant user using the top search filters or by scrolling through the users list. Hover over the right-most column to make the user menu appear, then choose **Delete user**.
 3. Choose **Confirm**.
+
+![Delete user](../../assets/images/deleteuser.png)
