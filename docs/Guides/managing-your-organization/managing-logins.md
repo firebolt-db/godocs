@@ -41,7 +41,6 @@ To create a login via the UI:
     - Enable multi-factor authentication (MFA). Read more about how to configure MFA [here].
     - Set the login as **org_admin**, which enables fully managing the organization.
 
-
 ## Edit an existing login
 
 ### SQL 

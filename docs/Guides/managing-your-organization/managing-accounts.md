@@ -34,7 +34,7 @@ Type a name for the account and choose a region. You won't be able to change the
 
 3. Choose **Create**. 
 
-Then you will see your new account on the Accounts page. A user with the accountAdmin role is created for the user who created the account and linked to their login (to allow that end user access to the account).
+Then you will see your new account on the **Accounts management** page. 
 
 {: .note}
 There can be up to twenty accounts per organization. If you need to create more, please contact the Firebolt support team.
@@ -81,5 +81,5 @@ If your account is not empty (for example, if it contains other objects such as 
 
 3. Choose **Confirm**.
 
-The account will be removed from the **Accounts** page.
+The account will be removed from the **Accounts management** page.
 
