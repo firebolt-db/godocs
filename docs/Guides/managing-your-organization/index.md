@@ -27,7 +27,7 @@ Learn how to configure advanced authentication options for enhanced security; Si
 
 * Configure your identity provider for SSO
 * [Set up Single Sign-On](sso.md)
-* Manage network policies
+* [Manage network policies](network-policies.md)
 * Enable multi-factor authentication
 
 # Manage billing
