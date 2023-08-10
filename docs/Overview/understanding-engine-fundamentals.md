@@ -36,7 +36,7 @@ Engine names can be no longer than 63 characters and can contain letters, number
 
 ### Region
 
-This is the AWS Region in which Firebolt creates the engine. The engine region is always the same with account region, is automatically inherited from account, and it can't be changed.
+This is the AWS Region in which Firebolt creates the engine. The engine region is always the same as the account region - since it is automatically inherited from account, it can't be changed.
 
 ### Engine endpoint
 
