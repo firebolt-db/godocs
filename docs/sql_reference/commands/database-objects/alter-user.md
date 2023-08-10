@@ -16,9 +16,9 @@ Updates the configuration of the specified user.
 ```sql
 ALTER USER <user_name> SET
 	[LOGIN_NAME = <login_name> | DEFAULT ]
-    [SERVICE_ACCOUNT_NAME = <service_account> | DEFAULT ]
-    [ DEFAULT_DATABASE = <database_name> | DEFAULT ]
-    [ DEFAULT_SCHEMA = <schema_name> | DEFAULT ]
+        [SERVICE_ACCOUNT_NAME = <service_account> | DEFAULT ]
+        [ DEFAULT_DATABASE = <database_name> | DEFAULT ]
+        [ DEFAULT_SCHEMA = <schema_name> | DEFAULT ]
 	[ DEFAULT_ENGINE = <engine_name> | DEFAULT ];
 ```
 or 

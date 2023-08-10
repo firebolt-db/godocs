@@ -15,9 +15,9 @@ Creates a new login.
 ```sql
 CREATE LOGIN [ IF NOT EXISTS ] <login_name> 
 	WITH [IS_PASSWORD_ENABLED = { TRUE | FALSE }, ]
-      [, IS_MFA_ENABLED = { TRUE | FALSE } ]
-      [, NETWORK_POLICY_NAME = <network_policy> ]
-      [, IS_ORGANIZATION_ADMIN = { TRUE | FALSE } ]
+            [, IS_MFA_ENABLED = { TRUE | FALSE } ]
+            [, NETWORK_POLICY_NAME = <network_policy> ]
+            [, IS_ORGANIZATION_ADMIN = { TRUE | FALSE } ]
 	FIRST_NAME = <first_name>,
 	LAST_NAME = <last_name> 
 ```
@@ -33,6 +33,4 @@ CREATE LOGIN [ IF NOT EXISTS ] <login_name>
 
 The following command will create an account in the US East (N. Virginia) region.
 
-```sql
-CREATE LOGIN "alexs@acme.com" WITH FIRST_NAME = "Alex" LAST_NAME = "Summers";
-```
+```CREATE LOGIN "alexs@acme.com" WITH FIRST_NAME = "Alex" LAST_NAME = "Summers";```

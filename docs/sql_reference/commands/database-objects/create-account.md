@@ -29,6 +29,4 @@ where `<region>` specifies the region in which the account is configured.
 
 The following command will create an account in the US East (N. Virginia) region.
 
-```sql
-CREATE ACCOUNT my_account WITH REGION = “us-east-1”
-```
+```CREATE ACCOUNT my_account WITH REGION = “us-east-1”```
