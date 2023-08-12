@@ -12,9 +12,7 @@ Deletes an account.
 
 ## Syntax
 
-```sql
-DROP ACCOUNT [ IF EXISTS ] <account_name> [ RESTRICT | CASCADE ]; 
-```
+```DROP ACCOUNT [ IF EXISTS ] <account_name> [ RESTRICT | CASCADE ];```
 
 
 | Parameter  | Description |
@@ -29,6 +27,4 @@ All engines in your accounts must be in a stopped state before running the `DROP
 
 The following command will delete the "my_account" account. 
 
-```sql
-DROP ACCOUNT my_account
-```
+```DROP ACCOUNT my_account```

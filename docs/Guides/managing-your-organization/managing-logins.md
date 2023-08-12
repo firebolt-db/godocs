@@ -30,7 +30,7 @@ To create a login via the UI:
 
 ![Configure > Logins](../../assets/images/loginspage.png)
 
-2. From the Logins page, choose **Create Login**.
+2. From the Logins management page, choose **Create Login**.
 3. Enter the following details:
     - First name: specifies the first name of the user for the login. 
     - Last name: specifies the last name of the user for the login.
@@ -55,7 +55,7 @@ To edit a login via the UI:
 2. Search for the relevant login using the top search filters, or by scrolling through the list of logins. Hover over the right-most column to make the login menu appear, then choose **Edit login details**.
 Edit the desired fields and choose **Save**.
 
-![Edit login](../../assets/images/editlogin.png)
+<img src="../../assets/images/editlogin.png" alt="Edit login" width="500"/>
 
 ## Deleting an existing login
 
@@ -72,4 +72,4 @@ To delete a login via the UI:
 
 If the login is linked to users, you will need to confirm that you will also be deleting those users by choosing **Delete users permanently**.
 
-![Delete login](../../assets/images/deletelogin.png)
+<img src="../../assets/images/deletelogin.png" alt="Delete login" width="500"/>

@@ -13,6 +13,8 @@ has_children: true
 
  * [Register your organization](creating-an-organization.md)
  * [Create an account](managing-accounts.md)
+ * [Set up Single Sign-On](sso.md)
+     * Configure your identity provider for SSO
  * [Manage logins](managing-logins.md)
  * [Create service accounts](service-accounts.md)
  
@@ -23,10 +25,8 @@ Learn how to create users, link logins and/or service accounts, and manage acces
 * [Manage users](managing-users.md)
 
 # Configure advanced authentication options 
-Learn how to configure advanced authentication options for enhanced security; Single Sign-On (SSO) using SAML 2.0, network policies and multi-factor authentication (MFA). 
+Learn how to configure advanced authentication options for enhanced security; network policies and multi-factor authentication (MFA). 
 
-* Configure your identity provider for SSO
-* [Set up Single Sign-On](sso.md)
 * [Manage network policies](network-policies.md)
 * Enable multi-factor authentication
 

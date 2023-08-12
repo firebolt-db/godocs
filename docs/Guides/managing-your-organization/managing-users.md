@@ -26,11 +26,11 @@ To create a user using SQL, use the [`CREATE USER`](../../sql_reference/commands
 
 ### UI
 To create a user via the UI:
-1. Click **Govern** to open the govern space, then choose **Users** from the menu:
 
 ![Govern > Users](../../assets/images/userspage.png)
 
-2. From the Users page, choose **Create user**.
+1. Click **Govern** to open the govern space, then choose **Users** from the menu.
+2. From the Users management page, choose **Create user**.
 3. Enter the new user's name. This user name can be any string - it can contain spaces, and non-alpha-numeric characters such as exclamation points (!), percent signs (%), at sign(@), dot sign (.), underscore sign (_), minus sign (-), and asterisks (*), but if the string contains these spaces or non-alphanumeric characters, it must be enclosed in single or double quotes. 
 
 4. Optionally, you can:
@@ -52,7 +52,7 @@ To edit a user via the UI:
 2. Search for the relevant user using the top search filters or by scrolling through the users' list. Hover over the right-most column to make the user menu appear, then choose **Edit user**.
 3. Edit the desired fields and choose **Save**.
 
-![Edit user](../../assets/images/edituser.png)
+<img src="../../assets/images/edituser.png" alt="Edit user" width="500"/>
 
 ## Deleting an existing user
 
@@ -67,4 +67,4 @@ To delete a user via the UI:
 2. Search for the relevant user using the top search filters or by scrolling through the users list. Hover over the right-most column to make the user menu appear, then choose **Delete user**.
 3. Choose **Confirm**.
 
-![Delete user](../../assets/images/deleteuser.png)
+<img src="../../assets/images/deleteuser.png" alt="Delete user" width="500"/>

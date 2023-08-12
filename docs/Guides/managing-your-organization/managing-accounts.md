@@ -23,16 +23,17 @@ Creating an account requires the org_admin role.
 
 ### UI 
 To create an account via the UI:
-1. Click **Configure** to open the configure space, then choose **Accounts** from the menu:
 
 ![Configure > Accounts](../../assets/images/accountspage.png)
 
-2. From the Accounts page, choose **Create Account**.
+1. Click **Configure** to open the configure space, then choose **Accounts** from the menu.
+
+2. From the Accounts management page, choose **Create Account**.
 Type a name for the account and choose a region. You won't be able to change the region for this account later, so choose carefully.
 
-![Create account](../../assets/images/createaccount.png)
-
 3. Choose **Create**. 
+
+<img src="../../assets/images/createaccount.png" alt="Create account" width="500"/>
 
 Then you will see your new account on the **Accounts management** page. 
 
@@ -54,11 +55,11 @@ To edit an account via the UI:
 1. Click **Configure** to open the configure space, then choose **Accounts** from the menu.
 
 2. Search for the relevant account using the top search filters or by scrolling through the accounts list. Hover over the right-most column to make the account menu appear then choose **Edit account**.
-Edit the name of the account:
-
-![Edit account](../../assets/images/editaccount.png)
+Edit the name of the account.
 
 3. Choose **Save**. 
+
+<img src="../../assets/images/editaccount.png" alt="Edit account" width="500"/>
 
 ## Delete an existing account
 
@@ -77,9 +78,9 @@ To delete an account via the UI:
 2. Search for the relevant account using the top search filters or by scrolling through the accounts list. Hover over the right-most column to make the account menu appear then choose **Delete account**. 
 If your account is not empty (for example, if it contains other objects such as users/databases/engines/etc.), you will need to confirm that you will also delete the sub-objects by selecting **Delete account sub-objects permanently**.
 
-![Delete account](../../assets/images/deleteaccount.png)
-
 3. Choose **Confirm**.
+
+<img src="../../assets/images/deleteaccount.png" alt="Delete account" width="500"/>
 
 The account will be removed from the **Accounts management** page.
 

@@ -75,7 +75,7 @@ Privileges can be granted for engines to allow usage, operation and modification
 ### Create role
 
 #### SQL
-To create a custom role using SQL, use the [`CREATE ROLE`] statement. For example:
+To create a custom role using SQL, use the [`CREATE ROLE`](../../sql_reference/commands/database-objects/create-role.md) statement. For example:
 
 ```CREATE ROLE user_role```
 

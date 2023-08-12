@@ -2,7 +2,7 @@
 layout: default
 title: Network policies
 description: Learn about creating and managing network policies for Firebolt.
-nav_order: 5
+nav_order: 9
 parent: Managing your organization
 grand_parent: Guides
 ---
@@ -24,17 +24,17 @@ Managing network policies requires the org_admin role.
 ## Create a network policy
 
 ### SQL 
-To create a network policy using SQL, use the [`CREATE NETWORK POLICY`] statement. For example:
+To create a network policy using SQL, use the [`CREATE NETWORK POLICY`](../../sql_reference/commands/database-objects/create-network-policy.md) statement. For example:
 
 ```CREATE NETWORK POLICY my_network_policy ALLOWED_IP_LIST = (‘4.5.6.1’, ‘2.4.5.1’) BLOCKED_IP_LIST = ('6.7.8.1') COMMENT = 'my new network policy'```
 
 ### UI
 To create a network policy via the UI:
-1. Click **Configure** to open the configure space, then choose **Network policies** from the menu:
 
 ![Configure > Network policies](../../assets/images/networkpoliciespage.png)
 
-2. From the Network policies page, choose **Create a new network policy**. 
+1. Click **Configure** to open the configure space, then choose **Network policies** from the menu.
+2. From the Network policies management page, choose **Create a new network policy**. 
 3. Enter a network policy name. To add to the allow list, enter comma-separated IPv4 addresses, or IPv4 address ranges in CIDR format under **Grant access from selected allowed IP addresses**, or choose **import file** to read IP addresses from a CSV file. 
 4. Enter addreses for the block list in the **Deny access from selected blocked IP addresses**. 
 5. Choose **Save**.
@@ -44,7 +44,7 @@ For each user, the Allowed IPs and Blocked IPs are updated to reflect the total 
 ## Edit a network policy
 
 ### SQL 
-To edit a network policy using SQL, use the [`ALTER NETWORK POLICY`] statement. For example:
+To edit a network policy using SQL, use the [`ALTER NETWORK POLICY`](../../sql_reference/commands/database-objects/alter-network-policy.md) statement. For example:
 
 ```ALTER NETWORK POLICY my_network_policy SET ALLOWED_IP_LIST = (‘4.5.6.7’, ‘2.4.5.7’) BLOCKED_IP_LIST = (‘6.7.8.9’) COMMENT = 'updated network policy'```
 
@@ -54,12 +54,12 @@ To edit a network policy via the UI:
 2. Search for the relevant network policy using the top search filters or by scrolling through the list. Hover over the right-most column to make the network policy menu appear,then choose **Edit network policy**. 
 3. Edit allowed and blocked IP addresses and choose **Save**.
 
-![Edit network policy](../../assets/images/editnetworkpolicy.png)
+<img src="../../assets/images/editnetworkpolicy.png" alt="Edit network policy" width="500"/>
 
 ## Delete a network policy
 
 ### SQL
-To delete a network policy using SQL, use the [`DROP NETWORK POLICY`] statement. For example:
+To delete a network policy using SQL, use the [`DROP NETWORK POLICY`](../../sql_reference/commands/database-objects/drop-network-policy.md) statement. For example:
 
 ```DROP NETWORK POLICY my_network_policy [ RESTRICT | CASCADE ]```
 
@@ -68,4 +68,4 @@ To delete a network policy using SQL, use the [`DROP NETWORK POLICY`] statement.
 2. Search for the relevant network policy using the top search filters or by scrolling through the list. Hover over the right-most column to make the network policy menu appear, then choose **Delete network policy**. You will need to confirm that you will also be removing links to the network policy by choosing **Remove the linkage to logins, service accounts, or to the entire organization**
 3. Choose **Confirm**.
 
-![Delete network policy](../../assets/images/deletenetworkpolicy.png)
+<img src="../../assets/images/deletenetworkpolicy.png" alt="Delete network policy" width="500"/>
