@@ -9,7 +9,7 @@ has_children: true
 ---
 
 # Register and set up your organization
- Learn how to register your organization, create accounts and logins and/or service accounts. 
+ Learn how to register your organization, create accounts, configure Single Sign-On (SS0), and create logins and/or service accounts. 
 
  * [Register your organization](creating-an-organization.md)
  * [Create an account](managing-accounts.md)
@@ -28,7 +28,7 @@ Learn how to create users, link logins and/or service accounts, and manage acces
 Learn how to configure advanced authentication options for enhanced security; network policies and multi-factor authentication (MFA). 
 
 * [Manage network policies](network-policies.md)
-* [Enable multi-factor authentication](enable-mfa.md)
+* [Enable multi-factor authentication](enabling-mfa.md)
 
 # Manage billing
 Learn how to manage billing. < say something else here, observability blah blah >
