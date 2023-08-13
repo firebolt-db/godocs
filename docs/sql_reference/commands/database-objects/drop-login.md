@@ -12,9 +12,7 @@ Deletes an account.
 
 ## Syntax
 
-```sql
-DROP LOGIN [ IF EXISTS ] <login_name> [ RESTRICT | CASCADE ]; 
-```
+```DROP LOGIN [ IF EXISTS ] <login_name> [ RESTRICT | CASCADE ];```
 
 | Parameter  | Description |
 | :--------- | :---------- |
@@ -25,6 +23,4 @@ DROP LOGIN [ IF EXISTS ] <login_name> [ RESTRICT | CASCADE ];
 
 The following command will delete the "alexs@acme.com" login. 
 
-```sql
-DROP LOGIN "alexs@acme.com";
-```
+```DROP LOGIN "alexs@acme.com";```

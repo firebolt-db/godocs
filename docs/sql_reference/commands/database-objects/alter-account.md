@@ -13,9 +13,7 @@ Updates the configuration of the specified database `<database_name>`.
 
 ## Syntax
 
-```sql
-ALTER ACCOUNT <account_name> RENAME TO <new_account_name>;
-```
+```ALTER ACCOUNT <account_name> RENAME TO <new_account_name>;```
 
 | Parameter | Description |
 | :--- | :--- |
