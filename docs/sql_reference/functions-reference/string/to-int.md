@@ -20,17 +20,21 @@ TO_INT(<expression>)
 ## Parameters 
 {: .no_toc}
 
-| Parameter | Description                                                                                              | Supported Input Types | 
-| :--------- | :-------------------------------------------------------------------------------------------------------- | :-----------|
-| `<expression>`  | The expression to become an integer | A numeric data type expression that resolves to a `TEXT` data type |
+## Parameters
+{: .no_toc}
 
-## Return Types
-`NUMERIC` 
+| Parameter | Description                         |Supported input types |
+| :--------- | :----------------------------------- | :---------------------|
+| `<expression>`  | The expression to covert to an integer. | `TEXT` |
+
+## Return Type
+`INTEGER` 
 
 ## Example
 {: .no_toc}
 
-The following examplesadjusts the inputted string value as the integer `10`: 
+The following example converts the input string to the integer `10`: 
+
 ```sql
 SELECT
 	TO_INT('10');

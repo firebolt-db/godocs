@@ -22,7 +22,7 @@ FROM
 
 Each row has the following columns with information about the database.
 
-| Name                          | Data Type | Description |
+| Column Name                   | Data Type | Description |
 | :-----------------------------| :-------- | :---------- |
 | database_name                 | TEXT      | Name of the database. |
 | region                        | TEXT      | The AWS region in which the database is configured. |

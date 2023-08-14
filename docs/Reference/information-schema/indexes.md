@@ -25,7 +25,7 @@ WHERE
 
 Each row has the following columns with information about the database.
 
-| Name                          | Data Type | Description |
+| Column Name                   | Data Type | Description |
 | :-----------------------------| :-------- | :---------- |
 | table_catalog                 | TEXT    | Name of the catalog. Firebolt provides a single ‘default’ catalog. |
 | table_schema                  | TEXT    | Name of the database. |

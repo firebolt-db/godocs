@@ -21,7 +21,7 @@ FROM
 
 Each row has the following columns with information about each view.
 
-| Name                        | Data Type   | Description |
+| Column Name                 | Data Type   | Description |
 | :---------------------------| :-----------| :-----------|
 | table_catalog               | TEXT      | Name of the catalog. Firebolt offers a single ‘default’ catalog. |
 | table_schema                | TEXT      | The name of the database. |

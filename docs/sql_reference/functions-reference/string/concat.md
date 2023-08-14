@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # CONCAT
 
-Concatenates the strings listed in the arguments without a separator.
+Concatenates the strings listed in the input without a separator.
 
 ## Syntax
 {: .no_toc}
@@ -27,25 +27,19 @@ CONCAT( <expression>[, ...n] );
 
 | Parameter | Description                         |Supported input types |
 | :--------- | :----------------------------------- | :---------------------|
-| `<expression>[, ...n]` | The string(s) to be concatenated. | Any string |
+| `<expression>[, ...n]` | The string(s) to be concatenated. | `TEXT` |
 
-NULL inputs to the `CONCAT` function are treated as empty strings and ignored. When all inputs are NULL, the result will be an empty string.
+`NULL` inputs to the `CONCAT` function are treated as empty strings and ignored. When all inputs are `NULL`, the result will be an empty string.
 
-When using `||`, any NULL input results in a NULL output.
+When using `||`, any `NULL` input results in a `NULL` output.
 
-## Return Types
+## Return Type
 `TEXT`
 
 ## Example
 {: .no_toc}
 
-<!-- ```sql
-SELECT
-	CONCAT('Hello ', 'World!');
-```
-
-**Returns**: `Hello World!` -->
-The following example combines the users' `nicknames` and `emails` from the players table, with the limit of `5`: 
+The following example concatenates users' `nicknames` and `emails` from the players table: 
 
 ```sql
 SELECT
@@ -55,6 +49,7 @@ LIMIT 5;
 ```
 
 **Returns**:
+
 | user_info                              |
 | :--------------------------------------|
 | steven70: daniellegraham@example.net   | 

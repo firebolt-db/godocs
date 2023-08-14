@@ -68,6 +68,9 @@ Furthermore, the return type depends on the `time_unit`.
 | `week`            | Extract the number of the ISO 8601 week-numbering week of the year. By definition, ISO weeks start on Mondays and the first week of a year contains January 4 of that year. It is possible for early-January dates to be part of the 52nd or 53rd week of the previous year, and for late-December dates to be part of the first week of the next year. | `DATE`, `TIMESTAMP`, `TIMESTAMPTZ`. | `INTEGER`            | `SELECT EXTRACT(week FROM DATE '2005-01-01');  --> 53`<br>`SELECT EXTRACT(week from DATE '2006-01-01');  --> 52`                       |
 | `year`            | Extract the year field.                                                                                                                                                                                                                                                                                                                                 | `DATE`, `TIMESTAMP`, `TIMESTAMPTZ`  | `INTEGER`            | `SELECT EXTRACT(year FROM TIMESTAMP '2001-02-16');  --> 2001`                                                                          |
 
+## Return Types 
+A time unit matching the functions's specifications 
+
 ## Remarks
 {: .no_toc}
 

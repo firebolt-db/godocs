@@ -24,7 +24,7 @@ LIMIT
 
 Each row has the following columns with information about each running query.
 
-| Column Name                 | Data type | Description |
+| Column Name                 | Data Type | Description |
 | :---------------------------| :---------| :---------- |
 | engine_id                   | TEXT    | The ID of the engine that was used to execute the query. |
 | engine_name                 | TEXT    | The name of the engine that was used to execute the query. |

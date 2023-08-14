@@ -28,6 +28,8 @@ The functions works with new `PGDATE`, `TIMESTAMPTZ`, and `TIMESTAMPNTZ` data ty
 ```sql
 TO_CHAR(<expression>, '<format>')
 ```
+## Parameters 
+{: .no_toc}
 
 | Parameter      | Description                                                                  | Supported input types              |
 | :------------- | :--------------------------------------------------------------------------- | :--------------------------------- |
@@ -102,6 +104,9 @@ Additionally, modifiers can be applied to the format patterns above to alter the
 
 Any character in the format string that is not recognized as a pattern is simply copied over without being replaced. Parts that are quoted `"` will be copied over independent of possibly valid patterns.
 Patterns are matched in lower and upper case if there is no other behavior described above.
+
+## Return Types 
+Formatted string based on the function's specifications 
 
 ## Examples
 
