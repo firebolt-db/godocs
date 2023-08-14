@@ -21,15 +21,17 @@ The `INSERT INTO` operation is not atomic. If the operation is interrupted, part
 ## Syntax
 
 ```sql
-INSERT INTO <table_name> [(<column1>[, <column2>][, ...])]
-{ <select_statement> | VALUES ([<value1>[, <value2>][, ...]) }
+INSERT INTO <table> [(<column1>[, <column2>][, ...])]
+{ <expression> | VALUES ([<value1>[, <value2>][, ...]) }
 ```
+## Parameters 
+{: .no_toc}
 
 | Parameter | Description|
 | :---------| :----------|
-| `<table_name>`| The target table where values are to be inserted. |
+| `<table>`| The target table where values are to be inserted. |
 | `(<column1>[, <column2>][, ...])]`| A list of column names from `<table_name>` for the insertion. If not defined, the columns are deduced from the `<select_statement>`. |
-| `<select_statement>`<br>--OR--<br> `VALUES ([<value1>[, <value2>][, ...])]` | You can specify either a `SELECT` query that determines values to or an explicit list of `VALUES` to insert.|
+| `<expression>`<br>--OR--<br> `VALUES ([<value1>[, <value2>][, ...])]` | You can specify either a `SELECT` query that determines values to or an explicit list of `VALUES` to insert.|
 
 
 ## Extracting partition values using INSERT INTO

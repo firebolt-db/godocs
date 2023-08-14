@@ -19,7 +19,7 @@ Copies (exports or unloads) the results of a `SELECT` query to an Amazon S3 loca
 
 ```sql
 COPY (<select_query>)
-  TO '<s3_location>'
+  TO '<location>'
   CREDENTIALS = <aws_credentials>
 [ TYPE = CSV | TSV | JSON | PARQUET ]
 [ COMPRESSION = GZIP | NONE ]
@@ -29,11 +29,13 @@ COPY (<select_query>)
 [ MAX_FILE_SIZE = <bytes> ]
 [ OVERWRITE_EXISTING_FILES = FALSE | TRUE ]
 ```
+## Parameters 
+{: .no_toc} 
 
 | Parameter | Description |
 | :-------- | :---------- |
 | `<select_query>`  | Any valid `SELECT` statement.|
-| `<s3_location>` | The path to an S3 location where the query result file or files are saved. For example, `s3://my_bucket/my_folder`.|
+| `<location>` | The path to an S3 location where the query result file or files are saved. For example, `s3://my_bucket/my_folder`.|
 | `CREDENTIALS` | The Amazon S3 credentials for accessing the specified `<s3_location>`. See [CREDENTIALS](#credentials) below.|
 | `TYPE`            | Specifies the file type to save to S3. If omitted, `CSV` is the default. |
 | `COMPRESSION`     | Specifies whether file compression is used. If omitted, defaults to `GZIP` compression format. If `NONE` is specified, exported files are not compressed.|

@@ -18,7 +18,7 @@ Creates an external table. External tables serve as connectors to your external 
 ## Syntax
 
 ```sql
-CREATE EXTERNAL TABLE [IF NOT EXISTS] <external_table_name>
+CREATE EXTERNAL TABLE [IF NOT EXISTS] <table>
 (
     <column_name> <column_type>[ PARTITION('<regex>')]
     [, <column_name2> <column_type2> [PARTITION('<regex>')]]
@@ -31,10 +31,12 @@ TYPE = (<type>)
 [ <type option> ]
 [COMPRESSION = <compression_type>]
 ```
+## Parameters 
+{: .no_toc} 
 
 | Parameter                  | Description |
 |: ------------------------- |: ---------- |
-| `<external_table_name>`    | An identifier that specifies the name of the external table. This name should be unique within the database. For identifier usage and syntax, see [Identifier requirements](../../general-reference/identifier-requirements.md). |
+| `<table>`    | An identifier that specifies the name of the external table. This name should be unique within the database. For identifier usage and syntax, see [Identifier requirements](../../general-reference/identifier-requirements.md). |
 | `<column_name>`            | An identifier that specifies the name of the column. This name should be unique within the table.<br><b>Note:</b> If column names are using mixed case, wrap your column name definitions in double quotes (`"`); otherwise they will be translated to lower case and will not match the mixed case Parquet schema. |
 | `<column_type>`            | Specifies the data type for the column. |
 | `PARTITION`                | An optional keyword. When specified, allows you to use a regular expression `<regex>` to extract a value from the file prefix to be stored as the column value. For more information, see [PARTITION](#partition). |
@@ -114,13 +116,15 @@ The credentials for accessing your AWS S3. Firebolt enables using either access 
 #### Syntax&ndash;authenticating using an access key and secret
 
 ```sql
-CREDENTIALS = (AWS_KEY_ID = '<aws_key_id>' AWS_SECRET_KEY = '<aws_secret_key>' )
+CREDENTIALS = (AWS_KEY_ID = '<expression1>' AWS_SECRET_KEY = '<expression2' )
 ```
+## Parameters 
+{: .no_toc} 
 
 | Parameter          | Description                                             | Data type |
 |: ------------------ |: ------------------------------------------------------- |: --------- |
-| `<aws_key_id>`     | The AWS access key ID for the authorized app (Firebolt) | TEXT      |
-| `<aws_secret_key>` | The AWS secret access key for the app (Firebolt)        | TEXT      |
+| `<expression1>`     | The AWS access key ID for the authorized app (Firebolt) | TEXT      |
+| `<expression2>` | The AWS secret access key for the app (Firebolt)        | TEXT      |
 
 {: .note}
 In case you don't have the access key and secret to access your S3 bucket, read more [here](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) on how to obtain them.
@@ -130,13 +134,15 @@ In case you don't have the access key and secret to access your S3 bucket, read 
 Read more on how to configure the AWS role [here](../../loading-data/configuring-aws-role-to-access-amazon-s3.md).
 
 ```sql
-CREDENTIALS = (AWS_ROLE_ARN = '<role_arn>' [AWS_ROLE_EXTERNAL_ID = '<external_id>'])
+CREDENTIALS = (AWS_ROLE_ARN = '<expression1>' [AWS_ROLE_EXTERNAL_ID = '<expression2>'])
 ```
+## Parameters 
+{: .no_toc} 
 
 | Parameter         | Description                                                                                                                                   | Data type |
 | :----------------- |: --------------------------------------------------------------------------------------------------------------------------------------------- |: --------- |
-| `'<role_arn>'`    | The arn\_role you created in order to enable access to the required bucket.                                                                   | `TEXT`      |
-| `'<external_id>'` | Optional. This is an optional external ID that you can configure in AWS when creating the role. Specify this only if you use the external ID. | `TEXT`      |
+| `'<expression1>'`    | The arn\_role you created in order to enable access to the required bucket.                                                                   | `TEXT`      |
+| `'<expression2>'` | Optional. This is an optional external ID that you can configure in AWS when creating the role. Specify this only if you use the external ID. | `TEXT`      |
 
 ### URL and OBJECT_PATTERN
 
@@ -149,6 +155,8 @@ The`URL`and`OBJECT_PATTERN`parameters are used together to match the set of file
 URL = 's3://<bucket>[/<folder>][/...]/'
 OBJECT_PATTERN = '<object_pattern>'
 ```
+## Parameters 
+{: .no_toc} 
 
 | Parameters       | Description                                                                                                                          | Data type |
 | :---------------- | :------------------------------------------------------------------------------------------------------------------------------------ | :--------- |
@@ -309,13 +317,15 @@ In addition to other `CREATE EXTERNAL TABLE` clauses, the `META_STORE` clause pr
 {: .no_toc}
 
 ```sql
-META_STORE = (TYPE='Glue' DATABASE_NAME=<db_name> TABLE_NAME=<table_name>)
+META_STORE = (TYPE='Glue' DATABASE_NAME=<database> TABLE_NAME=<table>)
 ```
+## Parameters 
+{: .no_toc} 
 
 | Parameter |Description| Data type |
 |:--------- | :-------- | :--------- |
-| `<db_name>`| The name of the database in AWS Glue. | TEXT      |
-| `<table_name>` | The name of the table in AWS Glue. | TEXT      |
+| `<database>`| The name of the database in AWS Glue. | TEXT      |
+| `<table>` | The name of the table in AWS Glue. | TEXT      |
 
 #### Additional AWS permissions
 {: .no_toc}
