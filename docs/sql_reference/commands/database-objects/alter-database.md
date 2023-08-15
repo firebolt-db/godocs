@@ -20,6 +20,9 @@ ALTER DATABASE <database_name> WITH
     [DESCRIPTION = <description>]
 ```
 
+## Parameters 
+{: .no_toc} 
+
 | Parameter | Description |
 | :--- | :--- |
 | `<database_name>`                  | Name of the database to be altered. |
@@ -28,7 +31,6 @@ ALTER DATABASE <database_name> WITH
 | `<description>`      | Description of the database. |
 
 ## Example
+The following example alters a current database with a new default engine, `my_new_default_engine`: 
 
-```sql
-ALTER DATABASE my_database WITH DEFAULT_ENGINE = my_new_default_engine;
-```
+```ALTER DATABASE my_database WITH DEFAULT_ENGINE = my_new_default_engine;```

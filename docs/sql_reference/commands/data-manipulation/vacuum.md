@@ -15,7 +15,7 @@ Performs garbage collection to optimize a table.
 ## Syntax
 
 ```sql
-VACUUM <table_name>
+VACUUM <table>
 ```
 
 ## Parameters
@@ -23,7 +23,7 @@ VACUUM <table_name>
 
 | Parameter | Description                         |Supported input types |
 | :--------- | :----------------------------------- | :---------------------|
-| `<table_name>` | The name of the table to be optimized | FACT or DIMENSION table |
+| `<table>` | The name of the table to be optimized | FACT or DIMENSION table |
 
 ## Example
 {: .no_toc}
