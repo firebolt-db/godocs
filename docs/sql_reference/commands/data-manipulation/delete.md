@@ -14,16 +14,18 @@ Deletes rows from the specified table.
 ## Syntax
 
 ```sql
-DELETE FROM <table_name> WHERE <condition>
+DELETE FROM <table> WHERE <expression>
 ```
+## Parameters 
+{: .no_toc} 
 
 | Parameter | Description|
 | :---------| :----------|
-| `<table_name>`| The table to delete rows from. |
-| `<condition>` | A Boolean expression. Only rows for which this expression returns `true` will be deleted. Condition can have subqueries doing semijoin with other table(s). |
+| `<table>`| The table to delete rows from. |
+| `<expression>` | A Boolean expression. Only rows for which this expression returns `true` will be deleted. Condition can have subqueries doing semijoin with other table(s). |
 
 {: .note}
-The `DELETE FROM <table_name>` without `<condition>` will delete *all* rows from the table. It is equivalent to a [TRUNCATE TABLE](../commands/truncate-table.md) statement.
+The `DELETE FROM <table>` without `<expression>` will delete *all* rows from the table. It is equivalent to a [TRUNCATE TABLE](../commands/truncate-table.md) statement.
 
 ## Remarks
 {: .no_toc}
@@ -32,44 +34,40 @@ Deleted rows are marked for deletion, but are not automatically cleaned up. You 
   
 To mitigate fragmentation, use the [`VACUUM` (Beta)](vacuum.md) command to manually clean up deleted rows.
 
-### Example with simple WHERE clause
+## Example 
 
-`DELETE FROM product WHERE price = 0`
+The following example deletes entries from the `levels` table where the `level` is equal to `0`: 
+
+`DELETE FROM levels WHERE level = 0`
 
 Table before:
 
-```
-product
-+------------+--------+
-| name       | price  |
-+---------------------+
-| wand       |    125 |
-| broomstick |    270 |
-| bludger    |      0 |
-| robe       |     80 |
-| cauldron   |     25 |
-| quaffle    |      0 |
-+------------+--------+
-```
+| nickname   | level  |
+|:-----------| :------|
+| esimpson       |    8 |
+| sabrina21 |    4 |
+| kennthpark    |      0 |
+| rileyjon       |     2 |
+| aaronbutler   |     1 |
+| ywilson    |      0 |
 
-Table after:
 
-```
-product
-+------------+--------+
-| name       | price  |
-+---------------------+
-| wand       |    125 |
-| broomstick |    270 |
-| robe       |     80 |
-| cauldron   |     25 |
-+------------+--------+
-```
 
-### Example with subqueries
+**Returns**:
+
+| nickname   | level  |
+|:-----------| :------|
+| esimpson       |    8 |
+| sabrina21 |    4 |
+| rileyjon       |     2 |
+| aaronbutler   |     1 |
+
+
+
+<!-- ### Example with subqueries
 
 ```sql
-DELETE FROM product WHERE 
+DELETE FROM levels WHERE 
   name IN (SELECT name FROM inventory WHERE amount = 0) OR
   name NOT IN (SELECT name FROM inventory)
 ```
@@ -107,7 +105,7 @@ product
 | wand       |    125 |
 | cauldron   |     25 |
 +------------+--------+
-```
+``` -->
 
 
 ### Known limitations

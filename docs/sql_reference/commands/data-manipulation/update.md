@@ -14,12 +14,12 @@ Updates rows in the specified table.
 ## Syntax
 
 ```sql
-UPDATE <table_name> SET <column1> = <expression1> [, <column2> = <expression2> ...] WHERE <condition>
+UPDATE <table> SET <column1> = <expression1> [, <column2> = <expression2> ...] WHERE <condition>
 ```
 
 | Parameter | Description|
 | :---------| :----------|
-| `<table_name>`| The table to update rows in. |
+| `<table>`| The table name to update rows in. |
 | `<column>`       | The name of the column to be updated. |
 | `<expression>`      | An expression which computes a new value to populate the column. The expression can reference any column from the row being updated.
 | `<condition>` | A Boolean expression. Only rows for which this expression returns `true` will be updated. Condition can have subqueries doing semijoin with other table(s). |
@@ -33,25 +33,19 @@ To mitigate fragmentation, use the [`VACUUM` (Beta)](vacuum.md) command to manua
 
 ### Example with WHERE
 
-This example applies a discount for products which have excessive inventory.
+This example applies an added level score for players who have completed more than `10` levels in a game: 
 
 ```sql
-UPDATE product SET price = price * 0.9 WHERE quantity > 10
+UPDATE levels SET levels = level + 1 WHERE level > 10
 ```
 
-Table before:
+| nickname       | price | 
+|:-----------|:-------|
+| wand       |    120 | 
+| broomstick |    270 | 
+| robe       |     80 |
+| cauldron   |     20 |    
 
-```
-product
-+------------+--------+----------+
-| name       | price  | quantity |
-+---------------------+----------+
-| wand       |    120 |        9 |
-| broomstick |    270 |       15 |
-| robe       |     80 |        1 |
-| cauldron   |     20 |      112 |
-+------------+--------+----------+
-```
 
 Table after:
 
