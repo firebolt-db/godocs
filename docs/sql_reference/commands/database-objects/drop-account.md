@@ -10,6 +10,8 @@ parent: Database object commands
 # DROP ACCOUNT
 Deletes an account.
 
+For more information, see [Managing accounts](../../../Guides/managing-your-organization/managing-accounts.md).
+
 ## Syntax
 
 ```DROP ACCOUNT [ IF EXISTS ] <account_name> [ RESTRICT | CASCADE ];```

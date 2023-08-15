@@ -10,6 +10,8 @@ parent: Database object commands
 # DROP NETWORK POLICY
 Deletes a network policy.
 
+For more information, see [Network policies](../../../Guides/managing-your-organization/network-policies.md).
+
 ## Syntax
 
 ```DROP NETWORK POLICY <network_policy_name> [ RESTRICT | CASCADE ]```

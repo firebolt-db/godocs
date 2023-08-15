@@ -10,11 +10,13 @@ parent: Database object commands
 # CREATE ACCOUNT
 Creates a new account.
 
+For more information, see [Managing accounts](../../../Guides/managing-your-organization/managing-accounts.md).
+
 ## Syntax
 
 ```sql
 CREATE ACCOUNT [IF NOT EXISTS] <account_name>
-[WITH REGION = <region>]
+[ WITH REGION = <region> ]
 ```
 
 where `<region>` specifies the region in which the account is configured.

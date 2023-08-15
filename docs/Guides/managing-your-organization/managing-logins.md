@@ -39,7 +39,7 @@ To create a login via the UI:
     - Associate a [network policy](network-policies.md) with the login by choosing a network policy name under the **Network policy attached** field.
     - Enable password login, which specifies if the login can authenticate Firebolt using a password.
     - Enable multi-factor authentication (MFA). Read more about how to configure MFA [here].
-    - Set the login as **org_admin**, which enables fully managing the organization.
+    - Set the login as **organisation admin**, which enables fully managing the organization.
 
 ## Edit an existing login
 

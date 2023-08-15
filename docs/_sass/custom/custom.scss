@@ -104,10 +104,9 @@ $callouts: (
   }
 
   .img-fluid {
-    height: 150px;
-    width: 150px;
-    display: flex;
-    flex-direction: column;
+    height: 200px;
+    width: 200px;
+    display:inline-block;
     align-items: center;
 }
 

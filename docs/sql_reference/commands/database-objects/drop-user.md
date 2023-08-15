@@ -10,11 +10,11 @@ parent: Database object commands
 # DROP USER
 Deletes a user.
 
+For more information, see [Managing users](../../../Guides/managing-your-organization/managing-users.md).
+
 ## Syntax
 
-```sql
-DROP USER [ IF EXISTS ] <user_name> ; 
-```
+```DROP USER [ IF EXISTS ] <user_name> ;```
 
 | Parameter  | Description |
 | :--------- | :---------- |
@@ -24,6 +24,4 @@ DROP USER [ IF EXISTS ] <user_name> ;
 
 The following command will delete the "alex" user. 
 
-```sql
-DROP USER alex;
-```
+```DROP USER alex;```

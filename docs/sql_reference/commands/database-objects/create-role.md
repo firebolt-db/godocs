@@ -10,6 +10,8 @@ parent: Database object commands
 # CREATE ROLE
 Creates a new role.
 
+For more information, see [Role-based access control](../../../Guides/managing-your-organization/rbac.md).
+
 ## Syntax
 
 ```CREATE ROLE [ IF NOT EXISTS ] <role_name>```

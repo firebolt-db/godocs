@@ -10,6 +10,8 @@ parent: Database object commands
 # DROP LOGIN
 Deletes an account.
 
+For more information, see [Managing logins](../../../Guides/managing-your-organization/managing-logins.md).
+
 ## Syntax
 
 ```DROP LOGIN [ IF EXISTS ] <login_name> [ RESTRICT | CASCADE ];```

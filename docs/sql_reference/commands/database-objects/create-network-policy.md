@@ -10,6 +10,8 @@ parent: Database object commands
 # CREATE NETWORK POLICY
 Creates a new network policy.
 
+For more information, see [Network policies](../../../Guides/managing-your-organization/network-policies.md).
+
 ## Syntax
 
 ```sql

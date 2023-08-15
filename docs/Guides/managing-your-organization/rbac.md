@@ -47,7 +47,7 @@ A user with either the `account_admin` or `security_admin` role can create custo
 ## Privileges
 A set of privileges can be granted for every securable object. See which privileges are available for accounts, databases and engines below. To view all privileges, query the [information_schema.object_privileges](../Reference/information-schema/object-privileges.md) view. 
 
-#### Account
+### Account
 Privileges can be granted for accounts to allow creating databases and engines.
 
 | Privilege         | Description                                    |
@@ -63,7 +63,7 @@ Privileges can be granted for databases to allow usage and modification of datab
 | USAGE              | Enables querying tables and views, and attaching engines to the database. |
 | MODIFY             | Enables:<br>Creating or dropping tables, views, and indexes on the database.<br>Inserting data into the database's tables.<br>Altering the properties of a database.<br>Dropping a database. |
 
-#### Engine
+### Engine
 Privileges can be granted for engines to allow usage, operation and modification of engines per account. 
 
 | Privilege          | Description |
@@ -72,36 +72,36 @@ Privileges can be granted for engines to allow usage, operation and modification
 | OPERATE            | Enables stopping and starting the engine. |
 | MODIFY             | Enables dropping or altering any properties of the engine. |
 
-### Create role
+## Create role
 
-#### SQL
+### SQL
 To create a custom role using SQL, use the [`CREATE ROLE`](../../sql_reference/commands/database-objects/create-role.md) statement. For example:
 
 ```CREATE ROLE user_role```
 
-#### UI
+### UI
 To create a custom role via the UI:
 
 < steps needed >
 
-### Delete role
+## Delete role
 To delete a custom role using SQL, use the [`DROP ROLE`] statement. For example:
 
 ```DROP ROLE user_role```
 
-#### UI
+### UI
 To delete a custom role via the UI:
 
 < steps needed >
 
-### Grant privileges to a role
+## Grant privileges to a role
 
-#### SQL 
+### SQL 
 To grant a privilege to a role using SQL, use the [`GRANT`] statement. For example:
 
 ```GRANT USAGE ON DATABASE my_db TO user_role``
 
-#### UI
+### UI
 To grant a privilege to a role via the UI:
 1. Click **Govern** to open the govern space, then choose **Roles** from the menu:
 
@@ -113,19 +113,19 @@ To grant a privilege to a role via the UI:
 
 ![Create/Edit Role](../../assets/images/create_edit_role.png)
 
-### Revoke privileges 
+## Revoke privileges 
 To revoke a privilege from a role using SQL, use the [`REVOKE`] statement. For example:
 
 ```REVOKE USAGE ON DATABASE my_db FROM user_role```
 
-### Grant role
+## Grant role
 
-#### SQL
+### SQL
 To grant a role to a user or another role using SQL, use the [`GRANT ROLE`] statement. For example:
 
 ```GRANT ROLE user_role TO { USER alex | ROLE user2_role }```
 
-#### UI
+### UI
 To grant a role to a user via the UI:
 1. Click **Govern** to open the govern space, then choose **Users** from the menu:
 
@@ -137,7 +137,7 @@ To grant a role to a user via the UI:
 
 ![Create/Edit User](../../assets/images/create_edit_user.png)
 
-### Revoke role 
+## Revoke role 
 To revoke a role from a user or another role using SQL, use the [`REVOKE ROLE`] statement. For example:
 
 ```REVOKE ROLE user_role FROM { USER alex | ROLE user2_role }```

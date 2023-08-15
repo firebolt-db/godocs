@@ -11,6 +11,8 @@ parent: Database object commands
 
 Updates the configuration of the specified user.
 
+For more information, see [Managing users](../../../Guides/managing-your-organization/managing-users.md).
+
 ## Syntax
 
 ```sql
@@ -23,9 +25,7 @@ ALTER USER <user_name> SET
 ```
 or 
 
-```sql
-ALTER USER <user_name> RENAME TO <new_user_name>;
-```
+```ALTER USER <user_name> RENAME TO <new_user_name>;```
 
 | Parameter | Description |
 | :--- | :--- |

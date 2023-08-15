@@ -11,16 +11,18 @@ parent: Database object commands
 
 Updates the configuration of the specified login.
 
+For more information, see [Managing logins](../../../Guides/managing-your-organization/managing-logins.md).
+
 ## Syntax
 
 ```sql
 ALTER LOGIN <login_name> SET 
-      [IS_PASSWORD_ENABLED = { TRUE | FALSE }, ]
-      [, IS_MFA_ENABLED = { TRUE | FALSE } ]
-      [, NETWORK_POLICY_NAME = <network_policy_name> ]
-      [, IS_ORGANIZATION_ADMIN = { TRUE | FALSE } ]
-      [,FIRST_NAME = <first_name> | DEFAULT ]
-      [,LAST_NAME = <last_name> | DEFAULT ] 
+      [ IS_PASSWORD_ENABLED = { TRUE | FALSE } ]
+      [ IS_MFA_ENABLED = { TRUE | FALSE } ]
+      [ NETWORK_POLICY_NAME = <network_policy_name> ]
+      [ IS_ORGANIZATION_ADMIN = { TRUE | FALSE } ]
+      [ FIRST_NAME = <first_name> | DEFAULT ]
+      [ LAST_NAME = <last_name> | DEFAULT ] 
 ```
 or 
 
@@ -34,7 +36,7 @@ or
 | `<network_policy_name>`                      | An optional parameter to define the network policy to link to the created login. |         
 | `IS_ORGANIZATION_ADMIN` | A `BOOLEAN` value specifying if the login is an organization admin. By default this value is `FALSE`. | 
 | `<first_name>`, `<last_name>` | The first and last name of the user to use the login. |
-| `<new_login_name>`                              | The new name of the login in the form of an email address. The login must be unique within the organization. Note: if SSO is enabled, logins cannot be renamed.   |
+| `<new_login_name>`                              | The new name of the login in the form of an email address. The login must be unique within the organization. Note: if the login was provisioned via SSO, it cannot be renamed.  |
 
 ## Example
 
