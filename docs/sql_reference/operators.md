@@ -23,10 +23,10 @@ parent: SQL reference
 | %        | modulo (remainder)                               | `SELECT 5 % 4;`     | 1      |
 | ^        | exponentiation                                   | `SELECT 2.0 ^ 3.0;` | 8      |
 
-Result datatype of arithmetic operators: `+`,`-`,`*`,`/` is the common type of the input datatypes.
-For example: `INT <op> INT = INT`, `INT <op> BIGINT = BIGINT`, `INT <op> FLOAT = DOUBLE`.
+The result data type of arithmetic operators `+`,`-`,`*`,`/` is the common type of the input data types.
+For example: `INTEGER`, `INTEGER <op> BIGINT = BIGINT`, `INTEGER <op> REAL = DOUBLE PRECISION`.
 
-Overflow checks and Floating point errors will be applied according to the result datatype only.
+Overflow checks and floating point errors are applied according to the result data type only.
 
 {: .note}
 > Floating point note:
