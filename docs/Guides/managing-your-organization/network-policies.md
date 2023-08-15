@@ -64,6 +64,8 @@ To delete a network policy using SQL, use the [`DROP NETWORK POLICY`](../../sql_
 ```DROP NETWORK POLICY my_network_policy [ RESTRICT | CASCADE ]```
 
 ### UI
+To delete a network policy via the UI: 
+
 1. Click **Configure** to open the configure space, then choose **Network policies** from the menu.
 2. Search for the relevant network policy using the top search filters or by scrolling through the list. Hover over the right-most column to make the network policy menu appear, then choose **Delete network policy**. You will need to confirm that you will also be removing links to the network policy by choosing **Remove the linkage to logins, service accounts, or to the entire organization**
 3. Choose **Confirm**.
