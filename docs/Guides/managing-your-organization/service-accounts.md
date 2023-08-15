@@ -14,83 +14,50 @@ Create a service account for programmatic access **only** to Firebolt. Service a
 
 To view all users, click **Govern** to open the govern space, then choose **Service Accounts** from the menu, or query the [information_schema.service_account_users](../../Reference/information-schema/service-account-users.md) view. 
 
+{: .note}
+Managing service accounts requires the org_admin role.
+
 ## Creating a service account 
 
-{: .note}
-Creating a service account requires the org_admin role.
-
 ### SQL 
-To create a service account using SQL, use the [`CREATE SERVICE ACCOUNT`] statement. For example:
+To create a service account using SQL, use the [`CREATE SERVICE ACCOUNT`](../../sql_reference/commands/database-objects/create-service-account.md) statement. For example:
 
 ```CREATE SERVICE ACCOUNT IF NOT EXISTS "sa1" DESCRIPTION = "service account 1";```
 
 ### UI
 To create a service account via the UI:
-1. Click **Configure** to open the configure space, then choose **Service accounts** from the menu:
 
-< screenshot >
+![Configure > Service accounts](../../assets/images/serviceaccountspage.png)
 
+1. Click **Configure** to open the configure space, then choose **Service accounts** from the menu.
 2. From the Service accounts page, choose **Create a service account**.
-3. Enter a unique name for your service account. This name must start with a letter, and may contain only alphanumeric characters.
+3. Enter a unique name for your service account. This name must start with a letter, and may contain only alphanumeric characters, or the underscore(_) character.
 4. Optionally, you can:
-  - Choose a **network policy** to apply from the list of existing [network policies] configured for your organization. 
+  - Choose a **network policy** to apply from the list of existing [network policies](network-policies.md) configured for your organization. 
   - Specify a description for the service account.
 5. Choose **Create**. 
 
 ## Generating a secret for a service account
+A service account secret is used to generate an access token for accessing Firebolt API programmatically with the service account. 
 
-{: .note}
-Generating a secret requires the org_admin role.
+### SQL 
+To generate a secret for a service account using SQL, use the `CALL fb_GENERATESERVICEACCOUNTKEY(`<name>`)` statement, where `<name>` is the name of the service account. The command returns both the service account ID and secret. For example:
 
-To generate a secret for a service account user:
+````CALL fb_GENERATESERVICEACCOUNTKEY('sa1')```
 
-2. Generate a secret for the service account user with [the generation function described below](#generate-a-secret-for-the-service-account-user). 
-**Make a note of the secret** - it can't be retrieved later.  In case the secret is lost (or needs to be rotated), you can always generate a new secret, calling the same generation function.
+### UI
+To generate a secret for a service account via the UI:
 
-3. Use the service account ID and the secret to [access Firebolt programmatically](#authenticate-with-a-service-account-via-the-rest-api) via Firebolt’s REST API.
+1. Click **Configure** to open the configure space, then choose **Service accounts** from the menu.
+2. Search for the relevant service account using the top search filters, or by scrolling through the list of service accounts. Hover over the right-most column to make the service account menu appear, then choose **Create a new secret**.
+3. The **New secret for service account" menu with the newly generated secret will appear.
 
-To delete a service account user, use the [`DROP SERVICE ACCOUNT` command](#delete-a-service-account-user).
+<img src="../../assets/images/newsecret.png" alt="New secret" width="500"/>
 
-
-## Generate a secret for the service account
-`CALL firebolt.GENERATESERVICEACCOUNTKEY('<name>');`
-
-Generate a secret for the service account user, where:
-
-| Property                          | Data type | Description |
-| :------------------------------   | :-------- | :---------- |
-| name                              | TEXT      | The name of the user. |
-
-
-**Example**
-`CALL firebolt.GENERATESERVICEACCOUNTKEY('tableau_user');`
-
-The command returns both the service account ID and secret.
+**Make a note of the secret once generated** - it can't be retrieved later.  If the secret is lost (or needs to be rotated), you can always generate a new secret, calling the same generation function, or by creating a new secret in the UI. 
 
 {: .note}
 Generating a new secret for your service account user replaces any previous secret (which cannot be used once a new one is generated). Make a note of the secret and keep it in a secured location.
-
-## Editing a service account 
-
-#### SQL 
-To edit a service account using SQL, use the [`ALTER SERVICE ACCOUNT`] statement. For example:
-
-```ALTER SERVICE ACCOUNT sa1 SET [ NETWORK_POLICY = my_network_policy | DEFAULT ] SET [ DESCRIPTION = "new description" | DEFAULT ]```
-
-
-## Deleting a service account 
-
-#### SQL 
-To delete a service account using SQL, use the [`CREATE SERVICE ACCOUNT`] statement. For example:
-
-`DROP SERVICE ACCOUNT sa1;`
-
-Deletes a service account user by its name. The name can be retrieved by running the 
-`SELECT * FROM INFORMATION_SCHEMA.SERVICE_ACCOUNT_USERS` command, where:
-
-| Property                          | Data type | Description |
-| :------------------------------   | :-------- | :---------- |
-| name                              | TEXT      | The name of the user. |
 
 ## Authenticate with a service account via the REST API
 To authenticate Firebolt using service accounts via Firebolt’s REST API, send the following request to receive an authentication token:
@@ -113,14 +80,33 @@ Where:
 
 Use the returned access_token to authenticate with Firebolt.
 
+## Editing a service account 
 
-## Known limitations and future release plans
+### SQL 
+To edit a service account using SQL, use the [`ALTER SERVICE ACCOUNT`](../../sql_reference/commands/database-objects/alter-service-account.md) statement. For example:
 
-**IP allowed/blocked lists**
-At this time, using IP allowed/blocked lists (Beta) with service account users is not supported. This will be supported in the future. 
+```ALTER SERVICE ACCOUNT sa1 SET NETWORK_POLICY = my_network_policy```
 
-**Information_schema running queries view**
-At this time, the `user_id` column in the `information_schema.running_queries` view does not contain the service account ID (it contains an empty `TEXT` instead). This will be supported in future versions.
+### UI 
+To edit a service account via the UI:
+
+1. Click **Configure** to open the configure space, then choose **Service accounts** from the menu.
+2. Search for the relevant service account using the top search filters, or by scrolling through the list of service accounts. Hover over the right-most column to make the service account menu appear, then choose **Edit service account**.
+3. Edit the desired fields and choose **Save**.
+
+## Deleting a service account 
+
+### SQL 
+To delete a service account using SQL, use the [`DROP SERVICE ACCOUNT`](../../sql_reference/commands/database-objects/drop-service-account.md) statement. For example:
+
+`DROP SERVICE ACCOUNT sa1;`
+
+### UI 
+To delete a service account via the UI:
+1. Click **Configure** to open the configure space, then choose **Service accounts** from the menu.
+2. Search for the relevant service account using the top search filters, or by scrolling through the list of service accounts. Hover over the right-most column to make the service account menu appear, then choose **Delete service account**.
+
+If the service account is linked to users, you will need to confirm that you will also be deleting those users by choosing **Delete users permanently**.
 
 
 

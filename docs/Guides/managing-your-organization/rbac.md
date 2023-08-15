@@ -136,7 +136,7 @@ To grant a role to a user or another role using SQL, use the [`GRANT ROLE`](../.
 To grant a role to a user via the UI:
 1. Click **Govern** to open the govern space, then choose **Users** from the menu:
 
-<img src="../../assets/images/govern_users.png" alt="Govern users" width="500"/>
+![Govern > Users](../../assets/images/govern_users.png)
 
 2. Search for the relevant user using the top search filters, or by scrolling through the list of logins. Hover over the right-most column to make the user menu appear, then choose **Edit user details**. 
 3. Check all the roles you want assigned to the user.
