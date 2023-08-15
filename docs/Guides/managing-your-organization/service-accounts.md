@@ -2,7 +2,7 @@
 layout: default
 title: Service accounts
 description: Learn about creating service account users for Firebolt.
-nav_order: 5
+nav_order: 6
 parent: Managing your organization
 grand_parent: Guides
 ---
