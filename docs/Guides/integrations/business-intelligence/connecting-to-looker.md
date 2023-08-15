@@ -65,10 +65,10 @@ Join indexes in Firebolt can accelerate queries with joins. Looker is known to g
 
 Join indexes that you define in Firebolt are beneficial when there is a many-to-one relationship between fact tables and a join table, when you typically filter queries using only a subset of available columns in the dimension table, and when the dimension table is large enough that it exceeds the RAM available in the engine spec. In addition, dimension tables that have a join index defined for them should have a column with unique values that is used as the join key. This column should have the `UNIQUE `parameter set when the dimension table is created.
 
-For more information, see [Using indexes](../../using-indexes/using-indexes.md).
+For more information, see [Using indexes](../../../Overview/using-indexes.md).
 
 ### Use system activity data to inform aggregating indexes
 
 Use Looker dashboards and [system activity](https://docs.looker.com/admin-options/system-activity) data to identify the most common or impactful queries, and then create Firebolt aggregating indexes to optimize these queries. When looking at the queries in the system activity, try to group the queries to see if there are commonalities between some of them. If possible, create a single aggregating index that can handle multiple queries. A single aggregating index can contain multiple aggregations to handle a range of queries.
 
-For more information, see [Using aggregating indexes](../../using-indexes/using-aggregating-indexes.md).
+For more information, see [Using aggregating indexes](../../working-with-indexes/using-aggregating-indexes.md).

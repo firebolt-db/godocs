@@ -18,7 +18,7 @@ This topic describes the Firebolt implementation of the `TIMESTAMPTZ` data type.
   >If you worked with Firebolt before DB version 3.22, you might still be using the legacy date and timestamp types.
   >Determine which types you are using by executing the query `SELECT EXTRACT(CENTURY FROM DATE '2023-03-16');`.
   >If this query returns a result, you are using the redesigned date and timestamp types and can continue with this documentation.
-  >If this query returns an error, you are using the legacy date and timestamp types and can find [legacy documentation here](legacy-date-timestamp.md), or instructions to reingest your data to use the new types [here](../release-notes/release-notes-archive.html#db-version-322).
+  >If this query returns an error, you are using the legacy date and timestamp types and can find [legacy documentation here](legacy-date-timestamp.md), or instructions to reingest your data to use the new types [here](../Reference/release-notes/release-notes-archive.html#db-version-322).
 
 * Topic ToC
 {:toc}
@@ -66,8 +66,8 @@ Time zone names are from the [tz database](http://www.iana.org/time-zones) (see 
 If a `TIMESTAMPTZ` literal has an explicit time zone specified, it is converted to Unix time using the appropriate offset.
 If not, Firebolt uses the session's `time_zone` setting and assumes the `TIMESTAMPTZ` literal is in that time zone.
 The default value of the `time_zone` setting is UTC.
-To check what time zone is set, use [`SELECT TIMEZONE()`](../sql-reference/functions-reference/timezone.md).
-To set it to, e.g., `Europe/Berlin`, you can issue: `SET time_zone = 'Europe/Berlin';`. For more information, see [system settings](../general-reference/system-settings.md#set-time-zone).
+To check what time zone is set, use [`SELECT TIMEZONE()`](../sql_reference/functions-reference/date-and-time/timezone.md).
+To set it to, e.g., `Europe/Berlin`, you can issue: `SET time_zone = 'Europe/Berlin';`. For more information, see [system settings](system-settings.md#set-time-zone).
 
 If only the date is specified, the time is assumed to be `00:00:00.000000`.
 
@@ -125,13 +125,7 @@ The `TIMESTAMPTZ` data type can be cast to and from types as follows (assuming `
 | :----------------- | :-------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `DATE`             | `SELECT CAST(TIMESTAMPTZ '2023-02-13 11:19:42 Europe/Berlin' as DATE);  --> 2023-02-13`                   | Converts from Unix time to local time in the time zone specified by the session's `time_zone` setting and then truncates the timestamp to the date. |
 | `TIMESTAMP`        | `SELECT CAST(TIMESTAMPTZ '2023-02-13 11:19:42 Europe/Berlin' as TIMESTAMP );  --> 2023-02-13 11:19:42+00` | Convert from Unix time to local time in the time zone specified by the session's `time_zone` setting.                                               |
-<<<<<<< HEAD
-=======
 
-Use the function [TO_TIMESTAMPTZ](../sql-reference/functions-reference/to_timestamptz.md) to convert the number of seconds since the Unix epoch to a `TIMESTAMPTZ` value.
->>>>>>> d77a35b0a0c09265b00d33c70a5e0961afa1ec73
-
-Use the function [TO_TIMESTAMPTZ](../sql-reference/functions-reference/to_timestamptz.md) to convert the number of seconds since the Unix epoch to a `TIMESTAMPTZ` value.
 
 #### AT TIME ZONE
 

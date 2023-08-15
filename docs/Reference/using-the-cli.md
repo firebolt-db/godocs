@@ -79,7 +79,7 @@ CLI commands use the following configuration parameters for your Firebolt accoun
 
 | `username`            | Required. The email address associated with your Firebolt user.           |
 | `password`           |  Required. The password associated with the `username`. The CLI encrypts and securely stores passwords using the [Python keyring library](https://keyring.readthedocs.io/en/latest/) if encryption is enabled on your respective OS.              |
-| `account-name`       |  The name of your Firebolt account in all lowercase characters. For help finding your account name, see [Firebolt account concepts and terminology](./managing-your-account/concepts-and-terminology.md#firebolt-account). |
+| `account-name`       |  The name of your Firebolt account in all lowercase characters. For help finding your account name, see [Firebolt organizations and accounts](../Overview/organizations-accounts.md) |
 | `database-name`      |  The name of the database to connect to.            |
 | `engine-name` |  The name or URL of the engine to use for SQL queries.    |
 
@@ -226,24 +226,24 @@ You can use the `firebolt query` command with the `--sql` option to submit a SQL
 dataengineer@MYDESKTOP: ~/fb-jobs$ firebolt query --sql "CREATE FACT TABLE transactions
 > (
 >     transaction_id    BIGINT,
->     sale_date         DATETIME,
->     store_id          INT,
->     product_id        INT,
->     units_sold        INT
+>     sale_date         TIMESTAMP,
+>     store_id          INTEGER,
+>     product_id        INTEGER,
+>     units_sold        INTEGER
 > )
 > PRIMARY INDEX store_id, product_id;
 >
 > CREATE DIMENSION TABLE dim_store
 > (
->     store_id      INT,
->     store_number  INT,
+>     store_id      INTEGER,
+>     store_number  INTEGER,
 >     state         TEXT,
 >     country       TEXT
 > );
 >
 > CREATE DIMENSION TABLE dim_product
 > (
->     product_id        INT,
+>     product_id        INTEGER,
 >     product_name      TEXT,
 >     product_category  TEXT,
 >     brand             TEXT

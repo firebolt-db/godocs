@@ -17,6 +17,8 @@ FROM
   information_schema.logins;
 ```
 
+For more information, see [Managing logins](../../../Guides/managing-your-organization/managing-logins.md).
+
 ## Columns in information_schema.logins
 
 Each row has the following columns with information about each login.

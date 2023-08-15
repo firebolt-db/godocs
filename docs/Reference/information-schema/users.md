@@ -17,6 +17,8 @@ FROM
   information_schema.users;
 ```
 
+For more information, see [Managing users](../../../Guides/managing-your-organization/managing-users.md).
+
 ## Columns in information_schema.users
 
 Each row has the following columns with information about each user.

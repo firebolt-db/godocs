@@ -70,7 +70,7 @@ curl --request POST 'https://api.app.firebolt.io/auth/v1/refresh' \
 
 ## Start, stop, and restart engines
 
-An engine in Firebolt is a cluster of nodes that do the work when you run SQL queries. You can use the REST API to start, stop, and restart engines. To perform these operations on an engine, you must have the unique engine ID and the engine must be stopped. The operation to get this ID is shown first, followed by start, stop, and restart operations. For more information about engines, see [Working with engines](../working-with-engines/understanding-engine-fundamentals.html).
+An engine in Firebolt is a cluster of nodes that do the work when you run SQL queries. You can use the REST API to start, stop, and restart engines. To perform these operations on an engine, you must have the unique engine ID and the engine must be stopped. The operation to get this ID is shown first, followed by start, stop, and restart operations. For more information about engines, see [Working with engines](../../Overview/understanding-engine-fundamentals.md).
 
 ### Get an engine ID
 
@@ -380,10 +380,10 @@ In the above script, replace the following:
 
 * `<fact_table>` is the name of the fact table to create.
 * `<column_name> <column_type>` are columns and corresponding data type specifications.
-* `<column_list>` is a list of column names separated by commas (for example, `column1, column2`) to be used for the primary index. For more information, see [How to choose primary index columns](../using-indexes/using-primary-indexes.md#how-to-choose-primary-index-columns).
+* `<column_list>` is a list of column names separated by commas (for example, `column1, column2`) to be used for the primary index. For more information, see [How to choose primary index columns](../working-with-indexes/using-primary-indexes.md#how-to-choose-primary-index-columns).
 
 {: .note}
-Before importing the data to the fact table, consider creating an aggregating index to boost performance even further. You can also create the aggregating index later. For more information, see [Aggregating indexes](../using-indexes/using-aggregating-indexes.md).
+Before importing the data to the fact table, consider creating an aggregating index to boost performance even further. You can also create the aggregating index later. For more information, see [Aggregating indexes](../working-with-indexes/using-aggregating-indexes.md).
 
 
 **Import data into the fact table**
@@ -450,4 +450,4 @@ curl --request POST 'https://YOUR_ENGINE_URL/cancel?query_id=YOUR_QUERY_ID' \
 Provide values for placeholders according to the following guidance.
 
 * `YOUR_ENGINE_URL` is the value of `engine_url` returned by the command shown in [Get the URL of an engine](#get-the-url-of-an-engine).
-* `YOUR_QUERY_ID` is the ID of the query you need to cancel. You can get a query ID using the [running queries view](../general-reference/information-schema/running-queries.md).
+* `YOUR_QUERY_ID` is the ID of the query you need to cancel. You can get a query ID using the [running queries view](../../Reference//information-schema/running-queries.md).

@@ -18,7 +18,6 @@ FROM
   information_schema.service_accounts;
 ```
 
-{: .note}
 Read more about service accounts [here](../../managing-your-account/service-accounts.md).
 
 ## Columns in information_schema.service_accounts

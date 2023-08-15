@@ -72,7 +72,7 @@ If the scale of a value to be stored is greater than the declared scale of the c
 
 **Functions:**
 
-* [ABS](../sql-reference/functions-reference/abs.md)
+* [ABS](../sql-reference/functions-reference/numeric/abs.md)
 * [ANY](../sql-reference/functions-reference/any.md)
 * [ANY\_VALUE](../sql-reference/functions-reference/any_value.md)
 * [ARRAY\_SORT](../sql-reference/functions-reference/array-sort.md)
