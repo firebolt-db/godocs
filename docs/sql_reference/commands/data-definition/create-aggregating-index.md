@@ -32,12 +32,14 @@ CREATE AGGREGATING INDEX [IF NOT EXISTS] <agg_index_name> ON <fact_table_name> (
   <aggregation>[,...<aggregationN>]
 );
 ```
+## Parameters 
+{: .no_toc} 
 
-| Parameter           | Description                                                                                                             |
-| :------------------- | :----------------------------------------------------------------------------------------------------------------------- |
-| `<agg_index_name>`  | Specifies a unique name for the index                                                                                   |
-| `<fact_table_name>` | Specifies the name of the fact table referenced by this index                                                           |
-| `<key_column>`      | Specifies column name from the `<fact_table_name>` used for the index                                                   |
+| Parameter           | Description               |
+| :------------------- | :------------------------------- |
+| `<index>`  | Specifies a unique name for the index                                                                                   |
+| `<table>` | Specifies the name of the fact table referenced by this index                                                           |
+| `<column>`      | Specifies column name from the `<table>` used for the index                                                   |
 | `<aggregation>`     | Specifies one or more aggregation functions to be applied on a `<key_column>`, such as `SUM`, `COUNT`, `AVG`, and more. |
 
 ## Example&ndash;create an aggregating index
