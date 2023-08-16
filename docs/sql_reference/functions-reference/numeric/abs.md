@@ -17,17 +17,21 @@ Calculates the absolute value of a number `<value>`. This means displaying the n
 ```sql
 ABS(<value>)
 ```
-## Parameters 
+## Parameters
+{: .no_toc}
+
 | Parameter | Description                                                                                                         | Supported input types |
 | :--------- | :------------------------------------------------------------------------------------------------------------------- | :-------------------|
-| `<numeric_type>`   | The number that the absolute value function is applied to | Any `NUMERIC TYPE` |
+| `<numeric_type>`   | The number that the absolute value function is applied to. | Any `NUMERIC` type |
 
-## Return Types 
-`NUMERIC_TYPE`
+## Return Type
+`NUMERIC`
 
 ## Example
 {: .no_toc}
+
 The following example returns the absolute value of `-200.5`:
+
 ```sql
 SELECT
     ABS(-200.50);

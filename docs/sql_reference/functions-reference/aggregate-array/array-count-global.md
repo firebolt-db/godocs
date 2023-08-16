@@ -3,13 +3,13 @@ layout: default
 title: ARRAY_COUNT_GLOBAL
 description: Reference material for ARRAY_COUNT_GLOBAL function
 grand_parent: SQL functions
-parent: Array functions
+parent: Aggregate array functions
 great_grand_parent: SQL reference
 ---
 
 # ARRAY\_COUNT\_GLOBAL
 
-Returns the number of elements in the array typed column accumulated over all rows. As such it is an _aggregation function._
+Returns the number of elements in the array column accumulated over all rows. As such it is an _aggregation function._
 
 ## Syntax
 {: .no_toc}
@@ -23,15 +23,15 @@ ARRAY_COUNT_GLOBAL(<array>)
 
 | Parameter   | Description                                                      | Supported input types 
 | :----------- | :---------------------------------------------------------------- |:-------|
-| `<array>` | The array column over which the function will count the elements | `<array>` |
+| `<array>` | The array column over which the function will count the elements. | Any `ARRAY` type |
 
-## Return Types
-`NUMERIC` 
+## Return Type
+`INTEGER`
 
 ## Example
 {: .no_toc}
 
-For this example, we will create a table `levels` as shown below. This table will highlight the levels that a certain video game player has completed. 
+For this example, we will create a table `levels` as shown below. This table will highlight the levels that a certain player has completed. 
 
 ```sql
 CREATE DIMENSION TABLE levels(esimpson ARRAY(INTEGER));
