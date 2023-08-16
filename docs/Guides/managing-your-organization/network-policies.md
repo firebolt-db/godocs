@@ -24,7 +24,7 @@ Managing network policies requires the org_admin role.
 ## Create a network policy
 
 ### SQL 
-To create a network policy using SQL, use the [`CREATE NETWORK POLICY`](../../sql_reference/commands/database-objects/create-network-policy.md) statement. For example:
+To create a network policy using SQL, use the [`CREATE NETWORK POLICY`](../../sql_reference/commands/access-control/create-network-policy.md) statement. For example:
 
 ```CREATE NETWORK POLICY my_network_policy ALLOWED_IP_LIST = (‘4.5.6.1’, ‘2.4.5.1’) BLOCKED_IP_LIST = ('6.7.8.1') COMMENT = 'my new network policy'```
 
@@ -44,7 +44,7 @@ For each user, the Allowed IPs and Blocked IPs are updated to reflect the total 
 ## Edit a network policy
 
 ### SQL 
-To edit a network policy using SQL, use the [`ALTER NETWORK POLICY`](../../sql_reference/commands/database-objects/alter-network-policy.md) statement. For example:
+To edit a network policy using SQL, use the [`ALTER NETWORK POLICY`](../../sql_reference/commands/access-control/alter-network-policy.md) statement. For example:
 
 ```ALTER NETWORK POLICY my_network_policy SET ALLOWED_IP_LIST = (‘4.5.6.7’, ‘2.4.5.7’) BLOCKED_IP_LIST = (‘6.7.8.9’) COMMENT = 'updated network policy'```
 
@@ -59,7 +59,7 @@ To edit a network policy via the UI:
 ## Delete a network policy
 
 ### SQL
-To delete a network policy using SQL, use the [`DROP NETWORK POLICY`](../../sql_reference/commands/database-objects/drop-network-policy.md) statement. For example:
+To delete a network policy using SQL, use the [`DROP NETWORK POLICY`](../../sql_reference/commands/access-control/drop-network-policy.md) statement. For example:
 
 ```DROP NETWORK POLICY my_network_policy [ RESTRICT | CASCADE ]```
 

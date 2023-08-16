@@ -20,7 +20,7 @@ Managing service accounts requires the org_admin role.
 ## Creating a service account 
 
 ### SQL 
-To create a service account using SQL, use the [`CREATE SERVICE ACCOUNT`](../../sql_reference/commands/database-objects/create-service-account.md) statement. For example:
+To create a service account using SQL, use the [`CREATE SERVICE ACCOUNT`](../../sql_reference/commands/access-control/create-service-account.md) statement. For example:
 
 ```CREATE SERVICE ACCOUNT IF NOT EXISTS "sa1" DESCRIPTION = "service account 1";```
 
@@ -83,7 +83,7 @@ Use the returned access_token to authenticate with Firebolt.
 ## Editing a service account 
 
 ### SQL 
-To edit a service account using SQL, use the [`ALTER SERVICE ACCOUNT`](../../sql_reference/commands/database-objects/alter-service-account.md) statement. For example:
+To edit a service account using SQL, use the [`ALTER SERVICE ACCOUNT`](../../sql_reference/commands/access-control/alter-service-account.md) statement. For example:
 
 ```ALTER SERVICE ACCOUNT sa1 SET NETWORK_POLICY = my_network_policy```
 
@@ -97,7 +97,7 @@ To edit a service account via the UI:
 ## Deleting a service account 
 
 ### SQL 
-To delete a service account using SQL, use the [`DROP SERVICE ACCOUNT`](../../sql_reference/commands/database-objects/drop-service-account.md) statement. For example:
+To delete a service account using SQL, use the [`DROP SERVICE ACCOUNT`](../../sql_reference/commands/access-control/drop-service-account.md) statement. For example:
 
 `DROP SERVICE ACCOUNT sa1;`
 
