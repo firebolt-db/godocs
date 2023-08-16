@@ -25,7 +25,7 @@ SIGN(<value>)
 | :--------- | :----------------------------------- | :---------------------|
 | `value` | Any expression that evaluates to a numeric data type. | `DOUBLE PRECISION` |
 
-## Return Types
+## Return Type
 `DOUBLE PRECISION` 
 
 ## Examples

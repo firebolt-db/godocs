@@ -24,7 +24,7 @@ TAN(<val>)
 | :--------- | :--------------------------------- | :---------|
 | `<value>`   | The value that determines the returned tangent | `DOUBLE PRECISION` | 
 
-## Return Types
+## Return Type
 `DOUBLE PRECISION`
 
 ## Example

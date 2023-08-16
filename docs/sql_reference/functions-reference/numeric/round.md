@@ -15,7 +15,7 @@ Rounds a value to a specified number of decimal places.
 {: .no_toc}
 
 ```sql
-ROUND(<value> [, <value>])
+ROUND(<value> [, <decimal>])
 ```
 ## Parameters
 {: .no_toc}
@@ -23,11 +23,9 @@ ROUND(<value> [, <value>])
 | Parameter | Description                                                                                                                   | Supported input types | 
 | :--------- | :----------------------------------------------------------------------------------------------------------------------------- |:------| 
 | `<value>`   | The value to be rounded       |
-| `<value>`   | Optional. An `INTEGER` constant that defines the decimal range of the returned value. By default, `ROUND` returns whole numbers. | `INTEGER` | 
+| `<decimal>`   | Optional. An `INTEGER` constant that defines the decimal range of the returned value. By default, `ROUND` returns whole numbers. | `INTEGER` | 
 
 ## Return Types
-{: .no_toc}
-
 `DOUBLE PRECISION`
 
 ## Example

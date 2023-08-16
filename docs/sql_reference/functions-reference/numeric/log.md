@@ -15,16 +15,17 @@ Returns the common (base 10) logarithm of a numerical expression, or the logarit
 {: .no_toc}
 
 ```sql
-LOG([<value>,] <value>);
+LOG([<value>,] <exponent>);
 ```
 ## Parameters 
 {: .no_toc}
+
 | Parameter   | Description                                                                                                         | Supported input types |
 | :----------- | :------------------------------------------------------------------------------------------------------------------- |:--------------------|
 | `<value>`    | Optional. The base for the logarithm. The default base is 10.                                                       |  `DOUBLE PRECISION`
-| `<value>` | The exponent for the logarithm. | `DOUBLE PRECISION` |
+| `<exponent>` | The exponent for the logarithm. | `DOUBLE PRECISION` |
 
-## Return Types
+## Return Type
 `DOUBLE PRECISION`
 
 ## Example

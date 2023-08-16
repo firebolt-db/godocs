@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # RANDOM
 
-Returns a pseudo-random unsigned value greater than 0 and less than 1 of type `DOUBLE`.
+Returns a pseudo-random unsigned value greater than 0 and less than 1 of type `DOUBLE PRECISION`.
 
 ## Syntax
 {: .no_toc}
@@ -17,7 +17,7 @@ Returns a pseudo-random unsigned value greater than 0 and less than 1 of type `D
 ```sql
 RANDOM()
 ```
-## Return Types 
+## Return Types
 `DOUBLE PRECISION`
 
 ## Example

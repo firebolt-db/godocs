@@ -19,12 +19,12 @@ RADIANS(<value>)
 ```
 ## Parameters 
 {: .no_toc}
+
 | Parameter | Description                                                                                                         | Supported input types | 
 | :--------- | :------------------------------------------------------------------------------------------------------------------- | :------------| 
 | `<value>`   | The value to be converted from radians | `DOUBLE PRECISION` |
 
-## Return Types
-{: .no_toc}
+## Return Type
 `DOUBLE PRECISION`
 
 ## Example

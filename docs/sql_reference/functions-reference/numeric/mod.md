@@ -15,17 +15,17 @@ Calculates the remainder after dividing two values, `<num>` / `<den>.`
 {: .no_toc}
 
 ```sql
-MOD(<value>,<value>)
+MOD(<value_n>,<value_d>)
 ```
 ## Parameters 
 {: .no_toc}
 
 | Parameter | Description                               | Supported input types | 
 | :--------- | :----------------------------------------- |:--------| 
-| `<value>`   | The numerator of the division equation   | `DOUBLE PRECISION` |
-| `<value>`   | The denominator of the division equation | `DOUBLE PRECISION` |
+| `<value_n>`   | The numerator of the division equation   | `DOUBLE PRECISION` |
+| `<value_d>`   | The denominator of the division equation | `DOUBLE PRECISION` |
 
-## Return Types 
+## Return Type
 `DOUBLE PRECISION` 
 
 ## Example
