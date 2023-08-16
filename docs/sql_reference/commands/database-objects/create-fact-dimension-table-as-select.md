@@ -31,6 +31,8 @@ CREATE DIMENSION TABLE [IF NOT EXISTS] <table_name>
 [PRIMARY INDEX <column_name>[, <column_name>[, ...n]]]
 AS <select_query>
 ```
+## Parameters 
+{: .no_toc} 
 
 | Parameter                                       | Description                                                                                                     |
 | :----------------------------------------------- | :--------------------------------------------------------------------------------------------------------------- |
