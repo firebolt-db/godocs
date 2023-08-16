@@ -5,7 +5,6 @@ nav_exclude: true
 description: Reference material for DATE_DIFF function
 grand_parent: SQL functions
 parent: Date and time functions
-great_grand_parent: SQL reference
 ---
 
 # DATE\_DIFF
@@ -18,17 +17,12 @@ Calculates the difference between `start_date` and `end_date` by the indicated u
 ```sql
 DATE_DIFF('<unit>', <start_date>, <end_date>)
 ```
-## Example
-{: .no_toc}
 
-| Parameter      | Description                                                    | Supported input types | 
-| :-------------- | :-------------------------------------------------------------- | :----------| 
-| `<datepart1>`       | A unit of time |`SECOND`, `MINUTE`, `HOUR`, `DAY`, `WEEK`, `MONTH`, `QUARTER`, `YEAR`, or `EPOCH`     |
-| `<datepart2>` | The start date  | Any expression that evaluates to a `DATE` or `TIMESTAMP` value |
-| `<datepart3>`   | The end date |  Any expression that evaluates to a `DATE` or `TIMESTAMP` value | 
-
-## Return Types 
-
+| Parameter      | Description                                                    |
+| :-------------- | :-------------------------------------------------------------- |
+| `<unit>`       | A unit of time. This can be any of the following: `SECOND`, `MINUTE`, `HOUR`, `DAY`, `WEEK`, `MONTH`, `QUARTER`, `YEAR`, `EPOCH`     |
+| `<start_date>` | An expression that evaluates to a `DATE` or `TIMESTAMP` value. |
+| `<end_date>`   | An expression that evaluates to a `DATE` or `TIMESTAMP` value. |
 
 ## Example
 {: .no_toc}
