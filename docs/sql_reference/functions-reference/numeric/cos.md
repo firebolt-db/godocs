@@ -24,7 +24,7 @@ COS(<value>)
 | :--------- | :----------------------------------------------------- | :--------| 
 | `<value>`   | The value that the `COS` function is applied to | `DOUBLE PRECISION` |
 
-## Return Types 
+## Return Type 
 `DOUBLE PRECISION`
 
 ## Example

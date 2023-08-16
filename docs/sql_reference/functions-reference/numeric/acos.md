@@ -19,15 +19,18 @@ ACOS(<value>)
 ```
 
 ## Parameters 
+{: .no_toc}
+
 | Parameter | Description                                                                                                         | Supported input types |
 | :--------- | :------------------------------------------------------------------------------------------------------------------- | :-------------------|
 | `<value>`   | The number that the arc cosine value function is applied to | `DOUBLE PRECISION` |
 
-## Return Types 
+## Return Type
 `DOUBLE PRECISION`
 
 ## Example
 The following example returns the arc cosine  of `0.5`:
+
 ```sql
 SELECT
     ACOS(0.5);
