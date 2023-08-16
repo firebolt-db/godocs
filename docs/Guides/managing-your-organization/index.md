@@ -9,7 +9,7 @@ has_children: true
 ---
 
 # Register and set up your organization
- Learn how to register your organization, create accounts, configure Single Sign-On (SS0), and create logins and/or service accounts. 
+ Learn how to register your organization, create accounts, configure Single Sign-On (SSO), and create logins and/or service accounts. 
 
  * [Register your organization](creating-an-organization.md)
  * [Create an account](managing-accounts.md)

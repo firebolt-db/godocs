@@ -110,10 +110,10 @@ The following `CREATE TABLE` statement shows arrays of different element types a
 ```sql
 CREATE DIMENSION TABLE demo (
   a_t ARRAY(TEXT NULL) NULL,
-  a_i ARRAY(INT NULL) NOT NULL,
+  a_i ARRAY(INTEGER NULL) NOT NULL,
   a_d ARRAY(DATE NOT NULL) NULL,
-  a_f ARRAY(FLOAT NOT NULL) NOT NULL,
-  a_a ARRAY(ARRAY(INT NULL) NULL) NULL
+  a_f ARRAY(REAL NOT NULL) NOT NULL,
+  a_a ARRAY(ARRAY(INTEGER NULL) NULL) NULL
 );
 ```
 And the following `INSERT INTO` statement demonstrates examples of values for these arrays:

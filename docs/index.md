@@ -41,13 +41,12 @@ Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics
     <div class="img-fluid"><img src="assets/images/docs_whitepaper_illustration.png" alt="Reference" width=300px height=300px></div>
     <h2>Reference</h2>
     <p><a href="https://special-disco-436d3e6a.pages.github.io/Reference/release-notes/release-notes.html">Release Notes</a>
-    <br><a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/">SQL</a>
+    <br><a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/">SQL commands, functions and operators</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/data-types.html">Data types</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/information-schema/information-schema-and-usage-views.html">Information schema and usage views</a>
-    <br><a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/operators.html">Operators</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/available-engine-specs.html">Engine specifications</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/available-regions.html">Available regions</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/system-settings.html">System settings</a>
-    <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/identifier-requirements.html">Identifier requirements</a></p>
+    <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/identifier-requirements.html">Object identifiers</a></p>
   </div>
 </div>
