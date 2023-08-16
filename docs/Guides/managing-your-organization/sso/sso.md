@@ -14,6 +14,8 @@ This topic describes how to configure Firebolt for Single Sign On (SSO) using SA
 Firebolt supports the following identity providers (IDPs):
 - Okta
 - OneLogin
+- Salesforce
+- PingFederate (Ping Identity)
 - Custom
 
 If your identity provider is not on the above list but supports SAML 2.0, contact the Firebolt support team for further assistance. 

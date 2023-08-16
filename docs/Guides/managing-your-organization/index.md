@@ -19,7 +19,7 @@ has_children: true
  * [Create service accounts](service-accounts.md)
  
 # Manage user permissions
-Learn how to create users, link logins and/or service accounts, and manage access control with roles to determine permissions at the account-level. 
+Learn how to create users, link logins and/or service accounts, and manage access control with roles to determine permissions at the account level. 
 
 * [Set up role-based access control](rbac.md)
 * [Manage users](managing-users.md)

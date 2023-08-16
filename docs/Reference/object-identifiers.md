@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Identifier requirements
+title: Object identifers
 description: Provides requirements and guidance for using SQL identifiers with Firebolt.
 nav_order: 10
 parent: General reference
 ---
 
-# Identifier requirements
+# Object identifers
 
 Firebolt identifiers can refer to the following items:
 
