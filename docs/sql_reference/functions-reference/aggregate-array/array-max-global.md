@@ -20,14 +20,12 @@ ARRAY_MAX_GLOBAL(<array>)
 
 | Parameter | Description                                                              | Supported input types   |
 | :--------- | :-----------------------------------------------------------------------|:------------------------|
-| `<array>`  | The function returns the maximum element from the provided array column | Any `<array>` column    |
+| `<array>`  | The array from which to return the maximum element. | Any `ARRAY` type  |
 
-
-<!-- Create an example that uses the customer dataset -->
 
 ## Return Types 
 
-`<array>`
+`ARRAY`
 
 ## Example
 {: .no_toc}
@@ -39,10 +37,6 @@ The example below uses the following table `Scores`:
 | steven70        | \[1,3,4]      |
 | sanderserin     | \[3,5,6,7]    |
 | esimpson        | \[30,50,60]   |
-
-<!-- | Parameter | Description                                                               |
-| :--------- | :------------------------------------------------------------------------- |
-| `<arr>`   | The function returns the maximum element from the provided array column | -->
 
 In this example, the function calculates the maximum score earned by each player's recent scores. For example, the user `esimpson` received a maximum score of `60`, so this value is returned in the `max_score` column. 
 
