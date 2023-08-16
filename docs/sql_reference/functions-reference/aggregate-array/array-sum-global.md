@@ -11,8 +11,6 @@ great_grand_parent: SQL reference
 
 Returns the sum of elements in the array column accumulated over the rows in each group.
 
-For more information and the sample data used in the example below, please refer to [Aggregate Array Functions](./aggregate-array-functions.md).
-
 ## Syntax
 {: .no_toc}
 
@@ -22,9 +20,9 @@ ARRAY_SUM_GLOBAL(<array>)
 ## Parameters
 | Parameter | Description                                                    | Supported input types | 
 | :--------- | :-------------------------------------------------------------- | :-------|
-| `<array>`   | The array column over which the function will sum the elements | Any `<array>` column |
+| `<array>`   | The array column over which the function will sum the elements |  Any `ARRAY` type  |
 
-## Return Types
+## Return Type
 `ARRAY`
 
 ## Example
@@ -38,16 +36,13 @@ The example below uses the following table `Scores`:
 | sanderserin     | \[3,5,6,7]    |
 | esimpson        | \[30,50,60]   |
 
-<!-- | Parameter | Description                                                               |
-| :--------- | :------------------------------------------------------------------------- |
-| `<arr>`   | The function returns the maximum element from the provided array column | -->
 
 In this example, the function calculates the sum of each player's recent scores. For example, the user `esimpson` received a sum of `140` points, so this value is returned in the `score_sum` column. 
 
 ```sql
 SELECT
 	nickname,
-	ARRAY_MAX_GLOBAL(recent_scores) AS max_score
+	ARRAY_SUM_GLOBAL(recent_scores) AS score_sum
 FROM
 	Scores
 GROUP BY
