@@ -4,13 +4,13 @@ title: SELECT
 description: Reference and syntax for SELECT queries.
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
-parent: Querying and query optimization commands
+parent: Queries
 ---
 
 # SELECT query syntax
 {: .no_toc}
 
-Firebolt supports running `SELECT` statements with the syntax described in this topic. You can run multiple queries in a single script. Separating them with a semicolon (`;`) is required. Firebolt also supports `CREATE TABLE...AS SELECT` (CTAS). For more information, see [CREATE TABLE...AS SELECT](create-fact-dimension-table-as-select.md).
+Firebolt supports running `SELECT` statements with the syntax described in this topic. You can run multiple queries in a single script. Separating them with a semicolon (`;`) is required. Firebolt also supports `CREATE TABLE...AS SELECT` (CTAS). For more information, see [CREATE TABLE...AS SELECT](../data-definition/create-fact-dimension-table-as-select.md).
 
 * Topic ToC
 {:toc}
@@ -40,7 +40,7 @@ SELECT [ ALL | DISTINCT ] {<select_expr> [, ...]}
 The SELECT list defines the columns that it returns. Each `<select_expr>` in the SELECT list can be either expression, or wildcards.
 
 {: .note}
->Selecting **only** [partitioned](https://docs.firebolt.io/working-with-partitions.html) or [virtual columns](https://docs.firebolt.io/loading-data/working-with-external-tables.html#using-metadata-virtual-columns) is currently not supported in Firebolt. Selecting a combination of partitioned/virtual columns and regular columns is supported. 
+>Selecting **only** [partitioned](../../../Overview/working-with-partitions.md) or [virtual columns](../../../Guides/loading-data/working-with-external-tables.md#using-metadata-virtual-columns) is currently not supported in Firebolt. Selecting a combination of partitioned/virtual columns and regular columns is supported. 
 
 ### SELECT expression
 

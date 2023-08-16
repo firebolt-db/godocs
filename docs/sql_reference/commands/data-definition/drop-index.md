@@ -4,7 +4,7 @@ title: DROP INDEX
 description: Reference and syntax for the DROP INDEX command.
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
-parent: Database object commands
+parent: Data definition
 ---
 
 # DROP INDEX

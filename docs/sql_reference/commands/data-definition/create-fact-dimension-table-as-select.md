@@ -4,7 +4,7 @@ title: CREATE TABLE AS SELECT (CTAS)
 Description: Reference and syntax for the CTAS SQL command.
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
-parent: Database object commands
+parent: Data definition
 ---
 
 # CREATE FACT or DIMENSION TABLE...AS SELECT

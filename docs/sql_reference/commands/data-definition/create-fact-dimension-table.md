@@ -4,7 +4,7 @@ title: CREATE TABLE
 description: Reference and syntax for the CREATE TABLE statement.
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
-parent: Database object commands
+parent: Data definition
 ---
 
 # CREATE TABLE

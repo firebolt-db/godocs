@@ -4,7 +4,7 @@ title: TRUNCATE TABLE
 description: Reference and syntax for the TRUNCATE TABLE command.
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
-parent: Database object commands
+parent: Data definition
 ---
 
 # TRUNCATE TABLE
