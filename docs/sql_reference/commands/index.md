@@ -13,27 +13,67 @@ Use the alphabetical list in the navigation pane to find the syntax for commands
 
 Use the functional list below to find commands for a specific task area that you're working in.
 
-* [Engines](#engines)  
-  Start, stop, and manage Firebolt engines.
+* [Access control](#access-control)
+
+* [Data definition](#database-objects)  
+  Data Definition Language. Create, alter, drop, and otherwise manage objects like databases, tables, and views in your Firebolt account.
 
 * [Data management](#data-ingest-and-movement)  
   Move data between your data lake and Firebolt and between Firebolt resources.
 
- 
-
-* [Data ](#database-objects)  
-  Data Definition Language. Create, alter, drop, and otherwise manage objects like databases, tables, and views in your Firebolt account.
-
-* [Access control]
-* [Data manipulation](#data-manipulation)  
-  Data Manipulation Language. Update or delete data from tables in your Firebolt account. 
-
-* [Queries](#queries-and-query-optimization)  
-  Analyze data with `SELECT`. Tune and optimize query performance with other commands.
+* [Engines](#engines)  
+  Start, stop, and manage Firebolt engines.
 
 * [Metadata](#metadata)  
   Query the Firebolt information schema for metadata related to its objects and resources.
+  
+* [Queries](#queries-and-query-optimization)  
+  Analyze data with `SELECT`. Tune and optimize query performance with other commands.
 
+## Access control
+
+* [ALTER ACCOUNT](./access-control/alter-account.md)
+* [ALTER LOGIN](./access-control/alter-login.md)
+* [ALTER NETWORK POLICY](./access-controls/alter-network-policy.md)
+* [ALTER SERVICE ACCOUNT](./access-control/alter-service-account.md)
+* [ALTER USER](./access-control/alter-user.md)
+* [CREATE ACCOUNT](./access-control/create-account.md)
+* [CREATE LOGIN](./access-control/create-login.md)
+* [CREATE NETWORK POLICY](./access-control/create-network-policy.md)
+* [CREATE ROLE](./access-control/create-role.md)
+* [CREATE SERVICE ACCOUNT](./access-control/create-service-account.md)
+* [CREATE USER](./access-control/create-user.md)
+* [DROP ACCOUNT](./access-controls/drop-account.md)
+* [DROP LOGIN](./access-control/drop-login.md)
+* [DROP NETWORK POLICY](./access-control/drop-network-policy.md)
+* [DROP ROLE](./access-control/drop-role.md)
+* [DROP SERVICE ACCOUNT](./access-control/drop-service-account.md)
+* [DROP USER](./access-control/drop-user.md)
+* [GRANT](./access-control/grant.md)
+* [REVOKE](./access-control/revoke.md)
+
+## Data definition
+
+* [ALTER DATABASE](./data-definition/alter-database.md)
+* [CREATE AGGREGATING INDEX](./data-definition/create-aggregating-index.md)
+* [CREATE DATABASE](./data-definition/create-database.md)
+* [CREATE FACT or DIMENSION TABLE](./data-definition/create-fact-dimension-table.md)
+* [CREATE VIEW](./data-definition/create-view.md)
+* [DROP DATABASE](./data-definition/drop-database.md)
+* [DROP INDEX](./data-definition/drop-index.md)
+* [DROP TABLE](./data-definition/drop-table.md)
+* [DROP VIEW](./data-definition/drop-view.md)
+* [TRUNCATE TABLE](./data-definition/truncate-table.md)
+
+## Data management
+
+* [ALTER TABLE...DROP PARTITION](./data-management/alter-table-drop-partition.md)
+* [COPY TO](./data-management/copy-to.md)
+* [CREATE EXTERNAL TABLE](./data-management/create-external-table.md)
+* [DELETE](./data-management/delete.md)
+* [INSERT INTO](./data-management/insert-into.md)
+* [UPDATE](./data-management/update.md)
+* [VACUUM](./data-management/vacuum.md)
 
 ## Engines
 
@@ -46,57 +86,6 @@ Use the functional list below to find commands for a specific task area that you
 * [START ENGINE](./engines/start-engine.md)
 * [STOP ENGINE](./engines/stop-engine.md)
 
-## Data ingest and movement
-
-* [ALTER TABLE...DROP PARTITION](./data-ingest/alter-table-drop-partition.md)
-* [COPY TO](./data-ingest/copy-to.md)
-* [CREATE EXTERNAL TABLE](./data-ingest/create-external-table.md)
-* [INSERT INTO](./data-ingest/insert-into.md)
-
-## Database objects
-
-* [ALTER ACCOUNT](./database-objects/alter-account.md)
-* [ALTER DATABASE](./database-objects/alter-database.md)
-* [ALTER LOGIN](./database-objects/alter-login.md)
-* [ALTER NETWORK POLICY](./database-objects/alter-network-policy.md)
-* [ALTER SERVICE ACCOUNT](./database-objects/alter-service-account.md)
-* [ALTER USER](./database-objects/alter-user.md)
-* [CREATE ACCOUNT](./database-objects/create-account.md)
-* [CREATE AGGREGATING INDEX](./database-objects/create-aggregating-index.md)
-* [CREATE DATABASE](./database-objects/create-database.md)
-* [CREATE FACT or DIMENSION TABLE](./database-objects/create-fact-dimension-table.md)
-* [CREATE LOGIN](./database-objects/create-login.md)
-* [CREATE NETWORK POLICY](./database-objects/create-network-policy.md)
-* [CREATE ROLE](./database-objects/create-role.md)
-* [CREATE SERVICE ACCOUNT](./database-objects/create-service-account.md)
-* [CREATE USER](./database-objects/create-user.md)
-* [CREATE VIEW](./database-objects/create-view.md)
-* [DROP ACCOUNT](./database-objects/drop-account.md)
-* [DROP DATABASE](./database-objects/drop-database.md)
-* [DROP INDEX](./database-objects/drop-index.md)
-* [DROP LOGIN](./database-objects/drop-login.md)
-* [DROP NETWORK POLICY](./database-objects/drop-network-policy.md)
-* [DROP ROLE](./database-objects/drop-role.md)
-* [DROP SERVICE ACCOUNT](./database-objects/drop-service-account.md)
-* [DROP TABLE](./database-objects/drop-table.md)
-* [DROP USER](./database-objects/drop-user.md)
-* [DROP VIEW](./database-objects/drop-view.md)
-* [GRANT](./database-objects/grant.md)
-* [REVOKE](./database-objects/revoke.md)
-* [TRUNCATE TABLE](./database-objects/truncate-table.md)
-
-## Data manipulation
-
-* [DELETE](./data-manipulation/delete.md)
-* [UPDATE](./data-manipulation/update.md)
-* [VACUUM](./data-manipulation/vacuum.md)
-
-## Queries and query optimization
-
-* [EXPLAIN](./query-optimization/explain.md)
-* [SELECT](./query-optimization/select.md)
-
-
 ## Metadata
 
 * [DESCRIBE](./metadata/describe.md)
@@ -105,3 +94,8 @@ Use the functional list below to find commands for a specific task area that you
 * [SHOW INDEXES](./metadata/show-indexes.md)
 * [SHOW TABLES](./metadata/show-tables.md)
 * [SHOW VIEWS](./metadata/show-views.md)
+
+## Queries
+
+* [EXPLAIN](./queries/explain.md)
+* [SELECT](./queries/select.md)
