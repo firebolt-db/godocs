@@ -1,10 +1,9 @@
 ---
 layout: default
 title: Logins
-nav_order: 4
 description: Use this reference to learn about the metadata available for Firebolt logins using the information schema.
 parent: Information schema and usage views
-grand_parent: General reference
+grand_parent: SQL reference
 ---
 
 # Information schema for logins

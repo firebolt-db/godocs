@@ -2,9 +2,8 @@
 layout: default
 title: Object Privileges
 description: Use this reference to learn about the metadata available about privileges using the information schema.
-nav_order: 9
 parent: Information schema and usage views
-grand_parent: General reference
+grand_parent: SQL reference
 ---
 
 # Information schema for object_privileges

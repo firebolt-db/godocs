@@ -14,7 +14,7 @@ Role-based access control provides the ability to control privileges and determi
 
 A user interacting with Firebolt must have the appropriate privileges to use an object. Privileges from all roles assigned to a user are considered in each interaction in Firebolt. 
 
-To view all roles, click **Govern** to open the govern space, then choose **Roles** from the menu, or query the [information_schema.applicable-roles](../../Reference/information-schema/applicable-roles.md) view. 
+To view all roles, click **Govern** to open the govern space, then choose **Roles** from the menu, or query the [information_schema.applicable-roles](../../sql_reference/information-schema/applicable-roles.md) view. 
 
 The key concepts to understanding access control in Firebolt with database-level RBAC are: < this should be a visualization > 
 

@@ -1,10 +1,9 @@
 ---
 layout: default
 title: Indexes
-nav_order: 6
 description: Use this reference to learn about the metadata available for Firebolt indexes using the information schema.
 parent: Information schema and usage views
-grand_parent: General reference
+grand_parent: SQL reference
 ---
 
 # Information schema for indexes

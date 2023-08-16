@@ -12,7 +12,7 @@ grand_parent: Guides
 
 Users are managed at the account level and are linked to logins or service accounts for programmatic use to gain access to Firebolt. Roles are granted to users to determine access to objects in Firebolt. You can add, edit or delete users using SQL or in the UI. 
 
-To view all users, click **Govern** to open the govern space, then choose **Users** from the menu, or query the [information_schema.users](../../Reference/information-schema/users.md) view. 
+To view all users, click **Govern** to open the govern space, then choose **Users** from the menu, or query the [information_schema.users](../../sql_reference/information-schema/users.md) view. 
 
 {: .note}
 Managing users requires either the account_admin or security_admin role.

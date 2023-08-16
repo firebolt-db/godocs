@@ -2,9 +2,8 @@
 layout: default
 title: Tables
 description: Use this reference to learn about the metadata available for Firebolt tables using the information schema.
-nav_order: 3
 parent: Information schema and usage views
-grand_parent: General reference
+grand_parent: SQL reference
 ---
 
 # Information schema for tables
