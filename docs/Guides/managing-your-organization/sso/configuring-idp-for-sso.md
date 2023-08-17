@@ -139,13 +139,13 @@ You will be redirected to Manage Connected Apps / New Connected App view.
 Fill in required fields Connected App Name, API Name (for instance, type ‘Firebolt’) and Contact email
 
 Move to Web App Settings, and check Enable SAML checkbox.
-Fill in Entity Id with value  urn:auth0:firebolt-app-v2:<org_name>-<provider>, where
-org_name - is the name of organization
-provider - is the provider value set in Firebolt configuration step
+Fill in Entity Id with value  urn:auth0:firebolt-app-v2:<organization_name>-<provider>, where
+`<organization_name>` - is the name of organization
+`<provider>` - is the provider value set in Firebolt configuration step
 
 		Example of audience:
 urn:auth0:app-firebolt-v2:acmeorg-salesforce
-Fill ACS URL with a URL in the following format (contact Firebolt to get your organization_identifier) https://id.app.firebolt.io/login/callback?connection=<org_name>-<provider>&organization=<organization_identifier>
+Fill ACS URL with a URL in the following format (contact Firebolt to get your organization_identifier) https://id.app.firebolt.io/login/callback?connection=<organization_name>-<provider>&organization=<organization_identifier>
 
 Example of ACS URL: 
 https://id.app.firebolt.io/login/callback?connection=acmeorg-salesforce&organization=org_82u3nzTNQPA8RyoM
@@ -183,16 +183,15 @@ Click Connections / Applications in the administration menu, on the Applications
 Type in Application name (for instance, Firebolt) and description, select SAML Application, and click Configure.
 
 On the next screen choose Manually Enter to provide application metadata:
-Fill ACS URLs with a URL in the following format (contact Firebolt to get your organization_identifier) https://id.app.firebolt.io/login/callback?connection=<org_name>-<provider>&organization=<organization_identifier>
+Fill ACS URLs with a URL in the following format (contact Firebolt to get your organization_identifier) https://id.app.firebolt.io/login/callback?connection=<organization_name>-<provider>&organization=<organization_identifier>
 
 Example of ACS URL: 
 https://id.app.firebolt.io/login/callback?connection=acmeorg-pingfederate&organization=org_82u3nzTNQPA8RyoM
-Fill in Entity ID with value  urn:auth0:firebolt-app-v2:<org_name>-<provider>, where
+Fill in Entity ID with value  urn:auth0:firebolt-app-v2:<organization_name>-<provider>, where
 org_name - is the name of organization
 provider - is the provider value set in Firebolt configuration step
-
-		Example of audience:
-urn:auth0:app-firebolt-v2:acmeorg-pingfederate
+**Example:**
+`urn:auth0:app-firebolt-v2:acmeorg-pingfederate`
 
 Click Save.
 On the next screen, from the Configuration tab:
