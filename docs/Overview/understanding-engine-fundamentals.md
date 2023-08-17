@@ -86,7 +86,7 @@ The period of inactivity, in minutes, after which an engine shuts down automatic
 
 ## Viewing and understanding engine status
 
-You can execute a [SHOW ENGINES](../sql_reference/commands/engines/show-engines.md) statement to list all engines in your Firebolt account and view engine status. You can also use the **Databases** list or the **Engines** list in the Firebolt Manager.
+You can execute a [SHOW ENGINES](../sql_reference/commands/metadata/show-engines.md) statement to list all engines in your Firebolt account and view engine status. You can also use the **Databases** list or the **Engines** list in the Firebolt Manager.
 
 The table below lists the statuses returned by the `SHOW ENGINES` command and the corresponding status enumeration that the Firebolt API returns.
 

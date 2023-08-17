@@ -52,7 +52,6 @@ CREATE DIMENSION TABLE dim_product
     product_name      TEXT,
     product_category  TEXT,
     brand             TEXT
-);
-```
+);```
 
-For more information, see [CREATE FACT\|DIMENSION TABLE](../sql_reference/commands/database-objects/create-fact-dimension-table.md).
+For more information, see [CREATE FACT\|DIMENSION TABLE](../sql_reference/commands/data-definition/create-fact-dimension-table.md)

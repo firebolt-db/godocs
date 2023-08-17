@@ -12,8 +12,8 @@ Firebolt indexes are designed to improve query performance and increase compute 
 
 Firebolt offers built-in join accelerators, as well as two types of user-managed indexes:
 
-* [Primary indexes](index-quick-reference.md#primary-indexes)
-* [Aggregating indexes](index-quick-reference.md#aggregating-indexes)
+* [Primary indexes](../Guides/working-with-indexes/using-primary-indexes.md)
+* [Aggregating indexes](../Guides/working-with-indexes/using-aggregating-indexes.md)
 
 ## Primary indexes
 
