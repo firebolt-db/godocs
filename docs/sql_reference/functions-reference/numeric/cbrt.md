@@ -18,11 +18,13 @@ Returns the cubic-root of a non-negative numeric expression.
 CBRT(<value>);
 ```
 ## Parameters 
+{: .no_toc}
+
 | Parameter | Description                                                                                                         | Supported input types | 
 | :--------- | :------------------------------------------------------------------------------------------------------------------- | :--------| 
 | `<value>`   | Value that the `CBRT` function is applied to | `DOUBLE_PRECISION` |
 
-## Return Types 
+## Return Type
 `DOUBLE_PRECISION`
 
 ## Example

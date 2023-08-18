@@ -1,13 +1,14 @@
 ---
 layout: default
-title: POW, POWER
+title: POW
 description: Reference material for POW, POWER functions
 grand_parent: SQL functions
 parent: Numeric functions
 great_grand_parent: SQL reference
 ---
 
-# POW, POWER
+# POW
+Synonym: `POWER`
 
 Returns a number `<value>` raised to the specified power `<value>`.
 
@@ -15,8 +16,7 @@ Returns a number `<value>` raised to the specified power `<value>`.
 {: .no_toc}
 
 ```sql
-POW(<value>, <value>);
-POWER(<value>, <value>);
+POW(<value>, <exponent>);
 ```
 ## Parameters 
 {: .no_toc}
@@ -24,9 +24,9 @@ POWER(<value>, <value>);
 | Parameter | Description                                                                                                         | Supported input types |
 | :--------- | :------------------------------------------------------------------------------------------------------------------- |:------|
 | `<value>`   | The base value of the exponent |`DOUBLE PRECISION` |
-| `<value>`   | The power value of the exponent                                                                          | `DOUBLE PRECISION` |
+| `<exponent>`   | The power value of the exponent | `DOUBLE PRECISION` |
 
-## Return Types
+## Return Type
 `DOUBLE PRECISION`
 
 ## Example

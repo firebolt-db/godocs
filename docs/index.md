@@ -14,7 +14,7 @@ Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics
 
 <div class="row">
   <div class="column">
-    <div class="columnimg" src="assets/images/docs_getting_started_illustration.png" alt="Overview"></div>
+    <div class="img-fluid"><img src="assets/images/docs_getting_started_illustration.png" alt="Overview" width=300px height=300px></div>
     <h2>Overview</h2>
     <p><a href="https://docs.firebolt.io/architecture-overview">Architecture overview</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Overview/organizations-accounts.html">Organizations and accounts</a>
@@ -25,7 +25,7 @@ Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Overview/working-with-partitions.html">Working with partitions</a></p>
   </div>
   <div class="column">
-    <div class="columnimg" src="assets/images/docs_shedule_call_illustration.png" alt="Guides"></div>
+    <div class="img-fluid"><img src="assets/images/docs_shedule_call_illustration.png" alt="Guides" width=300px height=300px></div>
     <h2>Guides</h2>
     <p><a href="https://special-disco-436d3e6a.pages.github.io/Guides/getting-started.html">Getting started</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/managing-your-organization/">Managing your organization</a>
@@ -38,16 +38,15 @@ Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/using-the-sql-editor/using-the-sql-editor.html">Using the SQL editor</a></p>
   </div>
   <div class="column">
-    <div class="columnimg"  src="assets/images/docs_whitepaper_illustration.png" alt="Reference"></div>
+    <div class="img-fluid"><img src="assets/images/docs_whitepaper_illustration.png" alt="Reference" width=300px height=300px></div>
     <h2>Reference</h2>
     <p><a href="https://special-disco-436d3e6a.pages.github.io/Reference/release-notes/release-notes.html">Release Notes</a>
-    <br><a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/">SQL</a>
+    <br><a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/">SQL commands, functions and operators</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/data-types.html">Data types</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/information-schema/information-schema-and-usage-views.html">Information schema and usage views</a>
-    <br><a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/operators.html">Operators</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/available-engine-specs.html">Engine specifications</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/available-regions.html">Available regions</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/system-settings.html">System settings</a>
-    <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/identifier-requirements.html">Identifier requirements</a></p>
+    <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/identifier-requirements.html">Object identifiers</a></p>
   </div>
 </div>

@@ -13,9 +13,18 @@ Deletes an engine.
 ## Syntax
 
 ```sql
-DROP ENGINE [IF EXISTS] <engine_name>
+DROP ENGINE [IF EXISTS] <engine>
 ```
+## Parameters 
+{: .no_toc}   
 
 | Parameter       | Description                           |
 | :--------------- | :------------------------------------- |
-| `<engine_name>` | The name of the engine to be deleted. |
+| `<engine>` | The name of the engine to be deleted. |
+
+## Example
+The following example drops the `players` engine: 
+
+```sql
+DROP ENGINE [IF EXISTS] <players>
+```

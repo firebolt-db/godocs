@@ -7,7 +7,6 @@ parent: Aggregation functions
 great_grand_parent: SQL reference
 ---
 
-
 # COUNT
 
 Counts the number of rows or not `NULL` values.
@@ -32,7 +31,7 @@ Valid values for the input expression include column names or functions that ret
 {: .note}
 > By default, `COUNT(DISTINCT)` returns approximate results. If you require a precise result (with a performance penalty), please contact Firebolt Support through the Help menu support form. 
 
-## Return Types
+## Return Type
 `NUMERIC`
 
 ## Example

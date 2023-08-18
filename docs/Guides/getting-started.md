@@ -23,7 +23,7 @@ To start working with data, you first create a database and a *Firebolt engine*.
 **To create a database and engine**
 1. From the **Databases** page, choose **New Database**.  
 
-2. Enter a **Database name** (we use *Tutorial* in this topic) and leave `us-east-1` selected as the **Database region**.  
+2. Enter a **Database name** (we use *Tutorial* in this topic).  
 
 3. Under **Database engines**, leave the default engine selected. Firebolt will name the engine *Tutorial_general_purpose*.  
 

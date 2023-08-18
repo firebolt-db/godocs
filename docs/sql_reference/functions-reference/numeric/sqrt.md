@@ -25,8 +25,6 @@ SQRT(<value>);
 | `<value>`  | Value that the `SQRT` function is applied to  | `DOUBLE PRECISION` | 
 
 ## Return Types 
-{: .no_toc} 
-
 * `DOUBLE PRECISION` if value is positive
 * `NULL` if value is negative 
 

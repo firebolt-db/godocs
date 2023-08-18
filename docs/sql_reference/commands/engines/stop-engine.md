@@ -14,9 +14,18 @@ The `STOP ENGINE` statement enables you to stop a running engine.
 ## Syntax
 
 ```sql
-STOP ENGINE <engine_name>
+STOP ENGINE <engine>
 ```
+## Parameters 
+{: .no_toc}   
 
 | Parameter       | Description                          | Mandatory? Y/N |
 | :--------------- | :------------------------------------ | :-------------- |
-| `<engine_name>` | The name of the engine to be stopped | Y              |
+| `<engine>` | The name of the engine to be stopped | Y              |
+
+## Example
+The following example stops the `players` engine: 
+
+```sql
+STOP ENGINE <players>
+```

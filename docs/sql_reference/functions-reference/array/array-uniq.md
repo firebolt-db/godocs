@@ -9,19 +9,20 @@ great_grand_parent: SQL reference
 
 # ARRAY\_UNIQ
 
-If one argument is passed, returns the number of different elements in the array. If multiple arguments are passed, returns the number of different tuples of elements at corresponding positions in multiple arrays.
+Returns the number of different elements in the array if one argument is passed. If multiple arguments are passed, returns the number of different tuples of elements at corresponding positions in multiple arrays.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-ARRAY_UNIQ(<arr> [, ...n])
+ARRAY_UNIQ(<array> [, ...n])
 ```
 ## Parameters 
 {: .no_toc}
+
 | Parameter        | Description                         | Supported input types 
 | :---------------- | :----------------------------------- | :-------| 
-| `<array> [, ...n]` | The array or arrays to be analyzed. | `ARRAY` of any type | 
+| `<array> [, ...n]` | The array or arrays to be analyzed. | Any `ARRAY` type | 
 
 ## Return Types
 `ARRAY`
@@ -50,9 +51,9 @@ SELECT
 
 **Returns**: `2`
 
-In the example below, there are three different video game usernames across all of the elements of the given arrays. However, there are only two unique tuples, ('tonytaylor', 'ruthgill') and ('tonytaylor', 'ywilson').
+In the example below, there are three differentu sernames across all of the elements of the given arrays. However, there are only two unique tuples, ('tonytaylor', 'ruthgill') and ('tonytaylor', 'ywilson').
 
-```
+```sql
 SELECT
 	ARRAY_UNIQ (
 		[ 'tonytaylor',

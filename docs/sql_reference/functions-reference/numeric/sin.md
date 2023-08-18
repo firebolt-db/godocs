@@ -24,7 +24,7 @@ SIN(<value>)
 | :--------- | :---------------------- | :----|
 | `<value>`   | The value that determines the returned sine | `DOUBLE PRECISION` | 
 
-## Return Types
+## Return Type
 `DOUBLE PRECISION` 
 
 ## Example

@@ -19,11 +19,12 @@ EXP(<value>)
 ```
 ## Parameters 
 {: .no_toc}
+
 | Parameter | Description                                                                                                         | Supported input types | 
 | :--------- | :------------------------------------------------------------------------------------------------------------------- | :--------| 
 | `<value>`   | base value with the power of the constant _e_  | `DOUBLE PRECISION` | 
 
-## Return Types 
+## Return Type
 `DOUBLE PRECISION`
 
 ## Example

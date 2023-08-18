@@ -36,7 +36,7 @@ Engine names can be no longer than 63 characters and can contain letters, number
 
 ### Region
 
-This is the AWS Region in which Firebolt creates the engine. After you create an engine, you can’t change its Region. An engine must be in the same Region as its database. When you create an engine using the Firebolt Manager, Firebolt automatically creates the engine in the same Region as the database. When you create an engine using DDL, make sure that you create it in the same Region as the database you will attach it to.
+This is the AWS Region in which Firebolt creates the engine. The engine region is always the same as the account region - since it is automatically inherited from account, it can't be changed.
 
 ### Engine endpoint
 
@@ -66,7 +66,7 @@ Engines can be one of two _types_:
 
 ### Engine spec
 
-When you choose an _engine spec_, you choose the foundation of an engine’s compute capabilities. Each engine spec has CPU, RAM, and cache characteristics. The engine spec determines the cost per hour \(billed per second\) for each engine node (the total engine cost per hour is also a function of scale). You can choose engine specs for characteristics that are best suited for your Firebolt workload. For details, see [Available engine specs](../general-reference/available-engine-specs.md).
+When you choose an _engine spec_, you choose the foundation of an engine’s compute capabilities. Each engine spec has CPU, RAM, and cache characteristics. The engine spec determines the cost per hour \(billed per second\) for each engine node (the total engine cost per hour is also a function of scale). You can choose engine specs for characteristics that are best suited for your Firebolt workload. For details, see [Available engine specs](../Reference/available-engine-specs.md).
 
 ### Scale
 
@@ -82,11 +82,11 @@ This determines the behavior of the engine on startup. You have three options:
 
 ### Auto-stop duration
 
-The period of inactivity, in minutes, after which an engine shuts down automatically to save cost. The default is 20 minutes. Using `CREATE ENGINE` and `ALTER ENGINE` SQL statements, you can specify auto-stop duration in one-minute increments. For more information, see [CREATE ENGINE](../sql-reference/commands/create-engine.md) and [ALTER ENGINE](../sql-reference/commands/alter-engine.md). Using the Firebolt Manager, you can set the auto-stop duration to always on, 20 minutes, or 60 minutes.
+The period of inactivity, in minutes, after which an engine shuts down automatically to save cost. The default is 20 minutes. Using `CREATE ENGINE` and `ALTER ENGINE` SQL statements, you can specify auto-stop duration in one-minute increments. For more information, see [CREATE ENGINE](../sql_reference/commands/engines/create-engine.md) and [ALTER ENGINE](../sql_reference/commands/engines/alter-engine.md). Using the Firebolt Manager, you can set the auto-stop duration to always on, 20 minutes, or 60 minutes.
 
 ## Viewing and understanding engine status
 
-You can execute a [SHOW ENGINES](../sql-reference/commands/show-engines.md) statement to list all engines in your Firebolt account and view engine status. You can also use the **Databases** list or the **Engines** list in the Firebolt Manager.
+You can execute a [SHOW ENGINES](../sql_reference/commands/engines/show-engines.md) statement to list all engines in your Firebolt account and view engine status. You can also use the **Databases** list or the **Engines** list in the Firebolt Manager.
 
 The table below lists the statuses returned by the `SHOW ENGINES` command and the corresponding status enumeration that the Firebolt API returns.
 

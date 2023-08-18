@@ -64,7 +64,7 @@ After data is ingested into Firebolt, your analytics engines process fact and di
 
 ### Good indexes help engines
 
-Indexes are to Firebolt analytics engines what the suspension and transmission are to a car engine. They help deliver the engine’s power efficiently for top performance. Developing excellent indexes can help to mitigate the demands on an engine, improving performance and lowering cost. Tuning indexes is a topic of its own. For more information, see [Using indexes](../using-indexes/using-indexes.md).
+Indexes are to Firebolt analytics engines what the suspension and transmission are to a car engine. They help deliver the engine’s power efficiently for top performance. Developing excellent indexes can help to mitigate the demands on an engine, improving performance and lowering cost. Tuning indexes is a topic of its own. For more information, see [Using indexes](./using-indexes.md).
 
 ### Mix and match engines for different query types
 

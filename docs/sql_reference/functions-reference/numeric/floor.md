@@ -15,7 +15,7 @@ Returns the largest round number that is less than or equal to `<value>`. The va
 {: .no_toc}
 
 ```sql
-FLOOR(<value>[, <value>])
+FLOOR(<value>[, <decimal>])
 ```
 ## Parameters 
 {: .no_toc}
@@ -23,9 +23,9 @@ FLOOR(<value>[, <value>])
 | Parameter | Description                                                                                                                   | Supported input types | 
 | :--------- | :----------------------------------------------------------------------------------------------------------------------------- |:-----|
 | `<value>`   | Valid values include column names, functions that return a column with numeric values, and constant numeric values.           | `DOUBLE PRECISION` |
-| `<value>`   | Optional. A constant that defines the decimal range of the returned value. By default, `FLOOR` returns whole numbers.  | `INTEGER` |
+| `<decimal>`   | Optional. A constant that defines the decimal range of the returned value. By default, `FLOOR` returns whole numbers.  | `INTEGER` |
 
-## Return Types
+## Return Type
 `DOUBLE PRECISION` 
 
 ## Example

@@ -15,18 +15,17 @@ Returns the rounded absolute value of a numeric value. The returned value will a
 {: .no_toc}
 
 ```sql
-TRUNC(<value>[, <value>])
+TRUNC(<value>[, <decimal>])
 ```
 ## Parameters
 {: .no_toc}
+
 | Parameter | Description                                                                                                                  | Supported input types | 
 | :--------- | :---------------------------------------------------------------------------------------------------------------------------- |:--------|
 | `<value>`   | Valid values include column names, functions that return a column with numeric values, and constant numeric values.          | `DOUBLE PRECISION` | 
-| `<value>`   | Optional. An `INTEGER` constant that defines the decimal range of the returned value. By default, `TRUNC` returns whole numbers. | `INTEGER` | 
+| `<decimal>`   | Optional. An `INTEGER` constant that defines the decimal range of the returned value. By default, `TRUNC` returns whole numbers. | `INTEGER` | 
 
-## Return Types
-{: .no_toc}
-
+## Return Type
 `DOUBLE PRECISION` 
 
 ## Example

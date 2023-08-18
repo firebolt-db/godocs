@@ -15,17 +15,17 @@ Two-argument arc tangent function. Calculates the angle, in radians, between the
 {: .no_toc}
 
 ```sql
-ATAN2(<value>,<value>)
+ATAN2(<value_y>,<value_x>)
 ```
 ## Parameters
 {: .no_toc}
 
 | Parameter   | Description | Supported input types | 
 | :---------- | :-----------| :-------| 
-| `<value>`  | The `y value` in the arc tangent calculation | `DOUBLE PRECISION` |
-| `<value>`  | The `x value` in the arc tangent calculation | `DOUBLE PRECISION` |
+| `<value_y>`  | The `y value` in the arc tangent calculation | `DOUBLE PRECISION` |
+| `<value_x>`  | The `x value` in the arc tangent calculation | `DOUBLE PRECISION` |
 
-## Return Types
+## Return Type
 `DOUBLE PRECISION`
 
 ## Example
