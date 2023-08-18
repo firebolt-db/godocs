@@ -2,7 +2,7 @@
 layout: default
 title: Databases
 description: Use this reference to learn about the metadata available for Firebolt databases using the information schema.
-parent: Information schema and usage views
+parent: Information schema
 grand_parent: SQL reference
 ---
 

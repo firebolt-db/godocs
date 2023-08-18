@@ -2,7 +2,7 @@
 layout: default
 title: Query history
 description: Use this reference to learn about the metadata available for historical queries in Firebolt.
-parent: Information schema and usage views
+parent: Information schema
 grand_parent: SQL reference
 ---
 

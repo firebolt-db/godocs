@@ -28,7 +28,7 @@ Use the functional list below to find commands for a specific task area that you
 * [Metadata](#metadata)  
   Query the Firebolt information schema for metadata related to its objects and resources.
 
-* [Access control](#access-control)
+* [Access control](#access-control)   
   Access control language. Create, alter and drop, and otherwise manage users, logins, service accounts and roles. 
   
 ## Queries

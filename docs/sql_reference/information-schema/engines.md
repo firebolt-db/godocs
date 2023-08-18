@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Engines
-parent: Information schema and usage views
+parent: Information schema
 grand_parent: SQL reference
 ---
 

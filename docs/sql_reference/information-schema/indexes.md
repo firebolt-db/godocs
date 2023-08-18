@@ -2,7 +2,7 @@
 layout: default
 title: Indexes
 description: Use this reference to learn about the metadata available for Firebolt indexes using the information schema.
-parent: Information schema and usage views
+parent: Information schema
 grand_parent: SQL reference
 ---
 

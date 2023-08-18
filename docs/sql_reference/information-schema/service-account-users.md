@@ -2,7 +2,7 @@
 layout: default
 title: Service accounts
 description: Use this reference to learn about the metadata available about service accounts using the information schema.
-parent: Information schema and usage views
+parent: Information schema
 grand_parent: SQL reference
 ---
 
