@@ -14,9 +14,18 @@ The `START ENGINE` statement enables you to start a stopped engine.
 ## Syntax
 
 ```sql
-START ENGINE <engine_name>
+START ENGINE <engine>
 ```
+## Parameters 
+{: .no_toc}   
 
 | Parameter       | Description                          | Mandatory? Y/N |
 | :--------------- | :------------------------------------ | :-------------- |
-| `<engine_name>` | The name of the engine to be started | Y              |
+| `<engine>` | The name of the engine to be started | Y              |
+
+## Example
+The following example starts the `players` engine: 
+
+```sql
+START ENGINE <players>
+```

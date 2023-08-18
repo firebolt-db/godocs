@@ -17,7 +17,16 @@ The `ATTACH ENGINE` statement enables you to attach an engine to a database.
 ATTACH ENGINE <engine_name> TO <database_name>
 ```
 
+## Parameters 
+{: .no_toc}   
+
 | Parameter         | Description                                                   | Mandatory? Y/N |
 | :----------------- | :------------------------------------------------------------- | :-------------- |
 | `<engine_name>`   | The name of the engine to attach.                             | Y              |
 | `<database_name>` | The name of the database to attach engine `<engine_name>` to. | Y              |
+
+## Example
+The following example attaches the `currentscore` engeine to the `players` database: 
+```sql
+ATTACH ENGINE <currentscore> TO <players>
+```

@@ -17,7 +17,11 @@ Your organization comes prepared with one account for your convenience. You can 
 Creating an account requires the org_admin role.
 
 ### SQL
+<<<<<<< HEAD
  To create an account using SQL, use the [`CREATE ACCOUNT`](../../sql_reference/commands/data-definition/create-account.md) statement. For example:
+=======
+ To create an account using SQL, use the [`CREATE ACCOUNT`](../../sql_reference/commands/access-control/create-account.md) statement. For example:
+>>>>>>> 94c2b92 (engines commands pages)
 
 ```CREATE ACCOUNT my_account WITH REGION = “us-east-1”;```
 
@@ -46,7 +50,11 @@ There can be up to twenty accounts per organization. If you need to create more,
 Editing an account requires the account_admin or org_admin role.
 
 ### SQL 
+<<<<<<< HEAD
 To edit an existing account using SQL, use the [`ALTER ACCOUNT`](../../sql_reference/commands/data-definition/alter-account.md) statement. For example:
+=======
+To edit an existing account using SQL, use the [`ALTER ACCOUNT`](../../sql_reference/commands/access-control/alter-account.md) statement. For example:
+>>>>>>> 94c2b92 (engines commands pages)
 
 ```ALTER ACCOUNT my_account RENAME TO my_dev_account;```
 
@@ -67,7 +75,11 @@ Edit the name of the account.
 Deleting an account requires the account_admin or org_admin role.
 
 ### SQL 
+<<<<<<< HEAD
 To delete an existing account using SQL, use the [`DROP ACCOUNT`](../../sql_reference/commands/data-definition/drop-account.md) statement. For example:
+=======
+To delete an existing account using SQL, use the [`DROP ACCOUNT`](../../sql_reference/commands/access-control/drop-account.md) statement. For example:
+>>>>>>> 94c2b92 (engines commands pages)
 
 ```DROP ACCOUNT my_account;```
 

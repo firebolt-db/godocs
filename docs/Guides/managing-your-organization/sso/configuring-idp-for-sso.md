@@ -43,7 +43,6 @@ Integration with Okta is made using SAML2.0, so configuration steps are similar 
 
 
 Values for SQL to create the SSO connection are as follows:
-
 ```sql
 ALTER ORGANIZATION vsko SET SSO = '{
   "signOnUrl": "https://vsko.okta.com/app/vsko_app_1/exk8kq6ikd3Is13KO4x7/sso/saml",

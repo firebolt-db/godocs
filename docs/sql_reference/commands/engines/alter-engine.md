@@ -9,24 +9,26 @@ parent: Engine commands
 
 # ALTER ENGINE
 
-Updates the configuration of the specified engine `<engine_name>`.
+Updates the configuration of the specified engine `<engine>`.
 
 <!-- Add a bit more info here as an overview? Give a bit more context  -->
 
 ## Syntax
 
 ```sql
-ALTER ENGINE <engine_name> SET
+ALTER ENGINE <engine> SET
     [SCALE = <scale>]
     [SPEC = <spec>]
     [AUTO_STOP = <minutes]
     [RENAME TO <new_name>]
     [WARMUP = <warmup_method>]
 ```
+## Parameters 
+{: .no_toc}  
 
 | Parameter                                                   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | 
 | :----------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | 
-| `<engine_name>`                                             | Name of the engine to be altered.                                                                                                                                                                                                                                                                                                                                                                                                                                                  | 
+| `<engine>`                                             | Name of the engine to be altered.                                                                                                                                                                                                                                                                                                                                                                                                                                                  | 
 | `SCALE = <scale>` | Scale determines the number of nodes that the engine uses, and can be an integer ranging from 1 to 128.<br> | 
 
 <!-- Break into two sentences, or remove the comma  -->
@@ -36,7 +38,8 @@ ALTER ENGINE <engine_name> SET
 | `RENAME TO <new_name>`                                      | Indicates the new name for the engine.<br> <br>For example: `RENAME TO new_engine_name`                                                                                                                                                                                                                                                                                                                                                                         | 
 | `WARMUP =<warmup_method>`                                   | The warmup method that should be used. The following options are supported:<br><br> `MINIMAL` On-demand loading (both indexes and tables' data).<br><br>`PRELOAD_INDEXES` Load indexes only.<br><br>`PRELOAD_ALL_DATA` Full data auto-load (both indexes and table data - full warmup).                                                                                                                                  | 
 
-## Example&ndash;change engine scale
+## Example
+The following example updates the engine's scale to `1`: 
 
 ```sql
 ALTER ENGINE my_engine SET SCALE = 1

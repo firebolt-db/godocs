@@ -3,7 +3,11 @@ layout: default
 title: Service accounts
 description: Learn about creating service account users for Firebolt.
 nav_order: 6
+<<<<<<< HEAD
 parent: Manage your organization
+=======
+parent: Managing your organization
+>>>>>>> 94c2b92 (engines commands pages)
 grand_parent: Guides
 ---
 

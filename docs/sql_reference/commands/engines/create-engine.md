@@ -16,7 +16,8 @@ Creates an engine (compute cluster).
 CREATE ENGINE [IF NOT EXISTS] <engine_name>
 [WITH <property> = <value> ...]
 ```
-The following table describes properties and their values.
+## Properties
+{: .no_toc}  
 
 | Property                                                             | Description                                                                                                                                                                                                                                                                                                                                          |
 | :-------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -26,7 +27,8 @@ The following table describes properties and their values.
 | `AUTO_STOP = <minutes>`                                              | Indicates the amount of time (in minutes) after which the engine automatically stops. The default value is 20.<br><br>Setting the `minutes` to 0 indicates that `AUTO_STOP` is disabled. |
 | `WARMUP =`<br>`<warmup_method>` | The warmup method that should be used. The following options are supported: `MINIMAL` On-demand loading (both indexes and tables' data).<br><br>`PRELOAD_INDEXES` Load indexes only (default). `PRELOAD_ALL_DATA` Full data auto-load (both indexes and table data - full warmup). |
 
-## Example&ndash;create an engine
+## Example
+The following example creates and engine with a scale of `8`: 
 
 ```sql
 CREATE ENGINE my_engine
