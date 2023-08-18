@@ -43,7 +43,7 @@ Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics
     <p><a href="https://special-disco-436d3e6a.pages.github.io/Reference/release-notes/release-notes.html">Release Notes</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/">SQL commands, functions and operators</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/data-types.html">Data types</a>
-    <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/information-schema/information-schema-and-usage-views.html">Information schema and usage views</a>
+    <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/information-schema/information-schema-and-usage-views.html">Information schema</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/available-engine-specs.html">Engine specifications</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/available-regions.html">Available regions</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/system-settings.html">System settings</a>
