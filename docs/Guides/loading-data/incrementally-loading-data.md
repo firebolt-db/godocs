@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Incrementally loading data
+title: Load data incrementally
 description: Learn how to use Airflow to incrementally load data from Amazon S3 into Firebolt.
 nav_order: 3
 parent: Loading data
 grand_parent: Guides
 ---
 
-# Incrementally loading data using Airflow
+# Load data incrementally using Airflow
 {: .no_toc}
 
 This tutorial describes a way to incrementally load data into Firebolt using [Apache Airflow](https://airflow.apache.org/docs/apache-airflow/stable/index.html) to schedule recurring runs of an `INSERT INTO` SQL script. The script works by loading only those records from Amazon S3 files with timestamps later than those already loaded.

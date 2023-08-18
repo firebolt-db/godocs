@@ -7,7 +7,7 @@ grand_parent: Guides
 nav_order: 8
 ---
 
-# Using aggregating indexes
+# Aggregating indexes
 {: .no_toc}
 
 * Topic ToC

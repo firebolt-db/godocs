@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Working with external tables
+title: Work with external tables
 description: Understand the role of external tables when loading data into Firebolt, and learn how to configure them to connect to your data lake.
 nav_order: 1
 grand_parent: Guides
 parent: Loading data
 ---
 
-# Working with external tables
+# Work with external tables
 
 Loading data into Firebolt is done using *external tables*. External tables are different from [fact and dimension tables](../working-with-tables.md). Firebolt uses an external table as a connector to your data source. No data is stored in Firebolt.
 

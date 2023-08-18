@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Managing your organization
+title: Manage your organization
 description: Learn about user permissions and how to add and remove users in a Firebolt account.
 parent: Guides
 nav_order: 2

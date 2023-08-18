@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Loading data
+title: Load data
 description: Understand options for loading data into Firebolt from your data lake.
 parent: Guides
 nav_order: 3
@@ -8,7 +8,7 @@ has_children: true
 has_toc: false
 ---
 
-# Loading data
+# Load data
 
 Loading data into Firebolt is described in the [Getting started tutorial](../getting-started.md) and consists of three steps.
 

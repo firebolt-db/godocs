@@ -1,12 +1,13 @@
 ---
 layout: default
-title: Working with Parquet arrays and maps
+title: Work with Parquet arrays and maps
 description: Learn how to ingest (load) Parquet data into Firebolt and work with Parquet maps, structs, and arrays of structs.
 nav_order: 4
 parent: Working with semi-structured data
 grand_parent: Guides
 ---
-# Working with Parquet arrays and maps
+
+# Work with Parquet arrays and maps
 {: .no_toc}
 
 Apache Parquet is a binary file format that can store complex nested file structures in a compressed, columnar format. This topic provides guidance for ingesting and querying Parquet data that is stored as structs in arrays or as maps of key-value pairs.

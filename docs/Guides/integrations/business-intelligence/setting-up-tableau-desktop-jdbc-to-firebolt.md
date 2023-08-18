@@ -6,7 +6,7 @@ parent: Business intelligence
 grand_parent: Integrations
 ---
 
-# Connecting Tableau to Firebolt
+# Connect Tableau to Firebolt
 
 Tableau is a leading data visualization and business intelligence platform that allows anyone to see and understand their data. When connected to Firebolt, Tableau delivers sub-second query speeds on live connections, thus enabling truly interactive analytics experiences without needing to compromise on data volume, freshness, or latency.
   

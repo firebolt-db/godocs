@@ -6,7 +6,7 @@ parent: Business intelligence
 grand_parent: Integrations
 ---
 
-# Connecting to Metabase
+# Connect to Metabase
 {: .no_toc}
 
 [Metabase](https://www.metabase.com/) is an open source business intelligence tool used for exploring data and producing dashboards.

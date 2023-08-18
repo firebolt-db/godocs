@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Using AWS roles to access S3
+title: Use AWS roles to access S3
 description: Learn how to use AWS IAM roles to allow Firebolt to access your data lake in Amazon S3.
 nav_order: 2
 parent: Loading data
 grand_parent: Guides
 ---
 
-# Using AWS roles to access Amazon S3
+# Use AWS roles to access Amazon S3
 {: .no_toc}
 Firebolt uses AWS Identity and Access Management \(IAM\) permissions to load data from Amazon S3 into Firebolt. This requires you to set up permissions using the AWS Management Console. You have two options to specify credentials with the appropriate `CREDENTIALS` when you create an external table:
 

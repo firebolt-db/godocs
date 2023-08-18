@@ -6,7 +6,7 @@ parent: Business intelligence
 grand_parent: Integrations
 ---
 
-# Connecting to Panintelligence
+# Connect to Panintelligence
 
 [Panintelligence](https://www.panintelligence.com/)(pi) is a self-service business intelligence platform focused on creating reports, visualization dashboards, and predictive analytics. The Panintelligence platform embeds into existing data stacks, allowing you to run queries and analytics without deep technical expertise.
 

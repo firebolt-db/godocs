@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Managing logins
+title: Manage logins
 description: Learn about user permissions and how to add and remove logins in a Firebolt account.
 nav_order: 5
 parent: Managing your organization
 grand_parent: Guides
 ---
 
-# Managing logins
+# Manage logins
 {: .no_toc}
 
 Logins are managed at the organization level and are used for authentication. Logins are a combination of a login name (email), first name, last name, and password, unless you've configured [Single Sign-On (SSO)](sso/sso.md). Moreover, logins can be configured with advanced authentication properties such as [MFA](mfa.md) and [network policies]. Logins are linked to users at the account level, so that roles may be managed separately per account. A user must be linked to either a login or a service account for programmatic use to gain access to Firebolt. You can add, edit or delete logins using SQL or in the UI. 

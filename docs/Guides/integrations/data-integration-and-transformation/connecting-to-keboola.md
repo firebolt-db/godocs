@@ -7,7 +7,7 @@ parent: Data integration and transformation
 grand_parent: Integrations
 ---
 
-# Connecting to Keboola
+# Connect to Keboola
 
 Keboola is a cloud ETL / ELT platform for interconnecting diverse data sets. It is used to extract and manipulate varied data sets and write the results to a destination system.
 

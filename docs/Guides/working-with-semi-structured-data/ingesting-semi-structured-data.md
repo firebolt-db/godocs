@@ -1,12 +1,13 @@
 ---
 layout: default
-title: Ingesting semi-structured data
+title: Ingest semi-structured data
 description: Learn how to ingest (load) semi-structured data from your data lake into the Firebolt data warehouse.
 nav_order: 2
 parent: Working with semi-structured data
 grand_parent: Guides
 ---
-# Ingesting semi-structured data
+
+# Ingest semi-structured data
 
 There are three major approaches to ingest and handle semi-structured data as shown below. All approaches can be combined depending on the nature of the input data and the queries to run over the data.
 

@@ -7,7 +7,7 @@ grand_parent: Guides
 nav_order: 7
 ---
 
-# Using primary indexes
+# Primary indexes
 {: .no_toc}
 
 * Topic ToC

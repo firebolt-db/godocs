@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Managing accounts
+title: Manage accounts
 description: Learn about how to add and remove accounts in a Firebolt organization.
 nav_order: 3
 parent: Managing your organization
 grand_parent: Guides
 ---
 
-# Managing accounts
+# Manage accounts
 
 Your organization comes prepared with one account for your convenience. You can add more accounts, edit existing accounts, or delete accounts using SQL or in the UI.
 

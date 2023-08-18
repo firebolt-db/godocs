@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Working with arrays
+title: Work with arrays
 description: Learn techniques to manipulate and transform arrays in Firebolt.
 nav_order: 3
 parent: Working with semi-structured data
 grand_parent: Guides
 ---
 
-# Working with arrays
+# Work with arrays
 {: .no_toc}
 
 This section covers querying and manipulating arrays in Firebolt.

@@ -7,7 +7,7 @@ parent: Managing your organization
 grand_parent: Guides
 ---
 
-# Managing network policies
+# Manage network policies
 {: .no_toc}
 
 By default, Firebolt accepts traffic from any IP address. As an additional layer of security, you can configure individual Firebolt logins or service accounts so their traffic must originate only from the IP addresses that you specify. For each configuration (network policy), you specify a list of IP addresses from which traffic is allowed (the allow list) and a list of IP addresses from which traffic is denied (the blocked list). A network policy is a collection of allowed and blocked lists of IP addresses.

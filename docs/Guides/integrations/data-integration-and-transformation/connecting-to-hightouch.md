@@ -7,7 +7,7 @@ parent: Data integration and transformation
 grand_parent: Integrations
 ---
 
-# Connecting to Hightouch
+# Connect to Hightouch
 
 Hightouch is a reverse ETL platform used to sync data warehouses to various business tools without the need for custom integrations. At a high level, Hightouch uses SQL queries to build data pipelines from sources to end-user destinations.
 

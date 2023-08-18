@@ -7,7 +7,7 @@ parent: Data integration and transformation
 grand_parent: Integrations
 ---
 
-# Connecting with Estuary Flow
+# Connect with Estuary Flow
 
 Estuary Flow is an ELT and data operations platform tool for building and testing data pipelines to continuously capture, transform, and materialize data. 
 
