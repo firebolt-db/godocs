@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Exporting data
+title: Export data
 parent: Guides
 nav_order: 8 
 ---
 
-# Exporting data
+# Export data
 
 Firebolt has two ways to save query data to use and analyze outside of Firebolt.
 

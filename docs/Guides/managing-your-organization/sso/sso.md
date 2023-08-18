@@ -3,7 +3,7 @@ layout: default
 title: Setting up SSO authentication
 description: Learn about setting up SSO authentication for Firebolt. 
 nav_order: 4
-parent: Managing your organization
+parent: Manage your organization
 grand_parent: Guides
 ---
 

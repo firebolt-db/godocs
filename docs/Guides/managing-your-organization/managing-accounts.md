@@ -3,7 +3,7 @@ layout: default
 title: Manage accounts
 description: Learn about how to add and remove accounts in a Firebolt organization.
 nav_order: 3
-parent: Managing your organization
+parent: Manage your organization
 grand_parent: Guides
 ---
 

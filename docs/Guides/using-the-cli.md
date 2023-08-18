@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Using the CLI
+title: Use the CLI
 description: Learn to install, configure, and use the Firebolt CLI.
 parent: Guides
 nav_order: 5
 ---
 
-# Using the Firebolt CLI  
+# Use the Firebolt CLI  
 {: .no_toc}
 
 The Firebolt command line interface (CLI) is a tool for connecting to Firebolt, managing Firebolt resources, and executing queries from the command line. The CLI is particularly useful for scripting and automated jobs like those running inside a Docker container.

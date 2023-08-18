@@ -3,7 +3,7 @@ layout: default
 title: Register to Firebolt
 description: Learn how to create an organization. 
 nav_order: 2
-parent: Managing your organization
+parent: Manage your organization
 grand_parent: Guides
 ---
 
