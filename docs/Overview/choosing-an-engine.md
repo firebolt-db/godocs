@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Choosing an engine
+title: Engine sizing
 description: Choosing an engine configuration based on your data type and query patterns.
 nav_order: 4
 parent: Overview
 ---
 
-# Choosing an engine
+# Engine sizing
 {: .no_toc}
 
 We recommend that you experiment and tune different engine configurations on pre-production data workflows before you deploy to production. Firebolt's decoupled compute and storage architecture makes that easy. You can play with configurations in pre-production with little effort and low cost. This topic provides guidelines for selecting engines based on your ingestion and query requirements.
