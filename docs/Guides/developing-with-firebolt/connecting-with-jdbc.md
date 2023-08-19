@@ -10,7 +10,7 @@ grand_parent: Guides
 # Using the JDBC driver
 {:.no_toc}
 
-Firebolt provides a [type 4](https://en.wikipedia.org/wiki/JDBC_driver#Type_4_driver_%E2%80%93_Database-Protocol_driver/Thin_Driver(Pure_Java_driver)){:target="_blank"} JDBC driver to connect to Firebolt from Java applications such as [DBeaver](https://docs.firebolt.io/integrations/setting-up-dbeaver-jdbc-connection-to-firebolt.html){:target="_blank"} and others. The driver is released as open source software using a permissive Apache 2 license and can be browsed, forked, downloaded, and contributed to through its [GitHub repository](https://github.com/firebolt-db/jdbc){:target="_blank"}.
+Firebolt provides a [type 4](https://en.wikipedia.org/wiki/JDBC_driver#Type_4_driver_%E2%80%93_Database-Protocol_driver/Thin_Driver(Pure_Java_driver)){:target="_blank"} JDBC driver to connect to Firebolt from Java applications such as [DBeaver](./integrations/setting-up-dbeaver-jdbc-connection-to-firebolt.md) and others. The driver is released as open source software using a permissive Apache 2 license and can be browsed, forked, downloaded, and contributed to through its [GitHub repository](https://github.com/firebolt-db/jdbc){:target="_blank"}.
 
 * Topic toC
 {:toc}
@@ -84,12 +84,10 @@ A list of connection parameters following the standard [URL query string format]
 
 ## Authentication
 
-One should use service account ID and secret for authentication. 
-Service account is identified by ID and secret represented for driver by properties `client_id` and `client_secret` consequently.
-For compatibility with various external tools `client_id` can be sent as `user` and `client_secret` as `password`. 
-In order to obtain ID and secret open the Firebolt UI, clieck on "Configure" (the gear) icon at the left toolbar and then click "Service accounts".
-Create new service account if you do not have one or choose service account that you want to use. Click three dots icon on the right side and choose "Create new secret".
-Copy this new secret and store it in safe place. Please note that the secret cannot be viewed or restored. New created secret overrides the old one. 
+To authenticate, use a service account ID and secret.
+A service account is identified by a `client_id` and a `client_secret`.
+For compatibility with various external tools, `client_id` can be sent as `user` and `client_secret` as `password`.  
+Learn how to generate an ID and secret [here](../managing-your-organization/service-accounts.md).
 
 Here is an example of a connection details:
 
@@ -98,7 +96,7 @@ Here is an example of a connection details:
     jdbc:firebolt:my_database?client_id=abJLADJAGJJKJrtHKAGHQHKDJGHAIUGH&client_secret=B9x64xyzWIUcWY3K--GHJc7K5i0bGaTE-AGH-LGyRsXAcd5YS5gWQcRxa-MxAyAc&engine=my_database_general_purpose&buffer_size=1000000&connection_timeout_millis=10000
   ```
 
-* URL that uses that omits authentication details that a passed in properties
+* URL that uses that omits authentication details that are passed in properties
   ```
   jdbc:firebolt:my_database?engine=my_database_general_purpose&buffer_size=1000000&connection_timeout_millis=10000`
   ```
@@ -143,12 +141,12 @@ The table below lists the available connection parameters that can be added to t
 | client_id                            | TEXT     | No default value                            |                 | The Firebolt service account ID. **Required.**                                                                                                                                                                                  |
 | client_secret                        | TEXT     | No default value                            |                 | The secret generated for the Firebolt service account. **Required.**                                                                                                                                                            |
 | account                              | TEXT     | No default value                            |                 | Your Firebolt account name.                                                                                                                                                                                                     |
-| database                             | TEXT     | No default value                            |                 | Specifies the name of the database to connect to. Takes precedence over the database name provided as a path parameter.                                                                                                         |
-| engine                               | TEXT     | Default eingine attached to chosen database |                 | Specifies engine that to connect to.                                                                                                                                                          |
-| buffer_size                          | INTEGER        | 65536                                       | 1 to 2147483647 | Specifies the buffer used by the driver to read the response from the Firebolt API, in bytes.                                                                                                                                   |
-| connection_timeout_millis            | INTEGER        | 60000                                       | 0 to 2147483647 | Specifies the amount of time in milliseconds to wait to establish a connection with the server before the connection is considered failed. <br/>A timeout value of zero is interpreted as an infinite timeout.                  |
-| max_connections_total                | INTEGER        | 300                                         | 1 to 2147483647 | Specifies the maximum total number of connections.                                                                                                                                                                              |
-| socket_timeout_millis                | INTEGER        | 0                                           | 0 to 2147483647 | Specifies the socket timeout in milliseconds. This is the timeout for waiting for data -- the maximum period of inactivity between two consecutive data packets. A timeout value of zero is interpreted as an infinite timeout. |
+| database                             | TEXT     | No default value                            |                 | The name of the database to connect to. Takes precedence over the database name provided as a path parameter.                                                                                                         |
+| engine                               | TEXT     | Default engine attached to chosen database |                 | The name of the engine to connect to.                                                                                                                                                          |
+| buffer_size                          | INTEGER        | 65536                                       | 1 to 2147483647 | The buffer used by the driver to read the response from the Firebolt API, in bytes.                                                                                                                                   |
+| connection_timeout_millis            | INTEGER        | 60000                                       | 0 to 2147483647 | The amount of time in milliseconds to wait to establish a connection with the server before the connection is considered failed. <br/>A timeout value of zero is interpreted as an infinite timeout.                  |
+| max_connections_total                | INTEGER        | 300                                         | 1 to 2147483647 | The maximum total number of connections.                                                                                                                                                                              |
+| socket_timeout_millis                | INTEGER        | 0                                           | 0 to 2147483647 | The socket timeout in milliseconds. This is the timeout for waiting for data -- the maximum period of inactivity between two consecutive data packets. A timeout value of zero is interpreted as an infinite timeout. |
 | connection_keep_alive_timeout_millis | INTEGER        | 300000                                      | 1 to 2147483647 | Specifies how long to keep a connection with the server alive in the connection pool before closing it.                                                                                                                         |
 | ssl                                  | BOOLEAN    | true                                        | true or false   | When set to true, connections use SSL / TLS certificates. This parameter also determines the port used by the driver. If true, it uses port 443. If false, it uses port 80.                                                     |
 | ssl_mode                             | TEXT     | strict                                      | strict or none  | When set to strict, the certificate is validated to ensure it is correct. If set to none, no certificate verification is used.                                                                                                  |
@@ -157,13 +155,13 @@ The table below lists the available connection parameters that can be added to t
 
 ### System settings as connection parameters
 
-In addition to the parameters specified above, any [system setting](https://docs.firebolt.io/general-reference/system-settings.html){:target="_blank"} can be passed as a connection string parameter. For example, if you wanted to set a custom CSV delimiter, your connection string would be as follows:
+In addition to the parameters specified above, any [system setting](../general-reference/system-settings.md){:target="_blank"} can be passed as a connection string parameter. For example, if you wanted to set a custom CSV delimiter, your connection string would be as follows:
     
     jdbc:firebolt:my_database?format_csv_delimeter=%7C&<other_connection_params>
     
 ## Applying system settings using SET
 
-In addition to passing system settings as connection string parameters, any [system setting](https://docs.firebolt.io/general-reference/system-settings.html){:target="_blank"} can be passed to Firebolt as a `SET` command in SQL. Multiple `SET` statements can be passed at once as long as they immediately follow one after another separated by semicolons, as shown in the following example.
+In addition to passing system settings as connection string parameters, any [system setting](../general-reference/system-settings.md){:target="_blank"} can be passed to Firebolt as a `SET` command in SQL. Multiple `SET` statements can be passed at once as long as they immediately follow one after another separated by semicolons, as shown in the following example.
 
     SET input_format_csv_allow_single_quotes = 0;
     SET format_csv_delimiter = |;
