@@ -5,6 +5,7 @@ description: Learn how to connect Rivery to Firebolt.
 nav_order: 9
 parent: Data integration and transformation
 grand_parent: Integrations
+great_grand_parent: Guides
 ---
 
 # Connect to Rivery

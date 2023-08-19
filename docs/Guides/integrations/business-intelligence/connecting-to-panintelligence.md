@@ -4,6 +4,7 @@ title: Panintelligence
 description: Learn how to connect Panintelligence to Firebolt.
 parent: Business intelligence
 grand_parent: Integrations
+great_grand_parent: Guides
 ---
 
 # Connect to Panintelligence

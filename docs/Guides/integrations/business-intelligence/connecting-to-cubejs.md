@@ -4,6 +4,7 @@ title: Cube.js
 description: Learn how to connect Cube.js to Firebolt.
 parent: Business intelligence
 grand_parent: Integrations
+great_grand_parent: Guides
 ---
 
 # Connect to Cube.js

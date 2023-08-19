@@ -5,6 +5,7 @@ description: Connecting Airbyte to Firebolt
 nav_order: 2
 parent: Data integration and transformation
 grand_parent: Integrations
+great_grand_parent: Guides
 ---
 
 # Connect Airbyte to Firebolt  

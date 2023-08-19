@@ -5,6 +5,7 @@ description: Learn to connect Estuary to Firebolt.
 nav_order: 5
 parent: Data integration and transformation
 grand_parent: Integrations
+great_grand_parent: Guides
 ---
 
 # Connect with Estuary Flow

@@ -4,6 +4,7 @@ title: Looker
 description: Learn about configuring a Looker connection to Firebolt and get tips and best practices for using Looker with Firebolt.
 parent: Business intelligence
 grand_parent: Integrations
+great_grand_parent: Guides
 ---
 
 # Connect to Looker

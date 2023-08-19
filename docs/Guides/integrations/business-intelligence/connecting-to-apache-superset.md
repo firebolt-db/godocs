@@ -4,6 +4,7 @@ title: Apache Superset / Preset
 description: Learn about connecting Apache Superset/Preset to Firebolt.
 parent: Business intelligence
 grand_parent: Integrations
+great_grand_parent: Guides
 ---
 
 # Connect to Apache Superset / Preset

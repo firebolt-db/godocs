@@ -5,6 +5,7 @@ description: Learn about connecting Adverity to Firebolt.
 nav_order: 1
 parent: Data integration and transformation
 grand_parent: Integrations
+great_grand_parent: Guides
 ---
 
 # Connect to Adverity  

@@ -4,6 +4,7 @@ title: Tableau
 description: Learn how to connect Tableau to Firebolt.
 parent: Business intelligence
 grand_parent: Integrations
+great_grand_parent: Guides
 ---
 
 # Connect Tableau to Firebolt

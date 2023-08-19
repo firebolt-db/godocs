@@ -4,6 +4,7 @@ title: Metabase
 description: Learn how to connect Metabase to Firebolt.
 parent: Business intelligence
 grand_parent: Integrations
+great_grand_parent: Guides
 ---
 
 # Connect to Metabase

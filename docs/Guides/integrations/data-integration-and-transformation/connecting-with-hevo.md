@@ -5,6 +5,7 @@ description: Learn how to connect Hevo to Firebolt.
 nav_order: 6
 parent: Data integration and transformation
 grand_parent: Integrations
+great_grand_parent: Guides
 ---
 
 # Connect with Hevo

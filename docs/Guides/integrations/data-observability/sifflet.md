@@ -4,6 +4,7 @@ title: Sifflet
 description: Learn how to connect Sifflet to Firebolt.
 parent: Data observability
 grand_parent: Integrations
+great_grand_parent: Guides
 ---
 
 # Connecting to Sifflet

@@ -5,6 +5,7 @@ description: Learn how to connect Keboola to Firebolt.
 nav_order: 8
 parent: Data integration and transformation
 grand_parent: Integrations
+great_grand_parent: Guides
 ---
 
 # Connect to Keboola
