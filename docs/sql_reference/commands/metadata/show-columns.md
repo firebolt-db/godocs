@@ -14,26 +14,34 @@ Lists columns and their properties for a specified table. Returns `<table_name>`
 ## Syntax
 
 ```sql
-SHOW COLUMNS <table_name>;
+SHOW COLUMNS <table>;
 ```
+## Parameters  
+{: .no_toc} 
 
 | Parameter      | Description                           |
 | :-------------- | :------------------------------------- |
-| `<table_name>` | The name of the table to be analyzed. |
+| `<table>` | The name of the table to be analyzed. |
 
 ## Example
+The following example highlights all of the columns from the `tournaments` table: 
 
 ```sql
-SHOW COLUMNS prices;
+SHOW COLUMNS tournaments;
 ```
 
 ## Returns
 
-```
-------------+-------------+-----------+----------+
-| table_name | column_name | data_type | nullable |
-+------------+-------------+-----------+----------+
-| prices     | item        | TEXT      |        0 |
-| prices     | num         | INTEGER   |        0 |
-+------------+-------------+-----------+----------+
-```
+
+| table_name |	column_name | 	data_type	| nullable | 
+|:-------|:------|:--------|:--------|
+| tournaments |	enddatetime | TIMESTAMP | FALSE |
+| tournaments |	gameid | INTEGER | FALSE |
+| tournaments	| name	| TEXT	| FALSE |
+| tournaments	| rulesdefinition	| TEXT |	FALSE |
+| tournaments	| source_file_name	| TEXT	| FALSE |
+| tournaments	| source_file_timestamp	| TIMESTAMP	| FALSE |
+| tournaments	| startdatetime	| TIMESTAMP	| FALSE |
+| tournaments |	totalprizedollars |	INTEGER	| FALSE |
+| tournaments	| tournamentid |	INTEGER	| FALSE |
+

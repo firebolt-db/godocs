@@ -30,3 +30,11 @@ The returned table has the following columns.
 | status                      | TEXT      | The engine status. For more information, see [Viewing and understanding engine status](../../working-with-engines/understanding-engine-fundamentals.md#viewing-and-understanding-engine-status). |
 | attached_to                 | TEXT      | The name of the database to which the engine is attached. |
 | version                     | TEXT      | The engine version. |
+
+## Example
+
+The following example highlights a database databases with descriptive columns: 
+
+```sql
+SHOW DATABASES;
+```
