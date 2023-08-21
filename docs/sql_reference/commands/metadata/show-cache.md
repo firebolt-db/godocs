@@ -20,7 +20,8 @@ The results of `SHOW CACHE` are formatted as follows:
 
 `<ssd_used>/<ssd_available> GB (<percent_utilization>%)`
 
-These components are defined as follows:
+## Components 
+{: .no_toc}  
 
 | Component               | Description                                                                                                                |
 | :----------------------- | :-------------------------------------------------------------------------------------------------------------------------- |
@@ -28,10 +29,16 @@ These components are defined as follows:
 | `<ssd_available>`    | The amount of available storage on your engine.                                                                            |
 | `<percent_utilization>` | The percent of used storage as compared to available storage.                                                              |
 
-Example returned output is shown below.
+## Example
+
+When the `SHOW CACHE` command is run, the usage displays as a result: 
+
+```sql
+SHOW CACHE;
+```
 
 ```
 | ssd_usage             |
-+-----------------------+
+|:----------------------|
 | 3.82/73.28 GB (5.22%) |
 ```
