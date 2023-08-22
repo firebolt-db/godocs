@@ -12,103 +12,6 @@ parent: SQL reference
 * Topic ToC
 {:toc}
 
-## Arithmetic (numbers)
-
-| Operator | Operator description                             | Example             | Result |
-| :-------- | :------------------------------------------------ | :------------------- | :------ |
-| +        | addition                                         | `SELECT 2 + 3;`     | 5      |
-| -        | subtraction                                      | `SELECT 2 - 3;`     | -1     |
-| \*       | multiplication                                   | `SELECT 2 * 3;`     | 6      |
-| /        | division (integer division truncates the result) | `SELECT 4 / 2;`     | 2      |
-| %        | modulo (remainder)                               | `SELECT 5 % 4;`     | 1      |
-| ^        | exponentiation                                   | `SELECT 2.0 ^ 3.0;` | 8      |
-
-The result data type of arithmetic operators `+`,`-`,`*`,`/` is the common type of the input data types.
-For example: `INTEGER`, `INTEGER <op> BIGINT = BIGINT`, `INTEGER <op> REAL = DOUBLE PRECISION`.
-
-Overflow checks and floating point errors are applied according to the result data type only.
-
-{: .note}
-> Floating point note:
-> 
-> Precision means that the representation of a number is accurate up to a certain number of digits. In Firebolt, `REAL` data types have 6-digit precision and `DOUBLE PRECISION` have 16-digit precision. This means that calculations have a precision of 6 or 16 respectively, and numbers are truncated to that precision. For example, if a number is stored as 1.234567, it is automatically truncated to 1.23456 for `REAL`.
->
-> When performing arithmetic, the number of leading digits in the output is the product of the leading digits in both inputs. This means that if either or both of the input numbers are larger than 6, those numbers are the first truncated, and then the arithmetic is performed.
-
-## Comparison
-
-| Operator | Syntax              | Explanation                      |
-| :-------- | :------------------- | :-------------------------------- |
-| =        | `a=b`               | a is equal to b.                 |
-| !=       | `a!=b`              | a is not equal to b.             |
-| <>       | `a<>b`              | a is not equal to b.             |
-| <=       | `a<=b`              | a is less than or equal to b.    |
-| >        | `a>b`               | a is greater than b.             |
-| >=       | `a>=b`              | a is greater than or equal to b. |
-| <        | `a<b`               | a is less than b.                |
-| BETWEEN  | `a BETWEEN b AND c` | equivalent to b <= a <= c        |
-
-Example of using comparison operator in `WHERE` clause
-
-```sql
-SELECT
-  *
-FROM
-  Table
-WHERE
-  Price >= 100;
-```
-
-
-## String
-
-To concatenate strings, you can use the `CONCAT` function.
-
-```sql
-SELECT concat('This', ' is', ' a', ' parenthetical', 'concantenation.') AS concatenated_String
-```
-
-Alternatively, you can use the double pipe `||` operator.
-
-```sql
-SELECT 'This' || ' is' || ' a' || ' double pipe' || ' concantenation.' AS concatenated_String
-```
-
-## Boolean
-
-Boolean operators return the result of a Boolean operation between one or more expressions.
-
-| Operator | Example   | Explanation                   |
-| :-------- | :--------- | :----------------------------- |
-| `AND`      | `x AND y` | True if both x and y are true |
-| `NOT`      | `NOT x`   | True if x is false            |
-|  `OR`   | `x OR y`  | True if either x or y is true |
-
-## INTERVAL for date and time
-
-Use the `INTERVAL` operator to add to or subtract from a period of time in `DATE`, `TIME`, or `TIMESTAMP` data types.
-
-### Syntax
-{: .no_toc}
-
-```sql
-{ +|- } INTERVAL '<quantity> [ <date_unit> ] [ ...]'
-```
-
-| Component     | Description|
-|:------------  | :----------|
-| `<quantity>`  | An integer. Multiple `<quantities>` and `<date_units>` can be used in the same `INTERVAL` command if they are separated by spaces.|
-| `<date_unit>` | A date measurement including any of the following: `millennium`, `century`, `decade`, `year`, `month`, `week`, `day`, `hour`, `minute`, `second`, `millisecond`, `microsecond `or their plural forms.  If unspecified, `<date_unit>` defaults to `second`.  |
-
-### Example
-{: .no_toc}
-
-```sql
-<date_column> + INTERVAL '1 year 2 months 3 days'
-<date_column> - INTERVAL '2 weeks'
-<date_column> - INTERVAL '1 year 3 hours 20 minutes'
-```
-
 ## :: operator for CAST
 
 Use can use the `::` operator instead of the [CAST](../sql-reference/functions-reference/cast.md) function to convert one [data type](./data-types.md) to another.
@@ -135,6 +38,102 @@ Use can use the `::` operator instead of the [CAST](../sql-reference/functions-r
 SELECT '2021-12-31'::DATE;
 SELECT 8.5::REAL;
 SELECT col_a::BIGINT;
+```
+
+## Arithmetic (numbers)
+
+| Operator | Operator description                             | Example             | Result |
+| :-------- | :------------------------------------------------ | :------------------- | :------ |
+| +        | addition                                         | `SELECT 2 + 3;`     | 5      |
+| -        | subtraction                                      | `SELECT 2 - 3;`     | -1     |
+| \*       | multiplication                                   | `SELECT 2 * 3;`     | 6      |
+| /        | division (integer division truncates the result) | `SELECT 4 / 2;`     | 2      |
+| %        | modulo (remainder)                               | `SELECT 5 % 4;`     | 1      |
+| ^        | exponentiation                                   | `SELECT 2.0 ^ 3.0;` | 8      |
+
+The result data type of arithmetic operators `+`,`-`,`*`,`/` is the common type of the input data types.
+For example: `INTEGER`, `INTEGER <op> BIGINT = BIGINT`, `INTEGER <op> REAL = DOUBLE PRECISION`.
+
+Overflow checks and floating point errors are applied according to the result data type only.
+
+{: .note}
+> Floating point note:
+> 
+> Precision means that the representation of a number is accurate up to a certain number of digits. In Firebolt, `REAL` data types have 6-digit precision and `DOUBLE PRECISION` have 16-digit precision. This means that calculations have a precision of 6 or 16 respectively, and numbers are truncated to that precision. For example, if a number is stored as 1.234567, it is automatically truncated to 1.23456 for `REAL`.
+>
+> When performing arithmetic, the number of leading digits in the output is the product of the leading digits in both inputs. This means that if either or both of the input numbers are larger than 6, those numbers are the first truncated, and then the arithmetic is performed.
+
+## Boolean
+
+Boolean operators return the result of a Boolean operation between one or more expressions.
+
+| Operator | Example   | Explanation                   |
+| :-------- | :--------- | :----------------------------- |
+| `AND`      | `x AND y` | True if both x and y are true |
+| `NOT`      | `NOT x`   | True if x is false            |
+|  `OR`   | `x OR y`  | True if either x or y is true |
+
+## Comparison
+
+| Operator | Syntax              | Explanation                      |
+| :-------- | :------------------- | :-------------------------------- |
+| =        | `a=b`               | a is equal to b.                 |
+| !=       | `a!=b`              | a is not equal to b.             |
+| <>       | `a<>b`              | a is not equal to b.             |
+| <=       | `a<=b`              | a is less than or equal to b.    |
+| >        | `a>b`               | a is greater than b.             |
+| >=       | `a>=b`              | a is greater than or equal to b. |
+| <        | `a<b`               | a is less than b.                |
+| BETWEEN  | `a BETWEEN b AND c` | equivalent to b <= a <= c        |
+
+Example of using comparison operator in `WHERE` clause
+
+```sql
+SELECT
+  *
+FROM
+  Table
+WHERE
+  Price >= 100;
+```
+
+## INTERVAL for date and time
+
+Use the `INTERVAL` operator to add to or subtract from a period of time in `DATE`, `TIME`, or `TIMESTAMP` data types.
+
+### Syntax
+{: .no_toc}
+
+```sql
+{ +|- } INTERVAL '<quantity> [ <date_unit> ] [ ...]'
+```
+
+| Component     | Description|
+|:------------  | :----------|
+| `<quantity>`  | An integer. Multiple `<quantities>` and `<date_units>` can be used in the same `INTERVAL` command if they are separated by spaces.|
+| `<date_unit>` | A date measurement including any of the following: `millennium`, `century`, `decade`, `year`, `month`, `week`, `day`, `hour`, `minute`, `second`, `millisecond`, `microsecond `or their plural forms.  If unspecified, `<date_unit>` defaults to `second`.  |
+
+### Example
+{: .no_toc}
+
+```sql
+<date_column> + INTERVAL '1 year 2 months 3 days'
+<date_column> - INTERVAL '2 weeks'
+<date_column> - INTERVAL '1 year 3 hours 20 minutes'
+```
+
+## String
+
+To concatenate strings, you can use the `CONCAT` function.
+
+```sql
+SELECT concat('This', ' is', ' a', ' parenthetical', 'concantenation.') AS concatenated_String
+```
+
+Alternatively, you can use the double pipe `||` operator.
+
+```sql
+SELECT 'This' || ' is' || ' a' || ' double pipe' || ' concantenation.' AS concatenated_String
 ```
 
 ## Subquery operators

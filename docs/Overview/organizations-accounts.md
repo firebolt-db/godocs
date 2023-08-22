@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Firebolt organizations and accounts
+title: Organizations and accounts
 description: Learn about Firebolt organization and account concepts to help you administer and manage your Firebolt account.
 nav_order: 2
 parent: Overview
 ---
 
-# Firebolt organizations and accounts
+# Organizations and accounts
 {: .no_toc}
 
 With organizations, achieve a seamless separation between different accounts within your organization. Additionally, benefit from consolidated billing, unified authentication, and efficient account management across all accounts. 
