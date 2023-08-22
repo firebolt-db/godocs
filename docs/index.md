@@ -44,11 +44,6 @@ Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics
     <h2>Reference</h2>
     <p><a href="https://special-disco-436d3e6a.pages.github.io/Reference/release-notes/release-notes.html">Release Notes</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/">SQL reference</a>
-    <br>&emsp;<a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/information-schema/information-schema-and-usage-views.html">Information schema</a>
-    <br>&emsp;<a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/data-types.html">Data types</a>
-    <br>&emsp;<a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/operators.html">Operators</a>
-    <br>&emsp;<a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/commands/">Commands</a>
-    <br>&emsp;<a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/functions-reference/functions-reference.html">Functions</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/available-engine-specs.html">Engine specifications</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/available-regions.html">Available regions</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/system-settings.html">System settings</a>

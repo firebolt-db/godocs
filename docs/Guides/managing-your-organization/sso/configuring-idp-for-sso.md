@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Configuring your identity provider for SSO
+title: Configure your identity provider
 description: Learn how to configure your identity provider to work with SSO authentication for Firebolt. 
 nav_order: 2
 parent: Setting up SSO authentication
@@ -8,7 +8,7 @@ grand_parent: Manage your organization
 great_grand_parent: Guides
 ---
 
-# Configure your IDP to work with Firebolt
+# Configure your IDP
 
 Before you can set up SSO with Firebolt, follow the required configuration steps in your identity provider to work with the application.
 
@@ -32,7 +32,7 @@ Integration with Okta is made using SAML2.0, so configuration steps are similar 
 2. Click **Create App Integration**.
 3. Select **SAML 2.0** as the Sign-in method and click **Next**.
 4. In the general configuration, fill in the following fields:
-    - **Single sign-on URL:** This URL looks as https://id.app.firebolt.io/login/callback?connection=<org_name>-<provider>&organization=<organization_identifier> Contact Firebolt to get your organization_identifier. **Example:** https://id.app.firebolt.io/login/callback?connection=vsko-okta&organization=org_82u3nzTNQPA8RyoM
+    -  **Single sign-on URL:** This URL looks as https://id.app.firebolt.io/login/callback?connection=<org_name>-<provider>&organization=<organization_identifier> Contact Firebolt to get your organization_identifier. **Example:** https://id.app.firebolt.io/login/callback?connection=vsko-okta&organization=org_82u3nzTNQPA8RyoM
     - **Audience URI (SP Entity ID):** This a URI in the following format: `urn:auth0:<tenant_name>:<org_name>-<provider>`, where `<tenant_name>` is app-firebolt-v2, `<org_name>` is the name of organization provider and `<provider>` is the provider value set in Firebolt configuration step. **Example:** ```urn:auth0:app-firebolt-v2:vsko-okta```
 5. Save the configuration.
 6. Open the details of the created app integration, and select the **SAML** tab. Click **More details** to expand additional information.
