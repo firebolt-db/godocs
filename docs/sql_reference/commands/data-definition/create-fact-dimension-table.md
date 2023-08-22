@@ -57,14 +57,14 @@ Firebolt supports the column constraints shown below.
 | :-------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------- |
 | `DEFAULT <expr>`     | Determines the default value that is used instead of NULL value is inserted.                                                                                                                                               |               |
 | `NULL` \| `NOT NULL` | Determines if the column may or may not contain NULLs.                                                                                                                                                                     | `NOT NULL`    |
-| `UNIQUE`             | This is an optimization hint to tell Firebolt that this column will be queried for unique values, such as through a `COUNT(DISTINCT)` function or as part of a join index. This will not raise an error if a non-unique value is added to the column.  However, if the column contains non-unique values, joins on that column can return incorrect results.  This attribute should not be applied to columns that do not have non-unique values.  |               |
+| `UNIQUE`             | This is an optimization hint to tell Firebolt that this column will be queried for unique values, such as through a `COUNT(DISTINCT)` function. This will not raise an error if a non-unique value is added to the column.  However, if the column contains non-unique values, joins on that column can return incorrect results.  This attribute should not be applied to columns that do not have non-unique values.  |               |
 
 {: .note}
-Note that nullable columns can not be used in Firebolt indexes (Primary, Aggregating or Join indexes).
+Note that nullable columns can not be used in Firebolt indexes (Primary, or Aggregating indexes).
 
 ### Example&ndash;Creating a table with nulls and not nulls
 
-This example illustrates different use cases for column definitions and INSERT statements.
+This example illustrates different use cases for column definitions and `INSERT` statements.
 
 * **Explicit NULL insert**&ndash;a direct insertion of a `NULL` value into a particular column.
 * **Implicit NULL insert**&ndash;an `INSERT` statement with missing values for a particular column.
