@@ -43,11 +43,11 @@ Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics
     <div class="img-fluid"><img src="assets/images/docs_whitepaper_illustration.png" alt="Reference" width=200px height=200px></div>
     <h2>Reference</h2>
     <p><a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/">SQL reference</a>
-    <br><li><a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/information-schema/information-schema-and-usage-views.html">Information schema</a></li>
-    <br><li><a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/data-types.html">Data types</a></li>
-    <br><li><a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/operators.html">Operators</a></li>
-    <br><li><a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/commands/">SQL commands</a></li>
-    <br><li><a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/functions-reference/functions-reference.html">SQL functions</a></li>
+    <br>&emsp;<a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/information-schema/information-schema-and-usage-views.html">Information schema</a>
+    <br>&emsp;<a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/data-types.html">Data types</a>
+    <br>&emsp;<a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/operators.html">Operators</a>
+    <br>&emsp;<a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/commands/">SQL commands</a>
+    <br>&emsp;<a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/functions-reference/functions-reference.html">SQL functions</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/release-notes/release-notes.html">Release Notes</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/available-engine-specs.html">Engine specifications</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/available-regions.html">Available regions</a>
