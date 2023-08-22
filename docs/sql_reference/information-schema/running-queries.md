@@ -29,7 +29,7 @@ Each row has the following columns with information about each running query.
 | engine_name                 | TEXT    | The name of the engine that was used to execute the query. |
 | account_id                  | TEXT    | The ID of the account in which the query was executed. |
 | user_id                     | TEXT    | The user ID that was used to execute the query. |
-| start_time                  | TIMESTAMP | The query execution start time (UTC). |
+| start_time                  | TIMESTAMPTZ | The query execution start time (UTC). |
 | status                      | TEXT    | The status of the query. Always contains the value 'RUNNING'. |
 | duration_usec               | BIGINT    | The elapsed time in microseconds between `<START_TIME>` and the time that the query over ` information_schema.running_queries` returns results. |
 | query_id                    | TEXT    | The unique identifier of the SQL query. |

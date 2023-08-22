@@ -29,8 +29,8 @@ Each row has the following columns with information about the role.
 | service_account_name | TEXT      | Name of the service account.                                               |
 | network_policy_name  | TEXT      | Name of the network policy used by this service account. |
 | description     | TEXT      | Description of the service account.                                        |
-| created         | TIMESTAMP | Creation time of the service account.                                      |
+| created         | TIMESTAMPTZ | Creation time of the service account.                                      |
 | service_account_owner      | TEXT      | Name of the login that created the service account. |
-| last_altered    | TIMESTAMP | Time the service account was last altered.                                 |
+| last_altered    | TIMESTAMPTZ | Time the service account was last altered.                                 |
 | last_altered_by | TEXT      | Name of the last login to edit the service account.                         |
 

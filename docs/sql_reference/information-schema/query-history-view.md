@@ -30,8 +30,8 @@ Each row has the following columns with information about each query in query hi
 | engine_name                 | TEXT      | The name of the engine that was used to execute the query. |
 | account_id                  | TEXT      | The ID of the account in which the query was executed. |
 | user_id                     | TEXT      | The user ID that was used to execute the query. |
-| start_time                  | TIMESTAMP | The query execution start time (UTC). |
-| end_time                    | TIMESTAMP | The query execution end time (UTC). |
+| start_time                  | TIMESTAMPTZ | The query execution start time (UTC). |
+| end_time                    | TIMESTAMPTZ | The query execution end time (UTC). |
 | duration_usec               | BIGINT    | Duration of query execution (in microseconds). |
 | status                      | TEXT      | Can be one of the following values:<br>`STARTED_EXECUTION`&ndash;Successful start of query execution.<br>`ENDED_SUCCESSFULLY`&ndash;Successful end of query execution. <br>`CANCELED_EXECUTION`&ndash;Query cancelled during execution. <br>`PARSE_ERROR`&ndash;Exception before the start of query execution.<br>`EXECUTION_ERROR`&ndash;Exception during query execution. |
 | query_id                    | TEXT      | The unique identifier of the SQL query. |

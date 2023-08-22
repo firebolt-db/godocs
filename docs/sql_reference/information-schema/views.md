@@ -30,6 +30,6 @@ Each row has the following columns with information about each view.
 | check_option                | NULL        | Not applicable for Firebolt. |
 | is_updatable                | NULL        | Not applicable for Firebolt. |
 | insertable_into             | NULL        | Not applicable for Firebolt. |
-| created                     | TIMESTAMP   | The time that the view was created. |
-| last_altered                | TIMESTAMP   | The time that the view was last changed. |
+| created                     | TIMESTAMPTZ   | The time that the view was created. |
+| last_altered                | TIMESTAMPTZ   | The time that the view was last changed. |
 | description                 | NULL        | Not applicable for Firebolt. |

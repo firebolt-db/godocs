@@ -34,8 +34,8 @@ Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/working-with-semi-structured-data/working-with-semi-structured-data.html">Work with semi-structured data</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/working-with-indexes.html">Work with indexes</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/exporting-query-results.html">Export data</a>
-    <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/using-the-sql-editor/using-the-sql-editor.html">Use the SQL editor</a>
-    <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/using-the-sql-editor/using-the-cli.html">Use the CLI</a>
+    <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/using-the-sql-editor/using-the-sql-editor.html">Use the SQL editor</a>
+    <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/using-the-sql-editor/using-the-cli.html">Use the CLI</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/developing-with-firebolt/">Develop with Firebolt</a>
     <br><strong><a href="https://special-disco-436d3e6a.pages.github.io/Guides/integrations/">Integrations</a></strong></p>
   </div>
