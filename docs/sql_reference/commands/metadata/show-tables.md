@@ -35,3 +35,22 @@ The returned table has the following columns.
 | size_uncompressed           | DOUBLE PRECISION | The uncompressed size of the table. |
 | compression_ratio           | DOUBLE PRECISION | The compression ratio (`<size_uncompressed>`/`<size>`). |
 | number_of_tablets           | INTEGER         | The number of tablets comprising the table. |
+
+## Example
+
+The following example highlights a table with descriptive columns: 
+
+```sql
+SHOW TABLES;
+```
+## Example
+
+The following example highlights tables with descriptive columns: 
+
+```sql
+SHOW TABLES;
+```
+
+| table_name |	state |	table_type |	column_count |	primary_index |	schema |	number_of_rows |	size	| size_uncompressed	| compression_ratio	| number_of_tablets|
+|:---|:-----|:----|:-----|:-----|:-----|:-----|:------|:------|:-----|:-----|
+| ex_games |	Valid |	EXTERNAL |	1 |		"CREATE EXTERNAL TABLE IF NOT EXISTS ""ex_games"" (""src"" text NOT NULL) | ""OBJECT_PATTERN"" = 'help_center_assets/firebolt_sample_dataset/games.json' ""TYPE"" = (""JSON"" ""PARSE_AS_TEXT"" = 'TRUE') ""URL"" = 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/'" |	0 |	0.00 B |	0.00 B |	0	|0|
