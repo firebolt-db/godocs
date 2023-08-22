@@ -58,7 +58,7 @@ If a `TIMESTAMPTZ` literal has an explicit time zone specified, it is converted 
 If not, Firebolt uses the session's `time_zone` setting and assumes the `TIMESTAMPTZ` literal is in that time zone.
 The default value of the `time_zone` setting is UTC.
 To check what time zone is set, use [`SELECT TIMEZONE()`](../sql_reference/functions-reference/date-and-time/timezone.md).
-To set it to, e.g., `Europe/Berlin`, you can issue: `SET time_zone = 'Europe/Berlin';`. For more information, see [system settings](system-settings.md#set-time-zone).
+To set it to, e.g., `Europe/Berlin`, you can issue: `SET time_zone = 'Europe/Berlin';`. For more information, see [system settings](../Reference/system-settings.md#set-time-zone).
 
 If only the date is specified, the time is assumed to be `00:00:00.000000`.
 
@@ -172,7 +172,7 @@ SELECT TIMESTAMPTZ '2022-10-30 Europe/Berlin' + interval '1 day';  --> 2022-10-3
 SELECT TIMESTAMPTZ '2022-10-30 Europe/Berlin' + interval '24' hour;  --> 2022-10-30 15:00:00-07
 ```
 
-For more information, see [Arithmetic with intervals](interval-arithmetic.md).
+For more information, see [Arithmetic with intervals](../Reference/interval-arithmetic.md).
 
 ## Serialization and deserialization
 

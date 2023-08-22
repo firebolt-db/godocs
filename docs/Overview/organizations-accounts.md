@@ -11,7 +11,7 @@ parent: Overview
 
 With organizations, achieve a seamless separation between different accounts within your organization. Additionally, benefit from consolidated billing, unified authentication, and efficient account management across all accounts. 
 
-Learn more about registering with Firebolt and creating your organization [here](../Guides/managing-your-organization/creating-an-account.md).
+Learn more about registering with Firebolt and creating your organization [here](../Guides/managing-your-organization/creating-an-organization.md).
 
 * Topic ToC
 {: toc}
@@ -39,7 +39,7 @@ Organizations help enforce advanced authentication security policies and ensure 
 Access control within an account is managed with roles. Roles determine users' access level within an account. By assigning roles to users, admins can control their permissions to perform actions on databases, tables, views, and other objects within the account. This set up allow data governance: regularly reviewing and updating [role-base access control (RBAC)](../Guides/managing-your-organization/rbac.md) at the account level helps you remain in conformance with industry regulations and internal standards, and ensures that data are handled, stored, and accessed in a manner that meets compliance requirements.
 
 ### Single Sign-On (SSO)
-Firebolt offers [Single Sign-On (SSO)](../Guides/managing-your-organization/sso.md) functionality, allowing users to log in to the organization using their existing enterprise credentials. This authentication option provides: 
+Firebolt offers [Single Sign-On (SSO)](../Guides/managing-your-organization/sso/sso.md) functionality, allowing users to log in to the organization using their existing enterprise credentials. This authentication option provides: 
 - **Seamless login experience:** With SSO, users can log in to Firebolt using their enterprise credentials, eliminating the need to remember and manage separate login credentials.
 - **Centralized user management:** SSO allows you to manage user access and authentication centrally, simplifying user onboarding and offboarding processes. 
 - **Enhanced security:** SSO helps enforce strong authentication standards, and reduces the risk of unauthorized access by leveraging enterprise-grade authentication mechanisms. 
@@ -47,8 +47,8 @@ Firebolt offers [Single Sign-On (SSO)](../Guides/managing-your-organization/sso.
 ### Network Policies and Multi-Factor Authentication (MFA)
 Firebolt enforces network policies and provides multi-factor authentication (MFA) at the organization level to enhance security. This allows: 
 
-- **Network policies:** [Network policies] help you define and enforce rules regarding inbound and outbound network traffic. This allows you to restrict access to your Firebolt objects based on IP ranges (subnets) or other network-specific parameters. Network policies can be configured for the entire organization, per login, or per service account for more granular restrictions to protect against potential security threats.
-- **Multi-Factor Authentication (MFA):** Firebolt supports [multi-factor authentication] at the organization level, adding an extra layer of security to the authentication process and reducing the risk of unauthorized access even if passwords are compromised by requiring users to provide a verification code along with their login credentials. 
+- **Network policies:** [Network policies](../Guides/managing-your-organization/network-policies.md) help you define and enforce rules regarding inbound and outbound network traffic. This allows you to restrict access to your Firebolt objects based on IP ranges (subnets) or other network-specific parameters. Network policies can be configured for the entire organization, per login, or per service account for more granular restrictions to protect against potential security threats.
+- **Multi-Factor Authentication (MFA):** Firebolt supports [multi-factor authentication](../Guides/managing-your-organization/enabling-mfa.md) at the organization level, adding an extra layer of security to the authentication process and reducing the risk of unauthorized access even if passwords are compromised by requiring users to provide a verification code along with their login credentials. 
 
 ## Billing
 Firebolt provides billing at the organization level, but gives you billing observability at both organization and account levels. This allows: 

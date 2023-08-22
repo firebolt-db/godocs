@@ -14,7 +14,7 @@ parent: SQL reference
 
 ## :: operator for CAST
 
-Use can use the `::` operator instead of the [CAST](../sql-reference/functions-reference/cast.md) function to convert one [data type](./data-types.md) to another.
+Use can use the `::` operator instead of the [CAST](../sql_reference/functions-reference/conditional-and-miscellaneous/cast.md) function to convert one [data type](data-types.md) to another.
 
 ### Syntax
 {: .no_toc}
@@ -29,7 +29,7 @@ Use can use the `::` operator instead of the [CAST](../sql-reference/functions-r
 | Component |Description|
 |:----------|:----------|
 | `<value>` | The value to convert or an expression that results in a value to convert. Can be a column name,  a function applied to a column or another function, or a literal value. |
-| `<type>`  | The target [data type](./data-types.md) (case-insensitive).|
+| `<type>`  | The target [data type](data-types.md) (case-insensitive).|
 
 ### Example
 {: .no_toc}

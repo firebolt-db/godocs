@@ -15,7 +15,7 @@ grand_parent: Guides
 
 You can use Firebolt *visual explain* in the SQL editor to analyze query execution plans. Analyzing query plans helps you identify opportunities to improve query performance by changing index configurations, joins, query structure, and more.
 
-You can use the [EXPLAIN statement](../sql-reference/commands/explain.md) to open visual explain without running the actual query. In the script tab, enter `EXPLAIN <query_statement_to_analyze>`, and then choose **Run script**.
+You can use the [EXPLAIN statement](../../sql_reference/commands/queries/explain.md) to open visual explain without running the actual query. In the script tab, enter `EXPLAIN <query_statement_to_analyze>`, and then choose **Run script**.
 
 You can also open visual explain after you run a query statement.
 
@@ -56,7 +56,7 @@ Firebolt shows a list of query execution plan nodes (or steps) in descending ord
 
 ![](../assets/images/explain_list_view.png)
 
-When you choose the copy icon, JSON for the explain output is copied to the clipboard. For an example of JSON output, see [EXPLAIN](../sql-reference/commands/explain.md).
+When you choose the copy icon, JSON for the explain output is copied to the clipboard. For an example of JSON output, see [EXPLAIN](../../sql-reference/commands/queries/explain.md).
 
 ### Diagram view
 
@@ -68,7 +68,7 @@ The control panel allows you to change the default resolution for viewing operat
 
 To view all operations for a node, choose the expansion arrow in the title bar for the node table.
 
-When you choose the copy icon, JSON for the explain output is copied to the clipboard. For an example of JSON output, see [EXPLAIN](../sql-reference/commands/explain.md).
+When you choose the copy icon, JSON for the explain output is copied to the clipboard. For an example of JSON output, see [EXPLAIN](../../sql-reference/commands/queries/explain.md).
 
 ### Text view
 

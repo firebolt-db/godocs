@@ -10,7 +10,7 @@ grand_parent: Guides
 # Load data incrementally using Airflow
 {: .no_toc}
 
-This tutorial describes a way to incrementally load data into Firebolt using [Apache Airflow](https://airflow.apache.org/docs/apache-airflow/stable/index.html) to schedule recurring runs of an `INSERT INTO` SQL script. The script works by loading only those records from Amazon S3 files with timestamps later than those already loaded.
+This tutorial describes a way to incrementally load data into Firebolt using [Apache Airflow](https://airflow.apache.org/docs/apache-airflow/stable/index.html) to schedule recurring runs of an `INSERT` statement. The script works by loading only those records from Amazon S3 files with timestamps later than those already loaded.
 
 ## Prerequisites
 {: .no_toc}
@@ -62,7 +62,7 @@ CREATE FACT TABLE IF NOT EXISTS lineitem_detailed
 
 To get started connecting Airflow to Firebolt, use the Apache Airflow provider package for Firebolt, `airflow-provider-firebolt`. For more information, including requirements to set up the connection, see [Connecting to Airflow](../integrations/data-orchestration/airflow.md).
 
-## Create and save an INSERT INTO script
+## Create and save an INSERT script
 
 An Airflow DAG consists of tasks, and tasks can run SQL in Firebolt. The DAG you create in the next step references the SQL script below, which you save locally as a file. The script uses the `source_file_name` and `source_file_timestamp` metadata virtual columns to determine the records to load from Amazon S3. The `WHERE` clause filters records so that Firebolt loads only those with file timestamps later than any already in the table.
 

@@ -55,13 +55,13 @@ Recall that we want the target Firebolt table named `visits` to have columns and
 
 ## Extracting top-level scalars and arrays
 
-For the top-level keys (`id`, `Duration`, and `tags`), the task is straightforward using the [JSON_EXTRACT](../sql-reference/functions-reference/json-extract.md) function. Although "StartTime" is also a scalar field, because there is no native DATETIME type in JSON type system, it requires an additional step.
+For the top-level keys (`id`, `Duration`, and `tags`), the task is straightforward using the [JSON_EXTRACT](../../sql_reference/functions-reference/JSON/json-extract.md) function. Although "StartTime" is also a scalar field, because there is no native DATETIME type in JSON type system, it requires an additional step.
 
 `JSON_EXTRACT` accepts the following parameters:
 
 * An expression that resolves to a JSON document.
-* A [JSON pointer expression](../sql-reference/functions-reference/index.md#json-pointer-expression-syntax) that specifies how to extract the value from the JSON object.
-* A type specifier that indicates the Firebolt data type that the function returns. This type should correspond to the JSON type that the pointer references. For more information, see [Supported type parameters](../sql-reference/functions-reference/index.md#supported-type-parameters).
+* A [JSON pointer expression](../../sql_reference/functions-reference/JSON/index.md#json-pointer-expression-syntax) that specifies how to extract the value from the JSON object.
+* A type specifier that indicates the Firebolt data type that the function returns. This type should correspond to the JSON type that the pointer references. For more information, see [Supported type parameters](../../sql_reference/functions-reference/JSON/index.md#supported-type-parameters).
 
 Firebolt's native support for arrays makes the extraction of `tags` as simple as other scalar types.
 
@@ -97,13 +97,13 @@ FROM
 
 We need to take the JSON keys of the sub-object `user_agent`, along with their corresponding values, and reshape them as two coordinated arrays.
 
-We can use the functions [JSON_EXTRACT_KEYS](../sql-reference/functions-reference/json-extract-keys.md) and [JSON_EXTRACT_VALUES](../sql-reference/functions-reference/json-extract-values.md) to achieve this.
+We can use the functions [JSON_EXTRACT_KEYS](../../sql_reference/functions-reference/JSON/json-extract-keys.md) and [JSON_EXTRACT_VALUES](../../sql_reference/functions-reference/JSON/json-extract-values.md) to achieve this.
 
 `JSON_EXTRACT_KEYS` returns the keys under the sub-object indicated by the JSON pointer. `JSON_EXTRACT_VALUES` returns the values of this sub-object *as strings*. That means that if a key contains an arbitrarily nested sub-object, the whole object is returned as a single `TEXT` element in the resulting array.
 
 ### Putting it all together
 
-The following statement takes the raw JSON input and uses `INSERT INTO` to load the results into the table `visits`. The result is provided as an illustration, since an `INSERT INTO ...` returns only the number of affected rows.
+The following statement takes the raw JSON input and uses `INSERT` to load the results into the table `visits`. The result is provided as an illustration, since an `INSERT` returns only the number of affected rows.
 
 ```sql
 INSERT INTO
@@ -119,7 +119,7 @@ FROM
   doc_visits_source
 ```
 
-Result \(if the script whould have been excecuted without the `INSERT INTO` clause\):
+Result \(if the script whould have been excecuted without the `INSERT` clause\):
 
 | id | StartTime | duration | tags | agent\_props\_keys | agent\_props\_vals |
 | :--- | :--- | :--- | :--- | :--- | :--- |

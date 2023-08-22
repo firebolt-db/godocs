@@ -71,7 +71,7 @@ Each table has only one primary index, which is optional. You can have as many a
 
 ## Firebolt maintains indexes automatically
 
-After you define an index for a table, Firebolt updates the index on the general purpose engine that you use to ingest data (the engine that runs the `INSERT INTO` statement). You don’t need to manually maintain or recreate indexes as you incrementally ingest data.
+After you define an index for a table, Firebolt updates the index on the general purpose engine that you use to ingest data (the engine that runs the `INSERT` statement). You don’t need to manually maintain or recreate indexes as you incrementally ingest data.
 
 
 ## Additional resources

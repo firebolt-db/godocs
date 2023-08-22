@@ -138,7 +138,7 @@ Firebolt uses cookies in your client to save the state of unsaved scripts automa
 
 ## Running scripts and working with results
 
-At the bottom of each script tab, you can choose **Run script** to execute SQL statements. SQL statements can only run on running engines. If an engine isn't running, you can select it from the list and then choose the **Start** button for that engine. For more information about engines, see [Working with engines](../working-with-engines/index.md).
+At the bottom of each script tab, you can choose **Run script** to execute SQL statements. SQL statements can only run on running engines. If an engine isn't running, you can select it from the list and then choose the **Start** button for that engine. For more information about engines, see [Working with engines](../working-with-engines/).
 
 You can run all statements in a script or select snippets of SQL to run.
 
@@ -166,7 +166,7 @@ When running a query, Firebolt provides several statistics to help you understan
 | ![](../assets/images/Elapsed_time.png)  | **Elapsed Time**  | The total time needed to complete a query. |
 | ![](../assets/images/Scanned_bytes.png) | **Scanned Bytes** | The total amount of bytes scanned to complete a query. This includes scanned memory in the engine cache as well as the F3 storage. |
 | ![](../assets/images/Rows_Second.png)   | **Rows / Second** | The number of rows scanned per second. |
-| ![](../assets/images/Warm_data.png)     | **Cached data ratio** | The percentage of data served from cache (engine SSD and RAM) rather than F3 storage. Equal to `<cached_bytes_scanned>`/`<total_bytes_scanned>`. Cached data is scanned very quickly. A high percentage indicates improved query response times. A low percentage indicates that query performance could be improved by [configuring indexes](../using-indexes/using-indexes.md), changing your [warmup method](../working-with-engines/understanding-engine-fundamentals.md#warmup-method), or [changing the spec of your engine](../working-with-engines/choosing-an-engine.md) to have a bigger cache. |
+| ![](../assets/images/Warm_data.png)     | **Cached data ratio** | The percentage of data served from cache (engine SSD and RAM) rather than F3 storage. Equal to `<cached_bytes_scanned>`/`<total_bytes_scanned>`. Cached data is scanned very quickly. A high percentage indicates improved query response times. A low percentage indicates that query performance could be improved by [configuring indexes](../../Overview/using-indexes.md), changing your [warmup method](../../Overview/understanding-engine-fundamentals.md#warmup-method), or [changing the spec of your engine](../../Overview/choosing-an-engine.md) to have a bigger cache. |
 
 ### Viewing query statistics with results
 
@@ -176,7 +176,7 @@ To view query statistics, choose the expansion arrow to the left of a result tab
 
 ![](../assets/images/column_statistics.png)
 
-Each column expands to show statistics on a new row located just below the header. The statistics shown in each cell depend on the column’s [data type](../general-reference/data-types.md).
+Each column expands to show statistics on a new row located just below the header. The statistics shown in each cell depend on the column’s [data type](../../sql_reference/data-types.md).
 
 | Data type   | Statistics displayed in cell |
 | :---------- | :--------------------------- |

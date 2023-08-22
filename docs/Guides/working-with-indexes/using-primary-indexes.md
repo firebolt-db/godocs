@@ -22,7 +22,7 @@ The video below explains sparse indexing. Eldad Farkash is the CEO of Firebolt.
 
 ## How you create a primary index
 
-To define a primary index, you use the `PRIMARY INDEX` clause within a [`CREATE TABLE`](../sql-reference/commands/create-fact-dimension-table.md) statement. Although they are optional, we strongly recommend them.
+To define a primary index, you use the `PRIMARY INDEX` clause within a [`CREATE TABLE`](../../sql-reference/commands/data-definition/create-fact-dimension-table.md) statement. Although they are optional, we strongly recommend them.
 
 The basic syntax of a `PRIMARY INDEX` clause within a `CREATE TABLE` statement is shown in the example below.
 
@@ -108,7 +108,7 @@ Conversely, on the dimension table side, there is no benefit to including the jo
 
 In most cases, partitioning isn’t necessary because of the efficiency of primary indexes (and aggregating indexes). If you use partitions, the partition column is the first stage of sorting. Firebolt divides the table data into file segments according to the `PARTITION BY` definition. Then, within each of those segments, Firebolt applies the primary index to prune and sort the data into even smaller data ranges as described above.
 
-For more information, see [Working with partitions](../working-with-partitions.html).
+For more information, see [Working with partitions](../../Overview/working-with-tables/working-with-partitions.md).
 
 ## Primary index examples
 
