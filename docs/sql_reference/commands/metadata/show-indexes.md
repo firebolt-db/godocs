@@ -31,3 +31,14 @@ The returned table has the following columns.
 | size_uncompressed           | DOUBLE PRECISION  | The uncompressed size of the index in bytes. |
 | compression_ratio           | DOUBLE PRECISION  | The compression ratio (`<size_uncompressed>`/`<size_compressed>`).
 | number_of_segments          | INTEGER      | The number of segments comprising the table. |
+
+## Example
+
+The following example highlights indexes with descriptive columns: 
+
+```sql
+SHOW INDEXES;
+```
+| index_name | table_name |	type |	expression |	size_compressed |	size_uncompressed |	compression_ratio |	number_of_tablets |
+|:-----|:-----|:----|:------|:-----|:-----|:-------|:------|
+| players_join_idx |	players	| join |	["playerid","nickname","email","agecategory"]	| 819.98 KiB	| 819.98 KiB	| 1	| 0 |
