@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Available AWS Regions
-description: Provides the AWS Regions available in Firebolt.
+title: Available AWS regions
+description: Provides the AWS regions available in Firebolt.
 nav_order: 9
 parent: General reference
 ---
 
-# Available AWS Regions
+# Available AWS regions
 
 Firebolt is available in the AWS Regions listed below. To request additional regions, contact Firebolt Support through the Help menu support form. 
 
