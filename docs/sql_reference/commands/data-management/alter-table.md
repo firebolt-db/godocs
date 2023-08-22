@@ -1,15 +1,15 @@
 ---
 layout: default
-title: ALTER TABLE...DROP PARTITION
-description: Reference and syntax for the ALTER TABLE...DROP PARTITION command.
+title: ALTER TABLE
+description: Reference and syntax for the ALTER TABLE command.
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Data management
 ---
 
-# ALTER TABLE...DROP PARTITION
+# ALTER TABLE
 
-Use `ALTER TABLE...DROP PARTITION` to delete a partition from a fact or dimension table.
+Use `ALTER TABLE` to delete a partition from a fact or dimension table.
 
 {: .warning}
 Dropping a partition deletes the partition and the data stored in that partition.
