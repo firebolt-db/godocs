@@ -3,7 +3,7 @@ layout: default
 title: Use the CLI
 description: Learn to install, configure, and use the Firebolt CLI.
 parent: Guides
-nav_order: 5
+nav_order: 8
 ---
 
 # Use the Firebolt CLI  

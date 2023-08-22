@@ -2,7 +2,7 @@
 layout: default
 title: Export data
 parent: Guides
-nav_order: 8 
+nav_order: 6
 ---
 
 # Export data

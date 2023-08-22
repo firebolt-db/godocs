@@ -2,8 +2,9 @@
 layout: default
 title: Keyboard shortcuts for the SQL editor
 description: Reference for efficient keyboard shortcuts when working in the Firebolt SQL editor.
-nav_order: 1
-parent: Reference
+nav_order: 6
+parent: Use the SQL editor
+grand_parent: Guides
 ---
 
 # Keyboard shortcuts for the SQL editor

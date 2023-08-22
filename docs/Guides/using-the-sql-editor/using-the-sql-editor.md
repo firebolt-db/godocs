@@ -3,7 +3,7 @@ layout: default
 title: Use the SQL editor
 description: Learn how to navigate and use the SQL editor to work with your Firebolt database.
 parent: Guides
-nav_order: 4
+nav_order: 7
 has_children: true
 has_toc: false
 ---

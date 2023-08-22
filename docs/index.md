@@ -35,20 +35,19 @@ Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/working-with-indexes.html">Work with indexes</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/exporting-query-results.html">Export data</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/using-the-sql-editor/using-the-sql-editor.html">Use the SQL editor</a>
+    <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/using-the-sql-editor/using-the-cli.html">Use the CLI</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/developing-with-firebolt/">Develop with Firebolt</a>
-    <br><strong><a href="https://special-disco-436d3e6a.pages.github.io/Guides/integrations/">Integrations</a></strong>
-     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/using-the-sql-editor/using-the-cli.html">Use the CLI</a></p>
+    <br><strong><a href="https://special-disco-436d3e6a.pages.github.io/Guides/integrations/">Integrations</a></strong></p>
   </div>
   <div class="column">
     <div class="img-fluid"><img src="assets/images/docs_whitepaper_illustration.png" alt="Reference" width=200px height=200px></div>
     <h2>Reference</h2>
-    <p><a href="https://special-disco-436d3e6a.pages.github.io/Reference/release-notes/release-notes.html">Release Notes</a>
-    <br><a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/">SQL reference</a>
-    <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/data-types.html">Data types</a>
-    <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/information-schema/information-schema-and-usage-views.html">Information schema</a>
+    <p><br><a href="https://special-disco-436d3e6a.pages.github.io/sql_reference/">SQL reference</a>
+    <a href="https://special-disco-436d3e6a.pages.github.io/Reference/release-notes/release-notes.html">Release Notes</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/available-engine-specs.html">Engine specifications</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/available-regions.html">Available regions</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/system-settings.html">System settings</a>
-    <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/identifier-requirements.html">Object identifiers</a></p>
+    <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/identifier-requirements.html">Object identifiers</a>
+    <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/reserved-words.html">Reserved words</a></p>
   </div>
 </div>
