@@ -5,9 +5,10 @@ description: Learn how to connect dbt to Firebolt.
 nav_order: 4
 parent: Data integration and transformation
 grand_parent: Integrations
+great_grand_parent: Guides
 ---
 
-# Connecting with dbt
+# Connect with dbt
 
 [dbt](https://www.getdbt.com) (data build tool) is a modern development framework that enables data analysts and data engineers to transform data by writing select statements. dbt handles turning these select statements into tables and views.
 

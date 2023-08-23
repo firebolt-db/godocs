@@ -4,9 +4,10 @@ title: Tableau
 description: Learn how to connect Tableau to Firebolt.
 parent: Business intelligence
 grand_parent: Integrations
+great_grand_parent: Guides
 ---
 
-# Connecting Tableau to Firebolt
+# Connect Tableau to Firebolt
 
 Tableau is a leading data visualization and business intelligence platform that allows anyone to see and understand their data. When connected to Firebolt, Tableau delivers sub-second query speeds on live connections, thus enabling truly interactive analytics experiences without needing to compromise on data volume, freshness, or latency.
   
@@ -24,12 +25,12 @@ Once the connector is installed, you can create a new connection to Firebolt fro
 
 | Field       | Required | Description                                                                                        |
 |-------------|----------|----------------------------------------------------------------------------------------------------|
-| Server      | Yes      | The host to connect to, which is api.app.firebolt.io.                                              |
-| Engine      | No       | The name (not the URL) of the Firebolt engine to use. If omitted, the default engine will be used. |
-| Account     | No       | Your Firebolt account.                                                                             |
-| Database    | Yes      | The name of your Firebolt database.                                                                |
 | Username    | Yes      | Your Firebolt username.                                                                            |
 | Password    | Yes      | Your Firebolt password.                                                                            |
+| Account     | No       | Your Firebolt account.                                                                             |
+| Database    | Yes      | The name of your Firebolt database.                                                                |
+| Engine Name | No       | The name (not the URL) of the Firebolt engine to use. If omitted, the default engine will be used. |
+| Host        | Yes      | The host to connect to, which is api.app.firebolt.io.                                              |
 
 
 ## Supported Features

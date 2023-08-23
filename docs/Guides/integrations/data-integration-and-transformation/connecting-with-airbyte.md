@@ -5,9 +5,10 @@ description: Connecting Airbyte to Firebolt
 nav_order: 2
 parent: Data integration and transformation
 grand_parent: Integrations
+great_grand_parent: Guides
 ---
 
-# Connecting Airbyte to Firebolt  
+# Connect Airbyte to Firebolt  
 
 [Airbyte](https://www.airbyte.com/) is an open-source data pipeline platform with a focus on building and maintaining connectors. Their open-source model creates a community where users can support one another by building and maintaining their own custom connectors. Connectors on Airbyte run in Docker containers so they can operate independently, enabling easy monitoring and updates.
 

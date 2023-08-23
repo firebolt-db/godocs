@@ -2,12 +2,12 @@
 layout: default
 title: Role-based access control (RBAC)
 description: Learn about managing RBAC authorization for Firebolt users.
-parent: Managing your organization
+parent: Manage your organization
 nav_order: 7
 grand_parent: Guides
 ---
 
-# Managing role-based access control
+# Manage role-based access control
 {: .no_toc}
 
 Role-based access control provides the ability to control privileges and determine who can access and perform operations on specific objects in Firebolt. Access privileges are assigned to roles which are, in turn, assigned to users. 

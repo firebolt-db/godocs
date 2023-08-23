@@ -5,9 +5,10 @@ description: Learn how to connect Rivery to Firebolt.
 nav_order: 9
 parent: Data integration and transformation
 grand_parent: Integrations
+great_grand_parent: Guides
 ---
 
-# Connecting to Rivery
+# Connect to Rivery
 
 [Rivery](https://rivery.io) is a SaaS platform that provides data ingestion, tranformation, orchestration, and reverse ETL for enterprise data operations and deployment workflows. The Rivery connector for Firebolt allows you to add a Firebolt database as a Rivery [target](https://docs.rivery.io/docs/targets-overview).
 

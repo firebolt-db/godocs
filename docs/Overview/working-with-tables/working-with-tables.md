@@ -4,7 +4,8 @@ title: Working with tables
 description: Learn about external tables, fact tables, and dimension tables in Firebolt and how to use them.
 parent: Overview
 nav_order: 5
-
+has_children: true
+has_toc: false
 ---
 # Working with tables
 
@@ -52,7 +53,6 @@ CREATE DIMENSION TABLE dim_product
     product_name      TEXT,
     product_category  TEXT,
     brand             TEXT
-);
-```
+);```
 
-For more information, see [CREATE FACT\|DIMENSION TABLE](../sql_reference/commands/database-objects/create-fact-dimension-table.md).
+For more information, see [CREATE FACT\|DIMENSION TABLE](../sql_reference/commands/data-definition/create-fact-dimension-table.md)

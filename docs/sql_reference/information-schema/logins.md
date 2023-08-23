@@ -2,7 +2,7 @@
 layout: default
 title: Logins
 description: Use this reference to learn about the metadata available for Firebolt logins using the information schema.
-parent: Information schema and usage views
+parent: Information schema
 grand_parent: SQL reference
 ---
 
@@ -34,8 +34,8 @@ Each row has the following columns with information about each login.
 | is_sso_provisioned          | BOOLEAN   | Specifies if the login was provisioned with an identity provider defined in the organization's SSO configuration. |
 | is_password_enabled         | BOOLEAN   | Specifies if log in with password is enabled. |
 | is_organization_admin       | BOOLEAN   | Specifies if the login is an organization admin. |
-| created                     | TIMESTAMP | Time the login was created. |
+| created                     | TIMESTAMPTZ | Time the login was created. |
 | login_creator               | TEXT      | Name of the login who created the login. If the login was created by a service account, the service account name appears instead. |
-| last_altered                | TIMESTAMP | Time the login was last altered. |
+| last_altered                | TIMESTAMPTZ | Time the login was last altered. |
 | last_altered_by             | TEXT       | Name of the last user to edit the login. | 
 

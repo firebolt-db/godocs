@@ -3,7 +3,7 @@ layout: default
 title: Using indexes
 description: Understand the types of indexes in Firebolt and their role in accelerating query performance and efficiency.
 parent: Overview
-nav_order: 5
+nav_order: 6
 ---
 
 # Using Firebolt indexes
@@ -12,8 +12,8 @@ Firebolt indexes are designed to improve query performance and increase compute 
 
 Firebolt offers built-in join accelerators, as well as two types of user-managed indexes:
 
-* [Primary indexes](index-quick-reference.md#primary-indexes)
-* [Aggregating indexes](index-quick-reference.md#aggregating-indexes)
+* [Primary indexes](../Guides/working-with-indexes/using-primary-indexes.md)
+* [Aggregating indexes](../Guides/working-with-indexes/using-aggregating-indexes.md)
 
 ## Primary indexes
 
@@ -71,7 +71,7 @@ Each table has only one primary index, which is optional. You can have as many a
 
 ## Firebolt maintains indexes automatically
 
-After you define an index for a table, Firebolt updates the index on the general purpose engine that you use to ingest data (the engine that runs the `INSERT INTO` statement). You don’t need to manually maintain or recreate indexes as you incrementally ingest data.
+After you define an index for a table, Firebolt updates the index on the general purpose engine that you use to ingest data (the engine that runs the `INSERT` statement). You don’t need to manually maintain or recreate indexes as you incrementally ingest data.
 
 
 ## Additional resources

@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Architecture overview
+title: Architecture
 description: Discover how the decoupled compute and storage architecture of the Firebolt data warehouse enables sub-second query performance on terabyte-scale data sets.
 parent: Overview
 nav_order: 1
 ---
 
-# Firebolt architecture overview
+# Firebolt architecture
 
 The diagram below depicts Firebolt’s high-level architecture, which comprises a services layer and decoupled storage and compute layers. This topic describes each layer.
 

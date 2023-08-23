@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Available engine specs
-description: Provides engine spec's available in Firebolt.
-nav_order: 8
+title: Engine specifications
+description: Provides engine specs available in Firebolt.
+nav_order: 2
 parent: General reference
 ---
 
-# Available Firebolt engine specs
+# Available Firebolt engine specifications
 
 The engine specs listed below are available in Firebolt. For more information, see [Working with engines](../Guides/working-with-engines/).
 

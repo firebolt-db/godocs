@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Object Privileges
+title: Object privileges
 description: Use this reference to learn about the metadata available about privileges using the information schema.
-parent: Information schema and usage views
+parent: Information schema
 grand_parent: SQL reference
 ---
 
@@ -33,4 +33,4 @@ Each row has the following columns with information about the role.
 | object_type    | TEXT      | Type of the object on which the privilege is granted.             |
 | privilege_type | TEXT      | Defaulted to "USAGE" as this views shows only usage privilege.    |
 | is_grantable   | TEXT      | YES if the privilege is grantable, NO if not.                     |
-| created        | TIMESTAMP | Creation time of the privilege.                                   |
+| created        | TIMESTAMPTZ | Creation time of the privilege.                                   |

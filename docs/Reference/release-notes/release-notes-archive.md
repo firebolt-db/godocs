@@ -6,6 +6,7 @@ grand_parent: General reference
 parent: Release notes
 nav_order: 1
 sitemap: false
+nav_exclude: true
 ---
 
 # Release notes archive

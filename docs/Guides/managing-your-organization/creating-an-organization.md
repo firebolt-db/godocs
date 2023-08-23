@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Registering to Firebolt
+title: Register to Firebolt
 description: Learn how to create an organization. 
 nav_order: 2
-parent: Managing your organization
+parent: Manage organization
 grand_parent: Guides
 ---
 
-# Registering to Firebolt 
+# Register to Firebolt 
 
 To start working with Firebolt, you first need to register your organization and create your first account. An organization provides a logical structure for managing accounts, billing, and authentication.  [Read more about organizations and accounts and their benefits.](../../Overview/organizations-accounts.md)
 

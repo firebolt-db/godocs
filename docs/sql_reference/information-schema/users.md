@@ -2,7 +2,7 @@
 layout: default
 title: Users
 description: Use this reference to learn about the metadata available for Firebolt users using the information schema.
-parent: Information schema and usage views
+parent: Information schema
 grand_parent: SQL reference
 ---
 
@@ -32,9 +32,9 @@ Each row has the following columns with information about each user.
 | service_account_name        | TEXT      | Name of the service account linked to the user. Empty if the login is linked to a service account. |
 | default_database            | TEXT      | Default database set for the user. |
 | default_engine              | TEXT      | Default engine set for the user. |
-| created                     | TIMESTAMP | Time the user was created. |
+| created                     | TIMESTAMPTZ | Time the user was created. |
 | user_owner                  | TEXT      | Name of the user who created the user. |
-| last_altered                | TIMESTAMP | Time the user was last altered. |
+| last_altered                | TIMESTAMPTZ | Time the user was last altered. |
 | last_altered_by             | TEXT       | Name of the last user to edit the user. |
 
 

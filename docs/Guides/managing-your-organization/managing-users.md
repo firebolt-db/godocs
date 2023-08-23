@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Managing users
+title: Manage users
 description: Learn about user permissions and how to add and remove users in a Firebolt account.
 nav_order: 8
-parent: Managing your organization
+parent: Manage your organization
 grand_parent: Guides
 ---
 
-# Managing users
+# Manage users
 {: .no_toc}
 
 Users are managed at the account level and are linked to logins or service accounts for programmatic use to gain access to Firebolt. Roles are granted to users to determine access to objects in Firebolt. You can add, edit or delete users using SQL or in the UI. 

@@ -5,6 +5,7 @@ description: Learn how to use the Apache Airflow provider package to connect Air
 nav_order: 1
 parent: Data orchestration
 grand_parent: Integrations
+great_grand_parent: Guides
 ---
 
 # Connecting to Airflow

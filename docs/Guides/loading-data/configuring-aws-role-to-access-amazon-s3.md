@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Using AWS roles to access S3
+title: Use AWS roles to access S3
 description: Learn how to use AWS IAM roles to allow Firebolt to access your data lake in Amazon S3.
 nav_order: 2
-parent: Loading data
+parent: Load data
 grand_parent: Guides
 ---
 
-# Using AWS roles to access Amazon S3
+# Use AWS roles to access Amazon S3
 {: .no_toc}
 Firebolt uses AWS Identity and Access Management \(IAM\) permissions to load data from Amazon S3 into Firebolt. This requires you to set up permissions using the AWS Management Console. You have two options to specify credentials with the appropriate `CREDENTIALS` when you create an external table:
 
@@ -98,16 +98,5 @@ In the AWS Management Console, create an AWS IAM role. The IAM role will assume 
 
 9. Record the **Role ARN** listed on the role summary page.
 
-## Increase the max session duration for your AWS role
-
-{: .note}
-Starting in DB version 3.23, increasing the max session duration is no longer necessary. 
-
-1. Log in to the [AWS Identity and Access Management \(IAM\) Console](https://console.aws.amazon.com/iam/home#/home).
-2. From the left navigation panel, choose **Roles**.
-3. Begin typing the name of the role that you created in [Step 2: Create the IAM role](#create-the-iam-role), and then select it from the list.
-4. In the summary section, locate the **Maximum session duration** field. Click **Edit**
-5. Choose _12 hours_ from the list, and then click **Save changes.**
-
 ## Specify the IAM role in the external table definition
-Specify the role ARN in the [CREDENTIALS](../sql-reference/commands/create-external-table.md#syntaxauthenticating-using-an-iam-role) of the `CREATE EXTERNAL TABLE` statement. If you specified an external ID, make sure to specify it in addition to the role ARN. When you use an INSERT INTO statement to ingest data from your source to a fact or dimension table, Firebolt assumes the IAM role for permissions to read from the location specified in the external table definition.
+Specify the role ARN in the [CREDENTIALS](../../sql_reference/commands/data-definition/create-external-table.md#syntaxauthenticating-using-an-iam-role) of the `CREATE EXTERNAL TABLE` statement. If you specified an external ID, make sure to specify it in addition to the role ARN. When you use an `INSERT` statement to ingest data from your source to a fact or dimension table, Firebolt assumes the IAM role for permissions to read from the location specified in the external table definition.

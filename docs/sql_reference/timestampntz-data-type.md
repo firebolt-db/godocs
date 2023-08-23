@@ -64,13 +64,13 @@ The `TIMESTAMP` data type can be cast to and from types as follows:
 | :------------- | :------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `TIMESTAMP`    | `SELECT CAST(TIMESTAMP '2023-02-13 11:19:42' as TIMESTAMP); --> 2023-02-13 11:19:42`         |                                                                                                                                                                                                     |
 | `DATE`         | `SELECT CAST(DATE '2023-02-13' as TIMESTAMP);  --> 2023-02-13 00:00:00`                      | Extends the date with `00:00:00`.                                                                                                                                                                   |
-| `TIMESTAMPTZ`  | `SELECT CAST(TIMESTAMPTZ '2023-02-13 Europe/Berlin' as TIMESTAMP);  --> 2023-02-13 22:00:00` | Converts from Unix time to local time in the time zone specified by the [session's `time_zone` setting](system-settings.md#set-time-zone), then truncates the timestamp to the date. This example assumes `SET time_zone = 'UTC';`. |
+| `TIMESTAMPTZ`  | `SELECT CAST(TIMESTAMPTZ '2023-02-13 Europe/Berlin' as TIMESTAMP);  --> 2023-02-13 22:00:00` | Converts from Unix time to local time in the time zone specified by the [session's `time_zone` setting](../Reference/system-settings.md#set-time-zone), then truncates the timestamp to the date. This example assumes `SET time_zone = 'UTC';`. |
 | `NULL`         | `SELECT CAST(NULL as TIMESTAMP);  --> NULL`                                                  |                                                                                                                                                                                                     |
 
 | From `TIMESTAMP` | Example                                                                                    | Note                                                                                                                                                      |
 | :--------------- | :----------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `DATE`           | `SELECT CAST(TIMESTAMP '2023-02-13 11:19:42' as DATE);  --> 2023-02-13`                    | Truncates the timestamp to the date.                                                                                                                      |
-| `TIMESTAMPTZ`    | `SELECT CAST(TIMESTAMP '2023-02-13 11:19:42' as TIMESTAMPTZ);  --> 2023-02-13 11:19:42+00` | Interprets the timestamp to be local time in the time zone specified by the [session's `time_zone` setting](system-settings.md#set-time-zone). This example assumes `SET time_zone = 'UTC';`. |
+| `TIMESTAMPTZ`    | `SELECT CAST(TIMESTAMP '2023-02-13 11:19:42' as TIMESTAMPTZ);  --> 2023-02-13 11:19:42+00` | Interprets the timestamp to be local time in the time zone specified by the [session's `time_zone` setting](../Reference/system-settings.md#set-time-zone). This example assumes `SET time_zone = 'UTC';`. |
 
 ### Comparison operators
 
@@ -102,7 +102,7 @@ SELECT TIMESTAMP '1996-09-03' + INTERVAL '42' YEAR;  --> 2038-09-03 00:00:00
 SELECT TIMESTAMP '2023-03-18' - INTERVAL '26 years 5 months 44 days 12 hours 41 minutes';  --> 1996-09-03 11:19:00
 ```
 
-For more information, see [Arithmetic with intervals](interval-arithmetic.md).
+For more information, see [Arithmetic with intervals](../Reference/interval-arithmetic.md).
 
 ## Serialization and deserialization
 

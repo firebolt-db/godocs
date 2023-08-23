@@ -4,9 +4,10 @@ title: Metabase
 description: Learn how to connect Metabase to Firebolt.
 parent: Business intelligence
 grand_parent: Integrations
+great_grand_parent: Guides
 ---
 
-# Connecting to Metabase
+# Connect to Metabase
 {: .no_toc}
 
 [Metabase](https://www.metabase.com/) is an open source business intelligence tool used for exploring data and producing dashboards.

@@ -4,9 +4,10 @@ title: Looker
 description: Learn about configuring a Looker connection to Firebolt and get tips and best practices for using Looker with Firebolt.
 parent: Business intelligence
 grand_parent: Integrations
+great_grand_parent: Guides
 ---
 
-# Connecting to Looker
+# Connect to Looker
 
 You can connect Firebolt and Looker version 21.10 or later by setting up a database connection in Looker. For more information, including supported features, see [Firebolt ](https://docs.looker.com/setup-and-management/database-config/firebolt) in the Looker documentation.
 

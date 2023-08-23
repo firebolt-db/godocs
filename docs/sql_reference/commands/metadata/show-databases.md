@@ -32,7 +32,7 @@ The returned table has the following columns.
 
 ## Example
 
-The following example highlights a database database with descriptive columns: 
+The following example highlights all of the databases with descriptive columns: 
 
 ```sql
 SHOW DATABASES;

@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Working with arrays
+title: Work with arrays
 description: Learn techniques to manipulate and transform arrays in Firebolt.
 nav_order: 3
-parent: Working with semi-structured data
+parent: Work with semi-structured data
 grand_parent: Guides
 ---
 
-# Working with arrays
+# Work with arrays
 {: .no_toc}
 
 This section covers querying and manipulating arrays in Firebolt.
@@ -34,7 +34,7 @@ All examples in this topic are based on the table below, named `visits`. The col
 
 ## Simple array functions
 
-There are several fundamental functions that you can use to work with arrays, including [LENGTH](../sql-reference/functions-reference/length.md), [ARRAY_CONCAT](../sql-reference/functions-reference/array-concat.md), and [FLATTEN](../sql-reference/functions-reference/flatten.md). See the respective reference for a full description. Brief examples are shown below.
+There are several fundamental functions that you can use to work with arrays, including [LENGTH](../../sql_reference/functions-reference/array/length.md), [ARRAY_CONCAT](../../sql_reference/functions-reference/array/array-concat.md), and [FLATTEN](../../sql_reference/functions-reference/array/flatten.md). See the respective reference for a full description. Brief examples are shown below.
 
 ### LENGTH example
 {: .no_toc}
@@ -125,7 +125,7 @@ The general syntax pattern of a Lambda function is shown below. For detailed syn
 
 ### Lambda function example&ndash;single array
 
-Consider the following [TRANSFORM](../sql-reference/functions-reference/transform.md) array function that uses a single array variable and reference in the Lambda expression. This example applies the `UPPER` function to each element `t` in the `ARRAY`-typed column `tags`. This converts each element in each `tags` array to upper-case.
+Consider the following [TRANSFORM](../../sql_reference/functions-reference/Lambda/transform.md) array function that uses a single array variable and reference in the Lambda expression. This example applies the `UPPER` function to each element `t` in the `ARRAY`-typed column `tags`. This converts each element in each `tags` array to upper-case.
 
 
 ```sql
@@ -149,7 +149,7 @@ FROM visits;
 
 ### Lambda function example&ndash;multiple arrays
 
-[ARRAY_FIRST](../sql-reference/functions-reference/array-first.md) is an example of a function that takes multiple arrays as arguments in a map of key-value pairs. One array represents the keys and the other represents the values.
+[ARRAY_FIRST](../../sql_reference/functions-reference/Lambda/array-first.md) is an example of a function that takes multiple arrays as arguments in a map of key-value pairs. One array represents the keys and the other represents the values.
 
 `ARRAY_FIRST` uses a Boolean expression that you specify to find the key in the key array. If the Boolean expression resolves to true, the function returns the first value in the value array that corresponds to the key's element position. If there are duplicate keys, only the first corresponding value is returned.
 
@@ -173,7 +173,7 @@ FROM visits;
 | 3  | iOS 14         |
 +----+----------------+
 ```
-[ARRAY_SORT](../sql-reference/functions-reference/array-sort.md) sorts one array by another. One array represents the values and the other represents the sort order.
+[ARRAY_SORT](../../sql_reference/functions-reference/Lambda/array-sort.md) sorts one array by another. One array represents the values and the other represents the sort order.
 
 The example below sorts the first array by the positions defined in the second array
 
@@ -196,7 +196,7 @@ SELECT
 
 You might want to transform a nested array structure to a standard tabular format so that you can expose views to BI tools that can't handle Firebolt array syntax, or you might find the tabular format more natural to query using standard SQL idioms. `UNNEST` serves these purposes.
 
-[UNNEST](../sql-reference/commands/select.md#unnest) is part of the [FROM](../sql-reference/commands/select.md#from) clause and resembles a [JOIN](../sql-reference/commands/select.md#join). Given an `ARRAY`-typed column, `UNNEST` unfolds the elements of the array and duplicates all other columns found in the `SELECT` clause for each array element.
+[UNNEST](../../sql-reference/commands/queries/select.md#unnest) is part of the [FROM](../sql-reference/commands/select.md#from) clause and resembles a [JOIN](../../sql-reference/commands/queries/select.md#join). Given an `ARRAY`-typed column, `UNNEST` unfolds the elements of the array and duplicates all other columns found in the `SELECT` clause for each array element.
 
 A single `UNNEST` acts similarly to `JOIN`. You can use a single `UNNEST` command to unnest several arrays if the arrays are the same length.
 

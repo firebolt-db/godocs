@@ -12,6 +12,34 @@ parent: SQL reference
 * Topic ToC
 {:toc}
 
+## :: operator for CAST
+
+Use can use the `::` operator instead of the [CAST](../sql_reference/functions-reference/conditional-and-miscellaneous/cast.md) function to convert one [data type](data-types.md) to another.
+
+### Syntax
+{: .no_toc}
+
+```sql
+ -- CAST function
+ CAST(<value> AS <type>)
+ -- :: operator
+ <value>::<type>
+```
+
+| Component |Description|
+|:----------|:----------|
+| `<value>` | The value to convert or an expression that results in a value to convert. Can be a column name,  a function applied to a column or another function, or a literal value. |
+| `<type>`  | The target [data type](data-types.md) (case-insensitive).|
+
+### Example
+{: .no_toc}
+
+```sql
+SELECT '2021-12-31'::DATE;
+SELECT 8.5::REAL;
+SELECT col_a::BIGINT;
+```
+
 ## Arithmetic (numbers)
 
 | Operator | Operator description                             | Example             | Result |
@@ -34,6 +62,16 @@ Overflow checks and floating point errors are applied according to the result da
 > Precision means that the representation of a number is accurate up to a certain number of digits. In Firebolt, `REAL` data types have 6-digit precision and `DOUBLE PRECISION` have 16-digit precision. This means that calculations have a precision of 6 or 16 respectively, and numbers are truncated to that precision. For example, if a number is stored as 1.234567, it is automatically truncated to 1.23456 for `REAL`.
 >
 > When performing arithmetic, the number of leading digits in the output is the product of the leading digits in both inputs. This means that if either or both of the input numbers are larger than 6, those numbers are the first truncated, and then the arithmetic is performed.
+
+## Boolean
+
+Boolean operators return the result of a Boolean operation between one or more expressions.
+
+| Operator | Example   | Explanation                   |
+| :-------- | :--------- | :----------------------------- |
+| `AND`      | `x AND y` | True if both x and y are true |
+| `NOT`      | `NOT x`   | True if x is false            |
+|  `OR`   | `x OR y`  | True if either x or y is true |
 
 ## Comparison
 
@@ -58,31 +96,6 @@ FROM
 WHERE
   Price >= 100;
 ```
-
-
-## String
-
-To concatenate strings, you can use the `CONCAT` function.
-
-```sql
-SELECT concat('This', ' is', ' a', ' parenthetical', 'concantenation.') AS concatenated_String
-```
-
-Alternatively, you can use the double pipe `||` operator.
-
-```sql
-SELECT 'This' || ' is' || ' a' || ' double pipe' || ' concantenation.' AS concatenated_String
-```
-
-## Boolean
-
-Boolean operators return the result of a Boolean operation between one or more expressions.
-
-| Operator | Example   | Explanation                   |
-| :-------- | :--------- | :----------------------------- |
-| `AND`      | `x AND y` | True if both x and y are true |
-| `NOT`      | `NOT x`   | True if x is false            |
-|  `OR`   | `x OR y`  | True if either x or y is true |
 
 ## INTERVAL for date and time
 
@@ -109,32 +122,18 @@ Use the `INTERVAL` operator to add to or subtract from a period of time in `DATE
 <date_column> - INTERVAL '1 year 3 hours 20 minutes'
 ```
 
-## :: operator for CAST
+## String
 
-Use can use the `::` operator instead of the [CAST](../sql-reference/functions-reference/cast.md) function to convert one [data type](./data-types.md) to another.
-
-### Syntax
-{: .no_toc}
+To concatenate strings, you can use the `CONCAT` function.
 
 ```sql
- -- CAST function
- CAST(<value> AS <type>)
- -- :: operator
- <value>::<type>
+SELECT concat('This', ' is', ' a', ' parenthetical', 'concantenation.') AS concatenated_String
 ```
 
-| Component |Description|
-|:----------|:----------|
-| `<value>` | The value to convert or an expression that results in a value to convert. Can be a column name,  a function applied to a column or another function, or a literal value. |
-| `<type>`  | The target [data type](./data-types.md) (case-insensitive).|
-
-### Example
-{: .no_toc}
+Alternatively, you can use the double pipe `||` operator.
 
 ```sql
-SELECT '2021-12-31'::DATE;
-SELECT 8.5::REAL;
-SELECT col_a::BIGINT;
+SELECT 'This' || ' is' || ' a' || ' double pipe' || ' concantenation.' AS concatenated_String
 ```
 
 ## Subquery operators

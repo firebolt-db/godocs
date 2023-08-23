@@ -9,7 +9,7 @@ parent: Access control
 
 # ALTER ACCOUNT
 
-Updates the configuration of the specified database `<database_name>`.
+Updates the configuration of the specified account.
 
 For more information, see [Managing accounts](../../../Guides/managing-your-organization/managing-accounts.md).
 

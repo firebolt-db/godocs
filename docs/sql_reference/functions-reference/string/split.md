@@ -19,6 +19,7 @@ SPLIT( <delimiter>, <string> )
 ```
 ## Parameters 
 {: .no_toc}
+
 | Parameter     | Description                           |
 | :------------- | :------------------------------------- |
 | `<delimiter>` | The separator to split the string by. |

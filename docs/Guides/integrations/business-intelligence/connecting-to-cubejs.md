@@ -4,9 +4,10 @@ title: Cube.js
 description: Learn how to connect Cube.js to Firebolt.
 parent: Business intelligence
 grand_parent: Integrations
+great_grand_parent: Guides
 ---
 
-# Connecting to Cube.js
+# Connect to Cube.js
 
 [Cube.js](https://cube.dev) is an embedded BI platform that allows you to define a data model, manage security and multitenancy, accelerate queries, and expose data to your applications using SQL and APIs.
 

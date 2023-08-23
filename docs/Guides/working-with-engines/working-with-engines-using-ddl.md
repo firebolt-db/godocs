@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Working with engines using DDL
+title: Work with engines using DDL
 description: Learn about using SQL DDL to work with Firebolt engines, which provide the compute power for Firebolt queries.
 nav_order: 2
-parent: Working with engines
+parent: Work with engines
 grand_parent: Guides
 ---
 
-# Working with engines using DDL
+# Work with engines using DDL
 {:.no_toc}
 
 You can use SQL statements to execute the operations listed in this topic.
@@ -35,7 +35,7 @@ STOP ENGINE MyDatabase_MyFireboltEngine
 ```
 
 ## To create an engine
-* Using a running engine, execute a `CREATE ENGINE` statement similar to one of the examples below. For more information, see [CREATE ENGINE](../sql-reference/commands/create-engine.md).
+* Using a running engine, execute a `CREATE ENGINE` statement similar to one of the examples below. For more information, see [CREATE ENGINE](../../sql-reference/commands/engines/create-engine.md).
 
 ### Example &ndash; Create engine using default values
 

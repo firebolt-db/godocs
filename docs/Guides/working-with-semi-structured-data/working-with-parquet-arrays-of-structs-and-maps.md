@@ -1,12 +1,13 @@
 ---
 layout: default
-title: Working with Parquet arrays and maps
+title: Work with Parquet arrays and maps
 description: Learn how to ingest (load) Parquet data into Firebolt and work with Parquet maps, structs, and arrays of structs.
 nav_order: 4
-parent: Working with semi-structured data
+parent: Work with semi-structured data
 grand_parent: Guides
 ---
-# Working with Parquet arrays and maps
+
+# Work with Parquet arrays and maps
 {: .no_toc}
 
 Apache Parquet is a binary file format that can store complex nested file structures in a compressed, columnar format. This topic provides guidance for ingesting and querying Parquet data that is stored as structs in arrays or as maps of key-value pairs.
@@ -28,7 +29,7 @@ SET use_short_column_path_parquet = 1;
 
 ## Syntax for defining a Parquet nested structure
 
-You specify the top grouping element of a nested structure in Parquet followed by the field in that structure that contains the data to ingest. You then declare the column type using the `ARRAY(<data_type>)` notation, where `<data type>` is the [Firebolt data type](../general-reference/data-types.md) corresponding to the data type of the field in Parquet.
+You specify the top grouping element of a nested structure in Parquet followed by the field in that structure that contains the data to ingest. You then declare the column type using the `ARRAY(<data_type>)` notation, where `<data type>` is the [Firebolt data type](../../sql_reference/data-types.md) corresponding to the data type of the field in Parquet.
 
 ```sql
 "<grouping1>.<datafield>" ARRAY(<data_type>)
@@ -73,9 +74,6 @@ TYPE = (PARQUET);
 ```
 
 
-When connecting your external table to AWS Glue, we create the columns automatically using the same logic as described above.
-
-
 ### Step 2&ndash;create a fact or dimension table
 
 Create a fact or dimension table that defines a column of the same `ARRAY(TEXT)` type that you defined in the external table in step 1. The example below demonstrates this for a fact table.
@@ -95,7 +93,7 @@ CREATE FACT TABLE IF NOT EXISTS my_parquet_array_fact_tbl
 
 ### Step 3&ndash;insert into the fact table from the external table
 
-The example below demonstrates an `INSERT INTO` statement that selects the array values from Parquet data files using the external table column definition in step 1, and then inserts them into the specified fact table column, `some_value`.
+The example below demonstrates an `INSERT` statement that selects the array values from Parquet data files using the external table column definition in step 1, and then inserts them into the specified fact table column, `some_value`.
 
 ```sql
 SET use_short_column_path_parquet = 1;

@@ -17,7 +17,10 @@ Converts a string to a numeric `DOUBLE PRECISION` data type.
 ```sql
 TO_DOUBLE(<expression>)
 ```
+
 ## Parameters 
+{: .no_toc}
+
 | Parameter       | Description                      | Supported input types                                                           | 
 | :---------------| :--------------------------------|:--------------------------------------------------------------------------------|
 | `<expression>`  | An expression to become a double | Any numeric data type or numeric characters that resolve to a `TEXT` data type. |

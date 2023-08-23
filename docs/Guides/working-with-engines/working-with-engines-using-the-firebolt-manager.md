@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Working with engines using the Firebolt Manager
+title: Work with engines using the Firebolt Manager
 description: Learn about using the Firebolt manager (web application) to work with Firebolt engines, which provide the compute power for Firebolt queries.
 nav_order: 4
-parent: Working with engines
+parent: Work with engines
 grand_parent: Guides
 ---
 
-# Working with engines using the Firebolt Manager
+# Work with engines using the Firebolt Manager
 
 You can create, edit, and delete an engine using the Firebolt Manager. Keep in mind that an engine must be stopped for you to perform these tasks.
 
-For more information about settings and their meanings, see [Understanding engine properties](understanding-engine-fundamentals.md#understanding-engine-properties).
+For more information about settings and their meanings, see [Understanding engine properties](../../Overview/understanding-engine-fundamentals.md#understanding-engine-properties).
 
 ## To create or edit an engine using the Firebolt Manager
 
