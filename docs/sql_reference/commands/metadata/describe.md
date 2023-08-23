@@ -18,7 +18,7 @@ Lists all columns and data types for the table. Once the results are displayed, 
 DESCRIBE <table_name>
 ```
 
-**Example**
+## Example 
 
 The following lists all columns and data types for the table named `prices`:
 
