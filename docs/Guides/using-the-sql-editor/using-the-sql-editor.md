@@ -16,12 +16,6 @@ has_toc: false
 
 The Firebolt Manager has a SQL editor that you use to edit, run, and save SQL scripts and view query results. Each database in Firebolt has a SQL editor. When you open the SQL editor for a database, you see the saved scripts and state for that particular database.
 
-## Dark mode
-
-Select the toggle at the bottom of the left navigation pane to turn dark mode on and off.
-
-![](../assets/images/dark_mode.png)
-
 
 ## Opening a SQL editor
 
@@ -210,3 +204,9 @@ Firebolt downloads the file type that you chose to the default download location
 ![](../assets/images/download_icon.png)
 
 It is possible to export the results of a single query alongside the results summary of all queries run in your script (with the statistics).
+
+## Using dark mode
+
+Select the toggle at the bottom of the left navigation pane to turn dark mode on and off.
+
+![](../assets/images/dark_mode.png)
