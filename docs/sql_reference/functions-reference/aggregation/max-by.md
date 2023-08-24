@@ -33,6 +33,9 @@ MAX_BY(<expression>, <value>)
 
 Same as input type of <expression>
 
+## Return Types
+The return types for this function includes `CHAR`, `NUMERIC`, `REAL`, and `DOUBLE PRECISION`. 
+
 ## Example
 {: .no_toc}
 

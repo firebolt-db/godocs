@@ -35,6 +35,7 @@ FLATTEN(<array>)
 
 ## Example
 {: .no_toc}
+The following example flattens multiple arrays of video game levels: 
 
 The following example flattens multiple arrays of level IDs: 
 

@@ -17,6 +17,19 @@ Calculates the difference between `start_date` and `end_date` by the indicated u
 ```sql
 DATE_DIFF('<unit>', <start_date>, <end_date>)
 ```
+<<<<<<< HEAD
+## Parameters
+{: .no_toc}
+
+| Parameter      | Description                                                    | Supported input types | 
+| :-------------- | :-------------------------------------------------------------- | :----------| 
+| `<datepart1>` | A unit of time |`SECOND`, `MINUTE`, `HOUR`, `DAY`, `WEEK`, `MONTH`, `QUARTER`, `YEAR`, or `EPOCH`     |
+| `<datepart2>` | The start date  | Any expression that evaluates to a `DATE` or `TIMESTAMP` value |
+| `<datepart3>`   | The end date |  Any expression that evaluates to a `DATE` or `TIMESTAMP` value | 
+
+## Return Types 
+`INTEGER`
+=======
 
 ## Parameters
 {: .no_toc}
@@ -35,6 +48,7 @@ DATE_DIFF('<unit>', <start_date>, <end_date>)
 | `<unit>`       | A unit of time. This can be any of the following: `SECOND`, `MINUTE`, `HOUR`, `DAY`, `WEEK`, `MONTH`, `QUARTER`, `YEAR`, `EPOCH`     |
 | `<start_date>` | An expression that evaluates to a `DATE` or `TIMESTAMP` value. |
 | `<end_date>`   | An expression that evaluates to a `DATE` or `TIMESTAMP` value. |
+>>>>>>> 78e6cebf1b4c7618b035813c37212df456261224
 
 ## Example
 {: .no_toc}
@@ -57,14 +71,14 @@ FROM
 
 **Returns**:
 
-```
-+----------+-----------------+
+
+
 | Category | year_difference |
+|:---------| :----------|
 | a        | 5               |
 | b        | -7              |
 | c        | 0               |
-+----------+-----------------+
-```
+
 
 This example below finds the number of days difference between two date strings. The strings first need to be transformed to `TIMESTAMP` type using the `CAST `function.
 

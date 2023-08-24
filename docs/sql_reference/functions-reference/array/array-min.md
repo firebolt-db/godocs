@@ -17,6 +17,10 @@ Returns the minimum element in `<arr>`.
 ```sql
 ARRAY_MIN(<arr>)
 ```
+## Parameters 
+| Parameter | Description                                  | Supported input types | 
+| :--------- | :-------------------------------------------- | :----------|
+| `<array>`   | The array or array-type column to be checked | `<array>` | 
 
 ## Parameters
 {: .no_toc}

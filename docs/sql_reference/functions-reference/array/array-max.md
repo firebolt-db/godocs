@@ -9,7 +9,11 @@ great_grand_parent: SQL reference
 
 # ARRAY\_MAX
 
+<<<<<<< HEAD
+Returns the maximum element in an array `<array>`.
+=======
 Returns the maximum element in an array.
+>>>>>>> 07662ff7863c7e2b479373c46e9f4a07e6bcfc78
 
 ## Syntax
 {: .no_toc}

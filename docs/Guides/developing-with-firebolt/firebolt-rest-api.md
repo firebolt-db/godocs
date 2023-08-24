@@ -7,9 +7,9 @@ parent: Develop with Firebolt
 grand_parent: Guides
 ---
 
-# Firebolt REST API
+# Firebolt REST API - Work in progress!!
 
-The Firebolt REST API provides endpoints that enable you to interact with Firebolt programmatically. This topic provides commands for common tasks using the REST API, including authentication, working with engines, and executing queries.
+Use the Firebolt REST API to execute queries on engines programmatically. This topic provides commands for common tasks using the REST API, including authentication, working with engines, and executing queries. A service account is required to access the API - learn about managing service accounts [here](../managing-your-organization/service-accounts.md). 
 
 ## In this topic
 
@@ -21,18 +21,23 @@ The Firebolt REST API provides endpoints that enable you to interact with Firebo
 
 ## Use tokens for authentication
 
-Authenticating with the Firebolt REST API requires retrieving an access token using the `auth` endpoint.
+To authenticate Firebolt using service accounts via Firebolt’s REST API, send the following request to receive an authentication token:
 
-### Retrieve authentication token
-
-The access token is a secret string that identifies your user. Submit the request shown in the example below to get a token. The token for you to use with other commands is in the response example as `YOUR_ACCESS_TOKEN_VALUE`. The access token is valid for 12 hours (43,200 seconds). Replace `YOUR_USER_EMAIL` and `YOUR_PASSWORD` as appropriate.
-
-**Request**
-
-```bash
-curl --request POST 'https://api.app.firebolt.io/auth/v1/login' \
---data-binary '{"username":"YOUR_USER_EMAIL","password":"YOUR_PASSWORD"}'
+```json
+    curl --location --request POST 'https://api.app.firebolt.io/auth/v1/token' \
+    --header 'Content-Type: application/x-www-form-urlencoded' \
+    --data-urlencode 'client_id=<id>' \
+    --data-urlencode 'client_secret=<secret>' \
+    --data-urlencode 'grant_type=client_credentials'
 ```
+
+Where:
+
+| Property                          | Data type | Description |
+| :------------------------------   | :-------- | :---------- |
+| id                                | TEXT      | The user’s ID ([created here](#create-a-service-account-user)). |
+| secret                            | TEXT      | The user’s secret ([generated here](#generate-a-secret-for-the-service-account-user)). |
+
 
 **Response**
 
@@ -46,41 +51,23 @@ curl --request POST 'https://api.app.firebolt.io/auth/v1/login' \
 }
 ```
 
-### Refresh access tokens
+Use the returned access_token to authenticate with Firebolt.
 
-When an `access_token` expires, you may get 401 HTTP errors when calling the API. You can either repeat the access token request with login information shown above, or you can use the `refresh_token` value from the example above to get a new `access_token` value as shown in the example below.
-
-**Request**
-
-```bash
-curl --request POST 'https://api.app.firebolt.io/auth/v1/refresh' \
---data-binary '{"refresh_token":"YOUR_REFRESH_TOKEN_VALUE"}'
-```
-
-**Response**
-
-```json
-{
-    "access_token": "YOUR_REFRESHED_ACCESS_TOKEN_VALUE",
-    "scope": "offline_access",
-    "expires_in": 43200,
-    "token_type": "Bearer"
-}
-```
 
 ## Start, stop, and restart engines
 
 An engine in Firebolt is a cluster of nodes that do the work when you run SQL queries. You can use the REST API to start, stop, and restart engines. To perform these operations on an engine, you must have the unique engine ID and the engine must be stopped. The operation to get this ID is shown first, followed by start, stop, and restart operations. For more information about engines, see [Working with engines](../../Overview/understanding-engine-fundamentals.md).
 
-### Get an engine ID
+### Get the System Engine URL
 
-Replace `YOUR_ENGINE_NAME` and `YOUR_ACCOUNT` in the example below with the name of your engine.
+The endpoint returns the engine URL for accountName. It requires authentication with a bearer token. 
 
 **Request**
 
 ```bash
-curl --request GET 'https://api.app.firebolt.io/core/v1/account/engines:getIdByName?engine_name=YOUR_ENGINE_NAME&account=YOUR_ACCOUNT' \
---header 'Authorization: Bearer YOUR_ACCESS_TOKEN_VALUE'
+curl http://api.{env}.firebolt.io/web/v3/account/{accountName}/engineUrl 
+-H "Accept: application/json" 
+-H "Authorization: Bearer {token}"
 ```
 
 **Response**

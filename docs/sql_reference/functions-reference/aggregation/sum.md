@@ -17,6 +17,8 @@ Calculates the sum of an expression.
 ```sql
 SUM ([DISTINCT] <value>)
 ```
+## Parameters 
+{: .no_toc} 
 
 ## Parameters
 {: .no_toc}

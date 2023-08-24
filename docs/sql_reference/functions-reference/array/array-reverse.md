@@ -17,6 +17,8 @@ Returns an array of the same size and type as the original array, with the eleme
 ```sql
 ARRAY_REVERSE(<array>)
 ```
+## Return Types
+`ARRAY`
 
 ## Parameters
 {: .no_toc}
@@ -30,6 +32,7 @@ ARRAY_REVERSE(<array>)
 
 ## Example
 {: .no_toc}
+The following examples calculates the reverse of the `levels` array: 
 
 The following example returns the reverse of the input array: 
 

@@ -13,11 +13,17 @@ great_grand_parent: SQL reference
 Calculates an approximate median for a given column.
 
 ## Syntax
-{: .no_toc}
+<!-- {: .no_toc} -->
 
 ```sql
 MEDIAN(<value>)
 ```
+## Parameters 
+{: .no_toc}
+
+| Parameter | Description                                       | Supported input types                        |
+| :---------| :-------------------------------------------------| :--------------------------------------------|
+| `<column>`   | The column used to calculate the median value | `<column>` of `DATE` or `TIMESTAMP` data types |
 
 ## Parameters
 {: .no_toc}

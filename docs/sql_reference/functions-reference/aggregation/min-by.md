@@ -20,6 +20,12 @@ If there is more than one of the same minimum value in `<value>`, then the first
 ```sql
 MIN_BY(<expression>, <value>)
 ```
+## Parameters 
+{: .no_toc}
+| Parameter | Description                                        | Supported input Type |
+| :--------- | :-------------------------------------------------|:---------------------|
+| `<expression>`   | The column from which the value is returned | `<column>`           |
+| `<value>`   | The column that is search for a minimum value    | `<column>`           |
 
 ## Parameters
 {: .no_toc}

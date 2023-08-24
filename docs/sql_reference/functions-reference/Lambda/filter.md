@@ -23,13 +23,18 @@ When multiple arrays are provided to the function, the function will evaluate th
 {: .no_toc}
 
 ```sql
-FILTER(<func>, <arr> [, ...] )
+FILTER(<function>, <array> [, ...] )
 ```
+## Parameters
+{: .no_toc} 
 
-| Parameter        | Description                                                                                                                                                                    |
-| :---------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `<func>`         | A [Lambda function](../../working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions) used to check elements in the array. |
-| `<arr> [, ...]`  | One or more arrays that will be evaluated by the Lambda function. Only the first array that is included will be filtered in the results. All the arrays must have exactly same number of elements.                                             |
+| Parameter        | Description     | Supported input types | 
+| :---------------- | :------------------------------------------ | :---------| 
+| `<function>`         | A [Lambda function](../../working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions) used to check elements in the array. | Any Lambda function | 
+| `<array> [, ...]`  | One or more arrays that will be evaluated by the Lambda function. Only the first array that is included will be filtered in the results. All the arrays must have exactly same number of elements.  | Arrays that each contain the same amount of elements | 
+
+## Return Types 
+`ARRAY` with the same input type 
 
 ## Examples
 {: .no_toc}
@@ -43,24 +48,24 @@ SELECT
 
 **Returns**: `['a']`
 
-In this example below, there are two arrays and two separate arguments for evaluation. The Lambda function searches the second array for all elements that are greater than 2. The elements in these positions are returned from the first array.
+In this example below, there are two arrays and two separate arguments for evaluation. The Lambda function searches the second array for all elements that are greater than 2. The elements in these positions are returned from the first array. The returned elements highlight the players who have completed above level 2. 
 
 ```sql
 SELECT
-	FILTER(x, y -> y > 2, [ 'a', 'b', 'c', 'd' ], [ 1, 2, 3, 9 ]) AS res;
+	FILTER(x, y -> y > 2, [ 'esimpson', 'sabrina21', 'kennethpark', 'rileyjon' ], [ 1, 2, 3, 9 ]) AS levels;
 ```
 
-**Returns**: `['c', 'd']`
+**Returns**: `['kennethpark', 'rileyjon']`
 
 In this example below, there are three arrays, and Lambda function which have condition on two of them.
 
 ```sql
 SELECT
-	FILTER(x, y, z -> (y > 2 AND z = 'red'),
-		[ 'a', 'b', 'c', 'd' ],
+	FILTER(x, y, z -> (y > 2 AND z = 'kennethpark'),
+		[ 'Player A', 'Player B', 'Player C', 'Player D' ],
 		[ 1, 2, 3, 9 ],
-		[ 'red', 'green', 'red', 'green' ] )
-	AS res;
+		[ 'kennethpark', 'rileyjon', 'kennethpark', 'rileyjon' ] )
+	AS levels;
 ```
 
-**Returns**: `['c']`
+**Returns**: `['Player C']`
