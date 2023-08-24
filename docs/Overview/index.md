@@ -8,3 +8,5 @@ has_children: true
 ---
 
 # Overview
+
+Read about how the Firebolt architecture operates at a high level, bringing improvements in speed, scale, cost, and price-performance over previous generation cloud warehouses. 

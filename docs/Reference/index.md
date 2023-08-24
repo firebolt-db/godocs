@@ -7,3 +7,5 @@ nav_order: 5
 ---
 
 # General reference
+
+Get product updates from release notes, and general reference material for advanced Firebolt specifications. 
