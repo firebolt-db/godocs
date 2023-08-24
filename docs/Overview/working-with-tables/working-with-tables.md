@@ -22,7 +22,7 @@ If your table does not fit in either of the traditional fact or dimension defini
 
 ### Primary indexes
 
-Tables in the Firebolt data warehouse are stored in the Firebolt file format (F3) to optimize speed and efficiency. F3 uses the *primary index* that you specify in a table definition to sort, compress, and index data. Primary indexes are optional. For more information about configuring primary indexes, see [Using primary indexes](../Guides/working-with-indexes/using-primary-indexes.md).
+Tables in the Firebolt data warehouse are stored in the Firebolt file format (F3) to optimize speed and efficiency. F3 uses the *primary index* that you specify in a table definition to sort, compress, and index data. Primary indexes are optional. For more information about configuring primary indexes, see [Primary indexes](../../Guides/working-with-indexes/using-primary-indexes.md).
 
 ## Example: creating fact and dimension tables
 
@@ -53,6 +53,7 @@ CREATE DIMENSION TABLE dim_product
     product_name      TEXT,
     product_category  TEXT,
     brand             TEXT
-);```
+);
+```
 
-For more information, see [CREATE FACT\|DIMENSION TABLE](../sql_reference/commands/data-definition/create-fact-dimension-table.md)
+For more information, see [CREATE FACT\|DIMENSION TABLE](../../sql_reference/commands/data-definition/create-fact-dimension-table.md)

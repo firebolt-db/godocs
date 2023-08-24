@@ -5,7 +5,7 @@ description: Latest release notes for the Firebolt data warehouse.
 parent: General reference
 nav_order: 1
 has_toc: false
-has_children: true
+has_children: false
 ---
 
 # Release notes

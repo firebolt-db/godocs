@@ -31,6 +31,6 @@ Learn how to configure advanced authentication options for enhanced security; ne
 * [Enable multi-factor authentication](enabling-mfa.md)
 
 # Manage billing
-Learn how to manage billing. < say something else here, observability blah blah >
+Learn how to manage billing with observability at both organization and account levels. 
 
 * [Manage billing](billing.md)

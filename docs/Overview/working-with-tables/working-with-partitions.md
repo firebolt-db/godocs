@@ -17,7 +17,7 @@ Partitions are smaller physical parts of large fact and dimension tables. Partit
 
 ## When to use partitions
 
-Partitions are particularly useful to simplify table maintenance by allowing you to drop partitions and delete rows in bulk. For example, consider a transaction table with an average of approximately 150,000 transactions a day, which you partition by month. At the end of each month, you can run [ALTER TABLE...DROP PARTITION](../../sql_reference/commands/data-definition/alter-table.md) to delete the last month's data, and then [INSERT](../../sql_reference/commands/data-management/insert.md) to update the fact table with the most recent month's data.
+Partitions are particularly useful to simplify table maintenance by allowing you to drop partitions and delete rows in bulk. For example, consider a transaction table with an average of approximately 150,000 transactions a day, which you partition by month. At the end of each month, you can run [ALTER TABLE](../../sql_reference/commands/data-definition/alter-table.md) to delete the last month's data, and then [INSERT](../../sql_reference/commands/data-management/insert.md) to update the fact table with the most recent month's data.
 
 {: .warning}
 Dropping a partition deletes all the records stored in the partition.
@@ -46,20 +46,15 @@ Partition key arguments must not evaluate to `NULL` and can be any of the follow
 * Column names, as shown below.  
   ```sql
   PARTITION BY date_column;
-  ```  
-  ```sql
+ 
   PARTITION BY product_type;
   ```
 
-* The result of an [EXTRACT](../sql_reference/functions-reference/date-and-time/extract-new.md) function applied to a column of any of the date and time data types, as shown below.  
-  ```sql
-  PARTITION BY EXTRACT(MONTH FROM date_column);
-  ```
+* The result of an [EXTRACT](../../sql_reference/functions-reference/date-and-time/extract-new.md) function applied to a column of any of the date and time data types, as shown below.  
+  ```PARTITION BY EXTRACT(MONTH FROM date_column);```
 
 * A composite key, with a mix of columns and `EXTRACT` functions, as shown below.  
-  ```sql
-  PARTITION BY EXTRACT(MONTH FROM date_column), product_type;
-  ```
+  ```PARTITION BY EXTRACT(MONTH FROM date_column), product_type;```
   
 {: .caution}
 Floating point data type columns are not supported as partition keys.
@@ -94,20 +89,19 @@ CREATE FACT TABLE fct_tbl_transactions
     units_sold          INT
 )
 PRIMARY INDEX store_id, product_id
-<examples of PARTITION BY clauses below>```
+<examples of PARTITION BY clauses below>
+```
 
 #### Partition and drop by date
 {: .no_toc}
 
 The example below creates a partition for each group of records with the same date value in `transaction_date`.
 
-```sql
-PARTITION BY transaction_date```
+```PARTITION BY transaction_date```
 
 The example below drops the partition for records with the date `2020-01-01`. The date is provided as a string literal and must be cast to the `DATE` data type in the command. The command uses the [:: operator for CAST](../sql_reference/operators.md#-operator-for-cast).
 
-```sql
-ALTER TABLE fct_tbl_transactions DROP PARTITION '2020-01-01'::DATE;```
+```ALTER TABLE fct_tbl_transactions DROP PARTITION '2020-01-01'::DATE;```
 
 #### Partition and drop by date extraction
 {: .no_toc}
@@ -119,31 +113,26 @@ PARTITION BY EXTRACT(YEAR FROM transaction_date), EXTRACT(MONTH FROM transaction
 
 The example below drops the partition for records where `transaction_date` is `3`, which corresponds to the month of March. The month is specified as an integer in the command.
 
-```sql
-ALTER TABLE fct_tbl_transactions DROP PARTITION 2022,04;```
+```ALTER TABLE fct_tbl_transactions DROP PARTITION 2022,04;```
 
 #### Partition and drop by integer
 {: .no_toc}
 
 The example below creates a partition for each group of records with the same value for `product_id`.
 
-```sql
-PARTITION BY product_id```
+```PARTITION BY product_id```
 
 The example below drops the partition where `product_id` is `8188`.
 
-```sql
-ALTER TABLE fct_tbl_transactions DROP PARTITION 8188;```
+```ALTER TABLE fct_tbl_transactions DROP PARTITION 8188;```
 
 #### Partition and drop by composite key
 {: .no_toc}
 
 The example below creates a partition for each group of records where `store_id` is the same value **and** `transaction_date` is the same year.
 
-```sql
-PARTITION BY store_id,EXTRACT(YEAR FROM transaction_date);```
+```PARTITION BY store_id,EXTRACT(YEAR FROM transaction_date);```
 
 The example below drops the partition where `store_id` is `982` **and** `transaction_date` is `2020` .
 
-```sql
-ALTER TABLE transactions DROP PARTITION 982,2020;```
+```ALTER TABLE transactions DROP PARTITION 982,2020;```

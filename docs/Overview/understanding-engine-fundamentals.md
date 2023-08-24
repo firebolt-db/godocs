@@ -46,15 +46,11 @@ Each engine has an endpoint that you use when submitting operations to an engine
 * `firebolt-account-name` is the name of your Firebolt account. For example, `YourAccount` is represented as `youraccount`.
 * `region-id` is the AWS Region identifier where the engine lives. For example, `us-east-1`.
 
-```bash
-https://your-engine-name.firebolt-account-name.region-id.app.firebolt.io
-```
+```https://your-engine-name.firebolt-account-name.region-id.app.firebolt.io```
 
 The example below shows an endpoint for an engine named `maindb_engine1` in the Region `us-east-1` within the Firebolt account `AnyCompany.`
 
-```bash
-https://maindb-engine1.anycompany.us-east-1.app.firebolt.io
-```
+```https://maindb-engine1.anycompany.us-east-1.app.firebolt.io```
 
 ### Engine type
 

@@ -25,7 +25,7 @@ Managing SSO settings requires the org_admin role.
 
 ## Configure SSO
 
-SSO can be configured in two ways - using SQL or the UI.  To configure SSO using SQL, use the [`ALTER ORGANIZATION`](../../../sql_reference/commands/access-control/alter-organization.md) statement. For example:
+SSO can be configured in two ways - using SQL or the UI.  To configure SSO using SQL, use the [`ALTER ORGANIZATION`](../../../sql_reference/commands/data-definition/alter-organization.md) statement. For example:
 
 ```
 ALTER ORGANIZATION SET SSO = ‘{

@@ -4,7 +4,7 @@ title: ALTER ORGANIZATION
 description: Reference and syntax for the ALTER ORGANIZATION command.
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
-parent: Access control
+parent: Data definition
 ---
 
 # ALTER ORGANIZATION

@@ -12,8 +12,8 @@ Firebolt indexes are designed to improve query performance and increase compute 
 
 Firebolt offers built-in join accelerators, as well as two types of user-managed indexes:
 
-* [Primary indexes](../Guides/working-with-indexes/using-primary-indexes.md)
-* [Aggregating indexes](../Guides/working-with-indexes/using-aggregating-indexes.md)
+* [Primary indexes](#primary-indexes
+* [Aggregating indexes](#aggregating-indexes)
 
 ## Primary indexes
 
@@ -24,7 +24,7 @@ Primary indexes in Firebolt are a type of *sparse index*. Unlike a dense index t
 The video below explains sparse indexing. Eldad Farkash is the CEO of Firebolt.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/7XDTVB9gsFw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-For more information and examples, see [Using primary indexes](../Guides/working-with-indexes/using-primary-indexes.md).
+For more information and examples, see [Primary indexes](../Guides/working-with-indexes/using-primary-indexes.md).
 
 ## Aggregating indexes
 
@@ -38,7 +38,7 @@ The video below is a technical discussion of some issues with traditional materi
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Hniv9u4w7lI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-For more information and examples, see [Using aggregating indexes](../Guides/working-with-indexes/using-aggregating-indexes.md).
+For more information and examples, see [Aggregating indexes](../Guides/working-with-indexes/using-aggregating-indexes.md).
 
 ## Join accelerators
 
@@ -67,7 +67,6 @@ Not all join queries create (and use) join accelerators. Here is a set of requir
 ## You can combine indexes
 
 Each table has only one primary index, which is optional. You can have as many aggregating indexes as your workloads demand. Indexes are highly compressed. The cost of storing them is small when compared to the potential savings in engine runtime, number of nodes, and the engine spec.
-
 
 ## Firebolt maintains indexes automatically
 
