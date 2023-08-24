@@ -3,6 +3,7 @@ layout: default
 title: Configure your identity provider
 description: Learn how to configure your identity provider to work with SSO authentication for Firebolt. 
 nav_order: 2
+has_toc: true
 parent: Setting up SSO authentication
 grand_parent: Manage your organization
 great_grand_parent: Guides

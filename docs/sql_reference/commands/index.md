@@ -13,13 +13,13 @@ Use the alphabetical list in the navigation pane to find the syntax for commands
 
 Use the functional list below to find commands for a specific task area that you're working in.
 
-* [Queries](#queries-and-query-optimization)  
+* [Queries](#queries)  
   Analyze data with `SELECT`. Tune and optimize query performance with other commands.
 
-* [Data management](#data-ingest-and-movement)  
+* [Data management](#data-management)  
   Move data between your data lake and Firebolt and between Firebolt resources.
 
-* [Data definition](#database-objects)  
+* [Data definition](#data-definition)  
   Data definition language. Create, alter, drop, and otherwise manage objects like databases, tables, and views in your Firebolt account.
 
 * [Engines](#engines)  

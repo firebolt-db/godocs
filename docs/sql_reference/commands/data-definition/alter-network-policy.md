@@ -18,7 +18,8 @@ For more information, see [Network policies](../../../Guides/managing-your-organ
 ALTER NETWORK POLICY [ IF EXISTS ] <network_policy_name>
 SET  [ ALLOWED_IP_LIST = ( [ '<allowed_ip>' ] [, '<allowed_ip>' ... ] ) ]
 [ BLOCKED_IP_LIST = ( [ '<blocked_ip>' ] [, '<blocked_ip>' ... ] ) ]
-[ COMMENT = '<comment>' ] }
+[ COMMENT = '<comment>' ] 
+}
 ```
 
 | Parameter  | Description |

@@ -6,7 +6,7 @@ nav_order: 4
 parent: Manage your organization
 grand_parent: Guides
 has_children: true
-has_toc: false
+has_toc: true
 ---
 
 # Set up SSO authentication
