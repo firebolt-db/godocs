@@ -16,7 +16,7 @@ For more information, see [Network policies](../../../Guides/managing-your-organ
 
 ```sql
 CREATE NETWORK POLICY [IF NOT EXISTS] <network_policy_name>
-ALLOWED_IP_LIST = ( [ '<allowed_ip1>', '<allowed_ip2>', ... ] )
+WITH ALLOWED_IP_LIST = ( [ '<allowed_ip1>', '<allowed_ip2>', ... ] )
 [ BLOCKED_IP_LIST = ( [ '<blocked_ip1>', '<blocked_ip2>', ... ] ) ]
 [ DESCRIPTION = '<description>' ]
 ```
@@ -32,4 +32,4 @@ ALLOWED_IP_LIST = ( [ '<allowed_ip1>', '<allowed_ip2>', ... ] )
 
 The following command will create a network policy that allows IPs ‘4.5.6.1’ and ‘2.4.5.1’ and blocks the IP address '6.7.8.1', with a description: 
 
-```CREATE NETWORK POLICY my_network_policy ALLOWED_IP_LIST = (‘4.5.6.1’, ‘2.4.5.1’) BLOCKED_IP_LIST = ('6.7.8.1') DESCRIPTION = 'my new network policy'```
+```CREATE NETWORK POLICY my_network_policy WITH ALLOWED_IP_LIST = (‘4.5.6.1’, ‘2.4.5.1’) BLOCKED_IP_LIST = ('6.7.8.1') DESCRIPTION = 'my new network policy'```
