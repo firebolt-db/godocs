@@ -11,7 +11,7 @@ great_grand_parent: SQL reference
 
 Returns the value evaluated of the nth row of the specified window frame (starting at the first row). If the specified row does not exist, NTH_VALUE returns NULL.
 
-See also [FIRST\_VALUE](../first-value.md), which returns the first value evaluated in the specified window frame.
+See also [FIRST\_VALUE](./first-value.md), which returns the first value evaluated in the specified window frame.
 
 ## Syntax
 {: .no_toc}
