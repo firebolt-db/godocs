@@ -11,7 +11,7 @@ has_toc: false
 
 # Set up SSO authentication
 
-This topic describes how to configure Firebolt for Single Sign On (SSO) using SAML 2.0. Before you configure SSO on the Firebolt side, you must have already [configured your identity provider to work with Firebolt](configure-idp-for-sso.md).
+This topic describes how to configure Firebolt for Single Sign On (SSO) using SAML 2.0. Before you configure SSO on the Firebolt side, you must have already [configured your identity provider to work with Firebolt](configuring-idp-for-sso.md).
 
 Firebolt supports the following identity providers (IDPs):
 - Okta

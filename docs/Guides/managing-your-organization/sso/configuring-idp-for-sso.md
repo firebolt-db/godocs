@@ -8,7 +8,7 @@ grand_parent: Manage your organization
 great_grand_parent: Guides
 ---
 
-# Configure your IDP
+# Configure your IdP
 
 Before you can set up SSO with Firebolt, follow the required configuration steps in your identity provider to work with the application.
 
