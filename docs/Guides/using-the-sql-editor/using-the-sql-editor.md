@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Use the SQL editor
+title: Query data
 description: Learn how to navigate and use the SQL editor to work with your Firebolt database.
 parent: Guides
 nav_order: 7
@@ -8,7 +8,7 @@ has_children: true
 has_toc: false
 ---
 
-# Using the SQL editor
+# Query using the SQL editor
 {: .no_toc}
 
 * Topic ToC
