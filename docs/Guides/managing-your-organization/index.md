@@ -13,8 +13,8 @@ has_children: true
 
  * [Register your organization](creating-an-organization.md)
  * [Create an account](managing-accounts.md)
- * [Set up Single Sign-On](sso.md)
-     * [Configure your identity provider for SSO](sso/configuring-idp-for-sso.md)
+ * [Set up Single Sign-On](sso/sso.md)
+     * [Configure your identity provider](sso/configuring-idp-for-sso.md)
  * [Manage logins](managing-logins.md)
  * [Create service accounts](service-accounts.md)
  
