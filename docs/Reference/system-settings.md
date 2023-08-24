@@ -79,3 +79,28 @@ firebolt_optimization_enable_exact_count_distinct = [false|true]
 ```sql
 SET firebolt_optimization_enable_exact_count_distinct = true;
 ```
+
+## Limit the number of result rows
+
+When set to a value greater than zero, this setting limits the number of rows returned by `SELECT` statements. The query is executed as if an additional `LIMIT` clause is added to the SQL query. The default value is zero.
+
+### Syntax
+
+{: .no_toc}
+
+```sql
+SET max_result_rows = <integer>;
+```
+
+### Example
+
+```sql
+SET max_result_rows = 10000;
+SELECT * FROM table;
+```
+
+is equivalent to
+
+```sql
+SELECT * FROM table LIMIT 10000;
+```

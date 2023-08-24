@@ -29,6 +29,7 @@ The `+` operators shown below come in commutative pairs (e.g., both `DATE + inte
 | `TIMESTAMP - interval -> TIMESTAMP`     | Subtract an `interval` from a `TIMESTAMP`   |
 | `TIMESTAMPTZ + interval -> TIMESTAMPTZ` | Add an `interval` to a `TIMESTAMPTZ`        |
 | `TIMESTAMPTZ - interval -> TIMESTAMPTZ` | Subtract an `interval` from a `TIMESTAMPTZ` |
+| `interval * DOUBLE PRECISION -> interval` | Multiply an `interval` by a scalar          |
 
 ## Literal string interpretation
 
@@ -98,11 +99,20 @@ Interval arithmetic with `TIMESTAMPTZ` values works as follows:
 The back and forth between Unix time and local time is necessary to handle the fact that not all days consist of 24 hours due to daylight savings time transitions.
 Still, the dependence on the session's `time_zone` setting should be kept in mind when doing arithmetic between interval and `TIMESTAMPTZ`.
 
+### Multiplying an interval by a scalar
+
+You can use the expression `date_time + INTERVAL * d` where `date_time` is a constant or column reference of type `DATE`, `TIMESTAMP`, or `TIMESTAMPTZ`, and `d` is a constant or column reference of type `DOUBLE PRECISION`.
+The effect is that the INTERVAL is scaled by `d`, and the resulting INTERVAL is added to `date_time`.
+E.g., `INTERVAL '1 day' * 3` -> `INTERVAL '3 days'`.
+
 ## Examples
 
 ```sql
 SELECT DATE '1996-09-03' - interval '1 millennium 5 years 42 day 42 ms';  --> 0991-07-22 23:59:59.958
 SELECT TIMESTAMP '1996-09-03 11:19:42' + interval '10 years 5 months 42 days 7 seconds';  --> 2007-03-17 11:19:49
+
+SELECT TIMESTAMP '2023-10-20 11:49:52' + interval '1 year 6 months 4 weeks 7 hours' * 7.5;  --> 2035-08-20 16:19:52
+SELECT DATE '2023-10-20' - 42 * interval '1 months 1 day 1 hour';  --> 2020-03-07 06:00:00
 
 -- The following example shows a daylight savings time change in the time zone 'Europe/Berlin'
 SET time_zone = 'Europe/Berlin';
