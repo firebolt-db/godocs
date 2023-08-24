@@ -22,7 +22,7 @@ Managing service accounts requires the org_admin role.
 ### SQL 
 To create a service account using SQL, use the [`CREATE SERVICE ACCOUNT`](../../sql_reference/commands/access-control/create-service-account.md) statement. For example:
 
-```CREATE SERVICE ACCOUNT IF NOT EXISTS "sa1" DESCRIPTION = "service account 1";```
+```CREATE SERVICE ACCOUNT IF NOT EXISTS "sa1" WITH DESCRIPTION = "service account 1";```
 
 ### UI
 To create a service account via the UI:

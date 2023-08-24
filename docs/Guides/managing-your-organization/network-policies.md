@@ -26,7 +26,7 @@ Managing network policies requires the org_admin role.
 ### SQL 
 To create a network policy using SQL, use the [`CREATE NETWORK POLICY`](../../sql_reference/commands/data-definition/create-network-policy.md) statement. For example:
 
-```CREATE NETWORK POLICY my_network_policy ALLOWED_IP_LIST = (‘4.5.6.1’, ‘2.4.5.1’) BLOCKED_IP_LIST = ('6.7.8.1') COMMENT = 'my new network policy'```
+```CREATE NETWORK POLICY my_network_policy ALLOWED_IP_LIST = (‘4.5.6.1’, ‘2.4.5.1’) BLOCKED_IP_LIST = ('6.7.8.1') DESCRIPTION = 'my new network policy'```
 
 ### UI
 To create a network policy via the UI:
@@ -46,7 +46,7 @@ For each user, the Allowed IPs and Blocked IPs are updated to reflect the total 
 ### SQL 
 To edit a network policy using SQL, use the [`ALTER NETWORK POLICY`](../../sql_reference/commands/data-definition/alter-network-policy.md) statement. For example:
 
-```ALTER NETWORK POLICY my_network_policy SET ALLOWED_IP_LIST = (‘4.5.6.7’, ‘2.4.5.7’) BLOCKED_IP_LIST = (‘6.7.8.9’) COMMENT = 'updated network policy'```
+```ALTER NETWORK POLICY my_network_policy SET ALLOWED_IP_LIST = (‘4.5.6.7’, ‘2.4.5.7’) BLOCKED_IP_LIST = (‘6.7.8.9’) DESCRIPTION = 'updated network policy'```
 
 ### UI
 To edit a network policy via the UI:
