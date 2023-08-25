@@ -24,8 +24,8 @@ ARRAY_UNIQ(<array> [, ...n])
 | :---------------- | :----------------------------------- | :-------| 
 | `<array> [, ...n]` | The array or arrays to be analyzed. | Any `ARRAY` type | 
 
-## Return Types
-`ARRAY`
+## Return Type
+`INTEGER`
 
 ## Example
 {: .no_toc}

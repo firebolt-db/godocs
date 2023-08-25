@@ -9,33 +9,30 @@ great_grand_parent: SQL reference
 
 # ARRAY\_MIN
 
-Returns the minimum element in `<arr>`.
+Returns the minimum element in an array.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-ARRAY_MIN(<arr>)
+ARRAY_MIN(<array>)
 ```
-## Parameters 
-| Parameter | Description                                  | Supported input types | 
-| :--------- | :-------------------------------------------- | :----------|
-| `<array>`   | The array or array-type column to be checked | `<array>` | 
 
-## Parameters
+## Parameters 
 {: .no_toc}
 
-| Parameter | Description                         |Supported input types |
-| :--------- | :----------------------------------- | :---------------------|
-| `<array>`   | The array or array-type column to be checked | `<array>` | 
+| Parameter | Description                                  | Supported input types | 
+| :--------- | :-------------------------------------------- | :----------|
+| `<array>`   | The array or array-type column to be checked | `<ARRAY>` | 
 
-## Return Types
+
+## Return Type
 `NUMERIC` 
 
 ## Example
 {: .no_toc}
 
-The following examples calculates the maximum number in the `levels` array: 
+The following examples calculates the minimum number in the `levels` array: 
 ```sql
 SELECT
 	ARRAY_MIN([ 1, 2, 3, 4 ]) AS levels;

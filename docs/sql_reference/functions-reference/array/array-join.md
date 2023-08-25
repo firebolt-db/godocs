@@ -15,15 +15,18 @@ Concatenates an array of `TEXT` elements using an optional delimiter. If no deli
 {: .no_toc}
 
 ```sql
-ARRAY_JOIN(<arr>[, <delimiter>])
+ARRAY_JOIN(<array>[, <delimiter>])
 ```
+
 ## Parameters 
+{: .no_toc} 
+
 | Parameter     | Description                            | Supported input types | 
 | :------------- | :------------------------------------ |:---------|
-| `<array>`       | An array to be joined | `<array>` of `TEXT` |values |                                                                                            |
+| `<array>`       | An array to be joined | `ARRAY TEXT` |
 | `<delimiter>` | The delimiter used for joining the array elements | `TEXT` | 
 
-## Return Types
+## Return Type
 `TEXT`
 
 ## Example

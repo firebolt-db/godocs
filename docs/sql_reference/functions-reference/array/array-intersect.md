@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # ARRAY\_INTERSECT
 
-Evaluates all arrays that are provided as arguments and returns an array of any elements that are present in all the arrays. The order of the resulting array may be different than the original arrays. Use [`ARRAY_SORT`](./array-sort.md) to stipulate a specific order on the results.
+Evaluates all arrays that are provided as arguments and returns an array of any elements that are present in all the arrays. The order of the resulting array may be different than the original arrays. Use [`ARRAY_SORT`](../Lambda/array-sort.md) to stipulate a specific order on the results.
 
 ## Syntax
 {: .no_toc}
@@ -23,7 +23,10 @@ ARRAY_INTERSECT(<array>)
 
 | Parameter | Description                                            | Supported input types | 
 | :--------- | :------------------------------------------------------ | :-----|
-| `<array>`   | A series of arrays to be analyzed for mutual elements | `<array>` series of the same data type |
+| `<array>`   | A series of arrays to be analyzed for mutual elements | `ARRAY`s of the same type |
+
+## Return Type
+`ARRAY` of the same type as the input arrays
 
 ## Examples
 {: .no_toc}

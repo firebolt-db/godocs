@@ -24,12 +24,12 @@ ARRAY_DISTINCT(<array>)
 | :--------- | :-------------------------------------------- | :----------|
 | `<array>`   | The array to be analyzed for unique members | `<array>` |
 
-## Return Types
-`ARRAY`
+## Return Type
+`ARRAY` of the same type as the input array 
 
 ## Example
 {: .no_toc}
-In the following example, the unique levels of the video game are returned in an array called `levels`: 
+In the following example, the unique levels of the game are returned in an array called `levels`: 
 
 ```sql
 SELECT

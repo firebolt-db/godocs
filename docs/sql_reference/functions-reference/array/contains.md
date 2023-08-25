@@ -18,13 +18,16 @@ Returns `1` if a specified argument is present in the array, or `0` otherwise.
 CONTAINS(<array>, <value>)
 ```
 ## Parameters 
+{: .no_toc}
+
 | Parameter | Description                                      | Supported input types | 
 | :--------- | :------------------------------------------------ | :--------|
-| `<array>`   | The array to be checked for the given element.   | `<array>` | 
+| `<array>`   | The array to be checked for the given element.   | `<ARRAY>` | 
 | `<value>`   | The element to be searched for within the array | Any integer that corresponds to an element in the array | 
 
 ## Return Types
-`NUMERIC`  
+* Returns `1` if the element to be searched in present in the array
+* Returns `0` if the element is not present in the array
 
 ## Example
 {: .no_toc}

@@ -30,12 +30,11 @@ FLATTEN(<array>)
 | :--------- | :----------------------------------- | :---------------------|
 | `<array>` | The array of arrays to be flattened | Any `ARRAY` of `ARRAY` types | 
 
-## Return Types
-`ARRAY` of the same type as the inputted array
+## Return Type
+`ARRAY` of the same type as the input array
 
 ## Example
 {: .no_toc}
-The following example flattens multiple arrays of video game levels: 
 
 The following example flattens multiple arrays of level IDs: 
 

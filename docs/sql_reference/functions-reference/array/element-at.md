@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # ELEMENT\_AT
 
-Returns the element at a location `<index>` from the given array. `<index>` must be any integer type. Indexes in an array begin at position `1`.
+Returns the element at a location `<index>` from the given array. `<index>` can be any integer type. Indexes in an array begin at position `1`.
 
 ## Syntax
 {: .no_toc}
@@ -19,13 +19,14 @@ ELEMENT_AT(<array>, <value>)
 ```
 ## Parameters
 {: .no_toc}
+
 | Parameter | Description           | Supported input types | 
 | :--------- | :------------------------------------- |
-| `<array>`   | The array that the function is applied to | `ARRAY` of any type | 
+| `<array>`   | The array that the function is applied to. | `ARRAY` of any type | 
 | `<value>` | The index that is matched by the function. <br>Negative indexes are supported. If used, the function selects the corresponding element numbered from the end. For example, array[-1] is the last item in the array. | `INTEGER` |
 
 ## Return Types 
-Same data type as the inputted arrays 
+Same as the element data type of the input array
 
 ## Example
 {: .no_toc}

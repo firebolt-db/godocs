@@ -15,16 +15,19 @@ Applies an aggregate function on the elements of the array and returns its resul
 {: .no_toc}
 
 ```sql
-REDUCE(<agg_function>, <arr>)
+REDUCE(<function>, <array>)
 ```
 
-| Parameter        | Description                                                                     |
-| :---------------- | :------------------------------------------------------------------------------- |
-| `<agg_function>` | The name of an aggregate function which should be a constant string             |
-| `<arr>`          | Any number of array type columns as the parameters of the aggregation function. |
+## Parameters
+{: .no_toc}
+
+| Parameter | Description                                       | Supported input types | 
+| :--------- | :------------------------------------------------- | :----------|
+| `<function>` | The name of an aggregation function in the form of a quoted string. | Any [aggregation function](../aggregation/) |
+| `<array>`          | The array to aggregate. | `ARRAY` |
 
 ## Return Types
-The return types for this function includes `CHAR`, `NUMERIC`, `REAL`, and `DOUBLE PRECISION`. 
+Same as the element data type of the input array
 
 ## Examples
 {: .no_toc}

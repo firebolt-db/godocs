@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # LENGTH
 
-Returns the length (number of elements) of the given array.
+Returns the length of (number of elements in) the given array.
 
 ## Syntax
 {: .no_toc}
@@ -18,9 +18,15 @@ Returns the length (number of elements) of the given array.
 LENGTH(<array>)
 ```
 
-| Parameter | Description                         |
-| :--------- | :----------------------------------- |
-| `<array>`   | The array to be checked for length. |
+## Parameters
+{: .no_toc}
+
+| Parameter | Description                                       | Supported input types | 
+| :--------- | :------------------------------------------------- | :----------|
+| `<array>`   | The array to be checked for length. | `ARRAY` |
+
+## Return Type
+`INTEGER` 
 
 ## Example
 {: .no_toc}

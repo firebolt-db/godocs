@@ -17,19 +17,21 @@ Returns the index position of the first occurrence of the element in the array (
 ```sql
 INDEX_OF(<array>, <value>)
 ```
+
 ## Parameters
 {: .no_toc}
+
 | Parameter | Description                                       | Supported input types | 
 | :--------- | :------------------------------------------------- | :----------|
-| `<arr>`   | The array to be analyzed                         | `<array>` | 
+| `<array>`   | The array to be analyzed                         | `ARRAY` | 
 | `<value>`     | The element from the array that is to be matched | Any integer that corresponds to an element in the array | 
 
-## Return Types
-`NUMERIC` 
+## Return Type
+`INTEGER` 
 
 ## Example
 {: .no_toc}
-The following example highlights the index that 5 is in the `levels` array:
+The following example returns the index position of the 5 in the `levels` array:
 
 ```sql
 SELECT

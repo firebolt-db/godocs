@@ -15,17 +15,19 @@ Returns a slice of the array based on the indicated offset and length.
 {: .no_toc}
 
 ```sql
-SLICE(<array>, <value1>[, <value2>])
+SLICE(<array>, <start>[, <length>])
 ```
+## Parameters
+{: .no_toc}
 
 | Parameter  | Description                            | Supported input types | 
 | :---------- | :------------------------------------ | :-------- | 
-| `<array>`    | The array of data to be sliced               | `ARRAY` of any type | 
-| `<value1>` | Indicates starting point of the array slice | `INTEGER` | 
-| `<value2>` | The length of the required slice | `INTEGER` | 
+| `<array>`    | The array of data to be sliced               | `ARRAY` | 
+| `<start>` | Indicates starting point of the array slice | `INTEGER` | 
+| `<length>` | The length of the required slice | `INTEGER` | 
 
-## Return Types
-`ARRAY` of the same type as inputted array 
+## Return Type
+`ARRAY` of the same type as input array 
 
 ## Example
 {: .no_toc}
