@@ -2,8 +2,8 @@
 layout: default
 title: TO_TIMESTAMP
 description: Reference material for TO_TIMESTAMP function
-parent: SQL functions
-grand_parent: String functions
+grand_parent: SQL functions
+parent: String functions
 great_grand_parent: SQL reference
 ---
 
