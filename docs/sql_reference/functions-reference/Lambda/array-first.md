@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # ARRAY\_FIRST
 
-Returns the first element in the given array for which the given `<function>` function returns something other than `0`. The `<function>` argument must be included.
+Returns the first element in the given array for which the given function returns something other than `0`. The `<function>` parameter must be included.
 
 ## Syntax
 {: .no_toc}
@@ -22,11 +22,11 @@ ARRAY_FIRST(<function>, <array>)
 
 | Parameter | Description                  | Supported input types | 
 | :--------- | :--------------------------- | :-------- | 
-| `<function>`  | A [Lambda function](../../working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions) used to check elements in the array | A Lambda function
+| `<function>`  | A [Lambda function](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions) used to check elements in the array | Any Lambda function |
 | `<array>`   | The array evaluated by the function  | Any array | 
 
-## Return Types 
-Same input type as the input type of the `ARRAY`
+## Return Type
+`ARRAY` of the same type as the input array 
 
 ## Examples
 {: .no_toc}

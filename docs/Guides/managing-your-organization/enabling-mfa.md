@@ -3,7 +3,7 @@ layout: default
 title: Multi-factor authentication
 description: Learn about how to enable and disable multi-factor authentication in Firebolt. 
 nav_order: 10
-parent: Manage your organization
+parent: Manage organization
 grand_parent: Guides
 ---
 

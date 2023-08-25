@@ -9,9 +9,9 @@ great_grand_parent: SQL reference
 
 # ARRAY\_SORT
 
-Returns the elements of `<arr>` in ascending order.
+Returns the elements of the input array in ascending order.
 
-If the argument `<function>` is provided, the sorting order is determined by the result of applying `<func>` on each element of `<arr>`.
+If the argument `<function>` is provided, the sorting order is determined by the result of applying `<function>` on each element of the array.
 
 ## Syntax
 {: .no_toc}
@@ -27,8 +27,8 @@ ARRAY_SORT([<function>,] <array>)
 | `<function>`  | An optional function to be used to determine the sort order. | Any Lambda function | 
 | `<array>`   | The array to be sorted.                                      | Any array of integers | 
 
-## Return Types 
-`ARRAY` of elements with the same input type 
+## Return Type 
+`ARRAY` of the same type as the input array
 
 
 ## Example

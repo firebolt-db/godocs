@@ -30,7 +30,7 @@ Once the connector is installed, you can create a new connection to Firebolt fro
 | Account     | No       | Your Firebolt account.                                                                             |
 | Database    | Yes      | The name of your Firebolt database.                                                                |
 | Engine Name | No       | The name (not the URL) of the Firebolt engine to use. If omitted, the default engine will be used. |
-| Host        | Yes      | The host to connect to, which is api.app.firebolt.io.                                              |
+| Host        | Yes      | The host to connect to, which is api.app.firebolt.io by default.                                   |
 
 
 ## Supported Features

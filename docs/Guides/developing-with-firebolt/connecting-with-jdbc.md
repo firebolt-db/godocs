@@ -10,7 +10,7 @@ grand_parent: Guides
 # Using the JDBC driver
 {:.no_toc}
 
-Firebolt provides a [type 4](https://en.wikipedia.org/wiki/JDBC_driver#Type_4_driver_%E2%80%93_Database-Protocol_driver/Thin_Driver(Pure_Java_driver)){:target="_blank"} JDBC driver to connect to Firebolt from Java applications such as [DBeaver](./integrations/setting-up-dbeaver-jdbc-connection-to-firebolt.md) and others. The driver is released as open source software using a permissive Apache 2 license and can be browsed, forked, downloaded, and contributed to through its [GitHub repository](https://github.com/firebolt-db/jdbc){:target="_blank"}.
+Firebolt provides a [type 4](https://en.wikipedia.org/wiki/JDBC_driver#Type_4_driver_%E2%80%93_Database-Protocol_driver/Thin_Driver(Pure_Java_driver)){:target="_blank"} JDBC driver to connect to Firebolt from Java applications such as [DBeaver](../integrations/setting-up-dbeaver-jdbc-connection-to-firebolt.md) and others. The driver is released as open source software using a permissive Apache 2 license and can be browsed, forked, downloaded, and contributed to through its [GitHub repository](https://github.com/firebolt-db/jdbc){:target="_blank"}.
 
 * Topic toC
 {:toc}
@@ -93,7 +93,7 @@ Here is an example of a connection details:
 
 * URL that uses client_id/secret_id
   ```
-    jdbc:firebolt:my_database?client_id=abJLADJAGJJKJrtHKAGHQHKDJGHAIUGH&client_secret=B9x64xyzWIUcWY3K--GHJc7K5i0bGaTE-AGH-LGyRsXAcd5YS5gWQcRxa-MxAyAc&engine=my_database_general_purpose&buffer_size=1000000&connection_timeout_millis=10000
+    jdbc:firebolt:my_database?client_id=<client_id>&client_secret=<client_secret>&engine=my_database_general_purpose&buffer_size=1000000&connection_timeout_millis=10000
   ```
 
 * URL that uses that omits authentication details that are passed in properties
@@ -102,8 +102,8 @@ Here is an example of a connection details:
   ```
   Connection properties:
   ```
-  client_id=abJLADJAGJJKJrtHKAGHQHKDJGHAIUGH
-  client_secret=B9x64xyzWIUcWY3K--GHJc7K5i0bGaTE-AGH-LGyRsXAcd5YS5gWQcRxa-MxAyAc
+  client_id=<client_id>
+  client_secret=<client_secret>
   ```
 
 * Minimal URL that sends all additional parameters in connection properties
@@ -112,8 +112,8 @@ Here is an example of a connection details:
   ```
   Connection properties:
   ```
-  client_id=abJLADJAGJJKJrtHKAGHQHKDJGHAIUGH
-  client_secret=B9x64xyzWIUcWY3K--GHJc7K5i0bGaTE-AGH-LGyRsXAcd5YS5gWQcRxa-MxAyAc
+  client_id=<client_id>
+  client_secret=<client_secret>
   engine=my_database_general_purpose
   buffer_size=1000000
   connection_timeout_millis=10000
@@ -125,8 +125,8 @@ Here is an example of a connection details:
   ```
   Connection properties:
   ```
-  client_id=abJLADJAGJJKJrtHKAGHQHKDJGHAIUGH
-  client_secret=B9x64xyzWIUcWY3K--GHJc7K5i0bGaTE-AGH-LGyRsXAcd5YS5gWQcRxa-MxAyAc
+  client_id=<client_id>
+  client_secret=<client_secret>
   ```
 
   {: .note}
@@ -155,13 +155,13 @@ The table below lists the available connection parameters that can be added to t
 
 ### System settings as connection parameters
 
-In addition to the parameters specified above, any [system setting](../general-reference/system-settings.md){:target="_blank"} can be passed as a connection string parameter. For example, if you wanted to set a custom CSV delimiter, your connection string would be as follows:
+In addition to the parameters specified above, any [system setting](../../Reference/system-settings.md){:target="_blank"} can be passed as a connection string parameter. For example, if you wanted to set a custom CSV delimiter, your connection string would be as follows:
     
     jdbc:firebolt:my_database?format_csv_delimeter=%7C&<other_connection_params>
     
 ## Applying system settings using SET
 
-In addition to passing system settings as connection string parameters, any [system setting](../general-reference/system-settings.md){:target="_blank"} can be passed to Firebolt as a `SET` command in SQL. Multiple `SET` statements can be passed at once as long as they immediately follow one after another separated by semicolons, as shown in the following example.
+In addition to passing system settings as connection string parameters, any [system setting](../../Reference/system-settings.md){:target="_blank"} can be passed to Firebolt as a `SET` command in SQL. Multiple `SET` statements can be passed at once as long as they immediately follow one after another separated by semicolons, as shown in the following example.
 
     SET input_format_csv_allow_single_quotes = 0;
     SET format_csv_delimiter = |;

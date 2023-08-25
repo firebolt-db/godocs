@@ -9,9 +9,9 @@ great_grand_parent: SQL reference
 
 # ARRAY\_FIRST\_INDEX
 
-Returns the index of the first element in the indicated array for which the given `<function>` function returns something other than `0`. Index counting starts at 1.
+Returns the index of the first element in the indicated array for which the given function returns something other than `0`. Index counting starts at 1.
 
-The `<function>` argument must be included.
+The `<function>` parameter must be included.
 
 ## Syntax
 {: .no_toc}
@@ -24,11 +24,11 @@ ARRAY_FIRST_INDEX(<function>, <array>)
 
 | Parameter | Description                          | Supported input types | 
 | :--------- | :------------------------ | :---------| 
-| `<function>`  | A [Lambda function](../../working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions) used to check elements in the array | Any Lambda function | 
+| `<function>`  | A [Lambda function](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions) used to check elements in the array | Any Lambda function | 
 | `<array>`   | The array evaluated by the function     | Any array | 
 
-## Return Types
-Same input type as the input type of the `ARRAY` 
+## Return Type
+`ARRAY` of the same type as the input array 
 
 ## Example
 {: .no_toc}

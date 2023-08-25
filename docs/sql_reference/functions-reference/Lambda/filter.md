@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # FILTER
 
-Returns an array containing the elements from `<arr>` for which the given Lambda function `<func>` returns something other than `0`.
+Returns an array containing the elements from `<array>` for which the given Lambda function `<function>` returns something other than `0`.
 
 The function can receive one or more arrays as its arguments. If more than one array is provided the following conditions should be met:
 
@@ -30,18 +30,18 @@ FILTER(<function>, <array> [, ...] )
 
 | Parameter        | Description     | Supported input types | 
 | :---------------- | :------------------------------------------ | :---------| 
-| `<function>`         | A [Lambda function](../../working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions) used to check elements in the array. | Any Lambda function | 
+| `<function>`         | A [Lambda function](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions) used to check elements in the array. | Any Lambda function | 
 | `<array> [, ...]`  | One or more arrays that will be evaluated by the Lambda function. Only the first array that is included will be filtered in the results. All the arrays must have exactly same number of elements.  | Arrays that each contain the same amount of elements | 
 
-## Return Types 
-`ARRAY` with the same input type 
+## Return Type
+`ARRAY` of the same type as the input array 
 
 ## Examples
 {: .no_toc}
 
 In the example below, there is only one array.
 
-```
+```sql
 SELECT
 	FILTER(x -> x = 'a', [ 'a', 'b', 'c', 'd' ]);
 ```
@@ -57,7 +57,7 @@ SELECT
 
 **Returns**: `['kennethpark', 'rileyjon']`
 
-In this example below, there are three arrays, and Lambda function which have condition on two of them.
+In this example below, there are three arrays, and Lambda function which meet the condition on two of them.
 
 ```sql
 SELECT

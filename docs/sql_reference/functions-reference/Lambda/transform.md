@@ -9,26 +9,26 @@ great_grand_parent: SQL reference
 
 # TRANSFORM
 
-Returns an array by applying `<func>` on each element of `<arr>`.
+Returns an array by applying `<function>` on each element of `<array>`.
 
-The Lambda function `<func>` is mandatory.
+The Lambda function `<function>` is a mandatory parameter.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-TRANSFORM(<func>, <arr>)
+TRANSFORM(<function>, <array>)
 ```
 ## Parameters
 {: .no_toc} 
 
 | Parameter | Description                 | Supported input type | 
 | :--------- | :---------------------------------- |:------| 
-| `<function>`  | A [Lambda function](../../working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions) used to check elements in the array. | Any Lambda function | 
+| `<function>`  | A [Lambda function](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions) used to check elements in the array. | Any Lambda function | 
 | `<array>`   | The array to be transformed by the function.   | Any array | 
 
-## Return Types 
-`ARRAY` with the same input type 
+## Return Type 
+`ARRAY` of the same type as the input array 
 
 ## Examples
 {: .no_toc}
@@ -40,7 +40,7 @@ SELECT
 
 **Returns**: `2,4,6,18`
 
-In the example below, the `TRANSFORM` function is used to [`CAST`](./cast.md) each element from a string to a date type. With each element now as a date type, the [`INTERVAL`](../../general-reference/operators.html#interval-for-date-and-time) function is then used to add 5 years to each.  
+In the example below, the `TRANSFORM` function is used to [`CAST`](../conditional-and-miscellaneous/cast.md) each element from a string to a date type. With each element now as a date type, the [`INTERVAL`](../../operators.md#interval-for-date-and-time) function is then used to add 5 years to each.  
 
 ```sql
 SELECT

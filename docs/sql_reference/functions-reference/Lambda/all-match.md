@@ -9,26 +9,26 @@ great_grand_parent: SQL reference
 
 # ALL_MATCH
 
-Returns `1` (true) when the Boolean expression `<expression2>` performed on all elements of an array evaluate to true. Returns `0` (false) when any one comparison evaluates to false.
+Returns `1` (true) when the Boolean expression `<condition>` performed on all elements of an array evaluate to true. Returns `0` (false) when any one comparison evaluates to false.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-ALL_MATCH(<expression1> -> <expression2>, <expression3>)
+ALL_MATCH(<expression> -> <condition>, <array>)
 ```
 ## Parameters
 {: .no_toc}
 
 | Parameter      | Description                                   | Supported input types | 
 | :------------- |:--------------------------------------------- | :-----------| 
-| `<expression1>`  | A Lambda array variable that contains elements of the array specified using `<array_expr>`. For more information, see [Manipulating arrays with Lambda functions](../../working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions). |
-| `<expression2>` | A Boolean expression that evaluates each array value using a comparison operator. For available operators, see [Comparison operators](../../general-reference/operators.md#comparison). |
-| `<expression3>` | An expression that evaluates to an `ARRAY` data type. |
+| `<expression>`  | A Lambda array variable that contains elements of the array specified using `<array>`. For more information, see [Manipulating arrays with Lambda functions](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions). |
+| `<condition>` | A Boolean expression that evaluates each array value using a comparison operator. For available operators, see [Comparison operators](../../operators.md#comparison). |
+| `<array>` | An expression that evaluates to an `ARRAY` data type. |
 
 ## Return Types
-* Returns `1` if the specifications are true
-* Returns `0` if the specifications are false
+* Returns `1` if the condition is met
+* Returns `0` if the condition returns false
 
 ## Examples
 {: .no_toc}
