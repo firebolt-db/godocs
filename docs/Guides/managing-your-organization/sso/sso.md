@@ -119,6 +119,6 @@ If you can’t remember the name of the organization, next to “Don’t know yo
 You will be redirected to the IDP to authenticate. Once authenticated, you will be redirected back to Firebolt.
 
 Upon login, if a login with the specified email address does not exist, Firebolt will create a new login with the email address, first, and last name as specified in the SAML assertation received from the IDP. 
-When the login is created, it will be able to authenticate via SSO only - the IS_PASSWORD_ENABLED property will be set to False.
+When the login is created, it will be able to authenticate via SSO only - the `IS_PASSWORD_ENABLED` property will be set to False.
 
 If the login exists (and field mapping is not empty), but the first or last name is different than the one specified in the IDP, Firebolt will update the properties with the new values. Otherwise,  those fields remain the same and the login will authenticate normally.

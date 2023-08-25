@@ -9,4 +9,4 @@ has_children: true
 
 # Overview
 
-Read about how the Firebolt architecture operates at a high level, bringing improvements in speed, scale, cost, and price-performance over previous generation cloud warehouses. 
+Read about Firebolt architecture and how it enables differentiated speed, scale, concurrency and price-performance characteristics. Learn core Firebolt concepts and how to put them to use.

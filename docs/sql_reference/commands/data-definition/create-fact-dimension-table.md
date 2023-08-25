@@ -99,7 +99,7 @@ Once we've created the table, we can manipulate the values with different INSERT
 
 ### PRIMARY INDEX
 
-The `PRIMARY INDEX` is a sparse index containing sorted data based on the indexed field. This index clusters and sorts data as it is ingested, without affecting data scan performance. A `PRIMARY INDEX` is  optional. For more information, see [Using primary indexes](../../using-indexes/using-primary-indexes.md).
+The `PRIMARY INDEX` is a sparse index containing sorted data based on the indexed field. This index clusters and sorts data as it is ingested, without affecting data scan performance. A `PRIMARY INDEX` is  optional. For more information, see [Primary indexes](../../../Guides/working-with-indexes/using-primary-indexes.md).
 
 #### Syntax&ndash;primary index
 {: .no_toc}
@@ -122,7 +122,7 @@ The `PARTITION BY` clause specifies a column or columns by which the table will 
 PARTITION BY <column_name>[, <column_name>[, ...n]]
 ```
 
-For more information, see [Working with partitions](../../working-with-partitions.md).
+For more information, see [Working with partitions](../../../Overview/working-with-tables/working-with-partitions.md)).
 
 ### Table type
 

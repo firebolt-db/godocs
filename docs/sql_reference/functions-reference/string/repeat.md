@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # REPEAT
 
-This function repeats the provided string a requested number of times.
+Repeats the provided string a requested number of times.
 
 ## Syntax
 {: .no_toc}
@@ -23,16 +23,16 @@ REPEAT(<expression>, <value>)
 
 | Parameter            | Description                  | Supported input types | 
 | :-------------------- | :---------------------------|:----------------------|
-| `<expression>`           | The string to be repeated | Any string               |                                                                     |
-| `<value>` | The number of needed repetitions | Any integer greater than 0 |
+| `<expression>`           | The string to be repeated | `TEXT`           |
+| `<value>` | The number of needed repetitions | Any `INTEGER` greater than 0 |
 
-## Return types 
+## Return Type
 `TEXT`
 
 ## Example
 {: .no_toc}
 
-The following example repeats the author of a a video game 5 times. 
+The following example returns the author of a game 5 times repeated. 
 
 ```sql
 SELECT

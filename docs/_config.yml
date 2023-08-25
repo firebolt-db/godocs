@@ -5,14 +5,14 @@ description: >-
 # url: "https://docs.firebolt.io" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Build settings
-remote_theme: molly-firebolt/just-the-docs
+remote_theme: firebolt-db/just-the-docs
 logo: "/assets/images/logo_website.svg"
 color_scheme: firebolt
 search_enabled: true
 
 # Jekyll plugins
 plugins:
-  - jekyll-seo-tag
+#  - jekyll-seo-tag
   - jekyll-lnr-js-search
 
 search:
@@ -46,8 +46,8 @@ aux_links:
     - "https:///www.firebolt.io/getting-started-now"
 
 # Google Analytics tracking
-ga_tracking: UA-142599515-1
-ga_tracking_anonymize_ip: true
+#ga_tracking: UA-142599515-1
+#ga_tracking_anonymize_ip: true
 
 # footer_content: "<a href=\"mailto:docs@firebolt.io\">Send feedback</a>"
 

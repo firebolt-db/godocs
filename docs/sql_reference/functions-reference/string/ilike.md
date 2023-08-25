@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # ILIKE
 
-Allows matching of strings based on comparison to a pattern. `ILIKE` is normally used as part of a `WHERE` clause. `ILIKE` is case-insensitive; use [LIKE](ilike.md) for case-sensitive pattern matching.
+Allows matching of strings based on comparison to a pattern. `ILIKE` is normally used as part of a `WHERE` clause. `ILIKE` is case-insensitive; use [LIKE](like.md) for case-sensitive pattern matching.
 
 ## Syntax
 {: .no_toc}
@@ -23,19 +23,12 @@ Allows matching of strings based on comparison to a pattern. `ILIKE` is normally
 
 | Parameter | Description |Supported input types |
 | :-------- | :---------- | :---------------------|
-| `<expression>` | Any expression that evaluates to `TEXT` | `TEXT` |
+| `<expression>` | The string to evaluate for matches. | `TEXT` |
 | `<pattern>` | Specifies the pattern to match (case-insensitive). SQL wildcards are supported: <br> <br>* Use an underscore (`_`) to match any single character<br>* Use a percent sign (`%`) to match any number of any characters, including no characters. | `TEXT`  |
 
-<<<<<<< HEAD
-## Return Types
-<<<<<<< HEAD
-`TEXT`
-=======
-=======
+
 ## Return Type
->>>>>>> caeab0a5c0b7f70c0326f8c70f3e2e912ecb25d2
 `TEXT ARRAY`
->>>>>>> 07662ff7863c7e2b479373c46e9f4a07e6bcfc78
 
 ## Example
 

@@ -3,24 +3,13 @@ layout: default
 title: TO_TIMESTAMP
 description: Reference material for TO_TIMESTAMP function
 parent: SQL functions
+grand_parent: String functions
 great_grand_parent: SQL reference
 ---
 
 # TO_TIMESTAMP
 
-{: .warning}
-  >You are looking at the documentation for Firebolt's redesigned date and timestamp types.
-  >These types were introduced in DB version 3.19 under the names `PGDATE`, `TIMESTAMPNTZ` and `TIMESTAMPTZ`, and synonyms `DATE`, `TIMESTAMP` and `TIMESTAMPTZ` made available in DB version 3.22.
-  >
-  >If you worked with Firebolt before DB version 3.22, you might still be using the legacy date and timestamp types.
-  >Determine which types you are using by executing the query `SELECT EXTRACT(CENTURY FROM DATE '2023-03-16');`.
-  >If this query returns a result, you are using the redesigned date and timestamp types and can continue with this documentation.
-  >If this query returns an error, you are using the legacy date and timestamp types and can find [legacy documentation here](../../general-reference/egacy-date-timestamp.md#legacy-date-and-timestamp-functions), or instructions to use the new types [here](../../release-notes/release-notes-archive.html#db-version-322).
-
 Converts a string to `TIMESTAMPTZ` type (i.e., timestamp with time zone) using format.
-
-{: .note}
-The functions returns the new date data type `TIMESTAMPTZ`. If you seek for the old type, see [TO_TIMESTAMP (legacy)](../functions-reference/to-timestamp.md).
 
 ## Syntax
 
@@ -28,9 +17,11 @@ The functions returns the new date data type `TIMESTAMPTZ`. If you seek for the 
 TO_TIMESTAMP(<expression> [,'<format>'])
 ```
 ## Parameters
+{: .no_toc}
+
 | Parameter      | Description                                                                                                                                                                                                                                                                                                                                | Supported input types |
 | :------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------- |
-| `<expression>` | The text to convert to a timestamp with time zone. If no optional `<format>` argument is given that can be use to parse the `<expression>`, the following format is required: any supported date format directly followed by `( \|T)[H]H:[m]m:[S]S[.F]`. (For supported date formats see [TO_DATE](../functions-reference/to-date-new.md)) | `TEXT`                |
+| `<expression>` | The text to convert to a timestamp with time zone. If no optional `<format>` argument is given that can be use to parse the `<expression>`, the following format is required: any supported date format directly followed by `( \|T)[H]H:[m]m:[S]S[.F]`. (For supported date formats see [TO_DATE](to-date.md) | `TEXT`                |
 | `<format>`     | Optional. A string literal that specifies the format of the `<expression>` to convert.                                                                                                                                                                                                                                                     | `TEXT` (see below)    |
 
 Accepted `<format>` patterns include the following specifications:

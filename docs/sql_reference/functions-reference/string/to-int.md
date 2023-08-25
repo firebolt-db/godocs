@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # TO\_INT
 
-Converts a string to a numeric `INTEGER` data type.
+Converts a string to an integer.
 
 ## Syntax
 {: .no_toc}
@@ -17,15 +17,13 @@ Converts a string to a numeric `INTEGER` data type.
 ```sql
 TO_INT(<expression>)
 ```
-## Parameters 
-{: .no_toc}
 
 ## Parameters
 {: .no_toc}
 
 | Parameter | Description                         |Supported input types |
 | :--------- | :----------------------------------- | :---------------------|
-| `<expression>`  | The expression to covert to an integer. | `TEXT` |
+| `<expression>`  | The string to covert to an integer. | `TEXT` |
 
 ## Return Type
 `INTEGER` 

@@ -26,7 +26,7 @@ SPLIT( <delimiter>, <string> )
 | `<string>`    | The string to split.                  |
 
 ## Return Types
-`ARRAY`
+`ARRAY TEXT`
 
 ## Example
 {: .no_toc}

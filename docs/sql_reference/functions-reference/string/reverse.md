@@ -17,18 +17,20 @@ This function returns a string of the same size as the original string, with the
 ```sql
 REVERSE(<string>)
 ```
+
 ## Parameters 
 {: .no_toc}
+
 | Parameter  | Description                | Supported Input Types |
 | :---------- | :--------------------------|:---------------------|
-| `<expression>` | The string to be reversed. | `TEX>` | 
+| `<expression>` | The string to be reversed. | `TEXT` | 
 
-## Return Types
+## Return Type
 `TEXT`
 
 ## Example
 {: .no_toc}
-The following example returns the reverse of a video game player's username: 
+The following example returns the player's username with the characters reversed: 
 
 ```sql
 SELECT

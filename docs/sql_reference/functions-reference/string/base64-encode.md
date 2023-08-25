@@ -19,17 +19,18 @@ BASE64_ENCODE(<expression>)
 ```
 ## Parameters
 {: .no_toc}
-{: .no_toc}
+
 | Parameter | Description                                                                 | Supported input types| 
 | :--------- | :--------------------------------------------------------------------------|:----------|
-| `<expression>`  | Any expression to be encoded | Any expression that evaluates to a `TEXT` data type |
+| `<expression>`  | Any expression to be encoded | `TEXT`  |
 
-### Return Types
-`VARCHAT(8000)`, `VARCHAR(MAX)`
+### Return Type
+`TEXT`
 
 ## Example
 {: .no_toc}
-The following examples encodes a video game user's nickname to Base64 notation: 
+
+The following examples encodes a user's nickname to Base64 notation: 
 
 ```sql
 SELECT

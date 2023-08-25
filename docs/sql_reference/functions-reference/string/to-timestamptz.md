@@ -23,7 +23,7 @@ Converts the number of seconds since the Unix epoch to a `TIMESTAMPTZ` value.
 | :-------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------- |
 | `<value>` | A numeric expression to convert. The number left of the decimal separator is interpreted as the number of seconds before or after the Unix epoch `1970-01-01 00:00:00 UTC`. The fractional part (if present) is interpreted as subseconds. | `INTEGER`, `BIGINT`, `NUMERIC`, `DOUBLE PRECISION` |
 
-## Return Types
+## Return Type
 
 `TIMESTAMPTZ`
 
