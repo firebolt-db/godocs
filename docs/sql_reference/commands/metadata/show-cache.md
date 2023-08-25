@@ -8,7 +8,7 @@ parent: Metadata commands
 ---
 # SHOW CACHE
 
-Returns the current SSD usage (`ssd_usage`) for the current engine. `SHOW CACHE` returns values at the engine level, not by each node.
+Returns the current SSD usage for the engine queried. `SHOW CACHE` returns values at the engine level, rather than by each node.
 
 ## Syntax
 
@@ -33,12 +33,7 @@ The results of `SHOW CACHE` are formatted as follows:
 
 When the `SHOW CACHE` command is run, the usage displays as a result: 
 
-```sql
-SHOW CACHE;
-```
-
-```
 | ssd_usage             |
 |:----------------------|
 | 3.82/73.28 GB (5.22%) |
-```
+

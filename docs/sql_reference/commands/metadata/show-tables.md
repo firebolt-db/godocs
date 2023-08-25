@@ -38,14 +38,7 @@ The returned table has the following columns.
 
 ## Example
 
-The following example highlights a table with descriptive columns: 
-
-```sql
-SHOW TABLES;
-```
-## Example
-
-The following example highlights tables with descriptive columns: 
+The following example returns information about tables in the database queried:
 
 ```sql
 SHOW TABLES;

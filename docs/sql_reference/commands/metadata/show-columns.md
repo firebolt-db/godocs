@@ -30,9 +30,6 @@ The following example highlights all of the columns from the `tournaments` table
 SHOW COLUMNS tournaments;
 ```
 
-## Returns
-
-
 | table_name |	column_name | 	data_type	| nullable | 
 |:-------|:------|:--------|:--------|
 | tournaments |	enddatetime | TIMESTAMP | FALSE |

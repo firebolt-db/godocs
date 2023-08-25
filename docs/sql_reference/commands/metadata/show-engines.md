@@ -27,13 +27,13 @@ The returned table has the following columns.
 | region                      | TEXT      | The AWS Region in which the engine was created. |
 | spec                        | TEXT      | The specification of nodes comprising the engine. |
 | scale                       | INTEGER         | The number of nodes in the engine. |
-| status                      | TEXT      | The engine status. For more information, see [Viewing and understanding engine status](../../working-with-engines/understanding-engine-fundamentals.md#viewing-and-understanding-engine-status). |
+| status                      | TEXT      | The engine status. For more information, see [Viewing and understanding engine status](../../../Overview/understanding-engine-fundamentals.md#viewing-and-understanding-engine-status). |
 | attached_to                 | TEXT      | The name of the database to which the engine is attached. |
 | version                     | TEXT      | The engine version. |
 
 ## Example
 
-The following example highlights engines with descriptive columns: 
+The following example returns information about the engines in the account:
 
 ```sql
 SHOW ENGINES;

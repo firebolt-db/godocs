@@ -9,7 +9,7 @@ parent: Metadata commands
 
 # SHOW VIEWS
 
-Lists the views defined in the current database and the `CREATE VIEW` statement (`schema`) that defines each view.
+Lists the views defined in the current database and the `CREATE VIEW` statement that defines each view.
 
 ## Syntax
 
@@ -18,10 +18,7 @@ SHOW VIEWS;
 ```
 
 ## Example
-
-```sql
-SHOW VIEWS;
-```
+The following example displays the view name and view definition of a views in the database queried:
 
 **Returns**:
 
@@ -30,15 +27,3 @@ SHOW VIEWS;
 | v14       | CREATE VIEW "v14" AS SELECT a.* FROM  (SELECT 1 AS "x") AS "a" INNER JOIN  (SELECT 1 AS "x") AS "b" USING(x) |
 | v15       | CREATE VIEW IF NOT EXISTS "v15" AS SELECT * FROM "bf_test_t" WHERE ( "n" = 0 )                               |
 | v16       | CREATE VIEW "v16" AS WITH x7 AS (SELECT * FROM "oz_x6" ) SELECT * FROM "x7"                                  |
-
-## Example
-
-The following example displays the view name and view definition of a particular view: 
-
-```sql
-SHOW VIEWS;
-```
-
-| view_name |	view_definition |
-|:------|:-------|
-|v |	"CREATE VIEW ""v"" AS SELECT * FROM ""information_schema"".""tables"" |

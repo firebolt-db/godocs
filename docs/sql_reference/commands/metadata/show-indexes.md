@@ -34,11 +34,12 @@ The returned table has the following columns.
 
 ## Example
 
-The following example highlights indexes with descriptive columns: 
+The following example returns information about indexes in the database queried: 
 
 ```sql
 SHOW INDEXES;
 ```
+
 | index_name | table_name |	type |	expression |	size_compressed |	size_uncompressed |	compression_ratio |	number_of_tablets |
 |:-----|:-----|:----|:------|:-----|:-----|:-------|:------|
 | players_join_idx |	players	| join |	["playerid","nickname","email","agecategory"]	| 819.98 KiB	| 819.98 KiB	| 1	| 0 |
