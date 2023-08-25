@@ -9,23 +9,23 @@ parent: Engine commands
 
 # START ENGINE
 
-The `START ENGINE` statement enables you to start a stopped engine.
+Starts a stopped engine.
 
 ## Syntax
 
 ```sql
-START ENGINE <engine>
+START ENGINE <engine_name>
 ```
 ## Parameters 
 {: .no_toc}   
 
-| Parameter       | Description                          | Mandatory? Y/N |
-| :--------------- | :------------------------------------ | :-------------- |
-| `<engine>` | The name of the engine to be started | Y              |
+| Parameter       | Description                          |
+| :--------------- | :------------------------------------ |
+| `<engine_name>` | The name of the engine to be started. |
 
 ## Example
-The following example starts the `players` engine: 
+The following example starts my_engine:
 
 ```sql
-START ENGINE <players>
+START ENGINE my_engine
 ```

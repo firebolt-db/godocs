@@ -32,7 +32,7 @@ The `DELETE FROM <table>` without `<expression>` will delete *all* rows from the
 
 Deleted rows are marked for deletion, but are not automatically cleaned up. You can monitor fragmentation in `information_schema.tables` to understand how many rows are marked for deletion out of total rows; fragmentation = (rows marked for deletion / total rows). Total row count in `information_schema.tables` includes the number of rows marked for deletion. Query performance is not materially impacted by delete marks.
   
-To mitigate fragmentation, use the [`VACUUM` (Beta)](vacuum.md) command to manually clean up deleted rows.
+To mitigate fragmentation, use the [`VACUUM`](vacuum.md) command to manually clean up deleted rows.
 
 ## Example 
 
@@ -61,52 +61,6 @@ Table before:
 | sabrina21 |    4 |
 | rileyjon       |     2 |
 | aaronbutler   |     1 |
-
-
-
-<!-- ### Example with subqueries
-
-```sql
-DELETE FROM levels WHERE 
-  name IN (SELECT name FROM inventory WHERE amount = 0) OR
-  name NOT IN (SELECT name FROM inventory)
-```
-
-Tables before:
-
-```
-product
-+------------+--------+
-| name       | price  |
-+---------------------+
-| wand       |    125 |
-| broomstick |    270 |
-| robe       |     80 |
-| cauldron   |     25 |
-+------------+--------+
-
-inventory
-+------------+--------+
-| name       | amount |
-+---------------------+
-| wand       |      3 |
-| cauldron   |     18 |
-| robe       |      0 |
-| bludger    |      5 |
-+------------+--------+
-```
-
-Table after:
-```
-product
-+------------+--------+
-| name       | price  |
-+---------------------+
-| wand       |    125 |
-| cauldron   |     25 |
-+------------+--------+
-``` -->
-
 
 ### Known limitations
 

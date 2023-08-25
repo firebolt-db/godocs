@@ -1,13 +1,13 @@
 ---
 layout: default
-title: VACUUM (Beta)
+title: VACUUM
 description: Reference and syntax for the VACUUM command.
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Data management
 ---
 
-# VACUUM (Beta)
+# VACUUM
 Performs garbage collection to optimize a table.
 
 `VACUUM` reclaims storage occupied by deleted tuples. In normal SQL operation, tuples that are deleted or made obsolete by an update are not physically removed from their table; they remain present until a `VACUUM` is done. Therefore, it's necessary to do `VACUUM` periodically, especially on frequently updated tables.

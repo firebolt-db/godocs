@@ -3,7 +3,7 @@ layout: default
 title: TO_DATE
 description: Reference material for TO_DATE function
 grand_parent: SQL functions
-parent: String functions
+parent: Date and time functions
 great_grand_parent: SQL reference
 ---
 

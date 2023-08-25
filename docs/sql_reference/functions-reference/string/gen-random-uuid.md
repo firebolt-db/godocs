@@ -17,7 +17,7 @@ Returns a version 4 universally unique identifier (UUID) according to [RFC-4122]
 ```sql
 GEN_RANDOM_UUID()
 ```
-## Return Types
+## Return Type
 `TEXT`
 
 ## Example

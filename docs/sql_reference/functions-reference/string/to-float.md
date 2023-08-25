@@ -18,11 +18,13 @@ Converts a string to a numeric `REAL` data type.
 TO_FLOAT(<expression>)
 ```
 ## Parameters 
+{: .no_toc}
+
 | Parameter | Description                                                                                              | Supported input types |
 | :--------- | :-------------------------------------------------------------------------------------------------------- | :----------|
 | `<expression>`  | An expression to become a float | Any numeric data type or numeric characters that resolve to a `TEXT` data type. |
 
-## Return Types 
+## Return Type
 `REAL` 
 
 ## Example

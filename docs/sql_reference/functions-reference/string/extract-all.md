@@ -15,17 +15,18 @@ Extracts fragments within a string that match a specified regex pattern. String 
 {: .no_toc}
 
 ```sql
-EXTRACT_ALL( <expression1>, <expression2> )
+EXTRACT_ALL( <expression>, <pattern> )
 ```
 ## Parameters 
 {: .no_toc}
+
 | Parameter         | Description                                      | Supported input types | 
 | :----------------- | :---------------------------------------------- |:---------|
-| `<expression1>`          | String to be extracted | Any expression that evaluates to a `TEXT` data type |
-| `<expression2>` | Regex pattern that is applied to `<expression1>` | An re2 regular expression used for matching  | 
+| `<expression>`          | The string to be extracted from. | `TEXT` |
+| `<pattern>` | Regex pattern that is applied to `<expression>` | An re2 regular expression used for matching.  | 
 
-## Return Types
-`ARRAY` 
+## Return Type
+`ARRAY TEXT` 
 
 ## Example
 {: .no_toc}

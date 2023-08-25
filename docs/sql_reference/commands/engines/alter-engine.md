@@ -9,14 +9,12 @@ parent: Engine commands
 
 # ALTER ENGINE
 
-Updates the configuration of the specified engine `<engine>`.
-
-<!-- Add a bit more info here as an overview? Give a bit more context  -->
+Updates the configuration of the specified engine.
 
 ## Syntax
 
 ```sql
-ALTER ENGINE <engine> SET
+ALTER ENGINE <engine_name> SET
     [SCALE = <scale>]
     [SPEC = <spec>]
     [AUTO_STOP = <minutes]
@@ -28,15 +26,12 @@ ALTER ENGINE <engine> SET
 
 | Parameter                                                   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | 
 | :----------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | 
-| `<engine>`                                             | Name of the engine to be altered.                                                                                                                                                                                                                                                                                                                                                                                                                                                  | 
+| `<engine_name>`                                             | The name of the engine to be altered.                            | 
 | `SCALE = <scale>` | Scale determines the number of nodes that the engine uses, and can be an integer ranging from 1 to 128.<br> | 
-
-<!-- Break into two sentences, or remove the comma  -->
-
-| `SPEC = <spec>`   | The engine spec defines the engine’s compute capabilities. Each engine spec has CPU, RAM, and cache characteristics. The engine spec determines the cost per hour (billed per second) for each engine node (the total engine cost per hour is also a function of scale). You can choose engine specs for characteristics that are best suited for your Firebolt workload. For details, see [Available engine specs](../../general-reference/available-engine-specs.md).<br>| 
+| `SPEC = <spec>`   | The engine spec defines the engine’s compute capabilities. Each engine spec has CPU, RAM, and cache characteristics. The engine spec determines the cost per hour (billed per second) for each engine node (the total engine cost per hour is also a function of scale). You can choose engine specs for characteristics that are best suited for your Firebolt workload. For details, see [Available engine specs](../../../Reference/available-engine-specs.md).<br>| 
 | `AUTO_STOP = <minutes>`                                     | The number of minutes after which the engine automatically stops, where 0 indicates that `AUTO_STOP` is disabled.                                                                                                                                                                                                                                                                                                                                                                     | 
 | `RENAME TO <new_name>`                                      | Indicates the new name for the engine.<br> <br>For example: `RENAME TO new_engine_name`                                                                                                                                                                                                                                                                                                                                                                         | 
-| `WARMUP =<warmup_method>`                                   | The warmup method that should be used. The following options are supported:<br><br> `MINIMAL` On-demand loading (both indexes and tables' data).<br><br>`PRELOAD_INDEXES` Load indexes only.<br><br>`PRELOAD_ALL_DATA` Full data auto-load (both indexes and table data - full warmup).                                                                                                                                  | 
+| `WARMUP =<warmup_method>`                                   | The warmup method that should be used. The following options are supported:<br>`MINIMAL` On-demand loading (both indexes and tables' data).<br>`PRELOAD_INDEXES` Load indexes only.<br>`PRELOAD_ALL_DATA` Full data auto-load (both indexes and table data - full warmup).                                                     | 
 
 ## Example
 The following example updates the engine's scale to `1`: 

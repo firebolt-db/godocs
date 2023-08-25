@@ -9,21 +9,21 @@ great_grand_parent: SQL reference
 
 # BTRIM
 
-Removes all occurrences of optionally specified characters, `<trimchars_expr>`, from both sides of a source string `<srcstr_expr>`. If no `<trimchars_expr>` are specified, removes all occurrences of common whitespace (ASCII Decimal 32) characters from both sides of the specified source string.
+Removes all occurrences of optionally specified characters, `<trim>`, from both sides of a source string `<expression>`. If no `<trim>` parameter is specified, all occurrences of common whitespace (ASCII Decimal 32) characters from both sides of the specified source string are removed.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-BTRIM(<expression1>[, <expression2>])
+BTRIM(<expression>[, <trim>])
 ```
 
 | Parameter        | Description                | Supported input types | 
 | :--------------- | :------------------------- | :----------|
-| `<expression1>`  | An expression that returns the string to be trimmed. The string can be any of the [string data types](../../general-reference/data-types.md#string).| `TEXT` | 
-| `<expression2>` | Optional. An expression that returns characters to trim from both sides of the `<expression1>` string. If omitted, whitespace (ASCII Decimal 32) is assumed. | `TEXT` | 
+| `<expression>`  | The string to be trimmed. | `TEXT` | 
+| `<trim>` | Optional. An expression that returns characters to trim from both sides of the `<expression>` string. If omitted, whitespace (ASCII Decimal 32) is assumed. | `TEXT` | 
 
-## Return Types
+## Return Type
 `TEXT`
 
 ## Examples
@@ -53,9 +53,9 @@ This example completes a multiple character trim, with all specified characters 
 
 ```sql
 SELECT
-  BTRIM('xyxyThe Acceleration Cupyyxx', 'xy') AS trmdstrng;
+  BTRIM('xyxyThe Acceleration Cupyyxx', 'xy');
 ```
 
 **Returns**:
 
-The Acceleration Cups
+The Acceleration Cup

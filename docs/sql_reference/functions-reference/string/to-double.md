@@ -25,12 +25,12 @@ TO_DOUBLE(<expression>)
 | :---------------| :--------------------------------|:--------------------------------------------------------------------------------|
 | `<expression>`  | An expression to become a double | Any numeric data type or numeric characters that resolve to a `TEXT` data type. |
 
-## Return Types
+## Return Type
 `DOUBLE PRECISION`
 
 ## Example
 {: .no_toc}
-The following example takes the input of `100` and returns the value as a `DOUBLE`.
+The following example takes the input of `100` and returns the value as a `DOUBLE PRECISION` type.
 ```sql
 SELECT
 	TO_DOUBLE('100');
