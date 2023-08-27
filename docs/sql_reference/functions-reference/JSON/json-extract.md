@@ -15,7 +15,7 @@ Takes an expression containing a JSON document, a JSON pointer expression, and a
 {: .no_toc}
 
 ```sql
-JSON_EXTRACT(<json>, '<expression>', '<data_type>')
+JSON_EXTRACT(<json>, '<json_pointer_expression>', '<data_type>')
 ```
 ## Parameters 
 {: .no_toc}
@@ -23,8 +23,8 @@ JSON_EXTRACT(<json>, '<expression>', '<data_type>')
 | Parameter                   | Description           | Supported input types                                                         |
 | :--------------------------- | :-------------- | :------------------------------------------------------------------------------------------------- |
 | `<json>`                    | The JSON document from which the value is to be extracted.        |    `TEXT`                                |
-| `<expression>` | A JSON pointer to the location of the array in the JSON. For more information, see [JSON pointer expression syntax](./index.md#json-pointer-expression-syntax).                                 | Literal string | s
-| `<data_type>`           | The expected data type of the key indicated by `<json_pointer_expression>`, such as `TEXT` or `INTEGER`. For more information, see [supported type parameters](index.md#supported-type-parameters). | Any data type | 
+| `<json_pointer_expression>` | A JSON pointer to the location of the array in the JSON. For more information, see [JSON pointer expression syntax](./index.md#json-pointer-expression-syntax).                                 | `TEXT` |
+| `<data_type>`           | The expected data type of the key indicated by `<json_pointer_expression>`, such as `TEXT` or `INTEGER`. For more information, see [supported type parameters](./index.md#supported-type-parameters). | Any data type | 
 
 # Return Types 
 * If key is provided, returns the value of the data type specified 
@@ -37,7 +37,7 @@ For the JSON document indicated by `<json_common_example>` below, see [JSON comm
 
 ```sql
 SELECT
-    JSON_EXTRACT(< json_common_example >, '/value/dyid', 'INTEGER')
+    JSON_EXTRACT(<json_common_example>, '/value/dyid', 'INTEGER')
 ```
 
 **Returns**: `987`

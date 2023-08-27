@@ -52,12 +52,12 @@ With this JSON document, the JSON pointer expressions below evaluate to the resu
 
 Some functions accept a *data type parameter*, indicated in this reference with the `<expected_type>` placeholder. This parameter specifies the expected type as indicated by `<json_pointer_expression>`. The `<expected_type>` is specified using a string literal that corresponds to supported Firebolt SQL data types. The type parameter does not accept all SQL types because the JSON type system has fewer types than SQL and must be one of the following:
 
-* `INT` &ndash; used for integers as well as JSON boolean.
-* `DOUBLE` &ndash; used for real numbers. It also works with integers. For performance reasons, favor using `INT` when the values in the JSON document are known integers.
+* `INTEGER` &ndash; used for integers as well as JSON boolean.
+* `DOUBLE PRECISION` when the values in the JSON document are known integers.
 * `TEXT` &ndash; used for strings.
-* `ARRAY(<type>)` &ndash; indicates an array where `<type>` is one of `INT`, `DOUBLE`, or `TEXT`.
+* `ARRAY(<type>)` &ndash; indicates an array where `<type>` is one of `INTEGER`, `DOUBLE PRECISION`, or `TEXT`.
 
-The following data types are _not supported_: `DATE`, `DATETIME`, `FLOAT` (for real numbers, use `DOUBLE`).
+The following data types are _not supported_: `DATE`, `TIMESTAMP`, `REAL` (for real numbers, use `DOUBLE PRECISION`).
 
 ### JSON common example
 
