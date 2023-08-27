@@ -11,7 +11,7 @@ great_grand_parent: SQL reference
 
 Calculates a percentile, assuming a continuous distribution of values of <expr> defined. Results are interpolated, rather than matching any of the specific column values. 
 
-PERCENTILE\_CONT is available as a [window function](./window-functions.md). 
+PERCENTILE\_CONT is available as a [window function](../window/index.md). 
 See also [PERCENTILE\_DISC](../percentile-disc.md), which returns a percentile equal to a specific column value.
 
 
@@ -24,6 +24,7 @@ PERCENTILE_CONT( <value> ) WITHIN GROUP ( ORDER BY <expression> [ { ASC | DESC }
 
 ## Parameters 
 {: .no_toc}
+
 | Parameter | Description                                     | Supported input types | 
 | :--------- | :----------------------------------------------- | :---------|
 | `<value>`   | Percentile value for the function | `DOUBLE PRECISION`/`REAL` literal between 0.0 and 1.0 |

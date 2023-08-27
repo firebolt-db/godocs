@@ -17,13 +17,16 @@ Returns the sum of elements in the array column accumulated over the rows in eac
 ```sql
 ARRAY_SUM_GLOBAL(<array>)
 ```
+
 ## Parameters
+{: .no_toc}
+
 | Parameter | Description                                                    | Supported input types | 
 | :--------- | :-------------------------------------------------------------- | :-------|
-| `<array>`   | The array column over which the function will sum the elements |  Any `ARRAY` type  |
+| `<array>`   | The array column whose elements will be summed. |  Any `ARRAY` type  |
 
 ## Return Type
-`ARRAY`
+`INTEGER`
 
 ## Example
 {: .no_toc}

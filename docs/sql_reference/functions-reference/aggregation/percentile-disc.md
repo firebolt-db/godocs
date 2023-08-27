@@ -11,7 +11,7 @@ great_grand_parent: SQL reference
 
 Returns a percentile for an ordered data set. The result is equal to a specific column value, the smallest distributed value that is greater than or equal to the percentile <value>. 
 
-PERCENTILE\_DISC is available as a [window function](./window-functions.md).
+PERCENTILE\_DISC is available as a [window function](../window/index.md).
 See also [PERCENTILE\_CONT](./percentile-cont.md), which calculates an interpolated result, rather than matching any of the specific column values.
 
 ## Syntax

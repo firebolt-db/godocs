@@ -58,7 +58,7 @@ FROM
 
 **Returns**: `17`
 
-If you want to count elements based on specific criteria, you can use the [`ARRAY_COUNT`](./array-count.md) function with a `SUM` aggregation as demonstrated below.
+If you want to count elements based on specific criteria, you can use the [`ARRAY_COUNT`](../Lambda/array-count.md) function with a `SUM` aggregation as demonstrated below.
 
 ```sql
 SELECT

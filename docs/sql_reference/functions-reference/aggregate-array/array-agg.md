@@ -16,17 +16,19 @@ Concatenates input values into an array.
 {: .no_toc}
 
 ```sql
-ARRAY_AGG(<expr>)
+ARRAY_AGG(<expression>)
 ```
+
 ## Parameters 
 {: .no_toc}
+
 | Parameter | Description                                         | Supported input type |
 | :--------- | :--------------------------------------------------|:-----|
-| `<expression>`   | Expression of any type to be converted to an array | Any |
+| `<expression>`   | Expression of any type to be converted to an array. | Any |
 
-## Return Types 
+## Return Type
 {: .no_toc}
-`ARRAY`
+`ARRAY` of the same type as the input data
 
 ## Example
 {: .no_toc}
