@@ -23,7 +23,7 @@ ARRAY_MAX(<array>)
 
 | Parameter | Description                         |Supported input types |
 | :--------- | :----------------------------------- | :---------------------|
-| `<array>`   | The array or array-type column to be checked | `<ARRAY>` | 
+| `<array>`   | The array or array-type column to be checked | `ARRAY` | 
 
 ## Return Type
 `NUMERIC` 

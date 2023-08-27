@@ -22,7 +22,7 @@ ARRAY_DISTINCT(<array>)
 
 | Parameter | Description                                  | Supported input types 
 | :--------- | :-------------------------------------------- | :----------|
-| `<array>`   | The array to be analyzed for unique members | `<array>` |
+| `<array>`   | The array to be analyzed for unique members | `ARRAY` |
 
 ## Return Type
 `ARRAY` of the same type as the input array 

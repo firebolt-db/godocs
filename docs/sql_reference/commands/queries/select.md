@@ -199,7 +199,7 @@ FROM <join_table1> [ INNER | LEFT | RIGHT | FULL ] JOIN <join_table2> USING (col
 | :--------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `<join_table1>`       | A table or view to be used in the join operation                                                                                                                                                                      |
 | `<join_table2>`       | A second table or view to be used in the join operation.                                                                                                                                                              |
-| `USING (column_list)` | A list of one or more columns to compare for exact matching. `USING` is a shortcut to join tables that share the same column names. The specified columns are joined via a basic match condition. The match condition of `USING (column)` is equivalent to `ON join_table1.column = join_table2.column` |
+| `USING (column_list)` | A list of one or more columns to compare for exact matching. `USING` is a shortcut to join tables that share the same column names. The specified columns are joined via a basic match condition. The match condition of `USING (column_list)` is equivalent to `ON join_table1.column = join_table2.column` |
 
 ### JOIN Types
 {: .no_toc}
@@ -448,7 +448,7 @@ FROM <from_item> UNNEST(<array_column> [[ AS ] <alias_name>][,<array_column>...]
 | Component     | Description                                                                                                               | Valid values and syntax                |
 | :------------- | :------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------- |
 | `<from_item>` | The table containing the array column that you want to use to create a new table                                          |                                        |
-| `<expr>`      | Indicates the array or array column to unnest from.  Can be either an array literal or an array typed column. | Any valid array literal or column name |
+| `<array_column>`      | Indicates the array or array column to unnest from.  Can be either an array literal or an array typed column. | Any valid array literal or column name |
 
 ### Example
 {: .no_toc}
@@ -651,13 +651,13 @@ When including multiple clauses, the same number of columns must be selected by 
 {: .no_toc}
 
 ```sql
-<select_expr1> UNION [ALL] <select_expr2> [ ...n]
+<select_expression1> UNION [ALL] <select_expression2> [ ...n]
 ```
 
 | Component        | Description                                                  |
 | :---------------- | :------------------------------------------------------------ |
-| `<select_expr1>` | A `SELECT`statement.                                         |
-| `<select_expr2>` | A second `SELECT` statement to be combined with the first.   |
+| `<select_expression1>` | A `SELECT`statement.                                         |
+| `<select_expression2>` | A second `SELECT` statement to be combined with the first.   |
 
 ## ORDER BY
 

@@ -24,9 +24,9 @@ ANY_MATCH(<function>, <array>)
 | Parameter | Description              | Supported input types | 
 | :--------- | :------------------------| :----------- | 
 | `<function>`  | A [Lambda function](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions) used to check elements in the array. | Any Lambda function | 
-| `<array>`   | The array to be matched with the function. The array cannot be empty  | Any array |                                                                                                          |
+| `<array>`   | The array to be matched with the function. The array cannot be empty.  | Any array |       
 
-## Return Types
+# Return Types
 * Returns `1` if the conditions are met
 * Returns `0` if the conditions are not met
 
@@ -42,7 +42,7 @@ SELECT
 **Returns**: `1`
 
 As there is no level `10` in the array, the function returns `0`. 
-```
+```sql
 SELECT
 	ANY_MATCH(x -> x = 10, [ 1, 2, 3, 9 ]) AS levels;
 ```

@@ -22,9 +22,9 @@ ALL_MATCH(<expression> -> <condition>, <array>)
 
 | Parameter      | Description                                   | Supported input types | 
 | :------------- |:--------------------------------------------- | :-----------| 
-| `<expression>`  | A Lambda array variable that contains elements of the array specified using `<array>`. For more information, see [Manipulating arrays with Lambda functions](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions). |
-| `<condition>` | A Boolean expression that evaluates each array value using a comparison operator. For available operators, see [Comparison operators](../../operators.md#comparison). |
-| `<array>` | An expression that evaluates to an `ARRAY` data type. |
+| `<expression>`  | A Lambda array variable that contains elements of the `<array>` specified. For more information, see [Manipulating arrays with Lambda functions](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions). | Same as the element data type of the input array |
+| `<condition>` | A Boolean expression that evaluates each array value using a comparison operator. | See [Comparison operators](../../operators.md#comparison). |
+| `<array>` | The array to evaluate. | `ARRAY` |
 
 ## Return Types
 * Returns `1` if the condition is met

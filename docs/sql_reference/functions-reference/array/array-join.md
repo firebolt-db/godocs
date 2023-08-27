@@ -43,7 +43,7 @@ SELECT
 
 In this example below, the levels are joined separated by a comma. 
 
-```
+```sql
 SELECT
 	ARRAY_JOIN([ '1', '2', '3' ], ',') AS levels;
 ```

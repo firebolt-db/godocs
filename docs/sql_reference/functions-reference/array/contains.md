@@ -22,7 +22,7 @@ CONTAINS(<array>, <value>)
 
 | Parameter | Description                                      | Supported input types | 
 | :--------- | :------------------------------------------------ | :--------|
-| `<array>`   | The array to be checked for the given element.   | `<ARRAY>` | 
+| `<array>`   | The array to be checked for the given element.   | `ARRAY` | 
 | `<value>`   | The element to be searched for within the array | Any integer that corresponds to an element in the array | 
 
 ## Return Types
@@ -42,7 +42,7 @@ SELECT
 
 `CONTAINS` returns a `0` result when single character or substring matches only part of a longer string.
 
-```
+```sql
 SELECT
 	CONTAINS([ 'sabrina21', 'rileyjon', 'ywilson'] , 'danielle53') AS players;
 ```

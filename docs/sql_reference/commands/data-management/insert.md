@@ -36,9 +36,9 @@ INSERT INTO <table> [(<column1>[, <column2>][, ...])]
 
 ## Extracting partition values using INSERT
 
-In some applications, such as Hive partitioning, table partitions are stored in Amazon S3 folders and files using a folder naming convention that identifies the partition. To extract partition information from the file path and store it with the data that you ingest, you can use the value that Firebolt automatically saves to the `source_file_name` metadata column for external tables. You can use a string operator in your `INSERT` statement to extract a portion of the file path, and then store the result of the extraction in a virtual column in the fact table. For more information about metadata columns, see [Using metadata virtual columns](../../loading-data/working-with-external-tables.md#using-metadata-virtual-columns).
+In some applications, such as Hive partitioning, table partitions are stored in Amazon S3 folders and files using a folder naming convention that identifies the partition. To extract partition information from the file path and store it with the data that you ingest, you can use the value that Firebolt automatically saves to the `source_file_name` metadata column for external tables. You can use a string operator in your `INSERT` statement to extract a portion of the file path, and then store the result of the extraction in a virtual column in the fact table. For more information about metadata columns, see [Using metadata virtual columns](../../../Guides/loading-data/working-with-external-tables.md#using-metadata-virtual-columns).
 
-Using the `source_file_name` metadata column during an `INSERT` operation is one method of extracting partition data from file paths. Another method is to use the `PARTITION` keyword for a column in the external table definition. For more information, see the [PARTITION](create-external-table.md#partition) keyword explanation in the `CREATE EXTERNAL TABLE` reference.
+Using the `source_file_name` metadata column during an `INSERT` operation is one method of extracting partition data from file paths. Another method is to use the `PARTITION` keyword for a column in the external table definition. For more information, see the [PARTITION](../data-definition/create-external-table.md#partition) keyword explanation in the `CREATE EXTERNAL TABLE` reference.
 
 ### Example
 {: .no_toc}
@@ -81,7 +81,7 @@ CREATE FACT TABLE my_table
 
 The example below shows the `INSERT` statement that performs the ingestion and populates `c_type` with a value extracted from the partition file path.
 
-The `SELECT` clause uses the `SPLIT_PART` function on the external table's `source_file_name` metadata column, inserting the result into the   `c_type` column. The `source_file_name` metadata value contains the path and file name, without the bucket. For example, data values ingested from the `s3://my_bucket/xyz/2018/01/part-00001.parquet` file have a corresponding `source_file_name` value of `xyz/2018/01/part-00001.parquet`. The function shown in the example below returns `xyz` because the index is 1. For more information, see [SPLIT_PART](../functions-reference/split-part.md).
+The `SELECT` clause uses the `SPLIT_PART` function on the external table's `source_file_name` metadata column, inserting the result into the   `c_type` column. The `source_file_name` metadata value contains the path and file name, without the bucket. For example, data values ingested from the `s3://my_bucket/xyz/2018/01/part-00001.parquet` file have a corresponding `source_file_name` value of `xyz/2018/01/part-00001.parquet`. The function shown in the example below returns `xyz` because the index is 1. For more information, see [SPLIT_PART](../../functions-reference/string/split-part.md).
 
 ```sql
 INSERT INTO my_table (c_id, c_name, c_type)
@@ -116,4 +116,4 @@ The SQL statement below counts the rows in an external table, `my_extable`, and 
 SELECT (SELECT COUNT(*) FROM my_extable)=(SELECT COUNT(*) FROM fact_or_dim_table) AS CountResult;
 ```
 
-* If the counts are not equal, use [DROP TABLE](drop-table.md) to delete the incomplete target table, create a new target table, change the `INSERT` query to use the new target, and then run the query again.
+* If the counts are not equal, use [DROP TABLE](../data-definition/drop-table.md) to delete the incomplete target table, create a new target table, change the `INSERT` query to use the new target, and then run the query again.

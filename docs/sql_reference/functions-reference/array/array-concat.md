@@ -23,7 +23,7 @@ ARRAY_CONCAT(<array> [, ...n])
 
 | Parameter        | Description                                                                            | Supported input types |
 | :---------------- | :-------------------------------------------------------------------------------------- | :----------|
-| `<array> [, ...n]` | The arrays to be combined. If only one array is given, an identical array is returned. | `<array>`  |
+| `<array> [, ...n]` | The arrays to be combined. If only one array is given, an identical array is returned. | `ARRAY`  |
 
 ## Return Type
 `ARRAY` of the same type as the input arrays 

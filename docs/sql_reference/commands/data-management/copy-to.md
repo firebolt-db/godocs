@@ -7,7 +7,7 @@ grand_parent:  SQL commands
 parent: Data management
 ---
 
-# COPY TO (Beta)
+# COPY TO
 {: .no_toc}
 
 Copies (exports or unloads) the results of a `SELECT` query to an Amazon S3 location in the file format that you specify.
@@ -60,7 +60,7 @@ CREDENTIALS = (AWS_ROLE_ARN=<role_arn>) [AWS_ROLE_EXTERNAL_ID='<external_id>']
 * `<role_arn>` is the ARN of a role that you have configured for Firebolt access to the specified `<s3_location>`, for example, `arn:aws:iam::123456789012:role/my-firebolt-access-role`.
 * `<external_id>` is an optional arbitrary string that you assign to an IAM role when you create it, for example, `99291`.
 
-For more information about creating roles for Firebolt, see [Using AWS roles to access Amazon S3](../../loading-data/configuring-aws-role-to-access-amazon-s3.md).
+For more information about creating roles for Firebolt, see [Using AWS roles to access Amazon S3](../../../Guides/loading-data/configuring-aws-role-to-access-amazon-s3.md).
 
 ### Specifying AWS access keys
 

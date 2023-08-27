@@ -23,7 +23,7 @@ ARRAY_INTERSECT(<array>)
 
 | Parameter | Description                                            | Supported input types | 
 | :--------- | :------------------------------------------------------ | :-----|
-| `<array>`   | A series of arrays to be analyzed for mutual elements | `ARRAY`s of the same type |
+| `<array>`   | A series of arrays to be analyzed for mutual elements. | `ARRAY`s of the same type |
 
 ## Return Type
 `ARRAY` of the same type as the input arrays
