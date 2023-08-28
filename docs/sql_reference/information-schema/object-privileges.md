@@ -31,6 +31,6 @@ Each row has the following columns with information about the role.
 | object_schema  | TEXT      | Schema containing the object on which the privilege is granted.   |
 | object_name    | TEXT      | Name of the object on which the privilege is granted.             |
 | object_type    | TEXT      | Type of the object on which the privilege is granted.             |
-| privilege_type | TEXT      | type of the privilege granted over the object.                     |
+| privilege_type | TEXT      | Type of the privilege granted over the object.                     |
 | is_grantable   | TEXT      | YES if the privilege is grantable, NO if not.                     |
 | created        | TIMESTAMPTZ | Creation time of the privilege.                                 |
