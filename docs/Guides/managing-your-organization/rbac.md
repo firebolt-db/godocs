@@ -45,15 +45,20 @@ System defined roles can neither be modified nor dropped. Users with the `accoun
 A user with either the `account_admin` or `security_admin` role can create custom roles. You can create a custom role using SQL, or via the UI.  
 
 ## Privileges
-A set of privileges can be granted for every securable object. See which privileges are available for accounts, databases and engines below. To view all privileges, query the [information_schema.object_privileges](../Reference/information-schema/object-privileges.md) view. 
+A set of privileges can be granted for every securable object. See which privileges are available for accounts, databases and engines below. To view all privileges, query the [information_schema.object_privileges](../../sql_reference/information-schema/object-privileges.md) view. 
 
 ### Account
 Privileges can be granted for accounts to allow creating databases and engines.
 
-| Privilege         | Description                                    |
-|:------------------|:-----------------------------------------------|
-| CREATE ENGINE     | Enables creating new engines in the account.   |
-| CREATE DATABASE   | Enables creating new databases in the account. |
+| Privilege           | Description                                                                    |
+|:--------------------|:-------------------------------------------------------------------------------|
+| CREATE ENGINE       | Enables creating new engines in the account.                                   |
+| CREATE DATABASE     | Enables creating new databases in the account.                                 |
+| USAGE ANY DATABASE  | Enables Usage privilege over all current and future databases in the account.  |
+| MODIFY ANY DATABASE | Enables Modify privilege over all current and future databases in the account. |
+| USAGE ANY ENGINE    | Enables Usage privilege over all current and future engines in the account.    |
+| OPERATE ANY ENGINE  | Enables Operate privilege over all current and future engines in the account.  |
+| MODIFY ANY ENGINE   | Enables Modify privilege over all current and future engies in the account.    |
 
 #### Database
 Privileges can be granted for databases to allow usage and modification of databases per account. 
@@ -159,7 +164,7 @@ To revoke a privilege from a role via the UI, follow the [same steps above](#gra
 ### SQL 
 To revoke a role from a user or another role using SQL, use the [`REVOKE ROLE`](../../sql_reference/commands/access-control/revoke.md) statement. For example:
 
-```REVOKE ROLE user_role USER alex;```
+```REVOKE ROLE user_role FROM USER alex;```
 
 ### UI
 To revoke a role from a user or another role via the UI, follow the [same steps above](#grant-role) that you would to grant a role.  
