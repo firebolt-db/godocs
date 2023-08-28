@@ -11,7 +11,7 @@ great_grand_parent: SQL reference
 
 Adds a specified pad string to the end of the string repetitively up until the length of the resulting string is equivalent to an indicated length.
 
-The similar function to pad the end of a string is [`RPAD`](rpad.md).
+The similar function to pad the end of a string is [`RPAD`](./rpad.md).
 
 ## Syntax
 {: .no_toc}
@@ -20,7 +20,10 @@ The similar function to pad the end of a string is [`RPAD`](rpad.md).
 LPAD(<expression>, <value>[, <pad>])
 ```
 
-| Parameter  | Description                                      | Supported input types | 
+## Parameters 
+{: .no_toc}
+
+| Parameter  | Description                                      |Supported input types | 
 | :---------- | :---------------------------------------------- | :------------|
 | `<expression>`    | The original string. If the length of the original string is larger than the length parameter, this function removes the overflowing characters from the string. | `TEXT` | 
 | `<value>` | The length of the string as an integer after it has been left-padded.  | `INTEGER` |                                                                                                         |
