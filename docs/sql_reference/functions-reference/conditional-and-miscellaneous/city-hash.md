@@ -15,17 +15,17 @@ Takes one or more input parameters of any data type and returns a 64-bit non-cry
 {: .no_toc}
 
 ```sql
-CITY_HASH(<exp>, [, expr2 [,...]])
+CITY_HASH(<expression>, [, expressionn [,...]])
 ```
 ## Parameters 
 {: .no_toc}
 
-| Parameter | Description                          |  Supported input types | 
+| Parameter | Description                          |Supported input types | 
 | :--------- | :---------------------------------- | :----------|
 | `<expression>`   | An expression that returns any data type that Firebolt supports. | Any | 
 
-## Return Types 
-64-bit non-cryptographic hash value 
+## Return type
+`BIGINT`
 
 ## Example
 {: .no_toc}

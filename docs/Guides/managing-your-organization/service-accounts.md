@@ -22,7 +22,9 @@ Managing service accounts requires the org_admin role.
 ### SQL 
 To create a service account using SQL, use the [`CREATE SERVICE ACCOUNT`](../../sql_reference/commands/access-control/create-service-account.md) statement. For example:
 
-```CREATE SERVICE ACCOUNT IF NOT EXISTS "sa1" WITH DESCRIPTION = "service account 1";```
+```sql
+CREATE SERVICE ACCOUNT IF NOT EXISTS "sa1" WITH DESCRIPTION = "service account 1";
+```
 
 ### UI
 To create a service account via the UI:
@@ -33,7 +35,7 @@ To create a service account via the UI:
 2. From the Service accounts page, choose **Create a service account**.
 3. Enter a unique name for your service account. This name must start with a letter, and may contain only alphanumeric characters, or the underscore(_) character.
 4. Optionally, you can:
-  - Choose a **network policy** to apply from the list of existing [network policies](network-policies.md) configured for your organization. 
+  - Choose a **network policy** to apply from the list of existing [network policies](./network-policies.md) configured for your organization. 
   - Specify a description for the service account.
 5. Choose **Create**. 
 
@@ -43,7 +45,9 @@ A service account secret is used to generate an access token for accessing Fireb
 ### SQL 
 To generate a secret for a service account using SQL, use the `CALL fb_GENERATESERVICEACCOUNTKEY(`<name>`)` statement, where `<name>` is the name of the service account. The command returns both the service account ID and secret. For example:
 
-```CALL fb_GENERATESERVICEACCOUNTKEY('sa1')```
+```sql
+CALL fb_GENERATESERVICEACCOUNTKEY('sa1')
+```
 
 ### UI
 To generate a secret for a service account via the UI:
@@ -85,7 +89,9 @@ Use the returned access_token to authenticate with Firebolt.
 ### SQL 
 To edit a service account using SQL, use the [`ALTER SERVICE ACCOUNT`](../../sql_reference/commands/access-control/alter-service-account.md) statement. For example:
 
-```ALTER SERVICE ACCOUNT sa1 SET NETWORK_POLICY = my_network_policy```
+```sql
+ALTER SERVICE ACCOUNT sa1 SET NETWORK_POLICY = my_network_policy
+```
 
 ### UI 
 To edit a service account via the UI:
@@ -99,7 +105,9 @@ To edit a service account via the UI:
 ### SQL 
 To delete a service account using SQL, use the [`DROP SERVICE ACCOUNT`](../../sql_reference/commands/access-control/drop-service-account.md) statement. For example:
 
-`DROP SERVICE ACCOUNT sa1;`
+```sql
+DROP SERVICE ACCOUNT sa1;
+```
 
 ### UI 
 To delete a service account via the UI:

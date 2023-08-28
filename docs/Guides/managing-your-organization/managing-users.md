@@ -22,7 +22,9 @@ Managing users requires either the account_admin or security_admin role.
 ### SQL 
 To create a user using SQL, use the [`CREATE USER`](../../sql_reference/commands/access-control/create-user.md) statement. For example:
 
-```CREATE USER alex;```
+```sql
+CREATE USER alex;
+```
 
 ### UI
 To create a user via the UI:
@@ -44,7 +46,9 @@ To create a user via the UI:
 ### SQL 
 To edit an existing user using SQL, use the [`ALTER USER`](../../sql_reference/commands/access-control/alter-user.md) statement. For example:
 
-```ALTER USER "alex" RENAME TO "alexs";``` or ```ALTER USER alex SET LOGIN_NAME="alexs@acme.com";```
+```sql
+ALTER USER "alex" RENAME TO "alexs";``` or ```ALTER USER alex SET LOGIN_NAME="alexs@acme.com";
+```
 
 ### UI
 To edit a user via the UI:
@@ -59,7 +63,9 @@ To edit a user via the UI:
 ### SQL 
 To delete an existing user using SQL, use the [`DROP USER`](../../sql_reference/commands/access-control/drop-user.md) statement. For example:
 
-```DROP USER "alex";```
+```sql
+DROP USER "alex";
+```
 
 ### UI
 To delete a user via the UI:

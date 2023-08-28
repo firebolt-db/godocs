@@ -6,10 +6,11 @@ grand_parent: SQL functions
 parent: Conditional and miscellaneous functions
 great_grand_parent: SQL reference
 ---
+
 # CASE
 
-The CASE expression is a conditional expression similar to if-then-else statements.\
-If the result of the condition is true then the value of the CASE expression is the result that follows the condition.  If the result is false any subsequent WHEN clauses (conditions) are searched in the same manner.  If no WHEN condition is true then the value of the case expression is the result specified in the ELSE clause.  If the ELSE clause is omitted and no condition matches, the result is null.
+Conditional expression similar to if-then-else statements.
+If the result of the condition is true, then the value of the CASE expression is the result that follows the condition.  If the result is false, any subsequent WHEN clauses (conditions) are searched in the same manner.  If no WHEN condition is true, then the value of the case expression is the result specified in the ELSE clause.  If the ELSE clause is omitted and no condition matches, the result is NULL.
 
 ## Syntax
 {: .no_toc}
@@ -27,11 +28,11 @@ END;
 
 | Parameter     | Description      | Supported input types | 
 | :------------- | :-------------------------- | :--------|
-| `<condition>` | AA condition can be defined for each `WHEN`, and `ELSE` clause    | Any expression that returns a boolean result | 
+| `<condition>` | A condition can be defined for each `WHEN`, and `ELSE` clause.    | Any expression that returns a boolean result | 
 | `<result>`    | The result of any condition. Every `THEN` clause receives a single result. All results in a single `CASE` function must share the same data type. | Any |
 
 ## Return type 
-Same datatype as `<result>`
+Same data type as `<result>`
 
 ## Example
 {: .no_toc}

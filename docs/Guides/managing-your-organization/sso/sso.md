@@ -3,7 +3,7 @@ layout: default
 title: Set up SSO authentication
 description: Learn about setting up SSO authentication for Firebolt. 
 nav_order: 4
-parent: Manage your organization
+parent: Manage organization
 grand_parent: Guides
 has_children: true
 has_toc: true
@@ -27,7 +27,7 @@ Managing SSO settings requires the org_admin role.
 
 SSO can be configured in two ways - using SQL or the UI.  To configure SSO using SQL, use the [`ALTER ORGANIZATION`](../../../sql_reference/commands/data-definition/alter-organization.md) statement. For example:
 
-```
+```sql
 ALTER ORGANIZATION SET SSO = ‘{
   “signOnUrl”: “https://abc.okta.com/app/okta_firebolt_app_id/sso/saml”,
   “signOutUrl”: “https://myapp.exampleco.com/saml/logout”, 
@@ -54,12 +54,13 @@ To set up SSO via the UI:
         <br>* **Field mapping (optional):** Mapping to your identity provider's first and last name in key-value pairs. If additional fields are required, choose **Add another key-value pair**. Mapping is required for Firebolt to fill in the login’s given and last names the first time the user logs in using SSO. If this field remains empty when a login that represents the user is being created (read more in the [log in using SSO](#log-in-using-sso) section), the login's first and last name fields will contain “NA”. Those fields can be updated later by running the [`ALTER LOGIN`](../../../sql_reference/commands/access-control/alter-login.md) command. 
 
       Here’s an example of how to set up field mapping:
-        
+
+      ```json  
         {
             "given_name": "name",
             "family_name": "surname"
         }
-
+      ```
 
       where the "given_name" (first name) is mapped to the "name" field from the IDP, and the "family_name" (last name) is mapped from the "surname" field.
 3. Choose **Update changes**.
@@ -70,7 +71,7 @@ SSO is now configured for your organization!
 
 SSO settings can be edited in two ways - using SQL or the UI.  To edit SSO settings using SQL, use the [`ALTER ORGANIZATION`](../../../sql_reference/commands/access-control/alter-organization.md) statement. For example:
 
-```
+```sql
 ALTER ORGANIZATION SET SSO = ‘{
   “signOnUrl”: “https://abc.okta.com/app/okta_firebolt_app_id/sso/saml”,
   “signOutUrl”: “https://myapp.exampleco.com/saml/logout”, 
@@ -93,7 +94,9 @@ To edit SSO settings via the UI:
 
 To disable the ability to log in using SSO, SSO settings can be deleted in two ways - using SQL or the UI.  To edit SSO settings using SQL, use the following command:
 
-```ALTER ORGANIZATION SET SSO = DEFAULT;```
+```sql
+ALTER ORGANIZATION SET SSO = DEFAULT;
+```
 
 To edit SSO settings via the UI:
 1. Click **Configure** to open the configure space, then choose **SSO**.
