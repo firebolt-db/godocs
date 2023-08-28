@@ -21,7 +21,7 @@ REVERSE(<expression>)
 ## Parameters 
 {: .no_toc}
 
-| Parameter  | Description                | Supported Input Types |
+| Parameter  | Description                |Supported Input Types |
 | :---------- | :--------------------------|:---------------------|
 | `<expression>` | The string to be reversed. | `TEXT` | 
 

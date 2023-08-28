@@ -2,7 +2,8 @@
 layout: default
 title: REGEXP_EXTRACT
 description: Reference material for REGEXP_EXTRACT function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
 great_grand_parent: SQL reference
 ---
 
