@@ -18,17 +18,24 @@ Similar to `TRY_CAST`, `CAST` converts data types into other data types based on
 ```sql
 CAST(<value> AS <type>)
 ```
+## Parameters 
+{: .no_toc}
 
-| Parameter | Description                                                                                                                                                                |
-| :--------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `<value>` | The value to convert or an expression that results in a value to convert. Can be a column name,  a function applied to a column or another function, or a literal value. |
-| `<type>`  | The target [data type](../../general-reference/data-types.md) (case-insensitive).                                                                                          |
+| Parameter | Description     | Supported input types | 
+| :--------- | :-------------------- |:---------|
+| `<value>` | The value to convert or an expression that results in a value to convert | column name,  a function applied to a column or another function, or a literal value | 
+| `<type>`  | The target [data type](../../general-reference/data-types.md) (case-insensitive) | Any supported data type |                                                                                          |
+
+## Return Types 
+Same datatype as `<type>`
 
 ## Example
 {: .no_toc}
 
+The following example returns `1` as an integer: 
+
 ```sql
-SELECT CAST('1' AS INT) as res;
+SELECT CAST('1' AS INT) as level;
 ```
 
 **Returns**: `1`
