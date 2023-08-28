@@ -22,55 +22,57 @@ CASE
 END;
 ```
 
-| Parameter     | Description                                                                                                                                             |
-| :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `<condition>` | An expression that returns a boolean result.  A condition can be defined for each `WHEN`, and `ELSE` clause.                                               |
-| `<result>`    | The result of any condition. Every `THEN` clause receives a single result. All results in a single `CASE` function must share the same data type. |
+## Parameters 
+{: .no_toc}
+
+| Parameter     | Description      | Supported input types | 
+| :------------- | :-------------------------- | :--------|
+| `<condition>` | AA condition can be defined for each `WHEN`, and `ELSE` clause    | Any expression that returns a boolean result | 
+| `<result>`    | The result of any condition. Every `THEN` clause receives a single result. All results in a single `CASE` function must share the same data type. | Any |
+
+## Return type 
+Same datatype as `<result>`
 
 ## Example
 {: .no_toc}
 
-This example references a table `Movie_test` with the following columns and values:&#x20;
+This example references a table `player_level` with the following columns and values: 
 
-| Movie                | Length |
+| player              | currentlevel |
 | :-------------------- | :------ |
-| Citizen Kane         | 114    |
-| Happy Gilmore        | 82     |
-| Silence of the Lambs | 110    |
-| The Godfather        | 150    |
-| The Jazz Singer      | 40     |
-| Tropic Thunder       | 90     |
+| kennethpark         | 3   |
+| esimpson       | 8     |
+| sabrina21 | 11   |
+| rileyjon      | 15    |
+| burchdenise     | 4    |
+
 
 The following example categorizes each entry by length. If the movie is longer than zero minutes and less than 50 minutes it is categorized as SHORT. When the length is 50-120 minutes, it's categorized as Medium, and when even longer, it's categorized as Long.
 
 ```sql
 SELECT
-	movie,
-	length,
+	player,
+	currentlevel,
 	CASE
 		WHEN length > 0
-		AND length <= 50 THEN 'Short'
-		WHEN length > 50
-		AND length <= 120 THEN 'Medium'
-		WHEN length > 120 THEN 'Long'
-	END duration
+		AND length <= 5 THEN 'Beginner'
+		WHEN length > 5
+		AND length <= 12 THEN 'Intermediate'
+		WHEN length > 12 THEN 'Expert'
+	END ranking
 FROM
-	movie_test
+	player_level
 ORDER BY
-	movie;
+	player;
 ```
 
 **Returns**:
 
-```
-+----------------------+--------+----------+
-|        Title         | Length | duration |
-+----------------------+--------+----------+
-| Citizen Kane         |    114 | Medium   |
-| Happy Gilmore        |     82 | Medium   |
-| Silence of the Lambs |    110 | Medium   |
-| The Godfather        |    150 | Long     |
-| The Jazz Singer      |     40 | Short    |
-| Tropic Thunder       |     90 | Medium   |
-+----------------------+--------+----------+
-```
+| player              | currentlevel | ranking | 
+| :-------------------- | :------ | :-------|
+| kennethpark         | 3   | Beginner | 
+| esimpson       | 8     | Intermediate | 
+| sabrina21 | 11   | Intermediate |
+| rileyjon      | 15    | Expert |
+| burchdenise     | 4    | Beginner | 
+
