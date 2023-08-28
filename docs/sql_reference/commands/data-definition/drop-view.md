@@ -12,10 +12,13 @@ parent: Data definition
 Deletes a view.
 
 ## Syntax
+{: .no_toc}
 
 ```sql
 DROP VIEW [IF EXISTS] <view_name> [CASCADE]
 ```
+## Parameters
+{: .no_toc}
 
 | Parameter     | Description                         |
 | :------------- | :----------------------------------- |

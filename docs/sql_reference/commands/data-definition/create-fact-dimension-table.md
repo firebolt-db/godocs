@@ -8,17 +8,17 @@ parent: Data definition
 ---
 
 # CREATE TABLE
-{: .no_toc}
 
 Creates a new table in the current database.
 
-Firebolt supports create table as select (CTAS). For more information, see [CREATE TABLE AS SELECT(CTAS)](create-fact-dimension-table-as-select.md).
+Firebolt supports create table as select (CTAS). For more information, see [CREATE TABLE AS SELECT(CTAS)](./create-fact-dimension-table-as-select.md).
 
 * Topic ToC
 {:toc}
 
 
 ## Syntax
+{: .no_toc}
 
 ```sql
 CREATE [FACT|DIMENSION] TABLE [IF NOT EXISTS] <table_name>
@@ -37,7 +37,7 @@ CREATE [FACT|DIMENSION] TABLE [IF NOT EXISTS] <table_name>
 | `<column_name>` | An identifier that specifies the name of the column. This name should be unique within the table.      |
 | `<column_type>`                                 | Specifies the data type for the column.                                                                |
 
-All identifiers are case insensitive unless double-quotes are used. For more information, please see our [identifier requirements page](../../general-reference/identifier-requirements.md).
+All identifiers are case insensitive unless double-quotes are used. For more information, please see the [Object identifiers page](../../../Reference/object-identifiers.md).
 
 * [Column constraints & default expression](#column-constraints--default-expression)
 * [PRIMARY INDEX specifier](#primary-index)
@@ -49,13 +49,13 @@ All identifiers are case insensitive unless double-quotes are used. For more inf
 Firebolt supports the column constraints shown below.
 
 ```sql
-<column_name> <column_type> [UNIQUE] [NULL | NOT NULL] [DEFAULT <expr>]
+<column_name> <column_type> [UNIQUE] [NULL | NOT NULL] [DEFAULT <expression>]
 ```
 
 
 | Constraint           | Description                                                                                                                                                                                                                | Default value |
 | :-------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------- |
-| `DEFAULT <expr>`     | Determines the default value that is used instead of NULL value is inserted.                                                                                                                                               |               |
+| `DEFAULT <expression>`     | Determines the default value that is used instead of NULL value is inserted.                                                                                                                                               |               |
 | `NULL` \| `NOT NULL` | Determines if the column may or may not contain NULLs.                                                                                                                                                                     | `NOT NULL`    |
 | `UNIQUE`             | This is an optimization hint to tell Firebolt that this column will be queried for unique values, such as through a `COUNT(DISTINCT)` function. This will not raise an error if a non-unique value is added to the column.  However, if the column contains non-unique values, joins on that column can return incorrect results.  This attribute should not be applied to columns that do not have non-unique values.  |               |
 

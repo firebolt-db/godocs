@@ -21,11 +21,7 @@ zeroifnull.md
 base64-encode.md
 like.md
 ltrim.md
-match-any.md
-match.md
-md5-number-lower64.md
-md5-number-upper64.md
-md5.md
+median.md
 replace.md
 rtrim.md
 to-double.md

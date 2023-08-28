@@ -11,10 +11,14 @@ parent: Data definition
 Deletes a table.
 
 ## Syntax
+{: .no_toc}
 
 ```sql
 DROP TABLE [IF EXISTS] <table_name> [CASCADE]
 ```
+
+## Parameters
+{: .no_toc}
 
 | Parameter       | Description                          |
 | :-------------- | :------------------------------------ |

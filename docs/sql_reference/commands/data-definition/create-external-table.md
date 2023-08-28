@@ -16,6 +16,7 @@ Creates an external table. External tables serve as connectors to your external 
 {:toc}
 
 ## Syntax
+{: .no_toc}
 
 ```sql
 CREATE EXTERNAL TABLE [IF NOT EXISTS] <table>
@@ -31,12 +32,13 @@ TYPE = (<type>)
 [ <type option> ]
 [COMPRESSION = <compression_type>]
 ```
+
 ## Parameters 
 {: .no_toc} 
 
 | Parameter                  | Description |
 |: ------------------------- |: ---------- |
-| `<table>`    | An identifier that specifies the name of the external table. This name should be unique within the database. For identifier usage and syntax, see [Identifier requirements](../../general-reference/identifier-requirements.md). |
+| `<table>`    | An identifier that specifies the name of the external table. This name should be unique within the database. For identifier usage and syntax, see [Object identifiers](../../../Reference/object-identifiers.md). |
 | `<column_name>`            | An identifier that specifies the name of the column. This name should be unique within the table.<br><b>Note:</b> If column names are using mixed case, wrap your column name definitions in double quotes (`"`); otherwise they will be translated to lower case and will not match the mixed case Parquet schema. |
 | `<column_type>`            | Specifies the data type for the column. |
 | `PARTITION`                | An optional keyword. When specified, allows you to use a regular expression `<regex>` to extract a value from the file prefix to be stored as the column value. For more information, see [PARTITION](#partition). |
@@ -50,7 +52,7 @@ TYPE = (<type>)
 
 In some applications, such as Hive partitioning, table partitions are stored in S3 folders and files using a folder naming convention that identifies the partition. The `PARTITION` keyword allows you to specify a regular expression, `<regex>`, to extract a portion of the file path and store it in the specified column when Firebolt uses the external table to ingest partitioned data.
 
-Using `PARTITION` in this way is one method of extracting partition data from file paths. Another method is to use the table metadata column, `source_file_name`, during the `INSERT INTO` operation. For more information, see [Example&ndash;extracting partition values using INSERT INTO](insert-into.md#extracting-partition-values-using-insert-into).
+Using `PARTITION` in this way is one method of extracting partition data from file paths. Another method is to use the table metadata column, `source_file_name`, during the `INSERT` operation. For more information, see [Example&ndash;extracting partition values using INSERT](../data-management/insert.md#extracting-partition-values-using-insert-into).
 
 #### Guidelines for creating the regex
 {: .no_toc}
@@ -116,33 +118,33 @@ The credentials for accessing your AWS S3. Firebolt enables using either access 
 #### Syntax&ndash;authenticating using an access key and secret
 
 ```sql
-CREDENTIALS = (AWS_KEY_ID = '<expression1>' AWS_SECRET_KEY = '<expression2' )
+CREDENTIALS = (AWS_KEY_ID = '<ID>' AWS_SECRET_KEY = '<secret>' )
 ```
 ## Parameters 
 {: .no_toc} 
 
 | Parameter          | Description                                             | Data type |
 |: ------------------ |: ------------------------------------------------------- |: --------- |
-| `<expression1>`     | The AWS access key ID for the authorized app (Firebolt) | TEXT      |
-| `<expression2>` | The AWS secret access key for the app (Firebolt)        | TEXT      |
+| `<ID>`     | The AWS access key ID for the authorized app (Firebolt) | `TEXT `     |
+| `<secret>` | The AWS secret access key for the app (Firebolt)        | `TEXT`      |
 
 {: .note}
 In case you don't have the access key and secret to access your S3 bucket, read more [here](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) on how to obtain them.
 
 #### Syntax&ndash;authenticating using an IAM role
 
-Read more on how to configure the AWS role [here](../../loading-data/configuring-aws-role-to-access-amazon-s3.md).
+Read more on how to configure the AWS role [here](../../../Guides/loading-data/configuring-aws-role-to-access-amazon-s3.md).
 
 ```sql
-CREDENTIALS = (AWS_ROLE_ARN = '<expression1>' [AWS_ROLE_EXTERNAL_ID = '<expression2>'])
+CREDENTIALS = (AWS_ROLE_ARN = '<arn' [AWS_ROLE_EXTERNAL_ID = '<external_ID'])
 ```
 ## Parameters 
 {: .no_toc} 
 
 | Parameter         | Description                                                                                                                                   | Data type |
 | :----------------- |: --------------------------------------------------------------------------------------------------------------------------------------------- |: --------- |
-| `'<expression1>'`    | The arn\_role you created in order to enable access to the required bucket.                                                                   | `TEXT`      |
-| `'<expression2>'` | Optional. This is an optional external ID that you can configure in AWS when creating the role. Specify this only if you use the external ID. | `TEXT`      |
+| `<arn>`    | The arn\_role you created in order to enable access to the required bucket.                                                                   | `TEXT`      |
+| `<external_ID>` | Optional. This is an optional external ID that you can configure in AWS when creating the role. Specify this only if you use the external ID. | `TEXT`      |
 
 ### URL and OBJECT_PATTERN
 
@@ -160,8 +162,8 @@ OBJECT_PATTERN = '<object_pattern>'
 
 | Parameters       | Description                                                                                                                          | Data type |
 | :---------------- | :------------------------------------------------------------------------------------------------------------------------------------ | :--------- |
-| `URL`            | This is the URL of the specific bucket and path within the bucket where the relevant files are located (common path prefix).         | `TEXT`      |
-| `OBJECT_PATTERN` | Specify the data pattern to be found in your data source. For example, \*.parquet indicates that all parquet files should be found. | `TEXT`      |
+| `<url>`            | This is the URL of the specific bucket and path within the bucket where the relevant files are located (common path prefix).         | `TEXT`      |
+| `<object_pattern>` | Specify the data pattern to be found in your data source. For example, \*.parquet indicates that all parquet files should be found. | `TEXT`      |
 
 The following wildcards are supported:
 
@@ -287,6 +289,8 @@ Specifies the compression type of the files matching the specified `OBJECT_PATTE
 ```sql
 [COMPRESSION = <compression_type>]
 ```
+#### Parameters 
+{: .no_toc} 
 
 | Parameters            | Description                                                        |
 | :-------------------- |:------------------------------------------------------------------ |
@@ -308,48 +312,4 @@ URL = 's3://mybucket/'
 OBJECT_PATTERN= '*.csv.gz'
 TYPE = (CSV)
 COMPRESSION = GZIP
-```
-
-### CREATE EXTERNAL TABLE based on an AWS Glue table
-In addition to other `CREATE EXTERNAL TABLE` clauses, the `META_STORE` clause provides information to connect to an AWS Glue database and table.
-
-#### Syntax
-{: .no_toc}
-
-```sql
-META_STORE = (TYPE='Glue' DATABASE_NAME=<database> TABLE_NAME=<table>)
-```
-## Parameters 
-{: .no_toc} 
-
-| Parameter |Description| Data type |
-|:--------- | :-------- | :--------- |
-| `<database>`| The name of the database in AWS Glue. | TEXT      |
-| `<table>` | The name of the table in AWS Glue. | TEXT      |
-
-#### Additional AWS permissions
-{: .no_toc}
-To access AWS Glue, make sure that the principal that Firebolt uses to access the specified S3 location and Glue metastore is allowed the following actions in the AWS permissions Policy.
-
-* `"s3:GetObject"`
-* `"s3:GetObjectVersion"`
-* `"s3:GetBucketLocation"`
-* `"s3:ListBucket"`
-* `"glue:GetTables"`
-
-A [policy template](https://firebolt-publishing-public.s3.amazonaws.com/documentationAssets/templated_glue_policy.txt) is available to download.
-
-* Replace `<bucket>`and`<prefix>`with the actual AWS S3 bucket name path and prefix where the AWS Glue data is stored.
-* `<db_name>`with the name of the AWS Glue database.
-
-#### Example
-{: .no_toc}
-
-An external table based on an AWS Glue table `'glue_table'` in `'glue_db'` database:
-
-```sql
-CREATE EXTERNAL TABLE IF NOT EXISTS
-  my_external_table
-CREDENTIALS = ( AWS_KEY_ID = 'AKIAIOSFODNN7EXAMPLE' AWS_SECRET_KEY = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY' )
-META_STORE = (TYPE='Glue' DATABASE_NAME='glue_db' TABLE_NAME='glue_table')
 ```

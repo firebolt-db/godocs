@@ -16,6 +16,9 @@ Deletes an index.
 DROP AGGREGATING INDEX [IF EXISTS] <index_name>
 ```
 
+## Parameters
+{: .no_toc}
+
 | Parameter      | Description                          |
 | :-------------- | :------------------------------------ |
 | `<index_name>` | The name of the index to be deleted. |

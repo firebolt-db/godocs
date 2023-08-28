@@ -9,7 +9,7 @@ parent: Data definition
 
 # CREATE FACT or DIMENSION TABLE...AS SELECT
 
-Creates a table and loads data into it based on the [SELECT](query-syntax.md) query. The table column names and types are automatically inferred based on the output columns of the [SELECT](query-syntax.md). When specifying explicit column names those override the column names inferred from the [SELECT](query-syntax.md).
+Creates a table and loads data into it based on the [SELECT](../queries/select.md) query. The table column names and types are automatically inferred based on the output columns of the [SELECT](../queries/select.md). When specifying explicit column names those override the column names inferred from the SELECT.
 
 ## Syntax
 
@@ -31,6 +31,7 @@ CREATE DIMENSION TABLE [IF NOT EXISTS] <table_name>
 [PRIMARY INDEX <column_name>[, <column_name>[, ...n]]]
 AS <select_query>
 ```
+
 ## Parameters 
 {: .no_toc} 
 
@@ -38,7 +39,7 @@ AS <select_query>
 | :----------------------------------------------- | :--------------------------------------------------------------------------------------------------------------- |
 | `<table_name>`                                  | An identifier that specifies the name of the external table. This name should be unique within the database. |
 | `<column_name>` | An identifier that specifies the name of the column. This name should be unique within the table.               |
-| `<select_query`>                                | Any valid select query                                                                                          |
+| `<select_query`>                                | Any valid select query.                                                                                        |
 
 
 ## Remarks 

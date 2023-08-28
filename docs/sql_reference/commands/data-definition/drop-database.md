@@ -11,10 +11,14 @@ parent: Data definition
 Deletes a database.
 
 ## Syntax
+{: .no_toc}
 
 Deletes the database and all of its tables and attached engines.
 
 ```DROP DATABASE [IF EXISTS] <database_name>```
+
+## Parameters
+{: .no_toc}
 
 | Parameter         | Description                            |
 | :----------------- | :-------------------------------------- |
