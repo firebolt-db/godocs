@@ -43,7 +43,7 @@ A service account secret is used to generate an access token for accessing Fireb
 ### SQL 
 To generate a secret for a service account using SQL, use the `CALL fb_GENERATESERVICEACCOUNTKEY(`<name>`)` statement, where `<name>` is the name of the service account. The command returns both the service account ID and secret. For example:
 
-````CALL fb_GENERATESERVICEACCOUNTKEY('sa1')```
+```CALL fb_GENERATESERVICEACCOUNTKEY('sa1')```
 
 ### UI
 To generate a secret for a service account via the UI:
@@ -74,8 +74,8 @@ Where:
 
 | Property                          | Data type | Description |
 | :------------------------------   | :-------- | :---------- |
-| id                                | TEXT      | The user’s ID ([created here](#create-a-service-account-user)). |
-| secret                            | TEXT      | The user’s secret ([generated here](#generate-a-secret-for-the-service-account-user)). |
+| id                                | TEXT      | The user’s ID ([created here](#creating-a-service-account)). |
+| secret                            | TEXT      | The user’s secret ([generated here](#generating-a-secret-for-a-service-account)). |
 
 
 Use the returned access_token to authenticate with Firebolt.

@@ -1,8 +1,4 @@
 ./aggregation:
-approx-count-distinct.md
-approx-percentile.md
-median.md
-stddev-samp.md
 sum.md
 
 
