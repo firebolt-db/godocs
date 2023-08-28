@@ -34,4 +34,10 @@ or
 
 The following command will grant USAGE privileges on the database "my_db" to the role "user_role".
 
-```GRANT USAGE ON my_db TO user_role;```
+```GRANT USAGE ON DATABASE my_db TO user_role;```
+
+## Example 2
+
+The following command will grant USAGE privileges on all databases in the account "my_account" to the role "user_role".
+
+```GRANT USAGE ANY DATABASE ON ACCOUNT my_account TO user_role;```

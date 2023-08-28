@@ -34,4 +34,10 @@ or
 
 The following command will revoke MODIFY privileges on the database "my_db" from the role "user_role".
 
-```REVOKE MODIFY ON my_db FROM user_role;```
+```REVOKE MODIFY ON DATABASE my_db FROM user_role;```
+
+## Example 2
+
+The following command will revoke USAGE privileges on all databases in the account "my_account" from the role "user_role".
+
+```REVOKE USAGE ANY DATABASE ON ACCOUNT my_account FROM user_role;```
