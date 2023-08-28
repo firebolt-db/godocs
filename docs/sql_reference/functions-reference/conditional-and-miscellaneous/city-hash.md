@@ -17,16 +17,23 @@ Takes one or more input parameters of any data type and returns a 64-bit non-cry
 ```sql
 CITY_HASH(<exp>, [, expr2 [,...]])
 ```
+## Parameters 
+{: .no_toc}
 
-| Parameter | Description                                                      |
-| :--------- | :---------------------------------------------------------------- |
-| `<expression>`   | An expression that returns any data type that Firebolt supports. |
+| Parameter | Description                          |  Supported input types | 
+| :--------- | :---------------------------------- | :----------|
+| `<expression>`   | An expression that returns any data type that Firebolt supports. | Any | 
+
+## Return Types 
+64-bit non-cryptographic hash value 
 
 ## Example
 {: .no_toc}
 
+The following examples returns a hash value from three parameters relating to a particular video game player, including their username and registration date: 
+
 ```sql
-SELECT CITY_HASH('15', 'apple', '02-25-1918')
+SELECT CITY_HASH('esimpson', '08-25-2016')
 ```
 
-**Returns:** `2383463095444788470`
+**Returns:** `-6,509,667,128,195,191,394`
