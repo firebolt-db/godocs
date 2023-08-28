@@ -22,6 +22,7 @@ CHECKSUM(*)
 
 ## Parameters 
 {: .no_toc}
+
 | Parameter   | Description                                   | Supported input types | 
 | :----------- | :---------------------------------------------------- | :-----------| 
 | `<expression>`    | A column name for specific results for the `CHECKSUM` function to be applied to | Any `<column>` name | 
@@ -32,7 +33,7 @@ CHECKSUM(*)
 ## Example
 {: .no_toc}
 
-For this example, we'll create a new table `albums` as shown below.&#x20;
+For this example, we'll create a new table `tournament_information` as shown below.
 
 ```sql
 CREATE DIMENSION TABLE tournament_information (name TEXT, prizedollars DOUBLE PRECISION, tournamentid INTEGER);

@@ -1,11 +1,7 @@
 ./aggregation:
 approx-count-distinct.md
 approx-percentile.md
-avg.md
-checksum.md
 median.md
-percentile-cont.md
-percentile-disc.md
 stddev-samp.md
 sum.md
 
@@ -16,7 +12,6 @@ cast.md
 city-hash.md
 coalesce.md
 ifnull.md
-index.md
 nullif.md
 try-cast.md
 version.md
@@ -24,12 +19,6 @@ zeroifnull.md
 
 ./string:
 base64-encode.md
-btrim.md
-concat.md
-extract-all.md
-
-index.md
-
 like.md
 lower.md
 lpad.md
@@ -44,20 +33,13 @@ regexp-extract.md
 regexp-like.md
 regexp-matches.md
 regexp-replace.md
-repeat.md
 replace.md
-reverse.md
 rpad.md
 rtrim.md
 split-part.md
-split.md
 strpos.md
-
 to-double.md
 to-float.md
-
-to-timestamp.md
-to-timestamptz.md
 trim.md
 
 

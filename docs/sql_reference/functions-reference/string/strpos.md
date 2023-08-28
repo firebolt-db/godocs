@@ -19,10 +19,16 @@ In case the substring does not exist, functions will return 0.
 STRPOS(<string>, <substring>)
 ```
 
-| Parameter     | Description                         |
-| :------------- | :----------------------------------- |
-| `<string>`    | The string that will be searched. |
-| `<substring>` | The substring to search for.        |
+## Parameters 
+{: .no_toc}
+
+| Parameter       | Description                      | Supported input types    | 
+| :---------------| :--------------------------------|:-------------------------|
+| `<string>`    | The string that will be searched. | `TEXT` |
+| `<substring>` | The substring to search for.        | `TEXT` |
+
+## Return Type
+`INTEGER`
 
 ## Example
 {: .no_toc}

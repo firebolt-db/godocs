@@ -19,15 +19,21 @@ SPLIT_PART(<string>, <delimiter>, <index>)
 ```
 
 {: .note}
-Please note that the order of the arguments is different than the `SPLIT` function.
+Please note that the order of the arguments is different than the [`SPLIT` function](./split.md).
 
-| Parameter     | Description                                                                                                                                    |
-| :------------- | :---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `<string>`    | An expression evaluating to a string to be split.                                                                                              |
-| `<delimiter>` | Any character or substring within `<string>`. If `<delimiter>` is an empty string `''`, the `<string>` will be divided into single characters. |
-| `<index>`     | The index from which to return the substring.                                                                                                  |
+## Parameters 
+{: .no_toc}
 
-## Example
+| Parameter       | Description                      | Supported input types    | 
+| :---------------| :--------------------------------|:---------------------------- |
+| `<string>`    | An expression evaluating to a string to be split. | `TEXT` |
+| `<delimiter>` | Any character or substring within `<string>`. If `<delimiter>` is an empty string `''`, the `<string>` will be divided into single characters. | 	`TEXT` |
+| `<index>`     | The index from which to return the substring.    | `INTEGER` |
+
+## Return Type
+`TEXT`
+
+## Examples
 {: .no_toc}
 
 ```sql
