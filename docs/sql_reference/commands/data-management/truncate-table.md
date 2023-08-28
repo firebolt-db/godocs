@@ -16,6 +16,9 @@ Removes all rows from a table.
 TRUNCATE TABLE <table_name> 
 ```
 
+## Parameters 
+{: .no_toc}
+
 | Parameter       | Description                          |
 | :-------------- | :------------------------------------ |
 | `<table_name>`  | The name of the table to be truncated. |

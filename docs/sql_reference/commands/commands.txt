@@ -1,25 +1,4 @@
 
-./data-definition:(19)
-alter-database.md
-alter-table.md
-create-aggregating-index.md
-create-database.md
-create-external-table.md
-create-fact-dimension-table-as-select.md
-create-fact-dimension-table.md
-create-network-policy.md
-create-view.md
-drop-account.md
-drop-database.md
-drop-index.md
-drop-table.md
-drop-view.md
-
-./data-management:(6)
-copy-to.md
-insert.md
-truncate-table.md
-update.md
 
 
 ./metadata:(8)
