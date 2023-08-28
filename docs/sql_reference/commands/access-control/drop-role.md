@@ -14,8 +14,12 @@ For more information, see [Role-based access control](../../../Guides/managing-y
 
 ## Syntax
 
-```DROP ROLE <role_name>```
+```sql
+DROP ROLE <role_name>
+```
 
+## Parameters 
+{: .no_toc} 
 
 | Parameter  | Description |
 | :--------- | :---------- |
@@ -25,4 +29,6 @@ For more information, see [Role-based access control](../../../Guides/managing-y
 
 The following command will delete the role "user_role".
 
-```DROP ROLE user_role;```
+```sql
+DROP ROLE user_role;
+```

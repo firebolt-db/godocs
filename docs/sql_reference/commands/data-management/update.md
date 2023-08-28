@@ -17,6 +17,9 @@ Updates rows in the specified table.
 UPDATE <table> SET <column1> = <expression1> [, <column2> = <expression2> ...] WHERE <condition>
 ```
 
+## Parameters 
+{: .no_toc} 
+
 | Parameter | Description|
 | :---------| :----------|
 | `<table>`| The table name to update rows in. |

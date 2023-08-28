@@ -26,7 +26,12 @@ ALTER LOGIN <login_name> SET
 ```
 or 
 
-```ALTER LOGIN <login_name> RENAME TO <new_login_name>;```
+```sql
+ALTER LOGIN <login_name> RENAME TO <new_login_name>;
+```
+
+## Parameters 
+{: .no_toc} 
 
 | Parameter | Description |
 | :--- | :--- |
@@ -42,8 +47,12 @@ or
 
 The following command will rename the "alexs@acme.com" login to "alexspotter@acme.com".
 
-```ALTER LOGIN "alexs@acme.com" RENAME TO "alexspotter@acme.com";```
+```sql
+ALTER LOGIN "alexs@acme.com" RENAME TO "alexspotter@acme.com";
+```
 
 This command will set the user "alexs@acme.com" as an organization admin. 
 
-```ALTER LOGIN "alexs@acme.com" SET IS_ORGANIZATION_ADMIN = TRUE;```
+```sql
+ALTER LOGIN "alexs@acme.com" SET IS_ORGANIZATION_ADMIN = TRUE;
+```

@@ -14,8 +14,12 @@ For more information, see [Network policies](../../../Guides/managing-your-organ
 
 ## Syntax
 
-```DROP NETWORK POLICY <network_policy_name> [ RESTRICT | CASCADE ]```
+```sql
+DROP NETWORK POLICY <network_policy_name> [ RESTRICT | CASCADE ]
+```
 
+## Parameters 
+{: .no_toc} 
 
 | Parameter  | Description |
 | :--------- | :---------- |
@@ -26,4 +30,6 @@ For more information, see [Network policies](../../../Guides/managing-your-organ
 
 The following command will delete "my_network_policy".
 
-```DROP NETWORK POLICY my_network_policy [ RESTRICT | CASCADE ]```
+```sql
+DROP NETWORK POLICY my_network_policy [ RESTRICT | CASCADE ]
+```

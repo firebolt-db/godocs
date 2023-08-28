@@ -15,7 +15,7 @@ For more information, see [Setting up SSO](../../../Guides/managing-your-organiz
 
 ## Syntax
 
-```json
+```sql
 ALTER ORGANIZATION SET SSO = ‘{
   “signOnUrl”: “<signOnUrl>”,
   “signOutUrl”: “<signOutUrl>”, 
@@ -26,6 +26,9 @@ ALTER ORGANIZATION SET SSO = ‘{
   “certificate”: “<certficate>”,
 }’;
 ```
+
+## Parameters 
+{: .no_toc} 
 
 | Parameter | Description |
 | :--- | :--- |
@@ -42,7 +45,7 @@ ALTER ORGANIZATION SET SSO = ‘{
 
 The following command will configure SSO using the Okta identity provider. For more examples for other IdPs, see [Configure your identity provider](../../../Guides/managing-your-organization//sso/configuring-idp-for-sso.md).
 
-```json
+```sql
 ALTER ORGANIZATION SET SSO = ‘{
   “signOnUrl”: “https://abc.okta.com/app/okta_firebolt_app_id/sso/saml”,
   “signOutUrl”: “https://myapp.exampleco.com/saml/logout”, 

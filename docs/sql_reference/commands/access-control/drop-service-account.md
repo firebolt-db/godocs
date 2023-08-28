@@ -14,7 +14,12 @@ For more information, see [Service accounts](../../../Guides/managing-your-organ
 
 ## Syntax
 
-```DROP SERVICE ACCOUNT <service_account_name>;```
+```sql
+DROP SERVICE ACCOUNT <service_account_name>;
+```
+
+## Parameters 
+{: .no_toc} 
 
 | Parameter  | Description |
 | :--------- | :---------- |
@@ -24,4 +29,6 @@ For more information, see [Service accounts](../../../Guides/managing-your-organ
 
 The following command will delete the "sa1" service account. 
 
-```DROP SERVICE ACCOUNT "sa1";```
+```sql
+DROP SERVICE ACCOUNT "sa1";
+```

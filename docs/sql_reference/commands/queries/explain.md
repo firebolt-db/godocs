@@ -18,6 +18,9 @@ By default, `EXPLAIN` returns output in JSON format.The SQL workspace uses the J
 EXPLAIN [USING {TEXT|JSON}] <query_statement>
 ```
 
+## Parameters
+{: .no_toc}
+
 | Parameter              | Description |
 | :--------------------- | :---------- |
 | `[USING {TEXT|JSON}]`  | Specifies the output format for the query plan. Defaults to JSON if not specified. If `USING TEXT` is specified, list view and graph view are not available. For more information, see [Viewing and copying explain output](../../../Guides/using-the-sql-editor/using-explain-to-analyze-query-execution.md#viewing-and-copying-explain-output). |

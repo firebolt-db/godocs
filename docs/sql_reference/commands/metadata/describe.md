@@ -18,6 +18,13 @@ Lists all columns and data types for the table. Once the results are displayed, 
 DESCRIBE <table_name>
 ```
 
+## Parameters  
+{: .no_toc} 
+
+| Parameter      | Description                           |
+| :-------------- | :------------------------------------- |
+| `<table_name>` | The name of the table to be described. |
+
 ## Example 
 
 The following lists all columns and data types for the table named `prices`:

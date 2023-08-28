@@ -25,6 +25,8 @@ CREATE USER [ IF NOT EXISTS ] <user_name>
 ]
 ```
 
+## Parameters 
+{: .no_toc} 
 
 | Parameter  | Description |
 | :--------- | :---------- |
@@ -40,4 +42,6 @@ CREATE USER [ IF NOT EXISTS ] <user_name>
 
 The following command will create a user "alex" linked to the "alexs@acme.com". 
 
-```CREATE USER alex WITH LOGIN_NAME="alexs@acme.com";```
+```sql
+CREATE USER alex WITH LOGIN_NAME="alexs@acme.com";
+```

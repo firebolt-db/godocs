@@ -24,6 +24,8 @@ CREATE LOGIN [ IF NOT EXISTS ] <login_name>
 	LAST_NAME = <last_name> 
 ```
 
+## Parameters 
+{: .no_toc} 
 
 | Parameter  | Description |
 | :--------- | :---------- |
@@ -38,4 +40,6 @@ CREATE LOGIN [ IF NOT EXISTS ] <login_name>
 
 The following command will create an account in the US East (N. Virginia) region.
 
-```CREATE LOGIN "alexs@acme.com" WITH FIRST_NAME = "Alex" LAST_NAME = "Summers";```
+```sql
+CREATE LOGIN "alexs@acme.com" WITH FIRST_NAME = "Alex" LAST_NAME = "Summers";
+```

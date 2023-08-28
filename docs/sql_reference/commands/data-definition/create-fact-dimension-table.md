@@ -31,6 +31,9 @@ CREATE [FACT|DIMENSION] TABLE [IF NOT EXISTS] <table_name>
 [PARTITION BY <column_name>[, <column_name>[, ...m]]]
 ```
 
+## Parameters 
+{: .no_toc} 
+
 | Parameter                                       | Description                                                                                            |
 | :----------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
 | `<table_name>`                                  | An identifier that specifies the name of the table. This name should be unique within the database. |

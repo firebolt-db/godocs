@@ -25,7 +25,6 @@ CREATE DATABASE [IF NOT EXISTS] <database_name>
 ## Parameters 
 {: .no_toc} 
 
-
 | Parameter                                      | Description                     |
 | :---------------------------------------------- | :---------------------------- |
 | `<database_name>`                              | The name of the database. | 

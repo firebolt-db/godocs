@@ -22,6 +22,9 @@ CREATE SERVICE ACCOUNT [ IF NOT EXISTS ] <service_account_name>
     ]
 ```
 
+## Parameters 
+{: .no_toc} 
+
 | Parameter  | Description |
 | :--------- | :---------- |
 | `<service_account_name>`                              | The name of the service account. Must start with a letter and may contain only alphanumeric, digit, or underscore(_) characters.  |
@@ -33,4 +36,6 @@ CREATE SERVICE ACCOUNT [ IF NOT EXISTS ] <service_account_name>
 
 The following command will create a service account "sa1" linked to the "my_network_policy" network policy. 
 
-```CREATE SERVICE ACCOUNT "sa1" WITH NETWORK_POLICY = my_network_policy```
+```sql
+CREATE SERVICE ACCOUNT "sa1" WITH NETWORK_POLICY = my_network_policy
+```

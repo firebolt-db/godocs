@@ -15,7 +15,12 @@ For more information, see [Managing accounts](../../../Guides/managing-your-orga
 
 ## Syntax
 
-```ALTER ACCOUNT <account_name> RENAME TO <new_account_name>;```
+```sql
+ALTER ACCOUNT <account_name> RENAME TO <new_account_name>;
+```
+
+## Parameters 
+{: .no_toc} 
 
 | Parameter | Description |
 | :--- | :--- |

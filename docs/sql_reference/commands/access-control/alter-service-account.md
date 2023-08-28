@@ -23,7 +23,12 @@ ALTER SERVICE ACCOUNT <service_account_name>
 
 or 
 
-```ALTER SERVICE ACCOUNT <service_account_name> RENAME TO <new_name>;```
+```sql
+ALTER SERVICE ACCOUNT <service_account_name> RENAME TO <new_name>;
+```
+
+## Parameters 
+{: .no_toc} 
 
 | Parameter | Description |
 | :--- | :--- |
@@ -36,7 +41,11 @@ or
 
 The following command will rename the "sa1" login to "serviceaccount1".
 
-```ALTER SERVICE ACCOUNT "sa1" RENAME TO "serviceaccount1";```
+```sql
+ALTER SERVICE ACCOUNT "sa1" RENAME TO "serviceaccount1";
+```
 
 This command will link the network policy "my_network_policy" to the "serviceaccount1" service account. 
-```ALTER SERVICE ACCOUNT "serviceaccount1" SET NETWORK_POLICY = "my_network_policy";```
+```sql
+ALTER SERVICE ACCOUNT "serviceaccount1" SET NETWORK_POLICY = "my_network_policy";
+```

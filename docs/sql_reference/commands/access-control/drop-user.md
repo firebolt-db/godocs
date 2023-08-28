@@ -14,7 +14,12 @@ For more information, see [Managing users](../../../Guides/managing-your-organiz
 
 ## Syntax
 
-```DROP USER [ IF EXISTS ] <user_name> ;```
+```sql
+DROP USER [ IF EXISTS ] <user_name> ;
+```
+
+## Parameters 
+{: .no_toc} 
 
 | Parameter  | Description |
 | :--------- | :---------- |
@@ -24,4 +29,6 @@ For more information, see [Managing users](../../../Guides/managing-your-organiz
 
 The following command will delete the "alex" user. 
 
-```DROP USER alex;```
+```sql
+DROP USER alex;
+```
