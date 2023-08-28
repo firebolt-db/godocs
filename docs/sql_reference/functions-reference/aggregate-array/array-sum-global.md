@@ -26,7 +26,7 @@ ARRAY_SUM_GLOBAL(<array>)
 | `<array>`   | The array column whose elements will be summed. |  Any `ARRAY` type  |
 
 ## Return Type
-`INTEGER`
+`BIGINT`
 
 ## Example
 {: .no_toc}
