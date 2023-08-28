@@ -9,7 +9,7 @@ grand_parent: Guides
 
 # Billing
 
-Firebolt bills are based on the consumption of resources within your account. This includes the total amount of data stored and engine usage.
+Firebolt bills are based on the consumption of resources within each account in your organization. This includes the total amount of data stored and engine usage.
 
 * **Data storage** usage is calculated on the daily average amount of data (in bytes) stored under your Firebolt account name for indexes and raw compressed data.
 
@@ -21,16 +21,19 @@ Invoices for Firebolt engines and data are submitted through the AWS Marketplace
 
 ## Viewing billing information
 
-Users with the **Account Admin** role can monitor the cost history of an account.
+Users with the **Org Admin** role can monitor the cost history of each account in the organization.
 
-**To view cost information for your account**
+**To view cost information for your organization**
 
-* Choose the user profile icon and then choose **Account Billing**.  
+* In the configure space choose **Usage**.  
 
   ![Access account billing](../assets/images/account-billing.png)
 
 
-The **Accounts & Billing** page shows accrued charges for **Storage** and **Compute** for the most recent month to date. Choose the month for which you want to view billing history. To view a summary of daily charges, choose **Day in month** from the list. Choose **Month in year** to view a summary of monthly charges.
+The **Usage** page shows accrued charges for **Storage** and **Compute** for the most recent month to date. Choose the month for which you want to view billing history. To view a summary of daily charges, choose **Day in month** from the list. Choose **Month in year** to view a summary of monthly charges.
 
-{: .caution}
-The **AWS account id** on this page is your *Firebolt AWS account* ID. It is **not** the *customer AWS account* under which you are billed.
+**To view current bill estimate and update AWS connection**
+
+* In the configure space choose **Billing**.
+
+The current bill estimate for the entire organization is displayed alongside the ability to connect the organization with a different AWS Marketplace account by choosing Update AWS connection.
