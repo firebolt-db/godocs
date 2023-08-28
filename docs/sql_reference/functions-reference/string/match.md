@@ -9,26 +9,26 @@ great_grand_parent: SQL reference
 
 # MATCH
 
-Checks whether the `<expression1>` matches the regular expression `<expresion2`>, which is a RE2 regular expression.  Returns `0` if it doesn’t match, or `1` if it matches.
+Checks whether the `<expression>` matches the regular expression `<pattern>`, which is a RE2 regular expression.  Returns `0` if it doesn’t match, or `1` if it matches.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-MATCH(<expression1>, <expression2>)
+MATCH(<expression>, <pattern>)
 ```
 ## Parameters 
 {: .no_toc}
 
 | Parameter   | Description                                    | Supported input types | 
 | :----------- | :---------------------------------------------| :------------| 
-| `<expression1>`  | The string used to search for a match | Any string                               |
-| `<expression2>` | The regular expression pattern used to search `<expression1>` for a match | Any regular expression pattern | 
+| `<expression>`  | The string used to search for a match | `TEXT`  |
+| `<pattern>` | The regular expression pattern used to search `<expression>` for a match | `TEXT` | 
 
 ## Return Types 
 
-* Returns `0` if there are no matches between `<expression1>` or `<expression 2>`
-* Returns `1` if there are matches between `<expression1>` or `<expression 2>`
+* Returns `0` if there are no matches between `<expression>` and `<pattern>`
+* Returns `1` if there are matches between `<expression>` and `<pattern>`
 
 
 ## Example

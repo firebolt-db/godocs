@@ -28,7 +28,7 @@ REGEXP_EXTRACT_ALL(<expression>, <pattern>[,'<flag>[...]',[<index>]])
 | `<flag>` | Optional. Flags allow additional controls over the regular's expression matching behavior. If using multiple flags, you can include them in the same single-quote block without any separator character. | Firebolt supports the following RE2 flags to override default matching behavior. With `-` in front you can disable the flag.<br>* `i` - Specifies case-insensitive matching.<br>* `m` - Specifies multi-line mode. In this mode, `^` and `$` characters in the regex match the beginning and end of line.<br>* `s` - (Enabled per default) Specifies that the `.` metacharacter in regex matches the newline character in addition to any character in `.`<br>* `U` - Specifies non-greedy mode. In this mode, the meaning of the metacharacters `*` and `+` in regex `<pattern>` are swapped with `*?` and `+?`, respectively. See the examples using flags below for the difference in how results are returned. |
 | `<index>`| Optional. Indicates which subgroup of the expression match should be returned. Default value is `0` which means the whole match is returned, independent of any number of given subgroups. | An `INTEGER` between `0` and `N` where `N` is the number subgroups in the `<pattern>`.|
 
-## Return Types
+## Return Type
 `TEXT`
 
 ## Examples

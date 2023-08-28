@@ -21,11 +21,11 @@ MD5_NUMBER_UPPER64(<expression>)
 # Parameters 
 {: .no_toc}
 
-| Parameter  | Description                                                              | Supported input type | 
+| Parameter  | Description                                                              |Supported input type | 
 | :---------- | :------------------------------------------------------------------------ | :-------|
-| `<expression>` | The string to calculate the MD5 hash value on and represent as `BIGINT` | Any string | 
+| `<expression>` | The string to calculate the MD5 hash value on and represent as `BIGINT` | `TEXT` | 
 
-## Return Types
+## Return Type
 `BIGINT`
 
 ## Example

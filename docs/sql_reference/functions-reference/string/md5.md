@@ -17,12 +17,12 @@ Calculates the MD5 hash of string, returning the result as a string in hexadecim
 ```sql
 MD5(<expression>)
 ```
-## Example
+## Parameters 
 {: .no_toc}
 
-| Parameter  | Description                                               | Supported input types | 
-| :---------- | :--------------------------------------------------------- | :---------- |
-| `<expression>` | The string to hash | Any string | 
+| Parameter   | Description |Supported input types |
+| :----------- | :----------------------------------------- | :---------------------|
+| `<expression>` | The string to hash. | `TEXT` |
 
 ## Return Types
 

@@ -17,14 +17,15 @@ Represent the lower 64 bits of the MD5 hash value of the input string as `BIGINT
 ```sql
 MD5_NUMBER_LOWER64(<expression>)
 ```
+
 ## Parameters 
 {: .no_toc}
 
 | Parameter  | Description                                                              | Supported input type | 
 | :---------- | :------------------------------------------------------------------------ | :-------|
-| `<expression>` | The string to calculate the MD5 hash value on and represent as `BIGINT` | Any string | 
+| `<expression>` | The string to calculate the MD5 hash value on and represent as `BIGINT` | `TEXT` | 
 
-## Return Types
+## Return Type
 `BIGINT`
 
 ## Example
