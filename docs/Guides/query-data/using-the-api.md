@@ -2,7 +2,7 @@
 layout: default
 title: Use the API
 description: Learn about using the Firebolt API to interact with Firebolt.
-nav_order: 3
+nav_order: 1
 parent: Query data
 grand_parent: Guides
 ---

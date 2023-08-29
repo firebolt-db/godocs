@@ -2,7 +2,7 @@
 layout: default
 title: Visual explain
 description: Learn to use Firebolt visual explain to analyze query execution plans to improve query performance and efficiency.
-nav_order: 1
+nav_order: 3
 parent: Query data
 grand_parent: Guides
 ---
