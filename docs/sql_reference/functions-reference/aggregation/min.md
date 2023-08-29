@@ -1,6 +1,6 @@
 ---
 layout: default
-title: MIN (aggregation function)
+title: MIN
 description: Reference material for MIN
 grand_parent: SQL functions
 parent: Aggregation functions
@@ -18,8 +18,6 @@ Calculates the minimum value of an expression across all input values.
 ```sql
 MIN(<expression>)
 ```
-## Parameters 
-{: .no_toc}
 
 ## Parameters
 {: .no_toc}

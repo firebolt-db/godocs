@@ -1,6 +1,6 @@
 ---
 layout: default
-title: PERCENTILE_CONT (aggregation function)
+title: PERCENTILE_CONT
 description: Reference material for PERCENTILE_CONT aggregate function
 grand_parent: SQL functions
 parent: Aggregation functions

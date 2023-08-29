@@ -43,6 +43,19 @@ To create a network policy via the UI:
 
 For each user, the Allowed IPs and Blocked IPs are updated to reflect the total number of IP addresses from each list that you specified for that user. Network policies created in UI are automatically attached to the organization to which the policy creator is logged in. 
 
+## Attach a netwok policy to an organization
+
+When a network policy is created in UI, it is automatically attached to an organization the creator is logged in to. However, to attach (or detach) a network policy, you can use the command [`ALTER ORGANIZATION`](../../sql_reference/commands/data-definition/alter-organization.md). For example: 
+
+```sql
+ALTER ORGANIZATION my_organization SET NETWORK_POLICY_NAME = my_network_policy
+```
+or to detach: 
+
+```sql
+ALTER ORGANIZATION my_organization SET NETWORK_POLICY_NAME = DEFAULT
+```
+
 ## Edit a network policy
 
 ### SQL 

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: LAG
+title: LAG OVER
 description: Reference material for LAG function
 grand_parent: SQL functions
 parent: Window functions
@@ -18,15 +18,19 @@ For more information on usage, please refer to [Window Functions](./window-funct
 
 ```sql
 LAG ( <expression> [, <offset> [, <default> ]] )
-    OVER ( [ PARTITION BY <exp> ] ORDER BY <exp> [ { ASC | DESC } ] )
+    OVER ( [ PARTITION BY <partition_by> ] ORDER BY <order_by> [ { ASC | DESC } ] )
 ```
 
-| Parameter   | Description                                                                                                                  |
-| :----------- | :---------------------------------------------------------------------------------------------------------------------------- |
-| `<value>`     | Any valid expression that will be returned based on the `LAG` `<offset>.`                                                    |
-| `<expression1>`    | The expression used for the `PARTITION BY` clause.                                                                           |
-| `<expression3>`  | The number of rows backward from the current row from which to obtain a value. A negative number will act as `LEAD()`        |
-| `<expression3>` | The expression to return when the offset goes out of the bounds of the window. Must be a literal `INTEGER`. The default is `NULL`. |
+## Parameters 
+{: .no_toc}
+
+| Parameter | Description                                      | Supported input types | 
+| :--------- | :------------------------------------------------ | :------------| 
+| `<value>`     | Any valid expression that will be returned based on the `<offset>.`                                                    | Any |
+| `<partition_by>`    | The expression used for the `PARTITION BY` clause.                                                                           | Any |
+| `<offset>`  | The number of rows backward from the current row from which to obtain a value. A negative number will act as `LEAD()`        | 	`INTEGER` |
+| `<default>` | The expression to return when the offset goes out of the bounds of the window. Must be a literal `INTEGER`. The default is `NULL`. | `INTEGER` |
+| `<order_by>` | An expression used for the order by clause. | Any |
 
 ## Example
 {: .no_toc}

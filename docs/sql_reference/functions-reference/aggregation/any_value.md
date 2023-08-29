@@ -22,8 +22,6 @@ ANY_VALUE(<expression>)
 ## Parameters 
 {: .no_toc}
 
-## Parameters
-{: .no_toc}
 
 | Parameter | Description                                  |Supported input types |
 | :-------- | :-------------------------------------------- | :--------- |
@@ -39,7 +37,7 @@ Same as input type
 ## Example
 {: .no_toc}
 
-Consider a table, `players`, with a single column `nickname` as shown below. This table displays the nicknames for users playing a specific video game. 
+Consider a table, `players`, with a single column `nickname` as shown below. This table displays the nicknames for users playing a specific game. 
 
 
 | nickname     |

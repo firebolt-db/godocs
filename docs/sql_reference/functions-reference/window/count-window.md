@@ -1,6 +1,6 @@
 ---
 layout: default
-title: COUNT (window function)
+title: COUNT OVER
 description: Reference material for COUNT function
 grand_parent: SQL functions
 parent: Window functions
@@ -17,23 +17,23 @@ For more information on usage, please refer to [Window Functions](./window-funct
 {: .no_toc}
 
 ```sql
-COUNT( <value> ) OVER ( [ PARTITION BY <expression> ] )
+COUNT( <value> ) OVER ( [ PARTITION BY <partition_by> ] )
 ```
 ## Parameters 
 {: .no_toc}
 
 | Parameter | Description                                      | Supported input types | 
 | :--------- | :------------------------------------------------ | :------------| 
-| `<value>`   | A value used for the `COUNT()` function.   | Any `<column>` that contains value that can be counted| 
-| `<expression>`  | An expression used for the `PARTITION BY` clause | Any `<column>` | 
+| `<value>`   | A value used for the `COUNT()` function.   | Any numeric type | 
+| `<partition_by>`  | An expression used for the `PARTITION BY` clause. | Any | 
 
-## Return Types 
-See [COUNT](../aggregation/count.md)
+## Return Type
+`NUMERIC`
 
 ## Example
 {: .no_toc}
 
-The following example  generates a count of how many video game players have registered on a specific day: 
+The following example generates a count of how many video game players have registered on a specific day: 
 
 ```sql
 SELECT

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: MIN (window function)
+title: MIN OVER
 description: Reference material for MIN function
 grand_parent: SQL functions
 parent: Window functions
@@ -17,13 +17,16 @@ For more information on usage, please refer to [Window Functions](./window-funct
 {: .no_toc}
 
 ```sql
-MIN( <exp> ) OVER ( [ PARTITION BY <exp> ] )
+MIN( <expression> ) OVER ( [ PARTITION BY <partition_by> ] )
 ```
 
-| Parameter | Description                                                      |
-| :--------- | :---------------------------------------------------------------- |
-| `<val>`   | An expression used for the `MIN` function.                       |
-| `<exp>`   | An expression used for the `PARTITION BY` clause.                |
+## Parameters 
+{: .no_toc}
+
+| Parameter | Description                                      | Supported input types | 
+| :--------- | :------------------------------------------------ | :------------| 
+| `<expression>`   | A value used for the `MIN` function       | Any |
+| `<partition_by>`   | An expression used for the `PARTITION BY` clause. | Any |
 
 ## Example
 {: .no_toc}

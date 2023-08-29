@@ -1,6 +1,6 @@
 ---
 layout: default
-title: SUM (aggregation function)
+title: SUM
 description: Reference material for SUM
 grand_parent: SQL functions
 parent: Aggregation functions
@@ -20,8 +20,6 @@ SUM ([DISTINCT] <value>)
 ## Parameters 
 {: .no_toc} 
 
-## Parameters
-{: .no_toc}
 
 | Parameter | Description                         |Supported input types |
 | :--------- | :----------------------------------- | :---------------------|

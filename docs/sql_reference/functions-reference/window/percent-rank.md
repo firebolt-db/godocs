@@ -1,6 +1,6 @@
 ---
 layout: default
-title: PERCENT_RANK
+title: PERCENT_RANK OVER
 description: Reference material for PERCENT_RANK window function
 grand_parent: SQL functions
 parent: Window functions
@@ -13,21 +13,28 @@ Calculates the relative rank of the current row within an ordered data set, as
 `( rank - 1 ) / ( rows - 1 )`
 where rank is the current row's rank within the partition, and rows is the number of rows in the partition. PERCENT_RANK always returns values from 0 to 1 inclusive. The first row in any set has a `PERCENT_RANK` of 0. 
 
-See also [CUME_DIST](./cume-dist.md), which returns the cumulative distribution of the current row in relation to other rows in the same partition within an ordered data set.
+See also [CUME_DIST](./cume-dist.md), which returns the cumulative distribution of the current row in relation to other rows in the same partition within an ordered data set. For more information on usage, please refer to [Window Functions](./window-functions.md).
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-PERCENT_RANK() OVER ( [ PARTITION BY <val> ] ORDER BY <expr> [ASC|DESC] )
+PERCENT_RANK() OVER ( [ PARTITION BY <partition_by> ] ORDER BY <order_by> [ASC|DESC] )
 ```
 
-| Parameter | Description                                                                                       |
-| :--------- | :------------------------------------------------------------------------------------------------- |
-| `<val>`    | The expression used for the `PARTITION BY` clause.                                                |
-| `<exp>`    | The expression used in the `ORDER BY` clause. This parameter determines what value will be ranked.  |
+## Parameters 
+{: .no_toc}
 
-The return type of the function is DOUBLE.
+| Parameter | Description                                      | Supported input types | 
+| :--------- | :------------------------------------------------ | :------------| 
+| Parameter | Description                                     |
+| `<value>`   | An integer expression used for the `NTILE()` function to specify the number of buckets for division.    | `INTEGER` |
+| `<partition_by>` | An expression used for the partition by clause. | Any |
+| `<order_by>` | An expression used for the order by clause. | Any |
+
+## Return Type
+`DOUBLE PRECISION`
+
 This function respects `NULL` values, and results will be ordered with default null ordering `NULLS LAST` unless otherwise specified in the `ORDER BY` clause.
 
 ## Example

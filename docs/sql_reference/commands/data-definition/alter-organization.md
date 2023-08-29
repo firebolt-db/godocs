@@ -16,7 +16,8 @@ For more information, see [Setting up SSO](../../../Guides/managing-your-organiz
 ## Syntax
 
 ```sql
-ALTER ORGANIZATION SET SSO = ‘{
+ALTER ORGANIZATION SET 
+  [ SSO = ‘{
   “signOnUrl”: “<signOnUrl>”,
   “signOutUrl”: “<signOutUrl>”, 
   “issuer”: “<issuer>”,
@@ -24,7 +25,9 @@ ALTER ORGANIZATION SET SSO = ‘{
   “label”: “<label>”,
   “fieldMapping”: “<field_mapping>”,
   “certificate”: “<certficate>”,
-}’;
+}’ ]
+  [ NETWORK_POLICY_NAME = [ DEFAULT | <network_policy_name> ]
+  ;
 ```
 
 ## Parameters 
@@ -39,6 +42,7 @@ ALTER ORGANIZATION SET SSO = ‘{
 | `<label>` | The label to use for the SSO login button. If not provided, the IdP field value is used. |
 | `<field_mapping>` | Optional.  Mapping to your identity provider's first and last name in key-value pairs. Mapping is required for Firebolt to fill in the login’s given and last names the first time the user logs in using SSO. If this field remains empty when a login that represents the user is being created, the login's first and last name fields will contain “NA”. Those fields can be updated later by running the [`ALTER LOGIN`](../../../sql_reference/commands/access-control/alter-login.md) command. 
 | `<certificate>` | The certificate to verify the communication between the identity provider and Firebolt. |
+| `<network_policy_name>` | An optional parameter to define the network policy to link to the organization. Specifying `DEFAULT` will detach any linked network policy.  |
 
 
 ## Example

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: AVG (aggregation function)
+title: AVG
 description: Reference material for AVG
 grand_parent: SQL functions
 parent: Aggregation functions
@@ -18,8 +18,6 @@ Calculates the average of an expression.
 ```sql
 AVG(<value>)
 ```
-## Parameters 
-{: .no_toc}
 
 ## Parameters
 {: .no_toc}

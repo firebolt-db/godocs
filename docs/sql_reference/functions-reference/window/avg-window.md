@@ -1,6 +1,6 @@
 ---
 layout: default
-title: AVG (window function)
+title: AVG OVER
 description: Reference material for AVG function
 grand_parent: SQL functions
 parent: Window functions
@@ -11,24 +11,26 @@ great_grand_parent: SQL reference
 
 Returns the average value within the requested window.
 
-For additional window functions, see [Window Functions](./window-functions.md).
+For more information on usage, please refer to [Window Functions](./window-functions.md).
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-AVG( <value> ) OVER ( [ PARTITION BY <expression> ] )
+AVG( <value> ) OVER ( [ PARTITION BY <partition_by> ] )
 ```
+
 ## Parameters
 {: .no_toc}
 
-| Parameter | Description | Supported input types | 
+| Parameter | Description |Supported input types | 
 | :--------- | :----------------------------------------------- | :----------|
-| `<value >`   | An value used for the `AVG()` function    | `<column>`  | 
-| `<expression>`  | An expression used for the `PARTITION BY` clause | `<column>` | 
+| `<value>`   | A value used for the `AVG()` function    | Any numeric type  | 
+| `<partition_by`  | An expression used for the `PARTITION BY` clause | Any | 
 
-## Return Types 
-AVG (aggregation)
+## Return Types
+* `NUMERIC` if the input is type `INTEGER`, `BIGINT` or `NUMERIC`
+* `DOUBLE PRECISION` if the input is type `REAL` or `DOUBLE PRECISION`
 
 ## Example
 {: .no_toc}

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: CUME_DIST
+title: CUME_DIST OVER
 description: Reference material for CUME_DIST window function
 grand_parent: SQL functions
 parent: Window functions
@@ -14,21 +14,26 @@ Calculates the relative rank (cumulative distribution) of the current row in rel
 where rank is the current row's rank within the partition, number_of_peers is the number of row values equal to the current row value (including the current row), and total_rows is the total number of rows in the partition.
 The return value ranges from 1/(total_rows) to 1.
 
-See also [PERCENT_RANK](./percent-rank.md), which returns the relative rank of the current row within an ordered data set.
+See also [PERCENT_RANK](./percent-rank.md), which returns the relative rank of the current row within an ordered data set. For more information on usage, please refer to [Window Functions](./window-functions.md).
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-CUME_DIST() OVER ( [ PARTITION BY <val> ] ORDER BY <expr> [ASC|DESC] )
+CUME_DIST() OVER ( [ PARTITION BY <partition_by> ] ORDER BY <order_by> [ASC|DESC] )
 ```
 
-| Parameter | Description                                                                                       |
-| :--------- | :------------------------------------------------------------------------------------------------- |
-| `<val>`    | The expression used for the `PARTITION BY` clause.                                                |
-| `<exp>`    | The expression used in the `ORDER BY` clause. This parameter determines what value will be ranked.  |
+## Parameters 
+{: .no_toc}
 
-The return type of the function is DOUBLE.
+| Parameter | Description                                      | Supported input types | 
+| :--------- | :------------------------------------------------ | :------------| 
+| `<partition_by>`    | The expression used for the `PARTITION BY` clause.                                                | Any |
+| `<order_by>`    | The expression used in the `ORDER BY` clause. This parameter determines what value will be ranked.  | Any |
+
+## Return Type
+`DOUBLE PRECISION`
+
 This function respects `NULL` values, and results will be ordered with default null ordering `NULLS LAST` unless otherwise specified in the `ORDER BY` clause.
 
 ## Example

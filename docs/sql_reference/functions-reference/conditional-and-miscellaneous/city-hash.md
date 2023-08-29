@@ -2,6 +2,8 @@
 layout: default
 title: CITY_HASH
 description: Reference material for CITY_HASH function
+nav_exclude: true
+search_exclude: true
 grand_parent: SQL functions
 parent: Conditional and miscellaneous functions
 great_grand_parent: SQL reference

@@ -1,13 +1,13 @@
 ---
 layout: default
-title: SUM (window function)
+title: SUM OVER
 description: Reference material for SUM function
 grand_parent: SQL functions
 parent: Window functions
 great_grand_parent: SQL reference
 ---
 
-# SUM (window function)
+# SUM 
 
 Calculate the sum of the values within the requested window.
 
@@ -19,17 +19,21 @@ For more information on usage, please refer to [Window Functions](./window-funct
 {: .no_toc}
 
 ```sql
-SUM([DISTINCT] <val> ) OVER ( [ PARTITION BY <expr> ] )
+SUM([ DISTINCT ] <value> ) OVER ( [ PARTITION BY <partition_by> ] )
 ```
 
-| Parameter | Description                                      |
-| :--------- | :------------------------------------------------ |
-| `<value>`   | The expression used for the `SUM` function       |
-| `<expression>`  | An expression used for the `PARTITION BY` clause |
-| `DISTINCT` | When specified, removes duplicate values from `<expression>` before calculating the sum. |
+## Parameters 
+{: .no_toc}
+
+| Parameter | Description                                      |Supported input types | 
+| :--------- | :------------------------------------------------ | :------------| 
+| `<value>`   | The expression used for the `SUM` function       | Any numeric type |
+| `<partition_by>`  | An expression used for the `PARTITION BY` clause | Any |
 
 ## Return Types
-See [SUM](../aggregation/sum.md)
+`NUMERIC` 
+
+When `DISTINCT` is specified, duplicate values from `<expression>` are removed before calculating the sum.
 
 ## Example
 {: .no_toc}

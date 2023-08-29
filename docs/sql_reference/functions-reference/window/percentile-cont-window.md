@@ -1,6 +1,6 @@
 ---
 layout: default
-title: PERCENTILE_CONT (window function)
+title: PERCENTILE_CONT OVER
 description: Reference material for PERCENTILE_CONT window function
 grand_parent: SQL functions
 parent: Window functions
@@ -11,24 +11,27 @@ great_grand_parent: SQL reference
 
 Calculates a percentile over a partition, assuming a continuous distribution of values of <expr0> defined. Results are interpolated, rather than matching any of the specific column values. 
 
-PERCENTILE\_CONT is  available as an [aggregation function](./aggregation-functions.md).
-See also [PERCENTILE\_DISC](./percentile-disc-window.md), which returns a percentile over a partition equal to a specific column value.
+PERCENTILE\_CONT is available as an [aggregation function](../aggregation/index.md).
+See also [PERCENTILE\_DISC](./percentile-disc-window.md), which returns a percentile over a partition equal to a specific column value. For more information on usage, please refer to [Window Functions](./window-functions.md).
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-PERCENTILE_CONT( <val> ) WITHIN GROUP ( ORDER BY <expr0> [ { ASC | DESC } ] ) [ OVER ( PARTITION BY <expr1> ) ]
+PERCENTILE_CONT( <value> ) WITHIN GROUP ( ORDER BY <order_by> [ { ASC | DESC } ] ) [ OVER ( PARTITION BY <partition_by> ) ]
 ```
 
-|           |                                                 |
-| :--------- | :----------------------------------------------- |
-| Parameter | Description                                     |
-| `<val>`   | A double/float literal between 0.0 and 1.0.  |
-| `<expr0>` | An expression used for the order by clause. |
-| `<expr1>` | An expression used for the partition by clause. |
+## Parameters 
+{: .no_toc}
 
-The expression used for the order by clause must be of numeric data type. The return type of the function will be the same as the expression type.
+| Parameter | Description                                      |Supported input types | 
+| :--------- | :------------------------------------------------ | :------------| 
+| `<value>`   | A value between 0.0 and 1.0.  | `DOUBLE PRECISION`, `REAL` |
+| `<order_by>` | An expression used for the order by clause. | Any numeric type |
+| `<partition_by>` | An expression used for the partition by clause. | Any |
+
+## Return Types
+Same as input type. 
 
 ## Example
 {: .no_toc}

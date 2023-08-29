@@ -1,13 +1,13 @@
 ---
 layout: default
-title: MAX (window function)
+title: MAX OVER
 description: Reference material for MAX function
 grand_parent: SQL functions
 parent: Window functions
 great_grand_parent: SQL reference
 ---
 
-# MAX (window function)
+# MAX OVER
 
 Returns the maximum value within the requested window.
 
@@ -17,18 +17,20 @@ For more information on usage, please refer to [Window Functions](./window-funct
 {: .no_toc}
 
 ```sql
-MAX( <exp> ) OVER ( [ PARTITION BY <exp> ] )
+MAX( <expression> ) OVER ( [ PARTITION BY <partition_by> ] )
 ```
-## Example
+
+## Parameters 
 {: .no_toc}
-| Parameter | Description                                       | Supported input types | 
-| :--------- | :------------------------------------------------- | :----------|
-| `<value>`   | A value used for the `MAX` function       |
-| `<exp>`   | An expression used for the `PARTITION BY` clause |
+
+| Parameter | Description                                      | Supported input types | 
+| :--------- | :------------------------------------------------ | :------------| 
+| `<expression>`   | A value used for the `MAX` function       | Any |
+| `<partition_by>`   | An expression used for the `PARTITION BY` clause. | Any |
+
 
 ## Return Types
-## Return Types
-See [MAX](../aggregation/max.md)
+Same as input type
 
 ## Example
 {: .no_toc}

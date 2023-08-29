@@ -7,7 +7,6 @@ parent: Aggregation functions
 great_grand_parent: SQL reference
 ---
 
-
 # MIN\_BY
 
 The `MIN_BY` function returns the value of the specified `<expression>` column at the row with the minimum value in the specified `<value>` column.
@@ -20,14 +19,6 @@ If there is more than one of the same minimum value in `<value>`, then the first
 ```sql
 MIN_BY(<expression>, <value>)
 ```
-
-## Parameters 
-{: .no_toc}
-
-| Parameter | Description                                        | Supported input Type |
-| :--------- | :-------------------------------------------------|:---------------------|
-| `<expression>`   | The column from which the value is returned | `<column>`           |
-| `<value>`   | The column that is search for a minimum value    | `<column>`           |
 
 ## Parameters
 {: .no_toc}

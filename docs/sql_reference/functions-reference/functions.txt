@@ -6,17 +6,13 @@ sum.md
 nullif.md
 try-cast.md
 version.md
-zeroifnull.md
 
 ./string:
-base64-encode.md
 like.md
 ltrim.md
 median.md
 replace.md
 rtrim.md
-to-double.md
-to-float.md
 
 ./window:
 avg-window.md

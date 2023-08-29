@@ -17,8 +17,8 @@ For more information, see [Managing users](../../../Guides/managing-your-organiz
 
 ```sql
 ALTER USER <user_name> SET
-	[LOGIN_NAME = <login_name> | DEFAULT ]
-        [SERVICE_ACCOUNT_NAME = <service_account> | DEFAULT ]
+	[ LOGIN_NAME = <login_name> | DEFAULT ]
+        [ SERVICE_ACCOUNT_NAME = <service_account> | DEFAULT ]
         [ DEFAULT_DATABASE = <database_name> | DEFAULT ]
         [ DEFAULT_SCHEMA = <schema_name> | DEFAULT ]
 	[ DEFAULT_ENGINE = <engine_name> | DEFAULT ];

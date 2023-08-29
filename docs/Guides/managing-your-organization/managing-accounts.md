@@ -11,6 +11,8 @@ grand_parent: Guides
 
 Your organization comes prepared with one account for your convenience. You can add more accounts, edit existing accounts, or delete accounts using SQL or in the UI.
 
+To view all accounts, click **Configure** to open the configure space, then choose **Accounts** from the menu, or query the [information_schema.accounts](../../sql_reference/information-schema/accounts.md) view. 
+
 ## Create a new account
 
 {: .note}

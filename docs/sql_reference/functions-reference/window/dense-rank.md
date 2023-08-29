@@ -1,6 +1,6 @@
 ---
 layout: default
-title: DENSE_RANK
+title: DENSE_RANK OVER
 description: Reference material for DENSE_RANK function
 grand_parent: SQL functions
 parent: Window functions
@@ -17,20 +17,23 @@ For more information on usage, please refer to [Window Functions](./window-funct
 {: .no_toc}
 
 ```sql
-DENSE_RANK() OVER ([PARTITION BY <val>] ORDER BY <exp> [ASC|DESC] )
+DENSE_RANK() OVER ([PARTITION BY <partition_by>] ORDER BY <order_by> [ASC|DESC] )
 ```
 
-| Parameter | Description                                                                                       |
-| :--------- | :------------------------------------------------------------------------------------------------- |
-| `<val>`   | The expression used for the `PARTITION BY` clause.                                                |
-| `<exp>`    | The expression used in the `ORDER BY` clause. This parameter determines what value will be ranked.  |
+## Parameters 
+{: .no_toc}
+
+| Parameter | Description                                      | Supported input types | 
+| :--------- | :------------------------------------------------ | :------------| 
+| `<partition_by>`   | The expression used for the `PARTITION BY` clause.                                                | Any |
+| `<order_by>`    | The expression used in the `ORDER BY` clause. This parameter determines what value will be ranked.  | Any | 
 
 ## Example
 {: .no_toc}
 
 In this example below, students are ranked based on their test scores for their grade level.
 
-```
+```sql
 SELECT
 	first_name,
 	grade_level,

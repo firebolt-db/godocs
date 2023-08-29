@@ -1,6 +1,6 @@
 ---
 layout: default
-title: FIRST_VALUE
+title: FIRST_VALUE OVER
 description: Reference material for FIRST_VALUE function
 grand_parent: SQL functions
 parent: Window functions
@@ -17,16 +17,22 @@ See also [NTH\_VALUE](./nth-value.md), which returns the value evaluated of the 
 {: .no_toc}
 
 ```sql
-FIRST_VALUE( <expr> ) OVER ( [ PARTITION BY <expr0> ] ORDER BY <expr1> [ASC|DESC] )
+FIRST_VALUE( <expression> ) OVER ( [ PARTITION BY <partition_by> ] ORDER BY <order_by> [ASC|DESC] )
 ```
 
-| Parameter | Description                                                                                        |
-| :--------- | :-------------------------------------------------------------------------------------------------- |
-| `<expr>`   | A SQL expression of any type to evaluate.                                                |
-| `<expr0>` | An expression used for the PARTITION clause. |
-| `<expr1>` | An expression used for the order by clause. |
+## Parameters 
+{: .no_toc}
 
-The return type of the function will be the same type as the expression to evaluate. This function respects `NULL` values, and results will be ordered with default null ordering `NULLS LAST` unless otherwise specified in the `ORDER BY` clause. If applied without an `ORDER BY` clause, the order will be undefined.
+| Parameter | Description                                      | Supported input types | 
+| :--------- | :------------------------------------------------ | :------------| 
+| `<expression>`   | A SQL expression of any type to evaluate.                                                | Any |
+| `<partition_by>` | An expression used for the `PARTITION BY` clause. | Any |
+| `<order_by>` | An expression used for the order by clause. | Any |
+
+## Return Types
+Same as input type. 
+
+This function respects `NULL` values, and results will be ordered with default null ordering `NULLS LAST` unless otherwise specified in the `ORDER BY` clause. If applied without an `ORDER BY` clause, the order will be undefined.
 
 ## Example
 {: .no_toc}

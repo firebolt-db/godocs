@@ -17,11 +17,11 @@ For more information, see [Managing users](../../../Guides/managing-your-organiz
 ```sql
 CREATE USER [ IF NOT EXISTS ] <user_name>  
 [ WITH 
-[LOGIN_NAME = <login_name> | SERVICE_ACCOUNT_NAME = <service_account> ]
-[DEFAULT_DATABASE = <database_name> ]
-[DEFAULT_SCHEMA = <schema_name> ]
-[DEFAULT_ENGINE = <engine_name> ]
-[ROLE = <role> ]
+[ LOGIN_NAME = <login_name> | SERVICE_ACCOUNT_NAME = <service_account> ]
+[ DEFAULT_DATABASE = <database_name> ]
+[ DEFAULT_SCHEMA = <schema_name> ]
+[ DEFAULT_ENGINE = <engine_name> ]
+[ ROLE = <role> ]
 ]
 ```
 

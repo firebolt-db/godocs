@@ -1,6 +1,6 @@
 ---
 layout: default
-title: RANK
+title: RANK OVER
 description: Reference material for RANK function
 grand_parent: SQL functions
 parent: Window functions
@@ -17,13 +17,19 @@ For more information on usage, please refer to [Window Functions](./window-funct
 {: .no_toc}
 
 ```sql
-RANK() OVER ([PARTITION BY <exp>] ORDER BY <exp> [ASC|DESC] )
+RANK() OVER ([PARTITION BY <partition_by>] ORDER BY <order_by> [ASC|DESC] )
 ```
 
-| Parameter | Description                                                                                        |
-| :--------- | :-------------------------------------------------------------------------------------------------- |
-| `<val>`   | The expression used for the `PARTITION BY` clause.                                                 |
-| `<exp>`   | The expression used in the `ORDER BY` clause. This parameter determines what value will be ranked. |
+## Parameters 
+{: .no_toc}
+
+| Parameter | Description                                      |Supported input types | 
+| :--------- | :------------------------------------------------ | :------------| 
+| `<partition_by>`   | The expression used for the `PARTITION BY` clause.                                                 | Any |
+| `<order_by>`   | The expression used in the `ORDER BY` clause. This parameter determines what value will be ranked. | Any |
+
+## Return Type
+`INTEGER`
 
 ## Example
 {: .no_toc}

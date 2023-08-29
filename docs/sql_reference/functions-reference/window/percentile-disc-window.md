@@ -1,6 +1,6 @@
 ---
 layout: default
-title: PERCENTILE_DISC (window function)
+title: PERCENTILE_DISC OVER
 description: Reference material for PERCENTILE_DISC window function
 grand_parent: SQL functions
 parent: Window functions
@@ -18,17 +18,21 @@ See also [PERCENTILE\_CONT](./percentile-cont-window.md), which calculates an in
 {: .no_toc}
 
 ```sql
-PERCENTILE_DISC( <val> ) WITHIN GROUP ( ORDER BY <expr0> [ { ASC | DESC } ] ) [ OVER ( PARTITION BY <expr1> ) ]
+PERCENTILE_DISC( <value> ) WITHIN GROUP ( ORDER BY <order_by> [ { ASC | DESC } ] ) [ OVER ( PARTITION BY <partition_by> ) ]
 ```
 
-|           |                                                 |
-| :--------- | :----------------------------------------------- |
-| Parameter | Description                                     |
-| `<val>`   | A double/float literal between 0.0 and 1.0.  |
-| `<expr0>` | An expression used for the order by clause. |
-| `<expr1>` | An expression used for the partition by clause. |
+## Parameters 
+{: .no_toc}
 
-The return type of the function will be the same as the order by expression type.
+| Parameter | Description                                      |Supported input types | 
+| :--------- | :------------------------------------------------ | :------------| 
+| `<value>`   | A value between 0.0 and 1.0.  | `DOUBLE PRECISION`, `REAL` |
+| `<order_by>` | An expression used for the order by clause. | Any numeric type |
+| `<partition_by>` | An expression used for the partition by clause. | Any |
+
+## Return Types
+Same as the order by expression type.
+
 This function ignores `NULL` values.
 
 
