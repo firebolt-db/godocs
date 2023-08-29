@@ -52,10 +52,10 @@ Privileges can be granted for accounts to allow creating databases and engines.
 
 | Privilege           | Description                                                                    |
 |:--------------------|:-------------------------------------------------------------------------------|
-| CREATE ENGINE       | Enables creating new engines in the account.                                   |
 | CREATE DATABASE     | Enables creating new databases in the account.                                 |
 | USAGE ANY DATABASE  | Enables using all current and future databases in the account.  |
 | MODIFY ANY DATABASE | Enables editing all current and future databases in the account. |
+| CREATE ENGINE       | Enables creating new engines in the account.                                   |
 | USAGE ANY ENGINE    | Enables using all current and future engines in the account.    |
 | OPERATE ANY ENGINE  | Enables starting and stopping all current and future engines in the account.  |
 | MODIFY ANY ENGINE   | Enables editing all current and future engines in the account.    |
@@ -174,13 +174,9 @@ To revoke a privilege from a role via the UI, follow the [same steps above](#gra
 ### SQL 
 To revoke a role from a user or another role using SQL, use the [`REVOKE ROLE`](../../sql_reference/commands/access-control/revoke.md) statement. For example:
 
-<<<<<<< HEAD
 ```sql
 REVOKE ROLE user_role USER alex;
 ```
-=======
-```REVOKE ROLE user_role FROM USER alex;```
->>>>>>> cc1209b93f161eaf86e68980b63ab2e7e0ddc6ed
 
 ### UI
 To revoke a role from a user or another role via the UI, follow the [same steps above](#grant-role) that you would to grant a role.  
