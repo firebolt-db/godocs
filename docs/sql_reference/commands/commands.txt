@@ -6,5 +6,4 @@ describe.md
 
 ./queries:
 explain.md
-index.md
 select.md

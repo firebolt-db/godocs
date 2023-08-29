@@ -9,30 +9,40 @@ great_grand_parent: SQL reference
 
 # NULLIF
 
-Compares two expressions. Returns `NULL` if the expressions evaluate to equal values. Returns the result of `<expr1>` if they are not equal. To return `<expr2>` instead, use `IFNULL`.
+Compares two expressions. Returns `NULL` if the expressions evaluate to equal values. Returns the result of `<expression1>` if they are not equal. To return `<expression2>` instead, use `IFNULL`.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-NULLIF(<exp1>, <exp2>)
+NULLIF(<expression1>, <expression2>)
 ```
 
-| Parameter | Description |
-| :-------- | :---------- |
-| `<expr1>`, `<expr2>` | Expressions that evaluate to any data type that Firebolt supports. The expressions must evaluate to the same data type or synonyms, or an error occurs. The result of `<exp1>` is returned if the expressions do not evaluate to an equal result. |
+## Parameters 
+{: .no_toc}
+
+| Parameter | Description | Supported input types | 
+| :-------- | :---------- |:---------|
+| `<expression1>`, `<expression2>` | Expressions that evaluate to any data type that Firebolt supports | Any | 
+
+## Return Types 
+Returns `NULL` if expressions are equal. Returns `<expression1>` if values are not equal. 
+
 
 ## Example
 {: .no_toc}
+This example below highlights an instance where `NULL` would be returned: 
 
 ```sql
-NULLIF('Firebolt fast','Firebolt fast')
+NULLIF('Level 3','Level 3')
 ```
 
 **Returns**: `NULL`
 
+This example returns `<expression1>` because the values are not equal: 
+
 ```sql
-NULLIF('Firebolt fast','Firebolt Fast')
+NULLIF('Level4','level 4')
 ```
 
-**Returns**: `Firebolt fast`
+**Returns**: `Level4`

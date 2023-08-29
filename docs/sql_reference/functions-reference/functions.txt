@@ -3,8 +3,6 @@ sum.md
 
 
 ./conditional-and-miscellaneous:
-coalesce.md
-ifnull.md
 nullif.md
 try-cast.md
 version.md
