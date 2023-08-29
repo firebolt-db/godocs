@@ -7,11 +7,6 @@ sum.md
 
 
 ./conditional-and-miscellaneous:
-case.md
-cast.md
-city-hash.md
-coalesce.md
-ifnull.md
 nullif.md
 try-cast.md
 version.md

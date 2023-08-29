@@ -8,31 +8,35 @@ great_grand_parent: SQL reference
 ---
 
 # IFNULL
-Compares two expressions. Returns `<expr1>` if it’s not `NULL`, otherwise returns `<expr2>`.
+Compares two expressions. Returns `<expression1>` if it’s not `NULL`, otherwise returns `<expression2>`.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-IFNULL(<exp1>, <exp2>)
+IFNULL(<expression1>, <expression2>)
 ```
+## Parameters 
+{: .no_toc}
 
-| Parameter | Description |
-| :-------- | :---------- |
-| `<expr1>`, `<expr2>` | Expressions that evaluate to any data type that Firebolt supports. |
+| Parameter | Description | Supported input types | 
+| :-------- | :---------- |:---------|
+| `<expression1>`, `<expression2>` | Expressions that evaluate to any data type that Firebolt supports | Any | 
+
+## Return Types
+Same as input type 
 
 ## Example
 {: .no_toc}
 
-The following truth table demonstrates values that `IFNULL` returns based on the values of two column expressions: `col1` and `col2`.
+The following truth table demonstrates values that `IFNULL` returns based on the values of two column expressions: `level` and `player_id`:
 
-```
-+-----------+-----------+-------------------+-------------------+
-|  col1     |   col2    | IFNULL(col1,col2) | IFNULL(col2,col1) |
-+-----------+-----------+-------------------+-------------------+
+
+| level     |   player_id    | IFNULL(level,player_id) | IFNULL(player_id,level) |
+|:-----------|:-----------|:-------------------|:---------------|
 | 0         | 32        | 0                 | 32                |
-| 0         | [NULL]    | 0                 | 0                 |
-| [NULL]    | 32        | 32                | 32                |
+| 1         | [NULL]    | 30                 | 30                 |
+| [NULL]    | 33        | 33                | 33                |
 | [NULL]    | [NULL]    | [NULL]            | [NULL]            |
 -----------+-----------+-------------------+-------------------+
-```
+

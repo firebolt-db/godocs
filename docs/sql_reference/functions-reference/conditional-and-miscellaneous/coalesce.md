@@ -15,18 +15,22 @@ Checks from left to right for the first non-NULL argument found for each entry p
 {: .no_toc}
 
 ```sql
-COALESCE(<value> [,...])
+COALESCE(<expression> [,...])
 ```
 
-| Parameter | Description                                                                                                                                       |
-| :--------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `<value>` | The value(s) to coalesce. Can be either: column name,  a function applied on a column (or on another function), and a literal (constant value). |
+| Parameter | Description        | Supported input types | 
+| :--------- | :---------------------------------------------------|:------------|
+| `<expression>` | The expression(s) to coalesce | A column name,  a function applied on a column (or on another function), or a literal (constant value) |
+
+## Return Types 
+Same as input types 
 
 ## Example
 {: .no_toc}
+The following example returns the first non-null value provided, which is the username `esimpson`:
 
 ```sql
-SELECT COALESCE(null, 'London','New York') AS res;
+SELECT COALESCE(null, 'esimpson','sabrina21') AS nicknames;
 ```
 
-**Returns:** `London`
+**Returns:** `esimpson`
