@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # ZEROIFNULL
 
-If the specified expression `<expr>` evaluates to `NULL`, returns a `0` instead of `NULL`.
+If the specified expression `<expression>` evaluates to `NULL`, returns a `0` instead of `NULL`.
 
 ## Syntax
 {: .no_toc}

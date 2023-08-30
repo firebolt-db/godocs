@@ -17,12 +17,17 @@ Allows matching of strings based on comparison to a pattern. `LIKE` is normally 
 ```sql
 <expression> LIKE '<pattern>'
 ```
+## Parameters 
+{: .no_toc}
 
 | Parameter | Description |Supported input types |
 | :-------- | :---------- | :---------------------|
 | `<expression>` | Any expression that evaluates to `TEXT`. | `TEXT` |
 | `<pattern>` | Specifies the pattern to match (case-sensitive). | Any string. SQL wildcards are supported: <br> <br>* Use an underscore (`_`) to match any single character<br>* Use a percent sign (`%`) to match any number of any characters, including no characters. |
-                                                                                                                                                      
+
+## Return Types
+`TEXT`
+                                                                                                                                                
 **Example**
 
 Find nicknames from the `players` table that partially match the string "joe" and any following characters as follows:
