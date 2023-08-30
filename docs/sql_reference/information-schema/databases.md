@@ -21,7 +21,7 @@ FROM
 
 Each row has the following columns with information about the database.
 
-| Name                          | Data Type | Description |
+| Column Name                   | Data Type | Description |
 | :-----------------------------| :-------- | :---------- |
 | database_name                 | TEXT      | The name of the database. |
 | compressed_size               | BIGINT    | The compressed size of the database. | 

@@ -22,8 +22,7 @@ WHERE
 
 Each row has the following columns with information about each engine.
 
-
-| Name                        | Data Type   | Description |
+| Column Name                 | Data Type   | Description |
 | :---------------------------| :-----------| :-----------|
 | engine_name                 | TEXT      | The name of the engine. |
 | region                      | TEXT      | The AWS Region in which the engine was created. |

@@ -24,18 +24,17 @@ Each row has the following columns with information about each user.
 
 | Column Name                 | Data Type   | Description |
 | :---------------------------| :-----------| :-----------|
-| id                          | TEXT      | Unique identifier of the user. |
-| organization_name           | TEXT      | Name of the organization. |
-| account_name                | TEXT      | Name of the account. |
-| user_name                   | TEXT      | Name of the user. |
-| login_name                  | TEXT      | Name of the login linked to the user. Empty if the login is linked to a service account. |
-| service_account_name        | TEXT      | Name of the service account linked to the user. Empty if the login is linked to a service account. |
-| default_database            | TEXT      | Default database set for the user. |
-| default_engine              | TEXT      | Default engine set for the user. |
+| user_name                   | TEXT      | The name of the user. |
+| login_name                  | TEXT      | The name of the login linked to the user. Empty if the login is linked to a service account. |
+| service_account_name        | TEXT      | The name of the service account linked to the user. Empty if the login is linked to a service account. |
+| account_name                | TEXT      | The name of the account. |
+| organization_name           | TEXT      | The name of the organization. |
+| default_database            | TEXT      | The default database set for the user. |
+| default_engine              | TEXT      | The default engine set for the user. |
 | created                     | TIMESTAMPTZ | Time the user was created. |
-| user_owner                  | TEXT      | Name of the user who created the user. |
+| user_owner                  | TEXT      | The name of the user who created the user. |
 | last_altered                | TIMESTAMPTZ | Time the user was last altered. |
-| last_altered_by             | TEXT       | Name of the last user to edit the user. |
+| last_altered_by             | TEXT       | The name of the last user to edit the user. |
 
 
 

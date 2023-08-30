@@ -7,10 +7,10 @@ grand_parent: SQL reference
 ---
 
 # Information schema for accounts
+You can use the `information_schema.accounts` view to return information about accounts. 
 
-You can use the `information_schema.accounts` view to return information about accounts.
+You can use a `SELECT` query to return information about each account, as shown in the example below.
 
-You can use a `SELECT` query to return information about each role as shown in the example below.
 ```sql
 SELECT
   *
