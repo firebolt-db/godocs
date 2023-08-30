@@ -15,64 +15,47 @@ Removes all occurrences of optionally specified characters, `<trimchars_expr>`, 
 {: .no_toc}
 
 ```sql
-RTRIM(<srcstr_expr>[, <trimchars_expr>])
+RTRIM(<expression1>[, <expression2>])
 ```
+## Parameters 
+{: .no_toc}
 
 | Parameter        | Description                |
 | :--------------- | :------------------------- |
-| `<srcstr_expr>`  | An expression that returns the string to be trimmed. The string can be any of the [string data types](../../general-reference/data-types.md#string).|
-| `<trimchars_expr>` | Optional. An expression that returns characters to trim from the right side of the `<srcstr_expr>` string. If omitted, whitespace (ASCII Decimal 32) is assumed. |
+| `<expression1>`  | An expression that returns the string to be trimmed. The string can be any of the [string data types](../../general-reference/data-types.md#string).|
+| `<expression2>` | Optional. An expression that returns characters to trim from the right side of the `<expression3>` string. If omitted, whitespace (ASCII Decimal 32) is assumed. |
+
+## Return Types 
+Same as input type 
 
 ## Examples
 {: .no_toc}
 
-Default whitespace trim.
+The following example returns the string with the default whitespace trim: 
 
 ```sql
 SELECT
-  RTRIM('  Hello, world!     ') AS trmdstrng;
+  RTRIM('  Level three     ') AS currentlevel;
 ```
 
-**Returns**:
+**Returns**: Level three
 
-```
-+---------------+
-|trmdstrng      |
-+---------------+
-|   Hello,world!|
-+---------------+
-```
 
-Single character trim, with whitespace not specified and left as a remainder.
+
+The following example performs a single character trim, with whitespace not specified and left as a remainder:
 
 ```sql
 SELECT
-  RTRIM('Hello, world!  xxx', 'x') AS trmdstrng;
+  RTRIM('Level three  xxx', 'x') AS currentlevel;
 ```
 
-**Returns**:
+**Returns**: Level three
 
-```
-+---------------+
-|trmdstrng      |
-+---------------+
-|Hello,world!   |
-+---------------+
-```
-
-Multiple character trim, with all specified characters removed, regardless of ordering.
+This next example performs a multiple character trim, with all specified characters removed, regardless of ordering:
 
 ```sql
 SELECT
-  RTRIM('  Hello, world!yyxxy', 'xy') AS trmdstrng;
+  RTRIM('  Level threeyyxxy', 'xy') AS currentlevel;
 ```
 
-**Returns**:
-
-```
-+--------------+
-|trmdstrng     |
-+--------------+
-|  Hello,world!|
-+--------------+
-```
+**Returns**: Level three 

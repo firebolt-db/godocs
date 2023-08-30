@@ -20,7 +20,6 @@ count-window.md
 cume-dist.md
 dense-rank.md
 first-value.md
-index.md
 lag.md
 lead.md
 max-window.md
