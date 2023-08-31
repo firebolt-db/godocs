@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # NULLIF
 
-Compares two expressions. Returns `NULL` if the expressions evaluate to equal values. Returns the result of `<expression1>` if they are not equal. To return `<expression2>` instead, use `IFNULL`.
+Compares two expressions. Returns `NULL` if the expressions are equal. Returns the result of `<expression1>` if they are not equal. To return `<expression2>` instead, use `IFNULL`.
 
 ## Syntax
 {: .no_toc}
@@ -21,12 +21,12 @@ NULLIF(<expression1>, <expression2>)
 ## Parameters 
 {: .no_toc}
 
-| Parameter | Description | Supported input types | 
+| Parameter | Description |Supported input types | 
 | :-------- | :---------- |:---------|
 | `<expression1>`, `<expression2>` | Expressions that evaluate to any data type that Firebolt supports | Any | 
 
 ## Return Types 
-Returns `NULL` if expressions are equal. Returns `<expression1>` if values are not equal. 
+Returns `NULL` if expressions are equal. Returns the data type of `<expression1>` if values are not equal. 
 
 
 ## Example

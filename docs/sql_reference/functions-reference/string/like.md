@@ -17,6 +17,7 @@ Allows matching of strings based on comparison to a pattern. `LIKE` is normally 
 ```sql
 <expression> LIKE '<pattern>'
 ```
+
 ## Parameters 
 {: .no_toc}
 

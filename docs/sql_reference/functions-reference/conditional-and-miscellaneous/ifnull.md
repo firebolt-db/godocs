@@ -27,6 +27,11 @@ IFNULL(<expression1>, <expression2>)
 ## Return Types
 Same as input type 
 
+## Remarks
+{: .no_toc}
+
+Use `ZEROIFNULL(<expression>)` as a synonym shorthand for `IFNULL(<expression1>, 0)`.
+
 ## Example
 {: .no_toc}
 

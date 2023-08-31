@@ -5,12 +5,10 @@ sum.md
 ./conditional-and-miscellaneous:
 nullif.md
 try-cast.md
-version.md
 
 ./string:
 like.md
 ltrim.md
-median.md
 replace.md
 rtrim.md
 
