@@ -15,14 +15,16 @@ Replaces all occurrences of the `<pattern>` substring within the `<string>` with
 {: .no_toc}
 
 ```sql
-REPLACE (<string>, <pattern>, <replacement>)
+REPLACE (<expression1>, <epxression2>, <expression3>)
 ```
+## Parameters 
+{: .no_toc}
 
 | Parameter       | Description    | Supported input types | 
 | :--------------- | :------------------- | :---------|
-| `<string>`      | The original string that will be searched for instances of the `<pattern>`. | `TEXT` |                                                                                                                |
-| `<pattern>`     | The substring to be searched and replaced in the string.                                                                                                                                   | `TEXT` | 
-| `<replacement>` | The substring to replace the original substring defined by `<pattern>`. To remove the `<pattern>` substring with no replacement, you can use a empty string `''` as the replacement value. | `TEXT` | 
+| `<expression1>`      | The original string that will be searched for instances of the `<pattern>`. | `TEXT` |                                                                                                                |
+| `<expression2>`     | The substring to be searched and replaced in the string.                                                                                                                                   | `TEXT` | 
+| `<expression3>` | The substring to replace the original substring defined by `<pattern>`. To remove the `<pattern>` substring with no replacement, you can use a empty string `''` as the replacement value. | `TEXT` | 
 
 ## Example
 {: .no_toc}
