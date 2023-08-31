@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # NULLIF
 
-Compares two expressions. Returns `NULL` if the expressions are equal. Returns the result of `<expression1>` if they are not equal. To return `<expression2>` instead, use `IFNULL`.
+Compares two expressions. Returns `NULL` if the expressions are equal. Returns the result of `<expression1>` if they are not equal. To return `<expression2>` instead, use [`IFNULL`](./ifnull.md).
 
 ## Syntax
 {: .no_toc}

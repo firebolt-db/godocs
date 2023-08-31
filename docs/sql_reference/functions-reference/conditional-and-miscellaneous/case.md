@@ -18,8 +18,8 @@ If the result of the condition is true, then the value of the CASE expression is
 ```sql
 CASE
     WHEN <condition> THEN <result>
-    [WHEN ...n]
-    [ELSE <result>]
+    [ WHEN ...n ]
+    [ ELSE <result> ]
 END;
 ```
 
@@ -28,7 +28,7 @@ END;
 
 | Parameter     | Description      | Supported input types | 
 | :------------- | :-------------------------- | :--------|
-| `<condition>` | A condition can be defined for each `WHEN`, and `ELSE` clause.    | Any expression that returns a boolean result | 
+| `<condition>` | A condition can be defined for each `WHEN`, and `ELSE` clause.   |  `BOOLEAN` | 
 | `<result>`    | The result of any condition. Every `THEN` clause receives a single result. All results in a single `CASE` function must share the same data type. | Any |
 
 ## Return type 

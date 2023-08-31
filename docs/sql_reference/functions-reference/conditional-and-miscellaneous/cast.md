@@ -24,8 +24,8 @@ CAST(<value> AS <type>)
 
 | Parameter | Description     | Supported input types | 
 | :--------- | :-------------------- |:---------|
-| `<value>` | The value to convert or an expression that results in a value to convert. | A column name,  a function applied to a column or another function, or a literal value | 
-| `<type>`  | The target [data type](../../data-types.md) (case-insensitive) | Any supported data type |                                                                                          |
+| `<value>` | The value to convert or an expression that results in a value to convert. | Any | 
+| `<type>`  | The target [data type](../../data-types.md) (case-insensitive) | Any       |
 
 ## Return Types 
 Same data type as `<type>`

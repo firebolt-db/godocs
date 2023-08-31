@@ -24,7 +24,7 @@ COALESCE(<expression> [,...])
 
 | Parameter | Description        |Supported input types | 
 | :--------- | :---------------------------------------------------|:------------|
-| `<expression>` | The expression(s) to coalesce. | A column name,  a function applied on a column (or on another function), or a literal (constant value) |
+| `<expression>` | The expression(s) to coalesce. | Any |
 
 ## Return Types
 Same as input type

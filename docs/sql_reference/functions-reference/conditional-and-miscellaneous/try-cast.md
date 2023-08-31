@@ -24,7 +24,7 @@ TRY_CAST(<value> AS <type>)
 | Parameter | Description                   |Supported input types | 
 | :--------- | :-------------------|:-------------|
 | `<value>` | The value to convert or an expression that results in a value to convert | Any | 
-| `<type>`  | The target [data type](../../general-reference/data-types.md) (case-insensitive) | Any | 
+| `<type>`  | The target [data type](../../data-types.md) (case-insensitive) | Any | 
 
 ## Return Type
 Returns `NULL` if the conversion cannot be performed. Otherwise, returns the data type of `<type>`. 
@@ -38,4 +38,4 @@ The following example attempts to cast the level input as an integer:
 SELECT TRY_CAST('1' AS INTEGER) as level, TRY_CAST('level 2' AS INTEGER) as current_level;
 ```
 
-**Returns**: `1,null`
+**Returns**: `1, null`
