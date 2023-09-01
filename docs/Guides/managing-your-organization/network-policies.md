@@ -37,7 +37,7 @@ To create a network policy via the UI:
 
 1. Click **Configure** to open the configure space, then choose **Network policies** from the menu.
 2. From the Network policies management page, choose **Create a new network policy**. 
-3. Enter a network policy name. To add to the allow list, enter comma-separated IPv4 addresses, or IPv4 address ranges in CIDR format under **Grant access from selected allowed IP addresses**, or choose **import file** to read IP addresses from a CSV file. 
+3. Enter a network policy name. Enter network policy description. To add to the allow list, enter comma-separated IPv4 addresses, or IPv4 address ranges in CIDR format under **Grant access from selected allowed IP addresses**, or choose **import file** to read IP addresses from a CSV file. 
 4. Enter addreses for the block list in the **Deny access from selected blocked IP addresses**. 
 5. Choose **Save**.
 
@@ -69,7 +69,7 @@ ALTER NETWORK POLICY my_network_policy SET ALLOWED_IP_LIST = (‘4.5.6.7’, ‘
 To edit a network policy via the UI:
 1. Click **Configure** to open the configure space, then choose **Network policies** from the menu.
 2. Search for the relevant network policy using the top search filters or by scrolling through the list. Hover over the right-most column to make the network policy menu appear,then choose **Edit network policy**. 
-3. Edit allowed and blocked IP addresses and choose **Save**.
+3. Edit description, allowed and blocked IP addresses and choose **Save**.
 
 <img src="../../assets/images/editnetworkpolicy.png" alt="Edit network policy" width="500"/>
 
