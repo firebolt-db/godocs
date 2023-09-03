@@ -1,6 +1,6 @@
 ---
 layout: default
-title: LEAD
+title: LEAD OVER
 description: Reference material for LEAD function
 grand_parent: SQL functions
 parent: Window functions
@@ -17,16 +17,20 @@ For more information on usage, please refer to [Window Functions](./window-funct
 {: .no_toc}
 
 ```sql
-LEAD ( <val> [, <offset> [, <default> ] )
-    OVER ( [ PARTITION BY <exp> ] ORDER BY <exp> [ { ASC | DESC } ] )
+LEAD ( <expression> [, <offset> [, <default> ] )
+    OVER ( [ PARTITION BY <partition_by> ] ORDER BY <order_by> [ { ASC | DESC } ] )
 ```
 
-| Parameter   | Description                                                                                                                                                           |
-| :----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `<val>`     | Any valid expression that will be returned based on the `LEAD` `<offset>.`                                                                                            |
-| `<expr>`    | The expression used for the `PARTITION BY` clause.                                                                                                                    |
-| `<offset>`  | The number of rows forward from the current row from which to obtain a value.                                                                                         |
-| `<default>` | The expression to return when the offset goes out of the bounds of the window. Supports any expression whose type is compatible with expression. The default is `NULL`. |
+## Parameters 
+{: .no_toc}
+
+| Parameter | Description                                      | Supported input types | 
+| :--------- | :------------------------------------------------ | :------------| 
+| `<expression>`     | Any valid expression that will be returned based on the `<offset>.`                                                    | Any |
+| `<partition_by>`    | The expression used for the `PARTITION BY` clause.                                                                           | Any |
+| `<offset>`  | The number of rows forward from the current row from which to obtain a value.  |	`INTEGER` |
+| `<default>` | The expression to return when the offset goes out of the bounds of the window. Supports any expression whose type is compatible with expression. The default is `NULL`. |	`INTEGER` |
+
 
 ## Example
 {: .no_toc}

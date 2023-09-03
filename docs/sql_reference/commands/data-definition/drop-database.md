@@ -15,7 +15,9 @@ Deletes a database.
 
 Deletes the database and all of its tables and attached engines.
 
-```DROP DATABASE [IF EXISTS] <database_name>```
+```sql
+DROP DATABASE [IF EXISTS] <database_name>
+```
 
 ## Parameters
 {: .no_toc}

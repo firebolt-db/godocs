@@ -18,7 +18,7 @@ FROM
 ```
 
 {: .note}
-Read more about RBAC roles [here](../../managing-your-account/rbac.md).
+Read more about RBAC roles [here](../../Guides/managing-your-organization/rbac.md).
 
 ## Columns in information_schema.applicable_roles
 

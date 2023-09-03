@@ -34,10 +34,10 @@ SELECT [ ALL | DISTINCT ] {<select_expr> [, ...]}
 ## SELECT
 
 ```sql
-SELECT [ ALL | DISTINCT ] {<select_expr> [, ...]}
+SELECT [ ALL | DISTINCT ] {<select_expression> [, ...]}
 ```
 
-The SELECT list defines the columns that it returns. Each `<select_expr>` in the SELECT list can be either expression, or wildcards.
+The SELECT list defines the columns that it returns. Each `<select_expression>` in the SELECT list can be either expression, or wildcards.
 
 {: .note}
 >Selecting **only** [partitioned](../../../Overview/working-with-partitions.md) or [virtual columns](../../../Guides/loading-data/working-with-external-tables.md#using-metadata-virtual-columns) is currently not supported in Firebolt. Selecting a combination of partitioned/virtual columns and regular columns is supported. 
@@ -63,7 +63,7 @@ SELECT price, quantity, price * quantity AS sales_amount FROM Sales
 [ <table_name>. ] * [ EXCLUDE { <column_name> | ( <column_name>, ... ) } ]
 ```
 
-Widlcards are expanded to multiple output columns using the following rules:
+Wildcards are expanded to multiple output columns using the following rules:
 
 * `*` is expanded to all columns in the `FROM` clause
 * `<table_name>.*` is expanded to all columns in the `FROM` clause for the table named `<table_name>`
@@ -105,7 +105,7 @@ Materialized results can be accessed more quickly in some circumstances. By usin
 {: .no_toc}
 
 ```sql
-WITH <subquery_table_name> AS [MATERIALIZED|NOT MATERIALIZED] <subquery>
+WITH <subquery_table_name> AS [ MATERIALIZED| NOT MATERIALIZED ] <subquery>
 ```
 
 | Component               | Description                                                                          |

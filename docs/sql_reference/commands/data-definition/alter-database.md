@@ -33,4 +33,6 @@ ALTER DATABASE <database_name> WITH
 ## Example
 The following example alters a current database with a new default engine, `my_new_default_engine`: 
 
-```ALTER DATABASE my_database WITH DEFAULT_ENGINE = my_new_default_engine;```
+```sql
+ALTER DATABASE my_database WITH DEFAULT_ENGINE = my_new_default_engine;
+```

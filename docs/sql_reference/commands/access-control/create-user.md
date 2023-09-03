@@ -17,14 +17,16 @@ For more information, see [Managing users](../../../Guides/managing-your-organiz
 ```sql
 CREATE USER [ IF NOT EXISTS ] <user_name>  
 [ WITH 
-[LOGIN_NAME = <login_name> | SERVICE_ACCOUNT_NAME = <service_account> ]
-[DEFAULT_DATABASE = <database_name> ]
-[DEFAULT_SCHEMA = <schema_name> ]
-[DEFAULT_ENGINE = <engine_name> ]
-[ROLE = <role> ]
+[ LOGIN_NAME = <login_name> | SERVICE_ACCOUNT_NAME = <service_account> ]
+[ DEFAULT_DATABASE = <database_name> ]
+[ DEFAULT_SCHEMA = <schema_name> ]
+[ DEFAULT_ENGINE = <engine_name> ]
+[ ROLE = <role> ]
 ]
 ```
 
+## Parameters 
+{: .no_toc} 
 
 | Parameter  | Description |
 | :--------- | :---------- |
@@ -40,4 +42,6 @@ CREATE USER [ IF NOT EXISTS ] <user_name>
 
 The following command will create a user "alex" linked to the "alexs@acme.com". 
 
-```CREATE USER alex WITH LOGIN_NAME="alexs@acme.com";```
+```sql
+CREATE USER alex WITH LOGIN_NAME="alexs@acme.com";
+```

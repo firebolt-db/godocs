@@ -2,6 +2,8 @@
 layout: default
 title: TO_FLOAT
 description: Reference material for TO_FLOAT function
+nav_exclude: true
+search_exclude: true
 grand_parent: SQL functions
 parent: String functions
 great_grand_parent: SQL reference

@@ -31,12 +31,12 @@ Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics
     <p><a href="https://special-disco-436d3e6a.pages.github.io/Guides/getting-started.html">Get started</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/managing-your-organization/">Manage organization</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/loading-data/loading-data.html">Load data</a>
-    <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/using-the-sql-editor/using-the-sql-editor.html">Query data</a>
+    <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/query-data/using-the-sql-editor.html">Query data</a>
+     <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/working-with-engines.html">Work with engines</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/working-with-semi-structured-data/working-with-semi-structured-data.html">Work with semi-structured data</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/working-with-indexes.html">Work with indexes</a>
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/exporting-query-results.html">Export data</a>
-    <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/developing-with-firebolt/">Develop with Firebolt</a>
-    <br><strong><a href="https://special-disco-436d3e6a.pages.github.io/Guides/integrations/">Integrations</a></strong></p>
+    <br><a href="https://special-disco-436d3e6a.pages.github.io/Guides/developing-with-firebolt/">Develop with Firebolt</a></p>
   </div>
   <div class="column">
     <div class="img-fluid"><img src="assets/images/docs_whitepaper_illustration.png" alt="Reference" width=200px height=200px></div>
@@ -51,3 +51,5 @@ Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics
     <br><a href="https://special-disco-436d3e6a.pages.github.io/Reference/help-menu.html">Help menu</a></p>
   </div>
 </div>
+
+Copyright, 2023, Firebolt Analytics.

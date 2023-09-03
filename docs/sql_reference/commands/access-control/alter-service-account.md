@@ -16,14 +16,19 @@ For more information, see [Service accounts](../../../Guides/managing-your-organ
 ## Syntax
 
 ```sql
-ALTER SERVICE ACCOUNT <service_account_name>
-      SET [ NETWORK_POLICY = <network_policy_name> | DEFAULT ] 
+ALTER SERVICE ACCOUNT <service_account_name> SET 
+      [ NETWORK_POLICY_NAME = <network_policy_name> | DEFAULT ] 
       [ DESCRIPTION = <description> | DEFAULT ]
 ```
 
 or 
 
-```ALTER SERVICE ACCOUNT <service_account_name> RENAME TO <new_name>;```
+```sql
+ALTER SERVICE ACCOUNT <service_account_name> RENAME TO <new_name>;
+```
+
+## Parameters 
+{: .no_toc} 
 
 | Parameter | Description |
 | :--- | :--- |
@@ -36,7 +41,11 @@ or
 
 The following command will rename the "sa1" login to "serviceaccount1".
 
-```ALTER SERVICE ACCOUNT "sa1" RENAME TO "serviceaccount1";```
+```sql
+ALTER SERVICE ACCOUNT "sa1" RENAME TO "serviceaccount1";
+```
 
 This command will link the network policy "my_network_policy" to the "serviceaccount1" service account. 
-```ALTER SERVICE ACCOUNT "serviceaccount1" SET NETWORK_POLICY = "my_network_policy";```
+```sql
+ALTER SERVICE ACCOUNT "serviceaccount1" SET NETWORK_POLICY_NAME = "my_network_policy";
+```

@@ -16,7 +16,9 @@ Dropping a partition deletes the partition and the data stored in that partition
 
 ## Syntax
 
-```ALTER TABLE <table> DROP PARTITION <value1>[,...<value2]```
+```sql
+ALTER TABLE <table> DROP PARTITION <value1>[,...<value2]
+```
 
 ## Parameters 
 {: .no_toc} 

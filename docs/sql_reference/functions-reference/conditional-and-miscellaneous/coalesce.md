@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # COALESCE
 
-Checks from left to right for the first non-NULL argument found for each entry parameter pair. For example, for an Employee table (where each employee can have more than one location), check multiple location parameters, find the first non-null pair per employee (the first location with data per employee).
+Checks from left to right for the first non-NULL argument found for each entry parameter pair. 
 
 ## Syntax
 {: .no_toc}
@@ -18,19 +18,22 @@ Checks from left to right for the first non-NULL argument found for each entry p
 COALESCE(<expression> [,...])
 ```
 
-| Parameter | Description        | Supported input types | 
-| :--------- | :---------------------------------------------------|:------------|
-| `<expression>` | The expression(s) to coalesce | A column name,  a function applied on a column (or on another function), or a literal (constant value) |
+## Parameters 
+{: .no_toc}
 
-## Return Types 
-Same as input types 
+| Parameter | Description        |Supported input types | 
+| :--------- | :---------------------------------------------------|:------------|
+| `<expression>` | The expression(s) to coalesce. | Any |
+
+## Return Types
+Same as input type
 
 ## Example
 {: .no_toc}
-The following example returns the first non-null value provided, which is the username `esimpson`:
+The following example returns the first non-NULL value provided, which is the username `esimpson`:
 
 ```sql
-SELECT COALESCE(null, 'esimpson','sabrina21') AS nicknames;
+SELECT COALESCE(NULL, 'esimpson','sabrina21') AS nicknames;
 ```
 
 **Returns:** `esimpson`

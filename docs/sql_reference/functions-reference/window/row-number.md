@@ -1,6 +1,6 @@
 ---
 layout: default
-title: ROW_NUMBER
+title: ROW_NUMBER OVER
 description: Reference material for ROW_NUMBER function
 grand_parent: SQL functions
 parent: Window functions
@@ -17,13 +17,19 @@ For more information on usage, please refer to [Window Functions](./window-funct
 {: .no_toc}
 
 ```sql
-ROW_NUMBER() OVER ([PARTITION BY <exp>] ORDER BY <exp> [ASC|DESC] )
+ROW_NUMBER() OVER ([PARTITION BY <partition_by>] ORDER BY <order_by> [ASC|DESC] )
 ```
 
-| Parameter | Desccription                                                                                                      |
-| :--------- | :----------------------------------------------------------------------------------------------------------------- |
-| `<val>`   | The expression used for the `PARTITION BY` clause.                                                                |
-| `<exp>`   | The expression used in the `ORDER BY` clause. This parameter determines what value will be used for `ROW_NUMBER`. |
+## Parameters 
+{: .no_toc}
+
+| Parameter | Description                                      |Supported input types | 
+| :--------- | :------------------------------------------------ | :------------| 
+| `<partition_by>`   | The expression used for the `PARTITION BY` clause.                                                                | Any |
+| `<order_by>`   | The expression used in the `ORDER BY` clause. This parameter determines what value will be used for `ROW_NUMBER`. | Any |
+
+## Return Type
+`INTEGER`
 
 ## Example
 {: .no_toc}

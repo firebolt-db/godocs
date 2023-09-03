@@ -10,7 +10,7 @@ parent: Queries
 
 Returns the query execution plan for a specified query statement without running it. `EXPLAIN` can help you identify opportunities to tune query performance before you run a query.
 
-By default, `EXPLAIN` returns output in JSON format.The SQL workspace uses the JSON to generate *visual explain* output. For more information, including example JSON output, see [Using explain to analyze query execution](../../../Guides/using-the-sql-editor/using-explain-to-analyze-query-execution.md). Specify the `USING TEXT` option to return plain text.
+By default, `EXPLAIN` returns output in JSON format.The SQL workspace uses the JSON to generate *visual explain* output. For more information, including example JSON output, see [Using explain to analyze query execution](../../../Guides/query-data/using-explain-to-analyze-query-execution.md). Specify the `USING TEXT` option to return plain text.
 
 ## Syntax
 
@@ -18,9 +18,12 @@ By default, `EXPLAIN` returns output in JSON format.The SQL workspace uses the J
 EXPLAIN [USING {TEXT|JSON}] <query_statement>
 ```
 
+## Parameters
+{: .no_toc}
+
 | Parameter              | Description |
 | :--------------------- | :---------- |
-| `[USING {TEXT|JSON}]`  | Specifies the output format for the query plan. Defaults to JSON if not specified. If `USING TEXT` is specified, list view and graph view are not available. For more information, see [Viewing and copying explain output](../../../Guides/using-the-sql-editor/using-explain-to-analyze-query-execution.md#viewing-and-copying-explain-output). |
+| `[USING {TEXT|JSON}]`  | Specifies the output format for the query plan. Defaults to JSON if not specified. If `USING TEXT` is specified, list view and graph view are not available. For more information, see [Viewing and copying explain output](../../../Guides/query-data/using-explain-to-analyze-query-execution.md#viewing-and-copying-explain-output). |
 | `<query_statement>`    | Any query statement that does not include DDL commands. |
 
 ## Example

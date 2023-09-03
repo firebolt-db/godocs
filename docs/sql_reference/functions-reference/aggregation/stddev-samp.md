@@ -22,9 +22,9 @@ STDDEV_SAMP(<expression>)
 
 | Parameter | Description               | Supported input types |
 | :--------- | :----------------------------------- | :--------|
-| `<expression>`  | The expression for calculating the standard deviation | Any `<column>` with `NUMERIC` values or an expression that returns a `<column>` with `NUMERIC` values | 
+| `<expression>`  | The expression for calculating the standard deviation. | Any numeric type | 
 
-## Return Types
+## Return Type
 `DOUBLE PRECISION`
 
 ## Example
@@ -34,14 +34,14 @@ Consider the following table `tournament_information`, which contains the name o
 
 | name | prizedollars | 
 |:-------| :--------|
-| The Snow Park Grand Prix |	20903	| 
+| The Snow Park Grand Prix | 20903	| 
 | The Acceleration Championship | 19274	|
 The Acceleration Trials | 13877 | 
 
 
 `STDDEV_SAMP` returns the standard deviation for the values as a `DOUBLE PRECISION`.
 
-```
+```sql
 SELECT
 	STDDEV_SAMP(prizedollars)
 FROM

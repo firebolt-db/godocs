@@ -1,6 +1,6 @@
 ---
 layout: default
-title: MAX (aggregation function)
+title: MAX
 description: Reference material for MAX
 grand_parent: SQL functions
 parent: Aggregation functions
@@ -24,19 +24,11 @@ MAX(<expression>)
 
 | Parameter | Description                                               |Supported input types                                        |
 | :--------- | :--------------------------------------------------------|:------------------------------------------------------------|
-| `<expression>`  | The expression used to calculate the maximum values | `<column>` names, or a `<function>` that returns a column name | 
-
-## Parameters
-{: .no_toc}
-
-| Parameter | Description                         |Supported input types |
-| :--------- | :----------------------------------- | :---------------------|
-| `<expression>`  | The expression used to calculate the maximum value | Any string, numeric or date/timestamp type |
+| `<expression>`  | The expression used to calculate the maximum values | Any | 
 
 Valid values for the expression include a column name or functions that return a column name.
 
 ## Return Types
-
 Same as input type
 
 ## Example

@@ -14,7 +14,12 @@ For more information, see [Managing logins](../../../Guides/managing-your-organi
 
 ## Syntax
 
-```DROP LOGIN [ IF EXISTS ] <login_name> [ RESTRICT | CASCADE ];```
+```sql
+DROP LOGIN [ IF EXISTS ] <login_name> [ RESTRICT | CASCADE ];
+```
+
+## Parameters 
+{: .no_toc} 
 
 | Parameter  | Description |
 | :--------- | :---------- |
@@ -25,4 +30,6 @@ For more information, see [Managing logins](../../../Guides/managing-your-organi
 
 The following command will delete the "alexs@acme.com" login. 
 
-```DROP LOGIN "alexs@acme.com";```
+```sql
+DROP LOGIN "alexs@acme.com";
+```

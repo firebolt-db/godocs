@@ -2,6 +2,8 @@
 layout: default
 title: CITY_HASH
 description: Reference material for CITY_HASH function
+nav_exclude: true
+search_exclude: true
 grand_parent: SQL functions
 parent: Conditional and miscellaneous functions
 great_grand_parent: SQL reference
@@ -15,17 +17,17 @@ Takes one or more input parameters of any data type and returns a 64-bit non-cry
 {: .no_toc}
 
 ```sql
-CITY_HASH(<exp>, [, expr2 [,...]])
+CITY_HASH(<expression>, [, expression [,...]])
 ```
 ## Parameters 
 {: .no_toc}
 
-| Parameter | Description                          |  Supported input types | 
+| Parameter | Description                          |Supported input types | 
 | :--------- | :---------------------------------- | :----------|
 | `<expression>`   | An expression that returns any data type that Firebolt supports. | Any | 
 
-## Return Types 
-64-bit non-cryptographic hash value 
+## Return type
+`BIGINT`
 
 ## Example
 {: .no_toc}

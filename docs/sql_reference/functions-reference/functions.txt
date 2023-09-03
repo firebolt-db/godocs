@@ -1,8 +1,6 @@
 ./window:
 avg-window.md
-cume-dist.md
 dense-rank.md
-first-value.md
 lag.md
 lead.md
 max-window.md

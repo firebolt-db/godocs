@@ -1,6 +1,6 @@
 ---
 layout: default
-title: NTH_VALUE
+title: NTH_VALUE OVER
 description: Reference material for NTH_VALUE function
 grand_parent: SQL functions
 parent: Window functions
@@ -11,23 +11,29 @@ great_grand_parent: SQL reference
 
 Returns the value evaluated of the nth row of the specified window frame (starting at the first row). If the specified row does not exist, NTH_VALUE returns NULL.
 
-See also [FIRST\_VALUE](./first-value.md), which returns the first value evaluated in the specified window frame.
+See also [FIRST\_VALUE](./first-value.md), which returns the first value evaluated in the specified window frame. For more information on usage, please refer to [Window Functions](./window-functions.md).
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-NTH_VALUE( <expr>, <n> ) OVER ( [ PARTITION BY <expr0> ] ORDER BY <expr1> [ASC|DESC] )
+NTH_VALUE( <expression>, <n> ) OVER ( [ PARTITION BY <partition_by> ] ORDER BY <order_by> [ASC|DESC] )
 ```
 
-| Parameter | Description                                                                                        |
-| :--------- | :-------------------------------------------------------------------------------------------------- |
-| `<expr>`   | A SQL expression of any type to evaluate.                                                |
-| `<n>`     | A constant integer in range [1, max of datatype `INT`] to indicate the row number to evaluate. |
-| `<expr0>` | An expression used for the PARTITION clause. |
-| `<expr1>` | An expression used for the order by clause. |
+## Parameters 
+{: .no_toc}
 
-The return type of the function will be the same type as the expression to evaluate. This function respects `NULL` values, and results will be ordered with default null ordering `NULLS LAST` unless otherwise specified in the `ORDER BY` clause. If applied without an `ORDER BY` clause, the order will be undefined.
+| Parameter | Description                                      | Supported input types | 
+| :--------- | :------------------------------------------------ | :------------| 
+| `<expression>`   | A SQL expression of any type to evaluate.                                                | Any |
+| `<n>`     | A constant integer in range [1, max of datatype `INTEGER`] to indicate the row number to evaluate. | `INTEGER` |
+| `<partition_by>` | An expression used for the PARTITION clause. | Any |
+| `<order_by>` | An expression used for the order by clause. | Any |
+
+## Return Types
+Same as input type. 
+
+This function respects `NULL` values, and results will be ordered with default null ordering `NULLS LAST` unless otherwise specified in the `ORDER BY` clause. If applied without an `ORDER BY` clause, the order will be undefined.
 
 ## Example
 {: .no_toc}

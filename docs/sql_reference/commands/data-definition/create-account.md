@@ -19,8 +19,8 @@ CREATE ACCOUNT [IF NOT EXISTS] <account_name>
 [ WITH REGION = <region> ]
 ```
 
-where `<region>` specifies the region in which the account is configured.
-
+## Parameters 
+{: .no_toc} 
 
 | Parameter  | Description |
 | :--------- | :---------- |
@@ -31,4 +31,6 @@ where `<region>` specifies the region in which the account is configured.
 
 The following command will create an account in the US East (N. Virginia) region.
 
-```CREATE ACCOUNT my_account WITH REGION = “us-east-1”```
+```sql
+CREATE ACCOUNT my_account WITH REGION = “us-east-1”
+```

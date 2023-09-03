@@ -14,8 +14,12 @@ For more information, see [Role-based access control](../../../Guides/managing-y
 
 ## Syntax
 
-```CREATE ROLE [ IF NOT EXISTS ] <role_name>```
+```sql
+CREATE ROLE [ IF NOT EXISTS ] <role_name>
+```
 
+## Parameters 
+{: .no_toc} 
 
 | Parameter  | Description |
 | :--------- | :---------- |
@@ -25,4 +29,6 @@ For more information, see [Role-based access control](../../../Guides/managing-y
 
 The following command will create a role "user_role" 
 
-```CREATE ROLE user_role;```
+```sql
+CREATE ROLE user_role;
+```

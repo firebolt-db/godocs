@@ -16,10 +16,12 @@ Counts the approximate number of unique or not NULL values. `APPROX_COUNT_DISTIN
 {: .no_toc}
 
 ```sql
-APPROX_COUNT_DISTINCT ( <expr> )
+APPROX_COUNT_DISTINCT ( <expression> )
 ```
+
 ## Parameters
 {: .no_toc}
+
 | Parameter | Description  | Supported input types | 
 | :--------- | :-----------|:----------|
 | `<expression>`  | Expression that the `APPROX_COUNT_DISTANCE function` is applied to | Any `<column>` name or any function that returns a `<column>` name | 
@@ -48,6 +50,6 @@ FROM
 
 | playerid_count_distinct | playerid_approx_count | 
 |:----------------|:--------------|
-|5,420 | 5,428 | 
+| 5,420 | 5,428 | 
 
 
