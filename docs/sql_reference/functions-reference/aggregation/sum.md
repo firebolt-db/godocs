@@ -15,7 +15,7 @@ Calculates the sum of an expression.
 {: .no_toc}
 
 ```sql
-SUM ([DISTINCT] <value>)
+SUM ([ DISTINCT ] <value>)
 ```
 ## Parameters 
 {: .no_toc} 
@@ -44,7 +44,7 @@ For this example, see the following table `tournaments`:
 | The Singapore Grand Prix      | 19,274             |
 
 
-```
+```sql
 SELECT
 	SUM(totalprizedollars)
 FROM
@@ -53,7 +53,7 @@ FROM
 
 **Returns**: `99,951`
 
-```
+```sql
 SELECT
 	SUM (DISTINCT totalprizedollars)
 FROM

@@ -1,14 +1,4 @@
-./aggregation:
-sum.md
-
-
-./conditional-and-miscellaneous:
-nullif.md
-try-cast.md
-
 ./string:
-like.md
-ltrim.md
 replace.md
 rtrim.md
 
