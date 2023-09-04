@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # DATE_TRUNC
 
-Truncates a value (`<expression>`) of type `PGDATE`, `TIMESTAMPNTZ`, or `TIMESTAMPTZ` to the selected precision (`<time_unit>`).
+Truncates a value (`<expression>`) of type `DATE`, `TIMESTAMP`, or `TIMESTAMPTZ` to the selected precision (`<time_unit>`).
 
 ## Syntax
 {: .no_toc}

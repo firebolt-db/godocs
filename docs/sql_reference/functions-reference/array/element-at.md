@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # ELEMENT\_AT
 
-Returns the element at a location `<index>` from the given array. `<index>` can be any integer type. Indexes in an array begin at position `1`.
+Returns the element at a location `<value>` index from the given array. Indexes in an array begin at position 1.
 
 ## Syntax
 {: .no_toc}

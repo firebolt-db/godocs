@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # DATE\_ADD
 
-Calculates a new `DATE `or `TIMESTAMP` by adding or subtracting a specified number of time units from an indicated expression.
+Calculates a new date or timestamp by adding or subtracting a specified number of time units from an indicated expression.
 
 ## Syntax
 {: .no_toc}

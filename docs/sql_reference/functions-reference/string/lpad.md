@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # LPAD
 
-Adds a specified pad string to the end of the string repetitively up until the length of the resulting string is equivalent to an indicated length.
+Adds a specified pad string to the start of the string repetitively up until the length of the resulting string is equivalent to an indicated length.
 
 The similar function to pad the end of a string is [`RPAD`](./rpad.md).
 
@@ -35,7 +35,7 @@ LPAD(<expression>, <value>[, <pad>])
 ## Example
 {: .no_toc}
 
-The following statement adds the string "ABC" in front of the username string "esimpson" repetitively until the resulting string is equivalent to 17 characters in length.
+The following statement adds the string "UserName:" in front of the username string "esimpson" repetitively until the resulting string is equivalent to 17 characters in length.
 
 ```sql
 SELECT

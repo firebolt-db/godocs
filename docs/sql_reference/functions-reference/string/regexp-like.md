@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # REGEXP_LIKE
 
-This check whether a text pattern matches a regular expression string. Returns `0` if it doesn’t match, or `1` if it matches. This is a RE2 regular expression.
+Checks whether a text pattern matches a regular expression string. Returns `0` if it doesn’t match, or `1` if it matches. This is a RE2 regular expression.
 
 ## Syntax
 {: .no_toc}

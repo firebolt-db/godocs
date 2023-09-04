@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # FLOOR
 
-Returns the largest round number that is less than or equal to `<value>`. The value is rounded to a decimal range defined by the second `<value>`.
+Returns the largest round number that is less than or equal to the input value. The value is rounded to a decimal range defined by `<decimal>`.
 
 ## Syntax
 {: .no_toc}

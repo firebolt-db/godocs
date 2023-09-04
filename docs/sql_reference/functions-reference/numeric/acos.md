@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # ACOS
 
-Calculates the arc cosine of a value `<value>`. `ACOS` returns `NULL` if `<value>` is higher than 1.
+Calculates the arc cosine of a value. Returns NULL if `<value>` is higher than 1.
 
 ## Syntax
 {: .no_toc}

@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # JSON_EXTRACT_VALUES
 
-Returns an array of string values from a JSON document using the key location specified by the `<json_pointer_expression>.` If no such key exists, returns `NULL.`
+Returns an array of string values from a JSON document using the key location specified by the `<json_pointer_expression>`. If no such key exists, returns `NULL.`
 
 ## Syntax
 {: .no_toc}

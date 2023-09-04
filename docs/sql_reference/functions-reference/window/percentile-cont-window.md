@@ -7,9 +7,9 @@ parent: Window functions
 great_grand_parent: SQL reference
 ---
 
-# PERCENTILE_CONT
+# PERCENTILE_CONT OVER
 
-Calculates a percentile over a partition, assuming a continuous distribution of values of <expr0> defined. Results are interpolated, rather than matching any of the specific column values. 
+Calculates a percentile over a partition, assuming a continuous distribution of values defined. Results are interpolated, rather than matching any of the specific column values. 
 
 PERCENTILE\_CONT is available as an [aggregation function](../aggregation/index.md).
 See also [PERCENTILE\_DISC](./percentile-disc-window.md), which returns a percentile over a partition equal to a specific column value. For more information on usage, please refer to [Window Functions](./window-functions.md).

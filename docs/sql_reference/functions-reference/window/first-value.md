@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # FIRST_VALUE
 
-Returns the first value evaluated in the specified window frame. If there are no rows in the window frame, `FIRST_VALUE` returns `NULL`.
+Returns the first value evaluated in the specified window frame. If there are no rows in the window frame, returns NULL.
 
 See also [NTH\_VALUE](./nth-value.md), which returns the value evaluated of the nth row (starting at the first row).
 

@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # REVERSE
 
-This function returns a string of the same size as the original string, with the elements in reverse order.
+Returns a string of the same size as the original string, with the elements in reverse order.
 
 ## Syntax
 {: .no_toc}

@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # COUNT
 
-Counts the number of rows or not `NULL` values.
+Counts the number of rows or not NULL values.
 
 ## Syntax
 {: .no_toc}

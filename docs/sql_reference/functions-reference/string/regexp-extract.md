@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # REGEXP_EXTRACT
  
-Returns the first match of `<pattern>` within the `<expression>`. If the pattern does not match, returns `NULL`. If you want to extract all matches, use [REGEXP_EXTRACT_ALL](./regexp-extract-all.md).
+Returns the first match of `<pattern>` within the `<expression>`. If the pattern does not match, returns NULL. If you want to extract all matches, use [REGEXP_EXTRACT_ALL](./regexp-extract-all.md).
 
 ## Syntax
 {: .no_toc}

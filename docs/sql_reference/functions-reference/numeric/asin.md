@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # ASIN
 
-Calculates the arcsine. `ASIN` returns `NULL` if `<value>` is higher than 1.
+Calculates the arcsine. Returns NULL if `<value>` is higher than 1.
 
 ## Syntax
 {: .no_toc}

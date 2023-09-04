@@ -9,8 +9,7 @@ great_grand_parent: SQL reference
 
 # REGEXP\_MATCHES
 
-Returns an array that contains either the match or all defined subgroups of the first match of the regular expression pattern. 
-Returns an empty array if the pattern does not match
+Returns an array that contains either the match or all defined subgroups of the first match of the regular expression pattern. Returns an empty array if the pattern does not match.
 
 ## Syntax
 {: .no_toc}

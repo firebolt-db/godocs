@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # ATAN
 
-Calculates the arc tangent of the real number returned by the specified expression `<expression>`.
+Calculates the arc tangent of the real number returned by the specified expression.
 
 ## Syntax
 {: .no_toc}

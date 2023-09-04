@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # ALL_MATCH
 
-Returns `1` (true) when the Boolean expression `<condition>` performed on all elements of an array evaluate to true. Returns `0` (false) when any one comparison evaluates to false.
+Returns `1` (true) when the Boolean expression `<condition>` evaluated on all elements of an array evaluate to true. Returns `0` (false) when any one comparison evaluates to false.
 
 ## Syntax
 {: .no_toc}

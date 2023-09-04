@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # FLATTEN
 
-Converts an array of arrays into a flat array. This means for every element that is an array, this function extracts its elements into the new array. The resulting flattened array contains all the elements from all source arrays.
+Converts an array of arrays into a flat array. For every element that is an array, this function extracts its elements into the new array. The resulting flattened array contains all the elements from all source arrays.
 
 The function:
 

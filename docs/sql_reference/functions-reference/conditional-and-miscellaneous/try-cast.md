@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # TRY_CAST
 
-Converts data types into other data types based on the specified parameters. If the conversion cannot be performed, `TRY_CAST` returns a `NULL`. To return an error message instead, use [`CAST`](./cast.md).
+Converts data types into other data types based on the specified parameters. If the conversion cannot be performed, returns a NULL. To return an error message instead, use [`CAST`](./cast.md).
 
 ## Syntax
 {: .no_toc}

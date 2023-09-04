@@ -5,7 +5,7 @@ description: Reference material for TO_TIMESTAMPTZ function
 nav_exclude: true
 search_exclude: true
 grand_parent: SQL functions
-parent: String functions
+parent: Date and time functions
 great_grand_parent: SQL reference
 ---
 

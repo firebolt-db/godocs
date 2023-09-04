@@ -8,7 +8,7 @@ great_grand_parent: SQL reference
 
 # LOCALTIMESTAMP
 
-Returns the current local timestamp in the time zone specified in the session's [`time_zone` setting](../../general-reference/system-settings.md#set-time-zone).
+Returns the current local timestamp in the time zone specified in the session's [`time_zone` setting](../../../Reference/system-settings.md#set-time-zone).
 
 ## Syntax
 {: .no_toc}

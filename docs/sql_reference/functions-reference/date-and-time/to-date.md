@@ -5,6 +5,8 @@ description: Reference material for TO_DATE function
 grand_parent: SQL functions
 parent: Date and time functions
 great_grand_parent: SQL reference
+search_exclude: true
+nav_exclude: true
 ---
 
 # TO_DATE

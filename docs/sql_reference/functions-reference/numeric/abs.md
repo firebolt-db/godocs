@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # ABS
 
-Calculates the absolute value of a number `<value>`. This means displaying the number's distance from `0`. 
+Calculates the absolute value of a number `<value>`, displaying the number's distance from `0`. 
 
 ## Syntax
 {: .no_toc}

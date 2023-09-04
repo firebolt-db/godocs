@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # PERCENTILE\_DISC
 
-Returns a percentile over a partition for an ordered data set. The result is equal to a specific column value, the smallest distributed value that is greater than or equal to the percentile <val>. 
+Returns a percentile over a partition for an ordered data set. The result is equal to a specific column value, the smallest distributed value that is greater than or equal to the percentile specified. 
 
 PERCENTILE\_DISC is available as a [aggregation function](./aggregation-functions.md).
 See also [PERCENTILE\_CONT](./percentile-cont-window.md), which calculates an interpolated result over a partition, rather than matching any of the specific column values.

@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # MOD
 
-Calculates the remainder after dividing two values, `<num>` / `<den>.`
+Calculates the remainder after dividing two values, `<value_n>` / `<value_d>.`
 
 ## Syntax
 {: .no_toc}
