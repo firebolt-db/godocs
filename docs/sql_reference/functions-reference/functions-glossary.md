@@ -1,8 +1,9 @@
 ---
 layout: default
-title: SQL functions
+title: Functions Glossary
 description: Reference for SQL functions available in Firebolt.
-parent: SQL reference
+grand_parent: SQL reference
+parent: SQL functions
 ---
 
 # Functions glossary

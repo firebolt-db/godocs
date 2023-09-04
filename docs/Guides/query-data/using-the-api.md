@@ -30,8 +30,8 @@ where:
 
 | Property                          | Data type | Description |
 | :------------------------------   | :-------- | :---------- |
-| id                                | TEXT      | The user’s ID ([created here](../managing-your-organization/service-accounts.md#creating-a-service-account). |
-| secret                            | TEXT      | The user’s secret ([generated here](../managing-your-organization/service-accounts.md#generate-a-secret-for-the-service-account-user)). |
+| id                                | TEXT      | The user’s ID ([created here](../managing-your-organization/service-accounts.md#creating-a-service-account)). |
+| secret                            | TEXT      | The user’s secret ([generated here](../managing-your-organization/service-accounts.md#generating-a-secret-for-the-service-account-user)). |
 
 
 **Response**
@@ -60,7 +60,7 @@ curl http://api.app.firebolt.io/web/v3/account/<account_name>/engineUrl
 -H 'Authorization: Bearer <access token>'
 ```
 
-**Example:** https://api.app.firebolt.io/web/v3/account/my_account/engineUrl
+**Example:** `https://api.app.firebolt.io/web/v3/account/my_account/engineUrl`
 
 ## Execute a query on the system engine
 
@@ -83,7 +83,7 @@ where:
 
 ## Get a user engine URL
 
-Get a user engine url by running the following query against the information_schema.engines table: 
+Get a user engine url by running the following query against the `information_schema.engines` table: 
 
 ```sql
 SELECT url 
