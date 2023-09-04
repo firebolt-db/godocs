@@ -18,6 +18,8 @@ Converts data types into other data types based on specified parameters. If the 
 ```sql
 CAST(<value> AS <type>)
 ```
+## Parameters 
+{: .no_toc}
 
 ## Parameters 
 {: .no_toc}

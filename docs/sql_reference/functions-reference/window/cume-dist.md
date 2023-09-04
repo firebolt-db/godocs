@@ -18,7 +18,6 @@ See also [PERCENT_RANK](./percent-rank.md), which returns the relative rank of t
 
 ## Syntax
 {: .no_toc}
-
 ```sql
 CUME_DIST() OVER ( [ PARTITION BY <partition_by> ] ORDER BY <order_by> [ASC|DESC] )
 ```
@@ -39,28 +38,23 @@ This function respects `NULL` values, and results will be ordered with default n
 ## Example
 {: .no_toc}
 
-The example below returns the cumulative distribution of test scores for students in grade nine.
+The example below returns the cumulative distribution of player IDs for people in North America: 
 
 ```sql
 SELECT
-	first_name, test_score,
-	CUME_DIST() OVER (PARTITION BY grade_level ORDER BY test_score DESC) as cume_dist
+	nickname, playerid,
+	CUME_DIST() OVER (PARTITION BY playerid ORDER BY playerid DESC) as cume_dist
 FROM
 	class_test
-WHERE grade_level=9;
+WHERE location="North America";
 ```
 
 **Returns**:
 
-```sql
-' +------------+------------+---------------------+
-' | first_name | test_score |      cume_dist      |
-' +------------+------------+---------------------+
-' | Humphrey   |         90 | 0.16666666666666666 |
-' | Sammy      |         85 |  0.3333333333333333 |
-' | Peter      |         80 |                 0.5 |
-' | Iris       |         79 |  0.6666666666666666 |
-' | Jojo       |         78 |                   1 |
-' | Frank      |         76 |  0.6666666666666666 |
-' +------------+------------+---------------------+
-```
+| nickname | playerid |      cume_dist      |
+|:+------------+------------+---------------------+
+| kennethpark   |         90 | 0.16666666666666666 |
+| sabrina21      |         85 |  0.3333333333333333 |
+| rileyjon      |         80 |                 0.5 |
+| burchdenise       |         79 |  0.6666666666666666 |
+

@@ -44,7 +44,7 @@ The example below divides students with the same grade level into three groups.
 ```sql
 SELECT
 	first_name,
-	NTILE(3) OVER (PARTITION BY grade_level) AS ntile_buckets
+	NTILE(3) OVER (PARTITION BY level) AS ntile_buckets
 FROM
 	class_test;
 ```

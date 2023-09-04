@@ -21,7 +21,6 @@ COALESCE(<expression> [,...])
 ## Parameters 
 {: .no_toc}
 
-
 | Parameter | Description        |Supported input types | 
 | :--------- | :---------------------------------------------------|:------------|
 | `<expression>` | The expression(s) to coalesce. | Any |

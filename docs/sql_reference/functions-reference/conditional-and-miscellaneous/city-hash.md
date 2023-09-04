@@ -17,7 +17,7 @@ Takes one or more input parameters of any data type and returns a 64-bit non-cry
 {: .no_toc}
 
 ```sql
-CITY_HASH(<expression>, [, expressionn [,...]])
+CITY_HASH(<expression>, [, expression [,...]])
 ```
 ## Parameters 
 {: .no_toc}
