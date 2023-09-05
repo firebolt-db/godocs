@@ -67,11 +67,21 @@ Generating a new secret for your service account user replaces any previous secr
 To authenticate Firebolt using service accounts via Firebolt’s REST API, send the following request to receive an authentication token:
 
 ```bash
-curl --location --request POST 'https://api.app.firebolt.io/auth/v1/token' \
+curl POST --location 'https://id.app.firebolt.io/oauth/token' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
---data-urlencode 'client_id=<id>' \
---data-urlencode 'client_secret=<secret>' \
---data-urlencode 'grant_type=client_credentials'
+--data-urlencode 'grant_type=client_credentials' \
+--data-urlencode 'audience=https://api.firebolt.io' \
+--data-urlencode 'client_id={client id}' \
+--data-urlencode 'client_secret={client secret}'
+```
+
+**Response:**
+```json
+{
+  "access_token":"eyJz93a...k4laUWw",
+  "token_type":"Bearer",
+  "expires_in":86400
+}
 ```
 
 where:
