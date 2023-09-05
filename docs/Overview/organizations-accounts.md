@@ -9,7 +9,17 @@ parent: Overview
 # Organizations and accounts
 {: .no_toc}
 
-With organizations, achieve a seamless separation between different accounts within your organization. Additionally, benefit from consolidated billing, unified authentication, and efficient account management across all accounts. 
+Today, companies are challenged with establishing a solid governance model to manage their cloud data warehouse resources. Data security, cost management, resource isolation, and observability are among some of the challenges that various organizations face that a governance model must address.
+For example, development, staging and production environments require isolation from each other to limit the blast radius of any development changes spilling into production by mistake, or to limit a developer's access to only their code base and data. Departments in a company need to isolate and provide access to only their teams while limiting access to other departments. Another requirement may be to provide consolidated billing, but with the ability to understand consumption by department or development environment.
+
+To address these requirements, Firebolt supports concepts of organizations and accounts. Achieve a seamless separation between different accounts within your organization while additionally benefitting from consolidated billing, unified authentication, and efficient account management across all accounts. Organizations and accounts provide you with flexibility and structure to fit your needs. During the registering process, Firebolt allows creation of your organization and the first account while giving you the opportunity to create additional accounts either manually or programmatically as you go.
+
+The Firebolt object model is hierarchical and comes with strong containment properties - parent objects can contain one or more child objects. Child objects are sole children of their parent objects (and cannot be shared). Furthermore, there are two classes of objects: global and regional. As the name suggests, global objects are managed globally and can contain objects that are deployed and grouped regionally. 
+
+The picture below depicts a Firebolt supported object model.
+
+< object model pic>
+
 
 Learn more about registering with Firebolt and creating your organization [here](../Guides/managing-your-organization/creating-an-organization.md).
 
@@ -21,17 +31,17 @@ An organization is a fundamental object in Firebolt, providing a logical structu
 
 Organizations are used to create a structure that fits your needs: by setting up accounts within organizations, you establish a structured framework that aligns with your business needs, data management requirements, and geographical considerations. This allows for better resource allocation, access control, and overall management of your accounts, using:
  
-- **Account Hierarchy:** Organize your data and resources across multiple accounts. 
-- **Authentication:** Handle user authentication and access control at the organization level. For each user a login is created, identified with a login name (represented by an email). 
-- **Programmatic access:** Grant programmatic access via [service accounts](../Guides/managing-your-organization/service-accounts.md), which can be linked to various accounts by connecting a user within an account. 
+- **Global authentication method:** Firebolt handles user authentication and access control at the organization level. A login (represented by an email) is created for each user accessing Firebolt.
+- **Programmatic access:** [Service accounts](../Guides/managing-your-organization/service-accounts.md) enable programmatic access to Firebolt.
+- **Network policy enforcement:** [Network policies](../Guides/managing-your-organization/network-policies.md) provide fine-grain control of IP ranges that are allowed or blocked from accessing an organization.
 
 ## What is an account?
 An account in Firebolt is an object within an organization that encapsulates resources for storing, querying, and managing data. Accounts provide:
  
-- **Region-specific management:** Store data close to your users and comply with data residency requirements catered for specific regions.
-- **Data storage resources:** Access dedicated resources for securely storing data in each account.
-- **Query processing administration:** Execute queries and process data within each account through engines. Engines are managed at the account level by users with appropriate privileges and can be used according to the account's security policy.
-- **Database management:** Users can create databases within an account to organize and structure their data.
+- **Access control:** Firebolt implements Role-based access control (RBAC). Every object in the Firebolt object model is a securable and it comes with a set of permissions. Permissions allow administrators to control functionality Firebolt users can exercise when logged-in.
+- **Data modeling:** Through objects (such as databases, tables, views, indexes and others) developers and architects can design their data warehouses and properly describe various business entities without compromising to deliver on ever-demanding performance needs.
+- **Cost control:** With engines, system administrators can deploy engines that fit the need while achieving desired price-performance characteristics. Engines can scale vertically (up and down) and horizontally (out and in) to meet demanding business needs while allowing granular cost control.
+- **Workload management:** With compute, data, and metadata separation, Firebolt offers full workload isolation. Firebolt users can deploy, if desired, separate engines to support heterogeneous workloads, while having access to the same data. Whether you have a data intensive application that requires instantaneous access to the data, or a complex business-critical dashboard that requires timely refresh, or need to run a complex Extract-Load-Transform (ELT) process to ingest data, Firebolt engines are there to support all needs.
 
 ## Authentication and access control
 Organizations help enforce advanced authentication security policies and ensure compliance across all accounts using network policies, multi-factor authentication, and SSO to make authentication secure and easy. Users can authenticate using logins to access the user interface and service accounts for programmatic access. 

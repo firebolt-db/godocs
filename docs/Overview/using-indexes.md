@@ -3,7 +3,7 @@ layout: default
 title: Using indexes
 description: Understand the types of indexes in Firebolt and their role in accelerating query performance and efficiency.
 parent: Overview
-nav_order: 6
+nav_order: 7
 ---
 
 # Using Firebolt indexes
