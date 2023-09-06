@@ -44,8 +44,8 @@ The example below calculates, for each student in grade nine, the percent rank o
 
 ```sql
 SELECT
-	first_name, test_score,
-	PERCENT_RANK() OVER (PARTITION BY grade_level ORDER BY test_score DESC) as percent_rank
+	nickname, current_score,
+	PERCENT_RANK() OVER (PARTITION BY level ORDER BY current_score DESC) as percent_rank
 FROM
 	class_test
 WHERE grade_level=9;
@@ -54,14 +54,12 @@ WHERE grade_level=9;
 **Returns**:
 
 ```sql
-' +------------+------------+---------------------+
-' | first_name | test_score |    percent_rank     |
-' +------------+------------+---------------------+
-' | Humphrey   |         90 |                   0 |
-' | Sammy      |         85 |                 0.2 |
-' | Peter      |         80 |                 0.4 |
-' | Iris       |         79 |                 0.6 |
-' | Jojo       |         78 |                 0.8 |
-' | Frank      |         76 |                   1 |
-' +------------+------------+---------------------+
-```
+
+| nickname | current_score |    percent_rank     |
+|:------------|:------------|:---------------------|
+| kennethpark   |         90 |                   0 |
+| sabrina21      |         85 |                 0.2 |
+| rileyjon      |         80 |                 0.4 |
+| ymatthews       |         79 |                 0.6 |
+
+

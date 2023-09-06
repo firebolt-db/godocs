@@ -39,44 +39,21 @@ This function ignores `NULL` values.
 ## Example
 {: .no_toc}
 
-The example below returns the 70th percentile value per student, partitioned by grade_level. The percentile value returned is a value from the data set. 
+The example below returns the 70th percentile value per student, partitioned by the game level. The percentile value returned is a value from the data set. 
 
 ```sql
 SELECT
 	first_name,
-	PERCENTILE_DISC(0.7) WITHIN GROUP (ORDER BY test_score) OVER (PARTITION BY grade_level) AS percentile
+	PERCENTILE_DISC(0.7) WITHIN GROUP (ORDER BY current_score) OVER (PARTITION BY level) AS percentile
 FROM
-	class_test;
+	players;
 ```
 
 **Returns**:
 
-```sql
-' +-------------+------------+
-' | grade_level | percentile | 
-' +-------------+------------+
-' |       Frank |         85 |
-' |       Peter |         85|
-' |        Iris |         85 |
-' |    Humphrey |         85 |
-' |        Jojo |         85 |
-' |       Sammy |         85 |
-' |     Deborah |         85 |
-' |     Yolinda |         85 |
-' |      Albert |         85 |
-' |       Shawn |         85 |
-' |        Mary |         85 |
-' |       Larry |         76 |
-' |        Otis |         76 |
-' |       Wanda |         76 |
-' |       Carol |         76 |
-' |    Roseanna |         76 |
-' |    Shangxiu |         76 |
-' |      Thomas |        100 |
-' |     Charles |        100 |
-' |      Franco |        100 |
-' |   Brunhilda |        100 |
-' |       Jesse |        100 |
-' |        Gary |        100 |
-' +-------------+------------+
-```
+| nickname | percentile | 
+|:-----|:-------|
+| kennethpark | 90 | 
+| sabrina21 | 85 | 
+| ymatthews | 80 | 
+| rileyjon | 75 | 

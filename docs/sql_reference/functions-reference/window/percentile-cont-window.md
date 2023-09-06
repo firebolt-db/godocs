@@ -36,44 +36,22 @@ Same as input type.
 ## Example
 {: .no_toc}
 
-The example below calculates the max percentile value based on continuous distribution of students, partitioned by grade level. 
+The example below calculates the max percentile value based on continuous distribution of players, partitioned by game level. 
 
 ```sql
 SELECT
-	first_name,
-	PERCENTILE_CONT(1.0) WITHIN GROUP (ORDER BY test_score) OVER (PARTITION BY grade_level) AS percentile
+	nickname,
+	PERCENTILE_CONT(1.0) WITHIN GROUP (ORDER BY current_score) OVER (PARTITION BY leve;) AS percentile
 FROM
-	class_test;
+	players;
 ```
 
 **Returns**:
 
-```sql
-' +-------------+------------+
-' | grade_level | percentile | 
-' +-------------+------------+
-' |       Frank |         90 |
-' |       Peter |         90 |
-' |        Iris |         90 |
-' |    Humphrey |         90 |
-' |        Jojo |         90 |
-' |       Sammy |         90 |
-' |      Albert |         89 |
-' |     Deborah |         89 |
-' |     Yolinda |         89 |
-' |        Mary |         89 |
-' |       Shawn |         89 |
-' |        Otis |         94 |
-' |       Larry |         94 |
-' |       Carol |         94 |
-' |       Wanda |         94 |
-' |    Roseanna |         94 |
-' |    Shangxiu |         94 |
-' |      Franco |        100 |
-' |     Charles |        100 |
-' |   Brunhilda |        100 |
-' |        Gary |        100 |
-' |      Thomas |        100 |
-' |       Jesse |        100 |
-' +-------------+------------+
-```
+| nickname | percentile | 
+|:-----|:-------|
+| kennethpark | 90 | 
+| sabrina21 | 85 | 
+| ymatthews | 80 | 
+| rileyjon | 75 | 
+
