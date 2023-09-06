@@ -35,46 +35,23 @@ LAG ( <expression> [, <offset> [, <default> ]] )
 ## Example
 {: .no_toc}
 
-In the example below, the `LAG `function is being used to find the students in each grade level who are sitting next to each other. In some cases, a student does not have an adjacent classmate, so the `LAG `function returns `NULL`.
+In the example below, the `LAG `function is being used to find the players in each level who ranked above and below a certain player. In some cases, if the player has no one ranked above or below them, the `LAG `function returns `NULL`.
 
 ```sql
 SELECT
-	first_name,
-	grade_level,
-	LAG(first_name, 1) OVER (PARTITION BY grade_level ORDER BY first_name ) AS to_the_left,
-	LAG(first_name, -1) OVER (PARTITION BY grade_level ORDER BY first_name ) AS to_the_right
+	nickname,
+	level,
+	LAG(nickname, 1) OVER (PARTITION BY level ORDER BY nickname ) AS rank_above,
+	LAG(first_name, -1) OVER (PARTITION BY level ORDER BY first_name ) AS rank below
 FROM
-	class_test;
+	players;
 ```
 
 **Returns**:
 
-```
-+------------+-------------+-------------+--------------+
-| first_name | grade_level | to_the_left | to_the_right |
-+------------+-------------+-------------+--------------+
-| Frank      |           9 | NULL        | Humphrey     |
-| Humphrey   |           9 | Frank       | Iris         |
-| Iris       |           9 | Humphrey    | Jojo         |
-| Sammy      |           9 | Peter       | NULL         |
-| Peter      |           9 | Jojo        | Sammy        |
-| Jojo       |           9 | Iris        | Peter        |
-| Brunhilda  |          12 | NULL        | Charles      |
-| Franco     |          12 | Charles     | Gary         |
-| Thomas     |          12 | Jesse       | NULL         |
-| Gary       |          12 | Franco      | Jesse        |
-| Charles    |          12 | Brunhilda   | Franco       |
-| Jesse      |          12 | Gary        | Thomas       |
-| Roseanna   |          11 | Otis        | Shangxiu     |
-| Carol      |          11 | NULL        | Larry        |
-| Wanda      |          11 | Shangxiu    | NULL         |
-| Shangxiu   |          11 | Roseanna    | Wanda        |
-| Larry      |          11 | Carol       | Otis         |
-| Otis       |          11 | Larry       | Roseanna     |
-| Deborah    |          10 | Albert      | Mary         |
-| Yolinda    |          10 | Shawn       | NULL         |
-| Albert     |          10 | NULL        | Deborah      |
-| Mary       |          10 | Deborah     | Shawn        |
-| Shawn      |          10 | Mary        | Yolinda      |
-+------------+-------------+-------------+--------------+
-```
+| nickname | level | rank_above | rank_below |
+|:----------|:-------------|:-------------|:--------------|
+| kennethpark      |           9 | NULL        | rileyjon     |
+| rileyjon   |           9 | kennethpark       | sabrina21         |
+| sabrina21       |           9 | rileyjon    | ymatthews         |
+| ymatthews      |           9 | sabrina21       | NULL         |

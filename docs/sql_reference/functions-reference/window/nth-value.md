@@ -42,42 +42,19 @@ The example below returns the student with the second highest test score for eac
 
 ```sql
 SELECT
-    first_name,
-    grade_level,
-    test_score,
-    NTH_VALUE(first_name, 2) OVER (PARTITION BY grade_level ORDER BY test_score DESC) second_highest_score
+    nickname,
+    level,
+    current_score,
+    NTH_VALUE(first_name, 2) OVER (PARTITION BY level ORDER BY current_score DESC) second_highest_score
 FROM
-    class_test;
+    players;
 ```
 
 **Returns**:
 
-```sql
-+------------+-------------+------------+----------------------+
-| first_name | grade_level | test_score | second_highest_score |
-+------------+-------------+------------+----------------------+
-| Humphrey   |           9 |         90 |                null  |  
-| Sammy      |           9 |         85 |                Sammy |
-| Peter      |           9 |         80 |                Sammy |
-| Iris       |           9 |         79 |                Sammy |
-| Jojo       |           9 |         78 |                Sammy |
-| Frank      |           9 |         76 |                Sammy |
-| Shawn      |          10 |         89 |                 null |
-| Mary       |          10 |         85 |                 Mary |
-| Deborah    |          10 |         78 |                 Mary |
-| Albert     |          10 |         59 |                 Mary |
-| Yolinda    |          10 |         30 |                 Mary |
-| Roseanna   |          11 |         94 |                 null |
-| Shangxiu   |          11 |         76 |             Shangxiu |
-| Otis       |          11 |         75 |             Shangxiu |
-| Wanda      |          11 |         73 |             Shangxiu |
-| Larry      |          11 |         68 |             Shangxiu |
-| Carol      |          11 |         52 |             Shangxiu |
-| Charles    |          12 |        100 |              Charles |
-| Gary       |          12 |        100 |              Charles |
-| Franco     |          12 |         94 |              Charles |
-| Brunhilda  |          12 |         92 |              Charles |
-| Jesse      |          12 |         89 |              Charles |
-| Thomas     |          12 |         66 |              Charles |
-+------------+-------------+------------+----------------------+
-```
+| nickname | level | current_score | second_highest_score |
+|:------------|:-------------|:------------|:------------------|
+| ymatthews      |           9 |         85 |                Sammy |
+| rileyjon      |          10 |         89 |                 null |
+| kennethpark   |          11 |         94 |                 null |
+| sabrina21    |          12 |        100 |              burchdenise |

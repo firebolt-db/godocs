@@ -35,46 +35,25 @@ Same as input type
 ## Example
 {: .no_toc}
 
-The example below queries test scores for students in various grade levels. Unlike a regular `MAX()` aggregation, the window function allows us to see how each student individually compares to the highest test score for their grade level.
+The example below queries test scores for players in various grade levels. Unlike a regular `MAX()` aggregation, the window function highlights how each player individually compares to the highest game score for their level.
 
 ```sql
 SELECT
-	first_name,
-	grade_level,
-	test_score,
-	MAX(test_score) OVER (PARTITION BY grade_level) AS highest_score
+	nickname,
+	level,
+	current_score,
+	MAX(current_score) OVER (PARTITION BY level) AS highest_score
 FROM
-	class_test;
+	players;
 ```
 
 **Returns**:
 
-```
-+------------+-------------+------------+---------------+
-| first_name | grade_level | test_score | highest_score |
-+------------+-------------+------------+---------------+
-| Frank      |           9 |         76 |            90 |
-| Humphrey   |           9 |         90 |            90 |
-| Iris       |           9 |         79 |            90 |
-| Sammy      |           9 |         85 |            90 |
-| Peter      |           9 |         80 |            90 |
-| Jojo       |           9 |         78 |            90 |
-| Brunhilda  |          12 |         92 |           100 |
-| Franco     |          12 |         94 |           100 |
-| Thomas     |          12 |         66 |           100 |
-| Gary       |          12 |        100 |           100 |
-| Charles    |          12 |         93 |           100 |
-| Jesse      |          12 |         89 |           100 |
-| Roseanna   |          11 |         94 |            94 |
-| Carol      |          11 |         52 |            94 |
-| Wanda      |          11 |         73 |            94 |
-| Shangxiu   |          11 |         76 |            94 |
-| Larry      |          11 |         68 |            94 |
-| Otis       |          11 |         75 |            94 |
-| Deborah    |          10 |         78 |            89 |
-| Yolinda    |          10 |         30 |            89 |
-| Albert     |          10 |         59 |            89 |
-| Mary       |          10 |         85 |            89 |
-| Shawn      |          10 |         89 |            89 |
-+------------+-------------+------------+---------------+
-```
+ | nickname | level | current_score |    highest_score    |
+ |:------------|:-------------|:------------|:-------------------------|
+ | kennethpark      |           9 |         76 | 95      |
+ | sabrina21   |           7 |         90 | 98      |
+ | burchdenise       |           5 |         79 | 99      |
+ | ymatthews      |           6 |         85 | 93       |
+| rileyjon      |           8 |         80 | 84     |
+

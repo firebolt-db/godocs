@@ -38,44 +38,22 @@ When `DISTINCT` is specified, duplicate values from `<expression>` are removed b
 ## Example
 {: .no_toc}
 
-The example below shows how many players registered on a specific date: 
+The example below shows how many players are on a specific level. 
 
 ```sql
 SELECT
-	first_name,
-	SUM(vaccinated) OVER (PARTITION BY grade_level ) AS vaccinated_students
+	level,
+	SUM(players) OVER (PARTITION BY level ) AS current_players
 FROM
-	class_test;
+	players;
 ```
 
 **Returns**:
 
-```
-+------------+---------------------+
-| first_name | vaccinated_students |
-+------------+---------------------+
-| Frank      |                   5 |
-| Humphrey   |                   5 |
-| Iris       |                   5 |
-| Sammy      |                   5 |
-| Peter      |                   5 |
-| Jojo       |                   5 |
-| Brunhilda  |                   5 |
-| Franco     |                   5 |
-| Thomas     |                   5 |
-| Gary       |                   5 |
-| Charles    |                   5 |
-| Jesse      |                   5 |
-| Roseanna   |                   4 |
-| Carol      |                   4 |
-| Wanda      |                   4 |
-| Shangxiu   |                   4 |
-| Larry      |                   4 |
-| Otis       |                   4 |
-| Deborah    |                   4 |
-| Yolinda    |                   4 |
-| Albert     |                   4 |
-| Mary       |                   4 |
-| Shawn      |                   4 |
-+------------+---------------------+
-```
+| level | current_players |
+|:-----|:------|
+| 1 | 156 |
+| 2 | 108 |
+| 3 | 127 |
+| 4 | 198 |
+| 5 | 207 |
