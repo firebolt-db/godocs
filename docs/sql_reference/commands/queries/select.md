@@ -465,10 +465,10 @@ CREATE FACT TABLE table_with_arrays
 
 Assume the table was populated and contains the following values:
 
-| product | cost     |
+| player | completed_levels     |
 | :------- | :-------- |
-| apple   | \[2,5]   |
-| orange  | \[3,6,7] |
+| kennethpark   | \[2,5]   |
+| sabrina21  | \[3,6,7] |
 
 The following query with `UNNEST`:
 
@@ -477,18 +477,18 @@ SELECT
 	product,
 	cost
 FROM
-	table_with_arrays UNNEST(cost);
+	table_with_arrays UNNEST(completed_levels);
 ```
 
 Returns the following result:
 
-| product | cost |
+| player | completed_level |
 | :------- | :---- |
-| apple   | 2    |
-| apple   | 5    |
-| orange  | 3    |
-| orange  | 6    |
-| orange  | 7    |
+| kennethpark   | 2    |
+| kennethpark   | 5    |
+| sabrina21  | 3    |
+| sabrina21  | 6    |
+| sabrina21  | 7    |
 
 ## WHERE
 
@@ -514,7 +514,7 @@ In the following example, the query retrieves all entries from the `customers` t
 SELECT
 	*
 FROM
-	customers
+	players
 WHERE
 	region = 'EMEA'
 ```

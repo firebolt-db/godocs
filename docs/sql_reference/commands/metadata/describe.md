@@ -27,7 +27,7 @@ DESCRIBE <table_name>
 
 ## Example 
 
-The following lists all columns and data types for the table named `prices`:
+The following lists all columns and data types for the table named `players`:
 
 ```sql
 DESCRIBE prices
@@ -35,11 +35,9 @@ DESCRIBE prices
 
 **Returns:**
 
-```
-+------------+-------------+-----------+----------+
 | table_name | column_name | data_type | nullable |
-+------------+-------------+-----------+----------+
-| prices     | item        | TEXT      |        0 |
-| prices     | num         | INTEGER   |        0 |
-+------------+-------------+-----------+----------+
-```
+|:------------|:-------------|:-----------|:----------|
+| players     | agecategory        | TEXT      |        0 |
+| players     | email         | INTEGER   |        0 |
+| players | nickname | TEXT | 0 | 
+
