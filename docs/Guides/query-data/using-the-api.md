@@ -16,10 +16,11 @@ Use the Firebolt REST API to execute queries on engines programmatically. Learn 
 
 ## Use tokens for authentication
 
-To authenticate Firebolt using service accounts via Firebolt’s REST API, send the following request to receive an authentication token:
+To authenticate Firebolt using service accounts via Firebolt’s REST API, send the following request to receive an authentication token 
+(a service account must be an organization administrator, i.e., the service account property_is_organization_admin_ must be _true_ :
 
 ```bash
-    curl --location --request POST 'https://api.app.firebolt.io/auth/v1/token' \
+    curl --location --request POST 'https://id.app.firebolt.io/auth/v1/token' \
     --header 'Content-Type: application/x-www-form-urlencoded' \
     --data-urlencode 'client_id=<id>' \
     --data-urlencode 'client_secret=<secret>' \
@@ -28,10 +29,10 @@ To authenticate Firebolt using service accounts via Firebolt’s REST API, send 
 
 where:
 
-| Property                          | Data type | Description |
-| :------------------------------   | :-------- | :---------- |
-| id                                | TEXT      | The user’s ID ([created here](../managing-your-organization/service-accounts.md#creating-a-service-account)). |
-| secret                            | TEXT      | The user’s secret ([generated here](../managing-your-organization/service-accounts.md#generating-a-secret-for-the-service-account-user)). |
+| Property                          | Data type | Description                                                                                                                                        |
+| :------------------------------   | :-------- |:---------------------------------------------------------------------------------------------------------------------------------------------------|
+| id                                | TEXT      | The service account ID ([created here](../managing-your-organization/service-accounts.md#creating-a-service-account)).                             |
+| secret                            | TEXT      | The service account secret ([generated here](../managing-your-organization/service-accounts.md#generating-a-secret-for-the-service-account-user)). |
 
 
 **Response**

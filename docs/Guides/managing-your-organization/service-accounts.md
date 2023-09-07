@@ -71,8 +71,8 @@ curl POST --location 'https://id.app.firebolt.io/oauth/token' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-urlencode 'grant_type=client_credentials' \
 --data-urlencode 'audience=https://api.firebolt.io' \
---data-urlencode 'client_id={client id}' \
---data-urlencode 'client_secret={client secret}'
+--data-urlencode 'client_id={id}' \
+--data-urlencode 'client_secret={secret}'
 ```
 
 **Response:**
@@ -86,10 +86,10 @@ curl POST --location 'https://id.app.firebolt.io/oauth/token' \
 
 where:
 
-| Property                          | Data type | Description |
-| :------------------------------   | :-------- | :---------- |
-| id                                | TEXT      | The user’s ID ([created here](#creating-a-service-account)). |
-| secret                            | TEXT      | The user’s secret ([generated here](#generating-a-secret-for-a-service-account)). |
+| Property                          | Data type | Description                                                                                |
+| :------------------------------   | :-------- |:-------------------------------------------------------------------------------------------|
+| id                                | TEXT      | The service account ID ([created here](#creating-a-service-account)).                      |
+| secret                            | TEXT      | The service account secret ([generated here](#generating-a-secret-for-a-service-account)). |
 
 
 Use the returned access_token to authenticate with Firebolt.
@@ -102,6 +102,10 @@ To edit a service account using SQL, use the [`ALTER SERVICE ACCOUNT`](../../sql
 ```sql
 ALTER SERVICE ACCOUNT sa1 SET NETWORK_POLICY_NAME = my_network_policy
 ```
+Another example:
+```sql
+ALTER SERVICE ACCOUNT sa1 SET IS_ORGANIZATION_ADMIN = true
+```
 
 ### UI 
 To edit a service account via the UI:
@@ -109,6 +113,8 @@ To edit a service account via the UI:
 1. Click **Configure** to open the configure space, then choose **Service accounts** from the menu.
 2. Search for the relevant service account using the top search filters, or by scrolling through the list of service accounts. Hover over the right-most column to make the service account menu appear, then choose **Edit service account**.
 3. Edit the desired fields and choose **Save**.
+
+**Important**: UI does not allow to see or edit _is_organization_admin_ property of a service account.
 
 ## Deleting a service account 
 
