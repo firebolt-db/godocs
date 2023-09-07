@@ -47,7 +47,11 @@ To create a user via the UI:
 To edit an existing user using SQL, use the [`ALTER USER`](../../sql_reference/commands/access-control/alter-user.md) statement. For example:
 
 ```sql
-ALTER USER "alex" RENAME TO "alexs";``` or ```ALTER USER alex SET LOGIN_NAME="alexs@acme.com";
+ALTER USER "alex" RENAME TO "alexs";
+```
+or 
+```sql
+ALTER USER alex SET LOGIN_NAME="alexs@acme.com";
 ```
 
 ### UI
