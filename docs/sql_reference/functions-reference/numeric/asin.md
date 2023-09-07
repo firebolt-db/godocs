@@ -23,10 +23,10 @@ ASIN(<value>)
 
 | Parameter | Description                                                                                                         | Supported input type | 
 | :--------- | :------------------------------------------------------------------------------------------------------------------- | :-----------| 
-| `<value>`   | The value which the `ASIN` function is applied to | `DOUBLE_PRECISION` |
+| `<value>`   | The value which the `ASIN` function is applied to | `DOUBLE PRECISION` |
 
 ## Return Type 
-`DOUBLE_PRECISION`
+`DOUBLE PRECISION`
 
 ## Example
 {: .no_toc}

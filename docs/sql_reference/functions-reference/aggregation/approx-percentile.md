@@ -30,7 +30,7 @@ APPROX_PERCENTILE(<expression>,<value>)
 | `<expression>`    | A valid expression, such as a column name, that evaluates to numeric values | `<column>` name that evaluates to numeric values | 
 | `<value>` | The percentage value for the function | A constant real number greater than or equal to 0.0 and less than 1 | 
 
-## Return Types 
+## Return Type
 `DOUBLE PRECISION`
 
 ## Example

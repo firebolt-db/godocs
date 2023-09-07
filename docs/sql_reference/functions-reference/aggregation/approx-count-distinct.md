@@ -29,7 +29,7 @@ APPROX_COUNT_DISTINCT ( <expression> )
 {: .note}
 > By default, `APPROX_COUNT_DISTINCT` and `COUNT(DISTINCT)` return the same, approximate results. If you require a precise result for `COUNT(DISTINCT)` (with a performance penalty), please contact Firebolt Support through the Help menu support form. 
 
-## Return Types 
+## Return Type
 `INTEGER`
 
 ## Example

@@ -21,9 +21,6 @@ CAST(<value> AS <type>)
 ## Parameters 
 {: .no_toc}
 
-## Parameters 
-{: .no_toc}
-
 | Parameter | Description     | Supported input types | 
 | :--------- | :-------------------- |:---------|
 | `<value>` | The value to convert or an expression that results in a value to convert. | Any | 

@@ -27,7 +27,7 @@ CHECKSUM(*)
 | :----------- | :---------------------------------------------------- | :-----------| 
 | `<expression>`    | A column name for specific results for the `CHECKSUM` function to be applied to | Any `<column>` name | 
 
-## Return Types 
+## Return Type
 `INTEGER`
 
 ## Example

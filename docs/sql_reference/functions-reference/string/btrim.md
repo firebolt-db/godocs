@@ -18,6 +18,9 @@ Removes all occurrences of optionally specified characters, `<trim>`, from both 
 BTRIM(<expression>[, <trim>])
 ```
 
+## Parameters
+{: .no_toc}
+
 | Parameter        | Description                | Supported input types | 
 | :--------------- | :------------------------- | :----------|
 | `<expression>`  | The string to be trimmed. | `TEXT` | 

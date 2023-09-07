@@ -16,7 +16,7 @@ Returns a single arbitrary value from the specified column.
 ## Syntax
 {: .no_toc}
 
-```SQL
+```sql
 ANY_VALUE(<expression>)
 ```
 ## Parameters 

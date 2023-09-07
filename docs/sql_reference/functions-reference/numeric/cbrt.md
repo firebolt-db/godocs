@@ -22,10 +22,10 @@ CBRT(<value>);
 
 | Parameter | Description                                                                                                         | Supported input types | 
 | :--------- | :------------------------------------------------------------------------------------------------------------------- | :--------| 
-| `<value>`   | Value that the `CBRT` function is applied to | `DOUBLE_PRECISION` |
+| `<value>`   | Value that the `CBRT` function is applied to | `DOUBLE PRECISION` |
 
 ## Return Type
-`DOUBLE_PRECISION`
+`DOUBLE PRECISION`
 
 ## Example
 {: .no_toc}

@@ -20,9 +20,6 @@ Allows matching of strings based on comparison to a pattern. `LIKE` is normally 
 ## Parameters 
 {: .no_toc}
 
-## Parameters 
-{: .no_toc}
-
 | Parameter | Description |Supported input types |
 | :-------- | :---------- | :---------------------|
 | `<expression>` | Any expression that evaluates to `TEXT`. | `TEXT` |
@@ -31,7 +28,7 @@ Allows matching of strings based on comparison to a pattern. `LIKE` is normally 
 ## Return Types
 `TEXT`
                                                                                                                                                 
-**Example**
+## Example
 
 Find nicknames from the `players` table that partially match the string "joe" and any following characters as follows:
 

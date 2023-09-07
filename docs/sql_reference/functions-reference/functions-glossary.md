@@ -16,7 +16,7 @@ All Firebolt functions in alphabetical order.
 | [ACOS](./numeric/acos.md) | Calculates the arc cosine of a value. Returns NULL if the input value is higher than 1. | Numeric |
 | [ALL_MATCH](./Lambda/all-match.md) | Returns 1 (true) when the condition evaluated on all elements of an array evaluate to true. Returns 0 (false) when any one comparison evaluates to false. | Lambda |
 | [ANY_MATCH](./Lambda/any-match.md) | Returns 1 if at least one of the elements of an array matches the results of the function provided. Otherwise returns 0. | Lambda |
-| [ANY_VALUE](./aggregation/any_value.md) | Returns a single arbitrary value from the specified column. | Aggregation |
+| [ANY_VALUE (ANY)](./aggregation/any_value.md) | Returns a single arbitrary value from the specified column. | Aggregation |
 | [APPROX_COUNT_DISTINCT](./aggregation/approx-count-distinct.md) | Counts the approximate number of unique or not NULL values. | Aggregation |
 | [APPROX_PERCENTILE](./aggregation/approx-percentile.md) | Returns an approximate value for the specified percentile based on the range of numbers returned by the input expression. | Aggregation |
 | [ARRAY_AGG](./aggregate-array/array-agg.md) | Concatenates input values into an array. | Aggregate array |
@@ -49,10 +49,10 @@ All Firebolt functions in alphabetical order.
 | [CASE](./conditional-and-miscellaneous/case.md) | Conditional expression similar to if-then-else statements. | Conditional & miscellaneous |
 | [CAST](./conditional-and-miscellaneous/cast.md) | Converts data types into other data types based on specified parameters. | Conditional & miscellaneous |
 | [CBRT](./numeric/cbrt.md) | Returns the cubic-root of a non-negative numeric expression. | Numeric |
-| [CEIL](./numeric/ceil.md) | Returns the smallest value that is greater than or equal to the input value. | Numeric |
+| [CEIL (CEILING)](./numeric/ceil.md) | Returns the smallest value that is greater than or equal to the input value. | Numeric |
 | [CHECKSUM](./aggregation/checksum.md) | Calculates a hash value known as a checksum operation on a list of arguments. | Aggregation |
 | [COALESCE](./conditional-and-miscellaneous/coalesce.md) | Checks from left to right for the first non-NULL argument found for each entry parameter pair. | Conditional & miscellaneous |
-| [CONCAT](./string/concat.md) | Concatenates the strings listed in the input without a separator. | String |
+| [CONCAT (||)](./string/concat.md) | Concatenates the strings listed in the input without a separator. | String |
 | [CONTAINS](./array/contains.md) | Returns 1 if a specified argument is present in the array, or 0 otherwise. | Array |
 | [COS](./numeric/cos.md) | Trigonometric function that calculates the cosine of a specific value. | Numeric |
 | [COT](./numeric/cot.md) | Calculates the cotangent. | Numeric |
@@ -115,7 +115,7 @@ All Firebolt functions in alphabetical order.
 | [PERCENTILE_DISC](./aggregation/percentile-disc.md) | Returns a percentile for an ordered data set. The result is equal to a specific column value, the smallest distributed value that is greater than or equal to the percentile value specified.  | Aggregation |
 | [PERCENTILE_DISC OVER](./window/percentile-disc-window.md) | Returns a percentile over a partition for an ordered data set. The result is equal to a specific column value, the smallest distributed value that is greater than or equal to the percentile specified. | Window |
 | [PI](./numeric/pi.md) | Calculates π as a `REAL` value. | Numeric |
-| [POW](./numeric/pow.md) | Returns a number raised to the specified power. | Numeric |
+| [POW (POWER)](./numeric/pow.md) | Returns a number raised to the specified power. | Numeric |
 | [RADIANS](./numeric/radians.md) | Converts degrees to radians as a `REAL` value. | Numeric |
 | [RANDOM](./numeric/random.md) | Returns a pseudo-random unsigned value greater than 0 and less than 1 of type `DOUBLE PRECISION`. | Numeric |
 | [RANK](./window/rank.md) | Rank the current row within the requested window with gaps. | Window |

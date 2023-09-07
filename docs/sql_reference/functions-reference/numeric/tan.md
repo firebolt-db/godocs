@@ -15,7 +15,7 @@ Calculates the tangent.
 {: .no_toc}
 
 ```sql
-TAN(<val>)
+TAN(<value>)
 ```
 ## Parameters
 {: .no_toc}

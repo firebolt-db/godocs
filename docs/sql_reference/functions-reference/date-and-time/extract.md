@@ -56,7 +56,7 @@ Furthermore, the return type depends on the `time_unit`.
 | `year`            | Extract the year field.                                                                                                                                                                                                                                                                                                                                 | `DATE`, `TIMESTAMP`, `TIMESTAMPTZ`  | `INTEGER`            | `SELECT EXTRACT(year FROM TIMESTAMP '2001-02-16');  --> 2001`                                                                          |
 
 ## Return Types 
-A time unit matching the functions's specifications 
+A time unit matching the function's specifications 
 
 ## Remarks
 {: .no_toc}

@@ -10,7 +10,7 @@ great_grand_parent: SQL reference
 
 Returns a substring starting at the character indicated by the `<start>` index and including the number of characters defined by `<count>`. Character indexing starts at index 1.
 
-##### Syntax
+## Syntax
 {: .no_toc}
 
 ```sql

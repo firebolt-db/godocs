@@ -18,7 +18,7 @@ Returns an array of strings containing the keys at the nesting level indicated b
 JSON_EXTRACT_KEYS(<json>, '<json_pointer_expression>')
 ```
 
-# Parameters 
+## Parameters 
 {: .no_toc}
 
 | Parameter                   | Description                                               | Supported input types | 
