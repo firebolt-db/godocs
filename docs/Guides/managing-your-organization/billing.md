@@ -27,7 +27,7 @@ Users with the **Org Admin** role can monitor the cost history of each account i
 
 * In the configure space choose **Usage**.  
 
-  ![Access account billing](../assets/images/account-billing.png)
+  ![Access account billing](../../assets/images/account-billing.png)
 
 
 The **Usage** page shows accrued charges for **Storage** and **Compute** for the most recent month to date. Choose the month for which you want to view billing history. To view a summary of daily charges, choose **Day in month** from the list. Choose **Month in year** to view a summary of monthly charges.
