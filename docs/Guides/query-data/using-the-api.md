@@ -16,8 +16,10 @@ Use the Firebolt REST API to execute queries on engines programmatically. Learn 
 
 ## Use tokens for authentication
 
-To authenticate Firebolt using service accounts via Firebolt’s REST API, send the following request to receive an authentication token 
-(a service account must be an organization administrator, i.e., the service account property_is_organization_admin_ must be _true_ :
+A service account must be an organization administrator (the service account property `is_organization_admin` must be _true_) to receive a token.
+
+To authenticate Firebolt using service accounts via Firebolt’s REST API, send the following request to receive an authentication token:
+
 
 ```bash
     curl --location --request POST 'https://id.app.firebolt.io/auth/v1/token' \

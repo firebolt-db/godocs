@@ -19,7 +19,7 @@ For more information, see [Service accounts](../../../Guides/managing-your-organ
 ALTER SERVICE ACCOUNT <service_account_name> SET 
       [ NETWORK_POLICY_NAME = <network_policy_name> | DEFAULT ] 
       [ DESCRIPTION = <description> | DEFAULT ]
-      [ IS_ORGANIZATION_ADMIN = {TRUE|FALSE}]
+      [ IS_ORGANIZATION_ADMIN = { TRUE | FALSE } ]
 ```
 
 or 
