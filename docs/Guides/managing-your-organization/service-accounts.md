@@ -102,7 +102,7 @@ To edit a service account using SQL, use the [`ALTER SERVICE ACCOUNT`](../../sql
 ```sql
 ALTER SERVICE ACCOUNT sa1 SET NETWORK_POLICY_NAME = my_network_policy
 ```
-Another example:
+or: 
 ```sql
 ALTER SERVICE ACCOUNT sa1 SET IS_ORGANIZATION_ADMIN = true
 ```
@@ -114,7 +114,8 @@ To edit a service account via the UI:
 2. Search for the relevant service account using the top search filters, or by scrolling through the list of service accounts. Hover over the right-most column to make the service account menu appear, then choose **Edit service account**.
 3. Edit the desired fields and choose **Save**.
 
-**Important**: UI does not allow to see or edit _is_organization_admin_ property of a service account.
+{: .caution}
+The `_is_organization_admin_` property of a service account cannot be seen or edited in the UI.
 
 ## Deleting a service account 
 

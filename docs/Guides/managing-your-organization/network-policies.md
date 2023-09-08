@@ -62,12 +62,10 @@ ALTER ORGANIZATION my_organization SET NETWORK_POLICY_NAME = DEFAULT
 To rename a network policy using SQL, use the [`RENAME NETWORK POLICY`](../../sql_reference/commands/data-definition/rename-network-policy.md) statement. For example:
 
 ```sql
-
 RENAME NETWORK POLICY my_network_policy RENAME TO my_renamed_network_policy
 ```
 
-### UI
-Renaming a network policy is not supported in UI.
+Network policy cannot be renamed in UI.
 
 ## Edit a network policy
 

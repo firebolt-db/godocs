@@ -22,9 +22,11 @@ and associate the service account with the user.
 
 ## Use tokens for authentication
 
+
 To authenticate Firebolt using the service accounts with the properties
 as described above via Firebolt’s REST API, send the following request 
 to receive an authentication token:
+
 
 ```bash
     curl --location --request POST 'https://id.app.firebolt.io/auth/v1/token' \
