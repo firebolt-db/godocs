@@ -14,11 +14,18 @@ Use the Firebolt REST API to execute queries on engines programmatically. Learn 
 * Topic toC
 {:toc}
 
+## Create a service account and associate it with a user
+Create a service account with organization administrator privilege, 
+i.e., the service account property_is_organization_admin_ must be _true_.
+Next, create a user with role privileges you would like to have the service account
+and associate the service account with the user.
+
 ## Use tokens for authentication
 
-A service account must be an organization administrator (the service account property `is_organization_admin` must be _true_) to receive a token.
 
-To authenticate Firebolt using service accounts via Firebolt’s REST API, send the following request to receive an authentication token:
+To authenticate Firebolt using the service accounts with the properties
+as described above via Firebolt’s REST API, send the following request 
+to receive an authentication token:
 
 
 ```bash
