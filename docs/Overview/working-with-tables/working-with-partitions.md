@@ -80,15 +80,14 @@ Dropping a partition deletes the partition and the data stored in that partition
 The examples in this section are based on the following common `CREATE TABLE` example. Each example is based on the addition of the `PARTITION BY` statement shown.
 
 ```sql
-CREATE FACT TABLE fct_tbl_transactions
+CREATE FACT TABLE game_information
 (
-    transaction_id      BIGINT,
-    transaction_date    DATE,
-    store_id            INT,
-    product_id          INT,
-    units_sold          INT
+    gameid INTEGER,
+    title TEXT,
+    abbreviation TEXT,
+    launchdate DATE,
 )
-PRIMARY INDEX store_id, product_id
+PRIMARY INDEX gameid, title
 <examples of PARTITION BY clauses below>
 ```
 
@@ -118,21 +117,21 @@ The example below drops the partition for records where `transaction_date` is `3
 #### Partition and drop by integer
 {: .no_toc}
 
-The example below creates a partition for each group of records with the same value for `product_id`.
+The example below creates a partition for each group of records with the same value for `gameid`.
 
-```PARTITION BY product_id```
+```PARTITION BY gameid```
 
-The example below drops the partition where `product_id` is `8188`.
+The example below drops the partition where `gameid` is `8188`.
 
-```ALTER TABLE fct_tbl_transactions DROP PARTITION 8188;```
+```ALTER TABLE games DROP PARTITION 8188;```
 
 #### Partition and drop by composite key
 {: .no_toc}
 
-The example below creates a partition for each group of records where `store_id` is the same value **and** `transaction_date` is the same year.
+The example below creates a partition for each group of records where `gameid` is the same value **and** `transaction_date` is the same year.
 
-```PARTITION BY store_id,EXTRACT(YEAR FROM transaction_date);```
+```PARTITION BY gameid,EXTRACT(YEAR FROM transaction_date);```
 
-The example below drops the partition where `store_id` is `982` **and** `transaction_date` is `2020` .
+The example below drops the partition where `gameid` is `982` **and** `transaction_date` is `2020` .
 
-```ALTER TABLE transactions DROP PARTITION 982,2020;```
+```ALTER TABLE games DROP PARTITION 982,2020;```
