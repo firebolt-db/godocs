@@ -115,7 +115,7 @@ To edit a service account via the UI:
 3. Edit the desired fields and choose **Save**.
 
 {: .caution}
-The `_is_organization_admin_` property of a service account cannot be seen or edited in the UI.
+The `is_organization_admin` property of a service account cannot be seen or edited in the UI.
 
 ## Deleting a service account 
 

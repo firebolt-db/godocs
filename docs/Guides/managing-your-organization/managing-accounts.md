@@ -92,3 +92,17 @@ If your account is not empty (for example, if it contains other objects such as 
 
 The account will be removed from the **Accounts management** page.
 
+
+## Switch accounts
+
+### SQL
+TBD
+
+### UI
+Click on your login button, the current account will be marked. 
+Choose an account you would like to switch to.
+
+
+<img src="../../assets/images/switch_account.png" alt="Switch account" width="500"/>
+
+

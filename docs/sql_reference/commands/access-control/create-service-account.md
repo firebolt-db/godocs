@@ -19,6 +19,7 @@ CREATE SERVICE ACCOUNT [ IF NOT EXISTS ] <service_account_name>
     [ WITH
     [ DESCRIPTION = <description> ] 
     [ NETWORK_POLICY_NAME = <network_policy_name> ]
+    [IS_ORGANIZATION_ADMIN= {TRUE|FALSE}]
     ]
 ```
 
