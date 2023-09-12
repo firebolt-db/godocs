@@ -77,6 +77,7 @@ All Firebolt functions in alphabetical order.
 | [FLATTEN](./array/flatten.md) | Converts an array of arrays into a flat array. For every element that is an array, this function extracts its elements into the new array. | Array |
 | [FLOOR](./numeric/floor.md) | Returns the largest round number that is less than or equal to the input value. | Numeric |
 | [GEN_RANDOM_UUID](./string/gen-random-uuid.md) | Returns a version 4 universally unique identifier (UUID) according to RFC-4122. | String |
+| [GENERATE_SERIES](./conditional-and-miscellaneous/generate-series.md) | Generates a single rowset of values from `start` to `stop`, with a step size of `step` - a table-valued function. | Conditional & miscellaneous |
 | [HLL_COUNT_DISTINCT](./aggregation/hll-count-distinct.md) | Counts the approximate number of unique or not NULL values, to the precision specified. | Aggregation |
 | [IFNULL](./conditional-and-miscellaneous/ifnull.md) | Compares two expressions. Returns the first input expression if it’s non-NULL, otherwise returns the second. | Conditional & miscellaneous |
 | [ILIKE](./string/ilike.md) | Allows matching of strings based on comparison to a pattern, case-insensitively. | String |
@@ -151,4 +152,6 @@ All Firebolt functions in alphabetical order.
 | [TRUNC](./numeric/trunc.md) | Returns the rounded absolute value of a numeric value. The returned value will always be rounded to less than the original value. | Numeric |
 | [TRY_CAST](./conditional-and-miscellaneous/try-cast.md) | Converts data types into other data types based on the specified parameters. If the conversion cannot be performed, returns a NULL. | Conditional & miscellaneous |
 | [UPPER](./string/upper.md) | Converts the input string to uppercase characters. | String |
+| [URL_DECODE](./string/url_decode.md) | Decodes percent-encoded characters and replaces them with their binary value. | String |
+| [URL_ENCODE](./string/url_encode.md) | Encodes all characters that are not unreserved using percent-encoding. | String |
 | [VERSION](./conditional-and-miscellaneous/version.md) | Returns the version number information for the Firebolt engine. | Conditional & miscellaneous |
