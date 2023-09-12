@@ -94,14 +94,10 @@ The account will be removed from the **Accounts management** page.
 
 
 ## Switch accounts
-
-### SQL
-TBD
+To switch the account you are using:
 
 ### UI
-Click on your login button, the current account will be marked. 
-Choose an account you would like to switch to.
-
+Click on your login button - the current account will be marked. Choose an account you would like to switch to.
 
 <img src="../../assets/images/switch_account.png" alt="Switch account" width="500"/>
 
