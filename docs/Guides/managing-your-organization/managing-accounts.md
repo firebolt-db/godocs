@@ -22,7 +22,7 @@ Creating an account requires the org_admin role.
  To create an account using SQL, use the [`CREATE ACCOUNT`](../../sql_reference/commands/data-definition/create-account.md) statement. For example:
 
 ```sql
-CREATE ACCOUNT my_account WITH REGION = “us-east-1”;
+CREATE ACCOUNT my_account WITH REGION = 'us-east-1';
 ```
 
 ### UI 
