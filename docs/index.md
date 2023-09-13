@@ -24,6 +24,10 @@ Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics
 - [Working with tables](Overview/working-with-tables/working-with-tables.md)
 - [Using indexes](Overview/using-indexes.md)
 
+</div>
+
+<div class="column">
+
 <img src="../../assets/images/docs_shedule_call_illustration.svg" alt="Guides" width="500"/>
 
 <h2>Guides</h2>
@@ -38,7 +42,9 @@ Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics
 - [Export data](Guides/exporting-data.md)
 - [Develop with Firebolt](Guides/developing-with-firebolt/index.md)
 
+</div>
 
+<div class="column">
 <img src="../../assets/images/docs_whitepaper_illustration.svg" alt="Reference" width="500"/>
 
 <h2>Reference</h2>
@@ -50,6 +56,6 @@ Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics
 - [System settings](Reference/system-settings.md)
 - [Reserved words](Reference/reserved-words.md)
 - [Help menu](Reference/help-menu.md)
-  </div> 
+</div> 
 
 Copyright, 2023, Firebolt Analytics.
