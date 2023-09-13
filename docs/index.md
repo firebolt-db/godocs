@@ -43,7 +43,7 @@ Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics
 </div>
 
 <div class="column">
-<img src="../../assets/images/docs_whitepaper_illustration.svg" alt="Reference" width="250"/>
+<img src="../../assets/images/docs_whitepaper_illustration.svg" alt="Reference" width="150"/>
 
 <h2>Reference</h2>
 
