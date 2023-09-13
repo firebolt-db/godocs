@@ -13,9 +13,9 @@ has_toc: true
 Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics performance on massive, petabyte-scale data sets. This documentation can help you load and model your data in Firebolt, optimize for performance, and build your analytics and data applications quickly.
 
 <div class="column">
-<img src="../../assets/images/docs_shedule_call_illustration.svg" alt="Overview" width="500"/>
+<img src="../../assets/images/docs_getting_started_illustration.svg" alt="Overview" width="500"/>
 
-# Overview
+<h2>Overview</h2>
 
 - [Architecture](Overview/architecture-overview.md)
 - [Organizations and accounts](Overview/organizations-accounts.md)
@@ -23,12 +23,10 @@ Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics
 - [Engine sizing](Overview/choosing-an-engine.md)
 - [Working with tables](Overview/working-with-tables/working-with-tables.md)
 - [Using indexes](Overview/using-indexes.md)
-  </div> 
 
-<div class="column">
 <img src="../../assets/images/docs_shedule_call_illustration.svg" alt="Guides" width="500"/>
 
-# Guides
+<h2>Guides</h2>
 
 - [Get started](Guides/getting-started.md)
 - [Manage organization](Guides/managing-your-organization/index.md)
@@ -39,12 +37,11 @@ Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics
 - [Work with indexes](Guides/working-with-indexes/index.md)
 - [Export data](Guides/exporting-data.md)
 - [Develop with Firebolt](Guides/developing-with-firebolt/index.md)
-  </div> 
 
-<div class="column">
+
 <img src="../../assets/images/docs_whitepaper_illustration.svg" alt="Reference" width="500"/>
 
-# Reference
+<h2>Reference</h2>
 
 - [Release notes](Reference/release-notes/release-notes.md)
 - [SQL reference](sql_reference/index.md)
