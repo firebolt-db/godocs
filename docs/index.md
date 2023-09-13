@@ -13,22 +13,21 @@ has_toc: true
 Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics performance on massive, petabyte-scale data sets. This documentation can help you load and model your data in Firebolt, optimize for performance, and build your analytics and data applications quickly.
 
 <div class="column">
-<img src="../../assets/images/docs_getting_started_illustration.svg" alt="Overview" width="500"/>
+<img src="../../assets/images/docs_getting_started_illustration.svg" alt="Overview" width="250"/>
 
 <h2>Overview</h2>
 
-- [Architecture](Overview/architecture-overview.md)
-- [Organizations and accounts](Overview/organizations-accounts.md)
-- [Engine fundamentals](Overview/understanding-engine-fundamentals.md)
-- [Engine sizing](Overview/choosing-an-engine.md)
-- [Working with tables](Overview/working-with-tables/working-with-tables.md)
-- [Using indexes](Overview/using-indexes.md)
-
+<a href="Overview/architecture-overview.md">Architecture</a><br>
+<a href="Overview/organizations-accounts.md">Organizations and accounts</a><br>
+<a href="Overview/understanding-engine-fundamentals.md">Engine fundamentals</a><br>
+<a href="Overview/choosing-an-engine.md">Engine sizing</a><br>
+<a href="Overview/working-with-tables/working-with-tables.md">Working with tables</a><br>
+<a href="Overview/using-indexes.md">Using indexes</a><br>
 </div>
 
 <div class="column">
 
-<img src="../../assets/images/docs_shedule_call_illustration.svg" alt="Guides" width="500"/>
+<img src="../../assets/images/docs_shedule_call_illustration.svg" alt="Guides" width="250"/>
 
 <h2>Guides</h2>
 
@@ -45,7 +44,7 @@ Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics
 </div>
 
 <div class="column">
-<img src="../../assets/images/docs_whitepaper_illustration.svg" alt="Reference" width="500"/>
+<img src="../../assets/images/docs_whitepaper_illustration.svg" alt="Reference" width="250"/>
 
 <h2>Reference</h2>
 
