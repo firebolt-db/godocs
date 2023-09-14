@@ -36,26 +36,15 @@ In this tutorial, we load data into a fact table. Loading into a dimension table
 Create a fact table using the `CREATE TABLE` statement shown below.
 
 ```sql
-CREATE FACT TABLE IF NOT EXISTS lineitem_detailed
-(       l_orderkey              BIGINT,
-        l_partkey               BIGINT,
-        l_suppkey               BIGINT,
-        l_linenumber            INTEGER,
-        l_quantity              BIGINT,
-        l_extendedprice         BIGINT,
-        l_discount              BIGINT,
-        l_tax                   BIGINT,
-        l_returnflag            TEXT,
-        l_linestatus            TEXT,
-        l_shipdate              TEXT,
-        l_commitdate            TEXT,
-        l_receiptdate           TEXT,
-        l_shipinstruct          TEXT,
-        l_shipmode              TEXT,
-        l_comment               TEXT,
+CREATE FACT TABLE IF NOT EXISTS rankings
+(       gameid                  INTEGER,
+        playerid                INTEGER,
+        maxlevel                INTEGER,
+        totalscore              BIGINT,
+        placewon                BIGINT,
         source_file_name        TEXT, -- required for cont. loading data
         source_file_timestamp   TIMESTAMP -- required for cont. loading data
-) PRIMARY INDEX l_orderkey, l_linenumber;
+) PRIMARY INDEX gameid, playerid;
 ```
 
 ## Set up an Airflow connection to Firebolt
@@ -71,13 +60,13 @@ Create a subdirectory of your Airflow home directory with a name of your choosin
 **Contents of data_load.sql**
 
 ```sql
-INSERT INTO lineitem_detailed 
+INSERT INTO rankings_information
 SELECT 
   *, 
   source_file_name, 
   source_file_timestamp
-FROM ex_lineitem
-WHERE source_file_timestamp > (SELECT MAX(source_file_timestamp) FROM lineitem_detailed);
+FROM rankings
+WHERE source_file_timestamp > (SELECT MAX(source_file_timestamp) FROM rankings);
 ```
 
 ## Create Airflow variables
