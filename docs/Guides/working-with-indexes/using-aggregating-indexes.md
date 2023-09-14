@@ -84,12 +84,12 @@ The columns that you specify for an aggregating index are essentially a primary 
 
 You should aim for aggregating index results to be a ratio of approximately 20-50% size of the whole table or smaller. The smaller the ratio, the more effective the aggregating index is.
 
-For example, with the aggregating index below on the table store_sales with 200,000,000 rows.
+For example, with the aggregating index below on the table `rankings` with 200,000,000 rows.
 
 ```sql
-CREATE AGGREGATING INDEX idx_agg_store_sales ON store_sales (
-	ss_sold_date_sk,
-	ss_item_sk,
+CREATE AGGREGATING INDEX rank_information ON rankings (
+	tournamentid,
+	maxlevel,
 	sum(ss_ext_discount_amt)
 );
 ```
@@ -100,10 +100,10 @@ You can run the following query to validate that the size of the aggregating ind
 SELECT count(*)
 FROM (
   SELECT
-    ss_sold_date_sk,
-    ss_item_sk
+    tournamentid,
+    maxlevel
   FROM
-    store_sales
+    rank_information
   GROUP BY
     1,2);
 ```
@@ -112,46 +112,41 @@ If the `SELECT` query returns 100,000,000 or fewer, the aggregating index may be
 
 ## Aggregating index examples
 
-The example in this section are based on a fact table, `fact_orders`, created with the DDL shown below. For a more in-depth example, see *Aggregating indexes* in the [Firebolt indexes in action](https://www.firebolt.io/blog/firebolt-indexes-in-action) blog post.
+The example in this section are based on a fact table, `game_information`, created with the DDL shown below. For a more in-depth example, see *Aggregating indexes* in the [Firebolt indexes in action](https://www.firebolt.io/blog/firebolt-indexes-in-action) blog post.
 
 ```sql
-CREATE FACT TABLE fact_orders (
-  order_id BIGINT,
-  product_id BIGINT,
-  store_id BIGINT,
-  client_id BIGINT,
-  order_date DATE,
-  order_total DOUBLE PRECISION,
-  order_item_count INTEGER
+CREATE FACT TABLE game_information (
+  gameid INTEGER,
+  playerid INTEGER,
+  playerid_total DOUBLE PRECISION,
+  gameid_count INTEGER
 )
 PRIMARY INDEX
   store_id,
   product_id,
-  order_id;
+  gameid;
 ```
 
 From this table, let's assume we typically run queries that use these aggregations:
 
 ```sql
-SUM(order_total)
-SUM(order_item_count)
-AVG(order_item_count)
-COUNT(DISTINCT client_id)
+SUM(playerid_total)
+SUM(gameid count)
+AVG(gameid_count)
 ```
 
-And they are grouped by different combinations of the `store_id` and `product_id` columns.
+And they are grouped by different combinations of the `gameid` and `playerid` columns.
 
 ‌The DDL below creates an aggregating index to accelerate these aggregations.
 
 ```sql
-CREATE AGGREGATING INDEX agg_fact_orders ON fact_orders (
-  store_id,
-  product_id,
-  SUM(order_total),
-  SUM(order_item_count),
-  AVG(order_item_count),
-  COUNT(DISTINCT client_id)
+CREATE AGGREGATING INDEX id_information ON game_information (
+  gameid,
+  playerid,
+  SUM(playerid_total),
+  SUM(gameid_count),
+  AVG(gameid_count),
 );
 ```
 
-As with a primary index, the order of the columns specified is important. Firebolt creates a primary index for the aggregating index. In our example, the primary index is in the order of `store_id`, `product_id`.
+As with a primary index, the order of the columns specified is important. Firebolt creates a primary index for the aggregating index. In our example, the primary index is in the order of `gameid`, `playerid`.

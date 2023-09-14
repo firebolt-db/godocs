@@ -85,7 +85,7 @@ CREATE FACT TABLE game_information
     gameid INTEGER,
     title TEXT,
     abbreviation TEXT,
-    launchdate DATE,
+    launchdate DATE
 )
 PRIMARY INDEX gameid, title
 <examples of PARTITION BY clauses below>

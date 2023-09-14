@@ -28,12 +28,12 @@ The basic syntax of a `PRIMARY INDEX` clause within a `CREATE TABLE` statement i
 
 ```sql
 CREATE [FACT|DIMENSION] TABLE <table_name> (
-  <colname_1> <datatype>,
-  <colname_2> <datatype>,
-  <colname_3> <datatype>,
+  <column1> <datatype>,
+  <column2> <datatype>,
+  <column3> <datatype>,
      ...
 )
-PRIMARY INDEX <colname_1> [, <...colname_N>];
+PRIMARY INDEX <column1> [, <...column2>];
 ```
 
 ## Primary indexes can’t be modified
@@ -64,23 +64,23 @@ The number of columns that you specify in the index won’t negatively affect qu
 
 ### Consider how you alter values in WHERE clauses
 
-The primary index isn’t effective if Firebolt can’t determine the values in the index column. If the `WHERE` clause in your query contains a function that transforms the column values, Firebolt can’t use the index. Consider a table with the primary index definition shown below, where `asset_id` is a `TEXT` data type in a table named `events_log`.
+The primary index isn’t effective if Firebolt can’t determine the values in the index column. If the `WHERE` clause in your query contains a function that transforms the column values, Firebolt can’t use the index. Consider a table with the primary index definition shown below, where `playerid` is a `INTEGER` data type in a table named `players`.
 
 ```sql
-  PRIMARY INDEX asset_id
+  PRIMARY INDEX playerid
 ```
 
-In the example analytics query over the `events_log` table, Firebolt can’t use the primary index with the `WHERE` clause. This is because the function with `asset_id` is on the left side of the comparison. To satisfy the conditions of comparison, Firebolt must read all values of `asset_id` to apply the `UPPER` function.
+In the example analytics query over the `players` table, Firebolt can’t use the primary index with the `WHERE` clause. This is because the function with `playerid` is on the left side of the comparison. To satisfy the conditions of comparison, Firebolt must read all values of `playerid` to apply the `UPPER` function.
 
 ![](../assets/images/Red_X_resized.png)  
 
 ```sql
 SELECT
-  asset_id
+  playerid
 FROM
-  events_log
+  players
 WHERE
-  UPPER(asset_id) LIKE ‘AA%’;
+  UPPER(playerid) LIKE ‘AA%’;
 ```
 
 In contrast, Firebolt can use the primary index in the following example:
@@ -89,11 +89,11 @@ In contrast, Firebolt can use the primary index in the following example:
 
 ```sql
 SELECT
-  asset_id
+  playerid
 FROM
-  events_log
+  players
 WHERE
-  asset_id LIKE ‘AAA%’;
+  playerid LIKE ‘AAA%’;
 ```
 
 If you know that you will use a function in a predicate ahead of time, consider creating a virtual column to store the result of the function. You can then use that virtual column in your index and queries. This is particularly useful for hashing columns.
@@ -112,7 +112,7 @@ For more information, see [Working with partitions](../../Overview/working-with-
 
 ## Primary index examples
 
-This section demonstrates different primary indexes created on a fact table, `site_sales`, created with the DDL and sample values shown below.
+This section demonstrates different primary indexes created on a fact table, `totalscore`, created with the DDL and sample values shown below.
 
 ### Example fact table
 {: .no_toc}
