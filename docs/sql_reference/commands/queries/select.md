@@ -519,38 +519,38 @@ WHERE
 	region = 'EMEA'
 ```
 
-The following query retrieves users who registered after August 30, 2020 from the users' table:
+The following query retrieves users who registered after August 30, 2020 from the players's table:
 
 ```sql
 SELECT
-	user_id,
-	city,
-	country
+	playerid,
+	email,
+	nickname
 FROM
-	users
+	players
 WHERE
-	registration_date >= TO_DATE('2020-08-30');
+	registeredon >= TO_DATE('2020-08-30');
 ```
 
-The following query retrieves users who registered after August 30 2020 and made a purchase:
+The following query retrieves users who registered after August 30, 2020:
 
 ```sql
 SELECT
-	user_id,
-	city,
+	playerid,
+	email,
 SELECT
-	user_id,
-	city,
-	country
+	playerid,
+	email,
+	nickname
 FROM
-	users
+	players
 WHERE
-	registration_date >= TO_DATE('2020-08-30')
+	registeredon >= TO_DATE('2020-08-30')
 	AND user_id IN (
 		SELECT
-			user_id
+			playerid
 		FROM
-			purchases
+			players
 	)
 ```
 
@@ -569,29 +569,29 @@ GROUP BY [ <grouping_element> [, ...n] | ALL ]
 ### Example
 {: .no_toc}
 
-In the following example, the results that are retrieved are grouped by the `product_name` and then by the `product_id` columns.
+In the following example, the results that are retrieved are grouped by the `nickname` and then by the `email` columns.
 
 ```sql
 SELECT
-	product_name,
-	country,
-	sum(total_sales)
+	nickname,
+	email,
+	sum(agecategory)
 FROM
 	purchases
 GROUP BY
-	product_name,
-	country
+	nickname,
+	email
 ```
 
-If the expression in `GROUP BY` clause is exactly the same as in the `SELECT` list, then its position can be used instead
+If the expression in `GROUP BY` clause is exactly the same as in the `SELECT` list, then its position can be used instead.
 
 ```sql
 SELECT
-	product_name,
-	country,
-	SUM(total_sales)
+	nickname,
+	email,
+	SUM(agecategory)
 FROM
-	purchases
+	players
 GROUP BY
 	1,
 	2
@@ -600,13 +600,13 @@ GROUP BY
 `GROUP BY` clause must include all expressions in the `SELECT` list which are not involving aggregate functions. It may include expressions which are not part of `SELECT` list.
 
 ```sql
-SELECT SUM(total_sales) FROM purchases GROUP BY product_name
+SELECT SUM(agecategory) FROM players GROUP BY nickname
 ```
 
 However, the following will cause an error, since `SELECT` list has an expression which is not an aggregate function and it is not listed in `GROUP BY` clause.
 
 ```sql 
-SELECT product_name, country, SUM(total_sales) FROM purchases GROUP BY product_name
+SELECT nickname, email, SUM(agecategory) FROM players GROUP BY playerid
 ```
 
 #### GROUP BY ALL
@@ -615,11 +615,11 @@ For the common case of `GROUP BY` clause repeating all the non aggregate functio
 
 ```sql
 SELECT
-	product_name,
-	country,
-	SUM(total_sales)
+	nickname,
+	email,
+	SUM(currentscore)
 FROM
-	purchases
+	players
 GROUP BY ALL
 ```
 
