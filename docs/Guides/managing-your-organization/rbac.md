@@ -10,22 +10,11 @@ grand_parent: Guides
 # Manage role-based access control
 {: .no_toc}
 
-Role-based access control provides the ability to control privileges and determine who can access and perform operations on specific objects in Firebolt. Access privileges are assigned to roles which are, in turn, assigned to users. 
+Role-based access control provides the ability to control privileges and determine who can access and perform operations on specific objects in Firebolt. Access privileges are assigned to roles which are, in turn, assigned to users or other roles. A user can be assigned multiple roles. 
 
 A user interacting with Firebolt must have the appropriate privileges to use an object. Privileges from all roles assigned to a user are considered in each interaction in Firebolt. 
 
-To view all roles, click **Govern** to open the govern space, then choose **Roles** from the menu, or query the [information_schema.applicable-roles](../../sql_reference/information-schema/applicable-roles.md) view. 
-
-The key concepts to understanding access control in Firebolt with database-level RBAC are: < this should be a visualization > 
-
-  **Secured object:** an entity to which access can be granted: database, engine subscription.
-
-  **Role:** An entity to which privileges can be granted. Roles are assigned to users.
-
-  **Privilege:** a defined level of access to an object.
-
-  **User:** A user identity recognized by Firebolt. It can be associated with a person or a program. A user can be assigned multiple roles.
-
+To view all roles, click **Govern** to open the govern space, then choose **Roles** from the menu, or query the [information_schema.applicable-roles](../../sql_reference/information-schema/applicable-roles.md) view.
 
 ## System-defined roles
 
