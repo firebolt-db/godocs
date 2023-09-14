@@ -25,7 +25,7 @@ ALTER ACCOUNT <account_name> RENAME TO <new_account_name>;
 | Parameter | Description |
 | :--- | :--- |
 | `<account_name>` | The name of the account to be altered. |
-| `<new_account_name>` | The new name for the account. The account name must start with an alphabetic character and cannot contain spaces or special characters except for underscores (_). |
+| `<new_account_name>` | The new name for the account. The account name must start with an alphabetic character and cannot contain spaces or special characters except for hyphens (-). |
 
 ## Example
 
