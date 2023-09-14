@@ -1,9 +1,0 @@
-
-
-
-./metadata:(8)
-describe.md
-
-./queries:
-explain.md
-select.md
