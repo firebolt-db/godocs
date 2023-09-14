@@ -29,7 +29,7 @@ To register to Firebolt and create an organization:
 
 Congratulations - you have successfully set up your organization. Welcome to Firebolt! 
 
-<img src="../../assets/images/enter_firebolt.png" alt="Enter Firebolt" width="500"/>
+<img src="../../assets/images/enter_firebolt.png" alt="Enter Firebolt" width="250"/>
 
 Your organization comes prepared with one account for your convenience - choose your own name or keep the default.
 
