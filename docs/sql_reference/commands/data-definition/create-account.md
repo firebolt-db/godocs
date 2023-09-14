@@ -24,7 +24,7 @@ CREATE ACCOUNT [IF NOT EXISTS] <account_name>
 
 | Parameter  | Description |
 | :--------- | :---------- |
-| `<account_name>`                              | The name of the account, must start with an alphabetic character and cannot contain spaces or special characters except for underscores (_). |
+| `<account_name>`                              | The name of the account, must start with an alphabetic character and cannot contain spaces or special characters except for hyphens (-). |
 | `<region>`                      | The region in which the account is configured. Choose the same region as the Amazon S3 bucket that contains data you ingest. See [Available AWS Regions](../../general-reference/available-regions.md) If not specified, `us-east-1` (US East (N. Virginia) is the default. |                                                                                                    
 
 ## Example
