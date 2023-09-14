@@ -18,7 +18,8 @@ The Firebolt object model is hierarchical and comes with strong containment prop
 
 The picture below depicts a Firebolt supported object model.
 
-![Object Model](../../assets/images/Firebolt_objects_model.png)
+<img src="../../assets/images/Firebolt_objects_model.png" alt="Object Model" width="800"/>
+
 
 Learn more about registering with Firebolt and creating your organization [here](../Guides/managing-your-organization/creating-an-organization.md).
 
