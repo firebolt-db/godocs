@@ -117,18 +117,18 @@ This section demonstrates different primary indexes created on a fact table, `to
 ### Example fact table
 {: .no_toc}
 
-The examples in this section are based on the fact table below. The table is a web log with hundreds of millions of rows. Each record stores an `event_count` of each `event_type` for HTML elements identified by `asset_id` and the `customer_id` of the visitor that initiated the event. The table is denormalized. No single column has unique values.
+The examples in this section are based on the fact table below. Each record stores the current level and high score of a player, identified by theirr `playerid` and `nickname`. 
 
 #### Table DDL
 {: .no_toc}
 
 ```sql
-CREATE FACT TABLE events_log (
-  visit_date DATE,
-  asset_id TEXT,
-  customer_id TEXT NOT NULL,
-  event_type TEXT,
-  event_count INTEGER NOT NULL
+CREATE FACT TABLE player_information (
+  registeredon DATE,
+  playerid TEXT,
+  nickname TEXT NOT NULL,
+  currentscore BIGINT,
+  level INTEGER NOT NULL
 )
 PRIMARY INDEX <see examples below>;
 ```
@@ -136,35 +136,22 @@ PRIMARY INDEX <see examples below>;
 #### Table contents (excerpt)
 {: .no_toc}
 
-```
-+------------+--------------------------------------+-------------+------------+-------------+
-| visit_date |               asset_id               | customer_id | event_type | event_count |
-+------------+--------------------------------------+-------------+------------+-------------+
-| 2018-05-30 | a974ff70-3367-4460-bd2e-e26de9439469 |       78152 | click      |         137 |
-| 2020-11-13 | 3d58b0a0-f838-428b-8f1c-2ff30aa9b9ea |       57328 | mouseover  |         104 |
-| 2020-07-11 | e8c533a4-b039-44df-b3a1-61fdc3d6c21d |       44963 | mouseout   |         111 |
-| 2019-09-06 | 02333518-5a39-4c11-a1a7-ed5e4163cb04 |       70147 | click      |          49 |
-| 2019-05-04 | 83f3a7bc-f6ca-4511-a8fb-74683e2b25cc |       58458 | mouseover  |         127 |
-| 2021-03-19 | 1664be68-d09e-4beb-a5b7-1889ebd06cfb |       40360 | mouseout   |          43 |
-| 2018-05-01 | 37858981-bbea-46bf-8d85-0e9a73062137 |       47880 | mouseover  |         101 |
-| 2018-06-19 | c5e7882b-3639-42ee-93f0-8bf5c6e99b14 |       74728 | mouseover  |         141 |
-| 2018-02-28 | 97ac6f85-3bbc-4894-811f-7584304c84f9 |       84802 | mouseout   |          15 |
-| ...        |                                      |             |            |             |
-+------------+--------------------------------------+-------------+------------+-------------+
-```
+| registeredon |    level    | playerid | nickname | currentscore |
+|:------|:------|:------|:-------|:-------|
+| 2018-05-30 | 1 |       78152 | kennethpark      |         137 |
+| 2020-11-13 | 2 |       57328 | sabrina21  |         104 |
+| 2020-07-11 | 3 |       44963 | rileyjon   |         111 |
+| 2019-09-06 | 4 |       70147 | ymatthews      |          49 |
 
 #### Cardinality of columns
 {: .no_toc}
 
 A `COUNT DISTINCT` query on each column returns the following. A higher number indicates higher cardinality.
 
-```
-+----------------+-----------------+--------------------+-----------------+
-| distinct_dates | distinct_assets | distinct_customers | distinct_events |
-+----------------+-----------------+--------------------+-----------------+
-|           1461 |             300 |              89664 |               3 |
-+----------------+-----------------+--------------------+-----------------+
-```
+| distinct_dates | distinct_levels | distinct_currentscores | 
+|:----------------|:-----------------|:--------------------|
+|           1461 |             35 |              89664 |    
+
 
 ### Example query pattern&mdash;date-based queries
 
@@ -177,10 +164,10 @@ Consider the two example queries below that return values with date-based filter
 SELECT
   *
 FROM
-  events_log
+  player_registry
 WHERE
-  visit_date BETWEEN '2020-01-01' AND '2020-01-02'
-  AND customer_id = "11386"
+  registeredon BETWEEN '2020-01-01' AND '2020-01-02'
+  AND playerid = "11386"
   AND event_type = 'click'
 ```
 
@@ -190,47 +177,46 @@ WHERE
 ```sql
 SELECT
   count(*),
-  visit_date
+  registeredon
 FROM
-  events_log
+  players
 WHERE
-  EXTRACT(YEAR FROM visit_date) = ‘2021’
+  EXTRACT(YEAR FROM registeredon) = ‘2021’
 ```
 
 For both queries, the best primary index is:
 
 ```sql
-PRIMARY INDEX (visit_date, customer_id, event_type)
+PRIMARY INDEX (registeredon, playerid, event_type)
 ```
 
 * With `visit_date` in the first position in the primary index, Firebolt sorts and compresses records most efficiently for these date-based queries.
-* The addition of `customer_id` in the second position and `event_type` in the third position further compresses data and accelerates query response.
-* `customer_id` is in the second position because it has higher cardinality than `event_type`, which has only three possible values.
-* `asset_id` is not used in query filters, so it is omitted.
+* The addition of `playerid` in the second position and `event_type` in the third position further compresses data and accelerates query response.
+* `playerid` is in the second position because it has higher cardinality than `event_type`, which has only three possible values.
 
 For query 2, you can improve performance further by partitioning the table according to year as shown in the query excerpt below.
 
 ```
-PRIMARY INDEX (visit_date, customer_id, event_type)
-PARTITION BY (EXTRACT (YEAR FROM visit_date))
+PRIMARY INDEX (registeredon, playerid, event_type)
+PARTITION BY (EXTRACT (YEAR FROM registeredon))
 ```
 
 Without the partition, Firebolt likely must scan across file segments to return results for the year 2021. With the partition, segments exist for each year, and Firebolt can read all results from a single segment. If the query runs on a multi-node engine, the benefit may be greater. Firebolt can avoid pulling data from multiple engine nodes for results.
 
 ### Example query pattern&mdash;customer-based query
 
-Consider the example query below that returns the sum of `click` values for a particular customer.
+Consider the example query below that returns the sum of `click` values for a particular player registry.
 
 ```sql
 SELECT
-  asset_id,
-  customer_id,
+  playerid,
+  nickname,
   event_type,
   SUM(event_value)
 FROM
   events
 WHERE
-  customer_id = "14493"
+  playerid = "14493"
   AND event_type = 'click'
   AND event_value > 0
 GROUP BY
@@ -242,10 +228,10 @@ GROUP BY
 For this query, the best primary index is:
 
 ```sql
-PRIMARY INDEX (customer_id, asset_id, event_type)
+PRIMARY INDEX (playerid, asset_id, event_type)
 ```
 
-* `customer_id` is in the first position because it has the highest cardinality and sorts and prunes data most efficiently for this query.
+* `playerid` is in the first position because it has the highest cardinality and sorts and prunes data most efficiently for this query.
 * The addition of `asset_id` won’t accelerate this particular query, but adding it is not detrimental.
 * Although `event_type` has low cardinality, because it’s contained in the `WHERE` clause, adding it to the primary index has some benefit.
 
@@ -282,16 +268,16 @@ PRIMARY INDEX visit_date, upper _customer_id;
 
 ```sql
 INSERT INTO
-  events_log
+  player_registry 
 SELECT
-  visit_date,
+  registeredon,
   asset_id,
-  customer_id,
+  playerid,
   event_type,
   event_count,
-  UPPER(customer_id) AS upper_customer_id
+  UPPER(playerid) AS upper_player_id
 FROM
-  ext_tbl_events;
+  players;
 ```
 
 #### Step 3&mdash;query using the virtual column in predicates
@@ -301,9 +287,9 @@ The example `SELECT` query below uses the virtual column to produce query result
 
 ```sql
 SELECT
-  customer_id
+  playerid
 FROM
-  events_log
+  players
 WHERE
-  upper_customer_id LIKE ‘AAA%’;
+  upper_player_id LIKE ‘AAA%’;
 ```
