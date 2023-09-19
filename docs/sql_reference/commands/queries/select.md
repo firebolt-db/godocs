@@ -86,7 +86,7 @@ In order to reference the data from the `WITH` clause, a name must be specified 
 
 The primary query and the queries included in the `WITH` clause are all executed at the same time; `WITH` queries are evaluated only once every time the main query is executed, even if the clause is referred to by the main query more than once.
 
-### Materialized common table expressions (Beta)
+### Materialized common table expressions
 {: .no_toc}
 
 The query hint `MATERIALIZED` or `NOT MATERIALIZED` controls whether common table expressions (CTEs) produce an internal results table that is cached in engine RAM (`MATERIALIZED`) or calculated each time the sub-query runs. `NOT MATERIALIZED` is the default. `MATERIALIZED` must be specified explicitly.
@@ -201,7 +201,7 @@ FROM <join_table1> [ INNER | LEFT | RIGHT | FULL ] JOIN <join_table2> USING (col
 | `<join_table2>`       | A second table or view to be used in the join operation.                                                                                                                                                              |
 | `USING (column_list)` | A list of one or more columns to compare for exact matching. `USING` is a shortcut to join tables that share the same column names. The specified columns are joined via a basic match condition. The match condition of `USING (column_list)` is equivalent to `ON join_table1.column = join_table2.column` |
 
-### JOIN Types
+### JOIN types
 {: .no_toc}
 
 The type of `JOIN` operation specifies which rows are included between two specified tables. If unspecified, `JOIN` defaults to `INNER JOIN`.
