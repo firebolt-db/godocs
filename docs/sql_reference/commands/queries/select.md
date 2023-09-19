@@ -54,7 +54,7 @@ The expression can reference any column from the `FROM` clause, but cannot refer
 #### Example
 
 ```sql
-SELECT price, quantity, price * quantity AS sales_amount FROM Sales
+SELECT currentscore, currentspeed, currentlevel * playterid AS score_information FROM playstats
 ```
 
 ### SELECT wildcard
@@ -218,66 +218,56 @@ The type of `JOIN` operation specifies which rows are included between two speci
 ### Examples
 {: .no_toc}
 
-The `JOIN` examples below use two tables, `num_test` and `num_test2`. These tables are created and populated with data as follows.
+The `JOIN` examples below use two tables, `level_one_players` and `level_two_players`. These tables are created and populated with data as follows.
 
 ```sql
-CREATE DIMENSION TABLE num_test (
-    firstname TEXT,
-    score INTEGER);
+CREATE DIMENSION TABLE level_one_players (
+    nickname TEXT,
+    currentscore INTEGER);
 
 INSERT INTO num_test VALUES
-    ('Carol', 11),
-    ('Albert', 50),
-    ('Sammy', 90),
-    ('Peter', 50),
-    ('Deborah', 90),
-    ('Frank', 87),
-    ('Thomas', 85),
-    ('Humphrey', 56);
+    ('kennethpark', 11),
+    ('rileyjon', 50),
+    ('sabrina21', 90),
+    ('steven70', 50)
 
-CREATE DIMENSION TABLE num_test2 (
-    firstname TEXT,
-    score INTEGER);
+CREATE DIMENSION TABLE level_two_players (
+    nickname TEXT,
+    currentscore INTEGER);
 
 INSERT INTO num_test2 VALUES
-    ('Sammy', 90),
-    ('Hector', 56),
-    ('Tom', 85),
-    ('Peter', 50),
-    ('Carl', 100),
-    ('Frank', 87),
-    ('Deborah', 90),
-    ('Albert', 50);
+    ('aaronbutler', 90),
+    ('esimpson', 56),
+    ('ruthgill', 85),
+    ('adrianachoi', 50)
+
 ```
 
 The tables and their data are shown below.
 
-| num_test.firstname | num_test.score | num_test2.firstname | num_test2.score |
+| level_one_players.nickname | level_one_players.currentscore | level_two_players.nickname| level_two_players.currentscore |
 | :--------------------| :----------------| :---------------------| :-----------------|
-| Carol              |             11 | Sammy               |              90 |
-| Albert             |             50 | Hector              |              56 |
-| Sammy              |             90 | Tom                 |              85 |
-| Peter              |             50 | Peter               |              50 |
-| Deborah            |             90 | Carl                |             100 |
-| Frank              |             87 | Frank               |              87 |
-| Thomas             |             85 | Deborah             |              90 |
-| Humphrey           |             56 | Albert              |              50 |
+| kennethpark              |             11 | aaronbutler               |              90 |
+| rileyjon             |             50 | esimpson              |              56 |
+| sabrina21              |             90 | ruthgill                 |              85 |
+| steven70              |             50 | adrianachoi               |              50 |
+
 
 #### INNER JOIN example
 {: .no_toc}
 
-The `INNER JOIN` example below includes only the rows where the `firstname` and `score` values match.
+The `INNER JOIN` example below includes only the rows where the `nickname` and `currenscore` values match.
 
 ``` sql
 SELECT
     *
 FROM
-    num_test
+    level_one_players
 INNER JOIN
-    num_test2
+    level_two_players
     USING (
-        firstname,
-        score
+        nickname,
+        currentscore
 	);
 ```
 
@@ -287,79 +277,75 @@ This query is equivalent to:
 SELECT
     *
 FROM
-    num_test
+    level_one_players
 INNER JOIN
-    num_test2
-        ON num_test.firstname = num_test2.firstname
-        AND num_test.score = num_test2.score;
+    level_two_players
+        ON level_one_players.nickname = level_two_players.nickname
+        AND level_one_players.currentscore = level_two_players.score;
 ```
 
 **Returns**
 
-| num_test.firstname | num_test.score | num_test2.firstname | num_test2.score |
+| level_one_players.nickname | level_one_players.currentscore | level_two_players.nickname| level_two_players.currentscore |
 | :-----------| :-------| :------------| :--------|
-| Sammy     |    90 | Sammy      |     90 |
-| Peter     |    50 | Peter      |     50 |
-| Albert    |    50 | Albert     |     50 |
-| Deborah   |    90 | Deborah    |     90 |
-| Frank     |    87 | Frank      |     87 |
+| lauradavis     |    90 | lauradavis      |     90 |
+| hamiltonjorge     |    50 | hamiltonjorge      |     50 |
+| adrian26    |    50 | adrian26     |     50 |
+| leahbyrd   |    90 | leahbyrd    |     90 |
+| rachelortiz     |    87 | rachelortiz      |     87 |
 
 #### LEFT OUTER JOIN example
 {: .no_toc}
 
-The `LEFT OUTER JOIN` example below includes all `firstname` values from the `num_test` table. Any rows with no matching value in the `num_test2` table return `NULL`.  
+The `LEFT OUTER JOIN` example below includes all `nickname` values from the `level_one_players` table. Any rows with no matching value in the `level_two_players` table return `NULL`.  
 
 ``` sql
 SELECT
-    num_test.firstname,
-    num_test2.firstname
-FROM num_test
+    level_one_players.nickname,
+    level_two_players.nickname
+FROM level_one_players
 LEFT OUTER JOIN
-    num_test2
-    USING (firstname);
+    level_two_players
+    USING (nickname);
 ```
 
 **Returns**
 
-| num_test.firstname | num_test2.firstname |
+| level_one_players.nickname | level_two_players.nickname |
 |:-----------| :------------|
-| Sammy     | Sammy      |
-| Peter     | Peter      |
-| Carol     | NULL       |
-| Albert    | Albert     |
-| Thomas    | NULL       |
-| Humphrey  | NULL       |
-| Deborah   | Deborah    |
-| Frank     | Frank      |
+| kennethpark     | kennethpark      |
+| rileyjon     | rileyjon      |
+| sabrina21     | NULL       |
+| steven70    | steven70     |
+
 
 #### RIGHT OUTER JOIN example
 {: .no_toc}
 
-The `RIGHT OUTER JOIN` example below includes all `firstname` values from `num_test2`. Any rows with no matching values in the `num_test` table return `NULL`.
+The `RIGHT OUTER JOIN` example below includes all `nickname` values from `level_two_players`. Any rows with no matching values in the `level_one_players` table return `NULL`.
 
 ``` sql
 SELECT
-    num_test.firstname,
-    num_test2.firstname
+    level_one_players.nickname,
+    level_two_players.nickname
 FROM
-    num_test
+    level_one_players
 RIGHT OUTER JOIN
-    num_test2
-    USING (firstname);
+    level_two_players
+    USING (nickname);
 ```
 
 **Returns**
 
-| num_test.firstname | num_test2.firstname |
+| level_one_players.nickname | level_two_players.nickname |
 | :-----------| :------------|
-| Sammy     | Sammy      |
-| Peter     | Peter      |
-| Albert    | Albert     |
-| Deborah   | Deborah    |
-| Frank     | Frank      |
-| NULL      | Tom        |
-| NULL      | Carl       |
-| NULL      | Hector     |
+| kennethpark     | kennethpark      |
+| sabrina21     | sabrina21      |
+| rileyjon    | rileyjon     |
+| steven70   | steven70    |
+| NULL      | aaronbutler        |
+| NULL      | ruthgill       |
+| NULL      | adrianachoi     |
 
 #### FULL OUTER JOIN example
 {: .no_toc}
@@ -368,69 +354,65 @@ The `FULL OUTER JOIN` example below includes all values from `num_test` and `num
 
 ``` sql
 SELECT
-    num_test.firstname,
-    num_test2.firstname
+    level_one_players.nickname,
+    level_two_players.nickname
 FROM
-    num_test
+    level_one_players
 FULL OUTER JOIN
-    num_test2
-    USING (firstname);
+    level_two_players
+    USING (nickname);
 ```
 
 **Returns**
 
-| num_test.firstname | num_test2.firstname |
+| level_one_players.nickname | level_two_players.nickname |
 | :-----------| :------------|
-| Sammy     | Sammy      |
-| Peter     | Peter      |
-| Deborah   | Deborah    |
-| Frank     | Frank      |
-| Carol     | NULL       |
-| Albert    | Albert     |
-| Thomas    | NULL       |
-| Humphrey  | NULL       |
-| NULL      | Tom        |
-| NULL      | Carl       |
-| NULL      | Hector     |
+| kennethpark     | kennethpark      |
+| sabrina21     | sabrina21      |
+| rileyjon   | rileyjon    |
+| steven70     | steven70      |
+| NULL      | aaronbutler        |
+| NULL      | ruthgill       |
+| NULL      | adrianachoi     |
 
 #### CROSS JOIN example
 {: .no_toc}
 
 A `CROSS JOIN` produces a table with every combination of row values in the specified columns.
 
-This example uses two tables, `crossjoin_test` and `crossjoin_test2`, each with a single `letter` column. The tables contain the following data.
+This example uses two tables with player information, `beginner_player` and `intermediate_player`, each with a single `level` column. The tables contain the following data.
 
-| crossjoin_test.letter | crossjoin_test2.letter |
+| beginner_player.level | intermediate_player.level |
 | :-----------| :------------|
-| a     | x      |
-| b     | y      |
-| c   | z    |
+| 1     | 4      |
+| 2     | 5      |
+| 3   | 6    |
 
 The `CROSS JOIN` example below produces a table of every possible pairing of these rows.
 
 ``` sql
 SELECT
-    crossjoin_test.letter,
-    crossjoin_test2.letter
+    beginner_player.level,
+    intermediate_player.level
 FROM
-    crossjoin_test
+    beginner_player
 CROSS JOIN
-    crossjoin_test2;
+    intermediate_player;
 ```
 
 **Returns**
 
-| crossjoin_test.letter | crossjoin_test2.letter |
+| beginner_player.level | intermediate_player.letter |
 | :-------| :---------|
-| a      | x       |
-| a      | y       |
-| a      | z       |
-| b      | x       |
-| b      | y       |
-| b      | z       |
-| c      | x       |
-| c      | y       |
-| c      | z       |
+| 1      | 4       |
+| 1      | 5       |
+| 1      | 6       |
+| 2      | 4       |
+| 2      | 5       |
+| 2      | 6       |
+| 3      | 4       |
+| 3      | 5       |
+| 3      | 6       |
 
 
 
@@ -474,15 +456,15 @@ The following query with `UNNEST`:
 
 ```sql
 SELECT
-	product,
-	cost
+	player,
+	completed_levels
 FROM
 	table_with_arrays UNNEST(completed_levels);
 ```
 
 Returns the following result:
 
-| player | completed_level |
+| player | completed_levels |
 | :------- | :---- |
 | kennethpark   | 2    |
 | kennethpark   | 5    |
