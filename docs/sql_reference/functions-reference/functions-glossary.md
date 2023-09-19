@@ -36,6 +36,7 @@ All Firebolt functions in alphabetical order.
 | [ARRAY_MIN_GLOBAL](./aggregate-array/array-min-global.md) | Returns the minimum element taken from all the array elements in each group. | Aggregate array |
 | [ARRAY_REPLACE_BACKWARDS](./Lambda/array-replace-backwards.md) | Scans an array from the last to the first element and replaces each of the elements in that array with `array[i + 1]` if the specified function returns 0. The last element of the array is not replaced. | Lambda |
 | [ARRAY_REVERSE](./array/array-reverse.md) | Returns an array of the same size and type as the original array, with the elements in reverse order. | Array |
+| [ARRAY_SLICE](./array/array-slice.md) | Returns a slice of the array based on the indicated offset and length. | Array |
 | [ARRAY_SORT](./Lambda/array-sort.md) | Returns the elements of the input array in ascending order. If the argument function is provided, the sorting order is determined by the result of applying the function on each element of the array. | Lambda |
 | [ARRAY_SUM](./Lambda/array-sum.md) | Returns the sum of elements of the input array. If the argument function is provided, the values of the array elements are converted by this function before summing. | Lambda |
 | [ARRAY_SUM_GLOBAL](./aggregate-array/array-sum-global.md) | Returns the sum of elements in the array column accumulated over the rows in each group. | Aggregate array |
@@ -135,7 +136,6 @@ All Firebolt functions in alphabetical order.
 | [RTRIM](./string/rtrim.md) | Removes all occurrences of optionally specified characters from the right side of a source string. If no trim parameter is specified, all occurrences of common whitespace (ASCII Decimal 32) characters from the right side of the specified source string are removed. | String |
 | [SIGN](./numeric/sign.md) | Returns the sign of a number according to the table below. | Numeric |
 | [SIN](./numeric/sin.md) | Trigonometric function that calculates the sine of a provided value. | Numeric |
-| [SLICE](./array/slice.md) | Returns a slice of the array based on the indicated offset and length. | Array |
 | [SPLIT](./string/split.md) | This function splits a given string by a given separator and returns the result in an array of strings. | String |
 | [SPLIT_PART](./string/split-part.md) | Divides a string based on a specified delimiter into an array of substrings. The string in the specified index is returned, with 1 being the first index. If the string separator is empty, the string is divided into an array of single characters. | String |
 | [SQRT](./numeric/sqrt.md) | Returns the square root of a non-negative numeric expression. | Numeric |

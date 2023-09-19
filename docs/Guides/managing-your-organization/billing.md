@@ -37,3 +37,5 @@ The **Usage** page shows accrued charges for **Storage** and **Compute** for the
 * In the configure space choose **Billing**.
 
 The current bill estimate for the entire organization is displayed alongside the ability to connect the organization with a different AWS Marketplace account by choosing Update AWS connection.
+
+Firebolt billing is reported to the AWS Marketplace at the beginning of the next day. By default, the **Accounts & Billing** page displays the engine usage breakdown based on billing time. If you prefer to see the engine usage by actual usage day, you can click the **Engines breakdown** selector under the **Usage cost by engine** table and click **Actual running time**. 
