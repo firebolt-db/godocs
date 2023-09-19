@@ -117,7 +117,7 @@ This section demonstrates different primary indexes created on a fact table, `to
 ### Example fact table
 {: .no_toc}
 
-The examples in this section are based on the fact table below. Each record stores the current level and high score of a player, identified by theirr `playerid` and `nickname`. 
+The examples in this section are based on the fact table below. Each record stores the current level and high score of a player, identified by their `playerid` and `nickname`. 
 
 #### Table DDL
 {: .no_toc}
