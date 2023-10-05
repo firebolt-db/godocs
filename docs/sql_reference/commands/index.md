@@ -41,7 +41,7 @@ Use the functional list below to find commands for a specific task area that you
 * [COPY TO](./data-management/copy-to.md)
 * [DELETE](./data-management/delete.md)
 * [INSERT](./data-management/insert.md)
-* [TRUNCATE TABLE](./data-definition/truncate-table.md)
+* [TRUNCATE TABLE](./data-management/truncate-table.md)
 * [UPDATE](./data-management/update.md)
 * [VACUUM](./data-management/vacuum.md)
 
