@@ -106,8 +106,7 @@ ORDER BY
 
 **Returns:**
 
-Disclaimer
-: The exact format of this result is still subject to change until the full release of this feature.
+`explain_logical`:
 
 ```
 explain_logical:
