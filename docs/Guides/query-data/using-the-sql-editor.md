@@ -24,7 +24,7 @@ You can launch the SQL editor for a database either from the left navigation pan
 
 1.  Choose the **>\_** icon from the left navigation pane.
 
-    ![](../assets/images/work-with-our-sql-editor-select-editor-from-nav.png)
+    ![](../../assets/images/work-with-our-sql-editor-select-editor-from-nav.png)
 
     The editor for the database that you last worked with opens, and the database is selected from the list.
 
@@ -34,7 +34,7 @@ You can launch the SQL editor for a database either from the left navigation pan
 
 *   From the Databases list, hover over the **Database name** and then choose the **>\_** icon.
 
-    ![](../assets/images/work-with-our-sql-editor-select-editor-from-db.png)
+    ![](../../assets/images/work-with-our-sql-editor-select-editor-from-db.png)
 
 ## Quick tour
 
@@ -46,7 +46,7 @@ The SQL editor is organized into three panes.
 
 * The right pane is an object viewer that shows you the tables, views, and indexes in your database. You must start an engine before objects are visible. You can select an object to view its attributes. For example, you can select a table from the list of tables to view columns and data types.  
 
-  ![](../assets/images/work-with-our-sql-editor-select-editor-quicktour.png)
+  ![](../../assets/images/work-with-our-sql-editor-select-editor-quicktour.png)
 
 ## Editing SQL scripts
 
@@ -60,19 +60,19 @@ As you enter your code in a script tab, Firebolt suggests keywords and object na
 
 You can click the keyboard icon to view available keyboard shortcuts, or you can view a full list on our [keyboard shortcuts page](keyboard-shortcuts-for-sql-editor.md). You can also select an item from the list to perform that action.
 
-![](../assets/images/work-with-our-sql-editor-select-editor-keyboard-shortcuts.png)
+![](../../assets/images/work-with-our-sql-editor-select-editor-keyboard-shortcuts.png)
 
 ### Using script templates
 
 Script templates are available for common tasks, such as creating fact or dimension tables. Place the cursor in the editor where you want to insert code, choose the **\</>** icon, and then select a query template from the list.
 
-![](../assets/images/work-with-our-sql-editor-select-editor-templates.png)
+![](../../assets/images/work-with-our-sql-editor-select-editor-templates.png)
 
 ### Using the CREATE EXTERNAL TABLE template to import data
 
 To create an external table, which is the first step for ingesting data into Firebolt, choose the **Import Data** button from the object pane or choose the download icon and then choose **Import data** as shown in the example below.
 
-![](../assets/images/work-with-our-sql-editor-import-data.png)
+![](../../assets/images/work-with-our-sql-editor-import-data.png)
 
 Firebolt creates a new tab with a `CREATE EXTERNAL TABLE` statement.
 
@@ -93,19 +93,19 @@ Firebolt uses cookies in your client to save the state of unsaved scripts automa
 **To save a script**<a name="scriptsave"></a>
 
 1.  Choose the vertical ellipses in the tab title and then select **Save script**.  
-  ![](../assets/images/work-with-our-sql-editor-save-script.png)
+  ![](../../assets/images/work-with-our-sql-editor-save-script.png)
 
 2.  Type a new name for the script and then press ENTER.  
   The script appears in the **Database scripts** list and is available to you in that database until you delete it. By default, saved scripts are available only in the database where you created them. To make them available in other databases, make them global as described below.  
-  ![](../assets/images/work-with-our-sql-editor-select-editor-db-scripts-list.png)
+  ![](../../assets/images/work-with-our-sql-editor-select-editor-db-scripts-list.png)
 
 **To make a script global (available in other databases)**<a name="scriptglobal"></a>
 
 * Choose the vertical ellipses next to the script in the left pane and then choose **Make script global**.  
-  ![](../assets/images/global_script.png)  
+  ![](../../assets/images/global_script.png)  
 
   Firebolt moves the script to the **Global scripts** list.  
-  ![](../assets/images/global_script_list.png)
+  ![](../../assets/images/global_script_list.png)
   
 **To rename a script**<a name="scriptrename"></a>
 
@@ -124,7 +124,7 @@ Firebolt uses cookies in your client to save the state of unsaved scripts automa
 **To import a script from a file**<a name="scriptimport"></a>
 
 1. Choose the arrow icon and then choose **Import script**.  
-  ![](../assets/images/work-with-our-sql-editor-import-script.png)
+  ![](../../assets/images/work-with-our-sql-editor-import-script.png)
 
 2. Browse your computer for a `.sql` file and select it, or drag and drop a file to upload it.  
   Firebolt creates a new tab with the contents of the script you imported.
@@ -149,17 +149,17 @@ While your script is running, its status is displayed at the top of the browser 
 
 After you run a script or query statement, more results appear below the script editor, along with statistics about query execution.
 
-![](../assets/images/workspace_statistics.png)
+![](../../assets/images/workspace_statistics.png)
 
 When running a query, Firebolt provides several statistics to help you understand and monitor the performance. These statistics can be viewed in the SQL editor, just above the query results table. From left to right, these icons represent the following:
 
 | Icon | Name  | Description |
 | :--- | :---- | :---------- |
-| ![](../assets/images/Row_count.png)     | **Row count**     | The total number of rows returned by a query. |
-| ![](../assets/images/Elapsed_time.png)  | **Elapsed Time**  | The total time needed to complete a query. |
-| ![](../assets/images/Scanned_bytes.png) | **Scanned Bytes** | The total amount of bytes scanned to complete a query. This includes scanned memory in the engine cache as well as the F3 storage. |
-| ![](../assets/images/Rows_Second.png)   | **Rows / Second** | The number of rows scanned per second. |
-| ![](../assets/images/Warm_data.png)     | **Cached data ratio** | The percentage of data served from cache (engine SSD and RAM) rather than F3 storage. Equal to `<cached_bytes_scanned>`/`<total_bytes_scanned>`. Cached data is scanned very quickly. A high percentage indicates improved query response times. A low percentage indicates that query performance could be improved by [configuring indexes](../../Overview/using-indexes.md), changing your [warmup method](../../Overview/understanding-engine-fundamentals.md#warmup-method), or [changing the spec of your engine](../../Overview/choosing-an-engine.md) to have a bigger cache. |
+| ![](../../assets/images/Row_count.png)     | **Row count**     | The total number of rows returned by a query. |
+| ![](../../assets/images/Elapsed_time.png)  | **Elapsed Time**  | The total time needed to complete a query. |
+| ![](../../assets/images/Scanned_bytes.png) | **Scanned Bytes** | The total amount of bytes scanned to complete a query. This includes scanned memory in the engine cache as well as the F3 storage. |
+| ![](../../assets/images/Rows_Second.png)   | **Rows / Second** | The number of rows scanned per second. |
+| ![](../../assets/images/Warm_data.png)     | **Cached data ratio** | The percentage of data served from cache (engine SSD and RAM) rather than F3 storage. Equal to `<cached_bytes_scanned>`/`<total_bytes_scanned>`. Cached data is scanned very quickly. A high percentage indicates improved query response times. A low percentage indicates that query performance could be improved by [configuring indexes](../../Overview/using-indexes.md), changing your [warmup method](../../Overview/understanding-engine-fundamentals.md#warmup-method), or [changing the spec of your engine](../../Overview/choosing-an-engine.md) to have a bigger cache. |
 
 ### Viewing query statistics with results
 
@@ -167,7 +167,7 @@ While viewing query results, you can choose to view a selection of prepared stat
 
 To view query statistics, choose the expansion arrow to the left of a result table header row.
 
-![](../assets/images/column_statistics.png)
+![](../../assets/images/column_statistics.png)
 
 Each column expands to show statistics on a new row located just below the header. The statistics shown in each cell depend on the column’s [data type](../../sql_reference/data-types.md).
 
@@ -182,7 +182,7 @@ Each column expands to show statistics on a new row located just below the heade
 
 You can view additional statistics and visualizations by selecting the expand icon that appears when you mouse over the bottom right of the statistics row cell. This opens up a side panel with a dashboard of more statistics detailing the selected column.
 
-![](../assets/images/2021-09-09_12-25-02.png)
+![](../../assets/images/2021-09-09_12-25-02.png)
 
 ### Viewing multi-statement script results
 
@@ -190,7 +190,7 @@ When you run a script that has multiple SQL statements with result sets (`SELECT
 
 To view the results table for a result set, choose the table icon corresponding to the numbered result set you want to view, or choose the expansion arrow next to the **Statement** and then choose **Open table** as shown in the example below.
 
-![](../assets/images/work-with-our-sql-editor-multi-select-query-results.png)
+![](../../assets/images/work-with-our-sql-editor-multi-select-query-results.png)
 
 ### Exporting results to a local hard drive
 
@@ -200,7 +200,7 @@ You can export up to 10,000 rows of query results to your local hard drive after
 
 2. Choose **Export table as CSV** or **Export table as JSON**.  
 Firebolt downloads the file type that you chose to the default download location for your browser.  
-![](../assets/images/download_icon.png)
+![](../../assets/images/download_icon.png)
 
 It is possible to export the results of a single query alongside the results summary of all queries run in your script (with the statistics).
 
@@ -208,4 +208,4 @@ It is possible to export the results of a single query alongside the results sum
 
 Select the toggle at the bottom of the left navigation pane to turn dark mode on and off.
 
-![](../assets/images/dark_mode.png)
+![](../../assets/images/dark_mode.png)
