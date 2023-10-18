@@ -32,3 +32,13 @@ The following command will create a role "user_role"
 ```sql
 CREATE ROLE user_role;
 ```
+
+## Example 2
+
+The following command will create a role "user_role_2"
+
+```
+CREATE ROLE IF NOT EXISTS my_role_2
+```
+
+If "my_role_2" exists, no error message is thrown
