@@ -7,205 +7,165 @@ nav_order: 7
 grand_parent: Guides
 ---
 
-# Role-based access control (Alpha)
+# Manage role-based access control
 {: .no_toc}
 
-{: .warning}
-In preparation for general availability of role-based access control with enhanced functionality in a future release, this alpha version of the feature has been deprecated in DB version 3.24. 
+Role-based access control provides the ability to control privileges and determine who can access and perform operations on specific objects in Firebolt. Access privileges are assigned to roles which are, in turn, assigned to users or other roles. A user can be assigned multiple roles. 
 
-Database-level, role-based access control provides the ability to control privileges and determine who can access and perform operations on specific objects in Firebolt. Access privileges are assigned to roles that are, in turn, assigned to users. 
+A user interacting with Firebolt must have the appropriate privileges to use an object. Privileges from all roles assigned to a user are considered in each interaction in Firebolt. 
 
-A user interacting with Firebolt must have the appropriate privileges to use an object. Privileges from all roles assigned to a user are considered in each interaction with a secured object. 
-
-The key concepts to understanding access control in Firebolt with DB-level RBAC are:
-
-  **Secured object:** an entity to which access can be granted: database, engine subscription.
-
-  **Role:** An entity to which privileges can be granted. Roles are assigned to users.
-
-  **Privilege:** a defined level of access to an object.
-
-  **User:** A user identity recognized by Firebolt. It can be associated with a person or a program. Each user can be assigned multiple roles.
-
-{: .caution}
->**Alpha Release** 
->
->As we learn more from you, we may change the behavior and add new features. We will communicate any such changes. Your engagement and feedback are vital.
-
-## Role types
-Roles are entities to which privileges on securable objects are assigned. Roles are assigned to users to allow them to achieve the required tasks on the relevant objects to fulfill their business needs.
-
-Firebolt comes out of the box with system-defined roles per each account. Those roles cannot be deleted from your account, the same as the privileges granted to the system-defined roles, which cannot be revoked.
-
-Users granted the account admin role can create custom roles to meet specific needs. Moreover, users granted the account admin role can grant roles to other users.
-
-## Privileges
-There is a set of privileges that can be granted for every securable object.
-### Database
-
-| Privilege          | Description |
-| :---------------   | :---------- |
-| READ               | Enables running SELECT on the database’s tables, views, and ATTACH engines. |
-| WRITE              | Enables:<br>Running CREATE/DROP tables, views, and indexes on a database’s tables.<br>Running INSERT data into a database’s tables.<br>Altering the properties of a database.<br>Dropping a database. |
-| CREATE              | Enables creating new databases in the account. |
-
-### Engine
-
-| Privilege          | Description |
-| :---------------   | :---------- |
-| USAGE              | Enables using an engine and, therefore, executing queries on it. |
-| OPERATE            | Enables changing the state of an engine (stop, start). |
-| CREATE             | Enables creating new engines in the account. |
-| DROP               | Enable executing drop engine on a specific engine. |
-| MODIFY             | Enables altering any properties of an engine. |
-
+To view all roles, click **Govern** to open the govern space, then choose **Roles** from the menu, or query the [information_schema.applicable-roles](../../sql_reference/information-schema/applicable-roles.md) view.
 
 ## System-defined roles
-**Account Admin**<br>
-A role that has the privileges to manage users, billing, and roles alongside all database and engine privileges to existing and future objects in the account.
 
-**DB Admin**<br>
-A role with all database and engine privileges in the account.
+Roles are assigned to users to allow them to complete tasks on relevant objects to fulfill their business needs. Firebolt comes with system-defined roles per account.
 
-**Viewer**<br>
-A role that has READ privilege on all existing and future databases in the account alongside USAGE privilege on all existing and future engines.
+| Role Name      | Description                                                                                                                                                                                                             | 
+|:---------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| public         | Enables querying any database in the account.                                                   |
+| security_admin | Enables managing all account roles (with the ability to manage grants) and users. |
+| system_admin   | Enables managing databases, engines, schemas, tables, views, external tables, and grants, as well as setting database and engine properties. In addition, the system_admin role enables access to the observability functionality on all engines. |
+| account_admin  | Enables all the privileges of the system_admin and security_admin roles alongside the ability to manage the account. |
 
-**Custom roles**<br>
-A user granted the Account Admin role can create custom roles. 
+System defined roles can neither be modified nor dropped. Users with the `account_admin` role can grant roles to other users.
 
-## Working with roles
-### Create a custom role using SQL
-`CREATE ROLE [IF NOT EXISTS] <role>`
+## Custom roles
 
-| Property           | Description |
+A user with either the `account_admin` or `security_admin` role can create custom roles. You can create a custom role using SQL, or via the UI.  
+
+## Privileges
+A set of privileges can be granted for every securable object. See which privileges are available for accounts, databases and engines below. To view all privileges, query the [information_schema.object_privileges](../../sql_reference/information-schema/object-privileges.md) view. 
+
+### Account
+Privileges can be granted for accounts to allow creating databases and engines.
+
+| Privilege           | Description                                                                    |
+|:--------------------|:-------------------------------------------------------------------------------|
+| CREATE DATABASE     | Enables creating new databases in the account.                                 |
+| USAGE ANY DATABASE  | Enables using all current and future databases in the account.  |
+| MODIFY ANY DATABASE | Enables editing all current and future databases in the account. |
+| CREATE ENGINE       | Enables creating new engines in the account.                                   |
+| USAGE ANY ENGINE    | Enables using all current and future engines in the account.    |
+| OPERATE ANY ENGINE  | Enables starting and stopping all current and future engines in the account.  |
+| MODIFY ANY ENGINE   | Enables editing all current and future engines in the account.    |
+
+#### Database
+Privileges can be granted for databases to allow usage and modification of databases per account. 
+
+| Privilege          | Description |
 | :---------------   | :---------- |
-| role               | The name of the role. |
+| USAGE              | Enables querying tables and views, and attaching engines to the database. |
+| MODIFY             | Enables:<br>Creating or dropping tables, views, and indexes on the database.<br>Inserting data into the database's tables.<br>Altering the properties of a database.<br>Dropping a database. |
 
-**Example**
-`CREATE ROLE my_role`
+#### Engine
+Privileges can be granted for engines to allow usage, operation and modification of engines per account. 
 
-Creates a custom role `my_role`.
-
-**Example 2**
-
-`CREATE ROLE IF NOT EXISTS my_role_2`
-
-Creates a custom role `my_role_2`. If `my_role_2` exists, no error message is thrown.
-
-### Create a custom role using the UI
-1. In the Firebolt manager, choose the Admin icon in the navigation pane, then choose Role Management.
-2. Under Role Name, enter the name of the role.
-
-### Add Database and Engine privileges:
-1. Under Role Privileges, choose the secured object you want to manage access for: choose either Databases or Engines respectively.
-2. Select the required privileges on the relevant secured object. You can either choose to enable the privilege for a specific object for all existing objects or bulk enable a privilege on all secured objects (this applies to all existing and future objects).
-
-### Delete custom role using SQL
-`DROP ROLE [IF EXISTS] <role>`
-
-| Property           | Description |
+| Privilege          | Description |
 | :---------------   | :---------- |
-| role               | The name of the role. |
+| USAGE              | Enables using the engine to execute queries. |
+| OPERATE            | Enables stopping and starting the engine. |
+| MODIFY             | Enables dropping or altering any properties of the engine. |
 
-**Example**
-`DROP ROLE my_role`
+## Create role
 
-Deletes a custom role.
+### SQL
+To create a custom role using SQL, use the [`CREATE ROLE`](../../sql_reference/commands/access-control/create-role.md) statement. For example:
 
-**Example 2**
+```sql
+CREATE ROLE user_role;
+```
 
-`DROP ROLE IF EXISTS my_role_2`
+### UI
+To create a custom role via the UI:
 
-Deletes custom role `my_role_2`. If `my_role_2` not exists, no error message is thrown.
+![Govern > Roles](../../assets/images/rolespage.png)
 
-### Delete a custom role using the UI
-1. In the Firebolt manager, choose the Admin icon in the navigation pane, then choose Role Management.
-2. Locate the custom role you would like to delete, then choose Delete role.
+1. Click **Govern** to open the govern space, then choose **Roles** from the menu.
+2. From the Roles management page, choose **New role**. 
+3. Enter a role name. 
+4. Choose the object type you want to grant privileges on for the role from the left-hand list; databases or engines.
+4. Choose the privileges you want to grant for each object type. You can use the toggles at the top to grant privileges over all databases or engines, or you can define privileges more granularly on existing databases or engines using the table views, where you can also search by database or engine name.
 
-### Managing users' roles
-Roles can be granted to users upon creation or after a user is created. Granting roles to new users is done when the user is invited to your account using the UI.
+<img src="../../assets/images/createrole.png" alt="Create role" width="500"/>
 
-### Manage user’s roles using SQL
-`GRANT role to user`
-`GRANT ROLE <role> TO USER <user_name>`
+## Delete role
+To delete a custom role using SQL, use the [`DROP ROLE`](../../sql_reference/commands/access-control/drop-role.md) statement. For example:
 
-**Example**
-`GRANT ROLE my_role TO USER “john@acme.com”`
+```sql
+DROP ROLE user_role;
+```
 
-Grants a role to a user.
+### UI
+To delete a custom role via the UI:
 
-| Property           | Description |
-| :---------------   | :---------- |
-| role               | The name of the role. |
-| user_name          | The username (email - i.e: john@acme.com) | 
+1. Click **Govern** to open the govern space, then choose **Roles** from the menu.
+2. Search for the relevant role using the top search filters or by scrolling through the list. Hover over the right-most column to make the role menu appear, then choose **Delete role**. 
+3. Choose **Confirm**.
 
+<img src="../../assets/images/deleterole.png" alt="Delete role" width="500"/>
 
-`REVOKE role from user`
-`REVOKE ROLE <role> FROM USER <user_name>`
+## Grant privileges to a role
 
-**Example:**
-`REVOKE ROLE my_role FROM USER “john@acme.com”`
+### SQL 
+To grant a privilege to a role using SQL, use the [`GRANT`](../../sql_reference/commands/access-control/grant.md) statement. For example:
 
-Revokes a role from a user.
+```sql
+GRANT USAGE ON DATABASE my_db TO user_role;
+```
 
-| Property           | Description |
-| :---------------   | :---------- |
-| role               | The name of the role. |
-| user_name          | The username (email - i.e: john@acme.com) | 
+### UI
+To grant a privilege to a role via the UI:
+1. Click **Govern** to open the govern space, then choose **Roles** from the menu:
 
-### Manage user’s roles using the UI
-Managing roles for existing users is performed as follows:
-1. In the Firebolt manager, choose the Admin icon in the navigation pane, then choose User Management.
-2. Locate the relevant user, then on the right, choose the options icon, then choose Edit user details.
-3. Select roles that need to be granted to the user and de-select roles that need to be revoked.
-4. Choose Update user details to save the changes.
+![Govern > Roles](../../assets/images/govern_roles.png)
 
-### Role management
-Roles are managed using SQL or on the role management page in Firebolt manager. To get to this page in the Firebolt manager, choose the Admin icon in the navigation pane, then choose Role Management.
+2. Search for the relevant role using the top search filters, or by scrolling through the list of logins. Hover over the right-most column to make the role menu appear, then choose **Edit role**. 
+3. Choose the privileges tab for the object type you want to manage privileges for, then select the desired privileges. To grant privileges over all objects of that type, choose the topmost line.
+4. Click **Update**.
 
-### Grant privilege to a role using SQL
-`GRANT <privilege> ON { <object_type> <object_name> | ALL FUTURE <object_type_in_plural>} TO ROLE <role>`
+<img src="../../assets/images/create_edit_role.png" alt="Edit role" width="500"/>
 
-**Example**
-`GRANT READ ON DATABASE my_db TO ROLE my_role`
+## Grant role
 
-Grant a privilege to a role.
+### SQL
+To grant a role to a user or another role using SQL, use the [`GRANT ROLE`](../../sql_reference/commands/access-control/grant.md) statement. For example:
 
-| Property              | Description |
-| :---------------      | :---------- |
-| privilege             | The privilege. | 
-| role                  | The name of the role. |
-| object_type           | The type of the secured object (database/engine). | 
-| object_name           | The name of the secured object (database/engine). | 
-| object_type_in_plural | The type of the secured object in plural(databases/engines). | 
+```sql
+GRANT ROLE user_role TO ROLE user2_role;
+```
 
-### Grant privilege to a role using the UI
-1. Under Role Privileges, choose the secured object you want to manage access for: choose either Databases or Engines respectively.
-2. Select the required privileges on the relevant secured object. You can either choose to enable the privilege for a specific object for all existing objects or bulk enable a privilege on all secured objects (this applies to all existing and future objects).
+### UI
+To grant a role to a user via the UI:
+1. Click **Govern** to open the govern space, then choose **Users** from the menu:
 
-### Revoke privilege from role using SQL
-`REVOKE <privilege> ON { <object_type> <object_name> | ALL FUTURE <object_type_in_plural>} FROM ROLE <role>`
+![Govern > Users](../../assets/images/govern_users.png)
 
-**Example**
-`REVOKE READ ON DATABASE my_db FROM ROLE my_role`
+2. Search for the relevant user using the top search filters, or by scrolling through the list of logins. Hover over the right-most column to make the user menu appear, then choose **Edit user details**. 
+3. Check all the roles you want assigned to the user.
+4. Click **Update**.
 
-Revokes a privilege from a role.
+<img src="../../assets/images/create_edit_user.png" alt="Edit user" width="500"/>
 
-| Property              | Description |
-| :---------------      | :---------- |
-| privilege             | The privilege. | 
-| role                  | The name of the role. |
-| object_type           | The type of the secured object (database/engine). | 
-| object_name           | The name of the secured object (database/engine). | 
-| object_type_in_plural | The type of the secured object in plural(databases/engines). | 
+## Revoke privileges 
 
+### SQL 
+To revoke a privilege from a role using SQL, use the [`REVOKE`](../../sql_reference/commands/access-control/revoke.md) statement. For example:
 
-### Revoke privilege from role using the UI
-1. Under Role Privileges, choose the secured object you want to manage access for: choose either Databases or Engines respectively.
-2. De-Select the privileges that must be revoked on the relevant secured object. 
+```sql
+REVOKE USAGE ON DATABASE my_db FROM user_role;
+```
 
-## Known limitations and future release plans
+### UI
+To revoke a privilege from a role via the UI, follow the [same steps above](#grant-privileges-to-a-role) that you would to grant privileges. 
 
-**Support RBAC for more objects**
+## Revoke role 
 
-Currently, RBAC is supported on the DB and engine level only. Support for managing access on the table and view levels will be supported in future releases.
+### SQL 
+To revoke a role from a user or another role using SQL, use the [`REVOKE ROLE`](../../sql_reference/commands/access-control/revoke.md) statement. For example:
+
+```sql
+REVOKE ROLE user_role USER alex;
+```
+
+### UI
+To revoke a role from a user or another role via the UI, follow the [same steps above](#grant-role) that you would to grant a role.  
