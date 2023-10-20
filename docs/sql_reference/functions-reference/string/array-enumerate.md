@@ -2,7 +2,9 @@
 layout: default
 title: ARRAY_ENUMERATE
 description: Reference material for ARRAY_ENUMERATE function
-parent: SQL functions
+grand_parent: SQL functions
+parent: String functions
+great_grand_parent: SQL reference
 ---
 
 # ARRAY\_ENUMERATE
