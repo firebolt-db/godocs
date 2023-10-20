@@ -31,7 +31,7 @@ PERCENTILE_CONT( <value> ) WITHIN GROUP ( ORDER BY <order_by> [ { ASC | DESC } ]
 | `<partition_by>` | An expression used for the partition by clause. | Any |
 
 ## Return Types
-Same as input type. 
+`DOUBLE PRECISION`
 
 ## Example
 {: .no_toc}
