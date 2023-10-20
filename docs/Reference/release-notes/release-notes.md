@@ -40,3 +40,7 @@ You can now use the [EXPLAIN command](../../sql-reference/commands/explain.md) t
 
 The virtual column `source_file_timstamp` has been migrated from the data type `DateTime/Timestamp` (legacy timestamp type without time zone) to the type `TimestampTz` (new timestamp type with time zone).
 
+Despite the increased resolution, the data is still in second precision as AWS S3 provides them only as unix seconds
+
+You must now use `source_file_timestamp - now()` instead of `date_diff('second', source_file_timestamp, now())`
+
