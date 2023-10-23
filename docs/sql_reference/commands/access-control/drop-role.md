@@ -15,7 +15,7 @@ For more information, see [Role-based access control](../../../Guides/managing-y
 ## Syntax
 
 ```sql
-DROP ROLE <role_name>
+DROP ROLE [ IF EXISTS ] <role_name>
 ```
 
 ## Parameters 
@@ -27,8 +27,18 @@ DROP ROLE <role_name>
 
 ## Example
 
-The following command will delete the role "user_role".
+The following command will delete the role "user_role"
 
 ```sql
 DROP ROLE user_role;
 ```
+
+### Example 2
+
+The following command will delete the role "my_role_2"
+
+```sql
+DROP ROLE IF EXISTS my_role_2
+```
+
+If "my_role_2" does not exist, no error message is thrown
