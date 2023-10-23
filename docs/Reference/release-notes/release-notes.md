@@ -44,3 +44,8 @@ Despite the increased resolution, the data is still in second precision as AWS S
 
 You must now use `source_file_timestamp - now()` instead of `date_diff('second', source_file_timestamp, now())`
 
+<!--- FIR-10514 ---> **New function added**
+
+A new function [ARRAY_TO_STRING](../sql-reference/functions-reference/array-to-string.md) has been added as an alias to [ARRAY_JOIN](../sql-reference/functions-reference/array-join.md)
+
+
