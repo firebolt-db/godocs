@@ -29,7 +29,7 @@ All Firebolt functions in alphabetical order.
 | [ARRAY_FIRST](./Lambda/array-first.md) | Returns the first element in the given array for which the given function returns something other than 0. | Lambda |
 | [ARRAY_FIRST_INDEX](./Lambda/array-first-index.md) | Returns the index of the first element in the indicated array for which the given function returns something other than 0. Index counting starts at 1. | Lambda |
 | [ARRAY_INTERSECT](./array/array-intersect.md) | Evaluates all arrays that are provided as arguments and returns an array of any elements that are present in all the arrays. | Array |
-| [ARRAY_JOIN](./array/array-join.md) | Concatenates an array of string elements using an optional delimiter. | Array |
+| [ARRAY_JOIN](./array/array-join.md) | Concatenates an array of string elements using an optional delimiter. (alias for [ARRAY_TO_STRING](./array/array-to-string.md)) | Array |
 | [ARRAY_MAX](./array/array-max.md) | Returns the maximum element in an array. | Array |
 | [ARRAY_MAX_GLOBAL](./aggregate-array/array-max-global.md) | Returns the maximum element from all the array elements in each group. | Aggregate array |
 | [ARRAY_MIN](./array/array-min.md) | Returns the minimum element in an array. | Array |
@@ -40,6 +40,7 @@ All Firebolt functions in alphabetical order.
 | [ARRAY_SORT](./Lambda/array-sort.md) | Returns the elements of the input array in ascending order. If the argument function is provided, the sorting order is determined by the result of applying the function on each element of the array. | Lambda |
 | [ARRAY_SUM](./Lambda/array-sum.md) | Returns the sum of elements of the input array. If the argument function is provided, the values of the array elements are converted by this function before summing. | Lambda |
 | [ARRAY_SUM_GLOBAL](./aggregate-array/array-sum-global.md) | Returns the sum of elements in the array column accumulated over the rows in each group. | Aggregate array |
+| [ARRAY_TO_STRING](./array/array-to-string.md) | Concatenates an array of string elements using an optional delimiter. | Array |
 | [ARRAY_UNIQ](./array/array-uniq.md) | Returns the number of different elements in the array if one argument is passed. If multiple arguments are passed, returns the number of different tuples of elements at corresponding positions in multiple arrays. | Array |
 | [ASIN](./numeric/asin.md) | Calculates the arcsine of a value. Returns NULL if the input value is higher than 1. | Numeric |
 | [ATAN](./numeric/atan2.md) | Calculates the arc tangent of the real number returned by the specified expression. | Numeric |
