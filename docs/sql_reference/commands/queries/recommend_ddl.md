@@ -7,7 +7,7 @@ parent: Queries
 ---
 
 # RECOMMEND DDL
-`CALL recommend_ddl` can help you to optimize schema configuration to enhance query performance. The statement finds primary index and partition by recommendations for a specified table tailored to a workload.
+`CALL recommend_ddl` can help you optimize schema configurations to enhance query performance by early data pruning. The statement finds [primary indexes](../../../Guides/working-with-indexes/using-primary-indexes.md) (PIs) and [parition key](../../../Overview/working-with-tables/working-with-partitions.md) (PartK) recommendations for the specified table tailored to the given workload.
 
 ## Syntax
 
@@ -20,7 +20,7 @@ CALL recommend_ddl(<table_name>, (<select_statement>))
 
 | Parameter              | Description |
 | :--------------------- | :---------- |
-| `<table_name>`  | The name of the table for which primary index and partition key recommendations should be found. |
+| `<table_name>`  | The name of the table for which primary indexes and partition keys should be recommended. |
 | `<select_statement>`    | [SELECT](./select.md) statement that returns the workload that the DDL recommendation is based on. The `<select_statement>` must return exactly one column of type `TEXT`. |
 
 ## Example
@@ -35,10 +35,43 @@ The `<select_statement>` returns exactly one column of type `TEXT` containing th
 
 | recommended_partition_key | recommended_primary_index | scan_savings | analyzed_queries |
 | :--- | :--- | :--- | :--- |
-| DATE_TRUNC('month', l_orderdate) | l_shipmode, l_returnflag, l_shipinstruct | 0.12 | 420 |
+| DATE_TRUNC('month', l_orderdate) | l_shipmode, l_returnflag, l_shipinstruct | 0.42 | 393 |
 
-The `CALL recommend_ddl` results indicate that the amount of bytes scanned can be decreased by up to 21% by configuring `"l_shipmode, l_returnflag, l_shipinstruct"` as a primary index and `"DATE_TRUNC('month', l_orderdate)"` as the partition by expression.
-The statement analyzed 420 queries returned by the <select_statement> that scanned the `lineitem` table and applied filters to any of the `lineitem` columns.
+The `CALL recommend_ddl` results indicate that the amount of bytes scanned can be decreased by up to 42% by configuring `PRIMARY INDEX l_shipmode, l_returnflag, l_shipinstruct` and `PARTITION BY DATE_TRUNC('month', l_orderdate)`.
+The statement analyzed 393 queries that scanned the `lineitem` table and applied filters to any of the `lineitem` columns.
+
+## Quick Setup
+The following steps will guide you to achieve great query performance within the first few minutes after joining Firebolt.
+First, create a table without any primary index and parition key configurations.
+
+```sql
+CREATE TABLE <table_name>(
+    ...
+);
+```
+
+Next, load a workload that you want to run on this table from S3 into Firebolt utilizing [COPY INTO]().
+
+```sql
+COPY INTO workload_table FROM 's3://bucket/workload/' with ... 
+```
+
+Now you can use the `CALL recommend_ddl` command to find primary index and parition key configurations.
+
+```sql
+CALL recommend_ddl(<table_name>, (select * from workload_table));
+```
+
+Finally, recreate the table with the recommended primary index and parition key configurations and ingest the data into this table.
+
+```sql
+DROP TABLE <table_name>;
+CREATE TABLE <table_name>(
+    ...
+)
+PRIMARY INDEX ...
+PARTITION BY ..;
+```
 
 ## Under The Hood
 
