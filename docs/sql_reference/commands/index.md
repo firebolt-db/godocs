@@ -34,6 +34,7 @@ Use the functional list below to find commands for a specific task area that you
 ## Queries
 
 * [EXPLAIN](./queries/explain.md)
+* [RECOMMEND DDL](./queries/recommend_ddl.md)
 * [SELECT](./queries/select.md)
 
 ## Data management

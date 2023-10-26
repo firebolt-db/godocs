@@ -19,6 +19,7 @@ Reserved words have special meanings to the Firebolt SQL engine. We recommend th
 * BOOL
 * BOOLEAN
 * BOTH
+* CALL
 * CASE
 * CAST
 * CHAR

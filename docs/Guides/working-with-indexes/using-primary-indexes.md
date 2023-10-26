@@ -42,7 +42,7 @@ After you create a table, you can’t modify the primary index. To change the in
 
 ## How to choose primary index columns
 
-The columns that you choose for the primary index and the order in which you specify them are important. Use the following recommendations to guide your choices. To see these guidelines in action, see [Primary index examples](#primary-index-examples).
+The columns that you choose for the primary index and the order in which you specify them are important. If you have already defined a workload that you want to run in Firebolt, try out the [CALL recommend_ddl](../../sql_reference/commands/queries/recommend_ddl.html) command to find suitable primary index and partiton key configurations. You can learn more about how primary indexes should be chosen in the [Primary index examples](#primary-index-examples) section.
 
 ### Include columns used in WHERE clauses
 
