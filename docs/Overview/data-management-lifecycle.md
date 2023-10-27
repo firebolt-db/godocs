@@ -28,7 +28,7 @@ Optimistic concurrency comes with increased throughput, because multiple transac
 All of this is implemented in the product to ensure Firebolt can satisfy performance, scale, and throughput requirements that data intensive applications need.
 
 ## Creating tables
-Let’s look at an exmaple of how to create a simple table called rankings.
+Let’s look at an example of how to create a simple table called rankings.
 ```sql
 CREATE TABLE IF NOT EXISTS rankings (
     GameID INTEGER,
@@ -62,7 +62,7 @@ In addition, Firebolt supports singleton inserts via a `INSERT INTO VALUES` stat
 
 Let’s review how these utilities work in more detail, and their corresponding performance.
 
-### Bulk inserts
+Bulk inserts
 In Firebolt, bulk data ingestion utilities are designed to be inherently scalable. There are 4 major stages that each loading process goes through: 
 
 1) reading data from Amazon S3, 
@@ -84,7 +84,7 @@ INSERT INTO rankings SELECT * FROM rankings_ext;
 //rankings_ext object referenced in above SQL statement is an external table pointing to S3 data
 ```
 
-### Singleton insert
+Singleton insert
 While singleton insert is a supported pattern in Firebolt, using bulk insert utilities is recommended to optimize performance of large data ingestion. 
 
 Data inserted by a singleton insert statement gets stored within a single tablet. From the tablet quality perspective, this creates a suboptimal situation, and can lead to table fragmentation in cases where many singleton inserts are executed. This in turn can lead to suboptimal query performance. One way to mitigate this situation is to use a mini batch pattern (a collection of `INSERT INTO VALUES` statements separated by a comma) whenever possible. When a batch of `INSERT INTO VALUES` statements are executed, Firebolt tries to create a single tablet, which will improve tablet quality and reduce table fragmentation.
