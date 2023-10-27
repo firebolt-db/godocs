@@ -6,8 +6,6 @@ nav_order: 5
 parent: Overview
 ---
 
-# Data management lifecycle in Firebolt
-
 At Firebolt, the focus is on delivering the highest levels of performance and efficiency while minimizing the heavy lift that needs to be done by an end user. The foundational elements of Firebolt provide the full data management capabilities needed by modern data applications, including an optimized storage layer, parallel-pipelined data ingestion, primary and aggregated indexes, streamlined deletes and updates, and core database semantics. 
 
 Delivering consistent performance and efficiency requires careful considerations, modeling and optimal indexing strategy. With automated index maintenance, Firebolt enables a hands-free approach to delivering consistent performance without the operational burden, even for cases where data modification functionality is needed. Various types of DML statements can impact system performance as it can result in storage fragmentation, negating the effectiveness of indexes. However, Firebolt addresses this with the choice of user-controlled or system-controlled backend optimization. 
@@ -30,7 +28,7 @@ Optimistic concurrency comes with increased throughput, because multiple transac
 All of this is implemented in the product to ensure Firebolt can satisfy performance, scale, and throughput requirements that data intensive applications need.
 
 ## Creating tables
-Let’s start by creating a simple table called rankings.
+Let’s look at an exmaple of how to create a simple table called rankings.
 ```sql
 CREATE TABLE IF NOT EXISTS rankings (
     GameID INTEGER,
@@ -80,6 +78,12 @@ As the bulk data load gets executed, Firebolt creates new tablets behind the sce
 
 Performing data ingestion comes with transactional semantics and ACID guarantees. Each COPY execution is treated as a separate transaction. With snapshot isolation support by default, data reads (and other operations) can be executed as the data are being ingested into  tables. Different data readers will not see ingested data until the data ingestion process finishes and the transaction gets committed. Similarly, the same table can be loaded simultaneously with multiple ingestion processes.
 
+Bulk insert statement example
+```sql
+INSERT INTO rankings SELECT * FROM rankings_ext; 
+//rankings_ext object referenced in above SQL statement is an external table pointing to S3 data
+```
+
 ### Singleton insert
 While singleton insert is a supported pattern in Firebolt, using bulk insert utilities is recommended to optimize performance of large data ingestion. 
 
@@ -87,16 +91,11 @@ Data inserted by a singleton insert statement gets stored within a single tablet
 
 To minimize operational overhead and system maintenance that table fragmentation can cause, Firebolt implements a built-in optimization process that merges tablets with suboptimal size. This optimization process is fully autonomous and runs in the background. The background process searches on  a periodic basis for suboptimal tablets and merges them while keeping tablet optimal size in mind. In addition, Firebolt supports the [`VACUUM`](../sql_reference/commands/data-management/vacuum.md) command that allows users full control to defragment tables on-demand.
 
-#### Singleton insert statement example
+Singleton insert statement example
 ```sql
 INSERT INTO rankings (GameID, PlayerID, MaxLevel, TotalScore, PlaceWon, TournamentID) VALUES (10, 231, 10, 1000020, 1, 5);
 ```
 
-#### Bulk insert statement example
-```sql
-INSERT INTO rankings SELECT * FROM rankings_ext; 
-//rangings_ext object referenced in above SQL statement is an external table pointing to S3 data
-```
 
 ## Deleting data
 Firebolt supports storing as much data as needed for as long as needed. However, there are situations where data does need to be deleted. Situations like data corrections that occur in the systems of records, or GDPR compliance where a single (or multiple) customer record(s) must be deleted to preserve privacy, have led to support for [`DELETE`](../sql_reference/commands/data-management/delete.md) statements in Firebolt.
@@ -108,12 +107,12 @@ Having frequent deletes in the system could lead to tablet fragmentation, so the
 {: .note}
 For optimal performance, leverage primary key(s) for deleting the data whenever possible.
 
-#### Bulk delete statement example
+Bulk delete statement example
 ```sql
 DELETE FROM rankings WHERE PlayerID = 231;
 ```
 
-#### Singleton delete statement example
+Singleton delete statement example
 ```sql
 DELETE FROM rankings WHERE GameID = 10 AND TournamentID = 5 AND PlayerID = 231;
 ```
@@ -123,7 +122,7 @@ In real life, data updates happen often. Individuals regularly update their cont
 
 An [`UPDATE`](../sql_reference/commands/data-management/update.md) can be represented as a composite operation of `DELETE` followed by an `INSERT` operation. This holds true for both singleton as well as bulk update statements. Firebolt supports both simple as well as complex update functionality, including complex predicates and multi-table joins. Similarly, any column defined in a Firebolt table can be updated, including partitioning columns. While updating values for a partitioning column may lead to a longer execution time (depending on the number of records that exist in the partition, as updated data may need to be moved to newly assigned partitions), this functionality simplifies usage and avoids the need for manual workarounds to be done by our users.
 
-#### Update statement example
+Update statement example
 ```sql
 UPDATE rankings SET GameID = 11 WHERE GameID = 10 AND TournamentID = 5 AND PlayerID = 231;
 ```
