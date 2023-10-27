@@ -63,11 +63,15 @@ In addition, Firebolt supports singleton inserts via a `INSERT INTO VALUES` stat
 Let’s review how these utilities work in more detail, and their corresponding performance.
 
 **Bulk inserts**
+
 In Firebolt, bulk data ingestion utilities are designed to be inherently scalable. There are 4 major stages that each loading process goes through: 
 
 1) Reading data from Amazon S3 
+
 2) Converting data into tablets and columnstore 
+
 3) Merging tablets to optimize tablet quality (needed for efficient tablet pruning)
+
 4) Uploading tablets into Amazon S3. 
 
 As a distributed system and query engine, Firebolt supports both parallel and pipelined data processing, to scale loading processes. At the node level, Firebolt fully employs intra-node parallelism by having multiple reader/writer processes. Data loading parallelism automatically increases as the engine increases in scale (multi-node parallelism). Pipelined execution ensures that all deployed resources are kept busy while data is being streamed across transformation stages mentioned above. This way, users can ingest large amounts of data into Firebolt tables while utilizing deployed resources as efficiently as possible.
@@ -85,6 +89,7 @@ INSERT INTO rankings SELECT * FROM rankings_ext;
 ```
 
 **Singleton insert**
+
 While singleton insert is a supported pattern in Firebolt, using bulk insert utilities is recommended to optimize performance of large data ingestion. 
 
 Data inserted by a singleton insert statement gets stored within a single tablet. From the tablet quality perspective, this creates a suboptimal situation, and can lead to table fragmentation in cases where many singleton inserts are executed. This in turn can lead to suboptimal query performance. One way to mitigate this situation is to use a mini batch pattern (a collection of `INSERT INTO VALUES` statements separated by a comma) whenever possible. When a batch of `INSERT INTO VALUES` statements are executed, Firebolt tries to create a single tablet, which will improve tablet quality and reduce table fragmentation.
