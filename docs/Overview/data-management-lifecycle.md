@@ -62,7 +62,9 @@ In addition, Firebolt supports singleton inserts via a `INSERT INTO VALUES` stat
 
 Let’s review how these utilities work in more detail, and their corresponding performance.
 
-**Bulk inserts**
+{: .no_toc}
+
+### **Bulk inserts**
 
 In Firebolt, bulk data ingestion utilities are designed to be inherently scalable. There are 4 major stages that each loading process goes through: 
 
@@ -88,7 +90,7 @@ INSERT INTO rankings SELECT * FROM rankings_ext;
 //rankings_ext object referenced in above SQL statement is an external table pointing to S3 data
 ```
 
-**Singleton insert**
+### **Singleton insert**
 
 While singleton insert is a supported pattern in Firebolt, using bulk insert utilities is recommended to optimize performance of large data ingestion. 
 
@@ -101,7 +103,7 @@ Singleton insert statement example
 INSERT INTO rankings (GameID, PlayerID, MaxLevel, TotalScore, PlaceWon, TournamentID) VALUES (10, 231, 10, 1000020, 1, 5);
 ```
 
-
+{:toc}
 ## Deleting data
 Firebolt supports storing as much data as needed for as long as needed. However, there are situations where data does need to be deleted. Situations like data corrections that occur in the systems of records, or GDPR compliance where a single (or multiple) customer record(s) must be deleted to preserve privacy, have led to support for [`DELETE`](../sql_reference/commands/data-management/delete.md) statements in Firebolt.
 
