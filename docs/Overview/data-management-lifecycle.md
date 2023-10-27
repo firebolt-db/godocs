@@ -89,6 +89,7 @@ Bulk insert statement example
 INSERT INTO rankings SELECT * FROM rankings_ext; 
 //rankings_ext object referenced in above SQL statement is an external table pointing to S3 data
 ```
+
 {: .no_toc}
 
 ### **Singleton insert**
