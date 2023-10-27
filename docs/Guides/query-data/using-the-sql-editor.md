@@ -4,7 +4,7 @@ title: Query data using the SQL editor
 description: Learn how to navigate and use the SQL editor to work with your Firebolt database.
 parent: Query data
 grand_parent: Guides
-nav_order: 3
+nav_order: 1
 ---
 
 # Query using the SQL editor

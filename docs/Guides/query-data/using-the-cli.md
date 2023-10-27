@@ -4,7 +4,7 @@ title: Use the CLI
 description: Learn to install, configure, and use the Firebolt CLI.
 parent: Query data
 grand_parent: Guides
-nav_order: 2
+nav_order: 3
 ---
 
 # Use the Firebolt CLI  
