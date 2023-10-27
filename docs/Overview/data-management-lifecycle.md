@@ -104,7 +104,8 @@ Singleton insert statement example
 INSERT INTO rankings (GameID, PlayerID, MaxLevel, TotalScore, PlaceWon, TournamentID) VALUES (10, 231, 10, 1000020, 1, 5);
 ```
 
-{:toc}
+{: toc}
+
 ## Deleting data
 Firebolt supports storing as much data as needed for as long as needed. However, there are situations where data does need to be deleted. Situations like data corrections that occur in the systems of records, or GDPR compliance where a single (or multiple) customer record(s) must be deleted to preserve privacy, have led to support for [`DELETE`](../sql_reference/commands/data-management/delete.md) statements in Firebolt.
 
