@@ -114,9 +114,6 @@ To edit a service account via the UI:
 2. Search for the relevant service account using the top search filters, or by scrolling through the list of service accounts. Hover over the right-most column to make the service account menu appear, then choose **Edit service account**.
 3. Edit the desired fields and choose **Save**.
 
-{: .caution}
-The `is_organization_admin` property of a service account cannot be seen or edited in the UI.
-
 ## Deleting a service account 
 
 ### SQL 
