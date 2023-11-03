@@ -29,11 +29,12 @@ to receive an authentication token:
 
 
 ```bash
-    curl --location --request POST 'https://id.app.firebolt.io/auth/v1/token' \
+    curl --location --request POST 'https://id.app.firebolt.io/oauth/token' \
     --header 'Content-Type: application/x-www-form-urlencoded' \
     --data-urlencode 'client_id=<id>' \
     --data-urlencode 'client_secret=<secret>' \
     --data-urlencode 'grant_type=client_credentials'
+    --data-urlencode 'audience=https://api.firebolt.io'
 ```
 
 where:
