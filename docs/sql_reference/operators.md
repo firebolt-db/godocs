@@ -75,16 +75,18 @@ Boolean operators return the result of a Boolean operation between one or more e
 
 ## Comparison
 
-| Operator | Syntax              | Explanation                      |
-| :-------- | :------------------- | :-------------------------------- |
-| =        | `a=b`               | a is equal to b.                 |
-| !=       | `a!=b`              | a is not equal to b.             |
-| <>       | `a<>b`              | a is not equal to b.             |
-| <=       | `a<=b`              | a is less than or equal to b.    |
-| >        | `a>b`               | a is greater than b.             |
-| >=       | `a>=b`              | a is greater than or equal to b. |
-| <        | `a<b`               | a is less than b.                |
-| BETWEEN  | `a BETWEEN b AND c` | equivalent to b <= a <= c        |
+| Operator              | Syntax                     | Explanation                                                |
+| :-------------------- | :------------------------- | :--------------------------------------------------------- |
+| =                     | `a=b`                      | a is equal to b.                                           |
+| !=                    | `a!=b`                     | a is not equal to b.                                       |
+| <>                    | `a<>b`                     | a is not equal to b.                                       |
+| <=                    | `a<=b`                     | a is less than or equal to b.                              |
+| >                     | `a>b`                      | a is greater than b.                                       |
+| >=                    | `a>=b`                     | a is greater than or equal to b.                           |
+| <                     | `a<b`                      | a is less than b.                                          |
+| BETWEEN               | `a BETWEEN b AND c`        | equivalent to b <= a <= c                                  |
+| IS NOT DISTINCT FROM  | `a IS NOT DISTINCT FROM b` | equivalent to a=b where NULL is considered equal to NULL.  |
+| IS DISTINCT FROM      | `a IS DISTINCT FROM b`     | equivalent to a!=b where NULL is considered equal to NULL. |
 
 Example of using comparison operator in `WHERE` clause
 
