@@ -29,7 +29,7 @@ All Firebolt functions in alphabetical order.
 | [ARRAY_FIRST](./Lambda/array-first.md) | Returns the first element in the given array for which the given function returns something other than 0. | Lambda |
 | [ARRAY_FIRST_INDEX](./Lambda/array-first-index.md) | Returns the index of the first element in the indicated array for which the given function returns something other than 0. Index counting starts at 1. | Lambda |
 | [ARRAY_INTERSECT](./array/array-intersect.md) | Evaluates all arrays that are provided as arguments and returns an array of any elements that are present in all the arrays. | Array |
-| [ARRAY_JOIN](./array/array-join.md) | Concatenates an array of string elements using an optional delimiter. (alias for [ARRAY_TO_STRING](./array/array-to-string.md)) | Array |
+| [ARRAY_JOIN (ARRAY_TO_STRING)](./array/array-join.md) | Concatenates an array of string elements using an optional delimiter. | Array |
 | [ARRAY_MAX](./array/array-max.md) | Returns the maximum element in an array. | Array |
 | [ARRAY_MAX_GLOBAL](./aggregate-array/array-max-global.md) | Returns the maximum element from all the array elements in each group. | Aggregate array |
 | [ARRAY_MIN](./array/array-min.md) | Returns the minimum element in an array. | Array |
