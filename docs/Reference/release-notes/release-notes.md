@@ -38,7 +38,7 @@ You can now use the [EXPLAIN command](../../sql_reference/commands/queries/expla
 
 <!--- FIR-24362 ---> **Virtual column 'source_file_timestamp' uses new data type**
 
-The virtual column `source_file_timstamp` has been migrated from the data type `TIMESTAMP` (legacy timestamp type without time zone) to the type `TIMESTAMPTZ` (new timestamp type with time zone).
+The virtual column `source_file_timestamp` has been migrated from the data type `TIMESTAMP` (legacy timestamp type without time zone) to the type `TIMESTAMPTZ` (new timestamp type with time zone).
 
 Despite the increased resolution, the data is still in second precision as AWS S3 provides them only as unix seconds.
 

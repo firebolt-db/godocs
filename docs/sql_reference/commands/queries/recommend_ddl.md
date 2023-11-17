@@ -4,6 +4,8 @@ title: RECOMMEND DDL
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Queries
+nav_exclude: true
+search_exclude: true
 ---
 
 # RECOMMEND DDL
