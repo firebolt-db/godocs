@@ -64,15 +64,18 @@ To generate a secret for a service account via the UI:
 Generating a new secret for your service account user replaces any previous secret (which cannot be used once a new one is generated). Make a note of the secret and keep it in a secured location.
 
 ## Authenticate with a service account via the REST API
-To authenticate Firebolt using service accounts via Firebolt’s REST API, send the following request to receive an authentication token:
+1. Create a service account with the `IS_ORGANIZATION_ADMIN` property set to `TRUE` using either the UI or SQL. 
+2. Obtain the service account ID and secret. 
+3. Create a user and assign desired roles for the service account. Link the service account with this created user. 
+4. Authenticate using the service account via Firebolt’s REST API, send the following request to receive an authentication token:
 
 ```bash
 curl POST --location 'https://id.app.firebolt.io/oauth/token' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-urlencode 'grant_type=client_credentials' \
 --data-urlencode 'audience=https://api.firebolt.io' \
---data-urlencode 'client_id={id}' \
---data-urlencode 'client_secret={secret}'
+--data-urlencode 'client_id={service account id}' \
+--data-urlencode 'client_secret={service account secret}'
 ```
 
 **Response:**
