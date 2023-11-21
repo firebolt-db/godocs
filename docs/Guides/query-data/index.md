@@ -14,5 +14,4 @@ Learn how to query data in Firebolt, using the SQL editor, the CLI or the API.
 
 * [Using the SQL Editor](using-the-sql-editor.md)
 * [Using the API](using-the-api.md)
-* [Using the CLI](using-the-cli.md)
 * [Keyboard Shortcuts for SQL Edior](keyboard-shortcuts-for-sql-editor.md)
