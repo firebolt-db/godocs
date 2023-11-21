@@ -42,7 +42,7 @@ Use the functional list below to find commands for a specific task area that you
 * [COPY TO](./data-management/copy-to.md)
 * [DELETE](./data-management/delete.md)
 * [INSERT](./data-management/insert.md)
-* [TRUNCATE TABLE](./data-definition/truncate-table.md)
+* [TRUNCATE TABLE](./data-management/truncate-table.md)
 * [UPDATE](./data-management/update.md)
 * [VACUUM](./data-management/vacuum.md)
 
@@ -55,7 +55,7 @@ Use the functional list below to find commands for a specific task area that you
 * [CREATE ACCOUNT](./data-definition/create-account.md)
 * [CREATE AGGREGATING INDEX](./data-definition/create-aggregating-index.md)
 * [CREATE DATABASE](./data-definition/create-database.md)
-* [CREATE EXTERNAL TABLE](./data-management/create-external-table.md)
+* [CREATE EXTERNAL TABLE](./data-definition/create-external-table.md)
 * [CREATE FACT or DIMENSION TABLE](./data-definition/create-fact-dimension-table.md)
 * [CREATE NETWORK POLICY](./data-definition/create-network-policy.md)
 * [CREATE VIEW](./data-definition/create-view.md)
