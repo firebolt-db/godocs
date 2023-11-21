@@ -69,7 +69,7 @@ SSO is now configured for your organization!
 
 ## Edit SSO settings
 
-SSO settings can be edited in two ways - using SQL or the UI.  To edit SSO settings using SQL, use the [`ALTER ORGANIZATION`](../../../sql_reference/commands/access-control/alter-organization.md) statement. For example:
+SSO settings can be edited in two ways - using SQL or the UI.  To edit SSO settings using SQL, use the [`ALTER ORGANIZATION`](../../../sql_reference/commands/data-definition/alter-organization.md) statement. For example:
 
 ```sql
 ALTER ORGANIZATION SET SSO = ‘{

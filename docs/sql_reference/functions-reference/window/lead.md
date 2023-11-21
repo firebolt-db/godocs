@@ -11,7 +11,7 @@ great_grand_parent: SQL reference
 
 Returns values from the row after the current row within the requested window.
 
-For more information on usage, please refer to [Window Functions](./window-functions.md).
+For more information on usage, please refer to [Window Functions](./index.md).
 
 ## Syntax
 {: .no_toc}

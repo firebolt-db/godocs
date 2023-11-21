@@ -40,7 +40,7 @@ SELECT [ ALL | DISTINCT ] {<select_expression> [, ...]}
 The SELECT list defines the columns that it returns. Each `<select_expression>` in the SELECT list can be either expression, or wildcards.
 
 {: .note}
->Selecting **only** [partitioned](../../../Overview/working-with-partitions.md) or [virtual columns](../../../Guides/loading-data/working-with-external-tables.md#using-metadata-virtual-columns) is currently not supported in Firebolt. Selecting a combination of partitioned/virtual columns and regular columns is supported. 
+>Selecting **only** [partitioned](../../../Overview/working-with-tables/working-with-partitions.md) or [virtual columns](../../../Guides/loading-data/working-with-external-tables.md#using-metadata-virtual-columns) is currently not supported in Firebolt. Selecting a combination of partitioned/virtual columns and regular columns is supported. 
 
 ### SELECT expression
 

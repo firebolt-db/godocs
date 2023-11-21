@@ -13,7 +13,7 @@ Calculate the sum of the values within the requested window.
 
 The SUM function works with numeric values and ignores `NULL` values.
 
-For more information on usage, please refer to [Window Functions](./window-functions.md).
+For more information on usage, please refer to [Window Functions](./index.md).
 
 ## Syntax
 {: .no_toc}

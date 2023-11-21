@@ -42,7 +42,7 @@ After you create a table, you can’t modify the primary index. To change the in
 
 ## How to choose primary index columns
 
-The columns that you choose for the primary index and the order in which you specify them are important. If you have already defined a workload that you want to run in Firebolt, try out the [CALL recommend_ddl](../../sql_reference/commands/queries/recommend_ddl.html) command to find suitable primary index and partiton key configurations. You can learn more about how primary indexes should be chosen in the [Primary index examples](#primary-index-examples) section.
+The columns that you choose for the primary index and the order in which you specify them are important. If you have already defined a workload that you want to run in Firebolt, try out the [CALL RECOMMEND_DDL](../../sql_reference/commands/queries/recommend_ddl.html) command to find suitable primary index and partiton key configurations. You can learn more about how primary indexes should be chosen in the [Primary index examples](#primary-index-examples) section.
 
 ### Include columns used in WHERE clauses
 
@@ -54,7 +54,7 @@ Consider adding columns that you use in `GROUP BY` statements with aggregate fun
 
 ### Order columns in the index definition by cardinality
 
-Specify columns in order of how frequently they’re used in `WHERE` clauses and in descending order of cardinality. In other words, in the first position (`<colname_1>` in the syntax above) specify the column that filters results the most. Then specify remaining columns in descending order of how much they filter.
+Specify columns in order of how frequently they’re used in `WHERE` clauses and in descending order of cardinality. In other words, in the first position (`<column1>` in the syntax above) specify the column that filters results the most. Then specify remaining columns in descending order of how much they filter.
 
 Avoid specifying a column of the highest cardinality&mdash;that is, a column that has truly unique values or the primary key&mdash;unless you use that column in query `WHERE` clauses. Also avoid specifying columns of low cardinality that won’t adequately filter results.
 
@@ -72,7 +72,7 @@ The primary index isn’t effective if Firebolt can’t determine the values in 
 
 In the example analytics query over the `players` table, Firebolt can’t use the primary index with the `WHERE` clause. This is because the function with `playerid` is on the left side of the comparison. To satisfy the conditions of comparison, Firebolt must read all values of `playerid` to apply the `UPPER` function.
 
-![](../assets/images/Red_X_resized.png)  
+![](../../assets/images/Red_X_resized.png)  
 
 ```sql
 SELECT
@@ -85,7 +85,7 @@ WHERE
 
 In contrast, Firebolt can use the primary index in the following example:
 
-![](../assets/images/Green_check_resized.png)  
+![](../../assets/images/Green_check_resized.png)  
 
 ```sql
 SELECT

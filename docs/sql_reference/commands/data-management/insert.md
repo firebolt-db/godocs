@@ -104,7 +104,7 @@ SELECT * FROM information_schema.running_queries
 
 You should see results similar to those shown below.
 
-![](../../assets/images/running_queries.png)
+![](../../../assets/images/running_queries.png)
 
 If you see your `INSERT` statement under the `QUERY_TEXT` column, the operation is still running. Wait for it to finish before attempting any other steps.
 
