@@ -11,7 +11,7 @@ great_grand_parent: SQL reference
 
 Count the number of values within the requested window.
 
-For more information on usage, please refer to [Window Functions](./window-functions.md)  
+For more information on usage, please refer to [Window Functions](./index.md)  
 
 ## Syntax
 {: .no_toc}

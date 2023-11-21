@@ -11,7 +11,7 @@ great_grand_parent: SQL reference
 # ARRAY\_COUNT
 Counts the number of elements in a boolean array for which `function(array[i])` evaluates to TRUE, if a function is provided. 
 If `<function>` is not provided, counts the number of elements in the array that evaluate to TRUE.
-To count the elements in an array without any conditions, use the [LENGTH](./length.md) function instead.
+To count the elements in an array without any conditions, use the [LENGTH](../array/length.md) function instead.
 
 ## Syntax
 {: .no_toc}
@@ -24,7 +24,7 @@ ARRAY_COUNT(<function>, <array>)
 
 | Parameter | Description         | Supported input types | 
 | :--------- | :-------------------------------------------- | :--------| 
-| `<function>`  | Optional. A [Lambda function](../../working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions) used to check elements in the array. If `<function>` is not included, `ARRAY_COUNT` will return a count of all non-false elements in the array. | Any Lambda function | 
+| `<function>`  | Optional. A [Lambda function](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#lambda-function-general-syntax) used to check elements in the array. If `<function>` is not included, `ARRAY_COUNT` will return a count of all non-false elements in the array. | Any Lambda function | 
 | `<array>`   | An array of elements | `ARRAY BOOLEAN` | 
 
 ## Return Type

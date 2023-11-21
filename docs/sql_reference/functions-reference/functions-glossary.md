@@ -65,14 +65,14 @@ All Firebolt functions in alphabetical order.
 | [CURRENT_TIMESTAMP](./date-and-time/current-timestamp.md) | Returns the current (local) timestamp in the time zone specified in the session's `time_zone` setting. | Date & time |
 | [DATE_ADD](./date-and-time/date-add.md) | Calculates a new date or timestamp by adding or subtracting a specified number of time units from an indicated expression. | Date & time |
 | [DATE_DIFF](./date-and-time/date-diff.md) | Calculates the difference between the start and end date by the indicated unit. | Date & time |
-| [DATE_TRUNC](./date-and-time/date-trunc-new.md) | Truncates a date or timestamp value to the selected precision. | Date & time |
+| [DATE_TRUNC](./date-and-time/date-trunc.md) | Truncates a date or timestamp value to the selected precision. | Date & time |
 | [DECODE](./bytea/decode.md) | Decode binary data from a string. | Binary |
 | [DEGREES](./numeric/degrees.md) | Converts a value in radians to degrees. | Numeric |
 | [DENSE_RANK](./window/dense-rank.md) | Rank the current row within the requested window. | Window |
 | [ELEMENT_AT](./array/element-at.md) | Returns the element at a location index from the given array. Indexes in an array begin at position 1. | Array |
 | [ENCODE](./bytea/encode.md) | Encode binary data into a string. | Binary |
 | [EXP](./numeric/exp.md) | Returns the `REAL` value of the constant _e_ raised to the power of a specified number. | Numeric |
-| [EXTRACT](./date-and-time/extract-new.md) | Retrieves the time unit from a date or timestamp value. | Date & time |
+| [EXTRACT](./date-and-time/extract.md) | Retrieves the time unit from a date or timestamp value. | Date & time |
 | [EXTRACT_ALL](./string/extract-all.md) | Extracts fragments within a string that match a specified regex pattern. String fragments that match are returned as an array of strings. | String |
 | [FILTER](./Lambda/filter.md) | Returns an array containing the elements from the input array for which the given Lambda function returns something other than 0. The function can receive one or more arrays as its arguments. When multiple arrays are provided to the function, the function will evaluate the current elements from each array as its parameter. | Lambda |
 | [FIRST_VALUE](./window/first-value.md) | Returns the first value evaluated in the specified window frame. If there are no rows in the window frame, returns NULL. | Window |

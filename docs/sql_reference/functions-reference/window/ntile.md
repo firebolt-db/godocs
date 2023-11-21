@@ -11,7 +11,7 @@ great_grand_parent: SQL reference
 
 Divides an ordered data set equally into the number of buckets specified by the argument value. Buckets are sequentially numbered 1 through the argument value. 
 
-For more information on usage, please refer to [Window Functions](./window-functions.md).
+For more information on usage, please refer to [Window Functions](./index.md).
 
 ## Syntax
 {: .no_toc}

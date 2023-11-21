@@ -63,7 +63,7 @@ FROM
 | sanderserin      |           9 |         76 |            90 |
 
 
-Note that you will get the same results using the [NTH_VALUE](../nth-value.md) function with n=1
+Note that you will get the same results using the [NTH_VALUE](./nth-value.md) function with n=1
 
 ```sql
 SELECT

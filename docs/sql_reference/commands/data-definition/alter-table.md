@@ -30,4 +30,4 @@ ALTER TABLE <table> DROP PARTITION <value1>[,...<value2]
 
 ## Examples
 
-See the examples in [Working with partitions](../../../Overview/working-with-partitions.md).
+See the examples in [Working with partitions](../../../Overview/working-with-tables/working-with-partitions.md).
