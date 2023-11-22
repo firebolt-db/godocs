@@ -2,9 +2,13 @@
 layout: default
 title: ALTER ENGINE
 description: Reference and syntax for the ALTER ENGINE command.
+<<<<<<< HEAD:docs/sql_reference/commands/engines/alter-engine.md
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Engine commands
+=======
+parent:  SQL commands
+>>>>>>> rn/gh-pages:docs/sql-reference/commands/alter-engine.md
 ---
 
 # ALTER ENGINE

@@ -2,9 +2,13 @@
 layout: default
 title: CREATE EXTERNAL TABLE
 description: Reference and syntax for the CREATE EXTERNAL TABLE command.
+<<<<<<< HEAD:docs/sql_reference/commands/data-definition/create-external-table.md
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Data definition
+=======
+parent:  SQL commands
+>>>>>>> rn/gh-pages:docs/sql-reference/commands/create-external-table.md
 ---
 
 # CREATE EXTERNAL TABLE
@@ -52,7 +56,11 @@ TYPE = (<type>)
 
 In some applications, such as Hive partitioning, table partitions are stored in S3 folders and files using a folder naming convention that identifies the partition. The `PARTITION` keyword allows you to specify a regular expression, `<regex>`, to extract a portion of the file path and store it in the specified column when Firebolt uses the external table to ingest partitioned data.
 
+<<<<<<< HEAD:docs/sql_reference/commands/data-definition/create-external-table.md
 Using `PARTITION` in this way is one method of extracting partition data from file paths. Another method is to use the table metadata column, `source_file_name`, during the `INSERT` operation. For more information, see [Example&ndash;extracting partition values using INSERT](../data-management/insert.md#extracting-partition-values-using-insert-into).
+=======
+Using `PARTITION` in this way is one method of extracting partition data from file paths. Another method is to use the table metadata column, `source_file_name`, during the `INSERT` operation. For more information, see [Example&ndash;extracting partition values using INSERT](./insert-into.md#extracting-partition-values-using-insert-into)
+>>>>>>> rn/gh-pages:docs/sql-reference/commands/create-external-table.md
 
 #### Guidelines for creating the regex
 {: .no_toc}
@@ -312,4 +320,8 @@ URL = 's3://mybucket/'
 OBJECT_PATTERN= '*.csv.gz'
 TYPE = (CSV)
 COMPRESSION = GZIP
+<<<<<<< HEAD:docs/sql_reference/commands/data-definition/create-external-table.md
 ```
+=======
+```
+>>>>>>> rn/gh-pages:docs/sql-reference/commands/create-external-table.md

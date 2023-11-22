@@ -2,16 +2,24 @@
 layout: default
 title: JSON_EXTRACT_ARRAY_RAW
 description: Reference material for JSON_EXTRACT_ARRAY_RAW function
+<<<<<<< HEAD:docs/sql_reference/functions-reference/JSON/json-extract-array-raw.md
 grand_parent: SQL functions
 parent: Semi-structured data functions
 great_grand_parent: SQL reference
+=======
+parent:  SQL functions
+>>>>>>> rn/gh-pages:docs/sql-reference/functions-reference/json-extract-array-raw.md
 ---
 
 # JSON_EXTRACT_ARRAY_RAW
 
 Returns a string representation of a JSON array pointed by the supplied JSON pointer. The returned string represents a Firebolt array with elements that are string representations of the scalars or objects contained in the JSON array under the specified key, if the key exists. If the key does not exist, the function returns an empty array.
 
+<<<<<<< HEAD:docs/sql_reference/functions-reference/JSON/json-extract-array-raw.md
 This function is useful when working with heterogeneously typed arrays and arrays containing JSON objects in which case each object will be further processed by functions such as [TRANSFORM](../Lambda/transform.md).
+=======
+This function is useful when working with heterogeneously typed arrays and arrays containing JSON objects in which case each object will be further processed by functions such as [TRANSFORM](./transform.md).
+>>>>>>> rn/gh-pages:docs/sql-reference/functions-reference/json-extract-array-raw.md
 
 ## Syntax
 {: .no_toc}

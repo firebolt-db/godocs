@@ -108,11 +108,19 @@ Firebolt creates the external table. When finished, the external table `ex_level
 4. Choose the vertical ellipses next to **Script 2**, choose **Save script**, enter a name (for example, *MyExTableScript*) and then press ENTER to save the script.
 
 ### Create a fact table
+<<<<<<< HEAD:docs/Guides/getting-started.md
 In this step, you'll create a Firebolt fact table called `levels`, which you use in the next step as the target for an `INSERT` command.
+=======
+In this step, you'll create a Firebolt fact table called `levels`, which you use in the next step as the target for an `INSERT INTO` command.
+>>>>>>> rn/gh-pages:docs/getting-started.md
 
 When creating a fact or dimension table, you will specify a *primary index*. Firebolt uses the primary index when it ingests data so that it is saved to S3 for highly efficient pruning and sorting when the data is queried. A primary index is required when creating a fact table, and recommended for dimension tables. For more information, see [Using primary indexes](./working-with-indexes/using-primary-indexes.md). 
 
+<<<<<<< HEAD:docs/Guides/getting-started.md
 The fact table that we create in this step specifies the `LevelID` column for the primary index. For more information about choosing columns for a primary index, see [How to choose primary index columns](./working-with-indexes/using-primary-indexes.md#how-to-choose-primary-index-columns).
+=======
+The fact table that we create in this step specifies the `LevelID` column for the primary index. For more information about choosing columns for a primary index, see [How to choose primary index columns](/using-indexes/using-primary-indexes.md#how-to-choose-primary-index-columns).
+>>>>>>> rn/gh-pages:docs/getting-started.md
 
 **To create a fact table**
 1. Create a new script tab.  
@@ -147,8 +155,13 @@ PRIMARY INDEX LevelID;
 Firebolt creates the fact table. When finished, the table `levels` appears on the object panel of the database.  
 ![](/assets/images/createfacttable.png)
 
+<<<<<<< HEAD:docs/Guides/getting-started.md
 ### Use INSERT to ingest data
 You can now use the `INSERT` command to copy the data from the external table into the fact table. During this operation, Firebolt ingests the data from your source into Firebolt.
+=======
+### Use INSERT INTO to ingest data
+You can now use the `INSERT INTO` command to copy the data from the external table into the fact table. During this operation, Firebolt ingests the data from your source into Firebolt.
+>>>>>>> rn/gh-pages:docs/getting-started.md
 
 {: .note}
 Use `source_file_name` in the `WHERE` clause to specify which records to load from Amazon S3 and improve the performance of the read from S3. 

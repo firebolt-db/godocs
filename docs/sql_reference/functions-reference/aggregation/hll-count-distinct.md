@@ -10,7 +10,7 @@ great_grand_parent: SQL reference
 
 # HLL_COUNT_DISTINCT
 
-Counts the approximate number of unique or not NULL values, to the precision specified. `HLL_COUNT_DISTINCT` uses the HLL algorithm and allows you to control the sketch size set precision. 
+Counts the approximate number of unique or not NULL values, to the precision specified. `HLL_COUNT_DISTINCT` uses the HLL++ algorithm and allows you to control the sketch size set precision. 
 
 `HLL_COUNT_DISTINCT` requires less memory than exact aggregation functions, but also introduces statistical uncertainty. The default precision is 12, with a maximum of 20.
 
@@ -24,6 +24,7 @@ Counts the approximate number of unique or not NULL values, to the precision spe
 HLL_COUNT_DISTINCT ( <expression> [, <precision> ] )
 ```
 
+<<<<<<< HEAD:docs/sql_reference/functions-reference/aggregation/hll-count-distinct.md
 ## Parameters 
 {: .no_toc}
 
@@ -31,6 +32,15 @@ HLL_COUNT_DISTINCT ( <expression> [, <precision> ] )
 | :--------- | :------------------------------------------------ | :------------| 
 | `<expression>`  | Valid values for the expression include column names or functions that return a column name. | Any |
 | `<precision>` | Optional integer value to set precision. If not included, the default precision is 12. Max precision is 20. | `INTEGER` up to 20 |
+=======
+| Parameter | Description                                                                                                                | Supported input types |
+| :--------- |:---------------------------------------------------------------------------------------------------------------------------|:----------------------|
+| `<expression>`  | Valid values for the expression include column names or functions that return a column name. | Any type |
+| `<precision>` | Optional integer value to set precision. If not included, the default precision is 12. Precision range: 12-20.| `INTEGER`, `BIGINT ` |
+
+## Return Type
+`BIGINT`
+>>>>>>> rn/gh-pages:docs/sql-reference/functions-reference/hll-count-distinct.md
 
 {: .note}
 > `APPROX_COUNT_DISTINCT(expression)` and `HLL_COUNT_DISTINCT(expression, 17)` return the same results, as `APPROX_COUNT_DISTINCT` uses the HLL algorithm with the default parameter to control the sketch size set to 17.

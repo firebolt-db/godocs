@@ -2,9 +2,13 @@
 layout: default
 title: CREATE TABLE
 description: Reference and syntax for the CREATE TABLE statement.
+<<<<<<< HEAD:docs/sql_reference/commands/data-definition/create-fact-dimension-table.md
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Data definition
+=======
+parent:  SQL commands
+>>>>>>> rn/gh-pages:docs/sql-reference/commands/create-fact-dimension-table.md
 ---
 
 # CREATE TABLE

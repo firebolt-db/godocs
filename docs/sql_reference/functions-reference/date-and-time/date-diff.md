@@ -20,6 +20,7 @@ DATE_DIFF('<unit>', <start_date>, <end_date>)
 ## Parameters
 {: .no_toc}
 
+<<<<<<< HEAD:docs/sql_reference/functions-reference/date-and-time/date-diff.md
 | Parameter      | Description                                                    | Supported input types | 
 | :-------------- | :-------------------------------------------------------------- | :----------| 
 | `<datepart1>` | A unit of time |`SECOND`, `MINUTE`, `HOUR`, `DAY`, `WEEK`, `MONTH`, `QUARTER`, `YEAR`, or `EPOCH`     |
@@ -28,13 +29,26 @@ DATE_DIFF('<unit>', <start_date>, <end_date>)
 
 ## Return Type
 `INTEGER`
+=======
+## Parameters
+
+| Parameter      | Description                                                    |
+| :-------------- | :-------------------------------------------------------------- |
+| `<unit>`       | A unit of time. This can be any of the following: `MICROSECOND`, `MILLISECOND`, `SECOND`, `MINUTE`, `HOUR`, `DAY`, `WEEk`, `MONTH`, `QUARTER`, `YEAR`, `DECADE`, `CENTURY`. |
+| `<start_date>` | An expression that evaluates to a `DATE`, `TIMESTAMP` or `TIMESTAMPTZ` value. |
+| `<end_date>`   | An expression that evaluates to a `DATE`, `TIMESTAMP` or `TIMESTAMPTZ` value. |
+
+## Return Types
+
+`LONG`
+>>>>>>> rn/gh-pages:docs/sql-reference/functions-reference/date-diff.md
 
 ## Example
 {: .no_toc}
 
 The example below uses a table `date_test` with the columns and values below.
 
-| Category | sale\_date | sale\_datetime      |
+| Category | sale\_date | sale\_timestamp      |
 | :-------- | :---------- | :------------------- |
 | a        | 2012-05-01 | 2017-06-15 09:34:21 |
 | b        | 2021-08-30 | 2014-01-15 12:14:46 |

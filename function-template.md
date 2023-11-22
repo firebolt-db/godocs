@@ -6,7 +6,7 @@ parent: SQL functions
 ---
 
 # FUNCTION
-Function description
+Function description, starting with a verb, eg. Returns, Counts, Takes, Allows
 
 **Note**
 <Note>
@@ -25,6 +25,8 @@ Function description
 | :--------- | :----------------------------------- | :---------------------|
 | `<expression>`   | <description> | <data_type(s)> |
 
+//for a full list of parameter labels for different types of inputs, see: https://app.getguru.com/card/cAxkMbki/Function-template-in-docs
+
 
 ## Return Types
 
@@ -38,7 +40,7 @@ Function description
 {: .no_toc}
 
 Example description
-(uses customer example data set) 
+(uses customer example data set: https://app.firebolt.io/sql-workspace/Firebolt_sample_dataset ) 
 
 ```sql
 ```

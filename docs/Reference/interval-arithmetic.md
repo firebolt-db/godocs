@@ -19,8 +19,9 @@ This topic describes the Firebolt implementation of arithmetic with intervals.
 An `interval` represents a duration. In Firebolt, values of type `interval` can be used to add or subtract a duration to/from a date or timestamp.
 `Interval` cannot be used as the data type of a column.
 
-The `+` operators shown below come in commutative pairs (e.g., both `DATE + interval` and `interval + DATE` are accepted). Although the arithmetic operators check that the resulting timestamp is in the supported range, they don't check for integer overflow.
+The `+` and `*` operators shown below come in commutative pairs (e.g., both `DATE + interval` and `interval + DATE` are accepted). Although the arithmetic operators check that the resulting timestamp is in the supported range, they don't check for integer overflow.
 
+<<<<<<< HEAD:docs/Reference/interval-arithmetic.md
 | Operator                                | Description                                 |
 | :-------------------------------------- | :------------------------------------------ |
 | `DATE + interval -> TIMESTAMP`          | Add an `interval` to a `DATE`               |
@@ -29,6 +30,16 @@ The `+` operators shown below come in commutative pairs (e.g., both `DATE + inte
 | `TIMESTAMP - interval -> TIMESTAMP`     | Subtract an `interval` from a `TIMESTAMP`   |
 | `TIMESTAMPTZ + interval -> TIMESTAMPTZ` | Add an `interval` to a `TIMESTAMPTZ`        |
 | `TIMESTAMPTZ - interval -> TIMESTAMPTZ` | Subtract an `interval` from a `TIMESTAMPTZ` |
+=======
+| Operator                                  | Description                                 |
+| :---------------------------------------- | :------------------------------------------ |
+| `DATE + interval -> TIMESTAMP`            | Add an `interval` to a `DATE`               |
+| `DATE - interval -> TIMESTAMP`            | Subtract an `interval` from a `DATE`        |
+| `TIMESTAMP + interval -> TIMESTAMP`       | Add an `interval` to a `TIMESTAMP`          |
+| `TIMESTAMP - interval -> TIMESTAMP`       | Subtract an `interval` from a `TIMESTAMP`   |
+| `TIMESTAMPTZ + interval -> TIMESTAMPTZ`   | Add an `interval` to a `TIMESTAMPTZ`        |
+| `TIMESTAMPTZ - interval -> TIMESTAMPTZ`   | Subtract an `interval` from a `TIMESTAMPTZ` |
+>>>>>>> rn/gh-pages:docs/general-reference/interval-arithmetic.md
 | `interval * DOUBLE PRECISION -> interval` | Multiply an `interval` by a scalar          |
 
 ## Literal string interpretation

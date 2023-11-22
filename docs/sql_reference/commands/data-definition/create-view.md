@@ -2,16 +2,24 @@
 layout: default
 title: CREATE VIEW
 description: Reference and syntax for the CREATE VIEW command.
+<<<<<<< HEAD:docs/sql_reference/commands/data-definition/create-view.md
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Data definition
+=======
+parent:  SQL commands
+>>>>>>> rn/gh-pages:docs/sql-reference/commands/create-view.md
 ---
 
 # CREATE VIEW
 
 Creates a view, which is useful to filter, focus, and simplify a data set for querying. Views provide a level of abstraction that can make subqueries easier to write, especially for commonly referenced subsets of data. 
 
+<<<<<<< HEAD:docs/sql_reference/commands/data-definition/create-view.md
 View results are not stored for future usage. Each time a query references a view, the view runs its `SELECT` query. For this reason, views do not provide a performance advantage. Consider using a materialized common table expression (CTE) as an alternative. For more information, see [Materialized common table expressions](../queries/select.md#materialized-common-table-expressions-beta).
+=======
+View results are not stored for future usage. Each time a query references a view, the view runs its `SELECT` query. For this reason, views do not provide a performance advantage. Consider using a materialized common table expression (CTE) as an alternative. For more information, see [Materialized common table expressions](./select.md#materialized-common-table-expressions-beta).
+>>>>>>> rn/gh-pages:docs/sql-reference/commands/create-view.md
 
 The optional `IF NOT EXISTS` and `OR REPLACE` clauses are mutually exclusive. They specify behavior if a view with the same name already exists. If neither clause is specified, an error occurs if a view with the same `<view_name>` already exists. 
 

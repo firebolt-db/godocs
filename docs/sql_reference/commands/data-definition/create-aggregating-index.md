@@ -2,14 +2,22 @@
 layout: default
 title: CREATE AGGREGATING INDEX
 description: Reference and syntax for the CREATE AGGREGATING INDEX command.
+<<<<<<< HEAD:docs/sql_reference/commands/data-definition/create-aggregating-index.md
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Data definition
+=======
+parent:  SQL commands
+>>>>>>> rn/gh-pages:docs/sql-reference/commands/create-aggregating-index.md
 ---
 
 # CREATE AGGREGATING INDEX
 
+<<<<<<< HEAD:docs/sql_reference/commands/data-definition/create-aggregating-index.md
 Different syntax is used when creating an aggregating index on an empty table or a table populated with data. After an aggregating index is created, Firebolt automatically updates the index as new data is ingested. For more information, see [Using aggregating indexes](../../../Guides/working-with-indexes/using-aggregating-indexes.md).
+=======
+Different syntax is used when creating an aggregating index on an empty table or a table populated with data. After an aggregating index is created, Firebolt automatically updates the index as new data is ingested. For more information, see [Using aggregating indexes](../../using-indexes/using-aggregating-indexes.md.
+>>>>>>> rn/gh-pages:docs/sql-reference/commands/create-aggregating-index.md
 
 ## Syntax&ndash;aggregating index on an empty table
 

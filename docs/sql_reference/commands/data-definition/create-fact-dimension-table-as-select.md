@@ -2,14 +2,22 @@
 layout: default
 title: CREATE TABLE AS SELECT (CTAS)
 Description: Reference and syntax for the CTAS SQL command.
+<<<<<<< HEAD:docs/sql_reference/commands/data-definition/create-fact-dimension-table-as-select.md
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Data definition
+=======
+parent:  SQL commands
+>>>>>>> rn/gh-pages:docs/sql-reference/commands/create-fact-dimension-table-as-select.md
 ---
 
 # CREATE FACT or DIMENSION TABLE...AS SELECT
 
+<<<<<<< HEAD:docs/sql_reference/commands/data-definition/create-fact-dimension-table-as-select.md
 Creates a table and loads data into it based on the [SELECT](../queries/select.md) query. The table column names and types are automatically inferred based on the output columns of the [SELECT](../queries/select.md). When specifying explicit column names those override the column names inferred from the SELECT.
+=======
+Creates a table and loads data into it based on the [SELECT](./select.md) query. The table column names and types are automatically inferred based on the output columns of the [SELECT](./select.md). When specifying explicit column names those override the column names inferred from the SELECT.
+>>>>>>> rn/gh-pages:docs/sql-reference/commands/create-fact-dimension-table-as-select.md
 
 ## Syntax
 
@@ -43,6 +51,12 @@ AS <select_query>
 
 
 ## Remarks 
+<<<<<<< HEAD:docs/sql_reference/commands/data-definition/create-fact-dimension-table-as-select.md
 {. no_toc}
 
 Unlike a traditional CREATE statement, the primary index and partition definition must come *before* the AS clause.
+=======
+{: .no_toc}
+
+Unlike a traditional CREATE statement, the primary index and partition definition must come *before* the AS clause.
+>>>>>>> rn/gh-pages:docs/sql-reference/commands/create-fact-dimension-table-as-select.md
