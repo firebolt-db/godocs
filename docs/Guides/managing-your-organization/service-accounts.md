@@ -89,10 +89,10 @@ curl POST --location 'https://id.app.firebolt.io/oauth/token' \
 
 where:
 
-| Property                          | Data type | Description                                                                                |
-| :------------------------------   | :-------- |:-------------------------------------------------------------------------------------------|
-| id                                | TEXT      | The service account ID ([created here](#creating-a-service-account)).                      |
-| secret                            | TEXT      | The service account secret ([generated here](#generating-a-secret-for-a-service-account)). |
+| Property               | Data type | Description                                                                                |
+|:-----------------------| :-------- |:-------------------------------------------------------------------------------------------|
+| service account id     | TEXT      | The service account ID ([created here](#creating-a-service-account)).                      |
+| service account secret | TEXT      | The service account secret ([generated here](#generating-a-secret-for-a-service-account)). |
 
 
 Use the returned access_token to authenticate with Firebolt.
