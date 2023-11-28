@@ -16,7 +16,7 @@ To address these requirements, Firebolt supports concepts of organizations and a
 
 The Firebolt object model is hierarchical and comes with strong containment properties - parent objects can contain one or more child objects. Child objects are sole children of their parent objects (and cannot be shared). Furthermore, there are two classes of objects: global and regional. As the name suggests, global objects are managed globally and can contain objects that are deployed and grouped regionally. 
 
-The picture below depicts a Firebolt supported object model.
+The picture below depicts a Firebolt object model.
 
 <img src="../assets/images/Firebolt_objects_model.png" alt="Object Model" width="800"/>
 
