@@ -3,7 +3,7 @@ layout: default
 title: Network policies
 description: Learn about creating and managing network policies for Firebolt.
 nav_order: 9
-parent: Manage organization
+parent: Security
 grand_parent: Guides
 ---
 
