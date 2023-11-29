@@ -13,7 +13,7 @@ search_enabled: true
 # Jekyll plugins
 plugins:
 #  - jekyll-seo-tag
-  - jekyll-lnr-js-search
+#- jekyll-lnr-js-search
 
 search:
   # Split pages into sections that can be searched individually
