@@ -122,7 +122,6 @@ All Firebolt functions in alphabetical order.
 | [RADIANS](./numeric/radians.md) | Converts degrees to radians as a `REAL` value. | Numeric |
 | [RANDOM](./numeric/random.md) | Returns a pseudo-random unsigned value greater than 0 and less than 1 of type `DOUBLE PRECISION`. | Numeric |
 | [RANK](./window/rank.md) | Rank the current row within the requested window with gaps. | Window |
-| [REDUCE](./array/reduce.md) | Applies an aggregate function on the elements of the array and returns its result. | Array |
 | [REGEXP_EXTRACT](./string/regexp-extract.md) | Returns the first match of a pattern within the input expression. If the pattern does not match, returns NULL. | String |
 | [REGEXP_EXTRACT_ALL](./string/regexp-extract-all.md) | Returns an array that contains all matches of a pattern within the given input expression. If the pattern does not match, returns an empty array. | String |
 | [REGEXP_LIKE](./string/regexp-like.md) | Checks whether a text pattern matches a regular expression string. Returns 0 if it doesn’t match, or 1 if it matches. | String |
