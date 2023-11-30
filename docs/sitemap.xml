@@ -373,12 +373,6 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://docs.firebolt.io/godocs/Guides/developing-with-firebolt/connecting-with-go.html</loc>
-    <lastmod>2023-10-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
     <loc>https://docs.firebolt.io/godocs/sql_reference/functions-reference/Lambda/array-sort.html</loc>
     <lastmod>2023-10-06</lastmod>
     <changefreq>monthly</changefreq>
@@ -578,12 +572,6 @@
   </url>
   <url>
     <loc>https://docs.firebolt.io/godocs/Reference/object-identifiers.html</loc>
-    <lastmod>2023-10-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://docs.firebolt.io/godocs/Guides/developing-with-firebolt/connecting-with-sqlalchemy.html</loc>
     <lastmod>2023-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -913,12 +901,6 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://docs.firebolt.io/godocs/Guides/developing-with-firebolt/connecting-with-nodejs.html</loc>
-    <lastmod>2023-10-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
     <loc>https://docs.firebolt.io/godocs/sql_reference/functions-reference/array/index-of.html</loc>
     <lastmod>2023-10-06</lastmod>
     <changefreq>monthly</changefreq>
@@ -1064,12 +1046,6 @@
   </url>
   <url>
     <loc>https://docs.firebolt.io/godocs/sql_reference/commands/access-control/alter-login.html</loc>
-    <lastmod>2023-10-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://docs.firebolt.io/godocs/Guides/developing-with-firebolt/connecting-with-jdbc.html</loc>
     <lastmod>2023-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -1502,12 +1478,6 @@
   </url>
   <url>
     <loc>https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/lpad.html</loc>
-    <lastmod>2023-10-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://docs.firebolt.io/godocs/Guides/developing-with-firebolt/connecting-with-net.html</loc>
     <lastmod>2023-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
