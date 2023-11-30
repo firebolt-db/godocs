@@ -71,15 +71,15 @@ IS_MFA_ENABLED = TRUE;
 
 ## Access control
 
-Access control ensures that the user has appropriate permissions to engage with the system or resources they attempt to use. At Firebolt, [role-based access control (RBAC)](../Guides/security/rbac.md) mechanisms are implemented for these purposes. In addition to supporting built-in roles, custom or user-defined roles can be created as well. While built-in roles already have a prebuilt set of permissions assigned, privileges can be assigned to user-defined roles (by using GRANT/REVOKE statements).
+Access control ensures that the user has appropriate permissions to engage with the system or resources they attempt to use. At Firebolt, [role-based access control (RBAC)](../Guides/security/rbac.md) mechanisms are implemented for these purposes. In addition to supporting built-in roles, custom or user-defined roles can be created as well. While built-in roles already have a prebuilt set of permissions assigned, permissions can be assigned to user-defined roles (by using GRANT/REVOKE statements).
 
 The RBAC model is centered around the following principles: 
 - Any object is  securable.
-- Any supported statement is guarded by a privilege (allowing no unauthorized actions).
-- The RBAC model is composable (effective privileges are the sum of role assignments).
+- Any supported statement is guarded by a permission (allowing no unauthorized actions).
+- The RBAC model is composable (effective permissions are the sum of role assignments).
 - Roles are hierarchical and can come with inheritance relationships.
 
-The key building blocks/concepts of the Firebolt RBAC model are: [roles](#roles), [users](#users), [objects, and privileges](#objects-and-privileges). 
+The key building blocks/concepts of the Firebolt RBAC model are: [roles](#roles), [users](#users), [objects, and permissions](#objects-and-permissions). 
 
 ### Roles 
 
@@ -116,14 +116,14 @@ REVOKE ROLE sales FROM bob; -- revokes sales role from user bob
 
 ### Objects and Privileges
 
-Privileges define the actions or operations that can be performed within Firebolt. These privileges range from managing databases and engines to executing queries and accessing and analyzing data. Each instance of an object (securable) in the Firebolt object model has specific privileges that are associated with it. As an example, there could be multiple instances of an engine object (i.e. my_engine1, my_engine2) and each instance comes with a set of predefined privileges.
+Privileges define the actions or operations that can be performed within Firebolt. These permissions range from managing databases and engines to executing queries and accessing and analyzing data. Each instance of an object (securable) in the Firebolt object model has specific permissions that are associated with it. As an example, there could be multiple instances of an engine object (i.e. my_engine1, my_engine2) and each instance comes with a set of predefined permissions.
 
-For a full list of available privileges, see [role-based access control](../Guides/security/rbac.md#privileges).
+For a full list of available permissions, see [role-based access control](../Guides/security/rbac.md#permissions).
 
-Any privilege that Firebolt supports can be granted (or revoked) to (or from) roles. Firebolt supports standard SQL constructs ([GRANT](../sql_reference/commands/access-control/grant.md) and [REVOKE](../sql_reference/commands/access-control/revoke.md)). 
+Any permission that Firebolt supports can be granted (or revoked) to (or from) roles. Firebolt supports standard SQL constructs ([GRANT](../sql_reference/commands/access-control/grant.md) and [REVOKE](../sql_reference/commands/access-control/revoke.md)). 
 
 {: .note}
-Privileges can only be granted to (and revoked from) roles - roles can then be granted to users to give the access those privileges provide.
+Privileges can only be granted to (and revoked from) roles - roles can then be granted to users to give the access those permissions provide.
 
 #### Example
 
