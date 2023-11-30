@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Security
+title: Configure security
 description: Learn about configuring security options in Firebolt
 parent: Guides
 nav_order: 3
