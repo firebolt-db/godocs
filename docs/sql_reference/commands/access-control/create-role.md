@@ -10,7 +10,7 @@ parent: Access control
 # CREATE ROLE
 Creates a new role.
 
-For more information, see [Role-based access control](../../../Guides/managing-your-organization/rbac.md).
+For more information, see [Role-based access control](../../../Guides/security/rbac.md).
 
 ## Syntax
 
@@ -41,4 +41,4 @@ The following command will create a role "user_role_2"
 CREATE ROLE IF NOT EXISTS my_role_2
 ```
 
-If "my_role_2" exists, no error message is thrown
+If "my_role_2" exists, no error message is thrown.

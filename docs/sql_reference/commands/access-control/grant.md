@@ -10,7 +10,7 @@ parent: Access control
 # GRANT
 Grants privileges to a role. Can also be used to grant a role to another role or a user. 
 
-For more information, see [Role-based access control](../../../Guides/managing-your-organization/rbac.md).
+For more information, see [Role-based access control](../../../Guides/security/rbac.md).
 
 ## Syntax
 
@@ -29,7 +29,7 @@ GRANT ROLE <role_name> TO { USER <user_name> | ROLE <role2_name> }
 
 | Parameter  | Description |
 | :--------- | :---------- |
-| `<privilege>` | The name of the privilege to grant to a role. Privileges that can be granted depend on the object they are granted on - for a full list see [Privileges](../../../Guides/managing-your-organization/rbac.md#privileges). |
+| `<privilege>` | The name of the privilege to grant to a role. Privileges that can be granted depend on the object they are granted on - for a full list see [Privileges](../../../Guides/security/rbac.md#privileges). |
 | `<object_type>` | The object to grant privileges on - either DATABASE or ENGINE. |
 | `<object_name>` | The name of the database or engine to grant privileges on. |
 | `<role_name>` | The name of the role. |
