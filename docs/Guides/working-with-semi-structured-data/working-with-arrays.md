@@ -117,7 +117,7 @@ The general syntax pattern of a Lambda function is shown below. For detailed syn
 
 | Parameter                                     | Description    |
 | :-------------------------------------------- | :------------- |
-| `<LAMBDA_FUNC>`                                | Any array function that accepts a Lambda expression as an argument. For a list, see [Lambda functions](../../sql-reference/functions-reference/Lambda/index.md).|
+| `<LAMBDA_FUNC>`                                | Any array function that accepts a Lambda expression as an argument. For a list, see [Lambda functions](../../sql_reference/functions-reference/Lambda/index.md).|
 | `<arr1_var>[, <arr2_var>][, ...<arrN_var>]`   | A list of one or more variables that you specify. The list is specified in the same order and must be the same length as the list of array expressions (`<array1>[, <array2>][, ...<arrayN>]`). At runtime, each variable contains an element of the corresponding array. The specified `<operation>` is performed for each variable.|
 | <operation>                                   | The operation that is performed for each element of the array. This is typically a function or Boolean expression. |
 | <array1>[, <array2>][, ...<arrayN>]           | A comma-separated list of expressions, each of which evaluates to an `ARRAY` data type. |

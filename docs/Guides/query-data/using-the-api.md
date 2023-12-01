@@ -42,7 +42,7 @@ where:
 | Property                          | Data type | Description                                                                                                                                        |
 | :------------------------------   | :-------- |:---------------------------------------------------------------------------------------------------------------------------------------------------|
 | id                                | TEXT      | The service account ID ([created here](../managing-your-organization/service-accounts.md#creating-a-service-account)).                             |
-| secret                            | TEXT      | The service account secret ([generated here](../managing-your-organization/service-accounts.md#generating-a-secret-for-the-service-account-user)). |
+| secret                            | TEXT      | The service account secret ([generated here](../managing-your-organization/service-accounts.md#generating-a-secret-for-a-service-account)). |
 
 
 **Response**
