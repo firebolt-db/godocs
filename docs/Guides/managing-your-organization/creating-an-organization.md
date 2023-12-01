@@ -15,8 +15,8 @@ When registering to Firebolt, the domain name used in your registration email wi
 
 ## Create an organization
 To register to Firebolt and create an organization:
-1. Go to Firebolt’s registration page: [go.firebolt.io/signup](go.firebolt.io/signup)
-2. Enter the following information in the form: < screenshot incoming >
+1. Go to Firebolt’s registration page: <a href="go.firebolt.io/signup">go.firebolt.io/signup</a>
+2. Enter the following information in the form:
     - First name
     - Last name
     - Email - make sure you use a business email address, such as `you@anycorp.com`. Based on that address, Firebolt infers the name of your company and organization. Firebolt does not support usernames with personal email addresses, such as `me@gmail.com` or `you@outlook.com`.
