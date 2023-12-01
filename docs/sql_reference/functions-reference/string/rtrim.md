@@ -22,7 +22,7 @@ RTRIM(<expression1>[, <expression2>])
 
 | Parameter        | Description                |
 | :--------------- | :------------------------- |
-| `<expression1>`  | An expression that returns the string to be trimmed. The string can be any of the [string data types](../../general-reference/data-types.md#string).|
+| `<expression1>`  | An expression that returns the string to be trimmed. The string can be any of the [string data types](../../data-types.md#string).|
 | `<expression2>` | Optional. An expression that returns characters to trim from the right side of the `<expression3>` string. If omitted, whitespace (ASCII Decimal 32) is assumed. |
 
 ## Return Types 

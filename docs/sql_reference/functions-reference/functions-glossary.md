@@ -40,7 +40,6 @@ All Firebolt functions in alphabetical order.
 | [ARRAY_SORT](./Lambda/array-sort.md) | Returns the elements of the input array in ascending order. If the argument function is provided, the sorting order is determined by the result of applying the function on each element of the array. | Lambda |
 | [ARRAY_SUM](./Lambda/array-sum.md) | Returns the sum of elements of the input array. If the argument function is provided, the values of the array elements are converted by this function before summing. | Lambda |
 | [ARRAY_SUM_GLOBAL](./aggregate-array/array-sum-global.md) | Returns the sum of elements in the array column accumulated over the rows in each group. | Aggregate array |
-| [ARRAY_TO_STRING](./array/array-to-string.md) | Concatenates an array of string elements using an optional delimiter. | Array |
 | [ARRAY_UNIQ](./array/array-uniq.md) | Returns the number of different elements in the array if one argument is passed. If multiple arguments are passed, returns the number of different tuples of elements at corresponding positions in multiple arrays. | Array |
 | [ASIN](./numeric/asin.md) | Calculates the arcsine of a value. Returns NULL if the input value is higher than 1. | Numeric |
 | [ATAN](./numeric/atan2.md) | Calculates the arc tangent of the real number returned by the specified expression. | Numeric |
@@ -54,7 +53,7 @@ All Firebolt functions in alphabetical order.
 | [CEIL (CEILING)](./numeric/ceil.md) | Returns the smallest value that is greater than or equal to the input value. | Numeric |
 | [CHECKSUM](./aggregation/checksum.md) | Calculates a hash value known as a checksum operation on a list of arguments. | Aggregation |
 | [COALESCE](./conditional-and-miscellaneous/coalesce.md) | Checks from left to right for the first non-NULL argument found for each entry parameter pair. | Conditional & miscellaneous |
-| [CONCAT (||)](./string/concat.md) | Concatenates the strings listed in the input without a separator. | String |
+| [CONCAT or ||](./string/concat.md) | Concatenates the strings listed in the input without a separator. | String |
 | [CONTAINS](./array/contains.md) | Returns 1 if a specified argument is present in the array, or 0 otherwise. | Array |
 | [COS](./numeric/cos.md) | Trigonometric function that calculates the cosine of a specific value. | Numeric |
 | [COT](./numeric/cot.md) | Calculates the cotangent. | Numeric |
@@ -62,7 +61,7 @@ All Firebolt functions in alphabetical order.
 | [COUNT OVER](./window/count-window.md) | Count the number of values within the requested window. | Window |
 | [CUME DIST](./window/cume-dist.md) | Calculates the relative rank (cumulative distribution) of the current row in relation to other rows in the same partition within an ordered data set, as `( rank + number_of_peers - 1 ) / ( total_rows )` where rank is the current row's rank within the partition, number_of_peers is the number of row values equal to the current row value (including the current row), and total_rows is the total number of rows in the partition. The return value ranges from 1/(total_rows) to 1. | Window |
 | [CURRENT_DATE](./date-and-time/current-date.md) | Returns the current (local) date in the time zone specified in the session's `time_zone` setting. | Date & time |
-| [CURRENT_TIMESTAMP](./date-and-time/current-timestamp.md) | Returns the current (local) timestamp in the time zone specified in the session's `time_zone` setting. | Date & time |
+| [CURRENT_TIMESTAMP](./date-and-time/current-timestamptz.md) | Returns the current (local) timestamp in the time zone specified in the session's `time_zone` setting. | Date & time |
 | [DATE_ADD](./date-and-time/date-add.md) | Calculates a new date or timestamp by adding or subtracting a specified number of time units from an indicated expression. | Date & time |
 | [DATE_DIFF](./date-and-time/date-diff.md) | Calculates the difference between the start and end date by the indicated unit. | Date & time |
 | [DATE_TRUNC](./date-and-time/date-trunc.md) | Truncates a date or timestamp value to the selected precision. | Date & time |
@@ -146,7 +145,7 @@ All Firebolt functions in alphabetical order.
 | [SUM OVER](./window/sum-window.md) | Calculate the sum of the values within the requested window. | Window |
 | [TAN](./numeric/tan.md) | Calculates the tangent. | Numeric |
 | [TO_CHAR](./date-and-time/to-char-new.md) | Converts a date or timestamp value to a formatted string. | Date & time |
-| [TO_TIMESTAMP](./string/to-timestamp.md) | Converts a string to timestamp with time zone. | Date & time |
+| [TO_TIMESTAMP](./date-and-time/to-timestamp.md) | Converts a string to timestamp with time zone. | Date & time |
 | [TRANSFORM](./Lambda/transform.md) | Returns an array by applying the specified on each element of the input array. | Lambda |
 | [TRIM](./string/trim.md) | Removes all specified characters from the start, end, or both sides of a string. By default removes all consecutive occurrences of common whitespace (ASCII character 32) from both ends of a string. | String |
 | [TRUNC](./numeric/trunc.md) | Returns the rounded absolute value of a numeric value. The returned value will always be rounded to less than the original value. | Numeric |

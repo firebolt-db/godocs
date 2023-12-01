@@ -196,7 +196,7 @@ SELECT
 
 You might want to transform a nested array structure to a standard tabular format so that you can expose views to BI tools that can't handle Firebolt array syntax, or you might find the tabular format more natural to query using standard SQL idioms. `UNNEST` serves these purposes.
 
-[UNNEST](../../sql-reference/commands/queries/select.md#unnest) is part of the [FROM](../../sql-reference/commands/select.md#from) clause and resembles a [JOIN](../../sql-reference/commands/queries/select.md#join). Given an `ARRAY`-typed column, `UNNEST` unfolds the elements of the array and duplicates all other columns found in the `SELECT` clause for each array element.
+[UNNEST](../../sql_reference/commands/queries/select.md#unnest) is part of the [FROM](../../sql_reference/commands/queries/select.md#from) clause and resembles a [JOIN](../../sql_reference/commands/queries/select.md#join). Given an `ARRAY`-typed column, `UNNEST` unfolds the elements of the array and duplicates all other columns found in the `SELECT` clause for each array element.
 
 A single `UNNEST` acts similarly to `JOIN`. You can use a single `UNNEST` command to unnest several arrays if the arrays are the same length.
 

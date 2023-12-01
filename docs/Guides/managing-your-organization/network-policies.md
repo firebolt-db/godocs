@@ -16,7 +16,7 @@ Network policies can be configured on the organization level and also per login 
 
 The IP allow and blocked lists used to specify a network policy are specified as comma-separated IPv4 addresses and/or IPv4 address ranges in CIDR format. You can apply the same list to one or many users, and each user can have unique lists. You can specify lists manually or import lists of addresses and ranges from a CSV file saved locally. You can add, edit or delete network policies using SQL or in the UI. 
 
-To view all network policies, click **Configure** to open the configure space, then choose **Network policies** from the menu, or query the [information_schema.network_policies](../../sql_reference/information-schema/network-policies.md) view. 
+To view all network policies, click **Configure** to open the configure space, then choose **Network policies** from the menu, or query the [information_schema.network_policies](../../sql_reference/information-schema/network_policies.md) view. 
 
 {: .note}
 Managing network policies requires the org_admin role.
