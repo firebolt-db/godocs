@@ -15,7 +15,7 @@ When registering to Firebolt, the domain name used in your registration email wi
 
 ## Create an organization
 To register to Firebolt and create an organization:
-1. Go to Firebolt’s registration page: <a href="go.firebolt.io/signup">go.firebolt.io/signup</a>
+1. Go to Firebolt’s registration page: <a href="https://go.firebolt.io/signup">go.firebolt.io/signup</a>
 2. Enter the following information in the form:
     - First name
     - Last name

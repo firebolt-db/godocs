@@ -1,0 +1,869 @@
+https://docs.firebolt.io/godocs/Overview/architecture-overview.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/access-control/drop-service-account.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/information-schema/tables.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Reference/proof-of-concept-guide.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/window/max-window.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/window/nth-value.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/aggregate-array/array-sum-global.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/conditional-and-miscellaneous/try-cast.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/metadata/show-columns.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/conditional-and-miscellaneous/
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/aggregation/percentile-disc.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/JSON/json-extract.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/date-and-time/extract.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Reference/available-engine-specs.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/query-data/using-the-api.html
+	id #generating-a-secret-for-the-service-account-user not found	https://docs.firebolt.io/godocs/Guides/managing-your-organization/service-accounts.html#generating-a-secret-for-the-service-account-user
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/split-part.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/strpos.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/date-and-time/date-trunc.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Reference/release-notes/release-notes-archive.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/information-schema/users.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/access-control/create-service-account.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/aggregation/count.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/tan.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/aggregate-array/array-min-global.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/acos.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/array/length.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/developing-with-firebolt/connecting-with-Python.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/managing-your-organization/network-policies.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/replace.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/regexp-extract.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/array/array-max.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/gen-random-uuid.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/window/first-value.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/managing-your-organization/rbac.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/loading-data/incrementally-loading-data.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/Lambda/array-sum.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	id #arithmetic not found	https://docs.firebolt.io/godocs/sql_reference/operators.html#arithmetic
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Overview/choosing-an-engine.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/length-string.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/queries/explain.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/information-schema/object-privileges.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/query-data/using-the-sql-editor.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/date-and-time/to-date.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/date-and-time/current-date.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/managing-your-organization/sso/sso.html
+	404	https://docs.firebolt.io/godocs/Guides/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/working-with-engines/system-engine.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/functions-reference.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-definition/create-external-table.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	id #extracting-partition-values-using-insert-into not found	https://docs.firebolt.io/godocs/sql_reference/commands/data-management/insert.html#extracting-partition-values-using-insert-into
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/exporting-data.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/mod.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/managing-your-organization/managing-users.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/managing-your-organization/billing.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/ilike.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/bytea/decode.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/engines/start-engine.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/metadata/show-tables.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/ceil.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-definition/create-network-policy.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/JSON/json-extract-values.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/lpad.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/array/array-join.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/sign.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/degrees.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/information-schema/applicable-roles.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/information-schema/views.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/working-with-indexes/using-aggregating-indexes.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/substring.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/Lambda/array-count.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/JSON/json-extract-array-raw.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Reference/available-regions.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/managing-your-organization/managing-accounts.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/window/rank.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/managing-your-organization/enabling-mfa.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/timestamptz-data-type.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/Lambda/array-fill.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/working-with-indexes/using-primary-indexes.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/data-types.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/window/avg-window.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/aggregation/min-by.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/atan.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/engines/
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/information-schema/information-schema-and-usage-views.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Reference/interval-arithmetic.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/information-schema/network_policies.html
+	404	https://docs.firebolt.io/Guides/managing-your-organization/network-policies.md
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/engines/alter-engine.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/window/sum-window.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/aggregation/stddev-samp.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/access-control/drop-user.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/aggregation/approx-percentile.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/aggregation/approx-count-distinct.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/aggregate-array/array-max-global.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/getting-started.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/operators.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Overview/
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-definition/drop-table.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/lower.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/round.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/managing-your-organization/index.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-definition/alter-organization.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-management/insert.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/match-any.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/managing-your-organization/
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/concat.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-definition/create-aggregating-index.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/working-with-semi-structured-data/working-with-parquet-arrays-of-structs-and-maps.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/window/percentile-cont-window.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/window/count-window.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/aggregation/any_value.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/array-enumerate.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-definition/alter-network-policy.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Reference/reserved-words.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/sin.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/date-and-time/
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/regexp-like.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/JSON/
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-definition/create-fact-dimension-table-as-select.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/index.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/conditional-and-miscellaneous/cast.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/window/ntile.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/aggregation/percentile-cont.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/working-with-semi-structured-data/mapping-json-to-table.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Reference/system-settings.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/match.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/information-schema/columns.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/array/array-intersect.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/md5.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/conditional-and-miscellaneous/ifnull.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/cos.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/window/percent-rank.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/queries/
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/Lambda/transform.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/access-control/revoke.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/working-with-semi-structured-data/working-with-arrays.html
+	404	https://docs.firebolt.io/godocs/sql-reference/functions-reference/Lambda/index.md
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/engines/create-engine.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/pi.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/access-control/alter-user.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/working-with-semi-structured-data/working-with-semi-structured-data.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/array/array-min.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/conditional-and-miscellaneous/coalesce.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/metadata/
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/working-with-indexes/index.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-management/truncate-table.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Reference/
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/access-control/drop-login.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-definition/alter-account.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Overview/using-indexes.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/conditional-and-miscellaneous/version.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/working-with-indexes/
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/array/
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/random.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/working-with-engines/working-with-engines-using-the-firebolt-manager.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/md5-number-lower64.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/Lambda/filter.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/information-schema/indexes.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/managing-your-organization/creating-an-organization.html
+	404	https://docs.firebolt.io/godocs/Guides/managing-your-organization/go.firebolt.io/signup
+	404	https://docs.firebolt.io/godocs/Guides/managing-your-organization/sso.md
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/to-int.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/date-and-time/localtimestamp.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/base64-encode.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/Lambda/
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/aggregation/min.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/engines/drop-engine.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-definition/create-database.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/trunc.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/date-and-time/date-diff.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/regexp-replace.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/abs.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/window/min-window.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/query-data/keyboard-shortcuts-for-sql-editor.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-management/delete.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/numeric-data-type.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/to-float.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/window/cume-dist.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Overview/organizations-accounts.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/btrim.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/bytea-data-type.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/Lambda/any-match.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/conditional-and-miscellaneous/nullif.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/trim.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/aggregation/hll-count-distinct.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/date-data-type.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/access-control/
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/repeat.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/aggregation/checksum.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-management/update.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-definition/create-fact-dimension-table.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/information-schema/query-history-view.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/developing-with-firebolt/
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/timestampntz-data-type.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/access-control/create-user.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/queries/select.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/date-and-time/current-timestamptz.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/array/index-of.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/Lambda/all-match.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/window/row-number.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/managing-your-organization/sso/configuring-idp-for-sso.html
+	404	https://docs.firebolt.io/godocs/Guides/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/cbrt.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/sqrt.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/metadata/show-indexes.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Reference/help-menu.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-definition/alter-database.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-definition/drop-network-policy.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/window/dense-rank.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/metadata/show-views.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/aggregate-array/array-agg.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/managing-your-organization/service-accounts.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/Lambda/array-cumulative-sum.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/JSON/json-extract-keys.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/ltrim.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/url_decode.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/rpad.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/access-control/create-login.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/aggregation/max-by.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/Lambda/array-replace-backwards.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-management/
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/window/lead.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/managing-your-organization/managing-logins.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/developing-with-firebolt/index.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/loading-data/configuring-aws-role-to-access-amazon-s3.html
+	id #syntax–authenticating-using-an-iam-role not found	https://docs.firebolt.io/godocs/sql_reference/commands/data-definition/create-external-table.html#syntax%E2%80%93authenticating-using-an-iam-role
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Reference/release-notes/release-notes.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/JSON/json-extract-raw.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/date-and-time/date-add.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/queries/recommend_ddl.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Overview/working-with-tables/working-with-partitions.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/date-and-time/to-timestamp.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-definition/
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/loading-data/working-with-external-tables.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/Lambda/array-first-index.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-definition/create-account.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/functions-glossary.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/regexp-matches.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/array/array-distinct.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/bytea/encode.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/conditional-and-miscellaneous/city-hash.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/access-control/alter-service-account.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/array/element-at.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/Lambda/array-first.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/working-with-engines/working-with-engines-using-ddl.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/information-schema/logins.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/log.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-definition/drop-database.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/radians.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/information-schema/databases.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/metadata/show-cache.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/aggregation/sum.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-management/vacuum.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/reverse.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Overview/data-management-lifecycle.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/aggregation/
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/cot.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-definition/create-view.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	id #materialized-common-table-expressions-beta not found	https://docs.firebolt.io/godocs/sql_reference/commands/queries/select.html#materialized-common-table-expressions-beta
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/working-with-engines/working-with-engines.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/array/array-concat.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/window/lag.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/Lambda/array-sort.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/aggregation/avg.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/aggregate-array/array-count-global.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/metadata/describe.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/information-schema/engines.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/atan2.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/array/array-reverse.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-definition/drop-view.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/array/array-uniq.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/access-control/grant.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/rtrim.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/url_encode.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-management/copy-to.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/information-schema/running-queries.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/conditional-and-miscellaneous/case.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Reference/object-identifiers.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/date-and-time/to-char-new.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/query-data/index.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/access-control/drop-role.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/query-data/
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/pow.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/date-and-time/to-timestamptz.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/aggregate-array/
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/regexp-extract-all.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/asin.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/like.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Overview/working-with-tables/working-with-tables.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/metadata/show-databases.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/information-schema/accounts.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/md5-number-upper64.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/aggregation/max.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/floor.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/to-double.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-definition/drop-account.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/array/contains.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/date-and-time/to-char.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/extract-all.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/window/
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/numeric/exp.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/conditional-and-miscellaneous/generate-series.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/information-schema/service-accounts.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/working-with-semi-structured-data/ingesting-semi-structured-data.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/access-control/create-role.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/bytea/
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Overview/understanding-engine-fundamentals.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-definition/drop-index.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/Guides/loading-data/loading-data.html
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/window/percentile-disc-window.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/data-definition/alter-table.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/array/array-slice.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/split.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/array/flatten.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/access-control/alter-login.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/engines/attach-engine.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/engines/stop-engine.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/commands/metadata/show-engines.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/upper.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
+https://docs.firebolt.io/godocs/sql_reference/functions-reference/aggregation/median.html
+	404	https://docs.firebolt.io/godocs/sql_reference/assets/scripts/copyCode.js
+	missing port in address	https:///www.firebolt.io/getting-started-now
