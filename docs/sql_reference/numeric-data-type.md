@@ -61,7 +61,7 @@ If the scale of a value to be stored is greater than the declared scale of the c
     f(NUMERIC(P1, S1), NUMERIC(P1, S1)) -> NUMERIC(P1, S1))**
     ```
  
-### Supported functions
+### Supported operators
 
 **Operators:**
 
@@ -69,30 +69,3 @@ If the scale of a value to be stored is greater than the declared scale of the c
 -<br>
 *<br>
 /<br>
-
-**Functions:**
-
-* [ABS](../sql-reference/functions-reference/numeric/abs.md)
-* [ANY](../sql-reference/functions-reference/any.md)
-* [ANY\_VALUE](../sql-reference/functions-reference/any_value.md)
-* [ARRAY\_SORT](../sql-reference/functions-reference/array-sort.md)
-* [AVG](../sql-reference/functions-reference/avg.md)
-* [CHECKSUM](../sql-reference/functions-reference/checksum.md)
-* [COUNT](../sql-reference/functions-reference/count.md)
-* [CASE](../sql-reference/functions-reference/case.md)
-* [CAST](../sql-reference/functions-reference/cast.md)
-* [CITY\_HASH](../sql-reference/functions-reference/city-hash.md)
-* [COALESCE](../sql-reference/functions-reference/coalesce.md) 
-* [CONCAT](../sql-reference/functions-reference/concat.md)
-* [IFNULL](../sql-reference/functions-reference/ifnull.md) 
-* [MAX](../sql-reference/functions-reference/max.md) 
-* [MAX\_BY](../sql-reference/functions-reference/max-by.md) 
-* [MIN](../sql-reference/functions-reference/min.md) 
-* [MIN\_BY](../sql-reference/functions-reference/min-by.md) 
-* [NULLIF](../sql-reference/functions-reference/nullif.md)
-* [ROUND](../sql-reference/functions-reference/round.md)
-* [SUM](../sql-reference/functions-reference/sum.md)
-* [TO\_DOUBLE](../sql-reference/functions-reference/to-double.md) 
-* [TO\_FLOAT](../sql-reference/functions-reference/to-float.md) 
-* [TO\_INT](../sql-reference/functions-reference/to-int.md)
-* [TRY\_CAST](../sql-reference/functions-reference/try-cast.md)

@@ -11,7 +11,7 @@ search_exclude: false
 
 This topic describes the Firebolt implementation of the `BYTEA` data type.
 
-Not all functions support the `BYTEA` data type currently. For more information, see [BYTEA functions](../sql_reference/functions-reference/bytea/index.md) 
+Not all functions support the `BYTEA` data type currently. For more information, see [BYTEA functions](./functions-reference/bytea/index.md) 
 
 * Topic ToC
 {:toc}
@@ -33,7 +33,7 @@ Using hex format, the `TEXT` type data must start with `\x`. Characters `\n`, `\
 **Escape**<br>
 Using escape format, an escaped backslash becomes just a single backslash: `\\` -> `\`. One backslash must be followed by 3 numbers representing octal value (base 8) in range of `000-377`. For example, `a \375`
 
-In addition to casting, the [ENCODE](../sql-reference/functions-reference/bytea/encode.md) and [DECODE](../sql-reference/functions-reference/bytea/decode.md) functions can be used to represent `TEXT` as `BYTEA` and vice versa, but will behave slightly differently. For example, `SELECT ENCODE('1'::BYTEA, 'HEX');` returns `31`, while `SELECT CAST('1'::BYTEA as TEXT);` returns `\x31`, both of type `TEXT`.
+In addition to casting, the [ENCODE](./functions-reference/bytea/encode.md) and [DECODE](./functions-reference/bytea/decode.md) functions can be used to represent `TEXT` as `BYTEA` and vice versa, but will behave slightly differently. For example, `SELECT ENCODE('1'::BYTEA, 'HEX');` returns `31`, while `SELECT CAST('1'::BYTEA as TEXT);` returns `\x31`, both of type `TEXT`.
 
 ### Comparison operator
 
@@ -50,7 +50,7 @@ The `BYTEA` comparison operator will work as lexicographical comparison but with
 ### Literal string interpretation
 
 Literal strings will be interpreted according to the setting [`standard_conforming_strings`,](../Reference/system-settings.md#enable-parsing-for-literal-strings) which controls whether strings are parsed with or without escaping.
-Similar to [CAST](../sql_reference/functions-reference/conditional-and-miscellaneous/cast.md)  from `TEXT` to `BYTEA`, the two text formats hex and escape are supported.
+Similar to [CAST](./functions-reference/conditional-and-miscellaneous/cast.md)  from `TEXT` to `BYTEA`, the two text formats hex and escape are supported.
 
 **Examples:**
 

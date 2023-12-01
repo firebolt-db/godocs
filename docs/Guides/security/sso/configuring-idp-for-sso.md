@@ -120,13 +120,13 @@ where
 
 This corresponds to the following setup in OneLogin, where name/surname in OneLogin corresponds to values in JSON:
 
-<img src="../../assets/images/onelogexample1.png" alt="Edit first name" width="500"/>
+<img src="../../../assets/images/onelogexample1.png" alt="Edit first name" width="500"/>
 
 ## Salesforce
 
 ### Configure Salesforce application
 
-<img src="../../assets/images/salesforce1.png" alt="Salesforce config" width="500"/>
+<img src="../../../assets/images/salesforce1.png" alt="Salesforce config" width="500"/>
 
 1. In Salesforce, search for the 'Identity provider' setting. Make sure that 'Identity Provider Setup' is enabled. You can use default certificate. 
 
@@ -193,7 +193,7 @@ where
     - Save the value of Single SignOn Service
 6. Open the **Attribute Mappings** tab, and edit the saml_subject to map to Email Address. Then **Save**.
 
-<img src="../../assets/images/pingfed6.png" alt="Pingfed" width="500"/>
+<img src="../../../assets/images/pingfed6.png" alt="Pingfed" width="500"/>
 
 ### Example - Firebolt organization configuration to work with PingFederate
 Values for SQL to create the SSO connection are as follows:

@@ -8,7 +8,7 @@ parent: General reference
 
 # Available Firebolt engine specifications
 
-The engine specs listed below are available in Firebolt. For more information, see [Working with engines](../Guides/working-with-engines/).
+The engine specs listed below are available in Firebolt. For more information, see [Working with engines](../Guides/working-with-engines/working-with-engines.md).
 
 | Name    	| vCPU 	| RAM (GB) 	| Cache (GB) 	|
 | :--------	| :----	| :------	| :--------	|

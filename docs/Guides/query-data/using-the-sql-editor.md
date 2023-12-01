@@ -105,7 +105,7 @@ Firebolt uses cookies in your client to save the state of unsaved scripts automa
   ![](../../assets/images/global_script.png)  
 
   Firebolt moves the script to the **Global scripts** list.  
-  ![](../assets/images/global_script_list.png)
+  ![](../../assets/images/global_script_list.png)
   
 **To rename a script**<a name="scriptrename"></a>
 
