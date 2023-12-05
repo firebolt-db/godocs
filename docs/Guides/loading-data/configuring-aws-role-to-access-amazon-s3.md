@@ -88,15 +88,20 @@ In the AWS Management Console, create an AWS IAM role. The IAM role will assume 
 1. Log in to the [AWS Identity and Access Management \(IAM\) Console](https://console.aws.amazon.com/iam/home#/home).
 2. From the left navigation panel, choose **Roles**, and then choose **Create role**.
 3. Select **Another AWS account** as the trusted entity type.
-4. In the **Account ID** field, enter your Firebolt **AWS Account ID**. Users with Account Admin privileges can view this value in the [Account & Billing window](https://app.firebolt.io/account-info).
-5. If you select **Require external ID**, enter a value of your choosing and make a note of it.
-6. Choose **Next**.
-7. Begin typing the name of the policy you created in [Step 1: Create an IAM permissions policy](#create-an-iam-permissions-policy) in the search box, select it from the list, and then choose **Next**.
-8. Enter a **Name** and optional **Description** for the role, and then choose **Create role**.
+4. In the **Account ID** field, enter your Firebolt **AWS Account ID**. Users with Account Admin privileges can view this value in Edit Account window in Firebolt.  To get to that window:
+   * Click on Configure in the left menu bar - this should take you to the Configure >> Organization settings screen.
+   * If not already selected, click on Accounts on the left - this should bring up the Accounts management screen.
+   * Click on the 3 dots to the right of your account and select Edit account.  This should bring up the Edit account pop-up.
+   * At the bottom is AWS account ID.
+   
+6. If you select **Require external ID**, enter a value of your choosing and make a note of it.
+7. Choose **Next**.
+8. Begin typing the name of the policy you created in [Step 1: Create an IAM permissions policy](#create-an-iam-permissions-policy) in the search box, select it from the list, and then choose **Next**.
+9. Enter a **Name** and optional **Description** for the role, and then choose **Create role**.
 
    You have now created an IAM permissions policy, an IAM role for Firebolt access, and attached the permissions policy to the role.
 
-9. Record the **Role ARN** listed on the role summary page.
+10. Record the **Role ARN** listed on the role summary page.
 
 ## Specify the IAM role in the external table definition
 Specify the role ARN in the [CREDENTIALS](../../sql_reference/commands/data-definition/create-external-table.md#syntax–authenticating-using-an-iam-role) of the `CREATE EXTERNAL TABLE` statement. If you specified an external ID, make sure to specify it in addition to the role ARN. When you use an INSERT INTO statement to ingest data from your source to a fact or dimension table, Firebolt assumes the IAM role for permissions to read from the location specified in the external table definition.
