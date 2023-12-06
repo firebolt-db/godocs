@@ -53,8 +53,6 @@ Auth0 is used as the identity provider for customer registration, and the authen
 
 Firebolt uses SSO to simplify and streamline implementation, enhance security posture, and fortify defenses against unauthorized access and data breach. SSO configuration is accessible to those with the org_account built-in role.
 
-[SSO Acme example]
-
 ### Multi-Factor Authentication (MFA)
 
 Multi-factor authentication (MFA) adds an extra layer of security by requiring users to provide multiple forms of authentication to access an account. Many industries have specific compliance and regulatory requirements that mandate the use of MFA for certain types of data or systems — Firebolt fully supports these requirements with MFA configuration and implementation that is tied to the login object.
