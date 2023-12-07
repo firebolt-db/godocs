@@ -33,21 +33,10 @@ See below for an example pom.xml file:
     <!-- pom.xml  -->
     
     <project ...>
-        ...
-        <repositories>
-        		...
-        		<repository>
-      	    		<id>repsy</id>
-      	    		<name>Firebolt Private Maven Repository on Repsy</name>
-      	    		<url>https://repo.repsy.io/mvn/firebolt/maven</url>
-    	    	</repository>
-    	    	...
-      	</repositories>
-      	...
     <dependency>
-                	<groupId>com.firebolt</groupId>
+                	<groupId>io.firebolt</groupId>
                 	<artifactId>firebolt-jdbc</artifactId>
-                	<version>3.0.0</version>
+                	<version>3.0.1</version>
            </dependency>
     </project>
 
@@ -61,13 +50,10 @@ See below for an example pom.xml file:
     
     repositories {
         mavenCentral()
-        maven {
-          url 'https://repo.repsy.io/mvn/firebolt/maven'
-        }
     }
     
     dependencies {
-        implementation 'com.firebolt:firebolt-jdbc:3.0.0'
+        implementation 'io.firebolt:firebolt-jdbc:3.0.1'
     }
 
 ## Connecting to Firebolt with the JDBC driver
