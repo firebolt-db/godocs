@@ -33,7 +33,7 @@ See below for an example pom.xml file:
     <!-- pom.xml  -->
     
     <project ...>
-    <dependency>
+           <dependency>
                 	<groupId>io.firebolt</groupId>
                 	<artifactId>firebolt-jdbc</artifactId>
                 	<version>3.0.1</version>
