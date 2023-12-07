@@ -18,9 +18,9 @@ Although you can run a query over an external table to return query results, we 
 
 ## Workflows
 
-1. For a simple end-to-end workflow that demonstrates loading data into Firebolt, see the [Getting started tutorial](../getting-started.md).  
+For a simple end-to-end workflow that demonstrates loading data into Firebolt, see the [Getting started tutorial](../getting-started.md).  
 
-2. For a workflow that demonstrates incrementally loading data into Firebolt, see [Incrementally loading data with Airflow](incrementally-loading-data.md).
+<!-- 2. For a workflow that demonstrates incrementally loading data into Firebolt, see [Incrementally loading data with Airflow](incrementally-loading-data.md). -->
 
 ## Supported file formats
 

@@ -33,7 +33,7 @@ Organizations are used to create a structure that fits your needs: by setting up
  
 - **Global authentication method:** Firebolt handles user authentication and access control at the organization level. A login (represented by an email) is created for each user accessing Firebolt.
 - **Programmatic access:** [Service accounts](../Guides/managing-your-organization/service-accounts.md) enable programmatic access to Firebolt.
-- **Network policy enforcement:** [Network policies](../Guides/managing-your-organization/network-policies.md) provide fine-grain control of IP ranges that are allowed or blocked from accessing an organization.
+- **Network policy enforcement:** [Network policies](../Guides/security/network-policies.md) provide fine-grain control of IP ranges that are allowed or blocked from accessing an organization.
 
 ## What is an account?
 An account in Firebolt is an object within an organization that encapsulates resources for storing, querying, and managing data. Accounts provide:

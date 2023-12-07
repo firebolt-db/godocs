@@ -36,8 +36,8 @@ Your organization comes prepared with one account for your convenience - choose 
 ## Next steps:
 
 - [Manage accounts](managing-accounts.md)
-- [Create logins](managing-logins.md) or [set up SSO authentication](./sso/sso.md) 
+- [Create logins](managing-logins.md) or [set up SSO authentication](../security/sso/sso.md) 
 - [Add users](managing-users.md) to your account
-- [Manage roles](rbac.md)
+- [Manage roles](../security/rbac.md)
 - Create databases, engines, and load your data. Follow our [getting started tutorial](../getting-started.md) to try this out with sample data.
 
