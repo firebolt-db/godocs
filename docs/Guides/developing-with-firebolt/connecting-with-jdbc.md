@@ -2,12 +2,12 @@
 layout: default
 title: JDBC
 description: How to use the Firebolt JDBC driver
-nav_order: 5
+nav_order: 3
 parent: Develop with Firebolt
 grand_parent: Guides
 ---
 
-# Using the JDBC driver
+# JDBC driver
 {:.no_toc}
 
 Firebolt provides a [type 4](https://en.wikipedia.org/wiki/JDBC_driver#Type_4_driver_%E2%80%93_Database-Protocol_driver/Thin_Driver(Pure_Java_driver)){:target="_blank"} JDBC driver to connect to Firebolt from Java applications. The driver is released as open source software using a permissive Apache 2 license and can be browsed, forked, downloaded, and contributed to through its [GitHub repository](https://github.com/firebolt-db/jdbc){:target="_blank"}.
