@@ -17,7 +17,7 @@ FROM
   information_schema.network_policies;
 ```
 
-Read more about network policies [here](../../Guides/managing-your-organization/network-policies.md).
+Read more about network policies [here](../../Guides/security/network-policies.md).
 
 ## Columns in information_schema.network_policies
 

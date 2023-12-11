@@ -2,7 +2,7 @@
 layout: default
 title: Security
 description: Introduction to Firebolt security features and functionality
-nav_order: 3
+nav_order: 6
 parent: Overview
 ---
 
@@ -17,7 +17,7 @@ This topic will explore this layered security methodology with 1) network and pr
 
 Firebolt ensures end-to-end encryption using TLS 1.2, safeguarding data transmission from end users to the cloud service. 
 
-In addition to the TLS protocol, Firebolt supports defining custom [network policies](../Guides/managing-your-organization/network-policies.md), add an extra layer of security to an application. This functionality allows administrators fine-grained control over IP ranges that are allowed to access Firebolt. 
+In addition to the TLS protocol, Firebolt supports defining custom [network policies](../Guides/secuirty/network-policies.md), add an extra layer of security to an application. This functionality allows administrators fine-grained control over IP ranges that are allowed to access Firebolt. 
 
 {: .note}
 Firebolt supports both [login](../Guides/managing-your-organization/managing-logins.md) and [service account](../Guides/managing-your-organization/service-accounts.md) objects - a login object represents a given security principal (human) defined by an email address, while a service account object is used to represent a machine that will authenticate to the system.
@@ -112,9 +112,9 @@ GRANT ROLE sales TO kate;    -- grants sales role to user kate
 REVOKE ROLE sales FROM bob; -- revokes sales role from user bob 
 ```
 
-### Objects and Privileges
+### Objects and Permissions
 
-Privileges define the actions or operations that can be performed within Firebolt. These permissions range from managing databases and engines to executing queries and accessing and analyzing data. Each instance of an object (securable) in the Firebolt object model has specific permissions that are associated with it. As an example, there could be multiple instances of an engine object (i.e. my_engine1, my_engine2) and each instance comes with a set of predefined permissions.
+Permissions define the actions or operations that can be performed within Firebolt. These permissions range from managing databases and engines to executing queries and accessing and analyzing data. Each instance of an object (securable) in the Firebolt object model has specific permissions that are associated with it. As an example, there could be multiple instances of an engine object (i.e. my_engine1, my_engine2) and each instance comes with a set of predefined permissions.
 
 For a full list of available permissions, see [role-based access control](../Guides/security/rbac.md#permissions).
 

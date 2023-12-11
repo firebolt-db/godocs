@@ -75,7 +75,28 @@ curl http://api.app.firebolt.io/web/v3/account/<account name>/engineUrl
 
 ```json
 {
-    "engineUrl":"https://api.us-east-1.dev.firebolt.io"
+    "engineUrl": "https://api.us-east-1.dev.firebolt.io"
+}
+```
+
+## Get ID of your account
+
+Use the following endpoint to retrieve the ID of your account:
+
+```bash
+curl http://api.app.firebolt.io/web/v3/account/<account name>/resolve \
+-H 'Accept: application/json' \
+-H 'Authorization: Bearer <access token>'
+```
+
+**Example:** `https://api.app.firebolt.io/web/v3/account/my_account/resolve`   
+
+**Response**
+
+```json
+{
+    "id":"<account_id>",
+    "region":"us-east-1"
 }
 ```
 

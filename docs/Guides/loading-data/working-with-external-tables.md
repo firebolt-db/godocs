@@ -18,9 +18,9 @@ Although you can run a query over an external table to return query results, we 
 
 ## Workflows
 
-1. For a simple end-to-end workflow that demonstrates loading data into Firebolt, see the [Getting started tutorial](../getting-started.md).  
+For a simple end-to-end workflow that demonstrates loading data into Firebolt, see the [Getting started tutorial](../getting-started.md).  
 
-2. For a workflow that demonstrates incrementally loading data into Firebolt, see [Incrementally loading data with Airflow](incrementally-loading-data.md).
+<!-- 2. For a workflow that demonstrates incrementally loading data into Firebolt, see [Incrementally loading data with Airflow](incrementally-loading-data.md). -->
 
 ## Supported file formats
 
@@ -39,7 +39,7 @@ The metadata virtual columns listed below are available in external tables.
 | `source_file_name` | The full path of the row data's source file in Amazon S3, without the bucket. For example, with a source file of `s3://my_bucket/xyz/year=2018/month=01/part-00001.parquet`, the `source_file_name` is `xyz/year=2018/month=01/part-00001.parquet`. | TEXT |
 | `source_file_timestamp` | The UTC creation timestamp in second resolution of the row's source file in S3. | TIMESTAMPTZ |
 
-For examples of metadata virtual column usage, see [Extracting partition values using INSERT](../../sql_reference/commands/data-management/insert.md#extracting-partition-values-using-insert) and [Incrementally loading data with Airflow](incrementally-loading-data.md).
+For examples of metadata virtual column usage, see [Extracting partition values using INSERT](../../sql_reference/commands/data-management/insert.md#extracting-partition-values-using-insert).
 
 ### Example&ndash;querying metadata virtual column values
 

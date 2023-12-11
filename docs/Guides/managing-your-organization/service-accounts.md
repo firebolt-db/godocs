@@ -35,7 +35,7 @@ To create a service account via the UI:
 2. From the Service accounts page, choose **Create a service account**.
 3. Enter a unique name for your service account. This name must start with a letter, and may contain only alphanumeric characters, or the underscore(_) character.
 4. Optionally, you can:
-  - Choose a **network policy** to apply from the list of existing [network policies](./network-policies.md) configured for your organization. 
+  - Choose a **network policy** to apply from the list of existing [network policies](../security/network-policies.md) configured for your organization. 
   - Specify a description for the service account.
 5. Choose **Create**. 
 

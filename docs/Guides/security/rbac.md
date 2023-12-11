@@ -34,7 +34,7 @@ System defined roles can neither be modified nor dropped. Users with the `accoun
 A user with either the `account_admin` or `security_admin` role can create custom roles. You can create a custom role using SQL, or via the UI.  
 
 ## Permissions
-A set of permissions can be granted for every securable object. See which permissions are available for accounts, databases and engines below. To view all permissions, query the [information_schema.object_permissions](../../sql_reference/information-schema/object-permissions.md) view. 
+A set of permissions can be granted for every securable object. See which permissions are available for accounts, databases and engines below. To view all permissions, query the [information_schema.object_permissions](../../sql_reference/information-schema/object-privileges.md) view. 
 
 ### Account
 Permissions can be granted for accounts to allow creating databases and engines.
