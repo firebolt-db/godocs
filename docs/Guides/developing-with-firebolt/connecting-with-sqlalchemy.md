@@ -7,7 +7,7 @@ parent: Develop with Firebolt
 grand_parent: Guides
 ---
 
-# Connecting with SQLAlchemy
+# Connect with SQLAlchemy
 
 SQLAlchemy is an open-source SQL toolkit and object-relational mapper for the Python programming language.
 
@@ -15,6 +15,6 @@ Firebolt’s adapter for SQLAlchemy acts as an interface for other supported thi
 
 The adapter is written in Python using the SQLAlchemy toolkit.
 
-### To get started
+### Get started
 
-We recommend you follow the guidelines for SQLAlchemy integration in our [Github repository](https://github.com/firebolt-db/firebolt-sqlalchemy/).
+Follow the guidelines for SQLAlchemy integration in the Firebolt-SQLAlchemy [Github repository](https://github.com/firebolt-db/firebolt-sqlalchemy/).
