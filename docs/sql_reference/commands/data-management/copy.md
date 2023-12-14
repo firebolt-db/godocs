@@ -57,8 +57,7 @@ FROM <externalLocation>
 | `COMPRESSION`     | Specifies whether file compression is used. If omitted, defaults to `GZIP` compression format. If `NONE` is specified, exported files are not compressed.|
 | `ENCODING` | |
 | `AUTO_CREATE` | Specifies if the table can be automatically created by working alongside with automatic schema discovery. This option is available only for Parquet and CSV currently. If the Parquet table is partitioned, the auto-schema process detects partitioning keys and creates a target table in Firebolt that is partitioned (according to the source specification).By default, automatic table creation is not enabled (value: FALSE). If value: TRUE and the target table already exists, `AUTO_CREATE` is ignored. |
-| `ERROR_FILE` |  Defines an optional file where rejected records will be stored. See `externalLocation` parameter definition above for format details. If the specified path doesn't exist, a folder will be created on the behalf of the user. A child directory is created with the name "rejectedrows", and within this directory, another folder is created based on the time of load submission in the format YearMonthDay -HourMinuteSecond + QueryID (Ex. 20220330-173205/<query_id>/). In this folder, two types of files are written: 1) the reason (Error) file and the data (Row) file.
-If `ERRORFILE is omitted, error files are created in the source location. |
+| `ERROR_FILE` |  Defines an optional file where rejected records will be stored. See `externalLocation` parameter definition above for format details. If the specified path doesn't exist, a folder will be created on the behalf of the user. A child directory is created with the name "rejectedrows", and within this directory, another folder is created based on the time of load submission in the format YearMonthDay -HourMinuteSecond + QueryID (Ex. 20220330-173205/<query_id>/). In this folder, two types of files are written: 1) the reason (error) file and the data (row) file. If `ERRORFILE` is omitted, error files are created in the source location. |
 | `ERROR_FILE_CREDENTIALS` | The Amazon S3 credentials for accessing the specified `<externalLocation>` for error file creation. See [CREDENTIALS](#credentials) below. |
 | `MAX_ERRORS` | Specifies the maximum number of rejected rows allowed in total before the `COPY` operation is canceled. Each row that cannot be imported by the `COPY` operation is ignored and counted as one error. If not defined, COPY behavior is dependent on the `ON_ERROR` clause setting. If the value is set to 0, operations are aborted on the first error. |
 |`MAX_ERRORS_PER_FILE` | Specifies the maximum number of rejected rows per file. Maximum number of errors per file can be expressed as either an absolute number of errors (max_errors_num) or a percentage (max_error_pct, representing the number of bad rows divided by the total number of rows). Once the threshold is reached, the `COPY` statement aborts processing that file but continues loading other files. |
@@ -181,97 +180,26 @@ All type options for CSV above, except for `FIELD_DELIMITER`, are also supported
 
 ## Examples
 
-* [COPY TO with defaults and role ARN](#copy-to-with-defaults-and-role-arn)
-* [COPY TO with single file and AWS access keys](#copy-to-with-single-file-and-aws-access-keys)
-* [COPY TO with custom file name prefix and ARN with external ID](#copy-to-with-custom-file-name-prefix-and-arn-with-external-id)
-* [COPY TO with custom file name and overwrite set to TRUE](#copy-to-with-custom-file-name-and-overwrite-set-to-true)
+* [COPY all source columns into target table](#copy-all-source-columns-into-target-table)
+* [COPY with explicit list of columns](#copy-with-explicit-list-of-columns)
+* [COPY with auto-schema discovery](#copy-with-auto-schema-discovery)
 
-### COPY TO with defaults and role ARN
-
-The example below shows a `COPY TO` statement with minimal parameters that specifies an `AWS_ROLE_ARN`. Because `TYPE` is omitted, the file or files will be written in CSV format, and because `COMPRESSION` is omitted, they are compressed using GZIP  (`*.csv.gz`).
+### COPY all source columns into target table
 
 ```sql
-COPY (SELECT * FROM test_table)
-  TO 's3://my_bucket/my_fb_queries'
-  CREDENTIALS = (AWS_ROLE_ARN='arn:aws:iam::123456789012:role/my-firebolt-role');
+COPY INTO public.games FROM <S3 bucket>;
 ```
 
-Firebolt assigns the query ID `16B903C4206098FD` to the query at runtime. The compressed output is 40 MB, exceeding the default of 16 MB, so Firebolt writes 4 files as shown below.
-
-```bash
-s3://my_bucket/my_fb_queries/
-  16B903C4206098FD_0.csv.gz
-  16B903C4206098FD_1.csv.gz
-  16B903C4206098FD_2.csv.gz
-  16B903C4206098FD_3.csv.gz
-```
-
-### COPY TO with single file and AWS access keys
-
-The example below exports a single, uncompressed JSON file with the same name as the query ID. If the file to be written exceeds the specified `MAX_FILE_SIZE` (5 GB), an error occurs. AWS access keys are specified for credentials.
+### COPY with explicit list of columns
 
 ```sql
-COPY (SELECT * FROM test_table)
-  TO 's3://my_bucket/my_fb_queries'
-  TYPE=JSON
-  COMPRESSION=NONE
-  CREDENTIALS=(AWS_KEY_ID='AKIAIOSFODNN7EXAMPLE' AWS_SECRET_KEY='wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY')
-  INCLUDE_QUERY_ID_IN_FILE_NAME=TRUE
-  SINGLE_FILE=TRUE
-  MAX_FILE_SIZE=5000000000;
+COPY INTO test_table (c1 1, c2 3) FROM <S3_bucket> WITH
+TYPE = CSV CREDENTIALS = '...' ENCODING = UTF8  QUOTE_CHARACTER = DOUBLE_QUOTE  TRUNCATE = ON;
 ```
 
-Firebolt writes a single file as shown below.
-
-```bash
-s3://my_bucket/my_fb_queries/
-  16B90E96716236D0.json
-```
-
-### COPY TO with custom file name prefix and ARN with external ID
-
-In the example below, because `FILE_NAME_PREFIX` parameter is specified, Firebolt adds a string to the query ID to form file names. The IAM role specified for `CREDENTIALS` also has an external ID configured in AWS, so the ID is specified.
+### COPY with auto-schema discovery
 
 ```sql
-COPY (SELECT * FROM test_table)
-  TO 's3://my_bucket/my_fb_queries'
-  TYPE=JSON
-  COMPRESSION=NONE
-  CREDENTIALS = (AWS_ROLE_ARN='arn:aws:iam::123456789012:role/my-firebolt-role' AWS_ROLE_EXTERNAL_ID='99291')
-  FILE_NAME_PREFIX='_query_result';
-```
-
-Firebolt assigns the query an id of `16B90E96716236D6` at runtime and writes files as shown below.
-
-```bash
-s3://my_bucket/my_fb_queries/
-  16B90E96716236D6_query_result_0.json
-  16B90E96716236D6_query_result_1.json
-  16B90E96716236D6_query_result_2.json
-  16B90E96716236D6_query_result_3.json
-  16B90E96716236D6_query_result_4.json
-```  
-
-### COPY TO with custom file name and overwrite set to TRUE
-
-In the example below, `INCLUDE_QUERY_ID_IN_FILE_NAME` is set to `FALSE` and a `FILE_NAME_PREFIX` is specified. In this case, Firebolt writes files using only the specified `FILE_NAME_PREFIX` as the file name. In addition, `SINGLE_FILE` and `OVERWRITE_EXISTING_FILES` are set to `TRUE` so that the S3 location always contains a single file with the latest query results.
-
-```sql
-COPY (SELECT * FROM test_table)
-  TO 's3://my_bucket/my_fb_query'
-  TYPE=JSON
-  COMPRESSION=NONE
-  CREDENTIALS=(AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/my-firebolt-role')
-  INCLUDE_QUERY_ID_IN_FILE_NAME=FALSE
-  SINGLE_FILE=TRUE
-  FILE_NAME_PREFIX='latest-fb-query-result'
-  MAX_FILE_SIZE=5000000000
-  OVERWRITE_EXISTING_FILES=TRUE;
-```
-
-Firebolt writes a single file as shown below.
-
-```bash
-s3://my_bucket/my_fb-query/
-  latest-fb-query-result.json
+COPY INTO test_table FROM <S3_bucket> WITH
+TYPE = PARQUET CREDENTIALS = '...' ENCODING = UTF8 QUOTE_CHARACTER = DOUBLE_QUOTE AUTO_CREATE = ON TRUNCATE = ON;
 ```
