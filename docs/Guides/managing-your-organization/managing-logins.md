@@ -59,6 +59,9 @@ To edit a login via the UI:
 2. Search for the relevant login using the top search filters, or by scrolling through the list of logins. Hover over the right-most column to make the login menu appear, then choose **Edit login details**.
 Edit the desired fields and choose **Save**.
 
+{: .note}
+Login name can not be changed for logins that were provisioned via SSO.
+
 <img src="../../assets/images/editlogin.png" alt="Edit login" width="500"/>
 
 ## Deleting an existing login

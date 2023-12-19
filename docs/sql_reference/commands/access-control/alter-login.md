@@ -29,7 +29,8 @@ or
 ```sql
 ALTER LOGIN <login_name> RENAME TO <new_login_name>;
 ```
-
+{: .note}
+A login that was provisioned via SSO cannot be renamed.
 ## Parameters 
 {: .no_toc} 
 
