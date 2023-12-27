@@ -17,7 +17,7 @@ This topic will explore this layered security methodology with 1) network and pr
 
 Firebolt ensures end-to-end encryption using TLS 1.2, safeguarding data transmission from end users to the cloud service. 
 
-In addition to the TLS protocol, Firebolt supports defining custom [network policies](../Guides/secuirty/network-policies.md), add an extra layer of security to an application. This functionality allows administrators fine-grained control over IP ranges that are allowed to access Firebolt. 
+In addition to the TLS protocol, Firebolt supports defining custom [network policies](../Guides/security/network-policies.md), add an extra layer of security to an application. This functionality allows administrators fine-grained control over IP ranges that are allowed to access Firebolt. 
 
 {: .note}
 Firebolt supports both [login](../Guides/managing-your-organization/managing-logins.md) and [service account](../Guides/managing-your-organization/service-accounts.md) objects - a login object represents a given security principal (human) defined by an email address, while a service account object is used to represent a machine that will authenticate to the system.
