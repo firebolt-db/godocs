@@ -78,7 +78,7 @@ curl POST --location 'https://id.app.firebolt.io/oauth/token' \
 --data-urlencode 'client_secret={service account secret}'
 ```
 
-**Response:**
+**Response:** # ignore Response
 ```json
 {
   "access_token":"eyJz93a...k4laUWw",
