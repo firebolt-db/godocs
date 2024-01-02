@@ -69,7 +69,7 @@ curl http://api.app.firebolt.io/web/v3/account/<account name>/engineUrl
 -H 'Authorization: Bearer <access token>'
 ```
 
-**Example:** `https://api.app.firebolt.io/web/v3/account/my_account/engineUrl`
+**Example:** `https://api.app.firebolt.io/web/v3/account/my-account/engineUrl`
 
 **Response**
 
@@ -89,7 +89,7 @@ curl http://api.app.firebolt.io/web/v3/account/<account name>/resolve \
 -H 'Authorization: Bearer <access token>'
 ```
 
-**Example:** `https://api.app.firebolt.io/web/v3/account/my_account/resolve`   
+**Example:** `https://api.app.firebolt.io/web/v3/account/my-account/resolve`   
 
 **Response**
 

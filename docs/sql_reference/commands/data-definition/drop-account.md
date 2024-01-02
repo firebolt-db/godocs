@@ -31,8 +31,8 @@ All engines in your accounts must be in a stopped state before running the `DROP
 
 ## Example
 
-The following command will delete the "my_account" account. 
+The following command will delete the "dev" account. 
 
 ```sql
-DROP ACCOUNT my_account
+DROP ACCOUNT dev
 ```
