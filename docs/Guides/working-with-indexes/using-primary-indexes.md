@@ -51,7 +51,7 @@ If you have already defined a workload that you want to run in Firebolt, try out
 ### Include columns used in selective predicates 
 
 All columns that are used in query `WHERE` clauses are can help to prune data.
-Depending on the predicates the columns are used in, Firebolt might be able to prune more or less data.
+Depending on the predicates the columns are used in, Firebolt can prune more or less data.
 
 For a predicate like `WHERE event_ts < now()`, almost all rows might satisfy the filter condition.
 This is called a predicate with low selectivity.
@@ -59,14 +59,15 @@ Meanwhile, a predicate such as `WHERE user_id = 49327` is often highly selective
 There can be millions of users, and only very few rows might correspond to the user with id `49327`.
 
 Columns that are used in predicates with highly selective filters will allow Firebolt to prune the most data.
-This in turn will lead to very fast query execution.
+This in turn leads to very fast query execution.
+When creating a primary index, choose columns used in highly selective predicates.
 
 ### Add low-cardinality columns to the beginning of the Primary Index 
 
 In Firebolt's F3 file format, the primary index defined for a table influences the sort order of data blocks on S3.
 For a PI with multiple columns, F3 sorts the data lexicographically.
 
-If you define a PI `(a, b)`, this means that the data blocks on S3 are ordered by `a`.
+If you define a primary index `(a, b)`, this means that the data blocks on S3 are ordered by `a`.
 Rows with the same values of `a` are consecutive and ordered by `b`.
 
 If column `a` has low cardinality (i.e. few distinct values) there will be long ordered runs of `b` in the F3 files.
