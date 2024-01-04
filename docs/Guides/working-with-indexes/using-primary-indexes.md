@@ -13,7 +13,7 @@ nav_order: 7
 * Topic ToC
 {:toc}
 
-‌Firebolt uses primary indexes to physically sort data into the Firebolt File Format (F3). The index also colocates similar values, which allows data to be pruned at query runtime. When you query a table, rather than scanning the whole data set, Firebolt uses the table’s index to prune the data. Unnecessary ranges of data are never loaded from disk. Firebolt reads only the relevant ranges of data to produce query results.
+‌Firebolt uses primary indexes to physically sort data into the Firebolt File Format (F3). The index colocates similar values, which allows data to be pruned at query runtime. When you query a table, rather than scanning the whole data set, Firebolt uses the table’s index to prune the data. Unnecessary ranges of data are never loaded from disk. Firebolt reads only the relevant ranges of data to produce query results.
 
 Primary indexes in Firebolt are a type of *sparse index*. Unlike a dense index that maps every search key value in a file, a sparse index is a smaller construct that holds only one entry per data block (a compressed range of rows). By using the primary index to read a much smaller and highly compressed range of data from F3 into the engine cache at query runtime, Firebolt produces query results much faster with less disk I/O.
 
@@ -42,21 +42,42 @@ After you create a table, you can’t modify the primary index. To change the in
 
 ## How to choose primary index columns
 
-The columns that you choose for the primary index and the order in which you specify them are important. If you have already defined a workload that you want to run in Firebolt, try out the [CALL RECOMMEND_DDL](../../sql_reference/commands/queries/recommend_ddl.html) command to find suitable primary index and partiton key configurations. You can learn more about how primary indexes should be chosen in the [Primary index examples](#primary-index-examples) section.
+The columns that you choose for the primary index and the order in which you specify them are important.
+By choosing a good a primary index, scan sizes can be reduced drastically.
+This in turn leads to much faster query execution.
 
-### Include columns used in WHERE clauses
+If you have already defined a workload that you want to run in Firebolt, try out the [CALL RECOMMEND_DDL](../../sql_reference/commands/queries/recommend_ddl.html) command to find suitable primary index and partition key configurations. 
 
-Include all columns that are used in query `WHERE` clauses to filter query results.
+### Include columns used in selective predicates 
 
-### Consider including columns used in GROUP BY clauses
+All columns that are used in query `WHERE` clauses are can help to prune data.
+Depending on the predicates the columns are used in, Firebolt might be able to prune more or less data.
 
-Consider adding columns that you use in `GROUP BY` statements with aggregate functions.
+For a predicate like `WHERE event_ts < now()`, almost all rows might satisfy the filter condition.
+This is called a predicate with low selectivity.
+Meanwhile, a predicate such as `WHERE user_id = 49327` is often highly selective.
+There can be millions of users, and only very few rows might correspond to the user with id `49327`.
 
-### Order columns in the index definition by cardinality
+Columns that are used in predicates with highly selective filters will allow Firebolt to prune the most data.
+This in turn will lead to very fast query execution.
 
-Specify columns in order of how frequently they’re used in `WHERE` clauses and in descending order of cardinality. In other words, in the first position (`<column1>` in the syntax above) specify the column that filters results the most. Then specify remaining columns in descending order of how much they filter.
+### Add low-cardinality columns to the beginning of the Primary Index 
 
-Avoid specifying a column of the highest cardinality&mdash;that is, a column that has truly unique values or the primary key&mdash;unless you use that column in query `WHERE` clauses. Also avoid specifying columns of low cardinality that won’t adequately filter results.
+In Firebolt's F3 file format, the primary index defined for a table influences the sort order of data blocks on S3.
+For a PI with multiple columns, F3 sorts the data lexicographically.
+
+If you define a PI `(a, b)`, this means that the data blocks on S3 are ordered by `a`.
+Rows with the same values of `a` are consecutive and ordered by `b`.
+
+If column `a` has low cardinality (i.e. few distinct values) there will be long ordered runs of `b` in the F3 files.
+If column `a` has high cardinality (i.e. many distinct values), there will be almost no ordered runs of `b`.
+
+Firebolt's pruning is most effective on long runs of ordered data.
+To get good pruning for both `a` and `b`, it's important that `a` has few distinct values.
+If `a` is a high-cardinality column with lots of distinct values, predicates on `b` will not be able to prune effectively.
+
+For compound PIs, start with low-cardinality columns that have at most a few dozen distinct values.
+Once you get to high-cardinality columns, choose the one which is used in many queries with highly selective predicates.
 
 ### Include as many columns as you need
 
@@ -64,13 +85,17 @@ The number of columns that you specify in the index won’t negatively affect qu
 
 ### Consider how you alter values in WHERE clauses
 
-The primary index isn’t effective if Firebolt can’t determine the values in the index column. If the `WHERE` clause in your query contains a function that transforms the column values, Firebolt can’t use the index. Consider a table with the primary index definition shown below, where `playerid` is a `INTEGER` data type in a table named `players`.
+The primary index isn’t effective if Firebolt can’t determine whether the data in the sparse index matches a predicate. 
+If the `WHERE` clause in your query contains a complex expression that transforms the column values, Firebolt might not be able to use the index.
+Consider a table with the primary index definition shown below, where `playerid` is a `INTEGER` data type in a table named `players`.
 
 ```sql
   PRIMARY INDEX playerid
 ```
 
-In the example analytics query over the `players` table, Firebolt can’t use the primary index with the `WHERE` clause. This is because the function with `playerid` is on the left side of the comparison. To satisfy the conditions of comparison, Firebolt must read all values of `playerid` to apply the `UPPER` function.
+In the example analytics query over the `players` table, Firebolt can’t use the primary index with the `WHERE` clause.
+This is because `playerid` is wrapped in a call to `UPPER` on the left side of the comparison. 
+To satisfy the conditions of comparison, Firebolt must read all values of `playerid` to apply the `UPPER` function.
 
 ![](../../assets/images/Red_X_resized.png)  
 
@@ -100,7 +125,8 @@ If you know that you will use a function in a predicate ahead of time, consider 
 
 ### With a star schema, include join key columns in the fact table index
 
-If you have a star schema with a fact table referring to many dimension tables, include the join keys (the foreign key columns) in the primary index of the fact table. This helps accelerate queries because the Firebolt query planner uses join keys as a predicate.
+If you have a star schema with a fact table referring to many dimension tables, include the join keys (the foreign key columns) in the primary index of the fact table. 
+This helps accelerate queries because Firebolt can use the join keys for data pruning in the F3 format.
 
 Conversely, on the dimension table side, there is no benefit to including the join key in the dimension table primary index unless you use it as a filter on the dimension table itself.
 
