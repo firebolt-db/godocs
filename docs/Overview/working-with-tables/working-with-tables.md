@@ -29,7 +29,7 @@ Tables in the Firebolt data warehouse are stored in the Firebolt file format (F3
 Below is a simple example of a script that creates one fact table and two dimension tables.
 
 ```sql
-CREATE FACT TABLE transactions
+CREATE FACT TABLE IF NOT EXISTS transactions
 (
     transaction_id    BIGINT,
     sale_date         TIMESTAMP,
@@ -39,7 +39,7 @@ CREATE FACT TABLE transactions
 )
 PRIMARY INDEX store_id, product_id;
 
-CREATE DIMENSION TABLE dim_store
+CREATE DIMENSION TABLE IF NOT EXISTS dim_store
 (
     store_id      INTEGER,
     store_number  INTEGER,
@@ -47,7 +47,7 @@ CREATE DIMENSION TABLE dim_store
     country       TEXT
 );
 
-CREATE DIMENSION TABLE dim_product
+CREATE DIMENSION TABLE IF NOT EXISTS dim_product
 (
     product_id        INTEGER,
     product_name      TEXT,
