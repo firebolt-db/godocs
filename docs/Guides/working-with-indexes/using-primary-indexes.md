@@ -50,7 +50,7 @@ If you have already defined a workload that you want to run in Firebolt, try out
 
 ### Include columns used in selective predicates 
 
-All columns that are used in a query's `WHERE` clause can help to prune data.
+The most commonly used columns that are used in a query's `WHERE` clause can help to prune data.
 Depending on the predicates the columns are used in, Firebolt can prune more or less data.
 
 For a predicate like `WHERE event_ts < now()`, almost all rows might satisfy the filter condition.
