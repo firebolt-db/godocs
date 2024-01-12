@@ -35,7 +35,7 @@ The `<select_statement>` returns exactly one column of type `TEXT` containing th
 
 **Returns:**
 
-| recommended_partition_key | recommended_primary_index | scan_savings | analyzed_queries |
+| recommended_partition_key | recommended_primary_index | average_pruning_improvement | analyzed_queries |
 | :--- | :--- | :--- | :--- |
 | DATE_TRUNC('month', l_orderdate) | l_shipmode, l_returnflag, l_shipinstruct | 0.42 | 393 |
 
