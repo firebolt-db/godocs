@@ -1,4 +1,13 @@
-# Firebolt Node SDK
+---
+layout: default
+title: Node SDK
+description: Learn about using the Node SDK for Firebolt.
+nav_order: 6
+parent: Develop with Firebolt
+grand_parent: Guides
+---
+
+# Node SDK
 
 ## Overview
 The Firebolt Node SDK is a software development kit designed to facilitate the integration of Firebolt's high-performance database capabilities into Node.js applications. This SDK provides a set of tools and interfaces for developers to interact with Firebolt databases, enabling efficient data manipulation and query execution.
