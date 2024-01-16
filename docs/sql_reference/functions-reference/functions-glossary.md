@@ -141,7 +141,7 @@ All Firebolt functions in alphabetical order.
 | [SQRT](./numeric/sqrt.md) | Returns the square root of a non-negative numeric expression. | Numeric |
 | [STDDEV_SAMP](./aggregation/stddev-samp.md) | Computes the standard deviation of a sample consisting of a numeric expression. | Aggregation |
 | [STRPOS](./string/strpos.md) | Returns the position (in bytes) of the substring found in the string, starting from 1. The returned value is for the first matching value, and not for any subsequent valid matches. In case the substring does not exist, functions will return 0. | String |
-| [SUBSTRING](./string/substring.md) | Returns a substring starting at the character indicated by the start index and including the number of characters defined. Character indexing starts at index 1. | String |
+| [SUBSTRING, SUBSTR](./string/substring.md) | Returns a substring starting at the character indicated by the start index and including the number of characters defined. Character indexing starts at index 1. | String |
 | [SUM](./aggregation/sum.md) | Calculates the sum of an expression. | Aggregation |
 | [SUM OVER](./window/sum-window.md) | Calculate the sum of the values within the requested window. | Window |
 | [TAN](./numeric/tan.md) | Calculates the tangent. | Numeric |

@@ -1,12 +1,12 @@
 ---
 layout: default
-title: SUBSTRING
+title: SUBSTRING, SUBSTR
 description: Reference material for SUBSTRING function
 grand_parent: SQL functions
 parent: String functions
 great_grand_parent: SQL reference
 ---
-## SUBSTRING
+## SUBSTRING, SUBSTR
 
 Returns a substring starting at the character indicated by the `<start>` index and including the number of characters defined by `<count>`. Character indexing starts at index 1.
 
@@ -15,6 +15,8 @@ Returns a substring starting at the character indicated by the `<start>` index a
 
 ```sql
 SUBSTRING(<expression> [FROM <start>] [FOR <count>])
+SUBSTRING(<expression>, <start> [, <count>])
+SUBSTR(<expression>, <start> [, <count>])
 ```
 
 ## Parameters
