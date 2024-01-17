@@ -52,8 +52,9 @@ All Firebolt functions in alphabetical order.
 | [CBRT](./numeric/cbrt.md) | Returns the cubic-root of a non-negative numeric expression. | Numeric |
 | [CEIL (CEILING)](./numeric/ceil.md) | Returns the smallest value that is greater than or equal to the input value. | Numeric |
 | [CHECKSUM](./aggregation/checksum.md) | Calculates a hash value known as a checksum operation on a list of arguments. | Aggregation |
+| [CITY_HASH](./conditional-and-miscellaneous/city_hash.md) | Takes one or more input parameters of any data type and returns a 64-bit non-cryptographic hash value. | Conditional & miscellaneous |
 | [COALESCE](./conditional-and-miscellaneous/coalesce.md) | Checks from left to right for the first non-NULL argument found for each entry parameter pair. | Conditional & miscellaneous |
-| [CONCAT or ||](./string/concat.md) | Concatenates the strings listed in the input without a separator. | String |
+| [CONCAT or \|\|](./string/concat.md) | Concatenates the strings listed in the input without a separator. | String |
 | [CONTAINS](./array/contains.md) | Returns 1 if a specified argument is present in the array, or 0 otherwise. | Array |
 | [COS](./numeric/cos.md) | Trigonometric function that calculates the cosine of a specific value. | Numeric |
 | [COT](./numeric/cot.md) | Calculates the cotangent. | Numeric |
