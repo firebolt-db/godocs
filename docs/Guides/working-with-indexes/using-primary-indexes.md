@@ -20,7 +20,7 @@ Primary indexes in Firebolt are a type of *sparse index*. Unlike a dense index t
 The video below explains sparse indexing. Eldad Farkash is the CEO of Firebolt.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/7XDTVB9gsFw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-## How you create a primary index
+## How you create a primary index   --> COPY button doesn't work in all of this page (expect it to copy to URL as in other pages). 
 
 To define a primary index, you use the `PRIMARY INDEX` clause within a [`CREATE TABLE`](../../sql_reference/commands/data-definition/create-fact-dimension-table.md) statement. Although they are optional, we strongly recommend them.
 
@@ -44,7 +44,7 @@ After you create a table, you can’t modify the primary index. To change the in
 
 The columns that you choose for the primary index and the order in which you specify them are important. If you have already defined a workload that you want to run in Firebolt, try out the [CALL RECOMMEND_DDL](../../sql_reference/commands/queries/recommend_ddl.html) command to find suitable primary index and partiton key configurations. You can learn more about how primary indexes should be chosen in the [Primary index examples](#primary-index-examples) section.
 
-### Include columns used in WHERE clauses
+### Include columns used in WHERE clauses 
 
 Include all columns that are used in query `WHERE` clauses to filter query results.
 
