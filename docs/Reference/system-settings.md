@@ -58,28 +58,6 @@ SET standard_conforming_strings = true;
 SELECT '\x3132'; -> \x3132
 ```
 
-
-## Enable exact COUNT (DISTINCT)
-
-When set to false (`0`), the [COUNT (DISTINCT)](../sql_reference/functions-reference/aggregation/count.md) function returns approximate results, using an estimation algorithm with an average deviation under 2%. This is the default to optimize query performance. When set to true (`1`), the function returns an exact count, which can slow query performance.
-
-{: .note}
-This function can be used in [Aggregating Indexes](../Guides/working-with-indexes/using-aggregating-indexes.md).  When asking Support to permanently change the setting, it will be necessary to drop and recreate any aggregating indexes that use the the COUNT(DISTINCT) aggregation after the change is made.  That will allow the aggregation values to be calculated with the new setting.
-
-### Syntax  
-{: .no_toc}
-
-```sql
-firebolt_optimization_enable_exact_count_distinct = [false|true]
-```
-
-### Example  
-{: .no_toc}
-
-```sql
-SET firebolt_optimization_enable_exact_count_distinct = true;
-```
-
 ## Limit the number of result rows
 
 When set to a value greater than zero, this setting limits the number of rows returned by `SELECT` statements. The query is executed as if an additional `LIMIT` clause is added to the SQL query. The default value is zero.
