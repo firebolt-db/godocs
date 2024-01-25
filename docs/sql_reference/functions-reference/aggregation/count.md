@@ -29,7 +29,7 @@ COUNT([ DISTINCT ] <expression>)
 Valid values for the input expression include column names or functions that return a column name. When `DISTINCT` is being used, only the unique number of rows with no `NULL` values are counted. `COUNT(*)` returns a total count of all rows in the table, while `COUNT(<column_name>)` returns a count of non-null rows in the specified `<column_name>`.
 
 {: .note}
-> By default, `COUNT(DISTINCT)` returns approximate results. If you require a precise result (with a performance penalty), please contact Firebolt Support through the Help menu support form. 
+> By default, `COUNT(DISTINCT)` returns exact results. If you do not require a precise result and want to have faster performance, consider using the APPROX_COUNT_DISTINCT function.  See below for examples and considerations. 
 
 ## Return Type
 `NUMERIC`
