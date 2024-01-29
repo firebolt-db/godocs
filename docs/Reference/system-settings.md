@@ -38,13 +38,13 @@ SELECT TIMESTAMPTZ '2023-1-29Z';  --> 2023-01-29 02:00:00+02
 
 ## Enable parsing for literal strings
 
-When set to `true`, strings are parsed without escaping, treating backslashes literally. By default this is disabled, and the `\` character is recognized as an escape character. 
+When set to `true`, strings are parsed without escaping, treating backslashes literally. By default, this setting is enabled. 
 
 ### Syntax  
 {: .no_toc}
 
 ```sql
-SET standard_conforming_strings = [false|true]
+SET standard_conforming_strings = [true|false]
 ```
 
 ### Example
