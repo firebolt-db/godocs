@@ -141,16 +141,16 @@ The table below lists the available connection parameters that can be added to t
 
 ### System settings as connection parameters
 
-In addition to the parameters specified above, any [system setting](../../Reference/system-settings.md){:target="_blank"} can be passed as a connection string parameter. For example, if you wanted to set a custom CSV delimiter, your connection string would be as follows:
+In addition to the parameters specified above, any [system setting](../../Reference/system-settings.md){:target="_blank"} can be passed as a connection string parameter. For example, if you wanted to set a custom time zone, your connection string would be as follows:
     
-    jdbc:firebolt:my_database?format_csv_delimeter=%7C&<other_connection_params>
+    jdbc:firebolt:my_database?time_zone=UTC&<other_connection_params>
     
 ## Applying system settings using SET
 
 In addition to passing system settings as connection string parameters, any [system setting](../../Reference/system-settings.md){:target="_blank"} can be passed to Firebolt as a `SET` command in SQL. Multiple `SET` statements can be passed at once as long as they immediately follow one after another separated by semicolons, as shown in the following example.
 
-    SET input_format_csv_allow_single_quotes = 0;
-    SET format_csv_delimiter = |;
+    SET time_zone = 'UTC';
+    SET standard_conforming_strings = false;
 
 ## Full reference documentation
 
