@@ -8,11 +8,24 @@ has_toc: true
 ---
 # Getting started tutorial
 {:.no_toc}
-This tutorial teaches you how to create a database, ingest a sample dataset from Amazon S3 into Firebolt, and run fundamental analytics queries over the data. To perform this tutorial, you need an active Firebolt account. If you don't have one, [Schedule a call](https://www.firebolt.io/getting-started-now) to get set up, and [register for our hands-on Firebolt workshop](https://hi.firebolt.io/lp/hands-on-firebolt-workshop) to get an interactive, instructor-led tutorial on Firebolt. 
+This tutorial will help you connect your Firebolt account to AWS Marketplace, create a database, ingest a sample dataset from Amazon S3 into Firebolt, and run fundamental analytics queries over the data. If you do not have an active Firebolt account, [schedule a call](https://www.firebolt.io/getting-started-now) to get set up and register for our hands-on Firebolt workshop to get an interactive, instructor-led tutorial on Firebolt. 
 
 {: .note}
 This tutorial uses Firebolt's sample dataset, from the fictional gaming company "Ultra Fast Gaming Inc." This dataset is publicly available with the access credentials shared below.
 
+## Registering for Firebolt through AWS Marketplace
+This registration is a prerequisite for starting engines and running queries. 
+
+**To register**
+1. On the Firebolt page, navigate to the Configuration menu. Click Billing. 
+
+2. Click Connect to AWS Marketplace. This will take you to the Firebolt page available on AWS Marketplace.
+
+3. On the AWS Marketplace page, click the View Purchase Options on the top right hand corner of the screen. 
+ 
+4. Click Setup Your Account. 
+
+Your account should now be associated with AWS Marketplace. 
 
 1. Topic toC
 {:toc}
