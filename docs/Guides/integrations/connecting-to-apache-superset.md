@@ -62,7 +62,7 @@ Once your Superset is booted up you should be able to access it in http://localh
 
 After the initial setup in Superset User Inteface head to the `Settings -> Database connections` in the top right corner.
 
-<img src="../../assets/images/superset-settings.png" alt="Database Connections" width="50%">
+<img src="../../assets/images/superset-settings.png" alt="Database Connections" width="30%">
 
 On the next screen, press the `+ Database` button and select Firebolt from the dropdown. If you don't see Firebolt in the list, please refer to the [Setup Superset](#setup-superset) section for instructions on how to install the Firebolt driver and verify that the driver is present.
 
