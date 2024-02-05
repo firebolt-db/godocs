@@ -13,6 +13,9 @@ This tutorial will help you connect your Firebolt account to AWS Marketplace, cr
 {: .note}
 This tutorial uses Firebolt's sample dataset, from the fictional gaming company "Ultra Fast Gaming Inc." This dataset is publicly available with the access credentials shared below.
 
+1. Topic toC
+{:toc}
+
 ## Registering for Firebolt through AWS Marketplace
 This registration is a prerequisite for starting engines and running queries. 
 
@@ -26,9 +29,6 @@ This registration is a prerequisite for starting engines and running queries.
 4. Click Setup Your Account. 
 
 Your account should now be associated with AWS Marketplace. 
-
-1. Topic toC
-{:toc}
 
 ## Create your first database
 To start working with data, you first create a database and a *Firebolt engine*. An engine represents the compute resources that are attached to a database for a certain workload. A database always has one *general purpose engine* that can write to the Firebolt file format (F3) for data ingestion and run analytics queries. We use that single-engine set up in this tutorial. Many databases are set up with additional *analytics engines* that can only query, and are configured to optimize different query workloads. For more information, see [Work with engines](./working-with-engines/working-with-engines.md).
