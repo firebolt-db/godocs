@@ -27,26 +27,27 @@ You will need:
 
 # Quickstart
 
+Follow this guide to setup Superset and get your first chart ready.
 
-## Setup Superset
-Clone Superset's GitHub [repository](https://github.com/apache/superset)
+### Setup Superset
+1. Clone Superset's GitHub [repository](https://github.com/apache/superset)
 ```shell
 git clone https://github.com/apache/superset.git
 ```
 
-Change directory to the root of the newly cloned repository and add the Firebolt driver
+2. Change directory to the root of the newly cloned repository and add the Firebolt driver
 ```shell
 cd superset
 touch ./docker/requirements-local.txt
 echo "firebolt-sqlalchemy" >> ./docker/requirements-local.txt
 ```
 
-Run Superset via Docker Compose
+3. Run Superset via Docker Compose
 ```shell
 docker compose -f docker-compose-non-dev.yml up
 ```
 
-(Optional) Verify firebolt driver is present in Superset container
+4. (Optional) Verify firebolt driver is present in Superset container
 ```shell
 docker exec -it <container_name> bash
 pip freeze | grep firebolt
@@ -57,15 +58,15 @@ Once your Superset is booted up you should be able to access it in http://localh
 
 > **Note:** For more installation details, refer to [Adding New Database Drivers in Docker](https://superset.apache.org/docs/databases/docker-add-drivers) in the Superset documentation.
 
-## Setup Firebolt connection
+### Setup Firebolt connection
 
 After the initial setup in Superset User Inteface head to the `Settings -> Database connections` in the top right corner.
 
-<img src="../../assets/images/superset-settings.png" alt="Database Connections" width="70%">
+<img src="../../assets/images/superset-settings.png" alt="Database Connections" width="50%">
 
-On the next screen, press the "+ Database" button and select Firebolt from the dropdown. If you don't see Firebolt in the list, please refer to the [Setup Superset](#setup-superset) section for instructions on how to install the Firebolt driver and verify that the driver is present.
+On the next screen, press the `+ Database` button and select Firebolt from the dropdown. If you don't see Firebolt in the list, please refer to the [Setup Superset](#setup-superset) section for instructions on how to install the Firebolt driver and verify that the driver is present.
 
-<img src="../../assets/images/superset-connect-a-database.png" alt="Connect database" width="50%">
+<img src="../../assets/images/superset-connect-a-database.png" alt="Connect database" width="30%">
 
 
 The connection expects a SQLAlchemy connection string of the form:
@@ -78,18 +79,18 @@ To authenticate, use a service account ID and secret.
 A service account is identified by a `client_id` and a `client_secret`.
 Learn how to generate an ID and secret [here](../managing-your-organization/service-accounts.md).
 
-<img src="../../assets/images/superset-firebolt-uri.png" alt="Credentials" width="50%">
+<img src="../../assets/images/superset-firebolt-uri.png" alt="Credentials" width="30%">
 
 Click the Test Connection button to confirm things work end to end. If the connection looks good, save the configuration by clicking the Connect button in the bottom right corner of the modal window.
 Now you're ready to start using Superset!
 
-## Build your first chart
+### Build your first chart
 
-This section assumes you have followed Firebolt [tutorial](../getting-started.md) and loaded a sample data set into your database.
+> **Note:**  This section assumes you have followed Firebolt [tutorial](../getting-started.md) and loaded a sample data set into your database.
 
 Now that you’ve configured Firebolt as a data source, you can select specific tables (Datasets) that you want to see in Superset.
 
-Go to Data -> Datasets and select "+ Dataset". There you can select your sample table by specifying Firebolt as your Database, your schema and the table name you chose.
+Go to Data -> Datasets and select `+ Dataset`. There you can select your sample table by specifying Firebolt as your Database, your schema and the table name you chose.
 
 ![Dataset](../../assets/images/superset-dataset-config.png)
 
