@@ -20,13 +20,13 @@ This tutorial uses Firebolt's sample dataset, from the fictional gaming company 
 This registration is a prerequisite for starting engines and running queries. 
 
 **To register**
-1. On the [Firebolt page](https://go.firebolt.io/login?redirect=%2F), navigate to the Configuration menu. Click Billing. 
+1. On the [Firebolt page](https://go.firebolt.io/login?redirect=%2F), navigate to the **Configuration menu**. Click **Billing**. 
 
-2. Click Connect to AWS Marketplace. This will take you to the Firebolt page available on AWS Marketplace.
+2. Click **Connect to AWS Marketplace**. This will take you to the Firebolt page available on AWS Marketplace.
 
-3. On the AWS Marketplace page, click the View Purchase Options on the top right hand corner of the screen. 
+3. On the **AWS Marketplace** page, click the **View Purchase Options** on the top right hand corner of the screen. 
  
-4. Click Setup Your Account. 
+4. Click **Setup Your Account**. 
 
 Your account should now be associated with AWS Marketplace. 
 
