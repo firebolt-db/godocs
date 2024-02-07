@@ -16,7 +16,7 @@ The Firebolt Node SDK is a software development kit designed to facilitate the i
 ## Installation
 To install the Firebolt Node SDK, run the following command in your project directory:
 ```bash
-npm install firebolt-node-sdk
+npm install firebolt-sdk
 ```
 
 ## Quick Start
