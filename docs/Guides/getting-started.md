@@ -24,7 +24,7 @@ This registration is a prerequisite for starting engines and running queries.
 
 2. Click **Connect to AWS Marketplace**. This will take you to the Firebolt page available on AWS Marketplace.
 
-3. On the **AWS Marketplace** page, click the **View Purchase Options** on the top right hand corner of the screen. 
+3. On the AWS Marketplace page, click the **View Purchase Options** on the top right hand corner of the screen. 
  
 4. Click **Setup Your Account**. 
 
