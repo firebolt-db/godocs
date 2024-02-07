@@ -31,7 +31,7 @@ CANCEL QUERY WHERE query_id = '12345';
 ## Notes
 * The query_id is typically obtained from the `information_schema.running_queries` view.
 * Cancelling a query may result in the termination of the associated query process, releasing resources and stopping further execution.
-* This statement is designed for administrative use and may require appropriate privileges to execute.
+* This statement is designed for administrative use and may require appropriate privileges to execute. However, all users can cancel their own queries by default.
 
 ## Example Use Case
 
@@ -47,5 +47,5 @@ CANCEL QUERY WHERE query_id = '12345';
 This will initiate the cancellation process for the specified query_id. While the query is not immediately removed from running_queries, its status will be observed as `CANCELING` there.
 After the cancellation process is completed, the query will have the `CANCELED` status in the `information_schema.query_history` view:
 ```sql
-SELECT query_id, status FROM information_schema.query_history WHERE status = 'CANCELED';
+SELECT query_id, query_text FROM information_schema.query_history WHERE status = 'CANCELED';
 ```
