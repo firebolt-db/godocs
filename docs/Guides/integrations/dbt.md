@@ -96,7 +96,6 @@ dbt debug
 ```
 
 > **Note:**  If you're seeing an error here, check that your `profile.yml` is [setup correctly](#setup-connection-to-firebolt) is in the right directory on your system and that the engine is [running](../working-with-engines/working-with-engines.md).
->
 > Also check that you're still in `dbt-env` virtual Python environment that we've [setup earlier](#setup-dbt-core) and that both packages are present.
 
 3. Install dependent packages
