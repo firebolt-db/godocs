@@ -2,12 +2,12 @@
 layout: default
 title: JDBC
 description: How to use the Firebolt JDBC driver
-nav_order: 5
+nav_order: 3
 parent: Develop with Firebolt
 grand_parent: Guides
 ---
 
-# Using the JDBC driver
+# JDBC driver
 {:.no_toc}
 
 Firebolt provides a [type 4](https://en.wikipedia.org/wiki/JDBC_driver#Type_4_driver_%E2%80%93_Database-Protocol_driver/Thin_Driver(Pure_Java_driver)){:target="_blank"} JDBC driver to connect to Firebolt from Java applications. The driver is released as open source software using a permissive Apache 2 license and can be browsed, forked, downloaded, and contributed to through its [GitHub repository](https://github.com/firebolt-db/jdbc){:target="_blank"}.
@@ -19,35 +19,24 @@ Firebolt provides a [type 4](https://en.wikipedia.org/wiki/JDBC_driver#Type_4_dr
 
 The Firebolt JDBC driver is provided as a JAR file and requires [Java 11](https://java.com/en/download/manual.jsp){:target="_blank"} or later. 
 
-Download the Firebolt JDBC driver JAR file from the [GitHub Releases page](https://github.com/firebolt-db/jdbc/releases/tag/v3.0.0-SNAPSHOT.io){:target="_blank"}.
+Download the Firebolt JDBC driver JAR file from the [GitHub Releases page](https://github.com/firebolt-db/jdbc/releases/tag/3.0.1-RELEASE-3){:target="_blank"}.
 
 ## Adding the Firebolt JDBC driver as a Maven dependency
 
-If you are using Apache Maven, you can configure and build your projects to use the Firebolt JDBC driver to connect to your Firebolt resources. To do this, add the JDBC driver as a dependency in your project **pom.xml** file by including a link to the [Firebolt Maven repository](https://repo.repsy.io/mvn/firebolt/maven/){:target="_blank"}.
+If you are using Apache Maven, you can configure and build your projects to use the Firebolt JDBC driver to connect to your Firebolt resources. To do this, add the JDBC driver as a dependency in your project **pom.xml** file by including a link to the [Firebolt Maven repository](https://mvnrepository.com/artifact/io.firebolt/firebolt-jdbc){:target="_blank"}.
 
 See below for an example pom.xml file:
 
   {: .note}
-  Be sure to replace `<version>0.00</version>` with the latest (highest) version number. You can identify the latest version by viewing the version history in the [Firebolt Maven repository](https://repo.repsy.io/mvn/firebolt/maven/com/firebolt/firebolt-jdbc/){:target="_blank"}.
+  Be sure to replace `<version>0.00</version>` with the latest (highest) version number. You can identify the latest version by viewing the version history in the [Firebolt Maven repository](https://mvnrepository.com/artifact/io.firebolt/firebolt-jdbc){:target="_blank"}.
     
     <!-- pom.xml  -->
     
     <project ...>
-        ...
-        <repositories>
-        		...
-        		<repository>
-      	    		<id>repsy</id>
-      	    		<name>Firebolt Private Maven Repository on Repsy</name>
-      	    		<url>https://repo.repsy.io/mvn/firebolt/maven</url>
-    	    	</repository>
-    	    	...
-      	</repositories>
-      	...
-    <dependency>
-                	<groupId>com.firebolt</groupId>
+           <dependency>
+                	<groupId>io.firebolt</groupId>
                 	<artifactId>firebolt-jdbc</artifactId>
-                	<version>3.0.0</version>
+                	<version>3.0.1</version>
            </dependency>
     </project>
 
@@ -55,19 +44,16 @@ See below for an example pom.xml file:
 ## Adding the Firebolt JDBC driver as a gradle dependency
 
   {: .note}
-  Be sure to replace `<version>0.00</version>` with the latest (highest) version number. You can identify the latest version by viewing the version history in the [Firebolt Maven repository](https://repo.repsy.io/mvn/firebolt/maven/com/firebolt/firebolt-jdbc/){:target="_blank"}.
+  Be sure to replace `<version>0.00</version>` with the latest (highest) version number. You can identify the latest version by viewing the version history in the [Firebolt Maven repository](https://mvnrepository.com/artifact/io.firebolt/firebolt-jdbc){:target="_blank"}.
 
     /* build.gradle */
     
     repositories {
         mavenCentral()
-        maven {
-          url 'https://repo.repsy.io/mvn/firebolt/maven'
-        }
     }
     
     dependencies {
-        implementation 'com.firebolt:firebolt-jdbc:3.0.0'
+        implementation 'io.firebolt:firebolt-jdbc:3.0.1'
     }
 
 ## Connecting to Firebolt with the JDBC driver

@@ -22,7 +22,7 @@ ARRAY_SUM([<function>,] <array>)
 
 | Parameter | Description | Supported input types | 
 | :--------- | :-------------------------------- |
-| `<function>`  | A Lambda function with an [arithmetic function](../../operators.md#arithmetic) used to modify the array elements. | Any function | 
+| `<function>`  | A Lambda function with an [arithmetic function](../../operators.md#arithmetic-numbers) used to modify the array elements. | Any function | 
 | `<array>`   | The array to be used to calculate the function.     | Any array of numeric types | 
 
 ## Return Type 

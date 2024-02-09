@@ -28,7 +28,7 @@ To start working with data, you first create a database and a *Firebolt engine*.
 3. Under **Database engines**, leave the default engine selected. Firebolt will name the engine *Tutorial_general_purpose*.  
 
 4. Choose **Create database**.  
-![](assets/images/newdb.png)  
+![](../assets/images/newdb.png)  
 Firebolt adds your database to the **Databases** page. 
 
 
@@ -44,7 +44,7 @@ SHOW DATABASES;
 ```  
 
 3. Choose **Run Script** and note that the **Using** list indicates the engine that Firebolt uses to run the script, for example, `Tutorial_general_purpose`.  
-![](assets/images/showdb.png)  
+![](../assets/images/showdb.png)  
 
 4. When Firebolt prompts you to start the engine, choose **Start Engine**. The engine will take a few minutes to set up.
 
@@ -103,7 +103,7 @@ TYPE = (CSV SKIP_HEADER_ROWS = 1);
 
 3. Choose **Run Script**.  
 Firebolt creates the external table. When finished, the external table `ex_levels` appears on the object panel of the database.  
-![](assets/images/exlevels.png)  
+![](../assets/images/exlevels.png)  
 
 4. Choose the vertical ellipses next to **Script 2**, choose **Save script**, enter a name (for example, *MyExTableScript*) and then press ENTER to save the script.
 
@@ -153,7 +153,7 @@ PRIMARY INDEX LevelID;
 
 3. Choose **Run Script**.  
 Firebolt creates the fact table. When finished, the table `levels` appears on the object panel of the database.  
-![](/assets/images/createfacttable.png)
+![](../assets/images/createfacttable.png)
 
 <<<<<<< HEAD:docs/Guides/getting-started.md
 ### Use INSERT to ingest data
@@ -194,9 +194,9 @@ FROM ex_levels WHERE SOURCE_FILE_TIMESTAMP > (SELECT COALESCE(MAX(SOURCE_FILE_TI
 ```
 3. Choose **Run Script**.  
 The query results pane indicates a **Status** of **Running** as shown below.  
-![](assets/images/running.png)  
+![](../assets/images/running.png)  
 The **Status** changes to **Success** when the ingestion is complete as shown below.
-![](assets/images/success.png)
+![](../assets/images/success.png)
 
 ## Query the ingested data
 Now that the data has been ingested into the `levels` table, you can run analytics queries over the table that benefit from the speed and efficiency of Firebolt.
@@ -210,7 +210,7 @@ FROM
   levels
 ```
 The values shown in the query results pane should be similar to those shown below.
-![](assets/images/results.png)
+![](../assets/images/results.png)
 
 ### Configure an aggregating index
 

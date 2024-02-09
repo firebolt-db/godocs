@@ -3,7 +3,7 @@ layout: default
 title: Set up SSO authentication
 description: Learn about setting up SSO authentication for Firebolt. 
 nav_order: 4
-parent: Manage organization
+parent: Configure security
 grand_parent: Guides
 has_children: true
 has_toc: true
@@ -113,7 +113,7 @@ Once SSO configuration is deleted:
 
 ## Log in using SSO
 
-1. Go to [go.firebolt.io/login](go.firebolt.io/login).
+1. Go to <a href="https://go.firebolt.io/login">go.firebolt.io/login</a>.
 2. Enter the name of your organization and choose **Continue to log in**.
 If you can’t remember the name of the organization, next to “Don’t know your organization name?” and choose **Find out**.
 3. Enter the email address you use to log in to Firebolt and choose **Send link**.

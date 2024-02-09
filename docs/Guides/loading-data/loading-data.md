@@ -20,4 +20,4 @@ Loading data into Firebolt is described in the [Getting started tutorial](../get
 
 3. Use an `INSERT` command using a general purpose engine to load data from the external data source into the fact or dimension table. For more information, see [INSERT](../../sql_reference/commands/data-management/insert.md).
 
-For information about using Apache Airflow to incrementally load data chronologically, see [Incrementally loading data with Airflow](incrementally-loading-data.md).
+<!-- For information about using Apache Airflow to incrementally load data chronologically, see [Incrementally loading data with Airflow](incrementally-loading-data.md). -->

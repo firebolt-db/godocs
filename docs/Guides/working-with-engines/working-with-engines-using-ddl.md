@@ -35,7 +35,7 @@ STOP ENGINE MyDatabase_MyFireboltEngine
 ```
 
 ## To create an engine
-* Using a running engine, execute a `CREATE ENGINE` statement similar to one of the examples below. For more information, see [CREATE ENGINE](../../sql-reference/commands/engines/create-engine.md).
+* Using a running engine, execute a `CREATE ENGINE` statement similar to one of the examples below. For more information, see [CREATE ENGINE](../../sql_reference/commands/engines/create-engine.md).
 
 ### Example &ndash; Create engine using default values
 
@@ -52,7 +52,7 @@ CREATE ENGINE MyDatabase_MyFireboltEngine WITH
     ENGINE_TYPE = DATA_ANALYTICS  
     SCALE = 32  
     SPEC = 'S8'  
-    AUTO_STOP = '45'  
+    AUTO_STOP = 45
     WARMUP = PRELOAD_ALL_DATA;
 ```
 
@@ -72,7 +72,7 @@ This action is available only using DDL.
 ALTER ENGINE MyDatabase_MyFireboltEngine SET  
     SCALE = 12  
     SPEC = 'S8'  
-    AUTO_STOP = '45'  
+    AUTO_STOP = 45 
     RENAME TO 'MyProductionDatabase_MyFireboltEngine'  
     WARMUP = PRELOAD_ALL_DATA;
 ```

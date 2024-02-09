@@ -9,6 +9,8 @@ has_toc: false
 
 # SQL functions
 
+See a [full function glossary](./functions-glossary.md), or find functions based on type from the list below. 
+
 * [Aggregate array functions](./aggregate-array/index.md)  
   Work on array-typed columns, but instead of being applied row by row, they combine the results of all the arrays belonging to each of the groups defined by the `GROUP BY` clause.
 

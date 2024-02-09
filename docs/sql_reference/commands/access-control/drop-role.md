@@ -10,7 +10,7 @@ parent: Access control
 # DROP ROLE
 Deletes a role.
 
-For more information, see [Role-based access control](../../../Guides/managing-your-organization/rbac.md).
+For more information, see [Role-based access control](../../../Guides/security/rbac.md).
 
 ## Syntax
 
@@ -41,4 +41,4 @@ The following command will delete the role "my_role_2"
 DROP ROLE IF EXISTS my_role_2
 ```
 
-If "my_role_2" does not exist, no error message is thrown
+If "my_role_2" does not exist, no error message is thrown.

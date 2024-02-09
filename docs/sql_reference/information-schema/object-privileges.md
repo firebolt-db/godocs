@@ -17,7 +17,7 @@ FROM
   information_schema.object_privileges;
 ```
 
-Read more about RBAC privileges [here](../../Guides/managing-your-organization/rbac.md).
+Read more about RBAC privileges [here](../../Guides/security/rbac.md).
 
 ## Columns in information_schema.object_privileges
 
