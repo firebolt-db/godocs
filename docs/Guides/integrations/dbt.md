@@ -34,22 +34,22 @@ Following this guide you will setup DBT with Firebolt and run your first DBT [mo
 ### Setup DBT Core
 
 1. Create a new Python [virual environment](https://docs.python.org/3/library/venv.html)
-```shell
-python3 -m venv dbt-env
-```
+    ```shell
+    python3 -m venv dbt-env
+    ```
 2. Activate your venv
-```shell
-source dbt-env/bin/activate
-```
+    ```shell
+    source dbt-env/bin/activate
+    ```
 3. Install Firebolt's [adapter](https://github.com/firebolt-db/dbt-firebolt) for DBT
-```shell
-python -m pip install dbt-firebolt
-```
+    ```shell
+    python -m pip install dbt-firebolt
+    ```
 4. (Optional) Check that both dbt packages are installed
-```shell
-python -m pip list | grep dbt
-```
-Should return `dbt-core` and `dbt-firebolt` and their versions.
+    ```shell
+    python -m pip list | grep dbt
+    ```
+    This command should return `dbt-core` and `dbt-firebolt` and their versions.
 
 
 ### Setup connection to Firebolt
@@ -60,63 +60,64 @@ The usual place to create this file on Mac and Linux is `~/.dbt/profiles.yml`.
 
 1. Open `~/.dbt/profiles.yml` with your preferred text editor.
 2. Paste the following sample configuration
-```yaml
-jaffle-shop:
-  target: dev
-  outputs:
-    dev:
-      type: firebolt
-      client_id: "<client-id>"
-      client_secret: "<client-secret>"
-      database: "<database-name>"
-      engine_name: "<engine-name>"
-      account_name: "<account-name>"
-```
+    ```yaml
+    jaffle-shop:
+    target: dev
+    outputs:
+        dev:
+        type: firebolt
+        client_id: "<client-id>"
+        client_secret: "<client-secret>"
+        database: "<database-name>"
+        engine_name: "<engine-name>"
+        account_name: "<account-name>"
+    ```
 3. Replace the placeholders with your account's information
 
-`<client-id>` and `<client-secret>` are key and secret of your service account. If you don't have one, follow the steps in [documentation](../managing-your-organization/service-accounts.md) on how to set one up.
+    `<client-id>` and `<client-secret>` are key and secret of your service account. If you don't have one, follow the steps in [documentation](../managing-your-organization/service-accounts.md) on how to set one up.
 
-`<database-name>` and `<engine-name>` are the Firebolt's database and engine that you want your queries to run.
+    `<database-name>` and `<engine-name>` are the Firebolt's database and engine that you want your queries to run.
 
-`<account-name>` is a Firebolt account that you're connected to. This [page](../managing-your-organization/managing-accounts.md) explains what account is in details.
+    `<account-name>` is a Firebolt account that you're connected to. This [page](../managing-your-organization/managing-accounts.md) explains what account is in details.
 
 ### Setup Jaffle Shop, a sample dbt project
 
 `jaffle_shop` is a fictional ecommerce store. This dbt project transforms raw data from an app database into a customers and orders model ready for analytics. [Our version](https://github.com/firebolt-db/jaffle_shop_firebolt) is designed to showcase Firebolt's integration with DBT.
 
 1. Clone `jaffle-shop-firebolt` repository and change to the newly created directory
-```shell
-git clone https://github.com/firebolt-db/jaffle_shop_firebolt.git
-cd jaffle_shop_firebolt
-```
+    ```shell
+    git clone https://github.com/firebolt-db/jaffle_shop_firebolt.git
+    cd jaffle_shop_firebolt
+    ```
 
 2. Ensure your profile is setup correctly
-```shell
-dbt debug
-```
+    ```shell
+    dbt debug
+    ```
 
-> **Note:**  If you're seeing an error here, check that your `profile.yml` is [setup correctly](#setup-connection-to-firebolt) is in the right directory on your system and that the engine is [running](../working-with-engines/working-with-engines.md).
-> Also check that you're still in `dbt-env` virtual Python environment that we've [setup earlier](#setup-dbt-core) and that both packages are present.
+    If you're seeing an error here, check that your `profile.yml` is [setup correctly](#setup-connection-to-firebolt) is in the right directory on your system and that the engine is [running](../working-with-engines/working-with-engines.md).
+    Also check that you're still in `dbt-env` virtual Python environment that we've [setup earlier](#setup-dbt-core) and that both packages are present.
+
 
 3. Install dependent packages
-```shell
-dbt deps
-```
+    ```shell
+    dbt deps
+    ```
 
 4. Run the external table model. If your database is not in `us-east-1` AWS region then refer to the [Readme](https://github.com/firebolt-db/jaffle_shop_firebolt) on how to copy the files.
-```shell
-dbt run-operation stage_external_sources
-```
+    ```shell
+    dbt run-operation stage_external_sources
+    ```
 
 5. Load sample CSV in your database
-```shell
-dbt seed
-```
+    ```shell
+    dbt seed
+    ```
 
 7. Run the models
-```shell
-dbt run
-```
+    ```shell
+    dbt run
+    ```
 
 Now in your database you should see the tables `customers` and `orders` generated with the help of the dbt models! From here you can explore more capabilities of DBT, like incremental models, documentation generation and more by following the official guides from the [section below](#further-reading).
 
