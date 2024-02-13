@@ -1,6 +1,6 @@
 ---
 layout: default
-title: EXPLAIN
+title: CANCEL QUERY
 great_grand_parent: SQL reference
 grand_parent: SQL commands
 parent: Queries
@@ -30,7 +30,7 @@ CANCEL QUERY WHERE query_id = '12345';
 
 ## Notes
 * The query_id is typically obtained from the `information_schema.running_queries` view.
-* Cancelling a query may result in the termination of the associated query process, releasing resources and stopping further execution.
+* Cancelling a query results in the termination of the associated query process, releasing resources and stopping further execution.
 * This statement is designed for administrative use and may require appropriate privileges to execute. However, all users can cancel their own queries by default.
 
 ## Example Use Case
