@@ -79,12 +79,12 @@ Here is an example of a connection details:
 
 * URL that uses client_id/secret_id
   ```
-    jdbc:firebolt:my_database?client_id=<client_id>&client_secret=<client_secret>&engine=my_database_general_purpose&buffer_size=1000000&connection_timeout_millis=10000
+    jdbc:firebolt:my_database?client_id=<client_id>&client_secret=<client_secret>&account=my_account&engine=my_database_general_purpose&buffer_size=1000000&connection_timeout_millis=10000
   ```
 
 * URL that uses that omits authentication details that are passed in properties
   ```
-  jdbc:firebolt:my_database?engine=my_database_general_purpose&buffer_size=1000000&connection_timeout_millis=10000`
+  jdbc:firebolt:my_database?account=my_account&engine=my_database_general_purpose&buffer_size=1000000&connection_timeout_millis=10000`
   ```
   Connection properties:
   ```
@@ -100,6 +100,7 @@ Here is an example of a connection details:
   ```
   client_id=<client_id>
   client_secret=<client_secret>
+  account=my_account
   engine=my_database_general_purpose
   buffer_size=1000000
   connection_timeout_millis=10000
@@ -113,6 +114,7 @@ Here is an example of a connection details:
   ```
   client_id=<client_id>
   client_secret=<client_secret>
+  account=my_account
   ```
 
   {: .note}
@@ -126,7 +128,7 @@ The table below lists the available connection parameters that can be added to t
 |--------------------------------------| ---------- |---------------------------------------------|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | client_id                            | TEXT     | No default value                            |                 | The Firebolt service account ID. **Required.**                                                                                                                                                                                  |
 | client_secret                        | TEXT     | No default value                            |                 | The secret generated for the Firebolt service account. **Required.**                                                                                                                                                            |
-| account                              | TEXT     | No default value                            |                 | Your Firebolt account name.                                                                                                                                                                                                     |
+| account                              | TEXT     | No default value                            |                 | Your Firebolt account name.  **Required.**                                                                                                                                                                                                   |
 | database                             | TEXT     | No default value                            |                 | The name of the database to connect to. Takes precedence over the database name provided as a path parameter.                                                                                                         |
 | engine                               | TEXT     | Default engine attached to chosen database |                 | The name of the engine to connect to.                                                                                                                                                          |
 | buffer_size                          | INTEGER        | 65536                                       | 1 to 2147483647 | The buffer used by the driver to read the response from the Firebolt API, in bytes.                                                                                                                                   |
