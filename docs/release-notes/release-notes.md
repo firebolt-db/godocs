@@ -40,20 +40,28 @@ An error will now occur if schema inference is used with the option “delimiter
 
 ### Enhancements, changes and new integrations
 
-<!--- FIR-29747 --->**Disabled Unix Time Functions**
-
-The following functions are not supported anymore:
-'from_unixtime'
-'to_unix_timestamp'
-'to_unix_time'
-
 <!--- FIR-27548 --->**Simplified table protobuf representation**
 
 Unique constraints in tables will be blocked for new accounts.
 
 <!--- FIR-27355 ---> **Support for nullable arrays**
 
-Support has been added to allow the [ANY_MATCH](../sql-reference/functions-reference/any-match.md) lambda function to work with nullable arrays
+Support has been added to allow the [ANY_MATCH](../sql-reference/functions-reference/any-match.md) lambda function to work with nullable arrays.
+
+<!--- FIR-27799 --->**Updated AWS billing error message**
+
+The error message for an AWS billing issue on Engine Start was on Engine Start was changed to add more information and clarity.  
+
+<!--- FIR-28276 --->**New requirements updated for EXPLAIN**
+
+For `EXPLAIN` queries, we now allow only one of the following options at the same time: `ALL`, `LOGICAL`, `PHYSICAL`, `ANALYZE`.`EXPLAIN (ALL)` now returns the plans in multiple rows instead of multiple columns.
+
+<!--- FIR-29747 --->**Disabled Unix Time Functions**
+
+The following functions are not supported anymore:
+'from_unixtime'
+'to_unix_timestamp'
+'to_unix_time'
 
 <!--- FIR-29729 --->**Renamed spilled metrics columns**
 
@@ -67,24 +75,16 @@ Aggregating index is now placed in the same namespace as tables and views.
 
 LATERAL is now a reserved keyword. It must now be used within double-quotes when using it as an object identifier.
 
-<!--- FIR-27799 --->**Updated AWS billing error message**
-
-The error message for an AWS billing issue on Engine Start was on Engine Start was changed to add more information and clarity.  
-
-<!--- FIR-28276 --->**New requirements updated for EXPLAIN**
-
-For `EXPLAIN` queries, we now allow only one of the following options at the same time: `ALL`, `LOGICAL`, `PHYSICAL`, `ANALYZE`.`EXPLAIN (ALL)` now returns the plans in multiple rows instead of multiple columns.
-
 ### Resolved issues
+
+<!--- FIR-21152 --->Changed return for division by 0 from null to fail.
+
+<!--- FIR-18709 --->Updated error log for upload failure for clarity.
 
 <!--- FIR-29147 --->Fixed a bug in 'unnest' table function that occurred when not all of the 'unnest' columns were projected.
 
 <!--- FIR-28187 --->Changed the behavior of `split_part` when an empty string is used as delimiter.
 
-<!--- FIR-21152 --->Changed return for division by 0 from null to fail
-
-<!--- FIR-18709 --->Updated error log for upload failure for clarity
-
 <!--- FIR-28623 --->Fixed a bug where floating point values `-0.0` and `+0.0`, as well as `-nan` and `+nan` were not considered equal in distributed queries.
 
-<!--- FIR-29759 --->TRY_CAST from TEXT to NUMERIC now works as expected: if the value cannot be parsed as NUMERIC it produces null
+<!--- FIR-29759 --->TRY_CAST from TEXT to NUMERIC now works as expected: if the value cannot be parsed as NUMERIC it produces null.
