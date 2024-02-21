@@ -9,13 +9,13 @@ great_grand_parent: SQL reference
 
 # TRIM
 
-Removes all specified characters from the start, end, or both sides of a string. By default removes all consecutive occurrences of common whitespace (ASCII character 32) from both ends of a string.
+Removes the longest string containing only characters in `<trim_characters>` from the left, right, or both sides of the source string `<expression>`. If no `<trim_characters>` parameter is specified, the longest string containing only whitespace characters (ASCII Decimal 32) is removed. If neither `LEADING`, `TRAILING`, nor `BOTH` are specified, characters are removed from both sides of the specified source string `<expression>`.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-TRIM( [LEADING | TRAILING | BOTH] <trim_character> FROM <expression>)
+TRIM([LEADING | TRAILING | BOTH] [<trim_characters>] FROM <expression>)
 ```
 
 ## Parameters
@@ -23,9 +23,9 @@ TRIM( [LEADING | TRAILING | BOTH] <trim_character> FROM <expression>)
 
 | Parameter | Description                         |Supported input types |
 | :--------- | :----------------------------------- | :---------------------|
-| `LEADING | TRAILING | BOTH` | Specifies which part or parts of the `<expression>` to remove the defined `<trim_character>`. | If unspecified, this defaults to `BOTH`.<br><br>`LEADING` - trims from the beginning of the specified string<br><br>`TRAILING` - trims from the end of the specified string. <br><br>`BOTH` - trims from the beginning and the end of the specified string. |
-| `<trim_character>`                | The characters to be removed.  | 	`TEXT` |
-| `<expression>`                 | The string to be trimmed.        | `TEXT` |
+| `LEADING | TRAILING | BOTH` | Optional. Specifies from which part or parts of the `<expression>` to remove the specified `<trim_characters>`. | If omitted, this defaults to `BOTH`.<br><br>`LEADING` - trims from the beginning of the specified string<br><br>`TRAILING` - trims from the end of the specified string. <br><br>`BOTH` - trims from the beginning and the end of the specified string. |
+| `<trim_characters>`                | Optional. An expression that returns characters to trim from the right side of the `<expression>` string. If omitted, whitespace (ASCII Decimal 32) is trimmed.  | 	`TEXT` |
+| `<expression>`                 | An expression that returns the string to be trimmed.        | `TEXT` |
 
 ## Return Type
 `TEXT`
@@ -33,20 +33,46 @@ TRIM( [LEADING | TRAILING | BOTH] <trim_character> FROM <expression>)
 ## Example
 {: .no_toc}
 
-In the example below, no part of the string is specified for `TRIM`, so it defaults to `BOTH`.
+The following example trims the characters `x` and `y` from the right side of a string, since the `TRAILING` parameter is specified. Note that the ordering of characters in `<trim_characters>` is irrelevant:
 
 ```sql
 SELECT
-	TRIM('$' FROM '$Hello world$') AS res;
+  TRIM(TRAILING 'xy' FROM 'xyxyThe Acceleration Cupyyxx');
 ```
 
-**Returns**: `Hello world`
+**Returns**:
 
-This next example trims only from the start of the string because the `LEADING` parameter is specified.
+`'xyxyThe Acceleration Cup'`
+
+In the following example, no part of the string is specified for `TRIM`, so it defaults to `BOTH`.
 
 ```sql
 SELECT
-	TRIM( LEADING '$' FROM '$Hello world$') AS res;
+  TRIM('xy' FROM 'xyxyThe Acceleration Cupyyxx');
 ```
 
-**Returns**: `Hello world$`
+**Returns**:
+
+`'The Acceleration Cup'`
+
+The following example omits the `<trim_characters>` parameter but specifies the `TRAILING` parameter, and thus trims whitespace from the right side of a string: 
+
+```sql
+SELECT
+  TRIM(TRAILING FROM '   The Acceleration Cup     ');
+```
+
+**Returns**:
+
+`'   The Acceleration Cup'`
+
+The following example omits the `<trim_characters>` parameter and specifies no part of the string, and thus trims whitespace from both sides of a string: 
+
+```sql
+SELECT
+  TRIM(FROM '   The Acceleration Cup     ');
+```
+
+**Returns**:
+
+`'The Acceleration Cup'`

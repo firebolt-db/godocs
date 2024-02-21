@@ -9,13 +9,13 @@ great_grand_parent: SQL reference
 
 # BTRIM
 
-Removes all occurrences of optionally specified characters, `<trim>`, from both sides of a source string `<expression>`. If no `<trim>` parameter is specified, all occurrences of common whitespace (ASCII Decimal 32) characters from both sides of the specified source string are removed.
+Removes the longest string containing only characters in `<trim_characters>` from both sides of the source string `<expression>`. If no `<trim_characters>` parameter is specified, the longest string containing only whitespace characters (ASCII Decimal 32) is removed from both sides of the specified source string `<expression>`.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-BTRIM(<expression>[, <trim>])
+BTRIM(<expression>[, <trim_characters>])
 ```
 
 ## Parameters
@@ -23,8 +23,8 @@ BTRIM(<expression>[, <trim>])
 
 | Parameter        | Description                | Supported input types | 
 | :--------------- | :------------------------- | :----------|
-| `<expression>`  | The string to be trimmed. | `TEXT` | 
-| `<trim>` | Optional. An expression that returns characters to trim from both sides of the `<expression>` string. If omitted, whitespace (ASCII Decimal 32) is assumed. | `TEXT` | 
+| `<expression>`  | An expression that returns the string to be trimmed. | `TEXT` | 
+| `<trim_characters>` | Optional. An expression that returns characters to trim from both sides of the `<expression>` string. If omitted, whitespace (ASCII Decimal 32) is trimmed. | `TEXT` | 
 
 ## Return Type
 `TEXT`
@@ -32,17 +32,8 @@ BTRIM(<expression>[, <trim>])
 ## Examples
 {: .no_toc}
 
-The following example returns a trimmed string with the default amount of whitespace applied: 
+The following example trims the character `x` from both sides of a string:
 
-```sql
-SELECT
-  BTRIM('  The Acceleration Cup     ');
-```
-**Returns**:
-
-The Acceleration Cup
-
-This example returns the string without any `x`: 
 ```sql
 SELECT
   BTRIM('xxThe Acceleration Cupxxx', 'x') 
@@ -50,9 +41,9 @@ SELECT
 
 **Returns**:
 
-The Acceleration Cup
+`'The Acceleration Cup'`
 
-This example completes a multiple character trim, with all specified characters removed, regardless of ordering:
+The following example trims the characters `x` and `y` from both sides of a string. Note that the ordering of characters in `<trim_characters>` is irrelevant:
 
 ```sql
 SELECT
@@ -61,4 +52,15 @@ SELECT
 
 **Returns**:
 
-The Acceleration Cup
+`'The Acceleration Cup'`
+
+The following example omits the `<trim_characters>` parameter, and thus trims whitespace from both sides of a string: 
+
+```sql
+SELECT
+  BTRIM('   The Acceleration Cup     ');
+```
+
+**Returns**:
+
+`'The Acceleration Cup'`
