@@ -41,7 +41,9 @@ SELECT
 
 **Returns**:
 
-`'The Acceleration Cupxxx'`
+```sql
+'The Acceleration Cupxxx'
+```
 
 The following example trims the characters `x` and `y` from the left side of a string. Note that the ordering of characters in `<trim_characters>` is irrelevant:
 
@@ -52,7 +54,9 @@ SELECT
 
 **Returns**:
 
-`'The Acceleration Cupyyxx'`
+```sql
+'The Acceleration Cupyyxx'
+```
 
 The following example omits the `<trim_characters>` parameter, and thus trims whitespace from the left side of a string: 
 
@@ -63,4 +67,6 @@ SELECT
 
 **Returns**:
 
-`'The Acceleration Cup     '`
+```sql
+'The Acceleration Cup     '
+```

@@ -42,7 +42,9 @@ SELECT
 
 **Returns**:
 
-`'xyxyThe Acceleration Cup'`
+```sql
+'xyxyThe Acceleration Cup'
+```
 
 In the following example, no part of the string is specified for `TRIM`, so it defaults to `BOTH`.
 
@@ -53,7 +55,9 @@ SELECT
 
 **Returns**:
 
-`'The Acceleration Cup'`
+```sql
+'The Acceleration Cup'
+```
 
 The following example omits the `<trim_characters>` parameter but specifies the `TRAILING` parameter, and thus trims whitespace from the right side of a string: 
 
@@ -64,7 +68,9 @@ SELECT
 
 **Returns**:
 
-`'   The Acceleration Cup'`
+```sql
+'   The Acceleration Cup'
+```
 
 The following example omits the `<trim_characters>` parameter and specifies no part of the string, and thus trims whitespace from both sides of a string: 
 
@@ -75,4 +81,6 @@ SELECT
 
 **Returns**:
 
-`'The Acceleration Cup'`
+```sql
+'The Acceleration Cup'
+```
