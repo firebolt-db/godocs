@@ -63,10 +63,6 @@ The columns `spilled_bytes_uncompressed` and `spilled_bytes_compressed` of `info
 
 Aggregating index is now placed in the same namespace as tables and views.
 
-<!--- FIR-29536 --->**Range violation implement for import of parquet INT columns into PDGATE columns**
-
-Reading of Parquet/ORC integer columns will now not be allowed if the external table specifies the types of those columns to be one of the new DATE, TIMESTAMP, TIMESTAMPTZ types.
-
 <!--- FIR-29225 --->**Syntax and planner support for LATERAL scoping**
 
 LATERAL is now a reserved keyword. It must now be used within double-quotes when using it as an object identifier.
@@ -90,3 +86,5 @@ For `EXPLAIN` queries, we now allow only one of the following options at the sam
 <!--- FIR-18709 --->Updated error log for upload failure for clarity
 
 <!--- FIR-28623 --->Fixed a bug where floating point values `-0.0` and `+0.0`, as well as `-nan` and `+nan` were not considered equal in distributed queries.
+
+<!--- FIR-29759 --->TRY_CAST from TEXT to NUMERIC now works as expected: if the value cannot be parsed as NUMERIC it produces null
