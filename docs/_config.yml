@@ -42,7 +42,7 @@ search:
 # Link in upper right
 
 aux_links:
-  <# "TRY FOR FREE">:
+  "TRY FOR FREE":
     - "https://www.firebolt.io/try-firebolt"
 
 # Google Analytics tracking
