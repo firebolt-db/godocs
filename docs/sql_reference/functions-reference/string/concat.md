@@ -33,7 +33,7 @@ CONCAT( <expression>[, <expression>[, ...n]] );
 | :--------- | :----------------------------------- | :---------------------|
 | `<expression>[, ...n]` | The expressions to be concatenated. | Any type |
 
-The arguments to the `CONCAT` can be of any data type, and will be converted to their text representation before concatenation. `NULL` arguments to the `CONCAT` function are treated as empty strings and ignored. If all arguments are `NULL`, the result will be an empty string.
+The arguments to the `CONCAT` function can be of any data type, and will be converted to their text representation before concatenation. `NULL` arguments to the `CONCAT` function are treated as empty strings and ignored. If all arguments are `NULL`, the result will be an empty string.
 
 ### `||` operator
 
