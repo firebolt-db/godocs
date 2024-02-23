@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # CONCAT
 
-Concatenates the text representations of all the arguments without a separator.
+Concatenates, i.e. combines, the text representations of all the input parameters without a separator, in the order they are provided.
 
 ## Syntax
 {: .no_toc}
@@ -33,7 +33,7 @@ CONCAT( <expression>[, <expression>[, ...n]] );
 | :--------- | :----------------------------------- | :---------------------|
 | `<expression>[, ...n]` | The expressions to be concatenated. | Any type |
 
-The arguments to the `CONCAT` function can be of any data type, and will be converted to their text representation before concatenation. `NULL` arguments to the `CONCAT` function are treated as empty strings and ignored. If all arguments are `NULL`, the result will be an empty string.
+The parameters to the `CONCAT` function can be of any data type, and will be converted to their text representation before concatenation. `NULL` parameters to the `CONCAT` function are treated as empty strings and ignored. If all parameters are `NULL`, the result will be an empty string.
 
 ### `||` operator
 
@@ -41,12 +41,12 @@ The arguments to the `CONCAT` function can be of any data type, and will be conv
 | :--------- | :----------------------------------- | :---------------------|
 | `<expression>` | The expressions to be concatenated. | Any non-array type, but at least one `TEXT` |
 
-One argument to the `||` operator must be of type `TEXT`, while the other argument may be of any non-array data type. Array types are not supported to avoid ambiguity with the array concatenation operator. If necessary, explicit type casts can be used to circumvent this restriction. If any argument to the `||` operator is `NULL`, the result will also be `NULL`.
+One parameter to the `||` operator must be of type `TEXT`, while the other parameter may be of any non-array data type. Array types are not supported to avoid ambiguity with the array concatenation operator. If necessary, explicit type casts can be used to circumvent this restriction. If any parameter to the `||` operator is `NULL`, the result will also be `NULL`.
 
 ## Return Type
 `TEXT`
 
-## Examples
+## Example
 {: .no_toc}
 
 The following example concatenates users' `nicknames` and `emails` from the players table: 
