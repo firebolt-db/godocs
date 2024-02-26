@@ -74,12 +74,14 @@ On the next screen, press the `+ Database` button and select Firebolt from the d
 The connection expects a SQLAlchemy connection string of the form:
 
 ```
-firebolt://{client_id}:{client_secret}@{database}/{engine_name}
+firebolt://{client_id}:{client_secret}@{database}/{engine_name}?account_name={account_name}
 ```
 
 To authenticate, use a service account ID and secret.
 A service account is identified by a `client_id` and a `client_secret`.
 Learn how to generate an ID and secret [here](../managing-your-organization/service-accounts.md).
+
+Account name must be provided, you can learn about accounts in [Manage accounts](../managing-your-organization/managing-accounts.md) section.
 
 <img src="../../assets/images/superset-firebolt-uri.png" alt="Credentials" width="30%">
 
