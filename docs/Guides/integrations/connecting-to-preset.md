@@ -9,7 +9,7 @@ grand_parent: Guides
 
 # Preset
 
-Preset is a cloud-hosted data exploration and visualization platform built on top of the popular open-source project, Apache Superset. This fully managed service makes it easy to run Superset at scale with enterprise-ready security, reliability, and governance.
+[Preset](https://preset.io/) is a cloud-hosted data exploration and visualization platform built on top of the popular open-source project, [Apache Superset](https://superset.apache.org/). This fully managed service makes it easy to run Superset at scale with enterprise-ready security, reliability, and governance.
 
 Boasting exceptional speed and scalability, Firebolt enables users to adeptly manage substantial data volumes with minimal query latency. The integration with Preset establishes a strong partnership for data professionals, presenting them with a streamlined and efficient workflow. This collaboration ensures prompt loading of Preset dashboards and visualizations, even when confronted with extensive datasets, thereby facilitating the extraction of maximum value from their data.
 
@@ -19,7 +19,7 @@ Preset is a managed service so most of the deployment requirements are handled b
 
 You will only need:
 * To [register](https://manage.app.preset.io/starter-registration/) a Preset account.
-* To have a Firebolt account.
+* To have a Firebolt account and service account [credentials](../managing-your-organization/service-accounts.md).
 * [Load data](../loading-data/loading-data.md) you want to visualise.
 
 # Quickstart
@@ -30,11 +30,11 @@ A workspace is an organizational unit, accessible by team members, that is creat
 
 1. To Create a Workspace, navigate to the empty card and select + Workspace.
 
-    <img src="../../assets/images/preset-create-workspace-click.png" alt="Create Workspace" width="30%">
+    <img src="../../assets/images/preset-create-workspace-click.png" alt="Create Workspace" width="10%">
 
 2. Define Workspace name and settings
 
-    <img src="../../assets/images/preset-add-new-workspace.png" alt="Add new Workspace" width="70%">
+    <img src="../../assets/images/preset-add-new-workspace.png" alt="Add new Workspace" width="30%">
 
 3. Save the workspace and enter it by clicking the card.
 
