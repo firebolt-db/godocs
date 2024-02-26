@@ -13,6 +13,8 @@ grand_parent: Guides
 
 With its exceptional speed and scalability, Firebolt allows users to handle vast amounts of data with minimal query latency, ensuring that Superset dashboards and visualizations load quickly, even when dealing with massive datasets. This integration between Firebolt and Superset creates a powerful combination for data professionals, offering them a streamlined and efficient workflow for extracting maximum value from their data.
 
+Firebolt is also supported in [Preset](connecting-to-preset.md), a fully managed cloud Superset solution.
+
 # Prerequisites
 
 Superset can be installed in several ways, including using a pre-built [Docker container](https://superset.apache.org/docs/installation/installing-superset-using-docker-compose), building it from [source](https://superset.apache.org/docs/installation/installing-superset-from-scratch) or deploying via [Kubernetes Helm chart](https://superset.apache.org/docs/installation/running-on-kubernetes).
