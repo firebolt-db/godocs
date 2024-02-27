@@ -12,15 +12,54 @@ grand_parent: Guides
 Firebolt's system engine enables running various metadata-related queries without having to start an engine. The system engine is always available for you in all databases to select and use.  
 
 The system engine supports running the following commands:
+* ALTER ORGANIZATION
+* CREATE/DROP/ALTER LOGIN
+* CREATE/DROP/ALTER SERVICE ACCOUNT
+* CREATE/DROP/ALTER USER
+* CREATE/DROP/GRANT/REVOKE ROLE
+* GRANT TO ROLE
+* REVOKE FROM ROLE
+* CREATE/DROP/ALTER ACCOUNT
+* CREATE/DROP/ALTER NETWORK POLICY
 * CREATE/ALTER/DROP DATABASE
-* CREATE/ALTER/DROP/ATTACH ENGINE
-* START/STOP ENGINE
+* CREATE/ALTER/DROP/ATTACH/DETACH ENGINE
+* CREATE/DROP TABLE
+* CREATE/DROP VIEW
+* DROP AGGREGATING INDEX
+* START/STOP/ATTACH ENGINE
 * SHOW DATABASES
 * SHOW ENGINES
+* SHOW TABLES
+* SHOW INDEXES
+* SHOW VIEWS
+* SHOW COLUMNS
+* DESCRIBE
+
+The following commands are not supported:
+* CREATE EXTERNAL TABLE
+* CREATE AGGREGATING INDEX
+* CREATE TABLE AS SELECT
+* COPY TO
+* DELETE/INSERT/UPDATE
+* TRUNCATE TABLE
+* VACUUM
+* CANCEL QUERY
+* SHOW CACHE
 
 In addition, you can query the following information schema tables from the system engine:
-* information_schema.engines
-* information_schema.databases
+* `information_schema.accounts`
+* `information_schema.network_policies`
+* `information_schema.users`
+* `information_schema.logins`
+* `information_schema.service_accounts`
+* `information_schema.engines`
+* `information_schema.databases`
+* `information_schema.tables`
+* `information_schema.views`
+* `information_schema.indexes`
+* `information_schema.columns`
+
+The system engine also allows queries which don't access data, e.g. `SELECT CURRENT_TIMESTAMP()`.
 
 ## Using the system engine via the Firebolt manager 
 1. In the Firebolt manager, choose the Databases icon in the navigation pane.
