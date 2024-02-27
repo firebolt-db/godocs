@@ -26,7 +26,7 @@ jobs:
         run: |
           cd build
           git checkout gh-pages
-          git pull https://github.com/firebolt-db/firebolt-db.github.io.git gh-pages
+          git pull https://github.com/firebolt-analytics/firebolt-docs-staging.git gh-pages
           git push origin
 
 
