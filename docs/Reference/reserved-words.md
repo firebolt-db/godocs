@@ -42,6 +42,7 @@ Reserved words have special meanings to the Firebolt SQL engine. We recommend th
 * DOY
 * DROP
 * EMPTY\_IDENTIFIER
+* ENGINE
 * EPOCH
 * EXCEPT
 * EXECUTE
@@ -102,6 +103,7 @@ Reserved words have special meanings to the Firebolt SQL engine. We recommend th
 * SELECT
 * SET
 * SHOW
+* SYSTEM
 * TEXT
 * TIME
 * TIMESTAMP
