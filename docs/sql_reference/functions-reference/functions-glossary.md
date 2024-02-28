@@ -91,7 +91,7 @@ All Firebolt functions in alphabetical order.
 | [JSON_EXTRACT_VALUES](./JSON/json-extract-values.md) | Returns an array of string values from a JSON document using the key location specified by the specifed JSON pointer. | Semi-structured data |
 | [LAG](./window/lag.md) | Returns the value of the input expression at the given offset before the current row within the requested window. | Window |
 | [LEAD](./window/lead.md) | Returns values from the row after the current row within the requested window. | Window |
-| [LENGTH](./string/like.md) | Calculates the length of the input string. | String |
+| [LENGTH](./string/length-string.md) | Calculates the length of the input string. | String |
 | [LENGTH (array)](./array/length.md) | Returns the length of (number of elements in) the given array. | Array |
 | [LIKE](./string/like.md) | Allows matching of strings based on comparison to a pattern, case-sensitively. | String |
 | [LOCALTIMESTAMP](./date-and-time/localtimestamp.md) | Returns the current local timestamp in the time zone specified in the session's `time_zone` setting. | Date & time |
@@ -112,6 +112,7 @@ All Firebolt functions in alphabetical order.
 | [NTH_VALUE](./window/nth-value.md) | Returns the value evaluated of the nth row of the specified window frame (starting at the first row). If the specified row does not exist, NTH_VALUE returns NULL. | Window | 
 | [NTILE](./window/ntile.md) | Divides an ordered data set equally into the number of buckets specified by the argument value. Buckets are sequentially numbered 1 through the argument value. | Window | 
 | [NULLIF](./conditional-and-miscellaneous/nullif.md) | Compares two expressions. Returns NULL if the expressions are equal. Returns the result of the first if they are not equal. | Conditional & miscellaneous |
+| [OCTET_LENGTH](./string/octet_length.md) | Calculates the length of the input string in bytes. | String |
 | [PERCENT_RANK](./window/percent-rank.md) | Calculates the relative rank of the current row within an ordered data set, as `( rank - 1 ) / ( rows - 1 )` where rank is the current row's rank within the partition, and rows is the number of rows in the partition. PERCENT_RANK always returns values from 0 to 1 inclusive. The first row in any set has a PERCENT_RANK of 0. | Window | 
 | [PERCENTILE_CONT](./aggregation/percentile-cont.md) | Calculates a percentile, assuming a continuous distribution of values of the input expression defined. Results are interpolated, rather than matching any of the specific column values. | Aggregation |
 | [PERCENTILE_CONT OVER](./window/percentile-cont-window.md) | Calculates a percentile over a partition, assuming a continuous distribution of values defined. Results are interpolated, rather than matching any of the specific column values. | Window |
