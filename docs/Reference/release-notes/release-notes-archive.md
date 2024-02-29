@@ -16,9 +16,6 @@ We provide an archive of release notes for your historical reference.
 
 * Topic ToC
 {:toc}
-
-* Topic ToC
-{:toc}
 ## DB version 3.30
 **November 2023**
 
