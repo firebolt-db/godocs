@@ -69,14 +69,14 @@ LATERAL is now a reserved keyword (./Reference/reserved-words.md). It must now b
 
 ### Resolved issues
 
-<!--- FIR-21152 --->Changed return for division by 0 from null to fail.
+* <!--- FIR-21152 --->Changed return for division by 0 from null to fail.
 
-<!--- FIR-18709 --->Updated error log for upload failure for clarity.
+* <!--- FIR-18709 --->Updated error log for upload failure for clarity.
 
-<!--- FIR-29147 --->Fixed a bug in 'unnest' table function that occurred when not all of the 'unnest' columns were projected.
+* <!--- FIR-29147 --->Fixed a bug in 'unnest' table function that occurred when not all of the 'unnest' columns were projected.
 
-<!--- FIR-28187 --->Changed the behavior of `split_part`(./sql_reference/functions-reference/string/split-part.md) when an empty string is used as delimiter.
+* <!--- FIR-28187 --->Changed the behavior of `split_part`(./sql_reference/functions-reference/string/split-part.md) when an empty string is used as delimiter.
 
-<!--- FIR-28623 --->Fixed a bug where floating point values `-0.0` and `+0.0`, as well as `-nan` and `+nan` were not considered equal in distributed queries.
+* <!--- FIR-28623 --->Fixed a bug where floating point values `-0.0` and `+0.0`, as well as `-nan` and `+nan` were not considered equal in distributed queries.
 
-<!--- FIR-29759 --->TRY_CAST from TEXT to NUMERIC now works as expected: if the value cannot be parsed as NUMERIC it produces null.
+* <!--- FIR-29759 --->TRY_CAST from TEXT to NUMERIC now works as expected: if the value cannot be parsed as NUMERIC it produces null.
