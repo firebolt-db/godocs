@@ -28,14 +28,14 @@ We provide an archive of release notes for your historical reference.
 
 <!--- FIR-27590 ---> **New comparison operators**
 
-[New comparison operators](../sql_reference/operators.md#comparison) `IS DISTINCT FROM` and `IS NOT DISTINCT FROM` have been added.
+[New comparison operators](../sql_reference/operators.html#comparison) `IS DISTINCT FROM` and `IS NOT DISTINCT FROM` have been added.
 
 ### Enhancements, changes and new integrations
 {: .no_toc}
 
 <!--- FIR-27355 ---> **Support for nullable arrays**
 
-Support has been added to allow the [ANY_MATCH](../sql_reference/functions-reference/Lambda/any-match.md) lambda function to work with nullable arrays
+Support has been added to allow the [ANY_MATCH](../../sql_reference/functions-reference/Lambda/any-match.md) lambda function to work with nullable arrays
 
 ### Resolved issues
 {: .no_toc}
