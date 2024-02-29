@@ -49,7 +49,7 @@ Unique constraints in tables will be blocked for new accounts.
 
 <!--- FIR-29729 --->**Renamed spilled metrics columns**
 
-The columns `spilled_bytes_uncompressed` and `spilled_bytes_compressed` of `information_schema.query_history` have been replaced by a single column `spilled_bytes`(./sql_reference/information-schema/query-history-view.md). It contains the amount of data that was spilled to disk temporarily while executing the query.
+The columns `spilled_bytes_uncompressed` and `spilled_bytes_compressed` of `information_schema.query_history` have been replaced by a single column `spilled_bytes`(../sql_reference/information-schema/query-history-view.md#columns-in-information_schemaquery_history). It contains the amount of data that was spilled to disk temporarily while executing the query.
 
 <!--- FIR-27799 --->**Updated AWS billing error message**
 
@@ -65,7 +65,7 @@ Aggregating index is now placed in the same namespace as tables and views.
 
 <!--- FIR-29225 --->**Syntax and planner support for LATERAL scoping**
 
-LATERAL is now a reserved keyword (./Reference/reserved-words.md). It must now be used within double-quotes when using it as an object identifier.
+LATERAL is now a reserved keyword (../Reference/reserved-words.md). It must now be used within double-quotes when using it as an object identifier.
 
 ### Resolved issues
 
@@ -75,7 +75,7 @@ LATERAL is now a reserved keyword (./Reference/reserved-words.md). It must now b
 
 * <!--- FIR-29147 --->Fixed a bug in 'unnest' table function that occurred when not all of the 'unnest' columns were projected.
 
-* <!--- FIR-28187 --->Changed the behavior of `split_part`(./sql_reference/functions-reference/string/split-part.md) when an empty string is used as delimiter.
+* <!--- FIR-28187 --->Changed the behavior of `split_part`(../sql_reference/functions-reference/string/split-part.md) when an empty string is used as delimiter.
 
 * <!--- FIR-28623 --->Fixed a bug where floating point values `-0.0` and `+0.0`, as well as `-nan` and `+nan` were not considered equal in distributed queries.
 
