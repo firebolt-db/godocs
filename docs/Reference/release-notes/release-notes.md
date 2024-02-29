@@ -36,13 +36,20 @@ An error will now occur if schema inference is used with the option “delimiter
 
 ### Enhancements, changes and new integrations
 
+<!--- FIR-29747 --->**Disabled Unix Time Functions**
+
+The following functions are not supported anymore:
+'from_unixtime'
+'to_unix_timestamp'
+'to_unix_time'
+
 <!--- FIR-27548 --->**Simplified table protobuf representation**
 
 Unique constraints in tables will be blocked for new accounts.
 
-<!--- FIR-27355 ---> **Support for nullable arrays**
+<!--- FIR-29729 --->**Renamed spilled metrics columns**
 
-Support has been added to allow the [ANY_MATCH](../sql-reference/functions-reference/any-match.md) lambda function to work with nullable arrays.
+The columns `spilled_bytes_uncompressed` and `spilled_bytes_compressed` of `information_schema.query_history` have been replaced by a single column `spilled_bytes`(./sql_reference/information-schema/query-history-view.md). It contains the amount of data that was spilled to disk temporarily while executing the query.
 
 <!--- FIR-27799 --->**Updated AWS billing error message**
 
@@ -52,24 +59,13 @@ The error message for an AWS billing issue on Engine Start was on Engine Start w
 
 For `EXPLAIN` queries, we now allow only one of the following options at the same time: `ALL`, `LOGICAL`, `PHYSICAL`, `ANALYZE`.`EXPLAIN (ALL)` now returns the plans in multiple rows instead of multiple columns.
 
-<!--- FIR-29747 --->**Disabled Unix Time Functions**
-
-The following functions are not supported anymore:
-'from_unixtime'
-'to_unix_timestamp'
-'to_unix_time'
-
-<!--- FIR-29729 --->**Renamed spilled metrics columns**
-
-The columns `spilled_bytes_uncompressed` and `spilled_bytes_compressed` of `information_schema.query_history` have been replaced by a single column `spilled_bytes`(../sql_reference/information-schema/query-history-view.md). It contains the amount of data that was spilled to disk temporarily while executing the query.
-
 <!--- FIR-29536 --->**Aggregating index placement**
 
 Aggregating index is now placed in the same namespace as tables and views.
 
 <!--- FIR-29225 --->**Syntax and planner support for LATERAL scoping**
 
-LATERAL is now a reserved keyword (../Reference/reserved-words.md). It must now be used within double-quotes when using it as an object identifier.
+LATERAL is now a reserved keyword (./Reference/reserved-words.md). It must now be used within double-quotes when using it as an object identifier.
 
 ### Resolved issues
 
@@ -79,7 +75,7 @@ LATERAL is now a reserved keyword (../Reference/reserved-words.md). It must now 
 
 <!--- FIR-29147 --->Fixed a bug in 'unnest' table function that occurred when not all of the 'unnest' columns were projected.
 
-<!--- FIR-28187 --->Changed the behavior of `split_part`(../sql_reference/functions-reference/string/split-part.md) when an empty string is used as delimiter.
+<!--- FIR-28187 --->Changed the behavior of `split_part`(./sql_reference/functions-reference/string/split-part.md) when an empty string is used as delimiter.
 
 <!--- FIR-28623 --->Fixed a bug where floating point values `-0.0` and `+0.0`, as well as `-nan` and `+nan` were not considered equal in distributed queries.
 
