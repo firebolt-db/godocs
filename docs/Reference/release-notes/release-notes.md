@@ -67,6 +67,10 @@ Aggregating index is now placed in the same namespace as tables and views.
 
 [LATERAL](../reserved-words.md) is now a reserved keyword. It must now be used within double-quotes when using it as an object identifier
 
+<!--- FIR-25080 --->**Spilling Joins Processing**
+
+Firebolt can now process inner and outer joins that exceed the available main memory of the engine by spilling to the the SSD cache when needed. This happens transparently to the user. A query that made use of this capability will populate the `spilled_bytes` column in `information_schema.query_history`.
+
 ### Resolved issues
 
 <!--- FIR-21152 --->
