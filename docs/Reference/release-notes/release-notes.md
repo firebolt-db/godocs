@@ -39,10 +39,9 @@ An error will now occur if schema inference is used with the option “delimiter
 <!--- FIR-29747 --->**Disabled Unix Time Functions**
 
 The following functions are not supported anymore:
-'from_unixtime'
-'to_unix_timestamp'
-'to_unix_time'
-
+* 'from_unixtime'
+* 'to_unix_timestamp'
+* 'to_unix_time'
 This is a breaking change. 
 
 <!--- FIR-27548 --->**Simplified table protobuf representation**
