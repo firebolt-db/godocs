@@ -28,7 +28,7 @@ Firebolt might roll out releases in phases. New features and changes may not yet
 
 <!--- FIR-22307 --->**PG compliant division**
 
-LQP2 has a new division operator that is PG compliant, by default.
+LQP2 has a new division operator that is PG compliant, by default. This is a breaking change. 
 
 <!--- FIR-29179 --->**Prevents usage of new line delimeter for schema inference**
 
@@ -42,6 +42,8 @@ The following functions are not supported anymore:
 'from_unixtime'
 'to_unix_timestamp'
 'to_unix_time'
+
+This is a breaking change. 
 
 <!--- FIR-27548 --->**Simplified table protobuf representation**
 
@@ -61,11 +63,11 @@ For [`EXPLAIN`](../../sql_reference/commands/queries/explain.md) queries, we now
 
 <!--- FIR-29536 --->**Aggregating index placement**
 
-Aggregating index is now placed in the same namespace as tables and views.
+Aggregating index is now placed in the same namespace as tables and views. This is a breaking change. 
 
 <!--- FIR-29225 --->**Syntax and planner support for LATERAL scoping**
 
-[LATERAL](../reserved-words.md) is now a reserved keyword. It must now be used within double-quotes when using it as an object identifier
+[LATERAL](../reserved-words.md) is now a reserved keyword. It must now be used within double-quotes when using it as an object identifier. This is a breaking change. 
 
 <!--- FIR-25080 --->**Spilling Joins Processing**
 
@@ -74,7 +76,7 @@ Firebolt can now process inner and outer joins that exceed the available main me
 ### Resolved issues
 
 <!--- FIR-21152 --->
-* Changed return for division by 0 from null to fail.
+* Changed return for division by 0 from null to fail. This is a breaking change. 
 
 <!--- FIR-18709 --->
 * Updated error log for upload failure for clarity.
