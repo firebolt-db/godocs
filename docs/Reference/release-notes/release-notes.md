@@ -42,6 +42,7 @@ The following functions are not supported anymore:
 * 'from_unixtime'
 * 'to_unix_timestamp'
 * 'to_unix_time'
+
 This is a breaking change. 
 
 <!--- FIR-27548 --->**Simplified table protobuf representation**
