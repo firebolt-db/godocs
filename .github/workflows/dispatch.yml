@@ -34,13 +34,10 @@ jobs:
           app_id: ${{ secrets.GH_APP_CI_GITOPS_APP_ID }}
           private_key: ${{ secrets.GH_APP_CI_GITOPS_KEY_PEM }}
 
-      - name: Test Gen
-        run: "echo 'The created token is masked: ${{ steps.generate_token.outputs.token }}'"
-
       - name: Checkout Guru Synch Target
         uses: actions/checkout@v4
         with:
-          token: ${{ steps.generate-token.outputs.token }}
+          token: ${{ steps.generate_token.outputs.token }}
           repository: firebolt-analytics/firebolt-doc-to-guru
           path: 'deploysync'
           ref: 'main'
@@ -48,7 +45,7 @@ jobs:
       - name: Checkout Preview Target
         uses: actions/checkout@v4
         with:
-          token: ${{ steps.generate-token.outputs.token }}
+          token: ${{ steps.generate_token.outputs.token }}
           repository: firebolt-analytics/firebolt-docs-preview-cntrbtr
           path: 'preview'
           ref: 'gh_pages'
