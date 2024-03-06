@@ -61,6 +61,7 @@ jobs:
               git add -A 
               git commit -m "feat(no_issue): update with $GITHUB_SHA"
               git push origin $GITHUB_REF_NAME
+              cd ..
             done
               
       # git checkout $TARGET_BRANCH
