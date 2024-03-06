@@ -86,10 +86,9 @@ If you know that the values cannot be null when performing an anti join on nulla
 ### Resolved issues
 
 <!--- FIR-21152 --->
-* Changed return for division by 0 from null to fail.
-    Examples include:
-    - division by zero throws now an exception (NULL value before)
-    - type overflow throws now an exception (not checked before)
+* Changed return for division by 0 from null to fail. Examples include:
+ -division by zero throws now an exception (NULL value before)
+ -type overflow throws now an exception (not checked before)
 
 This is a breaking change. 
 
