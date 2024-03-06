@@ -26,6 +26,7 @@ jobs:
         with:
           path: 'build'
           token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.ref_name }}
 
       - name: Generate app token
         id: generate_token
@@ -34,43 +35,12 @@ jobs:
           app_id: ${{ secrets.GH_APP_CI_GITOPS_APP_ID }}
           private_key: ${{ secrets.GH_APP_CI_GITOPS_KEY_PEM }}
 
-      - name: Build
-        env:
-          TARGET_BRANCH="rvs-test"
-        run: |
-          cd build
-          git checkout $TARGET_BRANCH
-          git pull https://github.com/firebolt-analytics/firebolt-docs-staging.git $TARGET_BRANCH
-          git push origin $TARGET_BRANCH
-
-      - name: Checkout Staging Target
-        uses: actions/checkout@v4
-        with:
-          path: 'deploy'
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Push files to target
-        run: |
-          cp -r build/* deploy
-          cd deploy
-          git add -A
-          git commit -m $GITHUB_SHA
-          git push
-
       - name: Checkout Guru Synch Target
         uses: actions/checkout@v4
         with:
           repository: firebolt-analytics/firebolt-doc-to-guru
           path: 'deploysync'
           token: ${{ steps.generate-token.outputs.token }}
-
-      - name: Push files to target
-        run: |
-          cp -r build/* deploysync
-          cd deploysync
-          git add -A
-          git commit -m $GITHUB_SHA
-          git push
 
       - name: Checkout Preview Target
         uses: actions/checkout@v4
@@ -79,10 +49,53 @@ jobs:
           path: 'preview'
           token: ${{ steps.generate-token.outputs.token }}
 
-      - name: Push files to target
+      - name: Build
         run: |
+          cp -r build/* deploysync
           cp -r build/* preview
-          cd preview
-          git add -A
-          git commit -m $GITHUB_SHA
-          git push
+          for dir in build deploysync preview; 
+            do 
+              cd $dir
+              git checkout $GITHUB_REF_NAME || git checkout -b $GITHUB_REF_NAME 
+              git add -A 
+              git commit -m "feat(no_issue): update with $GITHUB_SHA"
+              git push origin $GITHUB_REF_NAME
+            done
+              
+      # git checkout $TARGET_BRANCH
+      # git pull https://github.com/firebolt-analytics/firebolt-docs-staging.git $TARGET_BRANCH
+      # git push origin $TARGET_BRANCH
+
+      # - name: Checkout Staging Target
+      #   uses: actions/checkout@v4
+      #   with:
+      #     path: 'deploy'
+      #     token: ${{ secrets.GITHUB_TOKEN }}
+
+      # - name: Push files to target
+      #   run: |
+      #     cp -r build/* deploy
+      #     cd deploy
+      #     git add -A
+      #     git commit -m $GITHUB_SHA
+      #     git push
+
+      
+
+      # - name: Push files to target
+      #   run: |
+      #     cp -r build/* deploysync
+      #     cd deploysync
+      #     git add -A
+      #     git commit -m $GITHUB_SHA
+      #     git push
+
+      
+
+      # - name: Push files to target
+      #   run: |
+      #     cp -r build/* preview
+      #     cd preview
+      #     git add -A
+      #     git commit -m $GITHUB_SHA
+      #     git push
