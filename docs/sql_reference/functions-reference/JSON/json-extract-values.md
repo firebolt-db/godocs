@@ -2,9 +2,13 @@
 layout: default
 title: JSON_EXTRACT_VALUES
 description: Reference material for JSON_EXTRACT_VALUES function
+<<<<<<< HEAD:docs/sql_reference/functions-reference/JSON/json-extract-values.md
 grand_parent: SQL functions
 parent: Semi-structured data functions
 great_grand_parent: SQL reference
+=======
+parent:  SQL functions
+>>>>>>> rn/gh-pages:docs/sql-reference/functions-reference/json-extract-values.md
 ---
 
 # JSON_EXTRACT_VALUES
@@ -18,7 +22,11 @@ Returns an array of string values from a JSON document using the key location sp
 JSON_EXTRACT_VALUES(<json>, '<json_pointer_expression>')
 ```
 
+<<<<<<< HEAD:docs/sql_reference/functions-reference/JSON/json-extract-values.md
 ## Parameters 
+=======
+# Parameters 
+>>>>>>> rn/gh-pages:docs/sql-reference/functions-reference/json-extract-values.md
 {: .no_toc}
 
 | Parameter                   | Description                                               | Supported input types | 
@@ -26,7 +34,11 @@ JSON_EXTRACT_VALUES(<json>, '<json_pointer_expression>')
 | `<json>`                    | The JSON document from which the array is to be extracted. | `TEXT` | 
 | `<json_pointer_expression>` | A JSON pointer to the location of the array in the JSON. For more information, see [JSON pointer expression syntax](./index.md#json-pointer-expression-syntax).    | `TEXT` | 
 
+<<<<<<< HEAD:docs/sql_reference/functions-reference/JSON/json-extract-values.md
 ## Return Types 
+=======
+# Return Types 
+>>>>>>> rn/gh-pages:docs/sql-reference/functions-reference/json-extract-values.md
 * If key is provided, returns an `ARRAY` of strings
 * If no key is provided, returns `NULL` 
 

@@ -48,7 +48,7 @@ The SELECT list defines the columns that it returns. Each `<select_expression>` 
 <expression> [ AS <alias> ]
 ```
 
-Expressions in the `SELECT` list evaluate to a single value and produce one output column. The output column names are defined either by an explicit alias in the `AS` clause, or, for expressions without expicit alias, the output column name is automatically generated. 
+Expressions in the `SELECT` list evaluate to a single value and produce one output column. The output column names are defined either by an explicit alias in the `AS` clause, or, for expressions without explicit alias, the output column name is automatically generated. 
 The expression can reference any column from the `FROM` clause, but cannot reference other columns produced by the same `SELECT` list. The expressions can use scalar functions, aggregate functions, window functions or subqueries if they return single element.
 
 #### Example

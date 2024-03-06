@@ -17,9 +17,71 @@ This topic lists the data types available in Firebolt.
 
 ## Binary
 
+<<<<<<< HEAD:docs/sql_reference/data-types.md
 ### BYTEA
 Represents variable size binary data. A binary string is a sequence of bytes - unlike TEXT, there is no character set. The `BYTEA` data type is nullable.
 For more information, see [BYTEA data type](bytea-data-type.md).
+=======
+### INTEGER
+A whole number ranging from -2,147,483,648 to 2,147,483,647. `INTEGER` data types require 4 bytes of storage.
+Synonyms: `INT`, `INT4`.
+
+### NUMERIC
+An exact numeric data type defined by its precision (total number of digits) and scale (number of digits to the right of the decimal point). For more information, see [NUMERIC data type](numeric-data-type.md). 
+Synonyms: `DECIMAL`.
+
+### BIGINT
+A whole number ranging from -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807. `BIGINT` data types require 8 bytes of storage.
+Synonyms: `LONG`, `INT8`.
+
+### REAL
+A floating-point number that has six decimal-digit precision. Decimal (fixed point) types are not supported. `REAL` data types require 4 bytes of storage.
+Synonyms: `FLOAT`, `FLOAT4`.
+
+### DOUBLE PRECISION
+A floating-point number that has 15 decimal-digit precision. Decimal (fixed point) types are not supported. `DOUBLE` data types require 8 bytes.
+Synonyms: `DOUBLE`, `FLOAT8`, `FLOAT(p)` where 25 <= p <= 53.
+
+## String
+
+### TEXT
+A string of an arbitrary length that can contain any number of bytes. Useful for arbitrary-length string columns. Note that null bytes are not supported in TEXT literals, but are supported when importing from an external table. Firebolt supports UTF-8 escape sequences.
+Synonyms: `STRING`, `VARCHAR`
+
+## Date and timestamp
+
+{: .warning}
+  >You are looking at the documentation for Firebolt's redesigned date and timestamp types.
+  >These types were introduced in DB version 3.19 under the names `PGDATE`, `TIMESTAMPNTZ` and `TIMESTAMPTZ`, and synonyms `DATE`, `TIMESTAMP` and `TIMESTAMPTZ` made available in DB version 3.22.
+  >
+  >If you worked with Firebolt before DB version 3.22, you might still be using the legacy date and timestamp types.
+  >Determine which types you are using by executing the query `SELECT EXTRACT(CENTURY FROM DATE '2023-03-16');`.
+  >If this query returns a result, you are using the redesigned date and timestamp types and can continue with this documentation.
+  >If this query returns an error, you are using the legacy date and timestamp types and can find [legacy documentation here](legacy-date-timestamp.md), or instructions to reingest your data to use the new types [here](../release-notes/release-notes-archive.html#db-version-322).
+
+Firebolt supports three date and timestamp data types:
+
+| Name          | Size    | Minimum                          | Maximum                          | Resolution    |
+| :------------ | :------ | :------------------------------- | :------------------------------- | :------------ |
+| `DATE`        | 4 bytes | `0001-01-01`                     | `9999-12-31`                     | 1 day         |
+| `TIMESTAMP`   | 8 bytes | `0001-01-01 00:00:00.000000`     | `9999-12-31 23:59:59.999999`     | 1 microsecond |
+| `TIMESTAMPTZ` | 8 bytes | `0001-01-01 00:00:00.000000 UTC` | `9999-12-31 23:59:59.999999 UTC` | 1 microsecond |
+
+Dates are counted according to the [proleptic Gregorian calendar](https://en.wikipedia.org/wiki/Proleptic_Gregorian_calendar).
+Each year consists of 365 days, with leap days added to February in leap years.
+
+### DATE
+
+A year, month, and day calendar date independent of a time zone. For more information, see [DATE data type](date-data-type.md).
+
+### TIMESTAMP
+
+A year, month, day, hour, minute, second, and microsecond timestamp independent of a time zone. For more information, see [TIMESTAMP data type](timestampntz-data-type.md).
+
+### TIMESTAMPTZ
+
+A year, month, day, hour, minute, second, and microsecond timestamp associated with a time zone. For more information, see [TIMESTAMPTZ data type](timestamptz-data-type.md).
+>>>>>>> rn/gh-pages:docs/general-reference/data-types.md
 
 ## Boolean
 
@@ -139,5 +201,29 @@ Synonyms: `DOUBLE`, `FLOAT8`, `FLOAT(p)` where 25 <= p <= 53.
 ## String
 
 ### TEXT
-A string of an arbitrary length that can contain any number of bytes, including null bytes. Useful for arbitrary-length string columns. Firebolt supports UTF-8 escape sequences.
-Synonyms: `STRING`, `VARCHAR`
+
+The `TEXT` type can be used to store character strings of any length using the UTF-8 encoding standard.
+Only the ASCII letters "A" through "Z" and "a" through "z" are classified as letters (e.g., `UPPER('aäuü')` returns `'AäUü'`).
+The sort order of two strings is determined using the collation `ucs_basic`, which sorts strings by Unicode code point (e.g., `'Ab' < 'ab'` is true as `A` (`U+0041`) is less than `a` (`U+0061`)).
+The character with code zero cannot be in a string.
+
+Regular string literals are enclosed in single quotes and don't recognize escape sequences.
+Write two adjacent single quotes to include a single-quote character within a string literal (e.g., `'Leonard''s bicycle'`).
+
+Escape string literals are specified by writing the letter `E` (upper or lower case) before the opening single quote, e.g., `E'Firebolt 🔥\U0001F680'`.
+Use backslash escape sequences within an escape string literal to represent special byte values:
+
+| Backslash escape sequence             | Interpretation                                             |
+| ------------------------------------- | ---------------------------------------------------------- |
+| `\b`                                  | backspace                                                  |
+| `\f`                                  | form feed                                                  |
+| `\n`                                  | newline                                                    |
+| `\r`                                  | carriage return                                            |
+| `\t`                                  | tab                                                        |
+| `\o`, `\oo`, `\ooo` (o = 0–7)         | octal byte value (decimal value must be between 1 and 255) |
+| `\xh`, `\xhh` (h = 0–9, A–F)          | hexadecimal byte value                                     |
+| `\uxxxx`, `\Uxxxxxxxx` (x = 0–9, A–F) | 16 or 32-bit hexadecimal Unicode character value           |
+
+Any other character following a backslash is taken literally (e.g., write two backslashes `\\` to include one backslash character).
+The byte sequences you create must be valid UTF-8.
+For historic reasons, if you set the setting `standard_conforming_strings` to `false`, regular string literals will also recognize backslash escape sequences.

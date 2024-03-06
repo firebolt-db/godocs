@@ -25,7 +25,11 @@ The returned table has the following columns.
 | :---------------------------| :-----------| :-----------|
 | index_name                  | TEXT      | The name of the index. |
 | table_name                  | TEXT      | The name of the table associated with the index. |
+<<<<<<< HEAD:docs/sql_reference/commands/metadata/show-indexes.md
 | type                        | TEXT      | One of `primary`, or `aggregating`. |
+=======
+| type                        | TEXT      | One of `primary` or `aggregating`. |
+>>>>>>> rn/gh-pages:docs/sql-reference/commands/show-indexes.md
 | expression                  | ARRAY (TEXT)| An ordered array of the expression in SQL that defined the index. |
 | size_compressed             | DOUBLE PRECISION | The size of the index in bytes. |
 | size_uncompressed           | DOUBLE PRECISION  | The uncompressed size of the index in bytes. |

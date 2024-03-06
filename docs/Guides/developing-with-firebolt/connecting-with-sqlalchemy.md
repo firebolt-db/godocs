@@ -17,4 +17,8 @@ The adapter is written in Python using the SQLAlchemy toolkit.
 
 ### Get started
 
+<<<<<<< HEAD
+We recommend you follow the guidelines for SQLAlchemy integration in our [Github repository](https://github.com/firebolt-db/firebolt-sqlalchemy/tree/0.x).
+=======
 Follow the guidelines for SQLAlchemy integration in the Firebolt-SQLAlchemy [Github repository](https://github.com/firebolt-db/firebolt-sqlalchemy/).
+>>>>>>> 0770c99007005068901fd3ee733ddf1665d91aae

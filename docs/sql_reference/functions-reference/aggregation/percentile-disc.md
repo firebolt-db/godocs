@@ -2,16 +2,24 @@
 layout: default
 title: PERCENTILE_DISC
 description: Reference material for PERCENTILE_DISC aggregate function
+<<<<<<< HEAD:docs/sql_reference/functions-reference/aggregation/percentile-disc.md
 grand_parent: SQL functions
 parent: Aggregation functions
 great_grand_parent: SQL reference
+=======
+parent:  SQL functions
+>>>>>>> rn/gh-pages:docs/sql-reference/functions-reference/percentile-disc.md
 ---
 
 # PERCENTILE\_DISC
 
 Returns a percentile for an ordered data set. The result is equal to a specific column value, the smallest distributed value that is greater than or equal to the percentile <value>. 
 
+<<<<<<< HEAD:docs/sql_reference/functions-reference/aggregation/percentile-disc.md
 `PERCENTILE\_DISC` is available as a [window function](../window/index.md).
+=======
+PERCENTILE\_DISC is available as a [window function](./index.md#window-functions).
+>>>>>>> rn/gh-pages:docs/sql-reference/functions-reference/percentile-disc.md
 See also [PERCENTILE\_CONT](./percentile-cont.md), which calculates an interpolated result, rather than matching any of the specific column values.
 
 ## Syntax

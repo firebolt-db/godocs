@@ -2,8 +2,13 @@
 layout: default
 title: Operators
 description: Reference for SQL operators available in Firebolt.
+<<<<<<< HEAD:docs/sql_reference/operators.md
 nav_order: 7
 parent: SQL reference
+=======
+nav_order: 2
+parent: General reference
+>>>>>>> rn/gh-pages:docs/general-reference/operators.md
 ---
 
 # Operators
@@ -85,7 +90,11 @@ Boolean operators return the result of a Boolean operation between one or more e
 | >=                    | `a>=b`                     | a is greater than or equal to b.                           |
 | <                     | `a<b`                      | a is less than b.                                          |
 | BETWEEN               | `a BETWEEN b AND c`        | equivalent to b <= a <= c                                  |
+<<<<<<< HEAD:docs/sql_reference/operators.md
 | IS NOT DISTINCT FROM  | `a IS NOT DISTINCT FROM b` | equivalent to a=b where NULL is considered equal to NULL.  |
+=======
+| IS NOT DISTINCT FROM 	| `a IS NOT DISTINCT FROM b` | equivalent to a=b where NULL is considered equal to NULL.  |
+>>>>>>> rn/gh-pages:docs/general-reference/operators.md
 | IS DISTINCT FROM      | `a IS DISTINCT FROM b`     | equivalent to a!=b where NULL is considered equal to NULL. |
 
 Example of using comparison operator in `WHERE` clause

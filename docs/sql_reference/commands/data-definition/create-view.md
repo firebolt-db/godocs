@@ -2,9 +2,13 @@
 layout: default
 title: CREATE VIEW
 description: Reference and syntax for the CREATE VIEW command.
+<<<<<<< HEAD:docs/sql_reference/commands/data-definition/create-view.md
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Data definition
+=======
+parent:  SQL commands
+>>>>>>> rn/gh-pages:docs/sql-reference/commands/create-view.md
 ---
 
 # CREATE VIEW

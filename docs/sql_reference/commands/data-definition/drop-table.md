@@ -2,9 +2,13 @@
 layout: default
 title: DROP TABLE
 description: Reference and syntax for the DROP TABLE command.
+<<<<<<< HEAD:docs/sql_reference/commands/data-definition/drop-table.md
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Data definition
+=======
+parent:  SQL commands
+>>>>>>> rn/gh-pages:docs/sql-reference/commands/drop-table.md
 ---
 
 # DROP TABLE
