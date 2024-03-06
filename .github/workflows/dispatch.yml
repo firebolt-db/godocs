@@ -6,6 +6,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
 
       - name: Setup Node.js
@@ -18,9 +20,17 @@ jobs:
           git config --global user.email github-actions@github.com
 
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           path: 'build'
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate app token
+        id: generate_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.GH_APP_CI_GITOPS_APP_ID }}
+          private_key: ${{ secrets.GH_APP_CI_GITOPS_KEY_PEM }}
 
       - name: Build
         run: |
@@ -29,14 +39,12 @@ jobs:
           git pull https://github.com/firebolt-analytics/firebolt-docs-staging.git gh-pages
           git push origin
 
-
       - name: Checkout Staging Target
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
-          repository: firebolt-analytics/firebolt-docs-staging
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}
           path: 'deploy'
-      
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Push files to target
         run: |
           cp -r build/* deploy
@@ -46,11 +54,11 @@ jobs:
           git push
 
       - name: Checkout Guru Synch Target
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: firebolt-analytics/firebolt-doc-to-guru
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}
           path: 'deploysync'
+          token: ${{ steps.generate-token.outputs.token }}
 
       - name: Push files to target
         run: |
@@ -59,15 +67,14 @@ jobs:
           git add -A
           git commit -m $GITHUB_SHA
           git push
-          
-          
+
       - name: Checkout Preview Target
         uses: actions/checkout@v2
         with:
           repository: firebolt-analytics/firebolt-docs-preview-cntrbtr
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}
           path: 'preview'
-      
+          token: ${{ steps.generate-token.outputs.token }}
+
       - name: Push files to target
         run: |
           cp -r build/* preview
