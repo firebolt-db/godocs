@@ -3,7 +3,6 @@ on:
   push:
     branches: 
       - gh-pages
-      - rvs-test
 
 permissions:
   contents: read
@@ -50,55 +49,22 @@ jobs:
           git config --global user.name github-actions
           git config --global user.email github-actions@github.com
 
-      - name: Build
+      - name: Push Guru
+        env: 
+          TARGET_BRANCH: "main"
         run: |
           cp -r build/* deploysync
+          cd deploysync
+          git add -A 
+          git commit -m "feat(no_issue): update with $GITHUB_SHA"
+          git push origin $TARGET_BRANCH || echo "remote repository already synced"
+
+      - name: Push Preview
+        env: 
+          TARGET_BRANCH: "gh-pages"
+        run: |
           cp -r build/* preview
-          for dir in deploysync preview; 
-            do 
-              cd $dir
-              git checkout $GITHUB_REF_NAME || git checkout -b $GITHUB_REF_NAME 
-              git pull origin $GITHUB_REF_NAME || echo "pull okay"
-              git add -A 
-              git commit -m "feat(no_issue): update with $GITHUB_SHA"
-              git push origin $GITHUB_REF_NAME || echo "remote repository already synced"
-              cd ..
-            done
-              
-      # git checkout $TARGET_BRANCH
-      # git pull https://github.com/firebolt-analytics/firebolt-docs-staging.git $TARGET_BRANCH
-      # git push origin $TARGET_BRANCH
-
-      # - name: Checkout Staging Target
-      #   uses: actions/checkout@v4
-      #   with:
-      #     path: 'deploy'
-      #     token: ${{ secrets.GITHUB_TOKEN }}
-
-      # - name: Push files to target
-      #   run: |
-      #     cp -r build/* deploy
-      #     cd deploy
-      #     git add -A
-      #     git commit -m $GITHUB_SHA
-      #     git push
-
-      
-
-      # - name: Push files to target
-      #   run: |
-      #     cp -r build/* deploysync
-      #     cd deploysync
-      #     git add -A
-      #     git commit -m $GITHUB_SHA
-      #     git push
-
-      
-
-      # - name: Push files to target
-      #   run: |
-      #     cp -r build/* preview
-      #     cd preview
-      #     git add -A
-      #     git commit -m $GITHUB_SHA
-      #     git push
+          cd preview
+          git add -A 
+          git commit -m "feat(no_issue): update with $GITHUB_SHA"
+          git push origin $TARGET_BRANCH || echo "remote repository already synced"
