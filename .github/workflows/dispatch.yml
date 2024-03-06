@@ -14,12 +14,6 @@ jobs:
     permissions:
       contents: write
     steps:
-      # https://github.com/actions/checkout#push-a-commit-using-the-built-in-token
-      # - name: Set GitHub Actions as Commit Author
-      #   run: |
-      #     git config --global user.name github-actions
-      #     git config --global user.email github-actions@github.com
-
       - name: Checkout Repo
         uses: actions/checkout@v4
         with:
@@ -49,6 +43,12 @@ jobs:
           repository: firebolt-analytics/firebolt-docs-preview-cntrbtr
           path: 'preview'
           ref: 'gh-pages'
+
+      # https://github.com/actions/checkout#push-a-commit-using-the-built-in-token
+      - name: Set GitHub Actions as Commit Author
+        run: |
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
 
       - name: Build
         run: |
