@@ -69,7 +69,7 @@ jobs:
           git push
 
       - name: Checkout Preview Target
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: firebolt-analytics/firebolt-docs-preview-cntrbtr
           path: 'preview'
