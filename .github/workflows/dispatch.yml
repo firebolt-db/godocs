@@ -41,16 +41,18 @@ jobs:
       - name: Checkout Guru Synch Target
         uses: actions/checkout@v4
         with:
+          token: ${{ steps.generate-token.outputs.token }}
           repository: firebolt-analytics/firebolt-doc-to-guru
           path: 'deploysync'
-          token: ${{ steps.generate-token.outputs.token }}
+          ref: 'main'
 
       - name: Checkout Preview Target
         uses: actions/checkout@v4
         with:
+          token: ${{ steps.generate-token.outputs.token }}
           repository: firebolt-analytics/firebolt-docs-preview-cntrbtr
           path: 'preview'
-          token: ${{ steps.generate-token.outputs.token }}
+          ref: 'gh_pages'
 
       - name: Build
         run: |
