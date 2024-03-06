@@ -1,7 +1,9 @@
 name: Production Build and Deploy
 on:
   push:
-    branches: [ gh-pages ]
+    branches: 
+      - gh-pages
+      - rvs-test
 
 jobs:
   build:
@@ -33,11 +35,13 @@ jobs:
           private_key: ${{ secrets.GH_APP_CI_GITOPS_KEY_PEM }}
 
       - name: Build
+        env:
+          TARGET_BRANCH="rvs-test"
         run: |
           cd build
-          git checkout gh-pages
-          git pull https://github.com/firebolt-analytics/firebolt-docs-staging.git gh-pages
-          git push origin
+          git checkout $TARGET_BRANCH
+          git pull https://github.com/firebolt-analytics/firebolt-docs-staging.git $TARGET_BRANCH
+          git push origin $TARGET_BRANCH
 
       - name: Checkout Staging Target
         uses: actions/checkout@v4
