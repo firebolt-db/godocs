@@ -58,9 +58,10 @@ jobs:
             do 
               cd $dir
               git checkout $GITHUB_REF_NAME || git checkout -b $GITHUB_REF_NAME 
+              git pull origin $GITHUB_REF_NAME || echo "pull okay"
               git add -A 
               git commit -m "feat(no_issue): update with $GITHUB_SHA"
-              git push origin $GITHUB_REF_NAME
+              git push origin $GITHUB_REF_NAME || echo "remote repository already synced"
               cd ..
             done
               
