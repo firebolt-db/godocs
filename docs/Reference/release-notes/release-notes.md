@@ -28,7 +28,11 @@ Firebolt might roll out releases in phases. New features and changes may not yet
 
 <!--- FIR-22307 --->**PG compliant division**
 
-LQP2 has a new division operator that is PG compliant, by default. This is a breaking change. 
+LQP2 has a new division operator that is PG compliant, by default. Examples include:
+- division by zero throws now an exception (NULL value before)
+- type overflow throws now an exception (not checked before)
+
+This is a breaking change. 
 
 <!--- FIR-29179 --->**Prevents usage of new line delimeter for schema inference**
 
@@ -43,7 +47,7 @@ The following functions are not supported anymore:
 * 'to_unix_timestamp'
 * 'to_unix_time'
 
-A new setting called 'disable_firebolt_v1_functions' can now be used to turn of the support for specific functions, such as the unix timestamp functions. This is a breaking change. 
+For example, a new setting called 'disable_firebolt_v1_functions' can now be used to turn off the support for specific functions, such as the unix timestamp functions. This is a breaking change. 
 
 <!--- FIR-27548 --->**Simplified table protobuf representation**
 
