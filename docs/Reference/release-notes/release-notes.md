@@ -43,11 +43,11 @@ An error will now occur if schema inference is used with the option “delimiter
 <!--- FIR-29747 --->**Disabled Unix Time Functions**
 
 The following functions are not supported anymore:
-* 'from_unixtime'
-* 'to_unix_timestamp'
-* 'to_unix_time'
+* `from_unixtime`
+* `to_unix_timestamp`
+* `to_unix_time`
 
-For example, a new setting called 'disable_firebolt_v1_functions' can now be used to turn off the support for specific functions, such as the unix timestamp functions. This is a breaking change. 
+For example, a new setting called `disable_firebolt_v1_functions` can now be used to turn off the support for specific functions, such as the unix timestamp functions. This is a breaking change. 
 
 <!--- FIR-27548 --->**Simplified table protobuf representation**
 
@@ -92,7 +92,7 @@ If you know that the values cannot be null when performing an anti join on nulla
 * Updated error log for upload failure for clarity.
 
 <!--- FIR-29147 --->
-* Fixed a bug in 'unnest' table function that occurred when not all of the 'unnest' columns were projected.
+* Fixed a bug in `unnest` table function that occurred when not all of the `unnest` columns were projected.
 
 <!--- FIR-28187 --->
 * Changed the behavior of [`split_part'](../../sql_reference/functions-reference/string/split-part.md) when an empty string is used as delimiter.
@@ -101,4 +101,4 @@ If you know that the values cannot be null when performing an anti join on nulla
 * Fixed a bug where floating point values `-0.0` and `+0.0`, as well as `-nan` and `+nan` were not considered equal in distributed queries.
 
 <!--- FIR-29759 --->
-* 'TRY_CAST' from 'TEXT' to 'NUMERIC' now works as expected: if the value cannot be parsed as 'NUMERIC' it produces null.
+* `TRY_CAST` from `TEXT` to `NUMERIC` now works as expected: if the value cannot be parsed as 'NUMERIC' it produces null.
