@@ -54,7 +54,7 @@ jobs:
         run: |
           cp -r build/* deploysync
           cp -r build/* preview
-          for dir in build deploysync preview; 
+          for dir in deploysync preview; 
             do 
               cd $dir
               git checkout $GITHUB_REF_NAME || git checkout -b $GITHUB_REF_NAME 
