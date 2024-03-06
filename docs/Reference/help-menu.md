@@ -15,7 +15,7 @@ The Firebolt help menu is found in the bottom left corner of the screen, appeari
 
 ## Menu options
 
-The menu has four different options: 
+This menu has four different options: 
 
 ![Help Menu](../assets/images/help_menu.png)
 
