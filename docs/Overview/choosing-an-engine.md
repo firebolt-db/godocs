@@ -74,7 +74,7 @@ Queries that perform complex aggregations and multiple joins are likely to place
 
 #### Queries with joins benefit from increased RAM
 
-Queries joining multiple tables can be memory intensive, with large data sets cached in RAM during join operations. Try increasing the engine specification with more RAM per node. Aim for the memory of each node to be enough to contain all the join indexes fully in memory. Next, add nodes for additional RAM when running large and complex joins.
+Queries joining multiple tables can be memory intensive, with large data sets cached in RAM during join operations. Try increasing the engine specification with more RAM per node. Next, add nodes for additional RAM when running large and complex joins.
 
 #### Aggregation queries benefit from increased CPU
 
