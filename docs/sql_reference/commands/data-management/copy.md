@@ -10,7 +10,7 @@ parent: Data management
 # COPY
 {: .no_toc}
 
-Copies data between a file and a table.
+Copies data from S3 to firebolt table.
 
 * Topic ToC
 {:toc}
@@ -18,53 +18,63 @@ Copies data between a file and a table.
 ## Syntax
 
 ```sql
-COPY [INTO] <table_name> [ ( <column_name> [default Default_value] [field_number] [, ...] ) ] 
+COPY [INTO] <table_name> [ ( <column_name> [default Default_value] [ { $source_column_number | source_column_name } ] [, ...] ) ] 
 FROM <externalLocation>
 [ WHERE <condition> ]
-[ LIMIT <count> ]
-    [ OFFSET <start> ]
-    [ WITH 
-    [ CREDENTIALS = ( AWS_KEY_ID = '<aws_key_id>' AWS_SECRET_KEY = '<aws_secret_key>' ) | ( AWS_ROLE_ARN = '<role_arn>' [AWS_ROLE_EXTERNAL_ID = '<external_id>'] ) ] 
+[ LIMIT <count> [ OFFSET <start> ] ]
+[ WITH <options> ]
+
+<options>:
+    [ CREDENTIALS = ( <credentials> ) ] 
     [ PATTERN = <regex_pattern> ]
-    [ TRUNCATE = { TRUE | FALSE } ]
-    [ TYPE = { CSV | TSV | ORC | PARQUET | JSON } [ <type option> ] ]
-    [ <type option> ]
-    [ COMPRESSION = { SNAPPY | GZIP | NONE } ]
-    [ ENCODING = { UTF8 | UTF16 } ]
+    [ TYPE = { CSV | PARQUET } ]
+    [ COMPRESSION = GZIP ]
     [ AUTO_CREATE = { TRUE | FALSE } ]
     [ ERROR_FILE = <externalLocation> ]
-    [ ERROR_FILE_CREDENTIALS = ( AWS_KEY_ID = '<aws_key_id>' AWS_SECRET_KEY = '<aws_secret_key>' ) | ( AWS_ROLE_ARN = '<role_arn>' [AWS_ROLE_EXTERNAL_ID = '<external_id>'] ) ]
-    [ MAX_ERRORS = <total_errors>
+    [ ERROR_FILE_CREDENTIALS = <credentials> ]
     [ MAX_ERRORS_PER_FILE = <max_errors_num> | <max_error_pct> ]
-	[ COLUMN_MISMATCH = { TRUE | FALSE } ]	
-    [ DATE_FORMAT = { <date_format> | AUTO } ]
-    [ TIME_FORMAT = { <time_format> | AUTO } ]
-    [ TIMESTAMP_FORMAT = { <timestamp_format> | AUTO } ]
-    ]
+    [ <csv_options> ]
+
+<credentials>:
+    { AWS_KEY_ID = '<aws_key_id>' AWS_SECRET_KEY = '<aws_secret_key>' | AWS_ROLE_ARN = '<role_arn>' [AWS_ROLE_EXTERNAL_ID = '<external_id>'] }
+
+<csv_options>:
+    [ HEADER = { TRUE | FALSE } ]
+    [ DELIMITER = 'character' ]
+    [ QUOTE = { 'character' | DEFAULT | SINGLE_QUOTE | DOUBLE_QUOTE } ]
+    [ ESCAPE = 'character' ]
+    [ NULL_STRING = 'string' ]
+    [ EMPTY_FIELD_AS_NULL = { TRUE | FALSE } ]
+    [ SKIP_BLANK_LINES = { TRUE | FALSE } ]
+    [ DATE_FORMAT = <date_format> ]
+    [ TIMESTAMP_FORMAT = <timestamp_format> ]
+
 ```
 ## Parameters 
 {: .no_toc} 
 
-| Parameter | Description |
-| :-------- | :---------- |
-| `<table_name>`  | The name of the target table. |
-| `<column_name>` | Optional. The name of the target column(s) in the table. |
-| `<externalLocation>` | The path to an S3 location where the query result file or files are saved. For example, `s3://my_bucket/my_folder`. |
-| `CREDENTIALS` | The Amazon S3 credentials for accessing the specified `<externalLocation>`. See [CREDENTIALS](#credentials) below. |
-| `PATTERN` | A regular expression pattern string. Specifies the file names and/or paths to match Filtering is pushed down to S3 whenever possible. The following support is present:<br>* Denotes repetition of the previous item zero or more times. <br>* Denotes repetition of the previous item one or more times.<br>* [0-9] denotes any number 0 to 9 can be used.<br>* [A-Z] denotes any letter A to Z can be used. |
-| `TRUNCATE` | Specifies whether to truncate the target table before data are loaded. By default, tables are not truncated (value: FALSE) and new data are appended. |
-| `TYPE`            | Specifies the file type Firebolt expects to ingest given the `OBJECT_PATTERN`. If a file referenced using `OBJECT_PATTERN` does not conform to the specified `TYPE`, an error occurs. For more information, see [TYPE](#type). |
-| `COMPRESSION`     | Specifies whether file compression is used. If omitted, defaults to `GZIP` compression format. If `NONE` is specified, exported files are not compressed.|
-| `ENCODING` | |
-| `AUTO_CREATE` | Specifies if the table can be automatically created by working alongside with automatic schema discovery. This option is available only for Parquet and CSV currently. If the Parquet table is partitioned, the auto-schema process detects partitioning keys and creates a target table in Firebolt that is partitioned (according to the source specification).By default, automatic table creation is not enabled (value: FALSE). If value: TRUE and the target table already exists, `AUTO_CREATE` is ignored. |
-| `ERROR_FILE` |  Defines an optional file where rejected records will be stored. See `externalLocation` parameter definition above for format details. If the specified path doesn't exist, a folder will be created on the behalf of the user. A child directory is created with the name "rejectedrows", and within this directory, another folder is created based on the time of load submission in the format YearMonthDay -HourMinuteSecond + QueryID (Ex. 20220330-173205/<query_id>/). In this folder, two types of files are written: 1) the reason (error) file and the data (row) file. If `ERRORFILE` is omitted, error files are created in the source location. |
-| `ERROR_FILE_CREDENTIALS` | The Amazon S3 credentials for accessing the specified `<externalLocation>` for error file creation. See [CREDENTIALS](#credentials) below. |
-| `MAX_ERRORS` | Specifies the maximum number of rejected rows allowed in total before the `COPY` operation is canceled. Each row that cannot be imported by the `COPY` operation is ignored and counted as one error. If not defined, COPY behavior is dependent on the `ON_ERROR` clause setting. If the value is set to 0, operations are aborted on the first error. |
-|`MAX_ERRORS_PER_FILE` | Specifies the maximum number of rejected rows per file. Maximum number of errors per file can be expressed as either an absolute number of errors (max_errors_num) or a percentage (max_error_pct, representing the number of bad rows divided by the total number of rows). Once the threshold is reached, the `COPY` statement aborts processing that file but continues loading other files. |
-| `COLUMN_MISMATCH` | |
-| `DATE_FORMAT` | Specifies .... Accepted formats are: DD-MM-YYYY, MM-DD-YYYY, YYYY-MM-DD,  YYYY-DD-MM, YYYY/MM/DD, YYYY/DD/MM, DD/MM/YYYY, MM/DD/YYYY, YYYYMMDD, YYYYDDMM, DDMMYYYY, MMDDYYYY |
-| `TIME_FORMAT` | Specifies... Accepted formats are: HH24:MI, HH24:MI:SS, HH24:MI:SSTZH:TZM, HH24:MI:SS.FF, HH24:MI:SS.FFTZH:TZM, HH12:MI AM, HH12:MI:SS AM, HH12:MI:SS.FF AM |
-| `TIMESTAMP_FORMAT` | Specifies... Accepted formats are: YYYY-MM-DD HH24, YYYY-MM-DD"T"HH24, YYYY-MM-DD HH24:MI, YYYY-MM-DD"T"HH24:MI, YYYY-MM-DD HH24:MI:SS, YYYY-MM-DD"T"HH24:MI:SS, YYYY-MM-DD HH24:MI:SS TZHTZM, YYYY-MM-DD HH24:MI:SS TZH:TZM, YYYY-MM-DD HH24:MITZH:TZM, YYYY-MM-DD"T"HH24:MITZH:TZM, YYYY-MM-DD HH24:MI:SSTZH, YYYY-MM-DD HH24:MI:SSTZH:TZM, YYYY-MM-DD"T"HH24:MI:SSTZH:TZM, YYYY-MM-DD HH24:MI:SS.FF, YYYY-MM-DD"T"HH24:MI:SS.FF, YYYY-MM-DD HH24:MI:SS.FF TZHTZM, YYYY-MM-DD HH24:MI:SS.FF TZH:TZM, YYYY-MM-DD HH24:MI:SS.FFTZH, YYYY-MM-DD HH24:MI:SS.FFTZH:TZM, YYYY-MM-DD"T"HH24:MI:SS.FFTZH:TZM |
+| Parameter                | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+|:-------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<table_name>`           | The name of the target table.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `<column_name>`          | Optional. The name of the target column(s) in the table.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `<externalLocation>`     | The path to an S3 location where the query result file or files are saved. For example, `s3://my_bucket/my_folder`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `CREDENTIALS`            | The Amazon S3 credentials for accessing the specified `<externalLocation>`. See [CREDENTIALS](#credentials) below.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `PATTERN`                | A regular expression pattern string. Specifies the file names and/or paths to match Filtering is pushed down to S3 whenever possible. The following support is present:<br>* Denotes repetition of the previous item zero or more times. <br>* Denotes repetition of the previous item one or more times.<br>* [0-9] denotes any number 0 to 9 can be used.<br>* [A-Z] denotes any letter A to Z can be used.                                                                                                                                                                                                                                                |
+| `TYPE`                   | Specifies the file type Firebolt expects to ingest given the `OBJECT_PATTERN`. If a file referenced using `OBJECT_PATTERN` does not conform to the specified `TYPE`, an error occurs. For more information, see [TYPE](#type).                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `COMPRESSION`            | Specifies whether file compression is used. If omitted, defaults to `GZIP` compression format. If `NONE` is specified, exported files are not compressed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `AUTO_CREATE`            | Specifies if the table can be automatically created by working alongside with automatic schema discovery. This option is available only for Parquet and CSV currently. If the Parquet table is partitioned, the auto-schema process detects partitioning keys and creates a target table in Firebolt that is partitioned (according to the source specification).By default, automatic table creation is not enabled (value: FALSE). If value: TRUE and the target table already exists, `AUTO_CREATE` is ignored.                                                                                                                                           |
+| `ERROR_FILE`             | Defines an optional file where rejected records will be stored. See `externalLocation` parameter definition above for format details. If the specified path doesn't exist, a folder will be created on the behalf of the user. A child directory is created with the name "rejectedrows", and within this directory, another folder is created based on the time of load submission in the format YearMonthDay -HourMinuteSecond + QueryID (Ex. 20220330-173205/<query_id>/). In this folder, two types of files are written: 1) the reason (error) file and the data (row) file. If `ERRORFILE` is omitted, error files are created in the source location. |
+| `ERROR_FILE_CREDENTIALS` | The Amazon S3 credentials for accessing the specified `<externalLocation>` for error file creation. See [CREDENTIALS](#credentials) below.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `MAX_ERRORS_PER_FILE`    | Specifies the maximum number of rejected rows per file. Maximum number of errors per file can be expressed as either an absolute number of errors (max_errors_num) or a percentage (max_error_pct, representing the number of bad rows divided by the total number of rows). Once the threshold is reached, the `COPY` statement aborts processing that file but continues loading other files.                                                                                                                                                                                                                                                              |
+| `HEADER`            | Specifies that the file contains a header line with the names of each column in the file. If set to true the first line will be interpreted as file schema column names.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `DELIMITER`            | Specifies .... Accepted formats are: DD-MM-YYYY, MM-DD-YYYY, YYYY-MM-DD,  YYYY-DD-MM, YYYY/MM/DD, YYYY/DD/MM, DD/MM/YYYY, MM/DD/YYYY, YYYYMMDD, YYYYDDMM, DDMMYYYY, MMDDYYYY                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `QUOTE`            | Specifies .... Accepted formats are: DD-MM-YYYY, MM-DD-YYYY, YYYY-MM-DD,  YYYY-DD-MM, YYYY/MM/DD, YYYY/DD/MM, DD/MM/YYYY, MM/DD/YYYY, YYYYMMDD, YYYYDDMM, DDMMYYYY, MMDDYYYY                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `ESCAPE`            | Specifies .... Accepted formats are: DD-MM-YYYY, MM-DD-YYYY, YYYY-MM-DD,  YYYY-DD-MM, YYYY/MM/DD, YYYY/DD/MM, DD/MM/YYYY, MM/DD/YYYY, YYYYMMDD, YYYYDDMM, DDMMYYYY, MMDDYYYY                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `NULL_STRING`            | Specifies .... Accepted formats are: DD-MM-YYYY, MM-DD-YYYY, YYYY-MM-DD,  YYYY-DD-MM, YYYY/MM/DD, YYYY/DD/MM, DD/MM/YYYY, MM/DD/YYYY, YYYYMMDD, YYYYDDMM, DDMMYYYY, MMDDYYYY                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `EMPTY_FIELD_AS_NULL`            | Specifies .... Accepted formats are: DD-MM-YYYY, MM-DD-YYYY, YYYY-MM-DD,  YYYY-DD-MM, YYYY/MM/DD, YYYY/DD/MM, DD/MM/YYYY, MM/DD/YYYY, YYYYMMDD, YYYYDDMM, DDMMYYYY, MMDDYYYY                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `SKIP_BLANK_LINES`            | Specifies .... Accepted formats are: DD-MM-YYYY, MM-DD-YYYY, YYYY-MM-DD,  YYYY-DD-MM, YYYY/MM/DD, YYYY/DD/MM, DD/MM/YYYY, MM/DD/YYYY, YYYYMMDD, YYYYDDMM, DDMMYYYY, MMDDYYYY                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `DATE_FORMAT`            | Specifies .... Accepted formats are: DD-MM-YYYY, MM-DD-YYYY, YYYY-MM-DD,  YYYY-DD-MM, YYYY/MM/DD, YYYY/DD/MM, DD/MM/YYYY, MM/DD/YYYY, YYYYMMDD, YYYYDDMM, DDMMYYYY, MMDDYYYY                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `TIMESTAMP_FORMAT`       | Specifies... Accepted formats are: YYYY-MM-DD HH24, YYYY-MM-DD"T"HH24, YYYY-MM-DD HH24:MI, YYYY-MM-DD"T"HH24:MI, YYYY-MM-DD HH24:MI:SS, YYYY-MM-DD"T"HH24:MI:SS, YYYY-MM-DD HH24:MI:SS TZHTZM, YYYY-MM-DD HH24:MI:SS TZH:TZM, YYYY-MM-DD HH24:MITZH:TZM, YYYY-MM-DD"T"HH24:MITZH:TZM, YYYY-MM-DD HH24:MI:SSTZH, YYYY-MM-DD HH24:MI:SSTZH:TZM, YYYY-MM-DD"T"HH24:MI:SSTZH:TZM, YYYY-MM-DD HH24:MI:SS.FF, YYYY-MM-DD"T"HH24:MI:SS.FF, YYYY-MM-DD HH24:MI:SS.FF TZHTZM, YYYY-MM-DD HH24:MI:SS.FF TZH:TZM, YYYY-MM-DD HH24:MI:SS.FFTZH, YYYY-MM-DD HH24:MI:SS.FFTZH:TZM, YYYY-MM-DD"T"HH24:MI:SS.FFTZH:TZM                                                       |
 
 ## CREDENTIALS
 
@@ -135,6 +145,9 @@ or
 TYPE = (CSV)
 [ <type option> ]
 ```
+
+notes on csv format:
+new line sequence will be \n or \n\r or \r.
 
 The following type options allow configuration for ingesting different CSV file formats.
 
