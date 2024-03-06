@@ -1,7 +1,11 @@
-name: Production Build and Deploy
+name: Push to remote repositories
 on:
   push:
-    branches: [ gh-pages ]
+    branches: 
+      - gh-pages
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -9,21 +13,12 @@ jobs:
     permissions:
       contents: write
     steps:
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-
-      # https://github.com/actions/checkout#push-a-commit-using-the-built-in-token
-      - name: Set GitHub Actions as Commit Author
-        run: |
-          git config --global user.name github-actions
-          git config --global user.email github-actions@github.com
-
       - name: Checkout Repo
         uses: actions/checkout@v4
         with:
           path: 'build'
           token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.ref_name }}
 
       - name: Generate app token
         id: generate_token
@@ -32,53 +27,44 @@ jobs:
           app_id: ${{ secrets.GH_APP_CI_GITOPS_APP_ID }}
           private_key: ${{ secrets.GH_APP_CI_GITOPS_KEY_PEM }}
 
-      - name: Build
-        run: |
-          cd build
-          git checkout gh-pages
-          git pull https://github.com/firebolt-analytics/firebolt-docs-staging.git gh-pages
-          git push origin
-
-      - name: Checkout Staging Target
-        uses: actions/checkout@v4
-        with:
-          path: 'deploy'
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Push files to target
-        run: |
-          cp -r build/* deploy
-          cd deploy
-          git add -A
-          git commit -m $GITHUB_SHA
-          git push
-
       - name: Checkout Guru Synch Target
         uses: actions/checkout@v4
         with:
+          token: ${{ steps.generate_token.outputs.token }}
           repository: firebolt-analytics/firebolt-doc-to-guru
           path: 'deploysync'
-          token: ${{ steps.generate-token.outputs.token }}
-
-      - name: Push files to target
-        run: |
-          cp -r build/* deploysync
-          cd deploysync
-          git add -A
-          git commit -m $GITHUB_SHA
-          git push
+          ref: 'main'
 
       - name: Checkout Preview Target
         uses: actions/checkout@v4
         with:
+          token: ${{ steps.generate_token.outputs.token }}
           repository: firebolt-analytics/firebolt-docs-preview-cntrbtr
           path: 'preview'
-          token: ${{ steps.generate-token.outputs.token }}
+          ref: 'gh-pages'
 
-      - name: Push files to target
+      # https://github.com/actions/checkout#push-a-commit-using-the-built-in-token
+      - name: Set GitHub Actions as Commit Author
+        run: |
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
+
+      - name: Push Guru
+        env: 
+          TARGET_BRANCH: "main"
+        run: |
+          cp -r build/* deploysync
+          cd deploysync
+          git add -A
+          git commit -m "feat(no_issue): update with $GITHUB_SHA"
+          git push origin $TARGET_BRANCH || echo "remote repository already synced"
+
+      - name: Push Preview
+        env: 
+          TARGET_BRANCH: "gh-pages"
         run: |
           cp -r build/* preview
           cd preview
           git add -A
-          git commit -m $GITHUB_SHA
-          git push
+          git commit -m "feat(no_issue): update with $GITHUB_SHA"
+          git push origin $TARGET_BRANCH || echo "remote repository already synced"
