@@ -12,55 +12,28 @@ grand_parent: Guides
 Firebolt's system engine enables running various metadata-related queries without having to start an engine. The system engine is always available for you in all databases to select and use.  
 
 The system engine supports running the following commands:
-* CREATE/ALTER/DROP LOGIN
-* CREATE/ALTER/DROP SERVICE ACCOUNT
-* CREATE/ALTER/DROP USER
-* CREATE/ALTER/DROP ACCOUNT
-* CREATE/ALTER/DROP NETWORK POLICY
-* CREATE/ALTER/DROP DATABASE
-* CREATE/ALTER/DROP ENGINE
-* CREATE/DROP ROLE
-* CREATE/DROP TABLE
-* CREATE/DROP VIEW
-* DROP AGGREGATING INDEX
-* ALTER ORGANIZATION
-* GRANT/REVOKE
-* START/STOP ENGINE
-* ATTACH/DETACH ENGINE
-* SHOW DATABASES
-* SHOW ENGINES
-* SHOW TABLES
-* SHOW INDEXES
-* SHOW VIEWS
-* SHOW COLUMNS
-* DESCRIBE
-
-The following commands are not supported:
-* CREATE EXTERNAL TABLE
-* CREATE AGGREGATING INDEX
-* CREATE TABLE AS SELECT
-* COPY TO
-* INSERT/UPDATE/DELETE
-* TRUNCATE TABLE
-* ALTER TABLE DROP PARTITION
-* VACUUM
-* CANCEL QUERY
-* SHOW CACHE
-
-In addition, you can query the following information schema tables from the system engine:
-* `information_schema.accounts`
-* `information_schema.network_policies`
-* `information_schema.users`
-* `information_schema.logins`
-* `information_schema.service_accounts`
-* `information_schema.engines`
-* `information_schema.databases`
-* `information_schema.tables`
-* `information_schema.views`
-* `information_schema.indexes`
-* `information_schema.columns`
-
-The system engine also allows queries which don't access data, e.g. `SELECT CURRENT_TIMESTAMP()`.
+* All [access control](../../sql_reference/commands/access-control/index.md) commands
+* All [engine](../../sql_reference/commands/engines/index.md) commands
+* Most [data definition](../../sql_reference/commands/data-definition/index.md) commands. The following commands are not supported:
+  * [ALTER TABLE DROP PARTITION](../../sql_reference/commands/data-definition/alter-table.md)
+  * [CREATE AGGREGATING INDEX](../../sql_reference/commands/data-definition/create-aggregating-index.md)
+  * [CREATE EXTERNAL TABLE](../../sql_reference/commands/data-definition/create-external-table.md)
+  * [CREATE TABLE AS SELECT](../../sql_reference/commands/data-definition/create-fact-dimension-table-as-select.md)
+* Most [metadata](../../sql_reference/commands/metadata/index.md) commands. The following commands are not supported:
+  * [SHOW CACHE](../../sql_reference/commands/metadata/show-cache.md)
+* Non-data-accessing [SELECT](../../sql_reference/commands/queries/select.md) queries like `SELECT CURRENT_TIMESTAMP()`
+* [SELECT](../../sql_reference/commands/queries/select.md) queries on some [information_schema](../../sql_reference/information-schema/information-schema-and-usage-views.md) views:
+    * [information_schema.accounts](../../sql_reference/information-schema/accounts.md)
+    * [information_schema.columns](../../sql_reference/information-schema/columns.md)
+    * [information_schema.databases](../../sql_reference/information-schema/databases.md)
+    * [information_schema.engines](../../sql_reference/information-schema/engines.md)
+    * [information_schema.indexes](../../sql_reference/information-schema/indexes.md)
+    * [information_schema.logins](../../sql_reference/information-schema/logins.md)
+    * [information_schema.network_policies](../../sql_reference/information-schema/network_policies.md)
+    * [information_schema.service_accounts](../../sql_reference/information-schema/service-accounts.md)
+    * [information_schema.tables](../../sql_reference/information-schema/tables.md)
+    * [information_schema.users](../../sql_reference/information-schema/users.md)
+    * [information_schema.views](../../sql_reference/information-schema/views.md)
 
 ## Using the system engine via the Firebolt manager 
 1. In the Firebolt manager, choose the Databases icon in the navigation pane.
