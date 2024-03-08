@@ -16,8 +16,8 @@ For more information, see [Network policies](../../../Guides/security/network-po
 
 ```sql
 CREATE NETWORK POLICY [IF NOT EXISTS] <network_policy_name>
-WITH ALLOWED_IP_LIST = ( [ '<allowed_ip1>', '<allowed_ip2>', ... ] )
-[ BLOCKED_IP_LIST = ( [ '<blocked_ip1>', '<blocked_ip2>', ... ] ) ]
+WITH ALLOWED_IP_LIST = ( '<allowed_ip1>', '<allowed_ip2>', ... )
+[ BLOCKED_IP_LIST = ( '<blocked_ip1>', '<blocked_ip2>', ... ) ]
 [ DESCRIPTION = '<description>' ]
 ```
 
