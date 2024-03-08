@@ -4,7 +4,7 @@ title: CREATE NETWORK POLICY
 description: Reference and syntax for the CREATE NETWORK POLICY command.
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
-parent: Data definition
+parent: Access control
 ---
 
 # CREATE NETWORK POLICY
