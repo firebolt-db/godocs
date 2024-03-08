@@ -25,7 +25,7 @@ OCTET_LENGTH(<expression>)
 | `<expression>` | The string or binary data for which to return the length.   | `TEXT`, `BYTEA`       |
 
 ## Return Type
-`BIGINT` 
+`INTEGER` 
 
 ## Example
 {: .no_toc}
