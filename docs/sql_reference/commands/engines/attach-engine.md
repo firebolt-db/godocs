@@ -2,13 +2,9 @@
 layout: default
 title: ATTACH ENGINE
 description: Reference and syntax for the ATTACH ENGINE command.
-<<<<<<< HEAD:docs/sql_reference/commands/engines/attach-engine.md
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Engine commands
-=======
-parent:  SQL commands
->>>>>>> rn/gh-pages:docs/sql-reference/commands/attach-engine.md
 ---
 
 # ATTACH ENGINE

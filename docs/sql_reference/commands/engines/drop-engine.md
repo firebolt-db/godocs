@@ -2,13 +2,9 @@
 layout: default
 title: DROP ENGINE
 description: Reference and syntax for the DROP ENGINE command.
-<<<<<<< HEAD:docs/sql_reference/commands/engines/drop-engine.md
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Engine commands
-=======
-parent:  SQL commands
->>>>>>> rn/gh-pages:docs/sql-reference/commands/drop-engine.md
 ---
 
 # DROP ENGINE

@@ -2,13 +2,9 @@
 layout: default
 title: CREATE TABLE AS SELECT (CTAS)
 Description: Reference and syntax for the CTAS SQL command.
-<<<<<<< HEAD:docs/sql_reference/commands/data-definition/create-fact-dimension-table-as-select.md
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Data definition
-=======
-parent:  SQL commands
->>>>>>> rn/gh-pages:docs/sql-reference/commands/create-fact-dimension-table-as-select.md
 ---
 
 # CREATE FACT or DIMENSION TABLE...AS SELECT

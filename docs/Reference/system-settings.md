@@ -2,11 +2,7 @@
 layout: default
 title: System settings
 description: Lists Firebolt system settings that you can configure using SQL.
-<<<<<<< HEAD:docs/Reference/system-settings.md
 nav_order: 4
-=======
-nav_order: 5
->>>>>>> rn/gh-pages:docs/general-reference/system-settings.md
 parent: General reference
 ---
 

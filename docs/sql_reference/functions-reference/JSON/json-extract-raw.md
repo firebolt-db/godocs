@@ -2,13 +2,9 @@
 layout: default
 title: JSON_EXTRACT_RAW
 description: Reference material for JSON_EXTRACT_RAW function
-<<<<<<< HEAD:docs/sql_reference/functions-reference/JSON/json-extract-raw.md
 grand_parent: SQL functions
 parent: Semi-structured data functions
 great_grand_parent: SQL reference
-=======
-parent:  SQL functions
->>>>>>> rn/gh-pages:docs/sql-reference/functions-reference/json-extract-raw.md
 ---
 
 # JSON_EXTRACT_RAW

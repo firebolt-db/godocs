@@ -2,11 +2,7 @@
 layout: default
 title: Object identifers
 description: Provides requirements and guidance for using SQL identifiers with Firebolt.
-<<<<<<< HEAD:docs/Reference/object-identifiers.md
 nav_order: 5
-=======
-nav_order: 3
->>>>>>> rn/gh-pages:docs/general-reference/identifier-requirements.md
 parent: General reference
 ---
 

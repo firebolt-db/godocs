@@ -2,13 +2,9 @@
 layout: default
 title: CREATE ENGINE
 description: Reference and syntax for the CREATE ENGINE command.
-<<<<<<< HEAD:docs/sql_reference/commands/engines/create-engine.md
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Engine commands
-=======
-parent:  SQL commands
->>>>>>> rn/gh-pages:docs/sql-reference/commands/create-engine.md
 ---
 
 # CREATE ENGINE

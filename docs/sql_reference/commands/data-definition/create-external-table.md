@@ -2,13 +2,9 @@
 layout: default
 title: CREATE EXTERNAL TABLE
 description: Reference and syntax for the CREATE EXTERNAL TABLE command.
-<<<<<<< HEAD:docs/sql_reference/commands/data-definition/create-external-table.md
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Data definition
-=======
-parent:  SQL commands
->>>>>>> rn/gh-pages:docs/sql-reference/commands/create-external-table.md
 ---
 
 # CREATE EXTERNAL TABLE

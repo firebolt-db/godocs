@@ -2,13 +2,8 @@
 layout: default
 title: Operators
 description: Reference for SQL operators available in Firebolt.
-<<<<<<< HEAD:docs/sql_reference/operators.md
 nav_order: 7
 parent: SQL reference
-=======
-nav_order: 2
-parent: General reference
->>>>>>> rn/gh-pages:docs/general-reference/operators.md
 ---
 
 # Operators
