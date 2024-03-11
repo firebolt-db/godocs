@@ -3,7 +3,7 @@ layout: default
 title: Operators
 description: Reference for SQL operators available in Firebolt.
 nav_order: 7
-parent: Information schema
+parent: SQL reference
 ---
 
 # Operators
