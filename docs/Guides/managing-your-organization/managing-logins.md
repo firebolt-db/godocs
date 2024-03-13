@@ -79,4 +79,4 @@ To delete a login via the UI:
 
 2. Search for the relevant login using the top search filters, or by scrolling through the logins list. Hover over the right-most column to make the login menu appear, then choose **Delete login**.
 {: .note}
-If the service account is linked to users, you will not be allowed to delete it. The service account will have to be unliked form all users before deletion.
+If the login is linked to any users, deletion will not be permitted. The login must be unlinked from all users before deletion.

@@ -131,7 +131,7 @@ To delete a service account via the UI:
 1. Click **Configure** to open the configure space, then choose **Service accounts** from the menu.
 2. Search for the relevant service account using the top search filters, or by scrolling through the list of service accounts. Hover over the right-most column to make the service account menu appear, then choose **Delete service account**.
 {: .note}
-If the service account is linked to users, you will not be allowed to delete it. The service account will have to be unliked form all users before deletion. 
+If the service account is linked to any users, deletion will not be permitted. The service account must be unlinked from all users before deletion. 
 
 
 

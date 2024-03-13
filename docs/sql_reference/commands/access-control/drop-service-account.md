@@ -18,7 +18,7 @@ For more information, see [Service accounts](../../../Guides/managing-your-organ
 DROP SERVICE ACCOUNT <service_account_name>;
 ```
 {: .note}
-If the service account is linked to a user, it can not be dropped. In order to drop a service account linked to a user, the link must be reset `alter user foo set service_account=new_service_account|DEFAULT` or drop the user
+If the service account is linked to a user, it can not be dropped. In order to drop a service account linked to a user, the link must be reset `alter user foo set service_account=new_service_account|DEFAULT` or the user dropped.
 
 
 ## Parameters 
