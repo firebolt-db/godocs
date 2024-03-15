@@ -18,11 +18,7 @@ Returns a string representation of the scalar or sub-object under the key indica
 JSON_EXTRACT_RAW(<json>, <json_pointer_expression>)
 ```
 
-<<<<<<< HEAD:docs/sql_reference/functions-reference/JSON/json-extract-raw.md
-## Parameters 
-=======
 # Parameters 
->>>>>>> rn/gh-pages:docs/sql-reference/functions-reference/json-extract-raw.md
 {: .no_toc}
 
 | Parameter                   | Description                                               | Supported input types | 
@@ -30,11 +26,7 @@ JSON_EXTRACT_RAW(<json>, <json_pointer_expression>)
 | `<json>`                    | The JSON document from which the array is to be extracted. | `TEXT` | 
 | `<json_pointer_expression>` | A JSON pointer to the location of the array in the JSON. For more information, see [JSON pointer expression syntax](./index.md#json-pointer-expression-syntax).    |    `TEXT` | 
 
-<<<<<<< HEAD:docs/sql_reference/functions-reference/JSON/json-extract-raw.md
-## Return Types 
-=======
 # Return Types 
->>>>>>> rn/gh-pages:docs/sql-reference/functions-reference/json-extract-raw.md
 
 * If key is provided, returns `TEXT`
 * If no key is provided, returns `NULL`

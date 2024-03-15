@@ -1,6 +1,2 @@
 User-agent: *
-<<<<<<< HEAD
 Disallow: /
-=======
-Disallow: /
->>>>>>> rn/gh-pages

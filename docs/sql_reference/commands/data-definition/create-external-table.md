@@ -312,8 +312,4 @@ URL = 's3://mybucket/'
 OBJECT_PATTERN= '*.csv.gz'
 TYPE = (CSV)
 COMPRESSION = GZIP
-<<<<<<< HEAD:docs/sql_reference/commands/data-definition/create-external-table.md
 ```
-=======
-```
->>>>>>> rn/gh-pages:docs/sql-reference/commands/create-external-table.md

@@ -11,8 +11,6 @@ nav_exclude: true
 
 # TO_DATE
 
-<<<<<<< HEAD:docs/sql_reference/functions-reference/date-and-time/to-date.md
-=======
 {: .warning}
   >You are looking at the documentation for Firebolt's redesigned date and timestamp types.
   >These types were introduced in DB version 3.19 under the names `PGDATE`, `TIMESTAMPNTZ` and `TIMESTAMPTZ`, and synonyms `DATE`, `TIMESTAMP` and `TIMESTAMPTZ` made available in DB version 3.22.
@@ -24,7 +22,6 @@ nav_exclude: true
   >
   >If you have not yet switched to the new timestamp types, this function is available under the name `TO_PGDATE`.
 
->>>>>>> rn/gh-pages:docs/sql-reference/functions-reference/to-date-new.md
 Converts a string to `DATE` type using format.
 
 {: .note}

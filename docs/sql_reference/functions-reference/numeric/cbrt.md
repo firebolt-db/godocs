@@ -22,17 +22,10 @@ CBRT(<value>);
 
 | Parameter | Description                                                                                                         | Supported input types | 
 | :--------- | :------------------------------------------------------------------------------------------------------------------- | :--------| 
-<<<<<<< HEAD:docs/sql_reference/functions-reference/numeric/cbrt.md
-| `<value>`   | Value that the `CBRT` function is applied to | `DOUBLE PRECISION` |
-
-## Return Type
-`DOUBLE PRECISION`
-=======
 | `<value>`   | Value that the `CBRT` function is applied to | `DOUBLE_PRECISION` |
 
 ## Return Type
 `DOUBLE_PRECISION`
->>>>>>> rn/gh-pages:docs/sql-reference/functions-reference/cbrt.md
 
 ## Example
 {: .no_toc}

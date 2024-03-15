@@ -18,11 +18,7 @@ Returns an array of string values from a JSON document using the key location sp
 JSON_EXTRACT_VALUES(<json>, '<json_pointer_expression>')
 ```
 
-<<<<<<< HEAD:docs/sql_reference/functions-reference/JSON/json-extract-values.md
-## Parameters 
-=======
 # Parameters 
->>>>>>> rn/gh-pages:docs/sql-reference/functions-reference/json-extract-values.md
 {: .no_toc}
 
 | Parameter                   | Description                                               | Supported input types | 

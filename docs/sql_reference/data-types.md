@@ -17,11 +17,6 @@ This topic lists the data types available in Firebolt.
 
 ## Binary
 
-<<<<<<< HEAD:docs/sql_reference/data-types.md
-### BYTEA
-Represents variable size binary data. A binary string is a sequence of bytes - unlike TEXT, there is no character set. The `BYTEA` data type is nullable.
-For more information, see [BYTEA data type](bytea-data-type.md).
-=======
 ### INTEGER
 A whole number ranging from -2,147,483,648 to 2,147,483,647. `INTEGER` data types require 4 bytes of storage.
 Synonyms: `INT`, `INT4`.
@@ -81,7 +76,6 @@ A year, month, day, hour, minute, second, and microsecond timestamp independent 
 ### TIMESTAMPTZ
 
 A year, month, day, hour, minute, second, and microsecond timestamp associated with a time zone. For more information, see [TIMESTAMPTZ data type](timestamptz-data-type.md).
->>>>>>> rn/gh-pages:docs/general-reference/data-types.md
 
 ## Boolean
 

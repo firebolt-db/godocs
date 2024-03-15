@@ -20,16 +20,6 @@ DATE_DIFF('<unit>', <start_date>, <end_date>)
 ## Parameters
 {: .no_toc}
 
-<<<<<<< HEAD:docs/sql_reference/functions-reference/date-and-time/date-diff.md
-| Parameter      | Description                                                    | Supported input types | 
-| :-------------- | :-------------------------------------------------------------- | :----------| 
-| `<datepart1>` | A unit of time |`SECOND`, `MINUTE`, `HOUR`, `DAY`, `WEEK`, `MONTH`, `QUARTER`, `YEAR`, or `EPOCH`     |
-| `<datepart2>` | The start date  | Any expression that evaluates to a `DATE` or `TIMESTAMP` value |
-| `<datepart3>`   | The end date |  Any expression that evaluates to a `DATE` or `TIMESTAMP` value | 
-
-## Return Type
-`INTEGER`
-=======
 ## Parameters
 
 | Parameter      | Description                                                    |
@@ -41,7 +31,6 @@ DATE_DIFF('<unit>', <start_date>, <end_date>)
 ## Return Types
 
 `LONG`
->>>>>>> rn/gh-pages:docs/sql-reference/functions-reference/date-diff.md
 
 ## Example
 {: .no_toc}
