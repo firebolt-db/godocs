@@ -6,7 +6,7 @@ parent: Overview
 nav_order: 3
 ---
 
-# Engine fundamentals
+# Engine Fundamentals
 {: .no_toc}
 
 Firebolt engines are attached to databases. Each engine provides isolated and assured compute and storage capacity that you can use for different workloads and queries.
