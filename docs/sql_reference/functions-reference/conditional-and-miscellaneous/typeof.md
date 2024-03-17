@@ -1,21 +1,21 @@
 ---
 layout: default
-title: TYPEOF
-description: Reference material for TYPEOF function
+title: COALESCE
+description: Reference material for COALESCE function
 grand_parent: SQL functions
 parent: Conditional and miscellaneous functions
 great_grand_parent: SQL reference
 ---
 
-# TYPEOF
+# COALESCE
 
-Returns the type of a given expression.
+Checks from left to right for the first non-NULL argument found for each entry parameter pair. 
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-TYPEOF(<expression>)
+COALESCE(<expression> [,...])
 ```
 
 ## Parameters 
@@ -23,17 +23,17 @@ TYPEOF(<expression>)
 
 | Parameter | Description        |Supported input types | 
 | :--------- | :---------------------------------------------------|:------------|
-| `<expression>` | The expression to typeof. | Any |
+| `<expression>` | The expression(s) to coalesce. | Any |
 
 ## Return Types
-A text of the given expression data type.
+Same as input type
 
 ## Example
 {: .no_toc}
-The following example returns the type of PI() function:
+The following example returns the first non-NULL value provided, which is the username `esimpson`:
 
 ```sql
-SELECT TYPEOF(RANDOM()) AS random_data_type;
+SELECT COALESCE(NULL, 'esimpson','sabrina21') AS nicknames;
 ```
 
-**Returns:** `double precision`
+**Returns:** `esimpson`
