@@ -15,7 +15,7 @@ Updates the configuration of the specified engine.
 
 ```sql
 ALTER ENGINE <engine_name> SET
-    [SCALE = <scale>]
+    [NODES = <nodes>]
     [SPEC = <spec>]
     [AUTO_STOP = <minutes]
     [RENAME TO <new_name>]
@@ -27,7 +27,7 @@ ALTER ENGINE <engine_name> SET
 | Parameter                                                   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | 
 | :----------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | 
 | `<engine_name>`                                             | The name of the engine to be altered.                            | 
-| `SCALE = <scale>` | Scale determines the number of nodes that the engine uses, and can be an integer ranging from 1 to 128.<br> | 
+| `NODES = <nodes>` | Nodes determines the number of nodes that the engine uses, and can be an integer ranging from 1 to 128.<br> | 
 | `SPEC = <spec>`   | The engine spec defines the engine’s compute capabilities. Each engine spec has CPU, RAM, and cache characteristics. The engine spec determines the cost per hour (billed per second) for each engine node (the total engine cost per hour is also a function of scale). You can choose engine specs for characteristics that are best suited for your Firebolt workload. For details, see [Available engine specs](../../../Reference/available-engine-specs.md).<br>| 
 | `AUTO_STOP = <minutes>`                                     | The number of minutes after which the engine automatically stops, where 0 indicates that `AUTO_STOP` is disabled.                                                                                                                                                                                                                                                                                                                                                                     | 
 | `RENAME TO <new_name>`                                      | Indicates the new name for the engine.<br> <br>For example: `RENAME TO new_engine_name`                                                                                                                                                                                                                                                                                                                                                                         | 
@@ -37,5 +37,5 @@ ALTER ENGINE <engine_name> SET
 The following example updates the engine's scale to `1`: 
 
 ```sql
-ALTER ENGINE my_engine SET SCALE = 1
+ALTER ENGINE my_engine SET NODES = 1
 ```
