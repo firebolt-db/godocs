@@ -15,7 +15,7 @@ Updates the configuration of the specified engine.
 
 ```sql
 ALTER ENGINE <engine_name> SET
-    [SCALE = <scale>]
+    [NODES = <scale>]
     [SPEC = <spec>]
     [AUTO_STOP = <minutes]
     [RENAME TO <new_name>]
