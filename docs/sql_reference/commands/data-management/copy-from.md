@@ -7,7 +7,7 @@ grand_parent: SQL commands
 parent: Data management
 ---
 
-# COPY
+# COPY FROM
 
 {: .no_toc}
 
