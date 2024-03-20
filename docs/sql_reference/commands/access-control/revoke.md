@@ -46,8 +46,8 @@ REVOKE MODIFY ON DATABASE my_db FROM user_role;
 
 ## Example 2
 
-The following command will revoke USAGE permissions on all databases in the account "my_account" from the role "user_role".
+The following command will revoke USAGE permissions on all databases in the account "dev" from the role "user_role".
 
 ```sql
-REVOKE USAGE ANY DATABASE ON ACCOUNT my_account FROM user_role;
+REVOKE USAGE ANY DATABASE ON ACCOUNT dev FROM user_role;
 ```

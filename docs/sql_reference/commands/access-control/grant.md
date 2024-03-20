@@ -46,8 +46,8 @@ GRANT USAGE ON DATABASE my_db TO user_role;
 
 ## Example 2
 
-The following command will grant USAGE permissions on all databases in the account "my_account" to the role "user_role".
+The following command will grant USAGE permissions on all databases in the account "dev" to the role "user_role".
 
 ```sql
-GRANT USAGE ANY DATABASE ON ACCOUNT my_account TO user_role;
+GRANT USAGE ANY DATABASE ON ACCOUNT dev TO user_role;
 ```

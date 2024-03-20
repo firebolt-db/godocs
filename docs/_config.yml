@@ -42,8 +42,8 @@ search:
 # Link in upper right
 
 aux_links:
-  "GET STARTED":
-    - "https://www.firebolt.io/getting-started-now"
+  "TRY FOR FREE":
+    - "https://www.firebolt.io/try-firebolt"
 
 # Google Analytics tracking
 #ga_tracking: UA-142599515-1

@@ -4,7 +4,7 @@ title: ALTER NETWORK POLICY
 description: Reference and syntax for the ALTER NETWORK POLICY command.
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
-parent: Data definition
+parent: Access control
 ---
 
 # ALTER NETWORK POLICY
@@ -16,8 +16,8 @@ For more information, see [Network policies](../../../Guides/security/network-po
 
 ```sql
 ALTER NETWORK POLICY [ IF EXISTS ] <network_policy_name>
-SET  [ ALLOWED_IP_LIST = ( [ '<allowed_ip>' ] [, '<allowed_ip>' ... ] ) ]
-[ BLOCKED_IP_LIST = ( [ '<blocked_ip>' ] [, '<blocked_ip>' ... ] ) ]
+SET  [ ALLOWED_IP_LIST = ( '<allowed_ip>', '<allowed_ip>' ... ) ]
+[ BLOCKED_IP_LIST = ( '<blocked_ip>', '<blocked_ip>' ... ) ]
 [ DESCRIPTION = '<description>' ] 
 }
 ```

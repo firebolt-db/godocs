@@ -3,7 +3,7 @@ layout: default
 title: Information schema
 description: Learn about the metadata available for Firebolt objects using the information schema.  
 nav_order: 4
-parent: SQL reference
+parent: Information schema
 has_children: true
 ---
 

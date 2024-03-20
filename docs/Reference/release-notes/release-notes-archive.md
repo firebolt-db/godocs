@@ -24,6 +24,7 @@ We provide an archive of release notes for your historical reference.
 * [Resolved issues](#resolved-issues)
 
 ### New features
+<<<<<<< HEAD
 
 <!--- FIR-27590 ---> **New comparison operators**
 
@@ -36,6 +37,23 @@ We provide an archive of release notes for your historical reference.
 Support has been added to allow the [ANY_MATCH](../../sql_reference/functions-reference/Lambda/any-match.md) lambda function to work with nullable arrays.
 
 ### Resolved issues
+=======
+{: .no_toc}
+
+<!--- FIR-27590 ---> **New comparison operators**
+
+[New comparison operators](../../sql_reference/operators.md) `IS DISTINCT FROM` and `IS NOT DISTINCT FROM` have been added.
+
+### Enhancements, changes and new integrations
+{: .no_toc}
+
+<!--- FIR-27355 ---> **Support for nullable arrays**
+
+Support has been added to allow the [ANY_MATCH](../../sql_reference/functions-reference/Lambda/any-match.md) lambda function to work with nullable arrays
+
+### Resolved issues
+{: .no_toc}
+>>>>>>> livesite/gh-pages
 
 * Indirectly granted privileges have been removed from the `information_schema.object_privileges` view. 
 

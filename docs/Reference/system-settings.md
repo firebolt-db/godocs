@@ -40,14 +40,18 @@ SELECT TIMESTAMPTZ '2023-1-29Z';  --> 2023-01-29 02:00:00+02
 
 ## Enable parsing for literal strings
 
+<<<<<<< HEAD
 When set to `true`, strings are parsed without escaping, treating backslashes literally. By default this is disabled, and the `\` character is recognized as an escape character.
 
 ### Syntax
+=======
+When set to `true`, strings are parsed without escaping, treating backslashes literally. By default, this setting is enabled. 
+>>>>>>> livesite/gh-pages
 
 {: .no_toc}
 
 ```sql
-SET standard_conforming_strings = [false|true]
+SET standard_conforming_strings = [true|false]
 ```
 
 ### Example
@@ -62,6 +66,7 @@ SET standard_conforming_strings = true;
 SELECT '\x3132'; -> \x3132
 ```
 
+<<<<<<< HEAD
 ## Enable exact COUNT (DISTINCT)
 
 When set to false (`0`), the [COUNT (DISTINCT)](../sql_reference/functions-reference/aggregation/count.md) function returns approximate results, using an estimation algorithm with an average deviation under 2%. This is the default to optimize query performance. When set to true (`1`), the function returns an exact count, which can slow query performance.
@@ -85,6 +90,8 @@ firebolt_optimization_enable_exact_count_distinct = [false|true]
 SET firebolt_optimization_enable_exact_count_distinct = true;
 ```
 
+=======
+>>>>>>> livesite/gh-pages
 ## Limit the number of result rows
 
 When set to a value greater than zero, this setting limits the number of rows returned by `SELECT` statements. The query is executed as if an additional `LIMIT` clause is added to the SQL query. The default value is zero.

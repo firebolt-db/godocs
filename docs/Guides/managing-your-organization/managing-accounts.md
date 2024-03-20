@@ -22,7 +22,7 @@ Creating an account requires the org_admin role.
  To create an account using SQL, use the [`CREATE ACCOUNT`](../../sql_reference/commands/data-definition/create-account.md) statement. For example:
 
 ```sql
-CREATE ACCOUNT my_account WITH REGION = 'us-east-1';
+CREATE ACCOUNT dev WITH REGION = 'us-east-1';
 ```
 
 ### UI 
@@ -53,7 +53,7 @@ Editing an account requires the account_admin or org_admin role.
 To edit an existing account using SQL, use the [`ALTER ACCOUNT`](../../sql_reference/commands/data-definition/alter-account.md) statement. For example:
 
 ```sql
-ALTER ACCOUNT my_account RENAME TO my_dev_account;
+ALTER ACCOUNT dev RENAME TO staging;
 ```
 
 ### UI
@@ -76,7 +76,7 @@ Deleting an account requires the account_admin or org_admin role.
 To delete an existing account using SQL, use the [`DROP ACCOUNT`](../../sql_reference/commands/data-definition/drop-account.md) statement. For example:
 
 ```sql
-DROP ACCOUNT my_account;
+DROP ACCOUNT dev;
 ```
 
 ### UI

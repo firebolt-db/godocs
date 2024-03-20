@@ -32,5 +32,5 @@ CREATE ACCOUNT [IF NOT EXISTS] <account_name>
 The following command will create an account in the US East (N. Virginia) region.
 
 ```sql
-CREATE ACCOUNT my_account WITH REGION = “us-east-1”
+CREATE ACCOUNT dev WITH REGION = “us-east-1”
 ```
