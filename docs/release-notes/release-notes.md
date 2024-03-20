@@ -98,6 +98,3 @@ Before, it was not an error and it resulted in: 99999999999999997752612184630461
 
 <!--- FIR-30490 --->
 * Fixed a bug involving ['btrim'](../sql_reference/functions-reference/string/btrim.md) string characters, where invoking `btrim`, `ltrim`, `rtrim`, or `trim` with a literal string but non-literal trim characters could result in an error.
-
-<!--- FIR-14827 --->
-* Fixed a bug where the string concatenation operator `||` had higher precedence than the arithmetic operators `+`, `-`, `*`, `/`, `%`, and `^`.
