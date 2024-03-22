@@ -26,10 +26,9 @@ Firebolt might roll out releases in phases. New features and changes may not yet
 
 ### New features
 
-<!--- FIR-4082 --->**Expose and document 'typeof' as toTypeName function**
+<!--- FIR-4082 --->**Expose and document 'typeof' as a toTypeName function**
 
-The 'typeof' function has been added, which returns the data type of an expression.
-PG doc can be found [here](https://www.postgresql.org/docs/current/functions-info.html) for reference.
+The `typeof` function has been added, which returns the data type of a SQL expression as a string.
 
 ### Enhancements, changes and new integrations
 
@@ -39,11 +38,13 @@ Firebolt can now process most aggregations that exceed the available main memory
 
 <!--- FIR-25892 ---> **No overflow detected in cast from FLOAT to DECIMAL**
 
-Fix results of casting from 'float32' to decimals with precision > 18.
+Fix results of casting from `float32` to decimals with precision > 18.
 In addition to the correct results breaking change, there are certain queries that was working before that now will fail involving overflow. 
 
 Example query: 
-* 'SELECT' 17014118346046923173168730371588410572::REAL::DECIMAL(37,0). Previously, this was working and returned a wrong result, but now it will fail with an overflow error.
+* `SELECT` 17014118346046923173168730371588410572::REAL::DECIMAL(37,0). 
+
+Previously, this was working and returned a wrong result, but now it will fail with an overflow error.
 
 <!--- FIR-29174 --->**ARRAY_COUNT returns 0 instead of NULL**
 
@@ -54,11 +55,11 @@ Example query:
 Arithmetic operators (i.e. multiplication, addition, subtraction, and division) now perform correct overflow checking. This means that queries that used to return wrong results in the past now throw runtime errors.
 
 Example queries: 
-* 'SELECT' 4294967296 * 4294967296 -> now throws an error, before it would return 0
+* `SELECT` 4294967296 * 4294967296 -> now throws an error, before it would return 0
 
-* 'SELECT' 9223372036854775807 + 9223372036854775807 -> now throws an error, before it would return -2
+* `SELECT` 9223372036854775807 + 9223372036854775807 -> now throws an error, before it would return -2
 
-* 'SELECT' (a + b) * c -> this might throw runtime errors if there are large values in the column, but this is highly data dependent.
+* `SELECT` (a + b) * c -> this might throw runtime errors if there are large values in the column, but this is highly data dependent.
 
 <!--- FIR-29747 --->**Implement bool_or/bool_and aggregation functions**
 
@@ -78,11 +79,14 @@ Length and array_length now return INTEGER instead of BIGINT.
 
 <!--- FIR-30393 --->**Subqueries in the GROUP BY/HAVING/ORDER BY clauses change**
 
-Subqueries in GROUP BY/HAVING/ORDER BY can no longer references columns from the selection list of the outer query via their aliases as per PG compliance.  `select 1 + 1 as a order by (select a);` used to work, but now fails with `unresolved name a` error.
+Subqueries in `GROUP BY/HAVING/ORDER BY` can no longer references columns from the selection list of the outer query via their aliases as per PG compliance.  `select 1 + 1 as a order by (select a);` used to work, but now fails with `unresolved name a` error.
 
 <!--- FIR-31163 --->**Bytea serialization to CSV fix**
 
-Change Bytea to CSV export: from escaped to non escaped. Example: before \\x22ff after \x22ff. Will affect copy to command. example command: copy (select 'a'::bytea) to 's3...'; the results will now be "\x61" instead of "\\x61".
+Change Bytea to CSV export: from escaped to non escaped. 
+
+Example: 
+* `COPY` (select 'a'::bytea) to 's3...'; the results will now be "\x61" instead of "\\x61".
 
 ### Resolved issues
 
@@ -90,8 +94,8 @@ Change Bytea to CSV export: from escaped to non escaped. Example: before \\x22ff
 * Fixed results of casting literal float to numeric. In the past the float literal was casted to float first then to numeric, this caused us to lose precision.
 
 Examples:
-'SELECT' 5000000000000000000000000000000000000.0::DECIMAL(38,1); -> 5000000000000000000000000000000000000.0
-'SELECT' (5000000000000000000000000000000000000.0::DECIMAL(38,1)+5000000000000000000000000000000000000.0::DECIMAL(38 1)); -> ERROR: overflow.
+* `SELECT` 5000000000000000000000000000000000000.0::DECIMAL(38,1); -> 5000000000000000000000000000000000000.0
+* `SELECT` (5000000000000000000000000000000000000.0::DECIMAL(38,1)+5000000000000000000000000000000000000.0::DECIMAL(38 1)); -> ERROR: overflow.
 
 Note that before, it was not an error and resulted in: 9999999999999999775261218463046128332.8.
 
@@ -99,7 +103,7 @@ Note that before, it was not an error and resulted in: 9999999999999999775261218
 * Fixed a longstanding bug with >= comparison on external table source_file_name. Whereas this would previously have scraped fewer files than expected off the remote S3 bucket, you will now get all files properly (lexicographically) compared against the input predicate. 
 
 <!--- FIR-30107 --->
-* Fixed a bug when USAGE ANY ENGINE (and similar) privileges were shown for * account. Now it is being show for current account.
+* Fixed a bug when `USAGE ANY ENGINE` (and similar) privileges were shown for * account. Now it is being show for current account.
 
 <!--- FIR-30490 --->
 * Fixed a bug involving ['btrim'](../sql_reference/functions-reference/string/btrim.md) string characters, where invoking `btrim`, `ltrim`, `rtrim`, or `trim` with a literal string but non-literal trim characters could result in an error.
