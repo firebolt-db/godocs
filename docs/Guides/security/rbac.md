@@ -14,7 +14,7 @@ Role-based access control provides the ability to control permissions and determ
 
 A user interacting with Firebolt must have the appropriate permissions to use an object. Permissions from all roles assigned to a user are considered in each interaction in Firebolt. 
 
-To view all roles, click **Govern** to open the govern space, then choose **Roles** from the menu, or query the [information_schema.applicable-roles](../../sql_reference/information-schema/applicable-roles.md) view.
+To view all roles, click **Govern** to open the govern space, then choose **Roles** from the menu, or query the [information_schema.applicable_roles](../../sql_reference/information-schema/applicable-roles.md) view.
 
 ## System-defined roles
 
