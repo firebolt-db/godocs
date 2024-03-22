@@ -164,7 +164,7 @@ To revoke a permission from a role via the UI, follow the [same steps above](#gr
 To revoke a role from a user or another role using SQL, use the [`REVOKE ROLE`](../../sql_reference/commands/access-control/revoke.md) statement. For example:
 
 ```sql
-REVOKE ROLE user_role USER alex;
+REVOKE ROLE user_role FROM USER alex;
 ```
 
 ### UI
