@@ -70,7 +70,7 @@ Generating a new secret for your service account user replaces any previous secr
 4. Authenticate using the service account via Firebolt’s REST API, send the following request to receive an authentication token:
 
 ```bash
-curl POST --location 'https://id.app.firebolt.io/oauth/token' \
+curl -X POST --location 'https://id.app.firebolt.io/oauth/token' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-urlencode 'grant_type=client_credentials' \
 --data-urlencode 'audience=https://api.firebolt.io' \
