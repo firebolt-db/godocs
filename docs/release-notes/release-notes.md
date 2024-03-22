@@ -83,7 +83,7 @@ Subqueries in `GROUP BY/HAVING/ORDER BY` can no longer references columns from t
 
 <!--- FIR-31163 --->**Bytea serialization to CSV fix**
 
-Change Bytea to CSV export: from escaped to non escaped. 
+Changed Bytea to CSV export: from escaped to non escaped. 
 
 Example: 
 * `COPY` (select 'a'::bytea) to 's3...'; the results will now be "\x61" instead of "\\x61".
