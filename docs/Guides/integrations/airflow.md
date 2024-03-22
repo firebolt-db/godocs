@@ -25,7 +25,7 @@ The source code for the Airflow provider package for Firebolt is available in th
 
 * A Firebolt database and engine.
 
-* [Python](https://www.python.org/) version 3.7 or later.
+* [Python](https://www.python.org/) version 3.8 or later.
 
 * An installation of Airflow. For more information, see [Installation](https://airflow.apache.org/docs/apache-airflow/stable/installation/index.html) in Airflow documentation.
 
