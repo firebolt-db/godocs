@@ -17,8 +17,8 @@ Firebolt continuously releases updates so that you can benefit from the latest a
 {: .note}
 Firebolt might roll out releases in phases. New features and changes may not yet be available to all accounts on the release date shown.
 
-## DB version 3.31
-**February 2024**
+## DB version 3.32
+**March 2024**
 
 * [New features](#new-features)
 * [Enhancements, changes, and new integrations](#enhancements-changes-and-new-integrations)
@@ -26,135 +26,84 @@ Firebolt might roll out releases in phases. New features and changes may not yet
 
 ### New features
 
-<!--- FIR-22307 --->**PG compliant division**
-<<<<<<< HEAD
+<!--- FIR-4082 --->**Expose and document 'typeof' as a toTypeName function**
 
-LQP2 has a new division operator that is PG compliant, by default.
-
-<!--- FIR-27590 ---> **New comparison operators**
-
-[New comparison operators](../general-reference/operators.md) `IS DISTINCT FROM` and `IS NOT DISTINCT FROM` have been added.
-=======
-
-LQP2 has a new division operator that is PG compliant, by default. Examples include:
-- division by zero throws now an exception (NULL value before)
-- type overflow throws now an exception (not checked before)
-
-This is a breaking change. 
->>>>>>> livesite/gh-pages
-
-<!--- FIR-29179 --->**Prevents usage of new line delimeter for schema inference**
-
-An error will now occur if schema inference is used with the option “delimiter” set to something other than the default. 
+The `typeof` function has been added, which returns the data type of a SQL expression as a string.
 
 ### Enhancements, changes and new integrations
 
-<<<<<<< HEAD
-<!--- FIR-27548 --->**Simplified table protobuf representation**
+<!--- FIR-25079 --->**Spilling Aggregations**
 
-Unique constraints in tables will be blocked for new accounts.
+Firebolt can now process most aggregations that exceed the available main memory of the engine by spilling to the SSD cache when needed. This happens transparently to the user. A query that made use of this capability will populate the `spilled_bytes` column in `information_schema.query_history`. Spilling does not support aggregations where a single group exceeds the available memory (e.g., `select count(distinct high_cardinality_column) from huge_table`) and may not yet work reliably for all aggregate functions or engine specs. We will continue improving the feature in upcoming releases.
 
-<!--- FIR-27355 ---> **Support for nullable arrays**
+<!--- FIR-25892 ---> **No overflow detected in cast from FLOAT to DECIMAL**
 
-Support has been added to allow the [ANY_MATCH](../sql-reference/functions-reference/any-match.md) lambda function to work with nullable arrays.
-=======
-<!--- FIR-29747 --->**Disabled Unix Time Functions**
+Fix results of casting from `float32` to decimals with precision > 18.
+In addition to the correct results breaking change, there are certain queries that was working before that now will fail involving overflow. 
 
-The following functions are not supported anymore:
-* `from_unixtime`
-* `to_unix_timestamp`
-* `to_unix_time`
+Example query: 
+* `SELECT` 17014118346046923173168730371588410572::REAL::DECIMAL(37,0). 
 
-For example, a new setting called `disable_firebolt_v1_functions` can now be used to turn off the support for specific functions, such as the unix timestamp functions. This is a breaking change. 
+Previously, this was working and returned a wrong result, but now it will fail with an overflow error.
 
-<!--- FIR-27548 --->**Simplified table protobuf representation**
+<!--- FIR-29174 --->**ARRAY_COUNT returns 0 instead of NULL**
 
-Unique constraints in tables will be blocked for new accounts.
+`ARRAY_COUNT` on `NULL` array now returns `0` instead of `NULL`.
 
-<!--- FIR-29729 --->**Renamed spilled metrics columns**
+<!--- FIR-29639 --->**No overflow check in arithmetic operations**
 
-The columns `spilled_bytes_uncompressed` and `spilled_bytes_compressed` of `information_schema.query_history` have been replaced by a single column [`spilled_bytes`](../../sql_reference/information-schema/query-history-view.md). It contains the amount of data that was spilled to disk temporarily while executing the query.
->>>>>>> livesite/gh-pages
+Arithmetic operators (i.e. multiplication, addition, subtraction, and division) now perform correct overflow checking. This means that queries that used to return wrong results in the past now throw runtime errors.
 
-<!--- FIR-27799 --->**Updated AWS billing error message**
+Example queries: 
+* `SELECT` 4294967296 * 4294967296 -> now throws an error, before it would return 0
 
-The error message for an AWS billing issue on Engine Start was on Engine Start was changed to add more information and clarity.  
+* `SELECT` 9223372036854775807 + 9223372036854775807 -> now throws an error, before it would return -2
 
-<!--- FIR-28276 --->**New requirements updated for EXPLAIN**
+* `SELECT` (a + b) * c -> this might throw runtime errors if there are large values in the column, but this is highly data dependent.
 
-<<<<<<< HEAD
-For `EXPLAIN` queries, we now allow only one of the following options at the same time: `ALL`, `LOGICAL`, `PHYSICAL`, `ANALYZE`.`EXPLAIN (ALL)` now returns the plans in multiple rows instead of multiple columns.
+<!--- FIR-29747 --->**Implement bool_or/bool_and aggregation functions**
 
-<!--- FIR-29747 --->**Disabled Unix Time Functions**
+New aggregate functions bool_or and bool_and have been added. 
 
-The following functions are not supported anymore:
-'from_unixtime'
-'to_unix_timestamp'
-'to_unix_time'
+<!--- FIR-29729 --->**Remove old deprecate REGENERATE AGGREGATING INDEX**
 
-<!--- FIR-29729 --->**Renamed spilled metrics columns**
+'REGENERATE AGGREGATING INDEX' syntax has now been removed.  
 
-The columns `spilled_bytes_uncompressed` and `spilled_bytes_compressed` of `information_schema.query_history` have been replaced by a single column `spilled_bytes`(../sql_reference/information-schema/query-history-view.md). It contains the amount of data that was spilled to disk temporarily while executing the query.
+<!--- FIR-30398 --->**Align the syntax of our "escape" string literals with PostgreSQL**
 
-<!--- FIR-29536 --->**Aggregating index placement**
+Escape [string literals](../sql_reference/data-types.md) now support octal and Unicode escape sequences. As a result, escape string literals now behave exactly like PostgreSQL. Example: `SELECT E'\U0001F525b\x6F\154t';` returns `🔥bolt`. If the setting `standard_conforming_strings` is not enabled for you, regular string literals (e.g., `SELECT 'foo';`) will also recognize the new escape sequences. However, we recommend exclusively using escape string literals for using escape sequences. Please be aware that you will get different results if you previously used (escape) string literals containing the syntax we now use for Unicode and octal escape sequences.
 
-Aggregating index is now placed in the same namespace as tables and views.
+<!--- FIR-30789 --->**Change return value of length and octet_length to INT**
 
-<!--- FIR-29225 --->**Syntax and planner support for LATERAL scoping**
+Length and array_length now return INTEGER instead of BIGINT.
 
-LATERAL is now a reserved keyword (../Reference/reserved-words.md). It must now be used within double-quotes when using it as an object identifier.
+<!--- FIR-30393 --->**Subqueries in the GROUP BY/HAVING/ORDER BY clauses change**
 
-### Resolved issues
+Subqueries in `GROUP BY/HAVING/ORDER BY` can no longer references columns from the selection list of the outer query via their aliases as per PG compliance.  `select 1 + 1 as a order by (select a);` used to work, but now fails with `unresolved name a` error.
 
-<!--- FIR-21152 --->Changed return for division by 0 from null to fail.
+<!--- FIR-31163 --->**Bytea serialization to CSV fix**
 
-<!--- FIR-18709 --->Updated error log for upload failure for clarity.
+Changed Bytea to CSV export: from escaped to non escaped. 
 
-<!--- FIR-29147 --->Fixed a bug in 'unnest' table function that occurred when not all of the 'unnest' columns were projected.
-
-<!--- FIR-28187 --->Changed the behavior of `split_part`(../sql_reference/functions-reference/string/split-part.md) when an empty string is used as delimiter.
-
-<!--- FIR-28623 --->Fixed a bug where floating point values `-0.0` and `+0.0`, as well as `-nan` and `+nan` were not considered equal in distributed queries.
-
-<!--- FIR-29759 --->TRY_CAST from TEXT to NUMERIC now works as expected: if the value cannot be parsed as NUMERIC it produces null.
-=======
-For [`EXPLAIN`](../../sql_reference/commands/queries/explain.md) queries, we now allow only one of the following options at the same time: `ALL`, `LOGICAL`, `PHYSICAL`, `ANALYZE`.`EXPLAIN (ALL)` now returns the plans in multiple rows instead of multiple columns.
-
-<!--- FIR-29536 --->**Aggregating index placement**
-
-Aggregating index is now placed in the same namespace as tables and views. This is a breaking change. 
-
-<!--- FIR-29225 --->**Syntax and planner support for LATERAL scoping**
-
-[LATERAL](../reserved-words.md) is now a reserved keyword. It must now be used within double-quotes when using it as an object identifier. This is a breaking change. 
-
-<!--- FIR-25080 --->**Spilling Joins Processing**
-
-Firebolt can now process inner and outer joins that exceed the available main memory of the engine by spilling to the the SSD cache when needed. This happens transparently to the user. A query that made use of this capability will populate the `spilled_bytes` column in `information_schema.query_history`.
-
-<!--- FIR-30843 --->**Nullable Tuples Query Speed**
-
-Fixed a correctness issue when using anti joins with nullable tuples. Firebolt now returns correct results for such queries. However, this can lead to less efficient query plans, causing queries with anti joins on tuples to become slower. If the tuples are not nullable, the plans remain the same as before.
-
-If you know that the values cannot be null when performing an anti join on nullable tuples, you can wrap all nullable columns involved in the NOT IN comparison with COALESCE to make them non-nullable, using some default value for the null case. This ensures that Firebolt can still choose an efficient plan while retaining correctness.
+Example: 
+* `COPY` (select 'a'::bytea) to 's3...'; the results will now be "\x61" instead of "\\x61".
 
 ### Resolved issues
 
-<!--- FIR-21152 --->
-* Changed return for division by 0 from null to fail. Examples include: division by zero now throws an exception (NULL value before) and type overflow now throws an exception (not checked before). This is a breaking change. 
+<!--- FIR-25890 --->
+* Fixed results of casting literal float to numeric. In the past the float literal was casted to float first then to numeric, this caused us to lose precision.
 
-<!--- FIR-18709 --->
-* Updated error log for upload failure for clarity.
+Examples:
+* `SELECT` 5000000000000000000000000000000000000.0::DECIMAL(38,1); -> 5000000000000000000000000000000000000.0
+* `SELECT` (5000000000000000000000000000000000000.0::DECIMAL(38,1)+5000000000000000000000000000000000000.0::DECIMAL(38 1)); -> ERROR: overflow.
 
-<!--- FIR-29147 --->
-* Fixed a bug in `unnest` table function that occurred when not all of the `unnest` columns were projected.
+Note that before, it was not an error and resulted in: 9999999999999999775261218463046128332.8.
 
-<!--- FIR-28187 --->
-* Changed the behavior of [`split_part'](../../sql_reference/functions-reference/string/split-part.md) when an empty string is used as delimiter.
+<!--- FIR-26910 --->
+* Fixed a longstanding bug with >= comparison on external table source_file_name. Whereas this would previously have scraped fewer files than expected off the remote S3 bucket, you will now get all files properly (lexicographically) compared against the input predicate. 
 
-<!--- FIR-28623 --->
-* Fixed a bug where floating point values `-0.0` and `+0.0`, as well as `-nan` and `+nan` were not considered equal in distributed queries.
+<!--- FIR-30107 --->
+* Fixed a bug when `USAGE ANY ENGINE` (and similar) privileges were shown for * account. Now it is being show for current account.
 
-<!--- FIR-29759 --->
-* `TRY_CAST` from `TEXT` to `NUMERIC` now works as expected: if the value cannot be parsed as 'NUMERIC' it produces null.
->>>>>>> livesite/gh-pages
+<!--- FIR-30490 --->
+* Fixed a bug involving ['btrim'](../sql_reference/functions-reference/string/btrim.md) string characters, where invoking `btrim`, `ltrim`, `rtrim`, or `trim` with a literal string but non-literal trim characters could result in an error.
