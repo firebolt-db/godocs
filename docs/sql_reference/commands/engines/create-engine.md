@@ -15,11 +15,12 @@ Creates an engine (compute cluster).
 ```sql
 CREATE ENGINE [IF NOT EXISTS] <engine_name>
 [WITH 
-    [ENGINE_TYPE = <type>]
-    [SCALE = <scale>]
-    [SPEC = <spec>]
-    [AUTO_STOP = <minutes]
-    [WARMUP = <warmup_method>]]
+    [AUTO_STOP = <minutes>]
+    [DEFAULT_DATABASE = <database_name>]
+    [INITIALLY_STOPPED = <true/false>]
+    [CLUSTERS = <clusters>]
+    [NODES = <nodes>]
+    [TYPE = <type>]]
 ```
 ## Options
 {: .no_toc}  
@@ -39,13 +40,15 @@ CREATE ENGINE [IF NOT EXISTS] <engine_name>
 * While you can dynamically resize an engine, any currently running queries may not run to completion. 
 If you would like to remove the above limitations, reach out to Firebolt Support.
 
-## Example
-The following example creates an engine with a scale of `8`: 
+## Example 1
+The following example creates an engine with one cluster, using node type 'S' and 5 nodes per cluster : 
 
 ```sql
 CREATE ENGINE my_engine
-WITH SCALE = 8
+WITH TYPE="S" NODES = 5 CLUSTERS = 1;
 ```
+## Example 2
+The following example creates an engine with one cluster, using node type 'S' and 1 nodes per cluster : 
 
 ```sql
 CREATE ENGINE my_engine;
