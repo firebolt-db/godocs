@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # LOWER
 
-Converts the input string to lowercase characters.
+Converts the input string to lowercase characters. Note that Firebolt uses the `POSIX` locale, therefore `lower` only converts the ASCII characters “A” through “Z” to lowercase. Non-ASCII characters remain unchanged.
 
 ## Syntax
 {: .no_toc}
@@ -17,15 +17,15 @@ Converts the input string to lowercase characters.
 ```sql
 LOWER(<expression>)
 ```
-## Parameters 
+## Parameters
 {: .no_toc}
 
-| Parameter  | Description                 |Supported input types | 
+| Parameter  | Description                 |Supported input types |
 | :---------- | :--------------------------- | :-----------------|
 | `<expression>` | The string to be converted to lowercase characters. | `TEXT` |
 
 ## Return Type
-`TEXT` 
+`TEXT`
 
 ## Example
 {: .no_toc}
@@ -38,3 +38,10 @@ SELECT
 ```
 
 **Returns**: `esimpson`
+
+Because Firebolt uses the `POSIX` locale, non-ASCII characters are not lowercased:
+```sql
+SELECT LOWER('MÜNCHEN')
+```
+
+**Returns**: `mÜnchen`

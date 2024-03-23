@@ -30,6 +30,7 @@ All Firebolt functions in alphabetical order.
 | [ARRAY_FIRST_INDEX](./Lambda/array-first-index.md) | Returns the index of the first element in the indicated array for which the given function returns something other than 0. Index counting starts at 1. | Lambda |
 | [ARRAY_INTERSECT](./array/array-intersect.md) | Evaluates all arrays that are provided as arguments and returns an array of any elements that are present in all the arrays. | Array |
 | [ARRAY_JOIN (ARRAY_TO_STRING)](./array/array-join.md) | Concatenates an array of string elements using an optional delimiter. | Array |
+| [ARRAY_LENGTH](./array/array-length.md) | Returns the length of (number of elements in) the given array. | Array |
 | [ARRAY_MAX](./array/array-max.md) | Returns the maximum element in an array. | Array |
 | [ARRAY_MAX_GLOBAL](./aggregate-array/array-max-global.md) | Returns the maximum element from all the array elements in each group. | Aggregate array |
 | [ARRAY_MIN](./array/array-min.md) | Returns the minimum element in an array. | Array |
@@ -91,8 +92,7 @@ All Firebolt functions in alphabetical order.
 | [JSON_EXTRACT_VALUES](./JSON/json-extract-values.md) | Returns an array of string values from a JSON document using the key location specified by the specifed JSON pointer. | Semi-structured data |
 | [LAG](./window/lag.md) | Returns the value of the input expression at the given offset before the current row within the requested window. | Window |
 | [LEAD](./window/lead.md) | Returns values from the row after the current row within the requested window. | Window |
-| [LENGTH](./string/length-string.md) | Calculates the length of the input string. | String |
-| [LENGTH (array)](./array/length.md) | Returns the length of (number of elements in) the given array. | Array |
+| [LENGTH](./string/length.md) | Calculates the length of the input string. | String |
 | [LIKE](./string/like.md) | Allows matching of strings based on comparison to a pattern, case-sensitively. | String |
 | [LOCALTIMESTAMP](./date-and-time/localtimestamp.md) | Returns the current local timestamp in the time zone specified in the session's `time_zone` setting. | Date & time |
 | [LOG](./numeric/log.md) | Returns the common (base 10) logarithm of a numerical expression, or the logarithm to an arbitrary base if specified as the first argument. | Numeric |

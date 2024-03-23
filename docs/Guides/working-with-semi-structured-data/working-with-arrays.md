@@ -34,7 +34,7 @@ All examples in this topic are based on the table below, named `visits`. The col
 
 ## Simple array functions
 
-There are several fundamental functions that you can use to work with arrays, including [LENGTH](../../sql_reference/functions-reference/array/length.md), [ARRAY_CONCAT](../../sql_reference/functions-reference/array/array-concat.md), and [FLATTEN](../../sql_reference/functions-reference/array/flatten.md). See the respective reference for a full description. Brief examples are shown below.
+There are several fundamental functions that you can use to work with arrays, including [ARRAY_LENGTH](../../sql_reference/functions-reference/array/array-length.md), [ARRAY_CONCAT](../../sql_reference/functions-reference/array/array-concat.md), and [FLATTEN](../../sql_reference/functions-reference/array/flatten.md). See the respective reference for a full description. Brief examples are shown below.
 
 ### LENGTH example
 {: .no_toc}
