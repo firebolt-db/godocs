@@ -2,12 +2,14 @@
 layout: default
 title: ARRAY_TO_STRING
 description: Reference material for ARRAY_TO_STRING function
-parent: SQL functions
+grand_parent: SQL functions
+parent: Array functions
+great_grand_parent: SQL reference
 ---
 
 # ARRAY\_TO\_STRING
 
-Concatenates an array of `TEXT` elements using an optional delimiter. If no delimiter is provided, an empty string is used instead.
+Converts each array element to its text representation, and concatenates those using an optional delimiter. If no delimiter is provided, an empty string is used instead. `NULL` array elements are omitted.
 
 ## Syntax
 {: .no_toc}
@@ -21,7 +23,7 @@ ARRAY_TO_STRING(<array>[, <delimiter>])
 
 | Parameter     | Description                            | Supported input types | 
 | :------------- | :------------------------------------ |:---------|
-| `<array>`       | An array to be concatenated | `ARRAY TEXT` |
+| `<array>`       | An array to be concatenated | `ARRAY` |
 | `<delimiter>` | The delimiter used for concatenating the array elements | `TEXT` | 
 
 ## Return Type
@@ -47,3 +49,12 @@ SELECT
 ```
 
 **Returns**: `1,2,3`
+
+In this example below, the elements of a nested array containing a `NULL` are concatenated. 
+
+```sql
+SELECT
+	ARRAY_TO_STRING([ [ 1, 2 ], [3, 4], [NULL, 5] ], ',') AS levels;
+```
+
+**Returns**: `1,2,3,4,5`
