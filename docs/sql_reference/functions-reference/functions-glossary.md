@@ -22,6 +22,7 @@ All Firebolt functions in alphabetical order.
 | [ARRAY_AGG](./aggregate-array/array-agg.md) | Concatenates input values into an array. | Aggregate array |
 | [ARRAY_CONCAT](./array/array-concat.md) | Combines one or more arrays that are passed as arguments. | Array |
 | [ARRAY_COUNT](./Lambda/array-count.md) | Counts the number of elements in a boolean array for which `function(array[i])` evaluates to true, if a function is provided. If not provided, counts the number of elements in the array that evaluate to true. | Lambda |
+| [ARRAY_COUNT_DISTINCT](./array/array-count-distinct.md) | Returns the number of distinct elements in the array, excluding NULLs. | Array |
 | [ARRAY_COUNT_GLOBAL](./aggregate-array/array-count-global.md) | Returns the number of elements in the array column accumulated over all rows. | Aggregate array |
 | [ARRAY_CUMULATIVE_SUM](./Lambda/array-cumulative-sum.md) | Returns an array of partial sums of elements from the source array (a cumulative sum). If a function input is provided, the values of the array elements are converted by this function before summing. | Lambda |
 | [ARRAY_DISTINCT](./array/array-distinct.md) | Returns an array containing only the _unique_ elements of the given array. | Array |
@@ -41,7 +42,6 @@ All Firebolt functions in alphabetical order.
 | [ARRAY_SORT](./Lambda/array-sort.md) | Returns the elements of the input array in ascending order. If the argument function is provided, the sorting order is determined by the result of applying the function on each element of the array. | Lambda |
 | [ARRAY_SUM](./Lambda/array-sum.md) | Returns the sum of elements of the input array. If the argument function is provided, the values of the array elements are converted by this function before summing. | Lambda |
 | [ARRAY_SUM_GLOBAL](./aggregate-array/array-sum-global.md) | Returns the sum of elements in the array column accumulated over the rows in each group. | Aggregate array |
-| [ARRAY_UNIQ](./array/array-uniq.md) | Returns the number of different elements in the array if one argument is passed. If multiple arguments are passed, returns the number of different tuples of elements at corresponding positions in multiple arrays. | Array |
 | [ASIN](./numeric/asin.md) | Calculates the arcsine of a value. Returns NULL if the input value is higher than 1. | Numeric |
 | [ATAN](./numeric/atan2.md) | Calculates the arc tangent of the real number returned by the specified expression. | Numeric |
 | [ATAN2](./numeric/atan.md) | Two-argument arc tangent function. Calculates the angle, in radians, between the specified positive x-axis value and the ray from the origin to the point `(y,x)`. | Numeric |
