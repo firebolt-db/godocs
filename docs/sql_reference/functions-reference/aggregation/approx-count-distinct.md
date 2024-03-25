@@ -10,13 +10,15 @@ great_grand_parent: SQL reference
 
 # APPROX_COUNT_DISTINCT
 
-Counts the approximate number of unique or not NULL values. `APPROX_COUNT_DISTINCT` uses the HLL algorithm with the default parameter to control the sketch size set to 17. This is subject to change. 
+Counts the approximate number of unique values that are not NULL. 
+Internally, `APPROX_COUNT_DISTINCT` uses HyperLogLog (HLL) sketches.
+Calling `APPROX_COUNT_DISTINCT` returns the same value as calling `HLL_COUNT_DISTINCT` with precision 17.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-APPROX_COUNT_DISTINCT ( <expression> )
+APPROX_COUNT_DISTINCT(<expression>)
 ```
 
 ## Parameters
@@ -24,32 +26,80 @@ APPROX_COUNT_DISTINCT ( <expression> )
 
 | Parameter | Description  | Supported input types | 
 | :--------- | :-----------|:----------|
-| `<expression>`  | Expression that the `APPROX_COUNT_DISTANCE function` is applied to | Any `<column>` name or any function that returns a `<column>` name | 
+| `<expression>`  | Expression on which to approximate the distinct count  | Any type | 
 
 {: .note}
-> By default, `APPROX_COUNT_DISTINCT` and `COUNT(DISTINCT)` return the same, approximate results. If you require a precise result for `COUNT(DISTINCT)` (with a performance penalty), please contact Firebolt Support through the Help menu support form. 
+ 
 
 ## Return Type
-`INTEGER`
+`BIGINT`
 
 ## Example
 {: .no_toc}
 
-The following example draws from the `INTEGER` column `playerid` from the `players` table. The code calculates the `COUNT` of `playerid` values as well as the `APPROX_COUNT_DISTINCT` of these two values in a labeled table: 
+When aggregating on few distinct values, `APPROX_COUNT_DISTINCT` has no estimation error and returns exact results:
 
 ```sql
 SELECT
-	COUNT(DISTINCT playerid) as playerid_count_distinct,
-	APPROX_COUNT_DISTINCT(playerid) as playerid_approx_count
+    APPROX_COUNT_DISTINCT(number) as approximate,
+    COUNT(DISTINCT number) as exact
 FROM
-	players;
+    generate_series(1, 1000) r(number);
 ```
 
 **Returns**: 
 
-
-| playerid_count_distinct | playerid_approx_count | 
+| approximate | exact | 
 |:----------------|:--------------|
-| 5,420 | 5,428 | 
+| 1,000 | 1,000 | 
 
 
+`NULL` values do not change the result of `APPROX_COUNT_DISTINCT`:
+
+```sql
+SELECT
+    APPROX_COUNT_DISTINCT(number) as approximate,
+    COUNT(DISTINCT number) as exact
+FROM
+    (SELECT * FROM generate_series(1, 1000)
+       UNION ALL
+     SELECT NULL) r(number);
+```
+
+**Returns**: 
+
+| approximate | exact | 
+|:----------------|:--------------|
+| 1,000 | 1,000 | 
+
+As the number of distinct values grows, the result becomes an approximation:
+
+```sql
+SELECT
+    APPROX_COUNT_DISTINCT(number) as approximate,
+    COUNT(DISTINCT number) as exact
+FROM
+    generate_series(1, 50000) r(number);
+```
+
+**Returns**: 
+
+| approximate | exact | 
+|:----------------|:--------------|
+| 50,160 | 50,000 | 
+
+`APPROX_COUNT_DISTINCT` also works for compound types:
+
+```sql
+SELECT 
+    APPROX_COUNT_DISTINCT(arr) as approximate,
+    COUNT(DISTINCT arr) as exact
+FROM 
+    unnest([[1, 2], [3, 4], NULL, [NULL], [1, NULL]]) r(arr)
+```
+
+**Returns**: 
+
+| approximate | exact | 
+|:----------------|:--------------|
+|4 | 4 | 
