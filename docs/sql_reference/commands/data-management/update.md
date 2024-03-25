@@ -32,7 +32,7 @@ UPDATE <table> SET <column1> = <expression1> [, <column2> = <expression2> ...] W
 
 Updated rows are marked for deletion, but are not automatically cleaned up. You can monitor fragmentation in `information_schema.tables` to understand how many rows are marked for deletion out of total rows; fragmentation = (rows marked for deletion / total rows). Total row count in `information_schema.tables` includes the number of rows marked for deletion. Query performance is not materially impacted by delete marks.
   
-To mitigate fragmentation, use the [`VACUUM`](./vacuum.md) command to manually clean up deleted rows.
+To mitigate fragmentation, use the [`VACUUM`](vacuum.md) command to manually clean up deleted rows.
 
 ### Example with WHERE
 
@@ -108,10 +108,10 @@ Below are some known limitations of the `UPDATE` command.
 
 * Only one `UPDATE` will be executed against a table at once.
 
-* `UPDATE` cannot be used on tables that have certain aggregating indexes. An attempt to issue a `UPDATE` statement on a table with an aggregating index outside of the below defined will fail - these table level aggregating indexes need to be dropped first. `UPDATE` can be used on tables that have aggregating indexes containing the following aggregating functions:
-  * [COUNT and COUNT(DISTINCT)](../../functions-reference/aggregation/count.md)
-  * [SUM](../../functions-reference/aggregation/sum.md)
-  * [AVG](../../functions-reference/aggregation/avg.md)
-  * [PERCENTILE_CONT](../../functions-reference/aggregation/percentile-cont.md)
-  * [PERCENTILE_DISC](../../functions-reference/aggregation/percentile-disc.md)
-  * [ARRAY_AGG](../../functions-reference/aggregate-array/array-agg.md)
+* `UPDATE` cannot be used on tables that have certain aggregating indexes An attempt to issue a `UPDATE` statement on a table with a join index or aggregating index outside of the below defined will fail - these table level aggregating indexes need to be dropped first. `UPDATE` can be used on tables that have aggregating indexes containing the following aggregating functions, starting in **DB version 3.16.0:**
+  * [COUNT and COUNT(DISTINCT)](../functions-reference/count.md)
+  * [SUM](../functions-reference/sum.md)
+  * [AVG](../functions-reference/avg.md)
+  * [PERCENTILE_CONT](../functions-reference/percentile-cont.md)
+  * [PERCENTILE_DISC](../functions-reference/percentile-disc.md)
+  * [ARRAY_AGG/NEST](../functions-reference/array-agg.md)

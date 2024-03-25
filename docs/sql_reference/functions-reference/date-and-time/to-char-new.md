@@ -10,6 +10,8 @@ great_grand_parent: SQL reference
 # TO_CHAR
 Converts a value of type `DATE`, `TIMESTAMP`, or `TIMESTAMPTZ` to a formatted string.
 
+Converts a value of type `DATE`, `TIMESTAMP`, or `TIMESTAMPTZ` to a formatted string.
+
 ## Syntax
 
 ```sql

@@ -18,7 +18,7 @@ Returns a string representation of the scalar or sub-object under the key indica
 JSON_EXTRACT_RAW(<json>, <json_pointer_expression>)
 ```
 
-## Parameters 
+# Parameters 
 {: .no_toc}
 
 | Parameter                   | Description                                               | Supported input types | 
@@ -26,7 +26,7 @@ JSON_EXTRACT_RAW(<json>, <json_pointer_expression>)
 | `<json>`                    | The JSON document from which the array is to be extracted. | `TEXT` | 
 | `<json_pointer_expression>` | A JSON pointer to the location of the array in the JSON. For more information, see [JSON pointer expression syntax](./index.md#json-pointer-expression-syntax).    |    `TEXT` | 
 
-## Return Types 
+# Return Types 
 
 * If key is provided, returns `TEXT`
 * If no key is provided, returns `NULL`

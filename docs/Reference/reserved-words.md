@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Reserved words
-description: Provides a list of SQL reserved words in Firebolt.
+description: Provides a list of reserved SQL  words in Firebolt.
 nav_order: 6
 parent: General reference
 ---
@@ -42,6 +42,7 @@ Reserved words have special meanings to the Firebolt SQL engine. We recommend th
 * DOY
 * DROP
 * EMPTY\_IDENTIFIER
+* ENGINE
 * EPOCH
 * EXCEPT
 * EXECUTE
@@ -70,6 +71,7 @@ Reserved words have special meanings to the Firebolt SQL engine. We recommend th
 * ISNULL
 * JOIN
 * JOIN\_TYPE
+* LATERAL
 * LEADING
 * LEFT
 * LIKE
@@ -101,6 +103,7 @@ Reserved words have special meanings to the Firebolt SQL engine. We recommend th
 * SELECT
 * SET
 * SHOW
+* SYSTEM
 * TEXT
 * TIME
 * TIMESTAMP

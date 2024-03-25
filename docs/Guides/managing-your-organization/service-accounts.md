@@ -78,7 +78,7 @@ curl POST --location 'https://id.app.firebolt.io/oauth/token' \
 --data-urlencode 'client_secret={service account secret}'
 ```
 
-**Response:**
+**Response:** # ignore Response
 ```json
 {
   "access_token":"eyJz93a...k4laUWw",
@@ -130,8 +130,8 @@ DROP SERVICE ACCOUNT sa1;
 To delete a service account via the UI:
 1. Click **Configure** to open the configure space, then choose **Service accounts** from the menu.
 2. Search for the relevant service account using the top search filters, or by scrolling through the list of service accounts. Hover over the right-most column to make the service account menu appear, then choose **Delete service account**.
-
-If the service account is linked to users, you will need to confirm that you will also be deleting those users by choosing **Delete users permanently**.
+{: .note}
+If the service account is linked to any users, deletion will not be permitted. The service account must be unlinked from all users before deletion. 
 
 
 

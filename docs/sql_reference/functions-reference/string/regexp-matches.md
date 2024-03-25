@@ -9,7 +9,8 @@ great_grand_parent: SQL reference
 
 # REGEXP\_MATCHES
 
-Returns an array that contains either the match or all defined subgroups of the first match of the regular expression pattern. Returns an empty array if the pattern does not match.
+Returns an array that contains either the match or all defined subgroups of the first match of the regular expression pattern. 
+Returns an empty array if the pattern does not match
 
 ## Syntax
 {: .no_toc}
@@ -42,7 +43,7 @@ SELECT
 SELECT
 	REGEXP_MATCHES('Learning about #REGEX in #Firebolt 2023', '#([A-Za-z]+) (\\d+)');
 ```
-**Returns**: `["Firebolt", "2023"]`
+**Returns**: `["Firebolt"]`
 
 ## Example&ndash;using flags
 
@@ -62,7 +63,7 @@ SELECT
 	REGEXP_MATCHES('aPPLePie', '([A-Z]+)', 'U');
 ```
 
-**Returns**: `["P","P","L","P"]`
+**Returns**: `["P"]`
 
 The `s` flag causes that the `.` metacharacter in regex matches the newline character `\n` in addition to any character. This flag is enabled per default and without the disablement by `-s`, this query would return `["Hello\nWorld"]`.
 

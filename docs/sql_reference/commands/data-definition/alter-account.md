@@ -29,8 +29,8 @@ ALTER ACCOUNT <account_name> RENAME TO <new_account_name>;
 
 ## Example
 
-The following command will rename the "my_account" account to "my_dev_account".
+The following command will rename the "dev" account to "staging".
 
 ```sql
-ALTER ACCOUNT my_account RENAME TO my_dev_account;
+ALTER ACCOUNT dev RENAME TO staging;
 ```

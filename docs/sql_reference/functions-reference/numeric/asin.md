@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # ASIN
 
-Calculates the arcsine. Returns NULL if `<value>` is higher than 1.
+Calculates the arcsine. `ASIN` returns `NULL` if `<value>` is higher than 1.
 
 ## Syntax
 {: .no_toc}
@@ -23,10 +23,17 @@ ASIN(<value>)
 
 | Parameter | Description                                                                                                         | Supported input type | 
 | :--------- | :------------------------------------------------------------------------------------------------------------------- | :-----------| 
+<<<<<<< HEAD:docs/sql_reference/functions-reference/numeric/asin.md
 | `<value>`   | The value which the `ASIN` function is applied to | `DOUBLE PRECISION` |
 
 ## Return Type 
 `DOUBLE PRECISION`
+=======
+| `<value>`   | The value which the `ASIN` function is applied to | `DOUBLE_PRECISION` |
+
+## Return Type 
+`DOUBLE_PRECISION`
+>>>>>>> rn/gh-pages:docs/sql-reference/functions-reference/asin.md
 
 ## Example
 {: .no_toc}

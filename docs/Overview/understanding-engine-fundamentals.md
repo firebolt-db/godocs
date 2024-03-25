@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Engine fundamentals
+title: Engine Fundamentals
 description: Learn how Firebolt compute engines are decoupled from database storage for maximum flexibility and performance.
 parent: Overview
 nav_order: 3
 ---
 
-# Engine fundamentals
+# Engine Fundamentals
 {: .no_toc}
 
 Firebolt engines are attached to databases. Each engine provides isolated and assured compute and storage capacity that you can use for different workloads and queries.

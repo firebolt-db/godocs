@@ -9,53 +9,64 @@ great_grand_parent: SQL reference
 
 # RTRIM
 
-Removes all occurrences of optionally specified characters, `<trimchars_expr>`, from the right side of a source string `<srcstr_expr>`. If no `<trimchars_expr>` are specified, removes all occurrences of common whitespace (ASCII Decimal 32) characters from the right side of the specified source string.
+Removes the longest string containing only characters in `<trim_characters>` from the right side of the source string `<expression>`. If no `<trim_characters>` parameter is specified, the longest string containing only whitespace characters (ASCII Decimal 32) is removed from the right side of the specified source string `<expression>`.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-RTRIM(<expression1>[, <expression2>])
+RTRIM(<expression>[, <trim_characters>])
 ```
+
 ## Parameters 
 {: .no_toc}
 
-| Parameter        | Description                |
-| :--------------- | :------------------------- |
-| `<expression1>`  | An expression that returns the string to be trimmed. The string can be any of the [string data types](../../data-types.md#string).|
-| `<expression2>` | Optional. An expression that returns characters to trim from the right side of the `<expression3>` string. If omitted, whitespace (ASCII Decimal 32) is assumed. |
+| Parameter        | Description                | Supported input types | 
+| :--------------- | :------------------------- | :----------|
+| `<expression>`  | An expression that returns the string to be trimmed. | `TEXT` |
+| `<trim_characters>` | Optional. An expression that returns characters to trim from the right side of the `<expression>` string. If omitted, whitespace (ASCII Decimal 32) is trimmed. | `TEXT` | 
 
 ## Return Types 
-Same as input type 
+`TEXT`
 
 ## Examples
 {: .no_toc}
 
-The following example returns the string with the default whitespace trim: 
+The following example trims the character `x` from the right side of a string:
 
 ```sql
 SELECT
-  RTRIM('  Level three     ') AS currentlevel;
+  RTRIM('xxThe Acceleration Cupxxx', 'x') 
 ```
 
-**Returns**: Level three
+**Returns**:
 
+```sql
+'xxThe Acceleration Cup'
+```
 
-
-The following example performs a single character trim, with whitespace not specified and left as a remainder:
+The following example trims the characters `x` and `y` from the right side of a string. Note that the ordering of characters in `<trim_characters>` is irrelevant:
 
 ```sql
 SELECT
-  RTRIM('Level three  xxx', 'x') AS currentlevel;
+  RTRIM('xyxyThe Acceleration Cupyyxx', 'xy');
 ```
 
-**Returns**: Level three
+**Returns**:
 
-This next example performs a multiple character trim, with all specified characters removed, regardless of ordering:
+```sql
+'xyxyThe Acceleration Cup'
+```
+
+The following example omits the `<trim_characters>` parameter, and thus trims whitespace from the right side of a string: 
 
 ```sql
 SELECT
-  RTRIM('  Level threeyyxxy', 'xy') AS currentlevel;
+  RTRIM('   The Acceleration Cup     ');
 ```
 
-**Returns**: Level three 
+**Returns**:
+
+```sql
+'   The Acceleration Cup'
+```

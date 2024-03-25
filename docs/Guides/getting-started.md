@@ -8,14 +8,27 @@ has_toc: true
 ---
 # Getting started tutorial
 {:.no_toc}
-This tutorial teaches you how to create a database, ingest a sample dataset from Amazon S3 into Firebolt, and run fundamental analytics queries over the data. To perform this tutorial, you need an active Firebolt account. If you don't have one, [Schedule a call](https://www.firebolt.io/getting-started-now) to get set up, and [register for our hands-on Firebolt workshop](https://hi.firebolt.io/lp/hands-on-firebolt-workshop) to get an interactive, instructor-led tutorial on Firebolt. 
+This tutorial will help you connect your Firebolt account to AWS Marketplace, create a database, ingest a sample dataset from Amazon S3 into Firebolt, and run fundamental analytics queries over the data. If you do not have an active Firebolt account, [schedule a call](https://www.firebolt.io/getting-started-now) to get set up and register for our hands-on Firebolt workshop to get an interactive, instructor-led tutorial on Firebolt. 
 
 {: .note}
 This tutorial uses Firebolt's sample dataset, from the fictional gaming company "Ultra Fast Gaming Inc." This dataset is publicly available with the access credentials shared below.
 
-
 1. Topic toC
 {:toc}
+
+## Registering for Firebolt through AWS Marketplace
+This registration is a prerequisite for starting engines and running queries. 
+
+**To register**
+1. On the [Firebolt page](https://go.firebolt.io/login?redirect=%2F), navigate to the **Configuration menu**. Click **Billing**. 
+
+2. Click **Connect to AWS Marketplace**. This will take you to the Firebolt page available on AWS Marketplace.
+
+3. On the AWS Marketplace page, click the **View Purchase Options** on the top right hand corner of the screen. 
+ 
+4. Click **Setup Your Account**. 
+
+Your account should now be associated with AWS Marketplace. 
 
 ## Create your first database
 To start working with data, you first create a database and a *Firebolt engine*. An engine represents the compute resources that are attached to a database for a certain workload. A database always has one *general purpose engine* that can write to the Firebolt file format (F3) for data ingestion and run analytics queries. We use that single-engine set up in this tutorial. Many databases are set up with additional *analytics engines* that can only query, and are configured to optimize different query workloads. For more information, see [Work with engines](./working-with-engines/working-with-engines.md).
@@ -108,11 +121,11 @@ Firebolt creates the external table. When finished, the external table `ex_level
 4. Choose the vertical ellipses next to **Script 2**, choose **Save script**, enter a name (for example, *MyExTableScript*) and then press ENTER to save the script.
 
 ### Create a fact table
-In this step, you'll create a Firebolt fact table called `levels`, which you use in the next step as the target for an `INSERT` command.
+In this step, you'll create a Firebolt fact table called `levels`, which you use in the next step as the target for an `INSERT INTO` command.
 
 When creating a fact or dimension table, you will specify a *primary index*. Firebolt uses the primary index when it ingests data so that it is saved to S3 for highly efficient pruning and sorting when the data is queried. A primary index is required when creating a fact table, and recommended for dimension tables. For more information, see [Using primary indexes](./working-with-indexes/using-primary-indexes.md). 
 
-The fact table that we create in this step specifies the `LevelID` column for the primary index. For more information about choosing columns for a primary index, see [How to choose primary index columns](./working-with-indexes/using-primary-indexes.md#how-to-choose-primary-index-columns).
+The fact table that we create in this step specifies the `LevelID` column for the primary index. For more information about choosing columns for a primary index, see [How to choose primary index columns](/using-indexes/using-primary-indexes.md#how-to-choose-primary-index-columns).
 
 **To create a fact table**
 1. Create a new script tab.  
@@ -147,8 +160,8 @@ PRIMARY INDEX LevelID;
 Firebolt creates the fact table. When finished, the table `levels` appears on the object panel of the database.  
 ![](../assets/images/createfacttable.png)
 
-### Use INSERT to ingest data
-You can now use the `INSERT` command to copy the data from the external table into the fact table. During this operation, Firebolt ingests the data from your source into Firebolt.
+### Use INSERT INTO to ingest data
+You can now use the `INSERT INTO` command to copy the data from the external table into the fact table. During this operation, Firebolt ingests the data from your source into Firebolt.
 
 {: .note}
 Use `source_file_name` in the `WHERE` clause to specify which records to load from Amazon S3 and improve the performance of the read from S3. 

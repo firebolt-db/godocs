@@ -48,7 +48,7 @@ The SELECT list defines the columns that it returns. Each `<select_expression>` 
 <expression> [ AS <alias> ]
 ```
 
-Expressions in the `SELECT` list evaluate to a single value and produce one output column. The output column names are defined either by an explicit alias in the `AS` clause, or, for expressions without expicit alias, the output column name is automatically generated. 
+Expressions in the `SELECT` list evaluate to a single value and produce one output column. The output column names are defined either by an explicit alias in the `AS` clause, or, for expressions without explicit alias, the output column name is automatically generated. 
 The expression can reference any column from the `FROM` clause, but cannot reference other columns produced by the same `SELECT` list. The expressions can use scalar functions, aggregate functions, window functions or subqueries if they return single element.
 
 #### Example
@@ -645,7 +645,7 @@ When including multiple clauses, the same number of columns must be selected by 
 
 The `ORDER BY` clause sorts a result set by one or more output expressions. `ORDER BY` is evaluated as the last step after any `GROUP BY` or `HAVING` clause. `ASC` and `DESC` determine whether results are sorted in ascending or descending order. When the clause contains multiple expressions, the result set is sorted according to the first expression. Then the second expression is applied to rows that have matching values from the first expression, and so on.
 
-The default null ordering is `NULLS LAST`, regardless of ascending or descending sort order.
+The NULLS FIRST and NULLS LAST options can be used to determine whether nulls appear before or after non-null values in the sort ordering. By default, null values sort as if larger than any non-null value; that is, NULLS FIRST is the default for DESC order, and NULLS LAST is the default for ASC order.
 
 ### Syntax
 {: .no_toc}
@@ -658,7 +658,7 @@ ORDER BY <expression> [ ASC | DESC ] [ NULLS FIRST | NULLS LAST] [, ...]
 | :------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `<expression>`                 | Each expression may specify output columns from `SELECT` or an ordinal number for an output column by position, starting at one.                                                                             |
 | `[ ASC | DESC ]`              | Indicates whether the sort should be in ascending or descending order.                                                                                                                                       |
-| `[ NULLS FIRST | NULLS LAST]` | Indicates whether null values should be included at the beginning or end of the result. <br> <br> The default null ordering is `NULLS LAST`, regardless of ascending or descending sort order. |
+| `[ NULLS FIRST | NULLS LAST]` | Indicates whether null values should be included at the beginning or end of the result. <br> <br> NULLS FIRST is the default for DESC order, and NULLS LAST otherwise. |
 
 ## LIMIT
 

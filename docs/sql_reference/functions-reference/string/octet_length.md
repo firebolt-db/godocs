@@ -1,7 +1,7 @@
 ---
 layout: default
-title: LENGTH
-description: Reference material for LENGTH function
+title: OCTET_LENGTH
+description: Reference material for OCTET_LENGTH function
 grand_parent: SQL functions
 parent: String functions
 great_grand_parent: SQL reference
@@ -9,13 +9,13 @@ great_grand_parent: SQL reference
 
 # LENGTH
 
-Calculates the length of the input string.
+Calculates the length of the input string in bytes.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-LENGTH(<expression>)
+OCTET_LENGTH(<expression>)
 ```
 ## Parameters 
 {: .no_toc}
@@ -30,12 +30,13 @@ LENGTH(<expression>)
 ## Example
 {: .no_toc}
 
-Use the `LENGTH` to find the length of any string, such as: 
+Use the `OCTET_LENGTH` to find the length of any string in bytes, such as: 
 
 ```sql
-SELECT LENGTH('The Accelerator Cup')
+SELECT LENGTH('🔥')
 ```
-Spaces are included in the calculation of the total length of the string. 
 
-**Returns**: `19`
+**Returns**: `4`
+
+Because the UTF8 encoding of '🔥' has the byte sequence `0xF0 0x9F 0x94 0xA5`.
 

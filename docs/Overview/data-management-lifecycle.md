@@ -82,8 +82,6 @@ As a distributed system and query engine, Firebolt supports both parallel and pi
 
 As the bulk data load gets executed, Firebolt creates new tablets behind the scenes while preserving necessary metadata information about the data being ingested. Factors such as min/max values, tablet size, data offsets and ranges, tablet location, etc., are kept as metadata artifacts and used during query execution to deliver differentiated performance characteristics.
 
-Performing data ingestion comes with transactional semantics and ACID guarantees. Each COPY execution is treated as a separate transaction. With snapshot isolation support by default, data reads (and other operations) can be executed as the data are being ingested into  tables. Different data readers will not see ingested data until the data ingestion process finishes and the transaction gets committed. Similarly, the same table can be loaded simultaneously with multiple ingestion processes.
-
 Bulk insert statement example
 ```sql
 INSERT INTO rankings SELECT * FROM rankings_ext; 

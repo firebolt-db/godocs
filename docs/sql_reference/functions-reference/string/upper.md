@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # UPPER
 
-Converts the input string to uppercase characters.
+Converts the input string to uppercase characters. Note that Firebolt uses the `POSIX` locale, therefore `upper` only converts the ASCII characters “a” through “z” to uppercase. Non-ASCII characters remain unchanged.
 
 ## Syntax
 {: .no_toc}
@@ -26,7 +26,7 @@ UPPER(<expression>)
 | `<expression>` | The string to be converted to uppercase characters. | `TEXT` |
 
 ## Return Type
-`TEXT` 
+`TEXT`
 
 ## Example
 {: .no_toc}
@@ -39,3 +39,11 @@ SELECT
 ```
 
 **Returns**: `ESIMPSON`
+
+
+Because Firebolt uses the `POSIX` locale, non-ASCII characters are not uppercased:
+```sql
+SELECT UPPER('München')
+```
+
+**Returns**: `MüNCHEN`

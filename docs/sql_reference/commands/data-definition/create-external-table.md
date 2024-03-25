@@ -66,9 +66,9 @@ Using `PARTITION` in this way is one method of extracting partition data from fi
 In most cases, the easiest way to build a regular expression is as follows:
 
 1. Count the number of folders in the path, not including the bucket name.
-2. Concatenate the string `[^\/]+\/` according to the number of folders.
-3. Prefix the regex with an additional `[^\/]+` for the file name.
-4. Wrap the `[^\/]+` in the right folder with a capturing group parenthesis, such as `([^\/]+).`
+2. Concatenate the string `[^/]+/` according to the number of folders.
+3. Prefix the regex with an additional `[^/]+` for the file name.
+4. Wrap the `[^/]+` in the right folder with a capturing group parenthesis, such as `([^/]+).`
 
 For more information, see [Match groups](https://regexone.com/lesson/capturing_groups) on the RegexOne website. To test your regular expressions, online tools such as [regex101](https://regex101.com) are available.
 
@@ -93,7 +93,7 @@ In the example `CREATE EXTERNAL TABLE` statement below, the `PARTITION` keyword 
 CREATE EXTERNAL TABLE my_ext_table (
   c_id    INTEGER,
   c_name  TEXT,
-  c_type  TEXT PARTITION('[^\/]+\/c_type=([^\/]+)\/[^\/]+\/[^\/]+')
+  c_type  TEXT PARTITION('[^/]+/c_type=([^/]+)/[^/]+/[^/]+')
 )
 CREDENTIALS = (AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/MyRoleForFireboltS3Access1')
 URL = 's3://my_bucket/'

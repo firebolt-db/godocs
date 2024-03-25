@@ -59,6 +59,9 @@ To edit a login via the UI:
 2. Search for the relevant login using the top search filters, or by scrolling through the list of logins. Hover over the right-most column to make the login menu appear, then choose **Edit login details**.
 Edit the desired fields and choose **Save**.
 
+{: .note}
+Login name can not be changed for logins that were provisioned via SSO.
+
 <img src="../../assets/images/editlogin.png" alt="Edit login" width="500"/>
 
 ## Deleting an existing login
@@ -75,7 +78,5 @@ To delete a login via the UI:
 1. Click **Configure** to open the configure space, then choose **Logins** from the menu.
 
 2. Search for the relevant login using the top search filters, or by scrolling through the logins list. Hover over the right-most column to make the login menu appear, then choose **Delete login**.
-
-If the login is linked to users, you will need to confirm that you will also be deleting those users by choosing **Delete users permanently**.
-
-<img src="../../assets/images/deletelogin.png" alt="Delete login" width="500"/>
+{: .note}
+If the login is linked to any users, deletion will not be permitted. The login must be unlinked from all users before deletion.

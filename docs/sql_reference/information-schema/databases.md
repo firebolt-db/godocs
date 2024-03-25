@@ -23,12 +23,12 @@ Each row has the following columns with information about the database.
 
 | Column Name                   | Data Type | Description |
 | :-----------------------------| :-------- | :---------- |
-| database_name                 | TEXT      | The name of the database. |
+| database_name                 | TEXT      | Name of the database. |
 | compressed_size               | BIGINT    | The compressed size of the database. | 
 | uncompressed_size             | BIGINT    | The uncompressed size of the database. |
 | description                   | TEXT      | The description of the database. |
 | created_on                    | TEXT      | The time the database was created. |
 | created_by                    | TEXT      | The user who created the database. |
-| region                        | TEXT      | The AWS region in which the database is configured. |
-| attached_engines              | TEXT      | A list of engines attached to the database. |
+| region                        | TEXT      | AWS region in which the database is configured. |
+| attached_engines              | TEXT      | A list of engine names attached to the database. |
 | errors                        | TEXT      | Not applicable for Firebolt. |
