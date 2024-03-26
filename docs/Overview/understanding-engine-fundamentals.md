@@ -6,92 +6,86 @@ parent: Overview
 nav_order: 3
 ---
 
-# Engine Fundamentals
+# Firebolt Engines
 {: .no_toc}
 
-Firebolt engines are attached to databases. Each engine provides isolated and assured compute and storage capacity that you can use for different workloads and queries.
+In Firebolt, the compute resources used to process data and serve queries are called Engines, which will be used to ingest data into Firebolt and to execute DML queries on the ingested data. 
 
-Engines are configurable and efficient. You can quickly set them up with the capabilities that you need, start them only when you need them, and configure them to stop automatically when not in use. Engine costs accrue only while an engine is running, so you can create as many engines as you like to compare cost and performance and to handle different aspects of your workload.
+Engines provide full workload isolation, enabling multiple workloads to run independent of each other while sharing access to the same data. In addition, engines are fully decoupled from databases, meaning an engine can be used with multiple databases and a given database can be used with multiple engines.
+
+Firebolt engines can be started, stopped and modified at any time using SQL API. In addition, you can dynamically modify the configuration of engines depending on the needs of your workloads without stopping the engines.
+
 
 * Topic Toc
 {: toc}
 
-## How engines, databases, and scripts work together
+## Key Engine Concepts
 
-You can attach as many engines as you need to a database. One common database setup is to have two engines attached: one general purpose engine for data ingestion, and one analytics engine to execute queries. For more information, see [Engine type](#engine-type) below.
+# Type
+This attribute represents a compute node used as a building block for the engine. Compute nodes come in Small, Medium, Large, or X-Large sizes. Vertical engine scaling (scale-up or scale-down) is supported through this attribute.
 
-A running engine is committed to executing SQL scripts, so an engine must be stopped for you to perform any action on it. You can create, edit, attach, start, stop, and delete stopped engines at any time during the life of a database.
+# Nodes
+This attribute represents the number (1 - 128) of compute nodes, allowing granular horizontal scaling to fine-tune query performance characteristics while avoiding overprovisioning and unnecessary cost. Both scaling in and out are supported.
 
-When you run a SQL script, you select the engine to use. For databases with multiple engines, you can select one as the default engine. You can run a script on one engine and then switch to a different engine to compare performance and cost. You can also write business logic in your applications outside Firebolt to start engines programmatically.
+# Clusters
+A cluster is a collection of compute resources, described by “Type” and “Nodes” attributes. A given Firebolt engine can contain one or more clusters. The maximum number of clusters is specified by the Clusters attribute. Only homogeneous cluster configurations (clusters with the same number of Nodes and Type) are supported within a single engine. Users can leverage the “Clusters” attribute to support query concurrency scaling.
 
-## Understanding engine properties
+![An engine cluster in Firebolt](../assets/images/Engine_Cluster.png)
 
-Before you create or edit an engine, it’s helpful to understand the details of the engine properties listed below.
+![A Firebolt engine with two clusters, each cluster containing four nodes of type 'M'](../assets/images/Firebolt_Engine.png)
 
-### Engine name
+The three attributes-  Type, Nodes and Clusters - together form the configuration or topology of an engine.
 
-The engine name is how you identify the engine. DDL operations use it to identify the engine to act on. The engine name must be unique throughout your Firebolt account. Keep this in mind when creating an engine using DDL. When you create an engine using the Firebolt Manager, the database name is prepended automatically to the engine name to help ensure uniqueness.
+To create an engine, use the [CREATE ENGINE command](../sql_reference/commands/engines/create-engine.md), specifying the node type to be used for the engine, number of clusters and number of nodes per cluster. For example, the command below will create an engine with node type ‘S’,  one cluster and four nodes per cluster:
 
-Engine names can be no longer than 63 characters and can contain letters, numbers, and the underscore character. Firebolt replaces underscores with dashes when the engine URL is formulated \(see below\). Other special characters and spaces are not supported.
+CREATE ENGINE IF NOT EXISTS MyEngine WITH
+TYPE = S NODES=4 CLUSTERS=1;
 
-### Region
+For a full list of engine attributes, see [CREATE ENGINE](../sql_reference/commands/engines/create-engine.md)
 
-This is the AWS Region in which Firebolt creates the engine. The engine region is always the same as the account region - since it is automatically inherited from account, it can't be changed.
 
-### Engine endpoint
+## Multi-dimensional Elasticity
+Firebolt engines enable dynamic and fully online scaling operations, meaning you do not need to stop your engines to scale them. In addition, Firebolt supports scaling operations  along any of the three dimensions - Scaling up/Down with engine Type, Scaling out/in with number of nodes and adding/removing Clusters for concurrency scaling. This multidimensional scaling allows you to fine-tune the price-performance characteristics of engines and dynamically scale your compute resources based on your workload requirements. 
+Use the ALTER ENGINE command to modify the configuration of an engine. This command will dynamically scale the engine even while it is running, without impacting the workload. For example, to horizontally scale an engine, MyEngine, from two nodes to three nodes, use the ALTER command as shown below:
 
-Each engine has an endpoint that you use when submitting operations to an engine using the Firebolt REST API. For example, you can use a `POST` command to submit a script to the engine's https URL to run the script. Each engine endpoint uses the engine name, your account name, and the AWS Region ID according to the pattern shown in the https example below.
+ALTER ENGINE MyEngine SET NODES = 3;
 
-* `your-engine-name` is the name of your engine, with dashes replacing any underscore characters. For example, the engine name `YourDatabase_YourEngine` is represented as `yourdatabase-yourengine` in the URL.
-* `firebolt-account-name` is the name of your Firebolt account. For example, `YourAccount` is represented as `youraccount`.
-* `region-id` is the AWS Region identifier where the engine lives. For example, `us-east-1`.
+Similarly, you can change the type of node used in an engine from ‘M’ to ‘L’ as below:
 
-```https://your-engine-name.firebolt-account-name.region-id.app.firebolt.io```
+ALTER ENGINE MyEngine SET TYPE = L;
 
-The example below shows an endpoint for an engine named `maindb_engine1` in the Region `us-east-1` within the Firebolt account `AnyCompany.`
+You can modify more than one attribute at the same time as below:
 
-```https://maindb-engine1.anycompany.us-east-1.app.firebolt.io```
+ALTER ENGINE MyEngine SET NODES = 3 TYPE = L;
 
-### Engine type
+For more information on modifying engines, see [ALTER ENGINE](../sql_reference/commands/engines/alter-engine.md).
 
-Engines can be one of two _types_:
+**NOTE**: Multi-cluster engines and online scaling are in preview. By default, engines are limited to a single cluster. You can dynamically modify a running engine to scale up or scale down, but currently running queries may not run to completion. If you would like to try multi-cluster engines or online scaling, reach out to Firebolt Support.
 
-* **General purpose engines** can do everything analytics engines do, but can also write data to Firebolt tables. They are designed for database creation, data ingestion, and extract, load, and transform \(ELT\) operations. A database can have only one general purpose engine running at a time.
+## Connecting to Engines
+You can connect to an engine via the UI, Engine URL or via 3rd party connectors such as Airflow and DBT. The engine URL is based on your account name and org name, with the following format:
 
-* **Analytics engines** are read-only and are designed for queries that do not ingest data. They can't write values. You can run as many analytics engines as you need at the same time.
+<account-name>.<org-name>.region.firebolt.io 
 
-### Engine spec
+The account-name + org-name should be limited to 62 characters.
 
-When you choose an _engine spec_, you choose the foundation of an engine’s compute capabilities. Each engine spec has CPU, RAM, and cache characteristics. The engine spec determines the cost per hour \(billed per second\) for each engine node (the total engine cost per hour is also a function of scale). You can choose engine specs for characteristics that are best suited for your Firebolt workload. For details, see [Available engine specs](../Reference/available-engine-specs.md).
+For more information on how to connect to engines using third-party connectors, visit [Integrate with Firebolt](../Guides/integrations/integrations.md).
 
-### Scale
+## Monitoring Engine Usage
+You can use the following observability views to understand the current engine usage and utilization:  1) engine_metrics_history and 2) engine_running_queries. The information provided by these two information_schema views can be used to decide whether you need to change the engine configuration (Type, Nodes or Clusters) based on the needs of your workload.
 
-_Scale_ determines the number of nodes that the engine uses and can be an integer ranging from 1 to 128. Firebolt monitors the health of nodes on a continuous basis and automatically repairs nodes that report an unhealthy status. To help ensure uninterrupted operation of engines if a node becomes unhealthy, we recommend a scale of two or more for each engine.
+The engine_metrics_history view <<< include URL  >>> gathers engine resource utilization metrics such as CPU and RAM consumption at a given time (snapshot). Utilization snapshots are captured every 30 seconds and retained for 30 days, allowing users to understand engine utilization and consumption trends. 
 
-### Warmup method
+The engine_running_queries view <<< include URL >>> exposes information about queries currently running or waiting to be run in the system.  Based on the number of queries that are queued and waiting to be executed, you can modify the engine configuration that best fits your performance requirements.
 
-This determines the behavior of the engine on startup. You have three options:
+To understand how this information can help with engine resizing, see [Working with Engines](../Guides/working-with-engines/working-with-engines.md).
 
-* **Minimal –** Indexes and data are loaded from Firebolt when a query that uses them first runs. This results in faster engine start times, but slower first queries.
-* **Preload indexes –** Default. The engine loads primary indexes at startup, before the first queries run. First queries are faster than they are with minimal warmup, but engines take longer to start.
-* **Preload all data** – The engine loads all indexes and data at startup, before the first queries run. This results in the fastest queries with the slowest engine start times. Only use this option if the size of the database \(as shown using the `SHOW TABLES` SQL statement or in the Firebolt Manager\) will not exceed the total amount of SSD storage available on the engine.
+## Engine Governance and Security
+You can use account-level Isolation and [Role Based Access Control (RBAC)](../Guides/security/rbac.md)  to provide strict governance over data access and infrastructure costs.
 
-### Auto-stop duration
+You can create multiple accounts within a given organization, where each account can represent a fully isolated environment such as development, test, or production. This enables engines across different environments to be fully isolated from each other. In addition, the Firebolt RBAC model enables granular control over resources that are created within a given account. This allows administrators to fully control users' actions over engines within a given account - for example, control which users are allowed to modify the configuration of which engines or to control which users can create new engines. 
 
-The period of inactivity, in minutes, after which an engine shuts down automatically to save cost. The default is 20 minutes. Using `CREATE ENGINE` and `ALTER ENGINE` SQL statements, you can specify auto-stop duration in one-minute increments. For more information, see [CREATE ENGINE](../sql_reference/commands/engines/create-engine.md) and [ALTER ENGINE](../sql_reference/commands/engines/alter-engine.md). Using the Firebolt Manager, you can set the auto-stop duration to always on, 20 minutes, or 60 minutes.
+For more information on using RBAC for engines, see [Working with Engines](../Guides/working-with-engines/working-with-engines.md). 
 
-## Viewing and understanding engine status
 
-You can execute a [SHOW ENGINES](../sql_reference/commands/metadata/show-engines.md) statement to list all engines in your Firebolt account and view engine status. You can also use the **Databases** list or the **Engines** list in the Firebolt Manager.
 
-The table below lists the statuses returned by the `SHOW ENGINES` command and the corresponding status enumeration that the Firebolt API returns.
-
-| `SHOW ENGINES` and UI | API Enum                         | Description                     |
-| :-------------------- | :------------------------------- | :------------------------------ |
-| Starting         | `ENGINE_STATUS_SUMMARY_STARTING` | The engine start has been initialized. |
-| Started          | `ENGINE_STATUS_SUMMARY_STARTING_INITIALIZING` | The engine is starting. It is provisioning resources, warming up, and will be ready to use soon. |
-| Running               | `ENGINE_STATUS_SUMMARY_RUNNING`  | The engine is running queries or available to run queries. You cannot edit, delete, or attach a running engine. |
-| Stopping              | `ENGINE_STATUS_SUMMARY_STOPPING` | The engine is shutting down. It is finishing query tasks in process and is not available for new queries. |
-| Stopped               | `ENGINE_STATUS_SUMMARY_STOPPED`  | The engine is stopped. It is not available to run queries. You are able to edit, delete, or attach engines in this state. |
-| Dropping              | `ENGINE_STATUS_DELETING`         | The engine configuration is being permanently deleted. |
-| Repairing             | `ENGINE_STATUS_REPAIRING`        | At least one node is out of service because of an infrastructure or software failure. Firebolt is working on replacing nodes. The engine is not available to run queries, and any query actions in progress have stopped.|
