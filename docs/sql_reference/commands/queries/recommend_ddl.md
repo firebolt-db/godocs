@@ -29,7 +29,7 @@ CALL recommend_ddl(<table_name>, (<select_statement>))
 The example below demonstrates retrieving schema recommendation using the `CALL recommend_ddl` statement for a table named `lineitem` tailored to the workload in the query history of the past week.
 
 ```sql
-CALL recommend_ddl(lineitem, (SELECT query_text FROM information_schema.query_history WHERE query_start_ts > NOW() - INTERVAL '1 week'))
+CALL recommend_ddl(lineitem, (SELECT query_text FROM information_schema.engine_query_history WHERE query_start_ts > NOW() - INTERVAL '1 week'))
 ```
 The `<select_statement>` returns exactly one column of type `TEXT` containing the SQL statements that the `CALL recommend_ddl` command should analyze.
 
