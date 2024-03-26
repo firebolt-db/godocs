@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Engine Fundamentals
-description: Learn how Firebolt compute engines are decoupled from database storage for maximum flexibility and performance.
+description: Learn fundamental concepts about Firebolt Engines.
 parent: Overview
 nav_order: 3
 ---
@@ -62,14 +62,16 @@ For more information on modifying engines, see [ALTER ENGINE](../sql_reference/c
 
 **NOTE**: Multi-cluster engines and online scaling are in preview. By default, engines are limited to a single cluster. You can dynamically modify a running engine to scale up or scale down, but currently running queries may not run to completion. If you would like to try multi-cluster engines or online scaling, reach out to Firebolt Support.
 
+
 ## Connecting to Engines
 You can connect to an engine via the UI, Engine URL or via 3rd party connectors such as Airflow and DBT. The engine URL is based on your account name and org name, with the following format:
 
-<account-name>.<org-name>.region.firebolt.io 
+                                           <account-name>.<org-name>.region.firebolt.io 
 
 The account-name + org-name should be limited to 62 characters.
 
 For more information on how to connect to engines using third-party connectors, visit [Integrate with Firebolt](../Guides/integrations/integrations.md).
+
 
 ## Monitoring Engine Usage
 You can use the following observability views to understand the current engine usage and utilization:  1) engine_metrics_history and 2) engine_running_queries. The information provided by these two information_schema views can be used to decide whether you need to change the engine configuration (Type, Nodes or Clusters) based on the needs of your workload.
@@ -79,6 +81,7 @@ The engine_metrics_history view <<< include URL  >>> gathers engine resource uti
 The engine_running_queries view <<< include URL >>> exposes information about queries currently running or waiting to be run in the system.  Based on the number of queries that are queued and waiting to be executed, you can modify the engine configuration that best fits your performance requirements.
 
 To understand how this information can help with engine resizing, see [Working with Engines](../Guides/working-with-engines/working-with-engines.md).
+
 
 ## Engine Governance and Security
 You can use account-level Isolation and [Role Based Access Control (RBAC)](../Guides/security/rbac.md)  to provide strict governance over data access and infrastructure costs.
