@@ -16,25 +16,22 @@ Engines provide full workload isolation, enabling multiple workloads to run inde
 Firebolt engines can be started, stopped and modified at any time using SQL API. In addition, you can dynamically modify the configuration of engines depending on the needs of your workloads without stopping the engines.
 
 
-* Topic Toc
-{: toc}
-
 ## Key Engine Concepts
 
-**Type**
+**Type** <br />
 This attribute represents a compute node used as a building block for the engine. Compute nodes come in Small, Medium, Large, or X-Large sizes. Vertical engine scaling (scale-up or scale-down) is supported through this attribute.
 
-**Nodes**
+**Nodes** <br />
 This attribute represents the number (1 - 128) of compute nodes, allowing granular horizontal scaling to fine-tune query performance characteristics while avoiding overprovisioning and unnecessary cost. Both scaling in and out are supported.
 
-**Clusters**
+**Clusters** <br />
 A cluster is a collection of compute resources, described by “Type” and “Nodes” attributes. A given Firebolt engine can contain one or more clusters. The maximum number of clusters is specified by the Clusters attribute. Only homogeneous cluster configurations (clusters with the same number of Nodes and Type) are supported within a single engine. Users can leverage the “Clusters” attribute to support query concurrency scaling.
 
 ![An engine cluster in Firebolt](../assets/images/Engine_Cluster.png)
-*An engine cluster with four nodes of type 'M'*
+-> **An engine cluster with four nodes of type 'M'** <-
 
 ![A Firebolt engine with two clusters, each cluster containing four nodes of type 'M'](../assets/images/Firebolt_Engine.png)
-*A Firebolt engine with two clusters, each cluster containing four nodes of type 'M'*
+-> **A Firebolt engine with two clusters, each cluster containing four nodes of type 'M'** <-
 
 The three attributes-  Type, Nodes and Clusters - together form the configuration or topology of an engine.
 
