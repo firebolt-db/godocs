@@ -53,6 +53,22 @@ Use the [START ENGINE](../../sql_reference/commands/engines/start-engine.md) com
 START ENGINE MyEngine;
 ```  
 
+# Stopping an Engine
+## UI
+From the engines list, next to the engine that you want to stop, click the drop-down and select "Stop engine".
+![](../../assets/images/Stop_Engine.png){: width="600" .centered}
+ <br /> 
+
+## API
+Use the [STOP ENGINE](../../sql_reference/commands/engines/stop-engine.md) command as shown below:
+
+```sql
+STOP ENGINE MyEngine;
+```  
+
+
+
+
 
 
 
