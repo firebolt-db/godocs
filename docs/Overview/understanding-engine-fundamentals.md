@@ -24,7 +24,7 @@ This attribute represents a compute node used as a building block for the engine
 **Nodes** <br />
 This attribute represents the number (1 - 128) of compute nodes, allowing granular horizontal scaling to fine-tune query performance characteristics while avoiding overprovisioning and unnecessary cost. Both scaling in and out are supported.
 
-**Clusters** <br />
+**Clusters [Preview]** <br />
 A cluster is a collection of compute resources, described by “Type” and “Nodes” attributes. A given Firebolt engine can contain one or more clusters. The maximum number of clusters is specified by the Clusters attribute. Only homogeneous cluster configurations (clusters with the same number of Nodes and Type) are supported within a single engine. Users can leverage the “Clusters” attribute to support query concurrency scaling.
 
 ![An engine cluster in Firebolt](../assets/images/Engine_Cluster.png){: width="600" .centered}
@@ -36,7 +36,7 @@ A cluster is a collection of compute resources, described by “Type” and “N
  <br /> **A Firebolt engine with two clusters, each cluster containing four nodes of type 'M'** 
  {: style="color: red; font-size: 90%; text-align: center;"}
 
-
+<br />
 The three attributes-  Type, Nodes and Clusters - together form the configuration or topology of an engine.
 
 To create an engine, use the [CREATE ENGINE command](../sql_reference/commands/engines/create-engine.md), specifying the node type to be used for the engine, number of clusters and number of nodes per cluster. For example, the command below will create an engine with node type ‘S’,  one cluster and four nodes per cluster:
