@@ -2,9 +2,6 @@
 layout: default
 title: ARRAY_COUNT_GLOBAL
 description: Reference material for ARRAY_COUNT_GLOBAL function
-grand_parent: SQL functions
-parent: Aggregate array functions
-great_grand_parent: SQL reference
 ---
 
 # ARRAY\_COUNT\_GLOBAL
