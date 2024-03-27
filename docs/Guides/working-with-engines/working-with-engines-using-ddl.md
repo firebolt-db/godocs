@@ -7,7 +7,7 @@ parent: Work with engines
 grand_parent: Guides
 ---
 
-You can create, run, and modify engines from the UI or using SQL API. You can perform scaling operations dynamically without having to stop your engines.
+You can create, run, and modify engines from the UI or using SQL API. Scaling operations on engines can be done dynamically without having to stop your engines.
 
 # Create Engines
 **UI** <br /> 
@@ -79,15 +79,14 @@ Note that stopping an engine results in emptying the cache. So, any queries afte
 
 # Resizing an Engine
 **Scaling Up or Scaling Down** <br /> 
-{: .fs-6}
-You can dynamically scale up or scale down an engine by modifying the “TYPE” attribute of your engine. <br />
 **UI** <br />
 {: .fs-6}
-   1. For the engine that you want to modify, hover next to the drop-down and click the ellipsis (three vertical dots). Then select “Modify engine".
+You can dynamically scale up or scale down an engine by modifying the "Type" attribute of your engine. <br />
+1. For the engine that you want to modify, hover next to the drop-down and click the ellipsis (three vertical dots). Then select “Modify engine".
 ![](../../assets/images/Alter_Engine_Popup.png){: width="600" .centered}
  <br /> 
 
-    2. Choose the appropriate Node type that you want and click the “Modify engine” button.
+2. Choose the appropriate Node type that you want and click the “Modify engine” button.
 ![](../../assets/images/Modify_Engine_Type.png){: width="600" .centered}
  <br /> 
 
@@ -103,15 +102,14 @@ Note that nodes across all the clusters in the engine will be switched to using 
 
 
 **Scaling Out or Scaling In** <br />
-{: .fs-6}
-You can dynamically scale out or scale in an engine by modifying the “NODES” attribute of your engine. <br />
 **UI** <br />
 {: .fs-6}
- 1. For the engine that you want to modify, hover next to the drop-down and click the ellipsis (three vertical dots). Then select “Modify engine”.
+You can dynamically scale out or scale in an engine by modifying the “NODES” attribute of your engine. <br />
+1. For the engine that you want to modify, hover next to the drop-down and click the ellipsis (three vertical dots). Then select “Modify engine”.
 ![](../../assets/images/Alter_Engine_Popup.png){: width="600" .centered}
  <br /> 
 
- 2. Choose the appropriate “Number of nodes”  that you want and click “Modify engine”
+2. Choose the appropriate “Number of nodes”  that you want and click “Modify engine”
 ![](../../assets/images/Scale_Out_Engine.png){: width="600" .centered}
  <br /> 
 
@@ -131,6 +129,37 @@ You can use the “CLUSTERS” attribute of the engine to deal with concurrency 
 **Preview Limitations:** Concurrency Scaling with multiple clusters is in preview mode. By default, engines are limited to a single cluster. If you want this limitation removed, please reach out to Firebolt Support.
 
 Note that during resize operations, there may be an overlap when both old and new compute resources are concurrently running, consuming FBUs.
+
+
+# Immediately Starting or Automatically Stopping an Engine
+When you create an engine, you have the option to specify whether the engine should be automatically started after creation or whether you want to start the engine at a later time. In addition, you can also specify whether you want to automatically stop the engine after a certain amount of idle time. <br />
+
+**UI** <br />
+{: .fs-6}
+Create new engine => Advanced Settings
+Turn off the “Start engine immediately" toggle if you don’t want the engine to be immediately started after creation. This option is turned on by default when you create an engine. 
+
+![](../../assets/images/Engine_Initially_Stopped.png){: width="600" .centered}
+ <br /> 
+
+ To specify whether you want the engine to be automatically stopped after a certain amount of idle time, use the “Automatically stop engine” setting and set the idle time. By default, this is set to 20 minutes. You can also set this to “Off” if you don’t want the engine to be automatically stopped.
+![](../../assets/images/Engine_Auto_Stop.png){: width="600" .centered}
+ <br /> 
+
+ **API** <br />
+ {: .fs-6}
+ When you create the engine using the [CREATE ENGINE](../../sql_reference/commands/engines/create-engine.md) command, set the INITIALLY_STOPPED option to false if you want the engine to be started automatically after it is created.  To automatically stop the engine after a certain amount of idle time, use the AUTO_STOP option.
+
+ The following example will create an engine that will not be immediately started. When you are ready to use the engine, you can start it with the [START ENGINE](../../sql_reference/commands/engines/start-engine.md) command. Since the AUTO_STOP option is set to 10 minutes, the engine will be automatically stopped after it has been in an idle state for 10 minutes.
+ 
+ ```sql
+CREATE ENGINE my_prod_engine WITH 
+INITIALLY_STOPPED = true AUTO_STOP = 10;
+```
+
+ **Note:** You can use the INITIALLY_STOPPED option only during engine creation. Once you create the engine, this option cannot be modified either via UI or API.
+
+
 
 
 
