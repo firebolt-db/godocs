@@ -5,6 +5,7 @@ description: Reference material for TRUNC function
 grand_parent: SQL functions
 parent: Numeric functions
 great_grand_parent: SQL reference
+published: false
 ---
 
 # TRUNC

@@ -2,6 +2,7 @@
 layout: default
 title: Work with engines using the Firebolt Manager
 description: Learn about using the Firebolt manager (web application) to work with Firebolt engines, which provide the compute power for Firebolt queries.
+published: false
 ---
 
 # Work with engines using the Firebolt Manager

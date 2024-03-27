@@ -5,6 +5,7 @@ description: Reference material for ARRAY_FIRST_INDEX function
 grand_parent: SQL functions
 parent: Lambda functions
 great_grand_parent: SQL reference
+published: false
 ---
 
 # ARRAY\_FIRST\_INDEX
