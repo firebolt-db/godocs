@@ -49,17 +49,25 @@ For a full list of engine attributes, see [CREATE ENGINE](../sql_reference/comma
 
 ## Multi-dimensional Elasticity
 Firebolt engines enable dynamic and fully online scaling operations, meaning you do not need to stop your engines to scale them. In addition, Firebolt supports scaling operations  along any of the three dimensions - Scaling up/Down with engine Type, Scaling out/in with number of nodes and adding/removing Clusters for concurrency scaling. This multidimensional scaling allows you to fine-tune the price-performance characteristics of engines and dynamically scale your compute resources based on your workload requirements. 
-Use the ALTER ENGINE command to modify the configuration of an engine. This command will dynamically scale the engine even while it is running, without impacting the workload. For example, to horizontally scale an engine, MyEngine, from two nodes to three nodes, use the ALTER command as shown below:
+Use the ALTER ENGINE command to modify the configuration of an engine. This command will dynamically scale the engine even while it is running, without impacting the workload. 
 
+For example, to horizontally scale an engine, MyEngine, from two nodes to three nodes, use the ALTER command as shown below:
+
+```sql
 ALTER ENGINE MyEngine SET NODES = 3;
+```
 
 Similarly, you can change the type of node used in an engine from ‘M’ to ‘L’ as below:
 
+```sql
 ALTER ENGINE MyEngine SET TYPE = L;
+```
 
 You can modify more than one attribute at the same time as below:
 
+```sql
 ALTER ENGINE MyEngine SET NODES = 3 TYPE = L;
+```
 
 For more information on modifying engines, see [ALTER ENGINE](../sql_reference/commands/engines/alter-engine.md).
 
@@ -79,11 +87,11 @@ For more information on how to connect to engines using third-party connectors, 
 ## Monitoring Engine Usage
 You can use the following observability views to understand the current engine usage and utilization:  1) engine_metrics_history and 2) engine_running_queries. The information provided by these two information_schema views can be used to decide whether you need to change the engine configuration (Type, Nodes or Clusters) based on the needs of your workload.
 
-The engine_metrics_history view <<< include URL  >>> gathers engine resource utilization metrics such as CPU and RAM consumption at a given time (snapshot). Utilization snapshots are captured every 30 seconds and retained for 30 days, allowing users to understand engine utilization and consumption trends. 
+The [engine_metrics_history](../sql_reference/information-schema/engine-metrics-history.md) view gathers engine resource utilization metrics such as CPU and RAM consumption at a given time (snapshot). Utilization snapshots are captured every 30 seconds and retained for 30 days, allowing users to understand engine utilization and consumption trends. 
 
-The engine_running_queries view <<< include URL >>> exposes information about queries currently running or waiting to be run in the system.  Based on the number of queries that are queued and waiting to be executed, you can modify the engine configuration that best fits your performance requirements.
+The [engine_running_queries](../sql_reference/information-schema/engine-running-queries.md) view exposes information about queries currently running or waiting to be run in the system.  Based on the number of queries that are queued and waiting to be executed, you can modify the engine configuration that best fits your performance requirements.
 
-To understand how this information can help with engine resizing, see [Working with Engines](../Guides/working-with-engines/working-with-engines.md).
+To understand how this information can help with engine resizing, see [Working with Engines](../Guides/working-with-engines/sizing-engines.md).
 
 
 ## Engine Governance and Security
