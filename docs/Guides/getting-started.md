@@ -267,8 +267,10 @@ FROM
 
 And that's it! You've successfully copied data from S3 into a Firebolt table. 
 
-### Configure an aggregating index
+## Next Steps
+Now that you have successfully created your first engine and database in Firebolt, run your first query, and copied data to Firebolt you can start exploring what else Firebotl has to offer! Below are a few examples to get you started. 
 
+### Configure an aggregating index
 An aggregating index enables you to take a subset of table columns and predefine dimensions and measures to aggregate. Many aggregations are supported&mdash;from `SUM`, `MAX`, and `MIN` to more complex aggregations such as `COUNT` and `COUNT(DISTINCT)`. At query runtime, instead of calculating the aggregation on the entire table and scanning all rows, Firebolt uses the pre-calculated values in the aggregating index. For more information, see [Aggregating indexes](./working-with-indexes/using-aggregating-indexes.md).
 
 From the `levels` fact table that you created in the previous step, assume you want to run a query to look at the `AVG(NumberOfLaps)`, grouped by `LevelType`. You can create an aggregating index to speed up these queries by running the statement below.
@@ -283,6 +285,26 @@ ON levels (
 ```
 
 After you run the script, you see the `levels_agg_idx` index listed in the object pane. Any queries that run over the `levels` table that combine any of these fields and aggregations defined in the index will now use the index instead of reading the entire table.
+
+### Use COPY TO to export data to S3
+The example below shows a `COPY TO` statement with minimal parameters that specifies an `AWS_ROLE_ARN`. Because `TYPE` is omitted, the file or files will be written in CSV format, and because `COMPRESSION` is omitted, they are compressed using GZIP  (`*.csv.gz`).
+
+```sql
+COPY (SELECT * FROM test_table)
+  TO 's3://my_bucket/my_fb_queries'
+  CREDENTIALS = (AWS_ROLE_ARN='arn:aws:iam::123456789012:role/my-firebolt-role');
+```
+
+Firebolt assigns the query ID `16B903C4206098FD` to the query at runtime. The compressed output is 40 MB, exceeding the default of 16 MB, so Firebolt writes 4 files as shown below.
+
+```bash
+s3://my_bucket/my_fb_queries/
+  16B903C4206098FD_0.csv.gz
+  16B903C4206098FD_1.csv.gz
+  16B903C4206098FD_2.csv.gz
+  16B903C4206098FD_3.csv.gz
+```
+See [COPY TO](https://special-disco-436d3e6a.pages.github.io/sql_reference/commands/data-management/copy-to.html) for more information. 
 
 ## Register through AWS Marketplace
 This registration is a prerequisite for starting engines and running queries after your initial trial credits. 
