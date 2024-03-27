@@ -126,7 +126,7 @@ Note that all the clusters in the engine will have three nodes after the above c
 # Concurrency Scaling
 You can use the “CLUSTERS” attribute of the engine to deal with concurrency scaling and increase or decrease the number of engine clusters as needed.
 
-**Preview Limitations:** Concurrency Scaling with multiple clusters is in preview mode. By default, engines are limited to a single cluster. If you want this limitation removed, please reach out to Firebolt Support.
+**Preview Limitations:** In preview, engines are limited to a single cluster. If you want to try multi-cluster engines, reach out to Firebolt Support.
 
 Note that during resize operations, there may be an overlap when both old and new compute resources are concurrently running, consuming FBUs.
 
