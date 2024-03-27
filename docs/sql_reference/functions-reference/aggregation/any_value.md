@@ -1,6 +1,5 @@
 ---
 layout: default
-title: ANY_VALUE
 description: Reference material for ANY_VALUE
 
 ---
