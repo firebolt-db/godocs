@@ -6,9 +6,9 @@ nav_order: 1
 parent: Guides
 has_toc: true
 ---
-# Getting started tutorial
+# Get started with Firebolt
 {:.no_toc}
-Welcome to the beginning of your journey with Firebolt! This guide is designed to smoothly onboard you to Firebolt and guide you through the initial setup of your Firebolt account. You'll learn to create your first database, set up an engine optimized for high-speed analytics, and import a sample dataset from Amazon S3 into your Firebolt environment. Following that, we'll dive into executing some basic analytics queries to demonstrate the power and speed of Firebolt analytics.
+Welcome to the beginning of your journey with Firebolt! This tutorial guides you through setting up your Firebolt account, creating your database, and importing a sample dataset. Following that, we'll execute some basic analytics queries to demonstrate the power and speed of Firebolt analytics.
 
 For those seeking a more interactive learning experience, we invite you to join one of our comprehensive, instructor-led Firebolt workshop. These hands-on session are crafted to deepen your understanding of Firebolt's capabilities and how to leverage them for your data analytics needs. Secure your spot [here](https://www.firebolt.io/on-demand-workshop) and elevate your Firebolt skills.
 
@@ -33,10 +33,10 @@ For those seeking a more interactive learning experience, we invite you to join 
 And that's it! You're ready to get started with Firebolt. 
 
 {: .note}
-New accounts get 600 Firebolt credits ($200+) to get started exploring with Firebolt. Once you run out of credits, we recommend you to connect Firebolt with your AWS Marketplace account so you can get back to making the most of Firebolt. See [Registering though AWS Marketplace](https://special-disco-436d3e6a.pages.github.io/Guides/getting-started.html#register-through-AWS-Marketplace) below.
+New accounts get 600 Firebolt credits ($200+) to get started exploring with Firebolt. Once you run out of credits, we recommend you connect Firebolt with your AWS Marketplace account and get back to making the most of Firebolt. See [Registering though AWS Marketplace](https://special-disco-436d3e6a.pages.github.io/Guides/getting-started.html#register-through-AWS-Marketplace) below.
 
-## Getting Started with Your First Database and Engine
-Embarking on your data journey with Firebolt begins with creating a *database* and a Firebolt *engine* which can be tailored to your specific workload needs. An engine in Firebolt is essentially the powerhouse, providing the compute resources dedicated to a database for executing tasks (see [Understanding Engines](https://special-disco-436d3e6a.pages.github.io/Overview/understanding-engine-fundamentals.html) to learn more). By default, every database is equipped with one general purpose engine capable of writing to the Firebolt file format (F3) for both data ingestion and analytics queries. We use that single-engine set up in this tutorial. For more information on using Firebolt engines, see [Work with engines](./working-with-engines/working-with-engines.md).
+## Create Your First Database and Engine
+Embarking on your data journey with Firebolt begins with creating a *database* and selecting an *engine* tailored to your specific workload. An engine in Firebolt provides the compute resources dedicated to a database for executing tasks (see [Understanding Engines](https://special-disco-436d3e6a.pages.github.io/Overview/understanding-engine-fundamentals.html) to learn more). By default, every database starts with one general purpose engine capable of writing to the Firebolt file format (F3) for both data ingestion and analytics queries. For more information on using Firebolt engines, see [Working with engines](./working-with-engines/working-with-engines.md).
 
 
 **Steps to Create Your Database and Engine:**
@@ -49,9 +49,9 @@ Embarking on your data journey with Firebolt begins with creating a *database* a
 [ADD IMAGE]
 
 {: .note}
-The default configuration is a small node. This will be more than enough for this tutorial. 
+The default configuration is a small node, which is more than enough for this tutorial. To learn more about proper sizing of nodes for your workload, see [ADD DOC REFERENCE]
 
-## Executing Your First Query
+## Execute Your First Query
 Before we dive into ingesting sample data, let's familiarize ourselves with the SQL workspace of your database. This initial step not only demonstrates how to activate your engine but also acquaints you with the process of executing queries within Firebolt. For a deeper dive into the SQL workspace and its capabilities, our [Query Data](./query-data/using-the-sql-editor.md) guide is an excellent resource.
 
 **Steps to Access Your Database, Activate the Engine, and Execute Your First Query:**
