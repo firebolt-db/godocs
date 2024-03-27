@@ -74,6 +74,7 @@ Use the functional list below to find commands for a specific task area that you
 * [DROP ENGINE](./engines/drop-engine.md)
 * [START ENGINE](./engines/start-engine.md)
 * [STOP ENGINE](./engines/stop-engine.md)
+* [USE ENGINE](./engines/use-engine.md)
 
 ## Metadata
 
