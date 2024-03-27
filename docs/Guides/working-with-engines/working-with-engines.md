@@ -10,4 +10,4 @@ parent: Guides
 
 # Work with engines
 
-Learn how to work with engines in the UI and with SQL, how to size and monitor engines, how to use RBAC to govern engines and how to use the system engine.
+Learn how to work with engines using both the UI and SQL, how to size and monitor engines, how to use RBAC to govern engines and how to use the system engine.

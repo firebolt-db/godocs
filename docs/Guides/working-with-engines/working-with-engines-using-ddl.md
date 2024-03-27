@@ -136,7 +136,7 @@ When you create an engine, you have the option to specify whether the engine sho
 
 **UI** <br />
 {: .fs-6}
-Create new engine => Advanced Settings
+Create new engine => Advanced Settings <br />
 Turn off the “Start engine immediately" toggle if you don’t want the engine to be immediately started after creation. This option is turned on by default when you create an engine. 
 
 ![](../../assets/images/Engine_Initially_Stopped.png){: width="600" .centered}
