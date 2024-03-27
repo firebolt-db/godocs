@@ -8,12 +8,9 @@ has_toc: true
 ---
 # Getting started tutorial
 {:.no_toc}
-Welcome to the beginning of your journey with Firebolt! This guide is designed to smoothly onboard you into the Firebolt ecosystem, guiding you through the initial setup of your Firebolt account. You'll learn to create your first database, set up an engine optimized for high-speed analytics, and import a sample dataset from Amazon S3 into your Firebolt environment. Following that, we'll dive into executing some basic analytics queries to demonstrate the power and speed of Firebolt analytics.
+Welcome to the beginning of your journey with Firebolt! This guide is designed to smoothly onboard you to Firebolt and guide you through the initial setup of your Firebolt account. You'll learn to create your first database, set up an engine optimized for high-speed analytics, and import a sample dataset from Amazon S3 into your Firebolt environment. Following that, we'll dive into executing some basic analytics queries to demonstrate the power and speed of Firebolt analytics.
 
-For those seeking a more interactive learning experience, we invite you to join our comprehensive, instructor-led Firebolt workshop. This hands-on session is crafted to deepen your understanding of Firebolt's capabilities and how to leverage them for your data analytics needs. Secure your spot [here](https://www.firebolt.io/on-demand-workshop) and elevate your Firebolt skills.
-
-{: .note}
-This tutorial uses Firebolt's sample dataset, from the fictional gaming company "Ultra Fast Gaming Inc." This dataset is publicly available with the access credentials shared below.
+For those seeking a more interactive learning experience, we invite you to join one of our comprehensive, instructor-led Firebolt workshop. These hands-on session are crafted to deepen your understanding of Firebolt's capabilities and how to leverage them for your data analytics needs. Secure your spot [here](https://www.firebolt.io/on-demand-workshop) and elevate your Firebolt skills.
 
 1. Topic toC
 {:toc}
@@ -23,7 +20,7 @@ This tutorial uses Firebolt's sample dataset, from the fictional gaming company 
 
 [ADD UPDATE IMAGES - DEV IN FLIGHT]
 
-2. Select 'Verify' on the confirmation email
+2. Select 'Verify' on the confirmation email you recieve
 
 [ADD UPDATE IMAGES - DEV IN FLIGHT]
 
@@ -31,16 +28,17 @@ This tutorial uses Firebolt's sample dataset, from the fictional gaming company 
 
 [ADD UPDATE IMAGES - DEV IN FLIGHT]
 
-4. OPTIONAL - Rename Account
+4. Optionally, you can rename your account if you choose. 
 
 And that's it! You're ready to get started with Firebolt. 
 
 {: .note}
 New accounts get 600 Firebolt credits ($200+) to get started exploring with Firebolt. Once you run out of credits, we recommend you to connect Firebolt with your AWS Marketplace account so you can get back to making the most of Firebolt. See [Registering though AWS Marketplace](https://special-disco-436d3e6a.pages.github.io/Guides/getting-started.html#register-through-AWS-Marketplace) below.
 
-
 ## Getting Started with Your First Database and Engine
-Embarking on your data journey with Firebolt begins with creating a *database* and a Firebolt *engine* which can be tailored to your specific workload needs. An engine in Firebolt is essentially the powerhouse, providing the compute resources dedicated to a database for executing tasks (see [Understanding Engines](https://special-disco-436d3e6a.pages.github.io/Overview/understanding-engine-fundamentals.html) to learn more). By default, every database is equipped with one general purpose engine capable of writing to the Firebolt file format (F3) for data ingestion and run analytics queries. We use that single-engine set up in this tutorial. For more information on using Firebolt engines, see [Work with engines](./working-with-engines/working-with-engines.md).
+Embarking on your data journey with Firebolt begins with creating a *database* and a Firebolt *engine* which can be tailored to your specific workload needs. An engine in Firebolt is essentially the powerhouse, providing the compute resources dedicated to a database for executing tasks (see [Understanding Engines](https://special-disco-436d3e6a.pages.github.io/Overview/understanding-engine-fundamentals.html) to learn more). By default, every database is equipped with one general purpose engine capable of writing to the Firebolt file format (F3) for data ingestion and run analytics queries. 
+
+We use that single-engine set up in this tutorial. For more information on using Firebolt engines, see [Work with engines](./working-with-engines/working-with-engines.md).
 
 **Steps to Create Your Database and Engine:**
 1. Click the **+** next to **Databases** and click **Create new database**. Enter the name for your database in the **Database Name** field. For the purposes of this guide, we'll use "Tutorial_Database" as our database name.
@@ -52,13 +50,13 @@ Embarking on your data journey with Firebolt begins with creating a *database* a
 [ADD IMAGE]
 
 {: .note}
-The default configuration is a small node which will more than enough for this tutorial. 
+The default configuration is a small node. This will be more than enough for this tutorial. 
 
 ## Executing Your First Query
 Before we dive into ingesting sample data, let's familiarize ourselves with the SQL workspace of your database. This initial step not only demonstrates how to activate your engine but also acquaints you with the process of executing queries within Firebolt. For a deeper dive into the SQL workspace and its capabilities, our [Query Data](./query-data/using-the-sql-editor.md) guide is an excellent resource.
 
 **Steps to Access Your Database, Activate the Engine, and Execute Your First Query:**
-1. From the **Database page**, locate the database you've previously created ("Tutorial"). Click the **Open in SQL workspace icon** (**>_**).
+1. From the **Database page**, locate the database you've previously created ("Tutorial_Database"). Click the **Open in SQL workspace icon** (**>_**).
 
 2. Upon entering the SQL workspace, you'll be greeted by the "Script 1" tab. This is where you'll craft your queries. To get started, enter the following simple query, designed to fetch a list of databases associated with your account:
 
@@ -66,7 +64,7 @@ Before we dive into ingesting sample data, let's familiarize ourselves with the 
 SHOW DATABASES;
 ```  
 
-3. Select **Run Script** to execute the query. You'll notice the **Using** dropdown menu, which displays the engine Firebolt employs to run your script. In this instance, it will indicate "Tutorial_general_purpose".
+3. Select **Run Script** to execute the query. You'll notice the **Using** dropdown menu, which displays the engine Firebolt employs to run your script. In this instance, it will indicate "Tutorial_Engine".
 
 {: .note}
 At this time, Firebolt may prompt you to initiate your engine if it's not already active. Select **Start Engine** to start your engine. Engine startup typically requires a few moments to complete, preparing your environment for data analysis.
@@ -74,21 +72,25 @@ At this time, Firebolt may prompt you to initiate your engine if it's not alread
 By following these steps, you've not only executed your first query but also successfully set the stage for more advanced data exploration. This is just the beginning of what's possible with Firebolt - let's start by adding some data. 
 
 ## Add Data
-For this tutorial we will explore adding data in two ways; 
+Now that you can select databases, select engines, and run queries, let's add some sample data. For this tutorial we will explore adding data in two ways; 
 1. Creating and using an external table [TODO ADD SECTION HYPERLINK]
 2. Use `COPY FROM` [TODO ADD SECTION HYPERLINK]
 
+{: .note}
+This tutorial uses Firebolt's sample dataset, from the fictional gaming company "Ultra Fast Gaming Inc." This dataset is publicly available with the access credentials shared below.
+
 ### Creating and using an external table
 #### Step 1: Create an External Table
-An *external table* is a special, virtual table that serves as a connector to your data source. After the external table is created, you ingest data by running an `INSERT` command from that external table into a *fact table* or *dimension table*. The `INSERT` command must run on a general purpose engine. After the data is available in fact and dimension tables, you can run analytics queries over those tables using any engine. Although it's possible, we don't recommend running analytics queries on external tables. For more information on working with external tables, see [Work with external tables](https://special-disco-436d3e6a.pages.github.io/Guides/loading-data/working-with-external-tables.html).
+An *external table* is a special, virtual table that serves as a connector to your data source. After the external table is created, you ingest data by running an `INSERT` command from that external table into a *fact table* or *dimension table*. The `INSERT` command must run on a general purpose engine. After the data is available in fact and dimension tables, you can run analytics queries over those tables using any engine. 
 
 {: .note}
-For guidance on configuring AWS roles for seamless access to your S3 data, see our detailed walkthrough on [Using AWS Roles for S3 Access](https://docs.firebolt.io/godocs/Guides/loading-data/configuring-aws-role-to-access-amazon-s3.html).
+Although it's possible, we don't recommend running analytics queries on external tables. For more information on working with external tables, see [Work with external tables](https://special-disco-436d3e6a.pages.github.io/Guides/loading-data/working-with-external-tables.html).
 
 **Creating Your External Table:**
 1. Choose the plus symbol (**+**) next to **Script 2** to create a new script tab, **Script 3**, in the SQL workspace.
 
 2. Copy and paste the query below into the **Script 3** tab.
+
 ```sql
 CREATE EXTERNAL TABLE IF NOT EXISTS ex_levels (
 -- Column definitions map to data fields
@@ -127,8 +129,7 @@ Firebolt creates the external table. When finished, the external table `ex_level
 
 [NEEDS UPDATED SCREENSHOTS]
 
-4. Choose the vertical ellipses next to **Script 3**, choose **Save script**, enter a name (for example, *MyExTableScript*) and then press ENTER to save the script.
-
+4. Choose the vertical ellipses next to **Script 3**, choose **Rename script**, enter a name (for example, *MyExTableScript*) and then press ENTER to update the name.
 
 #### Step 2: Create a Fact Table
 In this step, you'll create a Firebolt fact table called `levels`, which you use in the next step as the target for an `INSERT INTO` command. 
@@ -229,6 +230,7 @@ The values shown in the query results pane should be similar to those shown belo
 
 1. Choose the plus symbol (**+**) next to **Script 1** to create a new script tab, **Script 2**, in the SQL workspace.
 2. Copy and paste the query below into the **Script 2** tab.
+
 ```sql
 CREATE FACT TABLE IF NOT EXISTS tutorial (
  LevelID INTEGER,
@@ -265,8 +267,10 @@ FROM
 
 And that's it! You've successfully copied data from S3 into a Firebolt table. 
 
-### Configure an aggregating index
+## Next Steps
+Now that you have successfully created your first engine and database in Firebolt, run your first query, and copied data to Firebolt you can start exploring what else Firebotl has to offer! Below are a few examples to get you started. 
 
+### Configure an aggregating index
 An aggregating index enables you to take a subset of table columns and predefine dimensions and measures to aggregate. Many aggregations are supported&mdash;from `SUM`, `MAX`, and `MIN` to more complex aggregations such as `COUNT` and `COUNT(DISTINCT)`. At query runtime, instead of calculating the aggregation on the entire table and scanning all rows, Firebolt uses the pre-calculated values in the aggregating index. For more information, see [Aggregating indexes](./working-with-indexes/using-aggregating-indexes.md).
 
 From the `levels` fact table that you created in the previous step, assume you want to run a query to look at the `AVG(NumberOfLaps)`, grouped by `LevelType`. You can create an aggregating index to speed up these queries by running the statement below.
@@ -282,6 +286,26 @@ ON levels (
 
 After you run the script, you see the `levels_agg_idx` index listed in the object pane. Any queries that run over the `levels` table that combine any of these fields and aggregations defined in the index will now use the index instead of reading the entire table.
 
+### Use COPY TO to export data to S3
+The example below shows a `COPY TO` statement with minimal parameters that specifies an `AWS_ROLE_ARN`. Because `TYPE` is omitted, the file or files will be written in CSV format, and because `COMPRESSION` is omitted, they are compressed using GZIP  (`*.csv.gz`).
+
+```sql
+COPY (SELECT * FROM test_table)
+  TO 's3://my_bucket/my_fb_queries'
+  CREDENTIALS = (AWS_ROLE_ARN='arn:aws:iam::123456789012:role/my-firebolt-role');
+```
+
+Firebolt assigns the query ID `16B903C4206098FD` to the query at runtime. The compressed output is 40 MB, exceeding the default of 16 MB, so Firebolt writes 4 files as shown below.
+
+```bash
+s3://my_bucket/my_fb_queries/
+  16B903C4206098FD_0.csv.gz
+  16B903C4206098FD_1.csv.gz
+  16B903C4206098FD_2.csv.gz
+  16B903C4206098FD_3.csv.gz
+```
+See [COPY TO](https://special-disco-436d3e6a.pages.github.io/sql_reference/commands/data-management/copy-to.html) for more information. 
+
 ## Register through AWS Marketplace
 This registration is a prerequisite for starting engines and running queries after your initial trial credits. 
 
@@ -295,3 +319,6 @@ This registration is a prerequisite for starting engines and running queries aft
 4. Click **Setup Your Account**. 
 
 Your account should now be associated with AWS Marketplace. 
+
+{: .note}
+For guidance on configuring AWS roles for seamless access to your S3 data, see our detailed walkthrough on [Using AWS Roles for S3 Access](https://docs.firebolt.io/godocs/Guides/loading-data/configuring-aws-role-to-access-amazon-s3.html).
