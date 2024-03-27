@@ -34,10 +34,11 @@ When you use an external table to ingest data, you can explicitly reference thes
 
 The metadata virtual columns listed below are available in external tables.
 
-| Metadata column name | Description | Data type |
-| :--- | :--- | :--- |
-| `source_file_name` | The full path of the row data's source file in Amazon S3, without the bucket. For example, with a source file of `s3://my_bucket/xyz/year=2018/month=01/part-00001.parquet`, the `source_file_name` is `xyz/year=2018/month=01/part-00001.parquet`. | TEXT |
-| `source_file_timestamp` | The UTC creation timestamp in second resolution of the row's source file in S3. | TIMESTAMPTZ |
+| Metadata column name     | Description                                                                                                                                                                                                                                          | Data type   |
+|:-------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------|
+| `$source_file_name`      | The full path of the row data's source file in Amazon S3, without the bucket. For example, with a source file of `s3://my_bucket/xyz/year=2018/month=01/part-00001.parquet`, the `$source_file_name` is `xyz/year=2018/month=01/part-00001.parquet`. | TEXT        |
+| `$source_file_timestamp` | The UTC creation timestamp in second resolution of the row's source file in Amazon S3. (S3 objects are immutable. In cases where files are overwritten with new data - this will be Last Modified time.)                                             | TIMESTAMPTZ |
+| `$source_file_size`      | Size in bytes of the row's source file in Amazon S3.                                                                                                                                                                                                 | BIGINT      |
 
 For examples of metadata virtual column usage, see [Extracting partition values using INSERT](../../sql_reference/commands/data-management/insert.md#extracting-partition-values-using-insert).
 
@@ -57,7 +58,8 @@ CREATE EXTERNAL TABLE my_external_table
   TYPE = (PARQUET);
 ```
 
-The query example below creates a dimension table, which will be the target for the data to be ingested. The statement defines two additional columns, `source_file_name` and `source_file_timestamp`, to contain metadata values that Firebolt creates automatically for the external table.
+The query example below creates a dimension table, which will be the target for the data to be ingested. The 
+statement defines two additional columns, `$source_file_name` and `$source_file_timestamp`, to contain metadata values that Firebolt creates automatically for the external table.
 
 ```sql
 CREATE DIMENSION TABLE my_dim_table_with_metadata
@@ -76,8 +78,8 @@ INSERT INTO
     my_dim_table_with_metadata
 SELECT
     *,
-    source_file_name,
-    source_file_timestamp
+    $source_file_name,
+    $source_file_timestamp
 FROM
     my_external_table;
 ```

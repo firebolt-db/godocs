@@ -55,12 +55,12 @@ Similar to [CAST](./functions-reference/conditional-and-miscellaneous/cast.md)  
 **Examples:**
 
 ```sql
-SET standard_conforming_strings=0;
+SET standard_conforming_strings = false;
 SELECT '\x3132'::BYTEA; -> '\x313332'
 SELECT '\x31   32  '::BYTEA; -> '\x3120202033322020'
 SELECT 'a b\230a'::BYTEA; -> '\x61206232333061'
 
-set standard_conforming_strings=1;
+set standard_conforming_strings = true;
 SELECT '\x3132'::BYTEA; -> '\x3132'
 SELECT '\x31   32  '::BYTEA; -> '\x3132'
 SELECT 'a b\230a'::BYTEA; -> '\x6120629861'
