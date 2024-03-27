@@ -45,7 +45,7 @@ For more details with a full list of attributes and more example, see the [CREAT
 # Starting an Engine or Resuming a Stopped Engine
 **UI** <br />
 {: .fs-6}
-1. From the list of engines, next to the engine that you want to start or resume, click the drop-down and select **Start engine**. <br />
+From the list of engines, next to the engine that you want to start or resume, click the drop-down and select **Start engine**. <br />
 ![](../../assets/images/Start_Engine.png){: width="600" .centered}
  <br /> 
 Once the engine is started, the engine state will change to "Running".
@@ -77,9 +77,10 @@ Note that stopping an engine results in emptying the cache. So, any queries afte
 <br />
 
 # Resizing an Engine
-**Scaling Up or Scaling Down** <br />
+**Scaling Up or Scaling Down** <br /> 
 {: .fs-7}
-You can dynamically scale up or scale down an engine by modifying the “TYPE” attribute of your engine.
+You can dynamically scale up or scale down an engine by modifying the “TYPE” attribute of your engine. <br />
+{: .fs-6}
 **UI** <br />
 {: .fs-6}
    1. For the engine that you want to modify, hover next to the drop-down and click the ellipsis (three vertical dots). Then select “Modify engine".
@@ -87,7 +88,7 @@ You can dynamically scale up or scale down an engine by modifying the “TYPE”
  <br /> 
 
     2. Choose the appropriate Node type that you want and click the “Modify engine” button.
-    ![](../../assets/images/Modify_Engine_Type.png){: width="600" .centered}
+![](../../assets/images/Modify_Engine_Type.png){: width="600" .centered}
  <br /> 
 
 **API** <br />
@@ -102,7 +103,9 @@ Note that nodes across all the clusters in the engine will be switched to using 
 
 
 **Scaling Out or Scaling In** <br />
+{: fs-7}
 You can dynamically scale out or scale in an engine by modifying the “NODES” attribute of your engine. <br />
+{: .fs-6}
 **UI** <br />
 {: .fs-6}
  1. For the engine that you want to modify, hover next to the drop-down and click the ellipsis (three vertical dots). Then select “Modify engine”.
