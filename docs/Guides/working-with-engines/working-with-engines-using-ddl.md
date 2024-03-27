@@ -10,7 +10,7 @@ grand_parent: Guides
 
 # Create Engines
 **UI** <br /> 
-{. .fs-8}
+{: .fs-8}
 1. Choose "Engines" <br />
   ![](../../assets/images/Engines_Section.png){: width="600" .centered}
  <br /> 
@@ -24,7 +24,7 @@ grand_parent: Guides
  <br />  
 
 **API** <br /> 
-{. fs-8}
+{: .fs-8}
 Use the [CREATE ENGINE](../../sql_reference/commands/engines/create-engine.md) command. <br />
 
 The following statement creates an engine with one cluster that has two nodes of type 'S'.
@@ -114,7 +114,7 @@ ALTER ENGINE my_prod_engine SET NODES = 3;
 
 Note that all the clusters in the engine will have three nodes after the above command completes successfully.
 
-**Concurrency Scaling** <br />
+# Concurrency Scaling
 You can use the “CLUSTERS” attribute of the engine to deal with concurrency scaling and increase or decrease the number of engine clusters as needed.
 
 **Preview Limitations:** Concurrency Scaling with multiple clusters is in preview mode. By default, engines are limited to a single cluster. If you want this limitation removed, please reach out to Firebolt Support.
