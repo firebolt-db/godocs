@@ -38,6 +38,7 @@ TYPE='M' NODES=2 CLUSTERS=1;
 ```  
 
 For more details with a full list of attributes and more example, see the [CREATE ENGINE](../../sql_reference/commands/engines/create-engine.md) command.
+<br />
 
 # Starting an Engine or Resuming a Stopped Engine
 **UI** <br />
@@ -52,6 +53,7 @@ Use the [START ENGINE](../../sql_reference/commands/engines/start-engine.md) com
 ```sql
 START ENGINE MyEngine;
 ```  
+<br />
 
 # Stopping an Engine
 **UI** <br />
@@ -66,11 +68,12 @@ Use the [STOP ENGINE](../../sql_reference/commands/engines/stop-engine.md) comma
 STOP ENGINE MyEngine;
 ```  
 Note that stopping an engine results in emptying the cache. So, any queries after starting an engine that was previously stopped will have a cold start, resulting in some performance impact till the engine is warmed up again. 
+<br />
 
 # Resizing an Engine
+**Scaling Up or Scaling Down** <br />
 You can dynamically scale up or scale down an engine by modifying the “TYPE” attribute of your engine.
 **UI** <br />
-***Scaling Up or Scaling Down***
    1. For the engine that you want to modify, hover next to the drop-down and click the ellipsis (three vertical dots). Then select “Modify engine".
 ![](../../assets/images/Alter_Engine_Popup.png){: width="600" .centered}
  <br /> 
@@ -82,9 +85,33 @@ You can dynamically scale up or scale down an engine by modifying the “TYPE”
 **API** <br />
 Use the [ALTER ENGINE](../../sql_reference/commands/engines/alter-engine.md) command, specifying the new node type (TYPE)  you want to use with your engine. For example, to scale up an engine from ‘S’ to ‘M’, you can use the following command:
 
+```sql
 ALTER ENGINE my_prod_engine SET TYPE = “M”;
+```
 
 Note that nodes across all the clusters in the engine will be switched to using the ‘M’ type node after the successful execution of the above command.
+
+
+**Scaling Out or Scaling In** <br />
+You can dynamically scale out or scale in an engine by modifying the “NODES” attribute of your engine.
+**UI** <br />
+ 1. For the engine that you want to modify, hover next to the drop-down and click the ellipsis (three vertical dots). Then select “Modify engine”.
+![](../../assets/images/Alter_Engine_Popup.png){: width="600" .centered}
+ <br /> 
+
+ 2. Choose the appropriate “Number of nodes”  that you want and click “Modify engine”
+![](../../assets/images/Scale_Out_Engine.png){: width="600" .centered}
+ <br /> 
+
+ **API** <br />
+ Use the [ALTER ENGINE](../../sql_reference/commands/engines/alter-engine.md) command, specifying the number of nodes (NODES) you want to use with your engine. For example, to scale out an engine from two nodes to three nodes, you can use the following command: 
+
+```sql
+ALTER ENGINE my_prod_engine SET NODES = 3;
+```
+
+Note that all the clusters in the engine will have three nodes after the above command completes successfully.
+
 
 
 
