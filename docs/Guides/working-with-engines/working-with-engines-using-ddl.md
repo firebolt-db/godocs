@@ -80,7 +80,6 @@ Note that stopping an engine results in emptying the cache. So, any queries afte
 # Resizing an Engine
 {: .fs-7}
 **Scaling Up or Scaling Down** <br /> 
-{: .fs-6}
 You can dynamically scale up or scale down an engine by modifying the “TYPE” attribute of your engine. <br />
 **UI** <br />
 {: .fs-6}
@@ -104,7 +103,6 @@ Note that nodes across all the clusters in the engine will be switched to using 
 
 {: fs-7}
 **Scaling Out or Scaling In** <br />
-{: .fs-6}
 You can dynamically scale out or scale in an engine by modifying the “NODES” attribute of your engine. <br />
 **UI** <br />
 {: .fs-6}
