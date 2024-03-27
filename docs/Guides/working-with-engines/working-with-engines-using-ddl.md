@@ -13,11 +13,11 @@ You can create, run, and modify engines from the UI or using SQL API. You can pe
 **UI** <br /> 
 {: .fs-6}
 1. Choose "Engines" <br />
-  ![](../../assets/images/Engines_Section.png){: width="600" .centered}
+![](../../assets/images/Engines_Section.png){: width="600" .centered}
  <br /> 
 
 2. Click the “+” sign and choose “Create new engine” <br />
- ![](../../assets/images/Engine_Create_Popup.png){: width="600" .centered}
+![](../../assets/images/Engine_Create_Popup.png){: width="600" .centered}
  <br /> 
 
 3. Enter the engine name, type and number of nodes and click the "Create new engine" button <br />
@@ -80,8 +80,8 @@ Note that stopping an engine results in emptying the cache. So, any queries afte
 # Resizing an Engine
 {: .fs-7}
 **Scaling Up or Scaling Down** <br /> 
-You can dynamically scale up or scale down an engine by modifying the “TYPE” attribute of your engine. <br />
 {: .fs-6}
+You can dynamically scale up or scale down an engine by modifying the “TYPE” attribute of your engine. <br />
 **UI** <br />
 {: .fs-6}
    1. For the engine that you want to modify, hover next to the drop-down and click the ellipsis (three vertical dots). Then select “Modify engine".
@@ -104,8 +104,8 @@ Note that nodes across all the clusters in the engine will be switched to using 
 
 {: fs-7}
 **Scaling Out or Scaling In** <br />
-You can dynamically scale out or scale in an engine by modifying the “NODES” attribute of your engine. <br />
 {: .fs-6}
+You can dynamically scale out or scale in an engine by modifying the “NODES” attribute of your engine. <br />
 **UI** <br />
 {: .fs-6}
  1. For the engine that you want to modify, hover next to the drop-down and click the ellipsis (three vertical dots). Then select “Modify engine”.
