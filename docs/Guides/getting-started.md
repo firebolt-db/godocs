@@ -164,7 +164,8 @@ Firebolt creates the fact table. When finished, the table `levels` appears on th
 You can now use the `INSERT INTO` command to copy the data from the external table into the fact table. During this operation, Firebolt ingests the data from your source into Firebolt.
 
 {: .note}
-Use `source_file_name` in the `WHERE` clause to specify which records to load from Amazon S3 and improve the performance of the read from S3. 
+Use `$source_file_name` in the `WHERE` clause to specify which records to load from Amazon S3 and improve the 
+performance of the read from S3. 
 
 **To run an `INSERT` command that ingests data**
 1. Create a new script tab.
@@ -188,9 +189,10 @@ SELECT
     SceneDetails,
     MaxPlayTimeSeconds,
     DECODE(REPLACE(LevelIcon,'"',''),'BASE64'),
-    SOURCE_FILE_NAME, 
-    SOURCE_FILE_TIMESTAMP 
-FROM ex_levels WHERE SOURCE_FILE_TIMESTAMP > (SELECT COALESCE(MAX(SOURCE_FILE_TIMESTAMP), '1980-01-01'::TIMESTAMP) FROM levels);
+    $source_file_name, 
+    $source_file_timestamp 
+FROM ex_levels WHERE $source_file_timestamp > (SELECT COALESCE(MAX($source_file_timestamp), '1980-01-01'::TIMESTAMP) 
+                                               FROM levels);
 ```
 3. Choose **Run Script**.  
 The query results pane indicates a **Status** of **Running** as shown below.  

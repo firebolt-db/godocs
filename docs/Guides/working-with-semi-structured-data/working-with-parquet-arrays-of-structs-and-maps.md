@@ -19,17 +19,6 @@ Apache Parquet is a binary file format that can store complex nested file struct
 
 When you set up an external table to ingest Parquet data files, you use a hierarchical dotted notation syntax to define table columns. Firebolt uses this notation to identify the field to ingest.
 
-## Prerequisite
-
-To run queries and DML commands on external tables that use this notation, you must run the `SET` command shown in the example below. You cannot run the `SET` clause within another statement. In other words, it must be on its own and terminated by a semi-colon. This also applies to external tables connected to AWS Glue.
-
-```sql
-SET use_short_column_path_parquet = 1;
-```
-
-{: .caution}
-This setting deleted the original structure of the input, and can lead to name conflicts.
-
 ## Syntax for defining a Parquet nested structure
 
 You specify the top grouping element of a nested structure in Parquet followed by the field in that structure that contains the data to ingest. You then declare the column type using the `ARRAY(<data_type>)` notation, where `<data type>` is the [Firebolt data type](../../sql_reference/data-types.md) corresponding to the data type of the field in Parquet.
@@ -99,8 +88,6 @@ CREATE FACT TABLE IF NOT EXISTS my_parquet_array_fact_tbl
 The example below demonstrates an `INSERT` statement that selects the array values from Parquet data files using the external table column definition in step 1, and then inserts them into the specified fact table column, `some_value`.
 
 ```sql
-SET use_short_column_path_parquet = 1;
-
 INSERT INTO my_parquet_array_fact_tbl
   SELECT "hashtags.some_value" AS some_value
   FROM my_parquet_array_ext_tbl;
@@ -109,6 +96,10 @@ INSERT INTO my_parquet_array_fact_tbl
 ### Step 4&ndash;query array values
 
 After you ingest array values into the fact table, you can query and manipulate the array using array functions and Lambda functions. For more information, see [Working with arrays](working-with-arrays.md).
+
+{: .note}
+Multipart parquet column names are used only for nested parquet containers. A simple ARRAY of primitive type TEXT, for 
+example, requires a single top level name with no extensions.
 
 ## Example&ndash;ingest and work with maps
 
@@ -167,8 +158,6 @@ CREATE FACT TABLE IF NOT EXISTS my_parquet_map_fact_tbl
 The example below demonstrates an `INSERT INTO` statement that selects the array values from Parquet data files using the external table column definition in step 1, and inserts them into the specified fact table columns, `my_parquet_array_keys` and `my_parquet_array_values`.
 
 ```sql
-SET use_short_column_path_parquet = 1;
-
 INSERT INTO my_parquet_map_fact_tbl
   SELECT "context.keys" AS my_parquet_array_keys,
          "context.values" AS my_parquet_array_values
@@ -182,8 +171,6 @@ After you ingest array values into the fact table, you can query and manipulate 
 A query that uses a Lambda function to return a specific value by specifying the corresponding key value is shown below. For more information, see [Manipulating arrays using Lambda functions](working-with-arrays.md#manipulating-arrays-with-lambda-functions).
 
 ```sql
-SET use_short_column_path_parquet = 1;
-
 SELECT
   ARRAY_FIRST(v, k -> k = 'key_name_of_interest', my_parquet_array_keys, my_parquet_array_values) AS returned_corresponding_key_value
 FROM
