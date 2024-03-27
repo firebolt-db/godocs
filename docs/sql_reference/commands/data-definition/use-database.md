@@ -13,20 +13,24 @@ Syntax
 
 For more information, see [Managing users](../../../Guides/managing-your-organization/managing-users.md).
 
+
 ## Syntax
 
 ```sql
 USE [DATABASE] <database_name>;
 ```
 
-## Parameters 
-{: .no_toc} 
 
+## Parameters 
+
+{: .no_toc} 
 | Parameter  | Description |
 | :--------- | :---------- |
 | `DATABASE`                              | This is an optional keyword.  |
-| `<database_name>`                      | The target database for session context. Essential for directing queries to the correct database without specifying the database name in each query. The database name must adhere to identifier rules supported by Firebolt, allowing for quoted or unquoted identifiers. An error is thrown if the database does not exist or the user lacks the necessary permissions.
-While `USE DATABASE` is designed to set the context at a session level, it plays a crucial role in the resolution of unqualified object names. All subsequent queries in the session resolve unqualified single-part names (like table or function names) based on the set database context, unless explicitly overridden by using fully qualified names or other USE statements is encountered. |
+| `<database_name>`                      | The target database for session context. Essential for directing queries to the correct database without specifying the database name in each query. The database name must adhere to identifier rules supported by Firebolt, allowing for quoted or unquoted identifiers. An error is thrown if the database does not exist or the user lacks the necessary permissions. |
+
+While `USE DATABASE` is designed to set the context at a session level, it plays a crucial role in the resolution of unqualified object names. All subsequent queries in the session resolve unqualified single-part names (like table or function names) based on the set database context, unless explicitly overridden by using fully qualified names or other USE statements is encountered.
+
 
 ## Example
 
@@ -37,6 +41,7 @@ USE sales; -- Sets the current database context to 'sales'
 SELECT * FROM public.revenue; -- Executes against 'sales.public.revenue'
 ```
 
+
 The following example demonstrat switching between databases within a single session
 
 ```sql
@@ -46,9 +51,8 @@ SELECT * FROM campaigns; -- Accesses 'campaigns' tables in  'marketing' database
 SELECT * FROM sales.public.revenue; -- Accesses 'sales.public.revenue' using fully qualified name, despite current context being 'marketing'
 ```
 
-## Related Concepts
-•	See Also: `CREATE DATABASE`, `ALTER DATABASE`, `DROP DATABASE` - Commands for managing database objects within Firebolt.
-FAQs :
+## FAQs
+
 1.	What is the purpose of the `USE DATABASE` command?
 The `USE DATABASE` command sets the current database context for the session, ensuring that all subsequent queries operate within the specified database unless another `USE` command changes the context.
 2.	How does the `USE DATABASE` command affect the resolution of unqualified object names in queries?
@@ -61,6 +65,7 @@ Executing another `USE DATABASE` command changes the session’s database contex
 To target a specific database and object, you can use fully qualified names in your queries regardless of the current session’s database context, or ensure the `USE DATABASE` command has set the desired database before executing unqualified queries.
 6.	Can I use `USE DATABASE` within a transaction? 
 Yes, but it will only affect the database context for the duration of the transaction.
+
 
 ## Common Pitfalls: 
 •	Forgetting to switch back to the original database context after temporary changes can lead to unintended query executions against the wrong database.
