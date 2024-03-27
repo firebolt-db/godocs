@@ -242,7 +242,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ex_trip_data(
 )
 url = 's3://firebolt-publishing-public/samples/taxi/'
 object_pattern = '*yellow*2020*.csv'
-type = (CSV SKIP_HEADER_ROWS = 1);
+type = (CSV SKIP_HEADER_ROWS = TRUE);
 ```
 
 #### trip_data__create_table.sql
@@ -271,8 +271,8 @@ CREATE FACT TABLE IF NOT EXISTS my_taxi_trip_data(
    improvement_surcharge REAL,
    total_amount REAL,
    congestion_surcharge REAL
-   source_file_name TEXT,
-   source_file_timestamp TIMESTAMP
+   SOURCE_FILE_NAME TEXT,
+   SOURCE_FILE_TIMESTAMP TIMESTAMP
 ) PRIMARY INDEX vendorid;
 ```
 
@@ -302,8 +302,8 @@ SELECT
    improvement_surcharge,
    total_amount,
    congestion_surcharge,
-   source_file_name,
-   source_file_timestamp
+   $source_file_name,
+   $source_file_timestamp
 FROM ex_trip_data
-WHERE source_file_timestamp > (SELECT MAX(source_file_timestamp) FROM my_taxi_trip_data);
+WHERE $source_file_timestamp > (SELECT MAX($source_file_timestamp) FROM my_taxi_trip_data);
 ```

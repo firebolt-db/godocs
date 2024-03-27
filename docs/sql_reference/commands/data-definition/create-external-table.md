@@ -50,18 +50,22 @@ TYPE = (<type>)
 
 ### PARTITION
 
-In some applications, such as Hive partitioning, table partitions are stored in S3 folders and files using a folder naming convention that identifies the partition. The `PARTITION` keyword allows you to specify a regular expression, `<regex>`, to extract a portion of the file path and store it in the specified column when Firebolt uses the external table to ingest partitioned data.
+In some applications, such as Hive partitioning, files use a folder naming convention to identify which partition their data belongs to. 
+The `PARTITION` keyword allows you to specify a regular expression, `<regex>`, to extract a portion of the file path and store it in the specified column when Firebolt uses the external table to ingest partitioned data.
 
-Using `PARTITION` in this way is one method of extracting partition data from file paths. Another method is to use the table metadata column, `source_file_name`, during the `INSERT` operation. For more information, see [Example&ndash;extracting partition values using INSERT](../data-management/insert.md#extracting-partition-values-using-insert).
+Using `PARTITION` in this way is one method of extracting partition data from file paths. Another method is to use 
+the table metadata column, `$source_file_name`, during the `INSERT` operation. For more information, see [Example&ndash;extracting partition values using INSERT](../data-management/insert.md#extracting-partition-values-using-insert).
 
 #### Guidelines for creating the regex
 {: .no_toc}
 
 * The regular expression is matched against the object prefix, not including the `s3://<bucket_name>/` portion of the prefix.
 * You can specify as many `PARTITION` columns as you need, each extracting a different portion of the object prefix.
-* For each `PARTITION` column, you must specify a regular expression that contains a capturing group, which determines the column value.
-* When `<column_type>` is `DATE`, Firebolt requires three capturing groups that must be in the order of year, month, and day.
-* Firebolt tries to convert the captured string to the specified `<column_type>`. If the type conversion fails, a `NULL` is entered.
+* For each `PARTITION` column, you must specify a [re2 regular expression](https://github.com/google/re2/wiki/Syntax) 
+  that contains a capturing group, which determines the column value.
+* When `<column_type>` is `DATE`, Firebolt requires up to three capturing groups that must be in the order of year, month, and day.
+* When `<column_type>` is `TIMESTAMP`, Firebolt requires up to six capturing groups that must be in the order of year, month, day, hour, minute, second.
+* Firebolt tries to convert the captured string to the specified `<column_type>`. If the type conversion fails, the ingest will error out.
 
 In most cases, the easiest way to build a regular expression is as follows:
 
@@ -148,7 +152,12 @@ CREDENTIALS = (AWS_ROLE_ARN = '<arn' [AWS_ROLE_EXTERNAL_ID = '<external_ID'])
 
 ### URL and OBJECT_PATTERN
 
-The`URL`and`OBJECT_PATTERN`parameters are used together to match the set of files from within the specified bucket that you wish to include as the data for the external table. The S3 bucket that you reference must be in the same AWS Region as the Firebolt database.
+An external table enables reading some (or all) files from an S3 bucket that you have read access to. 
+Note that the S3 bucket that you reference must be in the same AWS Region as the Firebolt database.
+
+The`URL`and`OBJECT_PATTERN` parameters identify which files represent the data for the external table.`URL` must be a
+listable directory: it will be either an entire bucket or some subfolder. `OBJECT_PATTERN` is a glob that selects 
+files within the`URL`. 
 
 #### Syntax
 {: .no_toc}
@@ -199,9 +208,8 @@ Following are some common use cases for URL and object pattern combinations:
 
 | Use cases  | Syntax  |
 | :--- | :--- |
-| Get all files for file type xyz     | *URL = 's3://bucket/c_type=xyz/'* <br> *OBJECT_PATTERN = '\*'*     |
-|                                     | *URL = 's3://bucket/'<br>OBJECT_PATTERN = 'c_type=xyz/\*'*         |
-| Get one specific file: `c_type=xyz/year=2018/month=01/part-00001.parquet` | *URL = 's3://bucket/c_type=xyz/year=2018/month=01/'<br> OBJECT_PATTERN = 'c_type=xyz/year=2018/month=01/part-00001.parquet'<br> <br> URL = 's3://bucket/c_type=xyz/year=2018/month=01/'<br> OBJECT_PATTERN = '\*/part-00001.parquet'*<br><br>As can be seen in this example, the `URL` is used to get only the minimal set of files (c_type files in the bucket from January 2018), and then from within those matching files, the `OBJECT_PATTERN` is matched against the full path of the file (without the bucket name).  |
+| Get all files for file type xyz     | *URL = 's3://bucket/c_type=xyz/'* <br> *OBJECT_PATTERN = '\*'*  <br> <br>  *URL = 's3://bucket/'<br>OBJECT_PATTERN = 'c_type=xyz/\*'*         |
+| Get one specific file: `c_type=xyz/year=2018/month=01/part-00001.parquet` | *URL = 's3://bucket/c_type=xyz/year=2018/month=01/'<br> OBJECT_PATTERN = 'part-00001.parquet'|
 | Get all parquet files for type xyz  | *URL = 's3://bucket/c_type=xyz/'<br> OBJECT_PATTERN = '\*.parquet'*  |
 
 ### TYPE
@@ -247,8 +255,8 @@ With `NULL_CHARACTER = '<null_character>'` you can define which character is int
 * `[SKIP_BLANK_LINES {TRUE|FALSE}]`  
 With `SKIP_BLANK_LINES = TRUE` any blank lines encountered in the CSV input file will be skipped. By default, `SKIP_BLANK_LINES` is set to `FALSE`, and an error is generated if blank lines are enountered on ingest.
 
-* `[SKIP_HEADER_ROWS = {1|0}]`  
-With `SKIP_HEADER_ROWS = 1`, Firebolt assumes that the first row in each file read from S3 is a header row and skips it when ingesting data. When set to `0`, which is the default if not specified, Firebolt ingests the first row as data.  
+* `[SKIP_HEADER_ROWS = {TRUE|FALSE}]`  
+With `SKIP_HEADER_ROWS = TRUE`, Firebolt assumes that the first row in each file read from S3 is a header row and skips it when ingesting data. When set to `FALSE`, which is the default if not specified, Firebolt ingests the first row as data.  
 
 #### JSON Types
 * `TYPE = (JSON [PARSE_AS_TEXT = {'TRUE'|'FALSE'}])`  

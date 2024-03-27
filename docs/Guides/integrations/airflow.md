@@ -272,15 +272,16 @@ CREATE FACT TABLE IF NOT EXISTS my_taxi_trip_data(
    improvement_surcharge REAL,
    total_amount REAL,
    congestion_surcharge REAL
-   source_file_name TEXT,
-   source_file_timestamp TIMESTAMP
+   SOURCE_FILE_NAME TEXT,
+   SOURCE_FILE_TIMESTAMP TIMESTAMP
 ) PRIMARY INDEX vendorid;
 ```
 
 #### trip_data__process.sql
 {: .no_toc}
 
-An `INSERT INTO` operation that ingests data into the `my_taxi_trip_data` fact table using the `ex_trip_data` external table. The example uses the external table metadata column, `source_file_timestamp`, to retrieve records only from the latest file.
+An `INSERT INTO` operation that ingests data into the `my_taxi_trip_data` fact table using the `ex_trip_data` 
+external table. The example uses the external table metadata column, `$source_file_timestamp`, to retrieve records only from the latest file.
 
 ```sql
 INSERT INTO my_taxi_trip_data
@@ -303,8 +304,8 @@ SELECT
    improvement_surcharge,
    total_amount,
    congestion_surcharge,
-   source_file_name,
-   source_file_timestamp
+   $source_file_name,
+   $source_file_timestamp
 FROM ex_trip_data
-WHERE source_file_timestamp > (SELECT MAX(source_file_timestamp) FROM my_taxi_trip_data);
+WHERE $source_file_timestamp > (SELECT MAX($source_file_timestamp) FROM my_taxi_trip_data);
 ```
