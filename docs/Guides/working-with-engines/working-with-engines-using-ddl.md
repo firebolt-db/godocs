@@ -37,7 +37,7 @@ The following statement creates an engine with one cluster that has two nodes of
 
 ```sql
 CREATE ENGINE MyEngine WITH
-TYPE='M' NODES=2 CLUSTERS=1;
+TYPE="M" NODES=2 CLUSTERS=1;
 ```  
 
 For more details with a full list of attributes and more example, see the [CREATE ENGINE](../../sql_reference/commands/engines/create-engine.md) command.
@@ -155,6 +155,12 @@ Turn off the “Start engine immediately" toggle if you don’t want the engine 
  ```sql
 CREATE ENGINE my_prod_engine WITH 
 INITIALLY_STOPPED = true AUTO_STOP = 10;
+```
+
+You can also modify the AUTO_STOP of a running engine using the [ALTER ENGINE](../../sql_reference/commands/engines/alter-engine.md) command as shown in the example below:
+
+```sql
+ALTER ENGINE my_prod_engine SET AUTO_STOP = 30;
 ```
 
  **Note:** You can use the INITIALLY_STOPPED option only during engine creation. Once you create the engine, this option cannot be modified either via UI or API.
