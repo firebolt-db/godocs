@@ -7,6 +7,7 @@ parent: Work with engines
 grand_parent: Guides
 ---
 
+You can create, run, and modify engines from the UI or using SQL API. You can perform scaling operations dynamically without having to stop your engines.
 
 # Create Engines
 **UI** <br /> 
@@ -77,8 +78,8 @@ Note that stopping an engine results in emptying the cache. So, any queries afte
 <br />
 
 # Resizing an Engine
-**Scaling Up or Scaling Down** <br /> 
 {: .fs-7}
+**Scaling Up or Scaling Down** <br /> 
 You can dynamically scale up or scale down an engine by modifying the “TYPE” attribute of your engine. <br />
 {: .fs-6}
 **UI** <br />
@@ -101,9 +102,8 @@ ALTER ENGINE my_prod_engine SET TYPE = “M”;
 
 Note that nodes across all the clusters in the engine will be switched to using the ‘M’ type node after the successful execution of the above command.
 
-
-**Scaling Out or Scaling In** <br />
 {: fs-7}
+**Scaling Out or Scaling In** <br />
 You can dynamically scale out or scale in an engine by modifying the “NODES” attribute of your engine. <br />
 {: .fs-6}
 **UI** <br />
