@@ -40,7 +40,7 @@ New accounts get 600 Firebolt credits ($200+) to get started exploring with Fire
 
 
 ## Getting Started with Your First Database and Engine
-Embarking on your data journey with Firebolt begins with creating a *database* and a Firebolt *engine* which can be tailored to your specific workload needs. An engine in Firebolt is essentially the powerhouse, providing the compute resources dedicated to a database for executing tasks (see [Understanding Engines](https://special-disco-436d3e6a.pages.github.io/Overview/understanding-engine-fundamentals.html) to learn more). By default, every database is equipped with one general purpose engine capable of writing to the Firebolt file format (F3) for data ingestion and run analytics queries. We use that single-engine set up in this tutorial. For more information on using Firebolt engines, see [Work with engines](./working-with-engines/working-with-engines.md).
+Embarking on your data journey with Firebolt begins with creating a *database* and a Firebolt *engine* which can be tailored to your specific workload needs. An engine in Firebolt is essentially the powerhouse, providing the compute resources dedicated to a database for executing tasks (see [Understanding Engines](https://special-disco-436d3e6a.pages.github.io/Overview/understanding-engine-fundamentals.html) to learn more). By default, every database is equipped with one general purpose engine capable of writing to the Firebolt file format (F3) for both data ingestion and analytics queries. We use that single-engine set up in this tutorial. For more information on using Firebolt engines, see [Work with engines](./working-with-engines/working-with-engines.md).
 
 **Steps to Create Your Database and Engine:**
 1. Click the **+** next to **Databases** and click **Create new database**. Enter the name for your database in the **Database Name** field. For the purposes of this guide, we'll use "Tutorial_Database" as our database name.
@@ -71,7 +71,7 @@ SHOW DATABASES;
 {: .note}
 At this time, Firebolt may prompt you to initiate your engine if it's not already active. Select **Start Engine** to start your engine. Engine startup typically requires a few moments to complete, preparing your environment for data analysis.
 
-By following these steps, you've not only executed your first query but also successfully set the stage for more advanced data exploration. This is just the beginning of what's possible with Firebolt - let's start by adding some data. 
+By following these steps, you've not only executed your first query but also successfully set the stage for more advanced data exploration. This is just the beginning of what's possible with Firebolt - let's continue by adding some data. 
 
 ## Add Data
 For this tutorial we will explore adding data in two ways; 
