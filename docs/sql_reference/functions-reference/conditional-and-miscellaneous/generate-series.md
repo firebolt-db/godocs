@@ -1,6 +1,6 @@
 ---
 layout: default
-title: GENERATE_SERIES (Beta)
+title: GENERATE_SERIES
 description: Reference material for GENERATE_SERIES function
 grand_parent: SQL functions
 parent: Conditional and miscellaneous functions
