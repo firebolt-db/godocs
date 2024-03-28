@@ -42,7 +42,7 @@ The three attributes-  Type, Nodes and Clusters - together form the configuratio
 To create an engine, use the [CREATE ENGINE command](../sql_reference/commands/engines/create-engine.md), specifying the node type to be used for the engine, number of clusters and number of nodes per cluster. For example, the command below will create an engine with node type ‘S’,  one cluster and four nodes per cluster:
 
 CREATE ENGINE IF NOT EXISTS MyEngine WITH
-TYPE = S NODES=4 CLUSTERS=1;
+TYPE = M NODES=4 CLUSTERS=2;
 
 For a full list of engine attributes, see [CREATE ENGINE](../sql_reference/commands/engines/create-engine.md)
 
