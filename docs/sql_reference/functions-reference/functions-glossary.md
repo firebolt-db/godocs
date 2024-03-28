@@ -24,7 +24,6 @@ All Firebolt functions in alphabetical order.
 | [ARRAY_REVERSE](./array/array-reverse.md) | Returns an array of the same size and type as the original array, with the elements in reverse order. | Array |
 | [ARRAY_SORT](./Lambda/array-sort.md) | Returns the elements of the input array in ascending order. If the argument function is provided, the sorting order is determined by the result of applying the function on each element of the array. | Lambda |
 | [ARRAY_SUM](./Lambda/array-sum.md) | Returns the sum of elements of the input array. If the argument function is provided, the values of the array elements are converted by this function before summing. | Lambda |
-| [ARRAY_SUM_GLOBAL](./aggregate-array/array-sum-global.md) | Returns the sum of elements in the array column accumulated over the rows in each group. | Aggregate array |
 | [AVG](./aggregation/avg.md) | Calculates the average of an expression. | Aggregation |
 | [AVG OVER](./window/avg-window.md) | Returns the average value within the requested window. | Window |
 | [BTRIM](./string/btrim.md) | Removes all occurrences of optionally specified characters from both sides of a source string. If no trim parameter is specified, all occurrences of common whitespace (ASCII Decimal 32) characters from both sides of the specified source string are removed. | String |
@@ -41,7 +40,6 @@ All Firebolt functions in alphabetical order.
 | [DATE_ADD](./date-and-time/date-add.md) | Calculates a new date or timestamp by adding or subtracting a specified number of time units from an indicated expression. | Date & time |
 | [DATE_DIFF](./date-and-time/date-diff.md) | Calculates the difference between the start and end date by the indicated unit. | Date & time |
 | [DATE_TRUNC](./date-and-time/date-trunc.md) | Truncates a date or timestamp value to the selected precision. | Date & time |
-| [DECODE](./bytea/decode.md) | Decode binary data from a string. | Binary |
 | [ELEMENT_AT](./array/element-at.md) | Returns the element at a location index from the given array. Indexes in an array begin at position 1. | Array |
 | [EXTRACT](./date-and-time/extract.md) | Retrieves the time unit from a date or timestamp value. | Date & time |
 | [FLATTEN](./array/flatten.md) | Converts an array of arrays into a flat array. For every element that is an array, this function extracts its elements into the new array. | Array |
@@ -73,7 +71,6 @@ All Firebolt functions in alphabetical order.
 | [REGEXP_LIKE](./string/regexp-like.md) | Checks whether a text pattern matches a regular expression string. Returns 0 if it doesn’t match, or 1 if it matches. | String |
 | [REGEXP_MATCHES](./string/regexp-matches.md) | Returns an array that contains either the match or all defined subgroups of the first match of the regular expression pattern. Returns an empty array if the pattern does not match. | String |
 | [REGEXP_REPLACE](./string/regexp-replace.md) | Matches a pattern in the input string and replaces the first matched portion (from the left) with the specified replacement. | String |
-| [REPEAT](./string/repeat.md) | Repeats the provided string a requested number of times. | String |
 | [REPLACE](./string/replace.md) | Replaces all occurrences of the given pattern substring within the input expression with a replacement substring. | String |
 | [ROUND](./numeric/round.md) | Rounds a value to a specified number of decimal places. | Numeric |
 | [ROW_NUMBER](./window/row-number.md) | Returns a unique row number for each row within the requested window. | Window |
