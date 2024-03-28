@@ -3,6 +3,7 @@ layout: default
 title: URL_DECODE
 description: Reference material for URL_DECODE function
 parent: SQL functions
+published: false
 ---
 
 # URL\_DECODE

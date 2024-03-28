@@ -7,6 +7,7 @@ search_exclude: true
 grand_parent: SQL functions
 parent: String functions
 great_grand_parent: SQL reference
+published: false
 ---
 
 # BASE64\_ENCODE

@@ -5,6 +5,7 @@ description: Reference material for GEN_RANDOM_UUID function
 grand_parent: SQL functions
 parent: String functions
 great_grand_parent: SQL reference
+published: false
 ---
 
 # GEN\_RANDOM\_UUID
