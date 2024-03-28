@@ -9,9 +9,9 @@ nav_order: 3
 # Firebolt Engines
 {: .no_toc}
 
-In Firebolt, the compute resources used to process data and serve queries are called Engines, which will be used to ingest data into Firebolt and to execute DML queries on the ingested data. 
+ Engines are compute resources used to process data and serve queriesin Firebolt. Engines will be used to ingest data into Firebolt and to execute DML queries on the ingested data. 
 
-Engines provide full workload isolation, enabling multiple workloads to run independent of each other while sharing access to the same data. In addition, engines are fully decoupled from databases, meaning an engine can be used with multiple databases and a given database can be used with multiple engines.
+Firebolt Engines provide full workload isolation, enabling multiple workloads to run independent of each other while sharing access to the same data. In addition, engines are fully decoupled from databases, meaning an engine can be used with multiple databases and a given database can be used with multiple engines.
 
 Firebolt engines can be started, stopped and modified at any time using SQL API. In addition, you can dynamically modify the configuration of engines depending on the needs of your workloads without stopping the engines.
 
