@@ -14,7 +14,7 @@ You can use a SET statement in a SQL script to configure aspects of Firebolt sys
 
 ## Set time zone
 
-Use this setting to specify the session time zone. Time zone names are from the [tz database](http://www.iana.org/time-zones) (see the [list of tz database time zones](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones)). The default value of the `time_zone` setting is UTC. For times in the future, the latest known rule for the given time zone is applied. Firebolt does not support time zone abbreviations, as they cannot account for daylight savings time transitions, and some time zone abbreviations meant different UTC offsets at different times.
+Use this setting to specify the session time zone. Time zone names are from the [tz database](http://www.iana.org/time-zones) (see the [list of tz database time zones](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones)). For times in the future, the latest known rule for the given time zone is applied. Firebolt does not support time zone abbreviations, as they cannot account for daylight savings time transitions, and some time zone abbreviations meant different UTC offsets at different times. The default value of the `time_zone` setting is UTC. 
 
 ### Syntax
 
@@ -40,13 +40,10 @@ SELECT TIMESTAMPTZ '2023-1-29Z';  --> 2023-01-29 02:00:00+02
 
 ## Enable parsing for literal strings
 
-<<<<<<< HEAD
-When set to `true`, strings are parsed without escaping, treating backslashes literally. By default this is disabled, and the `\` character is recognized as an escape character.
+When set to `true`, strings are parsed without escaping, treating backslashes literally. By default, this setting is enabled. 
+
 
 ### Syntax
-=======
-When set to `true`, strings are parsed without escaping, treating backslashes literally. By default, this setting is enabled. 
->>>>>>> livesite/gh-pages
 
 {: .no_toc}
 
@@ -60,41 +57,15 @@ SET standard_conforming_strings = [true|false]
 
 ```sql
 SET standard_conforming_strings = false;
-SELECT '\x3132'; -> 132
+SELECT '\x3132'; --> 132
 
 SET standard_conforming_strings = true;
-SELECT '\x3132'; -> \x3132
+SELECT '\x3132'; --> \x3132
 ```
 
-<<<<<<< HEAD
-## Enable exact COUNT (DISTINCT)
-
-When set to false (`0`), the [COUNT (DISTINCT)](../sql_reference/functions-reference/aggregation/count.md) function returns approximate results, using an estimation algorithm with an average deviation under 2%. This is the default to optimize query performance. When set to true (`1`), the function returns an exact count, which can slow query performance.
-
-{: .note}
-This function can be used in [Aggregating Indexes](..using-indexes/using-aggregating-indexes.html#using-aggregating-indexes). When asking Support to permanently change the setting, it will be necessary to drop and recreate any aggregating indexes that use the the COUNT(DISTINCT) aggregation after the change is made. That will allow the aggregation values to be calculated with the new setting.
-
-### Syntax
-
-{: .no_toc}
-
-```sql
-firebolt_optimization_enable_exact_count_distinct = [false|true]
-```
-
-### Example
-
-{: .no_toc}
-
-```sql
-SET firebolt_optimization_enable_exact_count_distinct = true;
-```
-
-=======
->>>>>>> livesite/gh-pages
 ## Limit the number of result rows
 
-When set to a value greater than zero, this setting limits the number of rows returned by `SELECT` statements. The query is executed as if an additional `LIMIT` clause is added to the SQL query. The default value is zero.
+When set to a value greater than zero, this setting limits the number of rows returned by `SELECT` statements. The query is executed as if an additional `LIMIT` clause is added to the SQL query. A value of zero or less means that no limit is applied. By default, no limit to the number of result rows is applied.
 
 ### Syntax
 
@@ -106,13 +77,17 @@ SET max_result_rows = <integer>;
 
 ### Example
 
+{: .no_toc}
+
 ```sql
+-- The following queries all return the same result. For the first query, no
+-- explicit settings are set.
+SELECT * FROM table LIMIT 10000;
+
 SET max_result_rows = 10000;
 SELECT * FROM table;
-```
 
-is equivalent to
+SET max_result_rows = 10000;
+SELECT * FROM table LIMIT 20000;
 
-```sql
-SELECT * FROM table LIMIT 10000;
 ```
