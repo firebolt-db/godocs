@@ -30,7 +30,7 @@ UPDATE <table> SET <column1> = <expression1> [, <column2> = <expression2> ...] W
 ## Remarks
 {: .no_toc}
 
-Updated rows are marked for deletion, but are not automatically cleaned up. You can monitor fragmentation in `information_schema.tables` to understand how many rows are marked for deletion out of total rows; fragmentation = (rows marked for deletion / total rows). Total row count in `information_schema.tables` includes the number of rows marked for deletion. Query performance is not materially impacted by delete marks.
+Updated rows are marked for deletion, but are not automatically cleaned up. You can monitor fragmentation in `information_schema.tables` to understand how many rows are marked for deletion out of total rows; fragmentation = (rows marked for deletion / total rows). Total row count in `information_schema.tables` excludes the number of rows marked for deletion. Query performance is not materially impacted by delete marks.
   
 To mitigate fragmentation, use the [`VACUUM`](vacuum.md) command to manually clean up deleted rows.
 
