@@ -14,31 +14,22 @@ All Firebolt functions in alphabetical order.
 |:----------- |:------------------------------------------------ |:-------|
 | [ABS](./numeric/abs.md) | Calculates the absolute value of an input value. | Numeric |
 | [ACOS](./numeric/acos.md) | Calculates the arc cosine of a value. Returns NULL if the input value is higher than 1. | Numeric |
-| [ALL_MATCH](./Lambda/all-match.md) | Returns 1 (true) when the condition evaluated on all elements of an array evaluate to true. Returns 0 (false) when any one comparison evaluates to false. | Lambda |
 | [ANY_MATCH](./Lambda/any-match.md) | Returns 1 if at least one of the elements of an array matches the results of the function provided. Otherwise returns 0. | Lambda |
-| [ANY_VALUE (ANY)](./aggregation/any_value.md) | Returns a single arbitrary value from the specified column. | Aggregation |
-| [APPROX_COUNT_DISTINCT](./aggregation/approx-count-distinct.md) | Counts the approximate number of unique or not NULL values. | Aggregation |
 | [APPROX_PERCENTILE](./aggregation/approx-percentile.md) | Returns an approximate value for the specified percentile based on the range of numbers returned by the input expression. | Aggregation |
-| [ARRAY_AGG](./aggregate-array/array-agg.md) | Concatenates input values into an array. | Aggregate array |
 | [ARRAY_CONCAT](./array/array-concat.md) | Combines one or more arrays that are passed as arguments. | Array |
 | [ARRAY_COUNT](./Lambda/array-count.md) | Counts the number of elements in a boolean array for which `function(array[i])` evaluates to true, if a function is provided. If not provided, counts the number of elements in the array that evaluate to true. | Lambda |
 | [ARRAY_COUNT_DISTINCT](./array/array-count-distinct.md) | Returns the number of distinct elements in the array, excluding NULLs. | Array |
-| [ARRAY_COUNT_GLOBAL](./aggregate-array/array-count-global.md) | Returns the number of elements in the array column accumulated over all rows. | Aggregate array |
 | [ARRAY_CUMULATIVE_SUM](./Lambda/array-cumulative-sum.md) | Returns an array of partial sums of elements from the source array (a cumulative sum). If a function input is provided, the values of the array elements are converted by this function before summing. | Lambda |
 | [ARRAY_DISTINCT](./array/array-distinct.md) | Returns an array containing only the _unique_ elements of the given array. | Array |
 | [ARRAY_FILL](./Lambda/array-fill.md) | Scans through the given array from the first to the last element and replaces `array[i]` with `array[i - 1]` if the input function returns 0. | Lambda |
-| [ARRAY_FIRST](./Lambda/array-first.md) | Returns the first element in the given array for which the given function returns something other than 0. | Lambda |
-| [ARRAY_FIRST_INDEX](./Lambda/array-first-index.md) | Returns the index of the first element in the indicated array for which the given function returns something other than 0. Index counting starts at 1. | Lambda |
 | [ARRAY_INTERSECT](./array/array-intersect.md) | Evaluates all arrays that are provided as arguments and returns an array of any elements that are present in all the arrays. | Array |
 | [ARRAY_JOIN (ARRAY_TO_STRING)](./array/array-join.md) | Concatenates an array of string elements using an optional delimiter. | Array |
 | [ARRAY_LENGTH](./array/array-length.md) | Returns the length of (number of elements in) the given array. | Array |
 | [ARRAY_MAX](./array/array-max.md) | Returns the maximum element in an array. | Array |
-| [ARRAY_MAX_GLOBAL](./aggregate-array/array-max-global.md) | Returns the maximum element from all the array elements in each group. | Aggregate array |
 | [ARRAY_MIN](./array/array-min.md) | Returns the minimum element in an array. | Array |
 | [ARRAY_MIN_GLOBAL](./aggregate-array/array-min-global.md) | Returns the minimum element taken from all the array elements in each group. | Aggregate array |
 | [ARRAY_REPLACE_BACKWARDS](./Lambda/array-replace-backwards.md) | Scans an array from the last to the first element and replaces each of the elements in that array with `array[i + 1]` if the specified function returns 0. The last element of the array is not replaced. | Lambda |
 | [ARRAY_REVERSE](./array/array-reverse.md) | Returns an array of the same size and type as the original array, with the elements in reverse order. | Array |
-| [ARRAY_SLICE](./array/array-slice.md) | Returns a slice of the array based on the indicated offset and length. | Array |
 | [ARRAY_SORT](./Lambda/array-sort.md) | Returns the elements of the input array in ascending order. If the argument function is provided, the sorting order is determined by the result of applying the function on each element of the array. | Lambda |
 | [ARRAY_SUM](./Lambda/array-sum.md) | Returns the sum of elements of the input array. If the argument function is provided, the values of the array elements are converted by this function before summing. | Lambda |
 | [ARRAY_SUM_GLOBAL](./aggregate-array/array-sum-global.md) | Returns the sum of elements in the array column accumulated over the rows in each group. | Aggregate array |
@@ -51,13 +42,10 @@ All Firebolt functions in alphabetical order.
 | [CASE](./conditional-and-miscellaneous/case.md) | Conditional expression similar to if-then-else statements. | Conditional & miscellaneous |
 | [CAST](./conditional-and-miscellaneous/cast.md) | Converts data types into other data types based on specified parameters. | Conditional & miscellaneous |
 | [CBRT](./numeric/cbrt.md) | Returns the cubic-root of a non-negative numeric expression. | Numeric |
-| [CEIL (CEILING)](./numeric/ceil.md) | Returns the smallest value that is greater than or equal to the input value. | Numeric |
 | [CHECKSUM](./aggregation/checksum.md) | Calculates a hash value known as a checksum operation on a list of arguments. | Aggregation |
-| [CITY_HASH](./conditional-and-miscellaneous/city_hash.md) | Takes one or more input parameters of any data type and returns a 64-bit non-cryptographic hash value. | Conditional & miscellaneous |
 | [COALESCE](./conditional-and-miscellaneous/coalesce.md) | Checks from left to right for the first non-NULL argument found for each entry parameter pair. | Conditional & miscellaneous |
 | [CONCAT or \|\|](./string/concat.md) | Concatenates the strings listed in the input without a separator. | String |
 | [CONTAINS](./array/contains.md) | Returns 1 if a specified argument is present in the array, or 0 otherwise. | Array |
-| [COS](./numeric/cos.md) | Trigonometric function that calculates the cosine of a specific value. | Numeric |
 | [COT](./numeric/cot.md) | Calculates the cotangent. | Numeric |
 | [COUNT](./aggregation/count.md) | Counts the number of rows or not NULL values. | Aggregation |
 | [COUNT OVER](./window/count-window.md) | Count the number of values within the requested window. | Window |
@@ -69,16 +57,13 @@ All Firebolt functions in alphabetical order.
 | [DATE_TRUNC](./date-and-time/date-trunc.md) | Truncates a date or timestamp value to the selected precision. | Date & time |
 | [DECODE](./bytea/decode.md) | Decode binary data from a string. | Binary |
 | [DEGREES](./numeric/degrees.md) | Converts a value in radians to degrees. | Numeric |
-| [DENSE_RANK](./window/dense-rank.md) | Rank the current row within the requested window. | Window |
 | [ELEMENT_AT](./array/element-at.md) | Returns the element at a location index from the given array. Indexes in an array begin at position 1. | Array |
 | [ENCODE](./bytea/encode.md) | Encode binary data into a string. | Binary |
 | [EXP](./numeric/exp.md) | Returns the `REAL` value of the constant _e_ raised to the power of a specified number. | Numeric |
 | [EXTRACT](./date-and-time/extract.md) | Retrieves the time unit from a date or timestamp value. | Date & time |
 | [EXTRACT_ALL](./string/extract-all.md) | Extracts fragments within a string that match a specified regex pattern. String fragments that match are returned as an array of strings. | String |
-| [FILTER](./Lambda/filter.md) | Returns an array containing the elements from the input array for which the given Lambda function returns something other than 0. The function can receive one or more arrays as its arguments. When multiple arrays are provided to the function, the function will evaluate the current elements from each array as its parameter. | Lambda |
 | [FIRST_VALUE](./window/first-value.md) | Returns the first value evaluated in the specified window frame. If there are no rows in the window frame, returns NULL. | Window |
 | [FLATTEN](./array/flatten.md) | Converts an array of arrays into a flat array. For every element that is an array, this function extracts its elements into the new array. | Array |
-| [FLOOR](./numeric/floor.md) | Returns the largest round number that is less than or equal to the input value. | Numeric |
 | [GEN_RANDOM_UUID](./string/gen-random-uuid.md) | Returns a version 4 universally unique identifier (UUID) according to RFC-4122. | String |
 | [GENERATE_SERIES](./conditional-and-miscellaneous/generate-series.md) | Generates a single rowset of values from `start` to `stop`, with a step size of `step` - a table-valued function. | Conditional & miscellaneous |
 | [HLL_COUNT_DISTINCT](./aggregation/hll-count-distinct.md) | Counts the approximate number of unique or not NULL values, to the precision specified. | Aggregation |
@@ -107,7 +92,6 @@ All Firebolt functions in alphabetical order.
 | [MEDIAN](./aggregation/median.md) | Calculates an approximate median for a given column. | Aggregation | 
 | [MIN](./aggregation/min.md) | Calculates the minimum value of an expression across all input values. | Aggregation |
 | [MIN OVER](./window/min-window.md) | Returns the maximum value within the requested window. | Window | 
-| [MIN_BY](./aggregation/min-by.md) | Returns the value of the specified input column at the row with the minimum value in the specified value column. | Aggregation | 
 | [MOD](./numeric/mod.md) | Calculates the remainder after dividing two values. | Numeric |
 | [NTH_VALUE](./window/nth-value.md) | Returns the value evaluated of the nth row of the specified window frame (starting at the first row). If the specified row does not exist, NTH_VALUE returns NULL. | Window | 
 | [NTILE](./window/ntile.md) | Divides an ordered data set equally into the number of buckets specified by the argument value. Buckets are sequentially numbered 1 through the argument value. | Window | 
@@ -120,7 +104,6 @@ All Firebolt functions in alphabetical order.
 | [PERCENTILE_DISC OVER](./window/percentile-disc-window.md) | Returns a percentile over a partition for an ordered data set. The result is equal to a specific column value, the smallest distributed value that is greater than or equal to the percentile specified. | Window |
 | [PI](./numeric/pi.md) | Calculates π as a `REAL` value. | Numeric |
 | [POW (POWER)](./numeric/pow.md) | Returns a number raised to the specified power. | Numeric |
-| [RADIANS](./numeric/radians.md) | Converts degrees to radians as a `REAL` value. | Numeric |
 | [RANDOM](./numeric/random.md) | Returns a pseudo-random unsigned value greater than 0 and less than 1 of type `DOUBLE PRECISION`. | Numeric |
 | [RANK](./window/rank.md) | Rank the current row within the requested window with gaps. | Window |
 | [REGEXP_EXTRACT](./string/regexp-extract.md) | Returns the first match of a pattern within the input expression. If the pattern does not match, returns NULL. | String |
@@ -150,9 +133,7 @@ All Firebolt functions in alphabetical order.
 | [TO_TIMESTAMP](./date-and-time/to-timestamp.md) | Converts a string to timestamp with time zone. | Date & time |
 | [TRANSFORM](./Lambda/transform.md) | Returns an array by applying the specified on each element of the input array. | Lambda |
 | [TRIM](./string/trim.md) | Removes all specified characters from the start, end, or both sides of a string. By default removes all consecutive occurrences of common whitespace (ASCII character 32) from both ends of a string. | String |
-| [TRUNC](./numeric/trunc.md) | Returns the rounded absolute value of a numeric value. The returned value will always be rounded to less than the original value. | Numeric |
 | [TRY_CAST](./conditional-and-miscellaneous/try-cast.md) | Converts data types into other data types based on the specified parameters. If the conversion cannot be performed, returns a NULL. | Conditional & miscellaneous |
 | [UPPER](./string/upper.md) | Converts the input string to uppercase characters. | String |
-| [URL_DECODE](./string/url_decode.md) | Decodes percent-encoded characters and replaces them with their binary value. | String |
 | [URL_ENCODE](./string/url_encode.md) | Encodes all characters that are not unreserved using percent-encoding. | String |
 | [VERSION](./conditional-and-miscellaneous/version.md) | Returns the version number information for the Firebolt engine. | Conditional & miscellaneous |
