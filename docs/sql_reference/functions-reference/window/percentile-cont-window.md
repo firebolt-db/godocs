@@ -5,6 +5,7 @@ description: Reference material for PERCENTILE_CONT window function
 grand_parent: SQL functions
 parent: Window functions
 great_grand_parent: SQL reference
+published: false
 ---
 
 # PERCENTILE_CONT

@@ -5,6 +5,7 @@ description: Reference material for SPLIT function
 grand_parent: SQL functions
 parent: String functions
 great_grand_parent: SQL reference
+published: false
 ---
 
 # SPLIT
