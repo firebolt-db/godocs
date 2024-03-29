@@ -99,7 +99,7 @@ If an `INSERT` statement fails or a client is disconnected, Firebolt might inges
 * Before running any queries, first check to make sure that the `INSERT` query has completed. This can be done by viewing the information schema through the [`running_queries`](../../information-schema/running-queries.md) view:
 
 ```sql
-SELECT * FROM information_schema.running_queries
+SELECT * FROM information_schema.engine_running_queries
 ```
 
 You should see results similar to those shown below.
