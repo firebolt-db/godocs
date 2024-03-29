@@ -40,13 +40,24 @@ Embarking on your data journey with Firebolt begins with creating a *database* a
 
 
 **Steps to Create Your Database and Engine:**
-1. Click the **+** next to **Databases** and click **Create new database**. Enter the name for your database in the **Database Name** field. For the purposes of this guide, we'll use "Tutorial_Database" as our database name.
+1. Click the **+** next to **Databases**
+![image](https://github.com/firebolt-analytics/firebolt-docs-staging/assets/9532728/c3b90bc7-5d9d-4ef5-8dc5-61e2d14d048a)
 
-[ADD IMAGE]
+2. Click **Create new database**. 
+![image](https://github.com/firebolt-analytics/firebolt-docs-staging/assets/9532728/192ed3a0-811f-46a5-a95d-845ad0557558)
 
-2. Click the **+** next to **Databases** again and click **Create new engine**. Enter the name of your engine in the **New engine name** field. For the purposes of this guide, we'll use "Tutorial_Engine" as our engine name. 
+3. Enter the name for your database in the **Database Name** field. For the purposes of this guide, we'll use "Tutorial_Database" as our database name.
+![image](https://github.com/firebolt-analytics/firebolt-docs-staging/assets/9532728/95fd38aa-4533-44a1-893a-4b14c49f274f)
 
-[ADD IMAGE]
+
+4. Click the **+** next to **Databases** again.
+![image](https://github.com/firebolt-analytics/firebolt-docs-staging/assets/9532728/c3b90bc7-5d9d-4ef5-8dc5-61e2d14d048a)
+
+5. Click **Create new engine**.
+![image](https://github.com/firebolt-analytics/firebolt-docs-staging/assets/9532728/fb932444-d246-45e1-ba50-1937788d9aad)
+
+6. Enter the name of your engine in the **New engine name** field. For the purposes of this guide, we'll use "Tutorial_Engine" as our engine name.
+![image](https://github.com/firebolt-analytics/firebolt-docs-staging/assets/9532728/c4e19be7-d880-442b-9570-5887eddef3f2)
 
 {: .note}
 The default configuration is a small node. This will be more than enough for this tutorial. 
@@ -86,9 +97,11 @@ An *external table* is a special, virtual table that serves as a connector to yo
 Although it's possible, we don't recommend running analytics queries on external tables. For more information on working with external tables, see [Work with external tables](https://special-disco-436d3e6a.pages.github.io/Guides/loading-data/working-with-external-tables.html).
 
 **Creating Your External Table:**
-1. Choose the plus symbol (**+**) next to **Script 2** to create a new script tab, **Script 3**, in the SQL workspace.
+1. Choose the plus symbol (**+**) next to script tab to create a new script tab in the SQL workspace.
 
-2. Copy and paste the query below into the **Script 3** tab.
+![image](https://github.com/firebolt-analytics/firebolt-docs-staging/assets/9532728/d5309d2b-70d3-4901-9321-6d57c0cf0665)
+
+2. Copy and paste the query below into the new tab.
 
 ```sql
 CREATE EXTERNAL TABLE IF NOT EXISTS ex_levels (
@@ -122,13 +135,14 @@ TYPE = (CSV SKIP_HEADER_ROWS = 1);
 {: .note} 
 'URL =' specifies the data source in S3. All files in the location that match the 'OBJECT_PATTERN' and will be processed during ingestion. 'CREDENTIALS =' specify a role or AWS key credentials with permission to read from the S3 location. These credentials are commented out for this tutorial because the bucket is publicly accessible.
 
-3. Click **Run Script**.  
-Firebolt creates the external table. When finished, the external table `ex_levels` appears on the object panel of the database.  
-![](../assets/images/exlevels.png) 
+3. Click **Run**. When completed the external table `ex_levels` appears on the object panel of the database.  
 
-[NEEDS UPDATED SCREENSHOTS]
+![image](https://github.com/firebolt-analytics/firebolt-docs-staging/assets/9532728/4957ede5-d9e9-47b5-b550-77f6a2be8f77)
 
-4. Choose the vertical ellipses next to **Script 3**, choose **Rename script**, enter a name (for example, *MyExTableScript*) and then press ENTER to update the name.
+5. [Optional] Choose the vertical ellipses next to script, choose **Rename script**, enter a name (for example, *MyExTableScript*) and then press ENTER to update the name.
+
+![image](https://github.com/firebolt-analytics/firebolt-docs-staging/assets/9532728/ea7359d0-3815-42a1-9823-61923faf19dc)
+![image](https://github.com/firebolt-analytics/firebolt-docs-staging/assets/9532728/207e9595-40f8-4d1f-910f-0a0e685843be)
 
 #### Step 2: Create a Fact Table
 In this step, you'll create a Firebolt fact table called `levels`, which you use in the next step as the target for an `INSERT INTO` command. 
@@ -165,11 +179,7 @@ CREATE FACT TABLE IF NOT EXISTS levels
 PRIMARY INDEX LevelID;
 ```  
 
-3. Click **Run Script**.  
-Firebolt creates the fact table. When finished, the table `levels` appears on the object panel of the database.  
-![](../assets/images/createfacttable.png)
-
-[NEEDS UPDATED SCREENSHOTS]
+3. Click **Run Script**. When finished, the table `levels` appears on the object panel of the database.  
 
 #### Step 3: Use INSERT INTO to ingest data
 You can now use the `INSERT INTO` command to copy the data from the external table into the fact table. During this operation, Firebolt ingests the data from your source into Firebolt.
