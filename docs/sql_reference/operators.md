@@ -42,19 +42,22 @@ SELECT col_a::BIGINT;
 
 ## Arithmetic (numbers)
 
-| Operator | Operator description                             | Example             | Result |
-| :-------- | :------------------------------------------------ | :------------------- | :------ |
-| +        | addition                                         | `SELECT 2 + 3;`     | 5      |
-| -        | subtraction                                      | `SELECT 2 - 3;`     | -1     |
-| \*       | multiplication                                   | `SELECT 2 * 3;`     | 6      |
-| /        | division (integer division truncates the result) | `SELECT 4 / 2;`     | 2      |
-| %        | modulo (remainder)                               | `SELECT 5 % 4;`     | 1      |
-| ^        | exponentiation                                   | `SELECT 2.0 ^ 3.0;` | 8      |
-
-The result data type of arithmetic operators `+`,`-`,`*`,`/` is the common type of the input data types.
-For example: `INTEGER`, `INTEGER <op> BIGINT = BIGINT`, `INTEGER <op> REAL = DOUBLE PRECISION`.
-
-Overflow checks and floating point errors are applied according to the result data type only.
+| Operator | Operator description                             |Input Data Types | Output Data Types | Example             | Result |
+| :-------- | :------------------------------------------------| :-----------------------------------------------| :------------------ | :------------------- | :------ |
+| +        | addition                                         | INTEGER, BIGINT, NUMERIC, REAL, DOUBLE PRECISION | Corresponding type | `SELECT 2 + 3;`     | 5      |
+| -        | subtraction                                      | INTEGER, BIGINT, NUMERIC, REAL, DOUBLE PRECISION | Corresponding type | `SELECT 2 - 3;`     | -1     |
+| \*       | multiplication                                   | INTEGER, BIGINT, NUMERIC, REAL, DOUBLE PRECISION | Corresponding type | `SELECT 2 * 3;`     | 6      |
+| /        | division (integer division truncates the result) | INTEGER, BIGINT, NUMERIC, REAL, DOUBLE PRECISION | Corresponding type | `SELECT 4 / 2;`     | 2      |
+| %        | modulo (remainder)                               | INTEGER, BIGINT, NUMERIC, REAL, DOUBLE PRECISION | Corresponding type | `SELECT 5 % 4;`     | 1      |
+| ^        | exponentiation                                   | INTEGER, BIGINT, NUMERIC, REAL, DOUBLE PRECISION | DOUBLE PRECISION | `SELECT 2 ^ 3.0;` | 8      |
+  
+In arithmetic operations like +, -, *, and / , the result's data type aligns with the most encompassing type of the operands indicated as " Corresponding type" in the table above. For clarity:
+- When both operands are of the same data type (e.g., two INTEGERs or two NUMERICs), the result will also be of that same data type.
+   - `INTEGER <op> INTEGER = INTEGER`
+   - `INTEGER <op> BIGINT = BIGINT` 
+- For operations involving two different numeric data types, the result will typically be of the more precise or larger data type.
+   - `INTEGER <op> REAL = DOUBLE PRECISION`
+- Overflow checks and floating point errors are applied according to the result data type only.
 
 {: .note}
 > Floating point note:
