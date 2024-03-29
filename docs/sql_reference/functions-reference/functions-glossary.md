@@ -28,7 +28,6 @@ All Firebolt functions in alphabetical order.
 | [AVG](./aggregation/avg.md) | Calculates the average of an expression. | Aggregation |
 | [AVG OVER](./window/avg-window.md) | Returns the average value within the requested window. | Window |
 | [BTRIM](./string/btrim.md) | Removes all occurrences of optionally specified characters from both sides of a source string. If no trim parameter is specified, all occurrences of common whitespace (ASCII Decimal 32) characters from both sides of the specified source string are removed. | String |
-| [CASE](./conditional-and-miscellaneous/case.md) | Conditional expression similar to if-then-else statements. | Conditional & miscellaneous |
 | [CAST](./conditional-and-miscellaneous/cast.md) | Converts data types into other data types based on specified parameters. | Conditional & miscellaneous |
 | [CHECKSUM](./aggregation/checksum.md) | Calculates a hash value known as a checksum operation on a list of arguments. | Aggregation |
 | [COALESCE](./conditional-and-miscellaneous/coalesce.md) | Checks from left to right for the first non-NULL argument found for each entry parameter pair. | Conditional & miscellaneous |
