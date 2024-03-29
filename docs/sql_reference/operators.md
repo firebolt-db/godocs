@@ -99,7 +99,7 @@ WHERE
   Price >= 100;
 ```
 
-## INTERVAL for date and time
+## Date and time arithmetic 
 
 Use the `INTERVAL` operator to add to or subtract from a period of time in `DATE`, `TIME`, or `TIMESTAMP` data types.
 
@@ -140,13 +140,13 @@ SELECT 'This' || ' is' || ' a' || ' double pipe' || ' concantenation.' AS concat
 
 ## Subquery operators
 
-Subqueries are queries contained within other queries. They are typically used as part of a `WHERE` clause to return entries based on the existence or absence of a condition.
+Subqueries are queries nested within another query. They allow complex data retrieval by enabling a query to filter results based on the outcome of another query. Subquery operators are crucial in constructing these nested queries, especially within the WHERE clause, to filter data based on specific conditions.
 
 | Operator     | Explanation                                                                                                                                        |
 | :------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `EXISTS`     | The `EXISTS` operator is used to check for the existence of any record in a subquery. It returns TRUE if the subquery returns one or more records. |
-| `NOT EXISTS` | The `NOT EXISTS` operator returns TRUE if the underlying subquery returns no record.                                                                 |
-| `IN`         | The `IN` operator is used to check whether a value matches any value in a list.                                                                    |
+| `EXISTS`     | The `EXISTS` operator is used to check for the existence of any record in a subquery. It returns TRUE if the subquery returns one or more records. The subquery within EXISTS is executed repeatedly, once for each row that might be selected by the outer query. If the subquery returns any row, the EXISTS condition is met, and the outer query processing continues for that row. |
+| `NOT EXISTS` | It is opposite of EXISTS and is used to find records in one table that have no related records in another table. If the subquery returns no rows, NOT EXISTS returns TRUE.                                                                |
+| `IN`         | The `IN` operator checks if a specific value is present in a list of values or the results of a subquery. Commonly utilized in a `WHERE` clause, it compares a column's value against a predefined set. When the column's value matches any value in this set, `IN` yields `TRUE`.                                                                    |
 | `NOT IN`     | Retrieve all entries from the value list that don't match the required value.                                                                      |
 
 ### Example&ndash;using EXISTS to find all suppliers with products equal to the price of 22
