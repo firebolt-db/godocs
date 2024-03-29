@@ -17,6 +17,7 @@ All Firebolt functions in alphabetical order.
 | [ARRAY_CONCAT](./array/array-concat.md) | Combines one or more arrays that are passed as arguments. | Array |
 | [ARRAY_COUNT](./Lambda/array-count.md) | Counts the number of elements in a boolean array for which `function(array[i])` evaluates to true, if a function is provided. If not provided, counts the number of elements in the array that evaluate to true. | Lambda |
 | [ARRAY_DISTINCT](./array/array-distinct.md) | Returns an array containing only the _unique_ elements of the given array. | Array |
+| [ARRAY_FLATTEN](./array/flatten.md) | Converts an array of arrays into a flat array. For every element that is an array, this function extracts its elements into the new array. | Array |
 | [ARRAY_JOIN (ARRAY_TO_STRING)](./array/array-join.md) | Concatenates an array of string elements using an optional delimiter. | Array |
 | [ARRAY_LENGTH](./array/array-length.md) | Returns the length of (number of elements in) the given array. | Array |
 | [ARRAY_MAX](./array/array-max.md) | Returns the maximum element in an array. | Array |
@@ -42,7 +43,6 @@ All Firebolt functions in alphabetical order.
 | [DATE_TRUNC](./date-and-time/date-trunc.md) | Truncates a date or timestamp value to the selected precision. | Date & time |
 | [ELEMENT_AT](./array/element-at.md) | Returns the element at a location index from the given array. Indexes in an array begin at position 1. | Array |
 | [EXTRACT](./date-and-time/extract.md) | Retrieves the time unit from a date or timestamp value. | Date & time |
-| [FLATTEN](./array/flatten.md) | Converts an array of arrays into a flat array. For every element that is an array, this function extracts its elements into the new array. | Array |
 | [GENERATE_SERIES](./conditional-and-miscellaneous/generate-series.md) | Generates a single rowset of values from `start` to `stop`, with a step size of `step` - a table-valued function. | Conditional & miscellaneous |
 | [IFNULL](./conditional-and-miscellaneous/ifnull.md) | Compares two expressions. Returns the first input expression if it’s non-NULL, otherwise returns the second. | Conditional & miscellaneous |
 | [ILIKE](./string/ilike.md) | Allows matching of strings based on comparison to a pattern, case-insensitively. | String |
