@@ -31,11 +31,11 @@ Synonyms: `LONG`, `INT8`.
 
 ### REAL
 A floating-point number that has six decimal-digit precision. Decimal (fixed point) types are not supported. `REAL` data types require 4 bytes of storage.
-Synonyms: `FLOAT`, `FLOAT4`.
+Synonyms: `FLOAT4`.
 
 ### DOUBLE PRECISION
 A floating-point number that has 15 decimal-digit precision. Decimal (fixed point) types are not supported. `DOUBLE` data types require 8 bytes.
-Synonyms: `DOUBLE`, `FLOAT8`, `FLOAT(p)` where 25 <= p <= 53.
+Synonyms: `DOUBLE`, `FLOAT`, `FLOAT8`, `FLOAT(p)` where 25 <= p <= 53.
 
 ## String
 
