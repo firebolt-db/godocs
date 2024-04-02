@@ -18,13 +18,14 @@ For those seeking a more interactive learning experience, we invite you to join 
 ## Create a Firebolt Account
 1. Select 'Get Started' after completing the registration form at [go.firebolt.io](go.firebolt.io)
 
-![GetStarted](../assets/images/GetStarted.png)
+<img src="../assets/images/GetStarted.png" alt="Get Started" width="500"/>
 
 2. Select 'Verify' on the confirmation email you recieve. You should see a verified screen.
-![Verified](../assets/images/Verified.png)
 
-4. Type in your email and password and click 'Log In'
-5. Optionally, you can rename your account if you choose. 
+<img src="../assets/images/Verified.png" alt="Verified" width="500"/>
+
+3. Type in your email and password and click 'Log In'
+4. Optionally, you can rename your account if you choose. 
 
 And that's it! You're ready to get started with Firebolt. 
 
@@ -36,23 +37,29 @@ Embarking on your data journey with Firebolt begins with creating a *database* a
 
 **Steps to Create Your Database:**
 1. Click the **+** next to **Databases**
-![NewDB+](../assets/images/Create%20%2B%20(Highlighted).png)
+
+<img src="../assets/images/Create%20%2B%20(Highlighted).png" alt="New DB +" width="700"/>
 
 2. Click **Create new database**. 
-![NewBD](../assets/images/Create%20New%20DB%20From%20%2B.png)
+
+<img src="../assets/images/Create%20New%20DB%20From%20%2B.png" alt="New DB" width="700"/>
 
 3. Enter the name for your database in the **Database Name** field. For the purposes of this guide, we'll use "Tutorial_Database" as our database name.
-![NewDBName](../assets/images/Tutorial%20DB.png)
+
+<img src="../assets/images/Tutorial%20DB.png" alt="New DB Name" width="700"/>
 
 **Steps to Create Your Engine:**
 1. Click the **+** next to **Databases** again.
-![NewEngine+](../assets/images/Create%20%2B%20(Highlighted).png)
+
+<img src="../assets/images/Create%20%2B%20(Highlighted).png" alt="New Engine +" width="700"/>
 
 2. Click **Create new engine**.
-![NewEngine](../assets/images/Create%20Engine%20%2B.png)
+
+<img src="../assets/images/Create%20Engine%20%2B.png" alt="New Engine" width="700"/>
 
 3. Enter the name of your engine in the **New engine name** field. For the purposes of this guide, we'll use "Tutorial_Engine" as our engine name.
-![NewEngineName](../assets/images/Tutorial%20Engine.png)
+
+<img src="../assets/images/Tutorial%20Engine.png" alt="New Engine Name" width="700"/>
 
 {: .note}
 The default configuration is a small node, which is more than enough for this tutorial. To learn more about proper sizing of nodes for your workload, see [ADD DOC REFERENCE]
@@ -76,7 +83,7 @@ At this time, Firebolt may prompt you to initiate your engine if it's not alread
 
 By following these steps, you've not only executed your first query but also successfully set the stage for more advanced data exploration. This is just the beginning of what's possible with Firebolt - let's continue by adding some data. 
 
-## Add Data
+## Add Data To Your Database
 Now that you can select databases, select engines, and run queries, let's add some sample data. For this tutorial we will explore adding data in two ways; 
 1. [Creating and using an external table](#Creating-and-using-an-external-table)
 2. [Use `COPY FROM`](TO DO)
@@ -94,7 +101,7 @@ Although it's possible, we don't recommend running analytics queries on external
 **Create Your External Table:**
 1. Choose the plus symbol (**+**) next to script tab to create a new script tab in the SQL workspace.
 
-![NewScript](../assets/images/New%20Script%20%2B.png)
+<img src="../assets/images/New%20Script%20%2B.png" alt="New Script" width="600"/>
 
 2. Copy and paste the query below into the new tab.
 
@@ -133,12 +140,13 @@ TYPE = (CSV SKIP_HEADER_ROWS = 1);
 
 3. Click **Run**. When completed the external table `ex_levels` appears on the object panel of the database.  
 
-![ScriptRun](../assets/images/Execute%20Script%20(Run)%20Example.png)
+<img src="../assets/images/Execute%20Script%20(Run)%20Example.png" alt="Script Run" width="600"/>
 
-5. [Optional] Choose the vertical ellipses next to script, choose **Rename script**, enter a name (for example, *MyExTableScript*) and then press ENTER to update the name.
+4. [Optional] Choose the vertical ellipses next to script, choose **Rename script**, enter a name (for example, *MyExTableScript*) and then press ENTER to update the name.
 
-![VerticalEllipsis](../assets/images/Vertical%20Ellipsis.png)
-![Rename](../assets/images/Rename%20Script.png)
+<img src="../assets/images/Vertical%20Ellipsis.png" alt="Vertical Ellipsis" width="600"/>
+
+<img src="../assets/images/Rename%20Script.png" alt="Rename" width="600"/>
 
 #### Step 2: Create a Fact Table
 In this step, you'll create a Firebolt fact table called `levels`, which you use in the next step as the target for an `INSERT INTO` command. 
@@ -209,11 +217,12 @@ FROM ex_levels;
 ```
 3. Choose **Run Script**
 Click **Run** to execut the script.
-![RunINSERT](../assets/images/Run%20INSERT.png)
+
+<img src="../assets/images/Run%20INSERT.png" alt="Run INSERT" width="600"/>
 
 The query results pane indicates a **Status** of **Running** when the query is executing. The **Status** will change to **Success** when the ingestion is complete as shown below.
 
-![ScriptSucceed](../assets/images/Query%20Status.png)
+<img src="../assets/images/Query%20Status.png" alt="ScriptSucceed" width="600"/>
 
 #### Step 4: Query the ingested data
 Now that the data has been ingested into the `levels` table, you can run analytics queries over the table that benefit from the speed and efficiency of Firebolt.
@@ -227,7 +236,8 @@ FROM
   levels
 ```
 The values shown in the query results pane should be similar to those shown below.
-![ResultsPane](../assets/images/Results%20Pane.png)
+
+<img src="../assets/images/Results%20Pane.png" alt="ResultsPane" width="600"/>
 
 
 ### Use COPY FROM [IN PROGRESS, WILL REORDER ONCE TUTORIAL IS VALIDATED]
@@ -309,7 +319,7 @@ ON levels (
 
 After you run the script, you see the `levels_agg_idx` index listed in the object pane. Any queries that run over the `levels` table that combine any of these fields and aggregations defined in the index will now use the index instead of reading the entire table.
 
-![AggIndex](../assets/images/AggIndex.png)
+<img src="../assets/images/AggIndex.png" alt="AggIndex" width="500"/>
 
 ### Use COPY TO to export data to S3
 The example below shows a `COPY TO` statement with minimal parameters that specifies an `AWS_ROLE_ARN`. Because `TYPE` is omitted, the file or files will be written in CSV format, and because `COMPRESSION` is omitted, they are compressed using GZIP  (`*.csv.gz`).
