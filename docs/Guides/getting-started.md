@@ -58,7 +58,7 @@ Embarking on your data journey with Firebolt begins with creating a *database* a
 The default configuration is a small node, which is more than enough for this tutorial. To learn more about proper sizing of nodes for your workload, see [ADD DOC REFERENCE]
 
 ## Execute Your First Query
-Before we dive into ingesting sample data, let's familiarize ourselves with the SQL workspace of your database. This initial step not only demonstrates how to activate your engine but also acquaints you with the process of executing queries within Firebolt. For a deeper dive into the SQL workspace and its capabilities, our [Query Data](./query-data/using-the-sql-editor.md) guide is an excellent resource.
+Before we dive into ingesting sample data, let's familiarize ourselves with the SQL workspace of your database. This initial step not only demonstrates how to activate your engine but also acquaints you with the process of executing queries within Firebolt. For a deeper dive into the SQL workspace and its capabilities, our [Query Data](../query-data/using-the-sql-editor.md) guide is an excellent resource.
 
 **Steps to Access Your Database, Activate the Engine, and Execute Your First Query:**
 1. From the **Database page**, locate the database you've previously created ("Tutorial_Database"). Click the **Open in SQL workspace icon** (**>_**).
@@ -89,7 +89,7 @@ This tutorial uses Firebolt's sample dataset, from the fictional gaming company 
 An *external table* is a special, virtual table that serves as a connector to your data source. After the external table is created, you ingest data by running an `INSERT` command from that external table into a *fact table* or *dimension table*. The `INSERT` command must run on a general purpose engine. After the data is available in fact and dimension tables, you can run analytics queries over those tables using any engine. 
 
 {: .note}
-Although it's possible, we don't recommend running analytics queries on external tables. For more information on working with external tables, see [Work with external tables](https://special-disco-436d3e6a.pages.github.io/Guides/loading-data/working-with-external-tables.html).
+Although it's possible, we don't recommend running analytics queries on external tables. For more information on working with external tables, see [Work with external tables](../Guides/loading-data/working-with-external-tables.html). FOr more information on fact tables, see [Working with tables](..Guides/loading-data/working-with-external-tables.html)
 
 **Create Your External Table:**
 1. Choose the plus symbol (**+**) next to script tab to create a new script tab in the SQL workspace.
