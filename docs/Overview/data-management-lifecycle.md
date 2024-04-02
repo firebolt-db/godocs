@@ -22,10 +22,16 @@ Learn also what happens behind the scenes, how data is being stored internally a
 
 ## Transactions and concurrency
 Before getting into how data manipulation and changes work in Firebolt, it is important to first explain transactions and concurrency controls that are implemented within the system.
-In Firebolt, each request/statement is treated as a new implicit transaction. As such, every statement has a transaction ID and timestamp associated with it. Furthermore, Firebolt leverages an optimistic concurrency method and implements Multi Version Concurrency Control (MVCC) to handle concurrent requests coming into the system.
 
-Optimistic concurrency comes with increased throughput, because multiple transactions can complete frequently without interfering with each other. Each transaction verifies that no other transaction has modified the same data concurrently. If the check reveals conflicting modifications, the committing transaction rollback (and can be restarted). MVCC implementation keeps multiple copies of data items, to handle concurrent and potentially contradicting data changes. This way, each transaction sees a snapshot of the database at a particular instant in time, and any changes made by one transaction will not be seen by other transactions until the changes have been completed.
-All of this is implemented in the product to ensure Firebolt can satisfy performance, scale, and throughput requirements that data intensive applications need.
+Firebolt treats each request or SQL statement as a new implicit transaction. Transactions guarantee the ACID properties: atomicity (all or nothing), consistency (will not transition to an invalid state), isolation (no interference between concurrent transactions, depending on isolation level, see below), durability (no data loss once committed).
+
+Firebolt supports two isolation levels:
+- DDL (CREATE, ALTER, DROP) and DCL (GRANT, REVOKE) work at *serializable isolation* level.
+- DQL (SELECT) and DML (INSERT, UPDATE, DELETE) work at *snapshot isolation* level.
+
+Serializable isolation means that the result of running concurrent statments is equivalent to as if they were run serially in some order.
+
+Snapshot isolation is weaker and guarantees that a transaction sees a consistent version of the database. Transactions fail if any written rows are being written concurrently by another transaction. It is a weaker isolation than serializable, because a transaction does not fail if read data is being changed concurrently. This makes it subject to so called write skew anomalies. As a user, you need to make sure that the write skew anomaly is harmless for your application or does not occur - for example by avoiding concurrent read-write operations. In exchange, Firebolt can deliver the performance, scale and throughput that data intensive applications need.
 
 ## Creating tables
 Let’s look at an example of how to [create a simple table](../sql_reference/commands/data-definition/create-fact-dimension-table.md) called rankings.
