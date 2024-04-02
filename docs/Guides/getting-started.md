@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Get started
+title: Getting started
 description: Follow this getting started tutorial to create a database in a Firebolt data warehouse, load a sample data set from Amazon S3, and run queries over the data.
 nav_order: 1
 parent: Guides
@@ -18,17 +18,13 @@ For those seeking a more interactive learning experience, we invite you to join 
 ## Create a Firebolt Account
 1. Select 'Get Started' after completing the registration form at [go.firebolt.io](go.firebolt.io)
 
-[ADD UPDATE IMAGES - DEV IN FLIGHT]
+![GetStarted](https://github.com/firebolt-analytics/firebolt-docs-staging/blob/da1df5644a2869fb804e6ac4753a733de3d2f467/docs/assets/images/GetStarted.png)
 
-2. Select 'Verify' on the confirmation email you recieve
+2. Select 'Verify' on the confirmation email you recieve. You should see a verified screen.
+![Verified](https://github.com/firebolt-analytics/firebolt-docs-staging/blob/da1df5644a2869fb804e6ac4753a733de3d2f467/docs/assets/images/Verified.png)
 
-[ADD UPDATE IMAGES - DEV IN FLIGHT]
-
-3. Type in your email and password and click 'Log In'
-
-[ADD UPDATE IMAGES - DEV IN FLIGHT]
-
-4. Optionally, you can rename your account if you choose. 
+4. Type in your email and password and click 'Log In'
+5. Optionally, you can rename your account if you choose. 
 
 And that's it! You're ready to get started with Firebolt. 
 
@@ -38,26 +34,25 @@ New accounts get 600 Firebolt credits ($200+) to get started exploring with Fire
 ## Create Your First Database and Engine
 Embarking on your data journey with Firebolt begins with creating a *database* and selecting an *engine* tailored to your specific workload. An engine in Firebolt provides the compute resources dedicated to a database for executing tasks (see [Understanding Engines](https://special-disco-436d3e6a.pages.github.io/Overview/understanding-engine-fundamentals.html) to learn more). By default, every database starts with one general purpose engine capable of writing to the Firebolt file format (F3) for both data ingestion and analytics queries. For more information on using Firebolt engines, see [Working with engines](./working-with-engines/working-with-engines.md).
 
-
-**Steps to Create Your Database and Engine:**
+**Steps to Create Your Database:**
 1. Click the **+** next to **Databases**
-![image](https://github.com/firebolt-analytics/firebolt-docs-staging/assets/9532728/c3b90bc7-5d9d-4ef5-8dc5-61e2d14d048a)
+![NewDB+](https://github.com/firebolt-analytics/firebolt-docs-staging/blob/92034955d7107af3d088f66948402f3695c37f19/docs/assets/images/Create%20%2B%20(Highlighted).png)
 
 2. Click **Create new database**. 
-![image](https://github.com/firebolt-analytics/firebolt-docs-staging/assets/9532728/192ed3a0-811f-46a5-a95d-845ad0557558)
+![NewBD](https://github.com/firebolt-analytics/firebolt-docs-staging/blob/92034955d7107af3d088f66948402f3695c37f19/docs/assets/images/Create%20New%20DB%20From%20%2B.png)
 
 3. Enter the name for your database in the **Database Name** field. For the purposes of this guide, we'll use "Tutorial_Database" as our database name.
-![image](https://github.com/firebolt-analytics/firebolt-docs-staging/assets/9532728/95fd38aa-4533-44a1-893a-4b14c49f274f)
+![NewDBName](https://github.com/firebolt-analytics/firebolt-docs-staging/blob/92034955d7107af3d088f66948402f3695c37f19/docs/assets/images/Tutorial%20DB.png)
 
+**Steps to Create Your Engine:**
+1. Click the **+** next to **Databases** again.
+![NewEngine+](https://github.com/firebolt-analytics/firebolt-docs-staging/blob/92034955d7107af3d088f66948402f3695c37f19/docs/assets/images/Create%20%2B%20(Highlighted).png)
 
-4. Click the **+** next to **Databases** again.
-![image](https://github.com/firebolt-analytics/firebolt-docs-staging/assets/9532728/c3b90bc7-5d9d-4ef5-8dc5-61e2d14d048a)
+2. Click **Create new engine**.
+![NewEngine](https://github.com/firebolt-analytics/firebolt-docs-staging/blob/515ad18fbfe0014f6f5671751579b24a87dae0df/docs/assets/images/Create%20Engine%20%2B.png)
 
-5. Click **Create new engine**.
-![image](https://github.com/firebolt-analytics/firebolt-docs-staging/assets/9532728/fb932444-d246-45e1-ba50-1937788d9aad)
-
-6. Enter the name of your engine in the **New engine name** field. For the purposes of this guide, we'll use "Tutorial_Engine" as our engine name.
-![image](https://github.com/firebolt-analytics/firebolt-docs-staging/assets/9532728/c4e19be7-d880-442b-9570-5887eddef3f2)
+3. Enter the name of your engine in the **New engine name** field. For the purposes of this guide, we'll use "Tutorial_Engine" as our engine name.
+![NewEngineName](https://github.com/firebolt-analytics/firebolt-docs-staging/blob/92034955d7107af3d088f66948402f3695c37f19/docs/assets/images/Tutorial%20Engine.png)
 
 {: .note}
 The default configuration is a small node, which is more than enough for this tutorial. To learn more about proper sizing of nodes for your workload, see [ADD DOC REFERENCE]
@@ -83,8 +78,8 @@ By following these steps, you've not only executed your first query but also suc
 
 ## Add Data
 Now that you can select databases, select engines, and run queries, let's add some sample data. For this tutorial we will explore adding data in two ways; 
-1. Creating and using an external table [TODO ADD SECTION HYPERLINK]
-2. Use `COPY FROM` [TODO ADD SECTION HYPERLINK]
+1. [Creating and using an external table](#Creating-and-using-an-external-table)
+2. [Use `COPY FROM`](TO DO)
 
 {: .note}
 This tutorial uses Firebolt's sample dataset, from the fictional gaming company "Ultra Fast Gaming Inc." This dataset is publicly available with the access credentials shared below.
@@ -99,7 +94,7 @@ Although it's possible, we don't recommend running analytics queries on external
 **Creating Your External Table:**
 1. Choose the plus symbol (**+**) next to script tab to create a new script tab in the SQL workspace.
 
-![image](https://github.com/firebolt-analytics/firebolt-docs-staging/assets/9532728/d5309d2b-70d3-4901-9321-6d57c0cf0665)
+![NewScript](https://github.com/firebolt-analytics/firebolt-docs-staging/blob/92034955d7107af3d088f66948402f3695c37f19/docs/assets/images/New%20Script%20%2B.png)
 
 2. Copy and paste the query below into the new tab.
 
@@ -122,7 +117,8 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ex_levels (
     PointsPerLap REAL,
     MusicTrack TEXT,
     SceneDetails TEXT,
-    MaxPlayTimeSeconds INTEGER
+    MaxPlayTimeSeconds INTEGER,
+    LevelIcon TEXT
 ) 
 
 URL = 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/'
@@ -137,12 +133,12 @@ TYPE = (CSV SKIP_HEADER_ROWS = 1);
 
 3. Click **Run**. When completed the external table `ex_levels` appears on the object panel of the database.  
 
-![image](https://github.com/firebolt-analytics/firebolt-docs-staging/assets/9532728/4957ede5-d9e9-47b5-b550-77f6a2be8f77)
+![ScriptRun](https://github.com/firebolt-analytics/firebolt-docs-staging/blob/92034955d7107af3d088f66948402f3695c37f19/docs/assets/images/Execute%20Script%20(Run)%20Example.png)
 
 5. [Optional] Choose the vertical ellipses next to script, choose **Rename script**, enter a name (for example, *MyExTableScript*) and then press ENTER to update the name.
 
-![image](https://github.com/firebolt-analytics/firebolt-docs-staging/assets/9532728/ea7359d0-3815-42a1-9823-61923faf19dc)
-![image](https://github.com/firebolt-analytics/firebolt-docs-staging/assets/9532728/207e9595-40f8-4d1f-910f-0a0e685843be)
+![VerticalEllipsis](https://github.com/firebolt-analytics/firebolt-docs-staging/blob/6306c5987bedab056bc629ca503c3bf39fd67990/docs/assets/images/Vertical%20Ellipsis.png)
+![Rename](https://github.com/firebolt-analytics/firebolt-docs-staging/blob/6306c5987bedab056bc629ca503c3bf39fd67990/docs/assets/images/Rename%20Script.png)
 
 #### Step 2: Create a Fact Table
 In this step, you'll create a Firebolt fact table called `levels`, which you use in the next step as the target for an `INSERT INTO` command. 
@@ -158,23 +154,24 @@ The fact table that we create in this step specifies the `LevelID` column for th
 ```sql
 CREATE FACT TABLE IF NOT EXISTS levels
 (
-    LevelID INTEGER,
-    GameID INTEGER,
-    Level INTEGER,
-    Name TEXT,
-    LevelType TEXT,
-    NextLevel INTEGER NULL,
-    MinPointsToPass INTEGER,
-    MaxPoints INTEGER, 
-    NumberOfLaps INTEGER,
-    MaxPlayers INTEGER,
-    MinPlayers INTEGER,
-    PointsPerLap REAL,
-    MusicTrack TEXT,
-    SceneDetails TEXT,
-    MaxPlayTimeSeconds INTEGER,
-    SOURCE_FILE_NAME TEXT,
-    SOURCE_FILE_TIMESTAMP TIMESTAMP
+ LevelID INTEGER,
+ GameID INTEGER,
+ Level INTEGER,
+ Name TEXT,
+ LevelType TEXT,
+ NextLevel INTEGER NULL,
+ MinPointsToPass INTEGER,
+ MaxPoints INTEGER, 
+ NumberOfLaps INTEGER,
+ MaxPlayers INTEGER,
+ MinPlayers INTEGER,
+ PointsPerLap REAL,
+ MusicTrack TEXT,
+ SceneDetails TEXT,
+ MaxPlayTimeSeconds INTEGER,
+ LevelIcon TEXT,
+ SOURCE_FILE_NAME TEXT,
+ SOURCE_FILE_TIMESTAMP TIMESTAMP
 ) 
 PRIMARY INDEX LevelID;
 ```  
@@ -190,33 +187,33 @@ You can now use the `INSERT INTO` command to copy the data from the external tab
 ```sql
 INSERT INTO levels
 SELECT
-    LevelID,
-    GameID,
-    Level,
-    Name,
-    LevelType,
-    NextLevel,
-    MinPointsToPass,
-    MaxPoints, 
-    NumberOfLaps,
-    MaxPlayers,
-    MinPlayers,
-    PointsPerLap,
-    MusicTrack,
-    SceneDetails,
-    MaxPlayTimeSeconds,
-    $source_file_name, 
-    $source_file_timestamp 
-
+ LevelID,
+ GameID,
+ Level,
+ Name,
+ LevelType,
+ NextLevel,
+ MinPointsToPass,
+ MaxPoints, 
+ NumberOfLaps,
+ MaxPlayers,
+ MinPlayers,
+ PointsPerLap,
+ MusicTrack,
+ SceneDetails,
+ MaxPlayTimeSeconds,
+ LevelIcon,
+ $SOURCE_FILE_NAME, 
+ $SOURCE_FILE_TIMESTAMP
 FROM ex_levels;
 ```
-3. Choose **Run Script**.  
-The query results pane indicates a **Status** of **Running** as shown below.  
-![](../assets/images/running.png)  
-The **Status** changes to **Success** when the ingestion is complete as shown below.
-![](../assets/images/success.png)
+3. Choose **Run Script**
+Click **Run** to execut the script.
+![RunINSERT](https://github.com/firebolt-analytics/firebolt-docs-staging/blob/515ad18fbfe0014f6f5671751579b24a87dae0df/docs/assets/images/Run%20INSERT.png)
 
-[NEEDS UPDATED SCREENSHOTS]
+The query results pane indicates a **Status** of **Running** when the query is executing. The **Status** will change to **Success** when the ingestion is complete as shown below.
+
+![ScriptSucceed](https://github.com/firebolt-analytics/firebolt-docs-staging/blob/515ad18fbfe0014f6f5671751579b24a87dae0df/docs/assets/images/Query%20Status.png)
 
 #### Step 4: Query the ingested data
 Now that the data has been ingested into the `levels` table, you can run analytics queries over the table that benefit from the speed and efficiency of Firebolt.
@@ -230,9 +227,8 @@ FROM
   levels
 ```
 The values shown in the query results pane should be similar to those shown below.
-![](../assets/images/results.png)
+![ResultsPane](https://github.com/firebolt-analytics/firebolt-docs-staging/blob/515ad18fbfe0014f6f5671751579b24a87dae0df/docs/assets/images/Results%20Pane.png)
 
-[NEEDS UPDATED SCREENSHOTS]
 
 ### Using COPY FROM [IN PROGRESS, WILL REORDER ONCE TUTORIAL IS VALIDATED]
 `COPY FROM` allows you to copy data directly to a Firebolt table. For more information, see COPY FROM [TODO LINK]
@@ -279,6 +275,24 @@ And that's it! You've successfully copied data from S3 into a Firebolt table.
 ## Next Steps
 Now that you have successfully created your first engine and database in Firebolt, run your first query, and copied data to Firebolt you can start exploring what else Firebotl has to offer! Below are a few examples to get you started. 
 
+### Register through AWS Marketplace
+This registration is a prerequisite for starting engines and running queries after your initial trial credits. 
+
+**To register**
+1. On the [Firebolt page](https://go.firebolt.io/login?redirect=%2F), navigate to the **Configuration menu**. Click **Billing**. 
+
+2. Click **Connect to AWS Marketplace**. This will take you to the Firebolt page available on AWS Marketplace.
+
+3. On the AWS Marketplace page, click the **View Purchase Options** on the top right hand corner of the screen. 
+ 
+4. Click **Setup Your Account**. 
+
+Your account should now be associated with AWS Marketplace. 
+
+{: .note}
+For guidance on configuring AWS roles for seamless access to your S3 data, see our detailed walkthrough on [Using AWS Roles for S3 Access](https://docs.firebolt.io/godocs/Guides/loading-data/configuring-aws-role-to-access-amazon-s3.html).
+
+
 ### Configure an aggregating index
 An aggregating index enables you to take a subset of table columns and predefine dimensions and measures to aggregate. Many aggregations are supported&mdash;from `SUM`, `MAX`, and `MIN` to more complex aggregations such as `COUNT` and `COUNT(DISTINCT)`. At query runtime, instead of calculating the aggregation on the entire table and scanning all rows, Firebolt uses the pre-calculated values in the aggregating index. For more information, see [Aggregating indexes](./working-with-indexes/using-aggregating-indexes.md).
 
@@ -294,6 +308,8 @@ ON levels (
 ```
 
 After you run the script, you see the `levels_agg_idx` index listed in the object pane. Any queries that run over the `levels` table that combine any of these fields and aggregations defined in the index will now use the index instead of reading the entire table.
+
+![AggIndex](https://github.com/firebolt-analytics/firebolt-docs-staging/blob/da1df5644a2869fb804e6ac4753a733de3d2f467/docs/assets/images/AggIndex.png)
 
 ### Use COPY TO to export data to S3
 The example below shows a `COPY TO` statement with minimal parameters that specifies an `AWS_ROLE_ARN`. Because `TYPE` is omitted, the file or files will be written in CSV format, and because `COMPRESSION` is omitted, they are compressed using GZIP  (`*.csv.gz`).
@@ -314,20 +330,3 @@ s3://my_bucket/my_fb_queries/
   16B903C4206098FD_3.csv.gz
 ```
 See [COPY TO](https://special-disco-436d3e6a.pages.github.io/sql_reference/commands/data-management/copy-to.html) for more information. 
-
-## Register through AWS Marketplace
-This registration is a prerequisite for starting engines and running queries after your initial trial credits. 
-
-**To register**
-1. On the [Firebolt page](https://go.firebolt.io/login?redirect=%2F), navigate to the **Configuration menu**. Click **Billing**. 
-
-2. Click **Connect to AWS Marketplace**. This will take you to the Firebolt page available on AWS Marketplace.
-
-3. On the AWS Marketplace page, click the **View Purchase Options** on the top right hand corner of the screen. 
- 
-4. Click **Setup Your Account**. 
-
-Your account should now be associated with AWS Marketplace. 
-
-{: .note}
-For guidance on configuring AWS roles for seamless access to your S3 data, see our detailed walkthrough on [Using AWS Roles for S3 Access](https://docs.firebolt.io/godocs/Guides/loading-data/configuring-aws-role-to-access-amazon-s3.html).
