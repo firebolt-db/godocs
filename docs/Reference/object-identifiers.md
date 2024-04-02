@@ -23,7 +23,7 @@ Identifiers must adhere to the following syntax:
 
 1. Contain at least one character, and no more than 255.
 2. The first character must be a letter (a-z) or underscore (_).
-3. After the first character, subsequent characters can be letters, underscores, digits (0-9), or dollar signs ($).
+3. After the first character, subsequent characters can be letters, underscores, digits (0-9).
 
 ## Unquoted identifiers
 
