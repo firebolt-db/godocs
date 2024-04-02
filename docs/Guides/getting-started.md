@@ -240,11 +240,11 @@ The values shown in the query results pane should be similar to those shown belo
 <img src="../assets/images/Results%20Pane.png" alt="ResultsPane" width="600"/>
 
 
-### Option 1: Use COPY FROM [IN PROGRESS, WILL REORDER ONCE TUTORIAL IS VALIDATED]
+### Option 1: Use COPY FROM [IN PROGRESS]
 `COPY FROM` allows you to copy data directly to a Firebolt table. For more information, see COPY FROM [TODO LINK]
 
 #### Step 1: Create a fact table
-In this step, you'll create a Firebolt fact table called `tutorial`, which you use in the next step as the target for a `COPY INTO` command. 
+In this step, you'll create a Firebolt fact table called `tutorial`, which you use in the next step as the target for a `COPY FROM` command. 
 
 1. Choose the plus symbol (**+**) next to **Script 1** to create a new script tab, **Script 2**, in the SQL workspace.
 2. Copy and paste the query below into the **Script 2** tab.
@@ -270,8 +270,8 @@ CREATE FACT TABLE IF NOT EXISTS tutorial (
 );
 ```
 
-#### Step 2: Use COPY INTO to ingest data
-You can now use the `COPY INTO` command to copy the data from the S3 bucket into the fact table. During this operation, Firebolt ingests the data from your source into Firebolt.
+#### Step 2: Use COPY FROM to ingest data
+You can now use the `COPY FROM` command to copy the data from the S3 bucket into the fact table. During this operation, Firebolt ingests the data from your source into Firebolt.
 
 1. Choose the plus symbol (**+**) next to **Script 2** to create a new script tab, **Script 3**, in the SQL workspace.
 2. Copy and paste the query below into the **Script 3** tab.
