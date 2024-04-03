@@ -25,7 +25,6 @@ The returned table has the following columns.
 | :----------------| :-----------| :-----------|
 | database_name    | TEXT      | The name of the database. |
 | region           | TEXT      | The AWS Region in which the database was created. |
-| attached_engines | TEXT      | A comma separated list of engine names that are attached to the database. |
 | created_on       | TIMESTAMP   | The date and time that the database was created (UTC). |
 | created_by       | TEXT      | The user name of the Firebolt user who created the database. |
 | errors           | TEXT      | Any error messages associated with the database. |
@@ -40,4 +39,4 @@ SHOW DATABASES;
 
 | database_name	| compressed_size	| uncompressed_size	| description	| created_on	| created_by	| region	| attached_engines	| errors |
 |:----|:-----|:-----|:-----|:-----|:-----|:-----|:-----|:------|
-| AdTechDB_v4	| 1.99015E+12	| 3.47886E+13	| New Demo DB|  firebolt-demo	|2022-06-15T11:48:31.683328Z	| SA Demo	us-east-1	| AdTechDB_v4_Analytics (default), AdTechDB_v4_Analytics_Small, AdTechDB_v4_demo_ingestion, AdTechDB_v4_overnight_example	| - |
+| AdTechDB_v4	| NULL	| NULL	| New Demo DB| 2022-06-15T11:48:31.683328Z	| firebolt-demo	| SA Demo	us-east-1	| NULL	| NULL |
