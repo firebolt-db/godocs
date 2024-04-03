@@ -198,3 +198,9 @@ Use backslash escape sequences within an escape string literal to represent spec
 Any other character following a backslash is taken literally (e.g., write two backslashes `\\` to include one backslash character).
 The byte sequences you create must be valid UTF-8.
 For historic reasons, if you set the setting `standard_conforming_strings` to `false`, regular string literals will also recognize backslash escape sequences.
+
+## Binary
+
+### BYTEA
+
+Represents variable size binary data. A binary string is a sequence of bytes - unlike TEXT, there is no character set. The BYTEA data type is nullable. For more information, see [BYTEA data type](bytea-data-type.md).
