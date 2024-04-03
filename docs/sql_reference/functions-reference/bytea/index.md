@@ -6,6 +6,7 @@ nav_order: 4
 parent: SQL functions
 grand_parent: SQL reference
 has_children: true
+published: false
 ---
 
 ## Binary functions
