@@ -28,7 +28,6 @@ In Firebolt, network policies contain allowed_IP_list and blocked_IP_list proper
 
 ```sql
 CREATE NETWORK POLICY IF NOT EXISTS my_network_policy WITH ALLOWED_IP_LIST = (‘4.5.6.1’, ‘2.4.5.1’) 
-BLOCKED_IP_LIST = ('6.7.8.1') 
 DESCRIPTION = 'my new network policy'
 ```
 
