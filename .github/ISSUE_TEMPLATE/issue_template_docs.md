@@ -1,3 +1,13 @@
+---
+name: Documentation Feedback template
+about: Use this template to provide documentation feedback
+title: "[DOC ISSUE]"
+labels: 'Untriaged'
+assignees: 
+layout: default
+description: Documentation feedback or requst issue
+---
+
 # Documentation Issue Title
 
 A brief and descriptive title that summarizes the documentation issue.
