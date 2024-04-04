@@ -43,39 +43,6 @@ Synonyms: `DOUBLE`, `FLOAT`, `FLOAT8`, `FLOAT(p)` where 25 <= p <= 53.
 A string of an arbitrary length that can contain any number of bytes. Useful for arbitrary-length string columns. Note that null bytes are not supported in TEXT literals, but are supported when importing from an external table. Firebolt supports UTF-8 escape sequences.
 Synonyms: `STRING`, `VARCHAR`
 
-## Date and timestamp
-
-{: .warning}
-  >You are looking at the documentation for Firebolt's redesigned date and timestamp types.
-  >These types were introduced in DB version 3.19 under the names `PGDATE`, `TIMESTAMPNTZ` and `TIMESTAMPTZ`, and synonyms `DATE`, `TIMESTAMP` and `TIMESTAMPTZ` made available in DB version 3.22.
-  >
-  >Determine which types you are using by executing the query `SELECT EXTRACT(CENTURY FROM DATE '2023-03-16');`.
-  >If this query returns a result, you are using the redesigned date and timestamp types and can continue with this documentation.
-  >If this query returns an error, you are using the legacy date and timestamp types and can find [legacy documentation here](legacy-date-timestamp.md), or instructions to reingest your data to use the new types [here](../release-notes/release-notes-archive.html#db-version-322).
-
-Firebolt supports three date and timestamp data types:
-
-| Name          | Size    | Minimum                          | Maximum                          | Resolution    |
-| :------------ | :------ | :------------------------------- | :------------------------------- | :------------ |
-| `DATE`        | 4 bytes | `0001-01-01`                     | `9999-12-31`                     | 1 day         |
-| `TIMESTAMP`   | 8 bytes | `0001-01-01 00:00:00.000000`     | `9999-12-31 23:59:59.999999`     | 1 microsecond |
-| `TIMESTAMPTZ` | 8 bytes | `0001-01-01 00:00:00.000000 UTC` | `9999-12-31 23:59:59.999999 UTC` | 1 microsecond |
-
-Dates are counted according to the [proleptic Gregorian calendar](https://en.wikipedia.org/wiki/Proleptic_Gregorian_calendar).
-Each year consists of 365 days, with leap days added to February in leap years.
-
-### DATE
-
-A year, month, and day calendar date independent of a time zone. For more information, see [DATE data type](date-data-type.md).
-
-### TIMESTAMP
-
-A year, month, day, hour, minute, second, and microsecond timestamp independent of a time zone. For more information, see [TIMESTAMP data type](timestampntz-data-type.md).
-
-### TIMESTAMPTZ
-
-A year, month, day, hour, minute, second, and microsecond timestamp associated with a time zone. For more information, see [TIMESTAMPTZ data type](timestamptz-data-type.md).
-
 ## Boolean
 
 ### BOOLEAN
@@ -198,3 +165,9 @@ Use backslash escape sequences within an escape string literal to represent spec
 Any other character following a backslash is taken literally (e.g., write two backslashes `\\` to include one backslash character).
 The byte sequences you create must be valid UTF-8.
 For historic reasons, if you set the setting `standard_conforming_strings` to `false`, regular string literals will also recognize backslash escape sequences.
+
+## Binary
+
+### BYTEA
+
+Represents variable size binary data. A binary string is a sequence of bytes - unlike TEXT, there is no character set. The BYTEA data type is nullable. For more information, see BYTEA data type.
