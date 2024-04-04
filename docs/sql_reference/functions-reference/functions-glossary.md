@@ -40,6 +40,7 @@ All Firebolt functions in alphabetical order.
 | [DATE_ADD](./date-and-time/date-add.md) | Calculates a new date or timestamp by adding or subtracting a specified number of time units from an indicated expression. | Date & time |
 | [DATE_DIFF](./date-and-time/date-diff.md) | Calculates the difference between the start and end date by the indicated unit. | Date & time |
 | [DATE_TRUNC](./date-and-time/date-trunc.md) | Truncates a date or timestamp value to the selected precision. | Date & time |
+| [ELEMENT_AT](./array/element-at.md) | Returns the element at a location index from the given array. Indexes in an array begin at position 1. | Array |
 | [EXTRACT](./date-and-time/extract.md) | Retrieves the time unit from a date or timestamp value. | Date & time |
 | [GENERATE_SERIES](./conditional-and-miscellaneous/generate-series.md) | Generates a single rowset of values from `start` to `stop`, with a step size of `step` - a table-valued function. | Conditional & miscellaneous |
 | [IFNULL](./conditional-and-miscellaneous/ifnull.md) | Compares two expressions. Returns the first input expression if it’s non-NULL, otherwise returns the second. | Conditional & miscellaneous |
