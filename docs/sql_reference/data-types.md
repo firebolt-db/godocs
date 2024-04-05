@@ -170,4 +170,4 @@ For historic reasons, if you set the setting `standard_conforming_strings` to `f
 
 ### BYTEA
 
-Represents variable size binary data. A binary string is a sequence of bytes - unlike TEXT, there is no character set. The BYTEA data type is nullable. For more information, see BYTEA data type.
+Represents variable size binary data. A binary string is a sequence of bytes - unlike TEXT, there is no character set. The BYTEA data type is nullable. For more information, see [BYTEA data type](bytea-data-type.md).
