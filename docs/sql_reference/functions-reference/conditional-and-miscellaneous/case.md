@@ -10,7 +10,7 @@ great_grand_parent: SQL reference
 # CASE
 
 Conditional expression similar to if-then-else statements.
-If the result of the condition is true, then the value of the CASE expression is the result that follows the condition.  If the result is false, any subsequent WHEN clauses (conditions) are searched in the same manner.  If no WHEN condition is true, then the value of the case expression is the result specified in the ELSE clause.  If the ELSE clause is omitted and no condition matches, the result is NULL.
+If the result of the condition is true, then the value of the CASE expression is the result that follows the condition, and the remainder of the CASE expression is not processed. If the result is not true, any subsequent WHEN clauses (conditions) are evaluated in the same manner. If no WHEN condition is true, then the value of the case expression is the result specified in the ELSE clause.  If the ELSE clause is omitted and no condition matches, the result is NULL.
 
 ## Syntax
 {: .no_toc}
@@ -28,8 +28,8 @@ END;
 
 | Parameter     | Description      | Supported input types | 
 | :------------- | :-------------------------- | :--------|
-| `<condition>` | A condition can be defined for each `WHEN`, and `ELSE` clause.   |  `BOOLEAN` | 
-| `<result>`    | The result of any condition. Every `THEN` clause receives a single result. All results in a single `CASE` function must share the same data type. | Any |
+| `<condition>` | A condition can be defined for each `WHEN` clause.   |  `BOOLEAN` | 
+| `<result>`    | The result of the CASE expression when the preceding condition holds. Every `THEN` clause receives a single result. All results in a single `CASE` expression must share the same data type. | Any |
 
 ## Return type 
 Same data type as `<result>`
@@ -39,7 +39,7 @@ Same data type as `<result>`
 
 This example references a table `player_level` with the following columns and values: 
 
-| player              | currentlevel |
+| player              | current_level |
 | :-------------------- | :------ |
 | kennethpark         | 3   |
 | esimpson       | 8     |
@@ -48,18 +48,19 @@ This example references a table `player_level` with the following columns and va
 | burchdenise     | 4    |
 
 
-The following example categorizes each entry by length. If the movie is longer than zero minutes and less than 50 minutes it is categorized as SHORT. When the length is 50-120 minutes, it's categorized as Medium, and when even longer, it's categorized as Long.
+The following example categorizes each player by level. If the level is higher than zero and less than 5 they are categorized as beginner. When the level is 6-12, they are categorized as intermediate, and when even higher, they are categorized as expert.
 
 ```sql
 SELECT
 	player,
-	currentlevel,
+	current_level,
 	CASE
-		WHEN length > 0
-		AND length <= 5 THEN 'Beginner'
-		WHEN length > 5
-		AND length <= 12 THEN 'Intermediate'
-		WHEN length > 12 THEN 'Expert'
+		WHEN current_level > 0 AND current_level <= 5 
+			THEN 'Beginner'
+		WHEN current_level > 5 AND current_level <= 12 
+			THEN 'Intermediate'
+		WHEN current_level > 12
+			THEN 'Expert'
 	END ranking
 FROM
 	player_level
@@ -69,11 +70,11 @@ ORDER BY
 
 **Returns**:
 
-| player              | currentlevel | ranking | 
+| player              | current_level | ranking | 
 | :-------------------- | :------ | :-------|
-| kennethpark         | 3   | Beginner | 
-| esimpson       | 8     | Intermediate | 
-| sabrina21 | 11   | Intermediate |
-| rileyjon      | 15    | Expert |
 | burchdenise     | 4    | Beginner | 
+| esimpson       | 8     | Intermediate | 
+| kennethpark         | 3   | Beginner | 
+| rileyjon      | 15    | Expert |
+| sabrina21 | 11   | Intermediate |
 
