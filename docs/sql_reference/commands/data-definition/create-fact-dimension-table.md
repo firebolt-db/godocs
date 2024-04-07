@@ -133,7 +133,6 @@ SQL Functions can be used in Partition By expressions, the following subset is s
 
 For more information, see [Working with partitions](../../../Overview/working-with-tables/working-with-partitions.md)).
 
-
 ### Table type
 
 Firebolt supports two types of tables:
