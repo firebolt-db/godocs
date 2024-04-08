@@ -17,7 +17,7 @@ For more information, see [Service accounts](../../../Guides/managing-your-organ
 
 ```sql
 ALTER SERVICE ACCOUNT <service_account_name> SET 
-      [ NETWORK_POLICY_NAME = <network_policy_name> | DEFAULT ] 
+      [ NETWORK_POLICY = <network_policy_name> | DEFAULT ] 
       [ DESCRIPTION = <description> | DEFAULT ]
       [ IS_ORGANIZATION_ADMIN = { TRUE | FALSE } ]
 ```
@@ -35,7 +35,7 @@ ALTER SERVICE ACCOUNT <service_account_name> RENAME TO <new_name>;
 | :--- | :--- |
 | `<service_account_name>`                              | The name of the service account to edit.   |
 | `<description>` | An optional description for the service account. |
-| `<network_policy_name>`                      | An optional parameter to define the network policy to link to the edited service account. |
+| `<network_policy_name>`                      | An optional parameter to define the network policy to link to the edited service account. Specifying `DEFAULT` will detach any linked network policy. |
 | `<new_name>`                              | The new name of the service account. Must start with a letter and may contain only alphanumeric, digit, or underscore(_) characters.  |
 
 ## Example
@@ -48,5 +48,5 @@ ALTER SERVICE ACCOUNT "sa1" RENAME TO "serviceaccount1";
 
 This command will link the network policy "my_network_policy" to the "serviceaccount1" service account. 
 ```sql
-ALTER SERVICE ACCOUNT "serviceaccount1" SET NETWORK_POLICY_NAME = "my_network_policy";
+ALTER SERVICE ACCOUNT "serviceaccount1" SET NETWORK_POLICY = "my_network_policy";
 ```

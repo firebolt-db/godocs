@@ -31,7 +31,7 @@ CREATE USER [ IF NOT EXISTS ] <user_name>
 | :--------- | :---------- |
 | `<user_name>`                              | The name of the user. The user name can be any string, and can also contain spaces and non-alpha-numeric characters such as exclamation points (!), percent signs (%), at signs(@), dot signs (.), underscore signs (_), minus signs (-), and asterisks (*). If the string contains spaces or non-alphanumeric characters, it must be enclosed in single or double quotes.  |
 | `<login_name>` | An optional parameter to specify the name of the login to link the user with. This cannot be used in conjunction with the SERVICE_ACCOUNT parameter - a user can be linked to a login OR a service account but not both. |
-| `<service_account_name>` | An optional parameter to specify the name of the service account to link the user with. This cannot be used in conjunction with the LOGIN_NAME parameter - a user can be linked to a login OR a service account but not both. |
+| `<service_account_name>` | An optional parameter to specify the name of the service account to link the user with. This cannot be used in conjunction with the LOGIN parameter - a user can be linked to a login OR a service account but not both. |
 | `<database_name>`                      | An optional parameter to define a default database for the user (for future purposes). |
 | `<engine_name>` | An optional parameter to define a default engine for the user (for future purposes). |
 | `<role>` | An optional parameter to define a role for the user. Additional roles can be granted after the user is created. If no role is specified, the user is granted no roles. |

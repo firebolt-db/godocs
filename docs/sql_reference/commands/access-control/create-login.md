@@ -18,7 +18,7 @@ For more information, see [Managing logins](../../../Guides/managing-your-organi
 CREATE LOGIN [ IF NOT EXISTS ] <login_name> 
 	WITH [ IS_PASSWORD_ENABLED = { TRUE | FALSE } ]
             [ IS_MFA_ENABLED = { TRUE | FALSE } ]
-            [ NETWORK_POLICY_NAME = <network_policy_name> ]
+            [ NETWORK_POLICY = <network_policy_name> ]
             [ IS_ORGANIZATION_ADMIN = { TRUE | FALSE } ]
 	FIRST_NAME = <first_name>,
 	LAST_NAME = <last_name> 

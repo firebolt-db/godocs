@@ -26,7 +26,7 @@ ALTER ORGANIZATION SET
   “fieldMapping”: “<field_mapping>”,
   “certificate”: “<certficate>”,
 }’ ]
-  [ NETWORK_POLICY_NAME = [ DEFAULT | <network_policy_name> ]
+  [ NETWORK_POLICY = [ DEFAULT | <network_policy_name> ]
   ;
 ```
 

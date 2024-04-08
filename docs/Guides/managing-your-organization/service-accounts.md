@@ -103,7 +103,7 @@ Use the returned access_token to authenticate with Firebolt.
 To edit a service account using SQL, use the [`ALTER SERVICE ACCOUNT`](../../sql_reference/commands/access-control/alter-service-account.md) statement. For example:
 
 ```sql
-ALTER SERVICE ACCOUNT sa1 SET NETWORK_POLICY_NAME = my_network_policy
+ALTER SERVICE ACCOUNT sa1 SET NETWORK_POLICY = my_network_policy
 ```
 or: 
 ```sql

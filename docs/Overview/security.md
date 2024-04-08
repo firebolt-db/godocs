@@ -36,8 +36,8 @@ Once created, a network policy can be attached to [an organization](../Guides/ma
 #### Example
 
 ```sql
-ALTER ORGANIZATION my_organization SET NETWORK_POLICY_NAME = my_network_policy;
-ALTER LOGIN 'kate@acme.com' SET NETWORK_POLICY_NAME = my_network_policy;
+ALTER ORGANIZATION my_organization SET NETWORK_POLICY = my_network_policy;
+ALTER LOGIN 'kate@acme.com' SET NETWORK_POLICY = my_network_policy;
 ```
 
 For more information, see [network policies](../Guides/security/network-policies.md).

@@ -18,7 +18,7 @@ For more information, see [Service accounts](../../../Guides/managing-your-organ
 CREATE SERVICE ACCOUNT [ IF NOT EXISTS ] <service_account_name> 
     [ WITH
     [ DESCRIPTION = <description> ] 
-    [ NETWORK_POLICY_NAME = <network_policy_name> ]
+    [ NETWORK_POLICY = <network_policy_name> ]
     [ IS_ORGANIZATION_ADMIN = { TRUE|FALSE } ]
     ]
 ```
@@ -38,5 +38,5 @@ CREATE SERVICE ACCOUNT [ IF NOT EXISTS ] <service_account_name>
 The following command will create a service account "sa1" linked to the "my_network_policy" network policy. 
 
 ```sql
-CREATE SERVICE ACCOUNT "sa1" WITH NETWORK_POLICY_NAME = my_network_policy
+CREATE SERVICE ACCOUNT "sa1" WITH NETWORK_POLICY = my_network_policy
 ```

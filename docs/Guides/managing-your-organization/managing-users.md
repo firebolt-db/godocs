@@ -51,7 +51,7 @@ ALTER USER "alex" RENAME TO "alexs";
 ```
 or 
 ```sql
-ALTER USER alex SET LOGIN_NAME="alexs@acme.com";
+ALTER USER alex SET LOGIN="alexs@acme.com";
 ```
 
 ### UI
