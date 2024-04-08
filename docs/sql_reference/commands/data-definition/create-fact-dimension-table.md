@@ -124,6 +124,13 @@ The `PARTITION BY` clause specifies a column or columns by which the table will 
 PARTITION BY <column_name>[, <column_name>[, ...n]]
 ```
 
+SQL Functions can be used in Partition By expressions, the following subset is supported:
+
+* `to_yyyymm`
+* `to_yyyym`
+* `extract(year|month|day|hour from <column_name>)`
+* `date_trunc`
+
 For more information, see [Working with partitions](../../../Overview/working-with-tables/working-with-partitions.md)).
 
 ### Table type
