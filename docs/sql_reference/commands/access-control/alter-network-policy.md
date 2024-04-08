@@ -17,8 +17,8 @@ For more information, see [Network policies](../../../Guides/security/network-po
 ```sql
 ALTER NETWORK POLICY [ IF EXISTS ] <network_policy_name>
 SET  [ ALLOWED_IP_LIST = ( '<allowed_ip>', '<allowed_ip>' ... ) ]
-[ BLOCKED_IP_LIST = ( '<blocked_ip>', '<blocked_ip>' ... ) ]
-[ DESCRIPTION = '<description>' ] 
+     [ BLOCKED_IP_LIST = ( '<blocked_ip>', '<blocked_ip>' ... ) ]
+     [ DESCRIPTION = '<description>' ] 
 }
 ```
 
