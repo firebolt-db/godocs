@@ -37,12 +37,6 @@ Synonyms: `FLOAT4`.
 A floating-point number that has 15 decimal-digit precision. Decimal (fixed point) types are not supported. `DOUBLE` data types require 8 bytes.
 Synonyms: `DOUBLE`, `FLOAT`, `FLOAT8`, `FLOAT(p)` where 25 <= p <= 53.
 
-## String
-
-### TEXT
-A string of an arbitrary length that can contain any number of bytes. Useful for arbitrary-length string columns. Note that null bytes are not supported in TEXT literals, but are supported when importing from an external table. Firebolt supports UTF-8 escape sequences.
-Synonyms: `STRING`, `VARCHAR`
-
 ## Boolean
 
 ### BOOLEAN
