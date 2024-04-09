@@ -20,15 +20,15 @@ CREATE LOGIN [ IF NOT EXISTS ] <login_name>
             [ IS_MFA_ENABLED = { TRUE | FALSE }]
             [ NETWORK_POLICY = <network_policy_name>]
             [ IS_ORGANIZATION_ADMIN = { TRUE | FALSE }]
-	FIRST_NAME = <first_name>,
-	LAST_NAME = <last_name> 
+	        FIRST_NAME = <first_name>,
+	        LAST_NAME = <last_name> 
 ```
 
 ## Parameters 
 {: .no_toc} 
 
 | Parameter                     | Description   |
-| :-----------------------------| :------------ |
+| :---------------------------- | :------------ |
 | `<login_name>`                | The name of the login in the form of an email address. The login must be unique within the organization.   |
 | `IS_PASSWORD_ENABLED`         | A `BOOLEAN` value specifying if login with password is enabled. By default this is `TRUE` and passwords can be used to log in. |
 | `IS_MFA_ENABLED`              | A `BOOLEAN` value specifying if the login has multi-factor authentication (MFA) enabled. By default this value is `FALSE`. If set to `TRUE`, an enrollment email will be sent to the `<login_name>`.  |
