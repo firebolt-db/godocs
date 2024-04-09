@@ -29,13 +29,15 @@ or
 ```sql
 ALTER LOGIN <login_name> RENAME TO <new_login_name>;
 ```
-{: .note}
+
 A login that was provisioned via SSO cannot be renamed.
+{: .note}
 
 ## Parameters
 {: .no_toc} 
-| Parameter | Description |
-| :--- | :--- |
+
+| Parameter                     | Description |
+| :-------------------------    | :-----------|
 | `<login_name>`                | The name of the login in the form of an email address. The login must be unique within the organization.   |
 | `IS_PASSWORD_ENABLED`         | A `BOOLEAN` value specifying if login with password is enabled. By default this is `TRUE` and passwords can be used to log in. |
 | `IS_MFA_ENABLED`              | A `BOOLEAN` value specifying if the login has multi-factor authentication (MFA) enabled. By default this value is `FALSE`. If set to `TRUE`, an enrollment email will be sent to the `<login_name>`.  |
