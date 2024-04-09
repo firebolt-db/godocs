@@ -21,7 +21,7 @@ The source code for the Airflow provider package for Firebolt is available in th
 
 ## Prerequisites
 
-* A user profile in a Firebolt account. For more information, see [Creating an account](../../managing-your-account/creating-an-account.md).
+* A Firebolt account. For more information, see [Creating a new account](../managing-your-organization/managing-accounts.md/#create-a-new-account).
 
 * A Firebolt database and engine.
 
