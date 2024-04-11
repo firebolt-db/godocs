@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # ARRAY\_COUNT\_DISTINCT
 
-Returns the number of distinct (unique) elements in the array. As with `COUNT` and `COUNT(DISTINCT ...) aggregations, `NULL` is not counted as a value if it occurs.
+Returns the number of distinct (unique) elements in the array. As with `COUNT` and `COUNT(DISTINCT ...)` aggregations, `NULL` is not counted as a value if it occurs.
 
 ## Syntax
 {: .no_toc}
