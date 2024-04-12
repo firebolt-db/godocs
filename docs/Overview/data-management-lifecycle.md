@@ -6,7 +6,7 @@ nav_order: 5
 parent: Overview
 ---
 
-At Firebolt, the focus is on delivering the highest levels of performance and efficiency while minimizing the heavy lift that needs to be done by an end user. The foundational elements of Firebolt provide the full data management capabilities needed by modern data applications, including an optimized storage layer, parallel-pipelined data ingestion, primary and aggregated indexes, streamlined deletes and updates, and core database semantics. 
+At Firebolt, the focus is on delivering the highest levels of performance and efficiency while minimizing the heavy lift that needs to be done by an end user. The foundational elements of Firebolt provide the full data management capabilities needed by modern data applications, including an optimized storage layer, parallel-pipelined data ingestion, ACID DML, primary and aggregated indexes, streamlined deletes and updates, and core database semantics. 
 
 Delivering consistent performance and efficiency requires careful considerations, modeling and optimal indexing strategy. With automated index maintenance, Firebolt enables a hands-free approach to delivering consistent performance without the operational burden, even for cases where data modification functionality is needed. Various types of DML statements can impact system performance as it can result in storage fragmentation, negating the effectiveness of indexes. However, Firebolt addresses this with the choice of user-controlled or system-controlled backend optimization. 
 
