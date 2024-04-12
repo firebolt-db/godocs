@@ -90,8 +90,8 @@ As the bulk data load gets executed, Firebolt creates new tablets behind the sce
 
 Bulk insert statement example
 ```sql
-INSERT INTO rankings SELECT *, $source_file_name, $source_file_timestamp FROM rankings_ext; 
-//rankings_ext object referenced in above SQL statement is an external table pointing to S3 data
+COPY INTO rankings FROM 's3://Bucket/directory/'; 
+//The statement above copies all the files from a directory in an S3 bucket into the rankings table.
 ```
 
 {: .no_toc}
