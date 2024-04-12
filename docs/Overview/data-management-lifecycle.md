@@ -60,7 +60,7 @@ In addition, in situations where users create partitioned tables, queries contai
 All techniques mentioned above lead to efficiency when querying and processing data.
 
 ## Inserting data
-To support loading data from a data lake (Amazon S3) into Firebolt tables, Firebolt provides utilities for loading data in bulk. Users can perform both initial and incremental data ingestion using either a [`COPY`](../sql_reference/commands/data-management/copy-to.md) statement or [`INSERT INTO SELECT FROM <external_table>`](../sql_reference/commands/data-management/insert.md) syntax. 
+To support loading data from a data lake (Amazon S3) into Firebolt tables, Firebolt provides utilities for loading data in bulk. Users can perform both initial and incremental data ingestion using either a [`COPY`](../sql_reference/commands/data-management/copy-from.md) statement or [`INSERT INTO SELECT FROM <external_table>`](../sql_reference/commands/data-management/insert.md) syntax. 
 
 In addition, Firebolt supports singleton inserts via a `INSERT INTO VALUES` statement. Typical scenarios where singleton inserts come handy are:
 - Refreshing tables with small amounts of dimensional data, and
