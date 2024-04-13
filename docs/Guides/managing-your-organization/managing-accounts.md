@@ -42,7 +42,7 @@ Type a name for the account and choose a region. You won't be able to change the
 Then you will see your new account on the **Accounts management** page. 
 
 {: .note}
-There can be up to twenty accounts per organization. If you need to create more, please contact the Firebolt support team.
+There can be up to 20 accounts per organization and you can use `CREATE ACCOUNT` 25 times. If you have a need for additional account creations beyond this limit, contact [Firebolt Support](https://docs.firebolt.io/godocs/Reference/help-menu.html) for assistance. Our team can provide guidance and, if appropriate, adjust your account settings to accommodate your needs.
 
 ## Edit an existing account
 
