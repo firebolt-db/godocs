@@ -6,7 +6,7 @@ nav_order: 5
 parent: Overview
 ---
 
-At Firebolt, the focus is on delivering the highest levels of performance and efficiency while minimizing the heavy lift that needs to be done by an end user. The foundational elements of Firebolt provide the full data management capabilities needed by modern data applications, including an optimized storage layer, parallel-pipelined data ingestion, primary and aggregated indexes, streamlined deletes and updates, and core database semantics. 
+At Firebolt, the focus is on delivering the highest levels of performance and efficiency while minimizing the heavy lift that needs to be done by an end user. The foundational elements of Firebolt provide the full data management capabilities needed by modern data applications, including an optimized storage layer, parallel-pipelined data ingestion, ACID DML, primary and aggregated indexes, streamlined deletes and updates, and core database semantics. 
 
 Delivering consistent performance and efficiency requires careful considerations, modeling and optimal indexing strategy. With automated index maintenance, Firebolt enables a hands-free approach to delivering consistent performance without the operational burden, even for cases where data modification functionality is needed. Various types of DML statements can impact system performance as it can result in storage fragmentation, negating the effectiveness of indexes. However, Firebolt addresses this with the choice of user-controlled or system-controlled backend optimization. 
 
@@ -60,7 +60,7 @@ In addition, in situations where users create partitioned tables, queries contai
 All techniques mentioned above lead to efficiency when querying and processing data.
 
 ## Inserting data
-To support loading data from a data lake (Amazon S3) into Firebolt tables, Firebolt provides utilities for loading data in bulk. Users can perform both initial and incremental data ingestion using either a [`COPY`](../sql_reference/commands/data-management/copy-to.md) statement or [`INSERT INTO SELECT FROM <external_table>`](../sql_reference/commands/data-management/insert.md) syntax. 
+To support loading data from a data lake (Amazon S3) into Firebolt tables, Firebolt provides utilities for loading data in bulk. Users can perform both initial and incremental data ingestion using either a [`COPY`](../sql_reference/commands/data-management/copy-from.md) statement or [`INSERT INTO SELECT FROM <external_table>`](../sql_reference/commands/data-management/insert.md) syntax. 
 
 In addition, Firebolt supports singleton inserts via a `INSERT INTO VALUES` statement. Typical scenarios where singleton inserts come handy are:
 - Refreshing tables with small amounts of dimensional data, and
@@ -90,8 +90,8 @@ As the bulk data load gets executed, Firebolt creates new tablets behind the sce
 
 Bulk insert statement example
 ```sql
-INSERT INTO rankings SELECT *, $source_file_name, $source_file_timestamp FROM rankings_ext; 
-//rankings_ext object referenced in above SQL statement is an external table pointing to S3 data
+COPY INTO rankings FROM 's3://Bucket/directory/'; 
+//The statement above copies all the files from a directory in an S3 bucket into the rankings table.
 ```
 
 {: .no_toc}
