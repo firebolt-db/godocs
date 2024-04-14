@@ -113,9 +113,7 @@ INSERT INTO demo VALUES
 
 ## Date and timestamp
 
-Firebolt supports three date and timestamp data types:
-
-| Name          | Size    | Minimum                          | Maximum                          | Resolution    |
+| Type          | Size    | Min                              | Max                              | Resolution    |
 | :------------ | :------ | :------------------------------- | :------------------------------- | :------------ |
 | `DATE`        | 4 bytes | `0001-01-01`                     | `9999-12-31`                     | 1 day         |
 | `TIMESTAMP`   | 8 bytes | `0001-01-01 00:00:00.000000`     | `9999-12-31 23:59:59.999999`     | 1 microsecond |
