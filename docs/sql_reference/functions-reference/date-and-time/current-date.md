@@ -17,8 +17,8 @@ Returns the current local date in the time zone specified in the [session's `tim
 The function can be called with or without parentheses:
 
 ```sql
-SELECT CURRENT_DATE;
-SELECT CURRENT_DATE();
+CURRENT_DATE
+CURRENT_DATE()
 ```
 
 ## Return Type

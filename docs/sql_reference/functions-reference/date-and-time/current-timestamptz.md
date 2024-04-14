@@ -17,8 +17,8 @@ Returns the current timestamp as a `TIMESTAMPTZ` value.
 The function can be called with or without parentheses:
 
 ```sql
-SELECT CURRENT_TIMESTAMP;
-SELECT CURRENT_TIMESTAMP();
+CURRENT_TIMESTAMP
+CURRENT_TIMESTAMP()
 ```
 
 ## Return Type

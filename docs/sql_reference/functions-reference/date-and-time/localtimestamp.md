@@ -16,8 +16,8 @@ Returns the current local timestamp in the time zone specified in the session's 
 The function can be called with or without parentheses:
 
 ```sql
-SELECT LOCALTIMESTAMP;
-SELECT LOCALTIMESTAMP();
+LOCALTIMESTAMP
+LOCALTIMESTAMP()
 ```
 
 ## Return Type
