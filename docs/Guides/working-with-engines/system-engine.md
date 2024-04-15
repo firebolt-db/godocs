@@ -1,6 +1,6 @@
 ---
 layout: default
-title: System Engine (Beta)
+title: System Engine
 description: System engine documentation
 parent: Work with engines
 grand_parent: Guides
