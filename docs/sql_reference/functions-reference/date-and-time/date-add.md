@@ -9,62 +9,35 @@ great_grand_parent: SQL reference
 
 # DATE\_ADD
 
-Calculates a new date or timestamp by adding or subtracting a specified number of time units from an indicated expression.
+Computes a new TIMESTAMP or TIMESTAMPTZ value by adding or subtracting a specified number of time units from a DATE, TIMESTAMP, or TIMESTAMPTZ value.
+It's similar to [arithmetic with intervals](../../../Reference/interval-arithmetic.md), but it also allows using a column reference for the `<quantity>`.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-DATE_ADD('<unit>', <value>, <expression>)
+DATE_ADD('<unit>', <quantity>, <expression>)
 ```
 ## Parameters 
 {: .no_toc}
 
-| Parameter     | Description       | Supported input types | 
-| :------------- | :---------------------- | :---------|
-| `<datepart>`      | A unit of time | `SECOND`, `MINUTE`, `HOUR`, `DAY`, `WEEK`, `MONTH`, `QUARTER`, or `YEAR`  |                                                              |
-| `<value>`  | The number of times to increase the `<datepart>` by the time unit specified by `<unit>` | Positive or negative number | 
-| `<expression>` | A date expression  | Any expression that evaluates to a `DATE` or `TIMESTAMP` value |                                                            |
+| Parameter      | Description                                                                                                                                                                             |
+| :------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `<unit>`       | A TEXT literal specifying the time unit. Must be one of `microsecond`,`millisecond`,`second`,`minute`,`hour`,`day`,`week`,`month`,`quarter`,`year`,`decade`,`century`, or `millennium`. |
+| `<quantity>`   | An INT or BIGINT specifying how often the time unit should be added or subtracted to <expression>.                                                                                      |
+| `<expression>` | An expression evaluating to type DATE, TIMESTAMP, or TIMESTAMPTZ.                                                                                                                       |
 
-## Return Types 
-`DATE` or `TIMESTAMP`
+## Return Types
+
+TIMESTAMP if `<expression>` has type DATE or TIMESTAMP.
+TIMESTAMPTZ if `<expression>` has type TIMESTAMPTZ.
 
 ## Example
 {: .no_toc}
 
-The example below uses a table `player_registry` with the columns and values below.
-
-| player | registeredon |
-| :-------- | :---------- |
-| steven70        | 2012-05-01 |
-| burchdenise       | 2021-08-30 |
-| stephanie86        | 1999-12-31 |
-
-This example below adds 15 weeks to the `registeredon` column.
-
 ```sql
-SELECT
-	category,
-	DATE_ADD('WEEK', 15, registeredon)
-FROM
-	player_registry;
+SELECT date_add('week', 4, '2024-04-15 12:13:14'::timestamp);
 ```
 
 **Returns**:
-
-| player | registerdon | 
-|:---------------|:-------|
-| steven70 | 2012-08-14 |
-| burchdenise | 2021-12-13 |
-| stephanie86 | 2000-04-14 |
-
-
-
-This example below subtracts 6 months from a given start date string. This string representation of a date first needs to be transformed to `DATE `type using the `CAST `function.
-
-```
-SELECT
-    DATE_ADD('MONTH', -6, CAST ('2021-11-04' AS DATE));
-```
-
-**Returns**: `2021-05-04`
+`'2024-05-13 12:13:14'::timestamp`.
