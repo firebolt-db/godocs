@@ -21,23 +21,26 @@ DATE_TRUNC(<time_unit>, <expression> [, <time_zone> ])
 ## Parameters
 {: .no_toc}
 
-| Parameter       | Description                                              | Supported input types                                                                                                                                                        |
-| :-------------- | :------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `<time_unit>`   | The time unit precision to truncate to.                  | `'microseconds'`, `'milliseconds'`, `'second'`, `'minute'`, `'hour'`, `'day'`, `'week'`, `'month'`, `'quarter'`, `'year'`, `'decade'`, `'century'`, `'millennium'`  (quoted) |
-| `<expression> ` | An expression to be truncated.                           | `DATE`, `TIMESTAMP`, `TIMESTAMPTZ`                                                                                                                                           |
-| `<time_zone>`   | Optional, the time zone to use for `TIMESTAMPTZ` values. | A string literal such as `'Europe/Berlin'`                                                                                                                                   |
+| Parameter      | Description                                                                                                                                                                                                          |
+| :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `<time_unit>`  | A TEXT literal with the time unit precision to truncate to. Must be one of `microsecond`, `millisecond`, `second`, `minute`, `hour`, `day`, `week`, `month`, `quarter`, `year`, `decade`, `century` or `millennium`. |
+| `<expression>` | A value expression evaluating to the DATE, TIMESTAMP, or TIMESTAMPTZ value that should be truncated.                                                                                                                 |
+| `<time_zone>`  | An optional TEXT literal giving a time zone name.                                                                                                                                                                    |
 
 ## Return Type
-Same as the input data type (`<time_unit>`)
+
+DATE if `<expression>` has type DATE, TIMESTAMP if `<expression>` has type TIMESTAMP, TIMESTAMPTZ if `<expression>` has type TIMESTAMPTZ.
 
 ## Remarks
 {: .no_toc}
 
-When the `<expression>` value is of type `TIMESTAMPTZ`, truncation is performed after converting the value from Unix time to local time in a particular time zone. For instance, truncation to 'day' produces a `TIMESTAMPTZ` that is midnight in that time zone.
+Truncation of TIMESTAMPTZ values is performed after conversion to local time in a particular time zone.
+For instance, truncation to 'day' produces a TIMESTAMPTZ that is midnight in that time zone.
+By default, the function uses the time zone specified in the session's `time_zone` setting.
+Alternatively, if the optional `<time_zone>` argument is provided, the function uses that time zone.
 
-By default, `DATE_TRUNC` uses the time zone specified in the session's `<time_zone>` setting, but the optional `<time_zone>` argument can be provided to use a different time zone.
-
-Firebolt throws an error if the `<time_zone>` argument is provided for a source of type `DATE` or `TIMESTAMP`.
+Firebolt raises an error if the optional `<time_zone>` argument is provided for an `<expression>` evaluating to DATE or TIMESTAMP.
+Firebolt also raises an error if one attempts to truncate a value expression of type DATE to `microsecond`, `millisecond`, `second`, `minute`, or `hour`.
 
 The `DATE_TRUNC` function can be used in the `PARTITION BY` clause of `CREATE TABLE` commands.
 
