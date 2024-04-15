@@ -22,12 +22,13 @@ CURRENT_TIMESTAMP()
 ```
 
 ## Return Type
+
 `TIMESTAMPTZ`
 
 ## Remarks
 {: .no_toc}
 
-The function takes the current Unix timestamp (in the UTC time zone), and returns it as a `TIMESTAMPTZ` value.
+The function gets the current timestamp from the system, and returns it as a `TIMESTAMPTZ` value.
 
 ## Example
 {: .no_toc}
