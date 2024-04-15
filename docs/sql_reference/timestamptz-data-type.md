@@ -16,19 +16,21 @@ This topic describes the Firebolt implementation of the `TIMESTAMPTZ` data type.
 
 ## Overview
 
-| Name          | Size    | Minimum                          | Maximum                          | Resolution    |
+| Name          | Size    | Min                              | Max                              | Resolution    |
 | :------------ | :------ | :------------------------------- | :------------------------------- | :------------ |
 | `TIMESTAMPTZ` | 8 bytes | `0001-01-01 00:00:00.000000 UTC` | `9999-12-31 23:59:59.999999 UTC` | 1 microsecond |
 
 The `TIMESTAMPTZ` data type represents an absolute point in time as a date and time with microsecond resolution.
+Firebolt stores `TIMESTAMPTZ` values as [Unix time](https://en.wikipedia.org/wiki/Unix_time), which is UTC without leap seconds.
+
+### Difference between TIMESTAMPTZ and TIMESTAMP
+{:.no_toc}
 
 With `TIMESTAMP`, the time zone is deliberately unspecified.
-For example, the start of the third millennium was celebrated on New Year's Day at `TIMESTAMP '2001-01-01 00:00:00'`, independent of a geographical location.
+For example, the start of the third millennium was celebrated on New Year's Day at `TIMESTAMP '2001-01-01 00:00:00'`, independent of the geographical location.
 However, that doesn't mean that everybody in the world celebrated at the same absolute point in time.
 In Munich, Germany, the new year was celebrated at `TIMESTAMPTZ '2001-01-01 00:00:00 Europe/Berlin'`, which was `TIMESTAMPTZ '2000-12-31 23:00:00 UTC'`.
 Seattle in the United States celebrated nine hours later at `TIMESTAMPTZ '2001-01-01 00:00:00 US/Pacific'`, which was `TIMESTAMPTZ '2001-01-01 08:00:00 UTC'`.
-
-Firebolt stores `TIMESTAMPTZ` values as [Unix time](https://en.wikipedia.org/wiki/Unix_time), which is UTC without leap seconds.
 
 ## Literal string interpretation
 
@@ -52,13 +54,15 @@ Firebolt stores `TIMESTAMPTZ` values as [Unix time](https://en.wikipedia.org/wik
   * Format: `(+|-)H[H][:m[m]]`.
 * `utc_time_zone`: The letter `Z` representing the UTC time zone.
 
-Time zone names are from the [tz database](http://www.iana.org/time-zones) (see the [list of tz database time zones](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones)). For times in the future, the latest known rule for the given time zone is applied. Firebolt does not support time zone abbreviations, as they cannot account for daylight savings time transitions, and some time zone abbreviations implied different UTC offsets at different times.
+Time zone names are from the [tz database](http://www.iana.org/time-zones) (see the [list of tz database time zones](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones)).
+For times in the future, the latest known rule for the given time zone is applied.
+Firebolt does not support time zone abbreviations, as they cannot account for daylight savings time transitions, and some time zone abbreviations implied different UTC offsets at different times.
 
 If a `TIMESTAMPTZ` literal has an explicit time zone specified, it is converted to Unix time using the appropriate offset.
 If not, Firebolt uses the session's `time_zone` setting and assumes the `TIMESTAMPTZ` literal is in that time zone.
 The default value of the `time_zone` setting is UTC.
-To check what time zone is set, use `SELECT TIMEZONE()`.
-To set it to, e.g., `Europe/Berlin`, you can issue: `SET time_zone = 'Europe/Berlin';`. For more information, see [system settings](../Reference/system-settings.md#set-time-zone).
+To set it to, e.g., `Europe/Berlin`, you can issue: `SET time_zone = 'Europe/Berlin';`.
+For more information, see [system settings](../Reference/system-settings.md#set-time-zone).
 
 If only the date is specified, the time is assumed to be `00:00:00.000000`.
 
@@ -70,18 +74,13 @@ SELECT TIMESTAMPTZ '1996-09-03 11:19:33.123456 Europe/Berlin';  --> 1996-09-03 0
 SELECT TIMESTAMPTZ '2023-1-29 6:3:42.7-3:30';  --> 2023-01-29 09:33:42.7+00
 ```
 
-As shown below, string literals are implicitly converted to `TIMESTAMPTZ` when used where an expression of type `TIMESTAMPTZ` is expected:
-
-```sql
-SELECT DATE_TRUNC('hour', TIMESTAMPTZ '2023-02-13 17:14:19.123 Europe/Berlin', 'Israel') = '2023-02-13 17:00:00+01';  --> true
-```
-
-## Daylight savings
+## Daylight savings time transitions
 
 During a daylight savings time transition, a seemingly valid timestamp can represent a nonexistent or ambiguous timestamp.
 Firebolt resolves the problem by returning the later time point.
 
 ### "Spring forward" transitions
+{:.no_toc}
 
 ```sql
 SET time_zone = 'UTC';
@@ -91,6 +90,7 @@ SELECT TIMESTAMPTZ '2022-03-27 03:00:00 Europe/Berlin';  --> 2022-03-27 01:00:00
 ```
 
 ### "Fall back" transitions
+{:.no_toc}
 
 ```sql
 SET time_zone = 'UTC';
@@ -103,25 +103,30 @@ SELECT TIMESTAMPTZ '2022-10-30 03:00:00 Europe/Berlin';  --> 2022-10-30 02:00:00
 
 ### Type conversions
 
-The `TIMESTAMPTZ` data type can be cast to and from types as follows (assuming `SET time_zone = 'UTC';`): 
+The `TIMESTAMPTZ` data type can be cast to and from types as follows:
 
-| To `TIMESTAMPTZ` | Example                                                                                                   | Note                                                                                                       |
-| :--------------- | :-------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------- |
-| `TIMESTAMPTZ`    | `SELECT CAST(TIMESTAMPTZ '2023-02-13 11:19:42 Europe/Berlin' as TIMESTAMPTZ); --> 2023-02-13 09:19:42+00` |                                                                                                            |
-| `DATE`           | `SELECT CAST(DATE '2023-02-13' as TIMESTAMPTZ);  --> 2023-02-13 00:00:00+00`                              | Interprets the timestamp to be midnight in the time zone specified by the session's `time_zone` setting.   |
-| `TIMESTAMP`      | `SELECT CAST(TIMESTAMP '2023-02-13 11:19:42' as TIMESTAMPTZ);  --> 2023-02-13 11:19:42+00`                | Interprets the timestamp to be local time in the time zone specified by the session's `time_zone` setting. |
-| `NULL`           | `SELECT CAST(null as TIMESTAMPTZ);  --> NULL`                                                             |                                                                                                            |
+#### To TIMESTAMPTZ
+{:.no_toc}
 
-| From `TIMESTAMPTZ` | Example                                                                                                   | Note                                                                                                                                                |
-| :----------------- | :-------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `DATE`             | `SELECT CAST(TIMESTAMPTZ '2023-02-13 11:19:42 Europe/Berlin' as DATE);  --> 2023-02-13`                   | Converts from Unix time to local time in the time zone specified by the session's `time_zone` setting and then truncates the timestamp to the date. |
-| `TIMESTAMP`        | `SELECT CAST(TIMESTAMPTZ '2023-02-13 11:19:42 Europe/Berlin' as TIMESTAMP );  --> 2023-02-13 11:19:42+00` | Convert from Unix time to local time in the time zone specified by the session's `time_zone` setting.                                               |
+| From type   | Example                                                                                             | Note                                                                                                       |
+| :---------- | :-------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------- |
+| `TEXT`      | `SELECT CAST(TEXT '2023-02-13 11:19:42 Europe/Berlin' as TIMESTAMPTZ);  --> 2023-02-13 00:00:00+00` | Interprets the text according to the literal string format.                                                |
+| `DATE`      | `SELECT CAST(DATE '2023-02-13' as TIMESTAMPTZ);  --> 2023-02-13 00:00:00+00`                        | Interprets the timestamp to be midnight in the time zone specified by the session's `time_zone` setting.   |
+| `TIMESTAMP` | `SELECT CAST(TIMESTAMP '2023-02-13 11:19:42' as TIMESTAMPTZ);  --> 2023-02-13 11:19:42+00`          | Interprets the timestamp to be local time in the time zone specified by the session's `time_zone` setting. |
 
+#### FROM TIMESTAMPTZ
+{:.no_toc}
+
+| To type     | Example                                                                                               | Note                                                                                                                                                |
+| :---------- | :---------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `TEXT`      | `SELECT CAST(TIMESTAMPTZ '2023-02-13 11:19:42 Europe/Berlin' as TEXT);  --> 2023-02-13 10:19:42+00`   | Converts from Unix time to local time in the time zone specified by the session's `time_zone` setting and appends the UTC offset.                   |
+| `DATE`      | `SELECT CAST(TIMESTAMPTZ '2023-02-13 11:19:42 Europe/Berlin' as DATE);  --> 2023-02-13`               | Converts from Unix time to local time in the time zone specified by the session's `time_zone` setting and then truncates the timestamp to the date. |
+| `TIMESTAMP` | `SELECT CAST(TIMESTAMPTZ '2023-02-13 11:19:42 Europe/Berlin' as TIMESTAMP);  --> 2023-02-13 10:19:42` | Convert from Unix time to local time in the time zone specified by the session's `time_zone` setting.                                               |
 
 #### AT TIME ZONE
 
-The dependence on the session's `time_zone` setting for type conversions is especially problematic for automatic conversions, which, for example, might be required when reading from an external table.
-Therefore, we recommend using the `AT TIME ZONE` construct to avoid the implicit dependence on the `time_zone` setting, to be explicit about which time zone to use.
+The dependence on the session's `time_zone` setting for type conversions can be problematic for implicit conversions.
+Therefore, we recommend using the `AT TIME ZONE` construct to be explicit about which time zone to use.
 
 * `TIMESTAMP AT TIME ZONE time_zone_str -> TIMESTAMPTZ` <br>
  Converts the given `TIMESTAMP` to `TIMESTAMPTZ` by interpreting it as local time in the time zone `time_zone_str`.
@@ -140,8 +145,6 @@ However, you can explicitly cast a `DATE` value to `TIMESTAMP` and use the conve
 
 ### Comparison operators
 
-The usual comparison operators are supported:
-
 | Operator                     | Description              |
 | :--------------------------- | :----------------------- |
 | `TIMESTAMPTZ < TIMESTAMPTZ`  | Less than                |
@@ -155,8 +158,6 @@ A `TIMESTAMPTZ` value is also comparable with a `DATE` or `TIMESTAMP` value:
 
 * The `DATE` value is converted to the `TIMESTAMPTZ` type for comparison with a `TIMESTAMPTZ` value.
 * The `TIMESTAMP` value is converted to the `TIMESTAMPTZ` type for comparison with a `TIMESTAMPTZ` value.
-
-For more information, see [type conversions](#type-conversions).
 
 ### Arithmetic operators
 
@@ -199,10 +200,8 @@ In this case, Firebolt implicitly extends or truncates to resolve in microsecond
 It's also possible to import into a `TIMESTAMPTZ` column from Avro's `timestamp-millis` type.
 
 ### ORC
+{:.no_toc}
 
-It's not possible to import directly from ORC into a `TIMESTAMPTZ` column; ORC's logical `TIMESTAMP` type is independent of a time zone and this would require a possibly unintended time zone conversion on import.
-Instead, first import using a `TIMESTAMPNTZ` column and then use the `AT TIME ZONE` expression to convert to `TIMESTAMPTZ`.
-
-## Data pruning
-
-Columns of type `TIMESTAMPTZ` can be used in the `PRIMARY INDEX` and `PARTITION BY` clause of `CREATE TABLE` commands.
+It's not possible to import directly from ORC into a `TIMESTAMPTZ` column.
+ORC's logical `TIMESTAMP` type is independent of a time zone and this would require a possibly unintended time zone conversion on import.
+Instead, first import using a `TIMESTAMP` column and then use the `AT TIME ZONE` expression to convert to `TIMESTAMPTZ`.
