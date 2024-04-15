@@ -88,7 +88,7 @@ FROM <externalLocation>
 
 notes:
 Non-existing columns:
-By default if a column does not exist in the src it will produce nulls.
+By default if a column does not exist in the source file it will produce nulls.
 For CSV format it applies to missing fields as well.
 
 CSV:
