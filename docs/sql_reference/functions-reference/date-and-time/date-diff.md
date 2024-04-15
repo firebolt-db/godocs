@@ -7,68 +7,34 @@ grand_parent: SQL functions
 parent: Date and time functions
 ---
 
-# DATE\_DIFF
+# DATE_DIFF
 
-Calculates the difference between `start_date` and `end_date` by the indicated unit.
+Calculates the difference between `start_timestamp` and `end_timestamp` by the indicated unit.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-DATE_DIFF('<unit>', <start_date>, <end_date>)
+DATE_DIFF('<unit>', <start_timestamp>, <end_timestamp>)
 ```
 ## Parameters
 {: .no_toc}
 
-## Parameters
+| Parameter           | Description                                                                                                                                                                                        |
+| :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `<unit>`            | A TEXT literal specifying the time unit. Must be one of `microsecond`, `millisecond`, `second`, `minute`, `hour`, `day`, `week`, `month`, `quarter`, `year`, `decade`, `century`, or `millennium`. |
+| `<start_timestamp>` | A value expression evaluating to a `TIMESTAMP` or `TIMESTAMPTZ` value.                                                                                                                             |
+| `<end_timestamp>`   | A value expression evaluating to a `TIMESTAMP` or `TIMESTAMPTZ` value.                                                                                                                             |
 
-| Parameter      | Description                                                    |
-| :-------------- | :-------------------------------------------------------------- |
-| `<unit>`       | A unit of time. This can be any of the following: `MICROSECOND`, `MILLISECOND`, `SECOND`, `MINUTE`, `HOUR`, `DAY`, `WEEk`, `MONTH`, `QUARTER`, `YEAR`, `DECADE`, `CENTURY`. |
-| `<start_date>` | An expression that evaluates to a `DATE`, `TIMESTAMP` or `TIMESTAMPTZ` value. |
-| `<end_date>`   | An expression that evaluates to a `DATE`, `TIMESTAMP` or `TIMESTAMPTZ` value. |
+## Return Type
 
-## Return Types
-
-`LONG`
+`BIGINT`
 
 ## Example
 {: .no_toc}
 
-The example below uses a table `date_test` with the columns and values below.
-
-| Category | sale\_date | sale\_timestamp      |
-| :-------- | :---------- | :------------------- |
-| a        | 2012-05-01 | 2017-06-15 09:34:21 |
-| b        | 2021-08-30 | 2014-01-15 12:14:46 |
-| c        | 1999-12-31 | 1999-09-15 11:33:21 |
-
 ```sql
-SELECT
-	category,
-	DATE_DIFF('YEAR', sale_date, sale_datetime) AS year_difference
-FROM
-	date_test;
+SELECT DATE_DIFF('day', '2024-01-01'::TIMESTAMP, '2024-04-15'::TIMESTAMP);
 ```
 
-**Returns**:
-
-| Category | year_difference |
-|:---------| :----------|
-| a        | 5               |
-| b        | -7              |
-| c        | 0               |
-
-
-This example below finds the number of days difference between two date strings. The strings first need to be transformed to `TIMESTAMP` type using the `CAST `function.
-
-```sql
-SELECT
-	DATE_DIFF(
-		'day',
-		CAST('2020/08/31 10:00:00' AS TIMESTAMP),
-		CAST('2020/08/31 11:00:00' AS TIMESTAMP)
-	);
-```
-
-**Returns**: `0`
+**Returns**: 105
