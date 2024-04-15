@@ -16,21 +16,12 @@ This topic describes the Firebolt implementation of arithmetic with intervals.
 
 ## Overview
 
-An `interval` represents a duration. In Firebolt, values of type `interval` can be used to add or subtract a duration to/from a date or timestamp.
+An `interval` represents a duration.
+In Firebolt, values of type `interval` can be used to add or subtract a duration to/from a date or timestamp.
 `Interval` cannot be used as the data type of a column.
 
-The `+` and `*` operators shown below come in commutative pairs (e.g., both `DATE + interval` and `interval + DATE` are accepted). Although the arithmetic operators check that the resulting timestamp is in the supported range, they don't check for integer overflow.
+The `+` and `*` operators shown below come in commutative pairs (e.g., both `DATE + interval` and `interval + DATE` are accepted).
 
-<<<<<<< HEAD:docs/Reference/interval-arithmetic.md
-| Operator                                | Description                                 |
-| :-------------------------------------- | :------------------------------------------ |
-| `DATE + interval -> TIMESTAMP`          | Add an `interval` to a `DATE`               |
-| `DATE - interval -> TIMESTAMP`          | Subtract an `interval` from a `DATE`        |
-| `TIMESTAMP + interval -> TIMESTAMP`     | Add an `interval` to a `TIMESTAMP`          |
-| `TIMESTAMP - interval -> TIMESTAMP`     | Subtract an `interval` from a `TIMESTAMP`   |
-| `TIMESTAMPTZ + interval -> TIMESTAMPTZ` | Add an `interval` to a `TIMESTAMPTZ`        |
-| `TIMESTAMPTZ - interval -> TIMESTAMPTZ` | Subtract an `interval` from a `TIMESTAMPTZ` |
-=======
 | Operator                                  | Description                                 |
 | :---------------------------------------- | :------------------------------------------ |
 | `DATE + interval -> TIMESTAMP`            | Add an `interval` to a `DATE`               |
@@ -39,7 +30,6 @@ The `+` and `*` operators shown below come in commutative pairs (e.g., both `DAT
 | `TIMESTAMP - interval -> TIMESTAMP`       | Subtract an `interval` from a `TIMESTAMP`   |
 | `TIMESTAMPTZ + interval -> TIMESTAMPTZ`   | Add an `interval` to a `TIMESTAMPTZ`        |
 | `TIMESTAMPTZ - interval -> TIMESTAMPTZ`   | Subtract an `interval` from a `TIMESTAMPTZ` |
->>>>>>> rn/gh-pages:docs/general-reference/interval-arithmetic.md
 | `interval * DOUBLE PRECISION -> interval` | Multiply an `interval` by a scalar          |
 
 ## Literal string interpretation
@@ -47,6 +37,7 @@ The `+` and `*` operators shown below come in commutative pairs (e.g., both `DAT
 `Interval` literals can be specified in two formats. 
 
 ### First format
+{:.no_toc}
 
 ```sql
 interval 'quantity unit [quantity unit...] [direction]'
@@ -54,33 +45,26 @@ interval 'quantity unit [quantity unit...] [direction]'
 
 where `direction` can be `ago` or empty (`ago` negates all the quantities), `quantity` is a possibly signed integer, and `unit` is one of the following, matched case-insensitively:
 
-| Unit                    |      Minimum |     Maximum |
-| :---------------------- | -----------: | ----------: |
-| microsecond[s] / us     | `-999999999` | `999999999` |
-| millisecond[s] / ms     | `-999999999` | `999999999` |
-| second[s] / s           | `-999999999` | `999999999` |
-| minute[s] / m           | `-999999999` | `999999999` |
-| hour[s] / h             | `-999999999` | `999999999` |
-| day[s] / d              | `-999999999` | `999999999` |
-| week[s] / w             | `-999999999` | `999999999` |
-| month[s] / mon[s]       | `-999999999` | `999999999` |
-| year[s] / y             |  `-99999999` |  `99999999` |
-| decade[s] / dec[s]      |   `-9999999` |   `9999999` |
-| century / centuries / c |    `-999999` |    `999999` |
-| millennium[s] / mil[s]  |     `-99999` |     `99999` |
+| Unit                    |
+| :---------------------- |
+| microsecond[s] / us     |
+| millisecond[s] / ms     |
+| second[s] / s           |
+| minute[s] / m           |
+| hour[s] / h             |
+| day[s] / d              |
+| week[s] / w             |
+| month[s] / mon[s]       |
+| year[s] / y             |
+| decade[s] / dec[s]      |
+| century / centuries / c |
+| millennium[s] / mil[s]  |
 
-Each `unit` can appear only once in an interval literal. 
-Not all months have the same number of days.
-Additionally, not all days consist of 24 hours because of daylight savings time transitions for `TIMESTAMPTZ`.
-For instance, `SELECT TIMESTAMPTZ '2022-10-30 Europe/Berlin' + interval '1 day'` returns `2022-10-31 00:00:00+01` but `SELECT TIMESTAMPTZ '2022-10-30 Europe/Berlin' + interval '24 hours'` returns `2022-10-30 23:00:00+01` (assuming the value of the session's `time_zone` setting is `'Europe/Berlin'`).
-
-The value of the interval is determined by adding the quantities of the specified units with the appropriate signs, and an interval literal is valid if:
-
-1. The quantities used for `millennium`, `century`, `decade`, `year`, and `month` can be represented as a number of months in the range `[-pow(2, 31), pow(2, 31) - 1]`,
-2. The quantities used for `week` and `day` can be represented as a number of days in the range `[-pow(2, 31), pow(2, 31) - 1]`,
-3. The quantities used for `hour`, `minute`, `second`, `millisecond`, and `microsecond` can be represented as a number of microseconds in the range `[-pow(2, 63), pow(2, 63) - 1]`.
+Each `unit` can appear only once in an interval literal.
+The value of the interval is determined by adding the quantities of the specified units with the appropriate signs.
 
 ### Second format
+{:.no_toc}
 
 ```sql
 interval 'N' unit
@@ -88,29 +72,31 @@ interval 'N' unit
 
 where `N` is a possibly signed integer, and `unit` is one of the following, matched case-insensitively:
 
-| Unit   |  Minimum `N` | Maximum `N` |
-| :----- | -----------: | ----------: |
-| second | `-999999999` | `999999999` |
-| minute | `-999999999` | `999999999` |
-| hour   | `-999999999` | `999999999` |
-| day    | `-999999999` | `999999999` |
-| week   | `-999999999` | `999999999` |
-| month  | `-999999999` | `999999999` |
-| year   |  `-99999999` |  `99999999` |
+| Unit   |
+| :----- |
+| second |
+| minute |
+| hour   |
+| day    |
+| week   |
+| month  |
+| year   |
 
 ## Arithmetic between interval and TIMESTAMPTZ
 
 Interval arithmetic with `TIMESTAMPTZ` values works as follows:
 
 1. Convert the `TIMESTAMPTZ` value from Unix time to local time according to the rules of the time zone specified by the session's `time_zone` setting.
-2. Add the months and days components of the interval to the local time.
+2. Add the `millennium`, `century`, `decade`, `year`, `month`, `week` and `day` components of the interval to the local time.
 3. Convert the local time back to Unix time according to the rules of the time zone specified by the session's `time_zone` setting.
-4. Add the microseconds component of the interval to the Unix time.
+4. Add the `hour`, `minute`, `second`, `millisecond`, and `microsecond` components of the interval to the Unix time.
 
 The back and forth between Unix time and local time is necessary to handle the fact that not all days consist of 24 hours due to daylight savings time transitions.
+For instance, `SELECT TIMESTAMPTZ '2022-10-30 Europe/Berlin' + interval '1 day'` returns `2022-10-31 00:00:00+01` but `SELECT TIMESTAMPTZ '2022-10-30 Europe/Berlin' + interval '24 hours'` returns `2022-10-30 23:00:00+01` (assuming the value of the session's `time_zone` setting is `'Europe/Berlin'`).
 Still, the dependence on the session's `time_zone` setting should be kept in mind when doing arithmetic between interval and `TIMESTAMPTZ`.
 
 ### Multiplying an interval by a scalar
+{:.no_toc}
 
 You can use the expression `date_time + INTERVAL * d` where `date_time` is a constant or column reference of type `DATE`, `TIMESTAMP`, or `TIMESTAMPTZ`, and `d` is a constant or column reference of type `DOUBLE PRECISION`.
 The effect is that the INTERVAL is scaled by `d`, and the resulting INTERVAL is added to `date_time`.
