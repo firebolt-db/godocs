@@ -74,7 +74,8 @@ All Firebolt functions in alphabetical order.
 | [ROW_NUMBER](./window/row-number.md) | Returns a unique row number for each row within the requested window. | Window |
 | [RPAD](./string/rpad.md) | Adds a specified pad string to the end of the string repetitively up until the length of the resulting string is equivalent to an indicated length. | String |
 | [RTRIM](./string/rtrim.md) | Removes all occurrences of optionally specified characters from the right side of a source string. If no trim parameter is specified, all occurrences of common whitespace (ASCII Decimal 32) characters from the right side of the specified source string are removed. | String |
-| [SPLIT_PART](./string/split-part.md) | Divides a string based on a specified delimiter into an array of substrings. The string in the specified index is returned, with 1 being the first index. If the string separator is empty, the string is divided into an array of single characters. | String |
+| [SPLIT_PART](./string/split-part.md) | Divides a string based on a specified delimiter into an array of substrings. The string in the specified index is returned, with 1 being the first index. If the string separator is empty, the input string is returned at index 1. | String |
+| [STRING_TO_ARRAY](./string/string-to-array.md) | Splits a given string by a given separator and returns the result in an array of strings. | String |
 | [SUBSTRING, SUBSTR](./string/substring.md) | Returns a substring starting at the character indicated by the start index and including the number of characters defined. Character indexing starts at index 1. | String |
 | [SUM](./aggregation/sum.md) | Calculates the sum of an expression. | Aggregation |
 | [SUM OVER](./window/sum-window.md) | Calculate the sum of the values within the requested window. | Window |
