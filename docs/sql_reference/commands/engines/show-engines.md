@@ -2,7 +2,9 @@
 layout: default
 title: SHOW ENGINES
 description: Reference and syntax for the SHOW ENGINES command.
-parent: SQL commands
+parent: Engine commands
+grand_parent: SQL commands
+great_grand_parent: SQL reference
 ---
 
 # SHOW ENGINES
