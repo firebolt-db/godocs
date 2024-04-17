@@ -101,5 +101,15 @@ You can create multiple accounts within a given organization, where each account
 
 For more information on using RBAC for engines, see [Governing Engines](../Guides/working-with-engines/rbac-for-engines.md). 
 
+## Viewing and understanding engine status
+Use the [SHOW ENGINES](../sql_reference/commands/engines/show-engines.md) command to list all the engines in your Firebolt account and view the status of these engines. The table below shows the statuses returned by the `SHOW ENGINES` command.
+
+| `SHOW ENGINES` and UI |  | Description                     |
+| :-------------------- | :------------------------------- | :------------------------------ |
+| Starting              | The engine start has been initialized. It is provisioning resources, and will be ready to use soon.   |
+| Running               | The engine is running queries or available to run queries. Engine can be modified while it is running.|
+| Stopping              | The engine is shutting down. It is finishing query tasks in process and is not available for new queries. |
+| Stopped               | The engine is stopped. It is not available to run queries. |
+
 
 
