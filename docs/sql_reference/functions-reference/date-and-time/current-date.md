@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # CURRENT_DATE
 
-Returns the current (local) date in the time zone specified in the [session's `time_zone` setting](../../../Reference/system-settings.md#set-time-zone).
+Returns the current local date in the time zone specified in the [session's `time_zone` setting](../../../Reference/system-settings.md#set-time-zone).
 
 ## Syntax
 {: .no_toc}
@@ -22,28 +22,26 @@ CURRENT_DATE()
 ```
 
 ## Return Type
+
 `DATE`
 
 ## Remarks
 {: .no_toc}
 
-The function takes the current Unix timestamp (in the UTC time zone), converts it to the time zone specified in the `time_zone` setting, extracts the date part, and returns it as a `DATE` value.
-Two simultaneous calls of the function can return different dates, due to time zone conversion.
+The function gets the current timestamp from the system, converts it to the time zone specified in the `time_zone` setting, and truncates it to a `DATE` value.
 
 ## Example
 {: .no_toc}
 
-The following example assumes that the current Unix timestamp is `2023-03-03 23:59:00 UTC`.
-This example displays the current date in the set time zone of `Europe/Berlin`: 
+The following example assumes that the current timestamp is `2023-03-03 23:59:00 UTC`.
+It displays the current date in the time zone `Europe/Berlin`.
 
 ```sql
 SET time_zone = 'Europe/Berlin';
-SELECT CURRENT_DATE;  
+SELECT CURRENT_DATE();
 ```
 
-These functions return the current date in each of the timezones.  
-
 **Returns:**
-`2023-03-03`
+`2023-03-04`
 
-
+Notice that the time zone conversion from `UTC` to `Europe/Berlin` causes the resulting date to be `2023-03-04` instead of `2023-03-03`.

@@ -71,7 +71,6 @@ All Firebolt functions in alphabetical order.
 | [REGEXP_REPLACE](./string/regexp-replace.md) | Matches a pattern in the input string and replaces the first matched portion (from the left) with the specified replacement. | String |
 | [REPLACE](./string/replace.md) | Replaces all occurrences of the given pattern substring within the input expression with a replacement substring. | String |
 | [ROUND](./numeric/round.md) | Rounds a value to a specified number of decimal places. | Numeric |
-| [ROW_NUMBER](./window/row-number.md) | Returns a unique row number for each row within the requested window. | Window |
 | [RPAD](./string/rpad.md) | Adds a specified pad string to the end of the string repetitively up until the length of the resulting string is equivalent to an indicated length. | String |
 | [RTRIM](./string/rtrim.md) | Removes all occurrences of optionally specified characters from the right side of a source string. If no trim parameter is specified, all occurrences of common whitespace (ASCII Decimal 32) characters from the right side of the specified source string are removed. | String |
 | [SPLIT_PART](./string/split-part.md) | Divides a string based on a specified delimiter into an array of substrings. The string in the specified index is returned, with 1 being the first index. If the string separator is empty, the string is divided into an array of single characters. | String |

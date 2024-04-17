@@ -21,19 +21,19 @@ LOCALTIMESTAMP()
 ```
 
 ## Return Type
+
 `TIMESTAMP`
 
 ## Remarks
 {: .no_toc}
 
-The function takes the current Unix timestamp (in the UTC time zone), converts it to the time zone specified in the `time_zone` setting, and returns it as a `TIMESTAMP` value.
-Two simultaneous calls of the function can return different timestamps, due to time zone conversion.
+The function gets the current timestamp from the system, converts it to the time zone specified in the `time_zone` setting, and returns it as a `TIMESTAMP` value.
 
 ## Example
 {: .no_toc}
 
 The following example assumes that the current timestamp is `2023-03-03 14:42:31.123456 UTC`.
-Observe how we return different `TIMESTAMP` values with different time zone settings:
+Observe how it returns different `TIMESTAMP` values for different time zone settings:
 
 ```sql
 SET time_zone = 'Europe/Berlin';

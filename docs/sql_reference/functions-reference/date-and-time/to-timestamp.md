@@ -9,20 +9,57 @@ great_grand_parent: SQL reference
 
 # TO_TIMESTAMP
 
+See [below](#formatting-function) for the formatting function that converts from a formatted string to TIMESTAMPTZ.
+
+## Conversion function
+
+Converts the number of seconds since the Unix epoch (`1970-01-01 00:00:00 UTC`) to a TIMESTAMPTZ value.
+
+### Syntax
+{: .no_toc}
+
+`TO_TIMESTAMP(<seconds>)`
+
+### Parameters
+{: .no_toc}
+
+| Parameter   | Description                                                                                                                                                                    |
+| :---------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `<seconds>` | A value expression of type `DOUBLE PRECISION` representing the number of seconds before or after the Unix epoch. If present, the fractional part is interpreted as subseconds. |
+
+### Return Type
+
+`TIMESTAMPTZ`
+
+### Remarks
+{: .no_toc}
+
+`TO_TIMESTAMP(<seconds>)` is the inverse function of `EXTRACT(EPOCH FROM TIMESTAMPTZ)`.
+
+### Example
+{: .no_toc}
+
+```sql
+SET time_zone = 'Europe/Berlin';
+SELECT TO_TIMESTAMP(42.123456::DOUBLE PRECISION);  --> 1970-01-01 01:00:42.123456+01
+```
+
+## Formatting function
+
 Converts a string to `TIMESTAMPTZ` type (i.e., timestamp with time zone) using format.
 
-## Syntax
+### Syntax
 
 ```sql
 TO_TIMESTAMP(<expression> [,'<format>'])
 ```
-## Parameters
+### Parameters
 {: .no_toc}
 
-| Parameter      | Description                                                                                                                                                                                                                                                                                                                                | Supported input types |
-| :------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------- |
+| Parameter      | Description                                                                                                                                                                                                                                                                                                    | Supported input types |
+| :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------- |
 | `<expression>` | The text to convert to a timestamp with time zone. If no optional `<format>` argument is given that can be use to parse the `<expression>`, the following format is required: any supported date format directly followed by `( \|T)[H]H:[m]m:[S]S[.F]`. (For supported date formats see [TO_DATE](to-date.md) | `TEXT`                |
-| `<format>`     | Optional. A string literal that specifies the format of the `<expression>` to convert.                                                                                                                                                                                                                                                     | `TEXT` (see below)    |
+| `<format>`     | Optional. A string literal that specifies the format of the `<expression>` to convert.                                                                                                                                                                                                                         | `TEXT` (see below)    |
 
 Accepted `<format>` patterns include the following specifications:
 
@@ -57,7 +94,7 @@ Accepted `<format>` patterns include the following specifications:
 - Milliseconds and microseconds are interpreted as subseconds in the form `ss.xxx[xxx]`. This means that `TO_TIMESTAMP('30.7', 'SS.MS')` is not 7 milliseconds, but 700, because it will be treated as 30 + 0.7 seconds. To achieve 7 milliseconds, one ust write `30.007` instead.
 - Modifiers (e.g., `'FM'`) are not supported.
 
-## Examples
+### Examples
 
 The example below shows our separators and non-separators can cause skips. The separator `' '` (space) in the `<format>` matches the other separator `'/'` in the `<expression>`. The non-separator `'x'` will match any other character, in this case the `'a'`. Lastly, the two separators `'++'` will match up to two other separators, here the first `'x'` matches `'.'` while the second `'x'` will simply be ignored as no other separators follow.
 

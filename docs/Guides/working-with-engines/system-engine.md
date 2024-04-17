@@ -1,12 +1,12 @@
 ---
 layout: default
-title: System Engine (Beta)
+title: System Engine
 description: System engine documentation
 parent: Work with engines
 grand_parent: Guides
 ---
 
-# System Engine (Beta)
+# System Engine
 {: .no_toc}
 
 Firebolt's system engine enables running various metadata-related queries without having to start an engine. The system engine is always available for you in all databases to select and use.  
