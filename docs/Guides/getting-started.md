@@ -85,13 +85,38 @@ By following these steps, you've not only executed your first query but also suc
 
 ## Add Data To Your Database
 Now that you can select databases, select engines, and run queries, let's add some sample data. For this tutorial we will explore adding data in two ways; 
-1. Option 1: [Creating and using an external table](#Creating-and-using-an-external-table)
-2. Option 2: [Use `COPY FROM`](TO DO)
+1. Option 1: Use `COPY FROM`
+2. Option 2: Creating and using an external table
+
+### Option 1: Use COPY FROM
+`COPY FROM` allows you to copy data directly to a Firebolt table. For more information, see [COPY FROM](../sql_reference/commands/data-management/copy-from.html#copy-from). 
+
+#### Step 1: Use COPY FROM to ingest data
+You can use the `COPY FROM` command to copy the data from the S3 bucket durectly into Firebolt. During this operation, Firebolt ingests the data from your source into Firebolt.
+
+1. Choose the plus symbol (**+**) next to **Script 1** to create a new script tab in the SQL workspace.
+2. Copy and paste the query below into the new tab.
+
+```sql
+COPY INTO Tutorial FROM 's3://firebolt-publishing-public/samples/green_taxi/';
+```
 
 {: .note}
-This tutorial uses Firebolt's sample dataset, from the fictional gaming company "Ultra Fast Gaming Inc." This dataset is publicly available with the access credentials shared below.
+You can specify a role or AWS key credentials with permission to read from the S3 location using 'CREDENTIALS =' but we are using a publicly accessible datset for this tutorial. 
 
-### Option 1: Create and use an external table
+#### Step 2: Query the ingested data
+To verify that you inserted the data into the table, run a simple `SELECT` query like the one below.
+
+```sql
+SELECT
+  *
+FROM
+  Tutorial
+```
+
+And that's it! You've successfully copied data from S3 into a Firebolt table. 
+
+### Option 2: Create and use an external table
 #### Step 1: Create an External Table
 An *external table* is a special, virtual table that serves as a connector to your data source. After the external table is created, you ingest data by running an `INSERT` command from that external table into a *fact table* or *dimension table*. The `INSERT` command must run on a general purpose engine. After the data is available in fact and dimension tables, you can run analytics queries over those tables using any engine. 
 
@@ -129,7 +154,6 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ex_levels (
 ) 
 
 URL = 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/'
-
 -- CREDENTIALS = ( AWS_KEY_ID = '******' AWS_SECRET_KEY = '******' )
 OBJECT_PATTERN = 'help_center_assets/firebolt_sample_dataset/levels.csv'
 TYPE = (CSV SKIP_HEADER_ROWS = 1);
@@ -238,62 +262,6 @@ FROM
 The values shown in the query results pane should be similar to those shown below.
 
 <img src="../assets/images/Results%20Pane.png" alt="ResultsPane" width="600"/>
-
-
-### Option 1: Use COPY FROM [IN PROGRESS]
-`COPY FROM` allows you to copy data directly to a Firebolt table. For more information, see COPY FROM [TODO LINK]
-
-#### Step 1: Create a fact table
-In this step, you'll create a Firebolt fact table called `tutorial`, which you use in the next step as the target for a `COPY FROM` command. 
-
-1. Choose the plus symbol (**+**) next to **Script 1** to create a new script tab, **Script 2**, in the SQL workspace.
-2. Copy and paste the query below into the **Script 2** tab.
-
-```sql
-CREATE FACT TABLE IF NOT EXISTS tutorial (
- LevelID INTEGER,
- GameID INTEGER,
- Level INTEGER,
- Name TEXT,
- LevelType TEXT,
- NextLevel INTEGER NULL,
- MinPointsToPass INTEGER,
- MaxPoints INTEGER, 
- NumberOfLaps INTEGER,
- MaxPlayers INTEGER,
- MinPlayers INTEGER,
- PointsPerLap REAL,
- MusicTrack TEXT,
- SceneDetails TEXT,
- MaxPlayTimeSeconds INTEGER,
- LevelIcon TEXT
-);
-```
-
-#### Step 2: Use COPY FROM to ingest data
-You can now use the `COPY FROM` command to copy the data from the S3 bucket into the fact table. During this operation, Firebolt ingests the data from your source into Firebolt.
-
-1. Choose the plus symbol (**+**) next to **Script 2** to create a new script tab, **Script 3**, in the SQL workspace.
-2. Copy and paste the query below into the **Script 3** tab.
-
-```sql
-COPY INTO tutorial FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/';
-```
-
-{: .note}
-You can specify a role or AWS key credentials with permission to read from the S3 location using 'CREDENTIALS =' but we are using a publicly accessible datset for this tutorial. 
-
-#### Step 3: Query the ingested data
-To verify that you inserted the data into the table, run a simple `SELECT` query like the one below.
-
-```sql
-SELECT
-  *
-FROM
-  tutorial
-```
-
-And that's it! You've successfully copied data from S3 into a Firebolt table. 
 
 ## Next Steps
 Now that you have successfully created your first engine and database in Firebolt, run your first query, and copied data to Firebolt you can start exploring what else Firebotl has to offer! Below are a few examples to get you started. 
