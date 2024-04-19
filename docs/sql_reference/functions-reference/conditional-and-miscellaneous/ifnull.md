@@ -30,7 +30,8 @@ Same as input type
 ## Remarks
 {: .no_toc}
 
-Use `ZEROIFNULL(<expression>)` as a synonym shorthand for `IFNULL(<expression1>, 0)`.
+Use `ZEROIFNULL(<expression>)` as a synonym shorthand for `IFNULL(<expression>, 0)`.
+`IFNULL(a, b)` has the same behaviour as `COALESCE(a, b)`.
 
 ## Example
 {: .no_toc}
@@ -38,7 +39,7 @@ Use `ZEROIFNULL(<expression>)` as a synonym shorthand for `IFNULL(<expression1>,
 The following truth table demonstrates values that `IFNULL` returns based on the values of two columns: `level` and `player_id`:
 
 ```sql
-SELECT level, player_id, IFNULL(level,player_id), IFNULL(player_id,level)
+SELECT level, player_id, IFNULL(level, player_id), IFNULL(player_id, level)
 FROM players;
 ```
 
@@ -49,5 +50,4 @@ FROM players;
 | 1         | null           | 30                      | 30                      |
 | null      | 33             | 33                      | 33                      |
 | null      | null           | null                    | null                    |
-+-----------+----------------+-------------------------+-------------------------+
 
