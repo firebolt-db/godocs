@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # CONTAINS
 
-Returns `1` if a specified argument is present in the array, or `0` otherwise.
+Returns `true` if a specified argument is present in the array, or `false` otherwise. Note that `CONTAINS` employs `IS NOT DISTINCT FROM` semantics when comparing values, i.e. `NULL` is considered equal to `NULL`.
 
 ## Syntax
 {: .no_toc}
@@ -17,36 +17,39 @@ Returns `1` if a specified argument is present in the array, or `0` otherwise.
 ```sql
 CONTAINS(<array>, <value>)
 ```
+
 ## Parameters 
 {: .no_toc}
 
 | Parameter | Description                                      | Supported input types | 
 | :--------- | :------------------------------------------------ | :--------|
 | `<array>`   | The array to be checked for the given element.   | `ARRAY` | 
-| `<value>`   | The element to be searched for within the array | Any integer that corresponds to an element in the array | 
+| `<value>`   | The element to be searched for within the array | Any type that can be converted to the element type of the array | 
 
-## Return Types
-* Returns `1` if the element to be searched in present in the array
-* Returns `0` if the element is not present in the array
+## Return Type
+
+The `BOOLEAN` value `true` if the element to be searched is present in the array, or `false` otherwise.
 
 ## Example
 {: .no_toc}
 
 ```sql
 SELECT
-	CONTAINS([ 'sabrina21', 'rileyjon', 'ywilson', 'danielle53'], 'danielle53') AS players;
+	CONTAINS(['sabrina21', 'rileyjon', 'ywilson', 'danielle53', NULL], 'danielle53');
 ```
 
-**Returns**: `1`
-`1` is returned as "danielle53" is part of the `players` array.
-
-`CONTAINS` returns a `0` result when single character or substring matches only part of a longer string.
+**Returns**: `true`, since `'danielle53'` is an element of the input array.
 
 ```sql
 SELECT
-	CONTAINS([ 'sabrina21', 'rileyjon', 'ywilson'] , 'danielle53') AS players;
+	CONTAINS(['sabrina21', 'rileyjon', 'ywilson', NULL] , 'danielle53');
 ```
 
-**Returns**: `0` 
+**Returns**: `false`, since `'danielle53'` is not an element of the input array.
 
-`0` is returned as "danielle53" is not part of the `players` array.
+```sql
+SELECT
+	CONTAINS(['sabrina21', 'rileyjon', 'ywilson', NULL] , NULL);
+```
+
+**Returns**: `true`, since `NULL` is an element of the input array.
