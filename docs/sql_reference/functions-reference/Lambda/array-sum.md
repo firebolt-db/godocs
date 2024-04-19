@@ -25,7 +25,7 @@ ARRAY_SUM(<array>)
 | `<array>`   | The array to be used to calculate the function.     | Any array of numeric types | 
 
 ## Return Type 
-Element type of `<array>` (but `BIGINT` if the input is `INT`, and `DOUBLE` if the input is `REAL`)
+The return type is `BIGINT` if the element type of `<array>` is `INT` and `DOUBLE PRECISION` if the element type is `REAL`. Otherwise, it matches the element type.
 
 ## Example
 {: .no_toc}
