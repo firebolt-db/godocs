@@ -34,7 +34,7 @@ All examples in this topic are based on the table below, named `visits`. The col
 
 ## Simple array functions
 
-There are several fundamental functions that you can use to work with arrays, including [ARRAY_LENGTH](../../sql_reference/functions-reference/array/array-length.md), [ARRAY_CONCAT](../../sql_reference/functions-reference/array/array-concat.md), and [FLATTEN](../../sql_reference/functions-reference/array/flatten.md). See the respective reference for a full description. Brief examples are shown below.
+There are several fundamental functions that you can use to work with arrays, including [ARRAY_LENGTH](../../sql_reference/functions-reference/array/array-length.md), [ARRAY_CONCAT](../../sql_reference/functions-reference/array/array-concat.md), and [ARRAY_FLATTEN](../../sql_reference/functions-reference/array/flatten.md). See the respective reference for a full description. Brief examples are shown below.
 
 ### LENGTH example
 {: .no_toc}
@@ -84,23 +84,23 @@ FROM visits;
 +----+------------------------------------------------------------------------------+
 ```
 
-### FLATTEN example
+### ARRAY_FLATTEN example
 {: .no_toc}
 
-`FLATTEN` converts one or more nested arrays into a single array.
+`ARRAY_FLATTEN` converts an ARRAY of ARRAYs into a single flattened ARRAY. Note that this operation flattens only one level of the array hierarchy.
 
 ```sql
-SELECT FLATTEN([ [[1,2,3],[4,5]], [[2]] ]) as flattened_array;
+SELECT ARRAY_FLATTEN([ [[1,2,3],[4,5]], [[2]] ]) as flattened_array;
 ```
 
 **Returns**: 
 
 ```
-+-----------------+
-| flattened_array |
-+-----------------+
-| [1,2,3,4,5,2]   |
-+-----------------+
++---------------------+
+| flattened_array     |
++---------------------+
+| [[1,2,3],[4,5],[2]] |
++---------------------+
 ```
 
 ## Manipulating arrays with Lambda functions
