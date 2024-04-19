@@ -210,7 +210,7 @@ The following example unnests the `tags` column from the `visits` table.
 SELECT 
   id, 
   tags
-FROM visits
+FROM visits,
   UNNEST(tags);
 ```
 
@@ -237,7 +237,7 @@ SELECT
     a_keys,
     a_vals
 FROM
-    visits
+    visits,
     UNNEST(agent_props_keys as a_keys,
            agent_props_vals as a_vals)
 ```
@@ -266,8 +266,8 @@ SELECT
     a_keys,
     a_vals
 FROM
-    visits
-UNNEST(agent_props_keys as a_keys)
+    visits,
+UNNEST(agent_props_keys as a_keys),
 UNNEST(agent_props_vals as a_vals)
 ```
 
@@ -303,6 +303,6 @@ SELECT
     tags,
     a_keys
 FROM
-    visits
+    visits,
     UNNEST(tags, agent_props_keys as a_keys)
 ```

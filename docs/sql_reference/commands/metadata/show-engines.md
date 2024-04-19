@@ -24,21 +24,17 @@ The returned table has the following columns.
 | Column name                 | Data Type   | Description |
 | :---------------------------| :-----------| :-----------|
 | engine_name                 | TEXT      | The name of the engine. |
-| region                      | TEXT      | The AWS Region in which the engine was created. |
-| spec                        | TEXT      | The specification of nodes comprising the engine. |
-| scale                       | INTEGER         | The number of nodes in the engine. |
-| status                      | TEXT      | The engine status. For more information, see [Viewing and understanding engine status](../../../Overview/understanding-engine-fundamentals.md#viewing-and-understanding-engine-status). |
-| attached_to                 | TEXT      | The name of the database to which the engine is attached. |
+| engine_owner                | TEXT (5)  | Name of the user who created the engine. |
+| type                        | TEXT      | The specification of nodes comprising the engine. |
+| clusters                    | INT       | Collection of nodes, where each node is of a certain type. All the clusters in an engine have the same type and same number of nodes. |
+| nodes                       | INT       | The number of nodes for each cluster in an engine. Can be an integer ranging from `1` to `128`. |
+| status                      | TEXT      | The engine status. For more information, see [Viewing and understanding engine status](../../../Overview/understanding-engine-fundamentals.md#viewing-and-understanding-engine-status) |
+| auto_stop                   | INT       | The amount of idle time (in minutes) after which the engine automatically stops. |
+| url                         | TEXT      | Engine endpoint. |
 | version                     | TEXT      | The engine version. |
-
-## Example
-
-The following example returns information about the engines in the account:
-
-```sql
-SHOW ENGINES;
-```
-
-| database_name |	compressed_size |	uncompressed_size |	description |	created_on |	created_by	|region	| attached_engines |	errors |
-|:-------|:-------|:--------|:-------|:-----|:--------|:-------|:------|:-------|
-| AdTechDB_v4 |	1.99015E+12 |	3.47886E+13 |	New Demo DB | firebolt-demo |	2022-06-15T11:48:31.683328Z	|SA Demo	us-east-1	| AdTechDB_v4_Analytics (default), AdTechDB_v4_Analytics_Small, AdTechDB_v4_demo_ingestion, AdTechDB_v4_overnight_example |	-
+| initially_stopped           | BOOLEAN   | If `false`, engine was started as part of the `CREATE ENGINE` command.|
+| default_database            | TEXT      | The database an engine will attempt to use by default when dealing with queries that require a database.<br><br>If not specified, `NULL` is used as default. |
+| created                     | TIMESTAMPTZ | Creation time of the engine. |
+| last_altered_by             | TEXT       | Name of the last user who edited the engine. |
+| last_altered                | TIMESTAMPTZ | Last modified time of the engine. |
+| fbu_rate                    | INT        | Hourly FBU consumption rate of running engines based on engine topology at the time the view is invoked by the user. |
