@@ -313,8 +313,8 @@ FROM
 
 ### Converting ARRAY to TEXT
 
-Broadly, the `TEXT` representation of an `ARRAY` value starts with an opening curly brace (`{`), followed by the `TEXT` representations of the individual array elements separated by commas (`,`),
-and ends with a closing curly brace (`}`). `NULL` array elements are represented by the literal string `NULL`. For example, the query
+Broadly, the `TEXT` representation of an `ARRAY` value starts with an opening curly brace (`{`). This is followed by the `TEXT` representations of the individual array elements separated by commas (`,`).
+It ends with a closing curly brace (`}`). `NULL` array elements are represented by the literal string `NULL`. For example, the query
 
 ```sql
 SELECT
