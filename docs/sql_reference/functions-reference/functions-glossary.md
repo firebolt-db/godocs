@@ -42,6 +42,7 @@ All Firebolt functions in alphabetical order.
 | [DATE_TRUNC](./date-and-time/date-trunc.md) | Truncates a date or timestamp value to the selected precision. | Date & time |
 | [EXTRACT](./date-and-time/extract.md) | Retrieves the time unit from a date or timestamp value. | Date & time |
 | [GENERATE_SERIES](./conditional-and-miscellaneous/generate-series.md) | Generates a single rowset of values from `start` to `stop`, with a step size of `step` - a table-valued function. | Conditional & miscellaneous |
+| [GREATEST](./conditional-and-miscellaneous/greatest.md) | Selects the largest value from a list of any number of expressions. | Conditional & miscellaneous |
 | [IFNULL](./conditional-and-miscellaneous/ifnull.md) | Compares two expressions. Returns the first input expression if it’s non-NULL, otherwise returns the second. | Conditional & miscellaneous |
 | [ILIKE](./string/ilike.md) | Allows matching of strings based on comparison to a pattern, case-insensitively. | String |
 | [INDEX_OF](./array/index-of.md) | Returns the index position of the first occurrence of the element in the array (or 0 if not found). | Array |
@@ -50,6 +51,7 @@ All Firebolt functions in alphabetical order.
 | [JSON_EXTRACT_KEYS](./JSON/json-extract-keys.md) | Returns an array of strings containing the keys at the nesting level indicated by the specified JSON pointer. | Semi-structured data |
 | [JSON_EXTRACT_RAW](./JSON/json-extract-raw.md) | Returns a string representation of the scalar or sub-object under the key indicated by the specified JSON pointer if the key exists. | Semi-structured data |
 | [JSON_EXTRACT_VALUES](./JSON/json-extract-values.md) | Returns an array of string values from a JSON document using the key location specified by the specifed JSON pointer. | Semi-structured data |
+| [LEAST](./conditional-and-miscellaneous/greatest.md) | Selects the smallest value from a list of any number of expressions. | Conditional & miscellaneous |
 | [LENGTH](./string/length.md) | Calculates the length of the input string. | String |
 | [LIKE](./string/like.md) | Allows matching of strings based on comparison to a pattern, case-sensitively. | String |
 | [LOCALTIMESTAMP](./date-and-time/localtimestamp.md) | Returns the current local timestamp in the time zone specified in the session's `time_zone` setting. | Date & time |
