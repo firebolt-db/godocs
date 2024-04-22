@@ -26,8 +26,6 @@ MAX(<expression>)
 | :--------- | :--------------------------------------------------------|:------------------------------------------------------------|
 | `<expression>`  | The expression used to calculate the maximum values | Any | 
 
-Valid values for the expression include a column name or functions that return a column name.
-
 ## Return Types
 Same as input type
 

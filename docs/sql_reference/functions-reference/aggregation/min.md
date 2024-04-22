@@ -26,8 +26,6 @@ MIN(<expression>)
 | :--------- | :----------------------------------- | :---------------------|
 | `<expression>`  | The expression used to calculate the minimum value | Any string, numeric or date/timestamp type |
 
-Valid values for the expression include a column name or functions that return a column name.
-
 ## Return Types
 
 Same as input type
