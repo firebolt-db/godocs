@@ -1,26 +1,26 @@
 ---
 layout: default
-title: FLATTEN
-description: Reference material for FLATTEN function
+title: ARRAY_FLATTEN
+description: Reference material for ARRAY_FLATTEN function
 grand_parent: SQL functions
 parent: Array functions
 great_grand_parent: SQL reference
 ---
 
-# FLATTEN
+# ARRAY_FLATTEN
 
 Converts an array of arrays into a flat array. For every element that is an array, this function extracts its elements into the new array. The resulting flattened array contains all the elements from all source arrays.
 
 The function:
 
-* Applies to any depth of nested arrays.
-* Does not change arrays that are already flat.
+* Applies to one level of nested arrays.
+* Does not accept arrays that are already flat.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-FLATTEN(<array>)
+ARRAY_FLATTEN(<array>)
 ```
 
 ## Parameters
@@ -40,7 +40,7 @@ The following example flattens multiple arrays of level IDs:
 
 ```sql
 SELECT
-	FLATTEN([ [ [ 1, 2 ] ], [ [ 2, 3 ], [ 3, 4 ] ] ])
+	ARRAY_FLATTEN([ [ [ 1, 2 ] ], [ [ 2, 3 ], [ 3, 4 ] ] ])
 ```
 
-**Returns**: `[1, 2, 2, 3, 3, 4]`
+**Returns**: `[ [ 1, 2 ], [ 2, 3 ], [ 3, 4 ] ]`
