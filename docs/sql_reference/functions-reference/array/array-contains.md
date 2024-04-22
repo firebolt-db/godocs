@@ -1,21 +1,21 @@
 ---
 layout: default
-title: CONTAINS
-description: Reference material for CONTAINS function
+title: ARRAY_CONTAINS
+description: Reference material for ARRAY_CONTAINS function
 grand_parent: SQL functions
 parent: Array functions
 great_grand_parent: SQL reference
 ---
 
-# CONTAINS
+# ARRAY_CONTAINS
 
-Returns `true` if a specified argument is present in the array, or `false` otherwise. Note that `CONTAINS` employs `IS NOT DISTINCT FROM` semantics when comparing values, i.e. `NULL` is considered equal to `NULL`.
+Returns `true` if a specified argument is present in the array, or `false` otherwise. Note that `ARRAY_CONTAINS` employs `IS NOT DISTINCT FROM` semantics when comparing values, i.e. `NULL` is considered equal to `NULL`.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-CONTAINS(<array>, <value>)
+ARRAY_CONTAINS(<array>, <value>)
 ```
 
 ## Parameters 
@@ -35,21 +35,21 @@ The `BOOLEAN` value `true` if the element to be searched is present in the array
 
 ```sql
 SELECT
-	CONTAINS(['sabrina21', 'rileyjon', 'ywilson', 'danielle53', NULL], 'danielle53');
+	ARRAY_CONTAINS(['sabrina21', 'rileyjon', 'ywilson', 'danielle53', NULL], 'danielle53');
 ```
 
 **Returns**: `true`, since `'danielle53'` is an element of the input array.
 
 ```sql
 SELECT
-	CONTAINS(['sabrina21', 'rileyjon', 'ywilson', NULL] , 'danielle53');
+	ARRAY_CONTAINS(['sabrina21', 'rileyjon', 'ywilson', NULL] , 'danielle53');
 ```
 
 **Returns**: `false`, since `'danielle53'` is not an element of the input array.
 
 ```sql
 SELECT
-	CONTAINS(['sabrina21', 'rileyjon', 'ywilson', NULL] , NULL);
+	ARRAY_CONTAINS(['sabrina21', 'rileyjon', 'ywilson', NULL] , NULL);
 ```
 
 **Returns**: `true`, since `NULL` is an element of the input array.

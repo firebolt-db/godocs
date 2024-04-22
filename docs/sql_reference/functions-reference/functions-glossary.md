@@ -15,6 +15,7 @@ All Firebolt functions in alphabetical order.
 | [ABS](./numeric/abs.md) | Calculates the absolute value of an input value. | Numeric |
 | [ANY_MATCH](./Lambda/any-match.md) | Returns 1 if at least one of the elements of an array matches the results of the function provided. Otherwise returns 0. | Lambda |
 | [ARRAY_CONCAT](./array/array-concat.md) | Combines one or more arrays that are passed as arguments. | Array |
+| [ARRAY_CONTAINS](./array/array-contains.md) | Returns 1 if a specified argument is present in the array, or 0 otherwise. | Array |
 | [ARRAY_COUNT](./Lambda/array-count.md) | Counts the number of elements in a boolean array for which `function(array[i])` evaluates to true, if a function is provided. If not provided, counts the number of elements in the array that evaluate to true. | Lambda |
 | [ARRAY_DISTINCT](./array/array-distinct.md) | Returns an array containing only the _unique_ elements of the given array. | Array |
 | [ARRAY_FLATTEN](./array/flatten.md) | Converts an array of arrays into a flat array. For every element that is an array, this function extracts its elements into the new array. | Array |
@@ -32,7 +33,6 @@ All Firebolt functions in alphabetical order.
 | [CHECKSUM](./aggregation/checksum.md) | Calculates a hash value known as a checksum operation on a list of arguments. | Aggregation |
 | [COALESCE](./conditional-and-miscellaneous/coalesce.md) | Checks from left to right for the first non-NULL argument found for each entry parameter pair. | Conditional & miscellaneous |
 | [CONCAT or \|\|](./string/concat.md) | Concatenates the strings listed in the input without a separator. | String |
-| [CONTAINS](./array/contains.md) | Returns 1 if a specified argument is present in the array, or 0 otherwise. | Array |
 | [COUNT](./aggregation/count.md) | Counts the number of rows or not NULL values. | Aggregation |
 | [COUNT OVER](./window/count-window.md) | Count the number of values within the requested window. | Window |
 | [CURRENT_DATE](./date-and-time/current-date.md) | Returns the current (local) date in the time zone specified in the session's `time_zone` setting. | Date & time |
