@@ -350,6 +350,15 @@ SELECT
 
 returns the `ARRAY(TEXT)` value `[1,2,3,4,NULL,'','{impostor,array}','["impostor","array","back\slash"]',' padded and spaced ','null','unquoted padded and spaced']`.
 
+It is also possible to enclose arrays with square braces (`[` and `]`) instead of curly braces (`{` and `}`) when converting from `TEXT` to `ARRAY`. For example, the query
+
+```sql
+SELECT
+    CAST('[1, 2, 3, 4, NULL]' AS ARRAY(INTEGER))
+```
+
+returns the `ARRAY(INTEGER)` value `[1,2,3,4,NULL]`.
+
 ### Nested ARRAYs
 
 Finally, the same prodedure applies when converting nested `ARRAY` values from and to `TEXT`. For example, the query
