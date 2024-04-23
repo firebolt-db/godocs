@@ -28,6 +28,8 @@ All Firebolt functions in alphabetical order.
 | [ARRAY_SUM](./Lambda/array-sum.md) | Returns the sum of elements of the input array. | Lambda |
 | [AVG](./aggregation/avg.md) | Calculates the average of an expression. | Aggregation |
 | [AVG OVER](./window/avg-window.md) | Returns the average value within the requested window. | Window |
+| [BOOL_AND](./aggregation/bool_and.md) | Returns true if all non NULL input value are true. | Aggregation |
+| [BOOL_OR](./aggregation/bool_or.md) | Returns true if any non NULL input value is true.  | Aggregation |
 | [BTRIM](./string/btrim.md) | Removes all occurrences of optionally specified characters from both sides of a source string. If no trim parameter is specified, all occurrences of common whitespace (ASCII Decimal 32) characters from both sides of the specified source string are removed. | String |
 | [CAST](./conditional-and-miscellaneous/cast.md) | Converts data types into other data types based on specified parameters. | Conditional & miscellaneous |
 | [CHECKSUM](./aggregation/checksum.md) | Calculates a hash value known as a checksum operation on a list of arguments. | Aggregation |
