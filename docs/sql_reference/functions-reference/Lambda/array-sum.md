@@ -9,38 +9,26 @@ great_grand_parent: SQL reference
 
 # ARRAY\_SUM
 
-Returns the sum of elements of `<array>`. If the argument `<function>` is provided, the values of the array elements are converted by this function before summing.
+Returns the sum of elements of `<array>`.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-ARRAY_SUM([<function>,] <array>)
+ARRAY_SUM(<array>)
 ```
 ## Parameters
 {: .no_toc} 
 
 | Parameter | Description | Supported input types | 
 | :--------- | :-------------------------------- |
-| `<function>`  | A Lambda function with an [arithmetic function](../../operators.md#arithmetic-numbers) used to modify the array elements. | Any function | 
 | `<array>`   | The array to be used to calculate the function.     | Any array of numeric types | 
 
 ## Return Type 
-`DOUBLE PRECISION`
+The return type is `BIGINT` if the element type of `<array>` is `INT` and `DOUBLE PRECISION` if the element type is `REAL`. Otherwise, it matches the element type.
 
 ## Example
 {: .no_toc}
-
-This example below uses a function to first add 1 to all elements before calculating the sum:
-
-```sql
-SELECT
-	ARRAY_SUM(x -> x + 1, [ 4, 1, 3, 2 ]) AS levels;
-```
-
-**Returns**: `14`
-
-In this example below, no function to change the array elements is given.
 
 ```sql
 SELECT
