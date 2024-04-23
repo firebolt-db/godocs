@@ -9,10 +9,38 @@ parent: SQL reference
 # Operators
 {: .no_toc}
 
+Operators are represented by special characters or keywords, they do not use function call syntax.
+
+## Operator Precedence
+
+The following table lists all SQL operators from highest to lowest precedence, alongside with their associativity.
+The precedence and associativity of the operators is hard-coded into the parser.
+Add parentheses if you want an expression with multiple operators to be interpreted in some other way than what the precedence rules imply.
+
+
+| Operator       | Description                        | Associativity |
+|----------------|------------------------------------|---------------|
+| `.`              | Table/column name separator        | left          |
+| `::`             | Type cast                          | left          |
+| `[]`             | Array element                      | left          |
+| `+` `-`            | Unary plus and minus               | right         |
+| `AT`             | `AT TIME ZONE`                       | left          |
+| `^`              | exponentiation                     | left          |
+| `*` `/` `%`          | multiplication, division, modulo   | left          |
+| `+` `/`            | addition, subtraction              | left          |
+| `\|\|`           | concatenation                      | left          |
+| `BETWEEN`        | range containment                  |               |
+| `LIKE` `ILIKE`    | string matching                    |               |
+| `<` `>` `=` `<=` `>=` `<>` | comparison                         |               |
+| `IS`             | `IS NULL`, `IS DISTINCT FROM`, `IS TRUE` |               |
+| `NOT`            | logical negation                   | right         |
+| `AND`            | logical conjunction                | left          |
+| `OR`             | logical disjunction                | left          |
+
 * Topic ToC
 {:toc}
 
-## :: operator for CAST
+## :: Type cast
 
 Use can use the `::` operator instead of the [CAST](../sql_reference/functions-reference/conditional-and-miscellaneous/cast.md) function to convert one [data type](data-types.md) to another.
 
@@ -66,9 +94,9 @@ In arithmetic operations like +, -, *, and / , the result's data type aligns wit
 >
 > When performing arithmetic, the number of leading digits in the output is the product of the leading digits in both inputs. This means that if either or both of the input numbers are larger than 6, those numbers are the first truncated, and then the arithmetic is performed.
 
-## Boolean
+## Logical
 
-Boolean operators return the result of a Boolean operation between one or more expressions.
+Logical operators return the result of a boolean operation using [three valued logic](https://en.wikipedia.org/wiki/Three-valued_logic)
 
 | Operator | Example   | Explanation                   |
 | :-------- | :--------- | :----------------------------- |
@@ -78,18 +106,20 @@ Boolean operators return the result of a Boolean operation between one or more e
 
 ## Comparison
 
-| Operator              | Syntax                     | Explanation                                                |
-| :-------------------- | :------------------------- | :--------------------------------------------------------- |
-| =                     | `a=b`                      | a is equal to b.                                           |
-| !=                    | `a!=b`                     | a is not equal to b.                                       |
-| <>                    | `a<>b`                     | a is not equal to b.                                       |
-| <=                    | `a<=b`                     | a is less than or equal to b.                              |
-| >                     | `a>b`                      | a is greater than b.                                       |
-| >=                    | `a>=b`                     | a is greater than or equal to b.                           |
-| <                     | `a<b`                      | a is less than b.                                          |
-| BETWEEN               | `a BETWEEN b AND c`        | equivalent to b <= a <= c                                  |
-| IS NOT DISTINCT FROM 	| `a IS NOT DISTINCT FROM b` | equivalent to a=b where NULL is considered equal to NULL.  |
-| IS DISTINCT FROM      | `a IS DISTINCT FROM b`     | equivalent to a!=b where NULL is considered equal to NULL. |
+| Operator               | Syntax                     | Explanation                                                |
+|:-----------------------|:---------------------------|:-----------------------------------------------------------|
+| =                      | `a=b`                      | a is equal to b.                                           |
+| !=                     | `a!=b`                     | a is not equal to b.                                       |
+| <>                     | `a<>b`                     | a is not equal to b.                                       |
+| <=                     | `a<=b`                     | a is less than or equal to b.                              |
+| >                      | `a>b`                      | a is greater than b.                                       |
+| >=                     | `a>=b`                     | a is greater than or equal to b.                           |
+| <                      | `a<b`                      | a is less than b.                                          |
+| BETWEEN                | `a BETWEEN b AND c`        | equivalent to b <= a <= c                                  |
+| IS NULL                | `a IS NULL`                | a contains a NULL value                                    |
+| IS NOT NULL            | `a IS NOT NULL`            | a doesn't contain a NULL value                             |
+| IS NOT DISTINCT FROM 	 | `a IS NOT DISTINCT FROM b` | equivalent to a=b where NULL is considered equal to NULL.  |
+| IS DISTINCT FROM       | `a IS DISTINCT FROM b`     | equivalent to a!=b where NULL is considered equal to NULL. |
 
 Example of using comparison operator in `WHERE` clause
 
