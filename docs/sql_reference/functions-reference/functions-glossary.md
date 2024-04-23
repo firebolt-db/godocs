@@ -43,6 +43,7 @@ All Firebolt functions in alphabetical order.
 | [DATE_ADD](./date-and-time/date-add.md) | Calculates a new date or timestamp by adding or subtracting a specified number of time units from an indicated expression. | Date & time |
 | [DATE_DIFF](./date-and-time/date-diff.md) | Calculates the difference between the start and end date by the indicated unit. | Date & time |
 | [DATE_TRUNC](./date-and-time/date-trunc.md) | Truncates a date or timestamp value to the selected precision. | Date & time |
+| [DENSE_RANK](./window/dense-rank.md) | Rank the current row within the requested window without gaps. | Window |
 | [EXTRACT](./date-and-time/extract.md) | Retrieves the time unit from a date or timestamp value. | Date & time |
 | [GENERATE_SERIES](./conditional-and-miscellaneous/generate-series.md) | Generates a single rowset of values from `start` to `stop`, with a step size of `step` - a table-valued function. | Conditional & miscellaneous |
 | [IFNULL](./conditional-and-miscellaneous/ifnull.md) | Compares two expressions. Returns the first input expression if it’s non-NULL, otherwise returns the second. | Conditional & miscellaneous |
@@ -66,14 +67,18 @@ All Firebolt functions in alphabetical order.
 | [MIN](./aggregation/min.md) | Calculates the minimum value of an expression across all input values. | Aggregation |
 | [MIN OVER](./window/min-window.md) | Returns the maximum value within the requested window. | Window | 
 | [MOD](./numeric/mod.md) | Calculates the remainder after dividing two values. | Numeric |
+| [NTILE](./window/ntile.md) | Divides an ordered set into a number of buckets. | Window |
 | [NULLIF](./conditional-and-miscellaneous/nullif.md) | Compares two expressions. Returns NULL if the expressions are equal. Returns the result of the first if they are not equal. | Conditional & miscellaneous |
 | [OCTET_LENGTH](./string/octet_length.md) | Calculates the length of the input string in bytes. | String |
+| [PERCENT_RANK](./window/percent-rank.md) | Calculates the relative rank of the current row within the requested window. | Window |
+| [RANK](./window/rank.md) | Rank the current row within the requested window with gaps. | Window |
 | [RANDOM](./numeric/random.md) | Returns a pseudo-random unsigned value greater than 0 and less than 1 of type `DOUBLE PRECISION`. | Numeric |
 | [REGEXP_LIKE](./string/regexp-like.md) | Checks whether a text pattern matches a regular expression string. Returns 0 if it doesn’t match, or 1 if it matches. | String |
 | [REGEXP_MATCHES](./string/regexp-matches.md) | Returns an array that contains either the match or all defined subgroups of the first match of the regular expression pattern. Returns an empty array if the pattern does not match. | String |
 | [REGEXP_REPLACE](./string/regexp-replace.md) | Matches a pattern in the input string and replaces the first matched portion (from the left) with the specified replacement. | String |
 | [REPLACE](./string/replace.md) | Replaces all occurrences of the given pattern substring within the input expression with a replacement substring. | String |
 | [ROUND](./numeric/round.md) | Rounds a value to a specified number of decimal places. | Numeric |
+| [ROW_NUMBER](./window/row-number.md) | Calculate a unique, increasing row number for each row within the window. | Window |
 | [RPAD](./string/rpad.md) | Adds a specified pad string to the end of the string repetitively up until the length of the resulting string is equivalent to an indicated length. | String |
 | [RTRIM](./string/rtrim.md) | Removes all occurrences of optionally specified characters from the right side of a source string. If no trim parameter is specified, all occurrences of common whitespace (ASCII Decimal 32) characters from the right side of the specified source string are removed. | String |
 | [SPLIT_PART](./string/split-part.md) | Divides a string based on a specified delimiter into an array of substrings. The string in the specified index is returned, with 1 being the first index. If the string separator is empty, the input string is returned at index 1. | String |
