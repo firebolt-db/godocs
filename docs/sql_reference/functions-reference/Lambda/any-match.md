@@ -10,41 +10,42 @@ great_grand_parent: SQL reference
 
 # ANY\_MATCH
 
-Returns `1` if at least one of the elements of an array matches the results of the function provided in the `<function>` parameter. Otherwise returns `0`.
+Returns `true` if at least one of the elements of a `BOOLEAN` array is `true`.  Otherwise returns `false`.
+
+If an optional function parameter is provided, returns `true` if the function returns `true` for at least one of the elements in the array. Otherwise returns `false`.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-ANY_MATCH(<function>, <array>)
+ANY_MATCH([<function>], <array>)
 ```
 ## Parameters
 {: .no_toc} 
 
 | Parameter | Description              | Supported input types | 
 | :--------- | :------------------------| :----------- | 
-| `<function>`  | A [Lambda function](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions) used to check elements in the array. | Any Lambda function | 
-| `<array>`   | The array to be matched with the function. The array cannot be empty.  | Any array |       
+| `<function>`  | A [Lambda function](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions) used to check elements in the array. | Any Lambda function returning `BOOLEAN` | 
+| `<array>`   | The array to be matched with the function.  | Any array (must be of type `BOOLEAN` if `<function>` is not provided)|       
 
 ## Return Types
-* Returns `1` if the conditions are met
-* Returns `0` if the conditions are not met
+Returns `BOOLEAN`
 
 ## Example
 {: .no_toc}
 
-Because there are values in the `levels` greater than `3`, the function returns `1`. 
+Because there are values in the array greater than `3`, the function returns `true`. 
 ```sql
 SELECT
-	ANY_MATCH(x -> x > 3, [ 1, 2, 3, 9 ]) AS levels;
+	ANY_MATCH(x -> x > 3, [ 1, 2, 3, 9 ]);
 ```
 
-**Returns**: `1`
+**Returns**: `true`
 
-As there is no level `10` in the array, the function returns `0`. 
+As there is no value `10` in the array, the function returns `false`. 
 ```sql
 SELECT
-	ANY_MATCH(x -> x = 10, [ 1, 2, 3, 9 ]) AS levels;
+	ANY_MATCH(x -> x = 10, [ 1, 2, 3, 9 ]);
 ```
 
-**Returns**: `0`
+**Returns**: `false`
