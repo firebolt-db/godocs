@@ -306,3 +306,73 @@ FROM
     visits,
     UNNEST(tags, agent_props_keys as a_keys)
 ```
+
+## ARRAY input and output syntax
+
+`ARRAY` values can be converted from and to `TEXT`. This happens, for example, when an explicit `CAST` is added to a query, or when `ARRAY` values are (de-)serialized in a `COPY` statement.
+
+### Converting ARRAY to TEXT
+
+Broadly, the `TEXT` representation of an `ARRAY` value starts with an opening curly brace (`{`). This is followed by the `TEXT` representations of the individual array elements separated by commas (`,`).
+It ends with a closing curly brace (`}`). `NULL` array elements are represented by the literal string `NULL`. For example, the query
+
+```sql
+SELECT
+    CAST([1,2,3,4,NULL] AS TEXT)
+```
+
+returns the `TEXT` value `'{1,2,3,4,NULL}'`. 
+
+When converting `ARRAY` values containing `TEXT` elements to `TEXT`, some additional rules apply. Specifically, array elements are enclosed by double quotes (`"`) in the following cases:
+
+* The array element is an empty string.
+* The array element contains curly or square braces (`{`,`[`,`]`,`}`), commas (`,`), double quotes (`"`), backslashes (`\`), or white space.
+* The array element matches the word `NULL` (case-insensitively).
+
+Additionally, double quotes and backslashes embedded in array elements will be backslash-escaped. For example, the query
+
+```sql
+SELECT
+    CAST(['1','2','3','4',NULL,'','{impostor,array}','["impostor","array","back\slash"]',' padded and spaced ', 'only spaced', 'null'] AS TEXT)
+```
+
+returns the `TEXT` value `'{1,2,3,4,NULL,"","{impostor,array}","[\"impostor\",\"array\",\"back\\slash\"]"," padded and spaced ","only spaced","null"}'`. 
+
+### Converting TEXT to ARRAY
+
+When converting the `TEXT` representation of an array back to `ARRAY`, the same quoting and escaping rules as above apply. Unquoted whitespace surrounding array elements is trimmed, but whitespace
+contained within array elements is preserved. The array elements themselves are converted according to the conversion rules for the requested array element type. For example, the query
+
+```sql
+SELECT
+    CAST('{1, 2, 3, 4, null, "", "{impostor,array}", "[\"impostor\",\"array\",\"back\\slash\"]", " padded and spaced ", "null",   unquoted padded and spaced   }' AS ARRAY(TEXT))
+```
+
+returns the `ARRAY(TEXT)` value `[1,2,3,4,NULL,'','{impostor,array}','["impostor","array","back\slash"]',' padded and spaced ','null','unquoted padded and spaced']`.
+
+It is also possible to enclose arrays with square braces (`[` and `]`) instead of curly braces (`{` and `}`) when converting from `TEXT` to `ARRAY`. For example, the query
+
+```sql
+SELECT
+    CAST('[1, 2, 3, 4, NULL]' AS ARRAY(INTEGER))
+```
+
+returns the `ARRAY(INTEGER)` value `[1,2,3,4,NULL]`.
+
+### Nested ARRAYs
+
+Finally, the same prodedure applies when converting nested `ARRAY` values from and to `TEXT`. For example, the query
+
+```sql
+SELECT
+    CAST([NULL,[],[NULL],[1,2],[3,4]] AS TEXT)
+```
+
+returns the `TEXT` value `{NULL,{},{1,2},{3,4}}`, and the query
+
+```sql
+SELECT
+    CAST('{NULL,{},{1,2},{3,4}}' AS ARRAY(ARRAY(INTEGER)))
+```
+
+returns the `ARRAY(ARRAY(INTEGER))` value `[NULL,[],[NULL],[1,2],[3,4]]`.
