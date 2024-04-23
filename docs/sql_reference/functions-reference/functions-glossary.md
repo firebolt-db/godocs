@@ -23,6 +23,7 @@ All Firebolt functions in alphabetical order.
 | [ARRAY_MAX](./array/array-max.md) | Returns the maximum element in an array. | Array |
 | [ARRAY_MIN](./array/array-min.md) | Returns the minimum element in an array. | Array |
 | [ARRAY_REVERSE](./array/array-reverse.md) | Returns an array of the same size and type as the original array, with the elements in reverse order. | Array |
+| [ARRAY_REVERSE_SORT](./Lambda/array-reverse-sort.md) | Returns the elements of the input array in descending order. If the argument function is provided, the sorting order is determined by the result of applying the function on each element of the array. | Lambda |
 | [ARRAY_SORT](./Lambda/array-sort.md) | Returns the elements of the input array in ascending order. If the argument function is provided, the sorting order is determined by the result of applying the function on each element of the array. | Lambda |
 | [ARRAY_SUM](./Lambda/array-sum.md) | Returns the sum of elements of the input array. | Lambda |
 | [AVG](./aggregation/avg.md) | Calculates the average of an expression. | Aggregation |
