@@ -71,8 +71,8 @@ All Firebolt functions in alphabetical order.
 | [NULLIF](./conditional-and-miscellaneous/nullif.md) | Compares two expressions. Returns NULL if the expressions are equal. Returns the result of the first if they are not equal. | Conditional & miscellaneous |
 | [OCTET_LENGTH](./string/octet_length.md) | Calculates the length of the input string in bytes. | String |
 | [PERCENT_RANK](./window/percent-rank.md) | Calculates the relative rank of the current row within the requested window. | Window |
-| [RANK](./window/rank.md) | Rank the current row within the requested window with gaps. | Window |
 | [RANDOM](./numeric/random.md) | Returns a pseudo-random unsigned value greater than 0 and less than 1 of type `DOUBLE PRECISION`. | Numeric |
+| [RANK](./window/rank.md) | Rank the current row within the requested window with gaps. | Window |
 | [REGEXP_LIKE](./string/regexp-like.md) | Checks whether a text pattern matches a regular expression string. Returns 0 if it doesn’t match, or 1 if it matches. | String |
 | [REGEXP_MATCHES](./string/regexp-matches.md) | Returns an array that contains either the match or all defined subgroups of the first match of the regular expression pattern. Returns an empty array if the pattern does not match. | String |
 | [REGEXP_REPLACE](./string/regexp-replace.md) | Matches a pattern in the input string and replaces the first matched portion (from the left) with the specified replacement. | String |
