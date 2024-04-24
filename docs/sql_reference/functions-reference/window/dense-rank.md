@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # DENSE\_RANK
 
-Rank the current row within the requested window.
+Rank the current row within the requested window. In comparison to rank, dense rank does not skip a rank if rows are tied.
 
 For more information on usage, please refer to [Window Functions](./index.md).
 
@@ -50,9 +50,9 @@ FROM
 
 | nickname | level | highscore | game_rank |
 |:-------|:------|:------|:------|
-| kennethpark      |           9 |         76 |             6 |
-| sabrina21    |          10 |         78 |             3 |
-| rileyjon   |          11 |         94 |             1 |
+| kennethpark      |           9 |         76 |             1 |
+| sabrina21    |          9 |         76 |             1 |
+| rileyjon   |          9 |         65 |             2 |
 | ymatthews  |          12 |         92 |             4 |
 
 

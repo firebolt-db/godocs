@@ -39,21 +39,22 @@ If there is a remainder after dividing the rows in a partition by the argument v
 ## Example
 {: .no_toc}
 
-The example below divides players into groups depending on their level. 
+The example below divides players of each level into three groups. 
 
 ```sql
 SELECT
 	nickname,
-	NTILE(3) OVER (PARTITION BY level) AS levels
+	level,
+	NTILE(3) OVER (PARTITION BY level) AS group
 FROM
 	players;
 ```
 
 **Returns**:
 
-| nickname | level | 
+| nickname | level | group |
 |:------------|:-------------|
-| ymatthews      |           9 | 
-| rileyjon      |          10 | 
-| kennethpark   |          11 |  
-| sabrina21    |          12 |  
+| ymatthews      |           9 |           1 |
+| rileyjon      |          10 |          2 | 
+| kennethpark   |          11 |          1 | 
+| sabrina21    |          12 |          3 |  
