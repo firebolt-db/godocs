@@ -13,7 +13,7 @@ All Firebolt functions in alphabetical order.
 | Name         | Function                                | Type    |
 |:----------- |:------------------------------------------------ |:-------|
 | [ABS](./numeric/abs.md) | Calculates the absolute value of an input value. | Numeric |
-| [ANY_MATCH](./Lambda/any-match.md) | Returns `true` if the function provided returns `true` for at least one of the elements of an array. Otherwise returns `false`. | Lambda |
+| [ARRAY_ANY_MATCH](./Lambda/array-any-match.md) | Returns `true` if the function provided returns `true` for at least one of the elements of an array. Otherwise returns `false`. | Lambda |
 | [ARRAY_CONCAT](./array/array-concat.md) | Combines one or more arrays that are passed as arguments. | Array |
 | [ARRAY_COUNT](./Lambda/array-count.md) | Counts the number of elements in a boolean array for which `function(array[i])` evaluates to true, if a function is provided. If not provided, counts the number of elements in the array that evaluate to true. | Lambda |
 | [ARRAY_DISTINCT](./array/array-distinct.md) | Returns an array containing only the _unique_ elements of the given array. | Array |
