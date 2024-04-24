@@ -26,7 +26,8 @@ ARRAY_MAX(<array>)
 | `<array>`   | The array or array-type column to be checked | `ARRAY` | 
 
 ## Return Type
-`NUMERIC` 
+
+Same as the element type of the array.
 
 ## Example
 {: .no_toc}
