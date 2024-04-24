@@ -5,7 +5,6 @@ description: Reference material for ROW_NUMBER function
 grand_parent: SQL functions
 parent: Window functions
 great_grand_parent: SQL reference
-published: false
 ---
 
 # ROW\_NUMBER
