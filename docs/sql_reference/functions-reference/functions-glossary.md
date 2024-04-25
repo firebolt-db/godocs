@@ -75,6 +75,7 @@ All Firebolt functions in alphabetical order.
 | [NULLIF](./conditional-and-miscellaneous/nullif.md) | Compares two expressions. Returns NULL if the expressions are equal. Returns the result of the first if they are not equal. | Conditional & miscellaneous |
 | [OCTET_LENGTH](./string/octet_length.md) | Calculates the length of the input string in bytes. | String |
 | [PERCENT_RANK](./window/percent-rank.md) | Calculates the relative rank of the current row within the requested window. | Window |
+| [POSITION](./string/position.md) | Returns the position of the substring found in the string, starting from 1. The returned value is for the first matching value, and not for any subsequent valid matches. In case the substring does not exist, position will return 0. | String |
 | [RANDOM](./numeric/random.md) | Returns a pseudo-random unsigned value greater than 0 and less than 1 of type `DOUBLE PRECISION`. | Numeric |
 | [RANK](./window/rank.md) | Rank the current row within the requested window with gaps. | Window |
 | [REGEXP_LIKE](./string/regexp-like.md) | Checks whether a text pattern matches a regular expression string. Returns 0 if it doesn’t match, or 1 if it matches. | String |
@@ -87,6 +88,7 @@ All Firebolt functions in alphabetical order.
 | [RTRIM](./string/rtrim.md) | Removes all occurrences of optionally specified characters from the right side of a source string. If no trim parameter is specified, all occurrences of common whitespace (ASCII Decimal 32) characters from the right side of the specified source string are removed. | String |
 | [SPLIT_PART](./string/split-part.md) | Divides a string based on a specified delimiter into an array of substrings. The string in the specified index is returned, with 1 being the first index. If the string separator is empty, the input string is returned at index 1. | String |
 | [STRING_TO_ARRAY](./string/string-to-array.md) | Splits a given string by a given separator and returns the result in an array of strings. | String |
+| [STRPOS](./string/strpos.md) | Returns the position of the substring found in the string, starting from 1. The returned value is for the first matching value, and not for any subsequent valid matches. In case the substring does not exist, strpos will return 0. | String |
 | [SUBSTRING, SUBSTR](./string/substring.md) | Returns a substring starting at the character indicated by the start index and including the number of characters defined. Character indexing starts at index 1. | String |
 | [SUM](./aggregation/sum.md) | Calculates the sum of an expression. | Aggregation |
 | [SUM OVER](./window/sum-window.md) | Calculate the sum of the values within the requested window. | Window |
