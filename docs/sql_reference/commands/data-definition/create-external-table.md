@@ -99,7 +99,7 @@ CREATE EXTERNAL TABLE my_ext_table (
   c_name  TEXT,
   c_type  TEXT PARTITION('[^/]+/c_type=([^/]+)/[^/]+/[^/]+')
 )
-CREDENTIALS = (AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/MyRoleForFireboltS3Access1')
+CREDENTIALS = (AWS_KEY_ID = 'AKIAIOSFODNN7EXAMPLE' AWS_SECRET_KEY = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY')
 URL = 's3://my_bucket/'
 OBJECT_PATTERN= '*.parquet'
 TYPE = (PARQUET)
@@ -117,7 +117,7 @@ When Firebolt ingests the data from a Parquet file stored in that path, the `c_t
 
 ### CREDENTIALS
 
-The credentials for accessing your AWS S3. Firebolt enables using either access key & secret or IAM role.
+The credentials for accessing your AWS S3. Firebolt enables using access key & secret.
 
 #### Syntax&ndash;authenticating using an access key and secret
 
