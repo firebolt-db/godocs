@@ -31,7 +31,7 @@ CONCAT( <expression>[, <expression>[, ...n]] );
 
 | Parameter | Description                         |Supported input types |
 | :--------- | :----------------------------------- | :---------------------|
-| `<expression>[, ...n]` | The expressions to be concatenated. | Any type |
+| `<expression>[, ...n]` | The expressions to be concatenated. | Any non-array type |
 
 The parameters to the `CONCAT` function can be of any data type, and will be converted to their text representation before concatenation. `NULL` parameters to the `CONCAT` function are treated as empty strings and ignored. If all parameters are `NULL`, the result will be an empty string.
 
@@ -39,12 +39,12 @@ The parameters to the `CONCAT` function can be of any data type, and will be con
 
 | Parameter | Description                         |Supported input types |
 | :--------- | :----------------------------------- | :---------------------|
-| `<expression>` | The expressions to be concatenated. | Any non-array type, but at least one `TEXT` |
+| `<expression>` | The expressions to be concatenated. | Any type |
 
-One parameter to the `||` operator must be of type `TEXT`, while the other parameter may be of any non-array data type. Array types are not supported to avoid ambiguity with the array concatenation operator. If necessary, explicit type casts can be used to circumvent this restriction. If any parameter to the `||` operator is `NULL`, the result will also be `NULL`.
+To enable string concatenation, one parameter to the `||` operator must be of type `TEXT`, while the other parameter may be of any non-array data type. If one parameter to the `||` operator is `NULL`, the result will also be the non-null parameter; if both parameters are `NULL`, the result will be `NULL`.
 
 ## Return Type
-`TEXT`
+`TEXT` if none of the parameter is an array data type
 
 ## Example
 {: .no_toc}
