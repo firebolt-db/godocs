@@ -31,7 +31,7 @@ CONCAT( <expression>[, <expression>[, ...n]] );
 
 | Parameter | Description                         |Supported input types |
 | :--------- | :----------------------------------- | :---------------------|
-| `<expression>[, ...n]` | The expressions to be concatenated. | Any non-array type |
+| `<expression>[, ...n]` | The expressions to be concatenated. | Any type |
 
 The parameters to the `CONCAT` function can be of any data type, and will be converted to their text representation before concatenation. `NULL` parameters to the `CONCAT` function are treated as empty strings and ignored. If all parameters are `NULL`, the result will be an empty string.
 
