@@ -8,13 +8,12 @@ parent: Data management
 ---
 
 # COPY FROM
-
 {: .no_toc}
 
 Copies data from S3 to firebolt table.
 
 * Topic ToC
-  {:toc}
+{:toc}
 
 ## Syntax
 
