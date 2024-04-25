@@ -96,11 +96,15 @@ PRIMARY INDEX gameid, title
 
 The example below creates a partition for each group of records with the same date value in `transaction_date`.
 
-```PARTITION BY transaction_date```
+```sql
+PARTITION BY transaction_date
+```
 
 The example below drops the partition for records with the date `2020-01-01`. The date is provided as a string literal and must be cast to the `DATE` data type in the command. The command uses the [:: operator for CAST](../../sql_reference/operators.md#-operator-for-cast).
 
-```ALTER TABLE fct_tbl_transactions DROP PARTITION '2020-01-01'::DATE;```
+```sql
+ALTER TABLE fct_tbl_transactions DROP PARTITION '2020-01-01'::DATE;
+```
 
 #### Partition and drop by date extraction
 {: .no_toc}
@@ -112,26 +116,36 @@ PARTITION BY EXTRACT(YEAR FROM transaction_date), EXTRACT(MONTH FROM transaction
 
 The example below drops the partition for records where `transaction_date` is in the month of April 2022. The year and month are specified as integers in the command.
 
-```ALTER TABLE fct_tbl_transactions DROP PARTITION 2022,04;```
+```sql
+ALTER TABLE fct_tbl_transactions DROP PARTITION 2022,04;
+```
 
 #### Partition and drop by integer
 {: .no_toc}
 
 The example below creates a partition for each group of records with the same value for `gameid`.
 
-```PARTITION BY gameid```
+```sql
+PARTITION BY gameid
+```
 
 The example below drops the partition where `gameid` is `8188`.
 
-```ALTER TABLE games DROP PARTITION 8188;```
+```sql
+ALTER TABLE games DROP PARTITION 8188;
+```
 
 #### Partition and drop by composite key
 {: .no_toc}
 
 The example below creates a partition for each group of records where `gameid` is the same value **and** `transaction_date` is the same year.
 
-```PARTITION BY gameid,EXTRACT(YEAR FROM transaction_date);```
+```sql
+PARTITION BY gameid,EXTRACT(YEAR FROM transaction_date);
+```
 
 The example below drops the partition where `gameid` is `982` **and** `transaction_date` is `2020` .
 
-```ALTER TABLE games DROP PARTITION 982,2020;```
+```sql
+ALTER TABLE games DROP PARTITION 982,2020;
+```
