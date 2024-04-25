@@ -117,7 +117,7 @@ When Firebolt ingests the data from a Parquet file stored in that path, the `c_t
 
 ### CREDENTIALS
 
-The credentials for accessing your AWS S3. Firebolt enables using access key & secret.
+The credentials for accessing your data on AWS S3 using access key & secret.
 
 #### Syntax&ndash;authenticating using an access key and secret
 
@@ -135,14 +135,6 @@ CREDENTIALS = (AWS_KEY_ID = '<ID>' AWS_SECRET_KEY = '<secret>' )
 {: .note}
 In case you don't have the access key and secret to access your S3 bucket, read more [here](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) on how to obtain them.
 
-
-## Parameters 
-{: .no_toc} 
-
-| Parameter         | Description                                                                                                                                   | Data type |
-| :----------------- |: --------------------------------------------------------------------------------------------------------------------------------------------- |: --------- |
-| `<arn>`    | The arn\_role you created in order to enable access to the required bucket.                                                                   | `TEXT`      |
-| `<external_ID>` | Optional. This is an optional external ID that you can configure in AWS when creating the role. Specify this only if you use the external ID. | `TEXT`      |
 
 ### URL and OBJECT_PATTERN
 
