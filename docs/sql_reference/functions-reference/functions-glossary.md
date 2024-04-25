@@ -63,11 +63,13 @@ All Firebolt functions in alphabetical order.
 | [LPAD](./string/lpad.md) | Adds a specified pad string to the start of the string repetitively up until the length of the resulting string is equivalent to an indicated length. | String |
 | [LTRIM](./string/ltrim.md) | Removes all occurrences of optionally specified characters from the left side of a source string. If no trim parameter is specified, all occurrences of common whitespace (ASCII Decimal 32) characters from the left side of the specified source string are removed. | String |
 | [MATCH](./string/match.md) | Checks whether the input expression matches the specified regular expression pattern, which is a RE2 regular expression.  Returns 0 if it doesn’t match, or 1 if it matches. | String |
-| [MAX](./aggregation/max.md) | Calculates the maximum value of an expression across all input values. | Aggregation | 
-| [MAX OVER](./window/max-window.md) | Returns the maximum value within the requested window. | Window | 
-| [MAX_BY](./aggregation/max-by.md) | Returns the value of the specified input column at the row with the maximum value in the specified value column. | Aggregation 
+| [MAX](./aggregation/max.md) | Calculates the maximum value of an expression across all input values. | Aggregation |
+| [MAX_BY](./aggregation/max-by.md) | Returns the value of its first argument for the row that contains the maximum value of the second argument | Aggregation |
+| [MAX OVER](./window/max-window.md) | Returns the maximum value within the requested window. | Window |
+| [MAX_BY](./aggregation/max-by.md) | Returns the value of the specified input column at the row with the maximum value in the specified value column. | Aggregation
 | [MIN](./aggregation/min.md) | Calculates the minimum value of an expression across all input values. | Aggregation |
-| [MIN OVER](./window/min-window.md) | Returns the maximum value within the requested window. | Window | 
+| [MIN_BY](./aggregation/min-by.md) | Returns the value of its first argument for the row that contains the minimum value of the second argument | Aggregation |
+| [MIN OVER](./window/min-window.md) | Returns the maximum value within the requested window. | Window |
 | [MOD](./numeric/mod.md) | Calculates the remainder after dividing two values. | Numeric |
 | [NTILE](./window/ntile.md) | Divides an ordered set into a number of buckets. | Window |
 | [NULLIF](./conditional-and-miscellaneous/nullif.md) | Compares two expressions. Returns NULL if the expressions are equal. Returns the result of the first if they are not equal. | Conditional & miscellaneous |

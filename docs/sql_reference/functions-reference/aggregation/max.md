@@ -10,7 +10,7 @@ great_grand_parent: SQL reference
 
 # MAX
 
-Calculates the maximum value of an expression across all input values.
+Returns the maximum value in its argument. NULL values are ignored. If all inputs are NULL, `MAX` returns NULL.
 
 ## Syntax
 {: .no_toc}
@@ -19,12 +19,12 @@ Calculates the maximum value of an expression across all input values.
 MAX(<expression>)
 ```
 
-## Parameters 
+## Parameters
 {: .no_toc}
 
 | Parameter | Description                                               |Supported input types                                        |
 | :--------- | :--------------------------------------------------------|:------------------------------------------------------------|
-| `<expression>`  | The expression used to calculate the maximum values | Any | 
+| `<expression>`  | The expression whose maximum to determine | Any type |
 
 ## Return Types
 Same as input type
@@ -34,7 +34,7 @@ Same as input type
 For this example, see the following table, `tournaments`:
 
 | name                          | totalprizedollars |
-| :-----------------------------| :-----------------| 
+| :-----------------------------| :-----------------|
 | The Drifting Thunderdome      | 24,768             |
 | The Lost Track Showdown       | 5,336              |
 | The Acceleration Championship | 19,274             |
@@ -52,7 +52,8 @@ FROM
 
 **Returns**: `24,768`
 
-`MAX` can also work on text columns by returning the text row with the characters that are last in the lexicographic order. In this example, the function assesses the `name` column in the `tournaments` table.
+
+`MAX` can also work on text or array columns, in which case it returns the lexicographically largest value. In this example, the function assesses the `name` column in the `tournaments` table.
 
 ```sql
 SELECT
