@@ -32,8 +32,8 @@ CREATE DIMENSION TABLE [IF NOT EXISTS] <table_name>
 AS <select_query>
 ```
 
-## Parameters 
-{: .no_toc} 
+## Parameters
+{: .no_toc}
 
 | Parameter                                       | Description                                                                                                     |
 | :----------------------------------------------- | :--------------------------------------------------------------------------------------------------------------- |
@@ -42,13 +42,7 @@ AS <select_query>
 | `<select_query`>                                | Any valid select query.                                                                                        |
 
 
-## Remarks 
-<<<<<<< HEAD:docs/sql_reference/commands/data-definition/create-fact-dimension-table-as-select.md
+## Remarks
 {. no_toc}
 
 Unlike a traditional CREATE statement, the primary index and partition definition must come *before* the AS clause.
-=======
-{: .no_toc}
-
-Unlike a traditional CREATE statement, the primary index and partition definition must come *before* the AS clause.
->>>>>>> rn/gh-pages:docs/sql-reference/commands/create-fact-dimension-table-as-select.md
