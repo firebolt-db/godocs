@@ -135,13 +135,7 @@ CREDENTIALS = (AWS_KEY_ID = '<ID>' AWS_SECRET_KEY = '<secret>' )
 {: .note}
 In case you don't have the access key and secret to access your S3 bucket, read more [here](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) on how to obtain them.
 
-#### Syntax&ndash;authenticating using an IAM role
 
-Read more on how to configure the AWS role [here](../../../Guides/loading-data/configuring-aws-role-to-access-amazon-s3.md).
-
-```sql
-CREDENTIALS = (AWS_ROLE_ARN = '<arn' [AWS_ROLE_EXTERNAL_ID = '<external_ID'])
-```
 ## Parameters 
 {: .no_toc} 
 
