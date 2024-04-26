@@ -1,6 +1,2 @@
-.github/workflows/
-<<<<<<< HEAD
-.idea
-=======
+.DS_Store
 .idea/
->>>>>>> rn/gh-pages

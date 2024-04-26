@@ -18,21 +18,17 @@ Returns an array of string values from a JSON document using the key location sp
 JSON_EXTRACT_VALUES(<json>, '<json_pointer_expression>')
 ```
 
-# Parameters 
+## Parameters
 {: .no_toc}
 
-| Parameter                   | Description                                               | Supported input types | 
+| Parameter                   | Description                                               | Supported input types |
 | :--------------------------- | :--------------------------------------------------------- | :----------|
-| `<json>`                    | The JSON document from which the array is to be extracted. | `TEXT` | 
-| `<json_pointer_expression>` | A JSON pointer to the location of the array in the JSON. For more information, see [JSON pointer expression syntax](./index.md#json-pointer-expression-syntax).    | `TEXT` | 
+| `<json>`                    | The JSON document from which the array is to be extracted. | `TEXT` |
+| `<json_pointer_expression>` | A JSON pointer to the location of the array in the JSON. For more information, see [JSON pointer expression syntax](./index.md#json-pointer-expression-syntax).    | `TEXT` |
 
-<<<<<<< HEAD:docs/sql_reference/functions-reference/JSON/json-extract-values.md
-## Return Types 
-=======
-# Return Types 
->>>>>>> rn/gh-pages:docs/sql-reference/functions-reference/json-extract-values.md
+## Return Types
 * If key is provided, returns an `ARRAY` of strings
-* If no key is provided, returns `NULL` 
+* If no key is provided, returns `NULL`
 
 ## Example
 {: .no_toc}

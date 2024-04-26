@@ -41,7 +41,7 @@ FROM <externalLocation>
     [ <csv_options> ]
 
 <credentials>:
-    { AWS_KEY_ID = '<aws_key_id>' AWS_SECRET_KEY = '<aws_secret_key>' | AWS_ROLE_ARN = '<role_arn>' [AWS_ROLE_EXTERNAL_ID = '<external_id>'] }
+    { AWS_KEY_ID = '<aws_key_id>' AWS_SECRET_KEY = '<aws_secret_key>' }
 
 <csv_options>:
     [ HEADER = { **FALSE** | TRUE  } ]

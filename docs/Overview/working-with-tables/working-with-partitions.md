@@ -43,19 +43,19 @@ Rows with the same value in the column key and whose function expression resolve
 
 Partition key arguments must not evaluate to `NULL` and can be any of the following.
 
-* Column names, as shown below.  
+* Column names, as shown below.
   ```sql
   PARTITION BY date_column;
- 
+
   PARTITION BY product_type;
   ```
 
-* The result of an [EXTRACT](../../sql_reference/functions-reference/date-and-time/extract.md) function applied to a column of any of the date and time data types, as shown below.  
+* The result of an [EXTRACT](../../sql_reference/functions-reference/date-and-time/extract.md) function applied to a column of any of the date and time data types, as shown below.
   ```PARTITION BY EXTRACT(MONTH FROM date_column);```
 
-* A composite key, with a mix of columns and `EXTRACT` functions, as shown below.  
+* A composite key, with a mix of columns and `EXTRACT` functions, as shown below.
   ```PARTITION BY EXTRACT(MONTH FROM date_column), product_type;```
-  
+
 {: .caution}
 Floating point data type columns are not supported as partition keys.
 
@@ -96,11 +96,15 @@ PRIMARY INDEX gameid, title
 
 The example below creates a partition for each group of records with the same date value in `transaction_date`.
 
-```PARTITION BY transaction_date```
+```sql
+PARTITION BY transaction_date
+```
 
 The example below drops the partition for records with the date `2020-01-01`. The date is provided as a string literal and must be cast to the `DATE` data type in the command. The command uses the [:: operator for CAST](../../sql_reference/operators.md#-operator-for-cast).
 
-```ALTER TABLE fct_tbl_transactions DROP PARTITION '2020-01-01'::DATE;```
+```sql
+ALTER TABLE fct_tbl_transactions DROP PARTITION '2020-01-01'::DATE;
+```
 
 #### Partition and drop by date extraction
 {: .no_toc}
@@ -108,37 +112,41 @@ The example below drops the partition for records with the date `2020-01-01`. Th
 The example below uses `EXTRACT` to create a partition for each group of records with the same year value in `transaction_date`.
 
 ```sql
-PARTITION BY EXTRACT(YEAR FROM transaction_date), EXTRACT(MONTH FROM transaction_date);```
+PARTITION BY EXTRACT(YEAR FROM transaction_date), EXTRACT(MONTH FROM transaction_date);
+```
 
 The example below drops the partition for records where `transaction_date` is in the month of April 2022. The year and month are specified as integers in the command.
 
-<<<<<<< HEAD:docs/Overview/working-with-tables/working-with-partitions.md
-```ALTER TABLE fct_tbl_transactions DROP PARTITION 2022,04;```
-=======
 ```sql
-
 ALTER TABLE fct_tbl_transactions DROP PARTITION 2022,04;
 ```
->>>>>>> rn/gh-pages:docs/working-with-partitions.md
 
 #### Partition and drop by integer
 {: .no_toc}
 
 The example below creates a partition for each group of records with the same value for `gameid`.
 
-```PARTITION BY gameid```
+```sql
+PARTITION BY gameid
+```
 
 The example below drops the partition where `gameid` is `8188`.
 
-```ALTER TABLE games DROP PARTITION 8188;```
+```sql
+ALTER TABLE games DROP PARTITION 8188;
+```
 
 #### Partition and drop by composite key
 {: .no_toc}
 
 The example below creates a partition for each group of records where `gameid` is the same value **and** `transaction_date` is the same year.
 
-```PARTITION BY gameid,EXTRACT(YEAR FROM transaction_date);```
+```sql
+PARTITION BY gameid,EXTRACT(YEAR FROM transaction_date);
+```
 
 The example below drops the partition where `gameid` is `982` **and** `transaction_date` is `2020` .
 
-```ALTER TABLE games DROP PARTITION 982,2020;```
+```sql
+ALTER TABLE games DROP PARTITION 982,2020;
+```

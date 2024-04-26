@@ -11,6 +11,8 @@ great_grand_parent: SQL reference
 
 Converts each array element to its text representation, and concatenates those using an optional delimiter. If no delimiter is provided, an empty string is used instead. `NULL` array elements are omitted.
 
+**Alias:** `ARRAY_JOIN`
+
 ## Syntax
 {: .no_toc}
 

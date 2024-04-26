@@ -9,4 +9,4 @@ grand_parent: Guides
 
 # Node.js
 
-You can use the Firebolt Node.js SDK to connect to Firebolt and perform Firebolt operations. For more installation and usage instructions, see the [firebolt-node-sdk](https://github.com/firebolt-db/firebolt-node-sdk/tree/0.x) repository on GitHub.
+You can use the Firebolt Node.js SDK to connect to Firebolt and perform Firebolt operations. For more installation and usage instructions, see the [firebolt-node-sdk](https://github.com/firebolt-db/firebolt-node-sdk) repository on GitHub.

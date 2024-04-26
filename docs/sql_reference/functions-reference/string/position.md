@@ -1,14 +1,14 @@
 ---
 layout: default
-title: STRPOS
-description: Reference material for STRPOSR function
+title: POSITION
+description: Reference material for POSITION function
 grand_parent: SQL functions
 parent: String functions
 great_grand_parent: SQL reference
 published: true
 ---
 
-# STRPOS
+# POSITION
 
 Returns the position of the substring found in the string, starting from 1. The returned value is for the first matching value, and not for any subsequent valid matches.
 In case the substring does not exist, functions will return 0.
@@ -17,7 +17,7 @@ In case the substring does not exist, functions will return 0.
 {: .no_toc}
 
 ```sql
-STRPOS(<string>, <substring>)
+POSITION(<substring> IN <string>)
 ```
 
 ## Parameters 
@@ -25,8 +25,8 @@ STRPOS(<string>, <substring>)
 
 | Parameter       | Description                      | Supported input types    | 
 | :---------------| :--------------------------------|:-------------------------|
-| `<string>`    | The string that will be searched. | `TEXT` |
 | `<substring>` | The substring to search for.        | `TEXT` |
+| `<string>`    | The string that will be searched. | `TEXT` |
 
 ## Return Type
 `INTEGER`
@@ -36,21 +36,21 @@ STRPOS(<string>, <substring>)
 
 ```sql
 SELECT
-	STRPOS('hello world','hello') AS res;
+	POSITION('hello' IN 'hello world') AS res;
 ```
 
 **Returns**: `1`
 
 ```sql
 SELECT
-	STRPOS('hello world','world') AS res;
+	POSITION('world' IN 'hello world') AS res;
 ```
 
 **Returns**: `7`
 
 ```sql
 SELECT
-	STRPOS('hello world','work') AS res;
+	POSITION('work' IN 'hello world') AS res;
 ```
 
 **Returns**: `0`
