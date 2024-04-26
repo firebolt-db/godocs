@@ -43,7 +43,8 @@ To enable array concatenation, one parameter to the `||` operator must be of typ
 
 If one parameter to the `||` operator is `NULL`, the result will be the non-null parameter; if both parameters are `NULL`, the result will be `NULL`.
 
-The array concatenation operator `||` can also be used for [string concatenation](../string/concat.md).
+The concatenation operator `||` can also be used for [string concatenation](../string/concat.md).
+
 
 ## Return Type
 `ARRAY` of the same type as the input arrays 
