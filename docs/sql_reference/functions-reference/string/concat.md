@@ -47,7 +47,7 @@ The string concatenation operator `||` can also be used for [array concatenation
 
 
 ## Return Type
-`TEXT` if none of the parameter is an array data type
+`TEXT`
 
 ## Example
 {: .no_toc}
