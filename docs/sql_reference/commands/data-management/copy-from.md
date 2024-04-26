@@ -85,7 +85,7 @@ FROM <externalLocation>
 | `DATE_FORMAT`            | Specify the date format for parsing text into date columns. Will apply only and for all columns that will be ingested to date columns. For supported formats see formats in [TO_DATE](../../functions-reference/date-and-time/to-date.md)                                                                                                                                                                                                                                                                                                                                                     |
 | `TIMESTAMP_FORMAT`       | Specify the timestamp format for parsing text into timestamp columns. Will apply only and for all columns that will be ingested to timestamp columns. For supported formats see formats in [TO_TIMESTAMP](../../functions-reference/date-and-time/to-timestamp.md)                                                                                                                                                                                                                                                                                                                            |
 
-notes:
+Notes:
 Non-existing columns:
 By default if a column does not exist in the source file it will produce nulls.
 For CSV format it applies to missing fields as well.
