@@ -4,7 +4,7 @@ title: Creating Access Key and Secret ID in AWS
 description: Understand how to create security credentials in AWS
 parent: Load data
 grand_parent: Guides
-nav_order: 4
+nav_order: 2
 has_children: false
 has_toc: false
 ---
