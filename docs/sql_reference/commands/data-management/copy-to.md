@@ -47,7 +47,7 @@ COPY (<select_query>)
 
 ## CREDENTIALS
 
-Firebolt needs permissions to write query results to the specified S3 location. You can specify IAM credentials using the AWS access keys, and the specified credentials must be associated with a user or role with permissions to write objects to the bucket.
+Firebolt needs permissions to write query results to the specified S3 location. You can specify IAM credentials using the AWS access keys, and the specified credentials must be associated with a user with permissions to write objects to the bucket.
 
 ### Specifying AWS access keys
 
