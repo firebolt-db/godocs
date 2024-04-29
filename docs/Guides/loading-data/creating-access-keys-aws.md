@@ -111,7 +111,8 @@ Now that you have created a user, authorized the user with the appropriate S3 pe
 
    ![Create Access Key](../../assets/images/Create_Access_Keys.png){: width="800" .centered}
 
-3. For the use case, choose the "Application running on AWS compute service". You will see a recommendation to choose short-term credentials. You can check the box and click Next.
+3. For the use case, choose the "Application running on AWS compute service". You will see an alternative recommendation. You can check the box that says "I understand the above recommendation and want to proceed to create an access key" and click Next.
+
    ![Use case warning](../../assets/images/Access_Key_Use_Case.png)
 
 4. Set a description tag for the access key and click "Create Access Key"
