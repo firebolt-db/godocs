@@ -8,11 +8,12 @@ has_children: false
 has_toc: false
 ---
 
+
 This section will walk you through the steps to create security credentials in AWS. These credentials will be used to load data from AWS S3 into Firebolt.
 
 In order to enable Firebolt to load data from your S3 buckets, you must:
   1. Create a user
-  2. Create appropriate permissions for this user and 
+  2. Create appropriate permissions for this user
   3. Create access credentials to authenticate this user. 
 
 ## Create User
@@ -21,11 +22,11 @@ In order to enable Firebolt to load data from your S3 buckets, you must:
 
 2. Once you are in the IAM section, click the "Create User"  button.
 
-   ![Create IAM User](../../assets/images/Create_User_Dialog.png){: width="600" .centered}
+   ![Create IAM User](../../assets/images/Create_User_Dialog.png){: width="800" .centered}
 
 3. Enter a name for the user and click Next
 
-    ![Specify User Name](../../assets/images/Specify_User_Name.png){: width="600" .centered}
+    ![Specify User Name](../../assets/images/Specify_User_Name.png){: width="800" .centered}
 
 4. You can have the default permission option set to "Add user to group" and click Next
 
@@ -33,11 +34,11 @@ In order to enable Firebolt to load data from your S3 buckets, you must:
 
 5. Click "Create User"
 
-    ![Review and Create User](../../assets/images/Review_Create_User.png){: width="600" .centered}
+    ![Review and Create User](../../assets/images/Review_Create_User.png){: width="800" .centered}
 
 6. You will see a message "User created successfully"
 
-    ![User created successfully](../../assets/images/User_Created_Successfully.png){: width="600" .centered}
+    ![User created successfully](../../assets/images/User_Created_Successfully.png){: width="800" .centered}
 
 ## Create S3 Access Permissions
 
@@ -45,19 +46,19 @@ Now that you have created the user, you will now assign this user appropriate pe
 
 1. Click on the user name as shown below.
 
-   ![Click User](../../assets/images/Click_User.png){: width="600" .centered}
+   ![Click User](../../assets/images/Click_User.png){: width="800" .centered}
 
 2. In the Permissions tab, click the "Add Permissions" drop-down and choose "Create inline policy"
 
-   ![Choose Inline Policy](../../assets/images/Choose_Iniline_Permissions.png){: width="600" .centered}
+   ![Choose Inline Policy](../../assets/images/Choose_Iniline_Permissions.png){: width="800" .centered}
 
 3. In "Specify Permissions" choose S3 as the service. 
 
-   ![Choose S3](../../assets/images/Choose_S3.png){: width="600" .centered}
+   ![Choose S3](../../assets/images/Choose_S3.png){: width="800" .centered}
 
 4. Choose JSON, paste the below JSON code in the policy editor and click Next
 
-   ![Set Permissions](../../assets/images/Specify_Permissions.png){: width="600" .centered}
+   ![Set Permissions](../../assets/images/Specify_Permissions.png){: width="800" .centered}
 
    ```javascript
    {
@@ -94,7 +95,7 @@ Now that you have created the user, you will now assign this user appropriate pe
 
 5. Enter a description for the policy and click Create Policy
 
-   ![Create policy](../../assets/images/Create_Policy.png){: width="600" .centered}
+   ![Create policy](../../assets/images/Create_Policy.png){: width="800" .centered}
 
 6. You will see a message that the policy has been successfully created.
 
@@ -104,20 +105,20 @@ Now that you have created a user, authorized the user with the appropriate S3 pe
 
 1. Click on the "Security Credentials" tab as shown below.
 
-   ![Click Security Credentials](../../assets/images/Choose_Security_Credentials.png){: width="600" .centered}
+   ![Click Security Credentials](../../assets/images/Choose_Security_Credentials.png){: width="800" .centered}
 
 2. In the Access Keys section click the Create Access Key button.
 
-   ![Create Access Key](../../assets/images/Create_Access_Keys.png){: width="600" .centered}
+   ![Create Access Key](../../assets/images/Create_Access_Keys.png){: width="800" .centered}
 
 3. For the use case, choose the "Application running on AWS compute service". You will see a recommendation to choose short-term credentials. You can check the box and click Next.
    ![Use case warning](../../assets/images/Access_Key_Use_Case.png)
 
 4. Set a description tag for the access key and click "Create Access Key"
 
-   ![Set Desc tag Access Key](../../assets/images/Description_Tag_Access_Key.png){: width="600" .centered}
+   ![Set Desc tag Access Key](../../assets/images/Description_Tag_Access_Key.png){: width="800" .centered}
 
 5. You will see a message that the access key has been created. Make sure to download the access key. You will need these credentials when you load S3 data into Firebolt.
 
-    ![Access Key created successfully](../../assets/images/Download_CSV_Access_Key.png){: width="600" .centered}
+    ![Access Key created successfully](../../assets/images/Download_CSV_Access_Key.png){: width="800" .centered}
 
