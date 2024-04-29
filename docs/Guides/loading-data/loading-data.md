@@ -10,7 +10,7 @@ has_toc: false
 
 # Load data
 
-Loading data into Firebolt is described in the [Getting started tutorial](../getting-started.md) and consists of four steps.
+Loading data into Firebolt is described in the [Getting started tutorial](../getting-started.md) and consists of two steps.
 
 1. To provide Firebolt with the right permissions to load data from your Amazon S3 bucket, you must create AWS access keys and secret IDs. For instructions on how to create the access key credentials in AWS, see [Creating Access Key and Secret ID](../loading-data/creating-access-keys-aws.md).
 
