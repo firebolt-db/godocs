@@ -47,20 +47,7 @@ COPY (<select_query>)
 
 ## CREDENTIALS
 
-Firebolt needs permissions to write query results to the specified S3 location. You can specify IAM credentials using either the Amazon Resource Name (ARN) of an IAM role or AWS access keys, and the specified credentials must be associated with a user or role with permissions to write objects to the bucket.
-
-### Specifying an IAM Role
-
-Specify an AWS IAM Role ARN using the syntax shown below.
-
-```sql
-CREDENTIALS = (AWS_ROLE_ARN=<role_arn>) [AWS_ROLE_EXTERNAL_ID='<external_id>']
-```
-
-* `<role_arn>` is the ARN of a role that you have configured for Firebolt access to the specified `<s3_location>`, for example, `arn:aws:iam::123456789012:role/my-firebolt-access-role`.
-* `<external_id>` is an optional arbitrary string that you assign to an IAM role when you create it, for example, `99291`.
-
-For more information about creating roles for Firebolt, see [Using AWS roles to access Amazon S3](../../../Guides/loading-data/configuring-aws-role-to-access-amazon-s3.md).
+Firebolt needs permissions to write query results to the specified S3 location. You can specify IAM credentials using the AWS access keys, and the specified credentials must be associated with a user or role with permissions to write objects to the bucket.
 
 ### Specifying AWS access keys
 
@@ -73,7 +60,7 @@ CREDENTIALS = (AWS_KEY_ID = '<aws_key_id>' AWS_SECRET_KEY = '<aws_secret_key>')
 * `<aws_key_id>` is the AWS access key id associated with a user or role, for example, `AKIAIOSFODNN7EXAMPLE`.
 * `<aws_secret_key>` is the AWS secret key, for example, `wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`.
 
-For more information about access keys, see [Programmatic access](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) in the *AWS General Reference*.
+For more information on how to create access keys, see [Creating Access Key and Secret ID](../../../Guides/loading-data/creating-access-keys-aws.md).
 
 ### Least privileged permissions
 
