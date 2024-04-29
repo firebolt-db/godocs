@@ -10,7 +10,10 @@ has_toc: false
 
 This section will walk you through the steps to create security credentials in AWS. These credentials will be used to load data from AWS S3 into Firebolt.
 
-In order to enable Firebolt to load data from your S3 buckets, you must create a user, create appropriate permissions for this user and create access credentials to authenticate this user. 
+In order to enable Firebolt to load data from your S3 buckets, you must:
+  1. Create a user
+  2. Create appropriate permissions for this user and 
+  3. Create access credentials to authenticate this user. 
 
 ## Create User
 
@@ -26,7 +29,7 @@ In order to enable Firebolt to load data from your S3 buckets, you must create a
 
 4. You can have the default permission option set to "Add user to group" and click Next
 
-    ![Set Permissions](../../assets/images/Specify_Permissions.png)
+    ![Set Permissions](../../assets/images/Set_Permissions.png)
 
 5. Click "Create User"
 
@@ -54,7 +57,7 @@ Now that you have created the user, you will now assign this user appropriate pe
 
 4. Choose JSON, paste the below JSON code in the policy editor and click Next
 
-   ![Set Permissions](../../assets/images/Set_Permissions.png)
+   ![Set Permissions](../../assets/images/Specify_Permissions.png)
 
    ```javascript
    {
