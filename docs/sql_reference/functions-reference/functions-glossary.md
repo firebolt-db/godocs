@@ -62,7 +62,6 @@ All Firebolt functions in alphabetical order.
 | [LOWER](./string/lower.md) | Converts the input string to lowercase characters. | String |
 | [LPAD](./string/lpad.md) | Adds a specified pad string to the start of the string repetitively up until the length of the resulting string is equivalent to an indicated length. | String |
 | [LTRIM](./string/ltrim.md) | Removes all occurrences of optionally specified characters from the left side of a source string. If no trim parameter is specified, all occurrences of common whitespace (ASCII Decimal 32) characters from the left side of the specified source string are removed. | String |
-| [MATCH](./string/match.md) | Checks whether the input expression matches the specified regular expression pattern, which is a RE2 regular expression.  Returns 0 if it doesn’t match, or 1 if it matches. | String |
 | [MAX](./aggregation/max.md) | Calculates the maximum value of an expression across all input values. | Aggregation |
 | [MAX_BY](./aggregation/max-by.md) | Returns the value of its first argument for the row that contains the maximum value of the second argument | Aggregation |
 | [MAX OVER](./window/max-window.md) | Returns the maximum value within the requested window. | Window |
