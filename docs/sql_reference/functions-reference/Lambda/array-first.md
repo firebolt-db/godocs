@@ -5,12 +5,12 @@ description: Reference material for ARRAY_FIRST function
 grand_parent: SQL functions
 parent: Lambda functions
 great_grand_parent: SQL reference
-published: false
+published: true
 ---
 
 # ARRAY\_FIRST
 
-Returns the first element in the given array for which the given function returns something other than `0`. The `<function>` parameter must be included.
+Returns the first element in the given array for which the given function returns `true`. The `<function>` parameter must be included.
 
 ## Syntax
 {: .no_toc}
@@ -23,11 +23,11 @@ ARRAY_FIRST(<function>, <array>)
 
 | Parameter | Description                  | Supported input types | 
 | :--------- | :--------------------------- | :-------- | 
-| `<function>`  | A [Lambda function](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions) used to check elements in the array | Any Lambda function |
+| `<function>`  | A [Lambda function](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions) used to check elements in the array | A Lambda function returning `BOOLEAN` |
 | `<array>`   | The array evaluated by the function  | Any array | 
 
 ## Return Type
-`ARRAY` of the same type as the input array 
+The element type of `<array>` 
 
 ## Examples
 {: .no_toc}
@@ -36,16 +36,7 @@ The following example returns the first value in the `levels` array greater than
 
 ```sql
 SELECT
-	ARRAY_FIRST(x -> x > 2, [ 1, 2, 3, 9 ]) AS levels;
+	ARRAY_FIRST(x -> x > 2, [ 1, 2, 4, 9 ]) AS levels;
 ```
 
-**Returns**: `3`
-
-In the example below, the third index is returned because it is the first that evaluates to `esimpson`.
-
-```sql
-SELECT
-    ARRAY_FIRST(x, y -> y = 'esimpson', [ steven70, sabrina21, esimpson, kennethpark ]) AS usernames;
-```
-
-**Returns**: `3`
+**Returns**: `4`

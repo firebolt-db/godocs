@@ -27,7 +27,8 @@ ARRAY_MIN(<array>)
 
 
 ## Return Type
-`NUMERIC` 
+
+Same as the element type of the array.
 
 ## Example
 {: .no_toc}

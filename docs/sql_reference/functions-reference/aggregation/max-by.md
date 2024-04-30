@@ -7,18 +7,15 @@ parent: Aggregation functions
 great_grand_parent: SQL reference
 ---
 
-
 # MAX\_BY
 
-Returns the value of the specified `<expression>` column at the row with the maximum value in the specified `<value>` column.
-
-If there is more than one of the same maximum value in `<value>`, then the first occurring will be returned.
+Returns the value of the first argument for the row that contains the maximum of the second argument. If the maximum of the second argument is not unique, an arbitrary non-NULL value of the first argument is returned from the set of rows that maximize the second argument. If the first argument is NULL for all rows maximizing the second argument, NULL is returned.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-MAX_BY(<expression>, <value>)
+MAX_BY(<result>, <value>)
 ```
 
 ## Parameters
@@ -26,15 +23,12 @@ MAX_BY(<expression>, <value>)
 
 | Parameter | Description                         |Supported input types |
 | :--------- | :----------------------------------- | :---------------------|
-| `<expression>` | The column from which the value is returned | Any type |
-| `<value>` | The column that is search for a maximum value | Any string, numeric or date/timestamp type |
+| `<result>` | The column from which the value is returned | Any type |
+| `<value>` | The column that is maximized | Any type |
 
 ## Return Types
 
-Same as input type of <expression>
-
-## Return Types
-The return types for this function includes `CHAR`, `NUMERIC`, `REAL`, and `DOUBLE PRECISION`. 
+Same as input type of <result>
 
 ## Example
 {: .no_toc}
@@ -42,7 +36,7 @@ The return types for this function includes `CHAR`, `NUMERIC`, `REAL`, and `DOUB
 For this example, see the following table, `tournaments`:
 
 | name                          | totalprizedollars |
-| :-----------------------------| :-----------------| 
+| :-----------------------------| :-----------------|
 | The Drifting Thunderdome      | 24,768            |
 | The Lost Track Showdown       | 5,336             |
 | The Acceleration Championship | 19,274            |
@@ -50,13 +44,35 @@ For this example, see the following table, `tournaments`:
 | The Circuit Championship      | 9,739             |
 
 
-In the example below, `MAX_BY` is used to find the tournament with the highest total prize.
+In the example below, `MAX_BY` is used to find the name of the tournament with the highest total prize.
 
 ```sql
 SELECT
 	MAX_BY(name, totalprizedollars) as maxprizetournament
 FROM
-	tournaments;
+	tournaments
 ```
 
 **Returns:** `The Drifting Thunderdome`
+
+
+When multiple rows maximize the second argument, an arbitrary one is chosen, preferring non-NULL values of the first argument:
+```sql
+SELECT MAX_BY(key, value)
+FROM UNNEST(
+    ['a', NULL, 'c', 'd', 'e', NULL],
+    [10,  100,   1,  100, 100, NULL]
+) t(key, value)
+```
+**Returns** `'d'` or `'e'`, as rows 2, 4, and 5 maximize the second argument, but the first argument is NULL for row 2. Because non-NULL values of the first argument exist for the other rows, one of those values is returned. Which of them is non-deterministic, hence this query may return either `'d'` or `'e'`.
+
+
+However, if all rows maximizing the second argument are NULL in the first argument, NULL is returned:
+```sql
+SELECT MAX_BY(key, value)
+FROM UNNEST(
+    ['a', NULL, 'c', 'd', NULL, 'f'],
+    [10,  100,   1,   2,  100, NULL]
+) t(key, value)
+```
+**Returns** `NULL`.
