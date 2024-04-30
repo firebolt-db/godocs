@@ -98,7 +98,7 @@ Now that you have created the user, you will now assign this user appropriate pe
       ]
    }
    ```
-**IMPORTANT:** Make sure to replace "<bucket>"  with the S3 bucket to which you want to provide access.
+**IMPORTANT:** In the above, for the "Resource" field, make sure to replace "bucket"  with the S3 bucket to which you want to provide access.
 
 5. Enter a description for the policy and click **Create Policy**
 
