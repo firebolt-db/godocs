@@ -1,15 +1,15 @@
 ---
 layout: default
-title: ARRAY_SORT
-description: Reference material for ARRAY_SORT function
+title: ARRAY_REVERSE_SORT
+description: Reference material for ARRAY_REVERSE_SORT function
 grand_parent: SQL functions
-parent: Lambda functions
+parent: Array functions
 great_grand_parent: SQL reference
 ---
 
-# ARRAY\_SORT
+# ARRAY\_REVERSE\_SORT
 
-Returns the elements of the input array in ascending order.
+Returns the elements of the input array in descending order.
 
 If the argument `<function>` is provided, the sorting order is determined by the result of applying `<function>` on each element of the array.
 
@@ -17,7 +17,7 @@ If the argument `<function>` is provided, the sorting order is determined by the
 {: .no_toc}
 
 ```sql
-ARRAY_SORT([<function>,] <array>)
+ARRAY_REVERSE_SORT([<function>,] <array>)
 ```
 ## Parameters
 {: .no_toc} 
@@ -36,16 +36,16 @@ ARRAY_SORT([<function>,] <array>)
 
 ```sql
 SELECT
-	ARRAY_SORT([ 4, 1, 3, 2 ]);
+	ARRAY_REVERSE_SORT([ 4, 1, 3, 2 ]);
 ```
 
-**Returns**: `[1,2,3,4]`
+**Returns**: `[4,3,2,1]`
 
-In this example below, the modulus operator is used to calculate the remainder on any odd numbers. Therefore `ARRAY_SORT` puts the higher (odd) numbers last in the results.
+In this example below, the modulus operator is used to calculate the remainder on any odd numbers. Therefore `ARRAY_REVERSE_SORT` puts the lower (even) numbers last in the results.
 
 ```sql
 SELECT
-	ARRAY_SORT(x -> x % 2, [ 4, 1, 3, 2 ]);
+	ARRAY_REVERSE_SORT(x -> x % 2, [ 4, 1, 3, 2 ]);
 ```
 
-**Returns**: `[4,2,1,3]`
+**Returns**: `[1,3,4,2]`

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Semi-structured data functions
+title: JSON functions
 description: Reference for JSON functions
 nav_order: 7
 parent: SQL functions
