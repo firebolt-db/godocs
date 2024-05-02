@@ -19,15 +19,11 @@ Firebolt identifiers can refer to the following items:
 
 ## Syntax
 
-Identifiers must contain at least one character, and no more than 255.
+Identifiers must contain at least one character, and no more than 255 and adhere to the following syntax:
 
-Unquoted Identifiers must adhere to the following syntax:
-
-2. The first character must be a letter (a-z), underscore (_).
-3. After the first character, subsequent characters can be letters, underscores, digits (0-9).
-4. columns can also contain dollar signs ($)
-
-Qouted identifiers can contain any UTF-8 letter.
+1. The first character must be a letter (a-z), underscore (_).
+2. After the first character, subsequent characters can be letters, underscores, digits (0-9).
+3. columns can also contain dollar signs ($)
 
 ## Unquoted identifiers
 
