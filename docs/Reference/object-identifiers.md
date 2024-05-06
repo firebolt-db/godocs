@@ -23,11 +23,16 @@ Identifiers must contain at least one character, and no more than 255.
 
 Unquoted Identifiers must adhere to the following syntax:
 
-2. The first character must be a letter (a-z), underscore (_).
-3. After the first character, subsequent characters can be letters, underscores, digits (0-9).
-4. columns can also contain dollar signs ($)
+1. The first character must be a letter (a-z), underscore (_).
+2. After the first character, subsequent characters can be letters, underscores, digits (0-9).
+3. columns can also contain dollar signs ($)
 
-Qouted identifiers can contain any UTF-8 letter.
+Qouted identifiers can contain any UTF-8 letter of the following:
+
+1. Any letter in any language, as represented by the Unicode regular expression \p{L}.
+2. Any numeric character in any language as represented by the Unicode regular expression \p{N}.
+3. Hyphen or dash, as represented by the Unicode regular expression \p{Pd}.
+4. Underscores, as represented by the Unicode regular expression \p{Pc}.
 
 ## Unquoted identifiers
 
