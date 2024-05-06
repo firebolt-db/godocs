@@ -15,8 +15,9 @@ SELECT
   *
 FROM
   information_schema.engine_metrics_history
-LIMIT
-  where event_time > now() - INTERVAL '2 hours'
+WHERE
+  event_time > now() - INTERVAL '2 hours'
+LIMIT 100;
 ```
 
 ## Columns in information_schema.engine_metrics_history
