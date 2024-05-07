@@ -14,7 +14,7 @@ Deletes rows from the specified table.
 ## Syntax
 
 ```sql
-DELETE FROM <table> WHERE <expression>
+DELETE FROM <table> [[AS] <alias>] [USING <from_item>] WHERE <expression>
 ```
 ## Parameters 
 {: .no_toc} 
@@ -22,7 +22,8 @@ DELETE FROM <table> WHERE <expression>
 | Parameter | Description|
 | :---------| :----------|
 | `<table>`| The table to delete rows from. |
-| `<expression>` | A Boolean expression. Only rows for which this expression returns `true` will be deleted. Condition can have subqueries doing semijoin with other table(s). |
+| `<expression>` | A Boolean expression. Only rows for which this expression returns `true` will be deleted. Condition can have subqueries doing semi-join with other table(s). |
+| `<from_item>` | A table expression allowing columns from other tables to appear in the `WHERE` condition. This uses the same syntax as the `FROM` clause of a `SELECT` statement; for example, an alias for the table name can be specified. Do not repeat the target table as a `from_item` unless you wish to set up a self-join (in which case it must appear with an alias in the `from_item`). |
 
 {: .note}
 The `DELETE FROM <table>` without `<expression>` will delete *all* rows from the table. It is equivalent to a [TRUNCATE TABLE](./truncate-table.md) statement.
@@ -36,37 +37,73 @@ To mitigate fragmentation, use the [`VACUUM`](vacuum.md) command to manually cle
 
 ## Example 
 
-The following example deletes entries from the `levels` table where the `level` is equal to `0`: 
+The following example deletes entries from the `products` table where the `quantity` is less than `10`: 
 
-`DELETE FROM levels WHERE level = 0`
+```sql
+DELETE FROM products WHERE quantity < 10
+```
 
 Table before:
+| product | quantity |
+|:-|-:|
+| wand | 9 |
+| broomstick | 21 |
+| robe | 1 |
+| quidditch gloves | 10 |
+| cauldron | 16 |
+| quill | 100 |
 
-| nickname   | level  |
-|:-----------| :------|
-| esimpson       |    8 |
-| sabrina21 |    4 |
-| kennthpark    |      0 |
-| rileyjon       |     2 |
-| aaronbutler   |     1 |
-| ywilson    |      0 |
+Table after:
+| product | quantity |
+|:-|-:|
+| broomstick | 21 |
+| quidditch gloves | 10 |
+| cauldron | 16 |
+| quill | 100 |
+
+
+### Example specifying other tables in the USING clause
+
+This example deletes all the products from stores that went out of business.
+
+```sql
+DELETE FROM products USING suppliers WHERE products.product = suppliers.product AND suppliers.store = 'Ollivanders'
+```
+
+Table `products` before:
+| product | quantity |
+|:-|-:|
+| wand | 9 |
+| broomstick | 21 |
+| robe | 1 |
+| quidditch gloves | 10 |
+| cauldron | 16 |
+| quill | 100 |
+
+`suppliers`:
+| product | store |
+|:-|:-|
+| wand | Ollivanders |
+| broomstick | Quality Quidditch Supplies |
+| robe | Madam Malkin’s |
+| quidditch gloves | Quality Quidditch Supplies |
+| cauldron | Apothecary |
+| quill | Amanuensis Quills |
 
 
 
-**Returns**:
-
-| nickname   | level  |
-|:-----------| :------|
-| esimpson       |    8 |
-| sabrina21 |    4 |
-| rileyjon       |     2 |
-| aaronbutler   |     1 |
+Table after:
+| product | quantity |
+|:-|-:|
+| broomstick | 21 |
+| robe | 1 |
+| quidditch gloves | 10 |
+| cauldron | 16 |
+| quill | 100 |
 
 ### Known limitations
 
 Below are some known limitations of the `DELETE` command. 
-
-* Only one `DELETE` will be executed against a table at once.
 
 * `DELETE` cannot be used on tables that have certain aggregating indexes. An attempt to issue a `DELETE` statement on a table with an aggregating index outside of the below defined will fail- these table level aggregating indexes need to be dropped first. `DELETE` can be used on tables that have aggregating indexes containing the following aggregating functions:
   * [COUNT and COUNT(DISTINCT)](../../functions-reference/aggregation/count.md)
@@ -77,5 +114,3 @@ Below are some known limitations of the `DELETE` command.
   * [ARRAY_AGG](../../functions-reference/aggregate-array/array-agg.md)
 
 * Queries against tables with deleted rows are supported and can be run. However, expect slower performance.
-
-* `DELETE` marks are always loaded during engine warm-up, regardless of engine policy. This can increase engine start time if there are significant number of deletions.
