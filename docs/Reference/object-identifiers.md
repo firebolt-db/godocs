@@ -21,7 +21,7 @@ Firebolt identifiers can refer to the following items:
 
 Identifiers must contain at least one character, and no more than 255.
 
-Unquoted Identifiers must adhere to the following syntax:
+Unquoted identifiers must adhere to the following syntax:
 
 1. The first character must be a letter (a-z), underscore (_).
 2. After the first character, subsequent characters can be letters, underscores, digits (0-9).
