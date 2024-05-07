@@ -29,10 +29,10 @@ Unquoted Identifiers must adhere to the following syntax:
 
 Qouted identifiers can contain any UTF-8 letter of the following:
 
-1. Any letter in any language, as represented by the Unicode regular expression \p{L}.
-2. Any numeric character in any language as represented by the Unicode regular expression \p{N}.
-3. Hyphen or dash, as represented by the Unicode regular expression \p{Pd}.
-4. Underscores, as represented by the Unicode regular expression \p{Pc}.
+1. Any letter in any language, as represented by the Unicode regular expression [\p{L}](https://www.unicode.org/reports/tr44/#General_Category_Values).
+2. Any numeric character in any language as represented by the Unicode regular expression [\p{N}](https://www.unicode.org/reports/tr44/#General_Category_Values).
+3. Hyphen or dash, as represented by the Unicode regular expression [\p{Pd}](https://www.unicode.org/reports/tr44/#General_Category_Values).
+4. Underscores, as represented by the Unicode regular expression [\p{Pc}](https://www.unicode.org/reports/tr44/#General_Category_Values).
 
 ## Unquoted identifiers
 
