@@ -80,7 +80,7 @@ Table `products` before:
 | cauldron | 16 |
 | quill | 100 |
 
-`suppliers`:
+Table `suppliers` before:
 | product | store |
 |:-|:-|
 | wand | Ollivanders |
@@ -90,9 +90,7 @@ Table `products` before:
 | cauldron | Apothecary |
 | quill | Amanuensis Quills |
 
-
-
-Table after:
+Table `products` after:
 | product | quantity |
 |:-|-:|
 | broomstick | 21 |

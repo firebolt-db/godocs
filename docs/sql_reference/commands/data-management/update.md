@@ -97,7 +97,7 @@ This example updates available stock count.
 UPDATE product AS p SET quantity = p.quantity - s.amount FROM sales AS s WHERE p.name = s.name
 ```
 
-`product` table before:
+Table `product` before:
 | name | price | quantity |
 |:-|-:|-:|
 | wand | 120 | 9 |
@@ -106,14 +106,14 @@ UPDATE product AS p SET quantity = p.quantity - s.amount FROM sales AS s WHERE p
 | cauldron | 20 | 16 |
 | quill | 5 | 100 |
 
-`sales` table before:
+Table `sales` before:
 | name | amount |
 |:-|-:|
 | wand | 5 |
 | broomstick | 3 |
 | quill | 20 |
 
-Table after:
+Table `products` after:
 | name | price | quantity |
 |:-|-:|-:|
 | wand | 120 | 4 |
