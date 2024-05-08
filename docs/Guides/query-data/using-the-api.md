@@ -33,7 +33,7 @@ to receive an authentication token:
     --header 'Content-Type: application/x-www-form-urlencoded' \
     --data-urlencode 'client_id=<id>' \
     --data-urlencode 'client_secret=<secret>' \
-    --data-urlencode 'grant_type=client_credentials'
+    --data-urlencode 'grant_type=client_credentials' \
     --data-urlencode 'audience=https://api.firebolt.io'
 ```
 
@@ -75,28 +75,7 @@ curl http://api.app.firebolt.io/web/v3/account/<account name>/engineUrl
 
 ```json
 {
-    "engineUrl": "https://api.us-east-1.dev.firebolt.io"
-}
-```
-
-## Get ID of your account
-
-Use the following endpoint to retrieve the ID of your account:
-
-```bash
-curl http://api.app.firebolt.io/web/v3/account/<account name>/resolve \
--H 'Accept: application/json' \
--H 'Authorization: Bearer <access token>'
-```
-
-**Example:** `https://api.app.firebolt.io/web/v3/account/my-account/resolve`   
-
-**Response**
-
-```json
-{
-    "id":"<account_id>",
-    "region":"us-east-1"
+  "engineUrl":"<account_id>.api.us-east-1.app.firebolt.io"
 }
 ```
 
@@ -105,7 +84,7 @@ curl http://api.app.firebolt.io/web/v3/account/<account name>/resolve \
 Use the following endpoint to run a query on the system engine:  
 
 ```bash
-curl --location '<system engine URL>/query?account_id=<account id>' \
+curl --location 'https://<system engine URL>/query' \
 --header 'Authorization: Bearer <access token>' \
 --data '<SQL query>'
 ```
@@ -115,8 +94,8 @@ where:
 | Property                          | Data type | Description |
 | :------------------------------   | :-------- | :---------- |
 | system engine URL                 | TEXT      | The system engine URL ([retrieved here](#get-the-system-engine-url)) |
-| account id                        | TEXT      | The account id |
-| SQL query                         | TEXT      | Any valid SQL query |                 
+| SQL query                         | TEXT      | Any valid SQL query |
+| (optional) database name                     | TEXT      | The database name |
 
 
 ## Get a user engine URL
@@ -132,7 +111,7 @@ WHERE engine_name=<engine_name>
 You can run the query on the system engine using the API with the following request: 
 
 ```bash
-curl --location 'https://<system_engine_URL>/query?account_id=<account id>' \
+curl --location 'https://<system_engine_URL>/query' \
 --header 'Authorization: Bearer <access token>' \
 --data 'SELECT * FROM information_schema.engines WHERE engine_name=my_engine'
 ```
