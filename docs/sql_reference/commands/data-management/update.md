@@ -89,7 +89,7 @@ Table after:
 | cauldron | 15 | 100 |
 | quill | 5 | 100 |
 
-### Example updating with JOIN
+### Example updating with FROM
 
 This example updates available stock count.
 
