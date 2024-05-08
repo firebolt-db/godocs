@@ -38,12 +38,3 @@ See a [full function glossary](./functions-glossary.md), or find functions based
 
 * [Window functions](./window/index.md)  
   Perform a calculation across a specified set of table rows
-
-
-
-
-
-
-
-
-
