@@ -8,8 +8,7 @@ grand_parent: SQL reference
 
 # Information schema for engine query history
 
-You can use the `information_schema.engine_query_history` view to return information about queries saved to query history. The view is available in each database and contains two rows (start and finish) for each historical query in the database. You can use a `SELECT` query to return information about each query as shown in the example below.
-
+You can use the `information_schema.engine_query_history` view to return information about queries saved to query history. The view is available in each database and contains two rows (start and finish) for each historical query in the database. The table is limited to contain the last 10'000 queries per engine cluster. You can use a `SELECT` query to return information about each query as shown in the example below.
 
 ```sql
 SELECT
