@@ -7,7 +7,7 @@ grand_parent: SQL commands
 parent: Data management
 ---
 
-# COPY FROM
+# COPY INTO
 {: .no_toc}
 
 Copies data from S3 to firebolt table.
