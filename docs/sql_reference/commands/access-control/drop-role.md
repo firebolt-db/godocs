@@ -8,7 +8,8 @@ parent: Access control
 ---
 
 # DROP ROLE
-Deletes a role.
+Deletes a role. Note that role cannot be dropped if there are permissions granted to the role, in this case
+error message will be displayed and you need manually to drop permissions granted to the role and retry.
 
 For more information, see [Role-based access control](../../../Guides/security/rbac.md).
 

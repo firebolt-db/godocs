@@ -79,7 +79,6 @@ All Firebolt functions in alphabetical order.
 | [RANDOM](./numeric/random.md) | Returns a pseudo-random unsigned value greater than 0 and less than 1 of type `DOUBLE PRECISION`. | Numeric |
 | [RANK](./window/rank.md) | Rank the current row within the requested window with gaps. | Window |
 | [REGEXP_LIKE](./string/regexp-like.md) | Checks whether a text pattern matches a regular expression string. Returns 0 if it doesn’t match, or 1 if it matches. | String |
-| [REGEXP_MATCHES](./string/regexp-matches.md) | Returns an array that contains either the match or all defined subgroups of the first match of the regular expression pattern. Returns an empty array if the pattern does not match. | String |
 | [REGEXP_REPLACE](./string/regexp-replace.md) | Matches a pattern in the input string and replaces the first matched portion (from the left) with the specified replacement. | String |
 | [REPLACE](./string/replace.md) | Replaces all occurrences of the given pattern substring within the input expression with a replacement substring. | String |
 | [ROUND](./numeric/round.md) | Rounds a value to a specified number of decimal places. | Numeric |
