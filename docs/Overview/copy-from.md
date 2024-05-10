@@ -5,7 +5,7 @@ description: Discover how the decoupled compute and storage architecture of the 
 parent: Overview
 nav_order: 1
 ---
-# Copy From
+# COPY FROM
 {: .no_toc}
 
 This topic provides a background on using the `COPY FROM` command. 
