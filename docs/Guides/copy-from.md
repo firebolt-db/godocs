@@ -9,7 +9,6 @@ nav_order: 1
 {: .no_toc}
 
 ## Data Loading
-
 ### Bulk Insert for New Tables
 The `COPY FROM` command facilitates efficient bulk data ingestion: 
 
@@ -28,7 +27,6 @@ WITH (TYPE  = 'CSV', HEADER = TRUE)
 ```
 
 ## Schema
-
 ### Automatic Schema Discovery
 Automatic schema discovery can simplify data ingestion, especially from formats that include metadata, such as Parquet For formats that do not include metadata, such as `CSV`, automatic schema discovery infers column types based on the data content itself. While this process aims to accurately identify data types, it operates on a "best effort" basis.
 
@@ -47,7 +45,6 @@ FROM 's3://data-bucket/example.csv
 WITH (TYPE = 'CSV', HEADER = true, FIELD_DELIMITER = ',', NULL_AS = 'NULL');
 ```
 ## Managing Data
-
 ### Handling Bad Data
 Firebolt provides several options for error handling, such as setting parameters for the maximum number of errors to tolerate before aborting the operation.
 
@@ -70,9 +67,8 @@ This command specifies that only CSV files in the /year=2022/month=4/ directory 
 
 ### Pattern Options and Examples:
 {: .no_toc} 
-                                                                      |
-| :--------- |:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `PATTERN = '*/*/*.csv.gz`                              | This pattern loads all CSV.GZ files from all folders three levels deep. This is typically used for comprehensive initial loads but can be time-consuming due to the extensive file enumeration required.                                                                                                                |
+
+| `PATTERN = '*/*/*.csv.gz`                              | This pattern loads all CSV.GZ files from all folders three levels deep. This is typically used for comprehensive initial loads but can be time-consuming due to the extensive file enumeration required.                                                                                                                
 | `PATTERN = 'year*/*/*.csv.gz`                      | This loads all CSV.GZ files from folders starting with 'year', across three directory levels. It offers a faster enumeration than the broader pattern by focusing on directories that match the specific starting string. | 
 
 | `PATTERN = 'year*/*/*.csv.gz`                      | This loads all CSV.GZ files from folders starting with 'year', across three directory levels. It offers a faster enumeration than the broader pattern by focusing on directories that match the specific starting string. | 
