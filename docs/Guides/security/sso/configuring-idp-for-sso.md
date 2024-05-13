@@ -235,6 +235,6 @@ To use a SAML 2.0 compliant service or application as your IDP for single sign o
     
     If, for instance your organization name is `acmeorg` and provider name you specify is `custom`:
     - Example of ACS URL: `https://id.app.firebolt.io/login/callback?connection=acmeorg-custom&organization=<organization_identifier>`
-    - Example of Audience URI: `urn:auth0:firebolt-app-v2:acmeorg-custom`
+    - Example of Audience URI: `urn:auth0:app-firebolt-v2:acmeorg-custom`
 4. Obtain the SSO URL (This is the URL endpoint to which Firebolt sends the SAML requests.) and certificate (used to verify the communication between the IDP and Firebolt) for your custom IDP. You will need the **SSO URL value** and **certificate** to set up SSO.
 
