@@ -25,10 +25,12 @@ As you add more nodes and more clusters to your engine, the number of FBUs avail
 
 
 **Example 1:**
+{: style="color: red;"}
 You create an engine with the following configuration: TYPE = “S”, NODES = 2, CLUSTERS=1 <br />
 This engine will have 16 FBUs available per hour (8 x 2 x 1). When you modify the engine configuration with a scale out operation to use 3 nodes, the available FBUs per hour goes up accordingly to 24 FBUs (8 x 3 x 1).
 
 **Example 2:**
+{: style="color: red;"}
 You create an engine with the following configuration: TYPE = “L”, NODES = 3, CLUSTERS=2 <br />
 This engine will have 192 FBUs available per hour (32 x 3 x 2).  When you scale down the engine to use a “M” type node, the available FBUs per hour will come down accordingly to 96 FBUs (16 x 3 x 2).
 
@@ -39,11 +41,13 @@ The actual FBUs consumed by the engine can be different from the available FBUs.
 
 
 **Example 1:**
+{: style="color: red;"}
 You create an engine with the following configuration: TYPE = “S”, NODES = 2, CLUSTERS=1 <br />
 Available FBU per hour for this engine is 16. Let us say the engine was actually running only for 15 minutes during the hour. So, the engine would have consumed 4 FBUs for that hour.
 
 
 **Example 2:**
+{: style="color: red;"}
 You create an engine with the following configuration: TYPE = “L”, NODES = 3, CLUSTERS=2 <br />
 Available FBU per hour for this engine is 192. Let us say that the engine was only running for 40 seconds to quickly ingest a small amount of data. The consumed FBU is calculated as below:
 
@@ -54,6 +58,7 @@ FBU Consumed = (192/3600) x 40 = 2.13
 When you perform scaling operations on an engine, whether it is scaling up/down or scaling out/in, additional compute resources (clusters) are added to the engine. These new clusters will have the new node type for a scale up/down operation and have the desired number of nodes for a scale out/in operation. The old clusters will be removed after they finish executing the currently running queries while new queries will be directed to the new clusters. Consequently, there will be a period of time, when both old and new clusters will be running concurrently, which will show in the engine consumption.
 
 **Example 1:**
+{: style="color: red;"}
 You create an engine with the following configuration: TYPE = “S”, NODES = 2, CLUSTERS=1
 Available FBU per hour for this engine is 16. 
 
@@ -71,6 +76,7 @@ The consumed FBU is calculated as follows:
 Total number of FBUs consumed for the hour = 4 + 1.3 + 3.3 + 6.7 = 15.3 FBUs
 
 **Example 2:**
+{: style="color: red;"}
 You create an engine with the following configuration: TYPE = “L”, NODES = 2, CLUSTERS=1
 Available FBU per hour for this engine is 64. 
 
