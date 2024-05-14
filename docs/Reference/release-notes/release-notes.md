@@ -112,6 +112,9 @@ For example:
 array_sum(transform(...))
 ```
 
+**Explicit Parquet conversion from DATE to INT is now needed**
+Firebolt now raises an error on reading a Parquet/ORC `DATE`/`TIMESTAMP` column if the `EXTERNAL TABLE` expects the column to have type `INT`/`BIGINT`. The planner does not allow casting `DATE`/`TIMESTAMP` to `INT`/`BIGINT`, and the implicit casts performed during external table scans are now fully aligned with what the planner allows. You need to explicitly transform the Parquet/ORC `DATE`/`TIMESTAMP` column with `EXTRACT`(`EPOCH FROM` col) to insert it into an `INT`/`BIGINT` column.
+
 ### Resolved issues
 
 <!--- FIR-32432 --->
