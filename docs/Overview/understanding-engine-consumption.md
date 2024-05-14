@@ -24,12 +24,12 @@ As you add more nodes and more clusters to your engine, the number of FBUs avail
 {: style="text-align: center;"}
 
 
-**Calculating Available FBU - Example 1:**
+**Available FBU - Example 1:**
 {: style="color: red;"}
 You create an engine with the following configuration: TYPE = “S”, NODES = 2, CLUSTERS=1 <br />
 This engine will have 16 FBUs available per hour (8 x 2 x 1). When you modify the engine configuration with a scale out operation to use 3 nodes, the available FBUs per hour goes up accordingly to 24 FBUs (8 x 3 x 1).
 
-**Calculating Available FBU - Example 2:**
+**Available FBU - Example 2:**
 {: style="color: red;"}
 You create an engine with the following configuration: TYPE = “L”, NODES = 3, CLUSTERS=2 <br />
 This engine will have 192 FBUs available per hour (32 x 3 x 2).  When you scale down the engine to use a “M” type node, the available FBUs per hour will come down accordingly to 96 FBUs (16 x 3 x 2).
@@ -40,13 +40,13 @@ The actual FBUs consumed by the engine can be different from the available FBUs.
 {: style="text-align: center;"}
 
 
-**Calculating Consumed FBU - Example 1:**
+**Consumed FBU - Example 1:**
 {: style="color: red;"}
 You create an engine with the following configuration: TYPE = “S”, NODES = 2, CLUSTERS=1 <br />
 Available FBU per hour for this engine is 16. Let us say the engine was actually running only for 15 minutes during the hour. So, the engine would have consumed 4 FBUs for that hour.
 
 
-**Calculating Consumed FBU - Example 2:**
+**Consumed FBU - Example 2:**
 {: style="color: red;"}
 You create an engine with the following configuration: TYPE = “L”, NODES = 3, CLUSTERS=2 <br />
 Available FBU per hour for this engine is 192. Let us say that the engine was only running for 40 seconds to quickly ingest a small amount of data. The consumed FBU is calculated as below:
