@@ -25,40 +25,46 @@ Firebolt might roll out releases in phases. New features and changes may not yet
 
 ### Enhancements, changes and new integrations
 
-<!--- FIR-32710 --->**Removed `match` function  **
+<!--- FIR-32710 --->**Removed `MATCH` function**
 
 The `match` function has been removed and replaced with the `regexp_like`. 
 
 <!--- FIR-32693 --->**Producing an error for array function failure instead of NULL**
 
-Array function queries that accept two or more array arguments now produce an error. If you call an array function such as `array_transform(..)` or `array_sort(..)` with multiple array arguments, the arrays must have the same size. For example, `array_transform(x, y -> x + y, arr1, arr2)` raises an error if `array_length(arr1) != array_length(arr2)`. We now also perform this check for NULL literals. If you previously used `array_transform(x, y -> x + y, NULL::INT[], Array[5, 6])`, you got back `NULL`. Now, the query using that expression will raise an error.
+Array function queries that accept two or more array arguments now produce an error. If you call an array function such as `array_transform(..)` or `array_sort(..)` with multiple array arguments, the arrays must have the same size. 
+For example: 
 
-<!--- FIR-32652 --->**Added `array_first` function**
+```sql
+array_transform(x, y -> x + y, arr1, arr2)
+```
+
+This raises an error if `array_length(arr1) != array_length(arr2)`. We now also perform this check for NULL literals. If you previously used `array_transform(x, y -> x + y, NULL::INT[], Array[5, 6])`, you got back `NULL`. Now, the query using that expression will raise an error.
+
+<!--- FIR-32652 --->**Added ARRAY_FIRST function**
 
 The `array_first` function has been added. It returns the first element in the given array for which the given function returns `true`.
 
-<!--- FIR-32566 --->**Updated `array_sum` return types**
+<!--- FIR-32566 --->**Updated ARRAY_SUM return types**
 
 The `array_sum` function of `bigint[]` now returns a numeric value and `array_sum` of `real[]` returns a real value. 
 
 <!--- FIR-32491 --->**Precedence of operators**
 
-Breaking change in operator precedence between comparison operators such as `=`, `<`, `>`, and `IS` operator. New behavior is compatible with Postgres
+Breaking change in operator precedence between comparison operators such as `=`, `<`, `>`, and `IS` operator. New behavior is compatible with Postgres. 
+
 Examples of query that changed behavior:
 
 ```sql
 select 1 is null = 2 is null
 ```
-
-Used to be `true`, because it was interpreted as `select (1 is null) = (2 is null)`, now becomes an error of incompatible types in `=`
+This used to be `true`, because it was interpreted as `select (1 is null) = (2 is null)`. It now becomes an error of incompatible types in `=`
 
 ```sql
 select false = false is not null
 ```
+The result used to be `false` - `select false = (false is not null)`, but now is `true` - `select (false = false) is not null`.
 
-The result used to be `false` - `select false = (false is not null)`, but now became `true` - `select (false = false) is not null`.
-
-<!--- FIR-32451 --->**Dropping the role **
+<!--- FIR-32451 --->**Dropping the role**
 
 Role cannot be dropped if there are permissions granted to the role. The error message will be displayed if you need to manually drop permissions associated to the role.
 
@@ -78,7 +84,7 @@ The error message for external tables created with JSON PARSE_AS_TEXT format has
 
 Support for ALLOW_COLUMN_MISMATCH in `COPY FROM` has been added. 
 
-<!--- FIR-296907 --->**Corrected NULL behavior of `string_to_array`**
+<!--- FIR-296907 --->**Corrected NULL behavior of STRING_TO_ARRAY**
 
 `string_to_array` now behaves like it does in PostgreSQL. The change affects NULL delimiters where the string is split into individual characters, as well as empty strings and where the output is now an empty array. 
 
@@ -89,9 +95,9 @@ The behavior for `city_hash` has changed for nullable inputs. For example:
 ```sql
 SELECT CITY_HASH([null]) = CITY_HASH([''])
 ```
-is now false. 
+This is now false. 
 
-<!--- FIR-16217 --->**`array_agg` preserves NULLS**
+<!--- FIR-16217 --->**`ARRAY_AGG` preserves NULLS**
 
 `array_agg` has changed to return PostgreSQL-compliant results:
   * `array_agg` now preserves `NULL` values in its input, e.g. `select array_agg(x) from unnest(array [1,NULL,2] x)` returns `{1,NULL,2}`
