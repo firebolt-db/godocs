@@ -109,7 +109,7 @@ Array aggregate functions no longer support lambda parameters. To get the old be
 For example:
 
 ```sql
-`array_sum`(transform(...))
+array_sum(transform(...))
 ```
 
 ### Resolved issues
