@@ -18,7 +18,7 @@ All Firebolt functions in alphabetical order.
 | [ARRAY_COUNT](./Lambda/array-count.md) | Counts the number of elements in a boolean array for which `function(array[i])` evaluates to true, if a function is provided. If not provided, counts the number of elements in the array that evaluate to true. | Lambda |
 | [ARRAY_DISTINCT](./array/array-distinct.md) | Returns an array containing only the _unique_ elements of the given array. | Array |
 | [ARRAY_FLATTEN](./array/flatten.md) | Converts an array of arrays into a flat array. For every element that is an array, this function extracts its elements into the new array. | Array |
-| [ARRAY_JOIN (ARRAY_TO_STRING)](./array/array-join.md) | Concatenates an array of string elements using an optional delimiter. | Array |
+| [ARRAY_TO_STRING](./array/array-to-string.md) | Concatenates an array of string elements using an optional delimiter. | Array |
 | [ARRAY_LENGTH](./array/array-length.md) | Returns the length of (number of elements in) the given array. | Array |
 | [ARRAY_MAX](./array/array-max.md) | Returns the maximum element in an array. | Array |
 | [ARRAY_MIN](./array/array-min.md) | Returns the minimum element in an array. | Array |
