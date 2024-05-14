@@ -3,7 +3,7 @@ layout: default
 title: COPY FROM
 description: Understand how to load data into Firebolt using the COPY FROM command
 parent: Overview
-nav_order: 4
+nav_order: 6
 ---
 # COPY FROM
 {: .no_toc}

@@ -2,7 +2,7 @@
 layout: default
 title: Security
 description: Introduction to Firebolt security features and functionality
-nav_order: 6
+nav_order: 7
 parent: Overview
 ---
 
