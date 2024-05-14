@@ -3,7 +3,7 @@ layout: default
 title: Working with tables
 description: Learn about external tables, fact tables, and dimension tables in Firebolt and how to use them.
 parent: Overview
-nav_order: 6
+nav_order: 7
 has_children: true
 has_toc: false
 ---

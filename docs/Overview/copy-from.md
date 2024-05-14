@@ -1,16 +1,16 @@
 ---
 layout: default
 title: COPY FROM
-description: Discover how the decoupled compute and storage architecture of the Firebolt data warehouse enables sub-second query performance on terabyte-scale data sets.
+description: Understand how to load data into Firebolt using the COPY FROM command
 parent: Overview
-nav_order: 1
+nav_order: 4
 ---
 # COPY FROM
 {: .no_toc}
 
-This topic provides a background on using the `COPY FROM` command. 
+This topic provides an overview on how to load data into Firebolt using the `COPY FROM` command. 
 
-The `COPY FROM` command enables you to ingest data with simple syntax. This command does not require an exact match to your source data, and gives you the flexibility to address various scenarios when loading data, such as:
+The `COPY FROM` command enables you to ingest data from AWS S3 into Firebolt.  This command provides a simple syntax and does not require an exact match to your source data, giving you the flexibility to address various scenarios when loading data, such as:
 
 * Copy all source columns into the target table
 * Copy only a select list of columns into the target table
