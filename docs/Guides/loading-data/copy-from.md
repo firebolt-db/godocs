@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Load data
+title: COPY FROM
 description: Provide examples on using the COPY FROM command to load data into Firebolt
-parent: Guides
+parent: Load data
 nav_order: 1
 ---
 # COPY FROM
