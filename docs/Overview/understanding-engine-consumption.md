@@ -94,4 +94,4 @@ The consumed FBU is calculated as follows:
 Total number of FBUs consumed for the hour = 16 + 5.3 + 2.7 + 5.3 = 29.3 FBUs
 
 
-Firebolt Engines are priced based on the amount of FBU consumed by a given engine. For more details on Engine pricing, including examples, visit the [Pricing page](www.firebolt.io/pricing)
+Firebolt Engines are priced based on the amount of FBU consumed by a given engine. For more details on Engine pricing, including examples, visit the [Pricing page](https://www.firebolt.io/pricing)
