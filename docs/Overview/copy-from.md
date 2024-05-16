@@ -8,7 +8,7 @@ nav_order: 6
 # COPY FROM
 {: .no_toc}
 
-This topic provides an overview on how to load data into Firebolt using the [COPY FROM](../sql_reference/commands/data-management/copy-into.md) command. The `COPY FROM` command enables you to ingest data from AWS S3 into Firebolt.  This command provides a simple syntax and does not require an exact match to your source data, giving you the flexibility to address various scenarios when loading data, such as:
+This topic provides an overview on how to load data into Firebolt using the [COPY FROM](../sql_reference/commands/data-management/copy-from.md) command. The `COPY FROM` command enables you to ingest data from AWS S3 into Firebolt.  This command provides a simple syntax and does not require an exact match to your source data, giving you the flexibility to address various scenarios when loading data, such as:
 
 * Copy all source columns into the target table
 * Copy only a select list of columns into the target table
