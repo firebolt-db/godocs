@@ -62,7 +62,7 @@ This example will load only the first 10 rows into table T1, provided the source
 You can use the `COMPRESSION` parameter to specify the compression method to use.
 The `COPY` command will auto-detect the compression type based on the file extension when this parameter is not specified.
 
-To understand more details on how to use the COPY FROM command, visit the [Guides](../Guides/copy-from.md) section.
+To understand more details on how to use the COPY FROM command, visit the [Guides](../Guides/loading-data/copy-from.md) section.
 
 
 
