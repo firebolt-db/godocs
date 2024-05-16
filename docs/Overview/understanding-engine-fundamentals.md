@@ -3,7 +3,7 @@ layout: default
 title: Engine Fundamentals
 description: Learn fundamental concepts about Firebolt Engines.
 parent: Overview
-nav_order: 3
+nav_order: 2
 ---
 
 # Firebolt Engines
