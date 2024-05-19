@@ -25,7 +25,6 @@ Unquoted identifiers must adhere to the following syntax:
 
 1. The first character must be a letter (a-z), underscore (_).
 2. After the first character, subsequent characters can be letters, underscores, digits (0-9).
-3. columns can also contain dollar signs ($)
 
 Qouted identifiers can contain any UTF-8 letter of the following:
 
