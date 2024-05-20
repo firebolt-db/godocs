@@ -481,11 +481,11 @@ The following query with `UNNEST`:
 
 ```sql
 SELECT
-	player,
-	completed_levels,
+    player,
+    completed_levels,
     completed
 FROM
-	players, UNNEST(completed_levels) as r(completed);
+    players, UNNEST(completed_levels) as r(completed);
 ```
 
 Returns the following result:
@@ -502,11 +502,11 @@ The above query can be rewritten to invoke `UNNEST` in the `SELECT` clause:
 
 ```sql
 SELECT
-	player,
-	completed_levels,
+    player,
+    completed_levels,
     UNNEST(completed_levels) as completed
 FROM
-	players;
+    players;
 ```
 
 ## WHERE
