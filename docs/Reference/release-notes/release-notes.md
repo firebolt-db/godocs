@@ -42,11 +42,11 @@ This raises an error if `array_length(arr1) != array_length(arr2)`. We now also 
 
 <!--- FIR-32652 --->**Added ARRAY_FIRST function**
 
-The [`array_first`](../../sql_reference/functions-reference/lambda/array-first.md) function has been added. It returns the first element in the given array for which the given function returns `true`.
+The [`array_first`](../../sql_reference/functions-reference/Lambda/array-first.html) function has been added. It returns the first element in the given array for which the given function returns `true`.
 
 <!--- FIR-32597 --->**New name for `any_match`**
 
-A new name for `any_match` has been added: [`array_any_match`](../../sql_reference/functions-reference/lambda/array-any-match.md). `any_match` will be kept as an alias. 
+A new name for `any_match` has been added: [`array_any_match`](../../sql_reference/functions-reference/Lambda/array-any-match.html). `any_match` will be kept as an alias. 
 
 <!--- FIR-32566 --->**Updated ARRAY_SUM return types**
 
