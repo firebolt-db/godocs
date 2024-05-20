@@ -3,7 +3,7 @@ layout: default
 title: Engine Fundamentals
 description: Learn fundamental concepts about Firebolt Engines.
 parent: Overview
-nav_order: 3
+nav_order: 2
 ---
 
 # Firebolt Engines
@@ -104,10 +104,11 @@ For more information on using RBAC for engines, see [Governing Engines](../Guide
 ## Viewing and understanding engine status
 Use the [SHOW ENGINES](../sql_reference/commands/metadata/show-engines.md) command to list all the engines in your Firebolt account and view the status of these engines. The table below shows the statuses returned by the `SHOW ENGINES` command.
 
-| `SHOW ENGINES` and UI |  | Description                     |
-| :-------------------- | :------------------------------- | :------------------------------ |
+| `SHOW ENGINES` and UI |   Description                     
+| :-------------------- | :------------------------------- | 
 | Starting              | The engine start has been initialized. It is provisioning resources, and will be ready to use soon.   |
 | Running               | The engine is running queries or available to run queries. Engine can be modified while it is running.|
+| Resizing              | The engine is currently being resized after an ALTER ENGINE command. The engine will be in this state when the   user has issued a request to change the engine TYPE, number of nodes (NODES) or number of clusters (CLUSTERS).
 | Stopping              | The engine is shutting down. It is finishing query tasks in process and is not available for new queries. |
 | Stopped               | The engine is stopped. It is not available to run queries. |
 
