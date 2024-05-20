@@ -44,8 +44,9 @@ DELETE FROM products WHERE quantity < 10
 ```
 
 Table before:
+
 | product | quantity |
-|:-|-:|
+|:-|:-|
 | wand | 9 |
 | broomstick | 21 |
 | robe | 1 |
@@ -54,8 +55,9 @@ Table before:
 | quill | 100 |
 
 Table after:
+
 | product | quantity |
-|:-|-:|
+|:-|:-|
 | broomstick | 21 |
 | quidditch gloves | 10 |
 | cauldron | 16 |
@@ -71,8 +73,9 @@ DELETE FROM products USING suppliers WHERE products.product = suppliers.product 
 ```
 
 Table `products` before:
+
 | product | quantity |
-|:-|-:|
+|:-|:-|
 | wand | 9 |
 | broomstick | 21 |
 | robe | 1 |
@@ -81,6 +84,7 @@ Table `products` before:
 | quill | 100 |
 
 Table `suppliers` before:
+
 | product | store |
 |:-|:-|
 | wand | Ollivanders |
@@ -91,8 +95,9 @@ Table `suppliers` before:
 | quill | Amanuensis Quills |
 
 Table `products` after:
+
 | product | quantity |
-|:-|-:|
+|:-|:-|
 | broomstick | 21 |
 | robe | 1 |
 | quidditch gloves | 10 |
