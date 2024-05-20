@@ -15,7 +15,7 @@ The `COPY FROM` command facilitates efficient bulk data ingestion:
 ```sql
 COPY FROM sales
 FROM 's3://data-bucket/initial_sales_data.csv'
-WITH (TYPE = 'CSV', HEADER= TRUE, DELIMITER= ',', 
+WITH TYPE = 'CSV', HEADER= TRUE, DELIMITER= ',', 
 ```
 ### Appending New Data
 For ongoing operations, COPY FROM supports appending new data without disrupting current analytics:
