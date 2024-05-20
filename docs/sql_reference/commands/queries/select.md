@@ -426,7 +426,7 @@ If the input array is empty, the corresponding row is eliminated.
 ### Syntax - FROM Clause
 {: .no_toc}
 
-Using TVS such as `UNNEST` is permitted in `FROM` clauses in the following way:
+Using TVFs such as `UNNEST` is permitted in `FROM` clauses in the following way:
 
 ```sql
 FROM <from_items>, UNNEST(<array_column> [,<array_column>...]) [[ AS ] <row_alias>]
