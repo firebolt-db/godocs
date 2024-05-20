@@ -27,7 +27,7 @@ Firebolt might roll out releases in phases. New features and changes may not yet
 
 <!--- FIR-32710 --->**Removed `MATCH` function**
 
-The `match` function has been removed and replaced with the `regexp_like`. 
+The `match` function has been removed and replaced with the [`regexp_like`](../../sql_reference/functions-reference/string/regexp-like.md). 
 
 <!--- FIR-32693 --->**Producing an error for array function failure instead of NULL**
 
@@ -42,7 +42,11 @@ This raises an error if `array_length(arr1) != array_length(arr2)`. We now also 
 
 <!--- FIR-32652 --->**Added ARRAY_FIRST function**
 
-The `array_first` function has been added. It returns the first element in the given array for which the given function returns `true`.
+The [`array_first`](../../sql_reference/functions-reference/lambda/array-first.md) function has been added. It returns the first element in the given array for which the given function returns `true`.
+
+<!--- FIR-32597 --->**New name for `any_match`**
+
+A new name for `any_match` has been added: [`array_any_match`](../../sql_reference/functions-reference/lambda/array-any-match.md). `any_match` will be kept as an alias. 
 
 <!--- FIR-32566 --->**Updated ARRAY_SUM return types**
 
@@ -74,7 +78,7 @@ Role cannot be dropped if there are permissions granted to the role. The error m
 
 <!--- FIR-31821 --->**Create table under I_S schema**
 
-You can now execute `CREATE TABLE`/VIEW/`AGGREGATING INDEX` only under the public schema. 
+You can now execute `CREATE TABLE`/`VIEW`/`AGGREGATING INDEX` only under the public schema. 
 
 <!--- FIR-31680 --->**Improved error message for JSON `PARSE_AS_TEXT` format**
 
@@ -82,7 +86,7 @@ The error message for external tables created with JSON `PARSE_AS_TEXT` format h
 
 <!--- FIR-29793 --->**Implemented column_mismatch**
 
-Support for `ALLOW_COLUMN_MISMATCH` in `COPY FROM` has been added. 
+Support for [`ALLOW_COLUMN_MISMATCH`](../../sql_reference/commands/data-management/copy-into.md) in `COPY INTO` has been added. 
 
 <!--- FIR-296907 --->**Corrected NULL behavior of `STRING_TO_ARRAY`**
 
@@ -114,7 +118,7 @@ array_sum(transform(...))
 
 **Explicit Parquet conversion from DATE to INT is now needed**
 
-Firebolt now raises an error on reading a Parquet/ORC `DATE`/`TIMESTAMP` column if the `EXTERNAL TABLE` expects the column to have type `INT`/`BIGINT`. The planner does not allow casting `DATE`/`TIMESTAMP` to `INT`/`BIGINT`, and the implicit casts performed during external table scans are now fully aligned with what the planner allows. You need to explicitly transform the Parquet/ORC `DATE`/`TIMESTAMP` column with `EXTRACT`(`EPOCH FROM` col) to insert it into an `INT`/`BIGINT` column.
+A breaking change has been implemented in raising an error on reading a Parquet/ORC `DATE`/`TIMESTAMP` column if the `EXTERNAL TABLE` expects the column to have type `INT`/`BIGINT`. The planner does not allow casting `DATE`/`TIMESTAMP` to `INT`/`BIGINT`, and the implicit casts performed during external table scans are now fully aligned with what the planner allows. You need to explicitly transform the Parquet/ORC `DATE`/`TIMESTAMP` column with `EXTRACT`(`EPOCH FROM` col) to insert it into an `INT`/`BIGINT` column.
 
 ### Resolved issues
 
