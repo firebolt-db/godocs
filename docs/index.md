@@ -52,7 +52,6 @@ Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics
 
 <a href="Reference/release-notes/release-notes.html">Release notes</a><br>
 <a href="sql_reference/index.html">SQL reference</a><br>
-<a href="Reference/available-engine-specs.html">Engine specifications</a><br>
 <a href="Reference/available-regions.html">Available regions</a><br>
 <a href="Reference/system-settings.html">System settings</a><br>
 <a href="Reference/reserved-words.html">Reserved words</a><br>

@@ -1,8 +1,8 @@
 ---
 layout: default
 title: COPY FROM
-description: Discover how the decoupled compute and storage architecture of the Firebolt data warehouse enables sub-second query performance on terabyte-scale data sets.
-parent: Guides
+description: Provide examples on using the COPY FROM command to load data into Firebolt
+parent: Load data
 nav_order: 1
 ---
 # COPY FROM
@@ -102,15 +102,15 @@ WITH (TYPE = 'CSV', COMPRESSION = 'GZIP')
 ```
 
 ### Column Mismatch
-Firebolt's `COPY FROM` command supports the `ALLOW_COLUMN_MISMATCH` parameter, which determines how Firebolt responds to discrepancies between the source data and the target table.
+Firebolt's `COPY FROM` command supports the `ALLOW_COLUMN_MISMATCH` option, which determines how Firebolt responds to discrepancies between the source data and the target table.
 
 `COLUMN MATCH` is defined as the condition where all required columns from the source data exist in the target table. This involves a few considerations:
 1. With Column Mapping: If column mapping is used, the required columns include all source columns explicitly mentioned by the user plus any columns that are automatically selected by Firebolt.
 2. Without Column Mapping: If no column mapping is specified, all columns in the target table are considered required.
 
-COLUMN MATCH Parameter Settings:
-* `COLUMN MATCH` = TRUE: This setting allows for a mismatch between the source and target, such that if certain columns are missing in the source data, the data load will still proceed. Missing columns will not be populated in the target table, and only the matching columns will be updated.
-* `COLUMN MATCH` = FALSE: This is the default setting. If there is any discrepancy in either the presence or order of columns (by index or name), Firebolt will halt the data load and throw an error, indicating that there is a missing column.
+ALLOW COLUMN MISMATCH Option Settings:
+* `ALLOW_COLUMN_MISMATCH` = TRUE: This setting allows for a mismatch between the source and target, such that if certain columns are missing in the source data, the data load will still proceed. Missing columns will not be populated in the target table, and only the matching columns will be updated.
+* `ALLOW_COLUMN_MISMATCH` = FALSE: This is the default setting. If there is any discrepancy in either the presence or order of columns (by index or name), Firebolt will halt the data load and throw an error, indicating that there is a missing column.
 
 ```sql
 COPY FROM target_table
