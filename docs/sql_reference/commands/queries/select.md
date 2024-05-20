@@ -418,19 +418,43 @@ CROSS JOIN
 
 ## UNNEST
 
-An `UNNEST` operator performs join between the table in the left side, and the array in the right side. The output table repeats rows of the table from the left for every element of the array. If the array is empty, the corresponding row from the table is eliminated.
+`UNNEST` is a table-valued function (TVF) that transforms an input row containing an array into a set of rows.
+The output table repeats rows of the input table for every element of the array.
+Every array element is attached to one of the output rows.
+If the input array is empty, the corresponding row is eliminated.
 
-### Syntax
+### Syntax - FROM Clause
 {: .no_toc}
 
+Using TVS such as `UNNEST` is permitted in `FROM` clauses in the following way:
+
 ```sql
-FROM <from_item> UNNEST(<array_column> [[ AS ] <alias_name>][,<array_column>...])
+FROM <from_items>, UNNEST(<array_column> [,<array_column>...]) [[ AS ] <row_alias>]
 ```
 
 | Component     | Description                                                                                                               | Valid values and syntax                |
 | :------------- | :------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------- |
-| `<from_item>` | The table containing the array column that you want to use to create a new table                                          |                                        |
-| `<array_column>`      | Indicates the array or array column to unnest from.  Can be either an array literal or an array typed column. | Any valid array literal or column name |
+| `<from_items>` | The tables containing the array columns that should be unnested.                                          |                                        |
+| `<array_column>`      | The array columns to unnest. Can be either an array literal or an array typed column reference. | Any valid array literal or column name. |
+| `<row_alias>`      | An alias for the result row, such as `r(x)`. | |
+
+Note that in the same was as in PostgreSQL, the above query performs a lateral join onto the result of the `UNNEST` operation.
+However, the `LATERAL` keyword is optional.
+
+### Syntax - SELECT Clause
+{: .no_toc}
+
+When unnesting just a single column, the TVF may also be called in the `SELECT` clause.
+
+```sql
+SELECT <select_list>, UNNEST(<array_column>) [[ AS ] <column_alias>]
+```
+
+| Component     | Description                                                                                                               | Valid values and syntax                |
+| :------------- | :------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------- |
+| `<select_list>` | The regular select list of your SQL query.                                          |                                        |
+| `<array_column>`      | The array column to unnest.  Can be either an array literal or an array typed column reference. | Any valid array literal or column name. |
+| `<column_alias>`      | A column alias for the result column, such as `x`. | |
 
 ### Example
 {: .no_toc}
@@ -438,10 +462,10 @@ FROM <from_item> UNNEST(<array_column> [[ AS ] <alias_name>][,<array_column>...]
 The example is based on the following table:
 
 ```sql
-CREATE FACT TABLE table_with_arrays
+CREATE FACT TABLE players 
 (
-    product TEXT,
-    cost ARRAY(INTEGER)
+    player TEXT,
+    completed_levels ARRAY(INTEGER)
 ) PRIMARY INDEX product;
 ```
 
@@ -451,26 +475,39 @@ Assume the table was populated and contains the following values:
 | :------- | :-------- |
 | kennethpark   | \[2,5]   |
 | sabrina21  | \[3,6,7] |
+| andres | \[] |
 
 The following query with `UNNEST`:
 
 ```sql
 SELECT
 	player,
-	completed_levels
+	completed_levels,
+    completed
 FROM
-	table_with_arrays UNNEST(completed_levels);
+	players, UNNEST(completed_levels) as r(completed);
 ```
 
 Returns the following result:
 
-| player | completed_levels |
-| :------- | :---- |
-| kennethpark   | 2    |
-| kennethpark   | 5    |
-| sabrina21  | 3    |
-| sabrina21  | 6    |
-| sabrina21  | 7    |
+| player | completed_levels | completed |
+| :------- | :------- | :---- |
+| kennethpark  | \[2,5] | 2    |
+| kennethpark  | \[2,5] | 5    |
+| sabrina21  | \[3,6,7] | 3    |
+| sabrina21  | \[3,6,7] | 6    |
+| sabrina21  | \[3,6,7] | 7    |
+
+The above query can be rewritten to invoke `UNNEST` in the `SELECT` clause:
+
+```sql
+SELECT
+	player,
+	completed_levels,
+    UNNEST(completed_levels) as completed
+FROM
+	players;
+```
 
 ## WHERE
 
