@@ -46,8 +46,9 @@ UPDATE product SET quantity = quantity + 10 WHERE quantity < 10
 ```
 
 Table before:
+
 | name | price | quantity |
-|:-|-:|-:|
+|:-|:-|:-|
 | wand | 120 | 9 |
 | robe | 80 | 1 |
 | broomstick | 270 | 21 |
@@ -55,8 +56,9 @@ Table before:
 | quill | 5 | 100 |
 
 Table after:
+
 | name | price | quantity |
-|:-|-:|-:|
+|:-|:-|:-|
 | wand | 120 | 19 |
 | robe | 80 | 11 |
 | broomstick | 270 | 21 |
@@ -72,8 +74,9 @@ UPDATE product SET price = 15, quantity = 100 WHERE name = 'cauldron'
 ```
 
 Table before:
+
 | name | price | quantity |
-|:-|-:|-:|
+|:-|:-|:-|
 | wand | 120 | 9 |
 | broomstick | 270 | 21 |
 | robe | 80 | 1 |
@@ -81,8 +84,9 @@ Table before:
 | quill | 5 | 100 |
 
 Table after:
+
 | name | price | quantity |
-|:-|-:|-:|
+|:-|:-|:-|
 | wand | 120 | 9 |
 | broomstick | 270 | 21 |
 | robe | 80 | 1 |
@@ -98,8 +102,9 @@ UPDATE product AS p SET quantity = p.quantity - s.amount FROM sales AS s WHERE p
 ```
 
 Table `product` before:
+
 | name | price | quantity |
-|:-|-:|-:|
+|:-|:-|:-|
 | wand | 120 | 9 |
 | broomstick | 270 | 21 |
 | robe | 80 | 1 |
@@ -107,6 +112,7 @@ Table `product` before:
 | quill | 5 | 100 |
 
 Table `sales` before:
+
 | name | amount |
 |:-|-:|
 | wand | 5 |
@@ -114,8 +120,9 @@ Table `sales` before:
 | quill | 20 |
 
 Table `products` after:
+
 | name | price | quantity |
-|:-|-:|-:|
+|:-|:-|:-|
 | wand | 120 | 4 |
 | broomstick | 270 | 18 |
 | robe | 80 | 1 |
