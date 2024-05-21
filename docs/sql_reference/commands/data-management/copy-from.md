@@ -1,32 +1,18 @@
 ---
 layout: default
 title: COPY FROM
-<<<<<<< HEAD
 description: Reference and syntax for the COPY command that copies data from S3 files into a Firebolt table.
 great_grand_parent: SQL reference
 grand_parent: SQL commands
 parent: Data management
-=======
-description: Understand how to load data into Firebolt using the COPY FROM command
-parent: Overview
-nav_order: 6
->>>>>>> rn/gh-pages
 ---
 # COPY FROM
 {: .no_toc}
 
 This topic provides an overview on how to load data into Firebolt using the [COPY FROM](../sql_reference/commands/data-management/copy-into.md) command. The `COPY FROM` command enables you to ingest data from AWS S3 into Firebolt.  This command provides a simple syntax and does not require an exact match to your source data, giving you the flexibility to address various scenarios when loading data, such as:
 
-<<<<<<< HEAD
 * Topic ToC
 {:toc}
-=======
-* Copy all source columns into the target table
-* Copy only a select list of columns into the target table
-* Automatically discover the schema while ingesting the data
-* Limit the number of rows loaded into the table
-* Error handling
->>>>>>> rn/gh-pages
 
 `COPY FROM` supports a range of file formats, including:
 
@@ -61,7 +47,6 @@ You can use the `LIMIT` clause to control the amount of data loaded into tables,
 ### Example for LIMIT Clause
 
 ```sql
-<<<<<<< HEAD
 COPY
 [INTO] <table_name> [ <column_mapping> ] 
 FROM <externalLocation>
@@ -97,9 +82,6 @@ FROM <externalLocation>
     [ DATE_FORMAT = <date_format> ]
     [ TIMESTAMP_FORMAT = <timestamp_format> ]
 
-=======
-COPY INTO T1(c1 int) FROM … LIMIT 10
->>>>>>> rn/gh-pages
 ```
 This example will load only the first 10 rows into table T1, provided the source file contains at least 10 rows. If both `OFFSET` and `LIMIT` are used, the `OFFSET` rows are skipped before the `LIMIT` rows are counted and loaded, which can help fine-tune the data ingestion process to meet specific requirements.  Note that the `LIMIT` clause is non-deterministic, and will not reliably return the same data unless `ORDER BY` is used.
 
@@ -109,7 +91,6 @@ This example will load only the first 10 rows into table T1, provided the source
 * CSV supports GZIP
 * Parquet supports GZIP and Snappy
 
-<<<<<<< HEAD
 | Parameter                | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 |:-------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `<table_name>`           | The name of the target table.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
@@ -140,12 +121,6 @@ Notes:
 Non-existing columns:
 By default if a column does not exist in the source file it will produce nulls.
 For CSV format it applies to missing fields as well.
-=======
-You can use the `COMPRESSION` parameter to specify the compression method to use.
-The `COPY` command will auto-detect the compression type based on the file extension when this parameter is not specified.
-
-To understand more details on how to use the COPY FROM command, visit the [Guides](../Guides/copy-from.md) section.
->>>>>>> rn/gh-pages
 
 
 
