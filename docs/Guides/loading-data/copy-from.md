@@ -9,6 +9,9 @@ nav_order: 1
 # COPY FROM
 {: .no_toc}
 
+* Topic ToC
+{:toc}
+
 ## Data Loading
 ### Bulk Insert for New Tables
 The `COPY FROM` command facilitates efficient bulk data ingestion: 

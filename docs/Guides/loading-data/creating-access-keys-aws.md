@@ -8,7 +8,8 @@ nav_order: 2
 has_children: false
 has_toc: false
 ---
-
+# Creating Access Key and Secret ID in AWS
+{: .no_toc}
 
 This section will walk you through the steps to create security credentials in AWS. These credentials will be used to load data from AWS S3 into Firebolt.
 

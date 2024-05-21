@@ -85,22 +85,14 @@ By following these steps, you've not only executed your first query but also suc
 
 ## Add Data To Your Database
 Now that you can select databases, select engines, and run queries, let's add some sample data. For this tutorial we will explore adding data in two ways; 
-<<<<<<< HEAD
 1. Option 1: [Use `COPY FROM`](../sql_reference/commands/data-management/copy-from.md)
-=======
-1. Option 1: [Use `COPY FROM`](../sql_reference/commands/data-management/copy-into.md)
->>>>>>> rn/gh-pages
 2. Option 2: [Creating and using an external table](#Creating-and-using-an-external-table)
 
 {: .note}
 This tutorial uses Firebolt's sample dataset, from the fictional gaming company "Ultra Fast Gaming Inc." This dataset is publicly available with the access credentials shared below.
 
 ### Option 1: Use COPY FROM 
-<<<<<<< HEAD
 `COPY FROM` allows you to copy data directly to a Firebolt table. For more information, see [COPY FROM](../sql_reference/commands/data-management/copy-from.md)
-=======
-`COPY FROM` allows you to copy data directly to a Firebolt table. For more information, see [COPY FROM](../sql_reference/commands/data-management/copy-into.md)
->>>>>>> rn/gh-pages
 
 #### Step 1: Create a fact table
 In this step, you'll create a Firebolt fact table called `tutorial`, which you use in the next step as the target for a `COPY FROM` command. 

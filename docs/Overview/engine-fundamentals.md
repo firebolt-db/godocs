@@ -104,11 +104,7 @@ For more information on using RBAC for engines, see [Governing Engines](../Guide
 ## Viewing and understanding engine status
 Use the [SHOW ENGINES](../sql_reference/commands/metadata/show-engines.md) command to list all the engines in your Firebolt account and view the status of these engines. The table below shows the statuses returned by the `SHOW ENGINES` command.
 
-<<<<<<< HEAD
 | `SHOW ENGINES` and UI |   Description                     
-=======
-| `SHOW ENGINES` and UI |   Description                    |      
->>>>>>> rn/gh-pages
 | :-------------------- | :------------------------------- | 
 | Starting              | The engine start has been initialized. It is provisioning resources, and will be ready to use soon.   |
 | Running               | The engine is running queries or available to run queries. Engine can be modified while it is running.|
