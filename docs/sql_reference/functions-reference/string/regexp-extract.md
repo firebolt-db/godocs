@@ -38,7 +38,7 @@ REGEXP_EXTRACT(<expression>, <pattern>[,'<flag>[...]',[<index>]])
 
 ```sql
 SELECT
-	REGEXP_EXTRACT('ABC 2023', '^[A-Z]+');
+	REGEXP_EXTRACT('ABC 2024', '^[A-Z]+');
 ```
 **Returns**: `"ABC"`
 
@@ -46,14 +46,14 @@ Despite using subgroups in the regular expression, the full match will be return
 
 ```sql
 SELECT
-	REGEXP_EXTRACT('Learning about #REGEX in #Firebolt 2023', '#([A-Za-z]+) (\\d+)');
+	REGEXP_EXTRACT('Learning about #REGEX in #Firebolt 2024', '#([A-Za-z]+) (\d+)');
 ```
-**Returns**: `"#Firebolt 2023"`
+**Returns**: `"#Firebolt 2024"`
 
-The regular expression contains two subgroups which allows us to set the `<index>` argument to something between `0` and `2`. Every other value will cause an exception to be thrown. Setting `<index>` to `0` would cause the full match `"#Firebolt 2023"` to be returned (same behavior as not setting this value, see the example above), while a `2` would return the second subgroup `"2023"`.
+The regular expression contains two subgroups which allows us to set the `<index>` argument to something between `0` and `2`. Every other value will cause an exception to be thrown. Setting `<index>` to `0` would cause the full match `"#Firebolt 2024"` to be returned (same behavior as not setting this value, see the example above), while a `2` would return the second subgroup `"2024"`.
 
 ```sql
 SELECT
-	REGEXP_EXTRACT('Learning about #REGEX in #Firebolt 2023', '#([a-z]+) (\\d+)', 'i', 1);
+	REGEXP_EXTRACT('Learning about #REGEX in #Firebolt 2024', '#([a-z]+) (\d+)', 'i', 1);
 ```
 **Returns**: `"Firebolt"`

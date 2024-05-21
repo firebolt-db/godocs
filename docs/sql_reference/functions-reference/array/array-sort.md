@@ -3,7 +3,7 @@ layout: default
 title: ARRAY_SORT
 description: Reference material for ARRAY_SORT function
 grand_parent: SQL functions
-parent: Lambda functions
+parent: Array functions
 great_grand_parent: SQL reference
 ---
 
@@ -24,8 +24,8 @@ ARRAY_SORT([<function>,] <array>)
 
 | Parameter | Description                                                  | Supported input type | 
 | :--------- | :------------------------------------------------------------ |:------|
-| `<function>`  | An optional function to be used to determine the sort order. | Any Lambda function | 
-| `<array>`   | The array to be sorted.                                      | Any array of integers | 
+| `<function>`  | An optional function to be used to determine the sort order. | Any lambda function that takes the elements of `<array>` as input | 
+| `<array>`   | The array to be sorted.                                      | Any array | 
 
 ## Return Type 
 `ARRAY` of the same type as the input array
@@ -34,20 +34,18 @@ ARRAY_SORT([<function>,] <array>)
 ## Example
 {: .no_toc}
 
-The following examples orders the array `levels` in ascending order:  
+```sql
+SELECT
+	ARRAY_SORT([ 4, 1, 3, 2 ]);
+```
+
+**Returns**: `[1,2,3,4]`
+
+In this example below, the modulus operator is used to calculate the remainder on any odd numbers. Therefore `ARRAY_SORT` puts the higher (odd) numbers last in the results.
 
 ```sql
 SELECT
-	ARRAY_SORT([ 4, 1, 3, 2 ]) AS levels;
+	ARRAY_SORT(x -> x % 2, [ 4, 1, 3, 2 ]);
 ```
 
-**Returns**: `1,2,3,4`
-
-In this example below, the modulus operator is used to calculate the remainder on any odd numbers. Therefore `ARRAY_ SORT` puts the higher (odd) numbers last in the results.
-
-```sql
-SELECT
-	ARRAY_SORT(x -> x % 2, [ 4, 1, 3, 2 ]) AS levels;
-```
-
-**Returns**: `4,2,1,3`
+**Returns**: `[4,2,1,3]`

@@ -22,14 +22,15 @@ GENERATE_SERIES ( <start>, <stop> [, <step> ] )
 
 | Parameter | Description |Supported input types |
 | :--------- |:------------ |:--------- |
-| `<start>`  | The first value in the interval. | `BIGINT` |
-| `<stop>` | The last value in the interval. <br/>The series stops once the last generated step value exceeds the stop value. |  `BIGINT` |
-| `<step>` | Optional literal integer value to set step. If not included, the default step is 1. | `BIGINT` |
+| `<start>`  | The first value in the interval. | `BIGINT`, `INTEGER` |
+| `<stop>` | The last value in the interval. <br/>The series stops once the last generated step value exceeds the stop value. |  `BIGINT`, `INTEGER` |
+| `<step>` | Optional literal integer value to set step. If not included, the default step is 1. | `BIGINT`, `INTEGER` |
 
 
 ## Return Type
 {: .no_toc}
-`BIGINT`
+
+Setof `INTEGER` if all operands are of type `INTEGER`, otherwise setof `BIGINT`.
 
 
 ## Example

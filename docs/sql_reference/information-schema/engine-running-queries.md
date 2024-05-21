@@ -30,11 +30,11 @@ Each row has the following columns with information about each running query.
 | user_name      | TEXT        | The user that executed the query                                                                                                                       |
 | submitted_time | TIMESTAMPTZ | The time when the query was submitted by a user (UTC)                                                                                                  |
 | start_time     | TIMESTAMPTZ | The query execution start time (UTC).                                                                                                                  |
-| duration_usec  | BIGINT      | The elapsed time in microseconds between `<START_TIME>` and the time that the query over `information_schema.engine_running_queries` returns results.  |
+| duration_us    | BIGINT      | The elapsed time in microseconds between `<START_TIME>` and the time that the query over `information_schema.engine_running_queries` returns results.  |
 | status         | TEXT        | The status of the query.                                                                                                                               |
-| query_label    | TEXT        | User provided query label (query_label parameter)                                                                                                      |
 | request_id     | TEXT        | The ID of the request from which the query originates.                                                                                                 |
 | query_id       | TEXT        | The query id of this query.                                                                                                                            |
+| query_label    | TEXT        | User provided query label (query_label parameter)                                                                                                      |
 | query_text     | TEXT        | Text of the SQL statement.                                                                                                                             |
 | scanned_rows   | BIGINT      | The number of rows scanned to return query results.                                                                                                    |
 | scanned_bytes  | BIGINT      | The number of bytes scanned from cache and storage.                                                                                                    |

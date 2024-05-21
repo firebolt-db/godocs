@@ -3,7 +3,7 @@ layout: default
 title: ARRAY_SUM
 description: Reference material for ARRAY_SUM function
 grand_parent: SQL functions
-parent: Lambda functions
+parent: Array functions
 great_grand_parent: SQL reference
 ---
 
@@ -25,15 +25,7 @@ ARRAY_SUM(<array>)
 | `<array>`   | The array to be used to calculate the function.     | Any array of numeric types | 
 
 ## Return Type 
-The return type depends on the input type:
-
-| Array element type | Return type | 
-| :--------- | :-------------------------------- |
-| `INTEGER`   | `BIGINT`  | 
-| `BIGINT`   | `NUMERIC(38, 0)`  | 
-| `NUMERIC(precision, scale)`   | `NUMERIC(precision, scale)`  | 
-| `REAL`   | `REAL`  | 
-| `DOUBLE`   | `DOUBLE`  | 
+The return type is `BIGINT` if the element type of `<array>` is `INT` and `DOUBLE PRECISION` if the element type is `REAL`. Otherwise, it matches the element type.
 
 ## Example
 {: .no_toc}

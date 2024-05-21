@@ -19,22 +19,15 @@ Calculates the arcsine. `ASIN` returns `NULL` if `<value>` is higher than 1.
 ASIN(<value>)
 ```
 
-## Parameters 
+## Parameters
 {: .no_toc}
 
-| Parameter | Description                                                                                                         | Supported input type | 
-| :--------- | :------------------------------------------------------------------------------------------------------------------- | :-----------| 
-<<<<<<< HEAD:docs/sql_reference/functions-reference/numeric/asin.md
-| `<value>`   | The value which the `ASIN` function is applied to | `DOUBLE PRECISION` |
-
-## Return Type 
-`DOUBLE PRECISION`
-=======
+| Parameter | Description                                                                                                         | Supported input type |
+| :--------- | :------------------------------------------------------------------------------------------------------------------- | :-----------|
 | `<value>`   | The value which the `ASIN` function is applied to | `DOUBLE_PRECISION` |
 
-## Return Type 
+## Return Type
 `DOUBLE_PRECISION`
->>>>>>> rn/gh-pages:docs/sql-reference/functions-reference/asin.md
 
 ## Example
 {: .no_toc}

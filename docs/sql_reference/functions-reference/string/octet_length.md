@@ -7,7 +7,7 @@ parent: String functions
 great_grand_parent: SQL reference
 ---
 
-# LENGTH
+# OCTET\_LENGTH
 
 Calculates the length of the input string in bytes.
 

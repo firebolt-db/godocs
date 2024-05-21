@@ -187,12 +187,6 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/regexp-matches.html</loc>
-    <lastmod>2023-10-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
     <loc>https://docs.firebolt.io/godocs/sql_reference/functions-reference/aggregation/any_value.html</loc>
     <lastmod>2023-10-06</lastmod>
     <changefreq>monthly</changefreq>
@@ -266,12 +260,6 @@
   </url>
   <url>
     <loc>https://docs.firebolt.io/godocs/Guides/working-with-indexes/using-aggregating-indexes.html</loc>
-    <lastmod>2023-10-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://docs.firebolt.io/godocs/sql_reference/functions-reference/string/match.html</loc>
     <lastmod>2023-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>

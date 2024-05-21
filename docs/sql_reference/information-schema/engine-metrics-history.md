@@ -8,7 +8,7 @@ grand_parent: SQL reference
 
 # Information schema for engine metrics history
 
-You can use the `information_schema.engine_metrics_history` view to return information about the resource consumption of your engine. As engines can have 1 or more engine units that are transient, this provides visibilty into the utilization of each engine unit. Each rows represents the aggregate resource metrics for a single engine unit at the given event time. You can use a `SELECT` query to return the metrics for each engine unit at a given point in time as shown in the example below.
+You can use the `information_schema.engine_metrics_history` view to return information about the resource consumption of your engine. As engines can have 1 or more engine clusters that are transient, this provides visibilty into the utilization of each engine cluster. Each rows represents the aggregate resource metrics for a single engine cluster at the given event time. Per default, we collect 2 metric snapshots per minute for the last 30 days. You can use a `SELECT` query to return the metrics for each engine cluster at a given point in time as shown in the example below.
 
 ```sql
 SELECT
@@ -27,7 +27,7 @@ Each row has the following columns with information about each query in query hi
 |:----------------|:------------|:-------------------------------------------------------------------------------------------|
 | engine_cluster  | TEXT        | engine cluster identifier                                                                  |
 | event_time      | TIMESTAMPTZ | timestamp at which the metrics where collected                                             |
-| cpu_used        | DECIMAL     | current utilization (percentage)                                                           |
+| cpu_used        | DECIMAL     | current CPU utilization (percentage)                                                           |
 | memory_used     | DECIMAL     | current memory used (percentage)                                                           |
 | disk_used       | DECIMAL     | currently used disk space which encompasses space used for cache and spilling (percentage) |
 | cache_hit_ratio | DECIMAL     | current SSD cache hit ratio                                                                |

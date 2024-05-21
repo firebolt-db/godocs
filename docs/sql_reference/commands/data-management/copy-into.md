@@ -1,0 +1,117 @@
+---
+layout: default
+title: COPY INTO
+description: Reference and syntax for the COPY FROM command that copies data from S3 files into a Firebolt table.
+great_grand_parent: SQL reference
+grand_parent: SQL commands
+parent: Data management
+---
+
+# COPY INTO
+{: .no_toc}
+
+Copies data from S3 to firebolt table.
+
+* Topic ToC
+{:toc}
+
+## Syntax
+
+```sql
+COPY
+[INTO] <table_name> [ <column_mapping> ] 
+FROM <externalLocation>
+[ WHERE <condition> ]
+[ LIMIT <count> ]
+[ OFFSET <start> ]
+[ WITH <options> ]
+
+<column_mapping>:
+    ( <column_name> [DEFAULT <default_value>] [ { $<source_column_index> | <source_column_name> } ] [, ...] )
+
+<options>:
+    [ CREDENTIALS = ( <credentials> ) ] 
+    [ PATTERN = <regex_pattern> ]
+    [ TYPE = { **AUTO** | CSV | TSV | PARQUET } ]
+    [ AUTO_CREATE = { **TRUE** | FALSE } ]
+    [ ALLOW_COLUMN_MISMATCH = { **TRUE** | FALSE } ]
+    [ ERROR_FILE = <externalLocation> ]
+    [ ERROR_FILE_CREDENTIALS = <credentials> ]
+    [ MAX_ERRORS_PER_FILE = { integer | '<percentage>' } ]
+    [ <csv_options> ]
+
+<credentials>:
+    { AWS_KEY_ID = '<aws_key_id>' AWS_SECRET_KEY = '<aws_secret_key>' }
+
+<csv_options>:
+    [ HEADER = { **FALSE** | TRUE  } ]
+    [ DELIMITER = 'character' ]
+    [ NEWLINE = 'string' ]
+    [ QUOTE = { **DOUBLE_QUOTE** | SINGLE_QUOTE } ]
+    [ ESCAPE = 'character' ]
+    [ NULL_STRING = 'string' ]
+    [ EMPTY_FIELD_AS_NULL = { **TRUE** | FALSE } ]
+    [ SKIP_BLANK_LINES = { **FALSE** | TRUE } ]
+    [ DATE_FORMAT = <date_format> ]
+    [ TIMESTAMP_FORMAT = <timestamp_format> ]
+
+```
+
+## Parameters
+
+{: .no_toc}
+
+| Parameter                | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+|:-------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<table_name>`           | The name of the target table.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `<column_mapping>`       | Optional. Only available of target table exists. Specify mapping between src schema and target schema. With this feature one can choose for each column in the target table a column from src files by name or by index.                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `<column_name>`          | The name of a target column in the table. If `<source_column_index/name>` not specified, the src columns will be mapped by this name.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `<default_value>`        | A value that replace each NULL value generated by the src. This value must be convertible to the target column datatype.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `<source_column_index>`  | The index of the src column that will be mapped (same index for all the files). This value range is [1,2^64-1]. It needs to follow the `$` character.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `<source_column_name>`   | The name of the src column that will be mapped (same name for all the files).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `<externalLocation>`     | The path to an S3 location where the query result file or files are saved. If ends with `/` it interpreted as directory otherwise as single file. Folder example: `s3://my_bucket/my_folder/`. File example: `s3://my_bucket/my_folder/my_file`.                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `CREDENTIALS`            | The Amazon S3 credentials for accessing the specified `<externalLocation>`. See [CREDENTIALS](../data-definition/create-external-table.md#credentials).                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `PATTERN`                | A regular expression pattern string (glob). For additional explenation visit: https://en.wikipedia.org/wiki/Glob_(programming).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `TYPE`                   | Specify the file type Firebolt expects to ingest given the `PATTERN`. If not specified it will be auto detected by the suffix of a file. If a file referenced using `PATTERN` does not conform to the specified `TYPE`, an error occurs.                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `AUTO_CREATE`            | Specify if the table can be automatically created by working alongside with automatic schema discovery. By default, automatic table creation is enabled (value: TRUE). If value is TRUE and the target table already exists, `AUTO_CREATE` is ignored.                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `ALLOW_COLUMN_MISMATCH`  | Specify if all required columns must appear in the src files. A column can be required by name or by index as described in `<column_mapping>`. If a column is required by name then a column with the same name must appear in the source files otherwise a file based error will be raised (and will be handled according to the error handling described in this doc). For the CSV and TSV formats it is possible that a column with that name exists but it does not appear in every row, which is considered as a row based error. If a column is required by index then the file must contain at least #index number of columns (file based error for parquet, row based error for CSV and TSV). |
+| `ERROR_FILE`             | Defines S3 location where rejected records will be stored. See `<externalLocation>` parameter definition above for format details. By default or if the specified path doesn't exist, no error files will be created. If specified a child directory is created based on the time of load submission in the format YearMonthDay -HourMinuteSecond + QueryID (Ex. 20220330-173205/<query_id>/). In this folder, two types of files are written: 1) the reason (error) file: rejected_rows.csv. and the data (row) file: error_reasons.csv.                                                                                                                    |
+| `ERROR_FILE_CREDENTIALS` | The Amazon S3 credentials for accessing the specified `<externalLocation>` for error file creation. See [CREDENTIALS]((../../sql_reference/commands/data-definition/create-external-table.md#credentials)).                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `MAX_ERRORS_PER_FILE`    | Specify the maximum number of rejected rows per file. Can be integer or literal text in the format 'integer%' eg. '100%'. By default no errors are allowed (0). If '100%' is given then all errors are allowed. If the threshold is passed an error will be shown.                                                                                                                                                                                                                                                                                                                                                                                           |
+| `HEADER`                 | Specify that the file contains a header line with the names of each column in the file. If set to true the first line will be interpreted as file schema column names.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `DELIMITER`              | Specify the delimiter character between fields. By default is `,`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `NEWLINE`                | Specify the delimiter character between rows. By default is `\n`. If NEWLINE is `\n`, then `\r`, `\r\n`, and `\n\r` are also treated as newline delimiters. Custom delimiters are only allowed if the target table already exists.                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `QUOTE`                  | Specify the quote character. By default: DOUBLE_QUOTE (`"`). If specified SINGLE_QUOTE it means `'`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `ESCAPE`                 | Specify the escape character. By default is the `QUOTE` character.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `NULL_STRING`            | Specify the null string. By default is empty which means no null string.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `EMPTY_FIELD_AS_NULL`    | Specify whether empty fields are treated as null.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `SKIP_BLANK_LINES`       | Specify whether to skip blank lines.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `DATE_FORMAT`            | Specify the date format for parsing text into date columns. Will apply only and for all columns that will be ingested to date columns. For supported formats see formats in [TO_DATE](../../functions-reference/date-and-time/to-date.md)                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `TIMESTAMP_FORMAT`       | Specify the timestamp format for parsing text into timestamp columns. Will apply only and for all columns that will be ingested to timestamp columns. For supported formats see formats in [TO_TIMESTAMP](../../functions-reference/date-and-time/to-timestamp.md)                                                                                                                                                                                                                                                                                                                                                                                           |
+
+notes:
+Non-existing columns:
+By default if a column does not exist in the source file it will produce nulls.
+For CSV format it applies to missing fields as well.
+
+## Examples
+
+### COPY all files under a directory, including all columns in the files
+
+```sql
+COPY INTO public.games FROM 's3://Bucket/directory/';
+```
+
+### COPY with explicit list of columns
+
+```sql
+COPY INTO test_table (c1 DEFAULT 34, c3 $6) FROM 's3://Bucket/directory/' WITH
+    TYPE = CSV CREDENTIALS = '...' QUOTE = DOUBLE_QUOTE;
+```
+
+### COPY without auto-schema discovery
+
+```sql
+COPY INTO test_table FROM 's3://Bucket/directory/' WITH
+    TYPE = PARQUET CREDENTIALS = '...' QUOTE = DOUBLE_QUOTE AUTO_CREATE = FALSE;
+```

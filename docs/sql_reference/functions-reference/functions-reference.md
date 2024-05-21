@@ -11,9 +11,6 @@ has_toc: false
 
 See a [full function glossary](./functions-glossary.md), or find functions based on type from the list below. 
 
-* [Aggregate array functions](./aggregate-array/index.md)  
-  Work on array-typed columns, but instead of being applied row by row, they combine the results of all the arrays belonging to each of the groups defined by the `GROUP BY` clause.
-
 * [Aggregation functions](./aggregation/index.md)  
   Perform a calculation across a set of rows, returning a single value. 
 
@@ -32,7 +29,7 @@ See a [full function glossary](./functions-glossary.md), or find functions based
 * [JSON functions](./JSON/index.md)  
   Extract and transform JSON into Firebolt native types, or JSON sub-objects. Used either during the ELT process or applied to columns storing JSON objects as plain `TEXT`
 
-* [Numeric functions](./numeric/index.md)  
+* [Numerical functions](./numeric/index.md)  
   Manipulate data types including `INTEGER`, `BIGINT`, `DOUBLE PRECISION`, and other numeric types
 
 * [String functions](./string/index.md)  
@@ -40,12 +37,3 @@ See a [full function glossary](./functions-glossary.md), or find functions based
 
 * [Window functions](./window/index.md)  
   Perform a calculation across a specified set of table rows
-
-
-
-
-
-
-
-
-

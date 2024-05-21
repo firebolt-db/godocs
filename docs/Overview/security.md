@@ -81,6 +81,7 @@ The key building blocks/concepts of the Firebolt RBAC model are: [roles](#roles)
 ### Roles 
 
 There are 2 types of roles that exist within Firebolt: 
+
 1) Built-in roles that are available as soon as a new organization and the first account get provisioned.
 
 2) User-defined roles that administrators can create by themselves. 

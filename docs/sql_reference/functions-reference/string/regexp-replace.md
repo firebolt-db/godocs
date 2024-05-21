@@ -63,7 +63,7 @@ SELECT REGEXP_REPLACE_ALL('     Hello world ! ', '^[ ]+|[ ]+$', '');
 Duplicate every character
 
 ```sql
-SELECT REGEXP_REPLACE_ALL('Hello, World!', '.', '\\&\\&')
+SELECT REGEXP_REPLACE_ALL('Hello, World!', '.', '\&\&')
 ```
 
 **Returns**: `'HHeelllloo,,  WWoorrlldd!!'`
@@ -72,12 +72,12 @@ SELECT REGEXP_REPLACE_ALL('Hello, World!', '.', '\\&\\&')
 Mask email address by leaving first character only (Note: this is for illustrative purposes only, the email matching pattern is too simplistic)
 
 ```sql
-SELECT REGEXP_REPLACE(email, '(\\w)[\\w\\.]+@([\\w]+\\.)+([\\w]+)', '\\1***@\\2\\3') 
+SELECT REGEXP_REPLACE(email, '(\w)[\w\.]+@([\w]+\.)+([\w]+)', '\1***@\2\3')
 FROM UNNEST([
   'matt123@hotmail.com',
   'joe.doe@gmail.com',
   '12345@www.atg.wa.gov'
-] email)
+]) email
 ```
 
 **Returns**:
@@ -90,13 +90,13 @@ FROM UNNEST([
 Convert dates into US format
 
 ```sql
-SELECT REGEXP_REPLACE(event_date::TEXT, '(\\d{4})-(\\d{2})-(\\d{2})', '\\2/\\3/\\1')
+SELECT REGEXP_REPLACE(event_date::TEXT, '(\d{4})-(\d{2})-(\d{2})', '\2/\3/\1')
 FROM UNNEST([
   DATE '1970-08-07',
   DATE '2000-04-22',
   DATE '2002-07-25',
   DATE '2010-11-11'
-] event_date)
+]) event_date
 ```
 
 **Returns**

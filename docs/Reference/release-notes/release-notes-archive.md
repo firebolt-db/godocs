@@ -16,6 +16,7 @@ We provide an archive of release notes for your historical reference.
 
 * Topic ToC
 {:toc}
+
 ## DB version 3.33
 **April 2024**
 
@@ -95,7 +96,7 @@ New aggregate functions bool_or and bool_and have been added.
 
 <!--- FIR-30398 --->**Align the syntax of our "escape" string literals with PostgreSQL**
 
-Escape [string literals](../sql_reference/data-types.md) now support octal and Unicode escape sequences. As a result, escape string literals now behave exactly like PostgreSQL. Example: `SELECT E'\U0001F525b\x6F\154t';` returns `🔥bolt`. If the setting `standard_conforming_strings` is not enabled for you, regular string literals (e.g., `SELECT 'foo';`) will also recognize the new escape sequences. However, we recommend exclusively using escape string literals for using escape sequences. Please be aware that you will get different results if you previously used (escape) string literals containing the syntax we now use for Unicode and octal escape sequences.
+Escape [string literals](../../sql_reference/data-types.md) now support octal and Unicode escape sequences. As a result, escape string literals now behave exactly like PostgreSQL. Example: `SELECT E'\U0001F525b\x6F\154t';` returns `🔥bolt`. If the setting `standard_conforming_strings` is not enabled for you, regular string literals (e.g., `SELECT 'foo';`) will also recognize the new escape sequences. However, we recommend exclusively using escape string literals for using escape sequences. Please be aware that you will get different results if you previously used (escape) string literals containing the syntax we now use for Unicode and octal escape sequences.
 
 <!--- FIR-30789 --->**Change return value of length and octet_length to INT**
 
@@ -130,7 +131,7 @@ Note that before, it was not an error and resulted in: 9999999999999999775261218
 * Fixed a bug when `USAGE ANY ENGINE` (and similar) privileges were shown for * account. Now it is being show for current account.
 
 <!--- FIR-30490 --->
-* Fixed a bug involving ['btrim'](../sql_reference/functions-reference/string/btrim.md) string characters, where invoking `btrim`, `ltrim`, `rtrim`, or `trim` with a literal string but non-literal trim characters could result in an error.
+* Fixed a bug involving ['btrim'](../../sql_reference/functions-reference/string/btrim.md) string characters, where invoking `btrim`, `ltrim`, `rtrim`, or `trim` with a literal string but non-literal trim characters could result in an error.
 
 ## DB version 3.31
 **March 2024**
@@ -157,7 +158,7 @@ Unique constraints in tables will be blocked for new accounts.
 
 <!--- FIR-27355 ---> **Support for nullable arrays**
 
-Support has been added to allow the [ANY_MATCH](../sql-reference/functions-reference/any-match.md) lambda function to work with nullable arrays.
+Support has been added to allow the [ANY_MATCH](../../sql-reference/functions-reference/any-match.md) lambda function to work with nullable arrays.
 
 <!--- FIR-27799 --->**Updated AWS billing error message**
 
@@ -176,7 +177,7 @@ The following functions are not supported anymore:
 
 <!--- FIR-29729 --->**Renamed spilled metrics columns**
 
-The columns `spilled_bytes_uncompressed` and `spilled_bytes_compressed` of `information_schema.query_history` have been replaced by a single column `spilled_bytes`(../sql_reference/information-schema/query-history-view.md). It contains the amount of data that was spilled to disk temporarily while executing the query.
+The columns `spilled_bytes_uncompressed` and `spilled_bytes_compressed` of `information_schema.query_history` have been replaced by a single column `spilled_bytes`. It contains the amount of data that was spilled to disk temporarily while executing the query.
 
 <!--- FIR-29536 --->**Aggregating index placement**
 
@@ -184,7 +185,7 @@ Aggregating index is now placed in the same namespace as tables and views.
 
 <!--- FIR-29225 --->**Syntax and planner support for LATERAL scoping**
 
-LATERAL is now a reserved keyword (../Reference/reserved-words.md). It must now be used within double-quotes when using it as an object identifier.
+[LATERAL](../../Reference/reserved-words.md) is now a reserved keyword. It must now be used within double-quotes when using it as an object identifier.
 
 ### Resolved issues
 
@@ -194,7 +195,7 @@ LATERAL is now a reserved keyword (../Reference/reserved-words.md). It must now 
 
 <!--- FIR-29147 --->Fixed a bug in 'unnest' table function that occurred when not all of the 'unnest' columns were projected.
 
-<!--- FIR-28187 --->Changed the behavior of `split_part`(../sql_reference/functions-reference/string/split-part.md) when an empty string is used as delimiter.
+<!--- FIR-28187 --->Changed the behavior of [`split_part`](../../sql_reference/functions-reference/string/split-part.mdmd) when an empty string is used as delimiter.
 
 <!--- FIR-28623 --->Fixed a bug where floating point values `-0.0` and `+0.0`, as well as `-nan` and `+nan` were not considered equal in distributed queries.
 
