@@ -27,12 +27,12 @@ This attribute represents the number (1 - 128) of compute nodes, allowing granul
 **Clusters [Preview]** <br />
 A cluster is a collection of compute resources, described by “Type” and “Nodes” attributes. A given Firebolt engine can contain one or more clusters. The maximum number of clusters is specified by the Clusters attribute. Only homogeneous cluster configurations (clusters with the same number of Nodes and Type) are supported within a single engine. Users can leverage the “Clusters” attribute to support query concurrency scaling.
 
-![An engine cluster in Firebolt](../assets/images/Engine_Cluster.png){: width="600" .centered}
+![An engine cluster in Firebolt](../assets/images/engine_cluster_type_M.png){: width="600" .centered}
  <br /> **An engine cluster with four nodes of type 'M'** 
  {: style="color: red; font-size: 90%; text-align: center;"}
 
 
-![A Firebolt engine with two clusters, each cluster containing four nodes of type 'M'](../assets/images/Firebolt_Engine.png){: width="600" .centered}
+![A Firebolt engine with two clusters, each cluster containing four nodes of type 'M'](../assets/images/Engine_two_clusters_type_M.png){: width="600" .centered}
  <br /> **A Firebolt engine with two clusters, each cluster containing four nodes of type 'M'** 
  {: style="color: red; font-size: 90%; text-align: center;"}
 
