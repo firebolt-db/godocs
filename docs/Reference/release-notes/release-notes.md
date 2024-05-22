@@ -27,7 +27,7 @@ Firebolt might roll out releases in phases. New features and changes may not yet
 
 <!--- FIR-32710 --->**Removed `MATCH` function**
 
-The `match` function has been removed and replaced with the [`regexp_like`](../../sql_reference/functions-reference/string/regexp-like.md). 
+The `match` function has been removed and replaced with [`regexp_like`](../../sql_reference/functions-reference/string/regexp-like.md). 
 
 <!--- FIR-32693 --->**Producing an error for array function failure instead of NULL**
 
@@ -72,7 +72,7 @@ The result used to be `false` - `select false = (false is not null)`, but now is
 
 Role cannot be dropped if there are permissions granted to the role. The error message will be displayed if you need to manually drop permissions associated to the role.
 
-<!--- FIR-32163 --->**Coalesce compliance**
+<!--- FIR-32163 --->**Coalesce Short-Circuiting**
 
 `COALESCE` now supports short-circuiting in Firebolt. Queries such as `COALESCE(a, 1 / 0) FROM t` could fail before, even when there were no NULLs in t. Only `CASE WHEN` supported short circuiting. Firebolt is now aligned with PostgreSQL and supports short circuiting in `COALESCE` as well.
 
@@ -103,7 +103,7 @@ This is now false.
 
 <!--- FIR-16217 --->**Function `ARRAY_AGG` now preserves NULLS**
 
-The `array_agg` function has changed to return PostgreSQL-compliant results:
+The `array_agg` function has been changed to return PostgreSQL-compliant results:
   * `array_agg` now preserves `NULL` values in its input, e.g. `select array_agg(x) from unnest(array [1,NULL,2] x)` returns `{1,NULL,2}`
   * `array_agg` now returns `NULL` instead of an empty array if there are no input values
 
@@ -118,7 +118,7 @@ array_sum(transform(...))
 
 **Explicit Parquet conversion from DATE to INT is now needed**
 
-A breaking change has been implemented in raising an error on reading a Parquet/ORC `DATE`/`TIMESTAMP` column if the `EXTERNAL TABLE` expects the column to have type `INT`/`BIGINT`. The planner does not allow casting `DATE`/`TIMESTAMP` to `INT`/`BIGINT`, and the implicit casts performed during external table scans are now fully aligned with what the planner allows. You need to explicitly transform the Parquet/ORC `DATE`/`TIMESTAMP` column with `EXTRACT`(`EPOCH FROM` col) to insert it into an `INT`/`BIGINT` column.
+A breaking change has been implemented in raising an error on reading a Parquet/ORC `DATE`/`TIMESTAMP` column if the `EXTERNAL TABLE` expects the column to have type `INT`/`BIGINT`. `DATE`/`TIMESTAMP` cannot be cast to `INT`/`BIGINT`, and external table scans will no longer allow this cast either. You need to explicitly transform the Parquet/ORC `DATE`/`TIMESTAMP` column with `EXTRACT`(`EPOCH FROM` col) to insert it into an `INT`/`BIGINT` column.
 
 ### Resolved issues
 
