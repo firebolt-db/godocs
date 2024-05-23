@@ -20,7 +20,8 @@ CREATE ENGINE [IF NOT EXISTS] <engine_name>
     [INITIALLY_STOPPED = <true/false>]
     [CLUSTERS = <clusters>]
     [NODES = <nodes>]
-    [TYPE = <type>]]
+    [TYPE = <type>]
+    [AUTO_START = <true/false>]]
 ```
 ## Options
 {: .no_toc}  
@@ -33,7 +34,8 @@ CREATE ENGINE [IF NOT EXISTS] <engine_name>
 | `INITIALLY_STOPPED = <true/false>`   | When `false`, the newly created engine will be started as part of the `CREATE ENGINE` command.<br><br>If not specified, `false` is used as default. |
 | `CLUSTERS = <clusters>`   | Collection of nodes, where each node is of a certain type. All the clusters in an engine have the same type and same number of nodes. If not specified, `1` is used as default. |
 | `NODES = <nodes>`                    | The number of nodes for each cluster in an engine. Can be an integer ranging from `1` to `128`. <br><br>If not specified, `1` is used as default. |
-| `TYPE =<type>`                       | The type of node used by the engine. Can be one of 'S', 'M', 'L' or 'XL' <br><br>If not specified, `S` is used as default. |
+| `TYPE = <type>`                       | The type of node used by the engine. Can be one of 'S', 'M', 'L' or 'XL' <br><br>If not specified, `S` is used as default. |
+| `AUTO_START = <true/false>`                       | When `true`, If the engine is stopped, it will be automatically started when a query is sent to the engine endpoint.<br><br>If not specified, `true` is used as default. |
 
 **Preview Limitations:**  
 * The number of clusters per engine is limited to one. 
@@ -66,4 +68,12 @@ The following example creates an engine with one cluster, using node type 'L' an
 ```sql
 CREATE ENGINE my_engine
 WITH TYPE="L" NODES=2 AUTO_STOP=10;
+```
+
+## Example 5
+The following example creates an engine with one cluster, using node type 'S' and 4 nodes per cluster. In case it's stopped, the engine will not start automatically upon query, because AUTO_START is set to `false`.
+
+```sql
+CREATE ENGINE my_engine
+WITH TYPE="S" NODES=4 AUTO_START=false;
 ```
