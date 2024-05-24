@@ -6,6 +6,8 @@ parent: Overview
 nav_order: 3
 published: true
 ---
+# Engine Consumption
+{: .no_toc}
 
 This page provides details on the engine consumption metric, Firebolt Units (FBU).  We provide examples on how to calculate both FBUs available to an engine and the actual FBUs consumed by a running engine. To understand what Firebolt Engines are, visit [Understanding Engine Fundamentals](../Overview/understanding-engine-fundamentals.md).
 

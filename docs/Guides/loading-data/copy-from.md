@@ -3,10 +3,14 @@ layout: default
 title: COPY FROM
 description: Provide examples on using the COPY FROM command to load data into Firebolt
 parent: Load data
+grand_parent: Guides
 nav_order: 1
 ---
 # COPY FROM
 {: .no_toc}
+
+* Topic ToC
+{:toc}
 
 ## Data Loading
 ### Bulk Insert for New Tables
@@ -15,7 +19,7 @@ The `COPY FROM` command facilitates efficient bulk data ingestion:
 ```sql
 COPY sales
 FROM 's3://data-bucket/initial_sales_data.csv'
-WITH TYPE = 'CSV', HEADER= TRUE, DELIMITER= ',', 
+WITH (TYPE = 'CSV', HEADER= TRUE, DELIMITER= ',', 
 ```
 ### Appending New Data
 For ongoing operations, COPY FROM supports appending new data without disrupting current analytics:

@@ -6,6 +6,8 @@ nav_order: 3
 parent: Work with engines
 grand_parent: Guides
 ---
+# Sizing Engines
+{: .no_toc}
 
 Selecting an appropriate engine size for your workload depends on multiple factors such as the size of your active dataset, latency and throughput requirements of your workload, your considerations for price-performance and the number of users and queries your workload is expected to handle concurrently. Our guidance is to start small with an engine size that fits your active dataset and monitor the workload using the engine observability metrics (see below). Based on these metrics, you can then dynamically resize your engine to meet the needs of your workload. 
 

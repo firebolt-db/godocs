@@ -76,10 +76,6 @@ Aggregate expressions that you specify must correspond precisely to the aggregat
 
 Aggregating indexes inherit the partitions from the underlying fact table. When you drop a partition from the underlying fact table, the partition is dropped from the aggregating index.
 
-## Aggregating indexes and engine warmup method
-
-The columns that you specify for an aggregating index are essentially a primary index for the aggregating index. With the warmup method set to **Preload indexes**, an engine preloads these columns on warmup but doesn’t perform the pre-calculations until Firebolt uses the index. This accelerates ingestion but causes first queries to be slower than subsequent queries. With the warmup method set to **Preload all data**, an engine loads the calculations in addition to the columns. This slows engine start time, but accelerates the first analytics query. For more information, see [Engine warmup method](../../Overview/understanding-engine-fundamentals.md#warmup-method).
-
 ## Validating aggregating index size
 
 You should aim for aggregating index results to be a ratio of approximately 20-50% size of the whole table or smaller. The smaller the ratio, the more effective the aggregating index is.

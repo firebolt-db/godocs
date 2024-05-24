@@ -14,8 +14,6 @@ Loading data into Firebolt is described in the [Getting started tutorial](../get
 
 1. To provide Firebolt with the right permissions to load data from your Amazon S3 bucket, you must create AWS access keys and secret IDs. For instructions on how to create the access key credentials in AWS, see [Creating Access Key and Secret ID](../loading-data/creating-access-keys-aws.md).
 
-2. Using the credentials created above, you can now load your data into Firebolt using the [COPY FROM ](../../sql_reference/commands/data-management/copy-from.md) command.  For an overview of how the `COPY FROM` command works, visit [Overview of COPY FROM](../loading-data/copy-from.md).
-
-
+2. Using the credentials created above, you can now load your data into Firebolt using the [COPY FROM ](../loading-data/copy-from.md) command. For information on its syntax and parameters, visit [COPY FROM](../../sql_reference/commands/data-management/copy-from.md).
 
 <!-- For information about using Apache Airflow to incrementally load data chronologically, see [Incrementally loading data with Airflow](incrementally-loading-data.md). -->
