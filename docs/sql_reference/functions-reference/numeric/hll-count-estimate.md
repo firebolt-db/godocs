@@ -9,7 +9,7 @@ published: true
 
 # HLL_COUNT_ESTIMATE
 
-Extracts a cardinality estimate of a single HLL++ sketch.
+Extracts a cardinality estimate of a single HLL++ sketch that was previously built using the aggregate function [`HLL_COUNT_BUILD`](hll-count-build.md).
 
 ## Syntax
 {: .no_toc}

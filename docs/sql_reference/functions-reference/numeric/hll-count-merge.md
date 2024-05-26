@@ -9,7 +9,7 @@ published: true
 
 # HLL_COUNT_MERGE
 
-Takes one or more HLL++ sketch inputs and merges them into a new sketch.
+Merges one or more HLL++ sketches that were previously built using the aggregate function [`HLL_COUNT_BUILD`](hll-count-build.md) into a new sketch.
 
 Each sketch must be built on the same type and the same precision.
 Attempts to merge sketches for different types or precision results in an error.
