@@ -5,7 +5,6 @@ description: Reference material for REGEXP_EXTRACT_ALL function
 grand_parent: SQL functions
 parent: String functions
 great_grand_parent: SQL reference
-published: false
 ---
 
 # REGEXP_EXTRACT_ALL
