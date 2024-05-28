@@ -33,7 +33,7 @@ And that's it! You're ready to get started with Firebolt.
 New accounts get 600 Firebolt credits ($200+) to get started exploring with Firebolt. Once you run out of credits, we recommend you connect Firebolt with your AWS Marketplace account and get back to making the most of Firebolt. See [Registering though AWS Marketplace](https://special-disco-436d3e6a.pages.github.io/Guides/getting-started.html#register-through-AWS-Marketplace) below.
 
 ## Create Your First Database and Engine
-Embarking on your data journey with Firebolt begins with creating a *database* and selecting an *engine* tailored to your specific workload. An engine in Firebolt provides the compute resources ingesting data and executing queries on the ingested data (see [Understanding Engines](https://special-disco-436d3e6a.pages.github.io/Overview/understanding-engine-fundamentals.html) to learn more). For more information on using Firebolt engines, see [Working with engines](./working-with-engines/working-with-engines.md).
+Embarking on your data journey with Firebolt begins with creating a *database* and selecting an *engine* tailored to your specific workload. An engine in Firebolt provides the compute resources for ingesting data and executing queries on the ingested data (see [Understanding Engines](https://special-disco-436d3e6a.pages.github.io/Overview/understanding-engine-fundamentals.html) to learn more). For more information on using Firebolt engines, see [Working with engines](./working-with-engines/working-with-engines.md).
 
 **Steps to Create Your Database:**
 1. Click the **+** next to **Databases**
