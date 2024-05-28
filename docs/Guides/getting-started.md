@@ -33,7 +33,7 @@ And that's it! You're ready to get started with Firebolt.
 New accounts get 600 Firebolt credits ($200+) to get started exploring with Firebolt. Once you run out of credits, we recommend you connect Firebolt with your AWS Marketplace account and get back to making the most of Firebolt. See [Registering though AWS Marketplace](https://special-disco-436d3e6a.pages.github.io/Guides/getting-started.html#register-through-AWS-Marketplace) below.
 
 ## Create Your First Database and Engine
-Embarking on your data journey with Firebolt begins with creating a *database* and selecting an *engine* tailored to your specific workload. An engine in Firebolt provides the compute resources dedicated to a database for executing tasks (see [Understanding Engines](https://special-disco-436d3e6a.pages.github.io/Overview/understanding-engine-fundamentals.html) to learn more). By default, every database starts with one general purpose engine capable of writing to the Firebolt file format (F3) for both data ingestion and analytics queries. For more information on using Firebolt engines, see [Working with engines](./working-with-engines/working-with-engines.md).
+Embarking on your data journey with Firebolt begins with creating a *database* and selecting an *engine* tailored to your specific workload. An engine in Firebolt provides the compute resources ingesting data and executing queries on the ingested data (see [Understanding Engines](https://special-disco-436d3e6a.pages.github.io/Overview/understanding-engine-fundamentals.html) to learn more). For more information on using Firebolt engines, see [Working with engines](./working-with-engines/working-with-engines.md).
 
 **Steps to Create Your Database:**
 1. Click the **+** next to **Databases**
@@ -148,10 +148,10 @@ And that's it! You've successfully copied data from S3 into a Firebolt table.
 
 ### Option 2: Create and use an external table
 #### Step 1: Create an External Table
-An *external table* is a special, virtual table that serves as a connector to your data source. After the external table is created, you ingest data by running an `INSERT` command from that external table into a *fact table* or *dimension table*. The `INSERT` command must run on a general purpose engine. After the data is available in fact and dimension tables, you can run analytics queries over those tables using any engine. 
+An *external table* is a special, virtual table that serves as a connector to your data source. After the external table is created, you ingest data by running an `INSERT` command from that external table into a *fact table* or *dimension table*. After the data is available in fact and dimension tables, you can run analytics queries over those tables. 
 
 {: .note}
-Although it's possible, we don't recommend running analytics queries on external tables. For more information on working with external tables, see [Work with external tables](../Guides/loading-data/working-with-external-tables.html). FOr more information on fact tables, see [Working with tables](..Guides/loading-data/working-with-external-tables.html)
+Although it's possible, we don't recommend running analytics queries on external tables. For more information on working with external tables, see [Work with external tables](../Guides/loading-data/working-with-external-tables.html). For more information on fact tables, see [Working with tables](..Guides/loading-data/working-with-external-tables.html)
 
 **Create Your External Table:**
 1. Choose the plus symbol (**+**) next to script tab to create a new script tab in the SQL workspace.
@@ -191,7 +191,7 @@ TYPE = (CSV SKIP_HEADER_ROWS = 1);
 ```  
 
 {: .note} 
-'URL =' specifies the data source in S3. All files in the location that match the 'OBJECT_PATTERN' and will be processed during ingestion. 'CREDENTIALS =' specify a role or AWS key credentials with permission to read from the S3 location. Since we are accessing a publicly accessible bucket, we do not need to specify credentials for this tutorial.
+'URL =' specifies the data source in S3. All files in the location that match the 'OBJECT_PATTERN' will be processed during ingestion. 'CREDENTIALS =' specify a role or AWS key credentials with permission to read from the S3 location. Since we are accessing a publicly accessible bucket, we do not need to specify credentials for this tutorial.
 
 3. Click **Run**. When completed the external table `ex_levels` appears on the object panel of the database.  
 
