@@ -21,6 +21,7 @@ ALTER ENGINE <engine_name> SET
     [NODES = <nodes>]
     [TYPE = <type>]
     [RENAME TO <new_name>]
+    [AUTO_STOP = <true/false>]
 ```
 ## Options 
 {: .no_toc}  
@@ -34,6 +35,7 @@ ALTER ENGINE <engine_name> SET
 | `NODES = <nodes>`                    | The number of nodes for each cluster in an engine. Can be an integer ranging from `1` to `128`. If not specified, `1` is used as default. |
 | `CLUSTERS = <clusters>`              | Collection of nodes, where each node is of a certain type. All the clusters in an engine have the same type and same number of nodes. If not specified, `1` is used as default. |
 | `RENAME TO <new_name>`               | Indicates the new name for the engine. No other parameters are allowed during an engine rename. |
+| `AUTO_START = <true/false>`          | When `true`, If the engine is stopped, it will be automatically started when a query is sent to the engine endpoint.<br><br>If not specified, `true` is used as default. |
 
 **Preview Limitations:**  The number of clusters per engine is limited to one.  Modifying the TYPE or NODES attribute of a running engine may result in the failure of currently executing queries. If you would like to remove any of these limitations, reach out to Firebolt Support.
 
@@ -56,4 +58,11 @@ The following example allows the users to both scale up and scale out an engine 
 
 ```sql
 ALTER ENGINE my_engine SET TYPE = "L" NODES = 5;
+```
+
+## Example 4
+The following example allows the users to set engine `AUTO_START` option. In case it's stopped, the engine will start automatically upon query, because `AUTO_START` is set to `true`.
+
+```sql
+ALTER ENGINE my_engine SET AUTO_START = true;
 ```
