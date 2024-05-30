@@ -4,7 +4,7 @@ title: COPY FROM
 description: Provide examples on using the COPY FROM command to load data into Firebolt
 parent: Load data
 grand_parent: Guides
-nav_order: 1
+nav_order: 2
 ---
 # COPY FROM
 {: .no_toc}
@@ -17,7 +17,7 @@ nav_order: 1
 The `COPY FROM` command facilitates efficient bulk data ingestion: 
 
 ```sql
-COPY FROM sales
+COPY sales
 FROM 's3://data-bucket/initial_sales_data.csv'
 WITH (TYPE = 'CSV', HEADER= TRUE, DELIMITER= ',', 
 ```
@@ -25,7 +25,7 @@ WITH (TYPE = 'CSV', HEADER= TRUE, DELIMITER= ',',
 For ongoing operations, COPY FROM supports appending new data without disrupting current analytics:
 
 ```sql
-COPY FROM sales
+COPY sales
 FROM 's3://data-bucket/daily_sales.csv'
 WITH (TYPE  = 'CSV', HEADER = TRUE)
 ```
@@ -35,7 +35,7 @@ WITH (TYPE  = 'CSV', HEADER = TRUE)
 Automatic schema discovery can simplify data ingestion, especially from formats that include metadata, such as Parquet For formats that do not include metadata, such as `CSV`, automatic schema discovery infers column types based on the data content itself. While this process aims to accurately identify data types, it operates on a "best effort" basis.
 
 ```sql
-COPY FROM product_catalog
+COPY product_catalog
 FROM 's3://data-bucket/products.parquet'
 WITH (TYPE = 'PARQUET', AUTO_CREATE = TRUE)
 ```
@@ -44,7 +44,7 @@ WITH (TYPE = 'PARQUET', AUTO_CREATE = TRUE)
 You can also manually map data between your src schema and target schema within the COPY FROM statement. With this feature you can map each column by name or by index.
 
 ```sql
-COPY FROM target_table (target_col1, target_col2, target_col3)
+COPY target_table (target_col1, target_col2, target_col3)
 FROM 's3://data-bucket/example.csv
 WITH (TYPE = 'CSV', HEADER = true, FIELD_DELIMITER = ',', NULL_AS = 'NULL');
 ```
@@ -53,7 +53,7 @@ WITH (TYPE = 'CSV', HEADER = true, FIELD_DELIMITER = ',', NULL_AS = 'NULL');
 Firebolt provides several options for error handling, such as setting parameters for the maximum number of errors to tolerate before aborting the operation.
 
 ```sql
-COPY FROM sales
+COPY sales
 FROM 's3://data-bucket/sales_data.csv'
 WITH (TYPE  = 'CSV', HEADER = TRUE, ERROR_FILE = <externalLocation>, ERROR_FILE_CREDENTIALS = <credentials>, MAX_ERRORS_PER_FILE = 5
 )
@@ -63,7 +63,7 @@ WITH (TYPE  = 'CSV', HEADER = TRUE, ERROR_FILE = <externalLocation>, ERROR_FILE_
 Firebolt's 'COPY FROM' command supports  handling partitioned data, which is common when working with structured formats like Parquet and ORC. Firebolt supports the 'PATTERN' clause, which allows users to define regular expressions that specify file names and paths to match, optimizing the data scanning and enumeration process by pushing predicates down to the storage layer whenever possible:
 
 ```sql
-COPY FROM logs
+COPY logs
 FROM 's3://data-bucket/logs/'
 WITH (TYPE  = 'CSV', PATTERN = 'year=2022/month=4/*.csv.gz')
 ```
@@ -117,7 +117,7 @@ ALLOW COLUMN MISMATCH Option Settings:
 * `ALLOW_COLUMN_MISMATCH` = FALSE: This is the default setting. If there is any discrepancy in either the presence or order of columns (by index or name), Firebolt will halt the data load and throw an error, indicating that there is a missing column.
 
 ```sql
-COPY FROM target_table
+COPY target_table
 FROM 's3://data-bucket/data.csv'
 WITH (format = 'CSV', header = true, COLUMN MATCH = TRUE)
 ```
