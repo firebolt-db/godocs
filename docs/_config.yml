@@ -43,7 +43,6 @@ search:
 
 aux_links:
   "TRY FOR FREE":
-  {: style="font-size: 70%;"}
     - "https://www.firebolt.io/try-firebolt"
 
 # Google Analytics tracking
