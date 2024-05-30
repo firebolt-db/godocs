@@ -17,7 +17,7 @@ nav_order: 2
 The `COPY FROM` command facilitates efficient bulk data ingestion: 
 
 ```sql
-COPY sales
+COPY FROM sales
 FROM 's3://data-bucket/initial_sales_data.csv'
 WITH (TYPE = 'CSV', HEADER= TRUE, DELIMITER= ',', 
 ```
