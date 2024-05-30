@@ -98,20 +98,20 @@ For CSV format it applies to missing fields as well.
 ### COPY all files under a directory, including all columns in the files
 
 ```sql
-COPY FROM public.games FROM 's3://Bucket/directory/';
+COPY public.games FROM 's3://Bucket/directory/';
 ```
 
 ### COPY with explicit list of columns
 
 ```sql
-COPY FROM test_table (c1 DEFAULT 34, c3 $6) FROM 's3://Bucket/directory/' WITH
+COPY test_table (c1 DEFAULT 34, c3 $6) FROM 's3://Bucket/directory/' WITH
     TYPE = CSV CREDENTIALS = '...' QUOTE = DOUBLE_QUOTE;
 ```
 
 ### COPY without auto-schema discovery
 
 ```sql
-COPY FROM test_table FROM 's3://Bucket/directory/' WITH
+COPY test_table FROM 's3://Bucket/directory/' WITH
     TYPE = PARQUET CREDENTIALS = '...' QUOTE = DOUBLE_QUOTE AUTO_CREATE = FALSE;
 ```
 
