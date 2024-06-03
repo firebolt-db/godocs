@@ -122,7 +122,7 @@ A breaking change has been implemented in raising an error on reading a Parquet/
 
 <!--- FIR-32252 --->**Updated CAST function behavior**
 
-We have moved all cast logic to runtime in Firebolt. The `castColumn` function is now replaced by `fbCastColumn`, ensuring consistent casting behavior and resolving issues with the `COPY FROM` operation and other cast calls. Uses of implicit/explicit `CAST` may result in errors due to this fix.
+All cast logic has been moved to runtime in Firebolt. The `castColumn` function is now replaced by `fbCastColumn`, ensuring consistent casting behavior and resolving issues with the `COPY FROM` operation and other cast calls. Uses of implicit/explicit `CAST` may result in errors due to this fix.
 
   {: .note}
   New breaking change.
