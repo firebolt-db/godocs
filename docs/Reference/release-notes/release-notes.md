@@ -120,6 +120,13 @@ array_sum(transform(...))
 
 A breaking change has been implemented in raising an error on reading a Parquet/ORC `DATE`/`TIMESTAMP` column if the `EXTERNAL TABLE` expects the column to have type `INT`/`BIGINT`. `DATE`/`TIMESTAMP` cannot be cast to `INT`/`BIGINT`, and external table scans will no longer allow this cast either. You need to explicitly transform the Parquet/ORC `DATE`/`TIMESTAMP` column with `EXTRACT`(`EPOCH FROM` col) to insert it into an `INT`/`BIGINT` column.
 
+  {: .note}
+  New breaking change.
+
+<!--- FIR-32252 --->**Updated CAST function behavior**
+
+We have moved all cast logic to runtime in Firebolt. The `castColumn` function is now replaced by `fbCastColumn`, ensuring consistent casting behavior and resolving issues with the `COPY FROM` operation and other cast calls. Uses of implicit/explicit `CAST` may result in errors due to this fix.
+
 ### Resolved issues
 
 <!--- FIR-32432 --->
