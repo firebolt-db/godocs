@@ -18,7 +18,7 @@ This topic provides an overview on how to load data into Firebolt using the COPY
 
 ```sql
 COPY
-[FROM] <table_name> [ <column_mapping> ] 
+[INTO] <table_name> [ <column_mapping> ] 
 FROM <externalLocation>
 [ WHERE <condition> ]
 [ LIMIT <count> ]
