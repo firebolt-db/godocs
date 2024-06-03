@@ -2,8 +2,8 @@
 layout: default
 title: TIMESTAMP data type
 description: Describes the Firebolt implementation of the `TIMESTAMP` data type
-nav_exclude: false
-search_exclude: false
+nav_exclude: true
+search_exclude: true
 ---
 
 # TIMESTAMP data type

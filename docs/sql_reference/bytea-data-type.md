@@ -2,8 +2,8 @@
 layout: default
 title: BYTEA data type
 description: Describes the Firebolt implementation of the `BYTEA` data type
-nav_exclude: false
-search_exclude: false
+nav_exclude: true
+search_exclude: true
 ---
 
 # BYTEA data type
