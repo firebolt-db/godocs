@@ -23,12 +23,14 @@ LIMIT
 
 Each row has the following columns with information about each query in query history.
 
-| Column Name     | Data Type   | Description                                                                                |
-|:----------------|:------------|:-------------------------------------------------------------------------------------------|
-| engine_cluster  | TEXT        | engine cluster identifier                                                                  |
-| event_time      | TIMESTAMPTZ | timestamp at which the metrics where collected                                             |
-| cpu_used        | DECIMAL     | current CPU utilization (percentage)                                                           |
-| memory_used     | DECIMAL     | current memory used (percentage)                                                           |
-| disk_used       | DECIMAL     | currently used disk space which encompasses space used for cache and spilling (percentage) |
-| cache_hit_ratio | DECIMAL     | current SSD cache hit ratio                                                                |
-| spilled_bytes   | BIGINT      | amount of spilled data to disk in bytes                                                    |
+| Column Name       | Data Type   | Description                                                                                |
+|:------------------|:------------|:-------------------------------------------------------------------------------------------|
+| engine_cluster    | TEXT        | engine cluster identifier                                                                  |
+| event_time        | TIMESTAMPTZ | timestamp at which the metrics where collected                                             |
+| cpu_used          | DECIMAL     | current CPU utilization (percentage)                                                       |
+| memory_used       | DECIMAL     | current memory used (percentage)                                                           |
+| disk_used         | DECIMAL     | currently used disk space which encompasses space used for cache and spilling (percentage) |
+| cache_hit_ratio   | DECIMAL     | current SSD cache hit ratio                                                                |
+| spilled_bytes     | BIGINT      | amount of spilled data to disk in bytes                                                    |
+| running_queries   | BIGINT      | number of currently running queries in the system                                          |
+| suspended_queries | BIGINT      | number of queries that have been suspended (not-running and awaiting to be executed)       |
