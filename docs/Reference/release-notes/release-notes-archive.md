@@ -37,6 +37,13 @@ The `index_of`/`array_position` function now returns INTEGER instead of BIGINT.
 
 The `LIMIT_DISTINCT` syntax is no longer supported by Firebolt. 
 
+<!--- FIR-32252 --->**Updated CAST function behavior**
+
+All cast logic has been moved to runtime in Firebolt. The `castColumn` function is now replaced by `fbCastColumn`, ensuring consistent casting behavior and resolving issues with the `COPY FROM` operation and other cast calls. Uses of implicit/explicit `CAST` may result in errors due to this fix.
+
+  {: .note}
+  New breaking change.
+
 ### Resolved issues
 
 <!--- FIR-31069 --->
