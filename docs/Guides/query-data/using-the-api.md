@@ -64,7 +64,7 @@ To run a query using the API, you must first obtain the url of the engine you wa
 Use the following endpoint to return the system engine URL for `<account name>`. 
 
 ```bash
-curl http://api.app.firebolt.io/web/v3/account/<account name>/engineUrl 
+curl https://api.app.firebolt.io/web/v3/account/<account name>/engineUrl 
 -H 'Accept: application/json' 
 -H 'Authorization: Bearer <access token>'
 ```
