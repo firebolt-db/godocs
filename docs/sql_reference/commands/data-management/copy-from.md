@@ -93,28 +93,6 @@ Non-existing columns:
 By default if a column does not exist in the source file it will produce nulls.
 For CSV format it applies to missing fields as well.
 
-## Examples
-
-### COPY all files under a directory, including all columns in the files
-
-```sql
-COPY public.games FROM 's3://Bucket/directory/';
-```
-
-### COPY with explicit list of columns
-
-```sql
-COPY test_table (c1 DEFAULT 34, c3 $6) FROM 's3://Bucket/directory/' WITH
-    TYPE = CSV CREDENTIALS = '...' QUOTE = DOUBLE_QUOTE;
-```
-
-### COPY without auto-schema discovery
-
-```sql
-COPY test_table FROM 's3://Bucket/directory/' WITH
-    TYPE = PARQUET CREDENTIALS = '...' QUOTE = DOUBLE_QUOTE AUTO_CREATE = FALSE;
-```
-
 `COPY FROM` supports a range of file formats, including:
 
 * `Parquet`
@@ -145,17 +123,215 @@ You can use the `LIMIT` clause to control the amount of data loaded into tables,
 
 `COPY FROM` also supports an `OFFSET` clause, allowing users to skip a specified number of rows in each input file before starting the data load. This is useful when users need to exclude certain initial data entries from being loaded.
 
-## Loading compressed data
-`COPY FROM` supports loading data directly from compressed files, and supports the following compression methods:
+## Examples
 
-* CSV supports GZIP
-* Parquet supports GZIP and Snappy
+### Setup
+Create sample of data in 2 different formats and push it to existing S3 bucket (engine should have write access to this bucket otherwise, credentials need to be provided).
+```sql
+CREATE TABLE sample_table(a int not null, b text not null);
+INSERT INTO sample_table VALUES (1,row1),(2,row2),(3,row3);
 
-Notes:
-Non-existing columns:
-By default if a column does not exist in the source file it will produce nulls.
-For CSV format it applies to missing fields as well.
+COPY (SELECT * FROM sample_table ORDER BY 1)
+TO 's3://bucket_name/data_directory/' TYPE=CSV FILE_NAME_PREFIX='sample'
+INCLUDE_QUERY_ID_IN_FILE_NAME=FALSE SINGLE_FILE=TRUE COMPRESSION=NONE;
 
+COPY (SELECT * FROM sample_table ORDER BY 1)
+TO 's3://bucket_name/data_directory/' TYPE=PARQUET FILE_NAME_PREFIX='sample'
+INCLUDE_QUERY_ID_IN_FILE_NAME=FALSE SINGLE_FILE=TRUE COMPRESSION=NONE;
+```
+
+### Schema and format discovery (target table does not exist)
+```sql
+COPY target_csv_0 FROM 's3://bucket_name/data_directory/sample.csv'
+WITH HEADER=TRUE;
+
+SELECT * FROM target_csv_0 ORDER BY 1;
+```
+
+| a (BIGINT) | b (TEXT) |
+|:-----------|:---------|
+| 1          | row1     |
+| 2          | row2     |
+| 3          | row3     |
+
+### No schema discovery
+Target table exist, read by name, using pattern.
+```sql
+CREATE TABLE target_csv_1 (b text not null, a int not null);
+
+COPY target_csv_1 FROM 's3://bucket_name/data_directory/'
+WITH TYPE=CSV HEADER=TRUE PATTERN='*.csv';
+
+SELECT * FROM target_csv_1 ORDER BY 1;
+```
+
+| b (TEXT) | a (INTEGER) |
+|:---------|:------------|
+| row1     | 1           |
+| row2     | 2           |
+| row3     | 3           |
+
+### Read by name mismatch
+None of the columns [not_a, not_b] exists in csv file so they all get null values.
+```sql
+CREATE TABLE target_csv_2 (not_a int not null, not_b text not null);
+
+COPY target_csv_2 FROM 's3://bucket_name/data_directory/sample.csv'
+WITH HEADER=TRUE MAX_ERRORS_PER_FILE='0%';
+```
+```ignorelang
+ERROR: The INSERT INTO statement failed because it tried to insert a NULL into the column not_a, which is NOT NULL. Please specify a value or redefine the column's logical constraints.
+```
+
+###  Allow errors
+Read by name mismatch results empty.
+```sql
+CREATE TABLE target_csv_2_a (not_a int not null, not_b text not null);
+
+COPY target_csv_2_a FROM 's3://bucket_name/data_directory/sample.csv'
+WITH TYPE=CSV HEADER=TRUE MAX_ERRORS_PER_FILE='100%';
+
+SELECT * FROM target_csv_2_a;
+```
+
+| not_a (INTEGER) | not_b (TEXT) |
+|:----------------|:-------------|
+
+### Insert into nullable columns
+Read by name mismatch, no error allowed, insert null into nullable columns.
+```sql
+CREATE TABLE target_csv_2_b (not_a int null, not_b text null);
+
+COPY target_csv_2_b FROM 's3://bucket_name/data_directory/sample.csv'
+WITH TYPE=CSV HEADER=TRUE MAX_ERRORS_PER_FILE='0%';
+
+SELECT * FROM target_csv_2_b;
+```
+
+| not_a (INTEGER) | not_b (TEXT) |
+|:----------------|:-------------|
+| NULL            | NULL         |
+| NULL            | NULL         |
+| NULL            | NULL         |
+
+
+### No header
+Read the header row (a,b) into the table as a data row.
+```sql
+CREATE TABLE target_csv_3 (not_a int not null, not_b text not null);
+
+COPY target_csv_3 FROM 's3://bucket_name/data_directory/sample.csv'
+WITH TYPE=CSV HEADER=FALSE;
+```
+```ignorelang
+ERROR: Unable to cast text 'a' to integer
+```
+Header row will be sent into error file, and the other data rows will be ingested in sequential order (because `HEADER=FALSE`).
+```sql
+COPY target_csv_3 FROM 's3://bucket_name/data_directory/sample.csv'
+WITH HEADER=FALSE MAX_ERRORS_PER_FILE='100%' error_file='s3://bucket_name/error_directory/';
+
+SELECT * FROM target_csv_3 ORDER BY 1;
+```
+
+| not_a (INTEGER) | not_b (TEXT) |
+|:----------------|:-------------|
+| 1               | row1         |
+| 2               | row2         |
+| 3               | row3         |
+
+Let's view the error reasons file that was generated:
+```sql
+COPY error_reasons_0 FROM 's3://bucket_name/error_directory/' 
+WITH PATTERN='*error_reasons*.csv' HEADER=TRUE;
+
+SELECT * from error_reasons_0;
+```
+
+| file_name (TEXT)          | source_line_num (BIGINT) | error_message (TEXT) |
+|:--------------------------|:-------------------------|:---------------------|
+| data_directory/sample.csv | 1                        | Error while casting  |
+
+Let's view the error reasons file that was generated:
+```sql
+COPY rejected_rows FROM 's3://bucket_name/error_directory/'
+WITH PATTERN='*rejected_rows*.csv' HEADER=FALSE;
+
+SELECT * FROM rejected_rows;
+```
+
+| f0 (TEXT) | f1 (TEXT) |
+|:----------|:----------|
+| a         | b         |
+
+## Column selection
+Source column `a` mapped (inserted) into target column `b`.
+Source column `c` mapped (inserted) into target column `a` with a default value (in case there is any null value).
+Column `c` does not exist, hence it generates nulls that is replaced by the default value `44`.
+```sql
+CREATE TABLE target_csv_4 (a int, b text);
+
+COPY target_csv_4(b a, a default 44 c) FROM 's3://bucket_name/data_directory/sample.csv'
+WITH HEADER=TRUE;
+
+SELECT * FROM target_csv_4 ORDER BY 1;
+```
+
+| a (INTEGER) | b (TEXT) |
+|:------------|:---------|
+| 44          | 1        |
+| 44          | 2        |
+| 44          | 3        |
+
+## Type mismatch error with parquet format
+```sql
+CREATE TABLE target_parquet_1 (a date not null, b text not null);
+
+COPY target_parquet_1 FROM 's3://bucket_name/data_directory/sample.parquet'
+WITH TYPE=PARQUET MAX_ERRORS_PER_FILE='100%' ERROR_FILE='s3://bucket_name/parquet_error_directory/';
+
+SELECT * FROM target_parquet_1;
+```
+
+| a (DATE) | b (TEXT) |
+|:---------|:---------|
+
+Let's view the error reasons:
+```sql
+COPY error_reasons_1 FROM 's3://bucket_name/parquet_error_directory/'
+WITH PATTERN='*error_reasons*.csv' HEADER=TRUE;
+
+SELECT * FROM error_reasons_1;
+```
+
+| file_name (TEXT)              | source_line_num (BIGINT) | error_message (TEXT)                                                      |
+|:------------------------------|:-------------------------|:--------------------------------------------------------------------------|
+| data_directory/sample.parquet | 0                        | Can not assignment cast column a from type integer null to type date null |
+
+There is no rejected rows as this was a file based error.
+```sql
+COPY rejected_rows_1 FROM 's3://bucket_name/parquet_error_directory/'
+WITH PATTERN='*rejected_rows*.csv' HEADER=FALSE;
+```
+```ignorelang
+ERROR: No file found in s3 bucket: local-dev-bucket, pattern: rejected_rows*.csv. check url and object pattern.
+```
+
+### Metadata columns
+```sql
+CREATE TABLE target_csv_5 (a int not null, b text not null);
+
+COPY target_csv_5(a, b $source_file_name) FROM 's3://bucket_name/data_directory/sample.csv'
+WITH TYPE=CSV HEADER=TRUE;
+
+SELECT * FROM target_csv_5 ORDER BY 1;
+```
+
+| a (INTEGER) | b (TEXT)                  |
+|:------------|:--------------------------|
+| 1           | data_directory/sample.csv |
+| 2           | data_directory/sample.csv |
+| 3           | data_directory/sample.csv |
 
 
 
