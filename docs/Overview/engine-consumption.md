@@ -9,7 +9,7 @@ published: true
 # Engine Consumption
 {: .no_toc}
 
-This page provides details on the engine consumption metric, Firebolt Units (FBU).  We provide examples on how to calculate both FBUs available to an engine and the actual FBUs consumed by a running engine. To understand what Firebolt Engines are, visit [Understanding Engine Fundamentals](../Overview/understanding-engine-fundamentals.md).
+This page provides details on the engine consumption metric, Firebolt Units (FBU).  We provide examples on how to calculate both FBUs available to an engine and the actual FBUs consumed by a running engine. To understand what Firebolt Engines are, visit [Understanding Engine Fundamentals](../Overview/engine-fundamentals.md).
 
 For tracking engine consumption, Firebolt uses a metric named Firebolt Units (FBU). The number of FBUs available to an engine is determined by the three attributes of an engine: Node Type, Number of nodes and Number of clusters. Each node type provides a minimum number of FBUs as shown below:
 
