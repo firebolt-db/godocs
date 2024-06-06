@@ -126,7 +126,11 @@ You can use the `LIMIT` clause to control the amount of data loaded into tables,
 ## Examples
 
 ### Setup
+The following examples use a simple dataset that you can create using these simple instructions:
+
 Create sample of data in 2 different formats and push it to existing S3 bucket (engine should have write access to this bucket otherwise, credentials need to be provided).
+
+Create three rows of data with two different data types and push it to an existing S3 bucket (your Firebolt engine should have write access to this bucket, otherwise credentials need to be provided).
 ```sql
 CREATE TABLE sample_table(a int not null, b text not null);
 INSERT INTO sample_table VALUES (1,row1),(2,row2),(3,row3);
@@ -155,7 +159,7 @@ SELECT * FROM target_csv_0 ORDER BY 1;
 | 3          | row3     |
 
 ### No schema discovery
-Target table exist, read by name, using pattern.
+Target table exists, read by name, using pattern.
 ```sql
 CREATE TABLE target_csv_1 (b text not null, a int not null);
 
