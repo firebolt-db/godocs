@@ -122,7 +122,7 @@ A breaking change has been implemented in raising an error on reading a Parquet/
 
 <!--- FIR-333242 --->**Changes to Information Schema EQH and ERQ**
 
-A new schema for [`information_schema.engine_query_history`](../../sql_reference/information-schema/engine-query-history.md) has been introduced. We updated one column for `information_schema.engine_runnning_queries` -->  duration_usec --> duration_us (align with columns that use ms in engine_query_history). This is a breaking change. 
+A new schema for [`information_schema.engine_query_history`](../../sql_reference/information-schema/engine-query-history.md) has been introduced. We updated one column for [`information_schema.engine_runnning_queries`](../../sql_reference/information-schema/engine-running-queries.md) -->  duration_usec --> duration_us (align with columns that use ms in engine_query_history). This is a breaking change. 
 
 ### Resolved issues
 
