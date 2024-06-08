@@ -120,6 +120,10 @@ array_sum(transform(...))
 
 A breaking change has been implemented in raising an error on reading a Parquet/ORC `DATE`/`TIMESTAMP` column if the `EXTERNAL TABLE` expects the column to have type `INT`/`BIGINT`. `DATE`/`TIMESTAMP` cannot be cast to `INT`/`BIGINT`, and external table scans will no longer allow this cast either. You need to explicitly transform the Parquet/ORC `DATE`/`TIMESTAMP` column with `EXTRACT`(`EPOCH FROM` col) to insert it into an `INT`/`BIGINT` column.
 
+<!--- FIR-33242 --->**Changes to Information Schema EQH and ERQ**
+
+A new schema for [`information_schema.engine_query_history`](../../sql_reference/information-schema/engine-query-history.md) has been introduced. We updated one column for `information_schema.engine_runnning_queries` -->  duration_usec --> duration_us (align with columns that use ms in engine_query_history). This is a breaking change. 
+
 ### Resolved issues
 
 <!--- FIR-32432 --->
