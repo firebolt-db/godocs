@@ -81,8 +81,8 @@ Now that you have created the user, you will now assign this user appropriate pe
           },
           {
               "Effect": "Allow",
-              "Action": "s3:PutBucket",
-              "Resource": "arn:aws:s3:::<bucket>"
+              "Action": "s3:PutObject",
+              "Resource": "arn:aws:s3:::<bucket>/*"
           },
           {
               "Effect": "Allow",
