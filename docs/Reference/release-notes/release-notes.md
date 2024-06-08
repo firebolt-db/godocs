@@ -21,19 +21,34 @@ Firebolt might roll out releases in phases. New features and changes may not yet
 **June 2024**
 
 * [Enhancements, changes, and new integrations](#enhancements-changes-and-new-integrations)
-* [Resolved issues](#resolved-issues)
 
 ### Enhancements, changes and new integrations
 
-<!--- FIR-33028 --->**Cast from `ARRAY`(TYPE1 NULL) to `ARRAY`(TYPE2 NOT NULL) leads to logic error**
+<!--- FIR-33028 --->**Array Casting Nullability Update**
 
 Cast to array will no longer support writing nullability of the compound type. 
-Example: a::array(int null) or cast(a as array(int not null)) will now fail, and need to be rewritten as: a::array(int) or cast(a as array(int)). 
+Example: 
+
+```sql
+a::array(int null)
+``` 
+or 
+```sql
+cast(a as array(int not null)) 
+```
+will now fail, and need to be rewritten as: 
+```sql
+a::array(int) 
+``` 
+or 
+```sql
+cast(a as array(int)). 
+```
 
 <!--- FIR-32711 --->**Query Cancelation on HTTP Connection Drop**
 
 DML queries will be canceled on HTTP connection drop, such as `SELECT`. Note that `INSERT` queries will not be canceled. 
 
-<!--- FIR-31795 --->**Aggregating Index with CHECKSUM errors**
+<!--- FIR-31795 --->**New Aggregate Functions: `CHECKSUM` and `hash_agg`**
 
 `CHECKSUM` and `hash_agg` functions are now supported for aggregating indexes. Note that when the `hash_agg` function doesn't receive rows, the result is 0.
