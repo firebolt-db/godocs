@@ -47,6 +47,7 @@ or
 cast(a as array(int)). 
 ```
 
+
 * [Enhancements, changes, and new integrations](#enhancements-changes-and-new-integrations)
 
 ### Enhancements, changes and new integrations
