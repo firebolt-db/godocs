@@ -48,6 +48,7 @@ cast(a as array(int)).
 ```
 
 * [Enhancements, changes, and new integrations](#enhancements-changes-and-new-integrations)
+{: style="color:black;"}
 
 ### Enhancements, changes and new integrations
 {: style="color:black;"}
