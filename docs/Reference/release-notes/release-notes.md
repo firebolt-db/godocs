@@ -20,9 +20,9 @@ Firebolt might roll out releases in phases. New features and changes may not yet
 ## DB version 4.0
 **June 2024**
 
-* [Enhancements, changes, and new integrations](#enhancements-changes-and-new-integrations)
+* [Breaking Changes](#breaking-changes)
 
-### Enhancements, changes and new integrations
+### Breaking Changes {style="color:red"}
 
 <!--- FIR-33028 --->**Array Casting Nullability Update**
 
@@ -44,6 +44,10 @@ or
 ```sql
 cast(a as array(int)). 
 ```
+
+* [Enhancements, changes, and new integrations](#enhancements-changes-and-new-integrations)
+
+### Enhancements, changes and new integrations
 
 <!--- FIR-32711 --->**Query Cancelation on HTTP Connection Drop**
 
