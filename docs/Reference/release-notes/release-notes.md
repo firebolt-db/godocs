@@ -22,7 +22,8 @@ Firebolt might roll out releases in phases. New features and changes may not yet
 
 * [Breaking Changes](#breaking-changes)
 
-### Breaking Changes {style="color:red"}
+### Breaking Changes 
+{: style="color:red;"}
 
 <!--- FIR-33028 --->**Array Casting Nullability Update**
 
