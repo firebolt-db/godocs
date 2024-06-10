@@ -47,7 +47,7 @@ cast(a as array(int)).
 
 <!--- FIR-32711 --->**Query Cancelation on HTTP Connection Drop**
 
-DML queries will be canceled on HTTP connection drop, such as `SELECT`. Note that `INSERT` queries will not be canceled. 
+Going forward, when the network connection between the client and Firebolt is dropped (for example because the Firebolt UI tab was closed or due to network issues), DML queries (INSERT, UPDATE, DELETE, etc) are no longer canceled automatically, but will keep running in the background. You can continue to monitor their progress in `information_schema.engine_running_queries` or cancel them manually using the `cancel query` statement if desired. DQL queries (SELECT) are still canceled automatically on connection drop. 
 
 <!--- FIR-31795 --->**New Aggregate Functions: `CHECKSUM` and `hash_agg`**
 
