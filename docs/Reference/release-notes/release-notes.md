@@ -21,6 +21,7 @@ Firebolt might roll out releases in phases. New features and changes may not yet
 **June 2024**
 
 * [Breaking Changes](#breaking-changes)
+{: style="color:black;"}
 
 ### Breaking Changes 
 {: style="color:red;"}
@@ -49,6 +50,7 @@ cast(a as array(int)).
 * [Enhancements, changes, and new integrations](#enhancements-changes-and-new-integrations)
 
 ### Enhancements, changes and new integrations
+{: style="color:black;"}
 
 <!--- FIR-32711 --->**Query Cancelation on HTTP Connection Drop**
 
