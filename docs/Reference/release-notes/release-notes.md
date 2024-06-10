@@ -21,12 +21,12 @@ Firebolt might roll out releases in phases. New features and changes may not yet
 **June 2024**
 
 * [Breaking Changes](#breaking-changes)
-{: style="color:black;"}
 
 ### Breaking Changes 
 {: style="color:red;"}
 
 <!--- FIR-33028 --->**Array Casting Nullability Update**
+{: style="color:red;"}
 
 Cast to array will no longer support writing nullability of the compound type. 
 Example: 
@@ -48,7 +48,6 @@ cast(a as array(int)).
 ```
 
 * [Enhancements, changes, and new integrations](#enhancements-changes-and-new-integrations)
-{: style="color:black;"}
 
 ### Enhancements, changes and new integrations
 {: style="color:black;"}
