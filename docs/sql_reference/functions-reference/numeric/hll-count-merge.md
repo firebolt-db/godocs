@@ -12,9 +12,9 @@ Merges one or more HLL++ sketches that were previously built using the aggregate
 function [`HLL_COUNT_BUILD`](hll-count-build.md) into a new sketch.
 
 Each sketch must be built on the same type and the same precision.
-Attempts to merge sketches for different types or precision results in an error.
+Attempts to merge sketches for different types or precisions results in an error.
 For example, you cannot merge a sketch built from `INTEGER` data with one built from `TEXT` data,
-or a sketch built with 13 precision and a sketch built with 14 precision.
+or a sketch built with precision 13 and a sketch built with precision 14.
 
 ## Syntax
 
