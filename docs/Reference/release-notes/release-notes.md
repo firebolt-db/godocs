@@ -52,7 +52,7 @@ cast(a as array(int)).
 <!--- FIR-32252 --->**Postgres-compliant Cast**
 {: style="color:red;"}
 
-Casts now behave the same across the product and adhere to the list of supported casts. Some usages of casts (explicit, implicit, or assignment cast) that were previously allowed are no longer supported and now result in errors. For more details, see the documentation [here](https://docs.firebolt.io/godocs/sql_reference/data-types.html#type-conversion).
+Casts now behave the same across the product and adhere to the list of supported casts. Some usages of casts (explicit, implicit, or assignment cast) that were previously allowed are no longer supported and now result in errors. For more details on list of supported casts, see the documentation [here](https://docs.firebolt.io/godocs/sql_reference/data-types.html#type-conversion).
 
 ### Enhancements, changes and new integrations
 {: style="color:black;"}
