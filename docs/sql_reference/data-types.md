@@ -163,3 +163,32 @@ For historic reasons, if you set the setting `standard_conforming_strings` to `f
 ### BYTEA
 
 Represents variable size binary data. A binary string is a sequence of bytes - unlike TEXT, there is no character set. The BYTEA data type is nullable. For more information, see [BYTEA data type](bytea-data-type.md).
+
+## Type Conversion
+
+Values with a given data type can be converted to another data type. There are three contexts in which this happens:
+* *Explicit*: With an explicit invocation of the [CAST](cast.md) function.
+* *Assignment*: Assigning values to a column of the target data type, as happens in the insert statement.
+* *Implicit*: Using a SQL function where none of the available signatures match the argument types. The planner inserts implicit casts.
+
+The following table lists which type conversions are supported and in which context.
+
+"Explicit", "Assignment", and "Implicit" indicate in which type conversion context the conversion operation can be invoked.
+* "Explicit" means only as an explicit cast (using [CAST](cast.md) or :: syntax).
+* "Assignment" means implicitly in assignment to a target column, as well as explicitly.
+* "Implicit" means implicitly in expressions, as well as the other cases.
+
+| From \ To   | UNKNOWN    | INT        | BIGINT     | REAL       | DOUBLE     | TEXT       | BYTEA      | BOOLEAN    | NUMERIC    | ARRAY      | DATE       | TIMESTAMP  | TIMESTAMPTZ |
+|-------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|-------------|
+| **UNKNOWN**     |      | Implicit   | Implicit   | Implicit   | Implicit   | Implicit   | Implicit   | Implicit   | Implicit   | Implicit   | Implicit   | Implicit   | Implicit    |
+| **INT**        | |      | Implicit   | Implicit   | Implicit   | Assignm. | | Explicit   | Implicit   | | | | |
+| **BIGINT**      | | Assignm. |      | Assignm. | Implicit   | Assignm. | | Explicit   | Implicit   | | | | |
+| **REAL**        | | Assignm. | Assignm. |      | Implicit   | Assignm. | | Explicit   | Assignm.   | | | | |
+| **DOUBLE**      | | Assignm. | Assignm. | Assignm. |      | Assignm. | | Explicit   | Assignm.   | | | | |
+| **TEXT**        | | Assignm. | Assignm. | Assignm. | Assignm. |      | Explicit   | Explicit   | Explicit   | Assignm. | Assignm. | Assignm. | Assignm.  |
+| **BYTEA**       | | | | | | Explicit   |      | | | | | | |
+| **BOOLEAN**     | | Explicit   | | | | Assignm. | |      | | | | | |
+| **NUMERIC**     | | Assignm. | Assignm. | Explicit   | Implicit   | Assignm. | | |  Explicit  | | | | |
+| **DATE**        | | | | | | Assignm. | | | | |      | Implicit   | Implicit    |
+| **TIMESTAMP**   | | | | | | Assignm. | | | | | Implicit   |      | Implicit    |
+| **TIMESTAMPTZ** | | | | | | Assignm. | | | | | Implicit   | Implicit   |       |
