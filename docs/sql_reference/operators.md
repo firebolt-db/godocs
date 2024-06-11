@@ -70,14 +70,14 @@ SELECT col_a::BIGINT;
 
 ## Arithmetic (numbers)
 
-| Operator | Operator description                             |Input Data Types | Output Data Types | Example             | Result |
-| :-------- | :------------------------------------------------| :-----------------------------------------------| :------------------ | :------------------- | :------ |
-| +        | addition                                         | INTEGER, BIGINT, NUMERIC, REAL, DOUBLE PRECISION | Corresponding type | `SELECT 2 + 3;`     | 5      |
-| -        | subtraction                                      | INTEGER, BIGINT, NUMERIC, REAL, DOUBLE PRECISION | Corresponding type | `SELECT 2 - 3;`     | -1     |
-| \*       | multiplication                                   | INTEGER, BIGINT, NUMERIC, REAL, DOUBLE PRECISION | Corresponding type | `SELECT 2 * 3;`     | 6      |
-| /        | division (integer division truncates the result) | INTEGER, BIGINT, NUMERIC, REAL, DOUBLE PRECISION | Corresponding type | `SELECT 4 / 2;`     | 2      |
-| %        | modulo (remainder)                               | INTEGER, BIGINT, NUMERIC, REAL, DOUBLE PRECISION | Corresponding type | `SELECT 5 % 4;`     | 1      |
-| ^        | exponentiation                                   | INTEGER, BIGINT, NUMERIC, REAL, DOUBLE PRECISION | DOUBLE PRECISION | `SELECT 2 ^ 3.0;` | 8      |
+| Operator | Operator description                             | Input Data Types                                 | Output Data Types  | Example           | Result |
+| :------- | :----------------------------------------------- | :----------------------------------------------- | :----------------- | :---------------- | :----- |
+| +        | addition                                         | INTEGER, BIGINT, NUMERIC, REAL, DOUBLE PRECISION | Corresponding type | `SELECT 2 + 3;`   | 5      |
+| -        | subtraction                                      | INTEGER, BIGINT, NUMERIC, REAL, DOUBLE PRECISION | Corresponding type | `SELECT 2 - 3;`   | -1     |
+| \*       | multiplication                                   | INTEGER, BIGINT, NUMERIC, REAL, DOUBLE PRECISION | Corresponding type | `SELECT 2 * 3;`   | 6      |
+| /        | division (integer division truncates the result) | INTEGER, BIGINT, NUMERIC, REAL, DOUBLE PRECISION | Corresponding type | `SELECT 4 / 2;`   | 2      |
+| %        | modulo (remainder)                               | INTEGER, BIGINT                                  | Corresponding type | `SELECT 5 % 4;`   | 1      |
+| ^        | exponentiation                                   | INTEGER, BIGINT, NUMERIC, REAL, DOUBLE PRECISION | DOUBLE PRECISION   | `SELECT 2 ^ 3.0;` | 8      |
   
 In arithmetic operations like +, -, *, and / , the result's data type aligns with the most encompassing type of the operands indicated as " Corresponding type" in the table above. For clarity:
 - When both operands are of the same data type (e.g., two INTEGERs or two NUMERICs), the result will also be of that same data type.
