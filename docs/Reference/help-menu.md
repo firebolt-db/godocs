@@ -44,10 +44,10 @@ To create a case:
 4. Fill in the following:
     <br>**Severity** - please choose the severity of your case according to the following severity categories:
 
-    - *Highest*: You are currently experiencing a loss of critical functionality when using Firebolt. For example, your engine is unable to start.
-    - *High*: Your critical functionality is being intermittently impacted. For example, your engine freezes, sometimes.
-    - *Medium*: Your services remain usable, with only non-critical functionality being affected. For example, a certain SQL query is throwing an error.
-    - *Low*: Your operations are running smoothly and are not affected. You might have a question or want to report a minor UI issue.
+    - *Critical*: You are currently experiencing a loss of critical functionality when using Firebolt. For example, your engine is unable to start.
+    - *Urgent*: Your critical functionality is being intermittently impacted. For example, your engine freezes, sometimes.
+    - *Tolerable*: Your services remain usable, with only non-critical functionality being affected. For example, a certain SQL query is throwing an error.
+    - *Question*: Your operations are running smoothly and are not affected. You might have a question or want to report a minor UI issue.
     
     <br>**Engine name** - please fill in the name of the engine where you have experienced the issue.
     <br>**Subject** - try to be as clear and descriptive as possible.
