@@ -29,7 +29,7 @@ Firebolt might roll out releases in phases. New features and changes may not yet
 <!--- FIR-33028 --->**Array Casting Nullability Update**
 {: style="color:red;"}
 
-Cast to array will no longer support writing nullability of the compound type. 
+Cast to array will no longer support specifying nullability of the inner type. 
 Example: 
 
 ```sql
@@ -48,7 +48,10 @@ or
 cast(a as array(int)). 
 ```
 
+<!--- FIR-32252 --->**Postgres-compliant Cast**
+{: style="color:red;"}
 
+Casts now behave the same across the product and adhere to the list of supported casts. Some usages of casts (explicit, implicit, or assignment cast) that were previously allowed are no longer supported and now result in errors. For more details, [visit](https://docs.firebolt.io/godocs/sql_reference/data-types.html#type-conversion).
 
 ### Enhancements, changes and new integrations
 {: style="color:black;"}
