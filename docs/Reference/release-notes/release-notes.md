@@ -48,6 +48,7 @@ or
 cast(a as array(int)). 
 ```
 
+
 <!--- FIR-32252 --->**Postgres-compliant Cast**
 {: style="color:red;"}
 
