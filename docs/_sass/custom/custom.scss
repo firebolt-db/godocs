@@ -93,14 +93,15 @@ $callouts: (
 .site-button {
   display: flex;
   height: 50%;
-  padding: 0;
+  padding: 1rem;
   align-items: center;
   color: #fff;
   font-weight: 600;
   font-size: 8px;
   justify-content: center;
   text-align: center;
-  size: 0.75rem
+  size: 0.75rem;
+  border-radius: 8px
 }
 
 .card {
