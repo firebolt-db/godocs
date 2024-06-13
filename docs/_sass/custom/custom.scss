@@ -67,42 +67,6 @@ $callouts: (
   //
 // Base styles
 //
-.aux-nav-list {
-  display: flex;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  background-color: #F72A30;
-  border-radius: 88px;
-  align-items: center;
-  height: 40px;
-  min-width: 140px;
-  position: relative;
-  top: 10px;
-}
-
-.aux-nav-list-item {
-  display: inline-block;
-  height: 100%;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  text-align: center;
-}
-
-.button {
-  display: flex;
-  height: 50%;
-  padding: 1rem;
-  align-items: center;
-  color: #fff;
-  font-weight: 600;
-  font-size: 8px;
-  justify-content: center;
-  text-align: center;
-  size: 0.75rem;
-  border-radius: 8px
-}
 
 .card {
     flex-direction: column;
