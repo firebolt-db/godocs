@@ -94,48 +94,21 @@ This tutorial uses Firebolt's sample dataset, from the fictional gaming company 
 ### Option 1: Use COPY FROM 
 `COPY FROM` allows you to copy data directly to a Firebolt table. For more information, see [COPY FROM](../sql_reference/commands/data-management/copy-from.md)
 
-#### Step 1: Create a fact table
-In this step, you'll create a Firebolt fact table called `tutorial`, which you use in the next step as the target for a `COPY FROM` command. 
+#### Step 1: Use COPY FROM to ingest data
+You can now use the `COPY FROM` command to copy the data from the S3 bucket into the fact table. During this operation, Firebolt ingests the data from your source into Firebolt.
 
-1. Choose the plus symbol (**+**) next to **Script 1** to create a new script tab, **Script 2**, in the SQL workspace.
+1. Choose the plus symbol (**+**) next to **Script 1** to create a new script tab, **Script 3**, in the SQL workspace.
 2. Copy and paste the query below into the **Script 2** tab.
 
 ```sql
-CREATE FACT TABLE IF NOT EXISTS tutorial (
- LevelID INTEGER,
- GameID INTEGER,
- Level INTEGER,
- Name TEXT,
- LevelType TEXT,
- NextLevel INTEGER NULL,
- MinPointsToPass INTEGER,
- MaxPoints INTEGER, 
- NumberOfLaps INTEGER,
- MaxPlayers INTEGER,
- MinPlayers INTEGER,
- PointsPerLap REAL,
- MusicTrack TEXT,
- SceneDetails TEXT,
- MaxPlayTimeSeconds INTEGER,
- LevelIcon TEXT
-);
-```
-
-#### Step 2: Use COPY FROM to ingest data
-You can now use the `COPY FROM` command to copy the data from the S3 bucket into the fact table. During this operation, Firebolt ingests the data from your source into Firebolt.
-
-1. Choose the plus symbol (**+**) next to **Script 2** to create a new script tab, **Script 3**, in the SQL workspace.
-2. Copy and paste the query below into the **Script 3** tab.
-
-```sql
-COPY INTO tutorial FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/';
+COPY INTO tutorial FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv' WITH HEADER=TRUE;
 ```
 
 {: .note}
 Since we are accessing a publicly accessible datset, you do not need to specify the credentials for this tutorial. 
 
-#### Step 3: Query the ingested data
-To verify that you inserted the data into the table, run a simple `SELECT` query like the one below.
+#### Step 2: Query the ingested data
+To verify that table where created and properly populated, run a simple `SELECT` query like the one below.
 
 ```sql
 SELECT
@@ -186,8 +159,8 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ex_levels (
 URL = 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/'
 
 -- CREDENTIALS = ( AWS_KEY_ID = '******' AWS_SECRET_KEY = '******' )
-OBJECT_PATTERN = 'help_center_assets/firebolt_sample_dataset/levels.csv'
-TYPE = (CSV SKIP_HEADER_ROWS = 1);
+PATTERN = '*levels.csv'
+TYPE = (CSV HEADER = TRUE);
 ```  
 
 {: .note} 

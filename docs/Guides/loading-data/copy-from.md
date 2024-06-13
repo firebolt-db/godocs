@@ -89,7 +89,7 @@ This command specifies that only CSV files in the /year=2022/month=4/ directory 
 Firebolt allows for data filtering using LIMIT and OFFSET clauses, useful for managing data volumes during initial tests or previews:
 
 ```sql
-COPY FROM sample_data
+COPY sample_data
 FROM 's3://data-bucket/large_dataset.csv'
 WITH (TYPE  = 'CSV', HEADER = TRUE, LIMIT = 100)
 ```
@@ -100,7 +100,7 @@ This loads 100 rows and is useful for sampling or testing data loads.
 Firebolt supports loading data from compressed files, enhancing speed and efficiency:
 
 ```sql
-COPY FROM logs
+COPY logs
 FROM 's3://data-bucket/logs.gz'
 WITH (TYPE = 'CSV', COMPRESSION = 'GZIP')
 ```

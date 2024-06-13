@@ -18,5 +18,4 @@ Loading data into Firebolt is described in the [Getting started tutorial](../get
 
 3. Loading data into Firebolt is also performed using external tables. To learn more about how to run the [CREATE EXTERNAL TABLE](../../sql_reference/commands/data-definition/create-external-table.md) command to load your data into Firebolt, see [Work With External Tables](../loading-data/working-with-external-tables.md).
 
-
 <!-- For information about using Apache Airflow to incrementally load data chronologically, see [Incrementally loading data with Airflow](incrementally-loading-data.md). -->

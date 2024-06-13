@@ -34,7 +34,7 @@ Effective aggregating indexes are relatively small compared to the underlying fa
 
 For very large fact tables, an aggregating index may still be quite large. If the index is effective, the savings at query runtime will outweigh the cost of storage. Aggregating indexes also increase compute requirements during data ingestion because Firebolt performs pre-calculations at that time. As with storage, savings at query runtime usually outweigh the ingestion cost.
 
-If your application favors speed of ingestion over speed of analytics queries, be sure to test ingestion with aggregating indexes before production. You can also change the impact of aggregating indexes on ingestion and first-query speed by configuring the engine warmup method. For more information, see [Warmup method](../../Overview/understanding-engine-fundamentals.md#warmup-method).
+If your application favors speed of ingestion over speed of analytics queries, be sure to test ingestion with aggregating indexes before production.
 
 ## How to define an aggregating index
 
