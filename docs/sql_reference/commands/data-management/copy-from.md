@@ -113,12 +113,6 @@ The `COPY FROM` command allows different tables to be loaded simultaneously and 
 ## Automatic Schema Discovery
 You can leverage automatic schema discovery provided by `COPY FROM`  to manage sizable data sources where manual schema definition can be cumbersome and error-prone. For data formats like Parquet and ORC that already include table-level metadata, Firebolt automatically reads this metadata to facilitate the creation of corresponding target tables. For formats where column-level metadata might not be available, such as `CSV` and `JSON`, `COPY FROM` infers column types based on the data content itself. While this process aims to accurately identify data types, it operates on a "best effort" basis, balancing type correctness with practical usability constraints. Additionally, for CSV files that often contain column names in the first line, COPY FROM uses this line as column headers and deduces the column types from the subsequent data, streamlining the initial data loading process significantly. 
 
-```sql
-COPY product_catalog
-FROM 's3://data-bucket/products.parquet'
-WITH (TYPE = 'PARQUET', AUTO_CREATE = TRUE)
-```
-
 ## Handling Bad Data
 `COPY FROM` provides robust mechanisms to identify and isolate bad data during the loading process.
 
