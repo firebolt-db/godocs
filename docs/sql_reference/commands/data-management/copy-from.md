@@ -89,7 +89,7 @@ FROM <externalLocations>
 | `DATE_FORMAT`            | Specify the date format for parsing text into date columns. Will apply only and for all columns that will be ingested to date columns. For supported formats see formats in [TO_DATE](../../functions-reference/date-and-time/to-date.md)                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `TIMESTAMP_FORMAT`       | Specify the timestamp format for parsing text into timestamp columns. Will apply only and for all columns that will be ingested to timestamp columns. For supported formats see formats in [TO_TIMESTAMP](../../functions-reference/date-and-time/to-timestamp.md)                                                                                                                                                                                                                                                                                                                                                                                           |
 
-notes:
+Notes:
 Non-existing columns:
 By default if a column does not exist in the source file it will produce nulls.
 For CSV format it applies to missing fields as well.
@@ -113,8 +113,21 @@ The `COPY FROM` command allows different tables to be loaded simultaneously and 
 ## Automatic Schema Discovery
 You can leverage automatic schema discovery provided by `COPY FROM`  to manage sizable data sources where manual schema definition can be cumbersome and error-prone. For data formats like Parquet and ORC that already include table-level metadata, Firebolt automatically reads this metadata to facilitate the creation of corresponding target tables. For formats where column-level metadata might not be available, such as `CSV` and `JSON`, `COPY FROM` infers column types based on the data content itself. While this process aims to accurately identify data types, it operates on a "best effort" basis, balancing type correctness with practical usability constraints. Additionally, for CSV files that often contain column names in the first line, COPY FROM uses this line as column headers and deduces the column types from the subsequent data, streamlining the initial data loading process significantly. 
 
+```sql
+COPY product_catalog
+FROM 's3://data-bucket/products.parquet'
+WITH (TYPE = 'PARQUET', AUTO_CREATE = TRUE)
+```
+
 ## Handling Bad Data
 `COPY FROM` provides robust mechanisms to identify and isolate bad data during the loading process.
+
+```sql
+COPY sales
+FROM 's3://data-bucket/sales_data.csv'
+WITH (TYPE  = 'CSV', HEADER = TRUE, ERROR_FILE = <externalLocation>, ERROR_FILE_CREDENTIALS = <credentials>, MAX_ERRORS_PER_FILE = 5
+)
+```
 
 ## Handling partitioned data
 `COPY FROM` effectively manages the loading of partitioned data, ensuring that data is inserted into the correct partitions based on predefined rules or schema setups, optimizing query performance and data management.
@@ -123,6 +136,12 @@ You can leverage automatic schema discovery provided by `COPY FROM`  to manage s
 You can use the `LIMIT` clause to control the amount of data loaded into tables, for example when managing data previews and sample loads. 
 
 `COPY FROM` also supports an `OFFSET` clause, allowing users to skip a specified number of rows in each input file before starting the data load. This is useful when users need to exclude certain initial data entries from being loaded.
+
+```sql
+COPY sample_data
+FROM 's3://data-bucket/large_dataset.csv'
+WITH (TYPE  = 'CSV', HEADER = TRUE, LIMIT = 100)
+```
 
 ## Examples
 
@@ -197,11 +216,11 @@ COPY target_csv_2_a FROM 's3://bucket_name/data_directory/sample.csv'
 WITH TYPE=CSV HEADER=TRUE MAX_ERRORS_PER_FILE='100%';
 
 SELECT * FROM target_csv_2_a;
-```
+
 
 | not_a (INTEGER) | not_b (TEXT) |
 |:----------------|:-------------|
-
+```
 ### Insert into nullable columns
 Read by name mismatch, no error allowed, insert null into nullable columns.
 ```sql
@@ -297,10 +316,10 @@ WITH TYPE=PARQUET MAX_ERRORS_PER_FILE='100%' ERROR_FILE='s3://bucket_name/parque
 
 SELECT * FROM target_parquet_1;
 
+
 | a (DATE) | b (TEXT) |
 |:---------|:---------|
 ```
-
 Let's view the error reasons:
 ```sql
 COPY error_reasons_1 FROM 's3://bucket_name/parquet_error_directory/'
