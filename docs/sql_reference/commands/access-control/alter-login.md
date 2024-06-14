@@ -54,8 +54,8 @@ The following command will rename the "alexs@acme.com" login to "alexspotter@acm
 ALTER LOGIN "alexs@acme.com" RENAME TO "alexspotter@acme.com";
 ```
 
-This command will set the user "alexs@acme.com" as an organization admin. 
+This command will link the network policy “my_network_policy” to the "alexs@acme.com" user. 
 
 ```sql
-ALTER LOGIN "alexs@acme.com" SET IS_ORGANIZATION_ADMIN = TRUE;
+ALTER LOGIN "alexs@acme.com" SET NETWORK_POLICY = "my_network_policy";
 ```
