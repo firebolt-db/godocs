@@ -34,7 +34,7 @@ CREATE USER [ IF NOT EXISTS ] <user_name>
 | `<service_account>` | An optional parameter to specify the name of the service account to link the user with. This cannot be used in conjunction with the LOGIN_NAME parameter - a user can be linked to a login OR a service account but not both. |
 | `<database_name>`                      | An optional parameter to define a default database for the user (for future purposes). |
 | `<engine_name>` | An optional parameter to define a default engine for the user (for future purposes). |
-| `<role>` | An optional parameter to define a role for the user. Additional roles can be granted after the user is created. If no role is specified, the user is granted no roles. |
+| `<role_name>` | An optional parameter to define a role for the user. Additional roles can be granted after the user is created. If no role is specified, the user is granted no roles. |
 
 ## Example
 
