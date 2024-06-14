@@ -69,7 +69,8 @@ START ENGINE myengine;
 <br />
 
 **NOTE:** 
-{: style="color:red;"} As noted earlier, when you create an engine via UI, the case of the identifier is preserved, and will be enforced when you use the identifier. For example, if you created an engine named MyEngine via UI, you must enclose the identifier in double quotes when starting the engine via the SQL API. In this example, you must use `START ENGINE` "MyEngine". 
+{: style="color:red;"} 
+As noted earlier, when you create an engine via UI, the case of the identifier is preserved, and will be enforced when you use the identifier. For example, if you created an engine named MyEngine via UI, you must enclose the identifier in double quotes when starting the engine via the SQL API. In this example, you must use `START ENGINE` "MyEngine". 
 
 # Stopping an Engine
 **UI** <br />
