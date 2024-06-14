@@ -296,10 +296,10 @@ COPY target_parquet_1 FROM 's3://bucket_name/data_directory/sample.parquet'
 WITH TYPE=PARQUET MAX_ERRORS_PER_FILE='100%' ERROR_FILE='s3://bucket_name/parquet_error_directory/';
 
 SELECT * FROM target_parquet_1;
-```
 
 | a (DATE) | b (TEXT) |
 |:---------|:---------|
+```
 
 Let's view the error reasons:
 ```sql
