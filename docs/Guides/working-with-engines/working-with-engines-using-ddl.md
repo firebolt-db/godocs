@@ -44,7 +44,7 @@ TYPE="M" NODES=2 CLUSTERS=1;
 <br />
 
 {: .note}
-Creating an engine (or any other Firebolt object) via UI preserves the case of the identifier used. When using an identifier that has uppercase characters, you must enclose the identifier within quotes to preserve the case. For example, if you create an engine named ***MyEngine***, the uppercase letters in this identifier will be retained. When you use the identifier via a SQL command, you must enclose the identifier within quotes - in this case, "MyEngine". For more information on object identifiers, visit the [Object Identifiers](../../Reference/object-identifiers.md) section.
+Creating an engine (or any other Firebolt object) via UI preserves the case of the identifier used. For example, if you create an engine named ***MyEngine***, the uppercase letters in this identifier will be retained. When you use the identifier via a SQL command, to preserve case sensitive behavior you must enclose the identifier within quotes - in this case, "MyEngine". For more information on object identifiers, visit the [Object Identifiers](../../Reference/object-identifiers.md) section.
 
 
 For more details with a full list of attributes and more example, see the [CREATE ENGINE](../../sql_reference/commands/engines/create-engine.md) command.
@@ -67,8 +67,6 @@ START ENGINE myengine;
 ```  
 <br />
 
-{: .note}
-As noted earlier, when you create an engine via UI, the case of the identifier is preserved, and will be enforced when you use the identifier. For example, if you created an engine named MyEngine via UI, you must enclose the identifier in double quotes when starting the engine via the SQL API. In this example, you must use:  START ENGINE "MyEngine". 
 
 # Stopping an Engine
 **UI** <br />
