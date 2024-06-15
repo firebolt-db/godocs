@@ -39,6 +39,11 @@ The following statement creates an engine with one cluster that has two nodes of
 CREATE ENGINE MyEngine WITH
 TYPE="M" NODES=2 CLUSTERS=1;
 ```  
+<br />
+
+{: .note}
+Creating an engine (or any other Firebolt object) via UI preserves the case of the identifier used. For example, if you create an engine named ***MyEngine***, the uppercase letters in this identifier will be retained. When you use the identifier via a SQL command, to preserve case sensitive behavior you must enclose the identifier within quotes - in this case, "MyEngine". For more information on object identifiers, visit the [Object Identifiers](../../Reference/object-identifiers.md) section.
+
 
 For more details with a full list of attributes and more example, see the [CREATE ENGINE](../../sql_reference/commands/engines/create-engine.md) command.
 <br />
@@ -59,6 +64,7 @@ Use the [START ENGINE](../../sql_reference/commands/engines/start-engine.md) com
 START ENGINE MyEngine;
 ```  
 <br />
+
 
 # Stopping an Engine
 **UI** <br />
