@@ -2,7 +2,9 @@
 layout: default
 title: HLL_COUNT_BUILD
 description: Reference material for HLL_COUNT_BUILD
-parent: SQL functions
+great_grand_parent: SQL reference
+grand_parent: SQL functions
+parent: Aggregation functions
 published: true
 ---
 
