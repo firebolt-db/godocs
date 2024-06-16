@@ -9,7 +9,7 @@ published: true
 # HLL_COUNT_BUILD
 
 Counts the approximate number of unique not NULL values, aggregating the values to HLL++ sketches represented as
-the [BYTEA data type](../general-reference/bytea-data-type.md).
+the [BYTEA data type](../../bytea-data-type.md).
 Multiple sketches can be merged to a single sketch using the aggregate function [`HLL_COUNT_MERGE`](hll-count-merge.md).
 To estimate the final distinct count value, the scalar function [`HLL_COUNT_ESTIMATE`](hll-count-estimate.md) can be
 used.
