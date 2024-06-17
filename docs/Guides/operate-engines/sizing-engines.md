@@ -3,7 +3,7 @@ layout: default
 title: Sizing Engines
 description: Learn how to size engines initially and use engine observability to monitor and resize engines
 nav_order: 3
-parent: Work with engines
+parent: Operate engines
 grand_parent: Guides
 ---
 # Sizing Engines

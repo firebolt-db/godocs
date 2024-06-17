@@ -2,7 +2,7 @@
 layout: default
 title: Governing Engines
 description: Learn how to use Role Based Access Control to govern engines
-parent: Work with engines
+parent: Operate engines
 grand_parent: Guides
 ---
 # Governing Engines
