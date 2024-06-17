@@ -9,6 +9,8 @@ grand_parent: Guides
 
 You can create, run, and modify engines from the UI or using SQL API. Scaling operations on engines can be done dynamically without having to stop your engines.
 
+**TIP:** All the engine operations shown below can be performed via a System Engine.
+
 # Create Engines
 **UI** <br /> 
 {: .fs-6}
@@ -30,15 +32,20 @@ Use the [CREATE ENGINE](../../sql_reference/commands/engines/create-engine.md) c
 
 The following statement creates an engine with one cluster that has two nodes of type 'S'.
 ```sql
-CREATE ENGINE MyEngine;
+CREATE ENGINE myengine;
 ```  
 
 The following statement creates an engine with one cluster that has two nodes of type 'M'.
 
 ```sql
-CREATE ENGINE MyEngine WITH
+CREATE ENGINE myengine WITH
 TYPE="M" NODES=2 CLUSTERS=1;
 ```  
+<br />
+
+{: .note}
+Creating an engine (or any other Firebolt object) via UI preserves the case of the identifier used. For example, if you create an engine named ***MyEngine***, the uppercase letters in this identifier will be retained. When you use the identifier via a SQL command, to preserve case sensitive behavior you must enclose the identifier within quotes - in this case, "MyEngine". For more information on object identifiers, visit the [Object Identifiers](../../Reference/object-identifiers.md) section.
+
 
 For more details with a full list of attributes and more example, see the [CREATE ENGINE](../../sql_reference/commands/engines/create-engine.md) command.
 <br />
@@ -56,9 +63,10 @@ Once the engine is started, the engine state will change to "Running".
 Use the [START ENGINE](../../sql_reference/commands/engines/start-engine.md) command as show below:
 
 ```sql
-START ENGINE MyEngine;
+START ENGINE myengine;
 ```  
 <br />
+
 
 # Stopping an Engine
 **UI** <br />
@@ -72,7 +80,7 @@ From the engines list, next to the engine that you want to stop, click the drop-
 Use the [STOP ENGINE](../../sql_reference/commands/engines/stop-engine.md) command as shown below:
 
 ```sql
-STOP ENGINE MyEngine;
+STOP ENGINE myengine;
 ```  
 Note that stopping an engine results in emptying the cache. So, any queries after starting an engine that was previously stopped will have a cold start, resulting in some performance impact till the engine is warmed up again. 
 <br />

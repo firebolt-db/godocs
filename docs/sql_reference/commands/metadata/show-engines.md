@@ -28,7 +28,7 @@ The returned table has the following columns.
 | type                        | TEXT      | The specification of nodes comprising the engine. |
 | clusters                    | INT       | Collection of nodes, where each node is of a certain type. All the clusters in an engine have the same type and same number of nodes. |
 | nodes                       | INT       | The number of nodes for each cluster in an engine. Can be an integer ranging from `1` to `128`. |
-| status                      | TEXT      | The engine status. For more information, see [Viewing and understanding engine status](../../../Overview/understanding-engine-fundamentals.md#viewing-and-understanding-engine-status) |
+| status                      | TEXT      | The engine status. For more information, see [Viewing and understanding engine status](../../../Overview/engine-fundamentals.md#viewing-and-understanding-engine-status) |
 | auto_stop                   | INT       | The amount of idle time (in minutes) after which the engine automatically stops. |
 | url                         | TEXT      | Engine endpoint. |
 | version                     | TEXT      | The engine version. |
