@@ -49,7 +49,7 @@ To create a login via the UI:
 To edit an existing login using SQL, use the [`ALTER LOGIN`](../../sql_reference/commands/access-control/alter-login.md) statement. For example:
 
 ```sql
-ALTER LOGIN "alexs@acme.com" SET IS_ORGANIZATION_ADMIN = true;
+ALTER LOGIN "alexs@acme.com" SET NETWORK_POLICY = my_network_policy
 ```
 
 ### UI

@@ -36,6 +36,7 @@ ALTER SERVICE ACCOUNT <service_account_name> RENAME TO <new_name>;
 | `<service_account_name>`                              | The name of the service account to edit.   |
 | `<description>` | An optional description for the service account. |
 | `<network_policy_name>`                      | An optional parameter to define the network policy to link to the edited service account. Specifying `DEFAULT` will detach any linked network policy. |
+| `IS_ORGANIZATION_ADMIN`       | A `BOOLEAN` value specifying if the service account is an organization admin. By default this value is `FALSE`. |
 | `<new_name>`                              | The new name of the service account. Must start with a letter and may contain only alphanumeric, digit, or underscore(_) characters.  |
 
 ## Example
