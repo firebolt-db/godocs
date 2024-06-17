@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Data management lifecycle
+title: Data management
 description: Explore how Firebolt supports the data management lifecycle
 nav_order: 5
 parent: Overview
 ---
-# Data management lifecycle
+# Data management
 {: .no_toc}
 
 At Firebolt, the focus is on delivering the highest levels of performance and efficiency while minimizing the heavy lift that needs to be done by an end user. The foundational elements of Firebolt provide the full data management capabilities needed by modern data applications, including an optimized storage layer, parallel-pipelined data ingestion, ACID DML, primary and aggregated indexes, streamlined deletes and updates, and core database semantics. 
