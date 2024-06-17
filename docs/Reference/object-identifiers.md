@@ -19,11 +19,19 @@ Firebolt identifiers can refer to the following items:
 
 ## Syntax
 
-Identifiers must adhere to the following syntax:
+Identifiers must contain at least one character, and no more than 255.
 
-1. Contain at least one character, and no more than 255.
-2. The first character must be a letter (a-z) or underscore (_).
-3. After the first character, subsequent characters can be letters, underscores, digits (0-9).
+Unquoted identifiers must adhere to the following syntax:
+
+1. The first character must be a letter (a-z), underscore (_).
+2. After the first character, subsequent characters can be letters, underscores, digits (0-9).
+
+Qouted identifiers can contain any UTF-8 letter of the following:
+
+1. Any letter in any language, as represented by the Unicode regular expression [\p{L}](https://www.unicode.org/reports/tr44/#General_Category_Values).
+2. Any numeric character in any language as represented by the Unicode regular expression [\p{N}](https://www.unicode.org/reports/tr44/#General_Category_Values).
+3. Hyphen or dash, as represented by the Unicode regular expression [\p{Pd}](https://www.unicode.org/reports/tr44/#General_Category_Values).
+4. Underscores, as represented by the Unicode regular expression [\p{Pc}](https://www.unicode.org/reports/tr44/#General_Category_Values).
 
 ## Unquoted identifiers
 
