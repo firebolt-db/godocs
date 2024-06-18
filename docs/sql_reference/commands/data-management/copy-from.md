@@ -119,8 +119,7 @@ You can leverage automatic schema discovery provided by `COPY FROM`  to manage s
 ```sql
 COPY sales
 FROM 's3://data-bucket/sales_data.csv'
-WITH (TYPE  = 'CSV', HEADER = TRUE, ERROR_FILE = <externalLocation>, ERROR_FILE_CREDENTIALS = <credentials>, MAX_ERRORS_PER_FILE = 5
-)
+WITH TYPE = CSV HEADER = TRUE ERROR_FILE = <externalLocation> ERROR_FILE_CREDENTIALS = <credentials> MAX_ERRORS_PER_FILE = 5
 ```
 
 ## Handling partitioned data
@@ -133,8 +132,8 @@ You can use the `LIMIT` clause to control the amount of data loaded into tables,
 
 ```sql
 COPY sample_data
-FROM 's3://data-bucket/large_dataset.csv'
-WITH (TYPE  = 'CSV', HEADER = TRUE, LIMIT = 100)
+FROM 's3://data-bucket/large_dataset.csv' LIMIT 100 OFFSET 10
+WITH TYPE = CSV HEADER = TRUE
 ```
 
 ## Examples
@@ -309,11 +308,11 @@ COPY target_parquet_1 FROM 's3://bucket_name/data_directory/sample.parquet'
 WITH TYPE=PARQUET MAX_ERRORS_PER_FILE='100%' ERROR_FILE='s3://bucket_name/parquet_error_directory/';
 
 SELECT * FROM target_parquet_1;
-
+```
 
 | a (DATE) | b (TEXT) |
 |:---------|:---------|
-```
+
 Let's view the error reasons:
 ```sql
 COPY error_reasons_1 FROM 's3://bucket_name/parquet_error_directory/'
