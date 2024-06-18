@@ -75,7 +75,7 @@ curl https://api.app.firebolt.io/web/v3/account/<account name>/engineUrl \
 
 ```json
 {
-  "engineUrl":"<account_id>.api.us-east-1.app.firebolt.io"
+  "engineUrl":"<prefix>.api.us-east-1.app.firebolt.io"
 }
 ```
 
@@ -84,7 +84,7 @@ curl https://api.app.firebolt.io/web/v3/account/<account name>/engineUrl \
 Use the following endpoint to run a query on the system engine:  
 
 ```bash
-curl --location 'https://<system engine URL>/query' \
+curl --location 'https://<system engine URL>' \
 --header 'Authorization: Bearer <access token>' \
 --data '<SQL query>'
 ```
@@ -105,15 +105,15 @@ Get a user engine url by running the following query against the `information_sc
 ```sql
 SELECT url 
 FROM information_schema.engines 
-WHERE engine_name=<engine_name>
+WHERE engine_name='<engine_name>'
 ```
 
 You can run the query on the system engine using the API with the following request: 
 
 ```bash
-curl --location 'https://<system_engine_URL>/query' \
+curl --location 'https://<system engine URL>/query' \
 --header 'Authorization: Bearer <access token>' \
---data 'SELECT * FROM information_schema.engines WHERE engine_name=my_engine'
+--data 'SELECT * FROM information_schema.engines WHERE engine_name='\''my_engine'\'''
 ```
 
 ## Execute a query on a user engine
@@ -121,7 +121,7 @@ curl --location 'https://<system_engine_URL>/query' \
 Use the following endpoint to run a query on a user engine:
 
 ```bash
-curl --location 'https://{user engine URL}/query?database={database name}' \
+curl --location 'https://<user engine URL>&database=<database name>' \
 --header 'Authorization: Bearer <access token>' \
 --data '<SQL query>'
 ```
