@@ -23,8 +23,7 @@ or a sketch built with precision 13 and a sketch built with precision 14.
 {: .no_toc}
 
 ```sql
-HLL_COUNT_MERGE
-( <expression> )
+HLL_COUNT_MERGE(<expression>)
 ```
 
 ## Parameters
