@@ -194,7 +194,7 @@ SELECT
   
 ## UNNEST
 
-You might want to transform a nested array structure to a standard tabular format. `UNNEST` serves these purposes.
+You might want to transform a nested array structure to a standard tabular format. `UNNEST` serves this purpose.
 
 [UNNEST](../../sql_reference/commands/queries/select.md#unnest) is a table-valued function (TVF) that transform an input row containing an array into a set of rows. `UNNEST` unfolds the elements of the array and duplicates all other columns found in the `SELECT` clause for each array element.
 
@@ -268,7 +268,7 @@ SELECT
 FROM
     visits,
     UNNEST(agent_props_keys as a_keys) as r1(a_key),
-    UNNEST(agent_props_vals as a_vals) as r2(a_val)
+    UNNEST(agent_props_vals as a_vals) as r2(a_val);
 ```
 
 **Returns**:
