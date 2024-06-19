@@ -194,11 +194,11 @@ SELECT
   
 ## UNNEST
 
-You might want to transform a nested array structure to a standard tabular format so that you can expose views to BI tools that can't handle Firebolt array syntax, or you might find the tabular format more natural to query using standard SQL idioms. `UNNEST` serves these purposes.
+You might want to transform a nested array structure to a standard tabular format. `UNNEST` serves these purposes.
 
-[UNNEST](../../sql_reference/commands/queries/select.md#unnest) is part of the [FROM](../../sql_reference/commands/queries/select.md#from) clause and resembles a [JOIN](../../sql_reference/commands/queries/select.md#join). Given an `ARRAY`-typed column, `UNNEST` unfolds the elements of the array and duplicates all other columns found in the `SELECT` clause for each array element.
+[UNNEST](../../sql_reference/commands/queries/select.md#unnest) is a table-valued function (TVF) that transform an input row containing an array into a set of rows. `UNNEST` unfolds the elements of the array and duplicates all other columns found in the `SELECT` clause for each array element.
 
-A single `UNNEST` acts similarly to `JOIN`. You can use a single `UNNEST` command to unnest several arrays if the arrays are the same length.
+You can use a single `UNNEST` command to unnest several arrays if the arrays are the same length.
 
 Multiple `UNNEST` statements in a single `FROM` clause result in a Cartesian product. Each element in the first array has a record in the result set corresponding to each element in the second array.
 
@@ -208,17 +208,18 @@ The following example unnests the `tags` column from the `visits` table.
 
 ```sql
 SELECT 
-  id, 
-  tags
-FROM visits,
-  UNNEST(tags);
+    id, 
+    tag
+FROM 
+    visits,
+    UNNEST(tags) as r(tag);
 ```
 
 **Returns**:
 
 ```
 +----+---------------+
-| id |     tags      |
+| id |     tag      |
 +----+---------------+
 |  1 | "summer-sale" |
 |  1 | "sports"      |
@@ -234,19 +235,18 @@ The following query specifies both the `agent_props_keys` and `agent_props_vals`
 ```sql
 SELECT
     id,
-    a_keys,
-    a_vals
+    a_key,
+    a_val
 FROM
     visits,
-    UNNEST(agent_props_keys as a_keys,
-           agent_props_vals as a_vals)
+    UNNEST(agent_props_keys, agent_props_vals) as r(a_key, a_val);
 ```
 
 **Returns**:
 
 ```
 +----+------------+------------------+
-| id | a_keys     | a_vals           |
+| id | a_key     | a_val           |
 +----+------------+------------------+
 | 1  | agent      | “Mozilla/5.0”    |
 | 1  | platform   | “Windows NT 6.1” |
@@ -263,19 +263,19 @@ The following query, while valid, creates a Cartesian product.
 ```sql
 SELECT
     id,
-    a_keys,
-    a_vals
+    a_key,
+    a_val
 FROM
     visits,
-UNNEST(agent_props_keys as a_keys),
-UNNEST(agent_props_vals as a_vals)
+    UNNEST(agent_props_keys as a_keys) as r1(a_key),
+    UNNEST(agent_props_vals as a_vals) as r2(a_val)
 ```
 
 **Returns**:
 
 ```
 +-----+------------+------------------+
-| INTEGER | a_keys     |   a_values       |
+| INTEGER | a_key     |   a_val       |
 +-----+------------+------------------+
 |   1 | agent      | "Mozilla/5.0"    |
 |   1 | agent      | "Windows NT 6.1" |
@@ -300,11 +300,11 @@ The following query is **invalid** and will result in an error as the `tags` and
 ```sql
 SELECT
     id,
-    tags,
-    a_keys
+    tag,
+    a_key
 FROM
     visits,
-    UNNEST(tags, agent_props_keys as a_keys)
+    UNNEST(tags, agent_props_keys) as r(tag, a_key);
 ```
 
 ## ARRAY input and output syntax
