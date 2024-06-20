@@ -26,7 +26,7 @@ Firebolt might roll out releases in phases. New features and changes may not yet
 ### Enhancements, changes and new integrations
 {: style="color:black;"}
 
-<!--- FIR-32411 --->**Removing `connect` and `modify account` Privileges**
+<!--- FIR-32411 --->**Removed `connect` and `modify account` Privileges**
 
 Removed `connect` and `modify account` privileges from object_privileges and the code base to reduce confusion. They will no longer appear for new accounts. 
 
