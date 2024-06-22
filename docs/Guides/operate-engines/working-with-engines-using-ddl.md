@@ -6,6 +6,7 @@ nav_order: 2
 parent: Operate engines
 grand_parent: Guides
 ---
+# Work with engines using DDL
 
 You can create, run, and modify engines from the UI or using SQL API. Scaling operations on engines can be done dynamically without having to stop your engines. 
 
