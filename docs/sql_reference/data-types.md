@@ -72,6 +72,14 @@ For example, the following three queries will create tables with the same nullab
 
   You can also specify that an array be NOT NULL, but you must then use the `ARRAY(<data-type> NOT NULL)` syntax.
 
+You can access a specific array element with an array subscript expression: `array_value[index]`.
+The supplied index must be of type `INT` or `BIGINT`.
+An array of n elements starts with `array_value[1]` and ends with `array_value[n]`.
+Array subscript expressions:
+* raise an error if the subscript expression evaluates to a negative number or 0,
+* return NULL if the array is NULL, or if the subscript expression evaluates to NULL or an index larger than the size of the array,
+* return the specific element of the array for subscript expressions evaluating to a number in the range [1, array_size].
+
 #### Example
 {: .no_toc}
 

@@ -2,7 +2,9 @@
 layout: default
 title: HLL_COUNT_MERGE
 description: Reference material for HLL_COUNT_MERGE
-parent: SQL functions
+great_grand_parent: SQL reference
+grand_parent: SQL functions
+parent: Aggregation functions
 published: true
 ---
 
@@ -21,8 +23,7 @@ or a sketch built with precision 13 and a sketch built with precision 14.
 {: .no_toc}
 
 ```sql
-HLL_COUNT_MERGE
-( <expression> )
+HLL_COUNT_MERGE(<expression>)
 ```
 
 ## Parameters

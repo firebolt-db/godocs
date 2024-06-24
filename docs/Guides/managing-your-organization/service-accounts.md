@@ -37,6 +37,7 @@ To create a service account via the UI:
 4. Optionally, you can:
   - Choose a **network policy** to apply from the list of existing [network policies](../security/network-policies.md) configured for your organization. 
   - Specify a description for the service account.
+  - Set the service account as organisation admin, which enables fully managing the organization.
 5. Choose **Create**. 
 
 ## Generating a secret for a service account
@@ -104,10 +105,6 @@ To edit a service account using SQL, use the [`ALTER SERVICE ACCOUNT`](../../sql
 
 ```sql
 ALTER SERVICE ACCOUNT sa1 SET NETWORK_POLICY = my_network_policy
-```
-or: 
-```sql
-ALTER SERVICE ACCOUNT sa1 SET IS_ORGANIZATION_ADMIN = true
 ```
 
 ### UI 

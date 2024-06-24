@@ -20,13 +20,13 @@ MOD(<value_n>,<value_d>)
 ## Parameters 
 {: .no_toc}
 
-| Parameter | Description                               | Supported input types | 
-| :--------- | :----------------------------------------- |:--------| 
-| `<value_n>`   | The numerator of the division equation   | `DOUBLE PRECISION` |
-| `<value_d>`   | The denominator of the division equation | `DOUBLE PRECISION` |
+| Parameter   | Description                              | Supported input types |
+| :---------- | :--------------------------------------- | :-------------------- |
+| `<value_n>` | The numerator of the division equation   | `INT`, `BIGINT`       |
+| `<value_d>` | The denominator of the division equation | `INT`, `BIGINT`       |
 
 ## Return Type
-`DOUBLE PRECISION` 
+`BIGINT` if one of the inputs is `BIGINT`. `INT`, otherwise.
 
 ## Example
 {: .no_toc}

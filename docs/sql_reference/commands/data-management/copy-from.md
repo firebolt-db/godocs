@@ -89,7 +89,7 @@ FROM <externalLocations>
 | `DATE_FORMAT`            | Specify the date format for parsing text into date columns. Will apply only and for all columns that will be ingested to date columns. For supported formats see formats in [TO_DATE](../../functions-reference/date-and-time/to-date.md)                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `TIMESTAMP_FORMAT`       | Specify the timestamp format for parsing text into timestamp columns. Will apply only and for all columns that will be ingested to timestamp columns. For supported formats see formats in [TO_TIMESTAMP](../../functions-reference/date-and-time/to-timestamp.md)                                                                                                                                                                                                                                                                                                                                                                                           |
 
-notes:
+Notes:
 Non-existing columns:
 By default if a column does not exist in the source file it will produce nulls.
 For CSV format it applies to missing fields as well.
@@ -116,6 +116,12 @@ You can leverage automatic schema discovery provided by `COPY FROM`  to manage s
 ## Handling Bad Data
 `COPY FROM` provides robust mechanisms to identify and isolate bad data during the loading process.
 
+```sql
+COPY sales
+FROM 's3://data-bucket/sales_data.csv'
+WITH TYPE = CSV HEADER = TRUE ERROR_FILE = <externalLocation> ERROR_FILE_CREDENTIALS = <credentials> MAX_ERRORS_PER_FILE = 5
+```
+
 ## Handling partitioned data
 `COPY FROM` effectively manages the loading of partitioned data, ensuring that data is inserted into the correct partitions based on predefined rules or schema setups, optimizing query performance and data management.
 
@@ -123,6 +129,12 @@ You can leverage automatic schema discovery provided by `COPY FROM`  to manage s
 You can use the `LIMIT` clause to control the amount of data loaded into tables, for example when managing data previews and sample loads. 
 
 `COPY FROM` also supports an `OFFSET` clause, allowing users to skip a specified number of rows in each input file before starting the data load. This is useful when users need to exclude certain initial data entries from being loaded.
+
+```sql
+COPY sample_data
+FROM 's3://data-bucket/large_dataset.csv' LIMIT 100 OFFSET 10
+WITH TYPE = CSV HEADER = TRUE
+```
 
 ## Examples
 
@@ -197,11 +209,11 @@ COPY target_csv_2_a FROM 's3://bucket_name/data_directory/sample.csv'
 WITH TYPE=CSV HEADER=TRUE MAX_ERRORS_PER_FILE='100%';
 
 SELECT * FROM target_csv_2_a;
-```
+
 
 | not_a (INTEGER) | not_b (TEXT) |
 |:----------------|:-------------|
-
+```
 ### Insert into nullable columns
 Read by name mismatch, no error allowed, insert null into nullable columns.
 ```sql
