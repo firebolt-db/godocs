@@ -5,7 +5,7 @@ description: Reference material for LAG function
 grand_parent: SQL functions
 parent: Window functions
 great_grand_parent: SQL reference
-published: false
+published: true
 ---
 
 # LAG
@@ -36,21 +36,21 @@ LAG ( <expression> [, <offset> [, <default> ]] )
 ## Example
 {: .no_toc}
 
-In the example below, the `LAG `function is being used to find the players in each level who ranked above and below a certain player. In some cases, if the player has no one ranked above or below them, the `LAG `function returns `NULL`.
+In the example below, the `LAG` function is being used to find the players in each level who ranked above and below a certain player. In some cases, if the player has no one ranked above or below them, the `LAG` function returns `NULL`.
 
 ```sql
 SELECT
 	nickname,
 	level,
-	LAG(nickname, 1) OVER (PARTITION BY level ORDER BY nickname ) AS rank_above,
-	LAG(first_name, -1) OVER (PARTITION BY level ORDER BY first_name ) AS rank below
+	LAG(nickname, 1) OVER (PARTITION BY level ORDER BY nickname) AS player_above,
+	LAG(first_name, -1) OVER (PARTITION BY level ORDER BY first_name) AS player_below
 FROM
 	players;
 ```
 
 **Returns**:
 
-| nickname | level | rank_above | rank_below |
+| nickname | level | player_above | player_below |
 |:----------|:-------------|:-------------|:--------------|
 | kennethpark      |           9 | NULL        | rileyjon     |
 | rileyjon   |           9 | kennethpark       | sabrina21         |

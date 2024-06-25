@@ -5,7 +5,7 @@ description: Reference material for LEAD function
 grand_parent: SQL functions
 parent: Window functions
 great_grand_parent: SQL reference
-published: false
+published: true
 ---
 
 # LEAD
@@ -18,7 +18,7 @@ For more information on usage, please refer to [Window Functions](./index.md).
 {: .no_toc}
 
 ```sql
-LEAD ( <expression> [, <offset> [, <default> ] )
+LEAD ( <expression> [, <offset> [, <default> ]] )
     OVER ( [ PARTITION BY <partition_by> ] ORDER BY <order_by> [ { ASC | DESC } ] )
 ```
 
@@ -36,21 +36,21 @@ LEAD ( <expression> [, <offset> [, <default> ] )
 ## Example
 {: .no_toc}
 
-In the example below, the `LAG `function is being used to find the players in each level who ranked above and below a certain player. In some cases, if the player has no one ranked above or below them, the `LEAD` function returns `NULL`.
+In the example below, the `LEAD` function is being used to find the players in each level who ranked above and below a certain player. In some cases, if the player has no one ranked above or below them, the `LEAD` function returns `NULL`.
 
 ```sql
 SELECT
 	nickname,
 	level,
-	LEAD(nickname, -1) OVER (PARTITION BY level ORDER BY nickname ) AS rank_above,
-	LEAD(nickname, 1) OVER (PARTITION BY level ORDER BY nickname ) AS rank_below
+	LEAD(nickname, -1) OVER (PARTITION BY level ORDER BY nickname) AS player_below,
+	LEAD(nickname, 1) OVER (PARTITION BY level ORDER BY nickname) AS player_above
 FROM
 	players;
 ```
 
 **Returns**:
 
-| nickname | level | rank_above | rank_below |
+| nickname | level | player_below | player_above |
 |:----------|:-------------|:-------------|:--------------|
 | kennethpark      |           9 | NULL        | rileyjon     |
 | rileyjon   |           9 | kennethpark       | sabrina21         |
