@@ -56,5 +56,4 @@ WHERE grade_level=9;
 | sabrina21      |         85 |                 0.2 |
 | rileyjon      |         80 |                 0.4 |
 | ymatthews       |         79 |                 0.6 |
-```
 
