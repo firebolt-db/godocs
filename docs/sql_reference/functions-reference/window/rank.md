@@ -41,17 +41,17 @@ SELECT
 	nickname,
 	level,
 	current_score,
-	RANK() OVER (PARTITION BY level ORDER BY current_score DESC ) AS rank_in_level
+	RANK() OVER (PARTITION BY level ORDER BY current_score DESC ) AS rank_in_game
 FROM
 	players;
 ```
 
 **Returns**:
 
-| first_name | level | current_score | rank_in_level |
+| first_name | grade_level | test_score | rank_in_class |
 |:-----------|:------------|:-----------|:--------------|
-| kennethpark      |           9 |         76 |             4 |
-| burchdenise      |          12 |         89 |             2 |
-| ymatthews       |          9 |         76 |             4 |
+| kennethpark      |           9 |         76 |             6 |
+| burchdenise      |          12 |         89 |             5 |
+| ymatthews       |          11 |         75 |             3 |
 | sabrina21    |          10 |         78 |             3 |
 
