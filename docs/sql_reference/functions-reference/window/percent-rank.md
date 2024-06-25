@@ -50,7 +50,6 @@ WHERE grade_level=9;
 
 **Returns**:
 
-```sql
 | nickname | current_score |    percent_rank     |
 |:------------|:------------|:---------------------|
 | kennethpark   |         90 |                   0 |
