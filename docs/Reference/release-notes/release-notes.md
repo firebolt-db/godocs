@@ -20,15 +20,7 @@ Firebolt might roll out releases in phases. New features and changes may not yet
 ## DB version 4.1
 **June 2024**
 
-* [Enhancements, changes, and new integrations](#enhancements-changes-and-new-integrations)
 * [Resolved issues](#resolved-issues)
-
-### Enhancements, changes and new integrations
-{: style="color:black;"}
-
-<!--- FIR-32411 --->**Removed `connect` and `modify account` Privileges**
-
-Removed `connect` and `modify account` privileges from object_privileges and the code base to reduce confusion. They will no longer appear for new accounts. 
 
 ### Resolved issues
 
