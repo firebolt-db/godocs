@@ -28,9 +28,10 @@ LEAD ( <expression> [, <offset> [, <default> ]] )
 | Parameter | Description                                      | Supported input types | 
 | :--------- | :------------------------------------------------ | :------------| 
 | `<expression>`     | Any valid expression that will be returned based on the `<offset>.`                                                    | Any |
-| `<partition_by>`    | The expression used for the `PARTITION BY` clause.                                                                           | Any |
 | `<offset>`  | The number of rows forward from the current row from which to obtain a value.  |	`INTEGER` |
-| `<default>` | The expression to return when the offset goes out of the bounds of the window. Supports any expression whose type is compatible with expression. The default is `NULL`. |	`INTEGER` |
+| `<default>` | The expression to return when the offset goes out of the bounds of the window. Must be a literal of the same type as `<expression>`. The default is `NULL`. | Any |
+| `<partition_by>`    | The expression used for the `PARTITION BY` clause.                                                                           | Any |
+| `<order_by>` | An expression used for the `ORDER BY` clause. | Any |
 
 
 ## Example
