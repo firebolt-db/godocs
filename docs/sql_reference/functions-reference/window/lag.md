@@ -5,7 +5,7 @@ description: Reference material for LAG function
 grand_parent: SQL functions
 parent: Window functions
 great_grand_parent: SQL reference
-published: false
+published: true
 ---
 
 # LAG
@@ -27,30 +27,30 @@ LAG ( <expression> [, <offset> [, <default> ]] )
 
 | Parameter | Description                                      | Supported input types | 
 | :--------- | :------------------------------------------------ | :------------| 
-| `<value>`     | Any valid expression that will be returned based on the `<offset>.`                                                    | Any |
+| `<expression>`     | Any valid expression that will be returned based on the `<offset>.`                                                    | Any |
+| `<offset>`  | The number of rows backward from the current row from which to obtain a value. A negative number will act as `LEAD()`. Must be a literal `INTEGER`.       | 	`INTEGER` |
+| `<default>` | The expression to return when the offset goes out of the bounds of the window. Must be a literal of the same type as `<expression>`. The default is `NULL`. | Any |
 | `<partition_by>`    | The expression used for the `PARTITION BY` clause.                                                                           | Any |
-| `<offset>`  | The number of rows backward from the current row from which to obtain a value. A negative number will act as `LEAD()`        | 	`INTEGER` |
-| `<default>` | The expression to return when the offset goes out of the bounds of the window. Must be a literal `INTEGER`. The default is `NULL`. | `INTEGER` |
-| `<order_by>` | An expression used for the order by clause. | Any |
+| `<order_by>` | An expression used for the `ORDER BY` clause. | Any |
 
 ## Example
 {: .no_toc}
 
-In the example below, the `LAG `function is being used to find the players in each level who ranked above and below a certain player. In some cases, if the player has no one ranked above or below them, the `LAG `function returns `NULL`.
+In the example below, the `LAG` function is being used to find the players in each level who ranked before and after a certain player. In some cases, if the player has no one ranked before or after them, the `LAG` function returns `NULL`.
 
 ```sql
 SELECT
 	nickname,
 	level,
-	LAG(nickname, 1) OVER (PARTITION BY level ORDER BY nickname ) AS rank_above,
-	LAG(first_name, -1) OVER (PARTITION BY level ORDER BY first_name ) AS rank below
+	LAG(nickname, 1) OVER (PARTITION BY level ORDER BY nickname) AS player_before,
+	LAG(first_name, -1) OVER (PARTITION BY level ORDER BY nickname) AS player_after
 FROM
 	players;
 ```
 
 **Returns**:
 
-| nickname | level | rank_above | rank_below |
+| nickname | level | player_before | player_after |
 |:----------|:-------------|:-------------|:--------------|
 | kennethpark      |           9 | NULL        | rileyjon     |
 | rileyjon   |           9 | kennethpark       | sabrina21         |
