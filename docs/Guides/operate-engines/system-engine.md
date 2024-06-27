@@ -2,6 +2,7 @@
 layout: default
 title: System Engine
 description: System engine documentation
+nav_order: 4
 parent: Work with engines
 grand_parent: Guides
 ---
