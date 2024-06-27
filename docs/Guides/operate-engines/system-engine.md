@@ -3,7 +3,7 @@ layout: default
 title: System Engine
 description: System engine documentation
 nav_order: 4
-parent: Work with engines
+parent: Operate Engines
 grand_parent: Guides
 ---
 
