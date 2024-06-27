@@ -3,7 +3,7 @@ layout: default
 title: Work with engines using DDL
 description: Learn how to create, modify and run Firebolt engines.
 nav_order: 2
-parent: Operate engines
+parent: Operate Engines
 grand_parent: Guides
 ---
 # Work with engines using DDL
