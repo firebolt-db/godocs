@@ -24,7 +24,7 @@ For those seeking a more interactive learning experience, we invite you to join 
 
 <img src="../assets/images/Verified.png" alt="Verified" width="500"/>
 
-3. Type in your email and password and click 'Log In'
+3. Type in your email and password and click 'Log In'.
 4. Optionally, you can rename your account if you choose. 
 
 And that's it! You're ready to get started with Firebolt. 
