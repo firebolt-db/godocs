@@ -18,7 +18,9 @@ For those seeking a more interactive learning experience, we invite you to join 
 ## Create a Firebolt Account
 1. Select 'Get Started' after completing the registration form at [go.firebolt.io](go.firebolt.io)
 <img src="../assets/images/GetStarted.png" alt="Get Started" width="500"/>
-2. Select 'Verify' on the confirmation email you recieve. You should see a verified screen.
+
+2. Select 'Verify' on the confirmation email you receive. You should see a verified screen.
+
 <img src="../assets/images/Verified.png" alt="Verified" width="500"/>
 3. Type in your email and password and click 'Log In'.
 4. Optionally, you can rename your account if you choose. 
