@@ -20,7 +20,7 @@ For those seeking a more interactive learning experience, we invite you to join 
 
 <img src="../assets/images/GetStarted.png" alt="Get Started" width="500"/>
 
-2. Select 'Verify' on the confirmation email you recieve. You should see a verified screen.
+2. Select 'Verify' on the confirmation email you receive. You should see a verified screen.
 
 <img src="../assets/images/Verified.png" alt="Verified" width="500"/>
 
