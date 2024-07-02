@@ -139,6 +139,8 @@ For a full list of available permissions, see [role-based access control](../Gui
 
 Any permission that Firebolt supports can be granted (or revoked) to (or from) roles. Firebolt supports standard SQL constructs ([GRANT](../sql_reference/commands/access-control/grant.md) and [REVOKE](../sql_reference/commands/access-control/revoke.md)). 
 
+{: .no_toc}
+
 {: .note}
 Privileges can only be granted to (and revoked from) roles - roles can then be granted to users to give the access those permissions provide.
 
