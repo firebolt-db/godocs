@@ -36,6 +36,9 @@ A user with either the `account_admin` or `security_admin` role can create custo
 ## Permissions
 A set of permissions can be granted for every securable object. See which permissions are available for accounts, databases and engines below. To view all permissions, query the [information_schema.object_privileges](../../sql_reference/information-schema/object-privileges.md) view. 
 
+## Ownership
+When a user creates an object, they become its owner. The owner of an object can do anything with the object, even when the privileges required for an operation aren't granted to one of the user's roles. See [Ownership](./ownership.md) for more information
+
 ### Account
 Permissions can be granted for accounts to allow creating databases and engines.
 
