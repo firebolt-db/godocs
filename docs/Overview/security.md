@@ -36,6 +36,7 @@ DESCRIPTION = 'my new network policy'
 
 Once created, a network policy can be attached to [an organization](../Guides/managing-your-organization/creating-an-organization.md), or to an individual login and/or service account. 
 
+{: .no_toc}
 #### Example
 
 ```sql
@@ -50,15 +51,15 @@ For more information, see [network policies](../Guides/security/network-policies
 Identity management is a multi-step verification process that is used to ensure that only the right people, services, and applications can get access to organizational resources. Identity management includes user identification and authentication. To strengthen security, many organizations also require [multi-factor authentication (MFA)](../Guides/security/enabling-mfa.md) as an additional  security measure, requiring users to provide two or more forms of identification before authenticating. Firebolt also supports [Single Sign-On (SSO)](../Guides/security/sso/sso.md). SSO simplifies the user authentication process and increases access management security by allowing users to log in to multiple applications and services using a single set of credentials.
 
 Auth0 is used as the identity provider for customer registration, and the authentication data is stored in Auth0 using industry-standard cryptography. Authentication information is exchanged using SAML 2.0 protocol.
-
+{: .no_toc}
 ### Single Sign-On (SSO)
 
 Firebolt uses SSO to simplify and streamline implementation, enhance security posture, and fortify defenses against unauthorized access and data breach. SSO configuration is accessible to those with the org_account built-in role.
-
+{: .no_toc}
 ### Multi-Factor Authentication (MFA)
 
 Multi-factor authentication (MFA) adds an extra layer of security by requiring users to provide multiple forms of authentication to access an account. Many industries have specific compliance and regulatory requirements that mandate the use of MFA for certain types of data or systems — Firebolt fully supports these requirements with MFA configuration and implementation that is tied to the login object.
-
+{: .no_toc}
 #### Example
 
 ```sql
@@ -68,7 +69,7 @@ LAST_NAME = 'Peterson'
 IS_PASSWORD_ENABLED = TRUE
 IS_MFA_ENABLED = TRUE;
 ```
-
+{: .no_toc}
 ## Access control
 
 Access control ensures that the user has appropriate permissions to engage with the system or resources they attempt to use. At Firebolt, [role-based access control (RBAC)](../Guides/security/rbac.md) mechanisms are implemented for these purposes. In addition to supporting built-in roles, custom or user-defined roles can be created as well. While built-in roles already have a prebuilt set of permissions assigned, permissions can be assigned to user-defined roles (by using GRANT/REVOKE statements).
@@ -98,7 +99,7 @@ CREATE ROLE sales;
 ```
  
 A set of [system-defined roles](../Guides/security/rbac.md#system-defined-roles) that align with common user personas and responsibilities are also available. 
-
+{: .no_toc}
 ### Users
 
 Users are linked to either a login or service account in order to gain access to Firebolt. They can be created using the [CREATE USER](../sql_reference/commands/access-control/create-user.md) statement in SQL or through the Firebolt UI. 
@@ -114,7 +115,7 @@ Roles are assigned to users to allow them to complete tasks on relevant objects 
 GRANT ROLE sales TO kate;    -- grants sales role to user kate
 REVOKE ROLE sales FROM bob; -- revokes sales role from user bob 
 ```
-
+{: .no_toc}
 ### Objects and Permissions
 
 Permissions define the actions or operations that can be performed within Firebolt. These permissions range from managing databases and engines to executing queries and accessing and analyzing data. Each instance of an object (securable) in the Firebolt object model has specific permissions that are associated with it. As an example, there could be multiple instances of an engine object (i.e. my_engine1, my_engine2) and each instance comes with a set of predefined permissions.
@@ -125,7 +126,7 @@ Any permission that Firebolt supports can be granted (or revoked) to (or from) r
 
 {: .note}
 Privileges can only be granted to (and revoked from) roles - roles can then be granted to users to give the access those permissions provide.
-
+{: .no_toc}
 #### Example
 
 ```sql
@@ -133,16 +134,17 @@ GRANT USAGE ON DATABASE sales_db TO sales;    -- grants ability to use sales_db 
 GRANT USAGE ANY DATABASE ON ACCOUNT dev_account TO sales;    -- grants ability to use any database in dev_account account to sales role
 REVOKE OPERATE ON ENGINE sales_eng FROM sales;   -- revokes ability to START and STOP engine sales_eng from sales role
 ```
-
+{: .no_toc}
 ## Data protection
 
 Firebolt is firmly committed to data security, privacy, and compliance. To deliver on that promise, Firebolt ensures that all data managed by Firebolt is properly safeguarded and protected, enforcing the governance of encryption standards for data in motion and at rest. The following functionality is available for customers automatically out of the box.
 
 ### Data at rest
 By default, all data is encrypted at rest and stored on Amazon Simple Storage Service (S3) storage. All new objects are encrypted by default with Amazon S3-managed keys or AWS KMS keys stored in AWS Key Management Service. 
-
+{: .no_toc}
 ### Data in motion
 Firebolt automatically encrypts sensitive data that is being transferred/sent within service components, ensuring that as it travels over networks, it's secure and cannot be intercepted by eavesdroppers. 
-
+{: .no_toc}
 ### Secure communication protocols
 Firebolt uses secure communication protocols to add an extra layer of protection against man-in-the-middle attacks.
+{: .no_toc}
