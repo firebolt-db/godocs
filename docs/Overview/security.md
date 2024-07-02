@@ -13,6 +13,9 @@ Through a layered security approach to service, Firebolt provides customers with
 
 This topic will explore this layered security methodology with 1) network and protocol level security, 2) identity management, 3) access control, and 4) data level protection. 
 
+* Topic Toc
+{: toc}
+
 ## Network Security
 
 Firebolt ensures end-to-end encryption using TLS 1.2, safeguarding data transmission from end users to the cloud service. 
