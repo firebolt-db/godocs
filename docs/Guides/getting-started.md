@@ -12,14 +12,14 @@ has_toc: true
 {:.no_toc}
 Welcome to the beginning of your journey with Firebolt! This tutorial guides you through setting up your Firebolt account, creating your database, and importing a sample dataset. Following that, we'll execute some basic analytics queries to demonstrate the power and speed of Firebolt analytics.
 
-For those seeking a more interactive learning experience, we invite you to join one of our comprehensive, instructor-led Firebolt workshop. These hands-on session are crafted to deepen your understanding of Firebolt's capabilities and how to leverage them for your data analytics needs. Secure your spot [here](https://www.firebolt.io/on-demand-workshop) and elevate your Firebolt skills.
+For those seeking a more interactive learning experience, we invite you to join one of our comprehensive, instructor-led Firebolt workshops. These hands-on sessions are crafted to deepen your understanding of Firebolt's capabilities and how to leverage them for your data analytics needs. Secure your spot [here](https://www.firebolt.io/on-demand-workshop) and elevate your Firebolt skills.
 
 1. Topic toC
 {:toc}
 
 ## Create a Firebolt Account
 
-1. Select 'Get Started' after completing the registration form at [go.firebolt.io/signup](https://go.firebolt.io/signup)
+1. Select 'Get Started' after completing the registration form at [go.firebolt.io/signup](https://go.firebolt.io/signup).
 
     <img src="../assets/images/GetStarted.png" alt="Get Started" width="500"/>
 
@@ -28,9 +28,9 @@ For those seeking a more interactive learning experience, we invite you to join 
     <img src="../assets/images/Verified.png" alt="Verified" width="500"/>
 
 3. Type in your email and password and click 'Log In'
-4. Optionally, you can rename your account if you choose. 
+4. Optionally, you can rename your account if you choose.
 
-And that's it! You're ready to get started with Firebolt. 
+And that's it! You're ready to get started with Firebolt.
 
 {: .note}
 New accounts get 600 Firebolt credits ($200+) to get started exploring with Firebolt. Once you run out of credits, we recommend you connect Firebolt with your AWS Marketplace account and get back to making the most of Firebolt. See [Registering though AWS Marketplace](https://special-disco-436d3e6a.pages.github.io/Guides/getting-started.html#register-through-AWS-Marketplace) below.
@@ -75,9 +75,9 @@ Before we dive into ingesting sample data, let's familiarize ourselves with the 
 
 2. Upon entering the SQL workspace, you'll be greeted by the "Script 1" tab. This is where you'll craft your queries. To get started, enter the following simple query, designed to fetch a list of databases associated with your account:
 
-```sql
-SHOW DATABASES;
-```  
+   ```sql
+   SHOW DATABASES;
+   ```  
 
 3. Select **Run Script** to execute the query. You'll notice the **Using** dropdown menu, which displays the engine Firebolt employs to run your script. In this instance, it will indicate "Tutorial_Engine".
 
