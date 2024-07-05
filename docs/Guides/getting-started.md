@@ -95,7 +95,7 @@ Now that you can select databases, select engines, and run queries, let's add so
 This tutorial uses Firebolt's sample dataset, from the fictional gaming company "Ultra Fast Gaming Inc." This dataset is publicly available with the access credentials shared below.
 
 ### Option 1: Use COPY FROM 
-`COPY FROM` allows you to copy data directly to a Firebolt table. For more information, see [COPY FROM](../sql_reference/commands/data-management/copy-from.md)
+`COPY FROM` allows you to copy data directly to a Firebolt table. For more information, see [COPY FROM](../sql_reference/commands/data-management/copy-from.md).
 
 #### Step 1: Use COPY FROM to ingest data
 You can now use the `COPY FROM` command to copy the data from the S3 bucket into the fact table. During this operation, Firebolt ingests the data from your source into Firebolt.
