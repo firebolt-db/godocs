@@ -6,7 +6,9 @@ nav_order: 1
 parent: Guides
 has_toc: true
 ---
+
 # Get started with Firebolt
+
 {:.no_toc}
 Welcome to the beginning of your journey with Firebolt! This tutorial guides you through setting up your Firebolt account, creating your database, and importing a sample dataset. Following that, we'll execute some basic analytics queries to demonstrate the power and speed of Firebolt analytics.
 
@@ -16,13 +18,14 @@ For those seeking a more interactive learning experience, we invite you to join 
 {:toc}
 
 ## Create a Firebolt Account
-1. Select 'Get Started' after completing the registration form at [go.firebolt.io](go.firebolt.io)
 
-<img src="../assets/images/GetStarted.png" alt="Get Started" width="500"/>
+1. Select 'Get Started' after completing the registration form at [go.firebolt.io/signup](https://go.firebolt.io/signup)
+
+    <img src="../assets/images/GetStarted.png" alt="Get Started" width="500"/>
 
 2. Select 'Verify' on the confirmation email you receive. You should see a verified screen.
 
-<img src="../assets/images/Verified.png" alt="Verified" width="500"/>
+  <img src="../assets/images/Verified.png" alt="Verified" width="500"/>
 
 3. Type in your email and password and click 'Log In'
 4. Optionally, you can rename your account if you choose. 
