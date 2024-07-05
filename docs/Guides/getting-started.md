@@ -25,7 +25,7 @@ For those seeking a more interactive learning experience, we invite you to join 
 
 2. Select 'Verify' on the confirmation email you receive. You should see a verified screen.
 
-  <img src="../assets/images/Verified.png" alt="Verified" width="500"/>
+    <img src="../assets/images/Verified.png" alt="Verified" width="500"/>
 
 3. Type in your email and password and click 'Log In'
 4. Optionally, you can rename your account if you choose. 
@@ -41,31 +41,31 @@ Embarking on your data journey with Firebolt begins with creating a *database* a
 **Steps to Create Your Database:**
 1. Click the **+** next to **Databases**
 
-<img src="../assets/images/Create%20%2B%20(Highlighted).png" alt="New DB +" width="700"/>
+    <img src="../assets/images/Create%20%2B%20(Highlighted).png" alt="New DB +" width="700"/>
 
 2. Click **Create new database**. 
 
-<img src="../assets/images/Create%20New%20DB%20From%20%2B.png" alt="New DB" width="700"/>
+    <img src="../assets/images/Create%20New%20DB%20From%20%2B.png" alt="New DB" width="700"/>
 
 3. Enter the name for your database in the **Database Name** field. For the purposes of this guide, we'll use "Tutorial_Database" as our database name.
 
-<img src="../assets/images/Tutorial%20DB.png" alt="New DB Name" width="700"/>
+    <img src="../assets/images/Tutorial%20DB.png" alt="New DB Name" width="700"/>
 
 **Steps to Create Your Engine:**
 1. Click the **+** next to **Databases** again.
 
-<img src="../assets/images/Create%20%2B%20(Highlighted).png" alt="New Engine +" width="700"/>
+    <img src="../assets/images/Create%20%2B%20(Highlighted).png" alt="New Engine +" width="700"/>
 
 2. Click **Create new engine**.
 
-<img src="../assets/images/Create%20Engine%20%2B.png" alt="New Engine" width="700"/>
+    <img src="../assets/images/Create%20Engine%20%2B.png" alt="New Engine" width="700"/>
 
 3. Enter the name of your engine in the **New engine name** field. For the purposes of this guide, we'll use "Tutorial_Engine" as our engine name.
 
-<img src="../assets/images/Tutorial%20Engine.png" alt="New Engine Name" width="700"/>
+    <img src="../assets/images/Tutorial%20Engine.png" alt="New Engine Name" width="700"/>
 
 {: .note}
-The default configuration is a small node, which is more than enough for this tutorial. To learn more about proper sizing of nodes for your workload, see [ADD DOC REFERENCE]
+The default configuration is a small node, which is more than enough for this tutorial. To learn more about proper sizing of nodes for your workload, see [Sizing Engines](./operate-engines/sizing-engines.md).
 
 ## Execute Your First Query
 Before we dive into ingesting sample data, let's familiarize ourselves with the SQL workspace of your database. This initial step not only demonstrates how to activate your engine but also acquaints you with the process of executing queries within Firebolt. For a deeper dive into the SQL workspace and its capabilities, our [Query Data](../query-data/using-the-sql-editor.md) guide is an excellent resource.
@@ -132,15 +132,67 @@ Although it's possible, we don't recommend running analytics queries on external
 **Create Your External Table:**
 1. Choose the plus symbol (**+**) next to script tab to create a new script tab in the SQL workspace.
 
-<img src="../assets/images/New%20Script%20%2B.png" alt="New Script" width="600"/>
+    <img src="../assets/images/New%20Script%20%2B.png" alt="New Script" width="600"/>
 
 2. Copy and paste the query below into the new tab.
 
-```sql
-CREATE EXTERNAL TABLE IF NOT EXISTS ex_levels (
--- Column definitions map to data fields
--- in the source data file and are specified
--- as sources in the INSERT INTO statement for ingestion. 
+   ```sql
+   CREATE EXTERNAL TABLE IF NOT EXISTS ex_levels (
+   -- Column definitions map to data fields
+   -- in the source data file and are specified
+   -- as sources in the INSERT INTO statement for ingestion. 
+       LevelID INTEGER,
+       GameID INTEGER,
+       Level INTEGER,
+       Name TEXT,
+       LevelType TEXT,
+       NextLevel INTEGER NULL,
+       MinPointsToPass INTEGER,
+       MaxPoints INTEGER, 
+       NumberOfLaps INTEGER,
+       MaxPlayers INTEGER,
+       MinPlayers INTEGER,
+       PointsPerLap REAL,
+       MusicTrack TEXT,
+       SceneDetails TEXT,
+       MaxPlayTimeSeconds INTEGER,
+       LevelIcon TEXT
+   ) 
+
+   URL = 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/'
+
+   -- CREDENTIALS = ( AWS_KEY_ID = '******' AWS_SECRET_KEY = '******' )
+   PATTERN = '*levels.csv'
+   TYPE = (CSV HEADER = TRUE);
+   ```  
+
+   {: .note} 
+   'URL =' specifies the data source in S3. All files in the location that match the 'OBJECT_PATTERN' will be processed during ingestion. 'CREDENTIALS =' specify a role or AWS key credentials with permission to read from the S3 location. Since we are accessing a publicly accessible bucket, we do not need to specify credentials for this tutorial.
+
+3. Click **Run**. When completed the external table `ex_levels` appears on the object panel of the database.  
+
+    <img src="../assets/images/Execute%20Script%20(Run)%20Example.png" alt="Script Run" width="600"/>
+
+4. [Optional] Choose the vertical ellipses next to script, choose **Rename script**, enter a name (for example, *MyExTableScript*) and then press ENTER to update the name.
+
+    <img src="../assets/images/Vertical%20Ellipsis.png" alt="Vertical Ellipsis" width="600"/>
+
+    <img src="../assets/images/Rename%20Script.png" alt="Rename" width="600"/>
+
+#### Step 2: Create a Fact Table
+In this step, you'll create a Firebolt fact table called `levels`, which you use in the next step as the target for an `INSERT INTO` command. 
+
+When creating a fact or dimension table, you will specify a *primary index*. Firebolt uses the primary index when it ingests data so that it is saved to S3 for highly efficient pruning and sorting when the data is queried. A primary index is required when creating a fact table, and recommended for dimension tables. For more information, see [Using primary indexes](./working-with-indexes/using-primary-indexes.md). 
+
+The fact table that we create in this step specifies the `LevelID` column for the primary index. For more information about choosing columns for a primary index, see [How to choose primary index columns](/using-indexes/using-primary-indexes.md#how-to-choose-primary-index-columns).
+
+**To create a fact table**
+1. Create a new script tab.  
+
+2. Copy and paste the query below into the script tab.  
+   ```sql
+   CREATE FACT TABLE IF NOT EXISTS levels
+   (
     LevelID INTEGER,
     GameID INTEGER,
     Level INTEGER,
@@ -156,64 +208,12 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ex_levels (
     MusicTrack TEXT,
     SceneDetails TEXT,
     MaxPlayTimeSeconds INTEGER,
-    LevelIcon TEXT
-) 
-
-URL = 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/'
-
--- CREDENTIALS = ( AWS_KEY_ID = '******' AWS_SECRET_KEY = '******' )
-PATTERN = '*levels.csv'
-TYPE = (CSV HEADER = TRUE);
-```  
-
-{: .note} 
-'URL =' specifies the data source in S3. All files in the location that match the 'OBJECT_PATTERN' will be processed during ingestion. 'CREDENTIALS =' specify a role or AWS key credentials with permission to read from the S3 location. Since we are accessing a publicly accessible bucket, we do not need to specify credentials for this tutorial.
-
-3. Click **Run**. When completed the external table `ex_levels` appears on the object panel of the database.  
-
-<img src="../assets/images/Execute%20Script%20(Run)%20Example.png" alt="Script Run" width="600"/>
-
-4. [Optional] Choose the vertical ellipses next to script, choose **Rename script**, enter a name (for example, *MyExTableScript*) and then press ENTER to update the name.
-
-<img src="../assets/images/Vertical%20Ellipsis.png" alt="Vertical Ellipsis" width="600"/>
-
-<img src="../assets/images/Rename%20Script.png" alt="Rename" width="600"/>
-
-#### Step 2: Create a Fact Table
-In this step, you'll create a Firebolt fact table called `levels`, which you use in the next step as the target for an `INSERT INTO` command. 
-
-When creating a fact or dimension table, you will specify a *primary index*. Firebolt uses the primary index when it ingests data so that it is saved to S3 for highly efficient pruning and sorting when the data is queried. A primary index is required when creating a fact table, and recommended for dimension tables. For more information, see [Using primary indexes](./working-with-indexes/using-primary-indexes.md). 
-
-The fact table that we create in this step specifies the `LevelID` column for the primary index. For more information about choosing columns for a primary index, see [How to choose primary index columns](/using-indexes/using-primary-indexes.md#how-to-choose-primary-index-columns).
-
-**To create a fact table**
-1. Create a new script tab.  
-
-2. Copy and paste the query below into the script tab.  
-```sql
-CREATE FACT TABLE IF NOT EXISTS levels
-(
- LevelID INTEGER,
- GameID INTEGER,
- Level INTEGER,
- Name TEXT,
- LevelType TEXT,
- NextLevel INTEGER NULL,
- MinPointsToPass INTEGER,
- MaxPoints INTEGER, 
- NumberOfLaps INTEGER,
- MaxPlayers INTEGER,
- MinPlayers INTEGER,
- PointsPerLap REAL,
- MusicTrack TEXT,
- SceneDetails TEXT,
- MaxPlayTimeSeconds INTEGER,
- LevelIcon TEXT,
- SOURCE_FILE_NAME TEXT,
- SOURCE_FILE_TIMESTAMP TIMESTAMP
-) 
-PRIMARY INDEX LevelID;
-```  
+    LevelIcon TEXT,
+    SOURCE_FILE_NAME TEXT,
+    SOURCE_FILE_TIMESTAMP TIMESTAMP
+   ) 
+   PRIMARY INDEX LevelID;
+   ```  
 
 3. Click **Run Script**. When finished, the table `levels` appears on the object panel of the database.  
 
