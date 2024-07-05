@@ -26,7 +26,7 @@ Each row has the following columns with information about each query in query hi
 
 | Column Name       | Data Type   | Description                                                                                |
 |:------------------|:------------|:-------------------------------------------------------------------------------------------|
-| engine_cluster    | TEXT        | engine cluster identifier                                                                  |
+| engine_ordinal    | BIGINT      | the cluster number
 | event_time        | TIMESTAMPTZ | timestamp at which the metrics where collected                                             |
 | cpu_used          | DECIMAL     | current CPU utilization (percentage)                                                       |
 | memory_used       | DECIMAL     | current memory used (percentage)                                                           |
