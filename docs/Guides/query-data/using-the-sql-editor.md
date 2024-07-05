@@ -1,24 +1,24 @@
 ---
 layout: default
-title: Query data using the SQL editor
+title: Using the Develop Workspace
 description: Learn how to navigate and use the SQL editor to work with your Firebolt database.
 parent: Query data
 grand_parent: Guides
 nav_order: 1
 ---
 
-# Query using the SQL editor
+# Using the Develop Workspace
 {: .no_toc}
 
 * Topic ToC
 {:toc}
 
-The Firebolt Manager has a SQL editor that you use to edit, run, and save SQL scripts and view query results. Each database in Firebolt has a SQL editor. When you open the SQL editor for a database, you see the saved scripts and state for that particular database.
+The Firebolt Manager has a develop workspace that you use to edit and run SQL scripts and view query results.
 
 
 ## Opening a SQL editor
 
-You can launch the SQL editor for a database either from the left navigation pane or from the databases list.
+You can launch the workspace for a database either from the left navigation pane or from the databases list.
 
 **To start the SQL editor for the last database you worked with**
 
