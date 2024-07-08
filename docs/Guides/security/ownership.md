@@ -9,15 +9,15 @@ grand_parent: Guides
 
 # Ownership
 
-Ownership allows users to perform operations on any object they create without having to be granted the required priviliges. This allows for a smoother user experience, as objects are immediately avaialble to use as they are created.
+Ownership allows users to perform all operations on any object they created without having to grant privileges for these operations manually. This provides a smoother user experience because objects are immediately available to use as they are created. These operations include granting privileges on owned objects.
 
-## Objects that support ownership
+## Supported object types
 
-The objects that support ownership are:
+The object types that support ownership are:
 - Role
 - User
-- Database
 - Engine
+- Database
 - Schema
 - Table
 - View
@@ -56,3 +56,6 @@ ALTER VIEW v OWNER TO new_owner
 ## Dropping users that own objects
 
 Any objects owned by a user must first be dropped or have their owner changed before dropping the user.
+
+{: .note}
+A table owner can drop the table even if there are views referencing it that are not owned by the table's owner, using the `CASCADE` parameter to `DROP TABLE`.
