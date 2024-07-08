@@ -32,7 +32,7 @@ Each row has the following columns with information about each engine.
 | clusters                    | INT         | The number of clusters used in the engine. |
 | auto_start                  | BOOLEAN     | If True, automatically start the engine if in stopped state when a query comes in. |
 | auto_stop                   | INT         | Automatically stop the engine after specified number of minutes. |
-| initially_stopped           | BOOLEAN     | If True, Engine will not be automatically started after creation. |
+| initially_stopped           | BOOLEAN     | If True, the engine will not be automatically started after creation. |
 | url                         | TEXT        | Engine URL used by the users to issue queries to the engine. |
 | default_database            | TEXT        | Default database for the engine as specified by the user. |
 | version                     | TEXT        | Engine version. |
