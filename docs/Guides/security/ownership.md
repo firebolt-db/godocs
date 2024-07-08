@@ -23,7 +23,8 @@ The object types that support ownership are:
 - View
 
 The current owner of an object can be viewed in the corresponding information_schema view:
-|Object|View|
+
+| Object | View |
 |:-|:-|
 | Role | N/A |
 | User | [information_schema.users](../../sql_reference/information-schema/users.md) |
