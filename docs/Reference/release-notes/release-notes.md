@@ -48,6 +48,7 @@ Removed support for `json_extract_raw`, `json_extract_array_raw`, `json_extract_
 Replaced `engine_cluster` with [`cluster_ordinal`](../sql_reference/../../sql_reference/information-schema/engine-metrics-history.md) in `information_schema.engine_metrics_history`. The new column has an integer representing the cluster number.
 
 <!--- FIR-34090 ---> **Configurable Query Cancellation**
+{: style="color:red;"}
 
 Introduced the `cancel_query_on_connection_drop` setting, allowing clients to control query cancellation on HTTP connection drop. Options include `NONE`, `ALL`, and `TYPE_DEPENDENT`. Refer to [system settings](../system-settings.md) for usage details. 
 
