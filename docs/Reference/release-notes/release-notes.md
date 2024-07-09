@@ -40,7 +40,7 @@ This will now return 0 instead of 1.
 <!--- FIR-33869---> **JSON functions update**
 {: style="color:red;"}
 
-Removed support for `json_extract_raw`, `json_extract_array_raw`, `json_extract_values`, and `json_extract_keys`. Updated `json_extract function`: the third argument is now path_syntax, currently supporting 'JSONPointer'. See [JSON_EXTRACT](../sql_reference/../../sql_reference/functions-reference/JSON/json-extract.md) for usage examples. 
+Removed support for `json_extract_raw`, `json_extract_array_raw`, `json_extract_values`, and `json_extract_keys`. Updated `json_extract function`: the third argument is now path_syntax, currently supporting 'JSONPointer'. See [JSON_EXTRACT](../sql_reference/../../sql_reference/functions-reference/JSON/json-extract.md) for examples and usage. 
 
 <!--- FIR-32486---> **Cluster ordinal update**
 {: style="color:red;"}
@@ -50,7 +50,7 @@ Replaced `engine_cluster` with [`cluster_ordinal`](../sql_reference/../../sql_re
 <!--- FIR-34090 ---> **Configurable Query Cancellation**
 {: style="color:red;"}
 
-Introduced the `cancel_query_on_connection_drop` setting, allowing clients to control query cancellation on HTTP connection drop. Options include `NONE`, `ALL`, and `TYPE_DEPENDENT`. Refer to [system settings](../system-settings.md) for usage details. 
+Introduced the `cancel_query_on_connection_drop` setting, allowing clients to control query cancellation on HTTP connection drop. Options include `NONE`, `ALL`, and `TYPE_DEPENDENT`. Refer to [system settings](../system-settings.md) for examples and usage. 
 
 ### Enhancements, changes and new integrations
 
