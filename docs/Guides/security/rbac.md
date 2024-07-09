@@ -138,7 +138,7 @@ to access views, users must also have:
 
 #### Owner rights
 
-When selecting over a view, the executing user needs to have access rights to the view, but when determining the access rightd to the underly objects of the view, the view owner's rights are considered, instead of of the executing user's rights. e.g
+When selecting over a view, the executing user needs to have access rights to the view, but when determining the access rights to the underly objects of the view, the view owner's rights are considered, instead of of the executing user's rights. e.g
 
 ```sql
 CREATE TABLE t (a int); -- create by user1 assigned with role1;
