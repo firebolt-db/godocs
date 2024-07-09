@@ -58,6 +58,9 @@ Introduced the `cancel_query_on_connection_drop` setting, allowing clients to co
 
 Queries with "`SELECT` <project_list> `FROM` <table> `LIMIT` <limit>" on large tables are now significantly faster.
 
+<!--- FIR-32118---> **Updated `ntile` return type**
+
+The `ntile` function now returns `INTEGER`or `BIGINT`, matching the type of its arguments. See [NTILE](../sql_reference/../../sql_reference/functions-reference/window/ntile.md) for examples and usage. 
 
 
 
