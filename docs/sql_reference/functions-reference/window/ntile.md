@@ -5,6 +5,7 @@ description: Reference material for NTILE function
 grand_parent: SQL functions
 parent: Window functions
 great_grand_parent: SQL reference
+published: true
 ---
 
 # NTILE
@@ -25,12 +26,12 @@ NTILE( <value> ) OVER ( [ PARTITION BY <partition_by> ] ORDER BY <order_by> [ { 
 
 | Parameter | Description                                      | Supported input types | 
 | :--------- | :------------------------------------------------ | :------------| 
-| `<value>`   | An integer expression used for the `NTILE()` function to specify the number of buckets for division.    | `INTEGER` |
+| `<value>`   | An integer expression used for the `NTILE()` function to specify the number of buckets for division.    | `INTEGER`/`BIGINT` |
 | `<partition_by>` | An expression used for the partition by clause. | Any |
 | `<order_by>` | An expression used for the order by clause. | Any |
 
 ## Return Type
-`INTEGER`
+`INTEGER`/`BIGINT`
 
 If there is a remainder after dividing the rows in a partition by the argument value, it will result in buckets of different sizes. For example, 
 - `NTILE(2)` over 5 rows will result in 2 buckets, the first with 3 rows, the second with 2
@@ -39,21 +40,27 @@ If there is a remainder after dividing the rows in a partition by the argument v
 ## Example
 {: .no_toc}
 
-The example below divides players into groups depending on their level. 
+The example below divides students test results into three buckets depending on their score. 
 
 ```sql
 SELECT
-	nickname,
-	NTILE(3) OVER (PARTITION BY level) AS levels
+	student_name,
+	score,
+	NTILE(3) OVER (ORDER BY score) AS bucket
 FROM
-	players;
+	student_test_results
+ORDER BY score;
 ```
 
 **Returns**:
 
-| nickname | level | 
-|:------------|:-------------|
-| ymatthews      |           9 | 
-| rileyjon      |          10 | 
-| kennethpark   |          11 |  
-| sabrina21    |          12 |  
+| student_name | score | bucket
+|:------------|:-------------|:-------------|
+| James      |           9 |           1| 
+| Emma      |          10 |          1|
+| Harry   |          11 |           1| 
+| Liam    |          11 |           2|  
+| Ava   |          12 |           2| 
+| Charly    |          12 |           2|  
+| Noah   |          13 |           3| 
+| Olivia    |          13 |           3|  
