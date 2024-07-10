@@ -9,7 +9,7 @@ grand_parent: Guides
 
 # Ingest semi-structured data
 
-There are three major approaches to ingest and handle semi-structured data as shown below. All approaches can be
+There are three major approaches to ingesting and handling semi-structured data as shown below. All approaches can be
 combined depending on the nature of the input data and the queries to run over the data.
 
 1. Transforming the input using JSON and `ARRAY` functions to fit the target schema during ingestion.
@@ -20,8 +20,7 @@ combined depending on the nature of the input data and the queries to run over t
 3. When the input JSON adheres to a fixed schema&mdash;that is, each object has a known set of keys, and the nesting
    level of at most two (not including nesting of arrays, which can be arbitrary)&mdash;the data can be ingested
    directly. Omitted keys can be handled by specifying default values for the respective columns, but keys that are
-   defined at table creation time are ignored. This approach is not common with true, semi-structured sources. This
-   approach usually applies to exports from table-oriented storage.
+   defined at table creation time are ignored. This approach is not common with true, semi-structured sources, usually applies to exports from table-oriented storage.
 
 Assume that each JSON record is stored as plain text in the column `raw_json` of a (potentially external) table
 named `source_json` in the format shown below.
@@ -56,10 +55,10 @@ named `source_json` in the format shown below.
 Recall that we want the target Firebolt table named `visits` to have columns and values similar to the table shown
 below.
 
-| id (INTEGER) | start_time (DATETIME) | duration (INTEGER) | tags (ARRAY(TEXT))         |
-|:-------------|:----------------------|:-------------------|:---------------------------|
-| 1            | 2020-01-06 17:00:00   | 450                | \["summer-sale","sports"\] |
-| 2            | 2020-01-05 12:00:00   | 959                | \["gadgets","audio"\]      |
+| id (INTEGER) | start_time (TIMESTAMP) | duration (INTEGER) | tags (ARRAY(TEXT))         |
+|:-------------|:-----------------------|:-------------------|:---------------------------|
+| 1            | 2020-01-06 17:00:00    | 450                | \["summer-sale","sports"\] |
+| 2            | 2020-01-05 12:00:00    | 959                | \["gadgets","audio"\]      |
 
 ## Extracting top-level scalars and arrays
 

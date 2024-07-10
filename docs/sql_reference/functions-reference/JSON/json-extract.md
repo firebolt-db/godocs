@@ -48,7 +48,7 @@ JSON_EXTRACT(<json>, <json_path_expression>, path_syntax => 'JSONPointer')
 {: .no_toc}
 
 For the JSON document indicated by `<json_common_example>` below,
-see [JSON common example](./index.md#json-common-example). The **Returns** result is based on this example.
+see [JSON common example](./index.md#json-common-example). The **returned result** is based on this example.
 
 ```sql
 SELECT JSON_EXTRACT(<json_common_example>, '/value/dyid', 'JSONPointer')
