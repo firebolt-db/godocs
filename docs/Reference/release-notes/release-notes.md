@@ -56,7 +56,7 @@ Introduced the `cancel_query_on_connection_drop` setting, allowing clients to co
 
 <!--- FIR-33699---> **Improved query performance**
 
-Queries with "`SELECT` <project_list> `FROM` <table> `LIMIT` <limit>" on large tables are now significantly faster.
+Queries with "`SELECT` [project_list] `FROM` [table] `LIMIT` [limit]" on large tables are now significantly faster.
 
 <!--- FIR-32118---> **Updated `ntile` return type**
 
