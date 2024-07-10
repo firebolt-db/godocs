@@ -33,7 +33,7 @@ See a [full function glossary](./functions-glossary.md), or find functions based
   Manipulate data types including `INTEGER`, `BIGINT`, `DOUBLE PRECISION`, and other numeric types
 
 * [Session functions](./session/index.md)  
-  Used for obtaining information about current session
+  Used for obtaining information about a current session
 
 * [String functions](./string/index.md)  
   Manipulate string data types

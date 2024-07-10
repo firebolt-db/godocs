@@ -46,7 +46,8 @@ WHERE
 ```
 
 **Returns**: 
-| grantee | role_name | privilege_type | object_type | object_name |
-|:----------|:--------------|-------|----------|----------|
+
+| grantee   | role_name     | privilege_type | object_type | object_name |
+|:----------|:--------------|:---------------|:------------|:------------|
 | test_user | account_admin | USAGE | engine | engine1 | 
 | test_user | account_admin | USAGE | database | db1 |
