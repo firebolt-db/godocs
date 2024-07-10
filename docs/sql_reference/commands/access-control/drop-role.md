@@ -13,6 +13,9 @@ error message will be displayed and you need manually to drop permissions grante
 
 For more information, see [Role-based access control](../../../Guides/security/rbac.md).
 
+{: .warning}
+A role cannot be dropped if there are permissions granted to the role. In this case, an error message will be displayed, and you need to manually drop the permissions granted to the role and retry.
+
 ## Syntax
 
 ```sql
