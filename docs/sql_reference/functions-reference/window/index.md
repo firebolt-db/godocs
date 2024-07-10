@@ -2,7 +2,7 @@
 layout: default
 title: Window functions
 description: Reference for window functions
-nav_order: 11
+nav_order: 12
 parent: SQL functions
 grand_parent: SQL reference
 has_children: true
