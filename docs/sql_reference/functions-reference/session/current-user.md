@@ -28,8 +28,7 @@ SELECT current_user()
 
 **Returns**: `admin_user`
 
-
-To return all of the effective privileges of the current user:
+Shows all effective privileges of the current user:
 
 ```sql
 SELECT
