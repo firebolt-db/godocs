@@ -19,7 +19,7 @@ Firebolt provides a [type 4](https://en.wikipedia.org/wiki/JDBC_driver#Type_4_dr
 
 The Firebolt JDBC driver is provided as a JAR file and requires [Java 11](https://java.com/en/download/manual.jsp){:target="_blank"} or later. 
 
-Download the Firebolt JDBC driver JAR file from the [GitHub Releases page](https://github.com/firebolt-db/jdbc/releases/tag/3.0.1-RELEASE-3){:target="_blank"}.
+Download the Firebolt JDBC driver JAR file from the [GitHub Releases page](https://github.com/firebolt-db/jdbc/releases/tag/v3.0.3){:target="_blank"}.
 
 ## Adding the Firebolt JDBC driver as a Maven dependency
 
