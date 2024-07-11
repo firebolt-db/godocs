@@ -28,7 +28,7 @@ The current owner of an object can be viewed in the corresponding information_sc
 |:-|:-|
 | Role | N/A |
 | User | [information_schema.users](../../sql_reference/information-schema/users.md) |
-| Database | information_schema.catalogs |
+| Database | [information_schema.catalogs](../../sql_reference/information-schema/catalogs.md) |
 | Engine | [information_schema.engines](../../sql_reference/information-schema/engines.md) |
 | Schema | information_schema.schemata |
 | Table | [information_schema.tables](../../sql_reference/information-schema/tables.md) |
