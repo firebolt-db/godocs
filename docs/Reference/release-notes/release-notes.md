@@ -75,6 +75,8 @@ Queries with "`SELECT [project_list] FROM [table] LIMIT [limit]`" on large table
 
 The `ntile` function now returns the same type as its input argument: For `INTEGER`/`BIGINT` arguments. It now returns `INTEGER`/`BIGINT` respectively, making it consistent with PostgreSQL. See [NTILE](../sql_reference/../../sql_reference/functions-reference/window/ntile.md) for examples and usage. 
 
+<!--- FIR-32882---> **Multi-node query performance**
 
+Improved the performance for data transfer between nodes, resulting in faster overall query execution times. 
 
 
