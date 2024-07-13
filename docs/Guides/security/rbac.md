@@ -38,7 +38,7 @@ Privileges can be granted to a custom role either by the `account_admin` or by t
 
 When a user creates an object, they become its owner. The owner of an object can perform any operation on the object, even if the privileges normally required to perform that operation aren't granted to any of the user's roles. See [Ownership](./ownership.md) for more information.
 
-An owner of an object can also grant privileges over that object to any custom role. A role owner can grant that role to users and other roles without the requirement of being an admin.
+An owner of an object can also grant privileges over that object to any role. A role owner can grant that role to users and other roles without the requirement of being an admin.
 
 ## Permissions
 
