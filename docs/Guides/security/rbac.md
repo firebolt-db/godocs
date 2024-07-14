@@ -268,28 +268,3 @@ REVOKE ROLE user_role FROM USER alex;
 
 ### UI
 To revoke a role from a user or another role via the UI, follow the [same steps above](#grant-role) that you would to grant a role.  
-
-### Check assigned privileges using SQL
-
-To show all effective privileges of the current user:
-
-```sql
-SELECT
-  AR.grantee,
-  AR.role_name,
-  OP.privilege_type,
-  OP.object_type,
-  OP.object_name
-FROM information_schema.transitive_applicable_roles AS AR
-JOIN information_schema.object_privileges AS OP
-ON (AR.role_name = OP.grantee)
-WHERE
-  AR.grantee = current_user();
-```
-
-**Returns**: 
-
-| grantee   | role_name     | privilege_type | object_type | object_name |
-|:----------|:--------------|:---------------|:------------|:------------|
-| test_user | account_admin | USAGE | engine | engine1 | 
-| test_user | account_admin | USAGE | database | db1 |
