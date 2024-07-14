@@ -8,7 +8,7 @@ grand_parent: SQL reference
 
 # Information schema for catalogs
 
-You can use the `information_schema.catalogs` view to return information about catalogs (databases in SQL terminology). You can use a `SELECT` query to return information about each database as shown in the example below.
+You can use the `information_schema.catalogs` view to get information about catalogs (databases in SQL terminology). You can use a `SELECT` query to return information about each database as shown in the example below.
 
 ```sql
 SELECT

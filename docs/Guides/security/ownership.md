@@ -30,7 +30,7 @@ The current owner of an object can be viewed in the corresponding information_sc
 | User | [information_schema.users](../../sql_reference/information-schema/users.md) |
 | Database | [information_schema.catalogs](../../sql_reference/information-schema/catalogs.md) |
 | Engine | [information_schema.engines](../../sql_reference/information-schema/engines.md) |
-| Schema | information_schema.schemata |
+| Schema | [information_schema.schemata](../../sql_reference/information-schema/schemata.md) |
 | Table | [information_schema.tables](../../sql_reference/information-schema/tables.md) |
 | View | [information_schema.views](../../sql_reference/information-schema/views.md) or [information_schema.tables](../../sql_reference/information-schema/tables.md) |
 
