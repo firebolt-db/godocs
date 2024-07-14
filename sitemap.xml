@@ -739,7 +739,7 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://docs.firebolt.io/godocs/sql_reference/information-schema/databases.html</loc>
+    <loc>https://docs.firebolt.io/godocs/sql_reference/information-schema/catalogs.html</loc>
     <lastmod>2023-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
