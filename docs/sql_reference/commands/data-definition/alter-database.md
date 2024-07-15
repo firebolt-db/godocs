@@ -37,7 +37,7 @@ ALTER DATABASE my_database WITH DESCRIPTION = 'Database for query management';
 
 ## ALTER DATABASE OWNER TO
 
-Change the owner of a database. The current owner of a database can be viewed in the `information_schema.catalogs` view on `catalog_owner` column.
+Change the owner of a database. The current owner of a database can be viewed in the [information_schema.catalogs](../../information-schema/catalogs.md) view on `catalog_owner` column.
 
 check [ownership](../../../Guides/security/ownership.md) page for more info.
 

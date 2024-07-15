@@ -39,12 +39,8 @@ All Firebolt functions in alphabetical order.
 | [CONCAT or \|\|](./string/concat.md) | Concatenates the strings listed in the input without a separator. | String |
 | [COUNT](./aggregation/count.md) | Counts the number of rows or not NULL values. | Aggregation |
 | [COUNT OVER](./window/count-window.md) | Count the number of values within the requested window. | Window |
-| [CURRENT_ACCOUNT](./session/current-account.md) | Returns the current account name | Session |
-| [CURRENT_DATABASE](./session/current-database.md) |Returns the current database name; if absent - returns `account_db` | Session |
 | [CURRENT_DATE](./date-and-time/current-date.md) | Returns the current (local) date in the time zone specified in the session's `time_zone` setting. | Date & time |
-| [CURRENT_ENGINE](./session/current-engine.md) | Returns the current engine name. Returns `system` on the system engine | Session |
 | [CURRENT_TIMESTAMP](./date-and-time/current-timestamptz.md) | Returns the current (local) timestamp in the time zone specified in the session's `time_zone` setting. | Date & time |
-| [CURRENT_USER](./session/current-user.md) | Returns the current user name. | Session |
 | [DATE_ADD](./date-and-time/date-add.md) | Calculates a new date or timestamp by adding or subtracting a specified number of time units from an indicated expression. | Date & time |
 | [DATE_DIFF](./date-and-time/date-diff.md) | Calculates the difference between the start and end date by the indicated unit. | Date & time |
 | [DATE_TRUNC](./date-and-time/date-trunc.md) | Truncates a date or timestamp value to the selected precision. | Date & time |
