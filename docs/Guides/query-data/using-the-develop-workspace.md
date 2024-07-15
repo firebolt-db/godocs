@@ -21,13 +21,13 @@ You can launch the workspace for a database by clicking the **Develop** icon fro
 
   <img src="../../assets/images/develop_workspace_ex0.png" alt="drawing" width="50%"/>
 
-  ![](../../assets/images/develop_workspace_ex4.png)
+  <img src="../../assets/images/develop_workspace_ex4.png" alt="drawing" width="50%"/>
 
 **Starting the develop workspace for the last database you worked with**
 
 1.  Choose the **>_** icon from the left navigation pane.
 
-    ![](../../assets/images/develop_workspace_ex0.png)
+    <img src="../../assets/images/develop_workspace_ex0.png" alt="drawing" width="50%"/>
 
     The workspace for the database that you last worked with will open, and the database will be selected from the list.
 
@@ -103,15 +103,13 @@ You can run all statements in a script or select snippets of SQL to run.
 
 After you run a script or query statement, more results appear below the script editor, along with statistics about query execution.
 
-![](../../assets/images/develop_workspace_ex6.png)
-
 ### Viewing multi-statement script results
-<!--- second paragraph has to be rephrased and needs a replacement screenshot--->
+<!--- second paragraph has to be rephrased--->
 When you run a script that has multiple SQL statements with result sets (`SELECT` statements), each result is shown on a separate line with statistics about statement execution. The first statement that ran is numbered 1 and at the bottom of the list.
 
-To view the results table for a result set, choose the table icon corresponding to the numbered result set you want to view, or choose the expansion arrow next to the **Statement** and then choose **Open table** as shown in the example below.
+To view the results table for a result set, choose the table icon as shown in the example below.
 
-![](../../assets/images/work-with-our-sql-editor-multi-select-query-results.png)
+![](../../assets/images/develop_workspace_ex6.png)
 
 ### Exporting results to a local hard drive
 
@@ -122,7 +120,7 @@ You can export up to 10,000 rows of query results to your local hard drive after
 2. Choose **Export table as CSV** or **Export table as JSON**.  
 Firebolt downloads the file type that you chose to the default download location for your browser.  
 <!--- need to replace below screenshot--->
-![](../../assets/images/download_icon.png)
+<img src="../../assets/images/download_icon.png" alt="drawing" width="50%"/>
 
 It is possible to export the results of a single query alongside the results summary of all queries run in your script (with the statistics).
 <!--- add a section about filtering columns--->
@@ -131,4 +129,4 @@ It is possible to export the results of a single query alongside the results sum
 
 Click on the toggle at the bottom of the left navigation pane to switch between light and dark mode. 
 
-<!--- add a screenshot for this --->
+<img src="../../assets/images/develop_workspace_ex7.png" alt="drawing" width="50%"/>
