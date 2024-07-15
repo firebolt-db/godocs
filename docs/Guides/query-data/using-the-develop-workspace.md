@@ -55,13 +55,13 @@ As you enter your code in a script tab, Firebolt suggests keywords and object na
 
 Script templates are available for common tasks, such as creating fact or dimension tables. Place the cursor in the editor where you want to insert code, choose the **</+** icon, and then select a query template from the list.
 
-![](../../assets/images/work-with-our-sql-editor-select-editor-templates.png)
+<!--- need to insert screenshot--->
 
 ### Using the CREATE EXTERNAL TABLE template to import data
 
 To create an external table, which is the first step for ingesting data into Firebolt, choose the **Import Data** button from the object pane or choose the download icon and then choose **Import data** as shown in the example below.
 
-![](../../assets/images/work-with-our-sql-editor-import-data.png)
+<!--- need to insert screenshot--->
 
 Firebolt creates a new tab with a `CREATE EXTERNAL TABLE` statement.
 
@@ -119,8 +119,7 @@ You can export up to 10,000 rows of query results to your local hard drive after
 
 2. Choose **Export table as CSV** or **Export table as JSON**.  
 Firebolt downloads the file type that you chose to the default download location for your browser.  
-<!--- need to replace below screenshot--->
-<img src="../../assets/images/download_icon.png" alt="drawing" width="50%"/>
+<!--- need to insert screenshot--->
 
 It is possible to export the results of a single query alongside the results summary of all queries run in your script (with the statistics).
 <!--- add a section about filtering columns--->
