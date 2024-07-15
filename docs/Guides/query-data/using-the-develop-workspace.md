@@ -19,15 +19,15 @@ The Firebolt Manager has a develop workspace that you use to edit and run SQL sc
 
 You can launch the workspace for a database by clicking the **Develop** icon from the left navigation pane or clicking the "+" icon next to "Script 1". 
 
-  <img src="../../assets/images/develop_workspace_ex0.png" alt="drawing" width="50%"/>
+  <img src="../../assets/images/develop_workspace_ex0.png" alt="drawing" width="70%"/>
 
-  <img src="../../assets/images/develop_workspace_ex4.png" alt="drawing" width="50%"/>
+  <img src="../../assets/images/develop_workspace_ex4.png" alt="drawing" width="70%"/>
 
 **Starting the develop workspace for the last database you worked with**
 
 1.  Choose the **>_** icon from the left navigation pane.
 
-    <img src="../../assets/images/develop_workspace_ex0.png" alt="drawing" width="50%"/>
+    <img src="../../assets/images/develop_workspace_ex0.png" alt="drawing" width="70%"/>
 
     The workspace for the database that you last worked with will open, and the database will be selected from the list.
 
@@ -41,7 +41,7 @@ The develop workspace is organized into two panels.
 
 * The center panel is the document editor. You can use it to edit scripts, save them, and run scripts. When you run a script, the results will be shown in the bottom part of the pane.
 
-    ![](../../assets/images/develop_workspace_ex5.png)
+     <img src="../../assets/images/develop_workspace_ex5.png" alt="drawing" width="70%"/>
 
 ## Using the document editor
 
@@ -103,7 +103,7 @@ You can run all statements in a script or select snippets of SQL to run.
 
 After you run a script or query statement, more results appear below the script editor, along with statistics about query execution. The statistics section will provide further information on your statement such as its status, duration, and more. 
 
-<img src="../../assets/images/develop_workspace_ex1.png" alt="drawing" width="50%"/>
+<img src="../../assets/images/develop_workspace_ex1.png" alt="drawing" width="70%"/>
 
 ### Viewing multi-statement script results
 <!--- second paragraph has to be rephrased--->
@@ -111,7 +111,7 @@ When you run a script that has multiple SQL statements with result sets (`SELECT
 
 To view the results table for a result set, choose the table icon as shown in the example below.
 
-<img src="../../assets/images/develop_workspace_ex6.png" alt="drawing" width="50%"/>
+<img src="../../assets/images/develop_workspace_ex6.png" alt="drawing" width="70%"/>
 
 ### Exporting results to a local hard drive
 
@@ -130,4 +130,4 @@ It is possible to export the results of a single query alongside the results sum
 
 Click on the toggle at the bottom of the left navigation pane to switch between light and dark mode. 
 
-<img src="../../assets/images/develop_workspace_ex7.png" alt="drawing" width="50%"/>
+<img src="../../assets/images/develop_workspace_ex7.png" alt="drawing" width="70%"/>
