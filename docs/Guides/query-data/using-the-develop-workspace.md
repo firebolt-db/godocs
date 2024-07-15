@@ -101,7 +101,9 @@ You can run all statements in a script or select snippets of SQL to run.
 
 ### Viewing results
 
-After you run a script or query statement, more results appear below the script editor, along with statistics about query execution.
+After you run a script or query statement, more results appear below the script editor, along with statistics about query execution. The statistics section will provide further information on your statement such as its status, duration, and more. 
+
+<img src="../../assets/images/develop_workspace_ex7.png" alt="drawing" width="50%"/>
 
 ### Viewing multi-statement script results
 <!--- second paragraph has to be rephrased--->
