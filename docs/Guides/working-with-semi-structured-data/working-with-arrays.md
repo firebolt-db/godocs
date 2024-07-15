@@ -173,7 +173,7 @@ FROM visits;
 | 3  | iOS 14         |
 +----+----------------+
 ```
-[ARRAY_SORT](../../sql_reference/functions-reference/Lambda/array-sort.md) sorts one array by another. One array represents the values and the other represents the sort order.
+[ARRAY_SORT](../../sql_reference/functions-reference/array/array-sort.md) sorts one array by another. One array represents the values and the other represents the sort order.
 
 The example below sorts the first array by the positions defined in the second array
 

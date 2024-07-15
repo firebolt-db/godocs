@@ -7,7 +7,7 @@ parent: Window functions
 great_grand_parent: SQL reference
 ---
 
-# SUM 
+# SUM OVER
 
 Calculate the sum of the values within the requested window.
 
