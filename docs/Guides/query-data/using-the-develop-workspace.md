@@ -109,7 +109,7 @@ When you run a script that has multiple SQL statements with result sets (`SELECT
 
 To view the results table for a result set, choose the table icon as shown in the example below.
 
-![](../../assets/images/develop_workspace_ex6.png)
+<img src="../../assets/images/develop_workspace_ex6.png" alt="drawing" width="50%"/>
 
 ### Exporting results to a local hard drive
 
