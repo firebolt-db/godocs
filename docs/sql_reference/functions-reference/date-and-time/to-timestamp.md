@@ -56,10 +56,10 @@ TO_TIMESTAMP(<expression> [,'<format>'])
 ### Parameters
 {: .no_toc}
 
-| Parameter      | Description                                                                                                                                                                                                                                                                                                    | Supported input types |
-| :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------- |
-| `<expression>` | The text to convert to a timestamp with time zone. If no optional `<format>` argument is given that can be use to parse the `<expression>`, the following format is required: any supported date format directly followed by `( \|T)[H]H:[m]m:[S]S[.F]`. (For supported date formats see [TO_DATE](to-date.md) | `TEXT`                |
-| `<format>`     | Optional. A string literal that specifies the format of the `<expression>` to convert.                                                                                                                                                                                                                         | `TEXT` (see below)    |
+| Parameter      | Description                                                                                                                                                                                                                                                                                                     | Supported input types |
+| :------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------- |
+| `<expression>` | The text to convert to a timestamp with time zone. If no optional `<format>` argument is given that can be used to parse the `<expression>`, the following format is required: any supported date format directly followed by `( \|T)[H]H:[m]m:[S]S[.F]`. (For supported date formats see [TO_DATE](to-date.md) | `TEXT`                |
+| `<format>`     | Optional. A string literal that specifies the format of the `<expression>` to convert.                                                                                                                                                                                                                          | `TEXT` (see below)    |
 
 Accepted `<format>` patterns include the following specifications:
 
@@ -94,6 +94,9 @@ Accepted `<format>` patterns include the following specifications:
 - Milliseconds and microseconds are interpreted as subseconds in the form `ss.xxx[xxx]`. This means that `TO_TIMESTAMP('30.7', 'SS.MS')` is not 7 milliseconds, but 700, because it will be treated as 30 + 0.7 seconds. To achieve 7 milliseconds, one ust write `30.007` instead.
 - Modifiers (e.g., `'FM'`) are not supported.
 
+Some additional format patterns are reserved but currently not implemented: `FF1`, `FF2`, `FF3`, `FF4`, `FF5`, `FF6`, `SSSS`, `SSSSS`, `IYYY`, `IYY`, `IY`, `I`, `BC`, `AD`, `B_DOT_C_DOT`, `A_DOT_D_DOT`, `DAY`, `DY`, `DDD`, `IDDD`, `D`, `ID`, `W`, `WW`, `IW`, `CC`, `J`, `Q`.
+Using them in the format string raises an error.
+
 ### Examples
 
 The example below shows our separators and non-separators can cause skips. The separator `' '` (space) in the `<format>` matches the other separator `'/'` in the `<expression>`. The non-separator `'x'` will match any other character, in this case the `'a'`. Lastly, the two separators `'++'` will match up to two other separators, here the first `'x'` matches `'.'` while the second `'x'` will simply be ignored as no other separators follow.
@@ -125,7 +128,7 @@ SELECT
 SELECT
     TO_TIMESTAMP(
         'Date: August 2nd, 2023 at 3pm +2',
-        'Date: month DDxx, YYYY at HH12am TZH'
+        'Xxxx: month DDxx, YYYY at HH12am TZH'
     );
 ```
 
