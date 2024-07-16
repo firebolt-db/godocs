@@ -79,4 +79,6 @@ The `ntile` function now returns the same type as its input argument: For `INTEG
 
 Improved the performance for data transfer between nodes, resulting in faster overall query execution times. 
 
+<!--- FIR-33857---> **Updated table-level RBAC and ownership management**
 
+Table-level RBAC is now enabled for new accounts, extending RBAC checks to schema, table, view, and aggregating index levels. Existing accounts will be migrated to this new model, with built-in roles updated transparently. The `security_admin` role will be temporarily removed and reintroduced later. Custom roles may require additional admin grants. Ownership has been introduced, meaning object creators are their owners and cannot be dropped until ownership is transferred. For new accounts, roles and users cannot be dropped until all privileges and ownerships are managed.
