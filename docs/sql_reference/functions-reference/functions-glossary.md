@@ -16,7 +16,7 @@ All Firebolt functions in alphabetical order.
 | [ARRAY_ANY_MATCH](./Lambda/array-any-match.md) | Returns `true` if the function provided returns `true` for at least one of the elements of an array. Otherwise returns `false`. | Lambda |
 | [ARRAY_CONCAT](./array/array-concat.md) | Combines one or more arrays that are passed as arguments. | Array |
 | [ARRAY_CONTAINS](./array/array-contains.md) | Returns 1 if a specified argument is present in the array, or 0 otherwise. | Array |
-| [ARRAY_COUNT](./Lambda/array-count.md) | Counts the number of elements in a boolean array for which `function(array[i])` evaluates to true, if a function is provided. If not provided, counts the number of elements in the array that evaluate to true. | Lambda |
+| [ARRAY_COUNT](./array/array-count.md) | Counts the number of elements in a boolean array for which `function(array[i])` evaluates to true, if a function is provided. If not provided, counts the number of elements in the array that evaluate to true. | Lambda |
 | [ARRAY_DISTINCT](./array/array-distinct.md) | Returns an array containing only the _unique_ elements of the given array. | Array |
 | [ARRAY_FIRST](./Lambda/array-first.md) | Returns the first element in the given array for which the given function returns `true`. | Lambda |
 | [ARRAY_FLATTEN](./array/flatten.md) | Converts an array of arrays into a flat array. For every element that is an array, this function extracts its elements into the new array. | Array |
@@ -25,8 +25,8 @@ All Firebolt functions in alphabetical order.
 | [ARRAY_MAX](./array/array-max.md) | Returns the maximum element in an array. | Array |
 | [ARRAY_MIN](./array/array-min.md) | Returns the minimum element in an array. | Array |
 | [ARRAY_REVERSE](./array/array-reverse.md) | Returns an array of the same size and type as the original array, with the elements in reverse order. | Array |
-| [ARRAY_REVERSE_SORT](./Lambda/array-reverse-sort.md) | Returns the elements of the input array in descending order. If the argument function is provided, the sorting order is determined by the result of applying the function on each element of the array. | Lambda |
-| [ARRAY_SORT](./Lambda/array-sort.md) | Returns the elements of the input array in ascending order. If the argument function is provided, the sorting order is determined by the result of applying the function on each element of the array. | Lambda |
+| [ARRAY_REVERSE_SORT](./array/array-reverse-sort.md) | Returns the elements of the input array in descending order. If the argument function is provided, the sorting order is determined by the result of applying the function on each element of the array. | Lambda |
+| [ARRAY_SORT](./array/array-sort.md) | Returns the elements of the input array in ascending order. If the argument function is provided, the sorting order is determined by the result of applying the function on each element of the array. | Lambda |
 | [ARRAY_SUM](./Lambda/array-sum.md) | Returns the sum of elements of the input array. | Lambda |
 | [AVG](./aggregation/avg.md) | Calculates the average of an expression. | Aggregation |
 | [AVG OVER](./window/avg-window.md) | Returns the average value within the requested window. | Window |
@@ -39,8 +39,12 @@ All Firebolt functions in alphabetical order.
 | [CONCAT or \|\|](./string/concat.md) | Concatenates the strings listed in the input without a separator. | String |
 | [COUNT](./aggregation/count.md) | Counts the number of rows or not NULL values. | Aggregation |
 | [COUNT OVER](./window/count-window.md) | Count the number of values within the requested window. | Window |
+| [CURRENT_ACCOUNT](./session/current-account.md) | Returns the current account name | Session |
+| [CURRENT_DATABASE](./session/current-database.md) |Returns the current database name; if absent - returns `account_db` | Session |
 | [CURRENT_DATE](./date-and-time/current-date.md) | Returns the current (local) date in the time zone specified in the session's `time_zone` setting. | Date & time |
+| [CURRENT_ENGINE](./session/current-engine.md) | Returns the current engine name. Returns `system` on the system engine | Session |
 | [CURRENT_TIMESTAMP](./date-and-time/current-timestamptz.md) | Returns the current (local) timestamp in the time zone specified in the session's `time_zone` setting. | Date & time |
+| [CURRENT_USER](./session/current-user.md) | Returns the current user name. | Session |
 | [DATE_ADD](./date-and-time/date-add.md) | Calculates a new date or timestamp by adding or subtracting a specified number of time units from an indicated expression. | Date & time |
 | [DATE_DIFF](./date-and-time/date-diff.md) | Calculates the difference between the start and end date by the indicated unit. | Date & time |
 | [DATE_TRUNC](./date-and-time/date-trunc.md) | Truncates a date or timestamp value to the selected precision. | Date & time |
