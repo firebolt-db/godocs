@@ -18,6 +18,7 @@ Updates the configuration of the specified engine.
 ```sql
 ALTER ENGINE <engine_name> SET
     [AUTO_STOP = <minutes>]
+    [AUTO_START = <true/false>]
     [DEFAULT_DATABASE = <database_name>]
     [CLUSTERS = <clusters>]
     [NODES = <nodes>]
@@ -30,11 +31,12 @@ ALTER ENGINE <engine_name> SET
 | Parameter                            | Description                                  |
 | :----------------------------------- | :------------------------------------------- |
 | `<engine_name>`                      | The name of the engine to be altered.        |
+| `AUTO_START = <true/false>`          | When `true`, sending a query to a stopped engine will start the engine before processing the query. |
 | `AUTO_STOP = <minutes>`              | Indicates the amount of time (in minutes) after which the engine automatically stops. Setting the `minutes` to 0 indicates that `AUTO_STOP` is disabled. |
 | `DEFAULT_DATABASE = <database_name>` | The database an engine will attempt to use by default when dealing with queries that require a database. To remove the default database, set `DEFAULT_DATABASE=default`. |
-| `TYPE =<type>`                       | The type of node used by the engine. Can be one of 'S', 'M', 'L' or 'XL'. If not specified, `S` is used as default. |
-| `NODES = <nodes>`                    | The number of nodes for each cluster in an engine. Can be an integer ranging from `1` to `128`. If not specified, `1` is used as default. |
-| `CLUSTERS = <clusters>`              | Collection of nodes, where each node is of a certain type. All the clusters in an engine have the same type and same number of nodes. If not specified, `1` is used as default. |
+| `TYPE =<type>`                       | The type of node used by the engine. Can be one of 'S', 'M', 'L' or 'XL'. |
+| `NODES = <nodes>`                    | The number of nodes for each cluster in an engine. Can be an integer ranging from `1` to `128`. |
+| `CLUSTERS = <clusters>`              | Collection of nodes, where each node is of a certain type. All the clusters in an engine have the same type and same number of nodes. |
 | `RENAME TO <new_name>`               | Indicates the new name for the engine. No other parameters are allowed during an engine rename. |
 
 **Preview Limitations:**  The number of clusters per engine is limited to one.  Modifying the TYPE or NODES attribute of a running engine may result in the failure of currently executing queries. If you would like to remove any of these limitations, reach out to Firebolt Support.
