@@ -137,6 +137,4 @@ Below are some known limitations of the `UPDATE` command.
   * [COUNT and COUNT(DISTINCT)](../../functions-reference/aggregation/count.md)
   * [SUM](../../functions-reference/aggregation/sum.md)
   * [AVG](../../functions-reference/aggregation/avg.md)
-  * [PERCENTILE_CONT](../../functions-reference/percentile-cont.md)
-  * [PERCENTILE_DISC](../../functions-reference/percentile-disc.md)
   * [ARRAY_AGG/NEST](../../functions-reference/aggregation/array-agg.md)
