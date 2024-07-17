@@ -14,7 +14,7 @@ Stops a running engine.
 ## Syntax
 
 ```sql
-STOP ENGINE <engine_name>
+STOP ENGINE [IF EXISTS] <engine_name>
 [WITH 
     [TERMINATE = <true/false>]]
 ```
