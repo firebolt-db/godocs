@@ -15,17 +15,27 @@ Stops a running engine.
 
 ```sql
 STOP ENGINE <engine_name>
+[WITH 
+    [TERMINATE = <true/false>]]
 ```
 ## Parameters 
 {: .no_toc}   
 
-| Parameter       | Description                          |
+| Parameter        | Description                           |
 | :--------------- | :------------------------------------ |
-| `<engine_name>` | The name of the engine to be stopped. |
+| `<engine_name>`  | The name of the engine to be stopped. |
+| `<TERMINATE>`    | When `false`, the engine will wait for running queries to finish before stopping.<br>When `true`, the engine will stop without waiting for running queries to complete.<br><br>If not specified, `false` is used as default. |
 
-## Example
-The following example stops my_engine:
+## Example 1
+The following example waits for queries on my_engine to finish before stopping:
 
 ```sql
 STOP ENGINE my_engine
+```
+
+## Example 2
+The following example stops my_engine without waiting for running queries to finish:
+
+```sql
+STOP ENGINE my_engine WITH TERMINATE=true
 ```
