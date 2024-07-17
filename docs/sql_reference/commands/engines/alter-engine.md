@@ -32,8 +32,8 @@ ALTER ENGINE <engine_name> SET
 | :----------------------------------- | :------------------------------------------- |
 | `<engine_name>`                      | The name of the engine to be altered.        |
 | `AUTO_START = <true/false>`          | When `true`, sending a query to a stopped engine will start the engine before processing the query. |
-| `AUTO_STOP = <minutes>`              | Indicates the amount of time (in minutes) after which the engine automatically stops. Setting the `minutes` to 0 indicates that `AUTO_STOP` is disabled. |
-| `DEFAULT_DATABASE = <database_name>` | The database an engine will attempt to use by default when dealing with queries that require a database. To remove the default database, set `DEFAULT_DATABASE=default`. |
+| `AUTO_STOP = <minutes>`              | Indicates the amount of time (in minutes) after which the engine automatically stops.<br>Setting the `minutes` to 0 indicates that `AUTO_STOP` is disabled. |
+| `DEFAULT_DATABASE = <database_name>` | The database an engine will attempt to use by default when dealing with queries that require a database.<br>To remove the default database, set `DEFAULT_DATABASE=default`. |
 | `TYPE =<type>`                       | The type of node used by the engine. Can be one of 'S', 'M', 'L' or 'XL'. |
 | `NODES = <nodes>`                    | The number of nodes for each cluster in an engine. Can be an integer ranging from `1` to `128`. |
 | `CLUSTERS = <clusters>`              | Collection of nodes, where each node is of a certain type. All the clusters in an engine have the same type and same number of nodes. |
