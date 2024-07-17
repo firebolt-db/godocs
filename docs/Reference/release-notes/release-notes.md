@@ -65,6 +65,19 @@ Introduced the `cancel_query_on_connection_drop` setting, allowing clients to co
 
 The HTTP API now returns query execution errors in JSON format by default. This change allows for the inclusion of meta information such as error codes and the location of failing expressions in SQL scripts.
 
+<!--- FIR-33857---> **Updated table-level RBAC and ownership management**
+{: style="color:red;"}
+
+1. Table level RBAC will be enabled for new accounts, which means that RBAC checks also covers schema, table, view and aggregating indexes. Refer to our [RBAC](./../../Guides/security/rbac.md) docs for the full new spec. Newly created accounts will have this version enabled immediately, but this introduces changes to existing accounts that will be migrated to the new version:
+   * System built-in roles will be migrated to promote the account to table level RBAC. This means that new privileges will be added to `account_admin`, `system_admin` and `public` roles. The effect is transparent— any user assigned with those roles will not be affected.
+   * `Security_admin` role will be removed temporarily and re-introduced in a later release.
+   * `Information_object_privileges` will include more privileges and switching to to a specific user db (e.g by executing `use database db`) will only show privileges relevant for that database.
+   * Every newly created user is granted with a `public` role. This grant can be revoked.
+
+2. Ownership has been introduced. This means that the user creator of an object is it's owner. Owners of objects cannot be dropped until their ownership is transferred. 
+
+3. On new accounts, roles cannot be dropped if there are privileges granted on them.
+
 ### Enhancements, changes and new integrations
 
 <!--- FIR-33699---> **Improved query performance**
@@ -79,6 +92,4 @@ The `ntile` function now returns the same type as its input argument: For `INTEG
 
 Improved the performance for data transfer between nodes, resulting in faster overall query execution times. 
 
-<!--- FIR-33857---> **Updated table-level RBAC and ownership management**
 
-Table-level RBAC is now enabled for new accounts, extending RBAC checks to schema, table, view, and aggregating index levels. The `security_admin` role will be temporarily removed and reintroduced later. Custom roles may require additional admin grants. Ownership has been introduced, meaning object creators are their owners and cannot be dropped until ownership is transferred. For new accounts, roles and users cannot be dropped until all privileges and ownerships are managed.
