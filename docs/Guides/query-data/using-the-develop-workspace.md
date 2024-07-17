@@ -19,15 +19,15 @@ The Firebolt Manager has a develop workspace that you use to edit and run SQL sc
 
 You can launch the workspace for a database by clicking the **Develop** icon from the left navigation pane or clicking the "+" icon next to "Script 1". 
 
-  <img src="../../assets/images/develop_workspace_ex0.png" alt="drawing" width="50%"/>
+  <img src="../../assets/images/develop_workspace_ex0.png" alt="drawing" width="70%"/>
 
-  <img src="../../assets/images/develop_workspace_ex4.png" alt="drawing" width="40%"/>
+  <img src="../../assets/images/develop_workspace_ex4.png" alt="drawing" width="70%"/>
 
 **Starting the develop workspace for the last database you worked with**
 
 1.  Choose the **>_** icon from the left navigation pane.
 
-    <img src="../../assets/images/develop_workspace_ex0.png" alt="drawing" width="40%"/>
+    <img src="../../assets/images/develop_workspace_ex0.png" alt="drawing" width="70%"/>
 
     The workspace for the database that you last worked with will open, and the database will be selected from the list.
 

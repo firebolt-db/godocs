@@ -22,7 +22,7 @@ CREATE ROLE prodAdminRole;
 
 GRANT CREATE ENGINE ON ACCOUNT myAccount IN ORGANIZATION myOrg TO prodAminRole; 
 
-GRANT OPERATE ENGINE ON myEngine IN ACCOUNT myAccount TO prodAdminRole; 
+GRANT OPERATE ON ENGINE myEngine IN ACCOUNT myAccount TO prodAdminRole; 
 
 GRANT ROLE prodAdminRole TO USER kate;  
 ```
@@ -34,7 +34,7 @@ CREATE ROLE prodAdminRole;
 
 GRANT USAGE ENGINE ON myEngine IN ACCOUNT myAccount TO prodAminRole; 
 
-GRANT OPERATE ENGINE ON myEngine IN ACCOUNT myAccount TO prodAdminRole; 
+GRANT OPERATE ON ENGINE myEngine IN ACCOUNT myAccount TO prodAdminRole; 
 
 GRANT ROLE prodAdminRole TO USER kate;  
 ```
@@ -48,7 +48,7 @@ GRANT USAGE ENGINE ON myEngine IN ACCOUNT myAccount TO prodAminRole;
 
 GRANT MONITOR USAGE ON ENGINE myEngine IN ACCOUNT myAccount TO prodAminRole; 
 
-GRANT OPERATE ENGINE ON myEngine IN ACCOUNT myAccount TO prodAdminRole; 
+GRANT OPERATE ON ENGINE myEngine IN ACCOUNT myAccount TO prodAdminRole; 
 
 GRANT ROLE prodAdminRole TO USER kate;  
 ```
@@ -60,7 +60,7 @@ CREATE ROLE prodAdminRole;
 
 GRANT CREATE ENGINE ON ACCOUNT myAccount IN ORGANIZATION myOrg TO prodAminRole; 
 
-GRANT MODIFY ENGINE ON myEngine IN ACCOUNT myAccount TO prodAdminRole; 
+GRANT MODIFY ON ENGINE myEngine IN ACCOUNT myAccount TO prodAdminRole; 
 
 GRANT ROLE prodAdminRole TO USER kate;  
 ```

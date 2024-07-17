@@ -9,9 +9,11 @@ parent: Engine commands
 
 # ALTER ENGINE
 
+## ALTER ENGINE SET
+
 Updates the configuration of the specified engine.
 
-## Syntax
+### Syntax
 
 ```sql
 ALTER ENGINE <engine_name> SET
@@ -23,7 +25,7 @@ ALTER ENGINE <engine_name> SET
     [RENAME TO <new_name>]
     [AUTO_STOP = <true/false>]
 ```
-## Options 
+### Options 
 {: .no_toc}  
 
 | Parameter                            | Description                                  |
@@ -39,30 +41,43 @@ ALTER ENGINE <engine_name> SET
 
 **Preview Limitations:**  The number of clusters per engine is limited to one.  Modifying the TYPE or NODES attribute of a running engine may result in the failure of currently executing queries. If you would like to remove any of these limitations, reach out to Firebolt Support.
 
-## Example 1
+### Example 1
 The following example allows the users to scale out an engine by setting the engine's `NODES` to `3`: 
 
 ```sql
 ALTER ENGINE my_engine SET NODES = 3;
 ```
 
-## Example 2
+### Example 2
 The following example allows the users to scale up an engine from Small to Large by setting the engine's `TYPE` to `L`: 
 
 ```sql
 ALTER ENGINE my_engine SET TYPE = "L";
 ```
 
-## Example 3
+### Example 3
 The following example allows the users to both scale up and scale out an engine by changing the number of nodes and the node type: 
 
 ```sql
 ALTER ENGINE my_engine SET TYPE = "L" NODES = 5;
 ```
 
-## Example 4
-The following example allows the users to set engine `AUTO_START` option. In case it's stopped, the engine will start automatically upon query, because `AUTO_START` is set to `true`.
+## ALTER ENGINE OWNER TO
+
+Change the owner of an engine. The current owner of an engine can be viewed in the `information_schema.engines` view on `engine_owner` column.
+
+check [ownership](../../../Guides/security/ownership.md) page for more info.
+
+### Syntax
 
 ```sql
-ALTER ENGINE my_engine SET AUTO_START = true;
+ALTER ENGINE <engine_name> OWNER TO <user>
 ```
+
+### Parameters 
+{: .no_toc}
+
+| Parameter     | Description                                  |
+| :------------ | :------------------------------------------- |
+| `<engine_name>` | The name of the engine to change the owner of. |
+| `<user>`       | The new owner of the engine.                 |

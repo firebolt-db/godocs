@@ -17,7 +17,16 @@ We provide an archive of release notes for your historical reference.
 * Topic ToC
 {:toc}
 
+## DB version 4.1
+**June 2024**
 
+* [Resolved issues](#resolved-issues)
+
+### Resolved issues
+
+<!--- FIR-32985--->
+* Fixed an issue causing errors when using `WHERE column IN (...)` filters on external table scans.
+  
 ## DB version 4.0
 **June 2024**
 

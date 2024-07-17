@@ -175,14 +175,14 @@ Represents variable size binary data. A binary string is a sequence of bytes - u
 ## Type Conversion
 
 Values with a given data type can be converted to another data type. There are three contexts in which this happens:
-* *Explicit*: With an explicit invocation of the [CAST](cast.md) function.
+* *Explicit*: With an explicit invocation of the [CAST](../sql_reference/functions-reference/conditional-and-miscellaneous/cast.md) function.
 * *Assignment*: Assigning values to a column of the target data type, as happens in the insert statement.
 * *Implicit*: Using a SQL function where none of the available signatures match the argument types. The planner inserts implicit casts.
 
 The following table lists which type conversions are supported and in which context.
 
 "Explicit", "Assignment", and "Implicit" indicate in which type conversion context the conversion operation can be invoked.
-* "Explicit" means only as an explicit cast (using [CAST](cast.md) or :: syntax).
+* "Explicit" means only as an explicit cast (using [CAST](../sql_reference/functions-reference/conditional-and-miscellaneous/cast.md) or :: syntax).
 * "Assignment" means implicitly in assignment to a target column, as well as explicitly.
 * "Implicit" means implicitly in expressions, as well as the other cases.
 

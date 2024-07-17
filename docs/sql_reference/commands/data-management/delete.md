@@ -112,8 +112,6 @@ Below are some known limitations of the `DELETE` command.
   * [COUNT and COUNT(DISTINCT)](../../functions-reference/aggregation/count.md)
   * [SUM](../../functions-reference/aggregation/sum.md)
   * [AVG](../../functions-reference/aggregation/avg.md)
-  * [PERCENTILE_CONT](../../functions-reference/aggregation/percentile-cont.md)
-  * [PERCENTILE_DISC](../../functions-reference/aggregation/percentile-disc.md)
-  * [ARRAY_AGG](../../functions-reference/aggregate-array/array-agg.md)
+  * [ARRAY_AGG](../../functions-reference/aggregation/array-agg.md)
 
 * Queries against tables with deleted rows are supported and can be run. However, expect slower performance.

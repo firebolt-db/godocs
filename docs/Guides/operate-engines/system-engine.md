@@ -2,6 +2,7 @@
 layout: default
 title: System Engine
 description: System engine documentation
+nav_order: 4
 parent: Operate Engines
 grand_parent: Guides
 ---
@@ -26,7 +27,7 @@ The system engine supports running the following commands:
     * [information_schema.accounts](../../sql_reference/information-schema/accounts.md)
     * [information_schema.applicable_roles](../../sql_reference/information-schema/applicable-roles.md)
     * [information_schema.columns](../../sql_reference/information-schema/columns.md)
-    * [information_schema.databases](../../sql_reference/information-schema/databases.md)
+    * [information_schema.catalogs](../../sql_reference/information-schema/catalogs.md)
     * [information_schema.engines](../../sql_reference/information-schema/engines.md)
     * [information_schema.indexes](../../sql_reference/information-schema/indexes.md)
     * [information_schema.logins](../../sql_reference/information-schema/logins.md)

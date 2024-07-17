@@ -13,7 +13,9 @@ Updates the configuration of the specified user.
 
 For more information, see [Managing users](../../../Guides/managing-your-organization/managing-users.md).
 
-## Syntax
+## ALTER USER SET
+
+### Syntax
 
 ```sql
 ALTER USER <user_name> SET
@@ -28,7 +30,7 @@ or
 ALTER USER <user_name> RENAME TO <new_user_name>;
 ```
 
-## Parameters 
+### Parameters 
 {: .no_toc} 
 
 | Parameter | Description |
@@ -40,7 +42,7 @@ ALTER USER <user_name> RENAME TO <new_user_name>;
 | `<database_name>`                      | An optional parameter to define a default database for the user (for future purposes). Used with the `SET` option. |
 | `<engine_name>` | An optional parameter to define a default engine for the user (for future purposes).Used with the `SET` option. |
 
-## Example
+### Example
 
 The following command will rename the "alex" account to "alexs".
 
@@ -53,3 +55,23 @@ This command will link the user "alex" to the "alexs@acme.com" login.
 ```sql
 ALTER USER alex SET LOGIN="alexs@acme.com";
 ```
+
+## ALTER USER OWNER TO
+
+Change the owner of a user. The current owner of a user can be viewed in the `information_schema.users` view on `user_owner` column.
+
+Check [ownership](../../../Guides/security/ownership.md) page for more info.
+
+### Syntax
+
+```sql
+ALTER USER <user_name> OWNER TO <user>
+```
+
+### Parameters 
+{: .no_toc}
+
+| Parameter | Description |
+| :--- | :--- |
+| `<user_name>` | The name of the user to change the owner of. |
+| `<user>` | The new owner of the user. |

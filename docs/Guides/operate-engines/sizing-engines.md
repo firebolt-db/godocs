@@ -36,7 +36,7 @@ Firebolt provides engine observability metrics that give visibility into how the
 
 **TIP:** You also have the option to run your workload simultaneously on engines with different configurations and use these metrics to identify which configuration best fits your needs. 
 
-**NOTE:** You will need to have the appropriate [RBAC](../working-with-engines/rbac-for-engines.md) permissions to use the engine observability metrics.
+**NOTE:** You will need to have the appropriate [RBAC](../operate-engines/rbac-for-engines.md) permissions to use the engine observability metrics.
 
 
 
