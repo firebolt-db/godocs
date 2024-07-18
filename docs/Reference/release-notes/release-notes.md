@@ -72,6 +72,12 @@ Introduced the `cancel_query_on_connection_drop` setting, allowing clients to co
 
 The HTTP API now returns query execution errors in JSON format by default. This change allows for the inclusion of meta information such as error codes and the location of failing expressions in SQL scripts.
 
+### Enhancements, changes and new integrations
+
+<!--- FIR-33699---> **Improved query performance**
+
+Queries with "`SELECT [project_list] FROM [table] LIMIT [limit]`" on large tables are now significantly faster.
+
 <!--- FIR-33857---> **Updated table-level RBAC and ownership management**
 
 Table level RBAC is now supported by Firebolt. This means that RBAC checks also cover schemas, tables, views and aggregating indexes. Refer to our [RBAC](./../../Guides/security/rbac.md) docs for a detailed overview of this new feature. The new Firebolt version inhibits the following changes:
@@ -79,11 +85,3 @@ Table level RBAC is now supported by Firebolt. This means that RBAC checks also 
    * The `security_admin` role will be removed temporarily and re-introduced in a later release.
    * `Information_object_privileges` includes more privileges. Switching to to a specific user database (e.g by executing `use database db`) will only show privileges relevant for that database. Account-level privileges no longer show up when attached to a specific database.
    * Every newly created user is granted with a `public` role. This grant can be revoked.
-
-### Enhancements, changes and new integrations
-
-<!--- FIR-33699---> **Improved query performance**
-
-Queries with "`SELECT [project_list] FROM [table] LIMIT [limit]`" on large tables are now significantly faster.
-
-
