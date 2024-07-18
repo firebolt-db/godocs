@@ -72,6 +72,18 @@ Introduced the `cancel_query_on_connection_drop` setting, allowing clients to co
 
 The HTTP API now returns query execution errors in JSON format by default. This change allows for the inclusion of meta information such as error codes and the location of failing expressions in SQL scripts.
 
+<!--- FIR-33925 ---> **STOP ENGINE will drain currently running queries first**
+{: style="color:red;"}
+
+`STOP ENGINE` command now supports graceful drain, meaning any currently running queries will be run to completion. Once all the queries are completed, the engine will be fully stopped and terminated. If you want to stop the engine immediately, you can STOP ENGINE command use the TERMINATE option. For example, to immediately stop an engine, my_engine, you can use `STOP ENGINE myEngine WITH TERMINATE = TRUE`.
+
+<!--- FIR-33925 ---> **Scaling engines will not terminate currently running queries**
+{: style="color:red;"}
+
+`ALTER ENGINE` command now supports graceful drain, meaning when you scale an engine (vertically or horizontally), any currently running queries will not be terminated. New queries after the scaling operation will be directed to a new cluster, while queries running on the old cluster will be run to completion.
+
+
+
 ### Enhancements, changes and new integrations
 
 <!--- FIR-33699---> **Improved query performance**
