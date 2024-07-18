@@ -75,7 +75,7 @@ The HTTP API now returns query execution errors in JSON format by default. This 
 <!--- FIR-33925 ---> **STOP ENGINE will drain currently running queries first**
 {: style="color:red;"}
 
-`STOP ENGINE` command now supports graceful drain, meaning any currently running queries will be run to completion. Once all the queries are completed, the engine will be fully stopped and terminated. If you want to stop the engine immediately, you can STOP ENGINE command use the TERMINATE option. For example, to immediately stop an engine, my_engine, you can use:
+`STOP ENGINE` command now supports graceful drain, meaning any currently running queries will be run to completion. Once all the queries are completed, the engine will be fully stopped and terminated. If you want to stop the engine immediately, you can issue a STOP ENGINE command use the TERMINATE option. For example, to immediately stop an engine, my_engine, you can use:
 
 ```sql
  STOP ENGINE myEngine WITH TERMINATE = TRUE
