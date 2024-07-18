@@ -15,9 +15,11 @@ Creates an engine (compute cluster).
 ```sql
 CREATE ENGINE [IF NOT EXISTS] <engine_name>
 [WITH 
+    [AUTO_START = <true/false>]
     [AUTO_STOP = <minutes>]
     [DEFAULT_DATABASE = <database_name>]
     [INITIALLY_STOPPED = <true/false>]
+    [START_IMMEDIATELY = <true/false>]
     [CLUSTERS = <clusters>]
     [NODES = <nodes>]
     [TYPE = <type>]
@@ -26,20 +28,23 @@ CREATE ENGINE [IF NOT EXISTS] <engine_name>
 ## Options
 {: .no_toc}  
 
-| Property                             | Description           |
+| Parameter                            | Description           |
 | :----------------------------------- | :-------------------- |
 | `<engine_name>`                      | The name of the engine to be created. |
-| `AUTO_STOP = <minutes>`              | The amount of idle time (in minutes) after which the engine automatically stops. <br><br>If not specified, `20` is used as default. Setting the minutes to `0` indicates that `AUTO_STOP` is disabled. |
+| `AUTO_START = <true/false>`          | When `true`, sending a query to a stopped engine will start the engine before processing the query.<br><br>If not specified, `true` will be used as default. |
+| `AUTO_STOP = <minutes>`              | The amount of idle time (in minutes) after which the engine automatically stops.<br>Setting the minutes to `0` indicates that `AUTO_STOP` is disabled.<br><br>If not specified, `20` is used as default. |
 | `DEFAULT_DATABASE = <database_name>` | The database an engine will attempt to use by default when dealing with queries that require a database.<br><br>If not specified, `NULL` is used as default. |
-| `INITIALLY_STOPPED = <true/false>`   | When `false`, the newly created engine will be started as part of the `CREATE ENGINE` command.<br><br>If not specified, `false` is used as default. |
-| `CLUSTERS = <clusters>`   | Collection of nodes, where each node is of a certain type. All the clusters in an engine have the same type and same number of nodes. If not specified, `1` is used as default. |
+| `INITIALLY_STOPPED = <true/false>`   | When `false`, the newly created engine will be started as part of the `CREATE ENGINE` command.<br>Cannot be used with `START_IMMEDIATELY`.<br><br>If not specified, `false` is used as default. |
+| `START_IMMEDIATELY = <true/false>`   | When `true`, the newly created engine will be started as part of the `CREATE ENGINE` command.<br>Cannot be used with `INITIALLY_STOPPED`.<br><br>If not specified, `true` is used as default. |
+| `CLUSTERS = <clusters>`              | Collection of nodes, where each node is of a certain type. All the clusters in an engine have the same type and same number of nodes. If not specified, `1` is used as default. |
 | `NODES = <nodes>`                    | The number of nodes for each cluster in an engine. Can be an integer ranging from `1` to `128`. <br><br>If not specified, `1` is used as default. |
 | `TYPE = <type>`                       | The type of node used by the engine. Can be one of 'S', 'M', 'L' or 'XL' <br><br>If not specified, `S` is used as default. |
 | `AUTO_START = <true/false>`                       | When `true`, If the engine is stopped, it will be automatically started when a query is sent to the engine endpoint.<br><br>If not specified, `true` is used as default. |
 
-**Preview Limitations:**  
-* The number of clusters per engine is limited to one. 
-* While you can dynamically resize an engine, any currently running queries may not run to completion. 
+**Limitations:**  
+* The number of clusters per engine is limited to two. 
+* The number of nodes per cluster is limited to ten.
+
 If you would like to remove the above limitations, reach out to Firebolt Support.
 
 ## Example 1
