@@ -26,6 +26,11 @@ STOP ENGINE [IF EXISTS] <engine_name>
 | `<engine_name>`  | The name of the engine to be stopped. |
 | `<TERMINATE>`    | When `false`, the engine will wait for running queries to finish before stopping.<br>When `true`, the engine will stop without waiting for running queries to complete.<br><br>If not specified, `false` is used as default. |
 
+**Limitations:**
+* When `TERMINATE=false` (default), the engine will wait for up to 24 hours for running queries to finish before stopping. After 24 hours, the engine will finish shutting down. Any queries still running may not run to completion. If you would like to adjust this limitation, reach out to Firebolt Support.
+
+If you would like to remove any of these limitations, reach out to Firebolt Support.
+
 ## Example 1
 The following example waits for queries on my_engine to finish before stopping:
 
