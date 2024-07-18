@@ -26,5 +26,5 @@ DROP ENGINE [IF EXISTS] <engine_name>
 The following example drops my_engine:
 
 ```sql
-DROP ENGINE [IF EXISTS] my_engine
+DROP ENGINE my_engine
 ```
