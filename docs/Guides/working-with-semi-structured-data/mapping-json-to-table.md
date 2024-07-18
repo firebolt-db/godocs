@@ -56,7 +56,7 @@ The JSON records above are represented in a Firebolt table that is created with 
 CREATE [FACT|DIMENSION] TABLE visits
 (
     id INT,
-    start_time DATETIME,
+    start_time TIMESTAMP,
     tags ARRAY(TEXT),
     agent_props_keys ARRAY(TEXT),
     agent_props_vals ARRAY(TEXT)
@@ -68,7 +68,7 @@ With the JSON records above ingested into the table, table data appears as shown
 {: .note}
 The data type is shown in capital letters beside the column name for clarity and is not part of the column name.
 
-| id INT | start_time DATETIME | duration INT | tags ARRAY\(TEXT\) | agent\_props\_keys | agent\_props\_vals |
+| id INT | start_time TIMESTAMP | duration INT | tags ARRAY\(TEXT\) | agent\_props\_keys | agent\_props\_vals |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | 1 | 2020-01-06 17:00:00 | 450 | \["summer-sale","sports"\] | \["agent", "platform", "resolution"\] | \["Mozilla/5.0", "Windows NT 6.1", "1024x4069"\] |
 | 2 | 2020-01-05 12:00:00 | 959 | \["gadgets","audio"\] | \["agent", "platform"\] | \["Safari", "iOS 14"\] |

@@ -48,17 +48,6 @@ With this JSON document, the JSON pointer expressions below evaluate to the resu
 | `/0`                 | 123                                | Uses an ordinal to indicate the value associated with the `key` property name. The `key` property is in the first 0-based position.        |
 | `/value/keywords/2`  | analytics                          | Indicates the element "analytics", which is in the third 0-based position of the array value associated with they keywords property. |
 
-### Supported type parameters
-
-Some functions accept a *data type parameter*, indicated in this reference with the `<expected_type>` placeholder. This parameter specifies the expected type as indicated by `<json_pointer_expression>`. The `<expected_type>` is specified using a string literal that corresponds to supported Firebolt SQL data types. The type parameter does not accept all SQL types because the JSON type system has fewer types than SQL and must be one of the following:
-
-* `INTEGER` &ndash; used for integers as well as JSON boolean.
-* `DOUBLE PRECISION` when the values in the JSON document are known integers.
-* `TEXT` &ndash; used for strings.
-* `ARRAY(<type>)` &ndash; indicates an array where `<type>` is one of `INTEGER`, `DOUBLE PRECISION`, or `TEXT`.
-
-The following data types are _not supported_: `DATE`, `TIMESTAMP`, `REAL` (for real numbers, use `DOUBLE PRECISION`).
-
 ### JSON common example
 
 Usage examples for JSON functions in this reference are based on the JSON document below, which is indicated using the `<json_common_example>` placeholder.

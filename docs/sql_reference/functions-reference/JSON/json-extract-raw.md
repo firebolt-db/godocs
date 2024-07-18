@@ -34,7 +34,7 @@ JSON_EXTRACT_RAW(<json>, <json_pointer_expression>)
 ## Example
 {: .no_toc}
 
-For the JSON document indicated by `<json_common_example>` below, see [JSON common example](./index.md#json-common-example). The **Returns** result is based on this common example.
+For the JSON document indicated by `<json_common_example>` below, see [JSON common example](./index.md#json-common-example). The **returned result** is based on this common example.
 
 ```sql
 SELECT
