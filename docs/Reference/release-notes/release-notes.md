@@ -86,7 +86,7 @@ The HTTP API now returns query execution errors in JSON format by default. This 
 
 `ALTER ENGINE` command now supports graceful drain, meaning when you scale an engine (vertically or horizontally), any currently running queries will not be terminated. New queries after the scaling operation will be directed to a new cluster, while queries running on the old cluster will be run to completion.
 
-<!--- FIR-33857---> **Updated ownership management**
+<!--- FIR-33857---> **Updated RBAC ownership management**
 {: style="color:red;"}
 
 We have introduced several updates to role and privilege management: 
