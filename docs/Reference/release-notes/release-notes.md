@@ -86,8 +86,6 @@ The HTTP API now returns query execution errors in JSON format by default. This 
 
 `ALTER ENGINE` command now supports graceful drain, meaning when you scale an engine (vertically or horizontally), any currently running queries will not be terminated. New queries after the scaling operation will be directed to a new cluster, while queries running on the old cluster will be run to completion.
 
-
-
 ### Enhancements, changes and new integrations
 
 <!--- FIR-33699---> **Improved query performance**
