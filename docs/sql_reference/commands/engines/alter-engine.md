@@ -39,9 +39,11 @@ ALTER ENGINE <engine_name> SET
 | `CLUSTERS = <clusters>`              | Collection of nodes, where each node is of a certain type. All the clusters in an engine have the same type and same number of nodes. |
 | `RENAME TO <new_name>`               | Indicates the new name for the engine. No other parameters are allowed during an engine rename. |
 
-**Preview Limitations:**
+**Limitations:**
 * The number of clusters per engine is limited to two. 
-* The number of nodes per cluster is limited to five.
+* The number of nodes per cluster is limited to ten.
+* When you scale a running engine (vertically or horizontally), new queries after the scaling operation will be directed to a new cluster. Queries running on the old clusters will be run to completion. The clusters will wait for up to 24 hours for running queries to finish. After 24 hours, any queries still running may not run to completion.
+
 If you would like to remove any of these limitations, reach out to Firebolt Support.
 
 ### Example 1
