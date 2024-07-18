@@ -39,10 +39,10 @@ CREATE ENGINE [IF NOT EXISTS] <engine_name>
 | `NODES = <nodes>`                    | The number of nodes for each cluster in an engine. Can be an integer ranging from `1` to `128`. <br><br>If not specified, `1` is used as default. |
 | `TYPE =<type>`                       | The type of node used by the engine. Can be one of 'S', 'M', 'L' or 'XL' <br><br>If not specified, `S` is used as default. |
 
-**Preview Limitations:**  
+**Limitations:**  
 * The number of clusters per engine is limited to two. 
-* The number of nodes per cluster is limited to five.
-* While you can dynamically resize an engine, any currently running queries may not run to completion. 
+* The number of nodes per cluster is limited to ten.
+
 If you would like to remove the above limitations, reach out to Firebolt Support.
 
 ## Example 1
