@@ -19,16 +19,16 @@ Firebolt provides a [type 4](https://en.wikipedia.org/wiki/JDBC_driver#Type_4_dr
 
 The Firebolt JDBC driver is provided as a JAR file and requires [Java 11](https://java.com/en/download/manual.jsp){:target="_blank"} or later. 
 
-Download the Firebolt JDBC driver JAR file from the [GitHub Releases page](https://github.com/firebolt-db/jdbc/releases/tag/3.0.1-RELEASE-3){:target="_blank"}.
+Download the Firebolt JDBC driver JAR file from the [GitHub Releases page](https://github.com/firebolt-db/jdbc/releases){:target="_blank"}.
 
 ## Adding the Firebolt JDBC driver as a Maven dependency
 
-If you are using Apache Maven, you can configure and build your projects to use the Firebolt JDBC driver to connect to your Firebolt resources. To do this, add the JDBC driver as a dependency in your project **pom.xml** file by including a link to the [Firebolt Maven repository](https://mvnrepository.com/artifact/io.firebolt/firebolt-jdbc){:target="_blank"}.
+If you are using Apache Maven, you can configure and build your projects to use the Firebolt JDBC driver to connect to your Firebolt resources. To do this, add the JDBC driver as a dependency in your project **pom.xml** file by including a link to the [Firebolt Maven repository](https://central.sonatype.com/artifact/io.firebolt/firebolt-jdbc){:target="_blank"}.
 
 See below for an example pom.xml file:
 
   {: .note}
-  Be sure to replace `<version>0.00</version>` with the latest (highest) version number. You can identify the latest version by viewing the version history in the [Firebolt Maven repository](https://mvnrepository.com/artifact/io.firebolt/firebolt-jdbc){:target="_blank"}.
+  Be sure to replace `<version>3.1.0</version>` with the latest (highest) version number. You can identify the latest version by viewing the version history in the [Firebolt Maven Central repository](https://central.sonatype.com/artifact/io.firebolt/firebolt-jdbc){:target="_blank"}.
     
     <!-- pom.xml  -->
     
@@ -36,7 +36,7 @@ See below for an example pom.xml file:
            <dependency>
                 	<groupId>io.firebolt</groupId>
                 	<artifactId>firebolt-jdbc</artifactId>
-                	<version>3.0.1</version>
+                	<version>3.1.0</version>
            </dependency>
     </project>
 
@@ -44,7 +44,7 @@ See below for an example pom.xml file:
 ## Adding the Firebolt JDBC driver as a gradle dependency
 
   {: .note}
-  Be sure to replace `<version>0.00</version>` with the latest (highest) version number. You can identify the latest version by viewing the version history in the [Firebolt Maven repository](https://mvnrepository.com/artifact/io.firebolt/firebolt-jdbc){:target="_blank"}.
+  Be sure to replace `<version>0.00</version>` with the latest (highest) version number. You can identify the latest version by viewing the version history in the [Firebolt Maven Central repository](https://central.sonatype.com/artifact/io.firebolt/firebolt-jdbc){:target="_blank"}.
 
     /* build.gradle */
     

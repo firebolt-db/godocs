@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Keyboard shortcuts for the SQL editor
-description: Reference for efficient keyboard shortcuts when working in the Firebolt SQL editor.
+title: Keyboard shortcuts for the develop workspace
+description: Reference for efficient keyboard shortcuts when working in the Firebolt develop workspace.
 nav_order: 4
 parent: Query data
 grand_parent: Guides
 ---
 
-# Keyboard shortcuts for the SQL editor
+# Keyboard shortcuts for the develop workspace
 
 Firebolt supports the following keyboard shortcuts in the SQL editor.
 

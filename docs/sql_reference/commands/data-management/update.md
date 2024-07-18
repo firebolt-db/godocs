@@ -134,9 +134,7 @@ Table `products` after:
 Below are some known limitations of the `UPDATE` command. 
 
 * `UPDATE` cannot be used on tables that have certain aggregating indexes An attempt to issue a `UPDATE` statement on a table with a join index or aggregating index outside of the below defined will fail - these table level aggregating indexes need to be dropped first. `UPDATE` can be used on tables that have aggregating indexes containing the following aggregating functions, starting in **DB version 3.16.0:**
-  * [COUNT and COUNT(DISTINCT)](../functions-reference/count.md)
-  * [SUM](../functions-reference/sum.md)
-  * [AVG](../functions-reference/avg.md)
-  * [PERCENTILE_CONT](../functions-reference/percentile-cont.md)
-  * [PERCENTILE_DISC](../functions-reference/percentile-disc.md)
-  * [ARRAY_AGG/NEST](../functions-reference/array-agg.md)
+  * [COUNT and COUNT(DISTINCT)](../../functions-reference/aggregation/count.md)
+  * [SUM](../../functions-reference/aggregation/sum.md)
+  * [AVG](../../functions-reference/aggregation/avg.md)
+  * [ARRAY_AGG/NEST](../../functions-reference/aggregation/array-agg.md)

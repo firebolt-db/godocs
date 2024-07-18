@@ -10,7 +10,7 @@ grand_parent: Guides
 # Manage role-based access control
 {: .no_toc}
 
-Role-based access control provides the ability to control permissions and determine who can access and perform operations on specific objects in Firebolt. Permissions are assigned to roles which are, in turn, assigned to users or other roles. A user can be assigned multiple roles. 
+Role-based access control provides the ability to control permissions and determine who can access and perform operations on specific objects in Firebolt. Permissions are assigned to roles which are, in turn, assigned to users or other roles. A user can be assigned multiple roles.
 
 A user interacting with Firebolt must have the appropriate permissions to use an object. Permissions from all roles assigned to a user are considered in each interaction in Firebolt. 
 
@@ -18,28 +18,37 @@ To view all roles, click **Govern** to open the govern space, then choose **Role
 
 ## System-defined roles
 
-Roles are assigned to users to allow them to complete tasks on relevant objects to fulfill their business needs. Firebolt comes with system-defined roles per account.
+Roles are assigned to users to allow them to complete tasks on relevant objects to fulfill their business needs. Each account is provisioned with a set of system-defined roles.
 
 | Role Name      | Description                                                                                                                                                                                                             | 
 |:---------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| public         | Enables querying any database in the account.                                                   |
-| security_admin | Enables managing all account roles (with the ability to manage grants) and users. |
-| system_admin   | Enables managing databases, engines, schemas, tables, views, external tables, and grants, as well as setting database and engine properties. In addition, the system_admin role enables access to the observability functionality on all engines. |
-| account_admin  | Enables all the permissions of the system_admin and security_admin roles alongside the ability to manage the account. |
+| public         | Equivalent to `USAGE` on every database as well as `USAGE` and `CREATE` on every `public` schema.<br>This role is automatically granted to every new user, but can be revoked if desired. |
+| system_admin   | Enables managing databases, engines, schemas, tables, and views. This includes setting database and engine properties as well as access to the observability functionality on all engines. |
+| account_admin  | Enables all the permissions and the ability to manage the account. |
 
-System defined roles can neither be modified nor dropped. Users with the `account_admin` role can grant roles to other users.
+System-defined roles can neither be modified nor dropped. Users with the `account_admin` role can grant roles to other users.
 
 ## Custom roles
 
-A user with either the `account_admin` or `security_admin` role can create custom roles. You can create a custom role using SQL, or via the UI.  
+A user with the `account_admin` role can create custom roles. You can create a custom role using SQL, or via the UI.
+
+Privileges can be granted to a custom role either by the `account_admin` or by the owner of a resource. For example, a user who created a table can grant `SELECT` on that table to an arbitrary custom role.
+
+## Ownership
+
+When a user creates an object, they become its owner. The owner of an object can perform any operation on the object, even if the privileges normally required to perform that operation aren't granted to any of the user's roles. See [Ownership](./ownership.md) for more information.
+
+An owner of an object can also grant privileges over that object to any role. A role owner can grant that role to users and other roles without the requirement of being an admin.
 
 ## Permissions
-A set of permissions can be granted for every securable object. See which permissions are available for accounts, databases and engines below. To view all permissions, query the [information_schema.object_privileges](../../sql_reference/information-schema/object-privileges.md) view. 
+
+A set of permissions can be granted to a custom role over the supported objects: account, database, engine, schema, table, or view. Available permissions for each object type are listed below. To view all current permissions, query the [information_schema.object_privileges](../../sql_reference/information-schema/object-privileges.md) view.
 
 ### Account
-Permissions can be granted for accounts to allow creating databases and engines.
 
-| Permission           | Description                                                                    |
+Permissions can be granted on accounts to allow creating, modifying and using databases and engines.
+
+| Permission          | Description                                                                   |
 |:--------------------|:-------------------------------------------------------------------------------|
 | CREATE DATABASE     | Enables creating new databases in the account.                                 |
 | USAGE ANY DATABASE  | Enables using all current and future databases in the account.  |
@@ -49,22 +58,112 @@ Permissions can be granted for accounts to allow creating databases and engines.
 | OPERATE ANY ENGINE  | Enables starting and stopping all current and future engines in the account.  |
 | MODIFY ANY ENGINE   | Enables editing all current and future engines in the account.    |
 
-#### Database
-Permissions can be granted for databases to allow usage and modification of databases per account. 
-
-| Permission          | Description |
-| :---------------   | :---------- |
-| USAGE              | Enables querying tables and views, and attaching engines to the database. |
-| MODIFY             | Enables:<br>Creating or dropping tables, views, and indexes on the database.<br>Inserting data into the database's tables.<br>Altering the properties of a database.<br>Dropping a database. |
-
 #### Engine
-Permissions can be granted for engines to allow usage, operation and modification of engines per account. 
+Permissions can be granted on engines to allow usage, operation and modification of engines per account. 
 
-| Permission          | Description |
+| Permission         | Description |
 | :---------------   | :---------- |
 | USAGE              | Enables using the engine to execute queries. |
 | OPERATE            | Enables stopping and starting the engine. |
 | MODIFY             | Enables dropping or altering any properties of the engine. |
+
+#### Database
+Permissions can be granted on databases to allow usage and modification of databases per account. 
+
+| Permission         | Description |
+| :---------------   | :---------- |
+| USAGE              | Enables using the database and attaching engines to it. |
+| MODIFY             | Enables altering the properties of a database and dropping it. |
+| USAGE ANY SCHEMA   | Enables using all current and future schemas in the database.    |
+| VACUUM ANY TABLE   | Enables [VACUUM](../../sql_reference/commands/data-management/vacuum.md) on all existing and future tables in the database.    |
+
+#### Schema
+
+Permissions can be granted on schemas to allow usage and modification of schemas and their tables and views. 
+
+| Permission         | Description |
+| :---------------   | :---------- |
+| USAGE              | Enables using the schema.     |
+| MODIFY             | Enables modifying the schema. |
+| CREATE             | Enables creating objects in the schema. |
+| DELETE ANY         | Enables delete on all existing and future tables in the schema.              |
+| INSERT ANY         | Enables insert on all existing and future tables in the schema.              |
+| UPDATE ANY         | Enables update on all existing and future tables in the schema.              |
+| TRUNCATE ANY       | Enables truncate on all existing and futureall tables in the schema.         |
+| VACCUM ANY         | Enables [VACUUM](../../sql_reference/commands/data-management/vacuum.md) on all existing and future tables in the schema. |
+| MODIFY ANY         | Enables modify and drop on all existing and future objects in the schema.    |
+| SELECT ANY         | Enables select on all existing and future objects in the schema.             |
+
+Performing actions on a schema and objects contained therein also requires the `USAGE` permission on its parent database.
+
+#### Table
+
+Permissions can be granted on tables to allow operations on them.
+
+| Permission         | Description |
+| :---------------   | :---------- |
+| DELETE             | Enables deleting rows and [dropping partitions](../../sql_reference/commands/data-definition/alter-table.md) from the table. Applicable only on managed tables. |
+| INSERT             | Enables inserting rows into the table. Applicable only on managed tables. |
+| UPDATE             | Enables updating rows in the table. Applicable only on managed tables. |
+| TRUNCATE           | Enables truncating the table. Applicable only on managed tables. |
+| VACUUM             | Enables [VACUUM](../../sql_reference/commands/data-management/vacuum.md) on the table. Applicable only to managed tables. |
+| MODIFY             | Enables modifying and dropping the table. |
+| SELECT             | Enables selecting rows from the table. |
+
+Performing actions on a table also requires:
+
+* the `USAGE` permission on the parent schema.
+* the `USAGE` permission on the parent database.
+
+#### Aggregating Index
+
+In order to create an aggregating index, a user must have:
+
+* the `MODIFY` permission on the table.
+* the `CREATE` permission on the parent schema.
+* the `USAGE` permission on the parent schema.
+* the `USAGE` permission on the parent database.
+
+Dropping an aggregating index requires:
+
+* the `MODIFY` permission on the table.
+* the `USAGE` permission on the parent schema.
+* the `USAGE` permission on the parent database.
+
+#### View
+
+Permissions can be granted on views to allow usage and modification of views.
+
+| Permission         | Description |
+| :---------------   | :---------- |
+| SELECT             | Enables using the view. |
+| MODIFY             | Enables modifying the view. |
+
+Performing operations on a view also requires:
+
+* the `USAGE` permission on the parent schema.
+* the `USAGE` permission on the parent database.
+
+#### Owner rights
+
+When selecting over a view, the user executing a query needs to have a `SELECT` privilege over the view. However, `SELECT` privileges over tables and views referenced in that view are enforced for the view owner rather than the user executing the query. For example:
+
+```sql
+CREATE USER user1 WITH ROLE=role1;
+CREATE USER user2 WITH ROLE=role2;
+
+CREATE TABLE t (a int); -- executed by user1
+CREATE VIEW v AS SELECT * FROM t; -- executed by user1
+
+GRANT SELECT ON v TO role2;
+REVOKE SELECT ON t FROM role2;
+SELECT * FROM v; -- executed by user2, successfully
+
+REVOKE USAGE ON SCHEMA public FROM role1;
+-- role1 no longer has no access to the table due to missing schema usage privileges
+SELECT * FROM v; -- executed by user2 and fails because the view owner's role1 cannot access table t
+```
+
 
 ## Create role
 
