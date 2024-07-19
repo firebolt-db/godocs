@@ -87,9 +87,9 @@ At this time, Firebolt may prompt you to initiate your engine if it's not alread
 By following these steps, you've not only executed your first query but also successfully set the stage for more advanced data exploration. This is just the beginning of what's possible with Firebolt - let's continue by adding some data. 
 
 ## Add Data To Your Database
-Now that you can select databases, select engines, and run queries, let's add some sample data. For this tutorial we will explore adding data in two ways; 
+Now that you can select databases, select engines, and run queries, let's add some sample data. For this tutorial we will explore adding data in two ways: 
 1. Option 1: [Use `COPY FROM`](../sql_reference/commands/data-management/copy-from.md)
-2. Option 2: [Creating and using an external table](#Creating-and-using-an-external-table)
+2. Option 2: [Creating and using an external table](#option-2-create-and-use-an-external-table)
 
 {: .note}
 This tutorial uses Firebolt's sample dataset, from the fictional gaming company "Ultra Fast Gaming Inc." This dataset is publicly available with the access credentials shared below.
@@ -269,7 +269,6 @@ FROM
 The values shown in the query results pane should be similar to those shown below.
 
 <img src="../assets/images/Results%20Pane.png" alt="ResultsPane" width="600"/>
-
 
 ## Next Steps
 Now that you have successfully created your first engine and database in Firebolt, run your first query, and copied data to Firebolt you can start exploring what else Firebolt has to offer! Below are a few examples to get you started. 
