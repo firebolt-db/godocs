@@ -12,7 +12,7 @@ great_grand_parent: SQL reference
 
 Returns a single arbitrary value from the specified column.
 
-**Synonym:** `ANY`
+**Alias:** `ANY`
 
 ## Syntax
 {: .no_toc}

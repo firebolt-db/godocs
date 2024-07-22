@@ -19,29 +19,29 @@ This topic lists the data types available in Firebolt.
 
 ### INTEGER
 A whole number ranging from -2,147,483,648 to 2,147,483,647. `INTEGER` data types require 4 bytes of storage.
-Synonyms: `INT`, `INT4`.
+Aliases: `INT`, `INT4`.
 
 ### BIGINT
 A whole number ranging from -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807. `BIGINT` data types require 8 bytes of storage.
-Synonyms: `LONG`, `INT8`.
+Aliases: `LONG`, `INT8`.
 
 ### NUMERIC
 An exact numeric data type defined by its precision (total number of digits) and scale (number of digits to the right of the decimal point). For more information, see [NUMERIC data type](numeric-data-type.md). 
-Synonyms: `DECIMAL`.
+Aliases: `DECIMAL`.
 
 ### REAL
 A floating-point number that has six decimal-digit precision. Decimal (fixed point) types are not supported. `REAL` data types require 4 bytes of storage.
-Synonyms: `FLOAT4`.
+Aliases: `FLOAT4`.
 
 ### DOUBLE PRECISION
 A floating-point number that has 15 decimal-digit precision. Decimal (fixed point) types are not supported. `DOUBLE` data types require 8 bytes.
-Synonyms: `DOUBLE`, `FLOAT`, `FLOAT8`, `FLOAT(p)` where 25 <= p <= 53.
+Aliases: `DOUBLE`, `FLOAT`, `FLOAT8`, `FLOAT(p)` where 25 <= p <= 53.
 
 ## Boolean
 
 ### BOOLEAN
 Represents boolean value of `TRUE` or `FALSE`.
-Synonyms: `BOOL`
+Aliases: `BOOL`
 
 ## Composite
 

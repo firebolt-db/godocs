@@ -12,7 +12,7 @@ published: false
 
 The same as [MATCH](./match.md), but it searches for a match with one or more more regular expression patterns. Returns `0` if none of the regular expressions match and `1` if any of the patterns match.
 
-Synonym: `MULTI_MATCH_ANY`
+**Alias:** `MULTI_MATCH_ANY`
 
 ## Syntax
 {: .no_toc}

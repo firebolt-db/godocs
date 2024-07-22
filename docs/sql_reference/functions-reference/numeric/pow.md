@@ -8,9 +8,9 @@ great_grand_parent: SQL reference
 ---
 
 # POW
-Synonym: `POWER`
-
 Returns a number `<value>` raised to the specified power `<value>`.
+
+**Alias:** `POWER`
 
 ## Syntax
 {: .no_toc}
