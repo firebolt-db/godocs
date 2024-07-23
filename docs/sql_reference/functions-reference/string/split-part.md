@@ -56,11 +56,11 @@ SELECT
 	SPLIT_PART('hello world', '', 1) AS res;
 ```
 
-**Returns**: `hello world`
+**Returns**: `h`
 
 ```sql
 SELECT
 	SPLIT_PART('hello world', '', 7) AS res;
 ```
 
-**Returns**: `''`
+**Returns**: `'w'`
