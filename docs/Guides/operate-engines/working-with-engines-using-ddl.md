@@ -82,7 +82,14 @@ Use the [STOP ENGINE](../../sql_reference/commands/engines/stop-engine.md) comma
 
 ```sql
 STOP ENGINE myengine;
-```  
+```
+
+By default an engine will wait for running queries to finish before stopping. To stop the engine without waiting for queries to finish, use `WITH TERMINATE=TRUE` as below:
+
+```sql
+STOP ENGINE myengine WITH TERMINATE=TRUE;
+```
+
 Note that stopping an engine results in emptying the cache. So, any queries after starting an engine that was previously stopped will have a cold start, resulting in some performance impact till the engine is warmed up again. 
 <br />
 
