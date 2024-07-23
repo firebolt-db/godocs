@@ -12,8 +12,6 @@ You can create, run, and modify engines from the UI or using SQL API. Scaling op
 
 **TIP:** All the engine operations shown below can be performed via a System Engine.
 
-**TIP:** All the engine operations shown below can be performed via a System Engine.
-
 # Create Engines
 **UI** <br /> 
 {: .fs-6}
