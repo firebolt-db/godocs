@@ -1,4 +1,5 @@
----
+version: '3.8'
+
 services:
   docs-server:
     labels:
@@ -17,7 +18,7 @@ services:
       interval: 15s
       retries: 40
     extra_hosts:
-      - "docs-server=0.0.0.0"
+      - "docs-server:0.0.0.0"
 
   link-check:
     image: raviqqe/muffet:2.10.2
@@ -31,6 +32,10 @@ services:
       <<: *build-firebolt-docs
       args:
         <<: *build-args-firebolt-docs
-        host: localhost
+        host: 0.0.0.0
         port: 8080
-    network_mode: host
+    ports:
+      - "8080:8080"
+    extra_hosts:
+      - "localhost:127.0.0.1"
+
