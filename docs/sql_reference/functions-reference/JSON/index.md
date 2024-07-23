@@ -10,7 +10,7 @@ has_children: true
 
 ## JSON functions
 
-The reference for each JSON function uses common syntax and conventions as outlined below.
+[JSON_EXTRACT](./json-extract.md)
 
 ### JSON pointer expression syntax
 
