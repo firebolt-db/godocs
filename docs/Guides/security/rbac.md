@@ -57,6 +57,24 @@ Permissions can be granted on accounts to allow creating, modifying and using da
 | USAGE ANY ENGINE    | Enables using all current and future engines in the account.    |
 | OPERATE ANY ENGINE  | Enables starting and stopping all current and future engines in the account.  |
 | MODIFY ANY ENGINE   | Enables editing all current and future engines in the account.    |
+| CREATE ROLE         | Enables creating new roles in the account.                                 |
+| MODIFY ANY ROLE     | Enables editing all current and future roles in the account.    |
+| CREATE USER         | Enables creating new users in the account.                                 |
+| MODIFY ANY USER     | Enables editing all current and future users in the account.    |
+
+#### Role
+Permissions can be granted on roles to allow modification of roles per account. 
+
+| Permission         | Description |
+| :---------------   | :---------- |
+| MODIFY             | Enables dropping the role. |
+
+#### User
+Permissions can be granted on users to allow modification of users per account. 
+
+| Permission         | Description |
+| :---------------   | :---------- |
+| MODIFY             | Enables dropping or altering any properties of the user. |
 
 #### Engine
 Permissions can be granted on engines to allow usage, operation and modification of engines per account. 
