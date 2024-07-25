@@ -11,6 +11,7 @@ has_children: true
 ## JSON functions
 
 [JSON_EXTRACT](./json-extract.md)
+[JSON_VALUE](./json-value.md)
 
 ### JSON pointer expression syntax
 
