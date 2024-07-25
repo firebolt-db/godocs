@@ -2,7 +2,7 @@
 layout: default
 title: DECODE
 description: Reference material for DECODE function
-published: false
+published: true
 grand_parent: SQL functions
 parent: Binary functions
 great_grand_parent: SQL reference
