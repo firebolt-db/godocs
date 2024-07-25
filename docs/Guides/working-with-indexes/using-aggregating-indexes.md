@@ -108,7 +108,7 @@ If the `SELECT` query returns 100,000,000 or fewer, the aggregating index may be
 
 ## Aggregating index examples
 
-The example in this section are based on a fact table, `game_information`, created with the DDL shown below. For a more in-depth example, see *Aggregating indexes* in the [Firebolt indexes in action](https://www.firebolt.io/blog/firebolt-indexes-in-action) blog post.
+The example in this section are based on a fact table, `game_information`, created with the DDL shown below. 
 
 ```sql
 CREATE FACT TABLE game_information (
