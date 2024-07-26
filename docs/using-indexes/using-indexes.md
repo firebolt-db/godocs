@@ -25,7 +25,7 @@ Primary indexes in Firebolt are a type of *sparse index*. Unlike a dense index t
 The video below explains sparse indexing. Eldad Farkash is the CEO of Firebolt.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/7XDTVB9gsFw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-For more information and examples, see [Primary indexes](using-primary-indexes.md).
+For more information and examples, see [Primary indexes](../Guides/working-with-indexes/using-primary-indexes.md).
 
 ## Aggregating indexes
 
@@ -39,7 +39,7 @@ The video below is a technical discussion of some issues with traditional materi
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Hniv9u4w7lI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-For more information and examples, see [Aggregating indexes](using-aggregating-indexes.md).
+For more information and examples, see [Aggregating indexes](../Guides/working-with-indexes/using-aggregating-indexes.md)
 
 ## Join accelerators
 
