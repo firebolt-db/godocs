@@ -17,7 +17,7 @@ See a [full function glossary](./functions-glossary.md), or find functions based
 * [Array functions](./array/index.md)  
   Used for the manipulation and querying of `ARRAY`-type data, such as transforming and filtering. Includes [Lambda functions](./Lambda/index.md). 
 
-* [Binary functions](./bytea/index.md)  (Supported will be added in future release)
+* [Binary functions](./bytea/index.md)
   Used for manipulation and querying of `BYTEA`-type data, such as encoding and decoding. 
 
 * [Conditional and miscellaneous functions](./conditional-and-miscellaneous/index.md)  
