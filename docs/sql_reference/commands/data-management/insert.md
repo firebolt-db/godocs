@@ -96,7 +96,7 @@ FROM my_external_table
 
 If an `INSERT` statement fails or a client is disconnected, Firebolt might ingest an incomplete data set into the target table. Here are some steps you can use to determine the status of an ingestion operation and ensure it ran successfully. This may come in handy if you suspect your statement failed for any reason.
 
-* Before running any queries, first check to make sure that the `INSERT` query has completed. This can be done by viewing the information schema through the [`running_queries`](../../information-schema/running-queries.md) view:
+* Before running any queries, first check to make sure that the `INSERT` query has completed. This can be done by viewing the information schema through the [`running_queries`](../../information-schema/engine-running-queries.md) view:
 
 ```sql
 SELECT * FROM information_schema.engine_running_queries
