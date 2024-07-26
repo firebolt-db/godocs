@@ -7,7 +7,7 @@ grand_parent:  SQL commands
 parent: Queries
 ---
 
-# SELECT query syntax
+# SELECT
 {: .no_toc}
 
 Firebolt supports running `SELECT` statements with the syntax described in this topic. You can run multiple queries in a single script. Separating them with a semicolon (`;`) is required. Firebolt also supports `CREATE TABLE...AS SELECT` (CTAS). For more information, see [CREATE TABLE...AS SELECT](../data-definition/create-fact-dimension-table-as-select.md).
