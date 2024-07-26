@@ -33,10 +33,10 @@ For those seeking a more interactive learning experience, we invite you to join 
 And that's it! You're ready to get started with Firebolt.
 
 {: .note}
-New accounts get 600 Firebolt credits ($200+) to get started exploring with Firebolt. Once you run out of credits, we recommend you connect Firebolt with your AWS Marketplace account and get back to making the most of Firebolt. See [Registering though AWS Marketplace](https://special-disco-436d3e6a.pages.github.io/Guides/getting-started.html#register-through-AWS-Marketplace) below.
+New accounts get 600 Firebolt credits ($200+) to get started exploring with Firebolt. Once you run out of credits, we recommend you connect Firebolt with your AWS Marketplace account and get back to making the most of Firebolt. See [Registering though AWS Marketplace](/docs/Guides/getting-started.md#register-through-AWS-Marketplace) below.
 
 ## Create Your First Database and Engine
-Embarking on your data journey with Firebolt begins with creating a *database* and selecting an *engine* tailored to your specific workload. An engine in Firebolt provides the compute resources for ingesting data and executing queries on the ingested data (see [Understanding Engines](https://special-disco-436d3e6a.pages.github.io/Overview/understanding-engine-fundamentals.html) to learn more). For more information on using Firebolt engines, see [Working with engines](./working-with-engines/working-with-engines.md).
+Embarking on your data journey with Firebolt begins with creating a *database* and selecting an *engine* tailored to your specific workload. An engine in Firebolt provides the compute resources for ingesting data and executing queries on the ingested data (see [Engine Fundamentals](../Overview/engine-fundamentals.md) to learn more). For more information on using Firebolt engines, see [Operate engines](../Guides/operate-engines/operate-engines.md).
 
 **Steps to Create Your Database:**
 1. Click the **+** next to **Databases**
@@ -68,7 +68,7 @@ Embarking on your data journey with Firebolt begins with creating a *database* a
 The default configuration is a small node, which is more than enough for this tutorial. To learn more about proper sizing of nodes for your workload, see [Sizing Engines](./operate-engines/sizing-engines.md).
 
 ## Execute Your First Query
-Before we dive into ingesting sample data, let's familiarize ourselves with the SQL workspace of your database. This initial step not only demonstrates how to activate your engine but also acquaints you with the process of executing queries within Firebolt. For a deeper dive into the SQL workspace and its capabilities, our [Query Data](../query-data/using-the-sql-editor.md) guide is an excellent resource.
+Before we dive into ingesting sample data, let's familiarize ourselves with the SQL workspace of your database. This initial step not only demonstrates how to activate your engine but also acquaints you with the process of executing queries within Firebolt. For a deeper dive into the SQL workspace and its capabilities, our [Query Data](./query-data/using-the-develop-workspace.md) guide is an excellent resource.
 
 **Steps to Access Your Database, Activate the Engine, and Execute Your First Query:**
 1. From the **Database page**, locate the database you've previously created ("Tutorial_Database"). Click the **Open in SQL workspace icon** (**>_**).
@@ -127,7 +127,7 @@ And that's it! You've successfully copied data from S3 into a Firebolt table.
 An *external table* is a special, virtual table that serves as a connector to your data source. After the external table is created, you ingest data by running an `INSERT` command from that external table into a *fact table* or *dimension table*. After the data is available in fact and dimension tables, you can run analytics queries over those tables. 
 
 {: .note}
-Although it's possible, we don't recommend running analytics queries on external tables. For more information on working with external tables, see [Work with external tables](../Guides/loading-data/working-with-external-tables.html). For more information on fact tables, see [Working with tables](..Guides/loading-data/working-with-external-tables.html)
+Although it's possible, we don't recommend running analytics queries on external tables. For more information on working with external tables, see [Work with external tables](../Guides/loading-data/working-with-external-tables.html). For more information on fact tables, see [Working with tables](../Overview/working-with-tables/working-with-tables.md)
 
 **Create Your External Table:**
 1. Choose the plus symbol (**+**) next to script tab to create a new script tab in the SQL workspace.
@@ -184,7 +184,7 @@ In this step, you'll create a Firebolt fact table called `levels`, which you use
 
 When creating a fact or dimension table, you will specify a *primary index*. Firebolt uses the primary index when it ingests data so that it is saved to S3 for highly efficient pruning and sorting when the data is queried. A primary index is required when creating a fact table, and recommended for dimension tables. For more information, see [Using primary indexes](./working-with-indexes/using-primary-indexes.md). 
 
-The fact table that we create in this step specifies the `LevelID` column for the primary index. For more information about choosing columns for a primary index, see [How to choose primary index columns](/using-indexes/using-primary-indexes.md#how-to-choose-primary-index-columns).
+The fact table that we create in this step specifies the `LevelID` column for the primary index. For more information about choosing columns for a primary index, see [How to choose primary index columns](./working-with-indexes/using-primary-indexes.md#how-to-choose-primary-index-columns)
 
 **To create a fact table**
 1. Create a new script tab.  

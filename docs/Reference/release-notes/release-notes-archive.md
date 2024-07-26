@@ -105,7 +105,7 @@ The [`array_first`](../../sql_reference/functions-reference/Lambda/array-first.h
 
 <!--- FIR-32597 --->**New name for `any_match`**
 
-A new name for `any_match` has been added: [`array_any_match`](../../sql_reference/functions-reference/Lambda/array-any-match.html). `any_match` will be kept as an alias. 
+A new name for `any_match` has been added: [`array_any_match`](../../sql_reference/functions-reference/Lambda/array-any-match.md). `any_match` will be kept as an alias. 
 
 <!--- FIR-32566 --->**Updated ARRAY_SUM return types**
 
@@ -332,7 +332,7 @@ Unique constraints in tables will be blocked for new accounts.
 
 <!--- FIR-27355 ---> **Support for nullable arrays**
 
-Support has been added to allow the [ANY_MATCH](../../sql-reference/functions-reference/any-match.md) lambda function to work with nullable arrays.
+Support has been added to allow the [ARRAY_ANY_MATCH](../../sql_reference/functions-reference/Lambda/array-any-match.md) lambda function to work with nullable arrays.
 
 <!--- FIR-27799 --->**Updated AWS billing error message**
 
@@ -387,14 +387,14 @@ Aggregating index is now placed in the same namespace as tables and views.
 
 <!--- FIR-27590 ---> **New comparison operators**
 
-[New comparison operators](../general-reference/operators.md) `IS DISTINCT FROM` and `IS NOT DISTINCT FROM` have been added.
+[New comparison operators](../../sql_reference/operators.md) `IS DISTINCT FROM` and `IS NOT DISTINCT FROM` have been added.
 
 ### Enhancements, changes and new integrations
 {: .no_toc}
 
 <!--- FIR-27355 ---> **Support for nullable arrays**
 
-Support has been added to allow the [ANY_MATCH](../sql-reference/functions-reference/any-match.md) lambda function to work with nullable arrays
+Support has been added to allow the [ANY_MATCH](../sql-reference/functions-reference/array-any-match.md) lambda function to work with nullable arrays
 
 ### Resolved issues
 {: .no_toc}
