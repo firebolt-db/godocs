@@ -2,7 +2,7 @@
 layout: default
 title: JSON functions
 description: Reference for JSON functions
-nav_order: 7
+nav_order: 9
 parent: SQL functions
 grand_parent: SQL reference
 has_children: true
@@ -10,7 +10,8 @@ has_children: true
 
 ## JSON functions
 
-The reference for each JSON function uses common syntax and conventions as outlined below.
+[JSON_EXTRACT](./json-extract.md)
+[JSON_VALUE](./json-value.md)
 
 ### JSON pointer expression syntax
 

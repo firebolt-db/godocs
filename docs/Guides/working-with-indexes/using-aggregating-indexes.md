@@ -108,7 +108,7 @@ If the `SELECT` query returns 100,000,000 or fewer, the aggregating index may be
 
 ## Aggregating index examples
 
-The example in this section are based on a fact table, `game_information`, created with the DDL shown below.
+The example in this section are based on a fact table, `game_information`, created with the DDL shown below. 
 
 ```sql
 CREATE FACT TABLE game_information (

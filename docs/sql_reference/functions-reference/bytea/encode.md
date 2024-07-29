@@ -5,7 +5,7 @@ description: Reference material for ENCODE function
 grand_parent: SQL functions
 parent: Binary functions
 great_grand_parent: SQL reference
-published: false
+published: true
 ---
 
 # ENCODE

@@ -9,9 +9,9 @@ published: false
 ---
 
 # CEIL
-Synonym: `CEILING`
-
 Returns the smallest value that is greater than or equal to `<value>`.
+
+**Alias:** `CEILING`
 
 ## Syntax
 {: .no_toc}

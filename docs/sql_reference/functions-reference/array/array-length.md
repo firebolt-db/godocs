@@ -11,7 +11,7 @@ great_grand_parent: SQL reference
 
 Returns the length of the given array, i.e., how many elements it contains. Produces `NULL` for `NULL` arrays.
 
-**Synonym**: [LENGTH](../string/length.md) (when used with an array argument)
+**Alias:** [LENGTH](../string/length.md) (when used with an array argument)
 
 ## Syntax
 {: .no_toc}

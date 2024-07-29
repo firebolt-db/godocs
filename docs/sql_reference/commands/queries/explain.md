@@ -33,7 +33,7 @@ The output of `EXPLAIN` can be augmented by specifying options. The following ta
 | :---------- | :-------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `LOGICAL`   | `TRUE`, `FALSE` | Returns the optimized logical query plan. This plan is returned by default.                                                                                                               |
 | `PHYSICAL`  | `TRUE`, `FALSE` | Returns the optimized physical query plan containing shuffle operators for queries on distributed engines. This gives insights how work is distributed between the nodes of an engine.    |
-| `ANALYZE`   | `TRUE`, `FALSE` | Executes the query and returns the optimized physical query plan annotated with metrics from query execution. The metrics are explained in [Example with ANALYZE](#example-with-analyze). |
+| `ANALYZE`   | `TRUE`, `FALSE` | Executes the query and returns the optimized physical query plan annotated with metrics from query execution. The metrics are explained in [Example with ANALYZE](#example-with-analyze-beta). |
 | `ALL`       | `TRUE`, `FALSE` | Executing `EXPLAIN (ALL) <select statement>` returns the `LOGICAL`, `PHYSICAL`, and `ANALYZE` plans.                                                                                      |
 
 You many only specify one of the options `LOGICAL`, `PHYSICAL`, `ANALYZE`. If you need to view several plans at once, please use the `ALL` option.
