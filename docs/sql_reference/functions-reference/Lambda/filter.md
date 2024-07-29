@@ -1,20 +1,19 @@
 ---
 layout: default
-title: FILTER
-description: Reference material for FILTER function
+title: ARRAY_FILTER
+description: Reference material for ARRAY_FILTER function
 grand_parent: SQL functions
 parent: Lambda functions
 great_grand_parent: SQL reference
-published: false
 ---
 
-# FILTER
+# ARRAY\_FILTER
 
 Returns an array containing the elements from `<array>` for which the given Lambda function `<function>` returns something other than `0`.
 
 The function can receive one or more arrays as its arguments. If more than one array is provided the following conditions should be met:
 
-* The number of arguments of the Lambda function must be equal to the number of arrays provided. If the condition isn't met - the query will not run and an error will be returned.
+* The number of arguments of the Lambda function must be equal to the number of arrays provided. If the condition isn't met, the query will not run and an error will be returned.
 
 * All the provided arrays should be of the same length. If the condition isn't met a runtime error will occur.
 
@@ -24,18 +23,18 @@ When multiple arrays are provided to the function, the function will evaluate th
 {: .no_toc}
 
 ```sql
-FILTER(<function>, <array> [, ...] )
+ARRAY_FILTER(<function>, <array> [, ...] )
 ```
 ## Parameters
 {: .no_toc} 
 
-| Parameter        | Description     | Supported input types | 
-| :---------------- | :------------------------------------------ | :---------| 
-| `<function>`         | A [Lambda function](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions) used to check elements in the array. | Any Lambda function | 
-| `<array> [, ...]`  | One or more arrays that will be evaluated by the Lambda function. Only the first array that is included will be filtered in the results. All the arrays must have exactly same number of elements.  | Arrays that each contain the same amount of elements | 
+| Parameter         | Description                                                                                                                                                                                        | Supported input types                                |
+| :---------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------- |
+| `<function>`      | A [Lambda function](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions) used to check elements in the array.                       | Any Lambda function                                  |
+| `<array> [, ...]` | One or more arrays that will be evaluated by the Lambda function. Only the first array that is included will be filtered in the results. All the arrays must have exactly same number of elements. | Arrays that each contain the same amount of elements |
 
 ## Return Type
-`ARRAY` of the same type as the input array 
+`ARRAY` of the same type as the first input array
 
 ## Examples
 {: .no_toc}
@@ -44,7 +43,7 @@ In the example below, there is only one array.
 
 ```sql
 SELECT
-	FILTER(x -> x = 'a', [ 'a', 'b', 'c', 'd' ]);
+	ARRAY_FILTER(x -> x = 'a', [ 'a', 'b', 'c', 'd' ]);
 ```
 
 **Returns**: `['a']`
@@ -53,7 +52,7 @@ In this example below, there are two arrays and two separate arguments for evalu
 
 ```sql
 SELECT
-	FILTER(x, y -> y > 2, [ 'esimpson', 'sabrina21', 'kennethpark', 'rileyjon' ], [ 1, 2, 3, 9 ]) AS levels;
+	ARRAY_FILTER(x, y -> y > 2, [ 'esimpson', 'sabrina21', 'kennethpark', 'rileyjon' ], [ 1, 2, 3, 9 ]) AS levels;
 ```
 
 **Returns**: `['kennethpark', 'rileyjon']`
@@ -62,7 +61,7 @@ In this example below, there are three arrays, and Lambda function which meet th
 
 ```sql
 SELECT
-	FILTER(x, y, z -> (y > 2 AND z = 'kennethpark'),
+	ARRAY_FILTER(x, y, z -> (y > 2 AND z = 'kennethpark'),
 		[ 'Player A', 'Player B', 'Player C', 'Player D' ],
 		[ 1, 2, 3, 9 ],
 		[ 'kennethpark', 'rileyjon', 'kennethpark', 'rileyjon' ] )

@@ -33,7 +33,7 @@ Same as the element type of the array.
 ## Example
 {: .no_toc}
 
-The following examples calculates the minimum number in the `levels` array: 
+The following example calculates the minimum number in the `levels` array:
 ```sql
 SELECT
 	ARRAY_MIN([ 1, 2, 3, 4 ]) AS levels;
