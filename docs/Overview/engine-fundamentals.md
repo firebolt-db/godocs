@@ -93,7 +93,7 @@ The [engine_metrics_history](../sql_reference/information-schema/engine-metrics-
 
 The [engine_running_queries](../sql_reference/information-schema/engine-running-queries.md) view exposes information about queries currently running or waiting to be run in the system.  Based on the number of queries that are queued and waiting to be executed, you can modify the engine configuration that best fits your performance requirements.
 
-To understand how this information can help with engine resizing, see [Working with Engines](../Guides/working-with-engines/sizing-engines.md).
+To understand how this information can help with engine resizing, see [Working with Engines](../Guides/operate-engines/sizing-engines.md).
 
 
 ## Engine Governance and Security
@@ -101,7 +101,7 @@ You can use account-level Isolation and [Role Based Access Control (RBAC)](../Gu
 
 You can create multiple accounts within a given organization, where each account can represent a fully isolated environment such as development, test, or production. This enables engines across different environments to be fully isolated from each other. In addition, the Firebolt RBAC model enables granular control over resources that are created within a given account. This allows administrators to fully control users' actions over engines within a given account - for example, control which users are allowed to modify the configuration of which engines or to control which users can create new engines. 
 
-For more information on using RBAC for engines, see [Governing Engines](../Guides/working-with-engines/rbac-for-engines.md). 
+For more information on using RBAC for engines, see [Governing Engines](../Guides/operate-engines/governing-engines.md). 
 
 ## Viewing and understanding engine status
 Use the [SHOW ENGINES](../sql_reference/commands/metadata/show-engines.md) command to list all the engines in your Firebolt account and view the status of these engines. The table below shows the statuses returned by the `SHOW ENGINES` command.
