@@ -40,7 +40,7 @@ SELECT
 
 **Returns**: `2,4,6,18`
 
-In the example below, the `TRANSFORM` function is used to [`CAST`](../conditional-and-miscellaneous/cast.md) each element from a string to a date type. With each element now as a date type, the [`INTERVAL`](../../operators.md#interval-for-date-and-time) function is then used to add 5 years to each.  
+In the example below, the `TRANSFORM` function is used to [`CAST`](../conditional-and-miscellaneous/cast.md) each element from a string to a date type. With each element now as a date type, the [`INTERVAL`](../../../Reference/interval-arithmetic.md) function is then used to add 5 years to each.  
 
 ```sql
 SELECT
