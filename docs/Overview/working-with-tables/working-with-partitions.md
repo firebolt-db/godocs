@@ -72,10 +72,18 @@ Dropping a partition deletes the partition and the data stored in that partition
 
 ### Examples
 
-* [Partition and drop by date](#partition-and-drop-by-date)
-* [Partition and drop by date extraction](#partition-and-drop-by-date-extraction)
-* [Partition and drop by integer](#partition-and-drop-by-integer)
-* [Partition and drop by composite key](#partition-and-drop-by-composite-key)
+- [Working with partitions](#working-with-partitions)
+  - [When to use partitions](#when-to-use-partitions)
+  - [Considerations for partitioning and query performance](#considerations-for-partitioning-and-query-performance)
+    - [Partition only large tables](#partition-only-large-tables)
+    - [Large, equally distributed partitions work best](#large-equally-distributed-partitions-work-best)
+  - [Defining partition keys](#defining-partition-keys)
+  - [Dropping partitions](#dropping-partitions)
+    - [Examples](#examples)
+      - [Partition and drop by date](#partition-and-drop-by-date)
+      - [Partition and drop by date extraction](#partition-and-drop-by-date-extraction)
+      - [Partition and drop by integer](#partition-and-drop-by-integer)
+      - [Partition and drop by composite key](#partition-and-drop-by-composite-key)
 
 The examples in this section are based on the following common `CREATE TABLE` example. Each example is based on the addition of the `PARTITION BY` statement shown.
 
@@ -100,7 +108,7 @@ The example below creates a partition for each group of records with the same da
 PARTITION BY transaction_date
 ```
 
-The example below drops the partition for records with the date `2020-01-01`. The date is provided as a string literal and must be cast to the `DATE` data type in the command. The command uses the [:: operator for CAST](../../sql_reference/operators.md#-operator-for-cast).
+The example below drops the partition for records with the date `2020-01-01`. The date is provided as a string literal and must be cast to the `DATE` data type in the command. The command uses the [operator for CAST](../../sql_reference/operators.md#operator-for-cast).
 
 ```sql
 ALTER TABLE fct_tbl_transactions DROP PARTITION '2020-01-01'::DATE;
