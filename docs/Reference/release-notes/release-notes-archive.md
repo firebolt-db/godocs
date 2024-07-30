@@ -145,7 +145,7 @@ The error message for external tables created with JSON `PARSE_AS_TEXT` format h
 
 <!--- FIR-29793 --->**Implemented column_mismatch**
 
-Support for [`ALLOW_COLUMN_MISMATCH`](../../sql_reference/commands/data-management/copy-into.md) in `COPY INTO` has been added. 
+Support for `ALLOW_COLUMN_MISMATCH` in `COPY INTO` has been added. 
 
 <!--- FIR-296907 --->**Corrected NULL behavior of `STRING_TO_ARRAY`**
 
@@ -369,7 +369,7 @@ Aggregating index is now placed in the same namespace as tables and views.
 
 <!--- FIR-29147 --->Fixed a bug in 'unnest' table function that occurred when not all of the 'unnest' columns were projected.
 
-<!--- FIR-28187 --->Changed the behavior of [`split_part`](../../sql_reference/functions-reference/string/split-part.mdmd) when an empty string is used as delimiter.
+<!--- FIR-28187 --->Changed the behavior of [`split_part`](../../sql_reference/functions-reference/string/split-part.md) when an empty string is used as delimiter.
 
 <!--- FIR-28623 --->Fixed a bug where floating point values `-0.0` and `+0.0`, as well as `-nan` and `+nan` were not considered equal in distributed queries.
 
@@ -434,8 +434,7 @@ Use `source_file_timestamp - NOW()` instead of `DATE_DIFF('second', source_file_
 
 <!--- FIR-10514 ---> **New function added**
 
-A new alias `ARRAY_TO_STRING` has been added to function [ARRAY_JOIN](../../sql_reference/functions-reference/array/array-join.md).
-
+A new alias [`ARRAY_TO_STRING`](../../sql_reference/functions-reference/array/array-to-string.md) has been added to function `ARRAY_JOIN`.
 
 ## DB version 3.28
 **September 2023**
