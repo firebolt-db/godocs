@@ -108,7 +108,7 @@ The example below creates a partition for each group of records with the same da
 PARTITION BY transaction_date
 ```
 
-The example below drops the partition for records with the date `2020-01-01`. The date is provided as a string literal and must be cast to the `DATE` data type in the command. The command uses the [operator for CAST](../../sql_reference/operators.md#operator-for-cast).
+The example below drops the partition for records with the date `2020-01-01`. The date is provided as a string literal and must be cast to the `DATE` data type in the command. The command uses the [:: operator for CAST](../../operators.md#-type-cast).
 
 ```sql
 ALTER TABLE fct_tbl_transactions DROP PARTITION '2020-01-01'::DATE;
