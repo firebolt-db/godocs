@@ -21,13 +21,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332  # v4.1.7
 
-      - name: Generate app token
-        id: generate_token
-        uses: tibdex/github-app-token@v2
-        with:
-          app_id: ${{ secrets.GH_APP_CI_GITOPS_APP_ID }}
-          private_key: ${{ secrets.GH_APP_CI_GITOPS_KEY_PEM }}
-
       - name: Check there are no 404 links
         id: check404
         run: |
@@ -78,5 +71,4 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             # $\color{green}{\text{👍 Link Check Status: SUCCESS}}$
-            thumbs up guy meme
           edit-mode: replace
