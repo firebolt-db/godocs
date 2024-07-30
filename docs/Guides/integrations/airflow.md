@@ -96,15 +96,15 @@ The instructions below demonstrate how to use the Airflow UI to create a connect
    | Extra           | Extra properties that you may need to set. Most users would not need any. | `{"property1": "value1", "property2": "value2"}` |
 
    {: .note}
-   Client id and secret credentials can be obtained by registering a [service account](../../managing-your-organization/service-accounts.md).
+   Client id and secret credentials can be obtained by registering a [service account](../managing-your-organization/service-accounts.md).
 
 
-7. Choose **Test** to verify that connection parameters are correct.
+6. Choose **Test** to verify that connection parameters are correct.
 
    The engine that you specify in **Advanced Connection Properties** must be running for the test to complete successfully.
    {: .note}
 
-8. After the test is successful, choose **Save**.
+7. After the test is successful, choose **Save**.
 
 ## Example&mdash;creating a DAG for data processing with Firebolt
 
@@ -113,13 +113,13 @@ A DAG file in Airflow is a Python script that defines the tasks and execution or
 {: .note}
 This DAG performs a variety of tasks in Firebolt for demonstration purposes only. It does not demonstrate a workflow or pipeline that would be typical of real-world applications.
 
-1. Start an engine to perform subsequent tasks. For more information, see [Understanding engine fundamentals](../../working-with-engines/understanding-engine-fundamentals.md). This task fails if the engine is running.
+1. Start an engine to perform subsequent tasks. For more information, see [Understanding engine fundamentals](../../Overview/engine-fundamentals.md). This task fails if the engine is running.
 
-2. Run SQL to create an external table in Firebolt connected to a data source in Amazon S3. For more information, see [Working with external tables](../../loading-data/working-with-external-tables.md).
+2. Run SQL to create an external table in Firebolt connected to a data source in Amazon S3. For more information, see [Working with external tables](../loading-data/working-with-external-tables.md).
 
-3. Run SQL to create a fact table to receive ingested data. For more information, see [Working with tables](../../working-with-tables.md).
+3. Run SQL to create a fact table to receive ingested data. For more information, see [Working with tables](../../Overview/working-with-tables/working-with-tables.md).
 
-4. Run SQL that ingests the data using an `INSERT INTO` command. For more information, see [INSERT INTO](../../sql-reference/commands/insert-into.md).
+4. Run SQL that ingests the data using an [`INSERT`](../../sql_reference/commands/data-management/insert.md) command.
 
 In this example, the DAG is set up to run only when triggered (`schedule_interval=None`).
 
