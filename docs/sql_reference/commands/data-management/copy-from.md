@@ -2,6 +2,7 @@
 layout: default
 title: COPY FROM
 description: Reference and syntax for the COPY command that copies data from S3 files into a Firebolt table.
+grand_parent: SQL reference
 parent: Data management
 ---
 # COPY FROM
