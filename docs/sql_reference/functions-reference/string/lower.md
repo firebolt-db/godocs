@@ -2,6 +2,7 @@
 layout: default
 title: LOWER
 description: Reference material for LOWER function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: String functions
 ---

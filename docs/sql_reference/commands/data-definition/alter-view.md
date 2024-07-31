@@ -2,6 +2,7 @@
 layout: default
 title: ALTER VIEW
 description: Reference and syntax for the ALTER VIEW command.
+great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Data definition
 ---

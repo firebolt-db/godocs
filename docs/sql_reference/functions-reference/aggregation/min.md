@@ -2,6 +2,7 @@
 layout: default
 title: MIN
 description: Reference material for MIN
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Aggregation functions
 ---

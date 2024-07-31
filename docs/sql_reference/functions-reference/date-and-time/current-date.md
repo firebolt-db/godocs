@@ -2,6 +2,7 @@
 layout: default
 title: CURRENT_DATE
 description: Reference material for CURRENT_DATE function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Date and time functions
 ---

@@ -2,6 +2,7 @@
 layout: default
 title: URL_DECODE
 description: Reference material for URL_DECODE function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: String functions
 published: false

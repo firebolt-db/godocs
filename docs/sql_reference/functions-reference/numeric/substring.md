@@ -2,7 +2,9 @@
 layout: default
 title: SUBSTRING
 description: Reference material for SUBSTRING function
-parent: SQL functions
+great_grand_parent: SQL reference
+grand_parent: SQL functions
+parent: Numeric functions
 ---
 ## SUBSTRING
 

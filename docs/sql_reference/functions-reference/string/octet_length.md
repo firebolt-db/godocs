@@ -2,6 +2,7 @@
 layout: default
 title: OCTET_LENGTH
 description: Reference material for OCTET_LENGTH function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: String functions
 ---

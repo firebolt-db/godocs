@@ -2,6 +2,7 @@
 layout: default
 title: REGEXP_LIKE
 description: Reference material for REGEXP_LIKE function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: String functions
 ---

@@ -2,6 +2,7 @@
 layout: default
 title: SHOW DATABASES
 description: Reference and syntax for the SHOW DATABASES command.
+great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Metadata commands
 ---

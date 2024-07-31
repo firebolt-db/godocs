@@ -2,6 +2,7 @@
 layout: default
 title: BOOL_OR
 description: Reference material for BOOL_OR
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Aggregation functions
 ---

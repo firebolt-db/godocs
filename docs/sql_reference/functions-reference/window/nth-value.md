@@ -2,6 +2,7 @@
 layout: default
 title: NTH_VALUE OVER
 description: Reference material for NTH_VALUE function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Window functions
 published: false

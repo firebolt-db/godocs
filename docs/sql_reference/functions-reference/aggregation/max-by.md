@@ -2,6 +2,7 @@
 layout: default
 title: MAX_BY
 description: Reference material for MAX_BY
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Aggregation functions
 ---

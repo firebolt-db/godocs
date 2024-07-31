@@ -2,6 +2,7 @@
 layout: default
 title: ALTER USER
 description: Reference and syntax for the ALTER USER command.
+great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Access control
 ---

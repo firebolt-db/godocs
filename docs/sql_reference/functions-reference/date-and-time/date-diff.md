@@ -3,6 +3,7 @@ layout: default
 title: DATE_DIFF
 nav_exclude: true
 description: Reference material for DATE_DIFF function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Date and time functions
 ---

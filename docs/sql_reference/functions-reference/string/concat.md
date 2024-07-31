@@ -2,7 +2,8 @@
 layout: default
 title: CONCAT
 description: Reference material for CONCAT function
-grand_parent: SQL reference
+great_grand_parent: SQL reference
+grand_parent: SQL functions
 parent: String functions
 ---
 

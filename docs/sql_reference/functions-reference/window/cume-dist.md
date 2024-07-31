@@ -2,6 +2,7 @@
 layout: default
 title: CUME_DIST OVER
 description: Reference material for CUME_DIST window function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Window functions
 published: false

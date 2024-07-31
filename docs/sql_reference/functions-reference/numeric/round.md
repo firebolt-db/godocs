@@ -2,6 +2,7 @@
 layout: default
 title: ROUND
 description: Reference material for ROUND function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Numeric functions
 ---

@@ -2,6 +2,7 @@
 layout: default
 title: TRY_CAST
 description: Reference material for TRY_CAST function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Conditional and miscellaneous functions
 ---

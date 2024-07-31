@@ -2,6 +2,7 @@
 layout: default
 title: ARRAY_CONTAINS
 description: Reference material for ARRAY_CONTAINS function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Array functions
 ---

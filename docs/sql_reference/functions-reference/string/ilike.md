@@ -2,6 +2,7 @@
 layout: default
 title: ILIKE
 description: Reference material for ILIKE function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: String functions
 ---

@@ -3,8 +3,9 @@ layout: default
 title: Window functions
 description: Reference for window functions
 nav_order: 13
-parent: SQL functions
-grand_parent: SQL reference
+great_grand_parent: SQL reference
+grand_parent: SQL functions
+parent: Window functions
 has_children: true
 ---
 

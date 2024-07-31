@@ -2,6 +2,7 @@
 layout: default
 title: CHECKSUM
 description: Reference material for CHECKSUM
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Aggregation functions
 ---

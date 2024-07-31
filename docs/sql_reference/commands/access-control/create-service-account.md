@@ -2,6 +2,7 @@
 layout: default
 title: CREATE SERVICE ACCOUNT
 description: Reference and syntax for the CREATE SERVICE ACCOUNT command.
+great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Access control
 ---

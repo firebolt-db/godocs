@@ -2,6 +2,7 @@
 layout: default
 title: JSON_VALUE
 description: Reference material for JSON_VALUE function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: JSON functions
 ---

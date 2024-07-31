@@ -2,6 +2,7 @@
 layout: default
 title: CREATE VIEW
 description: Reference and syntax for the CREATE VIEW command.
+great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Data definition
 ---

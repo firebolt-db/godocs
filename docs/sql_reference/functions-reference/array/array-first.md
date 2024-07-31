@@ -2,6 +2,7 @@
 layout: default
 title: ARRAY_FIRST
 description: Reference material for ARRAY_FIRST function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Array functions
 published: false

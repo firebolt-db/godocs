@@ -2,6 +2,7 @@
 layout: default
 title: POSITION
 description: Reference material for POSITION function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: String functions
 published: true

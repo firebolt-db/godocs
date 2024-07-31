@@ -2,6 +2,7 @@
 layout: default
 title: COUNT OVER
 description: Reference material for COUNT function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Window functions
 ---
