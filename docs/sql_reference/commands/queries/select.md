@@ -2,7 +2,6 @@
 layout: default
 title: SELECT
 description: Reference and syntax for SELECT queries.
-great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Queries
 ---

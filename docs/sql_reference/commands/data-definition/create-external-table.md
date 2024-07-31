@@ -2,7 +2,6 @@
 layout: default
 title: CREATE EXTERNAL TABLE
 description: Reference and syntax for the CREATE EXTERNAL TABLE command.
-great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Data definition
 ---

@@ -4,7 +4,6 @@ title: ARRAY_REVERSE
 description: Reference material for ARRAY_REVERSE function
 grand_parent: SQL functions
 parent: Array functions
-great_grand_parent: SQL reference
 ---
 
 # ARRAY\_REVERSE

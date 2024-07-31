@@ -4,7 +4,6 @@ title: CAST
 description: Reference material for CAST function
 grand_parent: SQL functions
 parent: Conditional and miscellaneous functions
-great_grand_parent: SQL reference
 ---
 
 

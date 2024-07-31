@@ -4,7 +4,6 @@ title: TRIM
 description: Reference material for TRIM function
 grand_parent: SQL functions
 parent: String functions
-great_grand_parent: SQL reference
 ---
 
 # TRIM

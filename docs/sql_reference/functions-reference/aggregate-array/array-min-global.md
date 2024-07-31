@@ -4,7 +4,6 @@ title: ARRAY_MIN_GLOBAL
 description: Reference material for ARRAY_MIN_GLOBAL function
 parent: Aggregate array functions
 grand_parent:  SQL functions
-great_grand_parent: SQL reference
 published: false
 ---
 

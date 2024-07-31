@@ -4,7 +4,6 @@ title: ARRAY_FILTER
 description: Reference material for ARRAY_FILTER function
 grand_parent: SQL functions
 parent: Lambda functions
-great_grand_parent: SQL reference
 ---
 
 # ARRAY\_FILTER

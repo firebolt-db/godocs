@@ -4,7 +4,6 @@ title: ACOS
 description: Reference material for ACOS function
 grand_parent: SQL functions
 parent: Numeric functions
-great_grand_parent: SQL reference
 published: false
 ---
 

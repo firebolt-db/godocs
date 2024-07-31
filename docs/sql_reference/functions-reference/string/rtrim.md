@@ -4,7 +4,6 @@ title: RTRIM
 description: Reference material for RTRIM function
 grand_parent: SQL functions
 parent: String functions
-great_grand_parent: SQL reference
 ---
 
 # RTRIM

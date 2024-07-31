@@ -4,7 +4,6 @@ title: ARRAY_SUM
 description: Reference material for ARRAY_SUM function
 grand_parent: SQL functions
 parent: Array functions
-great_grand_parent: SQL reference
 ---
 
 # ARRAY\_SUM

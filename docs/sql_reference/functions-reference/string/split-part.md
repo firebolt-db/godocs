@@ -4,7 +4,6 @@ title: SPLIT_PART
 description: Reference material for SPLIT_PART function
 grand_parent: SQL functions
 parent: String functions
-great_grand_parent: SQL reference
 ---
 
 # SPLIT_PART

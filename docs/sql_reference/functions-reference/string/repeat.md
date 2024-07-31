@@ -5,7 +5,6 @@ description: Reference material for REPEAT function
 published: false
 grand_parent: SQL functions
 parent: String functions
-great_grand_parent: SQL reference
 ---
 
 # REPEAT

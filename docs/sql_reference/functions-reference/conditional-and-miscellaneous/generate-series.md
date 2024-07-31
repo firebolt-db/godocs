@@ -4,7 +4,6 @@ title: GENERATE_SERIES
 description: Reference material for GENERATE_SERIES function
 grand_parent: SQL functions
 parent: Conditional and miscellaneous functions
-great_grand_parent: SQL reference
 ---
 
 # GENERATE_SERIES

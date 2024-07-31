@@ -2,7 +2,6 @@
 layout: default
 title: CREATE TABLE
 description: Reference and syntax for the CREATE TABLE statement.
-great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Data definition
 ---
@@ -42,10 +41,15 @@ CREATE [FACT|DIMENSION] TABLE [IF NOT EXISTS] <table_name>
 
 All identifiers are case insensitive unless double-quotes are used. For more information, please see the [Object identifiers page](../../../Reference/object-identifiers.md).
 
-* [Column constraints & default expression](#column-constraints--default-expression)
-* [PRIMARY INDEX specifier](#primary-index)
-* [PARTITION BY specifier](#partition-by)
-* [Table type](#table-type)
+- [CREATE TABLE](#create-table)
+  - [Syntax](#syntax)
+  - [Parameters](#parameters)
+  - [Column constraints \& default expression](#column-constraints--default-expression)
+    - [Example–Creating a table with nulls and not nulls](#examplecreating-a-table-with-nulls-and-not-nulls)
+    - [PRIMARY INDEX](#primary-index)
+      - [Syntax–primary index](#syntaxprimary-index)
+    - [PARTITION BY](#partition-by)
+    - [Table type](#table-type)
 
 ## Column constraints & default expression
 

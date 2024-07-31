@@ -1,7 +1,6 @@
 ---
 layout: default
 title: EXPLAIN
-great_grand_parent: SQL reference
 grand_parent: SQL commands
 parent: Queries
 ---

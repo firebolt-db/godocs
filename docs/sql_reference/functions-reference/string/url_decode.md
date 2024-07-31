@@ -4,7 +4,6 @@ title: URL_DECODE
 description: Reference material for URL_DECODE function
 grand_parent: SQL functions
 parent: String functions
-great_grand_parent: SQL reference
 published: false
 ---
 

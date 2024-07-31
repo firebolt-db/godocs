@@ -4,7 +4,6 @@ title: REGEXP_REPLACE
 description: Reference material for REGEXP_REPLACE functions
 grand_parent: SQL functions
 parent: String functions
-great_grand_parent: SQL reference
 ---
 
 # REGEXP\_REPLACE

@@ -4,7 +4,6 @@ title: ARRAY_REVERSE_SORT
 description: Reference material for ARRAY_REVERSE_SORT function
 grand_parent: SQL functions
 parent: Array functions
-great_grand_parent: SQL reference
 ---
 
 # ARRAY\_REVERSE\_SORT

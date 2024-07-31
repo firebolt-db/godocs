@@ -4,7 +4,6 @@ title: ARRAY_TRANSFORM
 description: Reference material for ARRAY_TRANSFORM function
 grand_parent: SQL functions
 parent: Lambda functions
-great_grand_parent: SQL reference
 ---
 
 # ARRAY\_TRANSFORM

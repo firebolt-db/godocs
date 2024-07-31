@@ -2,7 +2,6 @@
 layout: default
 title: UPDATE
 description: Reference and syntax for the UPDATE command.
-great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Data management
 ---

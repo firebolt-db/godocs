@@ -4,7 +4,6 @@ title: ARRAY_COUNT_DISTINCT
 description: Reference material for ARRAY_COUNT_DISTINCT function
 grand_parent: SQL functions
 parent: Array functions
-great_grand_parent: SQL reference
 ---
 
 # ARRAY\_COUNT\_DISTINCT

@@ -4,7 +4,6 @@ title: ARRAY_REPLACE_BACKWARDS
 description: Reference material for ARRAY_REPLACE_BACKWARDS function
 grand_parent: SQL functions
 parent: Array functions
-great_grand_parent: SQL reference
 published: false
 ---
 

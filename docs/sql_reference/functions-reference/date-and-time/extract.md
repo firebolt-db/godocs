@@ -4,7 +4,6 @@ title: EXTRACT
 description: Reference material for the EXTRACT function
 grand_parent: SQL functions
 parent: Date and time functions
-great_grand_parent: SQL reference
 ---
 
 # EXTRACT

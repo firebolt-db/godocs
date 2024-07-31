@@ -4,7 +4,6 @@ title: AVG OVER
 description: Reference material for AVG function
 grand_parent: SQL functions
 parent: Window functions
-great_grand_parent: SQL reference
 ---
 
 # AVG

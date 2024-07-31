@@ -4,7 +4,6 @@ title: BOOL_AND
 description: Reference material for BOOL_AND
 grand_parent: SQL functions
 parent: Aggregation functions
-great_grand_parent: SQL reference
 ---
 
 

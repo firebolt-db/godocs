@@ -4,7 +4,6 @@ title: LENGTH
 description: Reference material for LENGTH function
 grand_parent: SQL functions
 parent: String functions
-great_grand_parent: SQL reference
 ---
 
 # LENGTH

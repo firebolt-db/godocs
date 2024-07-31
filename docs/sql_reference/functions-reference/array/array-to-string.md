@@ -4,7 +4,6 @@ title: ARRAY_TO_STRING
 description: Reference material for ARRAY_TO_STRING function
 grand_parent: SQL functions
 parent: Array functions
-great_grand_parent: SQL reference
 ---
 
 # ARRAY\_TO\_STRING

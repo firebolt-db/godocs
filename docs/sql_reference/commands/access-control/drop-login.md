@@ -2,7 +2,6 @@
 layout: default
 title: DROP LOGIN
 description: Reference and syntax for the DROP LOGIN command.
-great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Access control
 ---

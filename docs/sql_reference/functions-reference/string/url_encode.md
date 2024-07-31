@@ -4,7 +4,6 @@ title: URL_ENCODE
 description: Reference material for URL_ENCODE function
 grand_parent: SQL functions
 parent: String functions
-great_grand_parent: SQL reference
 published: false
 ---
 

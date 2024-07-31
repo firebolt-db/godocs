@@ -4,7 +4,7 @@ title: TO_CHAR
 description: Reference material for TO_CHAR function
 grand_parent: SQL functions
 parent: Date and time functions
-great_grand_parent: SQL reference
+
 ---
 
 # TO_CHAR

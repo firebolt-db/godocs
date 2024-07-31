@@ -4,7 +4,6 @@ title: TYPEOF
 description: Reference material for TYPEOF function
 grand_parent: SQL functions
 parent: Conditional and miscellaneous functions
-great_grand_parent: SQL reference
 ---
 
 # TYPEOF

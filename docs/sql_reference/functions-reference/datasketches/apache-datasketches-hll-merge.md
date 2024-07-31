@@ -2,7 +2,6 @@
 layout: default
 title: APACHE_DATASKETCHES_HLL_MERGE
 description: Reference material for APACHE_DATASKETCHES_HLL_MERGE
-great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: DataSketches functions
 published: true

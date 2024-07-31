@@ -4,7 +4,6 @@ title: ARRAY_FILL
 description: Reference material for ARRAY_FILL function
 grand_parent: SQL functions
 parent: Array functions
-great_grand_parent: SQL reference
 published: false
 ---
 

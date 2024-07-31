@@ -2,7 +2,6 @@
 layout: default
 title: APACHE_DATASKETCHES_HLL_ESTIMATE
 description: Reference material for APACHE_DATASKETCHES_HLL_ESTIMATE
-great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: DataSketches functions
 published: true

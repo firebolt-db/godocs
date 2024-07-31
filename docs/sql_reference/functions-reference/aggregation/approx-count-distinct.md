@@ -4,7 +4,6 @@ title: APPROX_COUNT_DISTINCT
 description: Reference material for APPROX_COUNT_DISTINCT
 grand_parent: SQL functions
 parent: Aggregation functions
-great_grand_parent: SQL reference
 ---
 
 

@@ -4,7 +4,6 @@ title: LEAST
 description: Reference material for LEAST function
 grand_parent: SQL functions
 parent: Conditional and miscellaneous functions
-great_grand_parent: SQL reference
 ---
 
 # LEAST

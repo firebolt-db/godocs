@@ -2,7 +2,6 @@
 layout: default
 title: DROP TABLE
 description: Reference and syntax for the DROP TABLE command.
-great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Data definition
 ---

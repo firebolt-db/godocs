@@ -2,7 +2,6 @@
 layout: default
 title: ALTER NETWORK POLICY
 description: Reference and syntax for the ALTER NETWORK POLICY command.
-great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Access control
 ---

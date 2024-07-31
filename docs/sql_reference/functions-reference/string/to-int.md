@@ -4,7 +4,6 @@ title: TO_INT
 description: Reference material for TO_INT function
 grand_parent: SQL functions
 parent: String functions
-great_grand_parent: SQL reference
 published: false
 ---
 

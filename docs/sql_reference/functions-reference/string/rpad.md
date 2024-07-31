@@ -4,7 +4,6 @@ title: RPAD
 description: Reference material for RPAD function
 grand_parent: SQL functions
 parent: String functions
-great_grand_parent: SQL reference
 ---
 
 # RPAD

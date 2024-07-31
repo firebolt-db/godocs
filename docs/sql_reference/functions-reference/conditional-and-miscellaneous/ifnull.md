@@ -4,7 +4,6 @@ title: IFNULL
 description: Reference material for IFNULL function
 grand_parent: SQL functions
 parent: Conditional and miscellaneous functions
-great_grand_parent: SQL reference
 ---
 
 # IFNULL

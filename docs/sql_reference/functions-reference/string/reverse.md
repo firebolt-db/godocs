@@ -4,7 +4,6 @@ title: REVERSE
 description: Reference material for REVERSE function
 grand_parent: SQL functions
 parent: String functions
-great_grand_parent: SQL reference
 published: false
 ---
 

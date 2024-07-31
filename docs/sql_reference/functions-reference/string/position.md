@@ -4,7 +4,6 @@ title: POSITION
 description: Reference material for POSITION function
 grand_parent: SQL functions
 parent: String functions
-great_grand_parent: SQL reference
 published: true
 ---
 

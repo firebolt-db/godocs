@@ -4,7 +4,6 @@ title: CURRENT_DATE
 description: Reference material for CURRENT_DATE function
 grand_parent: SQL functions
 parent: Date and time functions
-great_grand_parent: SQL reference
 ---
 
 # CURRENT_DATE

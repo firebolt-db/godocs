@@ -4,7 +4,6 @@ title: LEAD OVER
 description: Reference material for LEAD function
 grand_parent: SQL functions
 parent: Window functions
-great_grand_parent: SQL reference
 published: true
 ---
 

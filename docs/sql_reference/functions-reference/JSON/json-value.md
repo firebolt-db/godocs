@@ -4,7 +4,6 @@ title: JSON_VALUE
 description: Reference material for JSON_VALUE function
 grand_parent: SQL functions
 parent: JSON functions
-great_grand_parent: SQL reference
 ---
 
 # JSON_VALUE

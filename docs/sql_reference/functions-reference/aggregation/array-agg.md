@@ -4,7 +4,6 @@ title: ARRAY_AGG
 description: Reference material for ARRAY_AGG function
 parent: Aggregation functions
 grand_parent:  SQL functions
-great_grand_parent: SQL reference
 
 ---
 

@@ -4,7 +4,6 @@ title: ARRAY_FLATTEN
 description: Reference material for ARRAY_FLATTEN function
 grand_parent: SQL functions
 parent: Array functions
-great_grand_parent: SQL reference
 ---
 
 # ARRAY_FLATTEN
