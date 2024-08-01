@@ -22,7 +22,7 @@ services:
 
   link-check:
     image: raviqqe/muffet:2.10.2
-    command: ["--color=never", "--include=http://docs-server", "http://docs-server"]
+    command: ["--color=never", "--max-response-body-size=100000000", "--include=http://docs-server", "http://docs-server"]
     depends_on:
       docs-server:
         condition: service_healthy
