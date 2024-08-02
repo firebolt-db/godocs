@@ -369,7 +369,8 @@ Aggregating index is now placed in the same namespace as tables and views.
 
 <!--- FIR-29147 --->Fixed a bug in 'unnest' table function that occurred when not all of the 'unnest' columns were projected.
 
-<!--- FIR-28187 --->Changed the behavior of [`split_part`](../../sql_reference/functions-reference/string/split-part.md) when an empty string is used as delimiter.
+<!--- FIR-28187 --->Changed the behavior of 
+[`split_part`](../../sql_reference/functions-reference/string/split-part.md) when an empty string is used as delimiter.
 
 <!--- FIR-28623 --->Fixed a bug where floating point values `-0.0` and `+0.0`, as well as `-nan` and `+nan` were not considered equal in distributed queries.
 
@@ -394,7 +395,7 @@ Aggregating index is now placed in the same namespace as tables and views.
 
 <!--- FIR-27355 ---> **Support for nullable arrays**
 
-Support has been added to allow the [ANY_MATCH](../sql-reference/functions-reference/array-any-match.md) lambda function to work with nullable arrays
+Support has been added to allow the ANY_MATCH lambda function to work with nullable arrays
 
 ### Resolved issues
 {: .no_toc}
