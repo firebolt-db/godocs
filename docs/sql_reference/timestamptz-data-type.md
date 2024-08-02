@@ -2,6 +2,7 @@
 layout: default
 title: TIMESTAMPTZ data type
 description: Describes the Firebolt implementation of the `TIMESTAMPTZ` data type
+nav_exclude: true
 ---
 
 # TIMESTAMPTZ data type

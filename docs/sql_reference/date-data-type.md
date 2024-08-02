@@ -3,7 +3,6 @@ layout: default
 title: DATE data type
 description: Describes the Firebolt implementation of the `DATE` data type
 nav_exclude: true
-search_exclude: false
 ---
 
 # DATE data type
