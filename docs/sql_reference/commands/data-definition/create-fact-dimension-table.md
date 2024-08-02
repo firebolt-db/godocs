@@ -69,6 +69,9 @@ Firebolt supports the column constraints shown below.
 {: .note}
 Note that nullable columns can not be used in Firebolt indexes (Primary, or Aggregating indexes).
 
+{: .note}
+Note that column DEFAULT expressions are temporarily restricted starting from version 4.3.0. We are working on a new implementation of this feature and re-enable it in the near future. The expressions currently allowed are literals and the following functions: `CURRENT_DATE()`, `LOCALTIMESTAMP()`, `CURRENT_TIMESTAMP()`, and `NOW()`.
+
 ### Example&ndash;Creating a table with nulls and not nulls
 
 This example illustrates different use cases for column definitions and `INSERT` statements.
