@@ -394,7 +394,7 @@ Aggregating index is now placed in the same namespace as tables and views.
 
 <!--- FIR-27355 ---> **Support for nullable arrays**
 
-Support has been added to allow the [ANY_MATCH](../sql-reference/functions-reference/array-any-match.md) lambda function to work with nullable arrays
+Support has been added to allow the ANY_MATCH lambda function to work with nullable arrays
 
 ### Resolved issues
 {: .no_toc}
