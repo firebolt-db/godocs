@@ -16,12 +16,14 @@ For those seeking a more interactive learning experience, we invite you to join 
 
 To get started, you must register and create a Firebolt account. Then, you can either use the Firebolt SQL workspace, or use a **Load data** wizard to create a database and engine, and load data. Then, you can run your first query to obtain baseline performance statistics. Next, you can tune your workflow using Firebolt’s optimization strategies to reduce query run times. You can set a primary index and use aggregating indexes to speed up your query times significantly. Lastly, you can export your data to an external table. These steps are illustrated in the following workflow:
 
-**Use the Load data wizard**
+<img src="../assets/images/architecture-workflow.png" alt="Get Started" width="400"/>
+
+## **Use the Load data wizard**
 
 The **Load data** wizard guides you through creating a database and engine, and loading data from an Amazon S3 bucket. You can specify basic configurations including what character to use as a file delimiter, which columns to import and their schema. After you load your data, continue your workflow in the SQL workspace to run and optimize a query, and export to an external table. Even though the **Load data** wizard creates a database and engine for you, the following **Create a Database** and **Create an Engine** sections in this guide contains general information about billing for engine runtime, schema, .
 When you login for the first time, a welcome window will offer to forward you to the **Load data** wizard. Afterwards, you can select the plus (+) icon next to **Databases** in the left navigation pane and select **Load data**.  For detailed information about how to use the Load data wizard, see [Load data](../Guides/loading-data/loading-data.md). 
 
-**Use the SQL workspace**
+## **Use the SQL workspace**
 
 You can also use the SQL workspace to create a database and engine, and load data. If you use the SQL workspace, you can customize your workflow to handle more unique workflows than with the **Data loading** wizard. 
 
@@ -30,13 +32,10 @@ You can also use the SQL workspace to create a database and engine, and load dat
 
 ## Register with Firebolt
 
-1. [Register](https://go.firebolt.io/signup) with Firebolt. Fill in your email, name, choose a password, and select ‘Get Started’
-
-    <img src="../assets/images/GetStarted.png" alt="Get Started" width="500"/>
+1. [Register](https://go.firebolt.io/signup) with Firebolt. Fill in your email, name, choose a password, and select ‘Get Started’.
 
 2. Firebolt will send a confirmation to the address that you provided. To complete your registration, select ‘Verify’ in the email to take you to Firebolt’s [login page](https://go.firebolt.io/login). 
 
-    <img src="../assets/images/Verified.png" alt="Verified" width="500"/>
 
 3. Type in your email and password and click ‘Log In’.
 
@@ -45,7 +44,7 @@ New accounts receive 600 Firebolt unit (FBU) credits ($200+) to get started expl
 
 Firebolt’s billing is based on engine runtime, measured in seconds. We also pass through AWS S3 storage costs at the rate of $23 per TB. The amount that you spend is dependent primarily on which engines you use and how long those engines are running.
 
-You can view your total cost in FBU up to the latest second and in $USD up to the latest day. For more information, see the following **Create a Database** section. For more information about costs, see [Data Warehouse Pricing](https://www.firebolt.io/pricing). If you need to buy additional credits, connect Firebolt with your AWS Marketplace account. For more information about AWS Marketplace, see the following [Registering though AWS Marketplace section]<!--- ADD LINK FOR THIS--->
+You can view your total cost in FBU up to the latest second and in $USD up to the latest day. For more information, see the following **Create a Database** section. For more information about costs, see [Data Warehouse Pricing](https://www.firebolt.io/pricing). If you need to buy additional credits, connect Firebolt with your AWS Marketplace account. For more information about AWS Marketplace, see the following section: [Registering though AWS Marketplace section](#register-through-the-aws-marketplace)
 
 ## Create a Database
 
@@ -58,7 +57,7 @@ Firebolt’s structure is organized as follows:
 {: .note}
 If you used the **Load data** wizard, Firebolt has already created a database for you, and you can skip the following step.
 
-1) In the left navigation pane, select the **+** to the right **Databases**
+1) In the left navigation pane, select the **+** to the right **Databases**.
 
     <img src="../assets/images/Create%20%2B%20(Highlighted).png" alt="New DB +" width="700"/>
 
@@ -66,12 +65,12 @@ If you used the **Load data** wizard, Firebolt has already created a database fo
 
     <img src="../assets/images/Create%20New%20DB%20From%20%2B.png" alt="New DB" width="700"/>
 
-3. Enter the name for your database in the **Database Name** field. For this example, use “tutorial_database” as your database name. In Firebolt, the names of engines and databases are **case-sensitive**. If you are using both uppercase and lowercase characters in their names, enclose their name inside double quotes (“) when you refer to them in SQL.
+3)  Enter the name for your database in the **Database Name** field. For this example, use “tutorial_database” as your database name. In Firebolt, the names of engines and databases are **case-sensitive**. If you are using both uppercase and lowercase characters in their names, enclose their name inside double quotes (“) when you refer to them in SQL.
 
     <img src="../assets/images/Tutorial%20DB.png" alt="New DB Name" width="700"/>
 
 Firebolt creates a new database with the following two default schemas:
-* **public** - A namespace where you can create and manage your database objects including tables, engines and queries. The default schema includes **Tables**, **External tables**, and **Views**.
+* **Public** - A namespace where you can create and manage your database objects including tables, engines and queries. The default schema includes **tables**, **external tables**, and **views**.
 * **Information_schema** - A standardized set of read-only views that provide metadata about database objects including tables, engines, cost information, and queries.
 
 You can find these schema by selecting your database under **Databases** in the left navigation pane. Next to the name of your database, select the drop-down arrow to expand and view the schemas and their contents.
@@ -122,15 +121,9 @@ If you used the **Load data** wizard, Firebolt has already created an engine for
 
 1. Select the **(+)** icon next to **Databases**.
 
-    <img src="../assets/images/Create%20%2B%20(Highlighted).png" alt="New Engine +" width="700"/>
-
 2. Select **Create new engine** from the drop-down list. 
 
-    <img src="../assets/images/Create%20Engine%20%2B.png" alt="New Engine" width="700"/>
-
 3. Enter the name of your engine in the **New engine name** text box. For this example, enter “tutorial_engine” as your engine name.
-
-    <img src="../assets/images/Tutorial%20Engine.png" alt="New Engine Name" width="700"/>
 
 ## Load Data
 
@@ -256,8 +249,6 @@ ON tutorial (
 ```
 
 After you run the script,  the ``levels_agg_idx` aggregate index listed in the left navigation pane under **Indexes** in the **tutorial** table. Any queries that run over the tutorial table that use an average of the **NumberOfLaps** column grouped by **LevelType** will now use the levels_agg_idx index instead of reading the entire table to calculate it.
-
-<img src="../assets/images/AggIndex.png" alt="AggIndex" width="500"/>
 
 For more information, see [Aggregating indexes](./working-with-indexes/using-aggregating-indexes.md).
 
@@ -391,7 +382,7 @@ Now that you have successfully created your first engine and database, ran your 
 
 #### Register through the AWS Marketplace
 
-If you have exhausted your initial $200 credit, you can continue to use Firebolt after registering through the[AWS Marketplace](https://aws.amazon.com/marketplace). You must set up an account for billing in order to continue using Firebolt’s engines to run queries.
+If you have exhausted your initial $200 credit, you can continue to use Firebolt after registering through the [AWS Marketplace](https://aws.amazon.com/marketplace). You must set up an account for billing in order to continue using Firebolt’s engines to run queries.
 
 ##### To register
 
