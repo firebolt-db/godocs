@@ -44,7 +44,6 @@ The default value for the `CASE_SENSITIVE_COLUMN_MAPPING` parameter in `COPY FRO
 
 The result data type of the `extract` function for epoch, second, and millisecond was changed to return the type Numeric(38,9) instead of a narrower Numeric type. For example, `select extract(second from '2024-04-22 07:10:20'::timestamp);` now returns Numeric(38,9) instead of Numeric(8,6).
 
-
 ### New Features
 
 <!-- Auto Generated Markdown for FIR-32335 - Owned by Krishna Thotapalli -->**Role-based permissions for COPY FROM and External Table processes**
@@ -63,7 +62,6 @@ and [APACHE_DATASKETCHES_HLL_ESTIMATE](docs/sql_reference/functions-reference/da
 
 Firebolt has added enhanced support for more join conditions. As long as there is one equality predicate comparing a left column to a right column of the join, which is not part of a disjunctive (OR) expression, the remaining join condition can be arbitrary. The previous limitation on the number of inequality predicates has been removed.
 
-
 ### Performance Improvements
 
 <!-- FIR-32882 - Owned by Michael Freitag -->**Multi-node query performance**
@@ -77,7 +75,6 @@ Firebolt has enhanced support for interval arithmetic. You can now use expressio
 <!-- Auto Generated Markdown for FIR-33723 - Owned by Lorenz Hübschle -->**Optimized selective inner and right joins on primary index and partition by columns to reduce rows scanned**
 
 Selective inner and right joins on primary index and partition by columns now can now benefit from pruning. This reduces the number of rows scanned by filtering out rows that are not part of the join result early in the process. This optimization works best when joining on the first primary index column or a partition by column. The optimization is applied automatically when applicable, and no action is required. Queries that used this optimization will display "Prune:" labels on the table scan in the EXPLAIN (PHYSICAL) or EXPLAIN (ANALYZE) output.
-
 
 ### Bug Fixes
 
