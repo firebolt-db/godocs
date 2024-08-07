@@ -42,8 +42,9 @@ CREATE ENGINE [IF NOT EXISTS] <engine_name>
 **Limitations:**  
 * The number of clusters per engine is limited to two. 
 * The number of nodes per cluster is limited to ten.
+* Only small and medium engines are available for use right away.
 
-If you would like to remove the above limitations, reach out to Firebolt Support.
+If you would like to remove the above limitations or use a large or extra-large engine, reach out to Firebolt Support at support@firebolt.io
 
 ## Example 1
 The following example creates an engine with one cluster, using node type 'S' and 5 nodes per cluster : 
@@ -72,3 +73,5 @@ The following example creates an engine with one cluster, using node type 'L' an
 CREATE ENGINE my_engine
 WITH TYPE="L" NODES=2 AUTO_STOP=10;
 ```
+{: .note}
+If you need to use a large or extra-large engine, reach out to support@firebolt.io. 

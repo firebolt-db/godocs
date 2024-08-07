@@ -43,8 +43,9 @@ ALTER ENGINE <engine_name> SET
 * The number of clusters per engine is limited to two. 
 * The number of nodes per cluster is limited to ten.
 * When you scale a running engine (vertically or horizontally), new queries after the scaling operation will be directed to a new cluster. Queries running on the old clusters will be run to completion. The clusters will wait for up to 24 hours for running queries to finish. After 24 hours, any queries still running may not run to completion.
+* Only small and medium engines are available for use right away.
 
-If you would like to remove any of these limitations, reach out to Firebolt Support.
+If you would like to remove the above limitations or use a large or extra-large engine, reach out to Firebolt Support at support@firebolt.io
 
 ### Example 1
 The following example allows the users to scale out an engine by setting the engine's `NODES` to `3`: 
@@ -52,6 +53,8 @@ The following example allows the users to scale out an engine by setting the eng
 ```sql
 ALTER ENGINE my_engine SET NODES = 3;
 ```
+{: .note}
+If you need to use a large or extra-large engine, reach out to support@firebolt.io. 
 
 ### Example 2
 The following example allows the users to scale up an engine from Small to Large by setting the engine's `TYPE` to `L`: 
