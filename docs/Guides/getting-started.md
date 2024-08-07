@@ -10,7 +10,7 @@ has_toc: true
 # Get started with Firebolt
 
 {:.no_toc}
-Welcome to the beginning of your journey with Firebolt! This tutorial guides you through all of the steps that you need to run a basic workflow which includes setting up your Firebolt account, creating a database and engine, importing a sample dataset, creating indexes, and running a query. If you run into issues, reach out to [support@firebolt.io](support@firebolt.io) for help.
+Welcome to the beginning of your journey with Firebolt! This tutorial guides you through all of the steps that you need to run a basic workflow which includes setting up your Firebolt account, creating a database and engine, importing a sample dataset, creating indexes, and running a query. If you run into issues, reach out to support@firebolt.io for help.
 
 For those seeking a more interactive learning experience, we invite you to join one of our comprehensive, [instructor-led Firebolt workshops](https://www.firebolt.io/on-demand-workshop). These hands-on sessions are crafted to deepen your understanding of Firebolt’s capabilities and how to leverage them for your data analytics needs.
 
