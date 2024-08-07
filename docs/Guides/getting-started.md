@@ -33,6 +33,8 @@ You can also use the SQL workspace to create a database and engine, and load dat
 
 ## Register with Firebolt
 
+<img src="../assets/images/GS-register.png" alt="New DB +" width="500"/>
+
 1. [Register](https://go.firebolt.io/signup) with Firebolt. Fill in your email, name, choose a password, and select ‘Get Started’.
 
 2. Firebolt will send a confirmation to the address that you provided. To complete your registration, select ‘Verify’ in the email to take you to Firebolt’s [login page](https://go.firebolt.io/login). 
@@ -47,6 +49,8 @@ Firebolt’s billing is based on engine runtime, measured in seconds. We also pa
 You can view your total cost in FBU up to the latest second and in $USD up to the latest day. For more information, see the following **Create a Database** section. For more information about costs, see [Data Warehouse Pricing](https://www.firebolt.io/pricing). If you need to buy additional credits, connect Firebolt with your AWS Marketplace account. For more information about AWS Marketplace, see the following section: [Registering though AWS Marketplace section](#register-through-the-aws-marketplace)
 
 ## Create a Database
+
+<img src="../assets/images/GS-database.png" alt="New DB +" width="500"/>
 
 Firebolt decouples storage and compute resources so that multiple engines can run computations on the same database. You can also configure different engine sizes for different workloads. These workloads can run in parallel or separately. Because storage is decoupled from storage, you must first create both a database and an engine before you can run your first query. The following instructions show you how to create a database and then an engine, but you can also create the engine first. 
 
@@ -88,6 +92,8 @@ FROM information_schema.engine_metering_history
 
 ## Create an Engine
 
+<img src="../assets/images/GS-engine.png" alt="New DB +" width="500"/>
+
 To process a query, you must use an engine. You can either create an engine based on the following recommendations, or use the system engine. You can only use the system engine to run metadata-related queries, but it is always running, so you don’t have to wait for it to start. You can use the system engine to process data in any database. If you create your own engine, there is a small start up time associated with it. 
 
 Firebolt recommends the following initial engine configurations based on where you are in your exploration of Firebolt’s capabilities. An FBU stands for a Firebolt Unit, and is equivalent to 35 US cents. 
@@ -127,6 +133,8 @@ If you used the **Load data** wizard, Firebolt has already created an engine for
 3. Enter the name of your engine in the **New engine name** text box. For this example, enter “tutorial_engine” as your engine name.
 
 ## Load Data
+
+<img src="../assets/images/GS-load.png" alt="New DB +" width="500"/>
 
 This tutorial uses Firebolt’s sample dataset, from the fictional “Ultra Fast Gaming Inc” company. This dataset is publicly available and does not require access credentials. If your personal dataset requires access credentials, you will need to provide them. For examples of how to provide access credentials and more complex loading workflows, see [Loading data](../Guides/loading-data/loading-data.md). For more information about AWS access credentials, see [Creating Access key and Secret ID](../Guides/loading-data/creating-access-keys-aws.md)
 
@@ -181,6 +189,8 @@ For more information about Firebolt’s SQL workspace, see <!--- ADD DEVELOP WOR
 
 ## Run Query
 
+<img src="../assets/images/GS-query.png" alt="New DB +" width="500"/>
+
 1. Select the (+) icon next to the Script 2 tab to open a new tab.
 
 2. Enter the following simple query, which fetches a list of databases associated with your account:
@@ -195,6 +205,8 @@ For more information about Firebolt’s SQL workspace, see <!--- ADD DEVELOP WOR
 For more information about Firebolt’s SQL workspace, see <!--- ADD DEVELOP WORKSPACE LINK--->
 
 ## Optimize your workflow
+
+<img src="../assets/images/GS-optimize.png" alt="New DB +" width="500"/>
 
 Firebolt uses a number of optimization strategies to reduce query times. Over small datasets like those specified in this guide, the uplift may not be noticeable. However, these strategies can dramatically improve query performance for larger datasets. The following sections discuss how [primary indexes](./getting-started.md#primary-indexes), [partition keys](./getting-started.md#partition-keys), and [aggregating indexes](./getting-started.md#aggregating-indexes) to do the following:
 * Reduce the amount of data that the query scans.
@@ -253,37 +265,9 @@ After you run the script,  the ``levels_agg_idx` aggregate index listed in the l
 
 For more information, see [Aggregating indexes](./working-with-indexes/using-aggregating-indexes.md).
 
-### Partition Keys
-
-Another optimization strategy is to use a partition key to divide a table into partitions. Queries can filter on this partition key to determine if the partition is relevant to the query. If the key does not match the filter criteria, the data in the partition is not scanned during processing, which reduces query times significantly. 
-
-You can only create a partition key when you create a table. If you want to change the partition key, you must either create a new table with a partition key or use the same schema as the old table with a new partition key and transfer the data to the new table. You do not need to create a primary index in order to create a partition key. 
-
-For example, if you are interested in only players that completed a `LevelType` of `FastestLap`, you can partition a table using  the column `LevelType`. Then, if you query by `LevelType` of `FastestLap`, Firebolt will scan only those data that have a `LevelType` of `FastestLap`. 
-
-The following code shows you how to create a new table using the same schema as the previous `levels` table, create a partition key, and copy the data from the old table:
-
-```sql
-CREATE TABLE IF NOT EXISTS levels_partition (
-	"LevelID" INT,
-	"Name" TEXT,
-	"GameID" INT,
-	"LevelType" TEXT,
-	"MaxPoints" INT,
-	"PointsPerLap" DOUBLE,
-	"SceneDetails" TEXT
-)
-  PARTITION BY "LevelType";
-INSERT INTO levels_partition SELECT * FROM levels;
-```
-
-Partitions also allow Firebolt to efficiently add data to and update tables. You can also delete partitions that contain outdated data, saving on both storage and compute costs. The following code deletes uses the `LevelType` partition to delete all of the data that has the value of `FastestLap`:
-
-```sql
-ALTER TABLE levels_partition DROP PARTITION 'FastestLap';
-```
-
 ### Clean up data and resources
+
+<img src="../assets/images/GS-cleanup.png" alt="New DB +" width="500"/>
 
 After you’ve completed the steps in this guide, avoid incurring costs associated with the exercises by doing the following:
 * [Stop any running engines.](#stop-any-running-engines)
