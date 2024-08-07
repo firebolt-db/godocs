@@ -41,24 +41,26 @@ If the scale of a value to be stored is greater than the declared scale of the c
   SELECT CAST(100.76 AS NUMERIC(5,1)); -- 100.8
   SELECT(100.76 AS NUMERIC(3,1)); -- error
   ```
-### Type conversion
+### Type conversion (type promotion)
+
+Note: `NUMERIC` precision and scale does not change with any operation, i.e., there is no automatic widening of the result type to prevent overflows. If a wider type is desired, cast the inputs to perform the operations on wider types.
 
 1. **P1≠P2 or S1≠S2** (casting required)
 
-    Any operation between two decimals with different precision and/or scale requires explicit casting of the input to the desired precision and scale. 
+    Any operation between two `NUMERIC`s with different precision and/or scale requires explicit casting of the input to the desired precision and scale. 
 
     ```sql
-    f(NUMERIC(P1, S1), NUMERIC(P2, S2)) -> ERROR (P1≠P2 or S1≠S2) 
+    NUMERIC(P1, S1) <OP> NUMERIC(P2, S2) -> ERROR (P1≠P2 or S1≠S2) 
     ```
     where P1≠P2 or S1≠S2
 
 
 2. **P1=P2 and S1=S2** (casting optional)
 
-    If the two decimals have the same precision and scale, the result will implicitly cast to the same precision and scale. You can still explicitly cast to any other precision and scale.
+    If the two `NUMERIC`s have the same precision and scale, the result will implicitly cast to the same precision and scale. You can still explicitly cast to any other precision and scale.
   
     ```sql
-    f(NUMERIC(P1, S1), NUMERIC(P1, S1)) -> NUMERIC(P1, S1))**
+    NUMERIC(P1, S1) <OP> NUMERIC(P2, S2) -> NUMERIC(P1, S1)
     ```
  
 ### Supported operators
