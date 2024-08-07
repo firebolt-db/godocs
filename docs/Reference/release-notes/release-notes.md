@@ -10,101 +10,81 @@ has_children: false
 
 # Release notes
 
-Firebolt continuously releases updates so that you can benefit from the latest and most stable service. These updates might happen daily, but we aggregate release notes to cover a longer time period for easier reference. The most recent release notes from the latest version are below. 
+Firebolt continuously releases updates so that you have access to the latest and most stable product. While these updates might occur daily, but we consolidate release notes over a longer time period for your convenience. The following are the release notes from the latest version.
 
-- See the [Release notes archive](../release-notes/release-notes-archive.md) for earlier-version release notes.
+- See the [Release notes archive](../release-notes/release-notes-archive.md) for release notes from earlier versions.
 
 {: .note}
-Firebolt might roll out releases in phases. New features and changes may not yet be available to all accounts on the release date shown.
+Firebolt may deploy releases in phases, meaning that new features and changes may not be immediately available to all accounts on the specified release date. 
 
-## DB version 4.2
-**July 2024**
+* Topic ToC
+{:toc}
 
-- [Release notes](#release-notes)
-  - [DB version 4.2](#db-version-42)
-    - [New features](#new-features)
-    - [Breaking Changes](#breaking-changes)
-    - [Enhancements, changes and new integrations](#enhancements-changes-and-new-integrations)
+## DB version 4.3
+**August 2024**
 
-### New features
+### Breaking Changes
 
-<!--- FIR-32118---> **New `ntile` window function**
-
-Firebolt now supports the `ntile` window function. Refer to our [NTILE](../sql_reference/../../sql_reference/functions-reference/window/ntile.md) documentation for examples and usage. 
-
-### Breaking Changes 
-
-<!--- FIR-33028 --->**Improved rounding precision for floating point to integer casting**
+<!-- Owned by Vitaliy Lyudvichenko (for FIR-35188) --> **Temporarily restricted column DEFAULT expressions in CREATE TABLE statements**
 {: style="color:red;"}
 
-Casting from floating point to integers now uses Banker's Rounding, matching PostgreSQL's behavior. This means that numbers that are equidistant from the two nearest integers are rounded to the nearest even integer:  
+Column DEFAULT expressions in CREATE TABLE statements have been temporarily restricted, they can only consist of literals and the following functions: `CURRENT_DATE()`, `LOCALTIMESTAMP()`, `CURRENT_TIMESTAMP()`, `NOW()`. Existing tables with column DEFAULT expressions are not affected.
 
-Examples:
-```sql
-SELECT 0.5::real::int
-``` 
-This returns 0. 
-
-```sql
-SELECT 1.5::real::int
-``` 
-This returns 2. 
-
- Rounding behavior has not changed for numbers that are strictly closer to one integer than to all others.
- 
-<!--- FIR-33869---> **JSON functions update**
+<!-- Auto Generated Markdown for FIR-24961 - Owned by Kfir Yehuda --> **Underflow detection while casting from TEXT to floating point data types**
 {: style="color:red;"}
 
-Removed support for `json_extract_raw`, `json_extract_array_raw`, `json_extract_values`, and `json_extract_keys`. Updated `json_extract` function: the third argument is now `path_syntax`, which is a JSON pointer expression. See [JSON_EXTRACT](../sql_reference/../../sql_reference/functions-reference/JSON/json-extract.md) for examples and usage. 
+Firebolt now detects underflow, a condition where a numeric value becomes smaller than the minimum limit that a data type can represent, when casting from TEXT to floating point data types. For example, the query `select '10e-70'::float4;` now returns an error, while it previously returned `0.0`.
 
-<!--- FIR-32486---> **Cluster ordinal update**
+<!-- Auto Generated Markdown for FIR-33925 - Owned by Tobias Humig --> **Returning query execution errors in JSON format through the HTTP API**
 {: style="color:red;"}
 
-Replaced `engine_cluster` with [`cluster_ordinal`](../sql_reference/../../sql_reference/information-schema/engine-metrics-history.md) in `information_schema.engine_metrics_history`. The new column is an integer representing the cluster number.
+Firebolt's HTTP API now returns query execution errors in JSON format, allowing for future enhancements like including metadata such as error codes, or the location of a failing expression within the SQL script.
 
-<!--- FIR-34090 ---> **Configurable cancellation behavior on connection drop**
+<!-- Auto Generated Markdown for FIR-35022 - Owned by David Boublil -->**Changed default of case_sensitive_column_mapping parameter in COPY FROM**
 {: style="color:red;"}
 
-Introduced the `cancel_query_on_connection_drop` setting, allowing clients to control query cancellation on HTTP connection drop. Options include `NONE`, `ALL`, and `TYPE_DEPENDENT`. Refer to [system settings](../system-settings.md#query-cancellation-mode-on-connection-drop) for examples and usage. 
+The default value for the `CASE_SENSITIVE_COLUMN_MAPPING` parameter in `COPY FROM` is now `FALSE`, meaning that if a target table contains column names in uppercase and the source file to ingest has the same columns in lowercase, the ingestion will consider them the same column and ingest the data.
 
-<!--- FIR-33925 ---> **JSON format as default for error output**
+<!-- Auto Generated Markdown for FIR-34581 - Owned by Kfir Yehuda -->**`extract` function returns Numeric(38,9) for Epoch, second, and millisecond extraction**
 {: style="color:red;"}
 
-The HTTP API now returns query execution errors in JSON format by default. This change allows for the inclusion of meta information such as error codes and the location of failing expressions in SQL scripts.
+The result data type of the `extract` function for epoch, second, and millisecond was changed to return the type Numeric(38,9) instead of a narrower Numeric type. For example, `select extract(second from '2024-04-22 07:10:20'::timestamp);` now returns Numeric(38,9) instead of Numeric(8,6).
 
-<!--- FIR-33925 ---> **STOP ENGINE will drain currently running queries first**
-{: style="color:red;"}
+### New Features
 
-`STOP ENGINE` command now supports graceful drain, meaning any currently running queries will be run to completion. Once all the queries are completed, the engine will be fully stopped and terminated. If you want to stop the engine immediately, you can issue a STOP ENGINE command use the TERMINATE option. For example, to immediately stop an engine, my_engine, you can use:
+<!-- Auto Generated Markdown for FIR-32335 - Owned by Krishna Thotapalli -->**Role-based permissions for COPY FROM and External Table processes**
 
-```sql
- STOP ENGINE myEngine WITH TERMINATE = TRUE
-```
+Enabled role-based permissions for COPY FROM and External Table processes.
 
-<!--- FIR-33925 ---> **Scaling engines will not terminate currently running queries**
-{: style="color:red;"}
+<!-- Auto Generated Markdown for FIR-34932 - Owned by Kfir Yehuda -->**HLL-based count distinct functions compatible with the Apache DataSketches library**
 
-`ALTER ENGINE` command now supports graceful drain, meaning when you scale an engine (vertically or horizontally), any currently running queries will not be terminated. New queries after the scaling operation will be directed to a new cluster, while queries running on the old cluster will be run to completion.
+Firebolt now supports count-distinct functions using the HLL (HyperLogLog) algorithm, compatible with the Apache DataSketches library.
+For details and examples, see documentation on the functions 
+[APACHE_DATASKETCHES_HLL_BUILD](docs/sql_reference/functions-reference/datasketches/apache-datasketches-hll-build.md),
+[APACHE_DATASKETCHES_HLL_MERGE](docs/sql_reference/functions-reference/datasketches/apache-datasketches-hll-merge.md),
+and [APACHE_DATASKETCHES_HLL_ESTIMATE](docs/sql_reference/functions-reference/datasketches/apache-datasketches-hll-estimate.md).
 
-<!--- FIR-33857---> **Updated RBAC ownership management**
-{: style="color:red;"}
+<!-- Auto Generated Markdown for FIR-33707 - Owned by Zhen Li -->**Supported additional join conditions and removed the restriction on the number of inequality predicates**
 
-We have introduced several updates to role and privilege management: 
-  * The `security_admin` role will be removed temporarily and re-introduced in a later release.
-  * `Information_object_privileges` includes more privileges. Switching to to a specific user database (e.g by executing `use database db`) will only show privileges relevant for that database. Account-level privileges no longer show up when attached to a specific database. 
-  * Every newly created user is granted with a `public` role. This grant can be revoked.
+Firebolt has added enhanced support for more join conditions. As long as there is one equality predicate comparing a left column to a right column of the join, which is not part of a disjunctive (OR) expression, the remaining join condition can be arbitrary. The previous limitation on the number of inequality predicates has been removed.
 
-### Enhancements, changes and new integrations
+### Performance Improvements
 
-<!--- FIR-33699---> **Improved query performance**
+<!-- FIR-32882 - Owned by Michael Freitag -->**Multi-node query performance**
 
-Queries with "`SELECT [project_list] FROM [table] LIMIT [limit]`" on large tables are now significantly faster.
+Firebolt has improved the performance of data transfer between nodes, resulting in faster overall query execution times.
 
-<!--- FIR-33857---> **Updated table level RBAC**
+<!-- Auto Generated Markdown for FIR-24598 - Owned by Leonard von Merzljak -->**Enhanced Interval Arithmetic Support**
 
-Table level RBAC is now supported by Firebolt. This means that RBAC checks also cover schemas, tables, views and aggregating indexes. Refer to our [RBAC](./../../Guides/security/rbac.md) docs for a detailed overview of this new feature. The new Firebolt version inhibits the following change:
-   * System built-in roles are promoted to contain table level RBAC information. This means that new privileges are added to `account_admin`, `system_admin` and `public` roles. The effect is transparent— any user assigned with those roles will not be affected.
+Firebolt has enhanced support for interval arithmetic. You can now use expressions of the form `date_time + INTERVAL * d`, where `date_time` is a expression of type Date, Timestamp, TimestampTz, and `d` is an expression of type DOUBLE PRECISION. The interval is now scaled by `d` before being added to `date_time`. For example, writing `INTERVAL '1 day' * 3` is equivalent to writing `INTERVAL '3 days'`.
 
-<!--- FIR-33857---> **Removal of Deprecated Columns from `INFORMATION_SCHEMA.ENGINES`**
+<!-- Auto Generated Markdown for FIR-33723 - Owned by Lorenz Hübschle -->**Optimized selective inner and right joins on primary index and partition by columns to reduce rows scanned**
 
-We removed the following columns from `INFORMATION_SCHEMA.ENGINES` that were only for FB 1.0 compatibility: `region`, `spec`, `scale`, `warmup`, and `attached_to`. These columns were always empty. (These columns are hidden and do not appear in `SELECT *` queries, but they will still work if referenced explicitly.)
+Selective inner and right joins on primary index and partition by columns now can now benefit from pruning. This reduces the number of rows scanned by filtering out rows that are not part of the join result early in the process. This optimization works best when joining on the first primary index column or a partition by column. The optimization is applied automatically when applicable, and no action is required. Queries that used this optimization will display "Prune:" labels on the table scan in the EXPLAIN (PHYSICAL) or EXPLAIN (ANALYZE) output.
+
+### Bug Fixes
+
+<!-- Auto Generated Markdown for FIR-34721 - Owned by Demian Hespe -->**Fixed a bug in the combination of cross join and the `index_of` function**
+
+Resolved an issue where the `index_of` function would fail when applied to the result of a cross join that produced a single row.
+
