@@ -13,6 +13,7 @@ has_children: true
 
 [JSON_EXTRACT](./json-extract.md)
 [JSON_VALUE](./json-value.md)
+[JSON_VALUE_ARRAY](./json-value-array.md)
 
 ### JSON pointer expression syntax
 
