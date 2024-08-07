@@ -18,7 +18,7 @@ To get started, you must register and create a Firebolt account. Then, you can e
 
 <img src="../assets/images/architecture-workflow.png" alt="Get Started" width="500"/>
 
-Topic toC
+* Topic ToC
 {:toc}
 
 ## Use the Load data wizard
