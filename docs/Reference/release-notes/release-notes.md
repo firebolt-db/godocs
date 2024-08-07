@@ -17,6 +17,12 @@ Firebolt continuously releases updates so that you have access to the latest and
 {: .note}
 Firebolt may deploy releases in phases, meaning that new features and changes may not be immediately available to all accounts on the specified release date. 
 
+* Topic ToC
+{:toc}
+
+## DB version 4.3
+**August 2024**
+
 ### Breaking Changes
 
 <!-- Owned by Vitaliy Lyudvichenko (for FIR-35188) --> **Temporarily restricted column DEFAULT expressions in CREATE TABLE statements**
