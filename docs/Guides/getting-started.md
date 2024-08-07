@@ -33,7 +33,7 @@ You can also use the SQL workspace to create a database and engine, and load dat
 
 ## Register with Firebolt
 
-<img src="../assets/images/GS-register.png" alt="New DB +" width="500"/>
+<img src="../assets/images/GS-register.png" alt="New DB +" width="700"/>
 
 1. [Register](https://go.firebolt.io/signup) with Firebolt. Fill in your email, name, choose a password, and select ‘Get Started’.
 
@@ -50,7 +50,7 @@ You can view your total cost in FBU up to the latest second and in $USD up to th
 
 ## Create a Database
 
-<img src="../assets/images/GS-database.png" alt="New DB +" width="500"/>
+<img src="../assets/images/GS-database.png" alt="New DB +" width="700"/>
 
 Firebolt decouples storage and compute resources so that multiple engines can run computations on the same database. You can also configure different engine sizes for different workloads. These workloads can run in parallel or separately. Because storage is decoupled from storage, you must first create both a database and an engine before you can run your first query. The following instructions show you how to create a database and then an engine, but you can also create the engine first. 
 
@@ -63,11 +63,7 @@ If you used the **Load data** wizard, Firebolt has already created a database fo
 
 1) In the left navigation pane, select the **+** to the right **Databases**.
 
-    <img src="../assets/images/Create%20%2B%20(Highlighted).png" alt="New DB +" width="700"/>
-
 2)  Select **Create new database**. 
-
-    <img src="../assets/images/Create%20New%20DB%20From%20%2B.png" alt="New DB" width="700"/>
 
 3)  Enter the name for your database in the **Database Name** field. For this example, use “tutorial_database” as your database name. In Firebolt, the names of engines and databases are **case-sensitive**. If you are using both uppercase and lowercase characters in their names, enclose their name inside double quotes (“) when you refer to them in SQL.
 
@@ -92,7 +88,7 @@ FROM information_schema.engine_metering_history
 
 ## Create an Engine
 
-<img src="../assets/images/GS-engine.png" alt="New DB +" width="500"/>
+<img src="../assets/images/GS-engine.png" alt="New DB +" width="700"/>
 
 To process a query, you must use an engine. You can either create an engine based on the following recommendations, or use the system engine. You can only use the system engine to run metadata-related queries, but it is always running, so you don’t have to wait for it to start. You can use the system engine to process data in any database. If you create your own engine, there is a small start up time associated with it. 
 
@@ -134,7 +130,7 @@ If you used the **Load data** wizard, Firebolt has already created an engine for
 
 ## Load Data
 
-<img src="../assets/images/GS-load.png" alt="New DB +" width="500"/>
+<img src="../assets/images/GS-load.png" alt="New DB +" width="700"/>
 
 This tutorial uses Firebolt’s sample dataset, from the fictional “Ultra Fast Gaming Inc” company. This dataset is publicly available and does not require access credentials. If your personal dataset requires access credentials, you will need to provide them. For examples of how to provide access credentials and more complex loading workflows, see [Loading data](../Guides/loading-data/loading-data.md). For more information about AWS access credentials, see [Creating Access key and Secret ID](../Guides/loading-data/creating-access-keys-aws.md)
 
@@ -189,7 +185,7 @@ For more information about Firebolt’s SQL workspace, see <!--- ADD DEVELOP WOR
 
 ## Run Query
 
-<img src="../assets/images/GS-query.png" alt="New DB +" width="500"/>
+<img src="../assets/images/GS-query.png" alt="New DB +" width="700"/>
 
 1. Select the (+) icon next to the Script 2 tab to open a new tab.
 
@@ -206,7 +202,7 @@ For more information about Firebolt’s SQL workspace, see <!--- ADD DEVELOP WOR
 
 ## Optimize your workflow
 
-<img src="../assets/images/GS-optimize.png" alt="New DB +" width="500"/>
+<img src="../assets/images/GS-optimize.png" alt="New DB +" width="700"/>
 
 Firebolt uses a number of optimization strategies to reduce query times. Over small datasets like those specified in this guide, the uplift may not be noticeable. However, these strategies can dramatically improve query performance for larger datasets. The following sections discuss how [primary indexes](./getting-started.md#primary-indexes), [partition keys](./getting-started.md#partition-keys), and [aggregating indexes](./getting-started.md#aggregating-indexes) to do the following:
 * Reduce the amount of data that the query scans.
@@ -267,7 +263,7 @@ For more information, see [Aggregating indexes](./working-with-indexes/using-agg
 
 ### Clean up data and resources
 
-<img src="../assets/images/GS-cleanup.png" alt="New DB +" width="500"/>
+<img src="../assets/images/GS-cleanup.png" alt="New DB +" width="700"/>
 
 After you’ve completed the steps in this guide, avoid incurring costs associated with the exercises by doing the following:
 * [Stop any running engines.](#stop-any-running-engines)
