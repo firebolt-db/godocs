@@ -21,7 +21,7 @@ For tracking engine consumption, Firebolt uses a metric named Firebolt Units (FB
 |      XLarge (XL)      |              64                  |
 
 {: .note}
-If you need to use a large or extra-large engine, reach out to support@firebolt.io. 
+Small and medium engines are available for use right away. If you want to use a large or extra-large engine, reach out to support@firebolt.io.
 
 As you add more nodes and more clusters to your engine, the number of FBUs available to the engine increases linearly. The available FBUs for a given engine configuration is calculated as below:
  
