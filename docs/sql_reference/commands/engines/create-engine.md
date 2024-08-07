@@ -22,8 +22,7 @@ CREATE ENGINE [IF NOT EXISTS] <engine_name>
     [START_IMMEDIATELY = <true/false>]
     [CLUSTERS = <clusters>]
     [NODES = <nodes>]
-    [TYPE = <type>]
-    [AUTO_START = <true/false>]]
+    [TYPE = <type>]]
 ```
 ## Options
 {: .no_toc}  
@@ -38,14 +37,14 @@ CREATE ENGINE [IF NOT EXISTS] <engine_name>
 | `START_IMMEDIATELY = <true/false>`   | When `true`, the newly created engine will be started as part of the `CREATE ENGINE` command.<br>Cannot be used with `INITIALLY_STOPPED`.<br><br>If not specified, `true` is used as default. |
 | `CLUSTERS = <clusters>`              | Collection of nodes, where each node is of a certain type. All the clusters in an engine have the same type and same number of nodes. If not specified, `1` is used as default. |
 | `NODES = <nodes>`                    | The number of nodes for each cluster in an engine. Can be an integer ranging from `1` to `128`. <br><br>If not specified, `1` is used as default. |
-| `TYPE = <type>`                       | The type of node used by the engine. Can be one of 'S', 'M', 'L' or 'XL' <br><br>If not specified, `S` is used as default. |
-| `AUTO_START = <true/false>`                       | When `true`, If the engine is stopped, it will be automatically started when a query is sent to the engine endpoint.<br><br>If not specified, `true` is used as default. |
+| `TYPE =<type>`                       | The type of node used by the engine. Can be one of 'S', 'M', 'L' or 'XL' <br><br>If not specified, `S` is used as default. |
 
 **Limitations:**  
 * The number of clusters per engine is limited to two. 
 * The number of nodes per cluster is limited to ten.
+* Only small and medium engines are available for use right away.
 
-If you would like to remove the above limitations, reach out to Firebolt Support.
+If you would like to remove the above limitations or use a large or extra-large engine, reach out to Firebolt Support at support@firebolt.io.
 
 ## Example 1
 The following example creates an engine with one cluster, using node type 'S' and 5 nodes per cluster : 
@@ -67,6 +66,7 @@ The following example creates an engine with one cluster, using node type 'M' an
 CREATE ENGINE my_engine
 WITH TYPE="M" NODES=3 INITIALLY_STOPPED=true;
 ```
+
 ## Example 4
 The following example creates an engine with one cluster, using node type 'L' and 2 nodes per cluster. The engine will be automatically stopped after 10 mins of idle time because AUTO_STOP is set to 10.
 
@@ -75,10 +75,6 @@ CREATE ENGINE my_engine
 WITH TYPE="L" NODES=2 AUTO_STOP=10;
 ```
 
-## Example 5
-The following example creates an engine with one cluster, using node type 'S' and 4 nodes per cluster. In case it's stopped, the engine will not start automatically upon query, because AUTO_START is set to `false`.
+{: .note}
+If you need to use a large or extra-large engine, reach out to support@firebolt.io. 
 
-```sql
-CREATE ENGINE my_engine
-WITH TYPE="S" NODES=4 AUTO_START=false;
-```

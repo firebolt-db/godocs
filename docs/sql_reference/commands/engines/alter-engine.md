@@ -24,7 +24,6 @@ ALTER ENGINE <engine_name> SET
     [NODES = <nodes>]
     [TYPE = <type>]
     [RENAME TO <new_name>]
-    [AUTO_STOP = <true/false>]
 ```
 ### Options 
 {: .no_toc}  
@@ -39,14 +38,14 @@ ALTER ENGINE <engine_name> SET
 | `NODES = <nodes>`                    | The number of nodes for each cluster in an engine. Can be an integer ranging from `1` to `128`. |
 | `CLUSTERS = <clusters>`              | Collection of nodes, where each node is of a certain type. All the clusters in an engine have the same type and same number of nodes. |
 | `RENAME TO <new_name>`               | Indicates the new name for the engine. No other parameters are allowed during an engine rename. |
-| `AUTO_START = <true/false>`          | When `true`, If the engine is stopped, it will be automatically started when a query is sent to the engine endpoint.<br><br>If not specified, `true` is used as default. |
 
 **Limitations:**
 * The number of clusters per engine is limited to two. 
 * The number of nodes per cluster is limited to ten.
 * When you scale a running engine (vertically or horizontally), new queries after the scaling operation will be directed to a new cluster. Queries running on the old clusters will be run to completion. The clusters will wait for up to 24 hours for running queries to finish. After 24 hours, any queries still running may not run to completion.
+* Only small and medium engines are available for use right away.
 
-If you would like to remove any of these limitations, reach out to Firebolt Support.
+If you would like to remove the above limitations or use a large or extra-large engine, reach out to Firebolt Support at support@firebolt.io
 
 ### Example 1
 The following example allows the users to scale out an engine by setting the engine's `NODES` to `3`: 
@@ -68,6 +67,9 @@ The following example allows the users to both scale up and scale out an engine 
 ```sql
 ALTER ENGINE my_engine SET TYPE = "L" NODES = 5;
 ```
+
+{: .note}
+If you need to use a large or extra-large engine, reach out to support@firebolt.io. 
 
 ## ALTER ENGINE OWNER TO
 
