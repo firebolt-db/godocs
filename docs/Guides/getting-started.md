@@ -16,26 +16,26 @@ For those seeking a more interactive learning experience, we invite you to join 
 
 To get started, you must register and create a Firebolt account. Then, you can either use the Firebolt SQL workspace, or use a **Load data** wizard to create a database and engine, and load data. Then, you can run your first query to obtain baseline performance statistics. Next, you can tune your workflow using Firebolt’s optimization strategies to reduce query run times. You can set a primary index and use aggregating indexes to speed up your query times significantly. Lastly, you can export your data to an external table. These steps are illustrated in the following workflow:
 
-<img src="../assets/images/architecture-workflow.png" alt="Get Started" width="400"/>
+<img src="../assets/images/architecture-workflow.png" alt="Get Started" width="500"/>
 
-## **Use the Load data wizard**
+Topic toC
+{:toc}
 
-The **Load data** wizard guides you through creating a database and engine, and loading data from an Amazon S3 bucket. You can specify basic configurations including what character to use as a file delimiter, which columns to import and their schema. After you load your data, continue your workflow in the SQL workspace to run and optimize a query, and export to an external table. Even though the **Load data** wizard creates a database and engine for you, the following **Create a Database** and **Create an Engine** sections in this guide contains general information about billing for engine runtime, schema, .
+## Use the Load data wizard
+
+The **Load data** wizard guides you through creating a database and engine, and loading data from an Amazon S3 bucket. You can specify basic configurations including what character to use as a file delimiter, which columns to import and their schema. After you load your data, continue your workflow in the SQL workspace to run and optimize a query, and export to an external table. Even though the **Load data** wizard creates a database and engine for you, the following **Create a Database** and **Create an Engine** sections in this guide contains general information about billing for engine runtime and schema. 
+
 When you login for the first time, a welcome window will offer to forward you to the **Load data** wizard. Afterwards, you can select the plus (+) icon next to **Databases** in the left navigation pane and select **Load data**.  For detailed information about how to use the Load data wizard, see [Load data](../Guides/loading-data/loading-data.md). 
 
-## **Use the SQL workspace**
+## Use the SQL workspace
 
 You can also use the SQL workspace to create a database and engine, and load data. If you use the SQL workspace, you can customize your workflow to handle more unique workflows than with the **Data loading** wizard. 
-
-1. Topic toC
-{:toc}
 
 ## Register with Firebolt
 
 1. [Register](https://go.firebolt.io/signup) with Firebolt. Fill in your email, name, choose a password, and select ‘Get Started’.
 
 2. Firebolt will send a confirmation to the address that you provided. To complete your registration, select ‘Verify’ in the email to take you to Firebolt’s [login page](https://go.firebolt.io/login). 
-
 
 3. Type in your email and password and click ‘Log In’.
 
@@ -73,15 +73,13 @@ Firebolt creates a new database with the following two default schemas:
 * **Public** - A namespace where you can create and manage your database objects including tables, engines and queries. The default schema includes **tables**, **external tables**, and **views**.
 * **Information_schema** - A standardized set of read-only views that provide metadata about database objects including tables, engines, cost information, and queries.
 
-You can find these schema by selecting your database under **Databases** in the left navigation pane. Next to the name of your database, select the drop-down arrow to expand and view the schemas and their contents.
-
-You can view your total cost in FBU up to the latest second and in $USD up to the latest day in **Information_schema**. 
+You can find these schema by selecting your database under **Databases** in the left navigation pane. Next to the name of your database, select the drop-down arrow to expand and view the schemas and their contents. You can view your total cost in FBU up to the latest second and in $USD up to the latest day in **Information_schema**. 
 
 If you’re using the Firebolt SQL workspace, expand **Information_schema** and then **Views** to show the following:
 * **engine_metering_history** - contains information including about billing cost in FBU up to the latest second in **consumed_fbu**.
 * **engine_billing** - contains information about billing cost in US dollars up to the latest day in **billed_cost**. 
 
-  To see values for the previous costs, select the **More options** icon (<!--- ADD ICON FOR THIS--->) next to either **consumed_fbu** or **billed_cost**, Then select **Preview data**. You can also run a query in the script tab as shown in the following code example:
+To see values for the previous costs, select the **More options** icon (<!--- ADD ICON FOR THIS--->) next to either **consumed_fbu** or **billed_cost**, Then select **Preview data**. You can also run a query in the script tab as shown in the following code example:
 
 ```sql
 SELECT * 
@@ -99,13 +97,19 @@ Firebolt recommends the following initial engine configurations based on where y
 * For integration testing, expect to use 32-240 FBU. 	
   Each FBU is related to the amount of time 
 
+| Task                           | Expected Usage |
+| :----------------------------  | :----------- --|
+| Ingest initial data            |  4-16 FBU      |
+| Run test queries               |  8-32 FBU      |
+| Find optimal query performance |  32-240 FBU    |
+| Find optimal test integrations |  32-240 FBU    |
+
 Engines can cache the following dataset sizes:
 * A small (S) engine can cache 1.8 TB of data. 
 * A medium (M) engine can cache 3.7 TB. 
 * A large (L) engine can cache 7.5 TB of data. 
 * An extra-large (XL) engine can cache 15 TB of data. 
   
-<!--- INSERT TABLE FOR THE ABOVE INFO--->
 
 Small and medium engines are available for use right away. If you want to use a large or extra-large engine, reach out to support@firebolt.io. The default engine configuration uses a small node, which is sufficient for this tutorial. To learn more about how to select the correct engine size for your workload, see [Sizing Engines](../Guides/operate-engines/sizing-engines.md)
 
@@ -184,14 +188,15 @@ For more information about Firebolt’s SQL workspace, see <!--- ADD DEVELOP WOR
 
 2. Enter the following simple query, which fetches a list of databases associated with your account:
 
-```sql
-SHOW DATABASES;
-```
+  ```sql
+  SHOW DATABASES;
+  ```
+
 3. Select **Run** to process the query. Firebolt uses the engine listed to the right of your database to run your query and its status of **Running** or **Stopped**. You can select a different engine from the dropdown menu next to the engine (<img src="../assets/images/engine-icon.png" alt="AggIndex" width="12"/>) icon. 
    
    If your engine is **Stopped**, Firebolt may prompt you to start your engine. Select **Start Engin**e**. Engine startup typically requires a few moments to complete, as Firebolt prepares your environment for data analysis.
 
-For more information about Firebolt’s SQL workspace, see <!--- ADD LINK--->
+For more information about Firebolt’s SQL workspace, see <!--- ADD DEVELOP WORKSPACE LINK--->
 
 ## Optimize your workflow
 
@@ -366,6 +371,20 @@ s3://my_bucket/my_fb_queries/
 
 See [COPY TO](./../sql_reference/commands/data-management/copy-to.md) for more information. 
 
+#### Register through the AWS Marketplace
+
+If you have exhausted your initial $200 credit, you can continue to use Firebolt after registering through the [AWS Marketplace](https://aws.amazon.com/marketplace). You must set up an account for billing in order to continue using Firebolt’s engines to run queries.
+
+##### To register
+
+1. On the [Firebolt Workspace page](https://go.firebolt.io/), select the **Configure**((<img src="../assets/images/configure-icon.png" alt="AggIndex" width="12"/>)) icon from the left navigation pane. 
+2. Under **Organization settings**, select **Billing**.
+3. Click **Connect to AWS Marketplace** to take you to the Firebolt page on AWS Marketplace.
+4. On the AWS Marketplace page, click the **View Purchase Options** on the top right hand corner of the screen.
+5. Click **Setup Your Account**.
+
+Your account should now be associated with AWS Marketplace.
+
 ### Next Steps
 
 Now that you have successfully created your first engine and database, ran your first query, created indexes, copied data into, and exported data out of Firebolt, you can continue exploring Firebolt’s capabilities.
@@ -379,20 +398,6 @@ Now that you have successfully created your first engine and database, ran your 
 * Learn more about using [indexes](../overview/using-indexes.md) to optimize your query times.
 * Learn how to [set up your organization](../Guides/managing-your-organization/index.md) to use Firebolt.
 * Learn how to [integrate Firebolt](../guides/../Guides/integrations/integrations.md) with third party tools and applications.
-
-#### Register through the AWS Marketplace
-
-If you have exhausted your initial $200 credit, you can continue to use Firebolt after registering through the [AWS Marketplace](https://aws.amazon.com/marketplace). You must set up an account for billing in order to continue using Firebolt’s engines to run queries.
-
-##### To register
-
-1. On the [Firebolt Workspace page](https://go.firebolt.io/), select the **Configure**((<img src="../assets/images/configure-icon.png" alt="AggIndex" width="12"/>)) icon from the left navigation pane. 
-2. Under **Organization settings**, select **Billing**.
-3. Click **Connect to AWS Marketplace** to take you to the Firebolt page on AWS Marketplace.
-4. On the AWS Marketplace page, click the **View Purchase Options** on the top right hand corner of the screen.
-5. Click **Setup Your Account**.
-
-Your account should now be associated with AWS Marketplace, and ready to continue using Firebolt.
 
 
 
