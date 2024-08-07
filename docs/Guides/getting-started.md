@@ -16,7 +16,7 @@ For those seeking a more interactive learning experience, we invite you to join 
 
 To get started, you must register and create a Firebolt account. Then, you can either use the Firebolt SQL workspace, or use a **Load data** wizard to create a database and engine, and load data. Then, you can run your first query to obtain baseline performance statistics. Next, you can tune your workflow using Firebolt’s optimization strategies to reduce query run times. You can set a primary index and use aggregating indexes to speed up your query times significantly. Lastly, you can export your data to an external table. These steps are illustrated in the following workflow:
 
-<img src="../assets/images/architecture-workflow.png" alt="Get Started" width="500"/>
+<img src="../assets/images/architecture-workflow.png" alt="Get Started" width="700"/>
 
 * Topic ToC
 {:toc}
