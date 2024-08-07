@@ -28,7 +28,6 @@ As you add more nodes and more clusters to your engine, the number of FBUs avail
 **FBU-per-Hour for a given Engine = (FBU of node Type x Nodes x Clusters)**
 {: style="text-align: center;"}
 
-
 **Calculating FBU-per-Hour for a given Engine - Example 1:**
 {: style="color: red;"}
 You create an engine with the following configuration: TYPE = “S”, NODES = 2, CLUSTERS=1 <br />
