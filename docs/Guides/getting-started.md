@@ -91,11 +91,8 @@ FROM information_schema.engine_metering_history
 To process a query, you must use an engine. You can either create an engine based on the following recommendations, or use the system engine. You can only use the system engine to run metadata-related queries, but it is always running, so you don’t have to wait for it to start. You can use the system engine to process data in any database. If you create your own engine, there is a small start up time associated with it. 
 
 Firebolt recommends the following initial engine configurations based on where you are in your exploration of Firebolt’s capabilities. An FBU stands for a Firebolt Unit, and is equivalent to 35 US cents. 
-* To ingest initial data, use 1 node of an S engine, and expect to use 4-16 FBU.
-* To run test queries, use 1 node of an S engine, and expect to use 8-32 FBU.
-* To find optimal performance for your queries, expect to use 32-240 FBU. 
-* For integration testing, expect to use 32-240 FBU. 	
-  Each FBU is related to the amount of time 
+
+Each FBU is related to the amount of time 
 
 | Task                           | Expected Usage |
 | :----------------------------  | :----------- --|
@@ -111,7 +108,7 @@ Engines can cache the following dataset sizes:
 * An extra-large (XL) engine can cache 15 TB of data. 
   
 
-Small and medium engines are available for use right away. If you want to use a large or extra-large engine, reach out to support@firebolt.io. The default engine configuration uses a small node, which is sufficient for this tutorial. To learn more about how to select the correct engine size for your workload, see [Sizing Engines](../Guides/operate-engines/sizing-engines.md)
+Small and medium engines are available for use right away. If you want to use a large or extra-large engine, reach out to support@firebolt.io. The default engine configuration uses a small node, which is sufficient for this tutorial. To learn more about how to select the correct engine size for your workload, see [Sizing Engines](../Guides/operate-engines/sizing-engines.md).
 
 By default, when you login to Firebolt’s workspace for the first time, Firebolt creates a SQL workspace in a tab called **Script 1**. The following apply:
 * The database that **Script 1** will run using is located directly below the tab name. If you want to change the database, select another database from the drop-down list. 
@@ -153,32 +150,32 @@ Use [COPY FROM](../../sql_reference/../docs/sql_reference/commands/data-manageme
 5. Select the three dots next to the data type of each column name to open a pop-up that allows you to insert the name of the column into your SQL script. You can also select **Preview data**.
 
 6. To view the contents of  the **tutorial** table, run a SELECT query as shown in the following code example. To run this in a new tab, select the (+) icon next to the **Script 1** tab.
-
-```sql
-SELECT
-  *
-FROM
-  tutorial
-```
+  ```sql
+  SELECT
+    *
+  FROM
+    tutorial
+  ```
+  
 7. Select **Run**. The bottom of your workspace includes information about your processing job in the following tabs:
   * The **Results** tab at the bottom of your Firebolt workspace shows the contents returned by your query. After running the previous SELECT statement, the **Results** tab should display column names and values for the data in the tutorial. 
      * Select the filter icon (<img src="../assets/images/filter-icon.png" alt="AggIndex" width="12"/>) to change which columns are shown.
      * Select the **More options** icon (<img src="../assets/images/more options icon.png" alt="AggIndex" width="12"/>) to export the contents of the **Results** tab to a JSON or CSV file.
   * The Statistics tab shows information about running your query including how long it took to run and its status. After running the previous SELECT statement, the **Statistics** tab shows the status of the statement, its STATUS as having succeeded or failed, how long it took to run the query, the number of rows processed, the amount of data scanned, and <HOT QUERY what is it?>
-      * Select the **More options** icon (<img src="../assets/images/more options icon.png" alt="AggIndex" width="12"/>) to export the contents of the **Statistics** tab to a JSON or CSV file.
-* The **Query Profile** tab contains metrics for each operator used in your query and a **Query id**.  Select an operation to view its metrics. These metrics include the following:
-  * The output cardinality - the number of rows that each operator produced.
-  * The thread time - the sum of the wall clock time that threads spent to run the selected operation across all nodes.
-  * The CPU time - the sum of the time that threads that ran the operator were scheduled on a CPU core.
-  * The output types - the data types of the result of the operator.
+     * Select the **More options** icon (<img src="../assets/images/more options icon.png" alt="AggIndex" width="12"/>) to export the contents of the **Statistics** tab to a JSON or CSV file.
+  * The **Query Profile** tab contains metrics for each operator used in your query and a **Query id**.  Select an operation to view its metrics. These metrics include the following:
+     * The output cardinality - the number of rows that each operator produced.
+     * The thread time - the sum of the wall clock time that threads spent to run the selected operation across all nodes.
+     * The CPU time - the sum of the time that threads that ran the operator were scheduled on a CPU core.
+     * The output types - the data types of the result of the operator.
 
-  You can use these metrics to analyze and measure the efficiency and performance of your query. For example, If the CPU time is much smaller than thread time, the input-output (IO) latency may be high or the engine that you are using may be running multiple queries at the same time. For more information, see [Example with ANALYZE](../sql_reference/commands/queries/explain.md). 
+You can use these metrics to analyze and measure the efficiency and performance of your query. For example, If the CPU time is much smaller than thread time, the input-output (IO) latency may be high or the engine that you are using may be running multiple queries at the same time. For more information, see [Example with ANALYZE](../sql_reference/commands/queries/explain.md). 
 
-* The **Engine monitoring** tab shows monitoring information including the percent CPU, memory, disk use and cache read. Information is shown from the last 5 minutes by default. Select a different time interval from the drop-down menu next to **Last 5 minutes**. You can also select the **Refresh** icon next to the drop-down menu to update the graphical information.
-* The **Query history** tab shows detailed information associated with each query, listed by its **Query id**. This information includes the query status, start time, number of rows and bytes scanned during the load, user and account information. You can choose the following options at the top of the bottom panel:
-  * Select the **Refresh** icon to update the query history and ID.
-  * Select the filter icon (<img src="../assets/images/filter-icon.png" alt="AggIndex" width="12"/>) to remove or add columns to display. 
-  * Select the **More options** icon (<img src="../assets/images/more options icon.png" alt="AggIndex" width="12"/>) to export the contents of the Query history tab to a JSON or CSV file.
+  * The **Engine monitoring** tab shows monitoring information including the percent CPU, memory, disk use and cache read. Information is shown from the last 5 minutes by default. Select a different time interval from the drop-down menu next to **Last 5 minutes**. You can also select the **Refresh** icon next to the drop-down menu to update the graphical information.
+  * The **Query history** tab shows detailed information associated with each query, listed by its **Query id**. This information includes the query status, start time, number of rows and bytes scanned during the load, user and account information. You can choose the following options at the top of the bottom panel:
+    * Select the **Refresh** icon to update the query history and ID.
+    * Select the filter icon (<img src="../assets/images/filter-icon.png" alt="AggIndex" width="12"/>) to remove or add columns to display. 
+    * Select the **More options** icon (<img src="../assets/images/more options icon.png" alt="AggIndex" width="12"/>) to export the contents of the Query history tab to a JSON or CSV file.
   
 For more information about Firebolt’s SQL workspace, see <!--- ADD DEVELOP WORKSPACE LINK--->
 
@@ -187,14 +184,13 @@ For more information about Firebolt’s SQL workspace, see <!--- ADD DEVELOP WOR
 1. Select the (+) icon next to the Script 2 tab to open a new tab.
 
 2. Enter the following simple query, which fetches a list of databases associated with your account:
-
   ```sql
   SHOW DATABASES;
   ```
 
 3. Select **Run** to process the query. Firebolt uses the engine listed to the right of your database to run your query and its status of **Running** or **Stopped**. You can select a different engine from the dropdown menu next to the engine (<img src="../assets/images/engine-icon.png" alt="AggIndex" width="12"/>) icon. 
    
-   If your engine is **Stopped**, Firebolt may prompt you to start your engine. Select **Start Engin**e**. Engine startup typically requires a few moments to complete, as Firebolt prepares your environment for data analysis.
+   If your engine is **Stopped**, Firebolt may prompt you to start your engine. Select **Start Engine**. Engine startup typically requires a few moments to complete, as Firebolt prepares your environment for data analysis.
 
 For more information about Firebolt’s SQL workspace, see <!--- ADD DEVELOP WORKSPACE LINK--->
 
@@ -290,8 +286,8 @@ ALTER TABLE levels_partition DROP PARTITION 'FastestLap';
 ### Clean up data and resources
 
 After you’ve completed the steps in this guide, avoid incurring costs associated with the exercises by doing the following:
-* Stop any running engines.
-* Remove data from storage.
+* [Stop any running engines.](#stop-any-running-engines)
+* [Remove data from storage.](#remove-data-from-storage)
 
 #### Stop any running engines
 
@@ -315,7 +311,7 @@ d. Select **Delete**.
 
 If you want to save your data outside of Firebolt, you can use [COPY TO](./../sql_reference/commands/data-management/copy-to.md) to export data to an external table. This section shows how to set the minimal AWS permissions and use a COPY TO to export data to an [AWS S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html). You may have to reach out to your administrator to obtain or change AWS permissions.
 
-a. **Set permissions to write to an AWS S3 bucket**
+a. Set permissions to write to an AWS S3 bucket
   
   Firebolt must have the following permissions to write to an AWS S3 bucket:
     i. AWS access key credentials. The credentials must be associated with a user with permissions to write objects to the bucket. Specify access key credentials using the following syntax: 
@@ -375,7 +371,7 @@ See [COPY TO](./../sql_reference/commands/data-management/copy-to.md) for more i
 
 If you have exhausted your initial $200 credit, you can continue to use Firebolt after registering through the [AWS Marketplace](https://aws.amazon.com/marketplace). You must set up an account for billing in order to continue using Firebolt’s engines to run queries.
 
-##### To register
+**To register**
 
 1. On the [Firebolt Workspace page](https://go.firebolt.io/), select the **Configure**((<img src="../assets/images/configure-icon.png" alt="AggIndex" width="12"/>)) icon from the left navigation pane. 
 2. Under **Organization settings**, select **Billing**.
