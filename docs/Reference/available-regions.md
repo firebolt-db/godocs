@@ -13,3 +13,4 @@ Firebolt is available in the AWS regions listed below. To request additional reg
 | Region name          | Region ID      |
 | :------------------- | :----------- --|
 | US East (N Virginia) | us-east-1      |
+| EU (Frankfurt)       | eu-central-1   |
