@@ -28,7 +28,7 @@ For query processing, our recommendation is to start with an engine configuratio
 | XL             | 15TB  |
 
 {: .note}
-If you need to use a large or extra-large engine, reach out to support@firebolt.io. 
+Small and medium engines are available for use right away. If you want to use a large or extra-large engine, reach out to support@firebolt.io.
 
 <br />
 
