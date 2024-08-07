@@ -60,9 +60,9 @@ Enabled role-based permissions for COPY FROM and External Table processes.
 
 Firebolt now supports count-distinct functions using the HLL (HyperLogLog) algorithm, compatible with the Apache DataSketches library.
 For details and examples, see documentation on the functions 
-[APACHE_DATASKETCHES_HLL_BUILD](docs/sql_reference/functions-reference/datasketches/apache-datasketches-hll-build.md),
-[APACHE_DATASKETCHES_HLL_MERGE](docs/sql_reference/functions-reference/datasketches/apache-datasketches-hll-merge.md),
-and [APACHE_DATASKETCHES_HLL_ESTIMATE](docs/sql_reference/functions-reference/datasketches/apache-datasketches-hll-estimate.md).
+[APACHE_DATASKETCHES_HLL_BUILD](../../sql_reference/functions-reference/datasketches/apache-datasketches-hll-build.md),
+[APACHE_DATASKETCHES_HLL_MERGE](../../sql_reference/functions-reference/datasketches/apache-datasketches-hll-merge.md),
+and [APACHE_DATASKETCHES_HLL_ESTIMATE](../../sql_reference/functions-reference/datasketches/apache-datasketches-hll-estimate.md).
 
 <!-- Auto Generated Markdown for FIR-33707 - Owned by Zhen Li -->**Supported additional join conditions and removed the restriction on the number of inequality predicates**
 
