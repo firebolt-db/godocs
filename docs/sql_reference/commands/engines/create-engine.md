@@ -67,9 +67,6 @@ CREATE ENGINE my_engine
 WITH TYPE="M" NODES=3 INITIALLY_STOPPED=true;
 ```
 
-{: .note}
-If you need to use a large or extra-large engine, reach out to support@firebolt.io. 
-
 ## Example 4
 The following example creates an engine with one cluster, using node type 'L' and 2 nodes per cluster. The engine will be automatically stopped after 10 mins of idle time because AUTO_STOP is set to 10.
 
@@ -77,4 +74,7 @@ The following example creates an engine with one cluster, using node type 'L' an
 CREATE ENGINE my_engine
 WITH TYPE="L" NODES=2 AUTO_STOP=10;
 ```
+
+{: .note}
+If you need to use a large or extra-large engine, reach out to support@firebolt.io. 
 

@@ -54,9 +54,6 @@ The following example allows the users to scale out an engine by setting the eng
 ALTER ENGINE my_engine SET NODES = 3;
 ```
 
-{: .note}
-If you need to use a large or extra-large engine, reach out to support@firebolt.io. 
-
 ### Example 2
 The following example allows the users to scale up an engine from Small to Large by setting the engine's `TYPE` to `L`: 
 
@@ -70,6 +67,9 @@ The following example allows the users to both scale up and scale out an engine 
 ```sql
 ALTER ENGINE my_engine SET TYPE = "L" NODES = 5;
 ```
+
+{: .note}
+If you need to use a large or extra-large engine, reach out to support@firebolt.io. 
 
 ## ALTER ENGINE OWNER TO
 
