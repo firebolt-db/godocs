@@ -370,8 +370,8 @@ Now that you have successfully created your first engine and database, ran your 
 * Learn more about creating tables and [managing your data](../Overview/data-management.md) in order to let Firebolt provide the fastest query times. 
 * Learn about the [engines](../Overview/engine-fundamentals.md) that Firebolt uses to process queries and how to select the right size.
 * Learn how to [load](../overview/../Guides/loading-data/loading-data.md) different kinds of data.
-* Learn more about [querying data](../overview/../guides/../Guides/query-data/index.md).
-* Learn more about using [indexes](../overview/using-indexes.md) to optimize your query times.
+* Learn more about [querying data](../Overview/../guides/../Guides/query-data/index.md).
+* Learn more about using [indexes](../Overview/using-indexes.md) to optimize your query times.
 * Learn how to [set up your organization](../Guides/managing-your-organization/index.md) to use Firebolt.
 * Learn how to [integrate Firebolt](../guides/../Guides/integrations/integrations.md) with third party tools and applications.
 
