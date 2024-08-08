@@ -507,10 +507,6 @@ You can now use the [EXPLAIN command](../../sql_reference/commands/queries/expla
 ### Enhancements, changes and new integrations
 {: .no_toc}
 
-<!--- FIR-25636 ---> **PERCENTILE_CONT and PERCENTILE_DISC now return PostgreSQL-compliant results**
-
-[PERCENTILE_CONT](../../sql_reference/functions-reference/window/percentile-cont-window.md) for decimal input now returns DOUBLE PRECISION instead of NUMERIC data type. 
-
 <!--- FIR-24362 ---> **Virtual column 'source_file_timestamp' uses new data type**
 
 The virtual column `source_file_timestamp` has been migrated from the data type `TIMESTAMP` (legacy timestamp type without time zone) to the type `TIMESTAMPTZ` (new timestamp type with time zone).
