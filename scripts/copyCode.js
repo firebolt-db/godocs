@@ -13,11 +13,11 @@ codeBlocks.forEach(function (codeBlock) {
     var code = codeBlock.querySelector('code').innerText.trim();
     window.navigator.clipboard.writeText(code);
 
-    copyButton.innerHTML = '<img src="../../assets/images/success.svg" />';
+    copyButton.innerHTML = '<img src="../docs/assets/images/success.svg" />';
     var twoSeconds = 2000;
 
     setTimeout(function () {
-      copyButton.innerHTML = '<img src="../../assets/images/copy_icon.svg" />';
+      copyButton.innerHTML = '<img src="../docs/assets/images/copy_icon.svg" />';
     }, twoSeconds);
   });
 });
