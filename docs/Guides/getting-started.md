@@ -204,7 +204,7 @@ For more information about Firebolt’s SQL workspace, see <!--- ADD DEVELOP WOR
 
 <img src="../assets/images/GS-optimize.png" alt="New DB +" width="700"/>
 
-Firebolt uses a number of optimization strategies to reduce query times. Over small datasets like those specified in this guide, the uplift may not be noticeable. However, these strategies can dramatically improve query performance for larger datasets. The following sections discuss how [primary indexes](./getting-started.md#primary-indexes), [partition keys](./getting-started.md#partition-keys), and [aggregating indexes](./getting-started.md#aggregating-indexes) to do the following:
+Firebolt uses a number of optimization strategies to reduce query times. Over small datasets like those specified in this guide, the uplift may not be noticeable. However, these strategies can dramatically improve query performance for larger datasets. The following sections discuss how [primary indexes](./getting-started.md#primary-indexes) and [aggregating indexes](./getting-started.md#aggregating-indexes) to do the following:
 * Reduce the amount of data that the query scans.
 * Pre-calculate values that are used repeatedly during computations.
 
