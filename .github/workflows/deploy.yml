@@ -28,6 +28,10 @@ jobs:
           app_id: ${{ secrets.GH_APP_CI_GITOPS_APP_ID }}
           private_key: ${{ secrets.GH_APP_CI_GITOPS_KEY_PEM }}
 
+      - name: Build Jekyll site
+        run:
+          make start-local
+
       - name: Checkout Guru Synch Target
         uses: actions/checkout@v4
         with:
