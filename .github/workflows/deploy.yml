@@ -1,4 +1,4 @@
-name: Push to remote repositories
+name: Build and Deploy Preview
 
 on:
   push:
@@ -6,13 +6,12 @@ on:
       - '*'  # Trigger on all branches
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -21,54 +20,34 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           ref: ${{ github.ref_name }}
 
-      - name: Generate app token
-        id: generate_token
-        uses: tibdex/github-app-token@v2
-        with:
-          app_id: ${{ secrets.GH_APP_CI_GITOPS_APP_ID }}
-          private_key: ${{ secrets.GH_APP_CI_GITOPS_KEY_PEM }}
-
-      - name: Checkout Guru Synch Target
-        uses: actions/checkout@v4
-        with:
-          token: ${{ steps.generate_token.outputs.token }}
-          repository: firebolt-analytics/firebolt-doc-to-guru
-          path: 'deploysync'
-          ref: 'main'
-
-      - name: Checkout Preview Target
-        uses: actions/checkout@v4
-        with:
-          token: ${{ steps.generate_token.outputs.token }}
-          repository: firebolt-analytics/firebolt-docs-preview-cntrbtr
-          path: 'preview'
-          ref: ${{ github.ref_name }}  # Checkout the same branch name as the triggering branch
-    
-      # Build the site
-      - name: Build the site
+      - name: Build the site using Docker
         run: |
-          make start-local
-        working-directory: build
+          docker run --rm \
+            -v $(pwd):/srv/jekyll \
+            -v $(pwd)/vendor/bundle:/usr/local/bundle \
+            -e JEKYLL_ENV=production \
+            jekyll/builder:latest \
+            jekyll build
+        working-directory: build  # Adjust if necessary
 
-      - name: Set GitHub Actions as Commit Author
+      - name: Deploy to GitHub Pages
+        env:
+          TARGET_BRANCH: gh-pages
         run: |
-          git config --global user.name github-actions
-          git config --global user.email github-actions@github.com
-      - name: Push Guru
-        env: 
-          TARGET_BRANCH: "main"
-        run: |
-          cp -r build/* deploysync
-          cd deploysync
+          # Copy the build output to a directory named after the branch
+          PREVIEW_DIR="preview-${GITHUB_REF_NAME}"
+          mkdir -p $PREVIEW_DIR
+          cp -r _site/* $PREVIEW_DIR
+          
+          # Switch to the gh-pages branch
+          git fetch origin gh-pages
+          git checkout gh-pages
+          
+          # Copy the preview to the gh-pages branch under the branch-specific directory
+          cp -r $PREVIEW_DIR/* .
+          
+          # Commit and push the changes
           git add -A
-          git commit -m "feat(no_issue): update with $GITHUB_SHA"
-          git push origin $TARGET_BRANCH || echo "remote repository already synced"
-      - name: Push Preview
-        env: 
-          TARGET_BRANCH: ${{ github.ref_name }}  # Use the branch name that triggered the workflow
-        run: |
-          cp -r build/* preview
-          cd preview
-          git add -A
-          git commit -m "feat(no_issue): update with $GITHUB_SHA"
-          git push origin $TARGET_BRANCH || echo "remote repository already synced"
+          git commit -m "Deploy preview for ${GITHUB_REF_NAME}"
+          git push origin gh-pages
+      
