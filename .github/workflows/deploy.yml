@@ -12,6 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
+      contents: write
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -28,16 +29,25 @@ jobs:
           private_key: ${{ secrets.GH_APP_CI_GITOPS_KEY_PEM }}
 
       - name: Checkout Guru Synch Target
-        run: actions/checkout@v4
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.generate_token.outputs.token }}
+          repository: firebolt-analytics/firebolt-doc-to-guru
+          path: 'deploysync'
+          ref: 'main'
 
       - name: Checkout Preview Target
-        run: actions/checkout@v4
+        uses: actions/checkout@v4
         with:
+          token: ${{ steps.generate_token.outputs.token }}
+          repository: firebolt-analytics/firebolt-docs-preview-cntrbtr
+          path: 'preview'
+          ref: ${{ github.ref_name }}  # Checkout the same branch name as the triggering branch
 
       - name: Set GitHub Actions as Commit Author
         run: |
           git config --global user.name github-actions
-
+          git config --global user.email github-actions@github.com
       - name: Push Guru
         env: 
           TARGET_BRANCH: "main"
@@ -47,7 +57,6 @@ jobs:
           git add -A
           git commit -m "feat(no_issue): update with $GITHUB_SHA"
           git push origin $TARGET_BRANCH || echo "remote repository already synced"
-
       - name: Push Preview
         env: 
           TARGET_BRANCH: ${{ github.ref_name }}  # Use the branch name that triggered the workflow
@@ -57,4 +66,3 @@ jobs:
           git add -A
           git commit -m "feat(no_issue): update with $GITHUB_SHA"
           git push origin $TARGET_BRANCH || echo "remote repository already synced"
-
