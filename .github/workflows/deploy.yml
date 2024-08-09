@@ -25,6 +25,7 @@ jobs:
           docker run --rm \
             -v $(pwd):/srv/jekyll \
             -v $(pwd)/vendor/bundle:/usr/local/bundle \
+            --user $(id -u):$(id -g) \
             -e JEKYLL_ENV=production \
             -e JEKYLL_CACHE_DIR=/tmp/jekyll-cache \
             jekyll/builder:latest \
