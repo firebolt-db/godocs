@@ -1,40 +1,71 @@
-name: Deploy to GitHub Pages
+name: Push to remote repositories
 
 on:
   push:
-    branches:
-      - '*'
+    branches: 
+      - '*'  # Trigger on all branches
+
+permissions:
+  contents: read
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-
-    container:
-      image: jekyll/builder:latest
-
+    permissions:
+      contents: write
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          path: 'build'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: ${{ github.ref_name }}
 
-    - name: Set Cache Directory
-      run: echo "Setting JEKYLL_CACHE_DIR to /tmp/.jekyll-cache"
-      env:
-        JEKYLL_CACHE_DIR: /tmp/.jekyll-cache
+      - name: Generate app token
+        id: generate_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.GH_APP_CI_GITOPS_APP_ID }}
+          private_key: ${{ secrets.GH_APP_CI_GITOPS_KEY_PEM }}
 
-    - name: Install dependencies
-      run: |
-        cd docs  # Change to the directory containing your Gemfile
-        bundle config set --local path 'vendor/bundle'
-        bundle install --jobs 4 --retry 3
+      - name: Checkout Guru Synch Target
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.generate_token.outputs.token }}
+          repository: firebolt-analytics/firebolt-doc-to-guru
+          path: 'deploysync'
+          ref: 'main'
 
-    - name: Build site
-      run: |
-        cd docs  # Change to the directory containing your Gemfile
-        bundle exec jekyll build --trace
+      - name: Checkout Preview Target
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.generate_token.outputs.token }}
+          repository: firebolt-analytics/firebolt-docs-preview-cntrbtr
+          path: 'preview'
+          ref: ${{ github.ref_name }}  # Checkout the same branch name as the triggering branch
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs/_site
-        publish_branch: gh-pages
+      - name: Set GitHub Actions as Commit Author
+        run: |
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
+
+      - name: Push Guru
+        env: 
+          TARGET_BRANCH: "main"
+        run: |
+          cp -r build/* deploysync
+          cd deploysync
+          git add -A
+          git commit -m "feat(no_issue): update with $GITHUB_SHA"
+          git push origin $TARGET_BRANCH || echo "remote repository already synced"
+
+      - name: Push Preview
+        env: 
+          TARGET_BRANCH: ${{ github.ref_name }}  # Use the branch name that triggered the workflow
+        run: |
+          cp -r build/* preview
+          cd preview
+          git add -A
+          git commit -m "feat(no_issue): update with $GITHUB_SHA"
+          git push origin $TARGET_BRANCH || echo "remote repository already synced"
+
