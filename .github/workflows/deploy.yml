@@ -16,12 +16,8 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up Jekyll
-      run: |
-        apt-get update 
-        apt-get install -y ruby-dev
-        gem install jekyll bundler --user-install
-        export PATH="$HOME/.gem/ruby/$(ls /usr/lib/ruby/gems/)/bin:$PATH"
+    - name: Build site
+      run: jekyll build
 
     - name: Build site
       run: bundle exec jekyll build
