@@ -16,11 +16,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Build site
-      run: jekyll build
-
-    - name: Build site
-      run: bundle exec jekyll build --no-cache  # Disable caching
+    - name: Set Cache Directory and Build
+      run: |
+        export JEKYLL_CACHE_DIR=/tmp/.jekyll-cache
+        bundle exec jekyll build --no-cache --trace
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
