@@ -43,6 +43,12 @@ jobs:
           repository: firebolt-analytics/firebolt-docs-preview-cntrbtr
           path: 'preview'
           ref: ${{ github.ref_name }}  # Checkout the same branch name as the triggering branch
+    
+      # Build the site
+      - name: Build the site
+        run: |
+          make start-local
+        working-directory: build
 
       - name: Set GitHub Actions as Commit Author
         run: |
