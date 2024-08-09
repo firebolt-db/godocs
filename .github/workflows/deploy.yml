@@ -12,7 +12,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -28,49 +27,16 @@ jobs:
           app_id: ${{ secrets.GH_APP_CI_GITOPS_APP_ID }}
           private_key: ${{ secrets.GH_APP_CI_GITOPS_KEY_PEM }}
 
-      - name: Print Working Directory
-        run: pwd  # This will print the current working directory
-
-      - name: List Files in Current Directory
-        run: ls -la  # This will list all files and directories, including hidden ones
-  
-     - name: Verify docs directory exists
-        run: |
-          if [ ! -d "./docs" ]; then
-            echo "Directory 'docs' does not exist."
-            exit 1
-          fi
-
-      - name: Build Jekyll site
-
-        run: |
-          cd docs
-          bundle install
-        working-directory: ./docs
-
-      - name: Run Local Environment
-        run: make start-local
-
       - name: Checkout Guru Synch Target
-        uses: actions/checkout@v4
-        with:
-          token: ${{ steps.generate_token.outputs.token }}
-          repository: firebolt-analytics/firebolt-doc-to-guru
-          path: 'deploysync'
-          ref: 'main'
+        run: actions/checkout@v4
 
       - name: Checkout Preview Target
-        uses: actions/checkout@v4
+        run: actions/checkout@v4
         with:
-          token: ${{ steps.generate_token.outputs.token }}
-          repository: firebolt-analytics/firebolt-docs-preview-cntrbtr
-          path: 'preview'
-          ref: ${{ github.ref_name }}  # Checkout the same branch name as the triggering branch
 
       - name: Set GitHub Actions as Commit Author
         run: |
           git config --global user.name github-actions
-          git config --global user.email github-actions@github.com
 
       - name: Push Guru
         env: 
