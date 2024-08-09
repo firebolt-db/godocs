@@ -29,8 +29,14 @@ jobs:
           private_key: ${{ secrets.GH_APP_CI_GITOPS_KEY_PEM }}
 
       - name: Build Jekyll site
+
         run:
-          make scripts/start-local
+          cd docs
+          bundle install
+          working-directory: ./docs
+
+      - name: Run Local Environment
+        run: make start-local
 
       - name: Checkout Guru Synch Target
         uses: actions/checkout@v4
