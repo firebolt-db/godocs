@@ -24,12 +24,10 @@ jobs:
     - name: Install dependencies
       run: |
         bundle install --jobs 4 --retry 3 --path vendor/bundle
-      shell: bash
 
     - name: Build site
       run: |
         bundle exec jekyll build --trace
-      shell: bash
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
@@ -37,4 +35,3 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./_site
         publish_branch: gh-pages
-      shell: bash
