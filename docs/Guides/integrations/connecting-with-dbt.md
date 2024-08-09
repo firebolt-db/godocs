@@ -20,16 +20,16 @@ The Firebolt adapter for dbt brings together dbt's state-of-the-art development 
 
 There are two ways to deploy DBT: self-hosted [DBT Core](https://docs.getdbt.com/docs/introduction#dbt-core) and managed [DBT Cloud](https://docs.getdbt.com/docs/cloud/about-cloud/dbt-cloud-features).
 
-In this guide we'll setup a local installation of [DBT Core](https://docs.getdbt.com/docs/introduction#dbt-core). We will use Python's package manager `pip`, but there are ways to install DBT via [Homebrew](https://docs.getdbt.com/docs/core/homebrew-install), [Docker](https://docs.getdbt.com/docs/core/docker-install), and from [source](https://docs.getdbt.com/docs/core/source-install).
+This guide shows how to setup a local installation of [DBT Core](https://docs.getdbt.com/docs/introduction#dbt-core). This guide uses Python's `pip` package manager, but you can use the following ways to install DBT: [Homebrew](https://docs.getdbt.com/docs/core/homebrew-install), [Docker](https://docs.getdbt.com/docs/core/docker-install), and from [source](https://docs.getdbt.com/docs/core/source-install).
 
-You will need:
+You will need the following:
 
 * GitHub account
 * Python 3.8+
 
 # Quickstart
 
-Following this guide, you will setup DBT with Firebolt and run your first DBT [model](https://docs.getdbt.com/docs/build/models).
+This guide shows you how to setup DBT with Firebolt and run your first DBT [model](https://docs.getdbt.com/docs/build/models).
 
 ### Setup DBT Core
 
@@ -119,11 +119,45 @@ The usual place to create this file on Mac and Linux is `~/.dbt/profiles.yml`.
     dbt run
     ```
 
-Now in your database you should see the tables `customers` and `orders` generated with the help of the dbt models! From here you can explore more capabilities of DBT, like incremental models, documentation generation and more by following the official guides from the section below.
+You should now see the `customers` and `orders` tables in your database, created using dbt models. From here you can explore more of DBT's capabilities, including incremental models, documentation generation, and more, by following the official guides in the section below.
 
 # Limitations
 
 Not every feature of DBT is supported in Firebolt. You can find an up-to-date list of features in the [adapter documentation](https://github.com/firebolt-db/dbt-firebolt?tab=readme-ov-file#feature-support).
+
+
+# External tables
+
+In the previous Jaffle Shop example we used a public S3 bucket to load data. If your bucket contains sensitive data, you will want to restrict access. Follow our [guide](../loading-data/creating-access-keys-aws.md) to set up AWS authentication using an ID and secret key.
+
+Now in your `dbt_project.yml` you can specify the credentials for your external table in fields `aws_key_id` and `aws_secret_key`
+```yaml
+sources:
+  - name: firebolt_external
+    schema: "{{ target.schema }}"
+    loader: S3
+
+    tables:
+      - name: <table-name>
+        external:
+          url: 's3://<bucket_name>/'
+          object_pattern: '<regex>'
+          type: '<type>'
+          credentials:
+            aws_key_id: <aws-id>
+            aws_secret_key: <aws-secret-key>
+          object_pattern: '<regex>'
+          compression: '<compression-type>'
+          partitions:
+            - name: <partition-name>
+              data_type: <partition-type>
+              regex: '<partition-definition-regex>'
+          columns:
+            - name: <column-name>
+              data_type: <type>
+```
+
+To use external tables, you must define a table as external in your dbt_project.yml file. Every external table must contain the fields url, type, and object_pattern. The Firebolt external table [specification](../../sql_reference/commands/data-definition/create-external-table.md) requires fewer fields than those specified in the dbt documentation.
 
 
 # Further reading
