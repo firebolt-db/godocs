@@ -64,7 +64,7 @@ jobs:
           git commit -m "Deploy preview for ${GITHUB_REF_NAME}"
           git push origin gh-pages
         else
-         echo "Error: _site directory not found"
-      exit 1
-    fi
+          echo "Error: _site directory not found"
+          exit 1
+        fi
       
