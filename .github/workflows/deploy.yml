@@ -28,7 +28,13 @@ jobs:
           app_id: ${{ secrets.GH_APP_CI_GITOPS_APP_ID }}
           private_key: ${{ secrets.GH_APP_CI_GITOPS_KEY_PEM }}
 
-      - name: Verify docs directory exists
+      - name: Print Working Directory
+        run: pwd  # This will print the current working directory
+
+      - name: List Files in Current Directory
+        run: ls -la  # This will list all files and directories, including hidden ones
+  
+     - name: Verify docs directory exists
         run: |
           if [ ! -d "./docs" ]; then
             echo "Directory 'docs' does not exist."
