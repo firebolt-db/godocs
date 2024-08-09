@@ -23,15 +23,18 @@ jobs:
 
     - name: Install dependencies
       run: |
-        bundle install --jobs 4 --retry 3 --path vendor/bundle
+        cd docs  # Change to the directory containing your Gemfile
+        bundle config set --local path 'vendor/bundle'
+        bundle install --jobs 4 --retry 3
 
     - name: Build site
       run: |
+        cd docs  # Change to the directory containing your Gemfile
         bundle exec jekyll build --trace
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./_site
+        publish_dir: ./docs/_site
         publish_branch: gh-pages
