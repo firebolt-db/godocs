@@ -18,7 +18,6 @@ jobs:
 
     - name: Set Cache Directory
       run: echo "Setting JEKYLL_CACHE_DIR to /tmp/.jekyll-cache"
-      shell: bash
       env:
         JEKYLL_CACHE_DIR: /tmp/.jekyll-cache
 
