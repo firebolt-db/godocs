@@ -18,9 +18,10 @@ jobs:
 
     - name: Set up Jekyll
       run: |
-        sudo apt-get install -y ruby-dev
-        gem install jekyll bundler
-        bundle install
+        apt-get update 
+        apt-get install -y ruby-dev
+        gem install jekyll bundler --user-install
+        export PATH="$HOME/.gem/ruby/$(ls /usr/lib/ruby/gems/)/bin:$PATH"
 
     - name: Build site
       run: bundle exec jekyll build
