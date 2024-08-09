@@ -20,25 +20,20 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           ref: ${{ github.ref_name }}
 
-      - name: Debug Docker Container
-        run: |
-          docker run --rm \
-            -v $(pwd):/srv/jekyll \
-            -v $(pwd)/vendor/bundle:/usr/local/bundle \
-            jekyll/builder:latest \
-            sh -c "which jekyll && ls -l /usr/gem/bin && ls -l /usr/local/bin"
-
       - name: Build the site using Docker
         run: |
           docker run --rm \
             -v $(pwd):/srv/jekyll \
             -v $(pwd)/vendor/bundle:/usr/local/bundle \
-            --user $(id -u):$(id -g) \
             -e JEKYLL_ENV=production \
-            -e JEKYLL_CACHE_DIR=/tmp/jekyll-cache \
             jekyll/builder:latest \
-            /usr/gem/bin/jekyll build
+            jekyll build
         working-directory: build  # Adjust if necessary
+
+      - name: List directory contents
+        run: |
+          ls -R
+        working-directory: build
 
       - name: Deploy to GitHub Pages
         env:
@@ -50,21 +45,20 @@ jobs:
             PREVIEW_DIR="preview-${GITHUB_REF_NAME}"
             mkdir -p $PREVIEW_DIR
             cp -r _site/* $PREVIEW_DIR
-
+          
             # Switch to the gh-pages branch
             git fetch origin gh-pages
             git checkout gh-pages
-          # Copy the build output to a directory named after the branch
-          PREVIEW_DIR="preview-${GITHUB_REF_NAME}"
-          mkdir -p $PREVIEW_DIR
-          cp -r _site/* $PREVIEW_DIR
           
-          # Commit and push the changes
-          git add -A
-          git commit -m "Deploy preview for ${GITHUB_REF_NAME}"
-          git push origin gh-pages
-        else
-          echo "Error: _site directory not found"
-          exit 1
-        fi
-      
+            # Copy the preview to the gh-pages branch under the branch-specific directory
+            cp -r $PREVIEW_DIR/* .
+          
+            # Commit and push the changes
+            git add -A
+            git commit -m "Deploy preview for ${GITHUB_REF_NAME}"
+            git push origin gh-pages
+          else
+            echo "Error: _site directory not found"
+            exit 1
+          fi
+
