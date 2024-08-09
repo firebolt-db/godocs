@@ -30,7 +30,7 @@ jobs:
 
       - name: Build Jekyll site
         run:
-          make start-local
+          make scripts/start-local
 
       - name: Checkout Guru Synch Target
         uses: actions/checkout@v4
