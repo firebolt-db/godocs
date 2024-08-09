@@ -20,6 +20,14 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           ref: ${{ github.ref_name }}
 
+      - name: Debug Docker Container
+        run: |
+          docker run --rm \
+            -v $(pwd):/srv/jekyll \
+            -v $(pwd)/vendor/bundle:/usr/local/bundle \
+            jekyll/builder:latest \
+            sh -c "which jekyll && ls -l /usr/gem/bin && ls -l /usr/local/bin"
+
       - name: Build the site using Docker
         run: |
           docker run --rm \
