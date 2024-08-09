@@ -44,17 +44,20 @@ jobs:
         env:
           TARGET_BRANCH: gh-pages
         run: |
+          # Check if _site directory exists
+          if [ -d "_site" ]; then
+            # Copy the build output to a directory named after the branch
+            PREVIEW_DIR="preview-${GITHUB_REF_NAME}"
+            mkdir -p $PREVIEW_DIR
+            cp -r _site/* $PREVIEW_DIR
+
+            # Switch to the gh-pages branch
+            git fetch origin gh-pages
+            git checkout gh-pages
           # Copy the build output to a directory named after the branch
           PREVIEW_DIR="preview-${GITHUB_REF_NAME}"
           mkdir -p $PREVIEW_DIR
           cp -r _site/* $PREVIEW_DIR
-          
-          # Switch to the gh-pages branch
-          git fetch origin gh-pages
-          git checkout gh-pages
-          
-          # Copy the preview to the gh-pages branch under the branch-specific directory
-          cp -r $PREVIEW_DIR/* .
           
           # Commit and push the changes
           git add -A
