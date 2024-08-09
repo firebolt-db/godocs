@@ -17,6 +17,7 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Set Cache Directory and Build
+      working-directory: docs
       run: |
         export JEKYLL_CACHE_DIR=/tmp/.jekyll-cache
         bundle exec jekyll build --no-cache --trace
