@@ -37,7 +37,7 @@ jobs:
             -e JEKYLL_ENV=production \
             -e JEKYLL_CACHE_DIR=/tmp/jekyll-cache \
             jekyll/builder:latest \
-            sh -c "jekyll clean && jekyll build"
+            /usr/gem/bin/jekyll build
         working-directory: build  # Adjust if necessary
 
       - name: Deploy to GitHub Pages
