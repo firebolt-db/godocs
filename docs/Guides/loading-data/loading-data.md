@@ -32,6 +32,10 @@ After you load your data, you can start running and optimizing your queries. A t
 
 For more information on how to register, create a database and an engine, or the other steps in a typical workflow, see [Get Started](../getting-started.md).
 
+This guide shows you the following workflows for loading data:
+* Topic ToC
+{:toc}
+
 ## Load data using a wizard
 
 The **Load data** wizard can help you get started loading data from an Amazon S3 bucket using a simple workflow. You can use the wizard to both create an engine and load your data. The wizard also guides you through setting up an AWS connection. To use the wizard, you will need the url of an Amazon S3 bucket. If credentials are required to access the data that you want to load, you will also need an AWS Key ID and your AWS Secret Key. In most steps in the wizard, you can view the SQL commands associated with your selections in the **Load data** main window by selecting **Show SQL script** in the left navigation pane at the bottom of the window.
@@ -124,9 +128,7 @@ Before you can load data using a SQL script, you must register with Firebolt, an
 
 For more information on how to register, create a database and engine using the Firebolt UI, see the [Get Started](../../Guides/getting-started.md) guide. To create an engine using SQL, use [CREATE ENGINE](../../sql_reference/commands/engines/create-engine.md). You can check how many engines are defined in your current account using [SHOW ENGINES](../../sql_reference/commands/metadata/show-engines.md). For more information and examples of how to create engines, see [Work with engines using DDL](../../Guides/operate-engines/working-with-engines-using-ddl.md). To create a database, use [CREATE DATABASE](../../sql_reference/commands/data-definition/create-database.md). You can check how many databases are defined in your current account using [SHOW DATABASES](../../sql_reference/commands/metadata/show-databases.md). Next, log into the Firebolt workspace and enter SQL into the script tab.
 
-This guide shows you the following workflows for loading data:
-* Topic ToC
-{:toc}
+
 
 ### The simplest COPY FROM workflow
 Although there are many options to handle different data loading workflows, `COPY FROM` requires only two parameters:
