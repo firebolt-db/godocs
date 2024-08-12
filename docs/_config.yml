@@ -39,6 +39,9 @@ search:
   # Supports true or false (default)
   button: false
 
+# For copy button on code
+enable_copy_code_button: true
+
 # Link in upper right
 
 aux_links:
