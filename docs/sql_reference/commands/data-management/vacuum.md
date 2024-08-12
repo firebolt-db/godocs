@@ -75,18 +75,18 @@ DELETE FROM tutorial_vacuum WHERE "LevelID" > 1;
 Let’s run a simple select from the tutorial_vacuum table; VACUUM it, and repeat the same select.
 
 ```sql
-SELECT checksum(*) FROM tutorial_vacuum;
+SELECT hash_agg(*) FROM tutorial_vacuum;
 VACUUM tutorial_vacuum;
-SELECT checksum(*) FROM tutorial_vacuum;
+SELECT hash_agg(*) FROM tutorial_vacuum;
 ```
 
 The first select is executed on data with a lot of deleted rows, while the second is run after `VACUUM` and benefits from it. Let’s examine query history and see the performance benefit of the `VACUUM` operation:
 
 | NO  | STATEMENT                                | STATUS   | DURATION   |
 |:----|:-----------------------------------------|:---------|:-----------|
-| 3   | SELECT checksum(*) FROM tutorial_vacuum; | Success  | 0.82 s     |
+| 3   | SELECT hash_agg(*) FROM tutorial_vacuum; | Success  | 0.82 s     |
 | 2   | VACUUM tutorial_vacuum;                  | Success  | 17.53 s    |
-| 1   | SELECT checksum(*) FROM tutorial_vacuum; | Success  | 4.43 s     |
+| 1   | SELECT hash_agg(*) FROM tutorial_vacuum; | Success  | 4.43 s     |
 
 
 Note that the first select was running for more than 4 seconds while exactly the same select after VACUUM completes in less than a second. 
