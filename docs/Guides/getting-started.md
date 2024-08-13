@@ -202,7 +202,7 @@ For more information about Firebolt’s SQL workspace, see [Use the Develop Work
    
    If your engine is **Stopped**, Firebolt may prompt you to start your engine. Select **Start Engine**. Engine startup typically requires a few moments to complete, as Firebolt prepares your environment for data analysis.
 
-For more information about Firebolt’s SQL workspace, see <!--- ADD DEVELOP WORKSPACE LINK--->
+For more information about Firebolt’s SQL workspace, see [Use the Develop Workspace](../guides/../Guides/query-data/using-the-develop-workspace.md). 
 
 ## Optimize your workflow
 
