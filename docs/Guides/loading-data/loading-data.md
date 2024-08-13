@@ -33,15 +33,20 @@ After you load your data, you can start running and optimizing your queries. A t
 For more information on how to register, create a database and an engine, or the other steps in a typical workflow, see [Get Started](../getting-started.md).
 
 This guide shows you the following workflows for loading data:
-* Topic ToC
-{:toc}
-<ul>
-{% for heading in page.content | number_of_words | strip_newlines | strip_html | markdownify %}
-  {% unless heading contains 'current-heading-text' %}
-    <li><a href="#{{ heading | slugify }}">{{ heading }}</a></li>
-  {% endunless %}
-{% endfor %}
-</ul>
+### Table of contents
+[Load data using a wizard](#load-data-using-a-wizard)
+[Load data using SQL statements](#load-data-using-sql-statements)
+  - [The simplest COPY FROM workflow](#the-simplest-copy-from-workflow)
+  - [Define a schema, create a table, and load data](#define-a-schema-create-a-table-and-load-data)
+  - [Load multiple files into a table](#load-multiple-files-into-a-table)
+  - [Filter data before using OFFSET and LIMIT](#filter-data-before-loading-using-offset-and-limit)
+  - [Aggregating data during data load](#aggregating-data-during-data-load)
+  - [Update an existing table from an external table](#update-an-existing-table-from-an-external-table)
+  - [Load source file metadata into a table](#load-source-file-metadata-into-a-table)
+  - [Continue loading even with errors](#continue-loading-even-with-errors)
+  - [Log errors during data load](#log-errors-during-data-load)
+  - [More complex COPY FROM use cases](#more-complex-copy-from-use-cases)
+
 
 ## Load data using a wizard
 
