@@ -34,8 +34,8 @@ For more information on how to register, create a database and an engine, or the
 
 This guide shows you the following workflows for loading data.
 ### Table of contents
-[Load data using a wizard](#load-data-using-a-wizard)
-[Load data using SQL statements](#load-data-using-sql-statements)
+* [Load data using a wizard](#load-data-using-a-wizard)
+* [Load data using SQL statements](#load-data-using-sql-statements)
   - [The simplest COPY FROM workflow](#the-simplest-copy-from-workflow)
   - [Define a schema, create a table, and load data](#define-a-schema-create-a-table-and-load-data)
   - [Load multiple files into a table](#load-multiple-files-into-a-table)
