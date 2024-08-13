@@ -99,7 +99,3 @@ Once revoked, the support access icon will disappear from the bottom left corner
 
 ### Documentation
 The Documentation link brings you to Firebolt's docs (where you are now!)
-
-
-### Documentation
-The Documentation link brings you to Firebolt's docs (where you are now!)
