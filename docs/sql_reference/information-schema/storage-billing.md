@@ -28,3 +28,4 @@ Each row has the following columns.
 | usage_date             | DATE      | Date for which the usage is reported                 |
 | consumed_gib_per_month | NUMERIC   | Amount of data billed for the given date in GiB      |
 | billed_cost            | NUMERIC   | The cost for the storage consumed for the given date |
+| is_credit              | BOOLEAN   | Indicates whether costs were used as credit          |
