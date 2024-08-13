@@ -166,7 +166,7 @@ For more information about how to create an AWS access key and AWS secret key, s
 
 You can also load data into an existing table using your own schema definition. Defining your own schema, instead of automatically detecting it, can give you finer control over data ingestion.
 
-1. Create the target table
+1. Create the target table.
    
     Create a table to load the data into, as shown in the following code example:
     ```sql
@@ -182,8 +182,8 @@ You can also load data into an existing table using your own schema definition. 
    ```
     The previous code example creates a table named `levels`, and defines each of the columns with a name and data type. For more information about the kinds of data that Firebolt supports, see [Data types](../../sql_reference/data-types.md).
 
-2. Run COPY FROM
-    
+2. Run COPY FROM.
+
     Use COPY FROM to load the data from an Amazon S3 bucket into the levels table, as shown in the following code example:
 
     ```sql
@@ -234,5 +234,334 @@ For more information about `OFFSET` and `LIMIT`, see [SELECT Query Syntax](../..
 ### Aggregating data during data load
 
 If you frequently use [aggregation functions](../../sql_reference/functions-reference/aggregation/index.md) such as `COUNT`, `MAX`, or `SUM`, you can perform these aggregations on top of  an external table without loading the raw data into Firebolt. This approach allows you to avoid costs associated with importing and storing the dataset, particularly if you don’t need to store the originating data set.
+
+To aggregate data, first create an external table. Then, define a table in the Firebolt database with the desired aggregations. Finally, insert data from the external table into the internal table as follows:
+    
+1. Create an external table linked to files in an Amazon S3 bucket.
+
+    The following code creates an external table that links to files in Amazon S3 bucket. The table has a defined schema that match the type and names of the originating data:
+    ```sql
+    CREATE EXTERNAL TABLE IF NOT EXISTS ex_playstats (
+      GameID INTEGER,
+      PlayerID INTEGER,
+      StatTime TIMESTAMPNTZ,
+      SelectedCar TEXT,
+      CurrentLevel INTEGER,
+      CurrentSpeed REAL,
+      CurrentPlayTime BIGINT,
+      CurrentScore BIGINT,
+      Event TEXT,
+      ErrorCode TEXT,
+      TournamentID INTEGER) 
+    URL = 's3://firebolt-sample-datasets-public-us-east-1/gaming/parquet/playstats/'
+    OBJECT_PATTERN = '*'
+    TYPE = (PARQUET);
+    ```
+    
+    The previous code uses `OBJECT_PATTERN` to link all (*) files inside the specified directory contained in `URL`, and `TYPE` to specify the file format.
+
+2. Define a table in the Firebolt database with the desired aggregations, as shown in the following code example:
+
+    ```sql
+    CREATE TABLE IF NOT EXISTS playstats_max_scores (
+      PlayerID INTEGER,
+      TournamentID INTEGER,
+      MaxCurrentLevel INTEGER,
+      MaxCurrentSpeed REAL,
+      MaxCurrentScore BIGINT
+    ) PRIMARY INDEX TournamentID, PlayerID;
+   ```
+    The previous code creates a table with the aggregate values `MaxCurrentLevel`, `MaxCurrentSpeed`, and `MaxCurrentScore`. 
+
+3. Insert data from the external table into the internal table using the aggregate functions, as shown in the following code example:
+
+    ```sql
+    INSERT INTO playstats_max_scores 
+    SELECT PlayerID,  
+      TournamentID,
+      MAX(CurrentLevel),
+      MAX(CurrentSpeed),
+      MAX(CurrentScore)
+    FROM ex_playstats
+    GROUP BY ALL
+    ```
+
+    The previous code calculates the aggregate function `MAX` before loading the data into the `playstats_max_scores` table.
+
+### Update an existing table from an external table
+
+To load only new and updated data from an Amazon S3 bucket into an existing table, use an external table and two temporary tables. This section guides you through creating a new table, which will serve as the existing table in a complete example. If you already have an existing table, its schema definition must include the file  timestamp and file name metadata. For more information about these metadata columns, see **Using metadata virtual columns** in [Work with external tables](./working-with-external-tables.md). 
+
+The full workflow involves creating an internal source data table, an external table linked to the source data, and two temporary tables for the latest timestamp and updated data. The `updates_table` selects new data and uses an inner join to insert these records into your existing table, as illustrated in the diagram below:
+
+<img src="../../assets/images/workflow_update_from_external_table.png" alt="Use an external table and two temporary tables to update a main internal table by timestamp." width="700"/>
+
+1. Create a table
+
+    The following code example shows you how to create a `players` table from a sample players dataset, and then copy data from a parquet file in an Amazon S3 bucket into it:
+
+    ```sql
+    CREATE TABLE IF NOT EXISTS
+    players (
+      PlayerID INTEGER,
+      Nickname TEXT,
+      Email TEXT,
+      AgeCategory TEXT,
+      Platforms ARRAY (TEXT NULL),
+      RegisteredOn PGDATE,
+      IsSubscribedToNewsletter BOOLEAN,
+      InternalProbabilityToWin DOUBLE PRECISION,
+      SOURCE_FILE_NAME TEXT,
+      SOURCE_FILE_TIMESTAMP TIMESTAMPNTZ)
+      PRIMARY INDEX agecategory, registeredon;
+    ```
+    The previous code example defines the schema for the players table, which includes the [metadata columns](./working-with-external-tables.md) `SOURCE_FILE_NAME` and `SOURCE_FILE_TIMESTAMP`. 
+
+   
+2. Create an external table
+
+    Use an external table to query the source data directly to compare it to data in your existing table. The advantages of using an external table to check for new data are as follows:
+  
+      * An external table links to the data source without loading it into a database, which avoids costs associated with importing and storing it. 
+      * Using an external table isolates data operations to reduce the risk of corrupting data contained in the main `players` table.
+   
+    The following code example creates an external players_ext table linked to the source data:
+
+    ```sql
+    CREATE EXTERNAL TABLE IF NOT EXISTS
+    players_ext (
+      PlayerID INTEGER,
+      Nickname TEXT,
+      Email TEXT,
+      AgeCategory TEXT,
+      Platforms ARRAY (TEXT NULL),
+      RegisteredOn PGDATE,
+      IsSubscribedToNewsletter BOOLEAN,
+      InternalProbabilityToWin DOUBLE PRECISION)
+    URL = 's3://firebolt-sample-datasets-public-us-east-1/gaming/parquet/players/'
+    OBJECT_PATTERN = '*'
+    TYPE = (PARQUET);
+    ```
+    The previous code example defines the schema for parquet data and links to all parquet files in the Amazon S3 bucket that contains the source data.
+   
+    If you are using an external table to link to data in parquet format, the order of the columns in the external table does not have to match the order of the columns in the source data. If you are reading data in csv format, the order must match the order in the source data.
+
+3. Copy data from the `players_ext` external table into an internal `players` table, as shown in the following code example:
+    ```sql
+    INSERT INTO players
+    SELECT *,
+    $SOURCE_FILE_NAME,
+    $SOURCE_FILE_TIMESTAMP
+    FROM players_ext
+    ```
+4. Create a temporary table that contains the most recent timestamp from your existing table, as shown in the following code example:
+    ```sql
+    CREATE TABLE IF NOT EXISTS control_maxdate AS (
+    SELECT MAX(source_file_timestamp) AS max_time
+    FROM players
+    );
+    ```
+    The previous code example uses an aggregate function `MAX` to select the most recent timestamp from the existing `players` table.
+
+5. Create a temporary table to select and store data that has a newer timestamp than that contained in the control_maxdate table, as shown in the following code example:
+    ```sql
+    CREATE TABLE IF NOT EXISTS updates_table AS (
+    WITH external_table AS (
+    SELECT *,
+      $SOURCE_FILE_NAME AS source_file_name_new,
+      $SOURCE_FILE_TIMESTAMP AS source_file_timestamp_new,
+    FROM players_ext
+    WHERE $source_file_timestamp > (SELECT max_time FROM control_maxdate)
+    AND playerid IN (SELECT DISTINCT playerid FROM players)
+    )
+    SELECT
+    e.*
+    FROM players f
+    INNER JOIN external_table e
+    ON f.playerid = e.playerid
+    );
+    ```
+
+    The previous code example creates an `updates_table` using a `SELECT` statement to filter out data that is older than the previously recorded timestamp. The code includes a table alias `e`, which refers to `external_table`, and the table alias `f`, which refers to the `players` table. The `INNER JOIN` uses `playerid` to match rows in the external table to those in the `player` table, and then updates the `players` table.
+
+6. Delete records from the original players table that have been updated, based on matching player IDs in the `updates_table`, as shown in the following code example: 
+    ```sql
+    DELETE FROM players
+    WHERE playerid IN (SELECT playerid FROM updates_table);
+    ```
+7. Insert updated records from the `updates_table`, including a new timestamp, into the `players` table to replace the deleted records from the previous step, as shown in the following example:
+    ```sql
+    INSERT INTO players
+    SELECT
+    playerid,
+    nickname,
+    email,
+    agecategory,
+    platforms,
+    registeredon,
+    issubscribedtonewsletter,
+    internalprobabilitytowin,
+    source_file_name_new,
+    source_file_timestamp_new
+    FROM updates_table;
+    ```
+8. Insert any entirely new, rather than updated, records into the `players` table, as shown in the following code example:
+    ```sql
+    INSERT INTO players
+    SELECT *,
+    $SOURCE_FILE_NAME,
+    $SOURCE_FILE_TIMESTAMP
+    FROM players_ext
+    WHERE $SOURCE_FILE_TIMESTAMP > (SELECT max_time FROM control_maxdate)
+    AND playerid NOT IN (SELECT playerid FROM players);
+    ```
+9. Clean up resources. 
+    Remove the temporary tables used in the update process as shown in the following code example:
+    ```sql
+    DROP TABLE IF EXISTS control_maxdate;
+    DROP TABLE IF EXISTS updates_table;
+    ```
+### Load source file metadata into a table
+When you load data from an Amazon S3 bucket, Firebolt uses an external table which holds metadata about your source file to map into a Firebolt database. You can load metadata from the virtual columns contained in the external file into a table. You can use the name, timestamp and file size to determine the source of a row of data in a table. When adding data to an existing table, you can use this information to check whether new data is available, or to determine the vintage of the data. The external table associated with your source file contains the following fields: 
+
+* `source_file_name` - the name of your source file.
+* `source_file_timestamp` - the date that your source file was created in the Amazon S3 bucket that it was read from.
+* `source_file_size` - the size of your source file in bytes.
+
+The following code example shows you how to create and load metadata into a `levels_meta` table, which contains only the metadata:
+```sql
+    CREATE TABLE levels_meta (
+      day_of_creation date, 
+      name_of_file text, 
+      size_of_file int);
+    COPY levels_meta(
+      day_of_creation $source_file_timestamp, 
+      name_of_file $source_file_name, 
+      size_of_file $source_file_size) 
+    FROM  's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
+    WITH AUTO_CREATE = TRUE
+    HEADER = TRUE
+    TYPE = CSV;
+```
+The following code shows you how to read in the source data from the Amazon S3 bucket and add the metadata as new columns in that table:
+```sql
+CREATE TABLE IF NOT EXISTS levels_meta_plus (
+	"LevelID" INT,
+	"Name" TEXT,
+	"GameID" INT,
+	"LevelType" TEXT,
+	"MaxPoints" INT,
+	"PointsPerLap" DOUBLE,
+	"SceneDetails" TEXT,
+	day_of_creation date,
+	name_of_file text,
+	size_of_file int
+);
+
+COPY INTO levels_meta_plus (
+  "LevelID",    
+   "GameID",
+   "Name",
+  "LevelType",
+  "MaxPoints",
+  "PointsPerLap",
+  "SceneDetails",
+  day_of_creation $source_file_timestamp,  
+  name_of_file $source_file_name,      	
+  size_of_file $source_file_size
+)
+FROM  's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
+WITH
+HEADER = TRUE
+TYPE = CSV;
+```
+For more information about metadata, see **Using metadata virtual columns** in [Work with external tables](./working-with-external-tables.md).
+
+### Continue loading even with errors
+
+By default, if Firebolt runs into an error when loading your data, the job will stop loading and end in error. If you want to continue loading your data even in the presence of errors, set `MAX_ERRORS_PER_FILE` to a percentage larger than `0`. Then, `COPY FROM` will continue to load data until it exceeds the specified percent based on the total number of rows in your data. If you enter an integer number between `0` and `100`, `COPY FROM` will interpret the integer as a percentage of rows. 
+
+For example, if `MAX_ERRORS_PER_FILE` is set to 3, `COPY FROM` will continue to load data until more than `3` percent of the rows loaded contain an error. Once `COPY FROM` passes this threshold, the load job will stop and return an error. If you enter the text, `3%`, `COPY FROM` will also interpret the value as `3%` of the rows. If  `MAX_ERRORS_PER_FILE` is set to either `100` or `100%`, the load process will continue even if every row in every file has an error. If all rows have errors, no data will load into the target table.
+
+The following code example loads a sample CSV data set with headers, and will finish the loading job even if every row contains an error. 
+```sql
+COPY INTO new_levels_auto
+FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
+WITH AUTO_CREATE = TRUE
+HEADER = TRUE
+TYPE = CSV
+MAX_ERRORS_PER_FILE = '100%';
+```
+In the previous code example, the following apply:
+ * `COPY INTO new_levels_auto`: Creates a new table named `new_levels_auto`. The `INTO` clause is optional. If the table already exists, `COPY FROM` will add the rows to the existing table.
+* `FROM`: Specifies the S3 bucket location of the data. In this example, the dataset is located in a publicly accessible bucket, so you do not need to provide credentials.
+* `AUTO_CREATE=TRUE`: Creates a  target table and automatically infers the schema.
+* `HEADER=TRUE`: Specifies that the first row of the source file contains column headers.
+* `TYPE`: Specifies the data format of the incoming data. 
+* `MAX_ERRORS_PER_FILE`: Specified as a string or literal text. In the previous example, `MAX_ERRORS_PER_FILE` uses text.
+
+### Log errors during data load
+
+`COPY FROM` supports an option to generate error files that describe the errors encountered and note the rows with errors. To store these files in an Amazon S3 bucket, you must provide credentials to allow Firebolt to write to the bucket.
+
+The following example sets an error handling threshold and specifies an Amazon S3 bucket as the source data and another to write the error file:
+```sql 
+COPY INTO my_table
+FROM 's3://my-bucket/data.csv'
+CREDENTIALS = (
+    AWS_KEY_ID = 'YOUR_AWS_KEY_ID',
+    AWS_SECRET_KEY = 'YOUR_AWS_SECRET_KEY'
+)
+MAX_ERRORS_PER_FILE = 5%
+ERROR_FILE = 's3://my-bucket/error_logs/'
+ERROR_FILE_CREDENTIALS = (
+    AWS_KEY_ID = 'YOUR_AWS_KEY_ID',
+    AWS_SECRET_KEY = 'YOUR_AWS_SECRET_KEY'
+)
+HEADER = TRUE
+```
+
+In the previous code example, the following apply:
+* `COPY INTO`: Specifies the target table to load the data into.
+* `FROM`: Specifies the S3 bucket location of the data.
+* `Credentials`: Specifies AWS credentials to access information in the Amazon S3 bucket that contains the source data. For more Information about credentials and how to set them up, see the previous **The simplest COPY FROM workflow** section in this guide.
+* Error Handling:
+    * `MAX_ERRORS_PER_FILE = 5%`: Allows errors in up to `5%` of the rows per file before the load data job fails.
+    * `ERROR_FILE`: Specifies the Amazon S3 bucket location to write the error file.
+* `HEADER = TRUE`: Indicates that the first row of the CSV file contains column headers.
+
+**How to examine the error files**
+
+If you specify an S3 path with the necessary permissions for an error file and the `COPY FROM` process encounters errors, two different files will be generated in your bucket. The following queries show you how to load these error files into new tables so that you can query and examine the error details and the corresponding rows.
+
+The following query loads the `error_reasons` csv file, which contains a header with column names:
+
+```sql
+COPY error_reasons FROM 's3://my-bucket/error_logs/' 
+WITH PATTERN='*error_reasons*.csv' HEADER=TRUE;
+
+SELECT * from error_reasons;
+```
+The following query loads a file containing all rows that encountered errors. Although this file has no header, the table schema should match that of the source file where the errors occurred.
+
+```sql 
+COPY rejected_rows FROM 's3://my-bucket/error_logs/'
+WITH PATTERN='*rejected_rows*.csv' HEADER=FALSE;
+
+SELECT * FROM rejected_rows;
+```
+
+You can also configure parameters such as `MAX_ERRORS_PER_FILE`, `ERROR_FILE`, and `ERROR_FILE_CREDENTIALS` to manage how errors are handled, ensure data integrity and record errors for future review. For more information about `ERROR_FILE` or `ERROR_FILE_CREDENTIALS`, see the **Parameters** section of [COPY FROM](../../sql_reference/commands/data-management/copy-from.md).
+
+### More complex `COPY FROM` use cases
+
+You can construct more complex workflows using any of the additional options in `COPY FROM`. These include the following:
+
+* Use source files located in multiple directories.
+* Write the contents of an existing table in different formats to an Amazon S3 bucket.
+* Load a data file that doesn’t have a header.
+* Use a different delimiter other than the default comma (,) value to read a CSV file.
+
+There are many additional options available in `COPY FROM`. For information about the syntax, parameter descriptions, and additional examples, see [COPY FROM](../../sql_reference/commands/data-management/copy-from.md).
 
 <!-- For information about using Apache Airflow to incrementally load data chronologically, see [Incrementally loading data with Airflow](incrementally-loading-data.md). -->
