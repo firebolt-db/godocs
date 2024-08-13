@@ -44,15 +44,15 @@ READ_CSV (
 | `<aws_key_id>`                | AWS key ID.                                                                                      | `TEXT`                |
 | `<aws_secret_key>`            | AWS secret key.                                                                                  | `TEXT`                |
 | `<aws_arn>`                   | AWS Role ARN.                                                                                    | `TEXT`                |
-| `<aws_arn_role_external_id>>` | External ID for AWS Role.                                                                        | `TEXT`                |
-| `<are_credentials_encrypted>>`| Are credentials encrypted                                                                        | `BOOL`                |
-| `<header>>`                   | Should the first row of the CSV file be considered a header row.                                 | `TEXT`                |
-| `<delimiter>>`                | Field delimiter. Comma by default `,`                                                            | `TEXT`                |
-| `<quote>>`                    | Which quote symbol used for strings columns. Accepts only 'DOUBLE_QUOTES' or 'SINGLE_QUOTE'.     | `TEXT`                |
-| `<null_string>>`              | String that will be parsed as `NULL`                                                             | `TEXT`                |
-| `<escape>>`                   | Escape character                                                                                 | `TEXT`                |
-| `<skip_blank_lines>>`         | Skip the file's blank line when set to `TRUE`                                                    | `BOOL`                |
-| `<empty_field_as_null>>`      | Consider empty fields as null when set to `TRUE`                                                 | `BOOL`                |
+| `<aws_arn_role_external_id>`  | External ID for AWS Role.                                                                        | `TEXT`                |
+| `<are_credentials_encrypted>` | Are credentials encrypted                                                                        | `BOOL`                |
+| `<header>`                    | Should the first row of the CSV file be considered a header row.                                 | `TEXT`                |
+| `<delimiter>`                 | Field delimiter. Comma by default `,`                                                            | `TEXT`                |
+| `<quote>`                     | Which quote symbol used for strings columns. Accepts only 'DOUBLE_QUOTES' or 'SINGLE_QUOTE'.     | `TEXT`                |
+| `<null_string>`               | String that will be parsed as `NULL`                                                             | `TEXT`                |
+| `<escape>`                    | Escape character                                                                                 | `TEXT`                |
+| `<skip_blank_lines>`          | Skip the file's blank line when set to `TRUE`                                                    | `BOOL`                |
+| `<empty_field_as_null>`       | Consider empty fields as null when set to `TRUE`                                                 | `BOOL`                |
 
 
 Apart from `url`, all parameters are optional..
