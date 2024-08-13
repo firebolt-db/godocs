@@ -291,10 +291,10 @@ The following guidance applies:
   ```
 #### Cache eviciction
 After your cache usage exceeds about 80% of its capacity, Firebolt will evict, or remove the least recently used data into an Amazon S3 bucket. Then, if you want to query this data, you will have to read it back into cache. The total available cache size depends on the size of your engine as follows:
-* A small engine has a cache size of 1.8 TB.
-* A medium engine has a cache size of 3.7 TB.
-* A large engine has a cache size of 7.5 TB.
-* An extra large engine has a cache size of 15 TB.
+  * A small engine has a cache size of 1.8 TB.
+  * A medium engine has a cache size of 3.7 TB.
+  * A large engine has a cache size of 7.5 TB.
+  * An extra large engine has a cache size of 15 TB.
 
 Small and medium sized engines are available for use right away. If you want to use a large or extra-large engine, reach out to support@firebolt.io.
 
@@ -324,7 +324,7 @@ After you’ve completed the steps in this guide, avoid incurring costs associat
 
 #### Stop any running engines
 
-Firebolt shows you the status of your current engine next to the engines icon ((<img src="../assets/images/engine-icon.png" alt="AggIndex" width="12"/>)) under your script tab as either **Stopped** or **Running**. To shut down your engine, select your engine from the drop-down list next to the name of the engine, and then select one of the following:
+Firebolt shows you the status of your current engine next to the engines icon (<img src="../assets/images/engine-icon.png" alt="AggIndex" width="12"/>) under your script tab as either **Stopped** or **Running**. To shut down your engine, select your engine from the drop-down list next to the name of the engine, and then select one of the following:
 * Stop engine - Allow all of the currently running queries to finish running and then shut down the engine. Selecting this option will allow the engine to run for as long as it takes to complete all queries running on the selected engine.
 * Terminate all queries and stop - Stop the engine and stop running any queries. Selecting this option stops the engine in about 20-30 seconds.  
 
@@ -336,7 +336,7 @@ To remove a table and all of its data, enter [DROP TABLE](../../sql_reference/co
 
 To remove a database and all of its associated data, do the following:
   1) Select the database from the left navigation bar. 
-  2) Select the more options (<img src="../assets/images/more options icon.png" alt="AggIndex" width="12"/>) icon.
+  2) Select the more options (<img src="../assets/images/more options icon.png" alt="AggIndex" width="7"/>) icon.
   3) Select **Delete database**. Deleting your database will permanently remove your database from Firebolt. You cannot undo this action.
   4) Select **Delete**.
 
@@ -414,7 +414,7 @@ If you have exhausted your initial $200 credit, you can continue to use Firebolt
 
 **To register**
 
-1. On the [Firebolt Workspace page](https://go.firebolt.io/), select the **Configure**((<img src="../assets/images/configure-icon.png" alt="AggIndex" width="12"/>)) icon from the left navigation pane. 
+1. On the [Firebolt Workspace page](https://go.firebolt.io/), select the **Configure**(<img src="../assets/images/configure-icon.png" alt="AggIndex" width="12"/>) icon from the left navigation pane. 
 2. Under **Organization settings**, select **Billing**.
 3. Click **Connect to AWS Marketplace** to take you to the Firebolt page on AWS Marketplace.
 4. On the AWS Marketplace page, click the **View Purchase Options** on the top right hand corner of the screen.
