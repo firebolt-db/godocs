@@ -35,6 +35,13 @@ For more information on how to register, create a database and an engine, or the
 This guide shows you the following workflows for loading data:
 * Topic ToC
 {:toc}
+<ul>
+{% for heading in page.content | number_of_words | strip_newlines | strip_html | markdownify %}
+  {% unless heading contains 'current-heading-text' %}
+    <li><a href="#{{ heading | slugify }}">{{ heading }}</a></li>
+  {% endunless %}
+{% endfor %}
+</ul>
 
 ## Load data using a wizard
 
