@@ -267,6 +267,55 @@ After you run the script,  the `levels_agg_idx` aggregate index listed in the le
 
 For more information, see [Aggregating indexes](./working-with-indexes/using-aggregating-indexes.md).
 
+### Warm data and cache eviction
+
+Another key optimization strategy is to read warm data, or data accessed from cache, rather than reading in “cold” data from an Amazon S3 bucket. Querying cold data can be significantly slower than querying warm data, particularly for large datasets that contain millions of rows or more. If you reach about 80% of your available cache, the least recently used data will be moved out of cache into an Amazon S3 bucket.
+
+#### Warm data
+
+When data is warm, Firebolt transfers data from remote storage in Amazon (S3) to a local (cache). Data is automatically warmed when you access it during a query, and stored in a solid state drive (SSD) cache. However, when you query data to warm it, you use an engine, and incur [engine consumption](../Overview/engine-consumption.md) costs. Therefore, you should use filters to warm only the data that you need to access frequently in your queries.
+
+The following guidance applies: 
+* If you need access to all the data in a table, use CHECKSUM to warm the entire table as follows:
+  
+  ```sql
+  SELECT CHECKSUM(*) FROM levels;
+  ```
+* If you only need a few columns that meet a certain criteria, filter them before warming the data as shown in the following code example:
+  ```sql
+  SELECT CHECKSUM("Name", "MaxPoints") FROM levels WHERE "MaxPoints" BETWEEN 100 AND 250;
+  ```
+* If you have a large dataset, you can divide the data into smaller segments, and execute the queries in parallel, as shown in the following code example:
+  ```sql
+  SELECT CHECKSUM("Name", "MaxPoints") FROM levels WHERE "MaxPoints" BETWEEN 0 AND 100;
+  SELECT CHECKSUM("Name", "MaxPoints") FROM levels WHERE "MaxPoints" BETWEEN 101 AND 200;
+  SELECT CHECKSUM("Name", "MaxPoints") FROM levels WHERE "MaxPoints" > 200;
+  ```
+#### Cache eviciction
+After your cache usage exceeds about 80% of its capacity, Firebolt will evict, or remove the least recently used data into an Amazon S3 bucket. Then, if you want to query this data, you will have to read it back into cache. The total available cache size depends on the size of your engine as follows:
+* A small engine has a cache size of 1.8 TB.
+* A medium engine has a cache size of 3.7 TB.
+* A large engine has a cache size of 7.5 TB.
+* An extra large engine has a cache size of 15 TB.
+
+Small and medium sized engines are available for use right away. If you want to use a large or extra-large engine, reach out to support@firebolt.io.
+
+You can check the size of your cache using the following example code:
+
+```sql
+SHOW CACHE;
+```
+
+This will show your cache usage in GB per total cache available. If your cache usage is too high, adjust your warmup strategy by reducing the amount of data loaded or increasing cache capacity.
+
+When data is loaded into Firebolt, it is stored in units of data storage called tablets. A tablet contains a subset of a table’s rows and columns.  If you reach your cache’s 80% capacity, the entire tablet that contains the least recently used data, is evicted. 
+
+The following code example shows how to view information about the tablets that are used to store your table including the number of uncompressed and compressed bytes on disk: 
+
+```sql
+SELECT * FROM information_schema.engine_tablets  where table_name = 'levels';
+```
+
 ### Clean up data and resources
 
 <img src="../assets/images/GS-cleanup.png" alt="New DB +" width="700"/>
@@ -299,40 +348,40 @@ If you want to save your data outside of Firebolt, you can use [COPY TO](./../sq
 
 1) **Set permissions to write to an AWS S3 bucket**
   
-    Firebolt must have the following permissions to write to an AWS S3 bucket:
+  Firebolt must have the following permissions to write to an AWS S3 bucket:
 
-      i. AWS access key credentials. The credentials must be associated with a user with permissions to write objects to the bucket. Specify access key credentials using the following syntax: 
+  i. AWS access key credentials. The credentials must be associated with a user with permissions to write objects to the bucket. Specify access key credentials using the following syntax: 
     
-      ```sql
-      CREDENTIALS = (AWS_KEY_ID = '<aws_key_id>' AWS_SECRET_KEY = '<aws_secret_key>')
-      ```
+  ```sql
+  CREDENTIALS = (AWS_KEY_ID = '<aws_key_id>'  AWS_SECRET_KEY = '<aws_secret_key>')
+  ```
       
-      In the previous credentials example, `<aws_key_id>` is the AWS access key id associated with a user or role. An access key has the following form: `AKIAIOSFODNN7EXAMPLE`.
+  In the previous credentials example, `<aws_key_id>` is the AWS access key id associated with a user or role. An access key has the following form: `AKIAIOSFODNN7EXAMPLE`.
     
-    `<aws_secret_key>` is the AWS secret key. A secret key has the following form: `wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`.
+  `<aws_secret_key>` is the AWS secret key. A secret key has the following form: `wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`.
 
-      ii. An AWS IAM policy statement attached to a user role. Firebolt requires the following minimum permissions in the IAM policy: 
+  ii. An AWS IAM policy statement attached to a user role. Firebolt requires the following minimum permissions in the IAM policy: 
 
-      ```sql
-        {
-           "Version": "2012-10-17",
-           "Statement": [
-               {
-                "Effect": "Allow",
-                "Action": [
-                  "s3:Get*",
-                  "s3:List*",
-                  "s3:PutObject",
-                  "s3:DeleteObject"
-                ],
-                "Resource": [
-          "arn:aws:s3:::my_s3_bucket",
-          "arn:aws:s3:::my_s3_bucket/*"
-                      ]
-                  }
-              ]
-          }
-      ```
+  ```sql
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+            "Effect": "Allow",
+            "Action": [
+              "s3:Get*",
+              "s3:List*",
+              "s3:PutObject",
+              "s3:DeleteObject"
+            ],
+            "Resource": [
+      "arn:aws:s3:::my_s3_bucket",
+      "arn:aws:s3:::my_s3_bucket/*"
+                  ]
+              }
+          ]
+      }
+  ```
 
 For more information about AWS access keys and roles, see [Creating Access Key and Secret ID in AWS](./loading-data/creating-access-keys-aws.md)
 
