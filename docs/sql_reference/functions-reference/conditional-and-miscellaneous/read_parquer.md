@@ -9,9 +9,9 @@ great_grand_parent: SQL reference
 
 # READ_PARQUET
 
-A Table-Valued function which takes a Parquet's S3 url and Credentials.
+A Table-Valued function which takes a Parquet's S3 url and credentials.
 
-The resulting table is the data from the Parquet file with the infered datatype.
+The resulting table is the data from the Parquet file with the inferred datatype.
 
 ## Syntax
 
@@ -47,7 +47,7 @@ If `aws_key_id` and `aws_secret_key` are provided, then `aws_arn` and `aws_arn_r
 
 ## Return Type
 
-The result is a table with the data from the Parquet file. Each columns is read and parsed in its infered datatype.
+The result is a table with the data from the Parquet file. Columns are read and parsed using their inferred datatypes.
 
 ## Example
 

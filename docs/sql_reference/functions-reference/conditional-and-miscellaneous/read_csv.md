@@ -55,7 +55,9 @@ READ_CSV (
 | `<empty_field_as_null>`       | Consider empty fields as null when set to `TRUE`                                                 | `BOOL`                |
 
 
-Apart from `url`, all parameters are optional..
+Apart from `url`, all parameters are optional. 
+
+Parameters must be named, i.e. specified using the syntax "=>" .
 
 If you provide either `aws_key_id` or `aws_secret_key`, you must provide both.
 
@@ -65,7 +67,7 @@ If `aws_key_id` and `aws_secret_key` are provided, then `aws_arn` and `aws_arn_r
 
 ## Return Type
 
-The result is a table with the data from the CSV file. Each columns is read and parsed as `STRING`.
+The result is a table with the data from the CSV file. Each cell is read as a `STRING`.
 
 ## Example
 
@@ -122,21 +124,6 @@ select * from read_csv(url => 's3://bucket/data.csv',
 | :--- | :--- | :--- |
 | name | rank | note |
 | Dave | 95 | null |
-| John | 60 | 'need coaching' |
-| Gene | 70 | improved |
-| Carl | 85 | null |
-```
-
-**Query:**
-```sql
-select * from read_csv(url => 's3://bucket/data.csv', header => true,
-    quote => 'DOUBLE_QUOTE');
-```
-**Returns**:
-```
-| name | rank | note |
-| :--- | :--- | :--- |
-| Dave | 95 | NONE |
 | John | 60 | 'need coaching' |
 | Gene | 70 | improved |
 | Carl | 85 | null |
