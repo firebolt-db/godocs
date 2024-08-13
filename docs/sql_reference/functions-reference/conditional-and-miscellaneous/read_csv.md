@@ -11,7 +11,7 @@ great_grand_parent: SQL reference
 
 A Table-Valued function which takes a csv's S3 url, Credentials and relevant csv options.
 
-The resulting table is the data from the files with each cell read as a `STRING`.
+This TVF returns a table with the data from the CSV file. Each cell is read as a `STRING`.
 
 ## Syntax
 
