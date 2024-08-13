@@ -33,7 +33,7 @@ You can subscribe to notifications whenever Firebolt **creates**, **update** or 
 ### Contact Support - Reaching out to Firebolt Support
 Contact Support allows you to create a support case for Firebolt's support team.
 
-To create a case: 
+**To create a case:**
 
 1. Click on "Contact Support"
 2. A support form will appear, with the following information populated **automatically**:
@@ -86,16 +86,16 @@ Once granted, you will see additional icon in the bottom left corner of the scre
 
 ![Support Access](../assets/images/support_access_menu.png)
 
-To edit access:
+**To edit access:**
 1. Select the support access icon in the bottom left corner of the screen and click on "Manage access" button. (Alternatively you can open same screen by clicking on "Firebolt Support Access" in the Help menu)
 2. Select "Edit Access" button.
 3. Make the necessary changes and click "Update Access".
 
-To revoke access:
+**To revoke access:**
 1. Select the support access icon in the bottom left corner of the screen and click on "Manage access" button. (Alternatively you can open same screen by clicking on "Firebolt Support Access" in the Help menu)
 2. Select "Revoke Access" button.
 
-Once revoked, the support access icon will disappear from the bottom left corner of the screen.
+Once revoked, the support access icon will disappear from the bottom left corner of the screen. 
 
 ### Documentation
 The Documentation link brings you to Firebolt's docs (where you are now!)
