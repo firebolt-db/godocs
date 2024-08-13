@@ -74,8 +74,6 @@ The following instructions show you how to create a database and then an engine.
 
 3)  Enter the name for your database in the **Database Name** field. For this example, use “tutorial_database” as your database name. In Firebolt, the names of engines and databases are **case-sensitive**. If you are using both uppercase and lowercase characters in their names, enclose their name inside double quotes (“) when you refer to them in SQL.
 
-    <img src="../assets/images/Tutorial%20DB.png" alt="New DB Name" width="700"/>
-
 Firebolt creates a new database with the following two default schemas:
 * **Public** - A namespace where you can create and manage your database objects including tables, engines and queries. The default schema includes **tables**, **external tables**, and **views**.
 * **Information_schema** - A standardized set of read-only views that provide metadata about database objects including tables, engines, cost information, and queries.
@@ -86,7 +84,7 @@ If you’re using the Firebolt SQL workspace, expand **Information_schema** and 
 * **engine_metering_history** - contains information including about billing cost in FBU up to the latest second in **consumed_fbu**.
 * **engine_billing** - contains information about billing cost in US dollars up to the latest day in **billed_cost**. 
 
-To see values for the previous costs, select the **More options** icon (<!--- ADD ICON FOR THIS--->) next to either **consumed_fbu** or **billed_cost**, Then select **Preview data**. You can also run a query in the script tab as shown in the following code example:
+To see values for the previous costs, select the **More options** icon (<img src="../assets/images/more options icon.png" alt="AggIndex" width="7"/>) next to either **consumed_fbu** or **billed_cost**, Then select **Preview data**. You can also run a query in the script tab as shown in the following code example:
 
 ```sql
 SELECT * 
@@ -157,7 +155,7 @@ Use [COPY FROM](../../sql_reference/../docs/sql_reference/commands/data-manageme
   
 4. Expand the drop down menu next to **Columns** to view the name and data format of each column. 
 
-5. Select the **More options** icon (<img src="../assets/images/more options icon.png" alt="AggIndex" width="12"/>) next to the data type of each column name to open a pop-up that allows you to insert the name of the column into your SQL script. You can also select **Preview data**.
+5. Select the **More options** icon (<img src="../assets/images/more options icon.png" alt="AggIndex" width="7"/>) next to the data type of each column name to open a pop-up that allows you to insert the name of the column into your SQL script. You can also select **Preview data**.
 
 6. To view the contents of  the **tutorial** table, run a SELECT query as shown in the following code example. To run this in a new tab, select the (+) icon next to the **Script 1** tab.
   ```sql
@@ -170,9 +168,9 @@ Use [COPY FROM](../../sql_reference/../docs/sql_reference/commands/data-manageme
 7. Select **Run**. The bottom of your workspace includes information about your processing job in the following tabs:
   * The **Results** tab at the bottom of your Firebolt workspace shows the contents returned by your query. After running the previous SELECT statement, the **Results** tab should display column names and values for the data in the tutorial. 
     * Select the filter icon (<img src="../assets/images/filter-icon.png" alt="AggIndex" width="12"/>) to change which columns are shown.
-    * Select the **More options** icon (<img src="../assets/images/more options icon.png" alt="AggIndex" width="12"/>) to export the contents of the **Results** tab to a JSON or CSV file.
+    * Select the **More options** icon (<img src="../assets/images/more options icon.png" alt="AggIndex" width="7"/>) to export the contents of the **Results** tab to a JSON or CSV file.
     * The Statistics tab shows information about running your query including how long it took to run and its status. After running the previous SELECT statement, the **Statistics** tab shows the status of the statement, its STATUS as having succeeded or failed, how long it took to run the query, the number of rows processed, the amount of data scanned, and <HOT QUERY what is it?>
-    * Select the **More options** icon (<img src="../assets/images/more options icon.png" alt="AggIndex" width="12"/>) to export the contents of the **Statistics** tab to a JSON or CSV file.
+    * Select the **More options** icon (<img src="../assets/images/more options icon.png" alt="AggIndex" width="7"/>) to export the contents of the **Statistics** tab to a JSON or CSV file.
     * The **Query Profile** tab contains metrics for each operator used in your query and a **Query id**.  Select an operation to view its metrics. These metrics include the following:
       * The output cardinality - the number of rows that each operator produced.
       * The thread time - the sum of the wall clock time that threads spent to run the selected operation across all nodes.
@@ -185,9 +183,9 @@ You can use these metrics to analyze and measure the efficiency and performance 
   * The **Query history** tab shows detailed information associated with each query, listed by its **Query id**. This information includes the query status, start time, number of rows and bytes scanned during the load, user and account information. You can choose the following options at the top of the bottom panel:
     * Select the **Refresh** icon to update the query history and ID.
     * Select the filter icon (<img src="../assets/images/filter-icon.png" alt="AggIndex" width="12"/>) to remove or add columns to display. 
-    * Select the **More options** icon (<img src="../assets/images/more options icon.png" alt="AggIndex" width="12"/>) to export the contents of the Query history tab to a JSON or CSV file.
+    * Select the **More options** icon (<img src="../assets/images/more options icon.png" alt="AggIndex" width="7"/>) to export the contents of the Query history tab to a JSON or CSV file.
   
-For more information about Firebolt’s SQL workspace, see <!--- ADD DEVELOP WORKSPACE LINK--->
+For more information about Firebolt’s SQL workspace, see [Use the Develop Workspace](../guides/../Guides/query-data/using-the-develop-workspace.md). 
 
 ## Run Query
 
