@@ -84,7 +84,7 @@ If you’re using the Firebolt SQL workspace, expand **Information_schema** and 
 * **engine_metering_history** - contains information including about billing cost in FBU up to the latest second in **consumed_fbu**.
 * **engine_billing** - contains information about billing cost in US dollars up to the latest day in **billed_cost**. 
 
-To see values for the previous costs, select the **More options** icon (<img src="../assets/images/more options icon.png" alt="AggIndex" width="7"/>) next to either **consumed_fbu** or **billed_cost**, Then select **Preview data**. You can also run a query in the script tab as shown in the following code example:
+To see values for the previous costs, select the **More options** icon (<img src="../assets/images/more options icon.png" alt="AggIndex" width="10"/>) next to either **consumed_fbu** or **billed_cost**, Then select **Preview data**. You can also run a query in the script tab as shown in the following code example:x
 
 ```sql
 SELECT * 
@@ -155,7 +155,7 @@ Use [COPY FROM](../../sql_reference/../docs/sql_reference/commands/data-manageme
   
 4. Expand the drop down menu next to **Columns** to view the name and data format of each column. 
 
-5. Select the **More options** icon (<img src="../assets/images/more options icon.png" alt="AggIndex" width="7"/>) next to the data type of each column name to open a pop-up that allows you to insert the name of the column into your SQL script. You can also select **Preview data**.
+5. Select the **More options** icon (<img src="../assets/images/more options icon.png" alt="AggIndex" width="10"/>) next to the data type of each column name to open a pop-up that allows you to insert the name of the column into your SQL script. You can also select **Preview data**.
 
 6. To view the contents of  the **tutorial** table, run a SELECT query as shown in the following code example. To run this in a new tab, select the (+) icon next to the **Script 1** tab.
   ```sql
@@ -168,9 +168,9 @@ Use [COPY FROM](../../sql_reference/../docs/sql_reference/commands/data-manageme
 7. Select **Run**. The bottom of your workspace includes information about your processing job in the following tabs:
   * The **Results** tab at the bottom of your Firebolt workspace shows the contents returned by your query. After running the previous SELECT statement, the **Results** tab should display column names and values for the data in the tutorial. 
     * Select the filter icon (<img src="../assets/images/filter-icon.png" alt="AggIndex" width="12"/>) to change which columns are shown.
-    * Select the **More options** icon (<img src="../assets/images/more options icon.png" alt="AggIndex" width="7"/>) to export the contents of the **Results** tab to a JSON or CSV file.
+    * Select the **More options** icon (<img src="../assets/images/more options icon.png" alt="AggIndex" width="10"/>) to export the contents of the **Results** tab to a JSON or CSV file.
     * The Statistics tab shows information about running your query including how long it took to run and its status. After running the previous SELECT statement, the **Statistics** tab shows the status of the statement, its STATUS as having succeeded or failed, how long it took to run the query, the number of rows processed, the amount of data scanned, and <HOT QUERY what is it?>
-    * Select the **More options** icon (<img src="../assets/images/more options icon.png" alt="AggIndex" width="7"/>) to export the contents of the **Statistics** tab to a JSON or CSV file.
+    * Select the **More options** icon (<img src="../assets/images/more options icon.png" alt="AggIndex" width="10"/>) to export the contents of the **Statistics** tab to a JSON or CSV file.
     * The **Query Profile** tab contains metrics for each operator used in your query and a **Query id**.  Select an operation to view its metrics. These metrics include the following:
       * The output cardinality - the number of rows that each operator produced.
       * The thread time - the sum of the wall clock time that threads spent to run the selected operation across all nodes.
@@ -183,7 +183,7 @@ You can use these metrics to analyze and measure the efficiency and performance 
   * The **Query history** tab shows detailed information associated with each query, listed by its **Query id**. This information includes the query status, start time, number of rows and bytes scanned during the load, user and account information. You can choose the following options at the top of the bottom panel:
     * Select the **Refresh** icon to update the query history and ID.
     * Select the filter icon (<img src="../assets/images/filter-icon.png" alt="AggIndex" width="12"/>) to remove or add columns to display. 
-    * Select the **More options** icon (<img src="../assets/images/more options icon.png" alt="AggIndex" width="7"/>) to export the contents of the Query history tab to a JSON or CSV file.
+    * Select the **More options** icon (<img src="../assets/images/more options icon.png" alt="AggIndex" width="10"/>) to export the contents of the Query history tab to a JSON or CSV file.
   
 For more information about Firebolt’s SQL workspace, see [Use the Develop Workspace](../guides/../Guides/query-data/using-the-develop-workspace.md). 
 
@@ -336,7 +336,7 @@ To remove a table and all of its data, enter [DROP TABLE](../../sql_reference/co
 
 To remove a database and all of its associated data, do the following:
   1) Select the database from the left navigation bar. 
-  2) Select the more options (<img src="../assets/images/more options icon.png" alt="AggIndex" width="7"/>) icon.
+  2) Select the more options (<img src="../assets/images/more options icon.png" alt="AggIndex" width="10"/>) icon.
   3) Select **Delete database**. Deleting your database will permanently remove your database from Firebolt. You cannot undo this action.
   4) Select **Delete**.
 
@@ -414,7 +414,7 @@ If you have exhausted your initial $200 credit, you can continue to use Firebolt
 
 **To register**
 
-1. On the [Firebolt Workspace page](https://go.firebolt.io/), select the **Configure**(<img src="../assets/images/configure-icon.png" alt="AggIndex" width="12"/>) icon from the left navigation pane. 
+1. On the [Firebolt Workspace page](https://go.firebolt.io/), select the **Configure**(<img src="../assets/images/configure-icon.png" alt="AggIndex" width="14"/>) icon from the left navigation pane. 
 2. Under **Organization settings**, select **Billing**.
 3. Click **Connect to AWS Marketplace** to take you to the Firebolt page on AWS Marketplace.
 4. On the AWS Marketplace page, click the **View Purchase Options** on the top right hand corner of the screen.
