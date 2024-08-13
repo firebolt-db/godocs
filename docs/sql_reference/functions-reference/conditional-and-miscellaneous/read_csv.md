@@ -65,7 +65,7 @@ If `aws_key_id` and `aws_secret_key` are provided, then `aws_arn` and `aws_arn_r
 
 ## Return Type
 
-The result is a table with the data from the csv file. Each columns is read and parsed as `STRING`.
+The result is a table with the data from the CSV file. Each columns is read and parsed as `STRING`.
 
 ## Example
 
