@@ -41,7 +41,8 @@ ALTER ENGINE <engine_name> SET
 
 **Limitations:**
 * The number of clusters per engine is limited to two. 
-* The number of nodes per cluster is limited to ten.
+* The number of nodes per cluster is limited to ten. 
+* The total number of nodes x clusters cannot exceed 15.
 * When you scale a running engine (vertically or horizontally), new queries after the scaling operation will be directed to a new cluster. Queries running on the old clusters will be run to completion. The clusters will wait for up to 24 hours for running queries to finish. After 24 hours, any queries still running may not run to completion.
 * Only small and medium engines are available for use right away.
 
