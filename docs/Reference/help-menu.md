@@ -64,5 +64,42 @@ To create a case:
 ### Release Notes
 The Release Notes link brings you to Firebolt's [latest version release notes](release-notes/release-notes.md).
 
+### Firebolt Support Access
+Firebolt Support Access allows you to control the access of Firebolt's support team to your account.
+
+For new accounts support access is enabled by default, still you can revoke it at any time.
+
+All activity of the support team is logged and can be viewed in the [query history](../sql_reference/information-schema/engine-query-history) same as for other users.
+
+To grant access:
+1. Select "Firebolt Support Access"
+2. A support access form will appear, with the following information populated **automatically**:
+    <br>a. **Account Name**
+    <br>b. **Duration**
+    <br>c. **Assign Roles**
+3. Fill in the following:
+    <br>**Duration** - please choose the duration of the support access. Once the duration expires, the access will be automatically revoked.
+    <br>**Assign Roles** - please choose the role(s) you would like to assign to the support team. Their access will be limited to the roles you assign. You can create dedicated role following the [instructions here](../Guides/security/rbac#ui). Please, also notice that the support team will have full access to the organization level data.
+4. Select "Grant Access"
+
+Once granted, you will see additional icon in the bottom left corner of the screen, indicating that Firebolt's support team has access to your account.
+
+![Support Access](../assets/images/support_access_menu.png)
+
+To edit access:
+1. Select the support access icon in the bottom left corner of the screen and click on "Manage access" button. (Alternatively you can open same screen by clicking on "Firebolt Support Access" in the Help menu)
+2. Select "Edit Access" button.
+3. Make the necessary changes and click "Update Access".
+
+To revoke access:
+1. Select the support access icon in the bottom left corner of the screen and click on "Manage access" button. (Alternatively you can open same screen by clicking on "Firebolt Support Access" in the Help menu)
+2. Select "Revoke Access" button.
+
+Once revoked, the support access icon will disappear from the bottom left corner of the screen.
+
+### Documentation
+The Documentation link brings you to Firebolt's docs (where you are now!)
+
+
 ### Documentation
 The Documentation link brings you to Firebolt's docs (where you are now!)

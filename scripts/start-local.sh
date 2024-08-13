@@ -15,4 +15,4 @@ ROOT_DIR="$(resolve_path "${SCRIPT_DIR}/..")"
 
 . "$SCRIPT_DIR/_common.sh"
 
-run "$ROOT_DIR" --build -P -v "$ROOT_DIR:/www" localhost-firebolt-docs
+run "$ROOT_DIR" --build -v "$ROOT_DIR:/www" -p 8080:8080 localhost-firebolt-docs
