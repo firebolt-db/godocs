@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # READ_CSV
 
-A Table-Valued function which takes a csv's S3 url, Credentials and relevant csv options.
+A Table-valued function (TVF) that takes an Amazon S3 URL, Credentials and relevant CSV options, and returns a table of data from the target file.
 
 This TVF returns a table with the data from the CSV file. Each cell is read as a `STRING`.
 
