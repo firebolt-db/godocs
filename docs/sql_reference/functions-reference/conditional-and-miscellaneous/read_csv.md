@@ -9,7 +9,7 @@ great_grand_parent: SQL reference
 
 # READ_CSV
 
-A Table-valued function (TVF) that takes an Amazon S3 URL, Credentials and relevant CSV options, and returns a table of data from the target file.
+A Table-valued function (TVF) that takes an Amazon S3 URL, credentials and relevant CSV options, and returns a table of data from the target file.
 
 This TVF returns a table with the data from the CSV file. Each cell is read as a `STRING`.
 
@@ -40,12 +40,12 @@ READ_CSV (
 | Parameter                     | Description                                                                                      | Supported input types |
 |:------------------------------|:-------------------------------------------------------------------------------------------------|:----------------------|
 | `<url>`                       | Amazon S3 files location. The expected format is 's3://{bucket_name}/{full_file_path}'.          | `TEXT`                |
-| `<compression>`               | The compression of the the file. It is infered from the extenssion then not set.                 | `TEXT`                |
+| `<compression>`               | The compression of the the file. If is not set it will be inferred from the extension.           | `TEXT`                |
 | `<aws_key_id>`                | AWS key ID.                                                                                      | `TEXT`                |
 | `<aws_secret_key>`            | AWS secret key.                                                                                  | `TEXT`                |
 | `<aws_arn>`                   | AWS Role ARN.                                                                                    | `TEXT`                |
 | `<aws_arn_role_external_id>`  | External ID for AWS Role.                                                                        | `TEXT`                |
-| `<are_credentials_encrypted>` | Are credentials encrypted                                                                        | `BOOL`                |
+| `<are_credentials_encrypted>` | True if the `aws_key_id` and `aws_secret_key` are provided in encrypted form.                    | `BOOL`                |
 | `<header>`                    | Should the first row of the CSV file be considered a header row.                                 | `TEXT`                |
 | `<delimiter>`                 | Field delimiter. Comma by default `,`                                                            | `TEXT`                |
 | `<quote>`                     | Which quote symbol used for strings columns. Accepts only 'DOUBLE_QUOTES' or 'SINGLE_QUOTE'.     | `TEXT`                |
