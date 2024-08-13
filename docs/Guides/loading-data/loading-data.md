@@ -32,7 +32,7 @@ After you load your data, you can start running and optimizing your queries. A t
 
 For more information on how to register, create a database and an engine, or the other steps in a typical workflow, see [Get Started](../getting-started.md).
 
-This guide shows you the following workflows for loading data:
+This guide shows you the following workflows for loading data.
 ### Table of contents
 [Load data using a wizard](#load-data-using-a-wizard)
 [Load data using SQL statements](#load-data-using-sql-statements)
