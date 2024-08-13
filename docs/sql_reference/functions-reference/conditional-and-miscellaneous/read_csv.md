@@ -55,7 +55,7 @@ READ_CSV (
 | `<empty_field_as_null>>`      | Consider empty fields as null when set to `TRUE`                                                 | `BOOL`                |
 
 
-Appart from `url`, all of the parameters are optional. 
+Apart from `url`, all parameters are optional..
 
 If you provide either `aws_key_id` or `aws_secret_key`, you must provide both.
 
