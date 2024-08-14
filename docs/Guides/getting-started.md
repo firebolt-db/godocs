@@ -5,6 +5,7 @@ description: Follow this getting started tutorial to create a database in a Fire
 nav_order: 1
 parent: Guides
 has_toc: true
+has_children: true
 ---
 
 # Get started with Firebolt
@@ -216,7 +217,7 @@ Firebolt uses a number of optimization strategies to reduce query times. Over sm
 
 One of Firebolt’s key optimization strategies is to select a primary index for columns that are used frequently in WHERE, JOIN, GROUP_BY, and clauses used for sorting. In Firebolt, a primary index is a type of **sparse index**. Thus, selecting the best primary index can reduce query run times significantly by reducing the data set that the query searches over. Selecting primary indexes also allows Firebolt to manage updates, deletions and insertions to tables and provide optimal query performance.
 
-If you have more than one primary index, the order that they are listed is important. Specify the column that has a large number of unique values, or high cardinality, first, followed by columns with lower cardinality. A sort order with the previous characteristics allows Firebolt to prune, or eliminate irrelevant data, so that it doesn’t have to scan it in query processing. Pruning significantly enhances query performance.
+If you have a composite primary index, the order that the columns are listed is important. Specify the column that has a large number of unique values, or high cardinality, first, followed by columns with lower cardinality. A sort order with the previous characteristics allows Firebolt to prune, or eliminate irrelevant data, so that it doesn’t have to scan it in query processing. Pruning significantly enhances query performance.
 
 You can create a primary index **only** when you create a table. If you want to change the primary index, you must create a new table. The following example shows how to use [CREATE TABLE](../../sql_reference/commands/../../docs/sql_reference/commands/data-definition/create-fact-dimension-table.md) to create a new `levels` table, define the schema, and set two primary indexes:
 
@@ -289,6 +290,7 @@ The following guidance applies:
   SELECT CHECKSUM("Name", "MaxPoints") FROM levels WHERE "MaxPoints" BETWEEN 101 AND 200;
   SELECT CHECKSUM("Name", "MaxPoints") FROM levels WHERE "MaxPoints" > 200;
   ```
+
 #### Cache eviction
 After your cache usage exceeds about 80% of its capacity, Firebolt will evict, or remove the least recently used data into an Amazon S3 bucket. Then, if you want to query this data, you will have to read it back into cache. The total available cache size depends on the size of your engine as follows:
   * A small engine has a cache size of 1.8 TB.
