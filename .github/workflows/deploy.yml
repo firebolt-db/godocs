@@ -19,10 +19,11 @@ jobs:
           path: 'build'
           token: ${{ secrets.GITHUB_TOKEN }}
           ref: ${{ github.ref_name }}
-
-      - name: Set up cache directory
-        run: mkdir -p /tmp/.jekyll-cache && echo "JEKYLL_CACHE_DIR=/tmp/.jekyll-cache" >> $GITHUB_ENV
+    
       - name: Build the site using Docker
+        env: JEKYLL_ENV: production
+          JEKYLL_CACHE_DIR: /tmp/.jekyll-cache
+
         run: |
           docker run --rm \
             -v $(pwd):/srv/jekyll \
