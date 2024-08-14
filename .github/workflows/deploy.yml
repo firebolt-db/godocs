@@ -21,9 +21,9 @@ jobs:
           ref: ${{ github.ref_name }}
     
       - name: Build the site using Docker
-        env: JEKYLL_ENV: production
+        env: 
+          JEKYLL_ENV: production
           JEKYLL_CACHE_DIR: /tmp/.jekyll-cache
-
         run: |
           docker run --rm \
             -v $(pwd):/srv/jekyll \
