@@ -177,6 +177,7 @@ To aggregate data, first create an external table. Then, define a table in the F
     The previous code calculates the aggregate function `MAX` before loading the data into the `playstats_max_scores` table.
 
 ## Update an existing table from an external table
+Firebolt saves metadata including virtual columns, and the source file’s name, size and timestamp when mapping data from an Amazon S3 bucket to a Firebolt database. You can query this metadata directly for troubleshooting and analysis, or use it to find new data, as shown in this example. 
 
 To load only new and updated data from an Amazon S3 bucket into an existing table, use an external table and two temporary tables. This section guides you through creating a new table, which will serve as the existing table in a complete example. If you already have an existing table, its schema definition must include the file  timestamp and file name metadata. For more information about these metadata columns, see **Using metadata virtual columns** in [Work with external tables](./working-with-external-tables.md). 
 
