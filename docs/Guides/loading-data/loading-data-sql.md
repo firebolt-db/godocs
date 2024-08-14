@@ -1,9 +1,9 @@
 ---
 layout: default
 title: Load data using SQL
-description: Understand options for loading data into Firebolt from your data lake.
+description: Understand options for loading data into Firebolt using SQL statements.
 parent: Load data
-nav_order: 3
+nav_order: 2
 has_children: false
 has_toc: true
 ---

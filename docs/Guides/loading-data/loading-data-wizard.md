@@ -3,7 +3,8 @@ layout: default
 title: Load data using a wizard
 description: Understand options for loading data using a data load wizard.
 parent: Load data
-nav_order: 3
+grand parent: Guides
+nav_order: 1
 has_children: false
 has_toc: true
 ---
