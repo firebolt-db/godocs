@@ -21,7 +21,7 @@ jobs:
           ref: ${{ github.ref_name }}
 
       - name: Set up cache directory
-        run: echo "CACHE_DIR=/tmp/.jekyll-cache" >> $GITHUB_ENV
+        run: mkdir -p /tmp/.jekyll-cache && echo "JEKYLL_CACHE_DIR=/tmp/.jekyll-cache" >> $GITHUB_ENV
       - name: Build the site using Docker
         run: |
           docker run --rm \
@@ -29,7 +29,7 @@ jobs:
             -v $(pwd)/vendor/bundle:/usr/local/bundle \
             -e JEKYLL_ENV=production \
             jekyll/builder:latest \
-            jekyll build --cache-dir $CACHE_DIR
+            jekyll build
         working-directory: build  # Adjust if necessary
 
       - name: List directory contents
