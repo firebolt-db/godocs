@@ -1,10 +1,9 @@
 ---
 layout: default
-title: Getting started
+title: Get started
 description: Follow this getting started tutorial to create a database in a Firebolt data warehouse, load a sample data set from Amazon S3, and run queries over the data.
 nav_order: 1
 parent: Guides
-has_children: true
 has_toc: true
 ---
 
@@ -290,7 +289,7 @@ The following guidance applies:
   SELECT CHECKSUM("Name", "MaxPoints") FROM levels WHERE "MaxPoints" BETWEEN 101 AND 200;
   SELECT CHECKSUM("Name", "MaxPoints") FROM levels WHERE "MaxPoints" > 200;
   ```
-#### Cache eviciction
+#### Cache eviction
 After your cache usage exceeds about 80% of its capacity, Firebolt will evict, or remove the least recently used data into an Amazon S3 bucket. Then, if you want to query this data, you will have to read it back into cache. The total available cache size depends on the size of your engine as follows:
   * A small engine has a cache size of 1.8 TB.
   * A medium engine has a cache size of 3.7 TB.
@@ -300,16 +299,14 @@ After your cache usage exceeds about 80% of its capacity, Firebolt will evict, o
 Small and medium sized engines are available for use right away. If you want to use a large or extra-large engine, reach out to support@firebolt.io.
 
 You can check the size of your cache using the following example code:
-
 ```sql
 SHOW CACHE;
 ```
+The previous code example shows your cache usage in GB per total cache available. If your cache usage is too high, adjust your warmup strategy by reducing the amount of data loaded or increasing cache capacity.
 
-This will show your cache usage in GB per total cache available. If your cache usage is too high, adjust your warmup strategy by reducing the amount of data loaded or increasing cache capacity.
+When data is loaded into Firebolt, it is stored in units of data storage called tablets. A tablet contains a subset of a table’s rows and columns.  If you reach your cache’s 80% capacity, the entire tablet that contains the least recently used data, is evicted.
 
-When data is loaded into Firebolt, it is stored in units of data storage called tablets. A tablet contains a subset of a table’s rows and columns.  If you reach your cache’s 80% capacity, the entire tablet that contains the least recently used data, is evicted. 
-
-The following code example shows how to view information about the tablets that are used to store your table including the number of uncompressed and compressed bytes on disk: 
+The following code example shows how to view information about the tablets that are used to store your table including the number of uncompressed and compressed bytes on disk:
 
 ```sql
 SELECT * FROM information_schema.engine_tablets  where table_name = 'levels';
