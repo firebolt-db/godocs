@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Getting started
+title: Get started
 description: Follow this getting started tutorial to create a database in a Firebolt data warehouse, load a sample data set from Amazon S3, and run queries over the data.
 nav_order: 1
 parent: Guides
@@ -23,7 +23,7 @@ After you register, you can either use the Load data wizard or the SQL workspace
 ## Use the Load data wizard
 {:.no_toc}
 
-The **Load data** wizard guides you through creating a database and engine, and loading data from an Amazon S3 bucket. You can specify basic configurations including what character to use as a file delimiter, which columns to import and their schema. After you load your data, continue your workflow in the SQL workspace to run and optimize a query, and export to an external table. Even though the **Load data** wizard creates a database and engine for you, the following [**Create a Database**](#create-a-database) and [**Create an Engine**](#create-an-engine) sections in this guide contains general information about billing for engine runtime and schema. 
+The **Load data** wizard guides you through creating a database and engine, and loading data from an Amazon S3 bucket. You can specify basic configurations including what character to use as a file delimiter, which columns to import and their schema. After you load your data, continue your workflow in the SQL workspace to run and optimize a query, and export to an external table. Even though the **Load data** wizard creates a database and engine for you, the following [**Create a Database**](#create-a-database) and [**Create an Engine**](#create-an-engine) sections in this guide contain general information about billing for engine runtime and schema. 
 
 To use the **Load data** wizard, you can select the plus (+) icon next to **Databases** in the left navigation pane and select **Load data**.  For detailed information about how to use the Load data wizard, see [Load data](../Guides/loading-data/loading-data.md). 
 
@@ -57,7 +57,7 @@ You can view your total cost in FBU up to the latest second and in $USD up to th
 
 <img src="../assets/images/GS-database.png" alt="New DB +" width="700"/>
 
-Firebolt decouples storage and compute resources so that multiple engines can run computations on the same database. You can also configure different engine sizes for different workloads. These workloads can run in parallel or separately. Because storage is decoupled from storage, you must first create both a database and an engine before you can run your first query.
+Firebolt decouples storage and compute resources so that multiple engines can run computations on the same database. You can also configure different engine sizes for different workloads. These workloads can run in parallel or separately. Because storage is decoupled from compute, you must first create both a database and an engine before you can run your first query.
 
 Firebolt’s structure is organized as follows:
 * A database holds the elements that you need to run queries such as tables, views and information schema.  
@@ -119,7 +119,7 @@ Small and medium engines are available for use right away. If you want to use a 
 By default, when you login to Firebolt’s workspace for the first time, Firebolt creates a SQL workspace in a tab called **Script 1**. The following apply:
 * The database that **Script 1** will run using is located directly below the tab name. If you want to change the database, select another database from the drop-down list. 
   
-* An engine must be running to process the script in a selected tab. The name and status of the engine that **Script 1** uses for computation is located to the right of the current selected database. To change either the engine or the status, select the drop-down arrow next to the engine name. You can select a new engine and change its status from **Stopped** to **Running** by selecting **Start engine**. If you select **Run** at the bottom of the workspace, the selected engine starts automatically. Select **Stop engine** to change the status to **Stopped**. Firebolt automatically stops your engine after 20 minutes of inactivity.
+* An engine must be running to process the script in a selected tab. The name and status of the engine that **Script 1** uses for computation is located to the right of the current selected database. To change either the engine or the status, select the drop-down arrow next to the engine name. You can select a new engine and change its status from **Stopped** to **Running** by selecting **Start engine**. If you select **Run** at the bottom of the workspace, the selected engine starts automatically. Select **Stop engine** to change the status to **Stopped**. Firebolt automatically stops your engine if it is inactive for 20 minutes.
 
 {: .note}
 Because an engine is a dedicated compute node that nobody else can use, you are charged for each second that your engine is **Running**, even if it’s not processing a query. 
@@ -289,7 +289,7 @@ The following guidance applies:
   SELECT CHECKSUM("Name", "MaxPoints") FROM levels WHERE "MaxPoints" BETWEEN 101 AND 200;
   SELECT CHECKSUM("Name", "MaxPoints") FROM levels WHERE "MaxPoints" > 200;
   ```
-#### Cache eviciction
+#### Cache eviction
 After your cache usage exceeds about 80% of its capacity, Firebolt will evict, or remove the least recently used data into an Amazon S3 bucket. Then, if you want to query this data, you will have to read it back into cache. The total available cache size depends on the size of your engine as follows:
   * A small engine has a cache size of 1.8 TB.
   * A medium engine has a cache size of 3.7 TB.
@@ -299,16 +299,14 @@ After your cache usage exceeds about 80% of its capacity, Firebolt will evict, o
 Small and medium sized engines are available for use right away. If you want to use a large or extra-large engine, reach out to support@firebolt.io.
 
 You can check the size of your cache using the following example code:
-
 ```sql
 SHOW CACHE;
 ```
+The previous code example shows your cache usage in GB per total cache available. If your cache usage is too high, adjust your warmup strategy by reducing the amount of data loaded or increasing cache capacity.
 
-This will show your cache usage in GB per total cache available. If your cache usage is too high, adjust your warmup strategy by reducing the amount of data loaded or increasing cache capacity.
+When data is loaded into Firebolt, it is stored in units of data storage called tablets. A tablet contains a subset of a table’s rows and columns.  If you reach your cache’s 80% capacity, the entire tablet that contains the least recently used data, is evicted.
 
-When data is loaded into Firebolt, it is stored in units of data storage called tablets. A tablet contains a subset of a table’s rows and columns.  If you reach your cache’s 80% capacity, the entire tablet that contains the least recently used data, is evicted. 
-
-The following code example shows how to view information about the tablets that are used to store your table including the number of uncompressed and compressed bytes on disk: 
+The following code example shows how to view information about the tablets that are used to store your table including the number of uncompressed and compressed bytes on disk:
 
 ```sql
 SELECT * FROM information_schema.engine_tablets  where table_name = 'levels';
