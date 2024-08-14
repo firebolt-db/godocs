@@ -16,7 +16,18 @@ Before you can load data using a SQL script, you must register with Firebolt, an
 
 For more information on how to register, create a database and engine using the Firebolt UI, see the [Get Started](../../Guides/getting-started.md) guide. To create an engine using SQL, use [CREATE ENGINE](../../sql_reference/commands/engines/create-engine.md). You can check how many engines are defined in your current account using [SHOW ENGINES](../../sql_reference/commands/metadata/show-engines.md). For more information and examples of how to create engines, see [Work with engines using DDL](../../Guides/operate-engines/working-with-engines-using-ddl.md). To create a database, use [CREATE DATABASE](../../sql_reference/commands/data-definition/create-database.md). You can check how many databases are defined in your current account using [SHOW DATABASES](../../sql_reference/commands/metadata/show-databases.md). Next, log into the Firebolt workspace and enter SQL into the script tab.
 
+The following code examples show different workflows based on need and complexity:
 
+- [The simplest COPY FROM workflow](#the-simplest-copy-from-workflow)
+- [Define a schema, create a table, and load data](#define-a-schema-create-a-table-and-load-data)
+- [Load multiple files into a table](#load-multiple-files-into-a-table)
+- [Filter data before loading using OFFSET and LIMIT](#filter-data-before-loading-using-offset-and-limit)
+- [Aggregating data during data load](#aggregating-data-during-data-load)
+- [Update an existing table from an external table](#update-an-existing-table-from-an-external-table)
+- [Load source file metadata into a table](#load-source-file-metadata-into-a-table)
+- [Continue loading even with errors](#continue-loading-even-with-errors)
+- [Log errors during data load](#log-errors-during-data-load)
+- [More complex `COPY FROM` use cases](#more-complex-copy-from-use-cases)
 
 ## The simplest COPY FROM workflow
 Although there are many options to handle different data loading workflows, `COPY FROM` requires only two parameters:
