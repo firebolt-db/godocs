@@ -12,22 +12,35 @@ has_toc: false
 
 You can load data into Firebolt from an Amazon S3 bucket using two different workflows.
 
-If you want to get started quickly, load data using a Load data wizard in the Firebolt workspace. If you want a more customized experience, you can write SQL scripts to handle each part of your workflow. This guide shows you how to load data using both the wizard and SQL, and some common data loading workflows and errors.
+If you want to get started quickly, load data using a **wizard** in the Firebolt workspace. If you want a more customized experience, you can write **SQL scripts** to handle each part of your workflow. This guide shows you how to load data using both the wizard and SQL, and some common data loading workflows and errors.
 
-Before you can load data, you must first register with Firebolt, then create a database and an engine. For information about how to register, see [Get Started](../getting-started.md). To create a database and engine, the following apply:
-- If you use the Load data wizard, the user interface (UI) guides you through creating an engine and database.
-- If you want to use the Firebolt SQL UI, you can select buttons to create a database and engine. See [Get Started](../getting-started.md) for more information.
-- If you want to write your own SQL script, you must use `CREATE DATABASE` and `CREATE ENGINE` before you can load data.
+<br>
+<img src="../../assets/images/load_data_workflow.png" alt="You can use either the load data wizard or SQL to create a database, engine, and then load data." width="700"/>
 
-Use the previous guidance to select the best workflow for your use case, as shown in the following diagram:
-<img src="../../assets/images/load_data_workflow.png" alt="The load data workflow includes using the load data wizard or SQL to create a database, engine, and then load data." width="700"/>
+{: .note} 
+Before you can load data, you must first register with Firebolt, then create a database and an engine. For information about how to register, see [Get Started](../getting-started.md). See the following sections for information about how to create a database and engine.
+
+## Load data using a wizard
+You can use the [Load data](loading-data-wizard.md) wizard to load data in either CSV or Parquet format, and choose from a variety of different loading parameters. The **Load data** wizard guides you through creating an engine and database as part of the loading process. See [Load data using a wizard](loading-data-wizard.md) for information about the options available in the **Load data** wizard.
+
+ 
+## Load data using SQL statements
+You can use [SQL to load data](loading-data-sql.md) in CSV, Parquet, TSV, AVRO, JSON Lines or ORC formats. Prior to loading data, you must also create a database and engine using either of the following options:
+
+- Use buttons in the Firebolt SQL user interface (UI) to create a database and engine. For more information, see the [Create a Database](../../Guides/getting-started.md#create-a-database) and [Create an Engine](../../Guides/getting-started.md#create-an-engine) sections in the [Get Started](../getting-started.md) guide.
+
+- Use the SQL commands [CREATE DATABASE](../../sql_reference/commands/data-definition/create-database.md) and [CREATE ENGINE](../../sql_reference/commands/engines/create-engine.md).
+  
+
 
 Firebolt saves metadata including virtual columns, and the source file’s name, size and timestamp when mapping data from an Amazon S3 bucket to a Firebolt database. You can query this metadata directly for troubleshooting and analysis. For more information, see [Work with external tables](working-with-external-tables.md).
 
-Optimizing your workflow for Firebolt starts when you load your data. Your data should load into tables that have primary indexes. You should also use other optimization strategies including aggregating indexes and warm tables. This guide shows you basic instructions for loading data into tables. For an introduction on optimization, see [Get Started](../getting-started.md). For more advanced information about primary and aggregating indexes, see [Work with indexes](../../Guides/working-with-indexes/index.md).
-
+## Optimizing during data loading
+Optimizing your workflow for Firebolt starts when you load your data. Use the following guidance:
+1. Your data should load into tables that have primary indexes. You can specify primary indexes in either the **Load data** wizard or inside SQL commands. The [Load data using a wizard](loading-data-wizard.md) guide discusses considerations for selecting and how to select primary indexes. The [Load data using SQL statements](loading-data-sql.md) discusses considerations for selecting and shows code examples that select primary indexes.
+2. Use aggregating indexes to pre-calculate [aggregate functions](../../sql_reference/functions-reference/aggregation/index.md) so that queries can access this information quickly. For an introduction to aggregating indexes, see [Aggregating Indexes](../../Guides/getting-started.md#aggregating-indexes) section of the **Get Started** guide. For more advanced information, see [Aggregating indexes](../working-with-indexes/using-aggregating-indexes.md).
+3. Consider using warm data inside a query to access data quickly from local cache instead of reading data from an Amazon S3 bucket. This optimization strategy can greatly speed up queries for large datasets with millions of rows or more. For more information, see the [Warm data and cache eviction](../getting-started.md#warm-data-and-cache-eviction) section in the **Get Started** guide.
+ 
 After you load your data, you can start running and optimizing your queries. A typical workflow has the previous steps followed by data and resource cleanup as shown in the following diagram:
 
 <img src="../../assets/images/get_started_workflow.png" alt="The load data workflow includes using the load data wizard or SQL to create a database, engine, and then load data." width="700"/>
-
-For more information on how to register, create a database and an engine, or the other steps in a typical workflow, see [Get Started](../getting-started.md).
