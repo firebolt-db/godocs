@@ -3,9 +3,10 @@ layout: default
 title: Load data using SQL
 description: Understand options for loading data into Firebolt using SQL statements.
 parent: Load data
+grand_parent: Guides
 nav_order: 2
 has_children: false
-has_toc: true
+has_toc: false
 ---
 
 # Load data using SQL statements
