@@ -60,9 +60,9 @@ To use the wizard, use the following steps:
 
 10. You can preview your data in the **Format data** step using the default formatting and error handling, or after using a custom configuration.
 
-    To change how to format your data, toggle off Use default formatting to show custom options. You can specify custom formatting including a file delimiter, quote character, and escape character.
+    To change how to format your data, toggle off **Use default formatting** to show custom options. You can specify custom formatting including a file delimiter, quote character, and escape character.
 
-    To change how to handle errors, toggle off Use default error handling. You can specify a file to write errors to with AWS credentials and how many errors you want to allow when you load your data.
+    To change how to handle errors, toggle off **Use default error handling.** You can specify a file to write errors to with AWS credentials and how many errors you want to allow when you load your data.
 
 11. Select **Next step**.
 12. Map the values in your data to columns into the target table. Firebolt automatically detects the schema of your data and displays information including the detected column names, type, and a preview of the data in the next window. By default, each column has a checkbox next to its name. Deselect the box if you don’t want to load the column. You can adjust the schema for the following items:
