@@ -22,15 +22,16 @@ jobs:
     
       - name: Build the site using Docker
         env: 
-          JEKYLL_ENV: production
-          JEKYLL_CACHE_DIR: mkdir -p /tmp/.jekyll-cache
+          JEKYLL_ENV: production          
         run: |
           docker run --rm \
             -v $(pwd):/srv/jekyll \
             -v $(pwd)/vendor/bundle:/usr/local/bundle \
+            -v /tmp/.jekyll-cache:/srv/jekyll/.jekyll-cache \
             -e JEKYLL_ENV=production \
+            -e JEKYLL_CACHE_DIR=/srv/jekyll/.jekyll-cache \
             jekyll/builder:latest \
-            JEKYLL_CACHE_DIR=/tmp/.jekyll-cache jekyll build
+            jekyll build
         working-directory: build  # Adjust if necessary
 
       - name: List directory contents
