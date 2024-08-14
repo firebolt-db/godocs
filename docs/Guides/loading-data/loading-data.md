@@ -22,7 +22,7 @@ Before you can load data, you must first register with Firebolt, then create a d
 Use the previous guidance to select the best workflow for your use case, as shown in the following diagram:
 <img src="../../assets/images/load_data_workflow.png" alt="The load data workflow includes using the load data wizard or SQL to create a database, engine, and then load data." width="700"/>
 
-Firebolt saves metadata including virtual columns, and the source file’s name, size and timestamp when mapping from your data from an Amazon S3 bucket to a Firebolt database. You can query this metadata directly for troubleshooting and analysis. For more information, see [Work with external tables](working-with-external-tables.md).
+Firebolt saves metadata including virtual columns, and the source file’s name, size and timestamp when mapping data from an Amazon S3 bucket to a Firebolt database. You can query this metadata directly for troubleshooting and analysis. For more information, see [Work with external tables](working-with-external-tables.md).
 
 Optimizing your workflow for Firebolt starts when you load your data. Your data should load into tables that have primary indexes. You should also use other optimization strategies including aggregating indexes and warm tables. This guide shows you basic instructions for loading data into tables. For an introduction on optimization, see [Get Started](../getting-started.md). For more advanced information about primary and aggregating indexes, see [Work with indexes](../../Guides/working-with-indexes/index.md).
 
@@ -50,18 +50,18 @@ This guide shows you the following workflows for loading data.
 
 ## Load data using a wizard
 
-The **Load data** wizard can help you get started loading data from an Amazon S3 bucket using a simple workflow. You can use the wizard to both create an engine and load your data. The wizard also guides you through setting up an AWS connection. To use the wizard, you will need the url of an Amazon S3 bucket. If credentials are required to access the data that you want to load, you will also need an AWS Key ID and your AWS Secret Key. In most steps in the wizard, you can view the SQL commands associated with your selections in the **Load data** main window by selecting **Show SQL script** in the left navigation pane at the bottom of the window.
+The **Load data** wizard can help you get started loading data from an Amazon S3 bucket using a simple workflow. You can use the wizard to both create an engine and load your data. The wizard also guides you through setting up an AWS connection. To use the wizard, you will need the uniform resource locator (URL) of an Amazon S3 bucket. If credentials are required to access the data that you want to load, you will also need an AWS Key ID and your AWS Secret Key. In most steps in the wizard, you can view the SQL commands associated with your selections in the **Load data** main window by selecting **Show SQL script** in the left navigation pane at the bottom of the window.
 
 To use the wizard, use the following steps:
 1. Log into the Firebolt workspace.
 2. Select the (+) icon from the left navigation pane next to **Databases**.
 3. Select **Load data** from the drop-down menu.
 4. In the window that appears, set up an AWS connection.
-    1. If you are using public data and no credentials are required to access it, provide the url for your Amazon S3 bucket, and select **Next step**.
-    2. If credentials are required, Firebolt needs to provide this information to AWS in order to retrieve data on your behalf. Provide the url for your Amazon S3 bucket, AWS Key ID, and AWS Secret Key. The following apply:
+    1. If you are using public data and no credentials are required to access it, provide the URL for your Amazon S3 bucket, and select **Next step**.
+    2. If credentials are required, Firebolt needs to provide this information to AWS in order to retrieve data on your behalf. Provide the URL for your Amazon S3 bucket, AWS Key ID, and AWS Secret Key. The following apply:
         1. The AWS Key ID is an AWS access key that is associated with an AWS user or AWS IAM role. The AWS access key is a 20-character string such as ‘AKIAIOSFODNN7EXAMPLE’.
         2. The AWS Secret Key is an AWS secret access key associated with the user or role associated with the AWS access key. The AWS secret access key is a 40-character string such as ‘wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY’. For more information about these credentials, see [Create Access Key and Secret ID in AWS](creating-access-keys-aws.md).
-    3. If you aren’t ready to use your own data, you can use a Firebolt test dataset from the fictional company, [Ultra Fast Gaming Inc](https://help.firebolt.io/t/ultra-fast-gaming-firebolt-sample-dataset/250). Enter the following Amazon S3 bucket into Amazon S3 storage url:
+    3. If you aren’t ready to use your own data, you can use a Firebolt test dataset from the fictional company, [Ultra Fast Gaming Inc](https://help.firebolt.io/t/ultra-fast-gaming-firebolt-sample-dataset/250). Enter the following Amazon S3 bucket into Amazon S3 storage URL:
 `s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/`. The name of the data set is `levels.csv`.
 5. Select **Next step**.
 6. Select an engine to load data. If the engine that you want to use already exists, select it from the dropdown list next to **Select engine for ingestion**. Otherwise, select **Create new engine** from the dropdown list, and do the following:
@@ -110,7 +110,7 @@ To use the wizard, use the following steps:
 
         One of Firebolt’s key optimization strategies is to use a primary index that ties to columns that are used frequently in `WHERE`, `JOIN`, `GROUP_BY`, and other clauses used for sorting. Selecting the best primary index, which is a sparse index, can reduce query run times significantly by reducing the data set that the query scans. A primary index also allows Firebolt to manage updates, deletions and insertions to tables and provide optimal query performance.
 
-        If you select more than one column as a primary index, they will be added in order of sorting. For example, if you select `column_1` first, then select `column_3`, then `column_3` will be added as a primary index after `column_1`. This means `column_1` will be used first as a sparse index, followed by `column_3`. If you choose more than one primary index, the order of sorting appears next to the toggle switch under the **Primary Index** column. In the previous example, the number `1` appears next to `column_1` and a number `2` appears next to `column_3`.
+        If you multiple columns as a primary indexes, they will be added in sort order. For example, if you select `column_1` first, then select `column_3`, then `column_3` will be added as a primary index after `column_1`. This means `column_1` will be used first as a sparse index, followed by `column_3`. If you choose more than one primary index, the order of sorting appears next to the toggle switch under the **Primary Index** column. In the previous example, the number `1` appears next to `column_1` and a number `2` appears next to `column_3`.
 
         To achieve optimal results, choose indexes in the order of their cardinality, or the number of unique values. Start with the column that has the highest number of unique values as your first primary index, followed by the column with the next highest cardinality. For more information about how to choose a primary index, see [Primary indexes](../../Guides/working-with-indexes/using-primary-indexes.md).
 
@@ -134,7 +134,7 @@ To use the wizard, use the following steps:
     3. Select the **More options** icon (<img src="../../assets/images/more options icon.png" alt="more options icon" width="12"/>) to export the contents of the Query history tab to a JSON or CSV file.
 
 ## Load data using SQL statements
-If the functionality in the **Load data** wizard does not meet your needs, or you prefer to write directly in SQL, you can enter SQL and run it in the Firebolt SQL workspace.
+If the **Load data** wizard does not meet your needs, or you prefer to write directly in SQL, you can enter SQL and run it in the Firebolt SQL workspace.
 
 Before you can load data using a SQL script, you must register with Firebolt, and create a database and an engine.
 
@@ -251,7 +251,7 @@ To aggregate data, first create an external table. Then, define a table in the F
     
 1. Create an external table linked to files in an Amazon S3 bucket.
 
-    The following code creates an external table that links to files in Amazon S3 bucket. The table has a defined schema that match the type and names of the originating data:
+    The following code creates an external table that links to files in Amazon S3 bucket. The table has a defined schema that matches the type and names of the originating data:
     ```sql
     CREATE EXTERNAL TABLE IF NOT EXISTS ex_playstats (
       GameID INTEGER,
@@ -320,7 +320,7 @@ The full workflow involves creating an internal source data table, an external t
       Email TEXT,
       AgeCategory TEXT,
       Platforms ARRAY (TEXT NULL),
-      RegisteredOn PGDATE,
+      RegisteredOn DATE,
       IsSubscribedToNewsletter BOOLEAN,
       InternalProbabilityToWin DOUBLE PRECISION,
       SOURCE_FILE_NAME TEXT,
