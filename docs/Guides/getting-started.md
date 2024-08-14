@@ -68,11 +68,11 @@ If you used the **Load data** wizard, Firebolt has already created a database fo
 
 The following instructions show you how to create a database and then an engine. Note that you can also create the engine first. 
 
-1) In the left navigation pane, select the **+** to the right **Databases**.
+1. In the left navigation pane, select the **+** to the right **Databases**.
 
-2)  Select **Create new database**. 
+2. Select **Create new database**. 
 
-3)  Enter the name for your database in the **Database Name** field. For this example, use “tutorial_database” as your database name. In Firebolt, the names of engines and databases are **case-sensitive**. If you are using both uppercase and lowercase characters in their names, enclose their name inside double quotes (“) when you refer to them in SQL.
+3. Enter the name for your database in the **Database Name** field. For this example, use “tutorial_database” as your database name. In Firebolt, the names of engines and databases are **case-sensitive**. If you are using both uppercase and lowercase characters in their names, enclose their name inside double quotes (“) when you refer to them in SQL.
 
 Firebolt creates a new database with the following two default schemas:
 * **Public** - A namespace where you can create and manage your database objects including tables, engines and queries. The default schema includes **tables**, **external tables**, and **views**.
@@ -333,16 +333,16 @@ To remove a table and all of its data, enter [DROP TABLE](../../sql_reference/co
 `DROP TABLE levels`
 
 To remove a database and all of its associated data, do the following:
-  1) Select the database from the left navigation bar. 
-  2) Select the more options (<img src="../assets/images/more options icon.png" alt="AggIndex" width="10"/>) icon.
-  3) Select **Delete database**. Deleting your database will permanently remove your database from Firebolt. You cannot undo this action.
-  4) Select **Delete**.
+1.  Select the database from the left navigation bar. 
+2. Select the more options (<img src="../assets/images/more options icon.png" alt="AggIndex" width="10"/>) icon.
+3. Select **Delete database**. Deleting your database will permanently remove your database from Firebolt. You cannot undo this action.
+4. Select **Delete**.
 
 ### Export data 
 
 If you want to save your data outside of Firebolt, you can use [COPY TO](./../sql_reference/commands/data-management/copy-to.md) to export data to an external table. This section shows how to set the minimal AWS permissions and use a COPY TO to export data to an [AWS S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html). You may have to reach out to your administrator to obtain or change AWS permissions.
 
-1) **Set permissions to write to an AWS S3 bucket**
+1. **Set permissions to write to an AWS S3 bucket**
   
   Firebolt must have the following permissions to write to an AWS S3 bucket:
 
@@ -381,7 +381,7 @@ If you want to save your data outside of Firebolt, you can use [COPY TO](./../sq
 
 For more information about AWS access keys and roles, see [Creating Access Key and Secret ID in AWS](./loading-data/creating-access-keys-aws.md)
 
-a. **Export to an AWS S3 bucket**
+i. **Export to an AWS S3 bucket**
 Use [COPY TO](../../sql_reference/commands/../../docs/sql_reference/commands/data-management/copy-to.md) select all the columns from a table and export to an AWS S3 bucket as shown in the following code example:
 ```sql
 COPY (SELECT * FROM test_table)
