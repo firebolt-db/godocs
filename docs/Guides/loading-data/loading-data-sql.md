@@ -12,7 +12,13 @@ has_toc: false
 # Load data using SQL statements
 If the **Load data** wizard does not meet your needs, or you prefer to write directly in SQL, you can enter SQL and run it in the Firebolt SQL workspace.
 
+{: .note}
 Before you can load data using a SQL script, you must register with Firebolt, and create a database and an engine.
+
+A general workflow to load data using SQL is shown in the following diagram as the highlighted decision compared to using the **Load data** wizard shown in the muted path:
+<br>
+
+<img src="../../assets/images/load_data_sql_workflow.png" alt="You can use either the load data wizard or SQL to create a database, engine, and then load data." width="700"/>
 
 For more information on how to register, create a database and engine using the Firebolt UI, see the [Get Started](../../Guides/getting-started.md) guide. To create an engine using SQL, use [CREATE ENGINE](../../sql_reference/commands/engines/create-engine.md). You can check how many engines are defined in your current account using [SHOW ENGINES](../../sql_reference/commands/metadata/show-engines.md). For more information and examples of how to create engines, see [Work with engines using DDL](../../Guides/operate-engines/working-with-engines-using-ddl.md). To create a database, use [CREATE DATABASE](../../sql_reference/commands/data-definition/create-database.md). You can check how many databases are defined in your current account using [SHOW DATABASES](../../sql_reference/commands/metadata/show-databases.md). Next, log into the Firebolt workspace and enter SQL into the script tab.
 
