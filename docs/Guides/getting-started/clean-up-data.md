@@ -24,7 +24,7 @@ Firebolt shows you the status of your current engine next to the engines icon (<
 
 #### Remove data from storage
 
-To remove a table and all of its data, enter [DROP TABLE](../../sql_reference/commands/data-definition/../../../docs/sql_reference/commands/data-definition/drop-table.md) into a script tab, as shown in the following code example:
+To remove a table and all of its data, enter [DROP TABLE](../sql_reference/../../sql_reference/commands/data-definition/drop-table.md) into a script tab, as shown in the following code example:
 
 `DROP TABLE levels`
 
