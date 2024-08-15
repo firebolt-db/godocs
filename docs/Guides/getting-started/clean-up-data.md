@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Cleaning up data and resources
+title: Cleaning up data
 nav_order: 4
 parent: Get started
 grand_parent: Guides
 ---
 
-### Cleaning up data and resources
+### Cleaning up data
 
 <img src="../assets/images/../../../assets/images/GS-cleanup.png" alt="New DB +" width="700"/>
 
 After you’ve completed the steps in this guide, avoid incurring costs associated with the exercises by doing the following:
-- [Cleaning up data and resources](#cleaning-up-data-and-resources)
+- [Cleaning up data](#cleaning-up-data)
   - [Stop any running engines](#stop-any-running-engines)
   - [Remove data from storage](#remove-data-from-storage)
 - [Export data](#export-data)

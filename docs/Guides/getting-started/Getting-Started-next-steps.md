@@ -32,4 +32,4 @@ Your account should now be associated with AWS Marketplace.
 * Learn more about [querying data](./../../Overview/../guides/../Guides/query-data/index.md).
 * Learn more about using [indexes](./../../Overview/using-indexes.md) to optimize your query times.
 * Learn how to [set up your organization](../../guides/../Guides/managing-your-organization/index.md) to use Firebolt.
-* Learn how to [integrate Firebolt](./../integrations/integrations.md) with third party tools and applications.
+* Learn how to [integrate Firebolt](../integrations/integrations.md) with third party tools and applications.
