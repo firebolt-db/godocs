@@ -19,7 +19,7 @@ To get started, you must register and create a Firebolt account. Then, you can e
 
 <img src="../assets/images/../../../assets/images/architecture-workflow.png" alt="Get Started" width="700"/>
 
-After you register, you can either use the Load data wizard or the SQL workspace. Use the Load data wizard if your data is in either CSV or Parquet format, and you want to use a graphical user interface to guide you through the first three steps of the workflow. Use the SQL workspace if you prefer to enter SQL, or need a more customized workflow.  
+After you register, you can either use the [Load data wizard](./introducing-the-load-data-wizard.md) or the [SQL workspace](./introducing-the-sql-workspace.md). Use the Load data wizard if your data is in either CSV or Parquet format, and you want to use a graphical user interface to guide you through the first three steps of the workflow. Use the SQL workspace if you prefer to enter SQL, or need a more customized workflow.  
 
 
 
