@@ -69,7 +69,7 @@ For more information about how to create an AWS access key and AWS secret key, s
 
 ## Define a schema, create a table, and load data
 
-You can also load data into an existing table using your own schema definition. Defining your own schema, instead of automatically detecting it, can give you finer control over data ingestion.
+You can also load data into an existing table using your own schema definition. Defining your own schema, instead of automatically detecting it, can give you finer control over data ingestion. This example contains the following two steps:
 
 1. Create the target table.
    
@@ -140,7 +140,7 @@ For more information about `OFFSET` and `LIMIT`, see [SELECT Query Syntax](../..
 
 If you frequently use [aggregation functions](../../sql_reference/functions-reference/aggregation/index.md) such as `COUNT`, `MAX`, or `SUM`, you can perform these aggregations on top of  an external table without loading the raw data into Firebolt. This approach allows you to avoid costs associated with importing and storing the dataset, particularly if you don’t need to store the originating data set.
 
-To aggregate data, first create an external table. Then, define a table in the Firebolt database with the desired aggregations. Finally, insert data from the external table into the internal table as follows:
+To aggregate data, first create an external table. Then, define a table in the Firebolt database with the desired aggregations. Finally, insert data from the external table into the internal table. This example contains the following three steps:
     
 1. Create an external table linked to files in an Amazon S3 bucket.
 
@@ -201,6 +201,8 @@ To load only new and updated data from an Amazon S3 bucket into an existing tabl
 The full workflow involves creating an internal source data table, an external table linked to the source data, and two temporary tables for the latest timestamp and updated data. The `updates_table` selects new data and uses an inner join to insert these records into your existing table, as illustrated in the diagram below:
 
 <img src="../../assets/images/workflow_update_from_external_table.png" alt="Use an external table and two temporary tables to update a main internal table by timestamp." width="700"/>
+
+This example contains the following nine steps:
 
 1. Create a table
 
