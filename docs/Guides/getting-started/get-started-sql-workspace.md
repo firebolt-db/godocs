@@ -6,9 +6,9 @@ parent: Get started
 grand_parent: Guides
 ---
 
-## Introducing the SQL workspace
+# Get started using SQL
 
-You can also use the SQL workspace to create a database and engine, and load data. If you use the SQL workspace, you can customize your workflow to handle more unique workflows than with the **Data loading** wizard, including loading data in TSV, Avro, JSON Lines or Orc formats. 
+You can also use the SQL to create a database and engine, and load data. If you use the SQL workspace, you can customize your workflow to handle more unique workflows than with the **Load data** wizard, including loading data in TSV, Avro, JSON Lines or Orc formats.
 
 The following sections will guide you through a simple workflow to get started with Firebolt.
 
@@ -291,3 +291,117 @@ The following code example shows how to view information about the tablets that 
 ```sql
 SELECT * FROM information_schema.engine_tablets  where table_name = 'levels';
 ```
+
+## Clean up
+After you’ve completed the steps in this guide, avoid incurring costs associated with the exercises by doing the following:
+* Stop any running engines.
+* Remove data from storage.
+  
+### Stop any running engines
+Firebolt shows you the status of your current engine next to the engines icon (<img src="../assets/images/../../../assets/images/engine-icon.png" alt="New DB +" width="17"/>) under your script tab as either **Stopped** or **Running**. To shut down your engine, select your engine from the drop-down list next to the name of the engine, and then select one of the following:
+
+* Stop engine - Allow all of the currently running queries to finish running and then shut down the engine. Selecting this option will allow the engine to run for as long as it takes to complete all queries running on the selected engine.
+* Terminate all queries and stop - Stop the engine and stop running any queries. Selecting this option stops the engine in about 20-30 seconds. 
+
+### Remove data from storage
+
+To remove a table and all of its data, enter [DROP TABLE](../../sql_reference/commands/data-definition/drop-table.md) into a script tab, as shown in the following code example:
+``` sql
+DROP TABLE levels
+```
+
+To remove a database and all of its associated data, do the following in the Firebolt Workspace:
+* Select the database from the left navigation bar. 
+* Select the more options (<img src="../assets/images/../../../assets/images/more options icon.png" alt="New DB +" width="7"/>) icon.
+* Select **Delete database**. Deleting your database will permanently remove your database from Firebolt. You cannot undo this action.
+Select **Delete**.
+
+## Export data
+
+If you want to save your data outside of Firebolt, you can use [COPY TO](../../sql_reference/commands/data-management/copy-to.md) to export data to an external table. This section shows how to set the minimal AWS permissions and use `COPY TO` to export data to an [AWS S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html). You may have to reach out to your administrator to obtain or change AWS permissions.
+
+### Set permissions to write to an AWS bucket
+
+   Firebolt must have the following permissions to write to an AWS S3 bucket:
+
+  1. AWS access key credentials. The credentials must be associated with a user with permissions to write objects to the bucket. Specify access key credentials using the following syntax:
+
+  ```shell
+    CREDENTIALS = (AWS_KEY_ID = '<aws_key_id>' AWS_SECRET_KEY = '<aws_secret_key>')
+  ```
+
+  In the previous credentials example, <aws_key_id> is the AWS access key id associated with a user or role. An access key has the following form: `AKIAIOSFODNN7EXAMPLE`. The value    <aws_secret_key> is the AWS secret key. A secret key has the following form: `wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`.
+
+2. An AWS IAM policy statement attached to a user role. Firebolt requires the following minimum permissions in the IAM policy:
+
+    ```shell
+    {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:Get*",
+                "s3:List*",
+                "s3:PutObject",
+                "s3:DeleteObject"
+            ],									
+            "Resource": [
+                "arn:aws:s3:::my_s3_bucket",
+                "arn:aws:s3:::my_s3_bucket/*"
+            ]
+        }
+     ]
+    }
+    ```
+
+    For more information about AWS access keys and roles, see [Creating Access Key and Secret ID in AWS](../loading-data/creating-access-keys-aws.md).
+
+### Export to an AWS bucket
+
+Use [COPY TO](../../sql_reference/commands/data-management/copy-to.md) select all the columns from a table and export to an AWS S3 bucket as shown in the following code example:
+
+```sql
+COPY (SELECT * FROM test_table)
+  TO 's3://my_bucket/my_fb_queries'
+  CREDENTIALS = 
+  (AWS_ROLE_ARN='arn:aws:iam::123456789012:role/my-firebolt-role');
+```
+In the previous code example, the role ARN ([Amazon Resource Name](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html)) identifies the AWS IAM role that specifies the access for users or services. An ARN follows the following structure: arn:aws:iam::account-id:role/role-name. Because TYPE is omitted from `COPY TO`, the file or files will be written in the default CSV format. Because `COMPRESSION` is also omitted, the output data is compressed using GZIP (*.csv.gz) format.
+
+Firebolt assigns a query ID, that has the following example format `16B903C4206098FD`, to the query at runtime. If the size of the compressed output exceeds the default of `16` MB, Firebolt writes multiple GZIP files. In the following example, the size of the output is `40` MB, so Firebolt writes `4` files.
+
+```shell
+s3://my_bucket/my_fb_queries/
+16B903C4206098FD_0.csv.gz
+16B903C4206098FD_1.csv.gz
+16B903C4206098FD_2.csv.gz
+16B903C4206098FD_3.csv.gz
+```
+## Next steps
+
+Now that you have successfully created your first engine and database, ran your first query, created indexes, copied data into, and exported data out of Firebolt, you can continue exploring Firebolt’s capabilities.
+
+### Learn more about Firebolt
+
+* Learn about Firebolt’s unique [architecture](../../Overview/architecture-overview.md).
+* Learn more about creating tables and [managing your data](../../Overview/data-management.md) in order to let Firebolt provide the fastest query times.
+* Learn about the [engines](../../Overview/engine-fundamentals.md) that Firebolt uses to process queries and how to select the right size.
+* Learn how to [load](../loading-data/loading-data.md) different kinds of data.
+* Learn more about [querying data](../query-data/index.md).
+* Learn more about using [indexes](../../Overview/using-indexes.md) to optimize your query times.
+* Learn how to [set up your organization](../managing-your-organization/index.md) to use Firebolt.
+* Learn how to [integrate Firebolt](../integrations/integrations.md) with third party tools and applications.
+
+### Register through the AWS marketplace
+
+If you have exhausted your initial $200 credit, you can continue to use Firebolt after registering through the AWS Marketplace. You must set up an account for billing in order to continue using Firebolt’s engines to run queries.
+
+To register, do the following:
+1. On the [Firebolt Workspace](https://go.firebolt.io/login) page, select the Configure (<img src="../../assets/images/configure-icon.png" alt="New DB +" width="20"/>) icon from the left navigation pane.
+2. Under **Organization settings**, select **Billing**.
+3. Click **Connect to AWS Marketplace** to take you to the Firebolt page on AWS Marketplace. 
+4. On the AWS Marketplace page, click the **View Purchase Options** on the top right hand corner of the screen.
+5. Click **Setup Your Account**.
+
+Your account should now be associated with AWS Marketplace, and ready to continue using Firebolt.
