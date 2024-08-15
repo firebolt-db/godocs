@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Introducing the SQL workspace
+title: Use SQL
 nav_order: 3
 parent: Get started
 grand_parent: Guides

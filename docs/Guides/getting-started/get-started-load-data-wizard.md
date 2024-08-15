@@ -33,6 +33,8 @@ You can view your total cost in FBU up to the latest second and in $USD up to th
 ## Use the Load data wizard
 
 <img src="../assets/images/../../../assets/images/get_started_wizard_wizard.png" alt="New DB +" width="700"/>
+<BR>
+
 You can use the **Load data** wizard to load data in either CSV or Parquet form.
 
  To start the **Load data** wizard, select the plus (+) icon in the Firebolt Workspace next to **Databases** in the left navigation pane and select **Load data**. The wizard will guide you through creating a database, an engine, and loading data. See [Load data using a wizard](../loading-data/loading-data-wizard.md#load-data-using-a-wizard) for detailed information about the workflow and the available options in the wizard.
@@ -41,11 +43,44 @@ You can use the **Load data** wizard to load data in either CSV or Parquet form.
 
 To use the **Load data** wizard, select the plus (+) icon   For detailed information about how to use the Load data wizard, see [Load data](../loading-data/loading-data.md). 
 
-## Run query, optimize and clean up
+## Run query, optimize, clean up and export
+
+<img src="../assets/images/../../../assets/images/get_started_wizard_next.png" alt="New DB +" width="700"/>
+<BR>
+
 After you have loaded your data in the wizard, the rest of the steps in getting started are the same as if you ran your workflow in SQL. You can use either the Develop space in the Firebolt Workspace to enter SQL, or use the [Firebolt API](../query-data/using-the-api.md).
 
 * For information about how to get started running a query, see [Run query](./get-started-sql-workspace.md#run-query).
 
 * For informatiom about how to get started optimizing your workflow, see [Optimize your workflow](get-started-sql-workspace.md#optimize-your-workflow).
 
-* For information about how to get started clean up resources and data, see [Clean up](./get-started-sql-workspace.md#)
+* For information about how to get started clean up resources and data, see [Clean up](./get-started-sql-workspace.md#).
+* For information on how to export your data, see [Export data](get-started-sql-workspace.md#export-data).
+
+## Next steps
+
+Now that you have successfully created your first engine and database, ran your first query, created indexes, copied data into, and exported data out of Firebolt, you can continue exploring Firebolt’s capabilities.
+
+### Learn more about Firebolt
+
+* Learn about Firebolt’s unique [architecture](../../Overview/architecture-overview.md).
+* Learn more about creating tables and [managing your data](../../Overview/data-management.md) in order to let Firebolt provide the fastest query times.
+* Learn about the [engines](../../Overview/engine-fundamentals.md) that Firebolt uses to process queries and how to select the right size.
+* Learn how to [load](../loading-data/loading-data.md) different kinds of data.
+* Learn more about [querying data](../query-data/index.md).
+* Learn more about using [indexes](../../Overview/using-indexes.md) to optimize your query times.
+* Learn how to [set up your organization](../managing-your-organization/index.md) to use Firebolt.
+* Learn how to [integrate Firebolt](../integrations/integrations.md) with third party tools and applications.
+
+### Register through the AWS marketplace
+
+If you have exhausted your initial $200 credit, you can continue to use Firebolt after registering through the AWS Marketplace. You must set up an account for billing in order to continue using Firebolt’s engines to run queries.
+
+To register, do the following:
+1. On the [Firebolt Workspace](https://go.firebolt.io/login) page, select the Configure (<img src="../../assets/images/configure-icon.png" alt="New DB +" width="20"/>) icon from the left navigation pane.
+2. Under **Organization settings**, select **Billing**.
+3. Click **Connect to AWS Marketplace** to take you to the Firebolt page on AWS Marketplace. 
+4. On the AWS Marketplace page, click the **View Purchase Options** on the top right hand corner of the screen.
+5. Click **Setup Your Account**.
+
+Your account should now be associated with AWS Marketplace, and ready to continue using Firebolt.
