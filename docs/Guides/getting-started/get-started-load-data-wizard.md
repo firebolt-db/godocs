@@ -6,7 +6,7 @@ parent: Get started
 grand_parent: Guides
 ---
 
-# Get started using the Load data wizard
+# Get started using a wizard
 {:.no_toc}
 
 The **Load data** wizard guides you through creating a database and engine, and loading data from an Amazon S3 bucket. You can specify basic configurations including what character to use as a file delimiter, which columns to import and their schema. After you load your data, continue your workflow in the SQL workspace to run and optimize a query, and export to an external table, as shown in the following diagram:

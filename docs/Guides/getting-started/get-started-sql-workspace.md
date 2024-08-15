@@ -10,10 +10,10 @@ grand_parent: Guides
 
 You can also use the SQL to create a database and engine, and load data. If you use the SQL workspace, you can customize your workflow to handle more unique workflows than with the **Load data** wizard, including loading data in TSV, Avro, JSON Lines or Orc formats.
 
-The following sections will guide you through a simple workflow to get started with Firebolt.
+The following sections will guide you through a simple workflow to register, create a database and engine, load and query data, learn how to optimize your flow, and clean up resources as shown in the following diagram:
+<BR>
+<img src="../../assets/images/get_started_sql_workflow.png" alt="New DB +" width="700"/>
 
-* Topic ToC
-{:toc}
 
 ## Register with Firebolt
 
