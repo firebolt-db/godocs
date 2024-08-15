@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Getting Started: Next Steps
+title: Next Steps
 nav_order: 5
-parent: Getting Started
+parent: Get started
 grand_parent: Guides
 ---
 

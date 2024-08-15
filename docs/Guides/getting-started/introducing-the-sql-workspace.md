@@ -2,7 +2,7 @@
 layout: default
 title: Introducing the SQL workspace
 nav_order: 3
-parent: Getting Started
+parent: Get started
 grand_parent: Guides
 ---
 

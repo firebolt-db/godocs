@@ -2,7 +2,7 @@
 layout: default
 title: Using the Load data wizard
 nav_order: 2
-parent: Getting Started
+parent: Get started
 grand_parent: Guides
 ---
 
