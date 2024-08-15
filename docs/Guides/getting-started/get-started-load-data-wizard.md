@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Use the load data wizard
+title: Get started using a wizard
 nav_order: 2
 parent: Get started
 grand_parent: Guides
 ---
 
-# Get started with the Load data wizard
+# Get started using the Load data wizard
 {:.no_toc}
 
 The **Load data** wizard guides you through creating a database and engine, and loading data from an Amazon S3 bucket. You can specify basic configurations including what character to use as a file delimiter, which columns to import and their schema. After you load your data, continue your workflow in the SQL workspace to run and optimize a query, and export to an external table, as shown in the following diagram:
@@ -59,28 +59,4 @@ After you have loaded your data in the wizard, the rest of the steps in getting 
 
 ## Next steps
 
-Now that you have successfully created your first engine and database, ran your first query, created indexes, copied data into, and exported data out of Firebolt, you can continue exploring Firebolt’s capabilities.
-
-### Learn more about Firebolt
-
-* Learn about Firebolt’s unique [architecture](../../Overview/architecture-overview.md).
-* Learn more about creating tables and [managing your data](../../Overview/data-management.md) in order to let Firebolt provide the fastest query times.
-* Learn about the [engines](../../Overview/engine-fundamentals.md) that Firebolt uses to process queries and how to select the right size.
-* Learn how to [load](../loading-data/loading-data.md) different kinds of data.
-* Learn more about [querying data](../query-data/index.md).
-* Learn more about using [indexes](../../Overview/using-indexes.md) to optimize your query times.
-* Learn how to [set up your organization](../managing-your-organization/index.md) to use Firebolt.
-* Learn how to [integrate Firebolt](../integrations/integrations.md) with third party tools and applications.
-
-### Register through the AWS marketplace
-
-If you have exhausted your initial $200 credit, you can continue to use Firebolt after registering through the AWS Marketplace. You must set up an account for billing in order to continue using Firebolt’s engines to run queries.
-
-To register, do the following:
-1. On the [Firebolt Workspace](https://go.firebolt.io/login) page, select the Configure (<img src="../../assets/images/configure-icon.png" alt="New DB +" width="20"/>) icon from the left navigation pane.
-2. Under **Organization settings**, select **Billing**.
-3. Click **Connect to AWS Marketplace** to take you to the Firebolt page on AWS Marketplace. 
-4. On the AWS Marketplace page, click the **View Purchase Options** on the top right hand corner of the screen.
-5. Click **Setup Your Account**.
-
-Your account should now be associated with AWS Marketplace, and ready to continue using Firebolt.
+To continue learning about Firebolt's architecture, capabilities, using Firebolt after your trial period, and setting up your organization, see [Resources beyond getting started](./get-started-next.md).

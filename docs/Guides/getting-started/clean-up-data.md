@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Clean up
+title: Clean up resources
 nav_order: 4
 parent: Get started
 grand_parent: Guides
