@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Clean up data and resources
+title: Cleaning up data and resources
 nav_order: 4
 parent: Getting Started
 grand_parent: Guides
 ---
 
-### Clean up data and resources
+### Cleaning up data and resources
 
 <img src="../assets/images/GS-cleanup.png" alt="New DB +" width="700"/>
 
