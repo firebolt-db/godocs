@@ -8,7 +8,7 @@ grand_parent: Guides
 
 ### Cleaning up data and resources
 
-<img src="../assets/images/GS-cleanup.png" alt="New DB +" width="700"/>
+<img src="../assets/images/../../../assets/images/GS-cleanup.png" alt="New DB +" width="700"/>
 
 After you’ve completed the steps in this guide, avoid incurring costs associated with the exercises by doing the following:
 - [Cleaning up data and resources](#cleaning-up-data-and-resources)
@@ -18,7 +18,7 @@ After you’ve completed the steps in this guide, avoid incurring costs associat
 
 #### Stop any running engines
 
-Firebolt shows you the status of your current engine next to the engines icon (<img src="../assets/images/engine-icon.png" alt="AggIndex" width="12"/>) under your script tab as either **Stopped** or **Running**. To shut down your engine, select your engine from the drop-down list next to the name of the engine, and then select one of the following:
+Firebolt shows you the status of your current engine next to the engines icon (<img src="../assets/images/../../../assets/images/engine-icon.png" alt="AggIndex" width="12"/>) under your script tab as either **Stopped** or **Running**. To shut down your engine, select your engine from the drop-down list next to the name of the engine, and then select one of the following:
 * Stop engine - Allow all of the currently running queries to finish running and then shut down the engine. Selecting this option will allow the engine to run for as long as it takes to complete all queries running on the selected engine.
 * Terminate all queries and stop - Stop the engine and stop running any queries. Selecting this option stops the engine in about 20-30 seconds.  
 
@@ -30,13 +30,13 @@ To remove a table and all of its data, enter [DROP TABLE](../../sql_reference/co
 
 To remove a database and all of its associated data, do the following:
 1.  Select the database from the left navigation bar. 
-2. Select the more options (<img src="../assets/images/more options icon.png" alt="AggIndex" width="10"/>) icon.
+2. Select the more options (<img src="../assets/images/../../../assets/images/more options icon.png" alt="AggIndex" width="10"/>) icon.
 3. Select **Delete database**. Deleting your database will permanently remove your database from Firebolt. You cannot undo this action.
 4. Select **Delete**.
 
 ### Export data 
 
-If you want to save your data outside of Firebolt, you can use [COPY TO](./../sql_reference/commands/data-management/copy-to.md) to export data to an external table. This section shows how to set the minimal AWS permissions and use a COPY TO to export data to an [AWS S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html). You may have to reach out to your administrator to obtain or change AWS permissions.
+If you want to save your data outside of Firebolt, you can use [COPY TO](../sql_reference/../../sql_reference/commands/data-management/copy-to.md) to export data to an external table. This section shows how to set the minimal AWS permissions and use a COPY TO to export data to an [AWS S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html). You may have to reach out to your administrator to obtain or change AWS permissions.
 
 1. **Set permissions to write to an AWS S3 bucket**
   
@@ -75,10 +75,10 @@ If you want to save your data outside of Firebolt, you can use [COPY TO](./../sq
       }
   ```
 
-For more information about AWS access keys and roles, see [Creating Access Key and Secret ID in AWS](./loading-data/creating-access-keys-aws.md)
+For more information about AWS access keys and roles, see [Creating Access Key and Secret ID in AWS](../loading-data/creating-access-keys-aws.md)
 
 i. **Export to an AWS S3 bucket**
-Use [COPY TO](../../sql_reference/commands/../../docs/sql_reference/commands/data-management/copy-to.md) select all the columns from a table and export to an AWS S3 bucket as shown in the following code example:
+Use [COPY TO](../sql_reference/../../sql_reference/commands/data-management/copy-to.md) select all the columns from a table and export to an AWS S3 bucket as shown in the following code example:
 ```sql
 COPY (SELECT * FROM test_table)
   TO 's3://my_bucket/my_fb_queries'
@@ -96,4 +96,4 @@ s3://my_bucket/my_fb_queries/
   16B903C4206098FD_3.csv.gz
 ```
 
-See [COPY TO](./../sql_reference/commands/data-management/copy-to.md) for more information. 
+See [COPY TO](../sql_reference/../../sql_reference/commands/data-management/copy-to.md) for more information. 

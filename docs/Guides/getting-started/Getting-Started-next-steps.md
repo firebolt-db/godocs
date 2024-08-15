@@ -16,7 +16,7 @@ If you have exhausted your initial $200 credit, you can continue to use Firebolt
 
 **To register**
 
-1. On the [Firebolt Workspace page](https://go.firebolt.io/), select the **Configure**(<img src="../assets/images/configure-icon.png" alt="AggIndex" width="14"/>) icon from the left navigation pane. 
+1. On the [Firebolt Workspace page](https://go.firebolt.io/), select the **Configure**(<img src="../assets/images/../../../assets/images/configure-icon.png" alt="AggIndex" width="14"/>) icon from the left navigation pane. 
 2. Under **Organization settings**, select **Billing**.
 3. Click **Connect to AWS Marketplace** to take you to the Firebolt page on AWS Marketplace.
 4. On the AWS Marketplace page, click the **View Purchase Options** on the top right hand corner of the screen.
@@ -25,11 +25,11 @@ If you have exhausted your initial $200 credit, you can continue to use Firebolt
 Your account should now be associated with AWS Marketplace.
 
 #### Learn more about Firebolt
-* Learn about Firebolt’s unique [architecture](../Overview/architecture-overview.md).
-* Learn more about creating tables and [managing your data](../Overview/data-management.md) in order to let Firebolt provide the fastest query times. 
-* Learn about the [engines](../Overview/engine-fundamentals.md) that Firebolt uses to process queries and how to select the right size.
-* Learn how to [load](../overview/../Guides/loading-data/loading-data.md) different kinds of data.
-* Learn more about [querying data](../Overview/../guides/../Guides/query-data/index.md).
-* Learn more about using [indexes](../Overview/using-indexes.md) to optimize your query times.
-* Learn how to [set up your organization](../Guides/managing-your-organization/index.md) to use Firebolt.
-* Learn how to [integrate Firebolt](../guides/../Guides/integrations/integrations.md) with third party tools and applications.
+* Learn about Firebolt’s unique [architecture](../../Overview/architecture-overview.md)
+* Learn more about creating tables and [managing your data](./../../Overview/data-management.md) in order to let Firebolt provide the fastest query times. 
+* Learn about the [engines](../overview/../../Overview/engine-fundamentals.md) that Firebolt uses to process queries and how to select the right size.
+* Learn how to [load](./../../Overview/../Guides/loading-data/loading-data.md) different kinds of data.
+* Learn more about [querying data](./../../Overview/../guides/../Guides/query-data/index.md).
+* Learn more about using [indexes](./../../Overview/using-indexes.md) to optimize your query times.
+* Learn how to [set up your organization](../../guides/../Guides/managing-your-organization/index.md) to use Firebolt.
+* Learn how to [integrate Firebolt](./../integrations/integrations.md) with third party tools and applications.
