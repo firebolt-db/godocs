@@ -10,12 +10,44 @@ has_toc: false
 
 # Load data
 
-Loading data into Firebolt is described in the [Getting started tutorial](../getting-started.md) and consists of three steps.
+You can load data into Firebolt from an Amazon S3 bucket using two different workflows.
 
-1. To provide Firebolt with the right permissions to load data from your Amazon S3 bucket, you must create AWS access keys and secret IDs. For instructions on how to create the access key credentials in AWS, see [Creating Access Key and Secret ID](../loading-data/creating-access-keys-aws.md).
+If you want to get started quickly, load data using a **wizard** in the Firebolt workspace. If you want a more customized experience, you can write **SQL scripts** to handle each part of your workflow. This guide shows you how to load data using both the wizard and SQL, and some common data loading workflows and errors.
 
-2. Using the credentials created above, you can now load your data into Firebolt using the `COPY FROM` command. For information on its syntax and parameters, click [here](../../sql_reference/commands/data-management/copy-from.md).
+<br>
+<img src="../../assets/images/load_data_workflow.png" alt="You can use either the load data wizard or SQL to create a database, engine, and then load data." width="700"/>
 
-3. Loading data into Firebolt is also performed using external tables. To learn more about how to run the [CREATE EXTERNAL TABLE](../../sql_reference/commands/data-definition/create-external-table.md) command to load your data into Firebolt, see [Work With External Tables](../loading-data/working-with-external-tables.md).
+{: .note} 
+Before you can load data, you must first register with Firebolt, then create a database and an engine. For information about how to register, see [Get Started](../getting-started.md). See the following sections for information about how to create a database and engine.
 
-<!-- For information about using Apache Airflow to incrementally load data chronologically, see [Incrementally loading data with Airflow](incrementally-loading-data.md). -->
+## Load data using a wizard
+You can use the **Load data** wizard to load data in either CSV or Parquet format, and choose from a variety of different loading parameters which include the following:
+
+ * Specifying a custom delimiter, quote character, or escape character.
+ * How to handle errors during data load.
+ * Specifying a primary index.
+  
+ The **Load data** wizard guides you through creating an engine and database as part of the loading process.
+
+See [Load data using a wizard](loading-data-wizard.md) for information about the options available in the **Load data** wizard.
+
+ 
+## Load data using SQL statements
+You can use SQL to load data in CSV, Parquet, TSV, AVRO, JSON Lines or ORC formats. Prior to loading data, you must also create a database and engine using either of the following options:
+
+- Use buttons in the Firebolt SQL user interface to create a database and engine. For more information, see the [Create a Database](../../Guides/getting-started.md#create-a-database) and [Create an Engine](../../Guides/getting-started.md#create-an-engine) sections in the [Get Started](../getting-started.md) guide.
+
+- Use the SQL commands [CREATE DATABASE](../../sql_reference/commands/data-definition/create-database.md) and [CREATE ENGINE](../../sql_reference/commands/engines/create-engine.md).
+  
+See [SQL to load data](loading-data-sql.md) for information and code examples to load data using SQL.
+
+## Optimizing during data loading
+Optimizing your workflow for Firebolt starts when you load your data. Use the following guidance:
+1. Your data should load into tables that have primary indexes. You can specify primary indexes in either the **Load data** wizard or inside SQL commands. The [Load data using a wizard](loading-data-wizard.md) guide discusses considerations for selecting and how to select primary indexes. The [Load data using SQL statements](loading-data-sql.md) discusses considerations for selecting and shows code examples that select primary indexes.
+2. Use aggregating indexes to pre-calculate [aggregate functions](../../sql_reference/functions-reference/aggregation/index.md) so that queries can access this information quickly. For an introduction to aggregating indexes, see [Aggregating Indexes](../../Guides/getting-started.md#aggregating-indexes) section of the **Get Started** guide. For more advanced information, see [Aggregating indexes](../working-with-indexes/using-aggregating-indexes.md).
+3. Consider using warm data inside a query to access data quickly from local cache instead of reading data from an Amazon S3 bucket. This optimization strategy can greatly speed up queries for large datasets with millions of rows or more. For more information, see the [Warm data and cache eviction](../getting-started.md#warm-data-and-cache-eviction) section in the **Get Started** guide.
+
+## Next steps 
+After you load your data, you can start running and optimizing your queries. A typical workflow has the previous steps followed by data and resource cleanup as shown in the following diagram:
+
+<img src="../../assets/images/get_started_workflow.png" alt="The load data workflow includes using the load data wizard or SQL to create a database, engine, and then load data." width="700"/>

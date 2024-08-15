@@ -19,12 +19,15 @@ jobs:
           path: 'build'
           token: ${{ secrets.GITHUB_TOKEN }}
           ref: ${{ github.ref_name }}
-
+    
       - name: Build the site using Docker
+        env: 
+          JEKYLL_ENV: production          
         run: |
           docker run --rm \
             -v $(pwd):/srv/jekyll \
             -v $(pwd)/vendor/bundle:/usr/local/bundle \
+            -v /tmp/_site:/srv/jekyll/_site \
             -e JEKYLL_ENV=production \
             jekyll/builder:latest \
             jekyll build
