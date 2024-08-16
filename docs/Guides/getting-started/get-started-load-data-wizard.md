@@ -9,7 +9,7 @@ grand_parent: Guides
 # Get started using a wizard
 {:.no_toc}
 
-The **Load data** wizard guides you through creating a database and engine, and loading data from an Amazon S3 bucket. You can specify basic configurations, including what character to use as a file delimiter, which columns to import and their schema. After loading your data, continue working in the **Develop Space** to run and optimize a query, and export to an external table, as shown in the following diagram:
+The **Load data** wizard guides you through creating a database and engine, and loading data from an Amazon S3 bucket. You can specify basic configurations, including what character to use as a file delimiter, which columns to import and their schema. After you load your data, continue working in the **Develop Space** to run and optimize a query, and export to an external table, as shown in the following diagram:
 
 <img src="../../assets/images/get_started_wizard_workflow.png" alt="A simple workflow using the load data wizard starts with registering, using the wizard, running a query, optimizing your workflow, and cleaning up. " width="700"/>
 
@@ -19,9 +19,9 @@ The **Load data** wizard guides you through creating a database and engine, and 
 
 Use the following steps to register with Firebolt:
 <BR>
-1. [Sign up](https://go.firebolt.io/signup) on Firebolt's registration page. Fill in your email, name, choose a password, and select `Get Started’.
+1. [Sign up](https://go.firebolt.io/signup) on Firebolt's registration page. Fill in your email, name, choose a password, and select `Get Started`.
 
-2. Firebolt will send a confirmation to the address that you provided. To complete your registration, select ‘Verify’ in the email to take you to Firebolt’s [login page](https://go.firebolt.io/login). 
+2. Firebolt will send a confirmation to the address that you provided. To complete your registration, select ‘Verify’ in the email to take you to Firebolt’s [login page](https://go.firebolt.io/login).
 
 3. Type in your email and password and click ‘Log In’.
 
