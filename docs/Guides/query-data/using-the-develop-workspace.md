@@ -1,41 +1,41 @@
 ---
 layout: default
-title: Using the Develop Workspace
-description: Learn how to navigate and use the develop workspace to work with your Firebolt database.
+title: Using the Develop Space
+description: Learn how to navigate and use the Develop Space to work with your Firebolt database.
 parent: Query data
 grand_parent: Guides
 nav_order: 1
 ---
 
-# Using the develop workspace
+# Use the Develop Space
 {: .no_toc}
 
 * Topic ToC
 {:toc}
 
-The Firebolt Manager has a develop workspace that you use to edit and run SQL scripts and view query results.
+The **Firebolt Workspace** has a **Develop Space** that you use to edit and run SQL scripts and view query results.
 
-## Opening the develop workspace
+## Open the Develop Space
 
-You can launch the workspace for a database by clicking the **Develop** icon from the left navigation pane or clicking the "+" icon next to "Script 1". 
+You can launch the space for a database by clicking the **Develop** icon from the left navigation pane or clicking the "+" icon next to "Script 1". 
 
   <img src="../../assets/images/develop_workspace_ex0.png" alt="drawing" width="70%"/>
 
   <img src="../../assets/images/develop_workspace_ex4.png" alt="drawing" width="70%"/>
 
-**Starting the develop workspace for the last database you worked with**
+**Starting the **Develop** Space for the last database you worked with**
 
 1.  Choose the **>_** icon from the left navigation pane.
 
     <img src="../../assets/images/develop_workspace_ex0.png" alt="drawing" width="70%"/>
 
-    The workspace for the database that you last worked with will open, and the database will be selected from the list.
+    The space for the database that you last worked with will open, and the database will be selected from the list.
 
-2. To switch to different database's workspace, choose from the dropdown menu in the Databases panel. 
+2. To switch to different database's space, choose from the dropdown menu in the Databases panel. 
 
 ## A quick tour
 
-The develop workspace is organized into two panels.
+The Develop Space is organized into two panels.
 
 * The left panel is the explore panel. You can use it to navigate to different databases and to work with different scripts in your database.
 
