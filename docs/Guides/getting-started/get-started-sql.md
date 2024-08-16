@@ -19,7 +19,7 @@ The following sections will guide you through a simple workflow to register, cre
 
 <img src="../../assets/images/get_started_sql_register.png" alt="The first step in the workflow is to register with Firebolt." width="700"/>
 <BR>
-The first step in getting started using Firebolt is to register by doing the following:
+To get started using Firebolt, begin by registering using the following steps:
 
 1. [Register](https://go.firebolt.io/signup) with Firebolt. Fill in your email, name, choose a password, and select ‘Get Started’.
 
