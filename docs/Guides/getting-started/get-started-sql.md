@@ -49,7 +49,7 @@ If you used the **Load data** wizard, Firebolt has already created a database fo
 
 The following instructions show you how to create a database and then an engine. Note that you can also create the engine first.
 
-1. In the left navigation pane, select the **+** to the right **Databases**.
+1. In the left navigation pane, select the plus icon (**+**) to the right **Databases**.
 
 2. Select **Create new database**. 
 
