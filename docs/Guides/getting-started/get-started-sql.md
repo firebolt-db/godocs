@@ -8,7 +8,7 @@ grand_parent: Guides
 
 # Get started using SQL
 
-You can also use SQL to create a database and engine, and load data. If you use the **Develop Workspace** inside the **Firebolt Workspace**, you can customize your workflow to handle more unique workflows than with the **Load data** wizard, including loading data in TSV, Avro, JSON Lines, or ORC formats.
+You can also use SQL to create a database and engine, and load data. If you use the **Develop Space** inside the **Firebolt Workspace**, you can customize your workflow to handle more unique workflows than with the **Load data** wizard, including loading data in TSV, Avro, JSON Lines, or ORC formats.
 
 The following sections will guide you through a simple workflow to register, create a database and engine, load and query data, learn how to optimize your workflow, and clean up resources as shown in the following diagram:
 <BR>
@@ -61,7 +61,7 @@ Firebolt creates a new database with the following two default schemas:
 
 You can find these schema by selecting your database under **Databases** in the left navigation pane. Next to the name of your database, select the drop-down arrow to expand and view the schemas and their contents. You can view your total cost in FBU up to the latest second and in $USD up to the latest day in **Information_schema**. 
 
-If you’re using the **Develop Workspace**, expand **Information_schema**, and then **Views** to show the following:
+If you’re using the **Develop Space**, expand **Information_schema**, and then **Views** to show the following:
 * **engine_metering_history** - contains information about billing cost in FBU up to the latest second in **consumed_fbu**.
 * **engine_billing** - contains information about billing cost in US dollars up to the latest day in **billed_cost**. 
 
@@ -97,7 +97,7 @@ Engines can cache the following dataset sizes:
 
 Small and medium engines are available for use right away. If you want to use a large or extra-large engine, reach out to support@firebolt.io. The default engine configuration uses a small node, which is sufficient for this tutorial. To learn more about how to select the correct engine size for your workload, see [Sizing Engines](../operate-engines/sizing-engines.md).
 
-By default, when you login to **Firebolt’s Workspace** for the first time, Firebolt creates a tab in the **Develop Workspace** called **Script 1**. The following apply:
+By default, when you login to **Firebolt’s Workspace** for the first time, Firebolt creates a tab in the **Develop Space** called **Script 1**. The following apply:
 * The database that **Script 1** will run using is located directly below the tab name. If you want to change the database, select another database from the drop-down list. 
   
 * An engine must be running to process the script in a selected tab. The name and status of the engine that **Script 1** uses for computation is located to the right of the current selected database. To change either the engine or the status, select the drop-down arrow next to the engine name. You can select a new engine and change its status from **Stopped** to **Running** by selecting **Start engine**. If you select **Run** at the bottom of the workspace, the selected engine starts automatically. Select **Stop engine** to change the status to **Stopped**. Firebolt automatically stops your engine if it is inactive for 20 minutes.
@@ -122,7 +122,7 @@ After creating an engine, you can load your data. This tutorial uses Firebolt's 
 {: .note}
 If you used the **Load data** wizard, skip ahead to the following **Run query** section.
 
-Use [COPY FROM](../../sql_reference/commands/data-management/copy-from.md) in the **Develop Workspace** to copy data directly from a source into a Firebolt managed table.
+Use [COPY FROM](../../sql_reference/commands/data-management/copy-from.md) in the **Develop Space** to copy data directly from a source into a Firebolt managed table.
 
 1. Enter the following  into the **Script 1** tab to load data using the following steps:
   ```sql
@@ -147,7 +147,7 @@ Use [COPY FROM](../../sql_reference/commands/data-management/copy-from.md) in th
   ```
   
 1. Select **Run**. The bottom of your workspace includes information about your processing job in the following tabs:
-  * The **Results** tab at the bottom of your **Develop Workspace** shows the contents returned by your query. After running the previous SELECT statement, the **Results** tab should display column names and values for the data in the tutorial. 
+  * The **Results** tab at the bottom of your **Develop Space** shows the contents returned by your query. After running the previous SELECT statement, the **Results** tab should display column names and values for the data in the tutorial. 
     * Select the filter icon (<img src="../../assets/images/filter-icon.png" alt="Filter icon" width="12"/>) to change which columns are shown.
     * Select the **More options** icon (<img src="../../assets/images/more_options_icon.png" alt="More options icons" width="7"/>) to export the contents of the **Results** tab to a JSON or CSV file.
     * The Statistics tab shows information about running your query including how long it took to run and its status. After running the previous SELECT statement, the **Statistics** tab shows the status of the statement, its STATUS as having succeeded or failed, how long it took to run the query, the number of rows processed, and the amount of data scanned.
@@ -166,7 +166,7 @@ You can use these metrics to analyze and measure the efficiency and performance 
     * Select the filter icon (<img src="../../assets/images/filter-icon.png" alt="Filter data icon" width="12"/>) to remove or add columns to display. 
     * Select the **More options** icon (<img src="../../assets/images/more_options_icon.png" alt="More options icon" width="7"/>) to export the contents of the **Query history** tab to a JSON or CSV file.
   
-For more information about Firebolt’s **Develop Workspace**, see [Use the Develop Workspace](../query-data/using-the-develop-workspace.md).
+For more information about Firebolt’s **Develop Space**, see [Using the develop workspace](../query-data/using-the-develop-workspace.md).
 
 ## Run Query
 
@@ -185,7 +185,7 @@ To run a query on your data, do the following:
    
    If your engine is **Stopped**, Firebolt may prompt you to start your engine. Select **Start Engine**. Engine startup typically requires a few moments to complete, as Firebolt prepares your environment for data analysis.
 
-For more information about Firebolt’s **Develop Workspace**, see [Use the Develop Workspace](../query-data/using-the-develop-workspace.md). 
+For more information about Firebolt’s **Develop Space**, see [Use the Develop Space](../query-data/using-the-develop-workspace.md). 
 
 ## Optimize your workflow
 
@@ -316,7 +316,7 @@ To remove a table and all of its data, enter [DROP TABLE](../../sql_reference/co
 DROP TABLE levels
 ```
 
-To remove a database and all of its associated data, do the following in the Firebolt **Develop Workspace**:
+To remove a database and all of its associated data, do the following in the Firebolt **Develop Space**:
 * Select the database from the left navigation bar. 
 * Select the more options (<img src="<../../assets/images/more options icon.png>" alt="More options icon" width="7"/>) icon.
 * Select **Delete database**. Deleting your database will permanently remove your database from Firebolt. You cannot undo this action.

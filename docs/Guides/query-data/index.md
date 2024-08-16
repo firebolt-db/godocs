@@ -12,6 +12,6 @@ parent: Guides
 
 Learn how to query data in Firebolt, using the SQL editor, the CLI or the API. 
 
-* [Using the Develop Workspace](using-the-develop-workspace.md)
-* [Using the API](using-the-api.md)
-* [Keyboard shortcuts for Develop Workspace](keyboard-shortcuts-for-sql-editor.md)
+* [Use the Develop Space](using-the-develop-workspace.md)
+* [Use the API](using-the-api.md)
+* [Keyboard shortcuts for the Develop Space](keyboard-shortcuts-for-sql-editor.md)
