@@ -17,7 +17,9 @@ The **Load data** wizard guides you through creating a database and engine, and 
 
 <img src="../../assets/images/get_started_wizard_register.png" alt="The first step in getting started is to register with Firebolt." width="700"/>
 
-1. [Register](https://go.firebolt.io/signup) with Firebolt. Fill in your email, name, choose a password, and select ‘Get Started’.
+Use the following steps to register with Firebolt:
+<BR>
+1. [Sign up](https://go.firebolt.io/signup) on Firebolt's registration page. Fill in your email, name, choose a password, and select `Get Started’.
 
 2. Firebolt will send a confirmation to the address that you provided. To complete your registration, select ‘Verify’ in the email to take you to Firebolt’s [login page](https://go.firebolt.io/login). 
 
@@ -55,6 +57,7 @@ After you have loaded your data in the wizard, the rest of the steps in getting 
 * For information about how to get started optimizing your workflow, see [Optimize your workflow](get-started-sql#optimize-your-workflow).
 
 * For information about how to get started cleaning up resources and data, see [Clean up resources](./get-started-sql#clean-up).
+  
 * For information on how to export your data, see [Export data](get-started-sql.md#export-data).
 
 ## Next steps
