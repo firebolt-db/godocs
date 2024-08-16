@@ -8,44 +8,46 @@ grand_parent: Guides
 
 # Get started using SQL
 
-You can also use the SQL to create a database and engine, and load data. If you use the SQL workspace, you can customize your workflow to handle more unique workflows than with the **Load data** wizard, including loading data in TSV, Avro, JSON Lines or Orc formats.
+You can also use the SQL to create a database and engine, and load data. If you use the **Develop Workspace** inside the **Firebolt Workspace**, you can customize your workflow to handle more unique workflows than with the **Load data** wizard, including loading data in TSV, Avro, JSON Lines or Orc formats.
 
 The following sections will guide you through a simple workflow to register, create a database and engine, load and query data, learn how to optimize your flow, and clean up resources as shown in the following diagram:
 <BR>
-<img src="../../assets/images/get_started_sql_workflow.png" alt="New DB +" width="700"/>
+<img src="../../assets/images/get_started_sql_workflow.png" alt="A simple workflow using SQL includes registering, creating a database and engine, loading data, querying data, optimizing your workflow, cleaning up, and optionally exporting data." width="700"/>
 
 
 ## Register with Firebolt
 
-<img src="../assets/images/../../../assets/images/GS-register.png" alt="New DB +" width="700"/>
+<img src="../../assets/images/get_started_sql_register.png" alt="The first step in the workflow is to register with Firebolt." width="700"/>
+<BR>
+The first step in getting started using Firebolt is to register by doing the following:
 
 1. [Register](https://go.firebolt.io/signup) with Firebolt. Fill in your email, name, choose a password, and select ‘Get Started’.
 
-2. Firebolt will send a confirmation to the address that you provided. To complete your registration, select ‘Verify’ in the email to take you to Firebolt’s [login page](https://go.firebolt.io/login). 
+2. Firebolt will send a confirmation to the address that you provided. To complete your registration, select **Verify** in the email to take you to Firebolt’s [login page](https://go.firebolt.io/login).
 
-3. Type in your email and password and click ‘Log In’.
+3. Type in your email and password and select **Log In**.
 
 {: .note}
 New accounts receive 600 Firebolt unit (FBU) credits ($200+) to get started exploring Firebolt’s capabilities.
 
 Firebolt’s billing is based on engine runtime, measured in seconds. We also pass through AWS S3 storage costs at the rate of $23 per TB. The amount that you spend is dependent primarily on which engines you use and how long those engines are running.
 
-You can view your total cost in FBU up to the latest second and in $USD up to the latest day. For more information, see the following **Create a Database** section. For more information about costs, see [Data Warehouse Pricing](https://www.firebolt.io/pricing). If you need to buy additional credits, connect Firebolt with your AWS Marketplace account. For more information about AWS Marketplace, see the following section: [Registering though AWS Marketplace section](./Getting-started-next-steps.md#register-through-the-aws-marketplace)
+You can view your total cost in FBU up to the latest second and in $USD up to the latest day. For more information, see the following **Create a Database** section. For more information about costs, see [Data Warehouse Pricing](https://www.firebolt.io/pricing). If you need to buy additional credits, connect Firebolt with your AWS Marketplace account. For more information about AWS Marketplace, see the following section: [Registering though AWS Marketplace section](./Getting-started-next-steps.md#register-through-the-aws-marketplace).
 
 ## Create a Database
 
-<img src="../assets/images/../../../assets/images/GS-database.png" alt="New DB +" width="700"/>
-
+<img src="../../assets/images/get_started_sql_database.png" alt="After registering, create a database." width="700"/>
+<BR>
 Firebolt decouples storage and compute resources so that multiple engines can run computations on the same database. You can also configure different engine sizes for different workloads. These workloads can run in parallel or separately. Because storage is decoupled from compute, you must first create both a database and an engine before you can run your first query.
 
 Firebolt’s structure is organized as follows:
 * A database holds the elements that you need to run queries such as tables, views and information schema.  
-* An [engine](../overview/../../Overview/engine-fundamentals.md) provides the compute resources for ingesting data and running queries. For more information on using Firebolt engines and how to select the correct size for your workload, see [Operate engines](./overview/../../operate-engines/operate-engines.md).
+* An [engine](../../Overview/engine-fundamentals.md) provides the compute resources for ingesting data and running queries. For more information on using Firebolt engines and how to select the correct size for your workload, see [Operate engines](../operate-engines/operate-engines.md).
 
 {: .note}
-If you used the **Load data** wizard, Firebolt has already created a database for you, and you can skip the following step.
+If you used the **Load data** wizard, Firebolt has already created a database for you, and you can skip creating a database.
 
-The following instructions show you how to create a database and then an engine. Note that you can also create the engine first. 
+The following instructions show you how to create a database and then an engine. Note that you can also create the engine first.
 
 1. In the left navigation pane, select the **+** to the right **Databases**.
 
@@ -59,11 +61,11 @@ Firebolt creates a new database with the following two default schemas:
 
 You can find these schema by selecting your database under **Databases** in the left navigation pane. Next to the name of your database, select the drop-down arrow to expand and view the schemas and their contents. You can view your total cost in FBU up to the latest second and in $USD up to the latest day in **Information_schema**. 
 
-If you’re using the Firebolt SQL workspace, expand **Information_schema** and then **Views** to show the following:
+If you’re using the **Develop Workspace**, expand **Information_schema** and then **Views** to show the following:
 * **engine_metering_history** - contains information including about billing cost in FBU up to the latest second in **consumed_fbu**.
 * **engine_billing** - contains information about billing cost in US dollars up to the latest day in **billed_cost**. 
 
-To see values for the previous costs, select the **More options** icon (<img src="../assets/images/../../../assets/images/more options icon.png" alt="AggIndex" width="10"/>) next to either **consumed_fbu** or **billed_cost**, Then select **Preview data**. You can also run a query in the script tab as shown in the following code example:x
+To see values for the previous costs, select the **More options** icon (<img src="<../../assets/images/more options icon.png>" alt="More options icon" width="10"/>) next to either **consumed_fbu** or **billed_cost**, Then select **Preview data**. You can also run a query in the script tab as shown in the following code example:
 
 ```sql
 SELECT * 
@@ -72,13 +74,13 @@ FROM information_schema.engine_metering_history
 
 ## Create an Engine
 
-<img src="../assets/images/../../../assets/images/GS-engine.png" alt="New DB +" width="700"/>
-
+<img src="../../assets/images/get_started_sql_engine.png" alt="After creating a database, create an engine." width="700"/>
+<BR>
 To process a query, you must use an engine. You can either create an engine based on the following recommendations, or use the system engine. You can only use the system engine to run metadata-related queries, but it is always running, so you don’t have to wait for it to start. You can use the system engine to process data in any database. If you create your own engine, there is a small start up time associated with it. 
 
-Firebolt recommends the following initial engine configurations based on where you are in your exploration of Firebolt’s capabilities. An FBU stands for a Firebolt Unit, and is equivalent to 35 US cents. 
+Firebolt recommends the following initial engine configurations based on where you are in your exploration of Firebolt’s capabilities. An FBU stands for a Firebolt Unit, and is equivalent to 35 US cents.
 
-Each FBU is related to the amount of time 
+Each FBU is related to the amount of time as follows:
 
 | Task                           | Expected Usage |
 | :----------------------------  | :----------- --|
@@ -93,9 +95,9 @@ Engines can cache the following dataset sizes:
 * A large (L) engine can cache 7.5 TB of data. 
 * An extra-large (XL) engine can cache 15 TB of data. 
 
-Small and medium engines are available for use right away. If you want to use a large or extra-large engine, reach out to support@firebolt.io. The default engine configuration uses a small node, which is sufficient for this tutorial. To learn more about how to select the correct engine size for your workload, see [Sizing Engines](./../operate-engines/sizing-engines.md).
+Small and medium engines are available for use right away. If you want to use a large or extra-large engine, reach out to support@firebolt.io. The default engine configuration uses a small node, which is sufficient for this tutorial. To learn more about how to select the correct engine size for your workload, see [Sizing Engines](../operate-engines/sizing-engines.md).
 
-By default, when you login to Firebolt’s workspace for the first time, Firebolt creates a SQL workspace in a tab called **Script 1**. The following apply:
+By default, when you login to **Firebolt’s Workspace** for the first time, Firebolt creates a tab in the **Develop Workspace** called **Script 1**. The following apply:
 * The database that **Script 1** will run using is located directly below the tab name. If you want to change the database, select another database from the drop-down list. 
   
 * An engine must be running to process the script in a selected tab. The name and status of the engine that **Script 1** uses for computation is located to the right of the current selected database. To change either the engine or the status, select the drop-down arrow next to the engine name. You can select a new engine and change its status from **Stopped** to **Running** by selecting **Start engine**. If you select **Run** at the bottom of the workspace, the selected engine starts automatically. Select **Stop engine** to change the status to **Stopped**. Firebolt automatically stops your engine if it is inactive for 20 minutes.
@@ -113,20 +115,20 @@ If you used the **Load data** wizard, Firebolt has already created an engine for
 
 ## Load Data
 
-<img src="../assets/images/../../../assets/images/GS-load.png" alt="New DB +" width="700"/>
+<img src="../../assets/images/get_started_sql_load.png" alt="After creating an engine, you can load your data." width="700"/>
 
-This tutorial uses Firebolt’s sample dataset, from the fictional [“Ultra Fast Gaming Inc”](https://help.firebolt.io/t/ultra-fast-gaming-firebolt-sample-dataset/250) company. This dataset is publicly available and does not require access credentials. If your personal dataset requires access credentials, you will need to provide them. For examples of how to provide access credentials and more complex loading workflows, see [Loading data](./guides/../../loading-data/loading-data.md). For more information about AWS access credentials, see [Creating Access key and Secret ID](./guides/../../loading-data/creating-access-keys-aws.md)
+After creating an engine, you can load your data. This tutorial uses Firebolt's publicly available Firebolt’s sample dataset, from the fictional [“Ultra Fast Gaming Inc”](https://help.firebolt.io/t/ultra-fast-gaming-firebolt-sample-dataset/250) company. This dataset does not require access credentials. If your personal dataset requires access credentials, you will need to provide them. For examples of how to provide access credentials and more complex loading workflows, see [Loading data](../loading-data/loading-data.md). For more information about AWS access credentials, see [Creating Access key and Secret ID](../loading-data/creating-access-keys-aws.md)
 
 {: .note}
-If you used the **Load data** wizard, skip ahead to the following **Query data** section.
+If you used the **Load data** wizard, skip ahead to the following **Run query** section.
 
-Use [COPY FROM](../sql_reference/../../sql_reference/commands/data-management/copy-from.md) in the SQL workspace to copy data directly from a source into a Firebolt managed table.
+Use [COPY FROM](../../sql_reference/commands/data-management/copy-from.md) in the **Develop Workspace** to copy data directly from a source into a Firebolt managed table.
 
 1. Enter the following  into the **Script 1** tab to load data using the following steps:
   ```sql
   COPY INTO tutorial FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv' WITH HEADER=TRUE;
   ```
-  For examples of more complex loading workflows, see [Load data](../guides/../loading-data/loading-data.md).
+  For examples of more complex loading workflows, see [Load data](../loading-data/loading-data.md).
 
 2. Select **Run**.
   
@@ -134,9 +136,9 @@ Use [COPY FROM](../sql_reference/../../sql_reference/commands/data-management/co
   
 4. Expand the drop down menu next to **Columns** to view the name and data format of each column. 
 
-5. Select the **More options** icon (<img src="../assets/images/../../../assets/images/more options icon.png" alt="AggIndex" width="10"/>) next to the data type of each column name to open a pop-up that allows you to insert the name of the column into your SQL script. You can also select **Preview data**.
+5. Select the **More options** icon (<img src="../../assets/images/more_options_icon.png" alt="More options icon" width="7"/>) next to the data type of each column name to open a pop-up that allows you to insert the name of the column into your SQL script. You can also select **Preview data**.
 
-6. To view the contents of  the **tutorial** table, run a SELECT query as shown in the following code example. To run this in a new tab, select the (+) icon next to the **Script 1** tab.
+6. To view the contents of  the **tutorial** table, run a SELECT query as shown in the following code example. To run this in a new tab, select the (**+**) icon next to the **Script 1** tab.
   ```sql
   SELECT
     *
@@ -144,60 +146,62 @@ Use [COPY FROM](../sql_reference/../../sql_reference/commands/data-management/co
     tutorial
   ```
   
-7. Select **Run**. The bottom of your workspace includes information about your processing job in the following tabs:
-  * The **Results** tab at the bottom of your Firebolt workspace shows the contents returned by your query. After running the previous SELECT statement, the **Results** tab should display column names and values for the data in the tutorial. 
-    * Select the filter icon (<img src="../assets/images/../../../assets/images/filter-icon.png" alt="AggIndex" width="12"/>) to change which columns are shown.
-    * Select the **More options** icon (<img src="../assets/images/../../../assets/images/more options icon.png" alt="AggIndex" width="10"/>) to export the contents of the **Results** tab to a JSON or CSV file.
-    * The Statistics tab shows information about running your query including how long it took to run and its status. After running the previous SELECT statement, the **Statistics** tab shows the status of the statement, its STATUS as having succeeded or failed, how long it took to run the query, the number of rows processed, the amount of data scanned, and <HOT QUERY what is it?>
-    * Select the **More options** icon (<img src="../assets/images/../../../assets/images/more options icon.png" alt="AggIndex" width="10"/>) to export the contents of the **Statistics** tab to a JSON or CSV file.
+1. Select **Run**. The bottom of your workspace includes information about your processing job in the following tabs:
+  * The **Results** tab at the bottom of your **Develop Workspace** shows the contents returned by your query. After running the previous SELECT statement, the **Results** tab should display column names and values for the data in the tutorial. 
+    * Select the filter icon (<img src="../../assets/images/filter-icon.png" alt="Filter icon" width="12"/>) to change which columns are shown.
+    * Select the **More options** icon (<img src="../../assets/images/more_options_icon.png" alt="More options icons" width="7"/>) to export the contents of the **Results** tab to a JSON or CSV file.
+    * The Statistics tab shows information about running your query including how long it took to run and its status. After running the previous SELECT statement, the **Statistics** tab shows the status of the statement, its STATUS as having succeeded or failed, how long it took to run the query, the number of rows processed, and the amount of data scanned.
+    * Select the **More options** icon (<img src="../../assets/images/more_options_icon.png" alt="More options icon" width="7"/>) to export the contents of the **Statistics** tab to a JSON or CSV file.
     * The **Query Profile** tab contains metrics for each operator used in your query and a **Query id**.  Select an operation to view its metrics. These metrics include the following:
       * The output cardinality - the number of rows that each operator produced.
       * The thread time - the sum of the wall clock time that threads spent to run the selected operation across all nodes.
       * The CPU time - the sum of the time that threads that ran the operator were scheduled on a CPU core.
       * The output types - the data types of the result of the operator.
 
-You can use these metrics to analyze and measure the efficiency and performance of your query. For example, If the CPU time is much smaller than thread time, the input-output (IO) latency may be high or the engine that you are using may be running multiple queries at the same time. For more information, see [Example with ANALYZE](../sql_reference/../../sql_reference/commands/queries/explain.md). 
+You can use these metrics to analyze and measure the efficiency and performance of your query. For example, If the CPU time is much smaller than thread time, the input-output (IO) latency may be high or the engine that you are using may be running multiple queries at the same time. For more information, see [Example with ANALYZE](../../sql_reference/commands/queries/explain.md). 
 
   * The **Engine monitoring** tab shows monitoring information including the percent CPU, memory, disk use and cache read. Information is shown from the last 5 minutes by default. Select a different time interval from the drop-down menu next to **Last 5 minutes**. You can also select the **Refresh** icon next to the drop-down menu to update the graphical information.
   * The **Query history** tab shows detailed information associated with each query, listed by its **Query id**. This information includes the query status, start time, number of rows and bytes scanned during the load, user and account information. You can choose the following options at the top of the bottom panel:
     * Select the **Refresh** icon to update the query history and ID.
-    * Select the filter icon (<img src="../assets/images/../../../assets/images/filter-icon.png" alt="AggIndex" width="12"/>) to remove or add columns to display. 
-    * Select the **More options** icon (<img src="../assets/images/../../../assets/images/more options icon.png" alt="AggIndex" width="10"/>) to export the contents of the Query history tab to a JSON or CSV file.
+    * Select the filter icon (<img src="../../assets/images/filter-icon.png" alt="Filter data icon" width="12"/>) to remove or add columns to display. 
+    * Select the **More options** icon (<img src="../../assets/images/more_options_icon.png" alt="More options icon" width="7"/>) to export the contents of the **Query history** tab to a JSON or CSV file.
   
-For more information about Firebolt’s SQL workspace, see [Use the Develop Workspace](./../query-data/using-the-develop-workspace.md). 
+For more information about Firebolt’s **Develop Workspace**, see [Use the Develop Workspace](../query-data/using-the-develop-workspace.md).
 
 ## Run Query
 
-<img src="../assets/images/../../../assets/images/GS-query.png" alt="New DB +" width="700"/>
+<img src="../../assets/images/get_started_sql_query.png" alt="After loading your data, you can run a query." width="700"/>
 
-1. Select the (+) icon next to the Script 2 tab to open a new tab.
+To run a query on your data, do the following:
+
+1. Select the (**+**) icon next to the **Script 2** tab to open a new tab.
 
 2. Enter the following simple query, which fetches a list of databases associated with your account:
   ```sql
   SHOW DATABASES;
   ```
 
-3. Select **Run** to process the query. Firebolt uses the engine listed to the right of your database to run your query and its status of **Running** or **Stopped**. You can select a different engine from the dropdown menu next to the engine (<img src="../assets/images/../../../assets/images/engine-icon.png" alt="AggIndex" width="12"/>) icon. 
+3. Select **Run** to process the query. Firebolt uses the engine listed to the right of your database to run your query and its status of **Running** or **Stopped**. You can select a different engine from the dropdown menu next to the engine (<img src="../../assets/images/engine-icon.png" alt="Engine icon" width="12"/>) icon. 
    
    If your engine is **Stopped**, Firebolt may prompt you to start your engine. Select **Start Engine**. Engine startup typically requires a few moments to complete, as Firebolt prepares your environment for data analysis.
 
-For more information about Firebolt’s SQL workspace, see [Use the Develop Workspace](./../query-data/using-the-develop-workspace.md). 
+For more information about Firebolt’s **Develop Workspace**, see [Use the Develop Workspace](../query-data/using-the-develop-workspace.md). 
 
 ## Optimize your workflow
 
-<img src="../assets/images/../../../assets/images/GS-optimize.png" alt="New DB +" width="700"/>
+<img src="../../assets/images/get_started_sql_optimize.png" alt="After running a baseline query, you can optimize your workflow for better performance." width="700"/>
 
-Firebolt uses a number of optimization strategies to reduce query times. Over small datasets like those specified in this guide, the uplift may not be noticeable. However, these strategies can dramatically improve query performance for larger datasets. The following sections discuss how [primary indexes](./introducing-the-sql-workspace.md#primary-indexes) and [aggregating indexes](./introducing-the-sql-workspace.md#aggregating-indexes) to do the following:
+Firebolt uses a number of optimization strategies to reduce query times. Over small datasets like those specified in this guide, the uplift may not be noticeable. However, these strategies can **dramatically improve** query performance for larger datasets. The following sections discuss how [primary indexes](./introducing-the-sql-workspace.md#primary-indexes) and [aggregating indexes](./introducing-the-sql-workspace.md#aggregating-indexes) to do the following:
 * Reduce the amount of data that the query scans.
 * Pre-calculate values that are used repeatedly during computations.
 
 ### Primary Indexes
 
-One of Firebolt’s key optimization strategies is to select a primary index for columns that are used frequently in WHERE, JOIN, GROUP_BY, and clauses used for sorting. In Firebolt, a primary index is a type of **sparse index**. Thus, selecting the best primary index can reduce query run times significantly by reducing the data set that the query searches over. Selecting primary indexes also allows Firebolt to manage updates, deletions and insertions to tables and provide optimal query performance.
+One of Firebolt’s key optimization strategies is to select a primary index for columns that are used frequently in `WHERE`, `JOIN`, `GROUP_BY`, and clauses used for sorting. In Firebolt, a primary index is a type of **sparse index**. Thus, selecting the best primary index can reduce query run times significantly by reducing the data set that the query searches over. Selecting primary indexes also allows Firebolt to manage updates, deletions and insertions to tables and provide optimal query performance.
 
 If you have a composite primary index, the order that the columns are listed is important. Specify the column that has a large number of unique values, or high cardinality, first, followed by columns with lower cardinality. A sort order with the previous characteristics allows Firebolt to prune, or eliminate irrelevant data, so that it doesn’t have to scan it in query processing. Pruning significantly enhances query performance.
 
-You can create a primary index **only** when you create a table. If you want to change the primary index, you must create a new table. The following example shows how to use [CREATE TABLE](../sql_reference/../../sql_reference/commands/data-definition/create-fact-dimension-table.md) to create a new `levels` table, define the schema, and set two primary indexes:
+You can create a primary index **only** when you create a table. If you want to change the primary index, you must create a new table. The following example shows how to use [CREATE TABLE](../../sql_reference/commands/data-definition/create-fact-dimension-table.md) to create a new `levels` table, define the schema, and set two primary indexes:
 
 ```sql
 CREATE TABLE IF NOT EXISTS levels (
@@ -250,10 +254,10 @@ Another key optimization strategy is to read warm data, or data accessed from ca
 
 #### Warm data
 
-When data is warm, Firebolt transfers data from remote storage in Amazon (S3) to a local (cache). Data is automatically warmed when you access it during a query, and stored in a solid state drive (SSD) cache. However, when you query data to warm it, you use an engine, and incur [engine consumption](../Overview/../../Overview/engine-consumption.md) costs. Therefore, you should use filters to warm only the data that you need to access frequently in your queries.
+When data is warm, Firebolt transfers data from remote storage in Amazon (S3) to a local (cache). Data is automatically warmed when you access it during a query, and stored in a solid state drive (SSD) cache. However, when you query data to warm it, you use an engine, and incur [engine consumption](../../Overview/engine-consumption.md) costs. Therefore, you should use filters to warm only the data that you need to access frequently in your queries.
 
 The following guidance applies: 
-* If you need access to all the data in a table, use CHECKSUM to warm the entire table as follows:
+* If you need access to all the data in a table, use `CHECKSUM` to warm the entire table as follows:
   
   ```sql
   SELECT CHECKSUM(*) FROM levels;
@@ -293,12 +297,14 @@ SELECT * FROM information_schema.engine_tablets  where table_name = 'levels';
 ```
 
 ## Clean up
-After you’ve completed the steps in this guide, avoid incurring costs associated with the exercises by doing the following:
+<img src="../../assets/images/get_started_sql_clean.png" alt="To avoid incurring costs, clean up data and resources when you're finished with your workflow." width="700"/>
+
+After you’ve completed the steps in this guide, avoid incurring costs associated with the getting started exercises by doing the following:
 * Stop any running engines.
 * Remove data from storage.
   
 ### Stop any running engines
-Firebolt shows you the status of your current engine next to the engines icon (<img src="../assets/images/../../../assets/images/engine-icon.png" alt="New DB +" width="17"/>) under your script tab as either **Stopped** or **Running**. To shut down your engine, select your engine from the drop-down list next to the name of the engine, and then select one of the following:
+Firebolt shows you the status of your current engine next to the engines icon (<img src="../../assets/images/engine-icon.png" alt="Engine icon" width="17"/>) under your script tab as either **Stopped** or **Running**. To shut down your engine, select your engine from the drop-down list next to the name of the engine, and then select one of the following:
 
 * Stop engine - Allow all of the currently running queries to finish running and then shut down the engine. Selecting this option will allow the engine to run for as long as it takes to complete all queries running on the selected engine.
 * Terminate all queries and stop - Stop the engine and stop running any queries. Selecting this option stops the engine in about 20-30 seconds. 
@@ -310,13 +316,14 @@ To remove a table and all of its data, enter [DROP TABLE](../../sql_reference/co
 DROP TABLE levels
 ```
 
-To remove a database and all of its associated data, do the following in the Firebolt Workspace:
+To remove a database and all of its associated data, do the following in the Firebolt **Develop Workspace**:
 * Select the database from the left navigation bar. 
-* Select the more options (<img src="../assets/images/../../../assets/images/more options icon.png" alt="New DB +" width="7"/>) icon.
+* Select the more options (<img src="<../../assets/images/more options icon.png>" alt="More options icon" width="7"/>) icon.
 * Select **Delete database**. Deleting your database will permanently remove your database from Firebolt. You cannot undo this action.
 Select **Delete**.
 
 ## Export data
+<img src="../../assets/images/get_started_sql_export.png" alt="The following section shows how to optionally export data after clean up." width="700"/>
 
 If you want to save your data outside of Firebolt, you can use [COPY TO](../../sql_reference/commands/data-management/copy-to.md) to export data to an external table. This section shows how to set the minimal AWS permissions and use `COPY TO` to export data to an [AWS S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html). You may have to reach out to your administrator to obtain or change AWS permissions.
 
