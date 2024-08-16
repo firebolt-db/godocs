@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Introducing the SQL workspace
+title: Get started using SQL
 nav_order: 3
 parent: Get started
 grand_parent: Guides
 ---
 
-## Introducing the SQL workspace
+# Get started using SQL
 
-You can also use the SQL workspace to create a database and engine, and load data. If you use the SQL workspace, you can customize your workflow to handle more unique workflows than with the **Data loading** wizard, including loading data in TSV, Avro, JSON Lines or Orc formats. 
+You can also use the SQL to create a database and engine, and load data. If you use the SQL workspace, you can customize your workflow to handle more unique workflows than with the **Load data** wizard, including loading data in TSV, Avro, JSON Lines or Orc formats.
 
-The following sections will guide you through a simple workflow to get started with Firebolt.
+The following sections will guide you through a simple workflow to register, create a database and engine, load and query data, learn how to optimize your flow, and clean up resources as shown in the following diagram:
+<BR>
+<img src="../../assets/images/get_started_sql_workflow.png" alt="New DB +" width="700"/>
 
-* Topic ToC
-{:toc}
 
 ## Register with Firebolt
 
@@ -291,3 +291,94 @@ The following code example shows how to view information about the tablets that 
 ```sql
 SELECT * FROM information_schema.engine_tablets  where table_name = 'levels';
 ```
+
+## Clean up
+After you’ve completed the steps in this guide, avoid incurring costs associated with the exercises by doing the following:
+* Stop any running engines.
+* Remove data from storage.
+  
+### Stop any running engines
+Firebolt shows you the status of your current engine next to the engines icon (<img src="../assets/images/../../../assets/images/engine-icon.png" alt="New DB +" width="17"/>) under your script tab as either **Stopped** or **Running**. To shut down your engine, select your engine from the drop-down list next to the name of the engine, and then select one of the following:
+
+* Stop engine - Allow all of the currently running queries to finish running and then shut down the engine. Selecting this option will allow the engine to run for as long as it takes to complete all queries running on the selected engine.
+* Terminate all queries and stop - Stop the engine and stop running any queries. Selecting this option stops the engine in about 20-30 seconds. 
+
+### Remove data from storage
+
+To remove a table and all of its data, enter [DROP TABLE](../../sql_reference/commands/data-definition/drop-table.md) into a script tab, as shown in the following code example:
+``` sql
+DROP TABLE levels
+```
+
+To remove a database and all of its associated data, do the following in the Firebolt Workspace:
+* Select the database from the left navigation bar. 
+* Select the more options (<img src="../assets/images/../../../assets/images/more options icon.png" alt="New DB +" width="7"/>) icon.
+* Select **Delete database**. Deleting your database will permanently remove your database from Firebolt. You cannot undo this action.
+Select **Delete**.
+
+## Export data
+
+If you want to save your data outside of Firebolt, you can use [COPY TO](../../sql_reference/commands/data-management/copy-to.md) to export data to an external table. This section shows how to set the minimal AWS permissions and use `COPY TO` to export data to an [AWS S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html). You may have to reach out to your administrator to obtain or change AWS permissions.
+
+### Set permissions to write to an AWS bucket
+
+   Firebolt must have the following permissions to write to an AWS S3 bucket:
+
+  1. AWS access key credentials. The credentials must be associated with a user with permissions to write objects to the bucket. Specify access key credentials using the following syntax:
+
+  ```shell
+    CREDENTIALS = (AWS_KEY_ID = '<aws_key_id>' AWS_SECRET_KEY = '<aws_secret_key>')
+  ```
+
+  In the previous credentials example, <aws_key_id> is the AWS access key id associated with a user or role. An access key has the following form: `AKIAIOSFODNN7EXAMPLE`. The value    <aws_secret_key> is the AWS secret key. A secret key has the following form: `wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`.
+
+2. An AWS IAM policy statement attached to a user role. Firebolt requires the following minimum permissions in the IAM policy:
+
+    ```shell
+    {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:Get*",
+                "s3:List*",
+                "s3:PutObject",
+                "s3:DeleteObject"
+            ],									
+            "Resource": [
+                "arn:aws:s3:::my_s3_bucket",
+                "arn:aws:s3:::my_s3_bucket/*"
+            ]
+        }
+     ]
+    }
+    ```
+
+    For more information about AWS access keys and roles, see [Creating Access Key and Secret ID in AWS](../loading-data/creating-access-keys-aws.md).
+
+### Export to an AWS bucket
+
+Use [COPY TO](../../sql_reference/commands/data-management/copy-to.md) select all the columns from a table and export to an AWS S3 bucket as shown in the following code example:
+
+```sql
+COPY (SELECT * FROM test_table)
+  TO 's3://my_bucket/my_fb_queries'
+  CREDENTIALS = 
+  (AWS_ROLE_ARN='arn:aws:iam::123456789012:role/my-firebolt-role');
+```
+In the previous code example, the role ARN ([Amazon Resource Name](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html)) identifies the AWS IAM role that specifies the access for users or services. An ARN follows the following structure: arn:aws:iam::account-id:role/role-name. Because TYPE is omitted from `COPY TO`, the file or files will be written in the default CSV format. Because `COMPRESSION` is also omitted, the output data is compressed using GZIP (*.csv.gz) format.
+
+Firebolt assigns a query ID, that has the following example format `16B903C4206098FD`, to the query at runtime. If the size of the compressed output exceeds the default of `16` MB, Firebolt writes multiple GZIP files. In the following example, the size of the output is `40` MB, so Firebolt writes `4` files.
+
+```shell
+s3://my_bucket/my_fb_queries/
+16B903C4206098FD_0.csv.gz
+16B903C4206098FD_1.csv.gz
+16B903C4206098FD_2.csv.gz
+16B903C4206098FD_3.csv.gz
+```
+
+## Next steps
+
+To continue learning about Firebolt's architecture, capabilities, using Firebolt after your trial period, and setting up your organization, see [Resources beyond getting started](./get-started-next.md).
