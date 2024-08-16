@@ -7,7 +7,7 @@ parent: Query data
 grand_parent: Guides
 ---
 
-# Firebolt API
+# Use the Firebolt API
 
 Use the Firebolt REST API to execute queries on engines programmatically. Learn how to use the API, including authentication, working with engines and executing queries. A service account is required to access the API - learn about [managing service accounts here](../managing-your-organization/service-accounts.md). 
 
