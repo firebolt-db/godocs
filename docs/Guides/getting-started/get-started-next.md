@@ -8,7 +8,7 @@ grand_parent: Guides
 
 # Resources beyond getting started
 
-Now that you have successfully created your first engine and database, ran your first query, created indexes, copied data into, and exported data out of Firebolt, you can continue exploring Firebolt’s capabilities.
+Now that you have successfully created your first engine and database, run your first query, created indexes, copied data into Firebolt and exported data out, you can continue exploring Firebolt’s capabilities.
 
 ## Register through the AWS Marketplace
 
@@ -19,13 +19,13 @@ If you have exhausted your initial $200 credit, you can continue to use Firebolt
 1. On the [Firebolt Workspace page](https://go.firebolt.io/), select the **Configure**(<img src="../../assets/images/configure-icon.png" alt="AggIndex" width="14"/>) icon from the left navigation pane. 
 2. Under **Organization settings**, select **Billing**.
 3. Click **Connect to AWS Marketplace** to take you to the Firebolt page on AWS Marketplace.
-4. On the AWS Marketplace page, click the **View Purchase Options** on the top right hand corner of the screen.
+4. On the AWS Marketplace page, click the **View Purchase Options** in the top right hand corner of the screen.
 5. Click **Setup Your Account**.
 
 Your account should now be associated with AWS Marketplace.
 
 ## Learn more about Firebolt
-* Learn about Firebolt’s unique [architecture](../../Overview/architecture-overview.md)
+* Learn about Firebolt’s unique [architecture](../../Overview/architecture-overview.md).
 * Learn more about creating tables and [managing your data](../../Overview/data-management.md) in order to let Firebolt provide the fastest query times. 
 * Learn about the [engines](../../Overview/engine-fundamentals.md) that Firebolt uses to process queries and how to select the right size.
 * Learn how to [load](../loading-data/loading-data.md) different kinds of data.

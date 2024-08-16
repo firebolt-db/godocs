@@ -8,9 +8,9 @@ grand_parent: Guides
 
 # Get started using SQL
 
-You can also use the SQL to create a database and engine, and load data. If you use the **Develop Workspace** inside the **Firebolt Workspace**, you can customize your workflow to handle more unique workflows than with the **Load data** wizard, including loading data in TSV, Avro, JSON Lines or Orc formats.
+You can also use SQL to create a database and engine, and load data. If you use the **Develop Workspace** inside the **Firebolt Workspace**, you can customize your workflow to handle more unique workflows than with the **Load data** wizard, including loading data in TSV, Avro, JSON Lines, or ORC formats.
 
-The following sections will guide you through a simple workflow to register, create a database and engine, load and query data, learn how to optimize your flow, and clean up resources as shown in the following diagram:
+The following sections will guide you through a simple workflow to register, create a database and engine, load and query data, learn how to optimize your workflow, and clean up resources as shown in the following diagram:
 <BR>
 <img src="../../assets/images/get_started_sql_workflow.png" alt="A simple workflow using SQL includes registering, creating a database and engine, loading data, querying data, optimizing your workflow, cleaning up, and optionally exporting data." width="700"/>
 
@@ -32,7 +32,7 @@ New accounts receive 600 Firebolt unit (FBU) credits ($200+) to get started expl
 
 Firebolt’s billing is based on engine runtime, measured in seconds. We also pass through AWS S3 storage costs at the rate of $23 per TB. The amount that you spend is dependent primarily on which engines you use and how long those engines are running.
 
-You can view your total cost in FBU up to the latest second and in $USD up to the latest day. For more information, see the following **Create a Database** section. For more information about costs, see [Data Warehouse Pricing](https://www.firebolt.io/pricing). If you need to buy additional credits, connect Firebolt with your AWS Marketplace account. For more information about AWS Marketplace, see the following section: [Registering though AWS Marketplace section](./Getting-started-next-steps.md#register-through-the-aws-marketplace).
+You can view your total cost in FBU up to the latest second and in $USD up to the latest day. For more information, see the following **Create a Database** section. For more information about costs, see [Data Warehouse Pricing](https://www.firebolt.io/pricing). If you need to buy additional credits, connect Firebolt with your AWS Marketplace account. For more information about AWS Marketplace, see the following section: [Registering through AWS Marketplace section](./Getting-started-next-steps.md#register-through-the-aws-marketplace).
 
 ## Create a Database
 
@@ -61,8 +61,8 @@ Firebolt creates a new database with the following two default schemas:
 
 You can find these schema by selecting your database under **Databases** in the left navigation pane. Next to the name of your database, select the drop-down arrow to expand and view the schemas and their contents. You can view your total cost in FBU up to the latest second and in $USD up to the latest day in **Information_schema**. 
 
-If you’re using the **Develop Workspace**, expand **Information_schema** and then **Views** to show the following:
-* **engine_metering_history** - contains information including about billing cost in FBU up to the latest second in **consumed_fbu**.
+If you’re using the **Develop Workspace**, expand **Information_schema**, and then **Views** to show the following:
+* **engine_metering_history** - contains information about billing cost in FBU up to the latest second in **consumed_fbu**.
 * **engine_billing** - contains information about billing cost in US dollars up to the latest day in **billed_cost**. 
 
 To see values for the previous costs, select the **More options** icon (<img src="<../../assets/images/more options icon.png>" alt="More options icon" width="10"/>) next to either **consumed_fbu** or **billed_cost**, Then select **Preview data**. You can also run a query in the script tab as shown in the following code example:
@@ -117,7 +117,7 @@ If you used the **Load data** wizard, Firebolt has already created an engine for
 
 <img src="../../assets/images/get_started_sql_load.png" alt="After creating an engine, you can load your data." width="700"/>
 
-After creating an engine, you can load your data. This tutorial uses Firebolt's publicly available Firebolt’s sample dataset, from the fictional [“Ultra Fast Gaming Inc”](https://help.firebolt.io/t/ultra-fast-gaming-firebolt-sample-dataset/250) company. This dataset does not require access credentials. If your personal dataset requires access credentials, you will need to provide them. For examples of how to provide access credentials and more complex loading workflows, see [Loading data](../loading-data/loading-data.md). For more information about AWS access credentials, see [Creating Access key and Secret ID](../loading-data/creating-access-keys-aws.md)
+After creating an engine, you can load your data. This tutorial uses Firebolt's publicly available Firebolt’s sample dataset, from the fictional [“Ultra Fast Gaming Inc.”](https://help.firebolt.io/t/ultra-fast-gaming-firebolt-sample-dataset/250) company. This dataset does not require access credentials. If your personal dataset requires access credentials, you will need to provide them. For examples of how to provide access credentials and more complex loading workflows, see [Loading data](../loading-data/loading-data.md). For more information about AWS access credentials, see [Creating Access key and Secret ID](../loading-data/creating-access-keys-aws.md)
 
 {: .note}
 If you used the **Load data** wizard, skip ahead to the following **Run query** section.
@@ -274,7 +274,7 @@ The following guidance applies:
   ```
 
 #### Cache eviction
-After your cache usage exceeds about 80% of its capacity, Firebolt will evict, or remove the least recently used data into an Amazon S3 bucket. Then, if you want to query this data, you will have to read it back into cache. The total available cache size depends on the size of your engine as follows:
+After your cache usage exceeds approximately 80% of its capacity, Firebolt will evict, or remove the least recently used data into an Amazon S3 bucket. Then, if you want to query this data, you will have to read it back into cache. The total available cache size depends on the size of your engine as follows:
   * A small engine has a cache size of 1.8 TB.
   * A medium engine has a cache size of 3.7 TB.
   * A large engine has a cache size of 7.5 TB.
@@ -323,7 +323,7 @@ To remove a database and all of its associated data, do the following in the Fir
 Select **Delete**.
 
 ## Export data
-<img src="../../assets/images/get_started_sql_export.png" alt="The following section shows how to optionally export data after clean up." width="700"/>
+<img src="../../assets/images/get_started_sql_export.png" alt="The following section shows how to optionally export data after cleaning up." width="700"/>
 
 If you want to save your data outside of Firebolt, you can use [COPY TO](../../sql_reference/commands/data-management/copy-to.md) to export data to an external table. This section shows how to set the minimal AWS permissions and use `COPY TO` to export data to an [AWS S3 bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html). You may have to reach out to your administrator to obtain or change AWS permissions.
 
