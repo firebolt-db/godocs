@@ -25,8 +25,8 @@ After you register, you can either use the [Load data wizard](./get-started-load
 
 Choose either of the following:
 
-* [Use the **Load data** wizard](get-started-load-data-wizard.md)
-* [Use SQL](./get-started-sql-workspace.md)
+* [Get started using a wizard](get-started-load-data-wizard.md)
+* [Get started using SQL](./get-started-sql-workspace.md)
 
 
 
