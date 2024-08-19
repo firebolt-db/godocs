@@ -23,7 +23,7 @@ The wizard also guides you through setting up an AWS connection. To use the wiza
 
 To use the wizard, use the following steps:
 ## Set up AWS connection
-1. Log into the Firebolt workspace.
+1. Log into the **Firebolt Workspace**.
 2. Select the (+) icon from the left navigation pane next to **Databases**.
 3. Select **Load data** from the drop-down menu.
 4. In the window that appears, set up an AWS connection.
@@ -42,34 +42,35 @@ To use the wizard, use the following steps:
 1. Enter a name in the **New engine name** text box.
 2. Select an engine size from the drop-down list next to **Node type**. Consider the following when creating a new engine:
     1. If you are loading data and using Firebolt for the first time, use the smallest engine size (S) and a small dataset to try out Firebolt’s capabilities. Refer to the [Get Started](../getting-started.md) guide for more information.
-    2. If you want to load larger datasets, Firebolt recommends choosing an engine that can fit your entire dataset into cache. The engine capacities are as follows:
-   
-        - A small (S) engine can cache 1.8 TB of data. 
-        - A medium (M) engine can cache 3.7 TB. 
-        - A large (L) engine can cache 7.5 TB of data. 
-        - An extra large (XL) engine can cache 15 TB of data.
-  
+    2. If you want to load larger datasets, and a S engine provides insufficient performance, Firebolt recommends **scaling out**, or adding more nodes, first, as shown in the following diagram.<BR>
+    <img src="../../assets/images/load_data_scale_out.png" alt="First try adding more nodes, or scaling out if you need to load a large dataset." width="700"/>
+
+    If adding more nodes doesn't resolve performance issues, or your workload  cannot be easily distributed, Firebolt recommends **scaling up** by increasing the size of your nodes, as shown in the following diagram:<BR>
+    <img src="../../assets/images/load_data_scale_up.png" alt="First try adding more nodes, or scaling out if you need to load a large dataset." width="700"/>
+
+    If your workload needs to accommodate many processes or scaling up provides insufficient performance, Firebolt recommends scaling concurrently by increasing the number of clusters, as shown in the following diagram:
+
+    <img src="../../assets/images/load_data_scale_concurrently.png" alt="First try adding more nodes, or scaling out if you need to load a large dataset." width="700"/>
+
     Small and medium engines are available for use right away. If you want to use a large or extra-large engine, reach out to support@firebolt.io. For more information, see [Sizing Engines](../../Guides/operate-engines/sizing-engines.md).
 
  3. Select the number of compute nodes to use to load your data next to **Number of nodes**. A node is an individual compute unit within a compute cluster.
-   
-   - Using more than one node allows Firebolt to load your data and perform operations on your data in parallel on multiple nodes within a single cluster, which speeds up the data loading process.
+
+   - Using more than one node allows Firebolt to load your data and perform operations on your data in parallel on multiple nodes within a single cluster, which can speed up the data loading process.
    - A higher number of nodes also means increased costs for compute resources. You can see the total cost per hour for your selection under Advanced settings, given in Firebolt Units (FBU). Each FBU is equivalent to $0.35 USD. Find the right balance between cost and speed for your workload. You must use at least one node.
   
 3. Select the number of clusters next to **Number of clusters**. A cluster is a group of nodes that work together. The following apply:
 
-- If you increase the number of clusters, you will add the number of compute nodes that you selected for each added cluster. Increased costs for compute resources costs will apply.
-- You can use multiple clusters to speed up data loading and also to provide high availability.
-- If one cluster experiences performance issues, the other clusters are not affected by it.
+- If you increase the number of clusters, you will add the number of compute nodes that you selected for each added cluster.
   
   You can see the total cost per hour for your selection under **Advanced settings**, given in Firebolt Units (FBU). Each FBU is equivalent to 33 US cents, or ⅓ USD. Find the right balance between cost and speed for your workload. You must use at least one cluster.
 
-5. Select the down arrow next to **Advanced settings** for more options for your engine including setting a time to stop the engine after a period of inactivity.
+1. Select the down arrow next to **Advanced settings** for more options for your engine including setting a time to stop the engine after a period of inactivity.
 
 ## Select data to ingest
 
 1. Select the data that you want to load. Firebolt’s **Load data** wizard currently supports files in both CSV and Parquet formats. The contents of your S3 bucket are shown automatically along with their object type, size, and when the object was last modified.
-2. Enter text or a regular expression into the search field above **FILE NAME** to filter the list of objects. You can enter either part of the object's name or the full prefix that it starts with.
+2. Enter text or a [prefix](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-prefixes.html) into the search field above **FILE NAME** to filter the list of objects. You can enter either part of the object's name or the full prefix that it starts with.
 3. Toggle **Supported files** to filter the list to show only supported file formats. If you are using Firebolt’s test data set for this tutorial, select the box next to `levels.csv`.
 4. Select **Next step**.
 
@@ -107,20 +108,20 @@ Map the values in your data to columns into the target table. Firebolt automatic
 
    One of Firebolt’s key optimization strategies is to use a primary index that ties to columns that are used frequently in `WHERE`, `JOIN`, `GROUP_BY`, and other clauses used for sorting. Selecting the best primary index, which is a sparse index, can reduce query run times significantly by reducing the data set that the query scans. A primary index also allows Firebolt to manage updates, deletions and insertions to tables and provide optimal query performance.
 
-   If you multiple columns as a primary indexes, they will be added in sort order. For example, if you select `column_1` first, then select `column_3`, then `column_3` will be added as a primary index after `column_1`. This means `column_1` will be used first as a sparse index, followed by `column_3`. If you choose more than one primary index, the order of sorting appears next to the toggle switch under the **Primary Index** column. In the previous example, the number `1` appears next to `column_1` and a number `2` appears next to `column_3`.
+   If you include multiple columns as a composite primary index, they will be added in sort order. For example, if you select `column_1` first, then select `column_3`, then `column_3` will be added as a primary index after `column_1`. This means `column_1` will be used first as a sparse index, followed by `column_3`. If you choose more than one primary index, the order of sorting appears next to the toggle switch under the **Primary Index** column. In the previous example, the number `1` appears next to `column_1` and a number `2` appears next to `column_3`.
 
    To achieve optimal results, choose indexes in the order of their cardinality, or the number of unique values. Start with the column that has the highest number of unique values as your first primary index, followed by the column with the next highest cardinality. For more information about how to choose a primary index, see [Primary indexes](../../Guides/working-with-indexes/using-primary-indexes.md).
 
-4.  Select **Next step**.
+4. Select **Next step**.
    
 ## Review configuration
 
 The **Review configuration** window displays your selections in SQL code. If you want to change the configuration, you must go back through the **Load data** wizard workflow to the section that you want to change and amend your selection. You cannot edit the SQL code in the **Review configuration** window.
 
-1. Select **Run ingestion** to load your data. The **Load data** wizard completes and your configuration will run in the Firebolt SQL workspace. The main window contains the SQL script that configures your load data selections, and may contain several queries.
+1. Select **Run ingestion** to load your data. The **Load data** wizard completes and your configuration will run in the **Develop Space** inside the **Firebolt Workspace**. The main window in the **SQL editor** contains the SQL script that configures your load data selections, and may contain several queries.
 
 ## View results and query statistics
-After your load data job completes, you can view the results of each query that was configured by the **Load data** wizard in Firebolt user interface under **Results** in the bottom window. If you need to edit the queries, you can enter the change into the SQL editor directly and select **Run**.
+After your load data job completes, you can view the results of each query that was configured by the **Load data** wizard in Firebolt user interface under **Results** in the bottom window. If you need to edit the queries, you can enter the change into the **SQL Editor** directly and select **Run**.
 
 1. View information about your query in the **Statistics** tab. This information contains the status of the query, how long it took to run, and the number of rows processed during the data loading job.
 2. View metrics in the **Query Profile** tab for each operator used in your query. Select an operation to view metrics. These metrics include the following:
@@ -130,7 +131,7 @@ After your load data job completes, you can view the results of each query that 
     3. The CPU time - the sum of the time that threads that ran the operator were scheduled on a CPU core.
     4. The output types - the data types of the result of the query.
     
-    You can use metrics in the **Query Profile** tab to analyze and measure the efficiency and performance of your query. For example, If the CPU time is much smaller than thread time, the input-output (IO) latency may be high or the engine that you are using may be running multiple queries at the same time. For more information, see [Example with ANALYZE (Beta)](../../sql_reference/commands/queries/explain.md).
+    You can use metrics in the **Query Profile** tab to analyze and measure the efficiency and performance of your query. For example, If the CPU time is much smaller than thread time, the input-output (IO) latency may be high or the engine that you are using may be running multiple queries at the same time. For more information, see [Example with ANALYZE](../../sql_reference/commands/queries/explain.md).
 
 3. View monitoring information including the percent CPU, memory, disk use and cache read in the **Engine monitoring** tab. Information is shown from the last 5 minutes by default. Select a different time interval from the drop-down menu next to **Last 5 minutes**. You can also select the **Refresh** icon next to the drop-down menu to update the graphical information.
 4. View detailed information associated with each query in the **Query history** tab. This information includes the query status, start time, number of rows and bytes scanned during the load, user and account information. You can do the following:
