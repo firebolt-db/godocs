@@ -44,7 +44,7 @@ See [SQL to load data](loading-data-sql.md) for information and code examples to
 ## Optimizing during data loading
 Optimizing your workflow for Firebolt starts when you load your data. Use the following guidance:
 
-1. A primary index uniquely identifies rows in a table, and is usually based on columns with a high number of unique values, or high cardinality. Having a primary index is  critical to query performance at Firebolt because it allows a query to locate data without scanning an entire dataset. If you are familiar with your data and query history well enough to select an optimal primary index, you can define it during data loading. If you don't, you can still load your data without a primary index. Then, once you know your query history patterns, you must create a new table in order to define a primary index.
+1. A primary index uniquely identifies rows in a table, and is usually based on columns with a high number of unique values, or high cardinality. Having a primary index is  critical to query performance at Firebolt because it allows a query to locate data without scanning an entire dataset. If you are familiar with your data and query history well enough to select an optimal primary index, you can define it when creating a table. If you don't, you can still load your data without a primary index. Then, once you know your query history patterns, you must create a new table in order to define a primary index.
 
    You can specify primary indexes in either the **Load data** wizard or inside SQL commands. The [Load data using a wizard](loading-data-wizard.md) guide discusses considerations for selecting and how to select primary indexes. The [Load data using SQL](loading-data-sql.md) discusses considerations for selecting and shows code examples that select primary indexes.
 
@@ -55,3 +55,6 @@ Optimizing your workflow for Firebolt starts when you load your data. Use the fo
 After you load your data, you can start running and optimizing your queries. A typical workflow has the previous steps followed by data and resource cleanup as shown in the following diagram:
 
 <img src="../../assets/images/get_started_workflow.png" alt="The load data workflow includes using the load data wizard or SQL to create a database, engine, and then load data." width="700"/>
+
+* [Load data using a wizard](loading-data-wizard.md)<BR>
+* [Load data using SQL](loading-data-sql.md)
