@@ -30,7 +30,7 @@ New accounts receive 600 Firebolt unit (FBU) credits ($200+) to get started expl
 
 Firebolt’s billing is based on engine runtime, measured in seconds. AWS S3 storage costs are passed through at the rate of $23 per TB. Your cost depends primarily on which engines you use and how long those engines are running.
 
-You can view your total cost in FBU up to the latest second and in $USD up to the latest day. For more information, see the following **Create a Database** section. For more information about costs, see [Data Warehouse Pricing](https://www.firebolt.io/pricing). If you need to buy additional credits, connect Firebolt with your AWS Marketplace account. For more information about AWS Marketplace, see the following section: [Registering through AWS Marketplace section](./Getting-started-next-steps.md#register-through-the-aws-marketplace)
+You can view your total cost in FBU up to the latest second and in $USD up to the latest day. For more information, see the following **Create a Database** section. For more information about costs, see [Data Warehouse Pricing](https://www.firebolt.io/pricing). If you need to buy additional credits, connect Firebolt with your AWS Marketplace account. For more information about AWS Marketplace, see the following section: [Registering through AWS Marketplace section](./get-started-next.md#register-through-the-aws-marketplace).
 
 ## Use the Load data wizard
 
