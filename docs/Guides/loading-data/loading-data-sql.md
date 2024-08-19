@@ -10,7 +10,7 @@ has_toc: false
 ---
 
 # Load data using SQL statements
-If the **Load data** wizard does not meet your needs, or you prefer to write directly in SQL, you can enter SQL and run it in the Firebolt SQL workspace.
+If the **Load data** wizard does not meet your needs, or you prefer to write directly in SQL, you can enter SQL and run it in the **Develop Space** within the Firebolt workspace.
 
 {: .note}
 Before you can load data using a SQL script, you must register with Firebolt, and create a database and an engine.
@@ -24,16 +24,14 @@ For more information on how to register, create a database and engine using the 
 
 The following code examples show different workflows based on need and complexity:
 
-- [The simplest COPY FROM workflow](#the-simplest-copy-from-workflow)
-- [Define a schema, create a table, and load data](#define-a-schema-create-a-table-and-load-data)
-- [Load multiple files into a table](#load-multiple-files-into-a-table)
-- [Filter data before loading using OFFSET and LIMIT](#filter-data-before-loading-using-offset-and-limit)
-- [Aggregating data during data load](#aggregating-data-during-data-load)
-- [Update an existing table from an external table](#update-an-existing-table-from-an-external-table)
-- [Load source file metadata into a table](#load-source-file-metadata-into-a-table)
-- [Continue loading even with errors](#continue-loading-even-with-errors)
-- [Log errors during data load](#log-errors-during-data-load)
-- [More complex `COPY FROM` use cases](#more-complex-copy-from-use-cases)
+- [Load data using SQL statements](#load-data-using-sql-statements)
+  - [The simplest COPY FROM workflow](#the-simplest-copy-from-workflow)
+  - [Define a schema, create a table, and load data](#define-a-schema-create-a-table-and-load-data)
+  - [Filter data before loading using OFFSET and LIMIT](#filter-data-before-loading-using-offset-and-limit)
+  - [Aggregating data during data load](#aggregating-data-during-data-load)
+  - [Continue loading even with errors](#continue-loading-even-with-errors)
+  - [Log errors during data load](#log-errors-during-data-load)
+  - [More complex `COPY FROM` use cases](#more-complex-copy-from-use-cases)
 
 ## The simplest COPY FROM workflow
 Although there are many options to handle different data loading workflows, `COPY FROM` requires only two parameters:
@@ -46,7 +44,7 @@ An example of the **simplest** way to invoke `COPY FROM` is:
 ```sql
 COPY INTO tutorial FROM 
 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/
-levels.csv' WITH HEADER=TRUE AUTO_CREATE=TRUE;
+levels.csv'
 ```
 The previous code creates a table named `tutorial`, reads a CSV file with headers from a public Amazon S3 bucket, automatically generates a schema, and loads the data. If the data is contained in an Amazon S3 bucket with restricted access, you will need to provide credentials as shown in the following example:
 
