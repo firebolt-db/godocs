@@ -17,7 +17,7 @@ The **Load data** wizard can help you get started loading data from an Amazon S3
 A general workflow to load data using the **Load data** wizard is shown in the following diagram as the highlighted decision path compared to using SQL shown in the muted path:
 <br>
 
-<img src="../../assets/images/load_data_wizard_workflow.png" alt="You can use either the load data wizard or SQL to create a database, engine, and then load data." width="700"/>
+<img src="../../assets/images/load_data_wizard_workflow.png" alt="You can use either the Load data wizard or SQL to create a database, engine, and then load data." width="700"/>
 
 The wizard also guides you through setting up an AWS connection. To use the wizard, you will need the uniform resource locator (URL) of an Amazon S3 bucket. If credentials are required to access the data that you want to load, you will also need an AWS Key ID and your AWS Secret Key. In most steps in the wizard, you can view the SQL commands associated with your selections in the **Load data** main window by selecting **Show SQL script** in the left navigation pane at the bottom of the window.
 
@@ -28,7 +28,7 @@ To use the wizard, use the following steps:
 1. Log into the **Firebolt Workspace**.
 2. Select the (+) icon from the left navigation pane next to **Databases**.
 3. Select **Load data** from the drop-down menu.
-4. In the window that appears, set up an AWS connection.
+4. Set up an AWS connection in the window that appears.
     1. If you are using public data and no credentials are required to access it, provide the URL for your Amazon S3 bucket, and select **Next step**.
     2. If credentials are required, Firebolt needs to provide this information to AWS in order to retrieve data on your behalf. Provide the URL for your Amazon S3 bucket, AWS Key ID, and AWS Secret Key. The following apply:
         1. The AWS Key ID is an AWS access key that is associated with an AWS user or AWS IAM role. The AWS access key is a 20-character string such as ‘AKIAIOSFODNN7EXAMPLE’.

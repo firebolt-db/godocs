@@ -27,7 +27,7 @@ You can use the **Load data** wizard in the **Firebolt Workspace** to load data 
  * How to handle errors during data load.
  * Specifying a primary index.
   
- The **Load data** wizard guides you through creating an engine and database as part of the loading process.
+ The **Load data** wizard guides you through the process of creating an engine and database as part of the loading process.
 
 See [Load data using a wizard](loading-data-wizard.md) for information about the options available in the **Load data** wizard.
 

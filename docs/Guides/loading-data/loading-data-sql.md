@@ -15,7 +15,7 @@ If the **Load data** wizard does not meet your needs, or you prefer to write dir
 {: .note}
 Before you can load data using a SQL script, you must register with Firebolt, and create a database and an engine.
 
-A general workflow to load data using SQL is shown in the following diagram as the highlighted decision compared to using the **Load data** wizard shown in the muted path:
+A general workflow to load data using SQL is shown in the following diagram, with the highlighted path representing the SQL workflow and the muted path representing using the **Load data** wizard:
 <br>
 
 <img src="../../assets/images/load_data_sql_workflow.png" alt="You can use either the load data wizard or SQL to create a database, engine, and then load data." width="700"/>
@@ -63,8 +63,8 @@ AWS_SECRET_KEY = '<aws_secret_key>'
 
 To provide your credentials in the previous example, do the following:
 
-- Replace the <aws_key_id> with an AWS access key that is associated with an AWS user or AWS IAM role. The AWS access key is a 20-character string such as ‘AKIAIOSFODNN7EXAMPLE’.
-- Replace the <aws_secret_key> with an AWS secret access key associated with the user or role associated with the AWS access key. The AWS secret access key is a 40-character string such as ‘wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY’.
+- Replace the \<aws_key_id\> with an AWS access key that is associated with an AWS user or AWS IAM role. The AWS access key is a 20-character string such as ‘AKIAIOSFODNN7EXAMPLE’.
+- Replace the \<aws_secret_key\> with an AWS secret access key associated with the user or role associated with the AWS access key. The AWS secret access key is a 40-character string such as ‘wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY’.
 
 For more information about how to create an AWS access key and AWS secret key, see [Creating Access Key and Secret ID in AWS](../../Guides/loading-data/creating-access-keys-aws.md).
 
@@ -388,7 +388,7 @@ For more information about metadata, see **Using metadata virtual columns** in [
 
 ## Continue loading even with errors
 
-By default, if Firebolt runs into an error when loading your data, the job will stop loading and end in error. If you want to continue loading your data even in the presence of errors, set `MAX_ERRORS_PER_FILE` to a percentage or integer larger than `0`. Then, `COPY FROM` will continue to load data until it exceeds the specified percent based on the total number of rows in your data. If you enter an integer number between `0` and `100`, `COPY FROM` will interpret the integer as a percentage of rows. 
+By default, if Firebolt runs into an error when loading your data, the job will stop loading and end in error. If you want to continue loading your data even in the presence of errors, set `MAX_ERRORS_PER_FILE` to a percentage or integer larger than `0`. `COPY FROM` will then continue to load data until it exceeds the specified percent based on the total number of rows in your data. If you enter an integer between `0` and `100`, `COPY FROM` will interpret the integer as a percentage of rows.
 
 For example, if `MAX_ERRORS_PER_FILE` is set to `3` or `3%`, `COPY FROM` will load data until more than `3%` of the rows have errors, and then return an error. Setting `MAX_ERRORS_PER_FILE` to either `100` or `100%` allows the loading process to continue even if every row has an error. If all rows have errors, no data will load into the target table.
 
@@ -461,16 +461,3 @@ SELECT * FROM rejected_rows;
 ```
 
 Configure error handling parameters such as `MAX_ERRORS_PER_FILE`, `ERROR_FILE`, and `ERROR_FILE_CREDENTIALS` to manage how errors are handled, ensure data integrity, and record errors for future review. For more information about `ERROR_FILE` or `ERROR_FILE_CREDENTIALS`, see the **Parameters** section of [COPY FROM](../../sql_reference/commands/data-management/copy-from.md).
-
-<!--## More complex `COPY FROM` use cases
-
-You can construct more complex workflows using any of the additional options in `COPY FROM`. These include the following:
-
-* Use source files located in multiple directories.
-* Write the contents of an existing table in different formats to an Amazon S3 bucket.
-* Load a data file that doesn’t have a header.
-* Use a different delimiter other than the default comma (,) value to read a CSV file.
-
-There are many additional options available in `COPY FROM`. For information about the syntax, parameter descriptions, and additional examples, see [COPY FROM](../../sql_reference/commands/data-management/copy-from.md).-->
-
-<!-- For information about using Apache Airflow to incrementally load data chronologically, see [Incrementally loading data with Airflow](incrementally-loading-data.md). -->
