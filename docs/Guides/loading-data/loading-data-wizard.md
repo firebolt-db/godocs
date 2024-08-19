@@ -41,7 +41,7 @@ To use the wizard, use the following steps:
 
 1. Enter a name in the **New engine name** text box.
 2. Select an engine size from the drop-down list next to **Node type**. Consider the following when creating a new engine:
-    1. If you are loading data and using Firebolt for the first time, use the smallest engine size (S) and a small dataset to try out Firebolt’s capabilities. Refer to the [Get Started](../getting-started.md) guide for more information.
+    1. If you are loading data and using Firebolt for the first time, use the smallest engine size (S) and a small dataset to try out Firebolt’s capabilities. Refer to the [Get Started](../getting-started/index.md) guide for more information.
     2. If you want to load larger datasets, Firebolt recommends choosing an engine that can fit your entire dataset into cache. The engine capacities are as follows:
    
         - A small (S) engine can cache 1.8 TB of data. 
@@ -136,4 +136,4 @@ After your load data job completes, you can view the results of each query that 
 4. View detailed information associated with each query in the **Query history** tab. This information includes the query status, start time, number of rows and bytes scanned during the load, user and account information. You can do the following:
     1. Select the **Refresh** icon to update the query history and ID.
     2. Select the filter icon (<img src="../../assets/images/filter-icon.png" alt="filter icon" width="12"/>) to remove or add columns to display.
-    3. Select the **More options** icon (<img src="../../assets/images/more options icon.png" alt="more options icon" width="12"/>) to export the contents of the Query history tab to a JSON or CSV file.
+    3. Select the **More options** icon (<img src="../../assets/images/more_options_icon.png" alt="more options icon" width="12"/>) to export the contents of the Query history tab to a JSON or CSV file.
