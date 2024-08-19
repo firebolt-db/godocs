@@ -51,6 +51,8 @@ To use the wizard, use the following steps:
     If adding more nodes doesn't resolve performance issues, or your workload  cannot be easily distributed, Firebolt recommends **scaling up** by increasing the size of your nodes, as shown in the following diagram:<BR>
     <img src="../../assets/images/load_data_scale_up.png" alt="First try adding more nodes, or scaling out if you need to load a large dataset." width="700"/>
 
+    Scaling up can enhance performance for workloads, but it also increases billing costs. For example, if your dataset is not too large and requires sorting, your workload may benefit from scaling up.
+    
  <!--   If your workload needs to accommodate many processes or scaling up provides insufficient performance, Firebolt recommends scaling concurrently by increasing the number of clusters, as shown in the following diagram:
 
     <img src="../../assets/images/load_data_scale_concurrently.png" alt="First try adding more nodes, or scaling out if you need to load a large dataset." width="700"/>
