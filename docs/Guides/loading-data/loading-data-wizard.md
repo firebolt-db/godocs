@@ -24,6 +24,7 @@ The wizard also guides you through setting up an AWS connection. To use the wiza
 To use the wizard, use the following steps:
 ## Set up AWS connection
 <img src="../../assets/images/load_data_wizard_connect.png" alt="The first step in the wizard is to connect to AWS and specify an Amazon S3 bucket." width="700"/>
+<BR>
 1. Log into the **Firebolt Workspace**.
 2. Select the (+) icon from the left navigation pane next to **Databases**.
 3. Select **Load data** from the drop-down menu.
@@ -38,44 +39,36 @@ To use the wizard, use the following steps:
    
 ## Select an engine
 <img src="../../assets/images/load_data_wizard_engine.png" alt="The next step in the wizard is to create an engine." width="700"/>
+<BR>
    Select an engine to load data. If the engine that you want to use already exists, select it from the dropdown list next to **Select engine for ingestion**. Otherwise, select **Create new engine** from the dropdown list, and do the following:
 
 1. Enter a name in the **New engine name** text box.
 2. Select an engine size from the drop-down list next to **Node type**. Consider the following when creating a new engine:
     1. If you are loading data and using Firebolt for the first time, use the smallest engine size (S) and a small dataset to try out Firebolt’s capabilities. Refer to the [Get Started](../getting-started.md) guide for more information.
-    2. If you want to load larger datasets, and a S engine provides insufficient performance, Firebolt recommends **scaling out**, or adding more nodes, first, as shown in the following diagram.<BR>
+    2. If you want to load larger datasets, and a S engine provides insufficient performance, Firebolt recommends **scaling out**, or adding more nodes, first, as shown in the following diagram.
+    <BR>
     <img src="../../assets/images/load_data_scale_out.png" alt="First try adding more nodes, or scaling out if you need to load a large dataset." width="700"/>
-
+    <BR>
     Scaling out can enhance performance for workloads with many similarly sized files, but it also increases billing costs.
-    <!--
-    If adding more nodes doesn't resolve performance issues, or your workload  cannot be easily distributed, Firebolt recommends **scaling up** by increasing the size of your nodes, as shown in the following diagram:<BR>
-    <img src="../../assets/images/load_data_scale_up.png" alt="First try adding more nodes, or scaling out if you need to load a large dataset." width="700"/>
-
-    Scaling up can enhance performance for some very specific workloads, but it also increases billing costs. For example, if your dataset is not too large and requires sorting, your workload may benefit from scaling up.-->
-
- <!--   If your workload needs to accommodate many processes or scaling up provides insufficient performance, Firebolt recommends scaling concurrently by increasing the number of clusters, as shown in the following diagram:
-
-    <img src="../../assets/images/load_data_scale_concurrently.png" alt="First try adding more nodes, or scaling out if you need to load a large dataset." width="700"/>
-    -->
 
     Small and medium engines are available for use right away. If you want to use a large or extra-large engine, reach out to support@firebolt.io. For more information, see [Sizing Engines](../../Guides/operate-engines/sizing-engines.md).
 
- 3. Select the number of compute nodes to use to load your data next to **Number of nodes**. A node is an individual compute unit within a compute cluster.
+ 1. Select the number of compute nodes to use to load your data next to **Number of nodes**. A node is an individual compute unit within a compute cluster.
 
    - Using more than one node allows Firebolt to load your data and perform operations on your data in parallel on multiple nodes within a single cluster, which can speed up the data loading process.
    - A higher number of nodes also means increased costs for compute resources. You can see the total cost per hour for your selection under Advanced settings, given in Firebolt Units (FBU). Each FBU is equivalent to $0.35 USD per hour. Find the right balance between cost and speed for your workload. You must use at least one node.
   
-3. Select the number of clusters next to **Number of clusters**. A cluster is a group of nodes that work together. The following apply:
+2. Select the number of clusters next to **Number of clusters**. A cluster is a group of nodes that work together. The following apply:
 
-- If you increase the number of clusters, you will add the number of compute nodes that you selected for each added cluster.
+    - If you increase the number of clusters, you will add the number of compute nodes that you selected for each added cluster.
   
-  You can see the total cost per hour for your selection under **Advanced settings**, given in Firebolt Units (FBU).  Find the right balance between cost and speed for your workload. You must use at least one cluster.
+      You can see the total cost per hour for your selection under **Advanced settings**, given in Firebolt Units (FBU).  Find the right balance between cost and speed for your workload. You must use at least one cluster.
 
-1. Select the down arrow next to **Advanced settings** for more options for your engine including setting a time to stop the engine after a period of inactivity.
+3. Select the down arrow next to **Advanced settings** for more options for your engine including setting a time to stop the engine after a period of inactivity.
 
 ## Select data to ingest
 <img src="../../assets/images/load_data_wizard_source.png" alt="The next step in the wizard is to specify a data source." width="700"/>
-
+<BR>
 1. Select the data that you want to load. Firebolt’s **Load data** wizard currently supports files in both CSV and Parquet formats. The contents of your S3 bucket are shown automatically along with their object type, size, and when the object was last modified.
 2. Enter text or a [prefix](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-prefixes.html) into the search field above **FILE NAME** to filter the list of objects. You can enter either part of the object's name or the full prefix that it starts with.
 3. Toggle **Supported files** to filter the list to show only supported file formats. If you are using Firebolt’s test data set for this tutorial, select the box next to `levels.csv`.
@@ -83,6 +76,7 @@ To use the wizard, use the following steps:
 
 ## Set up destination
 <img src="../../assets/images/load_data_wizard_target.png" alt="The next step in the wizard is to specify a data target." width="700"/>
+<BR>
 Specify the table inside a database that you want to load your data into.
 1. You can either select an existing database from the drop-down list next to **Select database** or **Create new database**.
     1. If you created a new database, enter a new database name and a new table to load your data into. Select **Next step**.
@@ -91,6 +85,7 @@ Specify the table inside a database that you want to load your data into.
 
 ## Format data
 <img src="../../assets/images/load_data_wizard_format.png" alt="The next step in the wizard is to configure your data format." width="700"/>
+<BR>
 A default formatting and error handling scheme shows a preview of your data. You can change the default configuration using the following options:
 
 1. Toggle off **Use default formatting** to show custom formatting options. You can specify options including different file delimiter, quote character, and escape character.
