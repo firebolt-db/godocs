@@ -23,7 +23,7 @@ Follow these steps to quickly connect Cube.js to Firebolt and start building pow
 
 1. **Docker**: Ensure you have Docker installed. You can download it from [here](https://www.docker.com/products/docker-desktop).
 2. **Firebolt Account**: You need an active Firebolt account. Sign up [here](https://www.firebolt.io/) if you don’t have one.
-3. **Firebolt Database and Table**: Make sure you have a Firebolt database and table with data ready for querying. Follow [Getting started tutorial](../getting-started.md) to set up some sample data.
+3. **Firebolt Database and Table**: Make sure you have a Firebolt database and table with data ready for querying. Follow our [Getting started tutorial](../getting-started/index.md) to set up some sample data.
 4. **Firebolt Service Account**: Create a [service account](../managing-your-organization/service-accounts.md) in Firebolt and note its id and secret.
 
 #### Step 1: Create a Cube.js Project with Docker

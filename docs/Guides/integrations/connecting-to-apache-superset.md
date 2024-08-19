@@ -90,7 +90,7 @@ Now you're ready to start using Superset!
 
 ### Build your first chart
 
-> **Note:**  This section assumes you have followed Firebolt [tutorial](../getting-started.md) and loaded a sample data set into your database.
+> **Note:**  This section assumes you have followed Firebolt [tutorial](../getting-started/index.md) and loaded a sample data set into your database.
 
 Now that you’ve configured Firebolt as a data source, you can select specific tables (Datasets) that you want to see in Superset.
 

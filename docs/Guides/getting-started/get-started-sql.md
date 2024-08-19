@@ -32,7 +32,7 @@ New accounts receive 600 Firebolt unit (FBU) credits ($200+) to get started expl
 
 Firebolt’s billing is based on engine runtime, measured in seconds. We also pass through AWS S3 storage costs at the rate of $23 per TB. The amount that you spend is dependent primarily on which engines you use and how long those engines are running.
 
-You can view your total cost in FBU up to the latest second and in $USD up to the latest day. For more information, see the following **Create a Database** section. For more information about costs, see [Data Warehouse Pricing](https://www.firebolt.io/pricing). If you need to buy additional credits, connect Firebolt with your AWS Marketplace account. For more information about AWS Marketplace, see the following section: [Registering through AWS Marketplace section](./Getting-started-next-steps.md#register-through-the-aws-marketplace).
+You can view your total cost in FBU up to the latest second and in $USD up to the latest day. For more information, see the following **Create a Database** section. For more information about costs, see [Data Warehouse Pricing](https://www.firebolt.io/pricing). If you need to buy additional credits, connect Firebolt with your AWS Marketplace account. For more information about AWS Marketplace, see the following section: [Registering through AWS Marketplace section](./get-started-next.md#register-through-the-aws-marketplace).
 
 ## Create a Database
 
@@ -49,7 +49,7 @@ If you used the **Load data** wizard, Firebolt has already created a database fo
 
 The following instructions show you how to create a database and then an engine. Note that you can also create the engine first.
 
-1. In the left navigation pane, select the plus icon (**+**) to the right **Databases**.
+1. In the left navigation pane, select the **+** to the right **Databases**.
 
 2. Select **Create new database**. 
 
@@ -65,7 +65,7 @@ If you’re using the **Develop Space**, expand **Information_schema**, and then
 * **engine_metering_history** - contains information about billing cost in FBU up to the latest second in **consumed_fbu**.
 * **engine_billing** - contains information about billing cost in US dollars up to the latest day in **billed_cost**. 
 
-To see values for the previous costs, select the **More options** icon (<img src="<../../assets/images/more options icon.png>" alt="More options icon" width="10"/>) next to either **consumed_fbu** or **billed_cost**, Then select **Preview data**. You can also run a query in the script tab as shown in the following code example:
+To see values for the previous costs, select the **More options** icon (<img src="<../../assets/images/more_options_icon.png>" alt="More options icon" width="10"/>) next to either **consumed_fbu** or **billed_cost**, Then select **Preview data**. You can also run a query in the script tab as shown in the following code example:
 
 ```sql
 SELECT * 
@@ -191,7 +191,7 @@ For more information about Firebolt’s **Develop Space**, see [Use the Develop 
 
 <img src="../../assets/images/get_started_sql_optimize.png" alt="After running a baseline query, you can optimize your workflow for better performance." width="700"/>
 
-Firebolt uses a number of optimization strategies to reduce query times. Over small datasets like those specified in this guide, the uplift may not be noticeable. However, these strategies can **dramatically improve** query performance for larger datasets. The following sections discuss how [primary indexes](./introducing-the-sql-workspace.md#primary-indexes) and [aggregating indexes](./introducing-the-sql-workspace.md#aggregating-indexes) to do the following:
+Firebolt uses a number of optimization strategies to reduce query times. Over small datasets like those specified in this guide, the uplift may not be noticeable. However, these strategies can **dramatically improve** query performance for larger datasets. The following sections discuss how [primary indexes](#primary-indexes) and [aggregating indexes](#aggregating-indexes) to do the following:
 * Reduce the amount of data that the query scans.
 * Pre-calculate values that are used repeatedly during computations.
 
