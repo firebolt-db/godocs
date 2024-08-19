@@ -65,7 +65,7 @@ If you’re using the **Develop Space**, expand **Information_schema**, and then
 * **engine_metering_history** - contains information about billing cost in FBU up to the latest second in **consumed_fbu**.
 * **engine_billing** - contains information about billing cost in US dollars up to the latest day in **billed_cost**. 
 
-To see values for the previous costs, select the **More options** icon (<img src="<../../assets/images/more_options_icon.png>" alt="More options icon" width="10"/>) next to either **consumed_fbu** or **billed_cost**, Then select **Preview data**. You can also run a query in the script tab as shown in the following code example:
+To see values for the previous costs, select the **More options** icon (<img src="../../assets/images/more_options_icon.png" alt="More options icon" width="7"/>) next to either **consumed_fbu** or **billed_cost**, Then select **Preview data**. You can also run a query in the script tab as shown in the following code example:
 
 ```sql
 SELECT * 
@@ -149,7 +149,7 @@ Use [COPY FROM](../../sql_reference/commands/data-management/copy-from.md) in th
 1. Select **Run**. The bottom of your workspace includes information about your processing job in the following tabs:
   * The **Results** tab at the bottom of your **Develop Space** shows the contents returned by your query. After running the previous SELECT statement, the **Results** tab should display column names and values for the data in the tutorial. 
     * Select the filter icon (<img src="../../assets/images/filter-icon.png" alt="Filter icon" width="12"/>) to change which columns are shown.
-    * Select the **More options** icon (<img src="../../assets/images/more_options_icon.png" alt="More options icons" width="7"/>) to export the contents of the **Results** tab to a JSON or CSV file.
+    * Select the **More options** icon (<img src="../../assets/images/more_options_icon.png" alt="More options icon" width="7"/>)  to export the contents of the **Results** tab to a JSON or CSV file.
     * The Statistics tab shows information about running your query including how long it took to run and its status. After running the previous SELECT statement, the **Statistics** tab shows the status of the statement, its STATUS as having succeeded or failed, how long it took to run the query, the number of rows processed, and the amount of data scanned.
     * Select the **More options** icon (<img src="../../assets/images/more_options_icon.png" alt="More options icon" width="7"/>) to export the contents of the **Statistics** tab to a JSON or CSV file.
     * The **Query Profile** tab contains metrics for each operator used in your query and a **Query id**.  Select an operation to view its metrics. These metrics include the following:
@@ -318,7 +318,7 @@ DROP TABLE levels
 
 To remove a database and all of its associated data, do the following in the Firebolt **Develop Space**:
 * Select the database from the left navigation bar. 
-* Select the more options (<img src="<../../assets/images/more options icon.png>" alt="More options icon" width="7"/>) icon.
+* Select the **More options** (<img src="../../assets/images/more_options_icon.png" alt="More options icon" width="7"/>) icon.
 * Select **Delete database**. Deleting your database will permanently remove your database from Firebolt. You cannot undo this action.
 Select **Delete**.
 

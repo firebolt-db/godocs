@@ -35,7 +35,7 @@ See [Load data using a wizard](loading-data-wizard.md) for information about the
 ## Load data using SQL statements
 You can use SQL to load data in CSV, Parquet, TSV, AVRO, JSON Lines or ORC formats. Prior to loading data, you must also create a database and engine using either of the following options:
 
-- Use buttons in the Firebolt SQL user interface to create a database and engine. For more information, see the [Create a Database](../../Guides/getting-started/get-started-sql.md#create-a-database) and [Create an Engine](../../Guides/getting-started/get-started-sql.md#create-an-engine) sections in the [Get Started](../getting-started.md) guide.
+- Use buttons in the Firebolt SQL user interface to create a database and engine. For more information, see the [Create a Database](../../Guides/getting-started/get-started-sql.md#create-a-database) and [Create an Engine](../../Guides/getting-started/get-started-sql.md#create-an-engine) sections in the [Get Started](../getting-started/index.md) guide.
 
 - Use the SQL commands [CREATE DATABASE](../../sql_reference/commands/data-definition/create-database.md) and [CREATE ENGINE](../../sql_reference/commands/engines/create-engine.md).
   
