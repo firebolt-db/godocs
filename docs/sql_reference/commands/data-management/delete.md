@@ -108,10 +108,12 @@ Table `products` after:
 
 Below are some known limitations of the `DELETE` command. 
 
-* `DELETE` cannot be used on tables that have certain aggregating indexes. An attempt to issue a `DELETE` statement on a table with an aggregating index outside of the below defined will fail- these table level aggregating indexes need to be dropped first. `DELETE` can be used on tables that have aggregating indexes containing the following aggregating functions:
-  * [COUNT and COUNT(DISTINCT)](../../functions-reference/aggregation/count.md)
-  * [SUM](../../functions-reference/aggregation/sum.md)
-  * [AVG](../../functions-reference/aggregation/avg.md)
-  * [ARRAY_AGG](../../functions-reference/aggregation/array-agg.md)
+* `DELETE`/`UPDATE` will perform slower on the following aggregate functions:
+  * [MIN](../../functions-reference/aggregation/min.md)
+  * [MIN_BY](../../functions-reference/aggregation/min-by.md)
+  * [MAX](../../functions-reference/aggregation/max.md)
+  * [MAX_BY](../../functions-reference/aggregation/max-by.md)
+  * [ANY_VALUE](../../functions-reference/aggregation/any_value.md)
+  * [APPROX_COUNT_DISTINCT](../../functions-reference/aggregation/approx-count-distinct.md)
 
 * Queries against tables with deleted rows are supported and can be run. However, expect slower performance.

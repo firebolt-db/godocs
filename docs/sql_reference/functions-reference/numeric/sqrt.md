@@ -5,12 +5,12 @@ description: Reference material for SQRT function
 great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Numeric functions
-published: false
+published: true
 ---
 
 # SQRT
 
-Returns the square root of a non-negative numeric expression.
+Returns the square root of a numeric expression.
 
 ## Syntax
 {: .no_toc}
@@ -25,9 +25,14 @@ SQRT(<value>);
 |:----------|:-----------------------------------------------|:-----| 
 | `<value>`  | Value that the `SQRT` function is applied to  | `DOUBLE PRECISION` | 
 
+## Notes
+* When input value is integer data type, it is implicitly converted to `DOUBLE PRECISION`.
+* When input value is `NUMERIC`, the `SQRT` function returns an error.
+* When input value is negative, the `SQRT` function returns an error.
+
+
 ## Return Types 
-* `DOUBLE PRECISION` if value is positive
-* `NULL` if value is negative 
+`DOUBLE PRECISION`.
 
 ## Example
 {: .no_toc}

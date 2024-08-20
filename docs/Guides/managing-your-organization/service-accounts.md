@@ -10,7 +10,7 @@ grand_parent: Guides
 # Manage service accounts
 {: .no_toc}
 
-Create a service account for programmatic access **only** to Firebolt. Service accounts can be linked to users, instead of logins which provide full access. For each service account, a secret is generated to use for authentication. You can add, edit, delete and generate secrets for service accounts using SQL or in the UI. 
+Create a service account for programmatic access **only** to Firebolt. Service accounts must be linked to users. It's required to associate the service account to a user, in order to obtain access. For each service account, a secret is generated to use for authentication. You can add, edit, delete and generate secrets for service accounts using SQL or in the UI. 
 
 To view all Service Accounts click **Configure**, then choose **Service Accounts**.  
 
@@ -39,6 +39,9 @@ To create a service account via the UI:
   - Specify a description for the service account.
   - Set the service account as organisation admin, which enables fully managing the organization.
 5. Choose **Create**. 
+
+{: .note}
+At this point, it's required to create a user and associate the service account to it. 
 
 ## Generating a secret for a service account
 A service account secret is used to generate an access token for accessing Firebolt API programmatically with the service account. 
