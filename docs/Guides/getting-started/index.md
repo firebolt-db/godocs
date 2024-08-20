@@ -11,38 +11,22 @@ has_children: true
 # Get started with Firebolt
 {:.no_toc}
 
-<<<<<<< HEAD
-Welcome to the beginning of your journey with Firebolt! This tutorial guides you through all of the steps that you need to run a basic workflow which includes setting up your Firebolt account, creating a database and engine, importing a sample dataset, creating indexes, and running a query. If you run into issues, reach out to [support@firebolt.io](mailto:support@firebolt.io) for help.
-=======
 Welcome to the beginning of your journey with Firebolt! This tutorial guides you through all of the steps you need to run a basic workflow which includes setting up your Firebolt account, creating a database and engine, importing a sample dataset, creating indexes, and running a query. If you encounter any issues, reach out to [support@firebolt.io](mailto:support@firebolt.io) for help.
->>>>>>> cf0c3d64862a06d6a10cf905221febfc87d5225b
 
 For those seeking a more interactive learning experience, we invite you to join one of our comprehensive, [instructor-led Firebolt workshops](https://www.firebolt.io/on-demand-workshop). These hands-on workshops are crafted to deepen your understanding of Firebolt’s capabilities and how to leverage them for your data analytics needs.
 
-<<<<<<< HEAD
-To get started, you must [register](https://go.firebolt.io/signup) and create a Firebolt account. Then, you can either use the Firebolt SQL workspace, or use a **Load data** wizard to create a database and engine, and load data. Then, you can run your first query to obtain baseline performance statistics. Next, you can tune your workflow using Firebolt’s optimization strategies to reduce query run times. You can set a primary index and use aggregating indexes to speed up your query times significantly. Lastly, you can export your data to an external table. These steps are illustrated in the following workflow:
-
-<img src="../assets/images/../../../assets/images/architecture-workflow.png" alt="Get Started" width="700"/>
-
-After you register, you can either use the [Load data wizard](./get-started-load-data-wizard.md) or the [SQL workspace](./introducing-the-sql-workspace.md). Use the Load data wizard if your data is in either CSV or Parquet format, and you want to use a graphical user interface to guide you through the first three steps of the workflow. Use the SQL workspace if you prefer to enter SQL, or need a more customized workflow. 
-=======
 To get started, you must [register](https://go.firebolt.io/signup) and create a Firebolt account. Then, you can either use the **Develop Space** inside the **Firebolt Workspace**, or use the **Load data** wizard to create a database and engine, and load data. Then, you can run your first query to obtain baseline performance statistics. Next, you can tune your workflow using Firebolt’s optimization strategies to reduce query run times. You can set a primary index and use aggregating indexes to speed up your query times significantly. Lastly, you can export your data to an external table. These steps are illustrated in the following workflow:
 
 <img src="../assets/images/../../../assets/images/architecture-workflow.png" alt="Get Started" width="700"/>
 
-After you register, you can either use the [Load data wizard](./get-started-load-data-wizard.md) or [use SQL](./get-started-sql.md). Use the Load data wizard if your data is in either CSV or Parquet format, and you want to use a graphical user interface to guide you through the first three steps of the workflow. Use the Firebolt **Develop Space** or an API if you prefer to enter SQL, or need a more customized workflow.
->>>>>>> cf0c3d64862a06d6a10cf905221febfc87d5225b
+After you register, you can either use the [Load data wizard](./get-started-load-data-wizard.md) or the [use SQL](./get-started-sql.md). Use the Load data wizard if your data is in either CSV or Parquet format, and you want to use a graphical user interface to guide you through the first three steps of the workflow. Use the Firebolt **Develop Space** or an API if you prefer to enter SQL, or need a more customized workflow.
 
 ## Next steps
 
 Choose either of the following:
 
 * [Get started using a wizard](get-started-load-data-wizard.md)
-<<<<<<< HEAD
-* [Get started using SQL](./get-started-sql-workspace.md)
-=======
 * [Get started using SQL](./get-started-sql.md)
->>>>>>> cf0c3d64862a06d6a10cf905221febfc87d5225b
 
 
 
