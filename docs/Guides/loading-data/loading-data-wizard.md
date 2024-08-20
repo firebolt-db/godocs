@@ -32,7 +32,7 @@ To use the wizard, use the following steps:
 1. Enter a name in the **New engine name** text box.
 2. Select an engine size from the drop-down list next to **Node type**. Consider the following when creating a new engine:
 
-    1. If you are loading data and using Firebolt for the first time, use the smallest engine size (S) and a small dataset to try out Firebolt’s capabilities. Refer to the [Get Started](../getting-started.md) guide for more information.
+    1. If you are loading data and using Firebolt for the first time, use the smallest engine size (S) and a small dataset to try out Firebolt’s capabilities. Refer to the [Get Started](../getting-started/index.md) guide for more information.
     2. If you want to load larger datasets, and a S engine provides insufficient performance, Firebolt recommends **scaling out**, or adding more nodes, first, as shown in the following diagram.
     <BR>
     <img src="../../assets/images/load_data_scale_out.png" alt="First try adding more nodes, or scaling out if you need to load a large dataset." width="700"/>
