@@ -154,4 +154,4 @@ After your load data job completes, you can view the results of each query that 
 
     1. Select the **Refresh** icon to update the query history and ID.
     2. Select the filter icon (<img src="../../assets/images/filter-icon.png" alt="filter icon" width="12"/>) to remove or add columns to display.
-    3. Select the **More options** icon (<img src="../../assets/images/more options icon.png" alt="more options icon" width="12"/>) to export the contents of the Query history tab to a JSON or CSV file.
+    3. Select the **More options** icon (<img src="../../assets/images/more_options_icon.png" alt="more options icon" width="12"/>) to export the contents of the Query history tab to a JSON or CSV file.

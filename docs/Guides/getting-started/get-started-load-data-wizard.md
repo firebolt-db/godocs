@@ -9,6 +9,7 @@ grand_parent: Guides
 # Get started using a wizard
 {:.no_toc}
 
+<<<<<<< HEAD
 The **Load data** wizard guides you through creating a database and engine, and loading data from an Amazon S3 bucket. You can specify basic configurations, including what character to use as a file delimiter, which columns to import and their schema. After loading your data, continue your workflow in the SQL workspace to run and optimize a query, and export to an external table, as shown in the following diagram:
 
 <img src="../../assets/images/get_started_wizard_workflow.png" alt="Get started by registering, using the wizard, running a query, optimizing, and then cleaning up." width="700"/>
@@ -22,10 +23,29 @@ The **Load data** wizard guides you through creating a database and engine, and 
 2. Firebolt will send a confirmation to the address that you provided. To complete your registration, select ‘Verify’ in the email to take you to Firebolt’s [login page](https://go.firebolt.io/login). 
 
 3. Type in your email and password and click ‘Log In’.
+=======
+The **Load data** wizard guides you through creating a database and engine, and loading data from an Amazon S3 bucket. You can specify basic configurations, including what character to use as a file delimiter, which columns to import and their schema. After loading your data, continue working in the **Develop Space** to run and optimize a query, and export to an external table, as shown in the following diagram:
+
+<img src="../../assets/images/get_started_wizard_workflow.png" alt="A simple workflow using the load data wizard starts with registering, using the wizard, running a query, optimizing your workflow, and cleaning up. " width="700"/>
+
+## Register with Firebolt
+
+<img src="../../assets/images/get_started_wizard_register.png" alt="The first step in getting started is to register with Firebolt." width="700"/>
+
+Use the following steps to register with Firebolt:
+<BR>
+
+1. [Sign up](https://go.firebolt.io/signup) on Firebolt's registration page. Fill in your email, name, choose a password, and select **Get Started**.
+
+2. Firebolt will send a confirmation to the address that you provided. To complete your registration, select **Verify** in the email to take you to Firebolt’s [login page](https://go.firebolt.io/login).
+
+3. Type in your email and password and select **Log In**.
+>>>>>>> cf0c3d64862a06d6a10cf905221febfc87d5225b
 
 {: .note}
 New accounts receive 600 Firebolt unit (FBU) credits ($200+) to get started exploring Firebolt’s capabilities.
 
+<<<<<<< HEAD
 Firebolt’s billing is based on engine runtime, measured in seconds. AWS S3 storage costs are passed through at the rate of $23 per TB. Your total cost depends primarily on which engines you use and how long those engines are running.
 
 You can view your total cost in FBU up to the latest second and in $USD up to the latest day. For more information, see the following **Create a Database** section. For more information about costs, see [Data Warehouse Pricing](https://www.firebolt.io/pricing). If you need to buy additional credits, connect Firebolt with your AWS Marketplace account. For more information about AWS Marketplace, see the following section: [Registering though AWS Marketplace section](./Getting-started-next-steps.md#register-through-the-aws-marketplace)
@@ -33,10 +53,20 @@ You can view your total cost in FBU up to the latest second and in $USD up to th
 ## Use the Load data wizard
 
 <img src="../assets/images/../../../assets/images/get_started_wizard_wizard.png" alt="Use the load data wizard create a database and engine, and load your data." width="700"/>
+=======
+Firebolt’s billing is based on engine runtime, measured in seconds. AWS S3 storage costs are passed through at the rate of $23 per TB. Your cost depends primarily on which engines you use and how long those engines are running.
+
+You can view your total cost in FBU up to the latest second and in $USD up to the latest day. For more information, see the following **Create a Database** section. For more information about costs, see [Data Warehouse Pricing](https://www.firebolt.io/pricing). If you need to buy additional credits, connect Firebolt with your AWS Marketplace account. For more information about AWS Marketplace, see the following section: [Registering through AWS Marketplace section](./get-started-next.md#register-through-the-aws-marketplace).
+
+## Use the Load data wizard
+
+<img src="../../assets/images/get_started_wizard_wizard.png" alt="After registering, use the load data wizard to create a database, engine, and load data." width="700"/>
+>>>>>>> cf0c3d64862a06d6a10cf905221febfc87d5225b
 <BR>
 
 You can use the **Load data** wizard to load data in either CSV or Parquet form.
 
+<<<<<<< HEAD
  To start the **Load data** wizard, select the plus (+) icon in the Firebolt Workspace next to **Databases** in the left navigation pane and select **Load data**. The wizard will guide you through creating a database, an engine, and loading data. See [Load data using a wizard](../loading-data/loading-data-wizard.md#load-data-using-a-wizard) for detailed information about the workflow and the available options in the wizard.
  
  Even though the **Load data** wizard creates a database and engine for you, the [**Create a Database**](./introducing-the-sql-workspace.md#create-a-database) and [**Create an Engine**](./introducing-the-sql-workspace.md#create-an-engine) sections in the [Use SQL to load data](./get-started-sql-workspace.md) guide contains useful information about billing for engine runtime and schema.
@@ -56,6 +86,28 @@ After you have loaded your data in the wizard, the rest of the steps in getting 
 
 * For information about how to get started cleaning up resources and data, see [Clean up](./get-started-sql-workspace.md#).
 * For information on how to export your data, see [Export data](get-started-sql-workspace.md#export-data).
+=======
+ To start the **Load data** wizard, select the plus (+) icon in the **Develop Space** next to **Databases** in the left navigation pane and select **Load data**. The wizard will guide you through creating a database, an engine, and loading data. See [Load data using a wizard](../loading-data/loading-data-wizard.md#load-data-using-a-wizard) for detailed information about the workflow and the available options in the wizard.
+ 
+ Even though the **Load data** wizard creates a database and engine for you, the [**Create a Database**](./get-started-sql.md#create-a-database) and [**Create an Engine**](./get-started-sql.md#create-an-engine) sections in the [Use SQL to load data](./get-started-sql.md) guide contain useful information about billing for engine runtime and schema.
+
+To use the **Load data** wizard, select the plus (+) icon. For detailed information about how to use the **Load data** wizard, see the [Load data](../loading-data/loading-data.md) guide.
+
+## Run query, optimize, clean up, and export
+
+<img src="../../assets/images/get_started_wizard_next.png" alt="After using the load data wizard, a simple workflow continues with running a query, optimization, cleaning up, and optionally exporting a dataset." width="700"/>
+<BR>
+
+After you have loaded your data in the wizard, the rest of the steps in getting started are the same as if you ran your workflow in SQL. You can use either the **Develop Space** in the **Firebolt Workspace** to enter SQL, or use the [Firebolt API](../query-data/using-the-api.md).
+
+* For information about how to get started running a query, see [Run query](./get-started-sql.md#run-query).
+
+* For information about how to get started optimizing your workflow, see [Optimize your workflow](get-started-sql#optimize-your-workflow).
+
+* For information about how to get started cleaning up resources and data, see [Clean up resources](./get-started-sql#clean-up).
+  
+* For information on how to export your data, see [Export data](get-started-sql.md#export-data).
+>>>>>>> cf0c3d64862a06d6a10cf905221febfc87d5225b
 
 ## Next steps
 
