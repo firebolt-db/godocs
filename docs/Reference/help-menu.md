@@ -23,8 +23,6 @@ The help menu has the following options:
 - Firebolt Support Access
 - Documentation
 
-![Help Menu](../assets/images/help_menu.png)
-
 ### Status page
 The status page allows you to view the operational status of systems in real time, as well as descriptions of historical incidents.
 
