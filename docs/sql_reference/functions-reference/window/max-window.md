@@ -2,8 +2,6 @@
 layout: default
 title: MAX OVER
 description: Reference material for MAX function
-great_grand_parent: SQL reference
-grand_parent: SQL functions
 parent: Window functions
 ---
 

@@ -9,3 +9,12 @@ has_children: true
 # Guides
 
 Learn how to configure, govern, develop and query with Firebolt. 
+
+# In-Page Navigation
+{: .no_toc }
+
+## Table of Contents
+{: .no_toc .text-delta }
+
+- TOC
+{:toc}

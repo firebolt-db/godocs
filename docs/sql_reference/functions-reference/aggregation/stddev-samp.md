@@ -2,8 +2,6 @@
 layout: default
 title: STDDEV_SAMP
 description: Reference material for STDDEV_SAMP
-great_grand_parent: SQL reference
-grand_parent: SQL functions
 parent: Aggregation functions
 published: false
 ---

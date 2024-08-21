@@ -2,9 +2,7 @@
 layout: default
 title: LIST_OBJECTS
 description: Reference material for LIST_OBJECTS function
-grand_parent: SQL functions
 parent: Conditional and miscellaneous functions
-great_grand_parent: SQL reference
 ---
 
 # LIST_OBJECTS

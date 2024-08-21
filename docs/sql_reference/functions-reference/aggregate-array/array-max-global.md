@@ -3,8 +3,6 @@ layout: default
 title: ARRAY_MAX_GLOBAL
 description: Reference material for ARRAY_MAX_GLOBAL function
 parent: Aggregate array functions
-grand_parent:  SQL functions
-great_grand_parent: SQL reference
 published: false
 ---
 

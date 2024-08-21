@@ -2,8 +2,6 @@
 layout: default
 title: PERCENTILE_DISC
 description: Reference material for PERCENTILE_DISC aggregate function
-great_grand_parent: SQL reference
-grand_parent: SQL functions
 parent: Aggregation functions
 published: false
 ---

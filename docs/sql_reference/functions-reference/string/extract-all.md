@@ -2,8 +2,6 @@
 layout: default
 title: EXTRACT_ALL
 description: Reference material for EXTRACT_ALL function
-great_grand_parent: SQL reference
-grand_parent: SQL functions
 parent: String functions
 published: false
 ---

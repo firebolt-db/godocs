@@ -2,8 +2,6 @@
 layout: default
 title: TRUNCATE TABLE
 description: Reference and syntax for the TRUNCATE TABLE command.
-great_grand_parent: SQL reference
-grand_parent:  SQL commands
 parent: Data management
 ---
 

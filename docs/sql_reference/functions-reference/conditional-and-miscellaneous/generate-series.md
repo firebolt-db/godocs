@@ -2,8 +2,6 @@
 layout: default
 title: GENERATE_SERIES
 description: Reference material for GENERATE_SERIES function
-great_grand_parent: SQL reference
-grand_parent: SQL functions
 parent: Conditional and miscellaneous functions
 ---
 

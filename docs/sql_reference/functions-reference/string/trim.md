@@ -2,8 +2,6 @@
 layout: default
 title: TRIM
 description: Reference material for TRIM function
-great_grand_parent: SQL reference
-grand_parent: SQL functions
 parent: String functions
 ---
 

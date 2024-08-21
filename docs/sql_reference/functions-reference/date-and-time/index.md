@@ -4,7 +4,6 @@ title: Date and time functions
 description: Reference for date and time functions
 nav_order: 8
 parent: SQL functions
-grand_parent: SQL reference
 has_children: true
 ---
 

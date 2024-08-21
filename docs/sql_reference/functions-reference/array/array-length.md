@@ -2,8 +2,6 @@
 layout: default
 title: ARRAY_LENGTH
 description: Reference material for ARRAY_LENGTH function
-great_grand_parent: SQL reference
-grand_parent: SQL functions
 parent: Array functions
 ---
 

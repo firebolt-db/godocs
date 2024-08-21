@@ -3,7 +3,6 @@ layout: default
 title: Engine metrics history
 description: Use this reference to learn about the resource consumption of your engine
 parent: Information schema
-grand_parent: SQL reference
 ---
 
 # Information schema for engine metrics history

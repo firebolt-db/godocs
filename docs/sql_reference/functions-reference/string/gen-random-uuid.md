@@ -2,8 +2,6 @@
 layout: default
 title: GEN_RANDOM_UUID
 description: Reference material for GEN_RANDOM_UUID function
-great_grand_parent: SQL reference
-grand_parent: SQL functions
 parent: String functions
 published: false
 ---

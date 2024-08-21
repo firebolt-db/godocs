@@ -2,8 +2,6 @@
 layout: default
 title: LOCALTIMESTAMP
 description: Reference material for LOCALTIMESTAMP function
-great_grand_parent: SQL reference
-grand_parent: SQL functions
 parent: Date and time functions
 ---
 

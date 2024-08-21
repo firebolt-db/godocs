@@ -2,8 +2,6 @@
 layout: default
 title: RANK OVER
 description: Reference material for RANK function
-great_grand_parent: SQL reference
-grand_parent: SQL functions
 parent: Window functions
 ---
 

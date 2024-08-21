@@ -3,7 +3,6 @@ layout: default
 title: Applicable roles
 description: Use this reference to learn about the metadata available about roles using the information schema.
 parent: Information schema
-grand_parent: SQL reference
 ---
 
 # Information schema for applicable_roles

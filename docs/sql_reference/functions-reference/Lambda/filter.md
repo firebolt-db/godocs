@@ -2,8 +2,6 @@
 layout: default
 title: ARRAY_FILTER
 description: Reference material for ARRAY_FILTER function
-great_grand_parent: SQL reference
-grand_parent: SQL functions
 parent: Lambda functions
 ---
 

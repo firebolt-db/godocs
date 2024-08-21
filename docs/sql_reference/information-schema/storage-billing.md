@@ -3,7 +3,6 @@ layout: default
 title: Storage Billing
 description: Use this reference to learn about the metadata available about storage billing using the information schema.
 parent: Information schema
-grand_parent: SQL reference
 ---
 
 # Information schema for storage billing

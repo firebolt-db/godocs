@@ -2,8 +2,6 @@
 layout: default
 title: LAG OVER
 description: Reference material for LAG function
-great_grand_parent: SQL reference
-grand_parent: SQL functions
 parent: Window functions
 published: true
 ---

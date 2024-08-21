@@ -2,8 +2,6 @@
 layout: default
 title: LOG
 description: Reference material for LOG function
-great_grand_parent: SQL reference
-grand_parent: SQL functions
 parent: Numeric functions
 published: false
 ---

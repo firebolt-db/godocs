@@ -2,9 +2,7 @@
 layout: default
 title: SESSION_USER
 description: Reference material for SESSION_USER function
-grand_parent: SQL functions
 parent: Session functions
-great_grand_parent: SQL reference
 ---
 # SESSION_USER
 

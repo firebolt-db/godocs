@@ -2,8 +2,6 @@
 layout: default
 title: ARRAY_ANY_MATCH
 description: Reference material for ARRAY_ANY_MATCH function
-great_grand_parent: SQL reference
-grand_parent: SQL functions
 parent: Lambda functions
 ---
 

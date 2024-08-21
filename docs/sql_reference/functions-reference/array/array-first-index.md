@@ -2,8 +2,6 @@
 layout: default
 title: ARRAY_FIRST_INDEX
 description: Reference material for ARRAY_FIRST_INDEX function
-great_grand_parent: SQL reference
-grand_parent: SQL functions
 parent: Array functions
 published: false
 ---

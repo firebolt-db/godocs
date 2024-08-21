@@ -2,8 +2,6 @@
 layout: default
 title: SHOW TABLES
 description: Reference and syntax for the SHOW TABLES command.
-great_grand_parent: SQL reference
-grand_parent:  SQL commands
 parent: Metadata commands
 ---
 

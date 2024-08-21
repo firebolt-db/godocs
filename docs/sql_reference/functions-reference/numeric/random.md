@@ -2,8 +2,6 @@
 layout: default
 title: RANDOM
 description: Reference material for RANDOM function
-great_grand_parent: SQL reference
-grand_parent: SQL functions
 parent: Numeric functions
 ---
 

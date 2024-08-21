@@ -2,8 +2,6 @@
 layout: default
 title: IFNULL
 description: Reference material for IFNULL function
-great_grand_parent: SQL reference
-grand_parent: SQL functions
 parent: Conditional and miscellaneous functions
 ---
 

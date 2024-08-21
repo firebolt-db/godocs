@@ -3,7 +3,6 @@ layout: default
 title: Schemata
 description: Use this reference to learn about the metadata available about schemas using the information schema.
 parent: Information schema
-grand_parent: SQL reference
 ---
 
 # Information schema for schemata

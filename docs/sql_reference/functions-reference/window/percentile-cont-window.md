@@ -2,8 +2,6 @@
 layout: default
 title: PERCENTILE_CONT OVER
 description: Reference material for PERCENTILE_CONT window function
-great_grand_parent: SQL reference
-grand_parent: SQL functions
 parent: Window functions
 published: false
 ---

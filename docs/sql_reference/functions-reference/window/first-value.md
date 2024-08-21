@@ -2,8 +2,6 @@
 layout: default
 title: FIRST_VALUE OVER
 description: Reference material for FIRST_VALUE function
-great_grand_parent: SQL reference
-grand_parent: SQL functions
 parent: Window functions
 published: false
 ---

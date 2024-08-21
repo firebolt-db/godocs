@@ -2,8 +2,6 @@
 layout: default
 title: APPROX_PERCENTILE
 description: Reference material for APPROX_PERCENTILE
-great_grand_parent: SQL reference
-grand_parent: SQL functions
 parent: Aggregation functions
 published: false
 ---

@@ -2,8 +2,6 @@
 layout: default
 title: HASH
 description: Reference material for HASH function
-great_grand_parent: SQL reference
-grand_parent: SQL functions
 parent: Conditional and miscellaneous functions
 published: true
 ---

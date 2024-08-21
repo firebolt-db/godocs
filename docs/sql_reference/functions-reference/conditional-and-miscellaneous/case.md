@@ -2,8 +2,6 @@
 layout: default
 title: CASE
 description: Reference material for CASE function
-great_grand_parent: SQL reference
-grand_parent: SQL functions
 parent: Conditional and miscellaneous functions
 ---
 

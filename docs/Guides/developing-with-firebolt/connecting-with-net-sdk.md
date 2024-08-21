@@ -5,6 +5,7 @@ description: Learn about using the .NET SDK for Firebolt.
 nav_order: 6
 parent: Develop with Firebolt
 grand_parent: Guides
+has_toc: true
 ---
 
 # Firebolt .NET SDK
