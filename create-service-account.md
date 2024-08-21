@@ -1,0 +1,41 @@
+---
+layout: default
+title: CREATE SERVICE ACCOUNT
+description: Reference and syntax for the CREATE SERVICE ACCOUNT command.
+parent: Access control
+---
+
+# CREATE SERVICE ACCOUNT
+Creates a new service account.
+
+For more information, see [Service accounts](../../../Guides/managing-your-organization/service-accounts.md).
+
+## Syntax
+
+```sql
+CREATE SERVICE ACCOUNT [ IF NOT EXISTS ] <service_account_name> 
+    [ WITH
+    [ DESCRIPTION = <description> ] 
+    [ NETWORK_POLICY = <network_policy_name> ]
+    [ IS_ORGANIZATION_ADMIN = { TRUE|FALSE } ]
+    ]
+```
+
+## Parameters 
+{: .no_toc} 
+
+| Parameter  | Description |
+| :--------- | :---------- |
+| `<service_account_name>`                              | The name of the service account. Must start with a letter and may contain only alphanumeric, digit, or underscore(_) characters.  |
+| `<description>` | An optional description for the service account. |
+| `<network_policy_name>`                      | An optional parameter to define the network policy to link to the created service account. |
+| `IS_ORGANIZATION_ADMIN`       | A `BOOLEAN` value specifying if the login is an organization admin. By default this value is `FALSE`. |
+
+
+## Example
+
+The following command will create a service account "sa1" linked to the "my_network_policy" network policy. 
+
+```sql
+CREATE SERVICE ACCOUNT "sa1" WITH NETWORK_POLICY = my_network_policy
+```
