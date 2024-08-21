@@ -14,7 +14,7 @@ You can use the `information_schema.engine_metering_history` view to return info
 SELECT
   *
 FROM
-  information_schema.engine_history
+  information_schema.engine_metering_history
 WHERE
   engine_name LIKE 'capacity_test_%'
 ```
