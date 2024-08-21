@@ -19,7 +19,7 @@ To get started, you must [register](https://go.firebolt.io/signup) and create a 
 
 <img src="../assets/images/../../../assets/images/architecture-workflow.png" alt="Get Started" width="700"/>
 
-After you register, you can either use the [Load data wizard](./get-started-load-data-wizard.md) or [use SQL](./get-started-sql.md). Use the Load data wizard if your data is in either CSV or Parquet format, and you want to use a graphical user interface to guide you through the first three steps of the workflow. Use the Firebolt **Develop Space** or an API if you prefer to enter SQL, or need a more customized workflow.
+After you register, you can either use the [Load data wizard](./get-started-load-data-wizard.md) or the [use SQL](./get-started-sql.md). Use the Load data wizard if your data is in either CSV or Parquet format, and you want to use a graphical user interface to guide you through the first three steps of the workflow. Use the Firebolt **Develop Space** or an API if you prefer to enter SQL, or need a more customized workflow.
 
 ## Next steps
 

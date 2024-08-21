@@ -19,11 +19,12 @@ The **Load data** wizard guides you through creating a database and engine, and 
 
 Use the following steps to register with Firebolt:
 <BR>
-1. [Sign up](https://go.firebolt.io/signup) on Firebolt's registration page. Fill in your email, name, choose a password, and select `Get Started’.
 
-2. Firebolt will send a confirmation to the address that you provided. To complete your registration, select ‘Verify’ in the email to take you to Firebolt’s [login page](https://go.firebolt.io/login). 
+1. [Sign up](https://go.firebolt.io/signup) on Firebolt's registration page. Fill in your email, name, choose a password, and select **Get Started**.
 
-3. Type in your email and password and click ‘Log In’.
+2. Firebolt will send a confirmation to the address that you provided. To complete your registration, select **Verify** in the email to take you to Firebolt’s [login page](https://go.firebolt.io/login).
+
+3. Type in your email and password and select **Log In**.
 
 {: .note}
 New accounts receive 600 Firebolt unit (FBU) credits ($200+) to get started exploring Firebolt’s capabilities.

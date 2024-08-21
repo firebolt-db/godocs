@@ -9,29 +9,30 @@ has_children: false
 has_toc: false
 ---
 
-# Load data using SQL statements
-If the **Load data** wizard does not meet your needs, or you prefer to write directly in SQL, you can enter SQL and run it in the **Develop Space** within the Firebolt workspace.
+# Load data using SQL
+If the **Load data** wizard does not meet your needs, or you prefer to write directly in SQL, you can enter SQL and run it in the **Firebolt Workspace**, or use an API.
 
 {: .note}
 Before you can load data using a SQL script, you must register with Firebolt, and create a database and an engine.
 
-A general workflow to load data using SQL is shown in the following diagram as the highlighted decision compared to using the **Load data** wizard shown in the muted path:
+A general workflow to load data using SQL is shown in the following diagram, with the highlighted path representing the SQL workflow and the muted path representing using the **Load data** wizard:
 <br>
 
 <img src="../../assets/images/load_data_sql_workflow.png" alt="You can use either the load data wizard or SQL to create a database, engine, and then load data." width="700"/>
 
-For more information on how to register, create a database and engine using the Firebolt user interface, see the [Get Started](../../Guides/getting-started/index.md) guide. To create an engine using SQL, use [CREATE ENGINE](../../sql_reference/commands/engines/create-engine.md). You can check how many engines are defined in your current account using [SHOW ENGINES](../../sql_reference/commands/metadata/show-engines.md). For more information and examples of how to create engines, see [Work with engines using DDL](../../Guides/operate-engines/working-with-engines-using-ddl.md). To create a database, use [CREATE DATABASE](../../sql_reference/commands/data-definition/create-database.md). You can check how many databases are defined in your current account using [SHOW DATABASES](../../sql_reference/commands/metadata/show-databases.md). Next, log into the Firebolt workspace and enter SQL into the script tab.
+For more information on how to register, create a database and engine using the **Firebolt Workspace**, see the [Get Started](../../Guides/getting-started/index.md) guide. To create an engine using SQL, use [CREATE ENGINE](../../sql_reference/commands/engines/create-engine.md). You can check how many engines are defined in your current account using [SHOW ENGINES](../../sql_reference/commands/metadata/show-engines.md). For more information and examples of how to create engines, see [Work with engines using DDL](../../Guides/operate-engines/working-with-engines-using-ddl.md). To create a database, use [CREATE DATABASE](../../sql_reference/commands/data-definition/create-database.md). You can check how many databases are defined in your current account using [SHOW DATABASES](../../sql_reference/commands/metadata/show-databases.md). Next, log into the **Firebolt Workspace** and enter SQL into the script tab in the **SQL Editor**.
 
 The following code examples show different workflows based on need and complexity:
 
-- [Load data using SQL statements](#load-data-using-sql-statements)
-  - [The simplest COPY FROM workflow](#the-simplest-copy-from-workflow)
-  - [Define a schema, create a table, and load data](#define-a-schema-create-a-table-and-load-data)
-  - [Filter data before loading using OFFSET and LIMIT](#filter-data-before-loading-using-offset-and-limit)
-  - [Aggregating data during data load](#aggregating-data-during-data-load)
-  - [Continue loading even with errors](#continue-loading-even-with-errors)
-  - [Log errors during data load](#log-errors-during-data-load)
-  - [More complex `COPY FROM` use cases](#more-complex-copy-from-use-cases)
+- [The simplest COPY FROM workflow](#the-simplest-copy-from-workflow)
+- [Define a schema, create a table, and load data](#define-a-schema-create-a-table-and-load-data)
+- [Load multiple files into a table](#load-multiple-files-into-a-table)
+- [Filter data before loading using OFFSET and LIMIT](#filter-data-before-loading-using-offset-and-limit)
+- [Aggregating data during data load](#aggregating-data-during-data-load)
+- [Update an existing table from an external table](#update-an-existing-table-from-an-external-table)
+- [Load source file metadata into a table](#load-source-file-metadata-into-a-table)
+- [Continue loading even with errors](#continue-loading-even-with-errors)
+- [Log errors during data load](#log-errors-during-data-load)
 
 ## The simplest COPY FROM workflow
 Although there are many options to handle different data loading workflows, `COPY FROM` requires only two parameters:
@@ -44,9 +45,11 @@ An example of the **simplest** way to invoke `COPY FROM` is:
 ```sql
 COPY INTO tutorial FROM 
 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/
-levels.csv'
+levels.csv' WITH HEADER=TRUE;
 ```
-The previous code creates a table named `tutorial`, reads a CSV file with headers from a public Amazon S3 bucket, automatically generates a schema, and loads the data. If the data is contained in an Amazon S3 bucket with restricted access, you will need to provide credentials as shown in the following example:
+The previous code creates a table named `tutorial`, reads a CSV file with headers from a public Amazon S3 bucket, automatically generates a schema, and loads the data.
+
+If the data is contained in an Amazon S3 bucket with restricted access, you will need to provide credentials. The following example shows how to provide credentials and read a file with headers, and automatically generate a schema:
 
 ```sql
 COPY INTO tutorial 
@@ -60,14 +63,14 @@ AWS_SECRET_KEY = '<aws_secret_key>'
 
 To provide your credentials in the previous example, do the following:
 
-- Replace the <aws_key_id> with an AWS access key that is associated with an AWS user or AWS IAM role. The AWS access key is a 20-character string such as ‘AKIAIOSFODNN7EXAMPLE’.
-- Replace the <aws_secret_key> with an AWS secret access key associated with the user or role associated with the AWS access key. The AWS secret access key is a 40-character string such as ‘wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY’.
+- Replace the \<aws_key_id\> with an AWS access key that is associated with an AWS user or AWS IAM role. The AWS access key is a 20-character string such as ‘AKIAIOSFODNN7EXAMPLE’.
+- Replace the \<aws_secret_key\> with an AWS secret access key associated with the user or role associated with the AWS access key. The AWS secret access key is a 40-character string such as ‘wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY’.
 
 For more information about how to create an AWS access key and AWS secret key, see [Creating Access Key and Secret ID in AWS](../../Guides/loading-data/creating-access-keys-aws.md).
 
 ## Define a schema, create a table, and load data
 
-You can also load data into an existing table using your own schema definition. Defining your own schema, instead of automatically detecting it, can give you finer control over data ingestion. This example contains the following two steps:
+You can also load data into an existing table using your own schema definition. Manually defining your own schema, can give you finer control over data ingestion. This example contains the following two steps:
 
 1. Create the target table.
    
@@ -83,7 +86,7 @@ You can also load data into an existing table using your own schema definition. 
     SceneDetails TEXT
    );
    ```
-    The previous code example creates a table named `levels`, and defines each of the columns with a name and data type. For more information about the kinds of data that Firebolt supports, see [Data types](../../sql_reference/data-types.md).
+    The previous code example creates a table named `levels`, and defines each of the columns with a name and data type. For more information about the data types that Firebolt supports, see [Data types](../../sql_reference/data-types.md).
 
 2. Run COPY FROM.
 
@@ -95,7 +98,7 @@ You can also load data into an existing table using your own schema definition. 
     WITH TYPE = CSV
     HEADER = TRUE;
     ```
-    The previous code example reads data from a Firebolt test data set from the fictional [Ultra Fast Gaming Inc](https://help.firebolt.io/t/ultra-fast-gaming-firebolt-sample-dataset/250) company. The `levels` data set is in CSV format, but Firebolt can also read files with `TSV`, `JSON` and `Parquet` formats. If you are reading in a `CSV` file and specify `HEADER = TRUE`, then Firebolt expects the first line of your file to contain column names.
+    The previous code example reads data from a Firebolt test data set from the fictional [Ultra Fast Gaming Inc.](https://help.firebolt.io/t/ultra-fast-gaming-firebolt-sample-dataset/250) company. The `levels` data set is in CSV format, but you can also use `COPY FROM` to read files in `Parquet` format. If you are reading in a `CSV` file and specify `HEADER = TRUE`, then Firebolt expects the first line of your file to contain column names.
 
 ## Load multiple files into a table
 
@@ -111,7 +114,7 @@ In the previous code example, the following apply:
     
 - **COPY INTO**: Specifies the target table to load the data into.
 - **FROM**: Specifies the S3 bucket location of the data.
-- **WITH PATTERN**= "*.parquet": Uses a regular expressions pattern with wildcards (*) to include all Parquet files in the directory.
+- **WITH PATTERN**= "\*.parquet": Uses a regular expressions pattern with wildcards (\*) to include all Parquet files in the directory.
 - **AUTO_CREATE=TRUE**: Automatically creates the table and the schema if the table does not already exist. Parquet files include rich data, and typically have schema information for simple and high-fidelity schema creation. Specifying AUTO_CREATE to TRUE ensures the schema in the Parquet file is preserved after loading.
 - **TYPE = PARQUET**: Specifies the data format as Parquet.
 
@@ -138,7 +141,7 @@ For more information about `OFFSET` and `LIMIT`, see [SELECT Query Syntax](../..
 
 If you frequently use [aggregation functions](../../sql_reference/functions-reference/aggregation/index.md) such as `COUNT`, `MAX`, or `SUM`, you can perform these aggregations on top of  an external table without loading the raw data into Firebolt. This approach allows you to avoid costs associated with importing and storing the dataset, particularly if you don’t need to store the originating data set.
 
-To aggregate data, first create an external table. Then, define a table in the Firebolt database with the desired aggregations. Finally, insert data from the external table into the internal table. This example contains the following three steps:
+The following example shows how to aggregate data using an [external table](working-with-external-tables.md). Then, define a table in the Firebolt database with the desired aggregations. Finally, insert data from the external table into the internal table. This example contains the following three steps:
     
 1. Create an external table linked to files in an Amazon S3 bucket.
 
@@ -385,9 +388,9 @@ For more information about metadata, see **Using metadata virtual columns** in [
 
 ## Continue loading even with errors
 
-By default, if Firebolt runs into an error when loading your data, the job will stop loading and end in error. If you want to continue loading your data even in the presence of errors, set `MAX_ERRORS_PER_FILE` to a percentage larger than `0`. Then, `COPY FROM` will continue to load data until it exceeds the specified percent based on the total number of rows in your data. If you enter an integer number between `0` and `100`, `COPY FROM` will interpret the integer as a percentage of rows. 
+By default, if Firebolt runs into an error when loading your data, the job will stop loading and end in error. If you want to continue loading your data even in the presence of errors, set `MAX_ERRORS_PER_FILE` to a percentage or integer larger than `0`. `COPY FROM` will then continue to load data until it exceeds the specified percent based on the total number of rows in your data. If you enter an integer between `0` and `100`, `COPY FROM` will interpret the integer as a percentage of rows.
 
-For example, if `MAX_ERRORS_PER_FILE` is set to 3, `COPY FROM` will continue to load data until more than `3` percent of the rows loaded contain an error. Once `COPY FROM` passes this threshold, the load job will stop and return an error. If you enter the text, `3%`, `COPY FROM` will also interpret the value as `3%` of the rows. If  `MAX_ERRORS_PER_FILE` is set to either `100` or `100%`, the load process will continue even if every row in every file has an error. If all rows have errors, no data will load into the target table.
+For example, if `MAX_ERRORS_PER_FILE` is set to `3` or `3%`, `COPY FROM` will load data until more than `3%` of the rows have errors, and then return an error. Setting `MAX_ERRORS_PER_FILE` to either `100` or `100%` allows the loading process to continue even if every row has an error. If all rows have errors, no data will load into the target table.
 
 The following code example loads a sample CSV data set with headers, and will finish the loading job even if every row contains an error. 
 ```sql
@@ -404,7 +407,7 @@ In the previous code example, the following apply:
 * `AUTO_CREATE=TRUE`: Creates a  target table and automatically infers the schema.
 * `HEADER=TRUE`: Specifies that the first row of the source file contains column headers.
 * `TYPE`: Specifies the data format of the incoming data. 
-* `MAX_ERRORS_PER_FILE`: Specified as a string or literal text. In the previous example, `MAX_ERRORS_PER_FILE` uses text.
+* `MAX_ERRORS_PER_FILE`: Specified as an integer or literal text. In the previous example, `MAX_ERRORS_PER_FILE` uses text.
 
 ## Log errors during data load
 
@@ -418,7 +421,7 @@ CREDENTIALS = (
     AWS_KEY_ID = 'YOUR_AWS_KEY_ID',
     AWS_SECRET_KEY = 'YOUR_AWS_SECRET_KEY'
 )
-MAX_ERRORS_PER_FILE = 5%
+MAX_ERRORS_PER_FILE = '5%'
 ERROR_FILE = 's3://my-bucket/error_logs/'
 ERROR_FILE_CREDENTIALS = (
     AWS_KEY_ID = 'YOUR_AWS_KEY_ID',
@@ -432,7 +435,7 @@ In the previous code example, the following apply:
 * `FROM`: Specifies the S3 bucket location of the data.
 * `Credentials`: Specifies AWS credentials to access information in the Amazon S3 bucket that contains the source data. For more Information about credentials and how to set them up, see the previous **The simplest COPY FROM workflow** section in this guide.
 * Error Handling:
-    * `MAX_ERRORS_PER_FILE = 5%`: Allows errors in up to `5%` of the rows per file before the load data job fails.
+    * `MAX_ERRORS_PER_FILE = ‘5%’`: Allows errors in up to `5%` of the rows per file before the load data job fails.
     * `ERROR_FILE`: Specifies the Amazon S3 bucket location to write the error file.
 * `HEADER = TRUE`: Indicates that the first row of the CSV file contains column headers.
 
@@ -457,17 +460,4 @@ WITH PATTERN='*rejected_rows*.csv' HEADER=FALSE;
 SELECT * FROM rejected_rows;
 ```
 
-You can also configure parameters such as `MAX_ERRORS_PER_FILE`, `ERROR_FILE`, and `ERROR_FILE_CREDENTIALS` to manage how errors are handled, ensure data integrity and record errors for future review. For more information about `ERROR_FILE` or `ERROR_FILE_CREDENTIALS`, see the **Parameters** section of [COPY FROM](../../sql_reference/commands/data-management/copy-from.md).
-
-## More complex `COPY FROM` use cases
-
-You can construct more complex workflows using any of the additional options in `COPY FROM`. These include the following:
-
-* Use source files located in multiple directories.
-* Write the contents of an existing table in different formats to an Amazon S3 bucket.
-* Load a data file that doesn’t have a header.
-* Use a different delimiter other than the default comma (,) value to read a CSV file.
-
-There are many additional options available in `COPY FROM`. For information about the syntax, parameter descriptions, and additional examples, see [COPY FROM](../../sql_reference/commands/data-management/copy-from.md).
-
-<!-- For information about using Apache Airflow to incrementally load data chronologically, see [Incrementally loading data with Airflow](incrementally-loading-data.md). -->
+Configure error handling parameters such as `MAX_ERRORS_PER_FILE`, `ERROR_FILE`, and `ERROR_FILE_CREDENTIALS` to manage how errors are handled, ensure data integrity, and record errors for future review. For more information about `ERROR_FILE` or `ERROR_FILE_CREDENTIALS`, see the **Parameters** section of [COPY FROM](../../sql_reference/commands/data-management/copy-from.md).
