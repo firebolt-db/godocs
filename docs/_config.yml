@@ -48,9 +48,10 @@ aux_links:
   "TRY FOR FREE":
     - "https://www.firebolt.io/try-firebolt"
 
-# Google Analytics tracking
-#ga_tracking: UA-142599515-1
-#ga_tracking_anonymize_ip: true
+# Google Analytics Tracking (optional)
+# e.g, UA-1234567-89
+# ga_tracking: UA-2709176-10
+# ga_tracking_anonymize_ip: true # Use GDPR compliant Google Analytics settings (true/nil by default)
 
 # footer_content: "<a href=\"mailto:docs@firebolt.io\">Send feedback</a>"
 
