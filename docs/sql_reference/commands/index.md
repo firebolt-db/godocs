@@ -39,6 +39,7 @@ Use the functional list below to find commands for a specific task area that you
 
 ## Data management
 
+* [COPY FROM](./data-management/copy-from.md)
 * [COPY TO](./data-management/copy-to.md)
 * [DELETE](./data-management/delete.md)
 * [INSERT](./data-management/insert.md)
