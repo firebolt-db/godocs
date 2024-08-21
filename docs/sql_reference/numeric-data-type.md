@@ -26,6 +26,18 @@ The precision must be positive, while the scale can be zero or positive.
 
 The `DECIMAL` data type is a synonym to the `NUMERIC` data type.
 
+### Storage size for precision
+
+The storage size of the data type depends on the precision, as described in the following table:
+
+| precision | bytes |
+|-----------|-------|
+| 1-9       | 4     |
+| 10-18     | 8     |
+| 18-38     | 16    |
+
+For example, if the precision is between 1 and 9 digits, the data type will use 4 bytes of storage.
+
 ### Default values for precision and scale
 
 If the scale is not specified when declaring a column of `NUMERIC` data type, then it defaults to `NUMERIC(precision, min(9, precision))`
