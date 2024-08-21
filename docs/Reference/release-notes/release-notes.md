@@ -20,71 +20,94 @@ Firebolt may deploy releases in phases, meaning that new features and changes ma
 * Topic ToC
 {:toc}
 
-## DB version 4.3
-**August 2024**
+## Breaking Changes
 
-### Breaking Changes
-
-<!-- Owned by Vitaliy Lyudvichenko (for FIR-35188) --> **Temporarily restricted column DEFAULT expressions in CREATE TABLE statements**
+<!-- Auto Generated Markdown for FIR-35240 - Owned by Kfir Yehuda -->**Reserved the keyword GEOGRAPHY, requiring double quotes for use as an identifier**
 {: style="color:red;"}
 
-Column DEFAULT expressions in CREATE TABLE statements have been temporarily restricted, they can only consist of literals and the following functions: `CURRENT_DATE()`, `LOCALTIMESTAMP()`, `CURRENT_TIMESTAMP()`, `NOW()`. Existing tables with column DEFAULT expressions are not affected.
+The word GEOGRAPHY is now a reserved keyword and must be quoted using double quotes for use as an identifier. For example, `create table geography(geography int);` will now fail, but `create table "geography" ("geography" int);` will succeed.
 
-<!-- Auto Generated Markdown for FIR-24961 - Owned by Kfir Yehuda --> **Underflow detection while casting from TEXT to floating point data types**
+<!-- Auto Generated Markdown for FIR-34196 - Owned by Pascal Schulze -->**Deprecated the legacy HTTP ClickHouse headers**
 {: style="color:red;"}
 
-Firebolt now detects underflow, a condition where a numeric value becomes smaller than the minimum limit that a data type can represent, when casting from TEXT to floating point data types. For example, the query `select '10e-70'::float4;` now returns an error, while it previously returned `0.0`.
+We no longer accept or return the legacy HTTP ClickHouse header format `X-ClickHouse-*`.
 
-<!-- Auto Generated Markdown for FIR-33925 - Owned by Tobias Humig --> **Returning query execution errors in JSON format through the HTTP API**
+<!-- Auto Generated Markdown for FIR-35190 - Owned by Kfir Yehuda -->**Fixed `json_value` zero-byte handling**
 {: style="color:red;"}
 
-Firebolt's HTTP API now returns query execution errors in JSON format, allowing for future enhancements like including metadata such as error codes, or the location of a failing expression within the SQL script.
+The `json_value` function no longer returns null characters (0x00), as the TEXT datatype does not support them. For example, `select json_value('"\u0000"');` now results in an error.
 
-<!-- Auto Generated Markdown for FIR-35022 - Owned by David Boublil -->**Changed default of case_sensitive_column_mapping parameter in COPY FROM**
+<!-- Auto Generated Markdown for FIR-35188 - Owned by Vitaliy Liudvichenko -->**Restricted column DEFAULT expressions in CREATE TABLE statements to literals and specific functions**
 {: style="color:red;"}
 
-The default value for the `CASE_SENSITIVE_COLUMN_MAPPING` parameter in `COPY FROM` is now `FALSE`, meaning that if a target table contains column names in uppercase and the source file to ingest has the same columns in lowercase, the ingestion will consider them the same column and ingest the data.
+Column DEFAULT expressions in CREATE TABLE statements have been temporarily restricted. They can now only consist of literals and these functions: `CURRENT_DATE()`, `LOCALTIMESTAMP()`, `CURRENT_TIMESTAMP()`, and `NOW()`. Existing tables with column DEFAULT expressions are not affected.
 
-<!-- Auto Generated Markdown for FIR-34581 - Owned by Kfir Yehuda -->**`extract` function returns Numeric(38,9) for Epoch, second, and millisecond extraction**
+<!-- Manually Generated Markdown for FIR-36032 - Owned by Paul Edgington -->**Change default values for NODES and TYPE during CREATE ENGINE**
 {: style="color:red;"}
 
-The result data type of the `extract` function for epoch, second, and millisecond was changed to return the type Numeric(38,9) instead of a narrower Numeric type. For example, `select extract(second from '2024-04-22 07:10:20'::timestamp);` now returns Numeric(38,9) instead of Numeric(8,6).
+When performing a CREATE ENGINE, the default values for NODES and TYPE parameters have changed. NODES defaults to `2` (previously `1`) and TYPE defaults to `M` (previously `S`). To create an engine with the previous default values, run the following command:
 
-### New Features
+```sql
+CREATE ENGINE my_engine WITH NODES=1 TYPE=S
+```
 
-<!-- Auto Generated Markdown for FIR-32335 - Owned by Krishna Thotapalli -->**Role-based permissions for COPY FROM and External Table processes**
+## New Features
 
-Enabled role-based permissions for COPY FROM and External Table processes.
+<!-- Auto Generated Markdown for FIR-24598 - Owned by Leonard von Merzljak -->**Extended support for date arithmetic**
 
-<!-- Auto Generated Markdown for FIR-34932 - Owned by Kfir Yehuda -->**HLL-based count distinct functions compatible with the Apache DataSketches library**
+Now you can subtract two dates to get the number of elapsed days. For example, `DATE '2023-03-03' - DATE '1996-09-03'` produces `9677`.
 
-Firebolt now supports count-distinct functions using the HLL (HyperLogLog) algorithm, compatible with the Apache DataSketches library.
-For details and examples, see documentation on the functions 
-[APACHE_DATASKETCHES_HLL_BUILD](../../sql_reference/functions-reference/datasketches/apache-datasketches-hll-build.md),
-[APACHE_DATASKETCHES_HLL_MERGE](../../sql_reference/functions-reference/datasketches/apache-datasketches-hll-merge.md),
-and [APACHE_DATASKETCHES_HLL_ESTIMATE](../../sql_reference/functions-reference/datasketches/apache-datasketches-hll-estimate.md).
+<!-- Auto Generated Markdown for FIR-32335 - Owned by Krishna Thotapalli -->**Role-based permissions for COPY FROM and external tables**
 
-<!-- Auto Generated Markdown for FIR-33707 - Owned by Zhen Li -->**Supported additional join conditions and removed the restriction on the number of inequality predicates**
+Added support for role-based permissions (ARNs) to the COPY FROM command and external table operations.
 
-Firebolt has added enhanced support for more join conditions. As long as there is one equality predicate comparing a left column to a right column of the join, which is not part of a disjunctive (OR) expression, the remaining join condition can be arbitrary. The previous limitation on the number of inequality predicates has been removed.
+<!-- Auto Generated Markdown for FIR-35164 - Owned by Ivan Koptiev -->**Added `trust_policy_role` column to `information_schema.accounts` view for S3 access**
 
-### Performance Improvements
+Added a new column `trust_policy_role` to the `information_schema.accounts` view. This column shows the role used by Firebolt to access customer S3 buckets.
 
-<!-- FIR-32882 - Owned by Michael Freitag -->**Multi-node query performance**
+<!-- Auto Generated Markdown for FIR-24797 - Owned by Tali Magidson -->**Enabled selection of external tables' pseudo columns without adding data columns**
 
-Firebolt has improved the performance of data transfer between nodes, resulting in faster overall query execution times.
+Users can now select an external table's pseudo columns (source file name, timestamp, size, and etag) without adding any data columns. For example, `select $source_file_timestamp from t_external` returns the file timestamps for each row. The query `select count($source_file_timestamp) from t_external` returns the total number of rows in the external table, similar to `count(*)`. The query `select count(distinct $source_file_name) from t_external` returns the number of distinct objects containing at least one row in the source S3 location.
+Regarding `count(*)` performance, formats like CSV or JSON still require reading the data fully to determine an external file's row count. However, Parquet files provide the row count as part of the file header, and this is now used instead of reading the full data.
 
-<!-- Auto Generated Markdown for FIR-24598 - Owned by Leonard von Merzljak -->**Enhanced Interval Arithmetic Support**
+<!-- Auto Generated Markdown for FIR-33707 - Owned by Zhen Li -->**Extended support for arbitrary join conditions, including multiple inequality predicates**
 
-Firebolt has enhanced support for interval arithmetic. You can now use expressions of the form `date_time + INTERVAL * d`, where `date_time` is a expression of type Date, Timestamp, TimestampTz, and `d` is an expression of type DOUBLE PRECISION. The interval is now scaled by `d` before being added to `date_time`. For example, writing `INTERVAL '1 day' * 3` is equivalent to writing `INTERVAL '3 days'`.
+We now support more join conditions. As long as there is one equality predicate comparing a left column to a right column of the join (not part of an OR expression), the remaining join condition can now be an arbitrary expression. The limitation on the number of inequality predicates was removed.
 
-<!-- Auto Generated Markdown for FIR-33723 - Owned by Lorenz Hübschle -->**Optimized selective inner and right joins on primary index and partition by columns to reduce rows scanned**
+<!-- Auto Generated Markdown for FIR-35507 - Owned by Benjamin Wagner -->**New functions `URL_ENCODE` and `URL_DECODE`**
 
-Selective inner and right joins on primary index and partition by columns now can now benefit from pruning. This reduces the number of rows scanned by filtering out rows that are not part of the join result early in the process. This optimization works best when joining on the first primary index column or a partition by column. The optimization is applied automatically when applicable, and no action is required. Queries that used this optimization will display "Prune:" labels on the table scan in the EXPLAIN (PHYSICAL) or EXPLAIN (ANALYZE) output.
+We added support for the `URL_ENCODE` and `URL_DECODE` functions.
 
-### Bug Fixes
+<!-- Auto Generated Markdown for FIR-35297 - Owned by Benjamin Wagner -->**New logarithm functions `ln`, `log`**
 
-<!-- Auto Generated Markdown for FIR-34721 - Owned by Demian Hespe -->**Fixed a bug in the combination of cross join and the `index_of` function**
+We added support for calculating logarithms. The natural logarithm is available using `ln(val double precision)`. The base 10 logarithm is available using `log(val double precision)`. Logarithms with custom bases are available using `log(base double precision, val double precision)`.
 
-Resolved an issue where the `index_of` function would fail when applied to the result of a cross join that produced a single row.
+<!-- Auto Generated Markdown for FIR-35480 - Owned by Mosha Pasumansky -->**New function `SQRT**
+
+Added support for the `SQRT` function to compute the square root.
+
+<!-- Auto Generated Markdown for FIR-33990 - Owned by Kfir Yehuda -->
+<!-- Auto Generated Markdown for FIR-35214 - Owned by Kfir Yehuda -->**New functions `JSON_VALUE`, `JSON_VALUE_ARRAY`, `JSON_EXTRACT_ARRAY`**
+
+Added support for the functions `JSON_VALUE`, `JSON_VALUE_ARRAY`, and `JSON_EXTRACT_ARRAY`.
+
+<!-- Auto Generated Markdown for FIR-34266 - Owned by Mariia Kaplun -->**New function `SESSION_USER`**
+
+Support has been added for the `SESSION_USER` function, which retrieves the current user name.
+<!-- also added documentation for the following functions: CURRENT_DATABASE, CURRENT_ENGINE, CURRENT_ACCOUNT -->
+
+<!-- Auto Generated Markdown for FIR-34678 - Owned by Pascal Schulze -->**New columns in `information_schema.engine_query_history`**
+
+Added two new columns to `information_schema.engine_query_history`: `query_text_normalized_hash` and `query_text_normalized`.
+
+
+## Bug Fixes
+
+<!-- Auto Generated Markdown for FIR-35343 - Owned by Judson Wilson -->**Fixed directory structure duplication in the S3 path when using the COPY TO statement with SINGLE_FILE set to FALSE**
+
+Fixed an issue in `COPY TO` when `SINGLE_FILE=FALSE`. Previously, the specified directory structure in the location was repeated twice in the S3 path. For example, files were output to "s3://my-bucket/out/path/out/path/" instead of "s3://my-bucket/out/path/".
+
+<!-- Manually Generated Markdown for FIR-32830 - Owned by Judson Wilson -->**Fixed the file extension in the S3 path when using the COPY TO statement with GZIP-Parquet format**
+
+Fixed an issue in `COPY TO` when `TYPE=PARQUET` and `COMPRESSION=GZIP`, which uses the Parquet file format with internal GZIP compression for the columns. Previously, the output files would have the extension ".parquet.gz". Now, the extension is ".gz.parquet".
 
