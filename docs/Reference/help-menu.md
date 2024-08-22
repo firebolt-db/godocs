@@ -9,93 +9,110 @@ parent: General reference
 # Help menu
 {:.no_toc}
 
-The Firebolt help menu is found in the bottom left corner of the screen, appearing as a ```?``` sign.
+The **Firebolt Help menu** is found in the bottom left corner of the screen, appearing as a question mark (```?```).
 
 ![Help Menu](../assets/images/getting_to_help.png)
 
 ## Menu options
 
-This menu has four different options: 
+The help menu has the following options: 
 
-![Help Menu](../assets/images/help_menu.png)
+- Status Page
+- Release Notes
+- Contact Support
+- Firebolt Support Access
+- Documentation
 
 ### Status page
 The status page allows you to view the operational status of systems in real time, as well as descriptions of historical incidents.
 
-You can subscribe to notifications whenever Firebolt **creates**, **update** or **resolve** an incident via the following options:
+You can subscribe to notifications whenever Firebolt **creates**, **updates**, or **resolves** an incident through the following options:
 1. **Email notification** - by providing your email address.
 2. **Text notifications** - by providing your phone number.
-*Please note that text messages will only notify you when Firebolt creates or resolves an incident.*
+*You will only receive text notifications when Firebolt either creates or resolves an incident.*
 3. **Slack notifications** - by connecting via Slack.
-*Please note - you can also get maintenance status through Slack* 
+*You can receive maintenance status updates through Slack* 
 4. **RSS updates** - by connecting via your RSS/Atom application.
-
-### Contact Support - Reaching out to Firebolt Support
-Contact Support allows you to create a support case for Firebolt's support team.
-
-**To create a case:**
-
-1. Click on "Contact Support"
-2. A support form will appear, with the following information populated **automatically**:
-    <br>a. **First Name**
-    <br>b. **Last Name**
-    <br>c. **Company** - this is the name of your Firebolt account
-    <br>d. **Email**
-4. Fill in the following:
-    <br>**Severity** - please choose the severity of your case according to the following severity categories:
-
-    - *Critical*: You are currently experiencing a loss of critical functionality when using Firebolt. For example, your engine is unable to start.
-    - *Urgent*: Your critical functionality is being intermittently impacted. For example, your engine freezes, sometimes.
-    - *Tolerable*: Your services remain usable, with only non-critical functionality being affected. For example, a certain SQL query is throwing an error.
-    - *Question*: Your operations are running smoothly and are not affected. You might have a question or want to report a minor UI issue.
-    
-    <br>**Engine name** - please fill in the name of the engine where you have experienced the issue.
-    <br>**Subject** - try to be as clear and descriptive as possible.
-    <br>**Description** - please include any relevant information for the case. Especially:
-    - What were you trying to achieve when the issue occurred? 
-    - What was expected to happen? 
-    - What has happened instead? 
-    - Any error code or message.  
-5. Click "Submit"
-6. The case will be sent to our Support team, and you will receive a confirmation email. 
-
-![Create Case](../assets/images/create_support_case.png)
 
 ### Release Notes
 The Release Notes link brings you to Firebolt's [latest version release notes](release-notes/release-notes.md).
 
+### Contact Support - Reaching out to Firebolt Support
+**Contact Support** allows you to create a support case for Firebolt's support team.
+
+To create a case: 
+
+1. Select **Contact Support**.
+2. A support form will appear, with the following information populated **automatically**:
+
+    - **First Name**
+    - **Last Name**
+    - **Organization** 
+    - **Email**
+
+4. Fill in the following:
+    
+    - **Account** - Select the name of your account within your organization.
+    - **Severity** - Select the severity of your case according to the following categories:
+
+        - *Critical*: You are currently experiencing a loss of critical functionality. For example, your engine is unable to start.
+        - *Urgent*: Your critical functionality is being intermittently impacted. For example, your engine intermittently becomes unresponsive.
+        - *Tolerable*: Your services remain operational, though non-critical functionality may be impacted. For example, a specific SQL query generates an error.
+        - *Question*: Your operations are running smoothly with no disruptions. You may have a question or want to report a minor issue with the user interface.
+    
+    - **Engine name** - Enter the name of the engine with the issue.
+    - **Subject** - Provide a clear and descriptive subject.
+    - **Description** - Provide any relevant details including the following:
+        - What were you trying to do when the issue occurred? 
+        - What was your expected outcome? 
+        - What actually happened? 
+        - What errors were returned?  
+5. Select **Submit**.
+6. Your case will be sent to our Support team, and you will receive a confirmation email. 
+
+
+
 ### Firebolt Support Access
-Firebolt Support Access allows you to control the access of Firebolt's support team to your account.
+Firebolt Support Access allows you to manage and control the level of access that Firebolt's support team has to your account.
 
-For new accounts support access is enabled by default, still you can revoke it at any time.
+For new accounts, support access is enabled by default; however you can revoke it at any time.
 
-All activity of the support team is logged and can be viewed in the [query history](../sql_reference/information-schema/engine-query-history) same as for other users.
+All support team activity is logged and can be viewed in the [query history](../sql_reference/information-schema/engine-query-history).
 
-To grant access:
+To grant access to the support team:
+
 1. Select "Firebolt Support Access"
 2. A support access form will appear, with the following information populated **automatically**:
-    <br>a. **Account Name**
-    <br>b. **Duration**
-    <br>c. **Assign Roles**
-3. Fill in the following:
-    <br>**Duration** - please choose the duration of the support access. Once the duration expires, the access will be automatically revoked.
-    <br>**Assign Roles** - please choose the role(s) you would like to assign to the support team. Their access will be limited to the roles you assign. You can create dedicated role following the [instructions here](../Guides/security/rbac#ui). Please, also notice that the support team will have full access to the organization level data.
-4. Select "Grant Access"
 
-Once granted, you will see additional icon in the bottom left corner of the screen, indicating that Firebolt's support team has access to your account.
+    - **Account Name**
+    - **Duration**
+    - **Assign Roles**
+
+3. Fill in the following:
+
+    - **Duration** - Specify the duration for which you'd like to grant access to the support team. Once this period ends, access will be automatically revoked.
+    - **Assign Roles** - Select the role(s) that you want to assign to the support team. Their access will be limited to these roles. You can create a dedicated role by following the [instructions here](../Guides/security/rbac#ui). Note that the support team will have full access data at the organization level.
+
+4. Select **Grant Access**.
+
+Once access is granted, an additional icon will appear in the bottom left corner of the screen, indicating that Firebolt's support team has access to your account, as shown below:
 
 ![Support Access](../assets/images/support_access_menu.png)
 
-**To edit access:**
-1. Select the support access icon in the bottom left corner of the screen and click on "Manage access" button. (Alternatively you can open same screen by clicking on "Firebolt Support Access" in the Help menu)
-2. Select "Edit Access" button.
-3. Make the necessary changes and click "Update Access".
+To edit support team access:
 
-**To revoke access:**
-1. Select the support access icon in the bottom left corner of the screen and click on "Manage access" button. (Alternatively you can open same screen by clicking on "Firebolt Support Access" in the Help menu)
-2. Select "Revoke Access" button.
+1. Select the icon that appeared when you granted access to the support team. You can find this icon in the bottom left corner of your **Firebolt Workspace**. 
+2. Select **Manage access**. You can also open the same screen by selecting **Firebolt Support Access** in the **Help** menu.
+3. Select **Edit Access**.
+4. After you have made your changes, select **Update Access**.
 
-Once revoked, the support access icon will disappear from the bottom left corner of the screen. 
+To revoke support team access:
+
+1. Select the icon that appeared when you granted access to the support team. You can find this icon in the bottom left corner of your **Firebolt Workspace**. 
+2. Select **Manage access**. You can also open the same screen by selecting **Firebolt Support Access** in the **Help** menu.
+3. Select **Revoke Access**.
+
+Once revoked, the support access icon will disappear from the bottom left corner of the screen.
 
 ### Documentation
 The Documentation link brings you to Firebolt's docs (where you are now!)
