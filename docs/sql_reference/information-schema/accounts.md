@@ -32,6 +32,7 @@ Each row has the following columns with information about the account.
 | region    | TEXT      | The region in which the account can be used. |
 | url    | TEXT      | The account login page URL.                                       |
 | account_id         | TEXT | The unique account ID.                                   |
+| trust_policy_role | TEXT | Role provided by Firebolt to enable access to customer S3 buckets |
 | created    | TIMESTAMP   | Time (UTC) that the account was created.               |
 | account_owner   | TEXT | The name of the login that created the account.   |
 | last_altered  | TIMESTAMP | Time (UTC) that the user was last edited. |
