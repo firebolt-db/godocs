@@ -59,41 +59,18 @@ The result is a table with the data from the Parquet file. Columns are read and 
 
 ## Example
 
-In the next code example, we read a parquet file from the bucket 's3://bucket/data.parquet' with the following data:
-
-```
-name, rank, note
-Dave, 95, NONE
-John, 60, 'need coaching'
-Gene, 70, "improved"
-```
-
-In those example `url` is set as the first positional parameter but it can be passed as a named parameter as well (e.g `url => 's3://bucket/data.parquet'`).
+In the following example `url` is set as the first positional parameter but it can be passed as a named parameter as well (e.g `url => 's3://bucket/data.parquet'`).
 
 **Query:**
 ```sql
-select * from read_parquet('s3://bucket/data.parquet');
+select * from read_parquet('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/TournamentID=92/cc2a2a0b4e8b4fb39abf20a956e7cc3e-0.parquet') limit 5;
 ```
 **Returns**:
-```
-| f0 | f1 | f2 |
-| :--- | :--- | :--- |
-| name | rank | note |
-| Dave | 95 | NONE |
-| John | 60 | 'need coaching' |
-| Gene | 70 | "improved" |
-```
+| Column1 | Column2 | Column3            | Column4 | Column5 | Column6 | Column7 | Column8 | Column9 | Column10 |
+|---------|---------|--------------------|---------|---------|---------|---------|---------|---------|----------|
+| 1       | 845     | 2022-10-27 13:36:33| Solara  | 1       | 0       | 0       | 0       | Brake   | NoError  |
+| 1       | 845     | 2022-10-27 13:36:33| Solara  | 1       | 339     | 0.9872  | 2       | RightTurn| GraphicsFreeze |
+| 1       | 845     | 2022-10-27 13:36:34| Solara  | 1       | 288     | 1.9744  | 20      | Tilt     | NoError  |
+| 1       | 845     | 2022-10-27 13:36:35| Solara  | 1       | 260     | 2.9616  | 53      | Block    | TextNotFound |
+| 1       | 845     | 2022-10-27 13:36:36| Solara  | 1       | 196     | 3.9488  | 81      | FullSpeed| NoError  |
 
-**Query:**
-```sql
-select * from read_parquet('s3://bucket/data.parquet');
-```
-**Returns**:
-```
-| f0 | f1 | f2 |
-| :--- | :--- | :--- |
-| name | rank | note |
-| Dave | 95 | NONE |
-| John | 60 | 'need coaching' |
-| Gene | 70 | "improved" |
-```
