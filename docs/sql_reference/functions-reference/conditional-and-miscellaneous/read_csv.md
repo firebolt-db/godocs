@@ -119,7 +119,7 @@ select * from read_csv('s3://firebolt-publishing-public/help_center_assets/fireb
 | 7  | 1 | Speed Street       | FastestLap       | 8 | 40 | 70 | 7  | 7  |
 | 8  | 1 | Racing Ravine      | FastestLap       | 9 | 60 | 100| 20 | 20 |
 | 9  | 1 | Drift District     | Drift            | 10| 100| 250| 25 | 25 |
-| 10 | 1 | Acceleration Alley | FirstToComplete  |   | 200| 500| 50 | 50 |
+| 10 | 1 | Acceleration Alley | FirstToComplete  | null   | 200| 500| 50 | 50 |
 
 
 **Query:**
@@ -140,4 +140,4 @@ select * from read_csv('s3://bucket/data.csv', header => true,
 | 7       | 1      | Speed Street       | FastestLap          | 8               | 40        | 70              | 7         | 7            |
 | 8       | 1      | Racing Ravine      | FastestLap          | 9               | 60        | 100             | 20        | 20           |
 | 9       | 1      | Drift District     | Drift               | 10              | 100       | 250             | 25        | 25           |
-| 10      | 1      | Acceleration Alley | FirstToComplete     | null            | 200       | 500             | 50        | 50           |
+| 10      | 1      | Acceleration Alley | FirstToComplete     |             | 200       | 500             | 50        | 50           |
