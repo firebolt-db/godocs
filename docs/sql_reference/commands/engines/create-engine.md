@@ -33,9 +33,9 @@ CREATE ENGINE [IF NOT EXISTS] <engine_name>
 | `DEFAULT_DATABASE = <database_name>` | The database an engine will attempt to use by default when dealing with queries that require a database.<br><br>If not specified, `NULL` is used as default. |
 | `INITIALLY_STOPPED = <true/false>`   | When `false`, the newly created engine will be started as part of the `CREATE ENGINE` command.<br>Cannot be used with `START_IMMEDIATELY`.<br><br>If not specified, `false` is used as default. |
 | `START_IMMEDIATELY = <true/false>`   | When `true`, the newly created engine will be started as part of the `CREATE ENGINE` command.<br>Cannot be used with `INITIALLY_STOPPED`.<br><br>If not specified, `true` is used as default. |
-| `CLUSTERS = <clusters>`              | Collection of nodes, where each node is of a certain type. All the clusters in an engine have the same type and same number of nodes. If not specified, `1` is used as default. |
-| `NODES = <nodes>`                    | The number of nodes for each cluster in an engine. Can be an integer ranging from `1` to `128`. <br><br>If not specified, `1` is used as default. |
-| `TYPE =<type>`                       | The type of node used by the engine. Can be one of 'S', 'M', 'L' or 'XL' <br><br>If not specified, `S` is used as default. |
+| `CLUSTERS = <clusters>`              | Specifies the number of clusters in an engine. Each cluster is a group of nodes, and all clusters within an engine are identical in terms of node type and number of nodes.<br><br>If not specified, `1` is used as default. |
+| `NODES = <nodes>`                    | Indicates the number of nodes in each cluster within an engine. This number can range from `1` to `128`. <br><br>If not specified, `2` is used as default. |
+| `TYPE =<type>`                       | Defines the type of node used in the engine. Options include `S`, `M`, `L`, or `XL` <br><br>If not specified, `M` is used as default. |
 
 **Limitations:**  
 * The number of clusters per engine is limited to two. 
