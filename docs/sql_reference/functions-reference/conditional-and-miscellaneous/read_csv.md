@@ -85,8 +85,9 @@ In those example `url` is set as the first positional parameter but it can be pa
 select * from read_csv('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv');
 ```
 **Returns**:
+
 | f0 | f1 | f2 | f3 | f4 | f5 | f6 | f7 | f8 | f9 |
-|----|----|----|----|----|----|----|----|----|----|
+|:----|:----|:----|:----|:----|:----|:----|:----|:----|:----|
 | LevelID | GameID | Level | Name | LevelType | NextLevel | MinPointsToPass | MaxPoints | NumberOfLaps |
 | 1 | 1 | 1 | Thunderbolt Circuit | FastestLap | 2 | 5 | 20 | 5 |
 | 2 | 1 | 2 | Velocity Vale | FirstToComplete | 3 | 15 | 30 | 10 |
@@ -106,8 +107,9 @@ select * from read_csv('s3://firebolt-publishing-public/help_center_assets/fireb
         header=>true);
 ```
 **Returns**:
+
 | LevelID | GameID | Level              | Name                | LevelType       | NextLevel | MinPointsToPass | MaxPoints | NumberOfLaps |
-|---------|--------|--------------------|---------------------|-----------------|-----------|-----------------|-----------|--------------|
+|:---------|:--------|:--------------------|:---------------------|:-----------------|:-----------|:-----------------|:-----------|:--------------|
 | 1       | 1      | Thunderbolt Circuit | FastestLap          | 2               | 5         |                 |           |              |
 | 2       | 1      | Velocity Vale      | FirstToComplete     | 3               | 15        |                 |           |              |
 | 3       | 1      | Raceway Ridge      | FastestLap          | 4               | 25        |                 |           |              |
@@ -126,8 +128,9 @@ select * from read_csv('s3://bucket/data.csv', header => true,
     empty_field_as_null => false);
 ```
 **Returns**:
+
 | LevelID | GameID | Level              | Name                | LevelType       | NextLevel | MinPointsToPass | MaxPoints | NumberOfLaps |
-|---------|--------|--------------------|---------------------|-----------------|-----------|-----------------|-----------|--------------|
+|:---------|:--------|:--------------------|:---------------------|:-----------------|:-----------|:-----------------|:-----------|:--------------|
 | 1       | 1      | Thunderbolt Circuit | FastestLap          | 2               | 5         |                 |           |              |
 | 2       | 1      | Velocity Vale      | FirstToComplete     | 3               | 15        |                 |           |              |
 | 3       | 1      | Raceway Ridge      | FastestLap          | 4               | 25        |                 |           |              |

@@ -66,8 +66,9 @@ In the following example `url` is set as the first positional parameter but it c
 select * from read_parquet('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/TournamentID=92/cc2a2a0b4e8b4fb39abf20a956e7cc3e-0.parquet') limit 5;
 ```
 **Returns**:
+
 | Column1 | Column2 | Column3            | Column4 | Column5 | Column6 | Column7 | Column8 | Column9 | Column10 |
-|---------|---------|--------------------|---------|---------|---------|---------|---------|---------|----------|
+|:---------|:---------|:--------------------|:---------|:---------|:---------|:---------|:---------|:---------|:----------|
 | 1       | 845     | 2022-10-27 13:36:33| Solara  | 1       | 0       | 0       | 0       | Brake   | NoError  |
 | 1       | 845     | 2022-10-27 13:36:33| Solara  | 1       | 339     | 0.9872  | 2       | RightTurn| GraphicsFreeze |
 | 1       | 845     | 2022-10-27 13:36:34| Solara  | 1       | 288     | 1.9744  | 20      | Tilt     | NoError  |
