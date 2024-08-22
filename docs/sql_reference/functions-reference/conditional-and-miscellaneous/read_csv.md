@@ -54,6 +54,13 @@ READ_CSV (
 | `<skip_blank_lines>`          | Skip the file's blank line when set to `TRUE`                                                    | `BOOL`                |
 | `<empty_field_as_null>`       | Consider empty fields as null when set to `TRUE`                                                 | `BOOL`                |
 
+`url` can be passed as either the first positional parameter or a named parameter.
+
+```sql
+-- Both queries are equivalent
+select * from read_csv(url => 's3://bucket/data.parquet');
+select * from read_csv('s3://bucket/data.parquet');
+```
 
 Apart from `url`, all parameters are optional. 
 
@@ -81,10 +88,11 @@ Gene, 70, "improved"
 Carl, 85,
 ```
 
+In those example `url` is set as the first positional parameter but it can be passed as a named parameter as well (e.g `url => 's3://bucket/data.csv'`).
 
 **Query:**
 ```sql
-select * from read_csv(url => 's3://bucket/data.csv');
+select * from read_csv('s3://bucket/data.csv');
 ```
 **Returns**:
 ```
@@ -99,7 +107,7 @@ select * from read_csv(url => 's3://bucket/data.csv');
 
 **Query:**
 ```sql
-select * from read_csv(url => 's3://bucket/data.csv',
+select * from read_csv('s3://bucket/data.csv',
     header => true);
 ```
 **Returns**:
@@ -115,7 +123,7 @@ select * from read_csv(url => 's3://bucket/data.csv',
 
 **Query:**
 ```sql
-select * from read_csv(url => 's3://bucket/data.csv',
+select * from read_csv('s3://bucket/data.csv',
     null_string => 'NONE');
 ```
 **Returns**:
@@ -131,7 +139,7 @@ select * from read_csv(url => 's3://bucket/data.csv',
 
 **Query:**
 ```sql
-select * from read_csv(url => 's3://bucket/data.csv', header => true,
+select * from read_csv('s3://bucket/data.csv', header => true,
     empty_field_as_null => false);
 ```
 **Returns**:

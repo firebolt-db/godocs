@@ -37,6 +37,14 @@ READ_PARQUET (
 | `<aws_arn_role_external_id>>` | External ID for AWS Role.                                                                        | `TEXT`                |
 | `<are_credentials_encrypted>>`| Are credentials encrypted                                                                        | `BOOL`                |
 
+`url` can be passed as either the first positional parameter or a named parameter.
+
+```sql
+-- Both queries are equivalent
+select * from read_parquet(url => 's3://bucket/data.parquet');
+select * from read_parquet('s3://bucket/data.parquet');
+```
+
 Credentials are optional. 
 
 If you provide either `aws_key_id` or `aws_secret_key`, you must provide both.
@@ -60,10 +68,25 @@ John, 60, 'need coaching'
 Gene, 70, "improved"
 ```
 
+In those example `url` is set as the first positional parameter but it can be passed as a named parameter as well (e.g `url => 's3://bucket/data.parquet'`).
 
 **Query:**
 ```sql
-select * from read_parquet(url => 's3://bucket/data.parquet');
+select * from read_parquet('s3://bucket/data.parquet');
+```
+**Returns**:
+```
+| f0 | f1 | f2 |
+| :--- | :--- | :--- |
+| name | rank | note |
+| Dave | 95 | NONE |
+| John | 60 | 'need coaching' |
+| Gene | 70 | "improved" |
+```
+
+**Query:**
+```sql
+select * from read_parquet('s3://bucket/data.parquet');
 ```
 **Returns**:
 ```
