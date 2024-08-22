@@ -4,7 +4,7 @@ title: Go
 description: Learn about using the Go SDK for Firebolt.
 nav_order: 7
 parent: Develop with Firebolt
-grand_parent: Guides
+has_toc: true
 ---
 
 # Go

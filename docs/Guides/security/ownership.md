@@ -4,7 +4,6 @@ title: Ownership
 description: Learn about object Ownership in Firebolt.
 parent: Configure security
 nav_order: 11
-grand_parent: Guides
 ---
 
 # Ownership

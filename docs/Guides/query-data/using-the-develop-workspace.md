@@ -1,9 +1,8 @@
 ---
 layout: default
 title: Use the Develop Space
-description: Learn how to navigate and use the Develop Space to work with your Firebolt database.
+description: Learn how to navigate and use the develop space to work with your Firebolt database.
 parent: Query data
-grand_parent: Guides
 nav_order: 1
 ---
 
@@ -23,7 +22,7 @@ You can launch the space for a database by clicking the **Develop** icon from th
 
   <img src="../../assets/images/develop_workspace_ex4.png" alt="drawing" width="70%"/>
 
-**Starting the **Develop Space** for the last database you worked with**
+**Starting the Develop Space for the last database you worked with**
 
 1.  Choose the **>_** icon from the left navigation pane.
 
@@ -35,7 +34,7 @@ You can launch the space for a database by clicking the **Develop** icon from th
 
 ## A quick tour
 
-The Develop Space is organized into two panels.
+The **Develop Space** is organized into two panels.
 
 * The left panel is the explore panel. You can use it to navigate to different databases and to work with different scripts in your database.
 

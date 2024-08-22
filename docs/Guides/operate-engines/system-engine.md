@@ -4,13 +4,12 @@ title: System Engine
 description: System engine documentation
 nav_order: 4
 parent: Operate Engines
-grand_parent: Guides
 ---
 
 # System Engine
 {: .no_toc}
 
-Firebolt's system engine enables running various metadata-related queries without having to start an engine. The system engine is always available for you in all databases to select and use.  
+Firebolt's system engine enables running various metadata-related queries without having to start an engine. The system engine is always available for you in all databases to select and use.
 
 The system engine supports running the following commands:
 * All [access control](../../sql_reference/commands/access-control/index.md) commands
@@ -37,42 +36,45 @@ The system engine supports running the following commands:
     * [information_schema.users](../../sql_reference/information-schema/users.md)
     * [information_schema.views](../../sql_reference/information-schema/views.md)
 
-## Using the system engine via the Firebolt manager 
+## Using the system engine via the Firebolt manager
 1. In the Firebolt manager, choose the Databases icon in the navigation pane.
-2. Click on the SQL Workspace icon for the desired database. In case you have no database in your account - create one first. 
+2. Click on the SQL Workspace icon for the desired database. In case you have no database in your account - create one first.
 3. From the engine selector in the SQL Workspace, choose System Engine, then run one of the supported queries.
 
 ## Using the system engine via SDKs
 ### Python SDK
-Connect via the connector and specify engine_name = ‘system’ and database = ‘dummy’.
+Connect via the connector without specifying the engine_name. Database parameter is optional.
 
-System engine does not need a database defined, but for the Python SDK - the `database` parameter is required, so any string here will work (except an empty string). If you wish to connect to an existing database and run metadata queries with the system engine, just specify the name of your database.
+System engine does not need a database defined. If you wish to connect to an existing database and run metadata queries with the system engine, just specify the name of your database.
 
 **Example**
 ```json
 from firebolt.db import connect
 from firebolt.client import DEFAULT_API_URL
-from firebolt.client.auth import UsernamePassword
- 
-username = "<your_username>"
-password = "<your_password>"
- 
+from firebolt.client.auth import ClientCredentials
+
+client_id = "<service_account_id>"
+client_secret = "<service_account_secret>"
+account_name = "<your_account_name>"
+
 with connect(
-   database="<any_db_here>", # this is a required parameter
-   auth=UsernamePassword(username, password),
+   database="<any_db_here>", # Omit this parameter if you don't need db-specific operations
+   auth=ClientCredentials(client_id, client_secret),
+   account_name=account_name,
    api_endpoint=DEFAULT_API_URL,
-   engine_name="system",
 ) as connection:
- 
+
    cursor = connection.cursor()
- 
+
    cursor.execute("SHOW DATABASES")
 
    print(cursor.fetchall())
 ```
 
+Guidance on creating service accounts can be found in the [service account](../managing-your-organization/service-accounts.md) section.
+
 ### Other SDKs
-Any other Firebolt connector can also be used similarly, as long as the engine name is specified as ‘system’ and the database is set to any name (string).
+Any other Firebolt connector can also be used similarly, as long as the engine name is omitted.
 
 ## Known limitations and future release plans
 

@@ -4,7 +4,6 @@ title: Network policies
 description: Learn about creating and managing network policies for Firebolt.
 nav_order: 9
 parent: Configure security
-grand_parent: Guides
 ---
 
 # Manage network policies

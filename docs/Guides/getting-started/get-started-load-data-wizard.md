@@ -3,7 +3,6 @@ layout: default
 title: Get started using a wizard
 nav_order: 2
 parent: Get started
-grand_parent: Guides
 ---
 
 # Get started using a wizard

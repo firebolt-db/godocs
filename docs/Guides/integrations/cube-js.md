@@ -4,7 +4,6 @@ title: Cube.js
 description: Learn how to connect Cube.js to Firebolt.
 nav_order: 7
 parent: Integrate with Firebolt
-grand_parent: Guides
 ---
 
 # Overview

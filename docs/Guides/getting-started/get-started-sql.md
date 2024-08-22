@@ -3,7 +3,6 @@ layout: default
 title: Get started using SQL
 nav_order: 3
 parent: Get started
-grand_parent: Guides
 ---
 
 # Get started using SQL

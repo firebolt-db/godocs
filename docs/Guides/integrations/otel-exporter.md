@@ -4,7 +4,6 @@ title: OpenTelemetry Exporter
 description: Learn how to enable Firebolt OpenTelemetry Exporter.
 nav_order: 8
 parent: Integrate with Firebolt
-grand_parent: Guides
 ---
 
 # Overview

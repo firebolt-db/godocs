@@ -4,7 +4,6 @@ title: Billing
 description: Understand how Firebolt bills for compute and storage through the AWS Marketplace and your AWS account.
 nav_order: 11
 parent: Manage organization
-grand_parent: Guides
 ---
 
 # Billing
@@ -24,18 +23,9 @@ Invoices for Firebolt engines and data are submitted through the AWS Marketplace
 Users with the **Org Admin** role can monitor the cost history of each account in the organization.
 
 **To view cost information for your organization**
+Organization cost details are captured in two information_schema tables. Query those two tables and retrieve any information about the organization's cost   
+1) [Engines billing](../../sql_reference/information-schema/engines-billing.md)
+2) [Storage billing](../../sql_reference/information-schema/storage-billing.md)
 
-* In the configure space choose **Usage**.  
-
-  ![Access account billing](../../assets/images/account-billing.png)
-
-
-The **Usage** page shows accrued charges for **Storage** and **Compute** for the most recent month to date. Choose the month for which you want to view billing history. To view a summary of daily charges, choose **Day in month** from the list. Choose **Month in year** to view a summary of monthly charges.
-
-**To view current bill estimate and update AWS connection**
-
-* In the configure space choose **Billing**.
-
-The current bill estimate for the entire organization is displayed alongside the ability to connect the organization with a different AWS Marketplace account by choosing Update AWS connection.
-
+{: .note}
 Firebolt billing is reported to the AWS Marketplace at the beginning of the next day. By default, the **Accounts & Billing** page displays the engine usage breakdown based on billing time. If you prefer to see the engine usage by actual usage day, you can click the **Engines breakdown** selector under the **Usage cost by engine** table and click **Actual running time**. 
