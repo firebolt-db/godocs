@@ -4,7 +4,6 @@ title: Role-based access control (RBAC)
 description: Learn about managing RBAC authorization for Firebolt users.
 parent: Configure security
 nav_order: 7
-grand_parent: Guides
 ---
 
 # Manage role-based access control

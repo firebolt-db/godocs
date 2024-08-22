@@ -5,8 +5,6 @@ description: Learn how to configure your identity provider to work with SSO auth
 nav_order: 2
 has_toc: true
 parent: sso
-grand_parent: Configure security
-great_grand_parent: Guides
 ---
 
 # Configure your IdP

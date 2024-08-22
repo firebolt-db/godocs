@@ -4,7 +4,6 @@ title: Register to Firebolt
 description: Learn how to create an organization. 
 nav_order: 2
 parent: Manage organization
-grand_parent: Guides
 ---
 
 # Register to Firebolt 

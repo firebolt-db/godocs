@@ -11,12 +11,4 @@ has_toc: true
 
 # Developing with Firebolt
 
-# In-Page Navigation
-{: .no_toc }
-
-## Table of Contents
-{: .no_toc .text-delta }
-
-1. TOC
-{:toc}
 

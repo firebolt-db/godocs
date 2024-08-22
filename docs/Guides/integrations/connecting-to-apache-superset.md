@@ -4,7 +4,6 @@ title: Apache Superset
 description: Learn about connecting Apache Superset to Firebolt.
 nav_order: 5
 parent: Integrate with Firebolt
-grand_parent: Guides
 ---
 
 # Apache Superset

@@ -4,7 +4,6 @@ title: dbt
 description: Learn how to connect dbt to Firebolt.
 nav_order: 4
 parent: Integrate with Firebolt
-grand_parent: Guides
 ---
 
 # Overview

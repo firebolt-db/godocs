@@ -4,7 +4,6 @@ title: Manage accounts
 description: Learn about how to add and remove accounts in a Firebolt organization.
 nav_order: 3
 parent: Manage organization
-grand_parent: Guides
 ---
 
 # Manage accounts

@@ -4,7 +4,6 @@ title: Use the API
 description: Learn about using the Firebolt API to interact with Firebolt.
 nav_order: 2
 parent: Query data
-grand_parent: Guides
 ---
 
 # Firebolt API

@@ -4,7 +4,6 @@ title: JDBC
 description: How to use the Firebolt JDBC driver
 nav_order: 3
 parent: Develop with Firebolt
-grand_parent: Guides
 has_toc: true
 ---
 

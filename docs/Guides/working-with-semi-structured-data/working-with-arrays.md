@@ -4,7 +4,6 @@ title: Work with arrays
 description: Learn techniques to manipulate and transform arrays in Firebolt.
 nav_order: 3
 parent: Work with semi-structured data
-grand_parent: Guides
 ---
 
 # Work with arrays

@@ -3,7 +3,6 @@ layout: default
 title: Use the CLI
 description: Learn to install, configure, and use the Firebolt CLI.
 parent: Query data
-grand_parent: Guides
 nav_order: 3
 search_exclude: true
 nav_exclude: true
