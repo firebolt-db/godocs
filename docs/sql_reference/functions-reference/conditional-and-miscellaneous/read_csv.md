@@ -78,64 +78,47 @@ The result is a table with the data from the CSV file. Each cell is read as a `S
 
 ## Example
 
-In the next code examples, we read the following file from the bucket 's3://bucket/data.csv':
-
-```csv
-name, rank, note
-Dave, 95, NONE
-John, 60, 'need coaching'
-Gene, 70, "improved"
-Carl, 85,
-```
-
 In those example `url` is set as the first positional parameter but it can be passed as a named parameter as well (e.g `url => 's3://bucket/data.csv'`).
 
 **Query:**
 ```sql
-select * from read_csv('s3://bucket/data.csv');
+select * from read_csv('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv');
 ```
 **Returns**:
-```
-| f0 | f1 | f2 |
-| :--- | :--- | :--- |
-| name | rank | note |
-| Dave | 95 | NONE |
-| John | 60 | 'need coaching' |
-| Gene | 70 | improved |
-| Carl | 85 | null |
-```
+| f0 | f1 | f2 | f3 | f4 | f5 | f6 | f7 | f8 | f9 |
+|----|----|----|----|----|----|----|----|----|----|
+| LevelID | GameID | Level | Name | LevelType | NextLevel | MinPointsToPass | MaxPoints | NumberOfLaps |
+| 1 | 1 | 1 | Thunderbolt Circuit | FastestLap | 2 | 5 | 20 | 5 |
+| 2 | 1 | 2 | Velocity Vale | FirstToComplete | 3 | 15 | 30 | 10 |
+| 3 | 1 | 3 | Raceway Ridge | FastestLap | 4 | 25 | 40 | 20 |
+| 4 | 1 | 4 | Nitro Narrows | FirstToComplete | 5 | 60 | 100 | 10 |
+| 5 | 1 | 5 | Thunder Road | FirstToComplete | 6 | 80 | 150 | 15 |
+| 6 | 1 | 6 | Burnout Boulevard | Drift | 7 | 50 | 80 | 8 |
+| 7 | 1 | 7 | Speed Street | FastestLap | 8 | 40 | 70 | 7 |
+| 8 | 1 | 8 | Racing Ravine | FastestLap | 9 | 60 | 100 | 20 |
+| 9 | 1 | 9 | Drift District | Drift | 10 | 100 | 250 | 25 |
+| 10 | 1 | 10 | Acceleration Alley | FirstToComplete | null | 200 | 500 | 50 |
+
 
 **Query:**
 ```sql
-select * from read_csv('s3://bucket/data.csv',
-    header => true);
+select * from read_csv('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv', 
+        header=>true);
 ```
 **Returns**:
-```
-| name | rank | note |
-| :--- | :--- | :--- |
-| Dave | 95 | NONE |
-| John | 60 | 'need coaching' |
-| Gene | 70 | improved |
-| Carl | 85 | null |
+| LevelID | GameID | Level              | Name                | LevelType       | NextLevel | MinPointsToPass | MaxPoints | NumberOfLaps |
+|---------|--------|--------------------|---------------------|-----------------|-----------|-----------------|-----------|--------------|
+| 1       | 1      | Thunderbolt Circuit | FastestLap          | 2               | 5         |                 |           |              |
+| 2       | 1      | Velocity Vale      | FirstToComplete     | 3               | 15        |                 |           |              |
+| 3       | 1      | Raceway Ridge      | FastestLap          | 4               | 25        |                 |           |              |
+| 4       | 1      | Nitro Narrows      | FirstToComplete     | 5               | 60        |                 |           |              |
+| 5       | 1      | Thunder Road       | FirstToComplete     | 6               | 80        |                 |           |              |
+| 6       | 1      | Burnout Boulevard  | Drift               | 7               | 50        |                 |           |              |
+| 7       | 1      | Speed Street       | FastestLap          | 8               | 40        |                 |           |              |
+| 8       | 1      | Racing Ravine      | FastestLap          | 9               | 60        |                 |           |              |
+| 9       | 1      | Drift District     | Drift               | 10              | 100       |                 |           |              |
+| 10      | 1      | Acceleration Alley | FirstToComplete     | null            | 200       |                 |           |              |
 
-```
-
-**Query:**
-```sql
-select * from read_csv('s3://bucket/data.csv',
-    null_string => 'NONE');
-```
-**Returns**:
-```
-| f0 | f1 | f2 |
-| :--- | :--- | :--- |
-| name | rank | note |
-| Dave | 95 | null |
-| John | 60 | 'need coaching' |
-| Gene | 70 | improved |
-| Carl | 85 | null |
-```
 
 **Query:**
 ```sql
@@ -143,11 +126,15 @@ select * from read_csv('s3://bucket/data.csv', header => true,
     empty_field_as_null => false);
 ```
 **Returns**:
-```
-| name | rank | note |
-| :--- | :--- | :--- |
-| Dave | 95 | NONE |
-| John | 60 | 'need coaching' |
-| Gene | 70 | improved |
-| Carl | 85 |  |
-```
+| LevelID | GameID | Level              | Name                | LevelType       | NextLevel | MinPointsToPass | MaxPoints | NumberOfLaps |
+|---------|--------|--------------------|---------------------|-----------------|-----------|-----------------|-----------|--------------|
+| 1       | 1      | Thunderbolt Circuit | FastestLap          | 2               | 5         |                 |           |              |
+| 2       | 1      | Velocity Vale      | FirstToComplete     | 3               | 15        |                 |           |              |
+| 3       | 1      | Raceway Ridge      | FastestLap          | 4               | 25        |                 |           |              |
+| 4       | 1      | Nitro Narrows      | FirstToComplete     | 5               | 60        |                 |           |              |
+| 5       | 1      | Thunder Road       | FirstToComplete     | 6               | 80        |                 |           |              |
+| 6       | 1      | Burnout Boulevard  | Drift               | 7               | 50        |                 |           |              |
+| 7       | 1      | Speed Street       | FastestLap          | 8               | 40        |                 |           |              |
+| 8       | 1      | Racing Ravine      | FastestLap          | 9               | 60        |                 |           |              |
+| 9       | 1      | Drift District     | Drift               | 10              | 100       |                 |           |              |
+| 10      | 1      | Acceleration Alley | FirstToComplete     |                 | 200       |                 |           |              |
