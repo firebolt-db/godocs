@@ -2,6 +2,8 @@
 layout: default
 title: PARAM
 description: Reference material for PARAM function
+great_grand_parent: SQL reference
+grand_parent: SQL functions
 parent: Numeric functions
 ---
 

@@ -3,6 +3,7 @@ layout: default
 title: Engines Billing
 description: Use this reference to learn about the metadata available about engines billing using the information schema.
 parent: Information schema
+grand_parent: SQL reference
 ---
 
 # Information schema for engines billing

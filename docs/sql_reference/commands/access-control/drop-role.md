@@ -2,6 +2,8 @@
 layout: default
 title: DROP ROLE
 description: Reference and syntax for the DROP ROLE command.
+great_grand_parent: SQL reference
+grand_parent:  SQL commands
 parent: Access control
 ---
 

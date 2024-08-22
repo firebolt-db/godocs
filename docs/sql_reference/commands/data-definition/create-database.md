@@ -2,6 +2,8 @@
 layout: default
 title: CREATE DATABASE
 description: Reference and syntax for the CREATE DATABASE command.
+great_grand_parent: SQL reference
+grand_parent:  SQL commands
 parent: Data definition
 ---
 

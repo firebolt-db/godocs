@@ -3,6 +3,7 @@ layout: default
 title: Storage history
 description: Use this reference to learn about the storage consumption of your catalogs (databases)
 parent: Information schema
+grand_parent: SQL reference
 ---
 
 # Information schema for storage history

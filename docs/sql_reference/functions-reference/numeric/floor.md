@@ -2,6 +2,8 @@
 layout: default
 title: FLOOR
 description: Reference material for FLOOR function
+great_grand_parent: SQL reference
+grand_parent: SQL functions
 parent: Numeric functions
 published: false
 ---

@@ -2,6 +2,8 @@
 layout: default
 title: REGEXP_REPLACE
 description: Reference material for REGEXP_REPLACE functions
+great_grand_parent: SQL reference
+grand_parent: SQL functions
 parent: String functions
 ---
 

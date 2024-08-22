@@ -3,6 +3,8 @@ layout: default
 title: ARRAY_COUNT_GLOBAL
 description: Reference material for ARRAY_COUNT_GLOBAL function
 parent: Aggregate array functions
+grand_parent:  SQL functions
+great_grand_parent: SQL reference
 published: false
 
 ---

@@ -2,6 +2,8 @@
 layout: default
 title: JSON_EXTRACT
 description: Reference material for JSON_EXTRACT function
+great_grand_parent: SQL reference
+grand_parent: SQL functions
 parent: JSON functions
 ---
 

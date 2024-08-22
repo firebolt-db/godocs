@@ -2,6 +2,8 @@
 layout: default
 title: SUBSTRING, SUBSTR
 description: Reference material for SUBSTRING function
+great_grand_parent: SQL reference
+grand_parent: SQL functions
 parent: String functions
 ---
 ## SUBSTRING, SUBSTR

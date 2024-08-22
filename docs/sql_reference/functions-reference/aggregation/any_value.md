@@ -2,6 +2,8 @@
 layout: default
 title: ANY_VALUE
 description: Reference material for ANY_VALUE
+great_grand_parent: SQL reference
+grand_parent: SQL functions
 parent: Aggregation functions
 
 ---

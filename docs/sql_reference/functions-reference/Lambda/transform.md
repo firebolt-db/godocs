@@ -2,6 +2,8 @@
 layout: default
 title: ARRAY_TRANSFORM
 description: Reference material for ARRAY_TRANSFORM function
+great_grand_parent: SQL reference
+grand_parent: SQL functions
 parent: Lambda functions
 ---
 

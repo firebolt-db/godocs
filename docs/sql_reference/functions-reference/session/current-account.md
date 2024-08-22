@@ -2,7 +2,9 @@
 layout: default
 title: CURRENT_ACCOUNT
 description: Reference material for CURRENT_ACCOUNT function
+grand_parent: SQL functions
 parent: Session functions
+great_grand_parent: SQL reference
 ---
 
 # CURRENT_ACCOUNT

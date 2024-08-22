@@ -2,6 +2,8 @@
 layout: default
 title: ABS
 description: Reference material for ABS function
+great_grand_parent: SQL reference
+grand_parent: SQL functions
 parent: Numeric functions
 ---
 

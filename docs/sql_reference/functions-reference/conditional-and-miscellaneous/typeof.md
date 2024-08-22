@@ -2,6 +2,8 @@
 layout: default
 title: TYPEOF
 description: Reference material for TYPEOF function
+great_grand_parent: SQL reference
+grand_parent: SQL functions
 parent: Conditional and miscellaneous functions
 ---
 

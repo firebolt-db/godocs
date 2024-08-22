@@ -2,6 +2,8 @@
 layout: default
 title: SUM OVER
 description: Reference material for SUM function
+great_grand_parent: SQL reference
+grand_parent: SQL functions
 parent: Window functions
 ---
 
