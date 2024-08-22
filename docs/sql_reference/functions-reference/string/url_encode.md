@@ -3,7 +3,7 @@ layout: default
 title: URL_ENCODE
 description: Reference material for URL_ENCODE function
 parent: String functions
-published: false
+published: true
 ---
 
 # URL\_ENCODE
@@ -38,7 +38,7 @@ URL_ENCODE(<expression>)
 ## Example
 {: .no_toc}
 
-This example below uses the function converts not _unreserved characters_ that appear in the parameter section of the URL
+The example below converts characters that are not unreserved that appear in the parameter section of the URL:
 
 ```sql
 SELECT CONCAT('https://www.firebolt.io/?', URL_ENCODE('example_id=1&hl=en'));
