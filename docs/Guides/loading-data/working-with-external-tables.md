@@ -2,14 +2,17 @@
 layout: default
 title: Work with external tables
 description: Understand the role of external tables when loading data into Firebolt, and learn how to configure them to connect to your data lake.
-nav_order: 3
-grand_parent: Guides
+nav_order: 4
 parent: Load data
 ---
 
 # Work with external tables
 
-Loading data into Firebolt is done using *external tables*. External tables are different from [fact and dimension tables](../../Overview/working-with-tables/working-with-tables.md). Firebolt uses an external table as a connector to your data source. No data is stored in Firebolt.
+<<<<<<< HEAD
+Firebolt supports loading data using *external tables*, which are different from [fact and dimension tables](../../Overview/working-with-tables/working-with-tables.md). External tables store metadata objects that reference files stored in an Amazon S3 bucket, rather than actual data.
+=======
+Loading data into Firebolt is also done with *external tables*. External tables are different from [fact and dimension tables](../../Overview/working-with-tables/working-with-tables.md), because they do not store actual data but are metadata objects that reference files stored in an Amazon S3 bucket. 
+>>>>>>> cf0c3d64862a06d6a10cf905221febfc87d5225b
 
 To create an external table, run the [CREATE EXTERNAL TABLE](../../sql_reference/commands/data-definition/create-external-table.md) command. After you create an external table, use the [INSERT](../../sql_reference/commands/data-management/insert.md) command to load the data from the external table into a fact or dimension table. Data that you ingest must be in the same AWS Region as the target Firebolt database.
 
@@ -18,7 +21,7 @@ Although you can run a query over an external table to return query results, we 
 
 ## Workflows
 
-For a simple end-to-end workflow that demonstrates loading data into Firebolt, see the [Getting started tutorial](../getting-started.md).  
+For a simple end-to-end workflow that demonstrates loading data into Firebolt, see the [Getting started tutorial](../getting-started/index.md).  
 
 <!-- 2. For a workflow that demonstrates incrementally loading data into Firebolt, see [Incrementally loading data with Airflow](incrementally-loading-data.md). -->
 
