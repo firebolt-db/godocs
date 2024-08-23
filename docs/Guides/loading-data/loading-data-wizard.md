@@ -28,6 +28,7 @@ To use the wizard, use the following steps:
 3. Select **Load data** from the drop-down menu.
 
 The previous two steps are shown in the following image:
+
 <img src="../../assets/images/load_data_wizard_launch.png" alt="To launch the wizard, select the plus icon in the left navigation pane of the Firebolt Workspace." width="400"/>
    
 ## Select an engine
