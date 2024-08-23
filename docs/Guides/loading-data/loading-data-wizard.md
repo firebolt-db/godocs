@@ -78,7 +78,7 @@ To use the wizard, use the following steps:
 
 1. Select the data file that you want to load. Firebolt’s **Load data** wizard currently supports files in both CSV and Parquet formats. The contents of your S3 bucket are shown automatically along with their object type, size, and when the object was last modified.
 2. Enter text or a [prefix](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-prefixes.html) into the search field above **FILE NAME** to filter the list of objects. You can enter either part of the object's name or the full prefix that it starts with.
-3. Select one file. Firebolt does not support selecting more than one file.
+3. Select one file. Firebolt does not support selecting multiple files, or selecting folders.
 4. If you are using Firebolt's test data, select box next to `levels.csv`.
 5. Select **Next step**.
 
