@@ -130,7 +130,7 @@ Map the values in your data to columns into the target table. Firebolt automatic
 
        <img src="../../assets/images/load_data_wizard_autopi.png" alt="The next step in the wizard is to map your data to your table." width="300"/> <BR>
 
-       Using Firebolt's suggested primary index is preferable to having none. In the absence of a query history present, Firebolt prioritizes choosing a column for the primary index in the following order: a datetime or timestamp column, a column with the lowest cardinality greater than two, or the first column.
+       Using Firebolt's suggested primary index is preferable to having none. In the absence of a query history, Firebolt prioritizes choosing a column for the primary index in the following order: a datetime or timestamp column, a column with the lowest cardinality greater than two, or the first column.
 
    * If you include multiple columns as a composite primary index, they will be added in sort order. For example, if you select `column_1` first, then select `column_3`, then `column_3` will be added as a primary index after `column_1`. This means `column_1` will be used first as a sparse index, followed by `column_3`. If you choose more than one primary index, the order of sorting appears next to the toggle switch under the **Primary Index** column. In the previous example, the number `1` appears next to `column_1` and a number `2` appears next to `column_3`.
 
