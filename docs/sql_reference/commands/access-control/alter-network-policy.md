@@ -37,5 +37,5 @@ SET  [ ALLOWED_IP_LIST = ( '<allowed_ip>', '<allowed_ip>' ... ) ]
 The following command will edit 'my_network_policy' to set new allowed and blocked IP lists and an updated description: 
 
 ```sql
-ALTER NETWORK POLICY my_network_policy SET ALLOWED_IP_LIST = (‘4.5.6.7’, ‘2.4.5.7’) BLOCKED_IP_LIST = (‘6.7.8.9’) DESCRIPTION = 'updated network policy'
+ALTER NETWORK POLICY my_network_policy SET ALLOWED_IP_LIST = ('4.5.6.7', '2.4.5.7') BLOCKED_IP_LIST = ('6.7.8.9') DESCRIPTION = 'updated network policy'
 ```
