@@ -25,9 +25,7 @@ To use the wizard, use the following steps:
 
 1. Register and/or log in to the [Firebolt Workspace](https://firebolt.go.firebolt.io/signup).
 2. Select the (+) icon from the left navigation pane next to **Databases**.
-3. Select **Load data** from the drop-down menu.
-
-The previous two steps are shown in the following image:
+3. Select **Load data** from the drop-down menu, as shown in the following image:
 
 <img src="../../assets/images/load_data_wizard_launch.png" alt="To launch the wizard, select the plus icon in the left navigation pane of the Firebolt Workspace." width="400"/>
    
@@ -52,7 +50,7 @@ The previous two steps are shown in the following image:
  3. Select the number of compute nodes to use to load your data next to **Number of nodes**. A node is an individual compute unit within a compute cluster.
 
    - Using more than one node allows Firebolt to load your data and perform operations on your data in parallel on multiple nodes within a single cluster, which can speed up the data loading process.
-   - A higher number of nodes also means increased costs for compute resources. You can see the total cost per hour for your selection under Advanced settings, given in Firebolt Units (FBU). Each FBU is equivalent to $0.35 USD per hour. Find the right balance between cost and speed for your workload. You must use at least one node.
+   - A higher number of nodes also means increased costs for compute resources. You can see the total cost per hour for your selection under Advanced settings, given in Firebolt Units (FBU). Each FBU is equivalent to $0.35 US dollars per hour. Find the right balance between cost and speed for your workload. You must use at least one node.
   
 4. Select the number of clusters next to **Number of clusters**. A cluster is a group of nodes that work together. The following apply:
 
@@ -106,7 +104,7 @@ A default formatting and error handling scheme shows a preview of your data. You
     - Enter a new value in the text box or select an option from the drop-down arrow next to the option that you want to change. 
     - After each change, the data preview changes to reflect your selection.
 
-2. Toggle off **Use default error handling** to show additional the following error handling options:
+2. Toggle off **Use default error handling** to show the following additional error handling options:
    - You can specify a file to write errors to. Enter the name of the file that you want to write including the URL address for an Amazon S3 bucket that contains that file, and your AWS credentials. Firebolt will use these credentials to write an error file on your behalf. The output file should be in the following format:
   
      ```sql
@@ -128,11 +126,11 @@ Map the values in your data to columns into the target table. Firebolt automatic
 
    * One of Firebolt’s key optimization strategies is to use a primary index that ties to columns that are used frequently in `WHERE`, `JOIN`, `GROUP_BY`, and other clauses used for sorting. Selecting the best primary index, which is a sparse index, can reduce query run times significantly by reducing the data set that the query scans. A primary index also allows Firebolt to manage updates, deletions and insertions to tables and provide optimal query performance.<BR>
 
-   * It's best if you choose a primary index based on the knowledge of about your data and query history. If you don't which column(s) to select, you can use Firebolt's suggested primary indexes by keeping **Automatically assign primary indexes** checked, as shown in the following image:
+   * It's best if you choose a primary index based on the knowledge of about your data and query history. If you don't know which column(s) to select, you can use Firebolt's suggested primary indexes by keeping **Automatically assign primary indexes** checked, as shown in the following image:
 
        <img src="../../assets/images/load_data_wizard_autopi.png" alt="The next step in the wizard is to map your data to your table." width="300"/> <BR>
 
-       Using Firebolt's suggested primary index is prefereable to having none. In the absence of a query history present, Firebolt prioritizes choosing a column for the primary index in the following order: a datetime or timestamp column, a column with the lowest cardinality greater than two, or the first column.
+       Using Firebolt's suggested primary index is preferable to having none. In the absence of a query history present, Firebolt prioritizes choosing a column for the primary index in the following order: a datetime or timestamp column, a column with the lowest cardinality greater than two, or the first column.
 
    * If you include multiple columns as a composite primary index, they will be added in sort order. For example, if you select `column_1` first, then select `column_3`, then `column_3` will be added as a primary index after `column_1`. This means `column_1` will be used first as a sparse index, followed by `column_3`. If you choose more than one primary index, the order of sorting appears next to the toggle switch under the **Primary Index** column. In the previous example, the number `1` appears next to `column_1` and a number `2` appears next to `column_3`.
 
