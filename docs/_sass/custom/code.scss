@@ -167,6 +167,9 @@ figure.highlight {
 } // comment //
 .highlight .err {
   color: #93a1a1;
+  // Don't do weird highlighting of errors. Sometimes things are classified as errors
+  // by the rouge highlighter that are just regular SQL.
+  background-color: transparent !important;
 } // error //
 .highlight .g {
   color: #93a1a1;
