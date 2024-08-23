@@ -43,8 +43,7 @@ An example of the **simplest** way to invoke `COPY FROM` is:
 
 ```sql
 COPY INTO tutorial FROM 
-'s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/
-levels.csv' WITH HEADER=TRUE;
+'s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv' WITH HEADER=TRUE;
 ```
 The previous code creates a table named `tutorial`, reads a CSV file with headers from a public Amazon S3 bucket, automatically generates a schema, and loads the data.
 
@@ -53,11 +52,12 @@ If the data is contained in an Amazon S3 bucket with restricted access, you will
 ```sql
 COPY INTO tutorial 
 FROM 's3://your_s3_bucket/your_file.csv'
+WITH
 CREDENTIALS = (
-AWS_KEY_ID = '<aws_key_id>', 
+AWS_KEY_ID = '<aws_key_id>' 
 AWS_SECRET_KEY = '<aws_secret_key>'
 )
- WITH HEADER=TRUE AUTO_CREATE=TRUE;
+HEADER=TRUE AUTO_CREATE=TRUE;
  ```
 
 To provide your credentials in the previous example, do the following:
