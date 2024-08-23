@@ -34,14 +34,15 @@ ALTER ENGINE <engine_name> SET
 | `AUTO_START = <true/false>`          | When `true`, sending a query to a stopped engine will start the engine before processing the query. |
 | `AUTO_STOP = <minutes>`              | Indicates the amount of time (in minutes) after which the engine automatically stops.<br>Setting the `minutes` to 0 indicates that `AUTO_STOP` is disabled. |
 | `DEFAULT_DATABASE = <database_name>` | The database an engine will attempt to use by default when dealing with queries that require a database.<br>To remove the default database, set `DEFAULT_DATABASE=default`. |
-| `TYPE =<type>`                       | The type of node used by the engine. Can be one of 'S', 'M', 'L' or 'XL'. |
-| `NODES = <nodes>`                    | The number of nodes for each cluster in an engine. Can be an integer ranging from `1` to `128`. |
-| `CLUSTERS = <clusters>`              | Collection of nodes, where each node is of a certain type. All the clusters in an engine have the same type and same number of nodes. |
+| `CLUSTERS = <clusters>`              | Specifies the number of clusters in an engine. Each cluster is a group of nodes, and all clusters within an engine are identical in terms of node type and number of nodes. |
+| `NODES = <nodes>`                    | Indicates the number of nodes in each cluster within an engine. This number can range from `1` to `128`. |
+| `TYPE =<type>`                       | Defines the type of node used in the engine. Options include `S`, `M`, `L`, or `XL`. |
 | `RENAME TO <new_name>`               | Indicates the new name for the engine. No other parameters are allowed during an engine rename. |
 
 **Limitations:**
 * The number of clusters per engine is limited to two. 
-* The number of nodes per cluster is limited to ten.
+* The number of nodes per cluster is limited to ten. 
+* The total number of nodes x clusters cannot exceed 15.
 * When you scale a running engine (vertically or horizontally), new queries after the scaling operation will be directed to a new cluster. Queries running on the old clusters will be run to completion. The clusters will wait for up to 24 hours for running queries to finish. After 24 hours, any queries still running may not run to completion.
 * Only small and medium engines are available for use right away.
 
