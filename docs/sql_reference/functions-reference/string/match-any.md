@@ -2,9 +2,9 @@
 layout: default
 title: MATCH_ANY
 description: Reference material for MATCH_ANY function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: String functions
-great_grand_parent: SQL reference
 published: false
 ---
 

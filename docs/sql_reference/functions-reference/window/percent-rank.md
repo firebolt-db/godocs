@@ -2,9 +2,9 @@
 layout: default
 title: PERCENT_RANK OVER
 description: Reference material for PERCENT_RANK window function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Window functions
-great_grand_parent: SQL reference
 ---
 
 # PERCENT_RANK

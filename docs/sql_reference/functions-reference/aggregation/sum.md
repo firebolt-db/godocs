@@ -2,9 +2,9 @@
 layout: default
 title: SUM
 description: Reference material for SUM
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Aggregation functions
-great_grand_parent: SQL reference
 ---
 
 # SUM

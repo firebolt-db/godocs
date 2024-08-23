@@ -9,6 +9,7 @@ parent: Queries
 # CANCEL QUERY
 
 The `CANCEL QUERY` statement is used to cancel a running query within the Firebolt engine. This statement provides a mechanism to terminate the execution of a specific query identified by its unique `query_id`.
+Using [query labels](../../../Reference/system-settings.md#query-labeling--tagging) makes it easier to retrieve the query id of your query.
 
 ## Syntax
 

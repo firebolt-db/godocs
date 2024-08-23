@@ -2,9 +2,9 @@
 layout: default
 title: NTILE OVER
 description: Reference material for NTILE function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Window functions
-great_grand_parent: SQL reference
 published: true
 ---
 

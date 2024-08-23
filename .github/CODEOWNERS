@@ -1,0 +1,6 @@
+# The documentation team is designated as code owners.
+# Reviews by the documentation team are required in order to merge a PR.
+# To make changes, see the documentation for code owner files: 
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+*       @arushi-firebolt @nanimal-fb

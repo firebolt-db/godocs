@@ -42,10 +42,15 @@ CREATE [FACT|DIMENSION] TABLE [IF NOT EXISTS] <table_name>
 
 All identifiers are case insensitive unless double-quotes are used. For more information, please see the [Object identifiers page](../../../Reference/object-identifiers.md).
 
-* [Column constraints & default expression](#column-constraints--default-expression)
-* [PRIMARY INDEX specifier](#primary-index)
-* [PARTITION BY specifier](#partition-by)
-* [Table type](#table-type)
+- [CREATE TABLE](#create-table)
+  - [Syntax](#syntax)
+  - [Parameters](#parameters)
+  - [Column constraints \& default expression](#column-constraints--default-expression)
+    - [Example–Creating a table with nulls and not nulls](#examplecreating-a-table-with-nulls-and-not-nulls)
+    - [PRIMARY INDEX](#primary-index)
+      - [Syntax–primary index](#syntaxprimary-index)
+    - [PARTITION BY](#partition-by)
+    - [Table type](#table-type)
 
 ## Column constraints & default expression
 
@@ -65,8 +70,12 @@ Firebolt supports the column constraints shown below.
 Note that nullable columns can not be used in Firebolt indexes (Primary, or Aggregating indexes).
 
 {: .note}
+<<<<<<< HEAD
 Note that column default expressions are temporarily disabled starting from version 4.3.0.
 We are working on a new implementation of this feature and it will be re-enabled in the near future.
+=======
+Note that column DEFAULT expressions are temporarily restricted starting from version 4.3.0. We are working on a new implementation of this feature and re-enable it in the near future. The expressions currently allowed are literals and the following functions: `CURRENT_DATE()`, `LOCALTIMESTAMP()`, `CURRENT_TIMESTAMP()`, and `NOW()`.
+>>>>>>> staging/gh-pages
 
 ### Example&ndash;Creating a table with nulls and not nulls
 

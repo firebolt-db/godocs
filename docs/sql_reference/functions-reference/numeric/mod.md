@@ -2,9 +2,9 @@
 layout: default
 title: MOD
 description: Reference material for MOD function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Numeric functions
-great_grand_parent: SQL reference
 ---
 
 # MOD

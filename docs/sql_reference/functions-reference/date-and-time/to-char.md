@@ -2,9 +2,10 @@
 layout: default
 title: TO_CHAR
 description: Reference material for TO_CHAR function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Date and time functions
-great_grand_parent: SQL reference
+
 ---
 
 # TO_CHAR
@@ -86,8 +87,8 @@ Additionally, modifiers can be applied to the format patterns above to alter the
 | Format option | Description                                | Example                                                                                                                                                        |
 | :------------ | :----------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `FM` prefix   | Surpress leading zeroes and padding blanks | <code>TO_CHAR(CURRENT_DATE, 'Month YYYY'); --> 'March&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2023'</code> <br> `TO_CHAR(CURRENT_DATE, 'FMMonth YYYY'); --> 'March 2023'` |
-| `TH` suffix   | Upper case ordinal number suffix           | `TO_CHAR(CURRENT_TIMESTAMPTZ, 'MMTH'); --> '1ST'`                                                                                                              |
-| `th` suffix   | Lower case ordinal number suffix           | `TO_CHAR(CURRENT_TIMESTAMPTZ, 'MMth'); --> '3rd'`                                                                                                              |
+| `TH` suffix   | Upper case ordinal number suffix           | `TO_CHAR(CURRENT_TIMESTAMP, 'MMTH'); --> '1ST'`                                                                                                              |
+| `th` suffix   | Lower case ordinal number suffix           | `TO_CHAR(CURRENT_TIMESTAMP, 'MMth'); --> '3rd'`                                                                                                              |
 
 Any character in the format string that is not recognized as a pattern is simply copied over without being replaced. Parts that are quoted `"` will be copied over independent of possibly valid patterns.
 Patterns are matched in lower and upper case if there is no other behavior described above.

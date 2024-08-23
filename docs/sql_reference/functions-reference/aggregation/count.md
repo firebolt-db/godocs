@@ -2,9 +2,9 @@
 layout: default
 title: COUNT
 description: Reference material for COUNT
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Aggregation functions
-great_grand_parent: SQL reference
 ---
 
 # COUNT

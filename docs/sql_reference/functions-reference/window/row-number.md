@@ -2,9 +2,9 @@
 layout: default
 title: ROW_NUMBER OVER
 description: Reference material for ROW_NUMBER function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Window functions
-great_grand_parent: SQL reference
 ---
 
 # ROW\_NUMBER

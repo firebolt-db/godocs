@@ -2,9 +2,9 @@
 layout: default
 title: GREATEST
 description: Reference material for GREATEST function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Conditional and miscellaneous functions
-great_grand_parent: SQL reference
 ---
 
 # GREATEST

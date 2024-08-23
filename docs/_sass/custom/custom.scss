@@ -1,27 +1,36 @@
 $callouts: (
-    note: ($blue-300, rgba($blue-000, .2), 'Note'),
-    caution: ($yellow-300, rgba($yellow-000, .2), 'Caution'),
-    warning: ($red-300, rgba($red-000, .2), 'Warning')
+        note: ($blue-300, rgba($blue-000, .2), 'Note'),
+        caution: ($yellow-300, rgba($yellow-000, .2), 'Caution'),
+        warning: ($red-300, rgba($red-000, .2), 'Warning')
 );
 
 @each $class, $props in $callouts {
-    .#{$class} {
-        background: nth($props, 2);
-        border-left: $border-radius solid nth($props, 1);
-        border-radius: $border-radius;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 3px 10px rgba(0, 0, 0, 0.08);
-        padding: .8rem;
+  .#{$class} {
+    background: nth($props, 2);
+    border-left: $border-radius solid nth($props, 1);
+    border-radius: $border-radius;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 3px 10px rgba(0, 0, 0, 0.08);
+    padding: .8rem;
 
-        &::before {
-            color: nth($props, 1);
-            content: nth($props, 3);
-            display: block;
-            font-weight: 500;
-            font-size: 1em;
-            padding-bottom: .75rem;
-        }
+    &::before {
+      color: nth($props, 1);
+      content: nth($props, 3);
+      display: block;
+      font-weight: 500;
+      font-size: 1em;
+      padding-bottom: .75rem;
     }
+  }
 }
+
+// define custom code style
+@import "./code";
+
+// define custom font style
+@import "./typography";
+
+// define content.scss owerwrite rule
+@import "./content";
 
 // IMPORTANT: Customizations must be defined in the local project's custom.scss file. This file does nothing in the theme.
 
@@ -50,27 +59,26 @@ $callouts: (
 //     }
 // }
 
-  .container{
-    //justify-content: center;
-    width:100%;
-    height:100%;
-    background-color:#fff;
-    display:grid;
-    grid-template-columns: 400px;
-    grid-row: auto auto;
-    grid-column-gap: 25px;
-    grid-row-gap: 25px;
-    justify-content: center;
- 
+.container {
+  //justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  display: grid;
+  grid-template-columns: 400px;
+  grid-row: auto auto;
+  grid-column-gap: 25px;
+  grid-row-gap: 25px;
+  justify-content: center;
 
 
   //
-// Base styles
-//
+  // Base styles
+  //
 
-.card {
+  .card {
     flex-direction: column;
-    display:flex;
+    display: flex;
     border-style: solid;
     border-radius: 8px;
     border-color: #f5ebeb;
@@ -88,16 +96,16 @@ $callouts: (
     line-height: 100%;
     text-align: center;
   }
-  
+
   .card-body {
     display: flex;
   }
-  
+
   .card-text {
     font-size: 16px;
     font-family: Inter, sans-serif;
     font-weight: 500;
-    color:#806F6F;
+    color: #806F6F;
     letter-spacing: -4%;
     line-height: 100%;
     text-align: center;
@@ -106,23 +114,25 @@ $callouts: (
   .img-fluid {
     height: 200px;
     width: 200px;
-    display:inline-block;
+    display: inline-block;
     align-items: center;
-}
-
-//hover
-//   .card:hover {
-//     border-color: #ccc2c2;
-//   }
- }
-
-@media (min-width: 1200px) {
-    .container { grid-template-columns: 300px 300px 300px; }
   }
 
+  //hover
+  //   .card:hover {
+  //     border-color: #ccc2c2;
+  //   }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    grid-template-columns: 300px 300px 300px;
+  }
+}
+
 .resource {
-    font-size: 12px;
-    color: gray;
+  font-size: 12px;
+  color: gray;
 }
 
 .column {
@@ -141,4 +151,79 @@ $callouts: (
   .column {
     width: 100%;
   }
+}
+
+
+// copy button
+// adjust the size of the button and the size of the icon
+pre.highlight > button, div.highlighter-rouge > button {
+  border: none;
+  width: auto;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  .copy-icon {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+//define logo max width
+.site-logo {
+  max-width: 164px;
+}
+
+
+// Main nav, breadcrumb, etc...
+// stylelint-disable selector-no-type, max-nesting-depth, selector-max-compound-selectors, selector-max-type, selector-max-specificity
+
+
+.nav-list-link {
+  color: #806f6f;
+}
+
+
+.site-footer {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+// Aux nav
+
+.aux-nav {
+  height: 60%;
+  overflow-x: auto;
+  @include fs-2;
+
+  .aux-nav-list {
+    background-color: $red-000;
+    border-radius: 88px;
+    align-items: center;
+  }
+
+  .aux-nav-list-item {
+    align-items: center;
+  }
+
+}
+
+.main-header {
+  align-items: center;
+
+  @include mq(md) {
+    align-items: center;
+  }
+}
+
+.site-button {
+  display: flex;
+  height: 100%;
+  padding: $gutter-spacing-sm;
+  align-items: center;
+  color: $white;
+  font-weight: 600;
+  font-size: 14px;
 }

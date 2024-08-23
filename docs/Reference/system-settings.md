@@ -119,3 +119,27 @@ SET cancel_query_on_connection_drop = type_dependent;
 INSERT INTO X [...] -- Will NOT be canceled on connection drop
 SELECT * from X;  -- Will be canceled on connection drop
 ```
+
+## Query Labeling / Tagging
+
+Use this option to label your query with a custom text. This simplifies query cancellation and retrieving the query status from system tables.
+
+### Syntax
+```sql
+SET query_label = '<text>'
+```
+
+### Example
+
+```sql
+SET query_label = 'Hello Firebolt';
+SELECT * from X;  -- This query will now be labeled with 'Hello Firebolt'
+
+SET query_label = '';
+-- Find your query in information_schema.engine_running_queries and information_schema.engine_query_history
+-- e.g., to retrieve the QUERY_ID
+SELECT query_id, * from information_schema.engine_running_queries WHERE query_label = 'Hello Firebolt'
+SELECT query_id, * from information_schema.engine_running_queries WHERE query_label = 'Hello Firebolt'
+
+CANCEL QUERY WHERE query_id = '<retrieved query_id>'
+```

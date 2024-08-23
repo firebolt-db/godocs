@@ -133,7 +133,7 @@ SELECT
 	nickname,
 	email
 FROM
-	players
+	nl_subscribers
 ORDER BY
 	nickname
 ```

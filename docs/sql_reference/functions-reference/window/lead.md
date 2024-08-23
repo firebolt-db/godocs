@@ -2,9 +2,9 @@
 layout: default
 title: LEAD OVER
 description: Reference material for LEAD function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Window functions
-great_grand_parent: SQL reference
 published: true
 ---
 

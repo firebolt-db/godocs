@@ -2,9 +2,9 @@
 layout: default
 title: ALL_MATCH
 description: Reference material for ALL_MATCH function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Lambda functions
-great_grand_parent: SQL reference
 published: false
 ---
 

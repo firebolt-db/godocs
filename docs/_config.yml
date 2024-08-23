@@ -5,15 +5,15 @@ description: >-
 # url: "https://docs.firebolt.io" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Build settings
-remote_theme: firebolt-db/just-the-godocs
+remote_theme: firebolt-db/just-the-docs-latest
 logo: "/assets/images/logo_website.svg"
 color_scheme: firebolt
 search_enabled: true
 
 # Jekyll plugins
-# plugins:
-#  # - jekyll-seo-tag
-#  # - jekyll-lnr-js-search
+plugins:
+  - jekyll-github-metadata
+  - jekyll-include-cache
 
 search:
   # Split pages into sections that can be searched individually

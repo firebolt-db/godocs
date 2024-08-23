@@ -2,9 +2,9 @@
 layout: default
 title: TO_FLOAT
 description: Reference material for TO_FLOAT function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: String functions
-great_grand_parent: SQL reference
 published: false
 ---
 

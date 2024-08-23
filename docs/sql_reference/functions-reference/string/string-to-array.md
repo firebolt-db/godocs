@@ -2,9 +2,9 @@
 layout: default
 title: STRING_TO_ARRAY
 description: Reference material for STRING_TO_ARRAY function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: String functions
-great_grand_parent: SQL reference
 published: true
 ---
 

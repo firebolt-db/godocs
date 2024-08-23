@@ -4,7 +4,6 @@ title: Airflow
 description: Learn how to use the Apache Airflow provider package to connect Airflow to Firebolt.
 nav_order: 1
 parent: Integrate with Firebolt
-grand_parent: Guides
 ---
 
 # Connecting to Airflow

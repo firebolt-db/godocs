@@ -2,7 +2,9 @@
 layout: default
 title: URL_ENCODE
 description: Reference material for URL_ENCODE function
-parent: SQL functions
+great_grand_parent: SQL reference
+grand_parent: SQL functions
+parent: Numeric functions
 published: false
 ---
 

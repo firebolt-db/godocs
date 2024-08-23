@@ -2,9 +2,9 @@
 layout: default
 title: ARRAY_SORT
 description: Reference material for ARRAY_SORT function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Array functions
-great_grand_parent: SQL reference
 ---
 
 # ARRAY\_SORT

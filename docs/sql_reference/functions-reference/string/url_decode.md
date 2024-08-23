@@ -2,10 +2,10 @@
 layout: default
 title: URL_DECODE
 description: Reference material for URL_DECODE function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: String functions
-great_grand_parent: SQL reference
-published: false
+published: true
 ---
 
 # URL\_DECODE

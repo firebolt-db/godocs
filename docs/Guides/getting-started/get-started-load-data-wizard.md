@@ -3,7 +3,10 @@ layout: default
 title: Get started using a wizard
 nav_order: 2
 parent: Get started
+<<<<<<< HEAD
 grand_parent: Guides
+=======
+>>>>>>> staging/gh-pages
 ---
 
 # Get started using a wizard

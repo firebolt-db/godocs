@@ -2,9 +2,9 @@
 layout: default
 title: ARRAY_MIN
 description: Reference material for ARRAY_MIN function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Array functions
-great_grand_parent: SQL reference
 ---
 
 # ARRAY\_MIN
@@ -33,7 +33,7 @@ Same as the element type of the array.
 ## Example
 {: .no_toc}
 
-The following examples calculates the minimum number in the `levels` array: 
+The following example calculates the minimum number in the `levels` array:
 ```sql
 SELECT
 	ARRAY_MIN([ 1, 2, 3, 4 ]) AS levels;

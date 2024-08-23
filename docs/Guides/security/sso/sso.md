@@ -4,7 +4,6 @@ title: Set up SSO authentication
 description: Learn about setting up SSO authentication for Firebolt. 
 nav_order: 4
 parent: Configure security
-grand_parent: Guides
 has_children: true
 has_toc: true
 ---

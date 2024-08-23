@@ -46,7 +46,7 @@ Aliases: `BOOL`
 ## Composite
 
 ### ARRAY
-Represents an array of values. All elements of the array must have same data type. Elements of the array can be of any supported data type including nested arrays (array with arrays).
+Represents an array of values. All elements of the array must have the same data type. Elements of the array can be of any supported data type including nested arrays (array with arrays).
 
 Array columns must be defined with the data type of the array elements, and optionally whether or not those elements are nullable. The following syntax options are supported: 
 
@@ -70,7 +70,7 @@ For example, the following three queries will create tables with the same nullab
   );
   ```
 
-  You can also specify that an array be NOT NULL, but you must then use the `ARRAY(<data-type> NOT NULL)` syntax.
+You can also specify that an array be NOT NULL, but you must then use the `ARRAY(<data-type> NOT NULL)` syntax.
 
 You can access a specific array element with an array subscript expression: `array_value[index]`.
 The supplied index must be of type `INT` or `BIGINT`.

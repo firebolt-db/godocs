@@ -2,9 +2,9 @@
 layout: default
 title: PERCENTILE_DISC OVER
 description: Reference material for PERCENTILE_DISC window function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Window functions
-great_grand_parent: SQL reference
 published: false
 ---
 

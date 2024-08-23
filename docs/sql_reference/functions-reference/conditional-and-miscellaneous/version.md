@@ -2,9 +2,9 @@
 layout: default
 title: VERSION
 description: Reference material for VERSION function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Conditional and miscellaneous functions
-great_grand_parent: SQL reference
 ---
 
 # VERSION

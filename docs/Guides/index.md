@@ -8,4 +8,4 @@ has_children: true
 ---
 # Guides
 
-Learn how to configure, govern, develop and query with Firebolt. 
+Learn how to configure, govern, develop and query with Firebolt.

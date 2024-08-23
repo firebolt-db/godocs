@@ -4,7 +4,6 @@ title: Airbyte
 description: Connecting Airbyte and Firebolt.
 nav_order: 8
 parent: Integrate with Firebolt
-grand_parent: Guides
 ---
 
 # Overview

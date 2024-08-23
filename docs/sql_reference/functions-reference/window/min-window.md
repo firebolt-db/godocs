@@ -2,9 +2,9 @@
 layout: default
 title: MIN OVER
 description: Reference material for MIN function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Window functions
-great_grand_parent: SQL reference
 ---
 
 # MIN

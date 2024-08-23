@@ -3,7 +3,10 @@ layout: default
 title: Resources beyond getting started
 nav_order: 5
 parent: Get started
+<<<<<<< HEAD
 grand_parent: Guides
+=======
+>>>>>>> staging/gh-pages
 ---
 
 # Resources beyond getting started

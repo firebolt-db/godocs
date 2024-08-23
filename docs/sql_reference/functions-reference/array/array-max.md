@@ -2,9 +2,9 @@
 layout: default
 title: ARRAY_MAX
 description: Reference material for ARRAY_MAX function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Array functions
-great_grand_parent: SQL reference
 ---
 
 # ARRAY\_MAX
@@ -32,7 +32,7 @@ Same as the element type of the array.
 ## Example
 {: .no_toc}
 
-The following examples calculates the maximum number in the `levels` array: 
+The following example calculates the maximum number in the `levels` array:
 ```sql
 SELECT
 	ARRAY_MAX([ 1, 2, 3, 4 ]) AS levels;

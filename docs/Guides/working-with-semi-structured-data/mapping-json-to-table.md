@@ -4,7 +4,6 @@ title: Map data from JSON to table
 description: Learn how to map data from a JSON document to rows and columns in a Firebolt table.
 nav_order: 1
 parent: Work with semi-structured data
-grand_parent: Guides
 ---
 
 # Map data from JSON records to a table

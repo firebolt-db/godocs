@@ -46,12 +46,12 @@ Partition key arguments must not evaluate to `NULL` and can be any of the follow
 * Column names, as shown below.
   ```sql
   PARTITION BY date_column;
-
   PARTITION BY product_type;
   ```
 
-* The result of an [EXTRACT](../../sql_reference/functions-reference/date-and-time/extract.md) function applied to a column of any of the date and time data types, as shown below.
-  ```PARTITION BY EXTRACT(MONTH FROM date_column);```
+* The result of the [EXTRACT](../../sql_reference/functions-reference/date-and-time/extract.md) function applied to a column of any of the date and time data types. For example ```PARTITION BY EXTRACT(MONTH FROM date_column);```.
+
+* The result of the [DATE_TRUNC](../../sql_reference/functions-reference/date-and-time/date-trunc.md) function applied to a column of any of the date and time data types. For example ```PARTITION BY DATE_TRUNC('month', date_column);```.
 
 * A composite key, with a mix of columns and `EXTRACT` functions, as shown below.
   ```PARTITION BY EXTRACT(MONTH FROM date_column), product_type;```
