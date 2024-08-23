@@ -59,6 +59,10 @@ We now support more join conditions. As long as there is one equality predicate 
 
 We added support for the `URL_ENCODE` and `URL_DECODE` functions.
 
+<!-- Auto Generated Markdown for FIR-35297 - Owned by Benjamin Wagner -->**New logarithm functions `ln`, `log`**
+
+We added support for calculating logarithms. The natural logarithm is available using `ln(val double precision)`. The base 10 logarithm is available using `log(val double precision)`. Logarithms with custom bases are available using `log(base double precision, val double precision)`.
+
 <!-- Auto Generated Markdown for FIR-35480 - Owned by Mosha Pasumansky -->**New function `SQRT**
 
 Added support for the `SQRT` function to compute the square root.
