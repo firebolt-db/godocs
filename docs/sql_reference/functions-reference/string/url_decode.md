@@ -2,10 +2,10 @@
 layout: default
 title: URL_DECODE
 description: Reference material for URL_DECODE function
+great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: String functions
-great_grand_parent: SQL reference
-published: false
+published: true
 ---
 
 # URL\_DECODE
@@ -34,7 +34,7 @@ URL_DECODE(<expression>)
 ## Example
 {: .no_toc}
 
-This example below decodes the percent-encoded parameters of an URL:
+The example below decodes the percent-encoded parameters of an URL:
 
 ```sql
 SELECT URL_DECODE('https://www.firebolt.io/?example_id%3D1%26hl%3Den');
