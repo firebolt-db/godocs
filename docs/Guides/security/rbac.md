@@ -172,8 +172,8 @@ CREATE USER user2 WITH ROLE=role2;
 CREATE TABLE t (a int); -- executed by user1
 CREATE VIEW v AS SELECT * FROM t; -- executed by user1
 
-GRANT SELECT ON v TO role2;
-REVOKE SELECT ON t FROM role2;
+GRANT SELECT ON VIEW v TO role2;
+REVOKE SELECT ON TABLE t FROM role2;
 SELECT * FROM v; -- executed by user2, successfully
 
 REVOKE USAGE ON SCHEMA public FROM role1;
