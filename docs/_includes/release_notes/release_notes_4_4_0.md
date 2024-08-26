@@ -18,11 +18,6 @@ We no longer accept or return the legacy HTTP ClickHouse header format `X-ClickH
 
 The `json_value` function no longer returns null characters (0x00), as the TEXT datatype does not support them. For example, `select json_value('"\u0000"');` now results in an error.
 
-<!-- Auto Generated Markdown for FIR-35188 - Owned by Vitaliy Liudvichenko -->**Restricted column DEFAULT expressions in CREATE TABLE statements to literals and specific functions**
-{: style="color:red;"}
-
-Column DEFAULT expressions in CREATE TABLE statements have been temporarily restricted. They can now only consist of literals and these functions: `CURRENT_DATE()`, `LOCALTIMESTAMP()`, `CURRENT_TIMESTAMP()`, and `NOW()`. Existing tables with column DEFAULT expressions are not affected.
-
 <!-- Manually Generated Markdown for FIR-36032 - Owned by Paul Edgington -->**Change default values for NODES and TYPE during CREATE ENGINE**
 {: style="color:red;"}
 

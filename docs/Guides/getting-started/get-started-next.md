@@ -4,9 +4,12 @@ title: Resources beyond getting started
 nav_order: 5
 parent: Get started
 <<<<<<< HEAD
+<<<<<<< HEAD
 grand_parent: Guides
 =======
 >>>>>>> staging/gh-pages
+=======
+>>>>>>> e4f9672c5cc654e1b191e3f1b71fb79f87861fe5
 ---
 
 # Resources beyond getting started
