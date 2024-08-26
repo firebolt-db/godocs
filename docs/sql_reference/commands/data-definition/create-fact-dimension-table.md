@@ -71,11 +71,16 @@ Note that nullable columns can not be used in Firebolt indexes (Primary, or Aggr
 
 {: .note}
 <<<<<<< HEAD
+<<<<<<< HEAD
 Note that column default expressions are temporarily disabled starting from version 4.3.0.
 We are working on a new implementation of this feature and it will be re-enabled in the near future.
 =======
 Note that column DEFAULT expressions are temporarily restricted starting from version 4.3.0. We are working on a new implementation of this feature and re-enable it in the near future. The expressions currently allowed are literals and the following functions: `CURRENT_DATE()`, `LOCALTIMESTAMP()`, `CURRENT_TIMESTAMP()`, and `NOW()`.
 >>>>>>> staging/gh-pages
+=======
+Note that column default expressions are temporarily disabled starting from version 4.3.0.
+We are working on a new implementation of this feature and it will be re-enabled in the near future.
+>>>>>>> b867316fbd4262f7c8fc3ca92d46bf0004fda375
 
 ### Example&ndash;Creating a table with nulls and not nulls
 
