@@ -1,7 +1,15 @@
 ---
 layout: default
 title: Keyboard shortcuts for the Develop Space
+<<<<<<< HEAD
+<<<<<<< HEAD
+description: Reference for efficient keyboard shortcuts when working in the Firebolt Develop Space.
+=======
 description: Reference for efficient keyboard shortcuts when working in the Firebolt Develop space.
+>>>>>>> staging/gh-pages
+=======
+description: Reference for efficient keyboard shortcuts when working in the Firebolt Develop space.
+>>>>>>> e4f9672c5cc654e1b191e3f1b71fb79f87861fe5
 nav_order: 4
 parent: Query data
 grand_parent: Guides
