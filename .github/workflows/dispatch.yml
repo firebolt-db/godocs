@@ -41,7 +41,7 @@ jobs:
           token: ${{ steps.generate_token.outputs.token }}
           repository: firebolt-analytics/firebolt-docs-preview-cntrbtr
           path: 'preview'
-          ref: ${{ github.ref_name }}
+          ref: 'gh-pages'
 
       # https://github.com/actions/checkout#push-a-commit-using-the-built-in-token
       - name: Set GitHub Actions as Commit Author
