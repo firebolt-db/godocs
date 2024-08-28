@@ -58,7 +58,7 @@ The `TIMESTAMP` data type can be cast to and from types as follows:
 | :------------ | :------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `TEXT`        | `SELECT CAST(TEXT '2023-02-13 11:19:42' as TIMESTAMP); --> 2023-02-13 11:19:42`              | Interprets the text according to the literal string format.                                                                                                                                                   |
 | `DATE`        | `SELECT CAST(DATE '2023-02-13' as TIMESTAMP);  --> 2023-02-13 00:00:00`                      | Extends the date with `00:00:00`.                                                                                                                                                                             |
-| `TIMESTAMPTZ` | `SELECT CAST(TIMESTAMPTZ '2023-02-13 Europe/Berlin' as TIMESTAMP);  --> 2023-02-13 22:00:00` | Converts the timestamptz value to local time in the time zone specified by the [session's `time_zone` setting](../Reference/system-settings.md#set-time-zone). This example assumes `SET time_zone = 'UTC';`. |
+| `TIMESTAMPTZ` | `SELECT CAST(TIMESTAMPTZ '2023-02-13 Europe/Berlin' as TIMESTAMP);  --> 2023-02-13 22:00:00` | Converts the timestamptz value to local time in the time zone specified by the [session's `time_zone` setting](../Reference/system-settings.md#setting-the-time-zone). This example assumes `SET time_zone = 'UTC';`. |
 
 #### From TIMESTAMP
 {:.no_toc}
@@ -67,7 +67,7 @@ The `TIMESTAMP` data type can be cast to and from types as follows:
 | :------------ | :----------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `TEXT`        | `SELECT CAST(TIMESTAMP '2023-02-13 11:19:42' as TEXT);  --> 2023-02-13 11:19:42`           | Converts the timestamp to text in the format `YYYY-MM-DD hh:mm:ss[.f]`.                                                                                                                                    |
 | `DATE`        | `SELECT CAST(TIMESTAMP '2023-02-13 11:19:42' as DATE);  --> 2023-02-13`                    | Truncates the timestamp to date.                                                                                                                                                                           |
-| `TIMESTAMPTZ` | `SELECT CAST(TIMESTAMP '2023-02-13 11:19:42' as TIMESTAMPTZ);  --> 2023-02-13 11:19:42+00` | Interprets the timestamp to be local time in the time zone specified by the [session's `time_zone` setting](../Reference/system-settings.md#set-time-zone). This example assumes `SET time_zone = 'UTC';`. |
+| `TIMESTAMPTZ` | `SELECT CAST(TIMESTAMP '2023-02-13 11:19:42' as TIMESTAMPTZ);  --> 2023-02-13 11:19:42+00` | Interprets the timestamp to be local time in the time zone specified by the [session's `time_zone` setting](../Reference/system-settings.md#setting-the-time-zone). This example assumes `SET time_zone = 'UTC';`. |
 
 ### Comparison operators
 
