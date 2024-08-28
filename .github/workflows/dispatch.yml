@@ -2,7 +2,7 @@ name: Push to remote repositories
 on:
   push:
     branches: 
-      - gh-pages
+      - *
 
 permissions:
   contents: read
