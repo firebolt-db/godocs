@@ -10,11 +10,11 @@ parent: General reference
 
 {: .no_toc}
 
-You can use a SET statement in a SQL script to configure aspects of Firebolt system behavior. Each statement is a query in its own right and must be terminated with a semi-colon (;). The SET statement cannot be included in other queries. This topic provides a list of available settings by function.
+You can use a SET statement in a SQL script to configure aspects of Firebolt's system behavior. Each statement is a query in its own right and must be terminated with a semi-colon (;). The SET statement cannot be included in other queries. This topic provides a list of available settings by function.
 
-## Set time zone
+## Setting the time zone
 
-Use this setting to specify the session time zone. Time zone names are from the [tz database](http://www.iana.org/time-zones) (see the [list of tz database time zones](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones)). For times in the future, the latest known rule for the given time zone is applied. Firebolt does not support time zone abbreviations, as they cannot account for daylight savings time transitions, and some time zone abbreviations meant different UTC offsets at different times. The default value of the `time_zone` setting is UTC. 
+Use this setting to specify the session time zone. Time zone names are from the [tz database](http://www.iana.org/time-zones) (see the [list of tz database time zones](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones)). For times in the future, the latest known rule for the given time zone is applied. Firebolt does not support time zone abbreviations, as they cannot account for daylight savings time transitions, and some time zone abbreviations have meant different UTC offsets at different times. The default value of the `time_zone` setting is UTC. 
 
 ### Syntax
 
@@ -40,7 +40,7 @@ SELECT TIMESTAMPTZ '2023-1-29Z';  --> 2023-01-29 02:00:00+02
 
 ## Enable parsing for literal strings
 
-When set to `true`, strings are parsed without escaping, treating backslashes literally. By default, this setting is enabled. 
+If set to `true`, strings are parsed without escaping, treating backslashes literally. By default, this setting is enabled. 
 
 
 ### Syntax
@@ -94,7 +94,7 @@ SELECT * FROM table LIMIT 20000;
 
 ## Query cancellation mode on connection drop
 
-Use this setting to specify how the query should behave when the HTTP connection to Firebolt is dropped (e.g., UI window is closed). For this, you can choose between 3 different mode:
+Specify how the query should behave when the HTTP connection to Firebolt is dropped (e.g., UI window is closed). For this, you can choose between 3 different mode:
 - NONE: The query will not be canceled on connection drop
 - ALL : The query will be canceled on connection drop
 - TYPE_DEPENDENT: Only queries without side effects will be canceled (e.g., `SELECT`). 
@@ -109,15 +109,15 @@ SET cancel_query_on_connection_drop = <mode>
 ```sql
 SET cancel_query_on_connection_drop = none;
 INSERT INTO X [...] -- Will NOT be canceled on connection drop
-SELECT * from X;  -- Will NOT be canceled on connection drop
+SELECT * FROM X;  -- Will NOT be canceled on connection drop
 
 SET cancel_query_on_connection_drop = all;
 INSERT INTO X [...] -- Will be canceled on connection drop
-SELECT * from X;  -- Will be canceled on connection drop
+SELECT * FROM X;  -- Will be canceled on connection drop
 
 SET cancel_query_on_connection_drop = type_dependent;
 INSERT INTO X [...] -- Will NOT be canceled on connection drop
-SELECT * from X;  -- Will be canceled on connection drop
+SELECT * FROM X;  -- Will be canceled on connection drop
 ```
 
 ## Query Labeling / Tagging
@@ -133,13 +133,37 @@ SET query_label = '<text>'
 
 ```sql
 SET query_label = 'Hello Firebolt';
-SELECT * from X;  -- This query will now be labeled with 'Hello Firebolt'
+SELECT * FROM X;  -- This query will now be labeled with 'Hello Firebolt'
 
 SET query_label = '';
 -- Find your query in information_schema.engine_running_queries and information_schema.engine_query_history
 -- e.g., to retrieve the QUERY_ID
-SELECT query_id, * from information_schema.engine_running_queries WHERE query_label = 'Hello Firebolt'
-SELECT query_id, * from information_schema.engine_running_queries WHERE query_label = 'Hello Firebolt'
+SELECT query_id, * FROM information_schema.engine_running_queries WHERE query_label = 'Hello Firebolt'
+SELECT query_id, * FROM information_schema.engine_running_queries WHERE query_label = 'Hello Firebolt'
 
 CANCEL QUERY WHERE query_id = '<retrieved query_id>'
+```
+
+## Multi-Cluster Engine Warmup
+
+Use this option to distribute queries across all clusters of an engine, simplifying the process of initializing cached data to a consistent state across all clusters after a `START ENGINE` or `ALTER ENGINE` operation.
+
+Warmup queries complete after they have run on all clusters of the engine. The queries return an empty result if they succeed on all clusters. If the query fails on any cluster, it returns an error. If multiple errors occur, only one error is returned. 
+
+### Syntax
+
+```sql
+SET warmup = true;
+```
+
+### Example 
+The following code example activates the warmup mode so that the query runs on `production_table` using all clusters of an engine, and returns an empty result upon success:
+```sql
+USE ENGINE multi_cluster_engine;
+-- Set the warmup flag
+SET warmup = true;
+-- This query runs on all clusters, and returns an empty result if the query succeeds on all clusters. 
+SELECT checksum(*) FROM production_table;
+-- Unset the warmup flag
+SET warmup = false;
 ```
