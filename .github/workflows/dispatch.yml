@@ -41,7 +41,7 @@ jobs:
           token: ${{ steps.generate_token.outputs.token }}
           repository: firebolt-analytics/firebolt-docs-preview-cntrbtr
           path: 'preview'
-          ref: 'gh-pages'
+          ref: ${{ github.ref_name }}
 
       # https://github.com/actions/checkout#push-a-commit-using-the-built-in-token
       - name: Set GitHub Actions as Commit Author
@@ -61,7 +61,7 @@ jobs:
 
       - name: Push Preview
         env: 
-          TARGET_BRANCH: "gh-pages"
+          TARGET_BRANCH: ${{ github.ref_name }}
         run: |
           cp -r build/* preview
           cd preview
