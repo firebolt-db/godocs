@@ -34,6 +34,7 @@ FROM <externalLocations>
 [ LIMIT <count> ]
 [ OFFSET <start> ]
 [ WITH <options> ]
+[ WHERE <condition> ]
 
 <column_mapping>:
     ( <column_name> [DEFAULT <default_value>] [ { $<source_column_index> | <source_column_name> } ] [, ...] )
@@ -149,13 +150,20 @@ When loading data into tables, you can filter data using these options:
 
 2. `OFFSET`: Skips a specified number of initial rows in each input file before loading begins. Helpful for excluding headers or introductory data.
 
+3. `WHERE`: Filters data based on source file metadata. You can filter using:
+* `$source_file_name`: The name of the source file.
+* `$source_file_timestamp`: When the file was last modified.
+* `$source_file_size`: The number of bytes in the file.
+* `$source_file_etag`: The ETag of the file (used often for version control).
+
 ```sql
 COPY tournament_results
 FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/rankings/TournamentID=1/'
-LIMIT 50 OFFSET 50;
+LIMIT 50 OFFSET 50
+WHERE $source_file_timestamp > NOW() - interval '3 YEARS';
 ```
 
-This command loads rows 51 through 100 from the file.
+This command loads rows 51 through 100 from the file. It only loads if the input file was last modified in the last 3 years.
 
 # Examples
 
