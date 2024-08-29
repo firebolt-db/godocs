@@ -9,14 +9,12 @@ parent: Data management
 # COPY FROM
 {: .no_toc}
 
-This guide shows you how to load data from an AWS S3 bucket into Firebolt using `COPY FROM`. `COPY FROM` can accomodate different data loading workflows including the following:
+This guide shows you how to load data from an AWS S3 bucket into Firebolt using `COPY FROM`. `COPY FROM` can accommodate different data loading workflows including the following:
 
 
-* Copy all source columns simulataneously into a target table.
-* Copy only a specific set of columns into a target table.
 * Automatically discover the schema during data loading.
-* Limit the number of rows loaded into the table.
-* Handling errors during data loading.
+* Load multiple files in parallel into a target table.
+* Handle errors during data loading.
 
 
 <!-- This comment is needed for both the list above and the list below to render. -->
@@ -105,59 +103,20 @@ FROM <externalLocations>
 | `TIMESTAMP_FORMAT`    | Specify the timestamp format for parsing text into timestamp columns. The format will apply to all columns loaded as timestamp columns. For supported formats, see [TO_TIMESTAMP](../../functions-reference/date-and-time/to-timestamp.md).                                                                                                                                                                                                                                                                                                                                                                                           |
 
 
-Notes:
-Non-existing columns:
-By default if a column does not exist in the source file it will produce nulls.
-For CSV format it applies to missing fields as well.
-
-`COPY FROM` supports a range of file formats, including:
+`COPY FROM` supports the following file formats:
 
 * `Parquet`
 * `CSV/TSV`
 
-You can use `COPY FROM` for both loading initial data and loading incremental data.
+## Examples
 
-## Initial Data Load
-Use the `COPY FROM` command to efficiently load large batches of data into Firebolt. This command is atomic, ensuring ACID-compliance, and enables loading large initial datasets quickly and reliably into an empty table.
+### Automatic Schema Discovery
+You can use the automatic schema discovery feature in `COPY FROM` to handle large data sources, reducing the risk of errors that can arise from manual schema definition. The following apply:
 
-## Incremental Data Load
-`COPY FROM` allows you to append new data to existing tables without interrupting your workload, useful for ingesting data incrementally. You can use incremental data loading to regularly update data repositories with new information as it becomes available.
+* Parquet files - Firebolt automatically reads metadata in Parquet files to create corresponding target tables.
+* CSV files - Firebolt infers column types based on the data content itself. Use `WITH HEADER=TRUE` if your CSV file contains column names in the first line. `COPY FROM` deduces the column types from your data, streamlining the initial data loading process significantly.
 
-## Concurrency and Data Loading
-The `COPY FROM` command allows different tables to be loaded simultaneously and in parallel. A single table can be populated from multiple sources and by multiple clients at once. 
-
-## Automatic Schema Discovery
-You can leverage automatic schema discovery provided by `COPY FROM`  to manage sizable data sources where manual schema definition can be cumbersome and error-prone. For data formats like Parquet that already include table-level metadata, Firebolt automatically reads this metadata to facilitate the creation of corresponding target tables. For formats where column-level metadata might not be available, such as `CSV`, `COPY FROM` infers column types based on the data content itself. While this process aims to accurately identify data types, it operates on a "best effort" basis, balancing type correctness with practical usability constraints. Additionally, for CSV files that contain column names in the first line, `COPY FROM` uses this line as column headers and deduces the column types from the subsequent data, streamlining the initial data loading process significantly.
-
-## Handling Bad Data
-`COPY FROM` provides robust mechanisms to identify and isolate bad data during the loading process.
-
-```sql
-COPY sales
-FROM 's3://data-bucket/sales_data.csv'
-WITH TYPE = CSV HEADER = TRUE ERROR_FILE = <externalLocation> ERROR_FILE_CREDENTIALS = <credentials> MAX_ERRORS_PER_FILE = 5
-```
-
-## Handling partitioned data
-`COPY FROM` effectively manages the loading of partitioned data, ensuring that data is inserted into the correct partitions based on predefined rules or schema setups, optimizing query performance and data management.
-
-## Filtering data to be loaded
-
-When loading data into tables, you can filter data using these options:
-
-1. `LIMIT`: Controls the number of rows loaded. Useful for previews or creating sample datasets.
-
-2. `OFFSET`: Skips a specified number of initial rows in each input file before loading begins. Helpful for excluding headers or introductory data.
-
-```sql
-COPY tournament_results
-FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/rankings/TournamentID=1/'
-LIMIT 50 OFFSET 50;
-```
-
-This command loads rows 51 through 100 from the file.
-
-# Examples
+Automatic schema discovery operates on a "best effort" basis, balancing type correctness with practical usability constraints, but it may not always be free from errors.
 
 ### Setup
 The following examples use a simple dataset that you can create using these simple instructions:
