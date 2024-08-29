@@ -9,10 +9,10 @@ parent: Data management
 # COPY FROM
 {: .no_toc}
 
-This guide shows you how to load data from an AWS S3 bucket into Firebolt using `COPY FROM`. `COPY FROM` can accomodate different data loading workflows including the following:
+This guide shows you how to load data from an AWS S3 bucket into Firebolt using `COPY FROM`. `COPY FROM` can accommodate different data loading workflows including the following:
 
 
-* Copy all source columns simulataneously into a target table.
+* Copy all source columns simultaneously into a target table.
 * Copy only a specific set of columns into a target table.
 * Automatically discover the schema during data loading.
 * Limit the number of rows loaded into the table.
