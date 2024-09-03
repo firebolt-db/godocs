@@ -15,7 +15,7 @@ Using Airbyte's Firebolt connector, users can efficiently and effortlessly load 
 
 # Quickstart
 
-There are several [ways](https://docs.airbyte.com/category/deploy-airbyte) to deploy Airbyte. In this tutorial we will the easiest way to start prototyping by using a [Docker Compose](https://docs.docker.com/compose/) deployment locally.
+There are several [ways](https://docs.airbyte.com/deploying-airbyte) to deploy Airbyte. In this tutorial we will the easiest way to start prototyping by using a [Docker Compose](https://docs.docker.com/compose/) deployment locally.
 
 If you already have an airbyte deployment skip to the [configuration section](#step-2-configure-firebolt-connection-via-ui).
 
@@ -90,5 +90,5 @@ After setting up Airbyte with Firebolt, explore these resources to leverage addi
 
 1. Learn how to use [Firebolt Source](https://docs.airbyte.com/integrations/sources/firebolt).
 1. Ensure you're following [security guidelines](https://docs.airbyte.com/operating-airbyte/security).
-1. Explore other [deployment options](https://docs.airbyte.com/category/deploy-airbyte).
+1. Explore other [deployment options](https://docs.airbyte.com/deploying-airbyte).
 1. Configure your [connections](https://docs.airbyte.com/cloud/managing-airbyte-cloud/configuring-connections).
