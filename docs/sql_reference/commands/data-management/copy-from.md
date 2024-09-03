@@ -127,9 +127,13 @@ WITH TYPE = CSV HEADER = TRUE ERROR_FILE = <externalLocation> ERROR_FILE_CREDENT
 `COPY FROM` effectively manages the loading of partitioned data, ensuring that data is inserted into the correct partitions based on predefined rules or schema setups, optimizing query performance and data management.
 
 ## Filtering data to be loaded
-You can use the `LIMIT` clause to control the amount of data loaded into tables, for example when managing data previews and sample loads. 
+When loading data into tables, you can filter data using these options:
 
-`COPY FROM` also supports an `OFFSET` clause, allowing users to skip a specified number of rows in each input file before starting the data load. This is useful when users need to exclude certain initial data entries from being loaded.
+1. `LIMIT`: Controls the number of rows loaded. Useful for previews or creating sample datasets.
+
+2. `OFFSET`: Skips a specified number of initial rows before loading begins. Helpful for excluding headers or introductory data.
+
+Both `LIMIT` and `OFFSET` apply to the entire result set, not to individual files.
 
 ```sql
 COPY sample_data
