@@ -338,7 +338,7 @@ This example contains the following nine steps:
 When you load data from an Amazon S3 bucket, Firebolt uses an external table which holds metadata about your source file to map into a Firebolt database. You can load metadata from the virtual columns contained in the external file into a table. You can use the name, timestamp and file size to determine the source of a row of data in a table. When adding data to an existing table, you can use this information to check whether new data is available, or to determine the vintage of the data. The external table associated with your source file contains the following fields: 
 
 * `source_file_name` - the name of your source file.
-* `source_file_timestamp` - the date that your source file was created in the Amazon S3 bucket that it was read from.
+* `source_file_timestamp` - the date that your source file was modified in the Amazon S3 bucket that it was read from.
 * `source_file_size` - the size of your source file in bytes.
 
 The following code example shows you how to create and load metadata into a `levels_meta` table, which contains only the metadata:
@@ -392,9 +392,9 @@ For more information about metadata, see **Using metadata virtual columns** in [
 
 ## Continue loading even with errors
 
-By default, if Firebolt runs into an error when loading your data, the job will stop loading and end in error. If you want to continue loading your data even in the presence of errors, set `MAX_ERRORS_PER_FILE` to a percentage or integer larger than `0`. `COPY FROM` will then continue to load data until it exceeds the specified percent based on the total number of rows in your data. If you enter an integer between `0` and `100`, `COPY FROM` will interpret the integer as a percentage of rows.
+By default, if Firebolt runs into an error when loading your data, the job will stop loading and end in error. If you want to continue loading your data even in the presence of errors, set `MAX_ERRORS_PER_FILE` to a percentage or integer larger than `0`. `COPY FROM` will then continue to load data until it exceeds the specified percent based on the total number of rows in your data. If you enter an integer between `0` and `100`, `COPY FROM` will interpret the integer as a percentage of rows. You can specify only `0%` or `100%`.
 
-For example, if `MAX_ERRORS_PER_FILE` is set to `3` or `3%`, `COPY FROM` will load data until more than `3%` of the rows have errors, and then return an error. Setting `MAX_ERRORS_PER_FILE` to either `100` or `100%` allows the loading process to continue even if every row has an error. If all rows have errors, no data will load into the target table.
+For example, if `MAX_ERRORS_PER_FILE` is set to `0` or `0%`, `COPY FROM` will load data until one row has an error, and then return an error. Setting `MAX_ERRORS_PER_FILE` to either `100` or `100%` allows the loading process to continue even if every row has an error. If all rows have errors, no data will load into the target table.
 
 The following code example loads a sample CSV data set with headers, and will finish the loading job even if every row contains an error. 
 

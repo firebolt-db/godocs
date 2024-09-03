@@ -9,7 +9,7 @@ parent: Date and time functions
 
 # LOCALTIMESTAMP
 
-Returns the current local timestamp in the time zone specified in the session's [`time_zone` setting](../../../Reference/system-settings.md#set-time-zone).
+Returns the current local timestamp in the time zone specified in the session's [`time_zone` setting](../../../Reference/system-settings.md#setting-the-time-zone).
 
 ## Syntax
 {: .no_toc}
