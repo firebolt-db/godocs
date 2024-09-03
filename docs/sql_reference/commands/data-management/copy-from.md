@@ -34,6 +34,7 @@ FROM <externalLocations>
 [ LIMIT <count> ]
 [ OFFSET <start> ]
 [ WITH <options> ]
+[ WHERE <condition> ]
 
 <column_mapping>:
     ( <column_name> [DEFAULT <default_value>] [ { $<source_column_index> | <source_column_name> } ] [, ...] )
@@ -141,23 +142,31 @@ WITH TYPE = CSV HEADER = TRUE ERROR_FILE = <externalLocation> ERROR_FILE_CREDENT
 ## Handling partitioned data
 `COPY FROM` effectively manages the loading of partitioned data, ensuring that data is inserted into the correct partitions based on predefined rules or schema setups, optimizing query performance and data management.
 
-## Filtering data to be loaded
+## Filter data during loading
 
-When loading data into tables, you can filter data using these options:
+When loading data into tables, you can filter data using the following options:
 
-1. `LIMIT`: Controls the number of rows loaded. Useful for previews or creating sample datasets.
+1. `LIMIT`: Restricts the number of rows loaded, which can be useful to preview or create sample datasets.
 
-2. `OFFSET`: Skips a specified number of initial rows before loading begins. Helpful for excluding headers or introductory data.
+2. `OFFSET`: Skips a specified number of initial rows before loading begins, which can be helpful to exclude headers or introductory data.
 
 Both `LIMIT` and `OFFSET` apply to the entire result set, not to individual files.
+
+3. `WHERE`: Filters data based on source file metadata, as follows:
+
+* `$source_file_name`: The name of the source file.
+* `$source_file_timestamp`: The date that the file was last modified, to the second, in UTC, in the Amazon S3 bucket that it was read from.
+* `$source_file_size`: The size of your source file in bytes.
+* `$source_file_etag`: The file [ETag](https://docs.aws.amazon.com/AmazonS3/latest/API/API_Object.html#API_Object_Contents) of the file, which is often used for version control.
+
+The following code example shows how to filter the data to start after the 50th row, load 100 rows, and include only data modified in the last three years:
 
 ```sql
 COPY tournament_results
 FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/rankings/TournamentID=1/'
-LIMIT 50 OFFSET 50;
+LIMIT 100 OFFSET 50
+WHERE $source_file_timestamp > NOW() - interval '3 YEARS';
 ```
-
-This command loads rows 51 through 100 from the file.
 
 # Examples
 
