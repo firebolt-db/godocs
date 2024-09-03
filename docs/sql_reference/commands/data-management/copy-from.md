@@ -147,7 +147,9 @@ When loading data into tables, you can filter data using these options:
 
 1. `LIMIT`: Controls the number of rows loaded. Useful for previews or creating sample datasets.
 
-2. `OFFSET`: Skips a specified number of initial rows in each input file before loading begins. Helpful for excluding headers or introductory data.
+2. `OFFSET`: Skips a specified number of initial rows before loading begins. Helpful for excluding headers or introductory data.
+
+Both `LIMIT` and `OFFSET` apply to the entire result set, not to individual files.
 
 ```sql
 COPY tournament_results
