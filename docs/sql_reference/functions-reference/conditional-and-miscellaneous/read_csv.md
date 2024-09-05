@@ -19,7 +19,6 @@ READ_CSV (
     [, compression => <file_compression>]
     [, aws_key_id => <aws_key_id>]
     [, aws_secret_key => <aws_secret_key>]
-    [, are_credentials_encrypted => <are_credentials_encrypted>]
     [, header => <csv_has_header_row>]
     [, delimiter => <field_delimiter>]
     [, quote => { "'" | '"' | SINGLE_QUOTE | DOUBLE_QUOTE}]
@@ -38,7 +37,6 @@ READ_CSV (
 | `<compression>`               | The [compression type](../../commands/data-definition/create-external-table.md#compression) of the input file. If `compression` is not set, `compression` is inferred from the file extension.           | `TEXT`                |
 | `<aws_key_id>`                | The AWS key ID.                                                                                      | `TEXT`                |
 | `<aws_secret_key>`            | The AWS secret key.                                                                                  | `TEXT`                |
-| `<are_credentials_encrypted>` | Set to `TRUE` if the `aws_key_id` and `aws_secret_key` are provided in encrypted form.                    | `BOOL`                |
 | `<header>`                    | Set to `TRUE` if the first row of the CSV file contains a header row containing the column names.                                 | `TEXT`                |
 | `<delimiter>`                 | Specify the character used to separate fields. The default delimiter is a comma (`,`).                                                            | `TEXT`                |
 | `<quote>`                     | Specify the character used for quoting fields. The default is double quote (`"`). If a single quote is specified, the quote character will be set to (`'`). Accepts only `DOUBLE_QUOTE`, `SINGLE_QUOTE`, `'`, or `"`.     | `TEXT`                |
