@@ -147,9 +147,11 @@ When loading data into tables, you can filter data using these options:
 
 1. `LIMIT`: Controls the number of rows loaded. Useful for previews or creating sample datasets.
 
-2. `OFFSET`: Skips a specified number of initial rows before loading begins. Helpful for excluding headers or introductory data.
+2. `OFFSET`: Behaves in the same way as the `OFFSET` clause in `SELECT` queries. Skips a specified number of rows in the final result set before ingestion.
 
 Both `LIMIT` and `OFFSET` apply to the entire result set, not to individual files.
+
+Note that `COPY FROM` currently does not support an `ORDER BY` clause. Because of this, the results when using `OFFSET` can be different every time you run the command.
 
 ```sql
 COPY tournament_results
@@ -157,7 +159,8 @@ FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset
 LIMIT 50 OFFSET 50;
 ```
 
-This command loads rows 51 through 100 from the file.
+This command reads all the files in the specified directory and then applies the offset and limit clause. 
+As long as all source files combined have at least 100 rows, the result set will have exactly 50 rows.
 
 # Examples
 
