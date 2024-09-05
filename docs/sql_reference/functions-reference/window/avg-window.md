@@ -2,6 +2,8 @@
 layout: default
 title: AVG OVER
 description: Reference material for AVG function
+great_grand_parent: SQL reference
+grand_parent: SQL functions
 parent: Window functions
 ---
 

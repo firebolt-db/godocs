@@ -3,7 +3,6 @@ layout: default
 title: Resources beyond getting started
 nav_order: 5
 parent: Get started
-grand_parent: Guides
 ---
 
 # Resources beyond getting started

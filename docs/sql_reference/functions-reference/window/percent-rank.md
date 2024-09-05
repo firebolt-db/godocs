@@ -2,6 +2,8 @@
 layout: default
 title: PERCENT_RANK OVER
 description: Reference material for PERCENT_RANK window function
+great_grand_parent: SQL reference
+grand_parent: SQL functions
 parent: Window functions
 ---
 
@@ -48,13 +50,10 @@ WHERE grade_level=9;
 
 **Returns**:
 
-```sql
-
 | nickname | current_score |    percent_rank     |
 |:------------|:------------|:---------------------|
 | kennethpark   |         90 |                   0 |
 | sabrina21      |         85 |                 0.2 |
 | rileyjon      |         80 |                 0.4 |
 | ymatthews       |         79 |                 0.6 |
-
 

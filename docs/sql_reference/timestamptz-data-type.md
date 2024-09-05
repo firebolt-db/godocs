@@ -61,7 +61,7 @@ If a `TIMESTAMPTZ` literal has an explicit time zone specified, it is converted 
 If not, Firebolt uses the session's `time_zone` setting and assumes the `TIMESTAMPTZ` literal is in that time zone.
 The default value of the `time_zone` setting is UTC.
 To set it to, e.g., `Europe/Berlin`, you can issue: `SET time_zone = 'Europe/Berlin';`.
-For more information, see [system settings](../Reference/system-settings.md#set-time-zone).
+For more information, see [system settings](../Reference/system-settings.md#setting-the-time-zone).
 
 If only the date is specified, the time is assumed to be `00:00:00.000000`.
 

@@ -4,7 +4,6 @@ title: Preset
 description: Learn about connecting Preset to Firebolt.
 nav_order: 6
 parent: Integrate with Firebolt
-grand_parent: Guides
 ---
 
 # Preset

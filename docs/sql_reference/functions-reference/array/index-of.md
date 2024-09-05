@@ -2,6 +2,8 @@
 layout: default
 title: INDEX_OF
 description: Reference material for INDEX_OF function
+great_grand_parent: SQL reference
+grand_parent: SQL functions
 parent: Array functions
 ---
 

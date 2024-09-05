@@ -4,7 +4,6 @@ title: Manage users
 description: Learn about user permissions and how to add and remove users in a Firebolt account.
 nav_order: 8
 parent: Manage organization
-grand_parent: Guides
 ---
 
 # Manage users

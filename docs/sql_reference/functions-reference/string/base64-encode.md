@@ -4,6 +4,8 @@ title: BASE64_ENCODE
 description: Reference material for BASE64_ENCODE function
 nav_exclude: true
 search_exclude: true
+great_grand_parent: SQL reference
+grand_parent: SQL functions
 parent: String functions
 published: false
 ---

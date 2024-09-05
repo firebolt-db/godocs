@@ -2,6 +2,8 @@
 layout: default
 title: CREATE NETWORK POLICY
 description: Reference and syntax for the CREATE NETWORK POLICY command.
+great_grand_parent: SQL reference
+grand_parent:  SQL commands
 parent: Access control
 ---
 
@@ -31,8 +33,8 @@ WITH ALLOWED_IP_LIST = ( '<allowed_ip1>', '<allowed_ip2>', ... )
 
 ## Example
 
-The following command will create a network policy that allows IPs ‘4.5.6.1’ and ‘2.4.5.1’ and blocks the IP address '6.7.8.1', with a description: 
+The following command will create a network policy that allows IPs '4.5.6.1' and '2.4.5.1' and blocks the IP address '6.7.8.1', with a description: 
 
 ```sql
-CREATE NETWORK POLICY my_network_policy WITH ALLOWED_IP_LIST = (‘4.5.6.1’, ‘2.4.5.1’) DESCRIPTION = 'my new network policy'
+CREATE NETWORK POLICY my_network_policy WITH ALLOWED_IP_LIST = ('4.5.6.1', '2.4.5.1') DESCRIPTION = 'my new network policy'
 ```

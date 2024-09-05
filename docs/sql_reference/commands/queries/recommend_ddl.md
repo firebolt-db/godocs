@@ -1,6 +1,8 @@
 ---
 layout: default
 title: RECOMMEND DDL
+great_grand_parent: SQL reference
+grand_parent:  SQL commands
 parent: Queries
 ---
 

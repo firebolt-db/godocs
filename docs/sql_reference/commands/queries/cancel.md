@@ -1,6 +1,8 @@
 ---
 layout: default
 title: CANCEL QUERY
+great_grand_parent: SQL reference
+grand_parent: SQL commands
 parent: Queries
 ---
 
@@ -36,7 +38,7 @@ CANCEL QUERY WHERE query_id = '12345';
 
 Consider a scenario where there is a long-running query that needs to be canceled to free up system resources. The following statement can be used to obtain the query_id:
 ```sql
-SELECT status, duration_usec, query_text, query_id FROM information_schema.engine_running_queries;
+SELECT status, duration_us, query_text, query_id FROM information_schema.engine_running_queries;
 ```
 
 Suppose the long-running query is identified with query_id '12345':

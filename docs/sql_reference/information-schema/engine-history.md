@@ -2,6 +2,7 @@
 layout: default
 title: Engine history
 parent: Information schema
+grand_parent: SQL reference
 ---
 
 # Information schema for engine history

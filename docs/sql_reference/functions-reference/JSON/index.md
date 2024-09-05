@@ -4,6 +4,8 @@ title: JSON functions
 description: Reference for JSON functions
 nav_order: 9
 parent: SQL functions
+grand_parent: SQL reference
+great_grand_parent: SQL reference
 has_children: true
 ---
 

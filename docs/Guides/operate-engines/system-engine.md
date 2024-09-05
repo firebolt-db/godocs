@@ -4,7 +4,6 @@ title: System Engine
 description: System engine documentation
 nav_order: 4
 parent: Operate Engines
-grand_parent: Guides
 ---
 
 # System Engine
@@ -23,7 +22,7 @@ The system engine supports running the following commands:
 * Most [metadata](../../sql_reference/commands/metadata/index.md) commands. The following commands are not supported:
   * [SHOW CACHE](../../sql_reference/commands/metadata/show-cache.md)
 * Non-data-accessing [SELECT](../../sql_reference/commands/queries/select.md) queries like `SELECT CURRENT_TIMESTAMP()`
-* [SELECT](../../sql_reference/commands/queries/select.md) queries on some [information_schema](../../sql_reference/information-schema/information-schema-and-usage-views.md) views:
+* [SELECT](../../sql_reference/commands/queries/select.md) queries on some [information_schema](../../sql_reference/information-schema/index.md) views:
     * [information_schema.accounts](../../sql_reference/information-schema/accounts.md)
     * [information_schema.applicable_roles](../../sql_reference/information-schema/applicable-roles.md)
     * [information_schema.columns](../../sql_reference/information-schema/columns.md)

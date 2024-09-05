@@ -3,6 +3,7 @@ layout: default
 title: Engine query history
 description: Use this reference to learn about the metadata available for historical queries in Firebolt.
 parent: Information schema
+grand_parent: SQL reference
 ---
 
 # Information schema for engine query history

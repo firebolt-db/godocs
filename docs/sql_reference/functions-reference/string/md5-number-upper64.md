@@ -2,6 +2,8 @@
 layout: default
 title: MD5_NUMBER_UPPER64
 description: Reference material for MD5_NUMBER_UPPER64 function
+great_grand_parent: SQL reference
+grand_parent: SQL functions
 parent: String functions
 published: false 
 ---

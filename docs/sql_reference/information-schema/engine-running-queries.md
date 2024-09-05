@@ -3,6 +3,7 @@ layout: default
 title: Engine running queries
 description: Use this reference to learn about the metadata available for running queries in Firebolt using the information schema.
 parent: Information schema
+grand_parent: SQL reference
 ---
 
 # Information schema for engine running queries

@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+// Styles for rendered markdown in the .main-content container
+// stylelint-disable selector-no-type, max-nesting-depth, selector-max-compound-selectors, selector-max-type, selector-max-specificity, selector-max-id
+
+.main-content {
+
+  a {
+    white-space: nowrap;
+  }
+
+  ol {
+    > li {
+      &::before {
+        font-weight: 500;
+        content: counter(step-counter) ".";
+      }
+
+      ol {
+        li {
+          &::before {
+            content: counter(sub-counter, lower-alpha) ".";
+          }
+        }
+      }
+    }
+  }
+
+  .task-list {
+    padding-left: 0;
+  }
+
+  .task-list-item {
+    display: flex;
+    align-items: center;
+
+  }
+
+  h1:first-of-type {
+    font-family: $header-font-family;
+  }
+
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    padding-bottom: 6px;
+
+    &:first-child {
+      margin-top: $sp-2;
+    }
+
+    + table,
+    + .table-wrapper,
+    + .code-example,
+    + .highlighter-rouge {
+      margin-top: 1em;
+    }
+
+    + p {
+      margin-top: 0;
+    }
+  }
+}

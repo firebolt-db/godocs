@@ -3,7 +3,6 @@ layout: default
 title: Governing Engines
 description: Learn how to use Role Based Access Control to govern engines
 parent: Operate Engines
-grand_parent: Guides
 ---
 # Governing Engines
 {: .no_toc}

@@ -2,6 +2,8 @@
 layout: default
 title: SUM
 description: Reference material for SUM
+great_grand_parent: SQL reference
+grand_parent: SQL functions
 parent: Aggregation functions
 ---
 
@@ -27,6 +29,14 @@ Valid values for `<value>` include column names or expressions that evaluate to 
 
 ## Return Types
 `NUMERIC` 
+
+## Precision and Determinism
+Applying `SUM` to REAL and DOUBLE PRECISION is subject to [floating point arithmetic accuracy limitations](https://en.wikipedia.org/wiki/Floating-point_arithmetic#Accuracy_problems) and its resulting error.
+This error may add up when aggregating multiple values.
+
+The order of operations while computing the aggregate is non-deterministic.
+This can lead to varying total floating point error when running a query multiple times.
+If this is not acceptable for your use-case, aggregate on [NUMERIC](/sql_reference/numeric-data-type) data instead.
 
 ## Example
 

@@ -26,15 +26,15 @@ A whole number ranging from -9,223,372,036,854,775,808 to 9,223,372,036,854,775,
 Aliases: `LONG`, `INT8`.
 
 ### NUMERIC
-An exact numeric data type defined by its precision (total number of digits) and scale (number of digits to the right of the decimal point). For more information, see [NUMERIC data type](numeric-data-type.md). 
+A fixed-point numeric data type defined by its precision (total number of digits) and scale (number of digits to the right of the decimal point). For more information, see [NUMERIC data type](/sql_reference/numeric-data-type). 
 Aliases: `DECIMAL`.
 
 ### REAL
-A floating-point number that has six decimal-digit precision. Decimal (fixed point) types are not supported. `REAL` data types require 4 bytes of storage.
+A floating-point number that has six decimal-digit precision. `REAL` data types require 4 bytes of storage.
 Aliases: `FLOAT4`.
 
 ### DOUBLE PRECISION
-A floating-point number that has 15 decimal-digit precision. Decimal (fixed point) types are not supported. `DOUBLE` data types require 8 bytes.
+A floating-point number that has 15 decimal-digit precision. `DOUBLE` data types require 8 bytes.
 Aliases: `DOUBLE`, `FLOAT`, `FLOAT8`, `FLOAT(p)` where 25 <= p <= 53.
 
 ## Boolean

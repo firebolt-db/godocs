@@ -2,6 +2,8 @@
 layout: default
 title: SPLIT
 description: Reference material for SPLIT function
+great_grand_parent: SQL reference
+grand_parent: SQL functions
 parent: String functions
 published: false
 ---

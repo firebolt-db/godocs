@@ -2,6 +2,8 @@
 layout: default
 title: ALTER ORGANIZATION
 description: Reference and syntax for the ALTER ORGANIZATION command.
+great_grand_parent: SQL reference
+grand_parent:  SQL commands
 parent: Data definition
 ---
 
@@ -15,15 +17,15 @@ For more information, see [Setting up SSO](../../../Guides/security/sso/sso.md),
 
 ```sql
 ALTER ORGANIZATION SET 
-  [ SSO = ‘{
-  “signOnUrl”: “<signOnUrl>”,
-  “signOutUrl”: “<signOutUrl>”, 
-  “issuer”: “<issuer>”,
-  “provider”: “<idp>”,
-  “label”: “<label>”,
-  “fieldMapping”: “<field_mapping>”,
-  “certificate”: “<certficate>”,
-}’ ]
+  [ SSO = '{
+      “signOnUrl”: “<signOnUrl>”,
+      “signOutUrl”: “<signOutUrl>”, 
+      “issuer”: “<issuer>”,
+      “provider”: “<idp>”,
+      “label”: “<label>”,
+      “fieldMapping”: “<field_mapping>”,
+      “certificate”: “<certficate>”,
+  }' ]
   [ NETWORK_POLICY = [ DEFAULT | <network_policy_name> ]
   ;
 ```
@@ -48,7 +50,7 @@ ALTER ORGANIZATION SET
 The following command will configure SSO using the Okta identity provider. For more examples for other IdPs, see [Configure your identity provider](../../../Guides/security/sso/configuring-idp-for-sso.md).
 
 ```sql
-ALTER ORGANIZATION SET SSO = ‘{
+ALTER ORGANIZATION SET SSO = '{
   “signOnUrl”: “https://abc.okta.com/app/okta_firebolt_app_id/sso/saml”,
   “signOutUrl”: “https://myapp.exampleco.com/saml/logout”, 
   “issuer”: “issuer”,
@@ -56,5 +58,5 @@ ALTER ORGANIZATION SET SSO = ‘{
   “label”: “Okta”,
   “fieldMapping”: “mapping”,
   “certificate”: “XXXXXXXXXXXXXXXX”,
-}’;
+}';
 ```

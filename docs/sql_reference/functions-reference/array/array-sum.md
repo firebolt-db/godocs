@@ -2,6 +2,8 @@
 layout: default
 title: ARRAY_SUM
 description: Reference material for ARRAY_SUM function
+great_grand_parent: SQL reference
+grand_parent: SQL functions
 parent: Array functions
 ---
 

@@ -2,12 +2,14 @@
 layout: default
 title: CURRENT_DATE
 description: Reference material for CURRENT_DATE function
+great_grand_parent: SQL reference
+grand_parent: SQL functions
 parent: Date and time functions
 ---
 
 # CURRENT_DATE
 
-Returns the current local date in the time zone specified in the [session's `time_zone` setting](../../../Reference/system-settings.md#set-time-zone).
+Returns the current local date in the time zone specified in the [session's `time_zone` setting](../../../Reference/system-settings.md#setting-the-time-zone).
 
 ## Syntax
 {: .no_toc}

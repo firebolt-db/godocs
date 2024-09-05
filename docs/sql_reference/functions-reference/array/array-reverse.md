@@ -2,6 +2,8 @@
 layout: default
 title: ARRAY_REVERSE
 description: Reference material for ARRAY_REVERSE function
+great_grand_parent: SQL reference
+grand_parent: SQL functions
 parent: Array functions
 ---
 

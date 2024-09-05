@@ -4,7 +4,6 @@ title: Service accounts
 description: Learn about creating service account users for Firebolt.
 nav_order: 6
 parent: Manage organization
-grand_parent: Guides
 ---
 
 # Manage service accounts
@@ -23,7 +22,7 @@ Managing service accounts requires the org_admin role.
 To create a service account using SQL, use the [`CREATE SERVICE ACCOUNT`](../../sql_reference/commands/access-control/create-service-account.md) statement. For example:
 
 ```sql
-CREATE SERVICE ACCOUNT IF NOT EXISTS "sa1" WITH DESCRIPTION = "service account 1";
+CREATE SERVICE ACCOUNT IF NOT EXISTS "sa1" WITH DESCRIPTION = 'service account 1';
 ```
 
 ### UI

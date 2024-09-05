@@ -2,6 +2,8 @@
 layout: default
 title: AVG
 description: Reference material for AVG
+great_grand_parent: SQL reference
+grand_parent: SQL functions
 parent: Aggregation functions
 ---
 
@@ -31,6 +33,14 @@ The `AVG()` aggregation function ignores rows with `NULL` values. For example, a
 ## Return Types
 * `NUMERIC` if the input is type `INTEGER`, `BIGINT` or `NUMERIC`
 * `DOUBLE PRECISION` if the input is type `REAL` or `DOUBLE PRECISION`
+
+## Precision and Determinism
+Applying `AVG` to REAL and DOUBLE PRECISION is subject to [floating point arithmetic accuracy limitations](https://en.wikipedia.org/wiki/Floating-point_arithmetic#Accuracy_problems) and its resulting error.
+This error may add up when aggregating multiple values.
+
+The order of operations while computing the aggregate is non-deterministic.
+This can lead to varying total floating point error when running a query multiple times.
+If this is not acceptable for your use-case, aggregate on [NUMERIC](/sql_reference/numeric-data-type) data instead.
 
 ## Example
 

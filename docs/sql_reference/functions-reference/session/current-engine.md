@@ -2,7 +2,9 @@
 layout: default
 title: CURRENT_ENGINE
 description: Reference material for CURRENT_ENGINE function
+grand_parent: SQL functions
 parent: Session functions
+great_grand_parent: SQL reference
 ---
 
 # CURRENT_ENGINE

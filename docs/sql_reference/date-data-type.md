@@ -50,7 +50,7 @@ The `DATE` data type can be cast to and from types as follows:
 | :------------ | :----------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `TEXT`        | `SELECT CAST(TEXT '2023-02-13' as DATE);  --> 2023-02-13`                      | Interprets the text according to the literal string format.                                                                                                                                                                                       |
 | `TIMESTAMP`   | `SELECT CAST(TIMESTAMP '2023-02-13 11:19:42' as DATE);  --> 2023-02-13`        | Truncates the timestamp to the date.                                                                                                                                                                                                              |
-| `TIMESTAMPTZ` | `SELECT CAST(TIMESTAMPTZ '2023-02-13 Europe/Berlin' as DATE);  --> 2023-02-13` | Converts the timestamptz to local time in the time zone specified by the [session's `time_zone` setting](../Reference/system-settings.md#set-time-zone), then truncates the timestamp to the date. This example assumes `SET time_zone = 'UTC';`. |
+| `TIMESTAMPTZ` | `SELECT CAST(TIMESTAMPTZ '2023-02-13 Europe/Berlin' as DATE);  --> 2023-02-13` | Converts the timestamptz to local time in the time zone specified by the [session's `time_zone` setting](../Reference/system-settings.md#setting-the-time-zone), then truncates the timestamp to the date. This example assumes `SET time_zone = 'UTC';`. |
 
 #### From DATE
 {:.no_toc}
@@ -59,7 +59,7 @@ The `DATE` data type can be cast to and from types as follows:
 | :------------ | :--------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `TEXT`        | `SELECT CAST(DATE '2023-02-13' as TEXT);  --> 2023-02-13`              | Converts the date to text in the format `YYYY-MM-DD`.                                                                                                                                            |
 | `TIMESTAMP`   | `SELECT CAST(DATE '2023-02-13' as TIMESTAMP);  --> 2023-02-1 00:00:00` | Extends the date with `00:00:00`.                                                                                                                                                                |
-| `TIMESTAMPTZ` | `SELECT CAST(DATE '2023-02-13' as TIMESTAMPTZ);  --> 2023-02-13`       | Interprets the date as midnight in the time zone specified by the [session's `time_zone` setting](../Reference/system-settings.md#set-time-zone). This example assumes `SET time_zone = 'UTC';`. |
+| `TIMESTAMPTZ` | `SELECT CAST(DATE '2023-02-13' as TIMESTAMPTZ);  --> 2023-02-13`       | Interprets the date as midnight in the time zone specified by the [session's `time_zone` setting](../Reference/system-settings.md#setting-the-time-zone). This example assumes `SET time_zone = 'UTC';`. |
 
 ### Comparison operators
 

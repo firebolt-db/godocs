@@ -4,7 +4,6 @@ title: Node.js
 description: Learn about using the Node.js SDK for Firebolt.
 nav_order: 1
 parent: Develop with Firebolt
-grand_parent: Guides
 has_toc: true
 ---
 

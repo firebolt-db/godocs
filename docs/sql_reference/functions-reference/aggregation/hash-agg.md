@@ -2,6 +2,8 @@
 layout: default
 title: HASH_AGG
 description: Reference material for HASH_AGG
+great_grand_parent: SQL reference
+grand_parent: SQL functions
 parent: Aggregation functions
 ---
 

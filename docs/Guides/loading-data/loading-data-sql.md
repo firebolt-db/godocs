@@ -3,7 +3,6 @@ layout: default
 title: Load data using SQL
 description: Understand options for loading data into Firebolt using SQL statements.
 parent: Load data
-grand_parent: Guides
 nav_order: 2
 has_children: false
 has_toc: false
@@ -44,8 +43,7 @@ An example of the **simplest** way to invoke `COPY FROM` is:
 
 ```sql
 COPY INTO tutorial FROM 
-'s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/
-levels.csv' WITH HEADER=TRUE;
+'s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv' WITH HEADER=TRUE;
 ```
 The previous code creates a table named `tutorial`, reads a CSV file with headers from a public Amazon S3 bucket, automatically generates a schema, and loads the data.
 
@@ -54,11 +52,12 @@ If the data is contained in an Amazon S3 bucket with restricted access, you will
 ```sql
 COPY INTO tutorial 
 FROM 's3://your_s3_bucket/your_file.csv'
+WITH
 CREDENTIALS = (
-AWS_KEY_ID = '<aws_key_id>', 
+AWS_KEY_ID = '<aws_key_id>' 
 AWS_SECRET_KEY = '<aws_secret_key>'
 )
- WITH HEADER=TRUE AUTO_CREATE=TRUE;
+HEADER=TRUE AUTO_CREATE=TRUE;
  ```
 
 To provide your credentials in the previous example, do the following:
@@ -163,7 +162,6 @@ The following example shows how to aggregate data using an [external table](work
     OBJECT_PATTERN = '*'
     TYPE = (PARQUET);
     ```
-    
     The previous code uses `OBJECT_PATTERN` to link all (*) files inside the specified directory contained in `URL`, and `TYPE` to specify the file format.
 
 2. Define a table in the Firebolt database with the desired aggregations, as shown in the following code example:
@@ -176,12 +174,12 @@ The following example shows how to aggregate data using an [external table](work
       MaxCurrentSpeed REAL,
       MaxCurrentScore BIGINT
     ) PRIMARY INDEX TournamentID, PlayerID;
-   ```
+    ```
     The previous code creates a table with the aggregate values `MaxCurrentLevel`, `MaxCurrentSpeed`, and `MaxCurrentScore`. 
 
 3. Insert data from the external table into the internal table using the aggregate functions, as shown in the following code example:
 
-    ```sql
+  ```sql
     INSERT INTO playstats_max_scores 
     SELECT PlayerID,  
       TournamentID,
@@ -190,9 +188,9 @@ The following example shows how to aggregate data using an [external table](work
       MAX(CurrentScore)
     FROM ex_playstats
     GROUP BY ALL
-    ```
+  ```
 
-    The previous code calculates the aggregate function `MAX` before loading the data into the `playstats_max_scores` table.
+  The previous code calculates the aggregate function `MAX` before loading the data into the `playstats_max_scores` table.
 
 ## Update an existing table from an external table
 Firebolt saves metadata including virtual columns, and the source file’s name, size and timestamp when mapping data from an Amazon S3 bucket to a Firebolt database. You can query this metadata directly for troubleshooting and analysis, or use it to find new data, as shown in this example. 
@@ -228,7 +226,7 @@ This example contains the following nine steps:
 
    
 2. Create an external table
-
+  
     Use an external table to query the source data directly to compare it to data in your existing table. The advantages of using an external table to check for new data are as follows:
   
       * An external table links to the data source without loading it into a database, which avoids costs associated with importing and storing it. 
@@ -256,13 +254,15 @@ This example contains the following nine steps:
     If you are using an external table to link to data in parquet format, the order of the columns in the external table does not have to match the order of the columns in the source data. If you are reading data in csv format, the order must match the order in the source data.
 
 3. Copy data from the `players_ext` external table into an internal `players` table, as shown in the following code example:
+
     ```sql
     INSERT INTO players
     SELECT *,
-    $SOURCE_FILE_NAME,
-    $SOURCE_FILE_TIMESTAMP
+    &#0036;SOURCE_FILE_NAME,
+    &#0036;SOURCE_FILE_TIMESTAMP
     FROM players_ext
     ```
+
 4. Create a temporary table that contains the most recent timestamp from your existing table, as shown in the following code example:
     ```sql
     CREATE TABLE IF NOT EXISTS control_maxdate AS (
@@ -298,6 +298,7 @@ This example contains the following nine steps:
     DELETE FROM players
     WHERE playerid IN (SELECT playerid FROM updates_table);
     ```
+
 7. Insert updated records from the `updates_table`, including a new timestamp, into the `players` table to replace the deleted records from the previous step, as shown in the following example:
     ```sql
     INSERT INTO players
@@ -314,6 +315,7 @@ This example contains the following nine steps:
     source_file_timestamp_new
     FROM updates_table;
     ```
+
 8. Insert any entirely new, rather than updated, records into the `players` table, as shown in the following code example:
     ```sql
     INSERT INTO players
@@ -324,17 +326,19 @@ This example contains the following nine steps:
     WHERE $SOURCE_FILE_TIMESTAMP > (SELECT max_time FROM control_maxdate)
     AND playerid NOT IN (SELECT playerid FROM players);
     ```
+
 9. Clean up resources. 
     Remove the temporary tables used in the update process as shown in the following code example:
     ```sql
     DROP TABLE IF EXISTS control_maxdate;
     DROP TABLE IF EXISTS updates_table;
     ```
+
 ## Load source file metadata into a table
 When you load data from an Amazon S3 bucket, Firebolt uses an external table which holds metadata about your source file to map into a Firebolt database. You can load metadata from the virtual columns contained in the external file into a table. You can use the name, timestamp and file size to determine the source of a row of data in a table. When adding data to an existing table, you can use this information to check whether new data is available, or to determine the vintage of the data. The external table associated with your source file contains the following fields: 
 
 * `source_file_name` - the name of your source file.
-* `source_file_timestamp` - the date that your source file was created in the Amazon S3 bucket that it was read from.
+* `source_file_timestamp` - the date that your source file was modified in the Amazon S3 bucket that it was read from.
 * `source_file_size` - the size of your source file in bytes.
 
 The following code example shows you how to create and load metadata into a `levels_meta` table, which contains only the metadata:
@@ -388,11 +392,12 @@ For more information about metadata, see **Using metadata virtual columns** in [
 
 ## Continue loading even with errors
 
-By default, if Firebolt runs into an error when loading your data, the job will stop loading and end in error. If you want to continue loading your data even in the presence of errors, set `MAX_ERRORS_PER_FILE` to a percentage or integer larger than `0`. `COPY FROM` will then continue to load data until it exceeds the specified percent based on the total number of rows in your data. If you enter an integer between `0` and `100`, `COPY FROM` will interpret the integer as a percentage of rows.
+By default, if Firebolt runs into an error when loading your data, the job will stop loading and end in error. If you want to continue loading your data even in the presence of errors, set `MAX_ERRORS_PER_FILE` to a percentage or integer larger than `0`. `COPY FROM` will then continue to load data until it exceeds the specified percent based on the total number of rows in your data. If you enter an integer between `0` and `100`, `COPY FROM` will interpret the integer as a percentage of rows. You can specify only `0%` or `100%`.
 
-For example, if `MAX_ERRORS_PER_FILE` is set to `3` or `3%`, `COPY FROM` will load data until more than `3%` of the rows have errors, and then return an error. Setting `MAX_ERRORS_PER_FILE` to either `100` or `100%` allows the loading process to continue even if every row has an error. If all rows have errors, no data will load into the target table.
+For example, if `MAX_ERRORS_PER_FILE` is set to `0` or `0%`, `COPY FROM` will load data until one row has an error, and then return an error. Setting `MAX_ERRORS_PER_FILE` to either `100` or `100%` allows the loading process to continue even if every row has an error. If all rows have errors, no data will load into the target table.
 
 The following code example loads a sample CSV data set with headers, and will finish the loading job even if every row contains an error. 
+
 ```sql
 COPY INTO new_levels_auto
 FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
@@ -414,6 +419,7 @@ In the previous code example, the following apply:
 `COPY FROM` supports an option to generate error files that describe the errors encountered and note the rows with errors. To store these files in an Amazon S3 bucket, you must provide credentials to allow Firebolt to write to the bucket.
 
 The following example sets an error handling threshold and specifies an Amazon S3 bucket as the source data and another to write the error file:
+
 ```sql 
 COPY INTO my_table
 FROM 's3://my-bucket/data.csv'

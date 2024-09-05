@@ -23,6 +23,15 @@ $callouts: (
   }
 }
 
+// define custom code style
+@import "./code";
+
+// define custom font style
+@import "./typography";
+
+// define content.scss owerwrite rule
+@import "./content";
+
 // IMPORTANT: Customizations must be defined in the local project's custom.scss file. This file does nothing in the theme.
 
 // $callouts: (
@@ -150,6 +159,7 @@ $callouts: (
 pre.highlight > button, div.highlighter-rouge > button {
   border: none;
   width: auto;
+
   &:hover {
     cursor: pointer;
   }
@@ -158,4 +168,62 @@ pre.highlight > button, div.highlighter-rouge > button {
     width: 24px;
     height: 24px;
   }
+}
+
+//define logo max width
+.site-logo {
+  max-width: 164px;
+}
+
+
+// Main nav, breadcrumb, etc...
+// stylelint-disable selector-no-type, max-nesting-depth, selector-max-compound-selectors, selector-max-type, selector-max-specificity
+
+
+.nav-list-link {
+  color: #806f6f;
+}
+
+
+.site-footer {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+// Aux nav
+
+.aux-nav {
+  height: 60%;
+  overflow-x: auto;
+  @include fs-2;
+
+  .aux-nav-list {
+    background-color: $red-000;
+    border-radius: 88px;
+    align-items: center;
+  }
+
+  .aux-nav-list-item {
+    align-items: center;
+  }
+
+}
+
+.main-header {
+  align-items: center;
+
+  @include mq(md) {
+    align-items: center;
+  }
+}
+
+.site-button {
+  display: flex;
+  height: 100%;
+  padding: $gutter-spacing-sm;
+  align-items: center;
+  color: $white;
+  font-weight: 600;
+  font-size: 14px;
 }

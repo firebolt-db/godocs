@@ -2,6 +2,8 @@
 layout: default
 title: SHOW ENGINES
 description: Reference and syntax for the SHOW ENGINES command.
+great_grand_parent: SQL reference
+grand_parent:  SQL commands
 parent: Metadata commands
 ---
 

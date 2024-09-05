@@ -2,6 +2,8 @@
 layout: default
 title: JSON_VALUE_ARRAY
 description: Reference material for JSON_VALUE_ARRAY function
+great_grand_parent: SQL reference
+grand_parent: SQL functions
 parent: JSON functions
 ---
 
