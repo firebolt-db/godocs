@@ -23,47 +23,50 @@ ALTER ENGINE <engine_name> SET
     [CLUSTERS = <clusters>]
     [NODES = <nodes>]
     [TYPE = <type>]
-    [RENAME TO <new_name>]
 ```
+
 ### Options 
 {: .no_toc}  
 
 | Parameter                            | Description                                  |
 | :----------------------------------- | :------------------------------------------- |
 | `<engine_name>`                      | The name of the engine to be altered.        |
-| `AUTO_START = <true/false>`          | When `true`, sending a query to a stopped engine will start the engine before processing the query. |
-| `AUTO_STOP = <minutes>`              | Indicates the amount of time (in minutes) after which the engine automatically stops.<br>Setting the `minutes` to 0 indicates that `AUTO_STOP` is disabled. |
-| `DEFAULT_DATABASE = <database_name>` | The database an engine will attempt to use by default when dealing with queries that require a database.<br>To remove the default database, set `DEFAULT_DATABASE=default`. |
+| `AUTO_START = <true/false>`          | When set to `TRUE`, sending a query to a stopped engine will automatically start the engine before processing the query. |
+| `AUTO_STOP = <minutes>`              | Specifies the number of minutes after which an engine automatically stops. Setting `minutes` to `0` disables `AUTO_STOP`. |
+| `DEFAULT_DATABASE = <database_name>` | Specifies the default database that an engine will attempt to use when processing queries that require a database. To remove the default database, set `DEFAULT_DATABASE=default`. |
 | `CLUSTERS = <clusters>`              | Specifies the number of clusters in an engine. Each cluster is a group of nodes, and all clusters within an engine are identical in terms of node type and number of nodes. |
-| `NODES = <nodes>`                    | Indicates the number of nodes in each cluster within an engine. This number can range from `1` to `128`. |
-| `TYPE =<type>`                       | Defines the type of node used in the engine. Options include `S`, `M`, `L`, or `XL`. |
-| `RENAME TO <new_name>`               | Indicates the new name for the engine. No other parameters are allowed during an engine rename. |
+| `NODES = <nodes>`                    | Specifies the number of nodes in each cluster within an engine. You can specify any integer between `1` to `128`, inclusive. |
+| `TYPE =<type>`                       | Specifies the node type for the engine. You can choose `S`, `M`, `L`, or `XL`. |
 
 **Limitations:**
-* The number of clusters per engine is limited to two. 
-* The number of nodes per cluster is limited to ten. 
-* The total number of nodes x clusters cannot exceed 15.
-* When you scale a running engine (vertically or horizontally), new queries after the scaling operation will be directed to a new cluster. Queries running on the old clusters will be run to completion. The clusters will wait for up to 24 hours for running queries to finish. After 24 hours, any queries still running may not run to completion.
+* Each engine is limited to a maximum of two clusters.
+* Each cluster can have up to ten nodes. 
+* The total number of nodes across all clusters cannot exceed 15.
+* When scaling a running engine either vertically or horizontally, new queries will be directed to the new cluster. Queries running on the original clusters will continue until completion. The clusters will wait up to 24 hours for these queries to finish, after which any unfinished queries may be stopped.
 * Only small and medium engines are available for use right away.
 
-If you would like to remove the above limitations or use a large or extra-large engine, reach out to Firebolt Support at support@firebolt.io
+If you would like to remove the following limitations, reach out to Firebolt support at support@firebolt.io to do the following:
+
+*  Use a large or extra-large engine.
+*  Use more than ten nodes per cluster.
+*  Use more than 15 nodes across all clusters.
 
 ### Example 1
-The following example allows the users to scale out an engine by setting the engine's `NODES` to `3`: 
+The following code example scales out, or increases the number of nodes, in an engine by setting the engine's `NODES` to `3`: 
 
 ```sql
 ALTER ENGINE my_engine SET NODES = 3;
 ```
 
 ### Example 2
-The following example allows the users to scale up an engine from Small to Large by setting the engine's `TYPE` to `L`: 
+The following code example scales up an engine by increasing its capacity from small (`S`) to large (`L`) by setting the engine's `TYPE` parameter to `L`: 
 
 ```sql
 ALTER ENGINE my_engine SET TYPE = "L";
 ```
 
 ### Example 3
-The following example allows the users to both scale up and scale out an engine by changing the number of nodes and the node type: 
+The following code example both scales up and scales out an engine by increasing node capacity and the number of nodes: 
 
 ```sql
 ALTER ENGINE my_engine SET TYPE = "L" NODES = 5;
@@ -72,11 +75,29 @@ ALTER ENGINE my_engine SET TYPE = "L" NODES = 5;
 {: .note}
 If you need to use a large or extra-large engine, reach out to support@firebolt.io. 
 
+## ALTER ENGINE RENAME TO
+
+Renames an engine.
+
+### Syntax
+
+```sql
+ALTER ENGINE <engine_name> RENAME TO <new_engine_name>
+```
+
+### Parameters
+{: .no_toc}
+
+| Parameter     | Description                       |
+| :------------ |:----------------------------------|
+| `<engine_name>` | The name of the engine to rename. |
+| `<new_engine_name>`       | The new name of the engine.       |
+
 ## ALTER ENGINE OWNER TO
 
-Change the owner of an engine. The current owner of an engine can be viewed in the `information_schema.engines` view on `engine_owner` column.
+Changes the owner of an engine. You can view the current owner in the the `engine_owner` column of the `information_schema.engines` view.
 
-check [ownership](../../../Guides/security/ownership.md) page for more info.
+For more information, see [ownership](../../../Guides/security/ownership.md).
 
 ### Syntax
 
