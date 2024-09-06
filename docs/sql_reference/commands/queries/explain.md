@@ -114,17 +114,17 @@ Each column can be turned off individually using the corresponding option. For e
 
 ```
 [0] [Projection] ref_2, ref_1, ref_0, ref_3
-|   [RowType]: pgdate not null, text not null, bigint not null, double precision null
+|   [RowType]: date not null, text not null, bigint not null, double precision null
  \_[1] [Sort] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last]
-   |   [RowType]: bigint not null, text not null, pgdate not null, double precision null
-    \_[2] [Aggregate] GroupBy: [ref_0, ref_2, ref_3] Aggregates: [avgOrNull(ref_1)]
-      |   [RowType]: bigint not null, text not null, pgdate not null, double precision null
+   |   [RowType]: bigint not null, text not null, date not null, double precision null
+    \_[2] [Aggregate] GroupBy: [ref_0, ref_2, ref_3] Aggregates: [avg2(ref_1)]
+      |   [RowType]: bigint not null, text not null, date not null, double precision null
        \_[3] [Projection] ref_0, ref_1, ref_3, ref_4
-         |   [RowType]: bigint not null, double precision not null, text not null, pgdate not null
-          \_[4] [Predicate] equals(ref_2, 'N'), greater(ref_4, toPGDate('1996-01-01'))
-            |   [RowType]: bigint not null, double precision not null, text not null, text not null, pgdate not null
-             \_[5] [StoredTable] Name: 'lineitem', used 5/16 column(s) FACT, ref_0: 'l_orderkey' ref_1: 'l_discount' ref_2: 'l_returnflag' ref_3: 'l_linestatus' ref_4: 'l_shipdate'
-                   [RowType]: bigint not null, double precision not null, text not null, text not null, pgdate not null
+         |   [RowType]: bigint not null, double precision not null, text not null, date not null
+          \_[4] [Filter] (ref_2 = 'N'), (ref_4 > DATE '1996-01-01')
+            |   [RowType]: bigint not null, double precision not null, text not null, text not null, date not null
+             \_[5] [StoredTable] Name: "lineitem", used 5/16 column(s) FACT, ref_0: "l_orderkey" ref_1: "l_discount" ref_2: "l_returnflag" ref_3: "l_linestatus" ref_4: "l_shipdate"
+                   [RowType]: bigint not null, double precision not null, text not null, text not null, date not null
 ```
 
 The `explain_logical` column shows the optimized logical query plan of the select statement. This is the same plan as in [Example](#example). Additionally, it shows the output row type for each operator. A variable `ref_2` refers to the second input column from the operator below. For the operators with multiple input operators like the `Join` operator, the input columns are concatenated. If the first input emits three columns, and the second input four columns, the columns of the first input are referred to as `ref_0` - `ref_2`, and the columns of the second input are referred to as `ref_3` - `ref-6`.
@@ -132,106 +132,134 @@ The `explain_logical` column shows the optimized logical query plan of the selec
 ### `EXPLAIN (PHYSICAL)` output
 
 ```
-[0] [Projection] ref_2, ref_1, ref_0, ref_3
-|   [RowType]: pgdate not null, text not null, bigint not null, double precision null
- \_[1] [SortMerge] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last]
-   |   [RowType]: bigint not null, text not null, pgdate not null, double precision null
-    \_[2] [Shuffle] Gather
-      |   [RowType]: bigint not null, text not null, pgdate not null, double precision null
-       \_[3] [Sort] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last]
-         |   [RowType]: bigint not null, text not null, pgdate not null, double precision null
-          \_[4] [AggregateMerge] GroupBy: [ref_0, ref_1, ref_2] Aggregates: [avgOrNullMerge(ref_3)]
-            |   [RowType]: bigint not null, text not null, pgdate not null, double precision null
-             \_[5] [Shuffle] Hash by [ref_0, ref_1, ref_2]
-               |   [RowType]: bigint not null, text not null, pgdate not null, aggregatefunction2(avgornull, double precision not null) not null
-                \_[6] [AggregatePartial] GroupBy: [ref_0, ref_2, ref_3] Aggregates: [avgOrNullState(ref_1)]
-                  |   [RowType]: bigint not null, text not null, pgdate not null, aggregatefunction2(avgornull, double precision not null) not null
-                   \_[7] [Projection] ref_0, ref_1, ref_3, ref_4
-                     |   [RowType]: bigint not null, double precision not null, text not null, pgdate not null
-                      \_[8] [Predicate] equals(ref_2, 'N'), greater(ref_4, toPGDate('1996-01-01'))
-                        |   [RowType]: bigint not null, double precision not null, text not null, text not null, pgdate not null
-                         \_[9] [StoredTable] Name: 'lineitem', used 5/16 column(s) FACT, ref_0: 'l_orderkey' ref_1: 'l_discount' ref_2: 'l_returnflag' ref_3: 'l_linestatus' ref_4: 'l_shipdate'
-                               [RowType]: bigint not null, double precision not null, text not null, text not null, pgdate not null
+[0] [MaybeCache]
+|   [RowType]: date not null, text not null, bigint not null, double precision null
+ \_[1] [Projection] ref_2, ref_1, ref_0, ref_3
+   |   [RowType]: date not null, text not null, bigint not null, double precision null
+    \_[2] [SortMerge] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last]
+      |   [RowType]: bigint not null, text not null, date not null, double precision null
+       \_[3] [Shuffle] Gather
+         |   [RowType]: bigint not null, text not null, date not null, double precision null
+         |   [Affinity]: many nodes
+          \_[4] [Sort] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last]
+            |   [RowType]: bigint not null, text not null, date not null, double precision null
+             \_[5] [AggregateMerge] GroupBy: [ref_0, ref_1, ref_2] Aggregates: [avg2merge(ref_3)]
+               |   [RowType]: bigint not null, text not null, date not null, double precision null
+                \_[6] [Shuffle] Hash by [ref_0, ref_1, ref_2]
+                  |   [RowType]: bigint not null, text not null, date not null, aggregatefunction(avg2ornull, double precision not null) not null
+                  |   [Affinity]: many nodes
+                   \_[7] [AggregateState partial] GroupBy: [ref_0, ref_2, ref_3] Aggregates: [avg2(ref_1)]
+                     |   [RowType]: bigint not null, text not null, date not null, aggregatefunction(avg2ornull, double precision not null) not null
+                      \_[8] [Projection] ref_0, ref_1, ref_3, ref_4
+                        |   [RowType]: bigint not null, double precision not null, text not null, date not null
+                         \_[9] [Filter] (ref_2 = 'N'), (ref_4 > DATE '1996-01-01')
+                           |   [RowType]: bigint not null, double precision not null, text not null, text not null, date not null
+                            \_[10] [StoredTable] Name: "lineitem", used 5/16 column(s) FACT, ref_0: "l_orderkey" ref_1: "l_discount" ref_2: "l_returnflag" ref_3: "l_linestatus" ref_4: "l_shipdate"
+                                  [RowType]: bigint not null, double precision not null, text not null, text not null, date not null
 ```
 
 The `explain_physical` column shows the more detailed optimized physical plan containing `Shuffle` operators for distributed query execution. It allows insights into how work is distributed across the nodes of an engine. A `Shuffle` operator redistributes data between the nodes of an engine. Scans of `FACT` tables, like operator `[9] [StoredTable]` in the example above, and the operators following it are automatically distributed across all nodes of an engine. A `Shuffle` operator of type `Hash` indicates that the work on the operators following it is distributed over all nodes, as well. A `Shuffle` operator of type `Gather` gathers all data on a single node of the engine. In the example above, only the operator `[1] [SortMerge]` is executed on a single node, merging the sorted partial query results from all other nodes.
+We also see the `MaybeCache` operator at the top of the plan. A `MaybeCache` operator caches its input in main memory on a best-effort basis for future executions of the same (sub-) query. It takes into account the entire plan leading to its input as well as the state of the scanned tables. If the data in a table changes, the `MaybeCache` operator will know not to read an outdated cached entry. It may also decide against caching a result if it is too large, or if caching a different result would save more time. A `MaybeCache` operator may appear in different places of a plan. In this query it is used to cache the full result of the query.
 
 ### `EXPLAIN (ANALYZE)` output
 
 ```
-[0] [Projection] ref_2, ref_1, ref_0, ref_3
-|   [RowType]: pgdate not null, text not null, bigint not null, double precision null
-|   [Execution Metrics]: output cardinality = 24640805, thread time = 0ms, cpu time = 0ms
- \_[1] [SortMerge] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last]
-   |   [RowType]: bigint not null, text not null, pgdate not null, double precision null
-   |   [Execution Metrics]: output cardinality = 24640805, thread time = 2805ms, cpu time = 2804ms
-    \_[2] [Shuffle] Gather
-      |   [RowType]: bigint not null, text not null, pgdate not null, double precision null
-      |   [Execution Metrics]: output cardinality = 24640805, thread time = 304ms, cpu time = 303ms
-       \_[3] [Sort] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last]
-         |   [RowType]: bigint not null, text not null, pgdate not null, double precision null
-         |   [Execution Metrics]: output cardinality = 24640805, thread time = 18025ms, cpu time = 18019ms
-          \_[4] [AggregateMerge] GroupBy: [ref_0, ref_1, ref_2] Aggregates: [avgOrNullMerge(ref_3)]
-            |   [RowType]: bigint not null, text not null, pgdate not null, double precision null
-            |   [Execution Metrics]: output cardinality = 24640805, thread time = 5499ms, cpu time = 5466ms
-             \_[5] [Shuffle] Hash by [ref_0, ref_1, ref_2]
-               |   [RowType]: bigint not null, text not null, pgdate not null, aggregatefunction2(avgornull, double precision not null) not null
-               |   [Execution Metrics]: output cardinality = 24640806, thread time = 2093ms, cpu time = 2065ms
-                \_[6] [AggregateState partial] GroupBy: [ref_0, ref_2, ref_3] Aggregates: [avgOrNullState(ref_1)]
-                  |   [RowType]: bigint not null, text not null, pgdate not null, aggregatefunction2(avgornull, double precision not null) not null
-                  |   [Execution Metrics]: output cardinality = 24640806, thread time = 18498ms, cpu time = 18165ms
-                   \_[7] [Projection] ref_0, ref_1, ref_3, ref_4
-                     |   [RowType]: bigint not null, double precision not null, text not null, pgdate not null
-                     |   [Execution Metrics]: output cardinality = 25050365, thread time = 0ms, cpu time = 0ms
-                      \_[8] [Predicate] equals(ref_2, 'N'), greater(ref_4, toPGDate('1996-01-01'))
-                        |   [RowType]: bigint not null, double precision not null, text not null, text not null, pgdate not null
-                        |   [Execution Metrics]: output cardinality = 25050365, thread time = 703ms, cpu time = 700ms
-                         \_[9] [StoredTable] Name: 'lineitem', used 5/16 column(s) FACT, ref_0: 'l_orderkey' ref_1: 'l_discount' ref_2: 'l_returnflag' ref_3: 'l_linestatus' ref_4: 'l_shipdate'
-                               [RowType]: bigint not null, double precision not null, text not null, text not null, pgdate not null
-                               [Execution Metrics]: output cardinality = 30373792, thread time = 4629ms, cpu time = 4511ms
+[0] [MaybeCache]
+|   [RowType]: date not null, text not null, bigint not null, double precision null
+|   [Execution Metrics]: output cardinality = 270958684, thread time = 7ms, cpu time = 4ms
+ \_[1] [Projection] ref_2, ref_1, ref_0, ref_3
+   |   [RowType]: date not null, text not null, bigint not null, double precision null
+   |   [Execution Metrics]: Optimized out
+    \_[2] [SortMerge] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last]
+      |   [RowType]: bigint not null, text not null, date not null, double precision null
+      |   [Execution Metrics]: output cardinality = 270958684, thread time = 27932ms, cpu time = 27692ms
+       \_[3] [Shuffle] Gather
+         |   [RowType]: bigint not null, text not null, date not null, double precision null
+         |   [Affinity]: many nodes
+         |   [Execution Metrics]: output cardinality = 270958684, thread time = 1846ms, cpu time = 1779ms
+          \_[4] [Sort] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last]
+            |   [RowType]: bigint not null, text not null, date not null, double precision null
+            |   [Execution Metrics]: output cardinality = 270958684, thread time = 286199ms, cpu time = 285590ms
+             \_[5] [AggregateMerge] GroupBy: [ref_0, ref_1, ref_2] Aggregates: [avg2merge(ref_3)]
+               |   [RowType]: bigint not null, text not null, date not null, double precision null
+               |   [Execution Metrics]: output cardinality = 270958684, thread time = 90694ms, cpu time = 77308ms
+                \_[6] [Shuffle] Hash by [ref_0, ref_1, ref_2]
+                  |   [RowType]: bigint not null, text not null, date not null, aggregatefunction(avg2ornull, double precision not null) not null
+                  |   [Affinity]: many nodes
+                  |   [Execution Metrics]: output cardinality = 270958691, thread time = 27649ms, cpu time = 24247ms
+                   \_[7] [AggregateState partial] GroupBy: [ref_0, ref_2, ref_3] Aggregates: [avg2(ref_1)]
+                     |   [RowType]: bigint not null, text not null, date not null, aggregatefunction(avg2ornull, double precision not null) not null
+                     |   [Execution Metrics]: output cardinality = 270958691, thread time = 191561ms, cpu time = 184761ms
+                      \_[8] [Projection] ref_0, ref_1, ref_3, ref_4
+                        |   [RowType]: bigint not null, double precision not null, text not null, date not null
+                        |   [Execution Metrics]: Optimized out
+                         \_[9] [Filter] (ref_2 = 'N'), (ref_4 > DATE '1996-01-01')
+                           |   [RowType]: bigint not null, double precision not null, text not null, text not null, date not null
+                           |   [Execution Metrics]: output cardinality = 275468571, thread time = 3578ms, cpu time = 3566ms
+                            \_[10] [StoredTable] Name: "lineitem", used 5/16 column(s) FACT, ref_0: "l_orderkey" ref_1: "l_discount" ref_2: "l_returnflag" ref_3: "l_linestatus" ref_4: "l_shipdate"
+                                  [RowType]: bigint not null, double precision not null, text not null, text not null, date not null
+                                  [Execution Metrics]: output cardinality = 334006486, thread time = 29642ms, cpu time = 29608ms
 ```
 
 The `explain_analyze` column contains the same query plan as the `explain_physical` column, but annotated with metrics collected during query execution. For each operator, it shows the number of rows it produced (`output_cardinality`), and how much time was spent on that operator (`thread_time` and `cpu_time`). `thread_time` is the sum of the wall-clock time that threads spent working on this operator across all nodes. `cpu_time` is the sum of the time these threads where scheduled on a CPU core. If `cpu_time` is considerably smaller than `thread_time`, this indicates that the operator is waiting a lot on IO or the engine is under multiple queries at once.
 
 #### Analyzing the Metrics
 
-In the example above, the `cpu_time` is almost as high as the `thread_time` on the `StoredTable` node. This indicates that the data of the `lineitem` table was in cache. On a cold run of the same query where the data has to be fetched from S3, the output for the same operator shows a `thread_time` considerably higher than `cpu_time`:
+In the example above, the `cpu_time` is almost as high as the `thread_time` on the `StoredTable` node. This indicates that the data of the `lineitem` table was in the SSD cache. On a cold run of the same query where the data has to be fetched from S3, the output for the same operator shows a `thread_time` considerably higher than `cpu_time`:
 
 ```
-[9] [StoredTable] Name: 'lineitem', used 5/16 column(s) FACT, ref_0: 'l_orderkey' ref_1: 'l_discount' ref_2: 'l_returnflag' ref_3: 'l_linestatus' ref_4: 'l_shipdate'
-    [RowType]: bigint not null, double precision not null, text not null, text not null, pgdate not null
-    [Execution Metrics]: output cardinality = 30373792, thread time = 144771ms, cpu time = 6342ms
+[10] [StoredTable] Name: "lineitem", used 5/16 column(s) FACT, ref_0: "l_orderkey" ref_1: "l_discount" ref_2: "l_returnflag" ref_3: "l_linestatus" ref_4: "l_shipdate"
+    [RowType]: bigint not null, double precision not null, text not null, text not null, date not null
+    [Execution Metrics]: output cardinality = 334006486, thread time = 29642ms, cpu time = 29608ms
 ```
 
 Furthermore, we see that a lot of time is spent on sorting the query result:
 
 ```
-[1] [SortMerge] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last]
-   |   [RowType]: bigint not null, text not null, pgdate not null, double precision null
-   |   [Execution Metrics]: output cardinality = 24640805, thread time = 2805ms, cpu time = 2804ms
-    \_[2] [Shuffle] Gather
-      |   [RowType]: bigint not null, text not null, pgdate not null, double precision null
-      |   [Execution Metrics]: output cardinality = 24640805, thread time = 304ms, cpu time = 303ms
-       \_[3] [Sort] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last]
-             [RowType]: bigint not null, text not null, pgdate not null, double precision null
-             [Execution Metrics]: output cardinality = 24640805, thread time = 18025ms, cpu time = 18019ms
+[2] [SortMerge] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last]
+|   [RowType]: bigint not null, text not null, date not null, double precision null
+|   [Execution Metrics]: output cardinality = 270958684, thread time = 27932ms, cpu time = 27692ms
+ \_[3] [Shuffle] Gather
+   |   [RowType]: bigint not null, text not null, date not null, double precision null
+   |   [Affinity]: many nodes
+   |   [Execution Metrics]: output cardinality = 270958684, thread time = 1846ms, cpu time = 1779ms
+    \_[4] [Sort] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last]
+      |   [RowType]: bigint not null, text not null, date not null, double precision null
+      |   [Execution Metrics]: output cardinality = 270958684, thread time = 286199ms, cpu time = 285590ms
 ```
 
-Thus, removing the `ORDER BY` can considerably speed up query execution. In this case, the execution time of the whole query halves from 4.7s to 2.3s. If we are only interested in the first results according to our specified sorting order, we can introduce a `LIMIT` operator to improve performance, as well. Adding a `LIMIT 10000` to the query gives the following output:
+Thus, removing the `ORDER BY` can considerably speed up query execution. In this case, the execution time of the whole query almost halves from 1m19s to 47.3s. If we are only interested in the first results according to our specified sorting order, we can introduce a `LIMIT` operator to improve performance, as well. Adding a `LIMIT 10000` to the query gives the following output:
 
 ```
-[1] [SortMerge] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last] Limit: [10000]
-|   [RowType]: bigint not null, text not null, pgdate not null, double precision null
+[2] [SortMerge] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last] Limit: [10000]
+|   [RowType]: bigint not null, text not null, date not null, double precision null
 |   [Execution Metrics]: output cardinality = 10000, thread time = 1ms, cpu time = 1ms
- \_[2] [Shuffle] Gather
-   |   [RowType]: bigint not null, text not null, pgdate not null, double precision null
-   |   [Execution Metrics]: output cardinality = 40000, thread time = 1ms, cpu time = 1ms
-    \_[3] [Sort] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last] Limit: [10000]
-      |   [RowType]: bigint not null, text not null, pgdate not null, double precision null
-      |   [Execution Metrics]: output cardinality = 40000, thread time = 2215ms, cpu time = 2190ms
-       \_[4] [AggregateMerge] GroupBy: [ref_0, ref_1, ref_2] Aggregates: [avgOrNullMerge(ref_3)]
-             [RowType]: bigint not null, text not null, pgdate not null, double precision null
-             [Execution Metrics]: output cardinality = 24640805, thread time = 5644ms, cpu time = 5608ms
+ \_[3] [Shuffle] Gather
+   |   [RowType]: bigint not null, text not null, date not null, double precision null
+   |   [Affinity]: many nodes
+   |   [Execution Metrics]: output cardinality = 20000, thread time = 0ms, cpu time = 0ms
+    \_[4] [Sort] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last] Limit: [10000]
+      |   [RowType]: bigint not null, text not null, date not null, double precision null
+      |   [Execution Metrics]: output cardinality = 20000, thread time = 6403ms, cpu time = 6372ms
+       \_[5] [AggregateMerge] GroupBy: [ref_0, ref_1, ref_2] Aggregates: [avg2merge(ref_3)]
+         |   [RowType]: bigint not null, text not null, date not null, double precision null
+         |   [Execution Metrics]: output cardinality = 270958684, thread time = 83213ms, cpu time = 74525ms
 ```
 
-The time spent in the `Sort` operator is almost an order of magnitude lower. The `Sort` operator takes the `LIMIT` clause directly into account and emits only the minimum number of rows it is required to. The execution time of the whole query is reduced from 4.7s to 1.7s. This is even more than the improvement by removing the `ORDER BY` clause, because less query result data needs to be serialized for returning it to the client.
+The time spent in the `Sort` operator is almost an order of magnitude lower. The `Sort` operator takes the `LIMIT` clause directly into account and emits only the minimum number of rows it is required to. The execution time of the whole query is reduced from 1m19s to 40.3s. This is even more than the improvement by removing the `ORDER BY` clause, because less query result data needs to be serialized for returning it to the client.
+
+This also had a second benefit: The result is now small enough to be cached by the `MaybeCache` operator. Running the query with `LIMIT 10000` again gives the following output:
+
+```
+[0] [MaybeCache]
+|   [RowType]: date not null, text not null, bigint not null, double precision null
+|   [Execution Metrics]: output cardinality = 10000, thread time = 0ms, cpu time = 0ms
+ \_[1] [Projection] ref_2, ref_1, ref_0, ref_3
+   |   [RowType]: date not null, text not null, bigint not null, double precision null
+   |   [Execution Metrics]: Optimized out
+    \_[2] [SortMerge] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last] Limit: [10000]
+      |   [RowType]: bigint not null, text not null, date not null, double precision null
+      |   [Execution Metrics]: Nothing was executed
+```
+
+The query finishes in under 10ms and every operator below `MaybeCache` reports `Nothing was executed` or `output cardinality = 0`. The `MaybeCache` operator found a cache entry for this physical plan using the same state of the `lineitem` table and returned the result. All operators required to produce the input to `MaybeCache` are therefore canceled and not executed.
