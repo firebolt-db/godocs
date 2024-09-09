@@ -1,4 +1,4 @@
-## DB version 4.4
+## DB version 4.5
 **September 2024**
 
 ## New Features
@@ -18,19 +18,27 @@ Results in
 DATE `2024-08-07`
 ```
 
+
 <!-- Auto Generated Markdown for FIR-35408 - Owned by Kfir Yehuda -->**Added the `CONVERT_FROM` function**
+
 Added the `CONVERT_FROM` function that converts a `BYTEA` value with a given encoding to a `TEXT` value encoded in UTF-8.
 
+
 **Added the BITWISE aggregate functions**
+
 Added support for the following functions: BIT_OR (bitwise OR), BIT_XOR (bitwise exclusive OR), and BIT_AND (bitwise AND).
 
-### Added the `REGEXP_LIKE_ANY` function
+
+**Added the `REGEXP_LIKE_ANY` function**
+
 Added the `REGEXP_LIKE_ANY` function that checks whether a given string matches any regular expression pattern from a specified list of patterns.
+
 
 ## Bug Fixes
 
 <!-- Auto Generated Markdown for FIR-35688 - Owned by Asya Shneerson -->**Updated `created` and `last_altered` column types in `information_schema.views` from `TIMESTAMP` to `TIMESTAMPTZ`**
 The data types of the `created` and `last_altered` columns in `information_schema.views` have been changed from `TIMESTAMP` to `TIMESTAMPTZ`.
+
 
 <!-- Auto Generated Markdown for FIR-36063 - Owned by Timo Kersten -->**Fixed runtime constant handling in the sort operator**
 Fixed the handling of runtime constants in the sort operator. 
