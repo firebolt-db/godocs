@@ -11,6 +11,8 @@ parent: Array functions
 
 Returns `true` if a specified argument is present in the array, or `false` otherwise. Note that `ARRAY_CONTAINS` employs `IS NOT DISTINCT FROM` semantics when comparing values, i.e. `NULL` is considered equal to `NULL`.
 
+**Alias:** `CONTAINS`
+
 ## Syntax
 {: .no_toc}
 
