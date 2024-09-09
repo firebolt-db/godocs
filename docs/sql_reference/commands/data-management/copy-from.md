@@ -22,7 +22,7 @@ This guide shows you how to load data from an AWS S3 bucket into Firebolt using 
 
 <!-- This comment is needed for both the list above and the list below to render. -->
 
-
+## Table of contents
 * Topic ToC
 {:toc}
 
