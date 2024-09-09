@@ -116,12 +116,12 @@ FROM <externalLocations>
 ### Automatic Schema Discovery
 You can use the automatic schema discovery feature in `COPY FROM` to handle large data sources, reducing the risk of errors that can arise from manual schema definition. The following apply:
 
-* Parquet files - Firebolt automatically reads metadata in Parquet files to create corresponding target tables.
-* CSV files - Firebolt infers column types based on the data content itself. Use `WITH HEADER=TRUE` if your CSV file contains column names in the first line. `COPY FROM` deduces the column types from your data, streamlining the initial data loading process significantly.
+* **Parquet files** - Firebolt automatically reads metadata in Parquet files to create corresponding target tables.
+* **CSV files** - Firebolt infers column types based on the data content itself. Use `WITH HEADER=TRUE` if your CSV file contains column names in the first line. `COPY FROM` deduces the column types from your data, streamlining the initial data loading process significantly.
 
 Automatic schema discovery operates on a "best effort" basis, and attempts to balance accuracy with practical usability, but it may not always be error-free.
 
-The following query reads `levels.csv`, a sample dataset from the fictional [Ultra Fast Gaming Inc](https://help.firebolt.io/t/ultra-fast-gaming-firebolt-sample-dataset/250). The example implicitly uses automatic schema creation with `AUTO_CREATE=TRUE`, which defaults to `TRUE`, and also triggers automatic table creation.
+The following query reads `levels.csv`, a sample dataset from the fictional [Ultra Fast Gaming Inc](https://help.firebolt.io/t/ultra-fast-gaming-firebolt-sample-dataset/250). The example implicitly uses automatic schema creation with `AUTO_CREATE=TRUE`, which defaults to `TRUE`, and also triggers automatic table creation:
 
 ```sql
 COPY automatic_schema_table 
@@ -151,7 +151,6 @@ COPY table_from_multiple_directories FROM
     's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/TournamentID=1/',
     's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/TournamentID=10/',
     's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/TournamentID=100/'
-
 WITH pattern='*.parquet';
 ```
 
@@ -219,7 +218,7 @@ WITH HEADER=TRUE MAX_ERRORS_PER_FILE='100%';
 ```
 
 ##### Allow no errors, except column name mismatch
-If you want to allow column name mismatch, but no other errors, you can define the table to allow NULL values when you create the table to insert into as follows:
+If you want to allow column name mismatch, but no other errors, you can define the table to allow `NULL` values when you create the table to insert into as follows:
 
 ```sql
 COPY table_only_col_mismatch
@@ -242,7 +241,7 @@ WITH TYPE=CSV HEADER=FALSE;
 ```
 
 The previous code example generates the following error:
-`ERROR: Unable to cast text 'LevelID' to integer`
+`ERROR: Unable to cast text 'LevelID' to integer`.
 
 In the previous code example, the query generates an error because the default value for `MAX_ERRORS_PER_FILE` is `0`. You can set `MAX_ERRORS_PER_FILE` to `100%` to allow all errors,  as shown in the following section.
 
@@ -267,8 +266,8 @@ WITH HEADER=FALSE MAX_ERRORS_PER_FILE='100%' error_file='s3://bucket_name/error_
 ```
 To provide your credentials in the previous example, do the following:
 
-* Replace the <aws_key_id> with an AWS access key that is associated with an AWS user or AWS IAM role. The AWS access key is a 20-character string such as `AKIAIOSFODNN7EXAMPLE`.
-* Replace the <aws_secret_key> with an AWS secret access key associated with the user or role associated with the AWS access key. The AWS secret access key is a 40-character string such as `wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`.
+* Replace the `<aws_key_id>` with an AWS access key that is associated with an AWS user or AWS IAM role. The AWS access key is a 20-character string such as `AKIAIOSFODNN7EXAMPLE`.
+* Replace the `<aws_secret_key>` with an AWS secret access key associated with the user or role associated with the AWS access key. The AWS secret access key is a 40-character string such as `wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`.
 
 ##### Read errors from file
 
@@ -312,11 +311,11 @@ The following output shows an example of the contents of the `rejected_rows` tab
 | a         | b         |
 
 ##### Column mapping and default values
-You can map a specific source column to a target column, and specify a default value to replace any `NULL` values generated during mapping. The following code example takes an existing column `LevelID` from the `levels.csv` sample dataset, and maps it into a  column `LevelID_team_A` in a target_csv_7 table. It also maps a column `Country`, which doesn’t exist in the `levels.csv` dataset, into a `LevelsID_team_B` column, and specifies a default value of `50` to replace `NULL` values during mapping: 
+You can map a specific source column to a target column, and specify a default value to replace any `NULL` values generated during mapping. The following code example takes an existing column `LevelID` from the `levels.csv` sample dataset, and maps it into a column `LevelID_team_A` in a `target_csv_7` table. It also maps a column `Country`, which doesn’t exist in the `levels.csv` dataset, into a `LevelsID_team_B` column, and specifies a default value of `50` to replace `NULL` values during mapping: 
 
 ```sql
-  CREATE TABLE target_csv_7 ("LevelID_team_A" text, "LevelID_team_B" text);
-COPY target_csv_7("LevelID_team_A" "LevelID", "LevelID_team_B" default 50 "Country")
+CREATE TABLE target_default_mapping ("LevelID_team_A" text, "LevelID_team_B" text);
+COPY target_default_mapping("LevelID_team_A" "LevelID", "LevelID_team_B" default 50 "Country")
   FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
 WITH HEADER=TRUE;
 ```
