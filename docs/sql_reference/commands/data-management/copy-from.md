@@ -176,7 +176,7 @@ The following code example displays the contents of `levels`:
 SELECT * FROM levels;
 ```
 
-The first three rows of the sample output follows:
+The first three rows of the sample output follow:
 
 | LevelID | date_of_creation      |
 |---------|-----------------------|
@@ -271,200 +271,83 @@ COPY error_reasons FROM 's3://bucket_name/error_directory/'
 WITH PATTERN='*error_reasons*.csv' HEADER=TRUE;
 ```
 
-The following code retruns the contents of the `error_reasons` table:
+The following code returns the contents of the `error_reasons` table:
 
 ```sql
 SELECT * from error_reasons;
 ```
 
-## Handling Bad Data
-`COPY FROM` provides robust mechanisms to identify and isolate bad data during the loading process.
+The following output shows an example of the contents of the `error_reasons` table:
 
-```sql
-COPY sales
-FROM 's3://data-bucket/sales_data.csv'
-WITH TYPE = CSV HEADER = TRUE ERROR_FILE = <externalLocation> ERROR_FILE_CREDENTIALS = <credentials> MAX_ERRORS_PER_FILE = 5
-```
-
-## Handling partitioned data
-`COPY FROM` effectively manages the loading of partitioned data, ensuring that data is inserted into the correct partitions based on predefined rules or schema setups, optimizing query performance and data management.
-
-## Filtering data to be loaded
-You can use the `LIMIT` clause to control the amount of data loaded into tables, for example when managing data previews and sample loads. 
-
-`COPY FROM` also supports an `OFFSET` clause, allowing users to skip a specified number of rows in each input file before starting the data load. This is useful when users need to exclude certain initial data entries from being loaded.
-
-```sql
-COPY sample_data
-FROM 's3://data-bucket/large_dataset.csv' LIMIT 100 OFFSET 10
-WITH TYPE = CSV HEADER = TRUE
-```
-
-## Examples
+| file_name                          | source_line_num | error_message            |
+|------------------------------------|-----------------|--------------------------|
+| firebolt_sample_dataset/levels.csv | 1               | Error while casting      |
 
 
+The following code reads all files that begin with `rejected_rows` and ends with `.csv` into a rejected_rows table:
 
-### Schema and format discovery (target table does not exist)
-```sql
-COPY target_csv_0 FROM 's3://bucket_name/data_directory/sample.csv'
-WITH HEADER=TRUE;
-
-SELECT * FROM target_csv_0 ORDER BY 1;
-```
-
-| a (BIGINT) | b (TEXT) |
-|:-----------|:---------|
-| 1          | row1     |
-| 2          | row2     |
-| 3          | row3     |
-
-
-
-### Read by name mismatch
-None of the columns [not_a, not_b] exists in csv file so they all get null values.
-```sql
-CREATE TABLE target_csv_2 (not_a int not null, not_b text not null);
-
-COPY target_csv_2 FROM 's3://bucket_name/data_directory/sample.csv'
-WITH HEADER=TRUE MAX_ERRORS_PER_FILE='0%';
-```
-```ignorelang
-ERROR: The INSERT INTO statement failed because it tried to insert a NULL into the column not_a, which is NOT NULL. Please specify a value or redefine the column's logical constraints.
-```
-
-###  Allow errors
-Read by name mismatch results empty.
-```sql
-CREATE TABLE target_csv_2_a (not_a int not null, not_b text not null);
-
-COPY target_csv_2_a FROM 's3://bucket_name/data_directory/sample.csv'
-WITH TYPE=CSV HEADER=TRUE MAX_ERRORS_PER_FILE='100%';
-
-SELECT * FROM target_csv_2_a;
-
-
-| not_a (INTEGER) | not_b (TEXT) |
-|:----------------|:-------------|
-```
-### Insert into nullable columns
-Read by name mismatch, no error allowed, insert null into nullable columns.
-```sql
-CREATE TABLE target_csv_2_b (not_a int null, not_b text null);
-
-COPY target_csv_2_b FROM 's3://bucket_name/data_directory/sample.csv'
-WITH TYPE=CSV HEADER=TRUE MAX_ERRORS_PER_FILE='0%';
-
-SELECT * FROM target_csv_2_b;
-```
-
-| not_a (INTEGER) | not_b (TEXT) |
-|:----------------|:-------------|
-| NULL            | NULL         |
-| NULL            | NULL         |
-| NULL            | NULL         |
-
-
-### No header
-Read the header row (a,b) into the table as a data row.
-```sql
-CREATE TABLE target_csv_3 (not_a int not null, not_b text not null);
-
-COPY target_csv_3 FROM 's3://bucket_name/data_directory/sample.csv'
-WITH TYPE=CSV HEADER=FALSE;
-```
-```ignorelang
-ERROR: Unable to cast text 'a' to integer
-```
-Header row will be sent into error file, and the other data rows will be ingested in sequential order (because `HEADER=FALSE`).
-```sql
-COPY target_csv_3 FROM 's3://bucket_name/data_directory/sample.csv'
-WITH HEADER=FALSE MAX_ERRORS_PER_FILE='100%' error_file='s3://bucket_name/error_directory/';
-
-SELECT * FROM target_csv_3 ORDER BY 1;
-```
-
-| not_a (INTEGER) | not_b (TEXT) |
-|:----------------|:-------------|
-| 1               | row1         |
-| 2               | row2         |
-| 3               | row3         |
-
-Let's view the error reasons file that was generated:
-```sql
-COPY error_reasons_0 FROM 's3://bucket_name/error_directory/' 
-WITH PATTERN='*error_reasons*.csv' HEADER=TRUE;
-
-SELECT * from error_reasons_0;
-```
-
-| file_name (TEXT)          | source_line_num (BIGINT) | error_message (TEXT) |
-|:--------------------------|:-------------------------|:---------------------|
-| data_directory/sample.csv | 1                        | Error while casting  |
-
-Let's view the error reasons file that was generated:
 ```sql
 COPY rejected_rows FROM 's3://bucket_name/error_directory/'
 WITH PATTERN='*rejected_rows*.csv' HEADER=FALSE;
+```
 
+The following code returns the contents of the `rejected_rows` table:
+
+```sql
 SELECT * FROM rejected_rows;
 ```
 
+The following output shows an example of the contents of the `rejected_rows` table:
+
 | f0 (TEXT) | f1 (TEXT) |
-|:----------|:----------|
+|-----------|-----------|
 | a         | b         |
 
-## Column selection
-Source column `a` mapped (inserted) into target column `b`.
-Source column `c` mapped (inserted) into target column `a` with a default value (in case there is any null value).
-Column `c` does not exist, hence it generates nulls that is replaced by the default value `44`.
-```sql
-CREATE TABLE target_csv_4 (a int, b text);
+##### Column mapping and default values
+You can map a specific source column to a target column, and specify a default value to replace any `NULL` values generated during mapping. The following code example takes an existing column `LevelID` from the `levels.csv` sample dataset, and maps it into a  column `LevelID_team_A` in a target_csv_7 table. It also maps a column `Country`, which doesn’t exist in the `levels.csv` dataset, into a `LevelsID_team_B` column, and specifies a default value of `50` to replace `NULL` values during mapping: 
 
-COPY target_csv_4(b a, a default 44 c) FROM 's3://bucket_name/data_directory/sample.csv'
+```sql
+  CREATE TABLE target_csv_7 ("LevelID_team_A" text, "LevelID_team_B" text);
+COPY target_csv_7("LevelID_team_A" "LevelID", "LevelID_team_B" default 50 "Country")
+  FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
 WITH HEADER=TRUE;
+```
+#### Type mismatch errors in Parquet files
 
-SELECT * FROM target_csv_4 ORDER BY 1;
+If you read a column from a Parquet file into a table with an incompatible data type, the mapping generates a casting error. A loading job that specifies writing error files will write the following to your Amazon S3 bucket:
+
+* `error_reasons.csv` - An error file that contains all the reasons that a row generated an error.
+* `rejected_rows.csv` - An error file that contains all the rejected rows in row order.
+
+The following code uses the Firebolt sample `players` dataset which has a column `PlayerID` with a data type of `INTEGER`, and attempts to read it into an existing column with a `DATE` data type:
+
+```sql
+CREATE TABLE IF NOT EXISTS
+ players (
+   PlayerID DATE,
+   Nickname TEXT,
+   Email TEXT);
+
+COPY players FROM 's3://firebolt-sample-datasets-public-us-east-1/gaming/parquet/players/'
+WITH TYPE=PARQUET MAX_ERRORS_PER_FILE='0%'
+ERROR_FILE='s3://bucket_name/parquet_error_directory/';
 ```
 
-| a (INTEGER) | b (TEXT) |
-|:------------|:---------|
-| 44          | 1        |
-| 44          | 2        |
-| 44          | 3        |
+Use the following sample code to view a table that contains the contents of all error files that contain `error_reasons` and end in `.csv`:
 
-## Type mismatch error with parquet format
 ```sql
-CREATE TABLE target_parquet_1 (a date not null, b text not null);
-
-COPY target_parquet_1 FROM 's3://bucket_name/data_directory/sample.parquet'
-WITH TYPE=PARQUET MAX_ERRORS_PER_FILE='100%' ERROR_FILE='s3://bucket_name/parquet_error_directory/';
-
-SELECT * FROM target_parquet_1;
-```
-
-| a (DATE) | b (TEXT) |
-|:---------|:---------|
-
-Let's view the error reasons:
-```sql
-COPY error_reasons_1 FROM 's3://bucket_name/parquet_error_directory/'
+COPY error_reasons FROM 's3://bucket_name/parquet_error_directory/'
 WITH PATTERN='*error_reasons*.csv' HEADER=TRUE;
 
-SELECT * FROM error_reasons_1;
+SELECT * FROM error_reasons;
 ```
 
-| file_name (TEXT)              | source_line_num (BIGINT) | error_message (TEXT)                                                      |
-|:------------------------------|:-------------------------|:--------------------------------------------------------------------------|
-| data_directory/sample.parquet | 0                        | Can not assignment cast column a from type integer null to type date null |
+| file_name                                                                      | source_line_num | error_message                                                                           |
+|-------------------------------------------------------------------------------|----------------|-----------------------------------------------------------------------------------------|
+| gaming/parquet/players/11afd184-d2d4-4471-b23c-a14f4c0945a2_1_0_0.snappy.parquet | 0              | Can not assignment cast column playerid from type integer null to type date null         |
 
-There is no rejected rows as this was a file based error.
-```sql
-COPY rejected_rows_1 FROM 's3://bucket_name/parquet_error_directory/'
-WITH PATTERN='*rejected_rows*.csv' HEADER=FALSE;
-```
-```ignorelang
-ERROR: No file found in s3 bucket: local-dev-bucket, pattern: rejected_rows*.csv. check url and object pattern.
-```
+The previous example created a file-based error, or one that affects the entire file during processing, such as errors caused by incorrect format or missing files. Thus, the query does not produce the `rejected_rows` error file. 
+
 
 
 
