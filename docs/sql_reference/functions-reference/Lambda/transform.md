@@ -13,6 +13,8 @@ Returns an array by applying `<function>` on each element of `<array>`.
 
 The Lambda function `<function>` is a mandatory parameter.
 
+**Alias:** `TRANSFORM`
+
 ## Syntax
 {: .no_toc}
 
