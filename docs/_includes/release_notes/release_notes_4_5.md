@@ -26,6 +26,9 @@ Added the `CONVERT_FROM` function that converts a `BYTEA` value with a given enc
 ### Added the BITWISE aggregate functions
 Added support for the following functions: BIT_OR (bitwise OR), BIT_XOR (bitwise exclusive OR), and BIT_AND (bitwise AND).
 
+### Added the `REGEXP_LIKE_ANY` function
+Added the `REGEXP_LIKE_ANY` function that checks whether a given string matches any regular expression pattern from a specified list of patterns.
+
 ## Bug Fixes
 
 <!-- Auto Generated Markdown for FIR-35688 - Owned by Asya Shneerson -->
