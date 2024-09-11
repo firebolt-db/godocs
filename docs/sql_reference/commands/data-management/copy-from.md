@@ -2,8 +2,6 @@
 layout: default
 title: COPY FROM
 description: Reference and syntax for the COPY command that copies data from S3 files into a Firebolt table.
-great_grand_parent: SQL reference
-grand_parent: SQL reference
 parent: Data management
 ---
 
@@ -35,7 +33,6 @@ FROM <externalLocations>
 [ LIMIT <count> ]
 [ OFFSET <start> ]
 [ WITH <options> ]
-[ WHERE <condition> ]
 
 <column_mapping>:
     ( <column_name> [DEFAULT <default_value>] [ { $<source_column_index> | <source_column_name> } ] [, ...] )
@@ -220,7 +217,7 @@ WITH HEADER=TRUE MAX_ERRORS_PER_FILE='100%';
 ```
 
 ##### Allow no errors, except column name mismatch
-If you want to allow column name mismatch, but no other errors, you can define the table to allow `NULL` values when you create the table to insert into as follows:
+If you want to allow column name mismatch, but no other errors, define the table to allow `NULL` values when you create the table to insert into as follows:
 
 ```sql
 COPY table_only_col_mismatch
@@ -254,7 +251,7 @@ You can also allow all errors, so that the loading job continues until it has at
 * `error_reasons.csv` - An error file that contains all the reasons that a row generated an error.
 * `rejected_rows.csv` - An error file that contains all the rejected rows in row order.
 
-Parquet doesn't produce row-based error files. On error, only a `error_reasons.csv` file is generated.
+Producing an error while reading Parquet files doesn't generate row-based error files. On error, only a `error_reasons.csv` file is generated.
 
 The previous files will have an order appended to the name such as `error_reasons_0.csv`.
 
