@@ -35,6 +35,7 @@ FROM <externalLocations>
 [ LIMIT <count> ]
 [ OFFSET <start> ]
 [ WITH <options> ]
+[ WHERE <condition> ]
 
 <column_mapping>:
     ( <column_name> [DEFAULT <default_value>] [ { $<source_column_index> | <source_column_name> } ] [, ...] )

@@ -1,7 +1,6 @@
 # Description
 Please include a summary of the change and which issue is fixed. Please also include relevant motivation and context.
 
-{:note}
 # When should this PR be released to the public?
 You can request an **immediate release** to the public docs if the feature is live.
 If it's part of a **future release**, please specify which release it should be released with. 
