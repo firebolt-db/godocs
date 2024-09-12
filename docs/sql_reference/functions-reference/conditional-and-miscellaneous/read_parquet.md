@@ -18,7 +18,6 @@ READ_PARQUET (
     url => <file_url>
     [, aws_key_id => <aws_key_id>]
     [, aws_secret_key => <aws_secret_key>]
-    [, are_credentials_encrypted => <are_credentials_encrypted>]
     )
 ```
 
@@ -29,7 +28,6 @@ READ_PARQUET (
 | `<url>`                       | The location of the Amazon S3 bucket containing your files. The expected format is `s3://{bucket_name}/{full_file_path}`.          | `TEXT`                |
 | `<aws_key_id>`                | The AWS key ID.                                                                                      | `TEXT`                |
 | `<aws_secret_key>`            | The AWS secret key.                                                                                  | `TEXT`                |
-| `<are_credentials_encrypted>>`| Set to `TRUE` if the `aws_key_id` and `aws_secret_key` are provided in encrypted form.                                                                        | `BOOL`                |
 
 The following apply:
 
