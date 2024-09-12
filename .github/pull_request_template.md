@@ -2,10 +2,8 @@
 Please include a summary of the change and which issue is fixed. Please also include relevant motivation and context.
 
 # When should this PR be released to the public?
-You can request an **immediate release** to the public docs if the feature is live.
-If it's part of a **future release**, please specify which release it should be released with. 
-<BR>
-Ex: Packdb 4.4, estimated release to public: 8/28/24.
+If the feature is live, the docs can be scheduled for **immediate release** by filing the PR to the gh-pages branch.
+If it's part of a **future release**, please file the PR against the correcsponding release/packdb-<version> branch. 
 
 # Documentation Checklist
 - [ ] I've previewed my documentation locally running `make start-local` (or using [this](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll) tutorial) 
