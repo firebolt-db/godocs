@@ -3,9 +3,10 @@ on:
   pull_request:
     branches:
     - gh-pages
+    - release/**
 
 jobs:
-  check-links:
+  check-for-errors:
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
@@ -18,7 +19,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332  # v4.1.7
-
+      - name: Check for merge conflict markers
+        run: scripts/check_merge_conflict_markers.sh .
       - name: Check there are no 404 links
         id: check404
         run: |
