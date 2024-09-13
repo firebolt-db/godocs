@@ -17,4 +17,4 @@ Firebolt continuously releases updates so that you can benefit from the latest a
 {: .note}
 Firebolt might roll out releases in phases. New features and changes may not yet be available to all accounts on the release date shown. 
 
-{% include release_notes/release_notes_4_4_0.md %}
+{% include release_notes/release_notes_4_5_0.md %}
