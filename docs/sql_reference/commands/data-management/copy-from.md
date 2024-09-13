@@ -34,6 +34,7 @@ FROM <externalLocations>
 [ LIMIT <count> ]
 [ OFFSET <start> ]
 [ WITH <options> ]
+[ WHERE <condition> ]
 
 <column_mapping>:
     ( <column_name> [DEFAULT <default_value>] [ { $<source_column_index> | <source_column_name> } ] [, ...] )
@@ -141,25 +142,32 @@ WITH TYPE = CSV HEADER = TRUE ERROR_FILE = <externalLocation> ERROR_FILE_CREDENT
 ## Handling partitioned data
 `COPY FROM` effectively manages the loading of partitioned data, ensuring that data is inserted into the correct partitions based on predefined rules or schema setups, optimizing query performance and data management.
 
-## Filtering data to be loaded
+## Filter data during loading
 
-When loading data into tables, you can filter data using these options:
+When loading data into tables, you can filter data using the following options:
 
-1. `LIMIT`: Controls the number of rows loaded. Useful for previews or creating sample datasets.
+1. `LIMIT`: Restricts the number of rows loaded, which can be useful to preview or create sample datasets.
 
 2. `OFFSET`: Behaves in the same way as the `OFFSET` clause in `SELECT` queries. Skips a specified number of rows in the final result set before ingestion.
 
+Note that `COPY FROM` currently does not support an `ORDER BY` clause. Because of this, the results when using `OFFSET` can be different every time you run the command.
+
 Both `LIMIT` and `OFFSET` apply to the entire result set, not to individual files.
 
-Note that `COPY FROM` currently does not support an `ORDER BY` clause. Because of this, the results when using `OFFSET` can be different every time you run the command.
+3. `WHERE`: Filters data based on source file metadata, as follows:
+
+* `$source_file_name`: The name of the source file.
+* `$source_file_timestamp`: The date that the file was last modified, to the second, in UTC, in the Amazon S3 bucket that it was read from.
+* `$source_file_size`: The size of your source file in bytes.
+* `$source_file_etag`: The file [ETag](https://docs.aws.amazon.com/AmazonS3/latest/API/API_Object.html#API_Object_Contents) of the file, which is often used for version control.
 
 ```sql
 COPY tournament_results
 FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/rankings/TournamentID=1/'
-LIMIT 50 OFFSET 50;
+LIMIT 50 OFFSET 50
+WHERE $source_file_timestamp > NOW() - interval '3 YEARS';
 ```
-
-This command reads all the files in the specified directory and then applies the offset and limit clause. 
+This command first reads all the files in the specified directory created in the last three years. Then, it applies the offset and limit clause. 
 As long as all source files combined have at least 100 rows, the result set will have exactly 50 rows.
 
 # Examples
