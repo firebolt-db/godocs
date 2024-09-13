@@ -8,11 +8,12 @@ parent: Data management
 # COPY FROM
 {: .no_toc}
 
-Loads data from an AWS S3 bucket into Firebolt using `COPY FROM`. `COPY FROM` can accommodate different data loading workflows including the following:
+Load data from an AWS S3 bucket into Firebolt using `COPY FROM`. `COPY FROM` can accommodate different data loading workflows including the following:
 
 
 * Automatically discover the schema during data loading.
 * Use `PATTERN` to select multiple files or directories.
+* Filter data during loading.
 * Load multiple files in parallel into a target table, automatically creating the table if it doesn't exist.
 * Load metadata about your source files into a table.
 * Handle errors during data loading.
@@ -33,6 +34,7 @@ FROM <externalLocations>
 [ LIMIT <count> ]
 [ OFFSET <start> ]
 [ WITH <options> ]
+[ WHERE <condition> ]
 
 <column_mapping>:
     ( <column_name> [DEFAULT <default_value>] [ { $<source_column_index> | <source_column_name> } ] [, ...] )
@@ -139,6 +141,34 @@ You can use the `PATTERN` feature, which uses [regular expressions](https://en.w
 ```sql
 COPY pattern_target FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
 WITH TYPE=CSV HEADER=TRUE PATTERN='*.csv';
+```
+
+### Filter data during loading
+
+When loading data into tables, you can filter data using the following options:
+
+    1. `LIMIT`: Restricts the number of rows loaded, which can be useful to preview or create sample datasets.
+
+    2. `OFFSET`: Behaves in the same way as the `OFFSET` clause in `SELECT` queries. Skips a specified number of rows in the final result set before ingestion.
+
+    `COPY FROM` currently does not support an `ORDER BY` clause. Because of this, the results when using `OFFSET` can be different every time you run the command.
+
+    Both `LIMIT` and `OFFSET` apply to the entire result set, not to individual files.
+
+    3. `WHERE`: Filters data based on source file metadata, as follows:
+
+      * `$source_file_name`: The name of the source file.
+      * `$source_file_timestamp`: The date that the file was last modified, to the second, in UTC, in the Amazon S3 bucket that it was read from.
+      * `$source_file_size`: The size of your source file in bytes.
+      * `$source_file_etag`: The file [ETag](https://docs.aws.amazon.com/AmazonS3/latest/API/API_Object.html#API_Object_Contents) of the file, which is often used for version control.
+
+The following command first reads all the files in the specified directory created in the last three years. Then, it applies the offset and limit clause. As long as all source files combined have at least 100 rows, the result set will have exactly 50 rows.
+
+```sql
+COPY tournament_results
+FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/rankings/TournamentID=1/'
+LIMIT 50 OFFSET 50
+WHERE $source_file_timestamp > NOW() - interval '3 YEARS';
 ```
 
 ### Load multiple files and directories in parallel
