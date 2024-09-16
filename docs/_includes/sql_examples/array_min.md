@@ -28,5 +28,5 @@ SELECT ARRAY_MIN([]) as res1, ARRAY_MIN([NULL]) AS res2;
 
 | res1 (TEXT) | res2 (TEXT) |
 | :--- | :--- |
-| NULL,NULL |
+| NULL | NULL |
 {% endraw %}

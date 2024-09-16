@@ -28,5 +28,5 @@ SELECT ARRAY_MAX([]) as res1, ARRAY_MAX([NULL]) AS res2;
 
 | res1 (TEXT) | res2 (TEXT) |
 | :--- | :--- |
-| NULL,NULL |
+| NULL | NULL |
 {% endraw %}
