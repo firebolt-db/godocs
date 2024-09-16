@@ -30,9 +30,5 @@ The return type is `BIGINT` if the element type of `<array>` is `INT` and `DOUBL
 ## Example
 {: .no_toc}
 
-```sql
-SELECT
-	ARRAY_SUM([ 4, 1, 3, 2 ]) AS levels;
-```
+{% include sql_examples/array_sum.md %}
 
-**Returns**: `10`

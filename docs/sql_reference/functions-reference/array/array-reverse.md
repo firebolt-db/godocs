@@ -31,19 +31,5 @@ ARRAY_REVERSE(<array>)
 ## Example
 {: .no_toc}
 
-The following example returns the reverse of the input array:
+{% include sql_examples/array_reverse.md %}
 
-```sql
-SELECT
-	ARRAY_REVERSE([ 1, 2, 3, 6 ]);
-```
-
-**Returns**: `[6,3,2,1]`
-
-Only the outermost array is reversed for nested arrays:
-```sql
-SELECT
-	ARRAY_REVERSE([[1,2,3], [4,5], NULL, [7], [8,9]]);
-```
-
-**Returns**: `[[8,9], [7], NULL, [4,5], [1,2,3]]`

@@ -34,18 +34,5 @@ ARRAY_SORT([<function>,] <array>)
 ## Example
 {: .no_toc}
 
-```sql
-SELECT
-	ARRAY_SORT([ 4, 1, 3, 2 ]);
-```
+{% include sql_examples/array_sort.md %}
 
-**Returns**: `[1,2,3,4]`
-
-In this example below, the modulus operator is used to calculate the remainder on any odd numbers. Therefore `ARRAY_SORT` puts the higher (odd) numbers last in the results.
-
-```sql
-SELECT
-	ARRAY_SORT(x -> x % 2, [ 4, 1, 3, 2 ]);
-```
-
-**Returns**: `[4,2,1,3]`

@@ -12,9 +12,11 @@ At nesting level three, the result array will have nesting level two:
 SELECT ARRAY_FLATTEN([[[1, 2]], [[NULL, 3], [3, 4]]]) as res;
 ```
 
+{% raw %}
 | res (ARRAY(ARRAY(INTEGER))) |
 | :--- |
 | {{1,2},{NULL,3},{3,4}} |
+{% endraw %}
 
 The function does not work when the array is already flat:
 ``` sql

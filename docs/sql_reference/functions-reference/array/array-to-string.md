@@ -34,29 +34,4 @@ ARRAY_TO_STRING(<array>[, <delimiter>])
 ## Example
 {: .no_toc}
 
-In the example below, the three elements are concatenated with no delimiter.
-
-```sql
-SELECT
-	ARRAY_TO_STRING([ '1', '2', '3' ]) AS levels;
-```
-
-**Returns**: `123`
-
-In this example below, the levels are concatenated separated by a comma. 
-
-```sql
-SELECT
-	ARRAY_TO_STRING([ '1', '2', '3' ], ',') AS levels;
-```
-
-**Returns**: `1,2,3`
-
-In this example below, the elements of a nested array containing a `NULL` are concatenated. 
-
-```sql
-SELECT
-	ARRAY_TO_STRING([ [ 1, 2 ], [3, 4], [NULL, 5] ], ',') AS levels;
-```
-
-**Returns**: `1,2,3,4,5`
+{% include sql_examples/array_to_string.md %}

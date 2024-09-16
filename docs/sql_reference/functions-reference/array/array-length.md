@@ -33,17 +33,4 @@ ARRAY_LENGTH(<array>)
 ## Example
 {: .no_toc}
 
-```sql
-SELECT
-	ARRAY_LENGTH([ 1, 2, 3, 4 ]) AS levels;
-```
-
-**Returns**: `4`
-
-
-```sql
-SELECT
-	ARRAY_LENGTH([ [ 1, 2, 3 ], [ 4, 5, 6, 7 ]) AS levels;
-```
-
-**Returns**: `2`
+{% include sql_examples/array_length.md %}

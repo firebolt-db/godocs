@@ -36,11 +36,5 @@ ARRAY_FLATTEN(<array>)
 ## Example
 {: .no_toc}
 
-The following example flattens multiple arrays of level IDs: 
+{% include sql_examples/array_flatten.md %}
 
-```sql
-SELECT
-	ARRAY_FLATTEN([ [ [ 1, 2 ] ], [ [ 2, 3 ], [ 3, 4 ] ] ])
-```
-
-**Returns**: `[ [ 1, 2 ], [ 2, 3 ], [ 3, 4 ] ]`

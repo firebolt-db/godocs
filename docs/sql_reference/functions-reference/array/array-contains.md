@@ -35,23 +35,4 @@ The `BOOLEAN` value `true` if the element to be searched is present in the array
 ## Example
 {: .no_toc}
 
-```sql
-SELECT
-	ARRAY_CONTAINS(['sabrina21', 'rileyjon', 'ywilson', 'danielle53', NULL], 'danielle53');
-```
-
-**Returns**: `true`, since `'danielle53'` is an element of the input array.
-
-```sql
-SELECT
-	ARRAY_CONTAINS(['sabrina21', 'rileyjon', 'ywilson', NULL] , 'danielle53');
-```
-
-**Returns**: `false`, since `'danielle53'` is not an element of the input array.
-
-```sql
-SELECT
-	ARRAY_CONTAINS(['sabrina21', 'rileyjon', 'ywilson', NULL] , NULL);
-```
-
-**Returns**: `true`, since `NULL` is an element of the input array.
+{% include sql_examples/array_contains.md %}

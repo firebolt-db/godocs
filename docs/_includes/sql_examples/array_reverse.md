@@ -12,6 +12,8 @@ Only the outermost array is reversed for nested arrays:
 SELECT ARRAY_REVERSE([[1,2,3], [4,5], NULL, [7], [8,9]]) as res;
 ```
 
+{% raw %}
 | res (ARRAY(ARRAY(INTEGER))) |
 | :--- |
 | {{8,9},{7},NULL,{4,5},{1,2,3}} |
+{% endraw %}

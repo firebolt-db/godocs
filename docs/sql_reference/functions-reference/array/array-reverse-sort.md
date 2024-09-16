@@ -34,18 +34,5 @@ ARRAY_REVERSE_SORT([<function>,] <array>)
 ## Example
 {: .no_toc}
 
-```sql
-SELECT
-	ARRAY_REVERSE_SORT([ 4, 1, 3, 2 ]);
-```
+{% include sql_examples/array_reverse_sort.md %}
 
-**Returns**: `[4,3,2,1]`
-
-In this example below, the modulus operator is used to calculate the remainder on any odd numbers. Therefore `ARRAY_REVERSE_SORT` puts the lower (even) numbers last in the results.
-
-```sql
-SELECT
-	ARRAY_REVERSE_SORT(x -> x % 2, [ 4, 1, 3, 2 ]);
-```
-
-**Returns**: `[1,3,4,2]`

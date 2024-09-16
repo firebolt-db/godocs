@@ -23,4 +23,4 @@ SELECT ARRAY_SUM([]::ARRAY(INT)) as res1, ARRAY_SUM([NULL]::ARRAY(INT)) AS res2;
 
 | res1 (BIGINT) | res2 (BIGINT) |
 | :--- | :--- |
-| NULL,NULL |
+| NULL | NULL |

@@ -29,11 +29,6 @@ ARRAY_DISTINCT(<array>)
 
 ## Example
 {: .no_toc}
-In the following example, the unique levels of the game are returned in an array called `levels`:
 
-```sql
-SELECT
-	ARRAY_DISTINCT([ 1, 1, 2, 2, 3, 4, 1, NULL, 2, NULL ]) AS levels;
-```
+{% include sql_examples/array_distinct.md %}
 
-**Returns**: `[1,2,3,4,NULL]`
