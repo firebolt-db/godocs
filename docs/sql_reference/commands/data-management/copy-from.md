@@ -12,7 +12,6 @@ Load data from an AWS S3 bucket into Firebolt using `COPY FROM`. `COPY FROM` sup
 
 
 * Automatically discover the schema during data loading.
-* Use `PATTERN` to select multiple files or directories.
 * Filter by metadata during loading.
 * Load multiple files in parallel into a target table, automatically creating the table if it doesn't exist.
 * Load metadata about your source files into a table.
