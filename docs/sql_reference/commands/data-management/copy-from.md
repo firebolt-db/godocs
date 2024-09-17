@@ -8,7 +8,7 @@ parent: Data management
 # COPY FROM
 {: .no_toc}
 
-Load data from an AWS S3 bucket into Firebolt using `COPY FROM`. `COPY FROM` can accommodate different data loading workflows including the following:
+Load data from an AWS S3 bucket into Firebolt using `COPY FROM`. `COPY FROM` supports different data loading workflows including the following:
 
 
 * Automatically discover the schema during data loading.
@@ -164,7 +164,7 @@ When loading data into tables, you can filter data using the following options:
       * `$source_file_size`: The size of your source file in bytes.
       * `$source_file_etag`: The file [ETag](https://docs.aws.amazon.com/AmazonS3/latest/API/API_Object.html#API_Object_Contents) of the file, which is often used for version control.
 
-The following command first reads all the files in the specified directory modified in the last three years. Then, it applies the offset and limit clause. As long as all source files modified in the last three years have at least 100 rows combined, the result set will have exactly 50 rows.
+In the following code example, `COPY FROM` first reads all the files in the specified directory that were modified in the last three years. Then, it applies the offset and limit clause. As long as all source files modified in the last three years have at least 100 rows combined, the result set will have exactly 50 rows.
 
 ```sql
 COPY tournament_results
@@ -172,7 +172,7 @@ FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset
 LIMIT 50 OFFSET 50
 WHERE $source_file_timestamp > NOW() - interval '3 YEARS';
 ```
-The previous code example returns a table containing 50 rows.
+The previous code example returns a table containing 50 rows of data that was modified in the last three years.
 
 ### Load multiple files and directories in parallel
 You can use `COPY FROM` to read multiple sources and from multiple directories into a single table, simultaneously. The following code example reads any file ending in `.parquet` from multiple directories into `table_from_multiple_directories`.
@@ -277,28 +277,28 @@ WITH TYPE=CSV HEADER=FALSE;
 The previous code example generates the following error:
 `ERROR: Unable to cast text 'LevelID' to integer`.
 
-In the previous code example, the query generates an error because the default value for `MAX_ERRORS_PER_FILE` is `0`. You can set `MAX_ERRORS_PER_FILE` to `100%` to allow all errors,  as shown in the following section.
+In the previous code example, the query generates an error because the default value for `MAX_ERRORS_PER_FILE` is `0`. You can set `MAX_ERRORS_PER_FILE` to `100%` to allow all errors, as shown in the following section.
 
 #### Allow all errors, and write them to file
 
-You can also allow all errors, so that the loading job continues until it has attempted to load all rows in your dataset, and write any errors that are generated into an Amazon S3 bucket.  If your bucket requires access credentials, you must specify them so that Firebolt can write the error files on your behalf. If you allow all errors, data rows that load without error are ingested in row order. For CSV files, a loading job that specifies writing error files will write files with the following syntax to your Amazon S3 bucket:
+You can also allow all errors, so that the loading job continues until it has attempted to load all rows in your dataset. Firebolt writes these errors to an Amazon S3 bucket as CSV files.  If your specified S3 bucket requires access credentials, you must specify them so that Firebolt can write the files on your behalf. Data rows that load without error are ingested in row order. A loading job that specifies writing error files will write files with the following syntax to your Amazon S3 bucket:
 
 * `error_reasons.csv` - An error file that contains all the reasons that a row generated an error.
 * `rejected_rows.csv` - An error file that contains all the rejected rows in row order.
 
 Producing an error while reading Parquet files doesn't generate row-based error files. On error, only a `error_reasons.csv` file is generated.
 
-The previous files will have an order appended to the name such as `error_reasons_0.csv`.
+The previous files will have an order appended to the name such as `error_reasons_1.csv`.
 
 The following code example allows all errors, provides credentials, and writes two error files to an Amazon S3 bucket: 
 
 ```sql
-COPY table_write_errors FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
+COPY table_write_errors FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv' WITH
 CREDENTIALS = (
-    AWS_KEY_ID = 'YOUR_AWS_KEY_ID',
+    AWS_KEY_ID = 'YOUR_AWS_KEY_ID'
     AWS_SECRET_KEY = 'YOUR_AWS_SECRET_KEY'
 )
-WITH HEADER=FALSE MAX_ERRORS_PER_FILE='100%' error_file='s3://bucket_name/error_directory/';
+HEADER=FALSE MAX_ERRORS_PER_FILE='100%' error_file='s3://bucket_name/error_directory/';
 ```
 To provide your credentials in the previous example, do the following:
 
@@ -307,7 +307,9 @@ To provide your credentials in the previous example, do the following:
 
 #### Read errors from file
 
-The previous `COPY FROM` example created two error files, one that describes the errors and one that contains the rows that had errors. Use `COPY FROM` to load an error file that describes the error reasons.  The following code example shows how to read all files that begin with `error_reasons` and end with `.csv` into an `error_reasons` table:
+The previous `COPY FROM` example shows how to create two error files, one that describes the error reasons and one that contains the rows that had errors. This example shows how to load and view the contents of these files.
+
+The following code example reads all files that begin with `error_reasons` and end with `.csv` into an `error_reasons` table:
 
 ```sql
 COPY error_reasons FROM 's3://bucket_name/error_directory/' 
@@ -334,20 +336,23 @@ COPY rejected_rows FROM 's3://bucket_name/error_directory/'
 WITH PATTERN='*rejected_rows*.csv' HEADER=FALSE;
 ```
 
+Use `SELECT` to view the contents of a file.
 The following code returns the contents of the `rejected_rows` table:
 
 ```sql
 SELECT * FROM rejected_rows;
 ```
 
-The following output shows an example of the contents of the `rejected_rows` table:
+The following output shows the contents of the `rejected_rows` table after running the previous `SELECT` statement:
 
 | f0 (TEXT) | f1 (TEXT) |
 |-----------|-----------|
 | a         | b         |
 
 #### Column mapping and default values
-You can map a specific source column to a target column, and specify a default value to replace any `NULL` values generated during mapping. The following code example takes an existing column `LevelID` from the `levels.csv` sample dataset, and maps it into a column `LevelID_team_A` in a `target_csv_7` table. It also maps a column `Country`, which doesn’t exist in the `levels.csv` dataset, into a `LevelsID_team_B` column, and specifies a default value of `50` to replace `NULL` values during mapping: 
+You can map a specific source column to a target column, and specify a default value to replace any `NULL` values generated during mapping. 
+
+The following code example maps the `LevelID` column from the `levels.csv` sample dataset, into a column `LevelID_team_A` in a `target_default_mapping` table. It also maps a non-existent `Country` column in the `levels.csv` dataset, into `LevelsID_team_B`. A default value of `50` replaces `NULL` values during mapping into `LevelsID_team_B`: 
 
 ```sql
 CREATE TABLE target_default_mapping ("LevelID_team_A" text, "LevelID_team_B" text);
@@ -355,12 +360,15 @@ COPY target_default_mapping("LevelID_team_A" "LevelID", "LevelID_team_B" default
   FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
 WITH HEADER=TRUE;
 ```
-#### Type mismatch errors in Parquet files
 
-If you read a column from a Parquet file into a table with an incompatible data type, the mapping generates a casting error. A loading job that specifies writing error files will write the following to your Amazon S3 bucket:
+In the previous example, all rows under `LevelsID_team_B` will contain the value `50`.
 
-* `error_reasons.csv` - An error file that contains all the reasons that a row generated an error.
-* `rejected_rows.csv` - An error file that contains all the rejected rows in row order.
+#### Type mismatch errors
+
+If you read a column from a source file into a table with an incompatible data type, the mapping generates a casting error. A loading job that specifies writing error files will write files starting with the following prefixes to a specified Amazon S3 bucket:
+
+* `error_reasons` - An error file that contains all the reasons that a row generated an error.
+* `rejected_rows` - An error file that contains all the rejected rows in row order.
 
 The following code uses the Firebolt sample `players` dataset which has a column `PlayerID` with a data type of `INTEGER`, and attempts to read it into an existing column with a `DATE` data type:
 
@@ -376,11 +384,11 @@ WITH TYPE=PARQUET MAX_ERRORS_PER_FILE='0%'
 ERROR_FILE='s3://bucket_name/parquet_error_directory/';
 ```
 
-Use the following sample code to view a table that contains the contents of all error files that contain `error_reasons` and end in `.csv`:
+Use the following sample code to view a table that contains the contents of all error files that contain `error_reasons`:
 
 ```sql
 COPY error_reasons FROM 's3://bucket_name/parquet_error_directory/'
-WITH PATTERN='*error_reasons*.csv' HEADER=TRUE;
+WITH PATTERN='*error_reasons*' HEADER=TRUE;
 
 SELECT * FROM error_reasons;
 ```
@@ -389,7 +397,7 @@ SELECT * FROM error_reasons;
 |-------------------------------------------------------------------------------|----------------|-----------------------------------------------------------------------------------------|
 | gaming/parquet/players/11afd184-d2d4-4471-b23c-a14f4c0945a2_1_0_0.snappy.parquet | 0              | Can not assignment cast column playerid from type integer null to type date null         |
 
-The previous example created a file-based error, or one that affects the entire file during processing, such as errors caused by incorrect format or missing files. Thus, the query does not produce the `rejected_rows` error file. 
+The type mismatch error in this example creates a file-based error, or one that affects the entire file during processing, such as errors caused by incorrect format or missing files. As a result, the query does not produce the `rejected_rows` error file. 
 
 
 
