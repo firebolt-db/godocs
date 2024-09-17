@@ -13,7 +13,7 @@ Load data from an AWS S3 bucket into Firebolt using `COPY FROM`. `COPY FROM` sup
 
 * Automatically discover the schema during data loading.
 * Use `PATTERN` to select multiple files or directories.
-* Filter data during loading.
+* Filter by metadata during loading.
 * Load multiple files in parallel into a target table, automatically creating the table if it doesn't exist.
 * Load metadata about your source files into a table.
 * Handle errors during data loading.
@@ -57,7 +57,7 @@ FROM <externalLocations>
     [ HEADER = { **FALSE** | TRUE  } ]
     [ DELIMITER = 'character' ]
     [ NEWLINE = 'string' ]
-    [ QUOTE = { 'character' | **DOUBLE_QUOTE** | SINGLE_QUOTE } ]
+    [ QUOTE = { **DOUBLE_QUOTE** | 'character' |  SINGLE_QUOTE } ]
     [ ESCAPE = 'character' ]
     [ NULL_STRING = 'string' ]
     [ EMPTY_FIELD_AS_NULL = { **TRUE** | FALSE } ]
@@ -114,7 +114,7 @@ FROM <externalLocations>
 ## Examples
 
 ### Automatic Schema Discovery
-You can use the automatic schema discovery feature in `COPY FROM` to handle large data sources instead of manually defining it. The following apply:
+You can use the automatic schema discovery feature in `COPY FROM` to handle even very large data sources instead of manually defining it. The following apply:
 
 * **Parquet files** - Firebolt automatically reads metadata in Parquet files to create corresponding target tables.
 * **CSV files** - Firebolt infers column types based on the data content itself. Use `WITH HEADER=TRUE` if your CSV file contains column names in the first line. `COPY FROM` deduces the column types from your data, streamlining the initial data loading process significantly.
@@ -136,7 +136,7 @@ SELECT * FROM automatic_schema_table ORDER BY 4,5;
 ```
 
 ### Use PATTERN to insert data into an existing table
-You can use the `PATTERN` feature, which uses [regular expressions](https://en.wikipedia.org/wiki/Glob_(programming)), to select several files that match the specified pattern to populate an existing target table. The following example uses the `*.csv` pattern to read all files ending in `.csv` into the `pattern_target` table:
+You can use the `PATTERN` feature, which uses [regular expressions](https://en.wikipedia.org/wiki/Glob_(programming)), to select several files that match the specified pattern to populate a target table. The following example uses the `*.csv` pattern to read all files ending in `.csv` into the `pattern_target` table:
 
 ```sql
 COPY pattern_target FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/'
@@ -145,7 +145,7 @@ WITH TYPE=CSV HEADER=TRUE PATTERN='*.csv';
 
 In the previous example, there are two CSV files in the `firebolt_sample_dataset` folder: `levels.csv` and `tournaments.csv`. These files have a different schema. `COPY_FROM` reads these files into a single table, and infers the schema from the first file. Any column mismatches are filled with `NULL` values. 
 
-### Filter data during loading
+### Filter by metadata during loading
 
 When loading data into tables, you can filter data using the following options:
 
@@ -159,10 +159,10 @@ When loading data into tables, you can filter data using the following options:
 
   3. `WHERE`: Filters data based on source file metadata, as follows:
 
-      * `$source_file_name`: The name of the source file.
-      * `$source_file_timestamp`: The date that the file was last modified, to the second, in UTC, in the Amazon S3 bucket that it was read from.
-      * `$source_file_size`: The size of your source file in bytes.
-      * `$source_file_etag`: The file [ETag](https://docs.aws.amazon.com/AmazonS3/latest/API/API_Object.html#API_Object_Contents) of the file, which is often used for version control.
+      * $source_file_name - The full path of the source file in an Amazon S3 bucket, without the name of the bucket. For example, if your bucket is: `s3://my_bucket/xyz/year=2018/month=01/part-00001.parquet`, then `$source_file_name` is `xyz/year=2018/month=01/part-00001.parquet`.
+      * $source_file_timestamp - The timestamp in UTC, to the second when the source file was last modified in an Amazon S3 bucket.
+      * $source_file_size - The size in bytes of the source file.
+      * $source_file_etag - The [ETag](https://docs.aws.amazon.com/AmazonS3/latest/API/API_Object.html#API_Object_Contents) of the file, often used for version control.
 
 In the following code example, `COPY FROM` first reads all the files in the specified directory that were modified in the last three years. Then, it applies the offset and limit clause. As long as all source files modified in the last three years have at least 100 rows combined, the result set will have exactly 50 rows.
 
@@ -189,8 +189,8 @@ The following code example reads two CSV files into `table_from_multiple_files`:
 
 ```sql
 COPY table_from_multiple_files FROM 
-'s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv',
-'s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/tournaments.csv'
+    's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv',
+    's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/tournaments.csv'
 WITH HEADER=TRUE;
 ```
 In the previous example, there are two CSV files in the `firebolt_sample_dataset` folder: `levels.csv` and `tournaments.csv`. These files have a different schema. `COPY_FROM` reads these files into a single table, and infers the schema from the first file. Any column mismatches are filled with `NULL` values.
@@ -252,9 +252,10 @@ WITH HEADER=TRUE MAX_ERRORS_PER_FILE='100%';
 ```
 
 ##### Allow no errors, except column name mismatch
-If you want to allow column name mismatch, but no other errors, define the table to allow `NULL` values when you create the table to insert into as follows:
+If you want to allow column name mismatch, but no other errors, define the table to allow `NULL` values in the column definition when you create the table. The following example will allow a column name mismatch for `LevelID2`, and no other errors because `MAX_ERRORS_PER_FILE` is set to `0%`:
 
 ```sql
+CREATE TABLE table_only_col_mismatch ("LevelID2" int NULL);
 COPY table_only_col_mismatch
   FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
 WITH HEADER=TRUE MAX_ERRORS_PER_FILE='0%';
@@ -264,10 +265,10 @@ The previous code example creates a table `table_only_col_mismatch` that contain
 
 ##### Column data type mismatch
 
-If you try to load data into a column in an existing table that has a different data type than the source data, `COPY FROM` generates a casting error. To demonstrate this error, the following example intentionally creates a table that defines the `LevelID` column incorrectly as an integer, instead of as text, and then attempts to copy data into it:
+If you try to load data into a column in an existing table that has a different data type than the source data, `COPY FROM` will attempt to cast the data into the specified data type. If the cast fails, `COPY FROM` generates an error. To demonstrate this error, the following example intentionally creates a table that defines the `LevelID` column incorrectly as an integer, instead of as text, and then attempts to copy data into it:
 
 ```sql
-CREATE TABLE col_mismatch_type_csv ("LevelID" int NOT NULL);
+CREATE TABLE col_mismatch_type_csv ("Name" int NOT NULL);
 
 COPY col_mismatch_type_csv
   FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
@@ -283,7 +284,7 @@ In the previous code example, the query generates an error because the default v
 
 You can also allow all errors, so that the loading job continues until it has attempted to load all rows in your dataset. Firebolt writes these errors to an Amazon S3 bucket as CSV files.  If your specified S3 bucket requires access credentials, you must specify them so that Firebolt can write the files on your behalf. Data rows that load without error are ingested in row order. A loading job that specifies writing error files will write files with the following syntax to your Amazon S3 bucket:
 
-* `error_reasons.csv` - An error file that contains all the reasons that a row generated an error.
+* `error_reasons.csv` - An error file that contains all the reasons that a row generated an error, and also file-based errors.
 * `rejected_rows.csv` - An error file that contains all the rejected rows in row order.
 
 Producing an error while reading Parquet files doesn't generate row-based error files. On error, only a `error_reasons.csv` file is generated.
@@ -367,7 +368,7 @@ In the previous example, all rows under `LevelsID_team_B` will contain the value
 
 If you read a column from a source file into a table with an incompatible data type, the mapping generates a casting error. A loading job that specifies writing error files will write files starting with the following prefixes to a specified Amazon S3 bucket:
 
-* `error_reasons` - An error file that contains all the reasons that a row generated an error.
+* `error_reasons` - An error file that contains all the reasons that a row generated an error, and also file-based errors.
 * `rejected_rows` - An error file that contains all the rejected rows in row order.
 
 The following code uses the Firebolt sample `players` dataset which has a column `PlayerID` with a data type of `INTEGER`, and attempts to read it into an existing column with a `DATE` data type:
@@ -380,7 +381,7 @@ CREATE TABLE IF NOT EXISTS
    Email TEXT);
 
 COPY players FROM 's3://firebolt-sample-datasets-public-us-east-1/gaming/parquet/players/'
-WITH TYPE=PARQUET MAX_ERRORS_PER_FILE='0%'
+WITH TYPE=PARQUET MAX_ERRORS_PER_FILE='100%'
 ERROR_FILE='s3://bucket_name/parquet_error_directory/';
 ```
 
