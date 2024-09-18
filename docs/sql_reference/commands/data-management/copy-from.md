@@ -226,7 +226,7 @@ The first three rows of the sample output follow:
 | 3              | 2023-02-27 10:06:52          |
 
 ### Allow column name mismatch
-If you specify a column mapping during data loading, `COPY FROM` treats the columns listed in the `<column_mapping>` as required. If no column mapping is specified, the columns in the target table are considered required. To allow the data to continue loading when some required columns are missing from the source file, you can enable `ALLOW_COLUMN_MISMATCH`.
+If you specify a column mapping during data loading, `COPY FROM` treats the columns listed in the `<column_mapping>` as required. If no column mapping is specified, the columns in the target table are considered required. To allow the data to continue loading when some required columns are missing from the source file, you can use `ALLOW_COLUMN_MISMATCH`, which is enabled by default.
 
 For example, if you create a table with `LevelID2` and `Name` columns and attempt to load data from the `levels.csv` dataset, which lacks a `LevelID2` column, `COPY FROM` will populate the `Name` column as specified and fill the `LevelID2` column with `NULL` values. This allows flexible handling of missing data without raising errors, as shown in the following code example:
 ```sql
