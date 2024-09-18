@@ -14,7 +14,8 @@ Load data from an AWS S3 bucket into Firebolt using `COPY FROM`. `COPY FROM` sup
 * Automatically discover the schema during data loading.
 * Use `PATTERN` to select multiple files or directories.
 * Filter by metadata during loading.
-* Load multiple files in parallel into a target table, automatically creating the table if it doesn't exist.
+* Load multiple files in parallel into a target table. 
+* Automatically creating a table if it doesn't exist.
 * Load metadata about your source files into a table.
 * Handle errors during data loading.
 
@@ -97,7 +98,7 @@ FROM <externalLocations>
 | `HEADER`              | Specify if the file contains a header line containing the column names. If `HEADER` is `TRUE`, the first line will be interpreted to contain column names. The default value is `FALSE`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `DELIMITER`           | Specify the character used to separate fields. The default delimiter is a comma (`,`).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | `NEWLINE`             | Specify the character used to delimit rows. The default delimiter is `\n`. If `NEWLINE` is `\n`, then `\r`, `\r\n`, and `\n\r` are also treated as newline delimiters. Custom delimiters are allowed only if the target table already exists.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `QUOTE`               | Specify the character used for quoting fields. The default is `DOUBLE_QUOTE`, or (`"`). You can specify any of the following options: `SINGLE_QUOTE`, `DOUBLE_QUOTE`, the single quote literal (`'`) or the double quote literal (`"`).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `QUOTE`               | Specify the character used for quoting fields. The default is `DOUBLE_QUOTE`, or (`"`). You can specify either `SINGLE_QUOTE`, `DOUBLE_QUOTE`. You can also specify the single quote literal character (`'`) or the double quote literal character(`"`).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | `ESCAPE`              | Specify the character used to escape special characters. The default character is the quote (`'`) character.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `NULL_STRING`         | Specify the string used to represent `NULL` values. The default is an empty string, which means that no specific null string is defined.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | `EMPTY_FIELD_AS_NULL` | Specify whether empty fields should be interpreted as `NULL` values. The default value is `TRUE`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
@@ -225,12 +226,24 @@ The first three rows of the sample output follow:
 | 2       | 2023-02-27 10:06:52   |
 | 3       | 2023-02-27 10:06:52   |
 
+### Allow column name mismatch
+If you want to allow column name mismatch, use `ALLOW_COLUMN_MISMATCH`. The following example will allow a column name mismatch for `LevelID2`, but no errors because `MAX_ERRORS_PER_FILE` is set to `0%`:
+
+```sql
+CREATE TABLE col_mismatch ("LevelID2" int);
+COPY col_mismatch
+  FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
+WITH HEADER=TRUE MAX_ERRORS_PER_FILE='0%';
+```
+
+The previous code example creates a table `col_mismatch` that contains only a single column `LevelID`. The source file does not contain a column with this name, so `COPY FROM` fills `col_mismatch` with `NULL` values.
+
 ### Error handling
 The following sections show you how to handle errors for both CSV and Parquet files.
 
-#### Column mismatch errors in CSV
+#### Row-based errors in CSV
 
-Firebolt generates an error when there’s a mismatch between source and target table columns. In this example, the table includes a `LevelID2` column defined as `NOT NULL`:
+`COPY FROM` generates a row-based error when there’s a mismatch between source and target table columns. In the following example, the `col_mismatch_csv` table includes a `LevelID2` column defined as `NOT NULL`, that does not exist in the source `levels.csv` table:
 
 ```sql
 CREATE TABLE col_mismatch_csv ("LevelID2" int NOT NULL);
@@ -251,38 +264,26 @@ COPY table_all_errors FROM 's3://firebolt-publishing-public/help_center_assets/f
 WITH HEADER=TRUE MAX_ERRORS_PER_FILE='100%';
 ```
 
-##### Allow no errors, except column name mismatch
-If you want to allow column name mismatch, but no other errors, define the table to allow `NULL` values in the column definition when you create the table. The following example will allow a column name mismatch for `LevelID2`, and no other errors because `MAX_ERRORS_PER_FILE` is set to `0%`:
-
-```sql
-CREATE TABLE table_only_col_mismatch ("LevelID2" int NULL);
-COPY table_only_col_mismatch
-  FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
-WITH HEADER=TRUE MAX_ERRORS_PER_FILE='0%';
-```
-
-The previous code example creates a table `table_only_col_mismatch` that contains only a single column `LevelID2`, that contains only `NULL` values.
-
 ##### Column data type mismatch
 
 If you try to load data into a column in an existing table that has a different data type than the source data, `COPY FROM` will attempt to cast the data into the specified data type. If the cast fails, `COPY FROM` generates an error. To demonstrate this error, the following example intentionally creates a table that defines the `LevelID` column incorrectly as an integer, instead of as text, and then attempts to copy data into it:
 
 ```sql
-CREATE TABLE col_mismatch_type_csv ("Name" int NOT NULL);
+CREATE TABLE col_mismatch_type_csv ("Name" int);
 
-COPY col_mismatch_type_csv
+COPY col_mismatch_type_csv("Name" name)
   FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
-WITH TYPE=CSV HEADER=FALSE;
+WITH TYPE=CSV HEADER=TRUE;
 ```
 
 The previous code example generates the following error:
-`ERROR: Unable to cast text 'LevelID' to integer`.
+`Line 1, Column 8: Unable to cast text 'Thunderbolt Circuit' to integer`.
 
 In the previous code example, the query generates an error because the default value for `MAX_ERRORS_PER_FILE` is `0`. You can set `MAX_ERRORS_PER_FILE` to `100%` to allow all errors, as shown in the following section.
 
 #### Allow all errors, and write them to file
 
-You can also allow all errors, so that the loading job continues until it has attempted to load all rows in your dataset. Firebolt writes these errors to an Amazon S3 bucket as CSV files.  If your specified S3 bucket requires access credentials, you must specify them so that Firebolt can write the files on your behalf. Data rows that load without error are ingested in row order. A loading job that specifies writing error files will write files with the following syntax to your Amazon S3 bucket:
+You can also allow all errors, so that the loading job continues until it has attempted to load all rows in your dataset. Firebolt can write these errors to an Amazon S3 bucket as CSV files.  If your specified S3 bucket requires access credentials, you must specify them so that Firebolt can write the files on your behalf. Data rows that load without error are ingested in row order. A loading job that specifies writing error files will write files with the following syntax to your Amazon S3 bucket:
 
 * `error_reasons.csv` - An error file that contains all the reasons that a row generated an error, and also file-based errors.
 * `rejected_rows.csv` - An error file that contains all the rejected rows in row order.
