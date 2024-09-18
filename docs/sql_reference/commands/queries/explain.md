@@ -146,10 +146,10 @@ The `explain_logical` column shows the optimized logical query plan of the selec
              \_[5] [AggregateMerge] GroupBy: [ref_0, ref_1, ref_2] Aggregates: [avg2merge(ref_3)]
                |   [RowType]: bigint not null, text not null, date not null, double precision null
                 \_[6] [Shuffle] Hash by [ref_0, ref_1, ref_2]
-                  |   [RowType]: bigint not null, text not null, date not null, aggregatefunction(avg2ornull, double precision not null) not null
+                  |   [RowType]: bigint not null, text not null, date not null, aggregatefunction2(avg2ornull, double precision not null) not null
                   |   [Affinity]: many nodes
                    \_[7] [AggregateState partial] GroupBy: [ref_0, ref_2, ref_3] Aggregates: [avg2(ref_1)]
-                     |   [RowType]: bigint not null, text not null, date not null, aggregatefunction(avg2ornull, double precision not null) not null
+                     |   [RowType]: bigint not null, text not null, date not null, aggregatefunction2(avg2ornull, double precision not null) not null
                       \_[8] [Projection] ref_0, ref_1, ref_3, ref_4
                         |   [RowType]: bigint not null, double precision not null, text not null, date not null
                          \_[9] [Filter] (ref_2 = 'N'), (ref_4 > DATE '1996-01-01')
@@ -184,11 +184,11 @@ We also see the `MaybeCache` operator at the top of the plan. A `MaybeCache` ope
                |   [RowType]: bigint not null, text not null, date not null, double precision null
                |   [Execution Metrics]: output cardinality = 270958684, thread time = 90694ms, cpu time = 77308ms
                 \_[6] [Shuffle] Hash by [ref_0, ref_1, ref_2]
-                  |   [RowType]: bigint not null, text not null, date not null, aggregatefunction(avg2ornull, double precision not null) not null
+                  |   [RowType]: bigint not null, text not null, date not null, aggregatefunction2(avg2ornull, double precision not null) not null
                   |   [Affinity]: many nodes
                   |   [Execution Metrics]: output cardinality = 270958691, thread time = 27649ms, cpu time = 24247ms
                    \_[7] [AggregateState partial] GroupBy: [ref_0, ref_2, ref_3] Aggregates: [avg2(ref_1)]
-                     |   [RowType]: bigint not null, text not null, date not null, aggregatefunction(avg2ornull, double precision not null) not null
+                     |   [RowType]: bigint not null, text not null, date not null, aggregatefunction2(avg2ornull, double precision not null) not null
                      |   [Execution Metrics]: output cardinality = 270958691, thread time = 191561ms, cpu time = 184761ms
                       \_[8] [Projection] ref_0, ref_1, ref_3, ref_4
                         |   [RowType]: bigint not null, double precision not null, text not null, date not null
