@@ -398,7 +398,7 @@ SELECT * FROM error_reasons;
 |----------------------------------------------------------------------------------|--------------------------|-----------------------------------------------------------------------------------------|
 | gaming/parquet/players/11afd184-d2d4-4471-b23c-a14f4c0945a2_1_0_0.snappy.parquet | 0                        | Can not assignment cast column playerid from type integer null to type date null        |
 
-The type mismatch error in this example creates a file-based error, or one that affects the entire file during processing, such as errors caused by incorrect format or missing files. As a result, the query does not produce the `rejected_rows` error file. 
+The type mismatch error in this example creates a file-based error, or one that affects the entire file during processing, such as errors caused by incorrect format. As a result, the query does not produce the `rejected_rows` error file.
 
 
 
