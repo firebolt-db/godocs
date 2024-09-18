@@ -2,8 +2,8 @@ name: Check PR before merge
 on:
   pull_request:
     branches:
-    - gh-pages
-    - release/**
+    - '*'
+
 jobs:
   check-for-errors:
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
