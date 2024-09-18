@@ -292,12 +292,14 @@ The previous files will have an order appended to the name such as `error_reason
 The following code example allows all errors, provides credentials, and writes two error files to an Amazon S3 bucket: 
 
 ```sql
-COPY table_write_errors FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv' WITH
-CREDENTIALS = (
+CREATE TABLE table_write_errors(TournamentID INT, Name INT);
+
+COPY table_write_errors(TournamentID TournamentId, Name Name) FROM 's3://firebolt-publishing-public/help_center_assets/tournaments.csv'
+WITH ERROR_FILE_CREDENTIALS = (
     AWS_KEY_ID = 'YOUR_AWS_KEY_ID'
     AWS_SECRET_KEY = 'YOUR_AWS_SECRET_KEY'
 )
-HEADER=FALSE MAX_ERRORS_PER_FILE='100%' error_file='s3://bucket_name/error_directory/';
+MAX_ERRORS_PER_FILE='100%' HEADER=TRUE ERROR_FILE='s3://bucket_name/error_directory/';
 ```
 To provide your credentials in the previous example, do the following:
 
@@ -318,14 +320,14 @@ WITH PATTERN='*error_reasons*.csv' HEADER=TRUE;
 The following code returns the contents of the `error_reasons` table:
 
 ```sql
-SELECT * from error_reasons;
+SELECT * FROM error_reasons ORDER BY source_line_num LIMIT 1;
 ```
 
 The following output shows an example of the contents of the `error_reasons` table:
 
 | file_name (TEXT)                   | source_line_num (BIGINT) | error_message (TEXT)     |
 |------------------------------------|--------------------------|--------------------------|
-| firebolt_sample_dataset/levels.csv | 1                        | Error while casting      |
+| help_center_assets/tournaments.csv | 1                        | Error while casting      |
 
 
 The following code reads all files that begin with `rejected_rows` and ends with `.csv` into a rejected_rows table:
@@ -339,14 +341,14 @@ Use `SELECT` to view the contents of a file.
 The following code returns the contents of the `rejected_rows` table:
 
 ```sql
-SELECT * FROM rejected_rows;
+SELECT * FROM rejected_rows ORDER BY f0 LIMIT 1;
 ```
 
 The following output shows the contents of the `rejected_rows` table after running the previous `SELECT` statement:
 
-| f0 (TEXT) | f1 (TEXT) |
-|-----------|-----------|
-| a         | b         |
+| f0 (TEXT) | f1 (TEXT)                | f2 (TEXT) | f3 (TEXT) | f4 (TEXT)           | f5 (TEXT)           | f6 (TEXT) |
+|-----------|--------------------------|-----------|-----------|---------------------|---------------------|-----------|
+| 1         | The Snow Park Grand Prix |1          |  20903    | 2021-05-28 20:40:54 | 2021-05-29 04:51:43 |   ...     |
 
 #### Column mapping and default values
 You can map a specific source column to a target column, and specify a default value to replace any `NULL` values generated during mapping. 
