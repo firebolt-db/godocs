@@ -12,7 +12,6 @@ Load data from an AWS S3 bucket into Firebolt using `COPY FROM`. `COPY FROM` sup
 
 
 * Automatically discover the schema during data loading.
-* Use `PATTERN` to select multiple files or directories.
 * Filter by metadata during loading.
 * Load multiple files in parallel into a target table. 
 * Automatically creating a table if it doesn't exist.
@@ -220,11 +219,11 @@ SELECT * FROM levels;
 
 The first three rows of the sample output follow:
 
-| LevelID | date_of_creation      |
-|---------|-----------------------|
-| 1       | 2023-02-27 10:06:52   |
-| 2       | 2023-02-27 10:06:52   |
-| 3       | 2023-02-27 10:06:52   |
+| LevelID (TEXT) | date_of_creation (TIMESTAMP) |
+|----------------|------------------------------|
+| 1              | 2023-02-27 10:06:52          |
+| 2              | 2023-02-27 10:06:52          |
+| 3              | 2023-02-27 10:06:52          |
 
 ### Allow column name mismatch
 If you want to allow column name mismatch, use `ALLOW_COLUMN_MISMATCH`. The following example will allow a column name mismatch for `LevelID2`, but no errors because `MAX_ERRORS_PER_FILE` is set to `0%`:
@@ -326,9 +325,9 @@ SELECT * from error_reasons;
 
 The following output shows an example of the contents of the `error_reasons` table:
 
-| file_name                          | source_line_num | error_message            |
-|------------------------------------|-----------------|--------------------------|
-| firebolt_sample_dataset/levels.csv | 1               | Error while casting      |
+| file_name (TEXT)                   | source_line_num (BIGINT) | error_message (TEXT)     |
+|------------------------------------|--------------------------|--------------------------|
+| firebolt_sample_dataset/levels.csv | 1                        | Error while casting      |
 
 
 The following code reads all files that begin with `rejected_rows` and ends with `.csv` into a rejected_rows table:
@@ -395,9 +394,9 @@ WITH PATTERN='*error_reasons*' HEADER=TRUE;
 SELECT * FROM error_reasons;
 ```
 
-| file_name                                                                      | source_line_num | error_message                                                                           |
-|-------------------------------------------------------------------------------|----------------|-----------------------------------------------------------------------------------------|
-| gaming/parquet/players/11afd184-d2d4-4471-b23c-a14f4c0945a2_1_0_0.snappy.parquet | 0              | Can not assignment cast column playerid from type integer null to type date null         |
+| file_name (TEXT)                                                                 | source_line_num (BIGINT) | error_message (TEXT)                                                                    |
+|----------------------------------------------------------------------------------|--------------------------|-----------------------------------------------------------------------------------------|
+| gaming/parquet/players/11afd184-d2d4-4471-b23c-a14f4c0945a2_1_0_0.snappy.parquet | 0                        | Can not assignment cast column playerid from type integer null to type date null        |
 
 The type mismatch error in this example creates a file-based error, or one that affects the entire file during processing, such as errors caused by incorrect format or missing files. As a result, the query does not produce the `rejected_rows` error file. 
 
