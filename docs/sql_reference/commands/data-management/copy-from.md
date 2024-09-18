@@ -226,7 +226,7 @@ The first three rows of the sample output follow:
 | 3              | 2023-02-27 10:06:52          |
 
 ### Allow column name mismatch
-If you want to continue loading data even if all of the column names from the source file don't map to the target file, use `ALLOW_COLUMN_MISMATCH`. The following example creates a table with `LevelID2` and `Name` columns, and then attempts to read into it from the `levels.csv` sample dataset. Because the `levels` dataset does not have a column named `LevelID2`, the job will load the mapped values into `Name` without errors, and fill the `LevelID2` column in the `col_mismatch` table with `NULL` values:
+If you want to continue loading data even if all the column names from the source file don't map to the target file, use `ALLOW_COLUMN_MISMATCH`. The following example creates a table with `LevelID2` and `Name` columns, and then attempts to read into it from the `levels.csv` sample dataset. Because the `levels` dataset does not have a column named `LevelID2`, the job will load the mapped values into `Name` without errors, and fill the `LevelID2` column in the `col_mismatch` table with `NULL` values:
 
 ```sql
 CREATE TABLE col_mismatch ("LevelID2" int, "Name" text);
