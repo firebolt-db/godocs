@@ -61,7 +61,7 @@ jobs:
 
       - name: Push Preview
         env: 
-          TARGET_BRANCH: "gh-pages"
+          TARGET_BRANCH: ${{ github.ref_name }}
         run: |
           cp -r build/* preview
           cd preview
