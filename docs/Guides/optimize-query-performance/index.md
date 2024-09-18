@@ -3,7 +3,7 @@ layout: default
 title: Optimize query performance
 description: Guides to optimizing query performance in Firebolt.
 parent: Guides
-has_toc: false 
+has_toc: false
 has_children: true
 ---
 
