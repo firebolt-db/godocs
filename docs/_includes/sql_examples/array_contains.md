@@ -1,5 +1,5 @@
 {% raw %}
-Returns true as 'danielle53' is part of the array:
+This returns true since 'danielle53' is part of the array:
 ``` sql
 SELECT ARRAY_CONTAINS(['sabrina21', 'rileyjon', 'ywilson', 'danielle53', NULL], 'danielle53') as res;
 ```
@@ -10,7 +10,7 @@ SELECT ARRAY_CONTAINS(['sabrina21', 'rileyjon', 'ywilson', 'danielle53', NULL], 
 {% endraw %}
 
 {% raw %}
-Returns false as 'danielle53' is not part of the array:
+This returns false since 'danielle53' is not part of the array:
 ``` sql
 SELECT ARRAY_CONTAINS(['sabrina21', 'rileyjon', 'ywilson', NULL] , 'danielle53') as res;
 ```
