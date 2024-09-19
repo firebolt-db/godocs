@@ -21,7 +21,7 @@ SELECT ARRAY_COUNT_DISTINCT([1, NULL, 2, NULL, 3]) AS res;
 {% endraw %}
 
 {% raw %}
-Adding duplicate values does not either:
+Adding duplicate values also does not contribute to the distinct count:
 ``` sql
 SELECT ARRAY_COUNT_DISTINCT([1, NULL, 2, NULL, 3, 1, 2, 3]) AS res;
 ```
