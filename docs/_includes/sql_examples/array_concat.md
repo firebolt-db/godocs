@@ -32,7 +32,7 @@ SELECT '{2}' || [1] as res;
 {% endraw %}
 
 {% raw %}
-If the array arguments have different member type, they are casted to their common type:
+If the array arguments have a different member type, they are casted to their common type:
 ``` sql
 SELECT [1.333] || [1] as res;
 ```
