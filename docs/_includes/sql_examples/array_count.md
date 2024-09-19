@@ -1,5 +1,5 @@
 {% raw %}
-The example below searches through the array for any elements that are greater than 3. Only one number that matches this criteria is found, so the function returns 1
+The example below searches through the array for any elements that are greater than 3. Only one number that matches this criteria is found, so the function returns 1:
 ``` sql
 SELECT ARRAY_COUNT(x -> x > 3, [ 1, 2, 3, 9, NULL ]) AS res;
 ```
