@@ -32,6 +32,9 @@ $callouts: (
 // define content.scss owerwrite rule
 @import "./content";
 
+// define custom style for home-page
+@import "./home-page";
+
 // IMPORTANT: Customizations must be defined in the local project's custom.scss file. This file does nothing in the theme.
 
 // $callouts: (
