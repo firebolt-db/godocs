@@ -9,7 +9,7 @@ parent: Array functions
 
 # ARRAY_CONTAINS
 
-Returns `true` if a specified argument is present in the array, or `false` otherwise. Note that `ARRAY_CONTAINS` employs `IS NOT DISTINCT FROM` semantics when comparing values, i.e. `NULL` is considered equal to `NULL`.
+Returns `TRUE` if a specified argument is present in the array, or `FALSE` otherwise. `ARRAY_CONTAINS` uses `IS NOT DISTINCT FROM` semantics. This means that it treats `NULL` as a valid value, meaning that `NULL` is equal to `NULL`, so `NULL = NULL` returns `TRUE`.
 
 **Alias:** `CONTAINS`
 
@@ -25,14 +25,14 @@ ARRAY_CONTAINS(<array>, <value>)
 
 | Parameter | Description                                      | Supported input types | 
 | :--------- | :------------------------------------------------ | :--------|
-| `<array>`   | The array to be checked for the given element.   | `ARRAY` | 
-| `<value>`   | The element to be searched for within the array | Any type that can be converted to the element type of the array | 
+| `<array>`   | The array to check for the specified `value`.   | `ARRAY` | 
+| `<value>`   | The element to be searched for within the array. | Any type that can be converted to the array's element type. | 
 
 ## Return Type
 
-The `BOOLEAN` value `true` if the element to be searched is present in the array, or `false` otherwise.
+The `BOOLEAN` value `TRUE` if the element to be searched is present in the array, or `FALSE` otherwise.
 
-## Example
+## Examples
 {: .no_toc}
 
 {% include sql_examples/array_contains.md %}

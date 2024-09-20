@@ -9,7 +9,7 @@ parent: Array functions
 
 # ARRAY\_COUNT\_DISTINCT
 
-Returns the number of distinct (unique) elements in the array. As with `COUNT` and `COUNT(DISTINCT ...)` aggregations, `NULL` is not counted as a value if it occurs.
+Returns the number of unique elements in an array. Similar to `COUNT` and `COUNT(DISTINCT ...)` aggregations, `NULL` values are not included in the count.
 
 ## Syntax
 {: .no_toc}
@@ -22,10 +22,10 @@ ARRAY_COUNT_DISTINCT(<array>)
 
 | Parameter | Description                                        | Supported input types
 | :-------- | :------------------------------------------------- | :-------|
-| `<array>` | The array of which to count the distinct elements. | Any `ARRAY` type |
+| `<array>` | The array from which to count the distinct elements. | Any type of [ARRAY](https://docs.firebolt.io/sql_reference/data-types.html#array). |
 
 ## Return Type
-`INTEGER`
+Returns an `INTEGER` value.
 
 ## Example
 {: .no_toc}

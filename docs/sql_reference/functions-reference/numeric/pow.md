@@ -27,14 +27,16 @@ POW(<value>, <exponent>);
 | `<exponent>`   | The power value of the exponent | `DOUBLE PRECISION` |
 
 ## Return Type
-`DOUBLE PRECISION`
+Returns a number of type `DOUBLE PRECISION`.
 
 ## Example
 {: .no_toc}
 The following example calculates `2` to the power of `5`:
+
 ```sql
 SELECT
     POW(2, 5);
 ```
 
-**Returns**: `32`
+**Returns**
+`32`

@@ -9,7 +9,7 @@ parent: Array functions
 
 # ARRAY\_REVERSE
 
-Returns an array of the same size and type as the original array, with the elements in reverse order. Nulls are retained.
+Returns an array of the same size and type as the original input array, with its elements reversed, and `NULL` values remain in their original positions.
 
 ## Syntax
 {: .no_toc}
@@ -23,12 +23,12 @@ ARRAY_REVERSE(<array>)
 
 | Parameter | Description                         |Supported input types |
 | :--------- | :----------------------------------- | :---------------------|
-| `<array>`   | The array to be reversed | `ARRAY` of any type |
+| `<array>`   | Any type of [ARRAY](https://docs.firebolt.io/sql_reference/data-types.html#array). |
 
 ## Return Type
-`ARRAY` of the same type as the input array
+Returns an `ARRAY` of the same type as the input array.
 
-## Example
+## Examples
 {: .no_toc}
 
 {% include sql_examples/array_reverse.md %}

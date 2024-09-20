@@ -9,7 +9,7 @@ parent: Array functions
 
 # ARRAY\_TO\_STRING
 
-Converts each array element to its text representation, and concatenates those using an optional delimiter. If no delimiter is provided, an empty string is used instead. `NULL` array elements are omitted.
+Converts the elements of an array to text and joins them into a single string, separated by an optional delimiter. If no delimiter is provided, the elements are concatenated without spaces. `NULL` elements are skipped during concatenation, and do not appear in the result.
 
 **Alias:** `ARRAY_JOIN`
 
@@ -17,7 +17,7 @@ Converts each array element to its text representation, and concatenates those u
 {: .no_toc}
 
 ```sql
-ARRAY_TO_STRING(<array>[, <delimiter>])
+ARRAY_TO_STRING(<array>, [<delimiter>])
 ```
 
 ## Parameters 
@@ -25,11 +25,11 @@ ARRAY_TO_STRING(<array>[, <delimiter>])
 
 | Parameter     | Description                            | Supported input types | 
 | :------------- | :------------------------------------ |:---------|
-| `<array>`       | An array to be concatenated | `ARRAY` |
-| `<delimiter>` | The delimiter used for concatenating the array elements | `TEXT` | 
+| `<array>`       | The array whose elements will be converted to text and concatenated. | Any type of [ARRAY](https://docs.firebolt.io/sql_reference/data-types.html#array) that contains elements that can be converted to text. |
+| `<delimiter>` | The delimiter used to concatenate the elements of `<array>`. | `TEXT` | 
 
 ## Return Type
-`TEXT`
+Returns `TEXT` that contains the concatenated elements of the array.
 
 ## Example
 {: .no_toc}
