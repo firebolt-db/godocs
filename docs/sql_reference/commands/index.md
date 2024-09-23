@@ -78,8 +78,8 @@ Use the functional list below to find commands for a specific task area that you
 
 * [DESCRIBE](./metadata/describe.md)
 * [SHOW CACHE](./metadata/show-cache.md)
+* [SHOW CATALOGS](./metadata/show-catalogs.md)
 * [SHOW COLUMNS](./metadata/show-columns.md)
-* [SHOW DATABASES](./metadata/show-databases.md)
 * [SHOW ENGINES](./metadata/show-engines.md)
 * [SHOW INDEXES](./metadata/show-indexes.md)
 * [SHOW TABLES](./metadata/show-tables.md)

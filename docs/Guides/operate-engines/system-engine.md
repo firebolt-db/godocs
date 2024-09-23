@@ -66,7 +66,7 @@ with connect(
 
    cursor = connection.cursor()
 
-   cursor.execute("SHOW DATABASES")
+   cursor.execute("SHOW CATALOGS")
 
    print(cursor.fetchall())
 ```
