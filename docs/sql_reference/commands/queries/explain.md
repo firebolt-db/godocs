@@ -146,10 +146,10 @@ The `explain_logical` column shows the optimized logical query plan of the selec
              \_[5] [AggregateMerge] GroupBy: [ref_0, ref_1, ref_2] Aggregates: [avg2merge(ref_3)]
                |   [RowType]: bigint not null, text not null, date not null, double precision null
                 \_[6] [Shuffle] Hash by [ref_0, ref_1, ref_2]
-                  |   [RowType]: bigint not null, text not null, date not null, aggregatefunction(avg2ornull, double precision not null) not null
+                  |   [RowType]: bigint not null, text not null, date not null, aggregatefunction2(avg2ornull, double precision not null) not null
                   |   [Affinity]: many nodes
                    \_[7] [AggregateState partial] GroupBy: [ref_0, ref_2, ref_3] Aggregates: [avg2(ref_1)]
-                     |   [RowType]: bigint not null, text not null, date not null, aggregatefunction(avg2ornull, double precision not null) not null
+                     |   [RowType]: bigint not null, text not null, date not null, aggregatefunction2(avg2ornull, double precision not null) not null
                       \_[8] [Projection] ref_0, ref_1, ref_3, ref_4
                         |   [RowType]: bigint not null, double precision not null, text not null, date not null
                          \_[9] [Filter] (ref_2 = 'N'), (ref_4 > DATE '1996-01-01')
@@ -159,7 +159,7 @@ The `explain_logical` column shows the optimized logical query plan of the selec
 ```
 
 The `explain_physical` column shows the more detailed optimized physical plan containing `Shuffle` operators for distributed query execution. It allows insights into how work is distributed across the nodes of an engine. A `Shuffle` operator redistributes data between the nodes of an engine. Scans of `FACT` tables, like operator `[9] [StoredTable]` in the example above, and the operators following it are automatically distributed across all nodes of an engine. A `Shuffle` operator of type `Hash` indicates that the work on the operators following it is distributed over all nodes, as well. A `Shuffle` operator of type `Gather` gathers all data on a single node of the engine. In the example above, only the operator `[1] [SortMerge]` is executed on a single node, merging the sorted partial query results from all other nodes.
-We also see the `MaybeCache` operator at the top of the plan. A `MaybeCache` operator caches its input in main memory on a best-effort basis for future executions of the same (sub-) query. It takes into account the entire plan leading to its input as well as the state of the scanned tables. If the data in a table changes, the `MaybeCache` operator will know not to read an outdated cached entry. It may also decide against caching a result if it is too large, or if caching a different result would save more time. A `MaybeCache` operator may appear in different places of a plan. In this query it is used to cache the full result of the query.
+We also see the `MaybeCache` operator at the top of the plan. A `MaybeCache` operator caches its input in main memory on a best-effort basis for future executions of the same (sub-) query. It takes into account the entire plan leading to its input as well as the state of the scanned tables. If the data in a table changes, the `MaybeCache` operator will know not to read an outdated cached entry. It may also decide against caching a result if it is too large, or if caching a different result would save more time. A `MaybeCache` operator may appear in different places of a plan. In this query it is used to cache the full result of the query. You can learn more about the `MaybeCache` operator in our [guide on subresult resuse](../../../Guides/optimize-query-performance/understand-query-performance-subresult.md).
 
 ### `EXPLAIN (ANALYZE)` output
 
@@ -184,11 +184,11 @@ We also see the `MaybeCache` operator at the top of the plan. A `MaybeCache` ope
                |   [RowType]: bigint not null, text not null, date not null, double precision null
                |   [Execution Metrics]: output cardinality = 270958684, thread time = 90694ms, cpu time = 77308ms
                 \_[6] [Shuffle] Hash by [ref_0, ref_1, ref_2]
-                  |   [RowType]: bigint not null, text not null, date not null, aggregatefunction(avg2ornull, double precision not null) not null
+                  |   [RowType]: bigint not null, text not null, date not null, aggregatefunction2(avg2ornull, double precision not null) not null
                   |   [Affinity]: many nodes
                   |   [Execution Metrics]: output cardinality = 270958691, thread time = 27649ms, cpu time = 24247ms
                    \_[7] [AggregateState partial] GroupBy: [ref_0, ref_2, ref_3] Aggregates: [avg2(ref_1)]
-                     |   [RowType]: bigint not null, text not null, date not null, aggregatefunction(avg2ornull, double precision not null) not null
+                     |   [RowType]: bigint not null, text not null, date not null, aggregatefunction2(avg2ornull, double precision not null) not null
                      |   [Execution Metrics]: output cardinality = 270958691, thread time = 191561ms, cpu time = 184761ms
                       \_[8] [Projection] ref_0, ref_1, ref_3, ref_4
                         |   [RowType]: bigint not null, double precision not null, text not null, date not null

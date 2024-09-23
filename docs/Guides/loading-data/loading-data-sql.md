@@ -423,14 +423,15 @@ The following example sets an error handling threshold and specifies an Amazon S
 ```sql 
 COPY INTO my_table
 FROM 's3://my-bucket/data.csv'
+WITH
 CREDENTIALS = (
-    AWS_KEY_ID = 'YOUR_AWS_KEY_ID',
+    AWS_KEY_ID = 'YOUR_AWS_KEY_ID'
     AWS_SECRET_KEY = 'YOUR_AWS_SECRET_KEY'
 )
-MAX_ERRORS_PER_FILE = '5%'
+MAX_ERRORS_PER_FILE = '100%'
 ERROR_FILE = 's3://my-bucket/error_logs/'
 ERROR_FILE_CREDENTIALS = (
-    AWS_KEY_ID = 'YOUR_AWS_KEY_ID',
+    AWS_KEY_ID = 'YOUR_AWS_KEY_ID'
     AWS_SECRET_KEY = 'YOUR_AWS_SECRET_KEY'
 )
 HEADER = TRUE
@@ -439,9 +440,9 @@ HEADER = TRUE
 In the previous code example, the following apply:
 * `COPY INTO`: Specifies the target table to load the data into.
 * `FROM`: Specifies the S3 bucket location of the data.
-* `Credentials`: Specifies AWS credentials to access information in the Amazon S3 bucket that contains the source data. For more Information about credentials and how to set them up, see the previous **The simplest COPY FROM workflow** section in this guide.
+* `CREDENTIALS`: Specifies AWS credentials to access information in the Amazon S3 bucket that contains the source data. For more Information about credentials and how to set them up, see the previous **The simplest COPY FROM workflow** section in this guide.
 * Error Handling:
-    * `MAX_ERRORS_PER_FILE = ‘5%’`: Allows errors in up to `5%` of the rows per file before the load data job fails.
+    * `MAX_ERRORS_PER_FILE = ‘100%’`: Allows errors in up to `100%` of the rows per file before the load data job fails.
     * `ERROR_FILE`: Specifies the Amazon S3 bucket location to write the error file.
 * `HEADER = TRUE`: Indicates that the first row of the CSV file contains column headers.
 
