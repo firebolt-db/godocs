@@ -1,7 +1,7 @@
 ## DB version 4.5
 **September 2024**
 
-## New Features
+### New Features
 
 <!-- Auto Generated Markdown for FIR-35466 - Owned by Mosha Pasumansky -->**Allowed casting from `TEXT` to `DATE` with truncation of timestamp-related fields**
 Casting from `TEXT` to `DATE` now supports text values containing fields related to timestamps. These fields are accepted, but truncated during conversion to `DATE`. 
@@ -34,7 +34,7 @@ Added support for the following functions: BIT_OR (bitwise OR), BIT_XOR (bitwise
 Added the `REGEXP_LIKE_ANY` function that checks whether a given string matches any regular expression pattern from a specified list of patterns.
 
 
-## Bug Fixes
+### Bug Fixes
 
 <!-- Auto Generated Markdown for FIR-35688 - Owned by Asya Shneerson -->**Updated `created` and `last_altered` column types in `information_schema.views` from `TIMESTAMP` to `TIMESTAMPTZ`**
 The data types of the `created` and `last_altered` columns in `information_schema.views` have been changed from `TIMESTAMP` to `TIMESTAMPTZ`.

@@ -10,6 +10,8 @@ has_children: false
 
 # Subresult Reuse in Firebolt
 
+*Learn about subresult reuse in Firebolt in more detail in our blog post [Caching & Reuse of Subresults across Queries](https://www.firebolt.io/blog/caching-reuse-of-subresults-across-queries).*
+
 Workloads using repetitive query patterns can benefit tremendously from reuse / caching. Firebolt can cache subresults of arbitrary operators in the query plan, in particular also hash tables of hash-joins.
 These subresults are placed in our in-memory FireCache which can use up to 20% of the available RAM. If a sub-plan is used in a different query, Firebolt's caching system recognizes this and uses potentially cached subresults even if the rest of the query differs. Here is how we determine which subresults to cache:
 - Firebolts optimizer may add so-called `MaybeCache` operators above any node in the plan. As the name suggests, this operator may cache a subresult – if it is not too large. It may later fetch from the cache and reuse a subresult if the exact same subplan (with the same data being scanned) is evaluated again.

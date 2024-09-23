@@ -1,7 +1,7 @@
 ## DB version 4.4
 **August 2024**
 
-## Breaking Changes
+### Breaking Changes
 
 <!-- Auto Generated Markdown for FIR-35240 - Owned by Kfir Yehuda -->**Reserved the keyword GEOGRAPHY, requiring double quotes for use as an identifier**
 {: style="color:red;"}
@@ -27,7 +27,7 @@ When performing a CREATE ENGINE, the default values for NODES and TYPE parameter
 CREATE ENGINE my_engine WITH NODES=1 TYPE=S
 ```
 
-## New Features
+### New Features
 
 <!-- Auto Generated Markdown for FIR-24598 - Owned by Leonard von Merzljak -->**Extended support for date arithmetic**
 
@@ -77,7 +77,7 @@ Support has been added for the `SESSION_USER` function, which retrieves the curr
 Added two new columns to `information_schema.engine_query_history`: `query_text_normalized_hash` and `query_text_normalized`.
 
 
-## Bug Fixes
+### Bug Fixes
 
 <!-- Auto Generated Markdown for FIR-35343 - Owned by Judson Wilson -->**Fixed directory structure duplication in the S3 path when using the COPY TO statement with SINGLE_FILE set to FALSE**
 
