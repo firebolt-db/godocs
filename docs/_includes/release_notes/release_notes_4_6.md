@@ -17,14 +17,12 @@ Before version 4.6, the `COPY FROM` command did not apply file-level decompressi
 
 With the release of version 4.6, `COPY FROM` now processes Parquet files similarly to other formats. When a Parquet file has a `.gz` or `.gzip` extension, the command will first decompress the file before reading it as a Parquet format file. Hence, it will now fail while reading internally compressed Parquet files with gzip extensions. Users experiencing issues with loading files after this change should contact the support team at support@firebolt.io for assistance.
 
-### Performance Improvements
+### New Features
 
 <!-- Auto Generated Markdown for FIR-31001 - Owned by Asya Shneerson -->
 **`COPY FROM` support for filtering by source file metadata**<BR>
 
 [COPY FROM](https://docs.firebolt.io/sql_reference/commands/data-management/copy-from.html) now supports filtering by source file metadata using the `WHERE` clause.
-
-### New Features
 
 <!-- Auto Generated Markdown for FIR-34445 - Owned by Pascal Schulze -->
 **Added support for vector distance calculations with new functions**
