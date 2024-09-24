@@ -1,26 +1,25 @@
 ---
 layout: default
-title: STDDEV_SAMP
-description: Reference material for STDDEV_SAMP
+title: VAR_SAMP
+description: Reference material for VAR_SAMP
 great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Aggregation functions
 published: true
 ---
 
-# STDDEV\_SAMP
+# VAR\_SAMP
 
-Computes the sample standard deviation of all non-NULL numeric values produced by an expression.\\
-For the population standard deviation, see [STDDEV_POP](stddev-pop.md).
+Computes the sample variance of all non-NULL numeric values produced by an expression.\\
+For the population variance, see [VAR_POP](variance-pop.md).
 
-**Alias**: `STDDEV`
-
+**Alias**: `VARIANCE`
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-{ STDDEV | STDDEV_SAMP }([ DISTINCT ] <expression>)
+{ VARIANCE | VAR_SAMP }([ DISTINCT ] <expression>)
 ```
 ## Parameters 
 {: .no_toc}
@@ -40,8 +39,8 @@ For the population standard deviation, see [STDDEV_POP](stddev-pop.md).
 ## Example
 {: .no_toc}
 
-For this example, we create a new table `exams` and calculate the sample standard deviation of the grades:
-{% include sql_examples/stddev_samp.md %}
+For this example, we create a new table `exams` and calculate the sample variance of the grades:
+{% include sql_examples/var_samp.md %}
 
 {: .note}
 > This function uses a numerically unstable algorithm.
