@@ -29,7 +29,7 @@ System-defined roles can neither be modified nor dropped. Users with the `accoun
 
 ## Custom roles
 
-A user with the `account_admin` role can create custom roles. You can create a custom role using SQL, or via the UI.
+A user with the `account_admin` role can create custom roles. You can create a custom role using SQL, or via the user interface (UI).
 
 Privileges can be granted to a custom role either by the `account_admin` or by the owner of a resource. For example, a user who created a table can grant `SELECT` on that table to an arbitrary custom role.
 
@@ -41,7 +41,17 @@ An owner of an object can also grant privileges over that object to any role. A 
 
 ## Permissions
 
-A set of permissions can be granted to a custom role over the supported objects: account, database, engine, schema, table, or view. Available permissions for each object type are listed below. To view all current permissions, query the [information_schema.object_privileges](../../sql_reference/information-schema/object-privileges.md) view.
+A set of permissions can be granted to a custom role over the following supported objects: account, database, engine, schema, table, or view. Available permissions for each object type are listed as follows: 
+
+* To view permissions for schemas, tables and views in the current database, query the [information_schema.object_privileges](../../sql_reference/information-schema/object-privileges.md).
+
+* To view account, role, user, engine and database permissions, make sure that current database is **not** selected, and query the [information_schema.object_privileges](../../sql_reference/information-schema/object-privileges.md). To unselect current database in the the UI, choose the `None` option in [the current database selector](/assets/images/current_database_dropdown_none_option.png).
+
+{: .note}
+When the current database is selected, `information_schema.object_privileges` shows permissions only for objects in the current database. It doesn't show permissions for accounts, roles, users, engines, databases, and objects in other databases.
+
+{: .note}
+Select the current database with [USE DATABASE](../../sql_reference/commands/data-definition/use-database.md) or with the [database selector](/assets/images/current_database_dropdown.png) in the UI.
 
 ### Account
 
