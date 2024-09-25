@@ -3,10 +3,11 @@ CREATE TABLE exams (grade double precision);
 INSERT INTO exams VALUES (1.0), (1.3), (1.3), (2.0), (2.3);
 ```
 
+Calculate the sample standard deviation of the grades and round to 3 decimal digits.
 ``` sql
-SELECT STDDEV_SAMP(grade) as result from exams;
+SELECT ROUND(STDDEV_SAMP(grade), 3) as stddev from exams;
 ```
 
-| result (DOUBLE) |
+| stddev (DOUBLE) |
 | :--- |
-| 0.5449770637375491 |
+| 0.545 |

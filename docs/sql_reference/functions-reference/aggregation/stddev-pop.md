@@ -38,7 +38,7 @@ STDDEV_POP([ DISTINCT ] <expression>)
 ## Example
 {: .no_toc}
 
-Given the table `exams`, `stddev_pop` calculates the sample standard deviation of the grades:
+Given the table `exams` that has the column `grades`:
 {% include sql_examples/stddev_pop.md %}
 
 {: .note}

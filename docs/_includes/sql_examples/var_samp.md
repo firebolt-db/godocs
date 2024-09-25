@@ -3,10 +3,11 @@ CREATE TABLE exams (grade double precision);
 INSERT INTO exams VALUES (1.0), (1.3), (1.3), (2.0), (2.3);
 ```
 
+Calculate the sample variance of the grades and round to 3 decimal places.
 ``` sql
-SELECT VAR_SAMP(grade) as result from exams;
+SELECT ROUND(VAR_SAMP(grade), 3) as variance from exams;
 ```
 
-| result (DOUBLE) |
+| variance (DOUBLE) |
 | :--- |
-| 0.2970000000000006 |
+| 0.297 |

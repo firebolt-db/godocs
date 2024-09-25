@@ -39,7 +39,7 @@ VAR_POP([ DISTINCT ] <expression>)
 ## Example
 {: .no_toc}
 
-Given the table `exams`, `var_pop` calculates the population variance of the grades:
+Given the table `exams` that has the column `grades`:
 {% include sql_examples/var_pop.md %}
 
 {: .note}

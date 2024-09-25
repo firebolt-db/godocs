@@ -41,7 +41,7 @@ For the population standard deviation, see [STDDEV_POP](stddev-pop.md).
 ## Example
 {: .no_toc}
 
-Given the table `exams`, `stddev_samp` calculates the population standard deviation of the grades:
+Given the table `exams` that has the column `grades`:
 {% include sql_examples/stddev_samp.md %}
 
 {: .note}
