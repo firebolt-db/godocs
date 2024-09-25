@@ -18,13 +18,13 @@ Returns the Manhattan, or L1 distance, between two vectors. The Manhattan distan
 ```sql
 VECTOR_MANHATTAN_DISTANCE(<array>, <array>)
 ```
-## Parameters 
+## Parameters
 {: .no_toc}
 
 | Parameter | Description                                              | Supported input types      |
 |:----------|:---------------------------------------------------------|:---------------------------|
-| `<array>` | The first array used in the distance calculation.  | Any array of [numeric data types](https://docs.firebolt.io/sql_reference/data-types.html#numeric). |
-| `<array>` | The second array used in the distance calculation. | Any array of [numeric data types](https://docs.firebolt.io/sql_reference/data-types.html#numeric). |
+| `<array>` | The first array used in the distance calculation.  | Any array of [numeric data types](../../data-types.md#numeric). |
+| `<array>` | The second array used in the distance calculation. | Any array of [numeric data types](../../data-types.md#numeric). |
 
 ## Notes
 Both input `array` arguments must have the same number of elements.
