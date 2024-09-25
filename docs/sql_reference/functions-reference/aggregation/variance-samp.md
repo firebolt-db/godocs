@@ -39,7 +39,7 @@ For the population variance, see [VAR_POP](variance-pop.md).
 ## Example
 {: .no_toc}
 
-For this example, we create a new table `exams` and calculate the sample variance of the grades:
+Given the table `exams`, `var_samp` calculates the sample variance of the grades:
 {% include sql_examples/var_samp.md %}
 
 {: .note}

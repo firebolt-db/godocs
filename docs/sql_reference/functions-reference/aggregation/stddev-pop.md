@@ -37,7 +37,7 @@ STDDEV_POP([ DISTINCT ] <expression>)
 ## Example
 {: .no_toc}
 
-For this example, we create a new table `exams` and calculate the population standard deviation of the grades:
+Given the table `exams`, `stddev_pop` calculates the sample standard deviation of the grades:
 {% include sql_examples/stddev_pop.md %}
 
 {: .note}
