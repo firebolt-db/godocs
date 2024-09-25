@@ -57,7 +57,7 @@ To generate a secret for a service account via the UI:
 
 1. Click **Configure** to open the configure space, then choose **Service accounts** from the menu.
 2. Search for the relevant service account using the top search filters, or by scrolling through the list of service accounts. Hover over the right-most column to make the service account menu appear, then choose **Create a new secret**.
-3. The **New secret for service account" menu with the newly generated secret will appear.
+3. The **New secret for service account** menu with the newly generated secret will appear.
 
 <img src="../../assets/images/newsecret.png" alt="New secret" width="500"/>
 
