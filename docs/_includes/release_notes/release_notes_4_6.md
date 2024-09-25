@@ -1,7 +1,7 @@
 ## DB version 4.6
 **September 2024**
 
-### Breaking Changes
+### Behavior Changes
 
 <!-- Auto Generated Markdown for FIR-35643 - Owned by Pascal Schulze -->
 **Introduced `SHOW CATALOGS` statement and aliased `SHOW DATABASES` to it while deprecating `SHOW DATABASE X`**
