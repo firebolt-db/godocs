@@ -5,6 +5,7 @@ description: Reference material for STDDEV_POP
 great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Aggregation functions
+assignees: christophanneser
 published: true
 ---
 

@@ -5,6 +5,7 @@ description: Reference material for VAR_SAMP
 great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Aggregation functions
+assignees: christophanneser
 published: true
 ---
 
