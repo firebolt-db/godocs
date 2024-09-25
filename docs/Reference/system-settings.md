@@ -167,3 +167,22 @@ SELECT checksum(*) FROM production_table;
 -- Unset the warmup flag
 SET warmup = false;
 ```
+
+## Subresult Cache
+
+Use this option to disable the subresult cache. This is useful if you want to test the performance of your queries without the caching techniques explained in our [guide on subresult resuse](../Guides/optimize-query-performance/understand-query-performance-subresult.md).
+
+### Syntax
+
+```sql
+SET enable_subresult_cache = [true|false];
+```
+
+### Example 
+The following code example disables the subresult cache so no previously cached result is used and no new cache entries are written by this query:
+```sql
+-- Disable the subresult cache
+SET enable_subresult_cache = false;
+-- This query does not use the subresult cache
+SELECT checksum(*) FROM production_table;
+```
