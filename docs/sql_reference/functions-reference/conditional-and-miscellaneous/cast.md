@@ -10,7 +10,7 @@ parent: Conditional and miscellaneous functions
 
 # CAST
 
-Converts data types into other data types based on specified parameters. If the conversion cannot be performed, `CAST` returns an error. To return a `NULL` value instead, use [`TRY_CAST`](./try-cast.md).
+Converts data types into other data types based on specified parameters. If the conversion cannot be performed, `CAST` returns an error. To return a `NULL` value instead, use [TRY_CAST](./try-cast.md).
 
 ## Syntax
 {: .no_toc}

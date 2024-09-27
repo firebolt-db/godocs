@@ -10,7 +10,7 @@ published: false
 
 # ARRAY\_INTERSECT
 
-Evaluates all arrays that are provided as arguments and returns an array of any elements that are present in all the arrays. The order of the resulting array may be different than the original arrays. Use [`ARRAY_SORT`](../Lambda/array-sort.md) to stipulate a specific order on the results.
+Evaluates all arrays that are provided as arguments and returns an array of any elements that are present in all the arrays. The order of the resulting array may be different than the original arrays. Use [ARRAY_SORT](../Lambda/array-sort.md) to stipulate a specific order on the results.
 
 ## Syntax
 {: .no_toc}

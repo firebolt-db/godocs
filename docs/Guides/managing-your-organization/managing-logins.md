@@ -19,7 +19,7 @@ Managing logins requires the org_admin role.
 ## Create a new login
 
 ### SQL 
-To create a login using SQL, use the [`CREATE LOGIN`](../../sql_reference/commands/access-control/create-login.md) statement. For example:
+To create a login using SQL, use the [CREATE LOGIN](../../sql_reference/commands/access-control/create-login.md) statement. For example:
 
 ```sql
 CREATE LOGIN "alexs@acme.com" WITH FIRST_NAME = "Alex" LAST_NAME = "Summers";
@@ -45,7 +45,7 @@ To create a login via the UI:
 ## Edit an existing login
 
 ### SQL 
-To edit an existing login using SQL, use the [`ALTER LOGIN`](../../sql_reference/commands/access-control/alter-login.md) statement. For example:
+To edit an existing login using SQL, use the [ALTER LOGIN](../../sql_reference/commands/access-control/alter-login.md) statement. For example:
 
 ```sql
 ALTER LOGIN "alexs@acme.com" SET NETWORK_POLICY = my_network_policy
@@ -66,7 +66,7 @@ Login name can not be changed for logins that were provisioned via SSO.
 ## Deleting an existing login
 
 ### SQL 
-To delete an existing login using SQL, use the [`DROP LOGIN`](../../sql_reference/commands/access-control/drop-login.md) statement. For example:
+To delete an existing login using SQL, use the [DROP LOGIN](../../sql_reference/commands/access-control/drop-login.md) statement. For example:
 
 ```sql
 DROP LOGIN "alexs@acme.com";

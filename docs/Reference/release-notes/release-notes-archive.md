@@ -127,7 +127,7 @@ Removed support for `json_extract_raw`, `json_extract_array_raw`, `json_extract_
 <!--- FIR-32486---> **Cluster ordinal update**
 {: style="color:red;"}
 
-Replaced `engine_cluster` with [`cluster_ordinal`](../sql_reference/../../sql_reference/information-schema/engine-metrics-history.md) in `information_schema.engine_metrics_history`. The new column is an integer representing the cluster number.
+Replaced `engine_cluster` with [cluster_ordinal](../sql_reference/../../sql_reference/information-schema/engine-metrics-history.md) in `information_schema.engine_metrics_history`. The new column is an integer representing the cluster number.
 
 <!--- FIR-34090 ---> **Configurable cancellation behavior on connection drop**
 {: style="color:red;"}
@@ -246,7 +246,7 @@ Going forward, when the network connection between the client and Firebolt is dr
 
 <!--- FIR-32710 --->**Removed `MATCH` function**
 
-The `match` function has been removed and replaced with [`regexp_like`](../../sql_reference/functions-reference/string/regexp-like.md). 
+The `match` function has been removed and replaced with [regexp_like](../../sql_reference/functions-reference/string/regexp-like.md). 
 
 <!--- FIR-32693 --->**Producing an error for array function failure instead of NULL**
 
@@ -261,11 +261,11 @@ This raises an error if `array_length(arr1) != array_length(arr2)`. We now also 
 
 <!--- FIR-32652 --->**Added ARRAY_FIRST function**
 
-The [`array_first`](../../sql_reference/functions-reference/Lambda/array-first.html) function has been added. It returns the first element in the given array for which the given function returns `true`.
+The [array_first](../../sql_reference/functions-reference/Lambda/array-first.html) function has been added. It returns the first element in the given array for which the given function returns `true`.
 
 <!--- FIR-32597 --->**New name for `any_match`**
 
-A new name for `any_match` has been added: [`array_any_match`](../../sql_reference/functions-reference/Lambda/array-any-match.md). `any_match` will be kept as an alias. 
+A new name for `any_match` has been added: [array_any_match](../../sql_reference/functions-reference/Lambda/array-any-match.md). `any_match` will be kept as an alias. 
 
 <!--- FIR-32566 --->**Updated ARRAY_SUM return types**
 
@@ -529,7 +529,7 @@ Aggregating index is now placed in the same namespace as tables and views.
 
 <!--- FIR-29147 --->Fixed a bug in 'unnest' table function that occurred when not all of the 'unnest' columns were projected.
 
-<!--- FIR-28187 --->Changed the behavior of [`split_part`](../../sql_reference/functions-reference/string/split-part.md) when an empty string is used as delimiter.
+<!--- FIR-28187 --->Changed the behavior of [split_part](../../sql_reference/functions-reference/string/split-part.md) when an empty string is used as delimiter.
 
 <!--- FIR-28623 --->Fixed a bug where floating point values `-0.0` and `+0.0`, as well as `-nan` and `+nan` were not considered equal in distributed queries.
 
@@ -590,7 +590,7 @@ Use `source_file_timestamp - NOW()` instead of `DATE_DIFF('second', source_file_
 
 <!--- FIR-10514 ---> **New function added**
 
-A new alias [`ARRAY_TO_STRING`](../../sql_reference/functions-reference/array/array-to-string.md) has been added to function `ARRAY_JOIN`.
+A new alias [ARRAY_TO_STRING](../../sql_reference/functions-reference/array/array-to-string.md) has been added to function `ARRAY_JOIN`.
 
 ## DB version 3.28
 **September 2023**

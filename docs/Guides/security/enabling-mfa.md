@@ -16,13 +16,13 @@ Enabling MFA for a login requires the org_admin role.
 ## Enable MFA for a login
 
 ### SQL
- To enable MFA for a login using SQL, use the [`ALTER LOGIN`](../../sql_reference/commands/access-control/alter-login.md) statement. For example:
+ To enable MFA for a login using SQL, use the [ALTER LOGIN](../../sql_reference/commands/access-control/alter-login.md) statement. For example:
 
 ```sql
 ALTER LOGIN "alex@acme.com" SET IS_MFA_ENABLED = TRUE;
 ```
 
-Multi-factor authentication can also be set for new logins, with the [`CREATE LOGIN`](../../sql_reference/commands/access-control/create-login.md) command. For example: 
+Multi-factor authentication can also be set for new logins, with the [CREATE LOGIN](../../sql_reference/commands/access-control/create-login.md) command. For example: 
 
 ```sql
 CREATE LOGIN "betsy@acme.com" SET IS_MFA_ENABLED = TRUE;

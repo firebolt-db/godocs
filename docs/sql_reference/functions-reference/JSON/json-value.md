@@ -14,7 +14,7 @@ For JSON strings, removes the outermost quotes and unescapes the values.
 Other JSON scalars are not changed.
 Returns a SQL `NULL` if a non-scalar value is given.
 
-This function pairs with the [`JSON_EXTRACT`](json-extract.md) function, which doesn't convert the JSON values to SQL values.
+This function pairs with the [JSON_EXTRACT](json-extract.md) function, which doesn't convert the JSON values to SQL values.
 
 ## Syntax
 

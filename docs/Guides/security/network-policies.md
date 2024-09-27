@@ -23,7 +23,7 @@ Managing network policies requires the org_admin role.
 ## Create a network policy
 
 ### SQL 
-To create a network policy using SQL, use the [`CREATE NETWORK POLICY`](../../sql_reference/commands/access-control/create-network-policy.md) statement. For example:
+To create a network policy using SQL, use the [CREATE NETWORK POLICY](../../sql_reference/commands/access-control/create-network-policy.md) statement. For example:
 
 ```sql
 CREATE NETWORK POLICY my_network_policy WITH ALLOWED_IP_LIST = (‘4.5.6.1’, ‘2.4.5.1’) DESCRIPTION = 'my new network policy'
@@ -45,7 +45,7 @@ For each user, the Allowed IPs and Blocked IPs are updated to reflect the total 
 ## Attach a network policy to an organization
 
 ### SQL 
-When a network policy is created in UI, it is automatically attached to an organization the creator is logged in to. However, to attach (or detach) a network policy, you can use the command [`ALTER ORGANIZATION`](../../sql_reference/commands/data-definition/alter-organization.md). For example: 
+When a network policy is created in UI, it is automatically attached to an organization the creator is logged in to. However, to attach (or detach) a network policy, you can use the command [ALTER ORGANIZATION](../../sql_reference/commands/data-definition/alter-organization.md). For example: 
 
 ```sql
 ALTER ORGANIZATION my_organization SET NETWORK_POLICY = my_network_policy
@@ -67,7 +67,7 @@ To attach/detach a network policy to an organization via the UI:
 ## Edit a network policy
 
 ### SQL 
-To edit a network policy using SQL, use the [`ALTER NETWORK POLICY`](../../sql_reference/commands/access-control/alter-network-policy.md) statement. For example:
+To edit a network policy using SQL, use the [ALTER NETWORK POLICY](../../sql_reference/commands/access-control/alter-network-policy.md) statement. For example:
 
 ```sql
 ALTER NETWORK POLICY my_network_policy SET ALLOWED_IP_LIST = (‘4.5.6.7’, ‘2.4.5.7’) BLOCKED_IP_LIST = (‘6.7.8.9’) DESCRIPTION = 'updated network policy'
@@ -84,7 +84,7 @@ To edit a network policy via the UI:
 ## Delete a network policy
 
 ### SQL
-To delete a network policy using SQL, use the [`DROP NETWORK POLICY`](../../sql_reference/commands/access-control/drop-network-policy.md) statement. For example:
+To delete a network policy using SQL, use the [DROP NETWORK POLICY](../../sql_reference/commands/access-control/drop-network-policy.md) statement. For example:
 
 ```sql
 DROP NETWORK POLICY my_network_policy [ RESTRICT | CASCADE ]
