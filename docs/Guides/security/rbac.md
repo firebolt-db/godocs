@@ -195,7 +195,7 @@ SELECT * FROM v; -- executed by user2 and fails because the view owner's role1 c
 ## Create role
 
 ### SQL
-To create a custom role using SQL, use the [`CREATE ROLE`](../../sql_reference/commands/access-control/create-role.md) statement. For example:
+To create a custom role using SQL, use the [CREATE ROLE](../../sql_reference/commands/access-control/create-role.md) statement. For example:
 
 ```sql
 CREATE ROLE user_role;
@@ -215,7 +215,7 @@ To create a custom role via the UI:
 <img src="../../assets/images/createrole.png" alt="Create role" width="500"/>
 
 ## Delete role
-To delete a custom role using SQL, use the [`DROP ROLE`](../../sql_reference/commands/access-control/drop-role.md) statement. For example:
+To delete a custom role using SQL, use the [DROP ROLE](../../sql_reference/commands/access-control/drop-role.md) statement. For example:
 
 ```sql
 DROP ROLE user_role;
@@ -233,7 +233,7 @@ To delete a custom role via the UI:
 ## Grant permissions to a role
 
 ### SQL 
-To grant a permission to a role using SQL, use the [`GRANT`](../../sql_reference/commands/access-control/grant.md) statement. For example:
+To grant a permission to a role using SQL, use the [GRANT](../../sql_reference/commands/access-control/grant.md) statement. For example:
 
 ```sql
 GRANT USAGE ON DATABASE my_db TO user_role;
@@ -254,7 +254,7 @@ To grant a permission to a role via the UI:
 ## Grant role
 
 ### SQL
-To grant a role to a user or another role using SQL, use the [`GRANT ROLE`](../../sql_reference/commands/access-control/grant.md) statement. For example:
+To grant a role to a user or another role using SQL, use the [GRANT ROLE](../../sql_reference/commands/access-control/grant.md) statement. For example:
 
 ```sql
 GRANT ROLE user_role TO ROLE user2_role;
@@ -275,7 +275,7 @@ To grant a role to a user via the UI:
 ## Revoke permissions 
 
 ### SQL 
-To revoke a permission from a role using SQL, use the [`REVOKE`](../../sql_reference/commands/access-control/revoke.md) statement. For example:
+To revoke a permission from a role using SQL, use the [REVOKE](../../sql_reference/commands/access-control/revoke.md) statement. For example:
 
 ```sql
 REVOKE USAGE ON DATABASE my_db FROM user_role;
@@ -287,7 +287,7 @@ To revoke a permission from a role via the UI, follow the [same steps above](#gr
 ## Revoke role 
 
 ### SQL 
-To revoke a role from a user or another role using SQL, use the [`REVOKE ROLE`](../../sql_reference/commands/access-control/revoke.md) statement. For example:
+To revoke a role from a user or another role using SQL, use the [REVOKE ROLE](../../sql_reference/commands/access-control/revoke.md) statement. For example:
 
 ```sql
 REVOKE ROLE user_role FROM USER alex;

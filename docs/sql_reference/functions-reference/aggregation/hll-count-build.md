@@ -12,11 +12,11 @@ published: true
 
 Counts the approximate number of unique not NULL values, aggregating the values to HLL++ sketches represented as
 the [BYTEA data type](../../bytea-data-type.md).
-Multiple sketches can be merged to a single sketch using the aggregate function [`HLL_COUNT_MERGE`](hll-count-merge.md).
-To estimate the final distinct count value, the scalar function [`HLL_COUNT_ESTIMATE`](../numeric/hll-count-estimate.md) can be
+Multiple sketches can be merged to a single sketch using the aggregate function [HLL_COUNT_MERGE](hll-count-merge.md).
+To estimate the final distinct count value, the scalar function [HLL_COUNT_ESTIMATE](../numeric/hll-count-estimate.md) can be
 used.
 `HLL_COUNT_BUILD` uses the HLL++ algorithm and allows you to control the set sketch size precision, similar
-to [`HLL_COUNT_DISTINCT`](hll-count-distinct.md).
+to [HLL_COUNT_DISTINCT](hll-count-distinct.md).
 
 `HLL_COUNT_BUILD` requires less memory than exact count distinct aggregation, but also introduces statistical uncertainty.
 The default precision is 12, with a maximum of 20 set optionally.
