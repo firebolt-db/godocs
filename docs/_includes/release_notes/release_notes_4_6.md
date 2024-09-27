@@ -45,4 +45,4 @@ The name `aggregatefunction2` has been updated to `aggregatefunction` in the [EX
 <!-- Auto Generated Markdown for FIR-35760 - Owned by Andres Senac -->
 **Fixed incorrect results in `ARRAY_AGG` expressions by excluding `NULL` values for false conditions in aggregating indexes**
 
-Aggregate expressions like `ARRAY_AGG(CASE WHEN <cond> THEN <column> ELSE NULL END)` previously returned incorrect results by excluding `NULL` values for rows when the condition was `FALSE`. As a result, any aggregating index that used this expression aggregate expression had to be removed and recreated after upgrading an engine version to ensure correct behavior.
+Aggregate expressions like `ARRAY_AGG(CASE WHEN <cond> THEN <column> ELSE NULL END)` previously returned incorrect results by excluding `NULL` values for rows when the condition was `FALSE`.
