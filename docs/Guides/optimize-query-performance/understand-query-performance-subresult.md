@@ -59,7 +59,7 @@ Firebolt transparently leverages subresult reuse. If you want to see whether sub
 
 # Disabling Subresult Reuse
 
-While testing, it's recommended to disable the subresult cache using the `enable_subresult_cache` [system setting](../../Reference/system-settings.md) in order to measure the performance of your query without caching:
+While testing, you might want to disable the subresult cache using the `enable_subresult_cache` [system setting](../../Reference/system-settings.md) in order to measure the performance of your query without caching:
 
 ```sql
 -- Disable the subresult cache
