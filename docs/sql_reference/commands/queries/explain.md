@@ -28,12 +28,13 @@ EXPLAIN [( <option_name> [<option_value>] [, ...] )] <select_statement>
 
 The output of `EXPLAIN` can be augmented by specifying options. The following table lists all available options:
 
-| Option Name | Option Values   | Description                                                                                                                                                                               |
-| :---------- | :-------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `LOGICAL`   | `TRUE`, `FALSE` | Returns the optimized logical query plan. This plan is returned by default.                                                                                                               |
-| `PHYSICAL`  | `TRUE`, `FALSE` | Returns the optimized physical query plan containing shuffle operators for queries on distributed engines. This gives insights how work is distributed between the nodes of an engine.    |
-| `ANALYZE`   | `TRUE`, `FALSE` | Executes the query and returns the optimized physical query plan annotated with metrics from query execution. The metrics are explained in [Example with ANALYZE](#example-with-analyze). |
-| `ALL`       | `TRUE`, `FALSE` | Executing `EXPLAIN (ALL) <select statement>` returns the `LOGICAL`, `PHYSICAL`, and `ANALYZE` plans.                                                                                      |
+| Option Name  | Option Values   | Description                                                                                                                                                                               |
+| :----------- | :-------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `LOGICAL`    | `TRUE`, `FALSE` | Returns the optimized logical query plan. This plan is returned by default.                                                                                                               |
+| `PHYSICAL`   | `TRUE`, `FALSE` | Returns the optimized physical query plan containing shuffle operators for queries on distributed engines. This gives insights how work is distributed between the nodes of an engine.    |
+| `ANALYZE`    | `TRUE`, `FALSE` | Executes the query and returns the optimized physical query plan annotated with metrics from query execution. The metrics are explained in [Example with ANALYZE](#example-with-analyze). |
+| `ALL`        | `TRUE`, `FALSE` | Executing `EXPLAIN (ALL) <select statement>` returns the `LOGICAL`, `PHYSICAL`, and `ANALYZE` plans.                                                                                      |
+| `STATISTICS` | `TRUE`, `FALSE` | Executing `EXPLAIN (STATISTICS) <select statement>` annotates the explained plan with information from our query optimizer.  Works with `LOGICAL`, `PHYSICAL`, `ANALYZE`, and `ALL`, e.g. `EXPLAIN (LOGICAL, STATISTICS)`.      |
 
 You many only specify one of the options `LOGICAL`, `PHYSICAL`, `ANALYZE`. If you need to view several plans at once, please use the `ALL` option.
 
@@ -263,3 +264,61 @@ This also had a second benefit: The result is now small enough to be cached by t
 ```
 
 The query finishes in under 10ms and every operator below `MaybeCache` reports `Nothing was executed` or `output cardinality = 0`. The `MaybeCache` operator found a cache entry for this physical plan using the same state of the `lineitem` table and returned the result. All operators required to produce the input to `MaybeCache` are therefore canceled and not executed.
+
+## Example with STATISTICS
+
+We can explain queries with the `STATISTICS` option to learn how our query optimizer estimated the query plan.
+
+
+```sql
+EXPLAIN (STATISTICS)
+SELECT
+	l_shipdate,
+	l_linestatus,
+	l_orderkey,
+	AVG(l_discount)
+FROM
+	lineitem
+WHERE
+	l_returnflag = 'N'
+	AND l_shipdate > '1996-01-01'
+GROUP BY
+	ALL
+ORDER BY
+	1,2,3,4;
+```
+
+In the output below, we can see that each plan node is annotated with a `[Logical Profile]`.
+This profile provides the `source` where the estimation for this node originates from.
+
+```
+explain TEXT
+[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, lineitem.l_orderkey, avg2(lineitem.l_discount)
+|   [RowType]: date not null, text not null, bigint not null, numeric(12, 2) null
+|   [Logical Profile]: [source: estimated]
+ \_[1] [Sort] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, lineitem.l_orderkey Ascending Last, avg2(lineitem.l_discount) Ascending Last]
+   |   [RowType]: bigint not null, text not null, date not null, numeric(12, 2) null
+   |   [Logical Profile]: [source: estimated]
+    \_[2] [Aggregate] GroupBy: [lineitem.l_orderkey, lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg2(lineitem.l_discount)]
+      |   [RowType]: bigint not null, text not null, date not null, numeric(12, 2) null
+      |   [Logical Profile]: [source: estimated]
+       \_[3] [Projection] lineitem.l_orderkey, lineitem.l_discount, lineitem.l_linestatus, lineitem.l_shipdate
+         |   [RowType]: bigint not null, numeric(12, 2) not null, text not null, date not null
+         |   [Logical Profile]: [source: estimated]
+          \_[4] [Filter] (lineitem.l_returnflag = 'N'), (lineitem.l_shipdate > DATE '1996-01-01')
+            |   [RowType]: bigint not null, numeric(12, 2) not null, text not null, text not null, date not null
+            |   [Logical Profile]: [source: estimated]
+             \_[5] [StoredTable] Name: "lineitem", used 5/16 column(s) FACT
+                   [RowType]: bigint not null, numeric(12, 2) not null, text not null, text not null, date not null
+                   [Logical Profile]: [source: metadata]
+```
+
+The possible sources are:
+
+| **Source** | **Description** |
+|-|-|
+| `hardcoded` | This node received hard-coded defaults because we do not have any more information about this node.  You would only see this for external tables. |
+| `estimated` | This node's profile was computed from the profiles of this node's child nodes.  Such computation follows certain assumptions about the data, which are not necessarily fulfilled.  Consequently, this may introduce and amplify inaccuracies in the estimation. |
+| `metadata` | This node's profile was constructed from available metadata.  The information in this profile is exact or very accurate. |
+| `history` | This node's profile was retrieved from a recorded previous execution.  The information is exact unless there was data manipulation since the recording. |
+| `learned` | This node's profile was predicted using machine learning. |
