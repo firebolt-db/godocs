@@ -27,7 +27,7 @@ With the release of version 4.6, `COPY FROM` now processes Parquet files similar
 <!-- Auto Generated Markdown for FIR-34445 - Owned by Pascal Schulze -->
 **Added support for vector distance calculations with new functions**
 
-Firebolt has added support for vector distance and similarity calculations with the following new functions: [VECTOR_COSINE_DISTANCE](https://docs.firebolt.io/sql_reference/functions-reference/array/vector-cosine-distance.html), [VECTOR_MANHATTAN_DISTANCE](https://docs.firebolt.io/sql_reference/functions-reference/array/vector-manhattan-distance.html), [VECTOR_EUCLIDEAN_DISTANCE](https://docs.firebolt.io/sql_reference/functions-reference/array/vector-euclidean-distance.html), [VECTOR_SQUARED_EUCLIDEAN_DISTANCE](https://docs.firebolt.io/sql_reference/functions-reference/array/vector-squared-euclidean-distance.html), [VECTOR_COSINE_SIMILARITY](https://docs.firebolt.io/sql_reference/functions-reference/array/vector-cosine-similarity.html), and [VECTOR_INNER_PRODUCT](https://docs.firebolt.io/sql_reference/functions-reference/array/vector-inner-product.html).
+Firebolt has added support for vector distance and similarity calculations with the following new functions: [VECTOR_COSINE_DISTANCE]({% link sql_reference/functions-reference/array/vector-cosine-distance.md %}), [VECTOR_MANHATTAN_DISTANCE]({% link sql_reference/functions-reference/array/vector-manhattan-distance.md %}), [VECTOR_EUCLIDEAN_DISTANCE]({% link sql_reference/functions-reference/array/vector-euclidean-distance.md %}), [VECTOR_SQUARED_EUCLIDEAN_DISTANCE]({% link sql_reference/functions-reference/array/vector-squared-euclidean-distance.md %}), [VECTOR_COSINE_SIMILARITY]({% link sql_reference/functions-reference/array/vector-cosine-similarity.md %}), and [VECTOR_INNER_PRODUCT]({% link sql_reference/functions-reference/array/vector-inner-product.md %}).
 
 
 ### Bug Fixes
@@ -40,7 +40,7 @@ Fixed a rare bug impacting the logic that determined which subresults could be c
 <!-- Auto Generated Markdown for FIR-36315 - Owned by Jonathan Doron -->
 **Updated name of aggregatefunction2 to aggregatefunction in explain output**
 
-The name `aggregatefunction2` has been updated to `aggregatefunction` in the [EXPLAIN](https://docs.firebolt.io/sql_reference/commands/queries/explain.html) output.
+The name `aggregatefunction2` has been updated to `aggregatefunction` in the [EXPLAIN]({% link sql_reference/commands/queries/explain.md %}) output.
 
 <!-- Auto Generated Markdown for FIR-35760 - Owned by Andres Senac -->
 **Fixed incorrect results in `ARRAY_AGG` expressions by excluding `NULL` values for false conditions in aggregating indexes**

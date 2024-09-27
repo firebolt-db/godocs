@@ -13,7 +13,7 @@ published: true
 Returns the common (base 10) logarithm of a numerical expression, or the logarithm to an arbitrary base if specified as the first argument.
 The value for which `log` is computed needs to be larger than 0, otherwise an error is returned.
 If a base is provided, it also needs to be larger than 0 and not equal to 1.
-You can use the function [`LN`](ln.md) to compute the natural logarithm (base e).
+You can use the function [LN](ln.md) to compute the natural logarithm (base e).
 
 **Alias:** `LOG10` (does not support a custom `base` argument)
 

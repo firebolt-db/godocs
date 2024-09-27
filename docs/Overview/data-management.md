@@ -62,7 +62,7 @@ In addition, in situations where users create partitioned tables, queries contai
 All techniques mentioned above lead to efficiency when querying and processing data.
 
 ## Inserting data
-To support loading data from a data lake (Amazon S3) into Firebolt tables, Firebolt provides utilities for loading data in bulk. Users can perform both initial and incremental data ingestion using either a [`COPY`](../sql_reference/commands/data-management/copy-from.md) statement or [`INSERT INTO SELECT FROM <external_table>`](../sql_reference/commands/data-management/insert.md) syntax. 
+To support loading data from a data lake (Amazon S3) into Firebolt tables, Firebolt provides utilities for loading data in bulk. Users can perform both initial and incremental data ingestion using either a [COPY](../sql_reference/commands/data-management/copy-from.md) statement or [INSERT INTO SELECT FROM \<external_table\>](../sql_reference/commands/data-management/insert.md) syntax. 
 
 In addition, Firebolt supports singleton inserts via a `INSERT INTO VALUES` statement. Typical scenarios where singleton inserts come handy are:
 - Refreshing tables with small amounts of dimensional data, and
@@ -104,7 +104,7 @@ While singleton insert is a supported pattern in Firebolt, using bulk insert uti
 
 Data inserted by a singleton insert statement gets stored within a single tablet. From the tablet quality perspective, this creates a suboptimal situation, and can lead to table fragmentation in cases where many singleton inserts are executed. This in turn can lead to suboptimal query performance. One way to mitigate this situation is to use a mini batch pattern (a collection of `INSERT INTO VALUES` statements separated by a comma) whenever possible. When a batch of `INSERT INTO VALUES` statements are executed, Firebolt tries to create a single tablet, which will improve tablet quality and reduce table fragmentation.
 
-To minimize operational overhead and system maintenance that table fragmentation can cause, Firebolt implements a built-in optimization process that merges tablets with suboptimal size. This optimization process is fully autonomous and runs in the background. The background process searches on  a periodic basis for suboptimal tablets and merges them while keeping tablet optimal size in mind. In addition, Firebolt supports the [`VACUUM`](../sql_reference/commands/data-management/vacuum.md) command that allows users full control to defragment tables on-demand.
+To minimize operational overhead and system maintenance that table fragmentation can cause, Firebolt implements a built-in optimization process that merges tablets with suboptimal size. This optimization process is fully autonomous and runs in the background. The background process searches on  a periodic basis for suboptimal tablets and merges them while keeping tablet optimal size in mind. In addition, Firebolt supports the [VACUUM](../sql_reference/commands/data-management/vacuum.md) command that allows users full control to defragment tables on-demand.
 
 Singleton insert statement example
 ```sql
@@ -114,7 +114,7 @@ INSERT INTO rankings (GameID, PlayerID, MaxLevel, TotalScore, PlaceWon, Tourname
 {: toc}
 
 ## Deleting data
-Firebolt supports storing as much data as needed for as long as needed. However, there are situations where data does need to be deleted. Situations like data corrections that occur in the systems of records, or GDPR compliance where a single (or multiple) customer record(s) must be deleted to preserve privacy, have led to support for [`DELETE`](../sql_reference/commands/data-management/delete.md) statements in Firebolt.
+Firebolt supports storing as much data as needed for as long as needed. However, there are situations where data does need to be deleted. Situations like data corrections that occur in the systems of records, or GDPR compliance where a single (or multiple) customer record(s) must be deleted to preserve privacy, have led to support for [DELETE](../sql_reference/commands/data-management/delete.md) statements in Firebolt.
 
 Firebolt supports deleting a single record in a table or deleting data in bulk. In addition to the tablet level metadata, each tablet comes with a delete log. As the records get deleted, the delete log is maintained. Given rich tablet-level metadata, only tablets that are affected by the delete operation are touched. In cases where `DELETE` query uses a primary key(s) as a predicate, Firebolt leverages primary key information to quickly find tablets and records that are affected by the DELETE operation, leading to performant deletes. Similarly, deleting all data that belongs to one or more partitions is almost instantaneous, as deleting data in these cases is only a metadata operation in Firebolt. 
 
@@ -136,7 +136,7 @@ DELETE FROM rankings WHERE GameID = 10 AND TournamentID = 5 AND PlayerID = 231;
 ## Updating data
 In real life, data updates happen often. Individuals regularly update their contact information as their residency changes, prospects change their contact preference for marketing campaigns, an order changes its status as it goes through the fulfillment process, all causing data stored in the data warehouses to be updated. 
 
-An [`UPDATE`](../sql_reference/commands/data-management/update.md) can be represented as a composite operation of `DELETE` followed by an `INSERT` operation. This holds true for both singleton as well as bulk update statements. Firebolt supports both simple as well as complex update functionality, including complex predicates and multi-table joins. Similarly, any column defined in a Firebolt table can be updated, including partitioning columns. While updating values for a partitioning column may lead to a longer execution time (depending on the number of records that exist in the partition, as updated data may need to be moved to newly assigned partitions), this functionality simplifies usage and avoids the need for manual workarounds to be done by our users.
+An [UPDATE](../sql_reference/commands/data-management/update.md) can be represented as a composite operation of `DELETE` followed by an `INSERT` operation. This holds true for both singleton as well as bulk update statements. Firebolt supports both simple as well as complex update functionality, including complex predicates and multi-table joins. Similarly, any column defined in a Firebolt table can be updated, including partitioning columns. While updating values for a partitioning column may lead to a longer execution time (depending on the number of records that exist in the partition, as updated data may need to be moved to newly assigned partitions), this functionality simplifies usage and avoids the need for manual workarounds to be done by our users.
 
 Update statement example
 ```sql
@@ -144,7 +144,7 @@ UPDATE rankings SET GameID = 11 WHERE GameID = 10 AND TournamentID = 5 AND Playe
 ```
 
 ## Optimizing storage
-As mentioned in earlier sections, certain data modification scenarios (deletes/updates) could lead to situations where tables get fragmented. To help spot fragmentation situations and identify tables that are fragmented, Firebolt provides a view called [`information_schema.tables`](../sql_reference/information-schema/tables.md). 
+As mentioned in earlier sections, certain data modification scenarios (deletes/updates) could lead to situations where tables get fragmented. To help spot fragmentation situations and identify tables that are fragmented, Firebolt provides a view called [information_schema.tables](../sql_reference/information-schema/tables.md). 
 
 The `information_schema.tables` view provides a number of useful columns, such as the number of rows, compressed and uncompressed table size, among others. For our purposes here, two columns are of interest as fragmentation metrics: 1) `number_of_tablets` and 2) `fragmentation`. As the name suggests, the `number_of_tablets` column projects information about the total number of tablets in each table. The fragmentation column specifies the table fragmentation percentage (number between 0-100). As a best practice and general guidance, it's recommend to keep fragmentation below 80.
 

@@ -11,7 +11,7 @@ published: true
 # HLL_COUNT_MERGE
 
 Merges one or more HLL++ sketches that were previously built using the aggregate
-function [`HLL_COUNT_BUILD`](hll-count-build.md) into a new sketch.
+function [HLL_COUNT_BUILD](hll-count-build.md) into a new sketch.
 
 Each sketch must be built on the same type and the same precision.
 Attempts to merge sketches for different types or precisions results in an error.
@@ -30,9 +30,9 @@ HLL_COUNT_MERGE(<expression>)
 
 {: .no_toc}
 
-| Parameter      | Description                                                                                              | Supported input types |
-|:---------------|:---------------------------------------------------------------------------------------------------------|:----------------------|
-| `<expression>` | HLL++ sketch in a valid format, e.g. the output of the [`HLL_COUNT_BUILD`](hll-count-build.md) function. | `BYTEA`               |
+| Parameter      | Description                                                                                            | Supported input types |
+|:---------------|:-------------------------------------------------------------------------------------------------------|:----------------------|
+| `<expression>` | HLL++ sketch in a valid format, e.g. the output of the [HLL_COUNT_BUILD](hll-count-build.md) function. | `BYTEA`               |
 
 ## Return Type
 
@@ -42,7 +42,7 @@ HLL_COUNT_MERGE(<expression>)
 
 {: .no_toc}
 
-Following the [example](hll-count-build.md#example) in [`HLL_COUNT_BUILD`](hll-count-build.md):
+Following the [example](hll-count-build.md#example) in [HLL_COUNT_BUILD](hll-count-build.md):
 
 ```sql
 SELECT hll_count_estimate(hll_count_merge(a)) AS hll_estimate, hll_count_merge(a) AS merged_sketch

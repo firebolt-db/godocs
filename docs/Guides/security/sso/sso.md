@@ -24,7 +24,7 @@ Managing SSO settings requires the org_admin role.
 
 ## Configure SSO
 
-SSO can be configured in two ways - using SQL or the UI.  To configure SSO using SQL, use the [`ALTER ORGANIZATION`](../../../sql_reference/commands/data-definition/alter-organization.md) statement. For example:
+SSO can be configured in two ways - using SQL or the UI.  To configure SSO using SQL, use the [ALTER ORGANIZATION](../../../sql_reference/commands/data-definition/alter-organization.md) statement. For example:
 
 ```sql
 ALTER ORGANIZATION SET SSO = ‘{
@@ -50,7 +50,7 @@ To set up SSO via the UI:
         <br>* **Provider:** The provider's name - for example: “Okta”. Possible values are: Okta, Onelogin, Salesforce, PingFederate, or Custom. Use the "Custom" label if you are using a SAML 2.0-compliant service or application as your IdP. Once the provider has been selected, it can't be changed, but you can delete the SSO configuration ([see below](#delete-sso)) to then set up using a different provider. 
         <br>* **Label (optional):** The label to use for the SSO login button. If not provided, the Provider field value is used. 
         <br>* **Certificate:** The certificate to verify the communication between the identity provider and Firebolt. The certificate needs to be in PEM or CER format, and can be uploaded from your computer by choosing **Import certificate** or entered in the text box. 
-        <br>* **Field mapping (optional):** Mapping to your identity provider's first and last name in key-value pairs. If additional fields are required, choose **Add another key-value pair**. Mapping is required for Firebolt to fill in the login’s given and last names the first time the user logs in using SSO. If this field remains empty when a login that represents the user is being created (read more in the [log in using SSO](#log-in-using-sso) section), the login's first and last name fields will contain “NA”. Those fields can be updated later by running the [`ALTER LOGIN`](../../../sql_reference/commands/access-control/alter-login.md) command. 
+        <br>* **Field mapping (optional):** Mapping to your identity provider's first and last name in key-value pairs. If additional fields are required, choose **Add another key-value pair**. Mapping is required for Firebolt to fill in the login’s given and last names the first time the user logs in using SSO. If this field remains empty when a login that represents the user is being created (read more in the [log in using SSO](#log-in-using-sso) section), the login's first and last name fields will contain “NA”. Those fields can be updated later by running the [ALTER LOGIN](../../../sql_reference/commands/access-control/alter-login.md) command. 
 
       Here’s an example of how to set up field mapping:
 
@@ -68,7 +68,7 @@ SSO is now configured for your organization!
 
 ## Edit SSO settings
 
-SSO settings can be edited in two ways - using SQL or the UI.  To edit SSO settings using SQL, use the [`ALTER ORGANIZATION`](../../../sql_reference/commands/data-definition/alter-organization.md) statement. For example:
+SSO settings can be edited in two ways - using SQL or the UI.  To edit SSO settings using SQL, use the [ALTER ORGANIZATION](../../../sql_reference/commands/data-definition/alter-organization.md) statement. For example:
 
 ```sql
 ALTER ORGANIZATION SET SSO = ‘{
@@ -106,7 +106,7 @@ To edit SSO settings via the UI:
 
 
 Once SSO configuration is deleted:
-- Logins created via SSO will remain in your organization, but won't be able to log in to Firebolt unless enabled to log in using a password. Use the [`ALTER LOGIN`](../../../sql_reference/commands/access-control/alter-login.md) statement to configure this. 
+- Logins created via SSO will remain in your organization, but won't be able to log in to Firebolt unless enabled to log in using a password. Use the [ALTER LOGIN](../../../sql_reference/commands/access-control/alter-login.md) statement to configure this. 
 - All logins with `is_sso_provisioned=true` will be updated to `sso_provisioned=false`.
 
 

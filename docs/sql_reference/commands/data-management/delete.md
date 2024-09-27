@@ -31,9 +31,9 @@ The `DELETE FROM <table>` without `<expression>` will delete *all* rows from the
 ## Remarks
 {: .no_toc}
 
-Deleted rows are marked for deletion, but are not automatically cleaned up. You can monitor fragmentation in [`information_schema.tables`](../../information-schema/tables.md) to understand how many rows are marked for deletion out of total rows; fragmentation = (rows marked for deletion / total rows). Total row count in `information_schema.tables` excludes the number of rows marked for deletion. Query performance is not materially impacted by delete marks.
+Deleted rows are marked for deletion, but are not automatically cleaned up. You can monitor fragmentation in [information_schema.tables](../../information-schema/tables.md) to understand how many rows are marked for deletion out of total rows; fragmentation = (rows marked for deletion / total rows). Total row count in `information_schema.tables` excludes the number of rows marked for deletion. Query performance is not materially impacted by delete marks.
   
-To mitigate fragmentation, use the [`VACUUM`](vacuum.md) command to manually clean up deleted rows.
+To mitigate fragmentation, use the [VACUUM](vacuum.md) command to manually clean up deleted rows.
 
 ## Example 
 

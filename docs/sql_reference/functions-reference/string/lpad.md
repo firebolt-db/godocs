@@ -11,7 +11,7 @@ parent: String functions
 
 Adds a specified pad string to the start of the string repetitively up until the length of the resulting string is equivalent to an indicated length.
 
-The similar function to pad the end of a string is [`RPAD`](./rpad.md).
+The similar function to pad the end of a string is [RPAD](./rpad.md).
 
 ## Syntax
 {: .no_toc}

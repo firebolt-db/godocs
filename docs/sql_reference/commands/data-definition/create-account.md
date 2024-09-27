@@ -13,7 +13,7 @@ Creates a new account.
 For more information, see [Managing accounts](../../../Guides/managing-your-organization/managing-accounts.md).
 
 {: .note}
-Organizations can have 20 accounts per organization and you can use `CREATE ACCOUNT` 25 times. If you have a need for additional account creations beyond this limit, contact [Firebolt Support](https://docs.firebolt.io/Reference/help-menu.html) for assistance. Our team can provide guidance and, if appropriate, adjust your account settings to accommodate your needs.
+Organizations can have 20 accounts per organization, and you can use `CREATE ACCOUNT` 25 times. If you have a need for additional account creations beyond this limit, contact [Firebolt Support](https://docs.firebolt.io/Reference/help-menu.html) for assistance. Our team can provide guidance and, if appropriate, adjust your account settings to accommodate your needs.
 
 ## Syntax
 
