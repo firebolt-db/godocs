@@ -29,7 +29,7 @@ For information about the population variance, which measures how spread out the
 | `<expression>`  | An expression producing numeric values for which to calculate the sample variance. | `REAL`, `DOUBLE PRECISION` <!-- Any numeric type-->|
 
 ## Return Type
-`DOUBLE PRECISION` <!--for `REAL` and `DOUBLE PRECISION` input types.-->
+`VAR_SAMP` returns a result of type `DOUBLE PRECISION`. <!--for `REAL` and `DOUBLE PRECISION` input types.-->
 <!-- `NUMERIC` for serial and `NUMERIC` input types (not yet supported)-->
 
 ### Special cases
