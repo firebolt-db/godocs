@@ -10,8 +10,8 @@ published: true
 
 # STDDEV\_SAMP
 
-Computes the sample standard deviation of all non-NULL numeric values produced by an expression.\\
-For the population standard deviation, see [STDDEV_POP](stddev-pop.md).
+Computes the sample standard deviation of all non-`NULL` numeric values produced by an expression. 
+The sample standard deviation measures how spread out values are in a sample by calculating the square root of the average of squared deviations from the sample mean, using a correction for sample size. For information about the population standard deviation, which estimates the spread of values in the full population, see [STDDEV_POP](stddev-pop.md).
 
 **Alias**: `STDDEV`
 
@@ -27,7 +27,7 @@ For the population standard deviation, see [STDDEV_POP](stddev-pop.md).
 
 | Parameter | Description               | Supported input types |
 | :--------- | :----------------------------------- | :--------|
-| `<expression>`  | An expression producing numeric values for which to calculate the standard sample deviation. | `REAL`, `DOUBLE PRECISION` <!-- Any numeric type-->|
+| `<expression>`  | An expression producing numeric values for which to calculate the sample standard deviation. | `REAL`, `DOUBLE PRECISION` <!-- Any numeric type-->|
 
 ## Return Type
 `DOUBLE PRECISION` <!--for `REAL` and `DOUBLE PRECISION` input types.-->
@@ -35,11 +35,10 @@ For the population standard deviation, see [STDDEV_POP](stddev-pop.md).
 
 ### Special cases
 - If there is at most one non-`NULL` input value, the result is `NULL`.
-- If the input has more than one non-`NULL` input value and the input contains `Inf` and/or `NaN`, the results is `NaN`.
+- If the input contains an `Inf` or `NaN` value, the result will be `NaN`.
 
 ## Example
 {: .no_toc}
 
-Given the table `exams` that has the column `grade`:
 {% include sql_examples/stddev_samp.md %}
 

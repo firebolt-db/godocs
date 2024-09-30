@@ -10,8 +10,7 @@ published: true
 
 # VAR\_POP
 
-Computes the population standard deviation of all non-NULL numeric values produced by an expression.\\
-For the sample variance, see [VAR_SAMP](variance-samp.md).
+Computes the population variance of all non-`NULL` numeric values produced by an expression. The population variance measures the average of the squared differences from the population mean, indicating how spread out the values are within the entire population. For information about the sample variance, which measures how spread out the values are within a sample, see [VAR_SAMP](variance-samp.md).
 
 
 ## Syntax
@@ -25,19 +24,18 @@ VAR_POP([ DISTINCT ] <expression>)
 
 | Parameter | Description               | Supported input types |
 | :--------- | :----------------------------------- | :--------|
-| `<expression>`  | An expression producing numeric values for which to calculate the population standard deviation. | `REAL`, `DOUBLE PRECISION` <!-- Any numeric type-->|
+| `<expression>`  | An expression producing numeric values for which to calculate the population variance. | `REAL`, `DOUBLE PRECISION` <!-- Any numeric type-->|
 
 ## Return Type
 `DOUBLE PRECISION` <!--for `REAL` and `DOUBLE PRECISION` input types.-->
 <!-- `NUMERIC` for serial and `NUMERIC` input types (not yet supported)-->
 
 ### Special cases
-- If there are no non-`NULL` input value, the result is `NULL`.
-- If the input contains one `Inf` and/or `NaN` value, the result is `NaN`.
+- If there are no non-`NULL` input values, the result is `NULL`.
+- If the input contains an `Inf` or `NaN` value, the result will be `NaN`.
 
 ## Example
 {: .no_toc}
 
-Given the table `exams` that has the column `grade`:
 {% include sql_examples/var_pop.md %}
 
