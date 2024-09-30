@@ -30,7 +30,7 @@ The sample standard deviation measures how spread out values are in a sample by 
 | `<expression>`  | An expression producing numeric values for which to calculate the sample standard deviation. | `REAL`, `DOUBLE PRECISION` <!-- Any numeric type-->|
 
 ## Return Type
-`DOUBLE PRECISION` <!--for `REAL` and `DOUBLE PRECISION` input types.-->
+`STDDEV_SAMP` returns a result of type `DOUBLE PRECISION`. <!--for `REAL` and `DOUBLE PRECISION` input types.-->
 <!-- `NUMERIC` for serial and `NUMERIC` input types (not yet supported)-->
 
 ### Special cases
