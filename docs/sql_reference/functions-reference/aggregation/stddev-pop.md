@@ -5,7 +5,6 @@ description: Reference material for STDDEV_POP
 great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Aggregation functions
-assignees: christophanneser
 published: true
 ---
 
@@ -38,9 +37,6 @@ STDDEV_POP([ DISTINCT ] <expression>)
 ## Example
 {: .no_toc}
 
-Given the table `exams` that has the column `grades`:
+Given the table `exams` that has the column `grade`:
 {% include sql_examples/stddev_pop.md %}
-
-{: .note}
-> This function uses a numerically unstable algorithm.
 

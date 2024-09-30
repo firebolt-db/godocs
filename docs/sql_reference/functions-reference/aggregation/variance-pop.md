@@ -5,7 +5,6 @@ description: Reference material for VAR_POP
 great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Aggregation functions
-assignees: christophanneser
 published: true
 ---
 
@@ -39,9 +38,6 @@ VAR_POP([ DISTINCT ] <expression>)
 ## Example
 {: .no_toc}
 
-Given the table `exams` that has the column `grades`:
+Given the table `exams` that has the column `grade`:
 {% include sql_examples/var_pop.md %}
-
-{: .note}
-> This function uses a numerically unstable algorithm.
 

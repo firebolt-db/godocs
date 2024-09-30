@@ -1,6 +1,6 @@
 ``` sql
-CREATE TABLE exams (grade double precision);
-INSERT INTO exams VALUES (1.0), (1.3), (1.3), (2.0), (2.3);
+CREATE TABLE exams (grade DOUBLE PRECISION);
+INSERT INTO exams VALUES (4.0), (3.7), (3.3), (2.7), (2.7);
 ```
 
 Calculate the population standard deviation of the grades and round to 3 decimal digits.
@@ -8,6 +8,6 @@ Calculate the population standard deviation of the grades and round to 3 decimal
 SELECT ROUND(STDDEV_POP(grade), 3) as stddev from exams;
 ```
 
-| stddev (DOUBLE) |
+| stddev (DOUBLE PRECISION) |
 | :--- |
-| 0.487 |
+| 0.523 |

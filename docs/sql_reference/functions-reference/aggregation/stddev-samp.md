@@ -5,7 +5,6 @@ description: Reference material for STDDEV_SAMP
 great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Aggregation functions
-assignees: christophanneser
 published: true
 ---
 
@@ -41,9 +40,6 @@ For the population standard deviation, see [STDDEV_POP](stddev-pop.md).
 ## Example
 {: .no_toc}
 
-Given the table `exams` that has the column `grades`:
+Given the table `exams` that has the column `grade`:
 {% include sql_examples/stddev_samp.md %}
-
-{: .note}
-> This function uses a numerically unstable algorithm.
 
