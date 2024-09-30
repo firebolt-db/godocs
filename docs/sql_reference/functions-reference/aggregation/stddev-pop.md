@@ -27,7 +27,7 @@ STDDEV_POP([ DISTINCT ] <expression>)
 | `<expression>`  | An expression producing numeric values for which to calculate the population standard deviation. | `REAL`, `DOUBLE PRECISION` <!-- Any numeric type-->|
 
 ## Return Type
-`DOUBLE PRECISION` <!--for `REAL` and `DOUBLE PRECISION` input types.-->
+`STDDEV_POP` returns a result of type `DOUBLE PRECISION`. <!--for `REAL` and `DOUBLE PRECISION` input types.-->
 <!-- `NUMERIC` for serial and `NUMERIC` input types (not yet supported)-->
 
 ### Special cases
