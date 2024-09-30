@@ -31,12 +31,12 @@ The output of `EXPLAIN` can be augmented by specifying options. The following ta
 | Option Name  | Option Values   | Description                                                                                                                                                                               |
 | :----------- | :-------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `LOGICAL`    | `TRUE`, `FALSE` | Returns the optimized logical query plan. This plan is returned by default.                                                                                                               |
-| `PHYSICAL`   | `TRUE`, `FALSE` | Returns the optimized physical query plan containing shuffle operators for queries on distributed engines. This gives insights how work is distributed between the nodes of an engine.    |
-| `ANALYZE`    | `TRUE`, `FALSE` | Executes the query and returns the optimized physical query plan annotated with metrics from query execution. The metrics are explained in [Example with ANALYZE](#example-with-analyze). |
-| `ALL`        | `TRUE`, `FALSE` | Executing `EXPLAIN (ALL) <select statement>` returns the `LOGICAL`, `PHYSICAL`, and `ANALYZE` plans.                                                                                      |
-| `STATISTICS` | `TRUE`, `FALSE` | Executing `EXPLAIN (STATISTICS) <select statement>` annotates the explained plan with information from our query optimizer.  Works with `LOGICAL`, `PHYSICAL`, `ANALYZE`, and `ALL`, e.g. `EXPLAIN (LOGICAL, STATISTICS)`.      |
+| `PHYSICAL`   | `TRUE`, `FALSE` | Returns the optimized physical query plan containing shuffle operators for queries on distributed engines. This plan provides insights how work is distributed between the nodes of an engine.    |
+| `ANALYZE`    | `TRUE`, `FALSE` | Runs the query and returns the optimized physical query plan, annotated with performance metrics. The metrics are explained in [Example with ANALYZE](#example-with-analyze). |
+| `ALL`        | `TRUE`, `FALSE` | Runs `EXPLAIN (ALL) <select statement>`, and returns the `LOGICAL`, `PHYSICAL`, and `ANALYZE` plans.                                                                                      |
+| `STATISTICS` | `TRUE`, `FALSE` | Runs `EXPLAIN (STATISTICS) <select statement>`, and adds annotations from Firebolt's query optimizer.  Compatible with `LOGICAL`, `PHYSICAL`, `ANALYZE`, and `ALL`. Example usage: `EXPLAIN (LOGICAL, STATISTICS)`.      |
 
-You many only specify one of the options `LOGICAL`, `PHYSICAL`, `ANALYZE`. If you need to view several plans at once, please use the `ALL` option.
+You may only specify one of the options `LOGICAL`, `PHYSICAL`, `ANALYZE`. If you need to view several plans at once, use the `ALL` option.
 
 ## Example
 
@@ -267,7 +267,7 @@ The query finishes in under 10ms and every operator below `MaybeCache` reports `
 
 ## Example with STATISTICS
 
-We can explain queries with the `STATISTICS` option to learn how our query optimizer estimated the query plan.
+The following code example uses the `STATISTICS` option to display the logical and physical query plan for the `SELECT` statement, annotated with estimated statistics from Firebolt's query optimizer:
 
 
 ```sql
@@ -288,8 +288,7 @@ ORDER BY
 	1,2,3,4;
 ```
 
-In the output below, we can see that each plan node is annotated with a `[Logical Profile]`.
-This profile provides the `source` where the estimation for this node originates from.
+In the following output, each plan node is annotated with a `[Logical Profile]`, indicating the `source` of the estimation for that node.
 
 ```
 explain TEXT
@@ -313,12 +312,12 @@ explain TEXT
                    [Logical Profile]: [source: metadata]
 ```
 
-The possible sources are:
+The possible sources are as follows:
 
 | **Source** | **Description** |
 |-|-|
-| `hardcoded` | This node received hard-coded defaults because we do not have any more information about this node.  You would only see this for external tables. |
-| `estimated` | This node's profile was computed from the profiles of this node's child nodes.  Such computation follows certain assumptions about the data, which are not necessarily fulfilled.  Consequently, this may introduce and amplify inaccuracies in the estimation. |
-| `metadata` | This node's profile was constructed from available metadata.  The information in this profile is exact or very accurate. |
-| `history` | This node's profile was retrieved from a recorded previous execution.  The information is exact unless there was data manipulation since the recording. |
+| `hardcoded` | This node received hard-coded defaults because no additional information is available, a scenario that typically occurs only with external tables. |
+| `estimated` | This node’s profile was computed from its child nodes' profiles, based on assumptions about the data that may not always hold true. These assumptions can introduce inaccuracies, which may be further amplified. |
+| `metadata` | This node's profile was constructed from available metadata, ensuring that the information is either precise or highly accurate. |
+| `history` | This node's profile was obtained from a previously recorded run, and is accurate unless data has changed since the recording. |
 | `learned` | This node's profile was predicted using machine learning. |
