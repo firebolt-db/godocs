@@ -6,15 +6,41 @@ nav_order: 6
 parent: Manage organization
 ---
 
-# Manage service accounts
+# Set up programmatic access to Firebolt
 {: .no_toc}
 
-Create a service account for programmatic access **only** to Firebolt. Service accounts must be linked to users. It's required to associate the service account to a user, in order to obtain access. For each service account, a secret is generated to use for authentication. You can add, edit, delete and generate secrets for service accounts using SQL or in the UI. 
-
-To view all Service Accounts click **Configure**, then choose **Service Accounts**.  
+Service accounts in Firebolt are used exclusively for **programmatic access**, allowing applications and automated systems to securely interact with Firebolt resources. Service accounts are specifically designed for applications, scripts, or automated processes that require continuous or recurring access to Firebolt resources. They are different from regular user accounts, which are for individuals. Each service account has both an ID and a secret, used for authentication.
 
 {: .note}
-Managing service accounts requires the org_admin role.
+You must have the **organization admin** role to manage service accounts. In Firebolt, the org_admin role grants administrative privileges over the entire organization. This role allows users to manage critical organization-wide settings, including creating and managing service accounts, users, roles, network policies, and other administrative tasks. The org_admin has comprehensive control to ensure proper access management and security within the organization. This role is essential for those overseeing Firebolt's infrastructure and ensuring compliance with the organization's security policies.
+
+Administrators use service accounts to control how external tools and applications access Firebolt, ensuring access is limited to necessary resources. Service accounts are linked to specific users within the organization, giving administrators control over what data and permissions they have. This helps enforce security rules, track usage, and audit system access in a clear and controlled way.
+
+You can access a Firebolt database programmatically using either of the following:
+
+*  The [Firebolt API](https://docs.firebolt.io/godocs/Guides/query-data/using-the-api.html#firebolt-api) - directly interacts with Firebolt’s data warehouse using HTTP requests.
+*  The [Firebolt drivers](https://docs.firebolt.io/godocs/Guides/developing-with-firebolt/) - use a third party tool or programming language to integrate with Firebolt’s data warehouse. Firebolt supports several languages including Python, Node, .Net, and Go.
+
+Service accounts must be linked to a [user account](https://docs.firebolt.io/godocs/Guides/managing-your-organization/managing-users.html). The Service account provides access to the organization, and the associated user provides access to an account within the organization. To use Firebolt programmatically, you must authenticate with an ID and a secret. These are generated when you create a service account. You can add, delete and generate secrets for service accounts using SQL scripts in the Develop Space or through the user interface (UI) in the Configure Space. 
+
+Follow these steps to gain programmatic access to Firebolt:
+
+1. Create a service account
+    You can create a service account using SQL scripts in the **Develop Space** or through the user interface (UI) in the **Configure Space**.
+
+    **Create a service account using the UI**
+    Login to Firebolt’s [Workspace](https://go.firebolt.io/login). If you haven’t yet registered with Firebolt, see the [Get Started guide](https://docs.firebolt.io/Guides/getting-started/). If you encounter any issues, reach out to support@firebolt.io for help. Then, do the following:
+
+    1. Select the Configure icon () in the left navigation pane to open the Configure Space. 
+    2.  Select Service accounts on the left sub-menu bar.
+    3. Select the **+ Create a service account** button at the top right of the **Configure Space**.
+    4. In the **Create a service account** window that appears, enter the following:
+        *  Name - The name of the service account. 
+        * Network policy - A security feature that defines a list of allowed and blocked IP addresses or ranges to manage access at the organization level, login level, or for service accounts. For more information, see [Manage network policies](https://docs.firebolt.io/Guides/security/network-policies.html).
+        * Description - A descriptor of the service account.
+    5. Toggle **Is organization admin** to designate the service account as an account with administrative privileges in your organization. In Firebolt, the org_admin role provides full administrative privileges over the organization, allowing management of users, service accounts, network policies, and other organization-wide settings.
+    6. Select **Create** to finish creating the service account.
+
 
 ## Creating a service account 
 
