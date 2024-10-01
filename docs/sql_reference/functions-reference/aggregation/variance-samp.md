@@ -19,7 +19,7 @@ For information about the population variance, which measures how spread out the
 {: .no_toc}
 
 ```sql
-{ VARIANCE | VAR_SAMP }([ DISTINCT ] <expression>)
+{ VARIANCE | VAR_SAMP }(<expression>)
 ```
 ## Parameters 
 {: .no_toc}

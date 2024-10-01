@@ -17,7 +17,7 @@ Computes the population variance of all non-`NULL` numeric values produced by an
 {: .no_toc}
 
 ```sql
-VAR_POP([ DISTINCT ] <expression>)
+VAR_POP(<expression>)
 ```
 ## Parameters 
 {: .no_toc}

@@ -20,7 +20,7 @@ The sample standard deviation measures how spread out values are in a sample by 
 {: .no_toc}
 
 ```sql
-{ STDDEV | STDDEV_SAMP }([ DISTINCT ] <expression>)
+{ STDDEV | STDDEV_SAMP }(<expression>)
 ```
 ## Parameters 
 {: .no_toc}

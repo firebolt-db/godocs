@@ -17,7 +17,7 @@ For information about the sample standard deviation, which estimates the spread 
 {: .no_toc}
 
 ```sql
-STDDEV_POP([ DISTINCT ] <expression>)
+STDDEV_POP(<expression>)
 ```
 ## Parameters 
 {: .no_toc}
