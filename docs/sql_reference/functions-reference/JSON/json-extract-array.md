@@ -9,23 +9,22 @@ parent: JSON functions
 
 # JSON_EXTRACT_ARRAY
 
-Takes an expression containing a JSON document, a JSON path expression, and an optional path syntax. If the key
-specified using the JSON path expression exists and its value is a JSON array, 
-`JSON_EXTRACT_ARRAY` returns SQL `ARRAY(TEXT)` contains all JSON elements as raw text inside the JSON array pointed by the given JSON
-path. Otherwise, returns NULL.
+Accepts a JSON document, path expression, and optional path syntax. If the key exists and holds a JSON array, `JSON_EXTRACT_ARRAY` returns an SQL ARRAY(TEXT) with the array's elements as raw text, and otherwise returns `NULL`.
 
 ## Syntax
 
 {: .no_toc}
 
 ```sql
-JSON_EXTRACT_ARRAY(<json>, <json_path_expression>, path_syntax => <path_syntax>)
+JSON_EXTRACT_ARRAY
+(<json>, <json_path_expression>, path_syntax => <path_syntax>)
 ```
 
 ### Aliases
 
 ```sql
-JSON_POINTER_EXTRACT_ARRAY(<json>, <json_path_expression>) ->
+JSON_POINTER_EXTRACT_ARRAY
+(<json>, <json_path_expression>) ->
 JSON_EXTRACT_ARRAY(<json>, <json_path_expression>, path_syntax => 'JSONPointer')
 ```
 
@@ -33,47 +32,64 @@ JSON_EXTRACT_ARRAY(<json>, <json_path_expression>, path_syntax => 'JSONPointer')
 
 {: .no_toc}
 
-| Parameter                | Description                                                                                      | Supported input types |
-|:-------------------------|:-------------------------------------------------------------------------------------------------|:----------------------|
-| `<json>`                 | The JSON document.                                                                               | `TEXT`                |
-| `<json_path_expression>` | A JSON path to the location of the desiered sub-document in the JSON.                            | `TEXT`                |
-| `<path_syntax>`          | The expected syntax of the `<json_path_expression>`, supports only 'JSONPointer' at the moment. For more information, see [JSON pointer expression syntax](./index.md#json-pointer-expression-syntax). | `TEXT`                | 
+| Parameter                | Description                                                                                                                                                                                            | Supported input types |
+|:-------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
+| `<json>`                 | The JSON document.                                                                                                                                                                                     | `TEXT`                |
+| `<json_path_expression>` | A JSON path to the location of the desired element within the JSON document.                                                                                                                                  | `TEXT`                |
+| `<path_syntax>`          | The expected syntax of the `<json_path_expression>` currently only supports 'JSONPointer'. For more information, see [JSON pointer expression syntax](./index.md#json-pointer-expression-syntax). | `TEXT`                | 
 
 ## Return Type
 
 `ARRAY(TEXT)`
-* If any of the inputs is `NULL` the output is `NULL` (propagates nulls).
 
-## Example
+* If any input values are `NULL`, the function will return `NULL`.
+
+## Examples
 
 {: .no_toc}
 
 For the JSON document indicated by `<json_common_example>` below,
-see [JSON common example](./index.md#json-common-example). The **returned result** is based on this example.
+see [JSON common example](./index.md#json-common-example). The **returned result** is based on the following example.
 
+**Example**
+The following code extracts the value at the path `value/dyid` from the JSON document represented by `<json_common_example>`, and returns it as an SQL array using the `JSONPointer` syntax:
 ```sql
 SELECT JSON_EXTRACT_ARRAY(<json_common_example>, '/value/dyid', 'JSONPointer')
 ```
 
-**Returns**: `NULL` because it does not point to an array.
+**Returns**
+The previous example returns `NULL` because the specified path does not reference an array.
+
+**Example**
+The following code example attempts to extract an array from a path `/value/no_such_key` in the JSON document represented by `<json_common_example>`:
 
 ```sql
 SELECT JSON_EXTRACT_ARRAY(<json_common_example>, '/value/no_such_key', 'JSONPointer')
 ```
 
-**Returns**: `NULL` because the key does not exist.
+**Returns**
+The previous code example returns `NULL` because the key does not exist.
+
+**Example**
+The following code example extracts the array at the path `/value/keywords` from the JSON document represented by `<json_common_example>` using the JSON pointer syntax:
 
 ```sql
 SELECT JSON_POINTER_EXTRACT_ARRAY(<json_common_example>,'/value/keywords')
 ```
 
-**Returns**: `{"insanely", "fast", "analytics"}`
+**Returns**
+The previous code example returns the following: `{"insanely", "fast", "analytics"}`.
+
+**Example**
+The following code example extracts the array located at the path `/value/events` from the JSON document represented by `<json_common_example>` using the JSON pointer syntax:
 
 ```sql
 SELECT JSON_POINTER_EXTRACT_ARRAY(<json_common_example>,'/value/events')
 ```
 
-**Returns** (SQL array of 2 text elements):
+**Returns** 
+The previous code example returns the following SQL array, containing two text elements:
+
 ```
 {
         '{
