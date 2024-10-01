@@ -8,7 +8,7 @@ parent: Query data
 
 # Firebolt API
 
-Use the Firebolt REST API to execute queries on engines programmatically. Learn how to use the API, including authentication, working with engines and executing queries. A service account is required to access the API - learn about [managing service accounts here](../managing-your-organization/service-accounts.md). 
+Use the Firebolt REST API to execute queries on engines programmatically. Learn how to use the API, including authentication, working with engines and executing queries. A service account is required to access the API. Learn about [managing programmatic access to Firebolt](../managing-your-organization/service-accounts.md). 
 
 * Topic toC
 {:toc}
@@ -40,8 +40,8 @@ where:
 
 | Property                          | Data type | Description                                                                                                                                        |
 | :------------------------------   | :-------- |:---------------------------------------------------------------------------------------------------------------------------------------------------|
-| id                                | TEXT      | The service account ID ([created here](../managing-your-organization/service-accounts.md#creating-a-service-account)).                             |
-| secret                            | TEXT      | The service account secret ([generated here](../managing-your-organization/service-accounts.md#generating-a-secret-for-a-service-account)). |
+| id                                | TEXT      | The service [account ID](../managing-your-organization/service-accounts.md#get-a-service-account-id).                             |
+| secret                            | TEXT      | The service [account secret](../managing-your-organization/service-accounts.md#generate-a-secret). |
 
 
 **Response**
