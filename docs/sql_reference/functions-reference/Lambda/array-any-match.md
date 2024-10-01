@@ -10,9 +10,7 @@ parent: Lambda functions
 
 # ARRAY\_ANY\_MATCH
 
-Returns `true` if at least one of the elements of a `BOOLEAN` array is `true`.  Otherwise returns `false`.
-
-If an optional function parameter is provided, returns `true` if the function returns `true` for at least one of the elements in the array. Otherwise returns `false`.
+Returns `TRUE` if at least one of the elements in a `BOOLEAN` array is `TRUE` when no function is provided, and returns `FALSE` otherwise. When an optional function parameter is provided, the result is `TRUE` if the function evaluates to `TRUE` for at least one element in the array, and `FALSE` otherwise.
 
 **Alias:** `ANY_MATCH`
 
@@ -28,27 +26,34 @@ ARRAY_ANY_MATCH([<function>], <array>)
 
 | Parameter | Description              | Supported input types | 
 | :--------- | :------------------------| :----------- | 
-| `<function>`  | A [Lambda function](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions) used to check elements in the array. | Any Lambda function returning `BOOLEAN` | 
-| `<array>`   | The array to be matched with the function.  | Any array (must be of type `BOOLEAN` if `<function>` is not provided)|       
+| `<function>`  | A [lambda function](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions) used to check elements in the array. | Any lambda function that returns a `BOOLEAN` value. | 
+| `<array>`   | The array to evaluate with the function.  | Can be any array, but must be of type `BOOLEAN` if no `<function>` is provided.|       
 
-## Return Types
-Returns `BOOLEAN`
+## Return Type
+The `ARRAY_ANY_MATCH` function returns a result of type `BOOLEAN`.
 
 ## Example
 {: .no_toc}
 
-Because there are values in the array greater than `3`, the function returns `true`. 
+The following code example checks if any element in an array is greater than `3`:
+
 ```sql
 SELECT
 	ARRAY_ANY_MATCH(x -> x > 3, [ 1, 2, 3, 9 ]);
 ```
 
-**Returns**: `true`
+**Returns**
+The query returns `TRUE` because `9` is greater than `3`.
 
-As there is no value `10` in the array, the function returns `false`. 
+
+**Example**
+
+The following code example checks if any element in the array equals `10`:
+
 ```sql
 SELECT
 	ARRAY_ANY_MATCH(x -> x = 10, [ 1, 2, 3, 9 ]);
 ```
 
-**Returns**: `false`
+**Returns**
+The previous code returns `FALSE` because there is no value `10` in the array.
