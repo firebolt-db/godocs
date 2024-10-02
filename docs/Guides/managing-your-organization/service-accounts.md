@@ -9,7 +9,7 @@ parent: Manage organization
 # Manage programmatic access to Firebolt
 {: .no_toc}
 
-Service accounts in Firebolt are used exclusively for **programmatic access**, allowing applications, scripts, or automated systems to securely interact with Firebolt resources. Unlike regular user accounts for individuals, each service account has an ID and a secret for authentication.
+Service accounts in Firebolt are used exclusively for **programmatic access**, allowing applications, scripts, or automated systems to securely interact with Firebolt resources. Unlike regular logins for individuals, each service account has an ID and a secret for authentication.
 
 {: .note}
 To manage service accounts, you must have the **organization admin** role, which grants full administrative control over Firebolt, including managing users, roles, network policies, and other organization-wide settings. This role ensures proper access management, security, and compliance with organizational policies.
