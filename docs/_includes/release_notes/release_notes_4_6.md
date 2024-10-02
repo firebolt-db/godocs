@@ -22,7 +22,7 @@ With the release of version 4.6, `COPY FROM` now processes Parquet files similar
 <!-- Auto Generated Markdown for FIR-31001 - Owned by Asya Shneerson -->
 **`COPY FROM` support for filtering by source file metadata**<BR>
 
-[COPY FROM]({% link sql_reference/commands/data-management/copy-from.md %}) now supports filtering by source file metadata using the `WHERE` clause.
+[COPY FROM](https://docs.firebolt.io/sql_reference/commands/data-management/copy-from.html) now supports filtering by source file metadata using the `WHERE` clause.
 
 <!-- Auto Generated Markdown for FIR-34445 - Owned by Pascal Schulze -->
 **Added support for vector distance calculations with new functions**
