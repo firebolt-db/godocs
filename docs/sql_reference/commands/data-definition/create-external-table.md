@@ -245,8 +245,8 @@ With `SKIP_BLANK_LINES = TRUE` any blank lines encountered in the CSV input file
 With `SKIP_HEADER_ROWS = TRUE`, Firebolt assumes that the first row in each file read from S3 is a header row and skips it when ingesting data. When set to `FALSE`, which is the default if not specified, Firebolt ingests the first row as data.  
 
 #### JSON Types
-* `TYPE = (JSON [PARSE_AS_TEXT = {'TRUE'|'FALSE'}])`  
-With `TYPE = (JSON PARSE_AS_TEXT = 'TRUE')`, Firebolt ingests each JSON object literal in its entirety into a single column of type `TEXT`. With `TYPE = (JSON PARSE_AS_TEXT = 'FALSE')`, Firebolt expects each key in a JSON object literal to map to a column in the table definition. During ingestion, Firebolt inserts the key's value into the corresponding column.  
+* `TYPE = (JSON [PARSE_AS_TEXT = {TRUE|FALSE}])`  
+With `TYPE = (JSON PARSE_AS_TEXT = TRUE)`, Firebolt ingests each JSON object literal in its entirety into a single column of type `TEXT`. With `TYPE = (JSON PARSE_AS_TEXT = FALSE)`, Firebolt expects each key in a JSON object literal to map to a column in the table definition. During ingestion, Firebolt inserts the key's value into the corresponding column.  
 
 #### Other Types
 * `TYPE = (ORC)`
