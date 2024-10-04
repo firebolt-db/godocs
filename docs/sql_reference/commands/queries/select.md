@@ -10,7 +10,7 @@ parent: Queries
 # SELECT
 {: .no_toc}
 
-Firebolt supports running `SELECT` statements with the syntax described in this topic. You can run multiple queries in a single script. Separating them with a semicolon (`;`) is required. Firebolt also supports `CREATE TABLE...AS SELECT` (CTAS). For more information, see [CREATE TABLE...AS SELECT](../data-definition/create-fact-dimension-table-as-select.md).
+Retrieves specific data from one or more tables in a database based on certain criteria. If you run multiple `SELECT` queries in a single script, you must them with a semicolon (`;`). Firebolt also supports `CREATE TABLE...AS SELECT` (CTAS). For more information, see [CREATE TABLE...AS SELECT](../data-definition/create-fact-dimension-table-as-select.md).
 
 * Topic ToC
 {:toc}
@@ -37,10 +37,10 @@ SELECT [ ALL | DISTINCT ] {<select_expr> [, ...]}
 SELECT [ ALL | DISTINCT ] {<select_expression> [, ...]}
 ```
 
-The SELECT list defines the columns that it returns. Each `<select_expression>` in the SELECT list can be either expression, or wildcards.
+The `SELECT` list defines the columns that it returns. Each `<select_expression>` in the `SELECT` list can be either an individual expression or a wildcard.
 
 {: .note}
->Selecting **only** [partitioned](../../../Overview/working-with-tables/working-with-partitions.md) or [virtual columns](../../../Guides/loading-data/working-with-external-tables.md#using-metadata-virtual-columns) is currently not supported in Firebolt. Selecting a combination of partitioned/virtual columns and regular columns is supported. 
+You cannot select **only** [partitioned](../../../Overview/working-with-tables/working-with-partitions.md) or [virtual columns](../../../Guides/loading-data/working-with-external-tables.md#using-metadata-virtual-columns). Selecting both partitioned or virtual columns together with regular columns is supported, but selecting only partitioned or virtual columns is not. 
 
 ### SELECT expression
 
@@ -48,10 +48,12 @@ The SELECT list defines the columns that it returns. Each `<select_expression>` 
 <expression> [ AS <alias> ]
 ```
 
-Expressions in the `SELECT` list evaluate to a single value and produce one output column. The output column names are defined either by an explicit alias in the `AS` clause, or, for expressions without explicit alias, the output column name is automatically generated. 
-The expression can reference any column from the `FROM` clause, but cannot reference other columns produced by the same `SELECT` list. The expressions can use scalar functions, aggregate functions, window functions or subqueries if they return single element.
+Expressions in the `SELECT` list return a single value and generate one output column. You can define the column name using an explicit alias with the `AS` clause, or, for expressions without explicit alias, the output column name is automatically generated. 
+Expressions can reference any column from the `FROM` clause, but cannot reference other columns produced by the same `SELECT` list. The expressions can use scalar functions, aggregate functions, window functions or subqueries, as long as they return a single value.
 
 #### Example
+
+The following code retrieves the `currentscore`, `currentspeed`, and the product of `currentlevel` and `playterid` as `score_information from the `playstats` table:
 
 ```sql
 SELECT currentscore, currentspeed, currentlevel * playterid AS score_information FROM playstats
@@ -63,28 +65,28 @@ SELECT currentscore, currentspeed, currentlevel * playterid AS score_information
 [ <table_name>. ] * [ EXCLUDE { <column_name> | ( <column_name>, ... ) } ]
 ```
 
-Wildcards are expanded to multiple output columns using the following rules:
+Wildcards are expanded into multiple output columns based on the following rules:
 
-* `*` is expanded to all columns in the `FROM` clause
-* `<table_name>.*` is expanded to all columns in the `FROM` clause for the table named `<table_name>`
-* `EXCLUDE` defines columns which are removed from the above expansion
+* The wildcard symbol (`*`) expands to include all columns in the `FROM` clause.
+* `<table_name>.*` expands to include all columns specified in the `FROM` clause for the table named `<table_name>`
+* `EXCLUDE` defines columns which are removed from the previous expansion.
 
 ### SELECT DISTINCT
 
-`SELECT DISTINCT` statement removes duplicate rows.
+The `SELECT DISTINCT` statement removes duplicate rows.
 
 ### SELECT ALL
 
-`SELECT ALL` statement returns all rows. `SELECT ALL` is the default behavior.
+The `SELECT ALL` statement returns all rows. `SELECT ALL` is the default behavior.
 
 
 ## WITH
 
-The `WITH` clause is used for subquery refactoring so that you can specify subqueries and then reference them as part of the main query. This simplifies the hierarchy of the main query, enabling you to avoid using multiple nested sub-queries.
+The `WITH` clause refactors subqueries so that you can define them once and reference them within the main query. This simplifies the hierarchy of the main query, enabling you to avoid using multiple nested sub-queries.
 
 In order to reference the data from the `WITH` clause, a name must be specified for it. This name is then treated as a temporary relation table during query execution.
 
-The primary query and the queries included in the `WITH` clause are all executed at the same time; `WITH` queries are evaluated only once every time the main query is executed, even if the clause is referred to by the main query more than once.
+The primary query and the queries included in the `WITH` clause are all run at the same time; `WITH` queries are evaluated only once every time the main query runs, even if the clause is referred to by the main query more than once.
 
 ### Materialized common table expressions
 {: .no_toc}
@@ -99,7 +101,7 @@ Materialized results can be accessed more quickly in some circumstances. By usin
 
 * The CTE calculation is independent of the main query, and no external optimizations from the main table are needed for it to be fast.
 
-* The materialized CTE fits into the nodes’ ram.
+* The materialized CTE fits into the nodes’ RAM.
 
 ### Syntax
 {: .no_toc}
@@ -167,6 +169,27 @@ WHERE
 	agecategory='56+'
 ```
 
+### `FROM` first
+Firebolt allows using the `FROM` clause before the `SELECT` clause. The previous example can also be written as follows:
+
+```sql
+FROM players
+SELECT *
+WHERE agecategory='56+'
+```
+
+You can also omit the `SELECT` clause and use only the `FROM` clause in the query as shown in the following code example:
+
+```sql
+FROM players
+```
+
+The previous code example is equivalent to the following:
+
+```sql
+FROM players SELECT *
+``` 
+
 ## JOIN
 
 A `JOIN` operation combines rows from two data sources, such as tables or views, and creates a new table of combined rows that can be used in a query.  
@@ -182,9 +205,9 @@ FROM <join_table1> [ INNER | LEFT | RIGHT | FULL ] JOIN <join_table2> ON <join_c
 
 |     Parameters      |                                                                          Description                                                                          |
 |---------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<join_table1>`       | A table or view to be used in the join operation                                                                                                              |
-| `<join_table2>`       | A second table or view to be used in the join operation                                                                                                       |
-| `ON <join_condition>` | One or more boolean comparison expressions that specify the logic to join the two specified tables and which columns should be compared. For example: `ON join_table1.column = join_table2.column` |
+| `<join_table1>`       | A table or view to be used in the join operation.                                                                                                              |
+| `<join_table2>`       | A second table or view to be used in the join operation.                                                                                                       |
+| `ON <join_condition>` | One or more `BOOLEAN` comparison expressions that specify the logic to join two specified tables and which columns to compare. For example: `ON join_table1.column = join_table2.column`. |
 
 
 
@@ -197,7 +220,7 @@ FROM <join_table1> [ INNER | LEFT | RIGHT | FULL ] JOIN <join_table2> USING (col
 
 |      Component      |                                                                                                      Description                                                                                                      |
 | :--------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `<join_table1>`       | A table or view to be used in the join operation                                                                                                                                                                      |
+| `<join_table1>`       | A table or view to be used in the join operation.                                                                                                                                                                      |
 | `<join_table2>`       | A second table or view to be used in the join operation.                                                                                                                                                              |
 | `USING (column_list)` | A list of one or more columns to compare for exact matching. `USING` is a shortcut to join tables that share the same column names. The specified columns are joined via a basic match condition. The match condition of `USING (column_list)` is equivalent to `ON join_table1.column = join_table2.column` |
 
@@ -209,7 +232,7 @@ The type of `JOIN` operation specifies which rows are included between two speci
 `JOIN` types include:
 
 
-| `[INNER] JOIN`        |  When used with an `ON` clause, `INNER JOIN` includes only rows that satisfy the `<join_condition>` . When used with a `USING` clause, `INNER JOIN` includes rows only if they have matching values for the specified columns in the `column_list`. |
+| `[INNER] JOIN`        |  When used with an `ON` clause, `INNER JOIN` includes only rows that satisfy the `<join_condition>`. When used with a `USING` clause, `INNER JOIN` includes rows only if they have matching values for the specified columns in the `column_list`. |
 | `LEFT [OUTER] JOIN`   |  Includes all rows from `<join_table1>` but excludes any rows from `<join_table2>` that don’t satisfy the `<join_condition>`. `LEFT JOIN` is equivalent to `LEFT OUTER JOIN`.                                           |
 | `RIGHT [OUTER] JOIN`  |  Includes all rows from `<join_table2>` but excludes any rows from `<join_table1>` that don’t satisfy the `<join_condition>`. `RIGHT JOIN` is equivalent to `RIGHT OUTER JOIN`.                                         |
 | `FULL [OUTER] JOIN`   |  Includes all rows from both tables matched where appropriate with the `<join_condition>`. `FULL JOIN` is equivalent to `FULL OUTER JOIN`.                                                                              |
@@ -218,7 +241,7 @@ The type of `JOIN` operation specifies which rows are included between two speci
 ### Examples
 {: .no_toc}
 
-The `JOIN` examples below use two tables, `level_one_players` and `level_two_players`. These tables are created and populated with data as follows.
+The following `JOIN` examples use two tables, `level_one_players` and `level_two_players`. These tables are created and populated with data as follows.
 
 ```sql
 CREATE DIMENSION TABLE level_one_players (
@@ -243,7 +266,7 @@ INSERT INTO num_test2 VALUES
 
 ```
 
-The tables and their data are shown below.
+The tables and their data are shown as follows:
 
 | level_one_players.nickname | level_one_players.currentscore | level_two_players.nickname| level_two_players.currentscore |
 | :--------------------| :----------------| :---------------------| :-----------------|
@@ -271,7 +294,7 @@ INNER JOIN
 	);
 ```
 
-This query is equivalent to:
+The previous query is equivalent to the following:
 
 ``` sql
 SELECT
@@ -297,7 +320,7 @@ INNER JOIN
 #### LEFT OUTER JOIN example
 {: .no_toc}
 
-The `LEFT OUTER JOIN` example below includes all `nickname` values from the `level_one_players` table. Any rows with no matching value in the `level_two_players` table return `NULL`.  
+The following `LEFT OUTER JOIN` example includes all `nickname` values from the `level_one_players` table. Any rows with no matching value in the `level_two_players` table return `NULL`.  
 
 ``` sql
 SELECT
@@ -322,7 +345,7 @@ LEFT OUTER JOIN
 #### RIGHT OUTER JOIN example
 {: .no_toc}
 
-The `RIGHT OUTER JOIN` example below includes all `nickname` values from `level_two_players`. Any rows with no matching values in the `level_one_players` table return `NULL`.
+The following `RIGHT OUTER JOIN` example includes all `nickname` values from `level_two_players`. Any rows with no matching values in the `level_one_players` table return `NULL`.
 
 ``` sql
 SELECT
@@ -350,7 +373,7 @@ RIGHT OUTER JOIN
 #### FULL OUTER JOIN example
 {: .no_toc}
 
-The `FULL OUTER JOIN` example below includes all values from `num_test` and `num_test2`. Any rows with no matching values return `NULL`.
+The following `FULL OUTER JOIN` example includes all values from `num_test` and `num_test2`. Any rows with no matching values return `NULL`.
 
 ``` sql
 SELECT
@@ -380,7 +403,7 @@ FULL OUTER JOIN
 
 A `CROSS JOIN` produces a table with every combination of row values in the specified columns.
 
-This example uses two tables with player information, `beginner_player` and `intermediate_player`, each with a single `level` column. The tables contain the following data.
+The following example uses two tables with player information, `beginner_player` and `intermediate_player`, each with a single `level` column. The tables contain the following data:
 
 | beginner_player.level | intermediate_player.level |
 | :-----------| :------------|
@@ -388,7 +411,7 @@ This example uses two tables with player information, `beginner_player` and `int
 | 2     | 5      |
 | 3   | 6    |
 
-The `CROSS JOIN` example below produces a table of every possible pairing of these rows.
+The following `CROSS JOIN` example produces a table of every possible pairing of these rows.
 
 ``` sql
 SELECT
@@ -426,7 +449,7 @@ If the input array is empty, the corresponding row is eliminated.
 ### Syntax - FROM Clause
 {: .no_toc}
 
-Using TVFs such as `UNNEST` is permitted in `FROM` clauses in the following way:
+Using TVFs such as `UNNEST` is permitted in `FROM` clauses as follows:
 
 ```sql
 FROM <from_items>, UNNEST(<array_column> [,<array_column>...]) [[ AS ] <row_alias>]
@@ -435,16 +458,16 @@ FROM <from_items>, UNNEST(<array_column> [,<array_column>...]) [[ AS ] <row_alia
 | Component     | Description                                                                                                               | Valid values and syntax                |
 | :------------- | :------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------- |
 | `<from_items>` | The tables containing the array columns that should be unnested.                                          |                                        |
-| `<array_column>`      | The array columns to unnest. Can be either an array literal or an array typed column reference. | Any valid array literal or column name. |
+| `<array_column>`      | The array columns to unnest, which can be either an array literal or a reference to an array-typed column. | Any valid array literal or column name. |
 | `<row_alias>`      | An alias for the result row, such as `r(x)`. | |
 
-Note that in the same was as in PostgreSQL, the above query performs a lateral join onto the result of the `UNNEST` operation.
+The previous query performs a lateral join onto the result of the `UNNEST` operation.
 However, the `LATERAL` keyword is optional.
 
 ### Syntax - SELECT Clause
 {: .no_toc}
 
-When unnesting just a single column, the TVF may also be called in the `SELECT` clause.
+When unnesting a single column, the TVF can also be invoked directly in the `SELECT` clause.
 
 ```sql
 SELECT <select_list>, UNNEST(<array_column>) [[ AS ] <column_alias>]
@@ -453,7 +476,7 @@ SELECT <select_list>, UNNEST(<array_column>) [[ AS ] <column_alias>]
 | Component     | Description                                                                                                               | Valid values and syntax                |
 | :------------- | :------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------- |
 | `<select_list>` | The regular select list of your SQL query.                                          |                                        |
-| `<array_column>`      | The array column to unnest.  Can be either an array literal or an array typed column reference. | Any valid array literal or column name. |
+| `<array_column>`      | The array columns to unnest, which can be either an array literal or a reference to an array-typed column. | Any valid array literal or column name. |
 | `<column_alias>`      | A column alias for the result column, such as `x`. | |
 
 ### Example
@@ -522,7 +545,7 @@ WHERE <condition>
 
 | Component     | Description                            | Valid values and syntax       |
 | :------------- | :-------------------------------------- | :----------------------------- |
-| `<condition>` | Indicates the conditions of the query. | Any valid boolean expression. |
+| `<condition>` | Indicates the conditions of the query. | Any valid `BOOLEAN` expression. |
 
 ### Example
 {: .no_toc}
@@ -538,7 +561,7 @@ WHERE
 	region = 'EMEA'
 ```
 
-The following query retrieves users who registered after August 30, 2020 from the players's table:
+The following query retrieves users who registered after August 30, 2020 from the `players` table:
 
 ```sql
 SELECT
@@ -575,7 +598,7 @@ WHERE
 
 ## GROUP BY
 
-The `GROUP BY` clause groups together input rows. Multiple input rows which have same values of expressions in the `GROUP BY` clause become a single row in the output. `GROUP BY` is typically used in conjunction with aggregate functions (such as `SUM`, `MIN`, etc). Query with `GROUP BY` clause and without aggregate functions is equivalent to `SELECT DISTINCT`. 
+The `GROUP BY` clause groups together input rows. Multiple input rows which have same values of expressions in the `GROUP BY` clause become a single row in the output. `GROUP BY` is typically used in conjunction with aggregate functions such as `SUM` and `MIN`. Query with `GROUP BY` clause and without aggregate functions is equivalent to `SELECT DISTINCT`. 
 
 
 ### Syntax
@@ -588,7 +611,7 @@ GROUP BY [ <grouping_element> [, ...n] | ALL ]
 ### Example
 {: .no_toc}
 
-In the following example, the results that are retrieved are grouped by the `nickname` and then by the `email` columns.
+In the following example, the retrieved results are grouped by the `nickname` column, and then by the `email` column.
 
 ```sql
 SELECT
@@ -616,13 +639,13 @@ GROUP BY
 	2
 ```
 
-`GROUP BY` clause must include all expressions in the `SELECT` list which are not involving aggregate functions. It may include expressions which are not part of `SELECT` list.
+The `GROUP BY` clause must include all expressions in the `SELECT` list that do not use aggregate functions. It may include expressions which are not part of `SELECT` list.
 
 ```sql
 SELECT SUM(agecategory) FROM players GROUP BY nickname
 ```
 
-However, the following will cause an error, since `SELECT` list has an expression which is not an aggregate function and it is not listed in `GROUP BY` clause.
+The following will cause an error, since `SELECT` list has an expression which is not an aggregate function, and it is not listed in `GROUP BY` clause.
 
 ```sql 
 SELECT nickname, email, SUM(agecategory) FROM players GROUP BY playerid
@@ -630,7 +653,7 @@ SELECT nickname, email, SUM(agecategory) FROM players GROUP BY playerid
 
 #### GROUP BY ALL
 
-For the common case of `GROUP BY` clause repeating all the non aggregate function expressions in the `SELECT` list, it is possible to use `GROUP BY ALL` syntax. It will automatically group by all non aggregate functions expressions from the `SELECT` list.
+For the common case of `GROUP BY` clause repeating all the non-aggregate function expressions in the `SELECT` list, it is possible to use `GROUP BY ALL` syntax. It will automatically group by all non-aggregate functions expressions from the `SELECT` list.
 
 ```sql
 SELECT
@@ -664,7 +687,7 @@ The `UNION` operator combines the results of two or more `SELECT` statements int
 * `UNION` combines with duplicate elimination.
 * `UNION ALL` combines without duplicate elimination.
 
-When including multiple clauses, the same number of columns must be selected by all participating `SELECT` statements. Data types of all column parameters must be the same. Multiple clauses are processed left to right; use parentheses to define an explicit order for processing.
+When including multiple clauses, the same number of columns must be selected by all participating `SELECT` statements. Data types of all column parameters must be the same. Multiple clauses are processed left to right. Use parentheses to define an explicit order for processing.
 
 ### Syntax
 {: .no_toc}
@@ -680,9 +703,9 @@ When including multiple clauses, the same number of columns must be selected by 
 
 ## ORDER BY
 
-The `ORDER BY` clause sorts a result set by one or more output expressions. `ORDER BY` is evaluated as the last step after any `GROUP BY` or `HAVING` clause. `ASC` and `DESC` determine whether results are sorted in ascending or descending order. When the clause contains multiple expressions, the result set is sorted according to the first expression. Then the second expression is applied to rows that have matching values from the first expression, and so on.
+The `ORDER BY` clause sorts a result set by one or more output expressions. `ORDER BY` is evaluated as the last step after any `GROUP BY` or `HAVING` clause. `ASC` and `DESC` determine whether results are sorted in ascending or descending order. When the clause contains multiple expressions, the result set is sorted according to the first expression. Rows with the same values for the first expression are then sorted by the second expression, and this process continues for subsequent expressions.
 
-The NULLS FIRST and NULLS LAST options can be used to determine whether nulls appear before or after non-null values in the sort ordering. By default, null values sort as if larger than any non-null value; that is, NULLS FIRST is the default for DESC order, and NULLS LAST is the default for ASC order.
+The `NULLS FIRST` and `NULLS LAST` options can be used to determine whether `NULL` values appear before or after non-`NULL` values in the sort order. By default, `NULL` values are considered greater than any non-`NULL` value. `NULLS FIRST` is the default for descending order, and `NULLS LAST` is the default for ascending order.
 
 ### Syntax
 {: .no_toc}
@@ -695,7 +718,7 @@ ORDER BY <expression> [ ASC | DESC ] [ NULLS FIRST | NULLS LAST] [, ...]
 | :------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `<expression>`                 | Each expression may specify output columns from `SELECT` or an ordinal number for an output column by position, starting at one.                                                                             |
 | `[ ASC | DESC ]`              | Indicates whether the sort should be in ascending or descending order.                                                                                                                                       |
-| `[ NULLS FIRST | NULLS LAST]` | Indicates whether null values should be included at the beginning or end of the result. <br> <br> NULLS FIRST is the default for DESC order, and NULLS LAST otherwise. |
+| `[ NULLS FIRST | NULLS LAST]` | Indicates whether null values should be included at the beginning or end of the result. `NULLS FIRST` is the default for `DESC` order, and `NULLS LAST` otherwise. |
 
 ## LIMIT
 
@@ -710,7 +733,7 @@ LIMIT <count>
 
 | Component | Description                                          | Valid values and syntax |
 | :--------- | :---------------------------------------------------- | :----------------------- |
-| `<count>` | Indicates the number of rows that should be returned | An integer              |
+| `<count>` | Indicates the number of rows that should be returned. | An integer.              |
 
 
 ## OFFSET
@@ -726,4 +749,4 @@ OFFSET <start>
 
 | Component | Description                                          | Valid values and syntax |
 | :--------- | :---------------------------------------------------- | :----------------------- |
-| `<start>` | Indicates the number of rows that should be skipped | An integer              |
+| `<start>` | Indicates the number of rows that should be skipped. | An integer.              |
