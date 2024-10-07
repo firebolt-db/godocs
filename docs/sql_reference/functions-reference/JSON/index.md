@@ -9,19 +9,8 @@ great_grand_parent: SQL reference
 has_children: true
 ---
 
-## JSON functions
 
-[JSON_EXTRACT](./json-extract.md)
-
-[JSON_EXTRACT_ARRAY](./json-extract-array.md)
-
-[JSON_POINTER_EXTRACT_TEXT](./json-pointer-extract-text.md)
-
-[JSON_VALUE](./json-value.md)
-
-[JSON_VALUE_ARRAY](./json-value-array.md)
-
-## Overview
+## JSON Functions Overview
 
 The JSON functions provide a way to extract specific values from JSON documents, particularly from those stored in a column.
 
@@ -29,9 +18,11 @@ There are three types of JSON functions:
 1. These functions extract part of the document, but preserve the original data in the result:
     * [JSON_EXTRACT](./json-extract.md)
     * [JSON_EXTRACT_ARRAY](./json-extract-array.md)
+    * [JSON_POINTER_EXTRACT_VALUES](./json-pointer-extract-values.md)
 2. These functions convert a JSON value to a SQL value:
     * [JSON_VALUE](./json-value.md)
     * [JSON_VALUE_ARRAY](./json-value-array.md)
+    * [JSON_POINTER_EXTRACT_KEYS](./json-pointer-extract-keys.md)
 3. This function extracts a JSON value and converts it to a SQL value, combining the functionalities of the previous two types of functions:
     * [JSON_POINTER_EXTRACT_TEXT](./json-pointer-extract-text.md)
 
