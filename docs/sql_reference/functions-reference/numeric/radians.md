@@ -5,12 +5,12 @@ description: Reference material for RADIANS function
 great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Numeric functions
-published: false
+published: true
 ---
 
 # RADIANS
 
-Converts degrees to radians as a `REAL` value.
+Converts degrees to radians.
 
 ## Syntax
 {: .no_toc}
@@ -30,10 +30,5 @@ RADIANS(<value>)
 
 ## Example
 {: .no_toc}
-The following example converts the value `180` in radians to a `REAL` value: 
-```sql
-SELECT
-    RADIANS(180);
-```
 
-**Returns**: `3.141592653589793`
+{% include sql_examples/radians.md %}
