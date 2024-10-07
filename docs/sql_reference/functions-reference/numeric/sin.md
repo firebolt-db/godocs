@@ -5,7 +5,7 @@ description: Reference material for SIN function
 great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Numeric functions
-published: false
+published: true
 ---
 
 # SIN
@@ -23,7 +23,7 @@ SIN(<value>)
 
 | Parameter | Description     | Supported input types | 
 | :--------- | :---------------------- | :----|
-| `<value>`   | The value that determines the returned sine | `DOUBLE PRECISION` | 
+| `<value>`   | The value that determines the returned sine in radians. | `DOUBLE PRECISION` | 
 
 ## Return Type
 `DOUBLE PRECISION` 
@@ -31,10 +31,4 @@ SIN(<value>)
 ## Example
 {: .no_toc}
 
-The following example calculates the sine of `90`: 
-```sql
-SELECT
-    SIN(90);
-```
-
-**Returns**: `0.8939966636005579`
+{% include sql_examples/sin.md %}
