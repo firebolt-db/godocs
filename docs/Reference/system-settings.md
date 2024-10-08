@@ -186,3 +186,5 @@ SET enable_subresult_cache = false;
 -- This query does not use the subresult cache
 SELECT checksum(*) FROM production_table;
 ```
+
+Setting `enable_subresult_cache` to `FALSE` disables the use of all [cached subresults](../Guides/optimize-query-performance/understand-query-performance-subresult.md). In particular, it deactivates two caching mechanisms that normally speed up query runtimes: the use of the `MaybeCache` operator, which includes the full result cache, and the hash-table cache used by the `Join` operator.
