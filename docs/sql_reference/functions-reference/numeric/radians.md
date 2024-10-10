@@ -23,7 +23,7 @@ RADIANS(<value>)
 
 | Parameter | Description                                                                                                         | Supported input types | 
 | :--------- | :------------------------------------------------------------------------------------------------------------------- | :------------| 
-| `<value>`   | The value to be converted from radians | `DOUBLE PRECISION` |
+| `<value>`   | The value to be converted to radians | `DOUBLE PRECISION` |
 
 ## Return Type
 `DOUBLE PRECISION`

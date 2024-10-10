@@ -1,4 +1,4 @@
-The following example converts the value `180` in radians to degrees:
+The following example converts the value `180` in degrees to radians:
 
 ``` sql
 SELECT radians(180.0) as result;
