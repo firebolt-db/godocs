@@ -22,7 +22,7 @@ Managing logins requires the org_admin role.
 To create a login using SQL, use the [CREATE LOGIN](../../sql_reference/commands/access-control/create-login.md) statement. For example:
 
 ```sql
-CREATE LOGIN "alexs@acme.com" WITH FIRST_NAME = "Alex" LAST_NAME = "Summers";
+CREATE LOGIN "alexs@acme.com" WITH FIRST_NAME = 'Alex' LAST_NAME = 'Summers';
 ```
 
 ### UI
