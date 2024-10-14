@@ -303,16 +303,16 @@ This example contains the following nine steps:
     ```sql
     INSERT INTO players
     SELECT
-    playerid,
-    nickname,
-    email,
-    agecategory,
-    platforms,
-    registeredon,
-    issubscribedtonewsletter,
-    internalprobabilitytowin,
-    source_file_name_new,
-    source_file_timestamp_new
+      playerid,
+      nickname,
+      email,
+      agecategory,
+      platforms,
+      registeredon,
+      issubscribedtonewsletter,
+      internalprobabilitytowin,
+      source_file_name_new,
+      source_file_timestamp_new
     FROM updates_table;
     ```
 
@@ -320,8 +320,8 @@ This example contains the following nine steps:
     ```sql
     INSERT INTO players
     SELECT *,
-    $SOURCE_FILE_NAME,
-    $SOURCE_FILE_TIMESTAMP
+      $SOURCE_FILE_NAME,
+      $SOURCE_FILE_TIMESTAMP
     FROM players_ext
     WHERE $SOURCE_FILE_TIMESTAMP > (SELECT max_time FROM control_maxdate)
     AND playerid NOT IN (SELECT playerid FROM players);
