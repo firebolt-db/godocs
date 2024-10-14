@@ -258,8 +258,8 @@ This example contains the following nine steps:
     ```sql
     INSERT INTO players
     SELECT *,
-    &#0036;SOURCE_FILE_NAME,
-    &#0036;SOURCE_FILE_TIMESTAMP
+      $SOURCE_FILE_NAME,
+      $SOURCE_FILE_TIMESTAMP
     FROM players_ext
     ```
 
