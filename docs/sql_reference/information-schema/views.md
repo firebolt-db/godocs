@@ -25,11 +25,14 @@ Each row has the following columns with information about each view.
 | table_catalog               | TEXT      | The name of the catalog. Firebolt offers a single ‘default’ catalog. |
 | table_schema                | TEXT      | The name of the database. |
 | table_name                  | TEXT      | The name of the view. |
-| ddl                         | TEXT      | The query statement that defines the view. |
 | view_definition             | TEXT      | The query statement that defines the view. |
 | check_option                | NULL        | Not applicable for Firebolt. |
-| is_updatable                | NULL        | Not applicable for Firebolt. |
-| insertable_into             | NULL        | Not applicable for Firebolt. |
+| is_updatable                | TEXT        | Always `NO`. |
+| insertable_into             | TEXT        | Always `NO`. |
+| is_trigger_updatable        | TEXT        | Always `NO`. |
+| is_trigger_deletable        | TEXT        | Always `NO`. |
+| is_trigger_insertable_into  | TEXT        | Always `NO`. |
 | created                     | TIMESTAMPTZ   | Time that the view was created. |
+| view_owner                  | TEXT      | The owner of the view. |
 | last_altered                | TIMESTAMPTZ   | Time that the view was last changed. |
-| description                 | NULL        | Not applicable for Firebolt. |
+| last_altered_by             | TEXT   | The user who last altered this view. |
