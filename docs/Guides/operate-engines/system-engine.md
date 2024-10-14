@@ -25,6 +25,7 @@ The system engine supports running the following commands:
 * [SELECT](../../sql_reference/commands/queries/select.md) queries on some [information_schema](../../sql_reference/information-schema/index.md) views:
     * [information_schema.accounts](../../sql_reference/information-schema/accounts.md)
     * [information_schema.applicable_roles](../../sql_reference/information-schema/applicable-roles.md)
+    * [information_schema.transitive_applicable_roles](../../sql_reference/information-schema/transitive-applicable-roles.md)
     * [information_schema.columns](../../sql_reference/information-schema/columns.md)
     * [information_schema.catalogs](../../sql_reference/information-schema/catalogs.md)
     * [information_schema.engines](../../sql_reference/information-schema/engines.md)
@@ -66,7 +67,7 @@ with connect(
 
    cursor = connection.cursor()
 
-   cursor.execute("SHOW DATABASES")
+   cursor.execute("SHOW CATALOGS")
 
    print(cursor.fetchall())
 ```

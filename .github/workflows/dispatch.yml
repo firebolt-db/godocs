@@ -14,7 +14,7 @@ jobs:
       contents: write
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332  # v4.1.7
+        uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871  # v4.2.1
         with:
           path: 'build'
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -28,7 +28,7 @@ jobs:
           private_key: ${{ secrets.GH_APP_CI_GITOPS_KEY_PEM }}
 
       - name: Checkout Guru Synch Target
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332  # v4.1.7
+        uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871  # v4.2.1
         with:
           token: ${{ steps.generate_token.outputs.token }}
           repository: firebolt-analytics/firebolt-doc-to-guru
@@ -36,7 +36,7 @@ jobs:
           ref: 'main'
 
       - name: Checkout Preview Target
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332  # v4.1.7
+        uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871  # v4.2.1
         with:
           token: ${{ steps.generate_token.outputs.token }}
           repository: firebolt-analytics/firebolt-docs-preview-cntrbtr
@@ -61,7 +61,7 @@ jobs:
 
       - name: Push Preview
         env: 
-          TARGET_BRANCH: "gh-pages"
+          TARGET_BRANCH: ${{ github.ref_name }}
         run: |
           cp -r build/* preview
           cd preview

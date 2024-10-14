@@ -177,7 +177,7 @@ To run a query on your data, do the following:
 
 2. Enter the following simple query, which fetches a list of databases associated with your account:
   ```sql
-  SHOW DATABASES;
+  SHOW CATALOGS;
   ```
 
 3. Select **Run** to process the query. Firebolt uses the engine listed to the right of your database to run your query and its status of **Running** or **Stopped**. You can select a different engine from the dropdown menu next to the engine (<img src="../../assets/images/engine-icon.png" alt="Engine icon" width="12"/>) icon. 

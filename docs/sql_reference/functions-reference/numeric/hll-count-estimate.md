@@ -11,7 +11,7 @@ published: true
 # HLL_COUNT_ESTIMATE
 
 Extracts a cardinality estimate of a single HLL++ sketch that was previously built using the aggregate
-function [`HLL_COUNT_BUILD`](../aggregation/hll-count-build.md).
+function [HLL_COUNT_BUILD](../aggregation/hll-count-build.md).
 
 ## Syntax
 
@@ -25,9 +25,9 @@ HLL_COUNT_ESTIMATE(<expression>)
 
 {: .no_toc}
 
-| Parameter      | Description                                                                       | Supported input types |
-|:---------------|:----------------------------------------------------------------------------------|:----------------------|
-| `<expression>` | An HLL++ sketch produced by the [`HLL_COUNT_BUILD`](../aggregation/hll-count-build.md) function. | `BYTEA`               |
+| Parameter      | Description                                                                                    | Supported input types |
+|:---------------|:-----------------------------------------------------------------------------------------------|:----------------------|
+| `<expression>` | An HLL++ sketch produced by the [HLL_COUNT_BUILD](../aggregation/hll-count-build.md) function. | `BYTEA`               |
 
 ## Return Type
 
@@ -37,7 +37,7 @@ HLL_COUNT_ESTIMATE(<expression>)
 
 {: .no_toc}
 
-Following the [example](../aggregation/hll-count-build.md#example) in [`HLL_COUNT_BUILD`](../aggregation/hll-count-build.md):
+Following the [example](../aggregation/hll-count-build.md#example) in [HLL_COUNT_BUILD](../aggregation/hll-count-build.md):
 
 ```sql
 SELECT hll_count_estimate(a) AS hll_estimate

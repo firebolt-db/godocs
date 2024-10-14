@@ -2,26 +2,26 @@
 layout: default
 title: COPY FROM
 description: Reference and syntax for the COPY command that copies data from S3 files into a Firebolt table.
-great_grand_parent: SQL reference
-grand_parent: SQL commands
 parent: Data management
 ---
+
 # COPY FROM
 {: .no_toc}
 
-This guide shows you how to load data from an AWS S3 bucket into Firebolt using `COPY FROM`. `COPY FROM` can accommodate different data loading workflows including the following:
+Loads data from an AWS S3 bucket into Firebolt. `COPY FROM` supports different data loading workflows including the following:
 
 
-* Copy all source columns simultaneously into a target table.
-* Copy only a specific set of columns into a target table.
 * Automatically discover the schema during data loading.
-* Limit the number of rows loaded into the table.
-* Handling errors during data loading.
+* Filter by metadata during loading.
+* Load multiple files in parallel into a target table. 
+* Automatically create a table if it doesn't already exist.
+* Load metadata about your source files into a table.
+* Handle errors during data loading.
 
 
 <!-- This comment is needed for both the list above and the list below to render. -->
 
-
+## Table of contents
 * Topic ToC
 {:toc}
 
@@ -57,7 +57,7 @@ FROM <externalLocations>
     [ HEADER = { **FALSE** | TRUE  } ]
     [ DELIMITER = 'character' ]
     [ NEWLINE = 'string' ]
-    [ QUOTE = { **DOUBLE_QUOTE** | SINGLE_QUOTE } ]
+    [ QUOTE = { **DOUBLE_QUOTE** | 'character' |  SINGLE_QUOTE } ]
     [ ESCAPE = 'character' ]
     [ NULL_STRING = 'string' ]
     [ EMPTY_FIELD_AS_NULL = { **TRUE** | FALSE } ]
@@ -71,95 +71,100 @@ FROM <externalLocations>
 
 {: .no_toc}
 
-
-| `<table_name>`           | The name of the target table.                    | Parameter                | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-|:-------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `<column_mapping>`       | (Optional) This feature is only available if the target table already exists. You can use `column_mapping` to specify the mapping between the source and target schema. Select a column in the source file to map to the target file using either the name of the column or its index.                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `<column_name>`          | The name of a target column in a table. If `<source_column_index/name>` not specified, source columns will be automatically mapped to target columns based on name.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| `<default_value>`        | A replacement value for any `NULL` value generated by mapping the source to the target. This data type of `default_value` must be compatible with the data type of the target column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `<source_column_index>`  | The index position of the column in the source data to be mapped. If you are specifying multiple source files, `source_column_index` specifies the index for all source files. The index starts at 1, and can be as large as 2^64-1, which allows for a very large number of columns. If you prefix the index inside a command or query, preceed the column index with a dollar sign (`$`) character. For example, prefix index as shown in the following `COPY INTO` statement: `CREATE TABLE t(a text, b text); COPY INTO t(a $1, b $2) FROM 's3://my_bucket/my_folder/my_file';`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| `<source_column_name>`   | The name of the column in the source data to be mapped. If you are specifying multiple source files, `source_column_name` specifies the column name for all source files.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| `<externalLocations>`     | One or multiple paths to an Amazon S3 location containing source files. If `externalLocations` ends with a forward slash (`/`), Firebolt interprets its value as a directory. Otherwise, `externalLocations` is treated as single file. An example folder has the following format: `s3://my_bucket/my_folder/`. An example file has the following format: `s3://my_bucket/my_folder/my_file`.                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| `<directoryLocation>` |  The Amazon S3 path to a directory.
-| `CREDENTIALS`            | The Amazon S3 credentials for accessing the specified `<externalLocations>`. For more information, see [CREDENTIALS](../data-definition/create-external-table.md#credentials).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `PATTERN`                | A string that represents a [glob pattern](https://en.wikipedia.org/wiki/Glob_(programming)), or regular expression, used to match filenames or other strings.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `TYPE`                   | The file type that Firebolt should expect when loading files identified by `PATTERN`. If `TYPE` is unspecified, Firebolt automatically detects the file type using the file's suffix. If a file matched by `PATTERN` does not match the specified `TYPE`, Firebolt will generate an error.                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `AUTO_CREATE`            | Specify whether Firebolt should automatically create a table if it doesn't already exist. The default setting is `TRUE`, allowing automatic table creation. If `AUTO_CREATE` is set to `FALSE`, Firebolt will generate an error if the target table is missing. If the target table already exists, `AUTO_CREATE` is ignored.                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `ALLOW_COLUMN_MISMATCH`  | Set to `FALSE` to specify that all **required** columns must appear in the source files. A required column includes those specified in `<column_mapping>`, which are specified using either a name or index. If `ALLOW_COLUMN_MISMATCH` is set to `FALSE`, the source file must contain each required column by name or have enough columns to meet the required index. Missing data rows for required columns will trigger a row-based error for CSV or TSV files, or a file-based error for Parquet files. |
-| `ERROR_FILE`             | The Amazon S3 location where error files will be written. See the `<externalLocations>` parameter definition above for implementation. No error files are created by default or if the specified path doesn't exist. If `ERROR_FILE` is specified, a subdirectory is created based on the time of load submission in the format: YearMonthDay-HourMinuteSecond + QueryID, such as: 20220330-173205/<query_id>/). This directory will contain a rejected_rows.csv file containing erroneous data rows, and an error_reasons.csv file, containing the reasons that the errors were generated.                                                                                                            |
-| `ERROR_FILE_CREDENTIALS` | The Amazon S3 credentials required to write an error file to `<externalLocations>`. For more information, see [CREDENTIALS](../data-definition/create-external-table.md#credentials).                                                                                                                                                                                                  |
-| `MAX_ERRORS_PER_FILE`    | Specify the maximum number of rows that can be rejected per file. `MAX_ERRORS_PER_FILE` can be integer or percentage in the format 'integer%', such as `100%`. The only valid percentage options are `0%` and `100%`. By default, no errors are allowed. If `MAX_ERRORS_PER_FILE` is set to `100%`, then all errors are allowed. If the threshold is exceeded, an error will occur.|                                                                          |
+| Parameter                 | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+|:--------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<table_name>`             | The name of the target table.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `<column_mapping>`         | This feature is only available if the target table already exists. You can use `column_mapping` to specify the mapping between the source and target schema. Select a column in the source file to map to the target file using either the name of the column or its index.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `<column_name>`            | The name of a target column in a table. If `<source_column_index/name>` is not specified, source columns will be automatically mapped to target columns based on name.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `<default_value>`          | A replacement value for any `NULL` value generated by mapping the source to the target. This data type of `default_value` must be compatible with the data type of the target column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `<source_column_index>`    | The index position of the column in the source data to be mapped. If you are specifying multiple source files, `source_column_index` specifies the index for all source files. The index starts at `1`, and can be as large as `2^64-1`, which allows for a very large number of columns. If you prefix the index inside a command or query, precede the column index with a dollar sign (`$`) character. For example, prefix the index as shown in the following `COPY INTO` statement: `CREATE TABLE t(a text, b text); COPY INTO t(a $1, b $2) FROM 's3://my_bucket/my_folder/my_file';`.                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `<source_column_name>`     | The name of the column in the source data to be mapped. If you are specifying multiple source files, `source_column_name` specifies the column name for all source files.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `<externalLocations>`      | One or multiple paths to a location inside an Amazon S3 bucket that contains source files. If `externalLocations` ends with a forward slash (`/`), Firebolt interprets its value as a folder. Otherwise, `externalLocations` is treated as the location for a single file. An example folder has the following format: `s3://my_bucket/my_folder/`. An example file has the following format: `s3://my_bucket/my_folder/my_file`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `<directoryLocation>`      | The Amazon S3 path to a directory.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `CREDENTIALS`              | The Amazon S3 credentials for accessing the specified `<externalLocations>`. For more information, see [CREDENTIALS](../data-definition/create-external-table.md#credentials).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `PATTERN`                  |  	A string that represents a [glob pattern](https://en.wikipedia.org/wiki/Glob_(programming)), or regular expression, used to match filenames or other strings.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `TYPE`                     | The file type that Firebolt should expect when loading files identified by `PATTERN`. If `TYPE` is unspecified, Firebolt automatically detects the file type using the file’s suffix. If a file matched by `PATTERN` does not match the specified `TYPE`, Firebolt will generate an error. The default value is `AUTO`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `AUTO_CREATE`              |  	Specify whether Firebolt should automatically create a table if it doesn’t already exist.  If `AUTO_CREATE` is set to `FALSE`, Firebolt will generate an error if the target table is missing. If the target table already exists, `AUTO_CREATE` is ignored. The default setting is `TRUE`, allowing automatic table creation.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `ALLOW_COLUMN_MISMATCH`    | Set to `FALSE` to specify that all required columns must appear in the source file. If `ALLOW_COLUMN_MISMATCH` is set to `FALSE`, all required columns must be present in the source file. Required columns are those listed in `<column_mapping>` by name or index. If no column mapping is provided, the target table's columns are required. Missing required columns will cause row-based errors for CSV or TSV files, and file-based errors for Parquet files. When `ALLOW_COLUMN_MISMATCH` is set to `TRUE`, any missing columns in the source file are filled with `NULL` values.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `ERROR_FILE`               | The Amazon S3 location where error files will be written. See the previous `<externalLocations>` parameter definition for implementation. No error files are created by default or if the specified path doesn’t exist. If `ERROR_FILE` is specified, a subdirectory is created based on the time of load submission in the format: `YearMonthDay-HourMinuteSecond + QueryID`, such as: `20220330-173205`). For CSV files, this directory will contain a `rejected_rows.csv` file containing erroneous data rows, and an `error_reasons.csv` file, containing the reasons that the errors were generated. Because Parquet doesn't produce row-based error files, on error, only an `error_reasons.csv` file is generated.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `ERROR_FILE_CREDENTIALS`    | The Amazon S3 credentials required to write an error file to `<externalLocations>`. For more information, see [CREDENTIALS](../data-definition/create-external-table.md#credentials).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `MAX_ERRORS_PER_FILE`      | Specify the maximum number of rows that can be rejected per file. `MAX_ERRORS_PER_FILE` can be an integer or percentage in the format "integer%", such as `100%`. The only valid percentage options are `0%` and `100%`. If you specify an integer value, the `COPY FROM` job will load the job until it encounters the number of errors specified, and then stop the loading job. For example, if you specify `3`, then `COPY_FROM` will load data until it encounters `3` errors, and then end the job with an error. If the threshold is exceeded, `COPY_FROM` job will stop and return an error. By default, no errors are allowed. If `MAX_ERRORS_PER_FILE` is set to `100%`, then all errors are allowed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 
 ### Parameters for CSV files
 
 | Parameter             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 |:----------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `HEADER`              | Specify if the file contains a header line containing the column names. If `HEADER` is `TRUE`, the first line will be interpreted to contain column names.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `DELIMITER`           | Specify the character used to separate fields. The default delimiter is a comma (`,`).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| `NEWLINE`             | Specify the character used to delimit rows. The default delimiter is `\n`. If NEWLINE is `\n`, then `\r`, `\r\n`, and `\n\r` are also treated as newline delimiters. Custom delimiters are allowed only if the target table already exists.                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| `QUOTE`               | Specify the character used for quoting fields. The default is double quote (`"`). If a single quote is specified, the quote character will be set to (`'`).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `ESCAPE`              | Specify the character used to escape special characters. The default character is the quote (`'`) character.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| `NULL_STRING`         | Specify string used to represent `NULL` values. The default is an empty string, which means that no specific null string is defined.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `EMPTY_FIELD_AS_NULL` | Specify whether empty fields should be interpreted as `NULL` values.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `SKIP_BLANK_LINES`    | Specify whether to ignore blank lines.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `DATE_FORMAT`         | Specify the date format for parsing text into date columns. This format will apply to all columns loaded as date columns. For supported formats, see [TO_DATE](../../functions-reference/date-and-time/to-date.md).                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `TIMESTAMP_FORMAT`    | Specify the timestamp format for parsing text into timestamp columns. The format will apply to all columns loaded as timestamp columns. For supported formats, see [TO_TIMESTAMP](../../functions-reference/date-and-time/to-timestamp.md).                                                                                                                                                                                                                                                                                                                                                                                           |
+| `HEADER`              | Specify if the file contains a header line containing the column names. If `HEADER` is `TRUE`, the first line will be interpreted to contain column names. The default value is `FALSE`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `DELIMITER`           | Specify the character used to separate fields. The default delimiter is a comma (`,`).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `NEWLINE`             | Specify the character used to delimit rows. The default newline character is `\n`. If `NEWLINE` is `\n`, then `\r`, `\r\n`, and `\n\r` are also treated as newline characters. Custom characters are allowed only if the target table already exists.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `QUOTE`               | Specify the character used for quoting fields. The default quote character is `DOUBLE_QUOTE`. You can specify either `SINGLE_QUOTE`, `DOUBLE_QUOTE`. You can also specify the single quote literal character (`'`) or the double quote literal character(`"`).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `ESCAPE`              | Specify the character used to escape special characters. The default escape character is the quote (`'`) character.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `NULL_STRING`         | Specify the string used to represent `NULL` values. The default null string is an empty string, which means that no specific null string is defined.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `EMPTY_FIELD_AS_NULL` | Specify whether empty fields should be interpreted as `NULL` values. The default value is `TRUE`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `SKIP_BLANK_LINES`    | Specify whether to ignore blank lines. If `SKIP_BLANK_LINES` is `TRUE`, then `COPY_FROM` will ignore blank lines. The default value is `FALSE`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `DATE_FORMAT`         | Specify the date format for parsing text into date columns. This format will apply to all columns loaded as date columns. For supported formats, see [TO_DATE](../../functions-reference/date-and-time/to-date.md).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `TIMESTAMP_FORMAT`    | Specify the timestamp format for parsing text into timestamp columns. The format will apply to all columns loaded as timestamp columns. For supported formats, see [TO_TIMESTAMP](../../functions-reference/date-and-time/to-timestamp.md).                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
 
-Notes:
-Non-existing columns:
-By default if a column does not exist in the source file it will produce nulls.
-For CSV format it applies to missing fields as well.
-
-`COPY FROM` supports a range of file formats, including:
+`COPY FROM` supports the following file formats:
 
 * `Parquet`
 * `CSV/TSV`
 
-You can use `COPY FROM` for both loading initial data and loading incremental data.
+## Examples
 
-## Initial Data Load
-Use the `COPY FROM` command to efficiently load large batches of data into Firebolt. This command is atomic, ensuring ACID-compliance, and enables loading large initial datasets quickly and reliably into an empty table.
+### Automatic Schema Discovery
+You can use the automatic schema discovery feature in `COPY FROM` to handle even very large data sources instead of manually defining it. The following apply:
 
-## Incremental Data Load
-`COPY FROM` allows you to append new data to existing tables without interrupting your workload, useful for ingesting data incrementally. You can use incremental data loading to regularly update data repositories with new information as it becomes available.
+* **Parquet files** - Firebolt automatically reads metadata in Parquet files to create corresponding target tables.
+* **CSV files** - Firebolt infers column types based on the data content itself, which can streamline the initial data loading process significantly. Use `WITH HEADER=TRUE` if your CSV file contains column names in the first line.
 
-## Concurrency and Data Loading
-The `COPY FROM` command allows different tables to be loaded simultaneously and in parallel. A single table can be populated from multiple sources and by multiple clients at once. 
+Automatic schema discovery operates on a "best effort" basis, and attempts to balance accuracy with practical usability, but it may not always be error-free.
 
-## Automatic Schema Discovery
-You can leverage automatic schema discovery provided by `COPY FROM`  to manage sizable data sources where manual schema definition can be cumbersome and error-prone. For data formats like Parquet that already include table-level metadata, Firebolt automatically reads this metadata to facilitate the creation of corresponding target tables. For formats where column-level metadata might not be available, such as `CSV`, `COPY FROM` infers column types based on the data content itself. While this process aims to accurately identify data types, it operates on a "best effort" basis, balancing type correctness with practical usability constraints. Additionally, for CSV files that contain column names in the first line, `COPY FROM` uses this line as column headers and deduces the column types from the subsequent data, streamlining the initial data loading process significantly.
-
-## Handling Bad Data
-`COPY FROM` provides robust mechanisms to identify and isolate bad data during the loading process.
+The following query reads `levels.csv`, a sample dataset from the fictional [Ultra Fast Gaming Inc](https://help.firebolt.io/t/ultra-fast-gaming-firebolt-sample-dataset/250). The example implicitly uses automatic schema creation with `AUTO_CREATE=TRUE`, which defaults to `TRUE`, and also triggers automatic table creation:
 
 ```sql
-COPY sales
-FROM 's3://data-bucket/sales_data.csv'
-WITH TYPE = CSV HEADER = TRUE ERROR_FILE = <externalLocation> ERROR_FILE_CREDENTIALS = <credentials> MAX_ERRORS_PER_FILE = 5
+COPY automatic_schema_table 
+FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
+WITH HEADER=TRUE;
 ```
 
-## Handling partitioned data
-`COPY FROM` effectively manages the loading of partitioned data, ensuring that data is inserted into the correct partitions based on predefined rules or schema setups, optimizing query performance and data management.
+Use the following example code to display the table contents, ordered by the fourth column, followed by the fifth column:
 
-## Filter data during loading
+```sql
+SELECT * FROM automatic_schema_table ORDER BY 4,5;
+```
+
+### Use PATTERN to insert data into an existing table
+You can use the `PATTERN` feature, which uses [regular expressions](https://en.wikipedia.org/wiki/Glob_(programming)), to select several files that match the specified pattern to populate a target table. The following example uses the `*.csv` pattern to read all files ending in `.csv` into the `pattern_target` table:
+
+```sql
+COPY pattern_target FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/'
+WITH TYPE=CSV HEADER=TRUE PATTERN='*.csv';
+```
+
+In the previous example, there are two CSV files in the `firebolt_sample_dataset` folder: `levels.csv` and `tournaments.csv`. These files have a different schema. `COPY_FROM` reads these files into a single table, and infers the schema from the first file. Any column mismatches are filled with `NULL` values. 
+
+### Filter by metadata during loading
 
 When loading data into tables, you can filter data using the following options:
 
-1. `LIMIT`: Restricts the number of rows loaded, which can be useful to preview or create sample datasets.
+  1. `LIMIT`: Restricts the number of rows loaded, which can be useful to preview or create sample datasets.
 
-2. `OFFSET`: Behaves in the same way as the `OFFSET` clause in `SELECT` queries. Skips a specified number of rows in the final result set before ingestion.
+  2. `OFFSET`: Skips a specified number of rows in the final result set before ingestion. The `OFFSET` clause in `COPY FROM` behaves the same way as the `OFFSET` clause in `SELECT` queries behaves. 
 
-Note that `COPY FROM` currently does not support an `ORDER BY` clause. Because of this, the results when using `OFFSET` can be different every time you run the command.
+      * `COPY FROM` currently does not support the `ORDER BY` clause. Thus, using `OFFSET` may result in different outcomes every time you run the command.
 
-Both `LIMIT` and `OFFSET` apply to the entire result set, not to individual files.
+      * Both `LIMIT` and `OFFSET` apply to the entire result set, not to individual files.
 
-3. `WHERE`: Filters data based on source file metadata, as follows:
+  3. `WHERE`: Filters data based on source file metadata, as follows:
 
-* `$source_file_name`: The name of the source file.
-* `$source_file_timestamp`: The date that the file was last modified, to the second, in UTC, in the Amazon S3 bucket that it was read from.
-* `$source_file_size`: The size of your source file in bytes.
-* `$source_file_etag`: The file [ETag](https://docs.aws.amazon.com/AmazonS3/latest/API/API_Object.html#API_Object_Contents) of the file, which is often used for version control.
+      * $source_file_name - The full path of the source file in an Amazon S3 bucket, without the name of the bucket. For example, if your bucket is: `s3://my_bucket/xyz/year=2018/month=01/part-00001.parquet`, then `$source_file_name` is `xyz/year=2018/month=01/part-00001.parquet`.
+      * $source_file_timestamp - The timestamp in UTC, to the second when the source file was last modified in an Amazon S3 bucket.
+      * $source_file_size - The size in bytes of the source file.
+      * $source_file_etag - The [ETag](https://docs.aws.amazon.com/AmazonS3/latest/API/API_Object.html#API_Object_Contents) of the file, often used for version control.
+
+In the following code example, `COPY FROM` first reads all the files in the specified directory that were modified in the last three years. Then, it applies the offset and limit clause. As long as all source files modified in the last three years have at least 100 rows combined, the result set will have exactly 50 rows.
 
 ```sql
 COPY tournament_results
@@ -167,242 +172,235 @@ FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset
 LIMIT 50 OFFSET 50
 WHERE $source_file_timestamp > NOW() - interval '3 YEARS';
 ```
-This command first reads all the files in the specified directory created in the last three years. Then, it applies the offset and limit clause. 
-As long as all source files combined have at least 100 rows, the result set will have exactly 50 rows.
+The previous code example returns a table containing 50 rows of data that was modified in the last three years.
 
-# Examples
+### Load multiple files and directories in parallel
+You can use `COPY FROM` to read multiple sources and from multiple directories into a single table, simultaneously. The following code example reads any file ending in `.parquet` from multiple directories into `table_from_multiple_directories`.
 
-### Setup
-The following examples use a simple dataset that you can create using these simple instructions:
-
-Create sample of data in 2 different formats and push it to existing Amazon S3 bucket (engine should have write access to this bucket otherwise, credentials need to be provided).
-
-Create three rows of data with two different data types and push it to an existing Amazon S3 bucket (your Firebolt engine should have write access to this bucket, otherwise credentials need to be provided).
 ```sql
-CREATE TABLE sample_table(a int not null, b text not null);
-INSERT INTO sample_table VALUES (1,row1),(2,row2),(3,row3);
-
-COPY (SELECT * FROM sample_table ORDER BY 1)
-TO 's3://bucket_name/data_directory/' TYPE=CSV FILE_NAME_PREFIX='sample'
-INCLUDE_QUERY_ID_IN_FILE_NAME=FALSE SINGLE_FILE=TRUE COMPRESSION=NONE;
-
-COPY (SELECT * FROM sample_table ORDER BY 1)
-TO 's3://bucket_name/data_directory/' TYPE=PARQUET FILE_NAME_PREFIX='sample'
-INCLUDE_QUERY_ID_IN_FILE_NAME=FALSE SINGLE_FILE=TRUE COMPRESSION=NONE;
+COPY table_from_multiple_directories FROM 
+    's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/TournamentID=1/',
+    's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/TournamentID=10/',
+    's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/TournamentID=100/'
+WITH pattern='*.parquet';
 ```
 
-### Schema and format discovery (target table does not exist)
+The following code example reads two CSV files into `table_from_multiple_files`:
+
 ```sql
-COPY target_csv_0 FROM 's3://bucket_name/data_directory/sample.csv'
+COPY table_from_multiple_files FROM 
+    's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv',
+    's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/tournaments.csv'
 WITH HEADER=TRUE;
+```
+In the previous example, there are two CSV files in the `firebolt_sample_dataset` folder: `levels.csv` and `tournaments.csv`. These files have a different schema. `COPY_FROM` reads these files into a single table, and infers the schema from the first file. Any column mismatches are filled with `NULL` values.
 
-SELECT * FROM target_csv_0 ORDER BY 1;
+### Load metadata into a table
+You can load metadata information about your source file into your table so that you can track the source name, timestamp, size, and etag information for each row. You can use the following metadata columns:
+
+* $source_file_name - The full path of the source file in an Amazon S3 bucket, without the name of the bucket. For example, if your bucket is: `s3://my_bucket/xyz/year=2018/month=01/part-00001.parquet`, then `$source_file_name` is `xyz/year=2018/month=01/part-00001.parquet`.
+* $source_file_timestamp - The timestamp in UTC, to the second when the source file was last modified in an Amazon S3 bucket.
+* $source_file_size - The size in bytes of the source file.
+* $source_file_etag - The [ETag](https://docs.aws.amazon.com/AmazonS3/latest/API/API_Object.html#API_Object_Contents) of the file, often used for version control.
+
+The following code creates the `levels` table, and populates it with information from the `LevelID` column and the timestamp from the source data:
+
+```sql
+CREATE TABLE levels ("LevelID" TEXT NOT NULL, date_of_creation TIMESTAMP);
+COPY INTO levels("LevelID", date_of_creation $source_file_timestamp)
+FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv' WITH HEADER=TRUE;
 ```
 
-| a (BIGINT) | b (TEXT) |
-|:-----------|:---------|
-| 1          | row1     |
-| 2          | row2     |
-| 3          | row3     |
+The following code example displays the contents of `levels`:
 
-### No schema discovery
-Target table exists, read by name, using pattern.
 ```sql
-CREATE TABLE target_csv_1 (b text not null, a int not null);
-
-COPY target_csv_1 FROM 's3://bucket_name/data_directory/'
-WITH TYPE=CSV HEADER=TRUE PATTERN='*.csv';
-
-SELECT * FROM target_csv_1 ORDER BY 1;
+SELECT * FROM levels;
 ```
 
-| b (TEXT) | a (INTEGER) |
-|:---------|:------------|
-| row1     | 1           |
-| row2     | 2           |
-| row3     | 3           |
+The first three rows of the sample output follow:
 
-### Read by name mismatch
-None of the columns [not_a, not_b] exists in csv file so they all get null values.
+| LevelID (TEXT) | date_of_creation (TIMESTAMP) |
+|----------------|------------------------------|
+| 1              | 2023-02-27 10:06:52          |
+| 2              | 2023-02-27 10:06:52          |
+| 3              | 2023-02-27 10:06:52          |
+
+### Allow column name mismatch
+If you specify a column mapping during data loading, `COPY FROM` treats the columns listed in the `<column_mapping>` as required. If no column mapping is specified, the columns in the target table are considered required. To allow the data to continue loading when some required columns are missing from the source file, you can use `ALLOW_COLUMN_MISMATCH`, which is enabled by default.
+
+For example, if you create a table with `LevelID2` and `Name` columns and attempt to load data from the `levels.csv` dataset, which lacks a `LevelID2` column, `COPY FROM` will populate the `Name` column as specified and fill the `LevelID2` column with `NULL` values. This allows flexible handling of missing data without raising errors, as shown in the following code example:
 ```sql
-CREATE TABLE target_csv_2 (not_a int not null, not_b text not null);
-
-COPY target_csv_2 FROM 's3://bucket_name/data_directory/sample.csv'
+CREATE TABLE col_mismatch ("LevelID2" int, "Name" text);
+COPY col_mismatch
+  FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
 WITH HEADER=TRUE MAX_ERRORS_PER_FILE='0%';
 ```
-```ignorelang
-ERROR: The INSERT INTO statement failed because it tried to insert a NULL into the column not_a, which is NOT NULL. Please specify a value or redefine the column's logical constraints.
-```
 
-###  Allow errors
-Read by name mismatch results empty.
+### Error handling
+The following sections show you how to handle errors for both CSV and Parquet files.
+
+#### Row-based errors in CSV
+
+`COPY FROM` generates a row-based error when there’s a mismatch between source and target table columns. In the following example, the `col_mismatch_csv` table includes a `LevelID2` column defined as `NOT NULL`, that does not exist in the source `levels.csv` table:
+
 ```sql
-CREATE TABLE target_csv_2_a (not_a int not null, not_b text not null);
+CREATE TABLE col_mismatch_csv ("LevelID2" int NOT NULL);
 
-COPY target_csv_2_a FROM 's3://bucket_name/data_directory/sample.csv'
-WITH TYPE=CSV HEADER=TRUE MAX_ERRORS_PER_FILE='100%';
-
-SELECT * FROM target_csv_2_a;
-
-
-| not_a (INTEGER) | not_b (TEXT) |
-|:----------------|:-------------|
+COPY col_mismatch_csv FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
+WITH HEADER=TRUE MAX_ERRORS_PER_FILE='0%';
 ```
-### Insert into nullable columns
-Read by name mismatch, no error allowed, insert null into nullable columns.
+In the previous code example, when `COPY FROM` does not see the same column name in the target table `col_mismatch_csv`, it tries to fill the column with `NULL` values. Because `LevelID2` is defined with a constraint that it cannot have `NULL` values, the query generates the following error:
+`ERROR: The INSERT INTO statement failed because it tried to insert a NULL into the column LevelID2, which is NOT NULL. Please specify a value or redefine the column's logical constraints.` and stops loading into the table.
+
+##### Allow all row-based errors in CSV
+The previous code example uses `MAX_ERRORS_PER_FILE='0%'`, which causes the loading job to fail if there is a single error. You can change this behavior to allow errors. The following code example allows all errors, and the load job completes even if no data loads into the target table:
+
 ```sql
-CREATE TABLE target_csv_2_b (not_a int null, not_b text null);
+CREATE TABLE table_all_errors ("LevelID2" int NOT NULL);
 
-COPY target_csv_2_b FROM 's3://bucket_name/data_directory/sample.csv'
-WITH TYPE=CSV HEADER=TRUE MAX_ERRORS_PER_FILE='0%';
-
-SELECT * FROM target_csv_2_b;
+COPY table_all_errors FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
+WITH HEADER=TRUE MAX_ERRORS_PER_FILE='100%';
 ```
 
-| not_a (INTEGER) | not_b (TEXT) |
-|:----------------|:-------------|
-| NULL            | NULL         |
-| NULL            | NULL         |
-| NULL            | NULL         |
+##### Column data type mismatch in CSV
 
+If you try to load data into a column in an existing table that has a different data type than the source data, `COPY FROM` will attempt to cast the data into the specified data type. If the cast fails, `COPY FROM` generates an error. To demonstrate this error, the following example intentionally creates a table that defines the `LevelID` column incorrectly as an integer, instead of as text, and then attempts to copy data into it:
 
-### No header
-Read the header row (a,b) into the table as a data row.
 ```sql
-CREATE TABLE target_csv_3 (not_a int not null, not_b text not null);
+CREATE TABLE col_mismatch_type_csv ("Name" int);
 
-COPY target_csv_3 FROM 's3://bucket_name/data_directory/sample.csv'
-WITH TYPE=CSV HEADER=FALSE;
+COPY col_mismatch_type_csv("Name" name)
+  FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
+WITH TYPE=CSV HEADER=TRUE;
 ```
-```ignorelang
-ERROR: Unable to cast text 'a' to integer
-```
-Header row will be sent into error file, and the other data rows will be ingested in sequential order (because `HEADER=FALSE`).
+
+The previous code example generates the following error:
+`Line 1, Column 8: Unable to cast text 'Thunderbolt Circuit' to integer`.
+
+In the previous code example, the query generates an error because the default value for `MAX_ERRORS_PER_FILE` is `0`. You can set `MAX_ERRORS_PER_FILE` to `100%` to allow all errors, as shown in the following section.
+
+#### Allow all errors, and write them to file
+
+You can also allow all errors, so that the loading job continues until it has attempted to load all rows in your dataset. Firebolt can write these errors to an Amazon S3 bucket as CSV files.  If your specified S3 bucket requires access credentials, you must specify them so that Firebolt can write the files on your behalf. Data rows that load without error are ingested in row order. A loading job that specifies writing error files will write files with the following syntax to your Amazon S3 bucket:
+
+* `error_reasons.csv` - An error file that contains all the reasons that a row generated an error, and also file-based errors.
+* `rejected_rows.csv` - An error file that contains all the rejected rows in row order.
+
+Producing an error while reading Parquet files doesn't generate row-based error files. On error, only a `error_reasons.csv` file is generated.
+
+The previous files will have an order appended to the name such as `error_reasons_1.csv`.
+
+The following code example allows all errors, provides credentials, and writes two error files to an Amazon S3 bucket: 
+
 ```sql
-COPY target_csv_3 FROM 's3://bucket_name/data_directory/sample.csv'
-WITH HEADER=FALSE MAX_ERRORS_PER_FILE='100%' error_file='s3://bucket_name/error_directory/';
+CREATE TABLE table_write_errors(TournamentID INT, Name INT);
 
-SELECT * FROM target_csv_3 ORDER BY 1;
+COPY table_write_errors(TournamentID TournamentId, Name Name) FROM 's3://firebolt-publishing-public/help_center_assets/tournaments.csv'
+WITH ERROR_FILE_CREDENTIALS = (
+    AWS_KEY_ID = 'YOUR_AWS_KEY_ID'
+    AWS_SECRET_KEY = 'YOUR_AWS_SECRET_KEY'
+)
+MAX_ERRORS_PER_FILE='100%' HEADER=TRUE ERROR_FILE='s3://bucket_name/error_directory/';
 ```
+To provide your credentials in the previous example, do the following:
 
-| not_a (INTEGER) | not_b (TEXT) |
-|:----------------|:-------------|
-| 1               | row1         |
-| 2               | row2         |
-| 3               | row3         |
+* Replace the `<aws_key_id>` with an AWS access key that is associated with an AWS user or AWS IAM role. The AWS access key is a 20-character string such as `AKIAIOSFODNN7EXAMPLE`.
+* Replace the `<aws_secret_key>` with an AWS secret access key associated with the user or role associated with the AWS access key. The AWS secret access key is a 40-character string such as `wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`.
 
-Let's view the error reasons file that was generated:
+#### Read errors from file
+
+The previous `COPY FROM` example shows how to create two error files, one that describes the error reasons and one that contains the rows that had errors. This example shows how to load and view the contents of these files.
+
+The following code example reads all files that begin with `error_reasons` and end with `.csv` into an `error_reasons` table:
+
 ```sql
-COPY error_reasons_0 FROM 's3://bucket_name/error_directory/' 
+COPY error_reasons FROM 's3://bucket_name/error_directory/' 
 WITH PATTERN='*error_reasons*.csv' HEADER=TRUE;
-
-SELECT * from error_reasons_0;
 ```
 
-| file_name (TEXT)          | source_line_num (BIGINT) | error_message (TEXT) |
-|:--------------------------|:-------------------------|:---------------------|
-| data_directory/sample.csv | 1                        | Error while casting  |
+The following code returns the contents of the `error_reasons` table:
 
-Let's view the error reasons file that was generated:
+```sql
+SELECT * FROM error_reasons ORDER BY source_line_num LIMIT 1;
+```
+
+The following output shows an example of the contents of the `error_reasons` table:
+
+| file_name (TEXT)                   | source_line_num (BIGINT) | error_message (TEXT)     |
+|------------------------------------|--------------------------|--------------------------|
+| help_center_assets/tournaments.csv | 1                        | Error while casting      |
+
+
+The following code reads all files that begin with `rejected_rows` and ends with `.csv` into a rejected_rows table:
+
 ```sql
 COPY rejected_rows FROM 's3://bucket_name/error_directory/'
 WITH PATTERN='*rejected_rows*.csv' HEADER=FALSE;
-
-SELECT * FROM rejected_rows;
 ```
 
-| f0 (TEXT) | f1 (TEXT) |
-|:----------|:----------|
-| a         | b         |
+Use `SELECT` to view the contents of a file.
+The following code returns the contents of the `rejected_rows` table:
 
-## Column selection
-Source column `a` mapped (inserted) into target column `b`.
-Source column `c` mapped (inserted) into target column `a` with a default value (in case there is any null value).
-Column `c` does not exist, hence it generates nulls that is replaced by the default value `44`.
 ```sql
-CREATE TABLE target_csv_4 (a int, b text);
+SELECT * FROM rejected_rows ORDER BY f0 LIMIT 1;
+```
 
-COPY target_csv_4(b a, a default 44 c) FROM 's3://bucket_name/data_directory/sample.csv'
+The following output shows the contents of the `rejected_rows` table after running the previous `SELECT` statement:
+
+| f0 (TEXT) | f1 (TEXT)                | f2 (TEXT) | f3 (TEXT) | f4 (TEXT)           | f5 (TEXT)           | f6 (TEXT) |
+|-----------|--------------------------|-----------|-----------|---------------------|---------------------|-----------|
+| 1         | The Snow Park Grand Prix |1          |  20903    | 2021-05-28 20:40:54 | 2021-05-29 04:51:43 |   ...     |
+
+#### Column mapping and default values
+You can map a specific source column to a target column, and specify a default value to replace any `NULL` values generated during mapping. 
+
+The following code example maps the `LevelID` column from the `levels.csv` sample dataset, into a column `LevelID_team_A` in a `target_default_mapping` table. It also maps a non-existent `Country` column in the `levels.csv` dataset, into `LevelsID_team_B`: 
+
+```sql
+CREATE TABLE target_default_mapping ("LevelID_team_A" text, "LevelID_team_B" text);
+COPY target_default_mapping("LevelID_team_A" "LevelID", "LevelID_team_B" default 50 "Country")
+  FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
 WITH HEADER=TRUE;
-
-SELECT * FROM target_csv_4 ORDER BY 1;
 ```
 
-| a (INTEGER) | b (TEXT) |
-|:------------|:---------|
-| 44          | 1        |
-| 44          | 2        |
-| 44          | 3        |
+In the previous example, all rows under `LevelsID_team_B` will contain the value `50`.
 
-## Type mismatch error with parquet format
-```sql
-CREATE TABLE target_parquet_1 (a date not null, b text not null);
+#### Type mismatch errors
 
-COPY target_parquet_1 FROM 's3://bucket_name/data_directory/sample.parquet'
-WITH TYPE=PARQUET MAX_ERRORS_PER_FILE='100%' ERROR_FILE='s3://bucket_name/parquet_error_directory/';
+If you read a column from a source file into a table with an incompatible data type, the mapping generates a casting error. A loading job that specifies writing error files will write files starting with the following prefixes to a specified Amazon S3 bucket:
 
-SELECT count(*) as num_rows FROM target_parquet_1;
-```
+* `error_reasons` - An error file that contains all the reasons that a row generated an error, and also file-based errors.
+* `rejected_rows` - An error file that contains all the rejected rows in row order.
 
-| num_rows (BIGINT) |
-|:------------------|
-| 0                 |
-
-Let's view the error reasons:
-```sql
-COPY error_reasons_1 FROM 's3://bucket_name/parquet_error_directory/'
-WITH PATTERN='*error_reasons*.csv' HEADER=TRUE;
-
-SELECT * FROM error_reasons_1;
-```
-
-| file_name (TEXT)              | source_line_num (BIGINT) | error_message (TEXT)                                                      |
-|:------------------------------|:-------------------------|:--------------------------------------------------------------------------|
-| data_directory/sample.parquet | 0                        | Can not assignment cast column a from type integer null to type date null |
-
-There is no rejected rows as this was a file based error.
-```sql
-COPY rejected_rows_1 FROM 's3://bucket_name/parquet_error_directory/'
-WITH PATTERN='*rejected_rows*.csv' HEADER=FALSE;
-```
-```ignorelang
-ERROR: No file found in s3 bucket: local-dev-bucket, pattern: rejected_rows*.csv. check url and object pattern.
-```
-
-### Metadata columns
-```sql
-CREATE TABLE target_csv_5 (a int not null, b text not null);
-
-COPY target_csv_5(a, b $source_file_name) FROM 's3://bucket_name/data_directory/sample.csv'
-WITH TYPE=CSV HEADER=TRUE;
-
-SELECT * FROM target_csv_5 ORDER BY 1;
-```
-
-| a (INTEGER) | b (TEXT)                  |
-|:------------|:--------------------------|
-| 1           | data_directory/sample.csv |
-| 2           | data_directory/sample.csv |
-| 3           | data_directory/sample.csv |
-
-
-### Multiple URLs
-
-Multiple directories:
+The following code uses the Firebolt sample `players` dataset which has a column `PlayerID` with a data type of `INTEGER`, and attempts to read it into an existing column with a `DATE` data type:
 
 ```sql
-COPY target_table FROM 
-    's3://bucket_name/directory_1/'
-    ,'s3://bucket_name/directory_2/' 
-WITH pattern='*.csv';
+CREATE TABLE IF NOT EXISTS
+ players (
+   PlayerID DATE,
+   Nickname TEXT,
+   Email TEXT);
+
+COPY players FROM 's3://firebolt-sample-datasets-public-us-east-1/gaming/parquet/players/'
+WITH TYPE=PARQUET MAX_ERRORS_PER_FILE='100%'
+ERROR_FILE='s3://bucket_name/parquet_error_directory/';
 ```
 
-Multiple single files:
+Use the following sample code to view a table that contains the contents of all error files that contain `error_reasons`:
 
 ```sql
-COPY target_table FROM 
-'s3://bucket_name/csv_file/data_1.csv'
-,'s3://bucket_name/csv_file/data_2.csv'
-,'s3://bucket_name/csv_file/data_3.csv';
+COPY error_reasons FROM 's3://bucket_name/parquet_error_directory/'
+WITH PATTERN='*error_reasons*' HEADER=TRUE;
+
+SELECT * FROM error_reasons;
 ```
+
+| file_name (TEXT)                                                                 | source_line_num (BIGINT) | error_message (TEXT)                                                                    |
+|----------------------------------------------------------------------------------|--------------------------|-----------------------------------------------------------------------------------------|
+| gaming/parquet/players/11afd184-d2d4-4471-b23c-a14f4c0945a2_1_0_0.snappy.parquet | 0                        | Can not assignment cast column playerid from type integer null to type date null        |
+
+The type mismatch error in this example creates a file-based error, or one that affects the entire file during processing, such as errors caused by incorrect format. As a result, the query does not produce the `rejected_rows` error file.
+
+
+
 

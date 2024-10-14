@@ -3,7 +3,7 @@ layout: default
 title: Window functions
 description: Reference for window functions
 nav_order: 14
-parent: Window functions
+parent: SQL functions
 has_children: true
 ---
 

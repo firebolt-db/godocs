@@ -12,7 +12,7 @@ published: true
 
 Returns natural (base e) logarithm of a numerical expression.
 The value for which `ln` is computed needs to be larger than 0, otherwise an error is returned.
-You can use the function [`LOG`](log.md) if you want to provide a different base.
+You can use the function [LOG](log.md) if you want to provide a different base.
 
 ## Syntax
 {: .no_toc}

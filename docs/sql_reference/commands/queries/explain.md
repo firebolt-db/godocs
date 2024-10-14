@@ -1,16 +1,14 @@
 ---
 layout: default
 title: EXPLAIN
-great_grand_parent: SQL reference
-grand_parent: SQL commands
 parent: Queries
 ---
 
 # EXPLAIN
 
-The `EXPLAIN` feature in Firebolt is a powerful tool that helps you understand how the system executes a query. It provides insight into the execution plan that Firebolt will use to compute the result of your query. This information is crucial for query optimization and understanding the performance of your SQL queries.
+The `EXPLAIN` feature analyzes and displays how Firebolt's query processing system runs your query. You can use this information to understand resource utilization, and identify opportunities to improve and optimize your query performance.
 
-If you specify the `ANALYZE` option for `EXPLAIN`, Firebolt also executes the query and collects detailed metrics about each operator, such as how much time is spent on the operator, and how much data it processes.
+If you specify the `ANALYZE` option for `EXPLAIN`, Firebolt also collects detailed metrics about each operator during query runtime, including the amount of time spent on the operator, and how much data it processes.
 
 ## Syntax
 
@@ -21,25 +19,26 @@ EXPLAIN [( <option_name> [<option_value>] [, ...] )] <select_statement>
 | Parameter            | Description                                                                 |
 | :------------------- | :-------------------------------------------------------------------------- |
 | `option_name`        | The name of an option. See below for a list of all available options.       |
-| `option_value`       | The value of the option. If no value is specified, it is `TRUE` by default. |
+| `option_value`       | The value of the option. If no value is specified, the default is `TRUE`. |
 | `<select_statement>` | Any select statement.                                                       |
 
 ## Explain Options
 
-The output of `EXPLAIN` can be augmented by specifying options. The following table lists all available options:
+You can augment the output of `EXPLAIN` by specifying options. The following table lists all available options and their functionalities:
 
-| Option Name | Option Values   | Description                                                                                                                                                                               |
-| :---------- | :-------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `LOGICAL`   | `TRUE`, `FALSE` | Returns the optimized logical query plan. This plan is returned by default.                                                                                                               |
-| `PHYSICAL`  | `TRUE`, `FALSE` | Returns the optimized physical query plan containing shuffle operators for queries on distributed engines. This gives insights how work is distributed between the nodes of an engine.    |
-| `ANALYZE`   | `TRUE`, `FALSE` | Executes the query and returns the optimized physical query plan annotated with metrics from query execution. The metrics are explained in [Example with ANALYZE](#example-with-analyze). |
-| `ALL`       | `TRUE`, `FALSE` | Executing `EXPLAIN (ALL) <select statement>` returns the `LOGICAL`, `PHYSICAL`, and `ANALYZE` plans.                                                                                      |
+| Option Name  | Option Values   | Description                                                                                                                                                                               |
+| :----------- | :-------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `LOGICAL`    | `TRUE`, `FALSE` | Returns the optimized logical query plan by default, unless otherwise specified.                                                                                                               |
+| `PHYSICAL`   | `TRUE`, `FALSE` | Returns an optimized physical query plan containing shuffle operators for queries on distributed engines, showing how work is distributed between nodes of an engine.    |
+| `ANALYZE`    | `TRUE`, `FALSE` | Returns an optimized physical query plan annotated with metrics from query execution. For more information about these metrics, see [Example with ANALYZE](#example-with-analyze). |
+| `ALL`        | `TRUE`, `FALSE` | Returns all of the previous `LOGICAL`, `PHYSICAL`, and `ANALYZE` plans. Use the following sample syntax: `EXPLAIN (ALL) <select statement>`.                                                                                      |
+| `STATISTICS` | `TRUE`, `FALSE` | Returns an annotated query plan that includes estimates from Firebolt's query optimizer. This option works with `LOGICAL`, `PHYSICAL`, `ANALYZE`, and `ALL`. Use the following sample syntax: `EXPLAIN (STATISTICS) <select statement>`.          |
 
-You many only specify one of the options `LOGICAL`, `PHYSICAL`, `ANALYZE`. If you need to view several plans at once, please use the `ALL` option.
+You may specify only one of the following options: `LOGICAL`, `PHYSICAL`, `ANALYZE`, and `ALL`. If you need to view several plans at once, use the `ALL` option.
 
 ## Example
 
-The example below demonstrates an `EXPLAIN` statement for a `SELECT` query on a table named `lineitem`.
+The following example shows how to generate an `EXPLAIN` statement for a `SELECT` query on a table named `lineitem`.
 
 ```sql
 EXPLAIN
@@ -70,7 +69,7 @@ ORDER BY
              \_[5] [StoredTable] Name: 'lineitem', used 5/16 column(s) FACT
 ```
 
-The `EXPLAIN` results indicate that this `SELECT` query will execute operations as follows. The Firebolt engine will:
+The `EXPLAIN` output shows the sequence of operations that Firebolt's engine will use to run the query:
 
 1. Read the required columns from the `lineitem` table.
 2. Filter the `lineitem` table by the `WHERE` conditions.
@@ -81,7 +80,7 @@ The `EXPLAIN` results indicate that this `SELECT` query will execute operations 
 
 ## Example with ANALYZE
 
-Now, we execute the same query on a multi-node engine, but with the `(ALL)` option specified. This is equivalent to writing `(ALL TRUE)` or `(LOGICAL, PHYSICAL, ANALYZE)`.
+The following code example runs the same query as the previous example on a multi-node engine using the `(ALL)` option, which is the same as specifying `(ALL TRUE)` or `(LOGICAL, PHYSICAL, ANALYZE)`.
 
 ```sql
 EXPLAIN (ALL)
@@ -104,11 +103,11 @@ ORDER BY
 **Returns:**
 
 Disclaimer
-: The exact format of this result is still subject to change.
+: The format of this result is subject to change.
 
-The query returns three columns `explain_logical`, `explain_physical`, and `explain_analyze`. They are presented in the following sections.
+The query in the previous example returns three columns `explain_logical`, `explain_physical`, and `explain_analyze`, as shown in the following sections.
 
-Each column can be turned off individually using the corresponding option. For example, to only show `explain_logical` and `explain_analyze`, we could either specify `(LOGICAL, ANALYZE)` or `(ALL, PHYSICAL FALSE)`. With the `ANALYZE` option set, this query took 4.7s to execute. If the `ANALYZE` option is not set, the query is not executed and should return the result almost immediately.
+Each column can be toggled on or off using the corresponding options. For example, to display only `explain_logical` and `explain_analyze`, you can specify either `(LOGICAL, ANALYZE)` or `(ALL, PHYSICAL FALSE)`. With the `ANALYZE` option enabled, this query took 4.7 seconds to run. Without the `ANALYZE` option, the query does not run and should return the result almost immediately.
 
 ### `EXPLAIN (LOGICAL)` output
 
@@ -127,7 +126,7 @@ Each column can be turned off individually using the corresponding option. For e
                    [RowType]: bigint not null, double precision not null, text not null, text not null, date not null
 ```
 
-The `explain_logical` column shows the optimized logical query plan of the select statement. This is the same plan as in [Example](#example). Additionally, it shows the output row type for each operator. A variable `ref_2` refers to the second input column from the operator below. For the operators with multiple input operators like the `Join` operator, the input columns are concatenated. If the first input emits three columns, and the second input four columns, the columns of the first input are referred to as `ref_0` - `ref_2`, and the columns of the second input are referred to as `ref_3` - `ref-6`.
+The `explain_logical` column shows the optimized logical query plan of the `SELECT` statement, identical to the plan in [Example](#example). Additionally, it shows the output row type for each operator. The variable `ref_2` refers to the second input column from the operator below. For operators with multiple input operators such as the `Join` operator, input columns are concatenated. For example, if the first input produces three columns, and the second input produces four columns, the first input's columns are labeled `ref_0` to `ref_2`, while the second input's columns are labeled `ref_3` to `ref-6`.
 
 ### `EXPLAIN (PHYSICAL)` output
 
@@ -146,10 +145,10 @@ The `explain_logical` column shows the optimized logical query plan of the selec
              \_[5] [AggregateMerge] GroupBy: [ref_0, ref_1, ref_2] Aggregates: [avg2merge(ref_3)]
                |   [RowType]: bigint not null, text not null, date not null, double precision null
                 \_[6] [Shuffle] Hash by [ref_0, ref_1, ref_2]
-                  |   [RowType]: bigint not null, text not null, date not null, aggregatefunction2(avg2ornull, double precision not null) not null
+                  |   [RowType]: bigint not null, text not null, date not null, aggregatefunction(avg2ornull, double precision not null) not null
                   |   [Affinity]: many nodes
                    \_[7] [AggregateState partial] GroupBy: [ref_0, ref_2, ref_3] Aggregates: [avg2(ref_1)]
-                     |   [RowType]: bigint not null, text not null, date not null, aggregatefunction2(avg2ornull, double precision not null) not null
+                     |   [RowType]: bigint not null, text not null, date not null, aggregatefunction(avg2ornull, double precision not null) not null
                       \_[8] [Projection] ref_0, ref_1, ref_3, ref_4
                         |   [RowType]: bigint not null, double precision not null, text not null, date not null
                          \_[9] [Filter] (ref_2 = 'N'), (ref_4 > DATE '1996-01-01')
@@ -158,8 +157,9 @@ The `explain_logical` column shows the optimized logical query plan of the selec
                                   [RowType]: bigint not null, double precision not null, text not null, text not null, date not null
 ```
 
-The `explain_physical` column shows the more detailed optimized physical plan containing `Shuffle` operators for distributed query execution. It allows insights into how work is distributed across the nodes of an engine. A `Shuffle` operator redistributes data between the nodes of an engine. Scans of `FACT` tables, like operator `[9] [StoredTable]` in the example above, and the operators following it are automatically distributed across all nodes of an engine. A `Shuffle` operator of type `Hash` indicates that the work on the operators following it is distributed over all nodes, as well. A `Shuffle` operator of type `Gather` gathers all data on a single node of the engine. In the example above, only the operator `[1] [SortMerge]` is executed on a single node, merging the sorted partial query results from all other nodes.
-We also see the `MaybeCache` operator at the top of the plan. A `MaybeCache` operator caches its input in main memory on a best-effort basis for future executions of the same (sub-) query. It takes into account the entire plan leading to its input as well as the state of the scanned tables. If the data in a table changes, the `MaybeCache` operator will know not to read an outdated cached entry. It may also decide against caching a result if it is too large, or if caching a different result would save more time. A `MaybeCache` operator may appear in different places of a plan. In this query it is used to cache the full result of the query. You can learn more about the `MaybeCache` operator in our [guide on subresult resuse](../../../Guides/optimize-query-performance/understand-query-performance-subresult.md).
+The `explain_physical` column displays a detailed, optimized physical plan that includes Shuffle operators for distributed query execution, offering insights into how tasks are distributed across the engine's nodes. A `Shuffle` operator redistributes data across engine nodes. For example, scans of `FACT` tables, like operator `[9] [StoredTable]` in the previous example, and the operators following it are automatically distributed across all nodes of an engine. A `Shuffle` operator of type `Hash` indicates that the workload of the following operators is distributed across all nodes, while a `Shuffle` operator of type `Gather` consolidates data onto a single node of the engine. In the previous example, only the operator `[1] [SortMerge]` runs on a single node, merging the sorted partial query results from all other nodes.
+
+The `MaybeCache` operator, at the top of the plan, caches its input in main memory on a best-effort basis for future runs of the same (sub-) query. It considers the entire plan leading to its input, as well as the state of the scanned tables. If the data in a table changes, the `MaybeCache` operator will know not to read an outdated cached entry. It may also skip caching large results or prioritize caching results that offer greater time savings. The `MaybeCache` operator may appear in different places of a plan, but in this query it caches the full query result. For more information about the `MaybeCache` operator, see [Subresult Reuse in Firebolt](https://docs.firebolt.io/Guides/optimize-query-performance/understand-query-performance-subresult.html).
 
 ### `EXPLAIN (ANALYZE)` output
 
@@ -184,11 +184,11 @@ We also see the `MaybeCache` operator at the top of the plan. A `MaybeCache` ope
                |   [RowType]: bigint not null, text not null, date not null, double precision null
                |   [Execution Metrics]: output cardinality = 270958684, thread time = 90694ms, cpu time = 77308ms
                 \_[6] [Shuffle] Hash by [ref_0, ref_1, ref_2]
-                  |   [RowType]: bigint not null, text not null, date not null, aggregatefunction2(avg2ornull, double precision not null) not null
+                  |   [RowType]: bigint not null, text not null, date not null, aggregatefunction(avg2ornull, double precision not null) not null
                   |   [Affinity]: many nodes
                   |   [Execution Metrics]: output cardinality = 270958691, thread time = 27649ms, cpu time = 24247ms
                    \_[7] [AggregateState partial] GroupBy: [ref_0, ref_2, ref_3] Aggregates: [avg2(ref_1)]
-                     |   [RowType]: bigint not null, text not null, date not null, aggregatefunction2(avg2ornull, double precision not null) not null
+                     |   [RowType]: bigint not null, text not null, date not null, aggregatefunction(avg2ornull, double precision not null) not null
                      |   [Execution Metrics]: output cardinality = 270958691, thread time = 191561ms, cpu time = 184761ms
                       \_[8] [Projection] ref_0, ref_1, ref_3, ref_4
                         |   [RowType]: bigint not null, double precision not null, text not null, date not null
@@ -201,11 +201,11 @@ We also see the `MaybeCache` operator at the top of the plan. A `MaybeCache` ope
                                   [Execution Metrics]: output cardinality = 334006486, thread time = 29642ms, cpu time = 29608ms
 ```
 
-The `explain_analyze` column contains the same query plan as the `explain_physical` column, but annotated with metrics collected during query execution. For each operator, it shows the number of rows it produced (`output_cardinality`), and how much time was spent on that operator (`thread_time` and `cpu_time`). `thread_time` is the sum of the wall-clock time that threads spent working on this operator across all nodes. `cpu_time` is the sum of the time these threads where scheduled on a CPU core. If `cpu_time` is considerably smaller than `thread_time`, this indicates that the operator is waiting a lot on IO or the engine is under multiple queries at once.
+The `explain_analyze` column contains the same query plan as the `explain_physical` column, but annotated with metrics collected during query execution. For each operator, it shows the number of rows it produced in `output_cardinality`, and how much time was spent on that operator in `thread_time` and `cpu_time`. The `thread_time` is the sum of the wall-clock time that threads spent working on the operator across all nodes, while `cpu_time` is the total time those threads were scheduled on a CPU core. A significantly smaller `cpu_time` compared to `thread_time` suggests that the operator is either waiting on input or output operations or that the engine is handling multiple queries simultaneously.
 
 #### Analyzing the Metrics
 
-In the example above, the `cpu_time` is almost as high as the `thread_time` on the `StoredTable` node. This indicates that the data of the `lineitem` table was in the SSD cache. On a cold run of the same query where the data has to be fetched from S3, the output for the same operator shows a `thread_time` considerably higher than `cpu_time`:
+In the previous example, the `cpu_time` is almost as high as the `thread_time` on the `StoredTable` node. This indicates that the data of the `lineitem` table was in the SSD cache. On a cold query run, where data must be retrieved from an Amazon S3 bucket, `thread_time` is considerably higher than `cpu_time` for the same operator:
 
 ```
 [10] [StoredTable] Name: "lineitem", used 5/16 column(s) FACT, ref_0: "l_orderkey" ref_1: "l_discount" ref_2: "l_returnflag" ref_3: "l_linestatus" ref_4: "l_shipdate"
@@ -213,7 +213,7 @@ In the example above, the `cpu_time` is almost as high as the `thread_time` on t
     [Execution Metrics]: output cardinality = 334006486, thread time = 29642ms, cpu time = 29608ms
 ```
 
-Furthermore, we see that a lot of time is spent on sorting the query result:
+Additionally, a significant amount of time is devoted to sorting the query results:
 
 ```
 [2] [SortMerge] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last]
@@ -228,7 +228,7 @@ Furthermore, we see that a lot of time is spent on sorting the query result:
       |   [Execution Metrics]: output cardinality = 270958684, thread time = 286199ms, cpu time = 285590ms
 ```
 
-Thus, removing the `ORDER BY` can considerably speed up query execution. In this case, the execution time of the whole query almost halves from 1m19s to 47.3s. If we are only interested in the first results according to our specified sorting order, we can introduce a `LIMIT` operator to improve performance, as well. Adding a `LIMIT 10000` to the query gives the following output:
+Removing the `ORDER BY` can considerably speed up query runtimes. In this case, the total query time is nearly halved, dropping from 1 minute and 19 seconds to 47.3 seconds. If only the initial results in the specified sorting order are needed, introducing a `LIMIT` operator can further enhance performance. Adding `LIMIT 10000` to the query produces the following output:
 
 ```
 [2] [SortMerge] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last] Limit: [10000]
@@ -246,9 +246,9 @@ Thus, removing the `ORDER BY` can considerably speed up query execution. In this
          |   [Execution Metrics]: output cardinality = 270958684, thread time = 83213ms, cpu time = 74525ms
 ```
 
-The time spent in the `Sort` operator is almost an order of magnitude lower. The `Sort` operator takes the `LIMIT` clause directly into account and emits only the minimum number of rows it is required to. The execution time of the whole query is reduced from 1m19s to 40.3s. This is even more than the improvement by removing the `ORDER BY` clause, because less query result data needs to be serialized for returning it to the client.
+The time spent in the `Sort` operator is significantly reduced, nearly by an order of magnitude. The `Sort` operator takes the `LIMIT` clause directly into account and emits only the required minimum number of rows. This reduces the overall query time from 1 minute and 19 seconds to 40.3 seconds, which is an even greater improvement than removing the `ORDER BY` clause, as less result data needs to be serialized for client return.
 
-This also had a second benefit: The result is now small enough to be cached by the `MaybeCache` operator. Running the query with `LIMIT 10000` again gives the following output:
+A secondary benefit is that the result is now small enough to be cached by the `MaybeCache` operator. Running the query with `LIMIT 10000` again produces the following output:
 
 ```
 [0] [MaybeCache]
@@ -262,4 +262,4 @@ This also had a second benefit: The result is now small enough to be cached by t
       |   [Execution Metrics]: Nothing was executed
 ```
 
-The query finishes in under 10ms and every operator below `MaybeCache` reports `Nothing was executed` or `output cardinality = 0`. The `MaybeCache` operator found a cache entry for this physical plan using the same state of the `lineitem` table and returned the result. All operators required to produce the input to `MaybeCache` are therefore canceled and not executed.
+The query completes in under 10 ms, with each operator beneath `MaybeCache` indicating that either `Nothing was executed` or an `output cardinality` of `0`. The `MaybeCache` operator identified a cache entry for this physical plan, based on the unchanged state of the `lineitem` table, and returned the cached result. As a result, all operators required to generate input for `MaybeCache` were canceled and did not run.

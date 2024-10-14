@@ -29,7 +29,7 @@ System-defined roles can neither be modified nor dropped. Users with the `accoun
 
 ## Custom roles
 
-A user with the `account_admin` role can create custom roles. You can create a custom role using SQL, or via the UI.
+A user with the `account_admin` role can create custom roles. You can create a custom role using SQL, or via the user interface (UI).
 
 Privileges can be granted to a custom role either by the `account_admin` or by the owner of a resource. For example, a user who created a table can grant `SELECT` on that table to an arbitrary custom role.
 
@@ -41,7 +41,17 @@ An owner of an object can also grant privileges over that object to any role. A 
 
 ## Permissions
 
-A set of permissions can be granted to a custom role over the supported objects: account, database, engine, schema, table, or view. Available permissions for each object type are listed below. To view all current permissions, query the [information_schema.object_privileges](../../sql_reference/information-schema/object-privileges.md) view.
+A set of permissions can be granted to a custom role over the following supported objects: account, database, engine, schema, table, or view. Available permissions for each object type are listed as follows: 
+
+* To view permissions for schemas, tables and views in the current database, query the [information_schema.object_privileges](../../sql_reference/information-schema/object-privileges.md).
+
+* To view account, role, user, engine and database permissions, make sure that current database is **not** selected, and query the [information_schema.object_privileges](../../sql_reference/information-schema/object-privileges.md). To unselect current database in the the UI, choose the `None` option in [the current database selector](/assets/images/current_database_dropdown_none_option.png).
+
+{: .note}
+When the current database is selected, `information_schema.object_privileges` shows permissions only for objects in the current database. It doesn't show permissions for accounts, roles, users, engines, databases, and objects in other databases.
+
+{: .note}
+Select the current database with [USE DATABASE](../../sql_reference/commands/data-definition/use-database.md) or with the [database selector](/assets/images/current_database_dropdown.png) in the UI.
 
 ### Account
 
@@ -185,7 +195,7 @@ SELECT * FROM v; -- executed by user2 and fails because the view owner's role1 c
 ## Create role
 
 ### SQL
-To create a custom role using SQL, use the [`CREATE ROLE`](../../sql_reference/commands/access-control/create-role.md) statement. For example:
+To create a custom role using SQL, use the [CREATE ROLE](../../sql_reference/commands/access-control/create-role.md) statement. For example:
 
 ```sql
 CREATE ROLE user_role;
@@ -205,7 +215,7 @@ To create a custom role via the UI:
 <img src="../../assets/images/createrole.png" alt="Create role" width="500"/>
 
 ## Delete role
-To delete a custom role using SQL, use the [`DROP ROLE`](../../sql_reference/commands/access-control/drop-role.md) statement. For example:
+To delete a custom role using SQL, use the [DROP ROLE](../../sql_reference/commands/access-control/drop-role.md) statement. For example:
 
 ```sql
 DROP ROLE user_role;
@@ -223,7 +233,7 @@ To delete a custom role via the UI:
 ## Grant permissions to a role
 
 ### SQL 
-To grant a permission to a role using SQL, use the [`GRANT`](../../sql_reference/commands/access-control/grant.md) statement. For example:
+To grant a permission to a role using SQL, use the [GRANT](../../sql_reference/commands/access-control/grant.md) statement. For example:
 
 ```sql
 GRANT USAGE ON DATABASE my_db TO user_role;
@@ -244,7 +254,7 @@ To grant a permission to a role via the UI:
 ## Grant role
 
 ### SQL
-To grant a role to a user or another role using SQL, use the [`GRANT ROLE`](../../sql_reference/commands/access-control/grant.md) statement. For example:
+To grant a role to a user or another role using SQL, use the [GRANT ROLE](../../sql_reference/commands/access-control/grant.md) statement. For example:
 
 ```sql
 GRANT ROLE user_role TO ROLE user2_role;
@@ -265,7 +275,7 @@ To grant a role to a user via the UI:
 ## Revoke permissions 
 
 ### SQL 
-To revoke a permission from a role using SQL, use the [`REVOKE`](../../sql_reference/commands/access-control/revoke.md) statement. For example:
+To revoke a permission from a role using SQL, use the [REVOKE](../../sql_reference/commands/access-control/revoke.md) statement. For example:
 
 ```sql
 REVOKE USAGE ON DATABASE my_db FROM user_role;
@@ -277,7 +287,7 @@ To revoke a permission from a role via the UI, follow the [same steps above](#gr
 ## Revoke role 
 
 ### SQL 
-To revoke a role from a user or another role using SQL, use the [`REVOKE ROLE`](../../sql_reference/commands/access-control/revoke.md) statement. For example:
+To revoke a role from a user or another role using SQL, use the [REVOKE ROLE](../../sql_reference/commands/access-control/revoke.md) statement. For example:
 
 ```sql
 REVOKE ROLE user_role FROM USER alex;

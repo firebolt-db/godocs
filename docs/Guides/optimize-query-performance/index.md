@@ -37,3 +37,4 @@ For these workloads, Firebolt leverages multiple different optimizations.
 
 * [Reusing query sub-results](./understand-query-performance-subresult.md) to reduce redundant calculations across queries.
 * History-based query optimization, which leverages past query patterns to improve query plans for new queries.
+

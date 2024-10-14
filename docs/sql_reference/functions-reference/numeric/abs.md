@@ -32,9 +32,5 @@ ABS(<value>)
 
 The following example returns the absolute value of `-200.5`:
 
-```sql
-SELECT
-    ABS(-200.50);
-```
+{% include sql_examples/abs.md %}
 
-**Returns**: `200.5`

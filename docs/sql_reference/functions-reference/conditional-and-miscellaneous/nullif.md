@@ -10,7 +10,7 @@ parent: Conditional and miscellaneous functions
 # NULLIF
 
 The `NULLIF` function compares the values of its parameters and returns `NULL` if they are equal. Otherwise, it returns the value of its first parameter. 
-Therefore, `NULLIF` performs the inverse operation of the [`COALESCE`](./coalesce.md) function.
+Therefore, `NULLIF` performs the inverse operation of the [COALESCE](./coalesce.md) function.
 
 ## Syntax
 {: .no_toc}

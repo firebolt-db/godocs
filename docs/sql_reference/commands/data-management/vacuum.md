@@ -10,7 +10,7 @@ parent: Data management
 # VACUUM
 Optimizes tablets for query performance.
 
-`VACUUM` optimizes tablets for query performance. DML operations (such as [`DELETE`](delete.md), [`UPDATE`](update.md), [`INSERT`](insert.md) and [`COPY FROM`](copy-from.md)) might create tablets that are not optimally sized. Suboptimal tablets occur because DML efficiently utilizes resources in proportion to the cardinality of the data being inserted. In addition to standard SQL operations, tuples that are deleted by an update are not always physically removed from their table; they remain present until a `VACUUM` is done. In other words, tablets are not necessarily optimal for running queries; therefore, it’s necessary to do `VACUUM` periodically, especially on frequently updated tables.
+`VACUUM` optimizes tablets for query performance. DML operations (such as [DELETE](delete.md), [UPDATE](update.md), [INSERT](insert.md) and [COPY FROM](copy-from.md)) might create tablets that are not optimally sized. Suboptimal tablets occur because DML efficiently utilizes resources in proportion to the cardinality of the data being inserted. In addition to standard SQL operations, tuples that are deleted by an update are not always physically removed from their table; they remain present until a `VACUUM` is done. In other words, tablets are not necessarily optimal for running queries; therefore, it’s necessary to do `VACUUM` periodically, especially on frequently updated tables.
 
 ## Syntax
 
