@@ -24,7 +24,7 @@ You can launch the space for a database by clicking the **Develop** icon from th
 
 **Starting the Develop Space for the last database you worked with**
 
-1.  Choose the **>_** icon from the left navigation pane.
+1.  Choose the **</>** icon from the left navigation pane.
 
     <img src="../../assets/images/develop_workspace_ex0.png" alt="drawing" width="70%"/>
 
