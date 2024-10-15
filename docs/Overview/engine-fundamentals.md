@@ -39,7 +39,7 @@ A cluster is a collection of compute resources, described by “Type” and “N
 <br />
 The three attributes-  Type, Nodes and Clusters - together form the configuration or topology of an engine.
 
-To create an engine, use the [CREATE ENGINE command](../sql_reference/commands/engines/create-engine.md), specifying the node type to be used for the engine, number of clusters and number of nodes per cluster. For example, the command below will create an engine with node type ‘S’,  one cluster and four nodes per cluster:
+To create an engine, use the [CREATE ENGINE command](../sql_reference/commands/engines/create-engine.md), specifying the node type to be used for the engine, number of clusters and number of nodes per cluster. For example, the command below will create two clusters, each containing four nodes of type  ‘M’.
 
 ```sql
 CREATE ENGINE IF NOT EXISTS MyEngine WITH
