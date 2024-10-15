@@ -28,13 +28,13 @@ You can augment the output of `EXPLAIN` by specifying options. The following tab
 
 | Option Name  | Option Values   | Description                                                                                                                                                                               |
 | :----------- | :-------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `LOGICAL`    | `TRUE`, `FALSE` | Returns the optimized logical query plan by default, unless otherwise specified.                                                                                                               |
-| `PHYSICAL`   | `TRUE`, `FALSE` | Returns an optimized physical query plan containing shuffle operators for queries on distributed engines, showing how work is distributed between nodes of an engine.    |
-| `ANALYZE`    | `TRUE`, `FALSE` | Returns an optimized physical query plan annotated with metrics from query execution. For more information about these metrics, see [Example with ANALYZE](#example-with-analyze). |
-| `ALL`        | `TRUE`, `FALSE` | Returns all of the previous `LOGICAL`, `PHYSICAL`, and `ANALYZE` plans. Use the following sample syntax: `EXPLAIN (ALL) <select statement>`.                                                                                      |
-| `STATISTICS` | `TRUE`, `FALSE` | Returns an annotated query plan that includes estimates from Firebolt's query optimizer. This option works with `LOGICAL`, `PHYSICAL`, `ANALYZE`, and `ALL`. Use the following sample syntax: `EXPLAIN (STATISTICS) <select statement>`.          |
+| `LOGICAL`    | `TRUE`, `FALSE` | Returns the optimized logical query plan. This plan is returned by default.                                                                                                               |
+| `PHYSICAL`   | `TRUE`, `FALSE` | Returns the optimized physical query plan containing shuffle operators for queries on distributed engines. This plan provides insights how work is distributed between the nodes of an engine.    |
+| `ANALYZE`    | `TRUE`, `FALSE` | Runs the query and returns the optimized physical query plan, annotated with performance metrics. The metrics are explained in [Example with ANALYZE](#example-with-analyze). |
+| `ALL`        | `TRUE`, `FALSE` | Runs `EXPLAIN (ALL) <select statement>`, and returns the `LOGICAL`, `PHYSICAL`, and `ANALYZE` plans.                                                                                      |
+| `STATISTICS` | `TRUE`, `FALSE` | Runs `EXPLAIN (STATISTICS) <select statement>`, and adds annotations from Firebolt's query optimizer.  Compatible with `LOGICAL`, `PHYSICAL`, `ANALYZE`, and `ALL`. Example usage: `EXPLAIN (LOGICAL, STATISTICS)`.      |
 
-You may specify only one of the following options: `LOGICAL`, `PHYSICAL`, `ANALYZE`, and `ALL`. If you need to view several plans at once, use the `ALL` option.
+You may only specify one of the options `LOGICAL`, `PHYSICAL`, `ANALYZE`. If you need to view several plans at once, use the `ALL` option.
 
 ## Example
 
@@ -262,4 +262,61 @@ A secondary benefit is that the result is now small enough to be cached by the `
       |   [Execution Metrics]: Nothing was executed
 ```
 
-The query completes in under 10 ms, with each operator beneath `MaybeCache` indicating that either `Nothing was executed` or an `output cardinality` of `0`. The `MaybeCache` operator identified a cache entry for this physical plan, based on the unchanged state of the `lineitem` table, and returned the cached result. As a result, all operators required to generate input for `MaybeCache` were canceled and did not run.
+The query finishes in under 10ms and every operator below `MaybeCache` reports `Nothing was executed` or `output cardinality = 0`. The `MaybeCache` operator found a cache entry for this physical plan using the same state of the `lineitem` table and returned the result. All operators required to produce the input to `MaybeCache` are therefore canceled and not executed.
+
+## Example with STATISTICS
+
+The following code example uses the `STATISTICS` option to display the logical and physical query plan for the `SELECT` statement, annotated with estimated statistics from Firebolt's query optimizer:
+
+
+```sql
+EXPLAIN (STATISTICS)
+SELECT
+	l_shipdate,
+	l_linestatus,
+	l_orderkey,
+	AVG(l_discount)
+FROM
+	lineitem
+WHERE
+	l_returnflag = 'N'
+	AND l_shipdate > '1996-01-01'
+GROUP BY
+	ALL
+ORDER BY
+	1,2,3,4;
+```
+
+In the following output, each plan node is annotated with a `[Logical Profile]`, indicating the `source` of the estimation for that node.
+
+```
+explain TEXT
+[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, lineitem.l_orderkey, avg2(lineitem.l_discount)
+|   [RowType]: date not null, text not null, bigint not null, numeric(12, 2) null
+|   [Logical Profile]: [source: estimated]
+ \_[1] [Sort] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, lineitem.l_orderkey Ascending Last, avg2(lineitem.l_discount) Ascending Last]
+   |   [RowType]: bigint not null, text not null, date not null, numeric(12, 2) null
+   |   [Logical Profile]: [source: estimated]
+    \_[2] [Aggregate] GroupBy: [lineitem.l_orderkey, lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg2(lineitem.l_discount)]
+      |   [RowType]: bigint not null, text not null, date not null, numeric(12, 2) null
+      |   [Logical Profile]: [source: estimated]
+       \_[3] [Projection] lineitem.l_orderkey, lineitem.l_discount, lineitem.l_linestatus, lineitem.l_shipdate
+         |   [RowType]: bigint not null, numeric(12, 2) not null, text not null, date not null
+         |   [Logical Profile]: [source: estimated]
+          \_[4] [Filter] (lineitem.l_returnflag = 'N'), (lineitem.l_shipdate > DATE '1996-01-01')
+            |   [RowType]: bigint not null, numeric(12, 2) not null, text not null, text not null, date not null
+            |   [Logical Profile]: [source: estimated]
+             \_[5] [StoredTable] Name: "lineitem", used 5/16 column(s) FACT
+                   [RowType]: bigint not null, numeric(12, 2) not null, text not null, text not null, date not null
+                   [Logical Profile]: [source: metadata]
+```
+
+The possible sources are as follows:
+
+| **Source** | **Description** |
+|-|-|
+| `hardcoded` | This node received hard-coded defaults because no additional information is available, a scenario that typically occurs only with external tables. |
+| `estimated` | This node’s profile was computed from its child nodes' profiles, based on assumptions about the data that may not always hold true. These assumptions can introduce inaccuracies, which may be further amplified. |
+| `metadata` | This node's profile was constructed from available metadata, ensuring that the information is either precise or highly accurate. |
+| `history` | This node's profile was obtained from a previously recorded run, and is accurate unless data has changed since the recording. |
+| `learned` | This node's profile was predicted using machine learning. |
