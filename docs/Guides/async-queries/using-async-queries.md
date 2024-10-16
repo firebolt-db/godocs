@@ -68,3 +68,6 @@ CALL get_async_query_status('<token>'); -- This will return the status of the qu
 | retries                     | LONG        | Number of times the async query has retried. |
 | scanned_bytes               | LONG        | Number of bytes scanned by the async query. |
 | scanned_rows                | LONG        | Number of rows scanned by the async query. |
+
+# Permissions
+The user calling `get_async_query_status` must have permissions to view the query. A user always has permission to view their own queries. To see another user's queries, they must have MONITOR ENGINE or MONITOR ALL privileges.
