@@ -102,7 +102,7 @@ Permissions can be granted on databases to allow usage and modification of datab
 | USAGE              | Enables using the database and attaching engines to it. |
 | MODIFY             | Enables altering the properties of a database and dropping it. |
 | USAGE ANY SCHEMA   | Enables using all current and future schemas in the database.    |
-| VACUUM ANY TABLE   | Enables [VACUUM](../../sql_reference/commands/data-management/vacuum.md) on all existing and future tables in the database.    |
+| VACUUM ANY         | Enables [VACUUM](../../sql_reference/commands/data-management/vacuum.md) on all existing and future tables in the database.    |
 
 #### Schema
 
@@ -179,16 +179,18 @@ When selecting over a view, the user executing a query needs to have a `SELECT` 
 CREATE USER user1 WITH ROLE=role1;
 CREATE USER user2 WITH ROLE=role2;
 
-CREATE TABLE t (a int); -- executed by user1
-CREATE VIEW v AS SELECT * FROM t; -- executed by user1
+CREATE TABLE base_table (a int); -- executed by user1
+CREATE VIEW view_over_base_table AS SELECT * FROM base_table; -- executed by user1
 
-GRANT SELECT ON v TO role2;
-REVOKE SELECT ON t FROM role2;
-SELECT * FROM v; -- executed by user2, successfully
+GRANT SELECT ON VIEW view_over_base_table TO role2;
+REVOKE SELECT ON TABLE base_table FROM role2;
+
+SELECT * FROM base_table; -- executed by user2, fails with an authorization error
+SELECT * FROM view_over_base_table; -- executed by user2, successfully
 
 REVOKE USAGE ON SCHEMA public FROM role1;
 -- role1 no longer has no access to the table due to missing schema usage privileges
-SELECT * FROM v; -- executed by user2 and fails because the view owner's role1 cannot access table t
+SELECT * FROM view_over_base_table; -- executed by user2 and fails because the view owner's role1 cannot access table t
 ```
 
 

@@ -38,7 +38,7 @@ GRANT ROLE <role_name> TO { USER <user_name> | ROLE <role2_name> }
 
 ## Example
 
-The following command will grant USAGE permissions on the database "my_db" to the role "user_role".
+The following command will grant `USAGE` permission on the database `my_db` to the role `user_role`.
 
 ```sql
 GRANT USAGE ON DATABASE my_db TO user_role;
@@ -46,8 +46,17 @@ GRANT USAGE ON DATABASE my_db TO user_role;
 
 ## Example 2
 
-The following command will grant USAGE permissions on all databases in the account "dev" to the role "user_role".
+The following command will grant `USAGE` permissions on all databases in the account `dev` to the role `user_role`.
 
 ```sql
 GRANT USAGE ANY DATABASE ON ACCOUNT dev TO user_role;
 ```
+
+## Example 3
+
+The following command will grant `SELECT` permission on table `my_table` to the role `user_role`.
+
+```sql
+GRANT SELECT ON TABLE my_table TO user_role;
+```
+
