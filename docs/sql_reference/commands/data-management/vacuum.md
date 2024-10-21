@@ -84,9 +84,9 @@ The first select is executed on data with a lot of deleted rows, while the secon
 
 | NO  | STATEMENT                                | STATUS   | DURATION   |
 |:----|:-----------------------------------------|:---------|:-----------|
-| 3   | SELECT hash_agg(*) FROM tutorial_vacuum; | Success  | 0.82 s     |
-| 2   | VACUUM tutorial_vacuum;                  | Success  | 17.53 s    |
 | 1   | SELECT hash_agg(*) FROM tutorial_vacuum; | Success  | 4.43 s     |
+| 2   | VACUUM tutorial_vacuum;                  | Success  | 17.53 s    |
+| 3   | SELECT hash_agg(*) FROM tutorial_vacuum; | Success  | 0.82 s     |
 
 
 Note that the first select was running for more than 4 seconds while exactly the same select after VACUUM completes in less than a second. 
