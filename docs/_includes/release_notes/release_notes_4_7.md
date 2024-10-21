@@ -28,7 +28,7 @@ The query previously returned `{NULL}, {1}, NULL`, but now returns `NULL, {1}, {
 **Allowed use of the SESSION_USER function without parentheses**
 {: style="color:red;"}
 
-The `SESSION_USER` function can now be used without parentheses, like this: `SELECT SESSION_USER`. As a result, any column named `session_user` now needs to be enclosed in double quotes as follows: `SELECT 1 as "session_user"` or `SELECT "session_user" FROM table`.
+The `SESSION_USER` function can now be used without parentheses, like this: `SELECT SESSION_USER`. As a result, any column named `session_user` now needs to be enclosed in double quotes as follows: `SELECT 1 AS "session_user"` or `SELECT "session_user" FROM table`.
 
 
 ### New Features
@@ -40,7 +40,7 @@ You can now apply Snappy compression, which is faster than GZIP, when using `COP
 
 <!-- Auto Generated Markdown for FIR-36415 - Owned by Pascal Schulze -->
 **Added `information_schema.engine_user_query_history` view to log only user-initiated queries**<br/>
-Added a new query history view, `information_schema.engine_user_query_history` that shows all queries initiated by users. This view filters information from `information_schema.engine_query_history` view, which logs all engine queries including system-generated ones like UI updates and page-load requests.
+Added a new query history view, `information_schema.engine_user_query_history`, which shows all queries initiated by users. This view filters information from `information_schema.engine_query_history` view, which logs all engine queries including system-generated ones like UI updates and page-load requests.
 
 
 <!-- Markdown for FIR-35689 - Owned by Mariia Kaplun -->
