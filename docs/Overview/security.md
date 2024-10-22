@@ -219,6 +219,6 @@ Firebolt uses secure communication protocols, such as Transport Layer Security (
 {: .no_toc}
 
 ### HIPAA compliance
-HIPAA compliance consists of federal regulations designed to safeguard the privacy and security of patient health information. Firebolt now supports HIPAA compliance to ensure the confidentiality, integrity, and availability of electronic protected health information (ePHI) stored within its platform.
+HIPAA compliance consists of federal regulations designed to safeguard the privacy and security of patient health information. Firebolt supports HIPAA compliance to ensure the confidentiality, integrity, and availability of electronic protected health information (ePHI) stored within its platform.
 
 To modify the state of HIPAA compliance for your account, contact the [Firebolt support team](mailto:support@firebolt.io).
