@@ -58,6 +58,8 @@ Caching remains enabled by default. This setting allows users to temporarily dis
 **Added "FROM first" syntax allowing the `FROM` clause to precede the `SELECT` clause**<br/>
 Added support for the "FROM first" syntax, which allows placing the `FROM` clause before the `SELECT` clause, for example `FROM t SELECT a, SUM(b) GROUP BY a`. You can now also omit the `SELECT` clause, as in `FROM t`.
 
+**Introduced a new function `GEN_RANDOM_UUID_TEXT` to generate a universally unique identifier (UUID)**<br/>
+The new function `GEN_RANDOM_UUID_TEXT` accepts no arguments and returns a version `4` UUID as defined by [RFC-4122](https://tools.ietf.org/html/rfc4122#section-4.4) as a `TEXT` value.
 
 <!-- Auto Generated Markdown for FIR-36609 - Owned by Mosha Pasumansky -->
 **Introduced `~` and `!~` operators as aliases for `REGEXP_LIKE` and `NOT REGEXP_LIKE`**<br/>
