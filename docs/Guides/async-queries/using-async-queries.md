@@ -78,5 +78,19 @@ CALL fb_GetAsyncStatus('<token>'); -- This will return the status of the query.
 | scanned_bytes               | LONG        | Number of bytes scanned by the async query. |
 | scanned_rows                | LONG        | Number of rows scanned by the async query. |
 
+## Token discovery
+The token for checking the status is available in the original repsonse, but it is also available via the [engine_running_queries](../../sql_reference/information-schema/engine-running-queries.md) and [engine_query_history](../../sql_reference/information-schema/engine-query-history.md) views. 
+
+### Example queries
+```sql
+SELECT query_id, async_token 
+FROM information_schema.engine_running_queries
+LIMIT 100;
+
+SELECT query_id, async_token 
+FROM information_schema.engine_query_history
+LIMIT 100;
+```
+
 # Permissions
 The user calling `fb_GetAsyncStatus` must have permissions to view the query. A user always has permission to view their own queries. To see another user's queries, they must have MONITOR ENGINE or MONITOR ALL privileges.
