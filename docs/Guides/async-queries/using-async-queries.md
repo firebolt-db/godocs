@@ -15,7 +15,16 @@ Async queries should be used for any supported operation that may take more than
 - Engine operations (START ENGINE, STOP ENGINE, ALTER ENGINE, etc.)
 
 # How to submit an async query
-A query can be marked as async by setting the query parameter `async=true`. The query will return as soon as the query is accepted by the engine and will contain a response header `Firebolt-Async-Handler=<token>`. That token can then be used to look up the status.
+A query can be marked as async by setting the query parameter `async=true`. The query will return as soon as the query is accepted by the engine with HTTP status 202, and the body will contain the token. 
+
+## Example body
+```
+{
+  "message": "the query was accepted for async processing",
+  "token": ["<token>"],
+  "monitorSql": "CALL fb_GetAsyncStatus('<token>');"
+}
+```
 
 If you are using the firebolt UI or a supported SDK, async handling in the client may already be implemented in an idiomatic way. 
 
@@ -25,7 +34,7 @@ If you are using the firebolt UI or a supported SDK, async handling in the clien
 - JDBC driver
 
 # How to check the status of an async query
-The status of an async query can be checked via the built in stored procedure `get_async_query_status`. This will return all the information needed to evaluate if the query was successful or not:
+The status of an async query can be checked via the built in stored procedure `fb_GetAsyncStatus`. This will return all the information needed to evaluate if the query was successful or not:
 
 ## Example
 ```sql
@@ -47,12 +56,12 @@ GROUP BY idMod7; -- This will return right away, even if the query isn't finishe
 
 SET async=false;
 
-CALL get_async_query_status('<token>'); -- This will return the status of the query.
+CALL fb_GetAsyncStatus('<token>'); -- This will return the status of the query.
 ```
 
-## Columns in the response of get_async_query_status
+## Columns in the response of fb_GetAsyncStatus
 
-`CALL get_async_query_status` will return a single row in the following schema.
+`CALL fb_GetAsyncStatus` will return a single row in the following schema.
 
 | Column Name                 | Data Type   | Description |
 | :---------------------------| :-----------| :-----------|
@@ -70,4 +79,4 @@ CALL get_async_query_status('<token>'); -- This will return the status of the qu
 | scanned_rows                | LONG        | Number of rows scanned by the async query. |
 
 # Permissions
-The user calling `get_async_query_status` must have permissions to view the query. A user always has permission to view their own queries. To see another user's queries, they must have MONITOR ENGINE or MONITOR ALL privileges.
+The user calling `fb_GetAsyncStatus` must have permissions to view the query. A user always has permission to view their own queries. To see another user's queries, they must have MONITOR ENGINE or MONITOR ALL privileges.
