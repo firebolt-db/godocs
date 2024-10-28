@@ -6,6 +6,11 @@ parent: Overview # FIXME
 nav_order: 1 # FIXME
 ---
 
+# What are async queries?
+Usually, when a query is submitted to firebolt, the http connection is kept open for the duration of the query, with the status and results returned as they are available. For some operations though, this model doesn't make sense. Queries like insert, vacuum, or copy to may run for a long time, and return 0 rows at the end anyway. Keeping an HTTP connection open for a very long time can also be unreliable. By default, these types of queries continue to run on connection drops, but can be challenging to check and reason about after the connection has dropped.
+
+The solution to this problem is async queries. When an async query is submitted, the client gets a successful response as soon as it is accepted by the cluster. The client can then check the status of the query at a frequency that is meaningful to them and dependent on the amount of time the query is expected to take.
+
 # When to use async queries
 Async queries should be used for any supported operation that may take more than a few minutes for which there are no results.
 
@@ -32,6 +37,7 @@ If you are using the firebolt UI or a supported SDK, async handling in the clien
 
 - Firebolt UI
 - JDBC driver
+- Python driver
 
 # How to check the status of an async query
 The status of an async query can be checked via the built in stored procedure `fb_GetAsyncStatus`. This will return all the information needed to evaluate if the query was successful or not:
@@ -57,6 +63,9 @@ GROUP BY idMod7; -- This will return right away, even if the query isn't finishe
 SET async=false;
 
 CALL fb_GetAsyncStatus('<token>'); -- This will return the status of the query.
+
+-- Eventually, after the insert is finished
+SELECT * FROM test; -- Should return 7 rows
 ```
 
 ## Columns in the response of fb_GetAsyncStatus
