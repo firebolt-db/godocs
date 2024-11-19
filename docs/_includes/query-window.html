@@ -1,0 +1,12 @@
+<div class="query-window">
+  <div class="query-toolbar">
+    <span class="window-title">Try it yourself 🔥</span>
+    <button class="run-button" onclick="runQuery(this)">Run Query</button>
+  </div>
+  <div class="query-content">
+    <pre><code class="firebolt-sql language-sql" contenteditable="true" spellcheck="false">{% include {{ include.sql_file }} %}</code></pre>
+    <div class="query-results hidden">
+      <div class="results-content"></div>
+    </div>
+  </div>
+</div>

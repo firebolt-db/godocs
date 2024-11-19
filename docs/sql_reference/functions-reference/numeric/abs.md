@@ -32,5 +32,4 @@ ABS(<value>)
 
 The following example returns the absolute value of `-200.5`:
 
-{% include sql_examples/abs.md %}
-
+{% include query-window.html sql_file="sql_examples/abs.sql" %}
