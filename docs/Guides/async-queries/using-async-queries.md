@@ -31,7 +31,7 @@ A query can be marked as async by setting the query parameter `async=true`. The 
 }
 ```
 
-If you are using the firebolt UI or a supported SDK, async handling in the client may already be implemented in an idiomatic way. 
+If you are using the firebolt UI or a supported SDK, async handling in the client may already be implemented in an idiomatic way. Your SDK or client should be using firebolt protocal version 2.3 or newer to submit an async query. Query status can be checked using any client at protocal version 2.1 or newer.
 
 ## List of clients with async handling built in
 
@@ -88,16 +88,12 @@ SELECT * FROM test; -- Should return 7 rows
 | scanned_rows                | LONG        | Number of rows scanned by the async query. |
 
 ## Token discovery
-The token for checking the status is available in the original repsonse, but it is also available via the [engine_running_queries](../../sql_reference/information-schema/engine-running-queries.md) and [engine_query_history](../../sql_reference/information-schema/engine-query-history.md) views. 
+The token for checking the status is available in the original repsonse, but it is also available via the [engine_running_queries](../../sql_reference/information-schema/engine-running-queries.md) view. 
 
 ### Example queries
 ```sql
 SELECT query_id, async_token 
 FROM information_schema.engine_running_queries
-LIMIT 100;
-
-SELECT query_id, async_token 
-FROM information_schema.engine_query_history
 LIMIT 100;
 ```
 
