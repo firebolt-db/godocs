@@ -9,15 +9,18 @@
   // Query editor
   code.firebolt-sql {
     display: block;
-    min-height: 1.2em;
-    padding: 8px;
+    min-height: 4em;
+    padding: 16px;
     cursor: text;
     font-size: 14px;
+    background: #f5f2f0;
+    width: 100%;
+    box-sizing: border-box;
+    white-space: pre;
     
     // Prism syntax highlighting
     &.language-sql {
       font-family: var(--mono-font);
-      background: #f5f2f0;
     }
     
     .token {
@@ -31,11 +34,9 @@
       }
     }
     
-    &:empty::before {
-      content: '\200B';
-      display: inline-block;
-      width: 100%;
-      height: 100%;
+    &:empty {
+      display: block;
+      min-height: 100px;
     }
     
     br {
@@ -79,19 +80,25 @@
   .query-content {
     pre {
       margin: 0;
-      padding: 16px;
+      padding: 0;
+      min-height: 4em;
+      font-size: 0; // removes whitespace at the bottom of the query box 
       
       code {
         font-family: monospace;
         font-size: 14px;
         line-height: 1.5;
         outline: none;
+        display: block;
+        height: 100%;
+        margin: 0;
       }
     }
     
     .query-results {
       padding: 16px;
       border-top: 1px solid #e1e4e8;
+      margin: 0;
       
       &.hidden {
         display: none;

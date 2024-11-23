@@ -1,18 +1,25 @@
-// For all interactive Firebolt code blocks, highlight the code and re-highlight on input
 document.addEventListener('DOMContentLoaded', function() {
   if (typeof Prism !== 'undefined') {
     const codeBlocks = document.querySelectorAll('code.firebolt-sql');
     codeBlocks.forEach(block => {
+      // Add a non-breaking space if empty
+      if (!block.textContent.trim()) {
+        block.textContent = ' ';
+      }
+      
       // Highlight code on load
       Prism.highlightElement(block);
       
       // Re-highlight code on input
       block.addEventListener('input', () => {
+        if (!block.textContent.trim()) {
+          // We never allow a fully empty code block, this leads to the cursor being in the wrong place
+          block.textContent = ' ';
+        }
         const pos = saveCaretPosition(block);
         Prism.highlightElement(block);
         restoreCaretPosition(block, pos);
       });
-
     });
   }
 });
