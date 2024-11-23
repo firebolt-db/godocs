@@ -1,1 +1,1 @@
-SELECT SIN(0) as result;
+SELECT ROUND(SIN(PI()), 5) as result;

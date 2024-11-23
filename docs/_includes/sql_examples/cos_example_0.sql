@@ -1,1 +1,1 @@
-SELECT COS(PI()) as result;
+SELECT COS(0) as result;
