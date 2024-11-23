@@ -1,0 +1,1 @@
+SELECT VECTOR_INNER_PRODUCT([3, 4], [-4, 3]) AS product;

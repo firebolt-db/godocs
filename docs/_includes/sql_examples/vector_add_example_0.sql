@@ -1,0 +1,1 @@
+select vector_add([1, 2, 5], [3, 4, -2]) as res

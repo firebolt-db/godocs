@@ -1,0 +1,1 @@
+SELECT BTRIM('xyxyThe Acceleration Cupyyxx', 'xy') as result;

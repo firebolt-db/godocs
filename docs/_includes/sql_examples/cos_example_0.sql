@@ -1,0 +1,1 @@
+SELECT COS(1.57) as result;

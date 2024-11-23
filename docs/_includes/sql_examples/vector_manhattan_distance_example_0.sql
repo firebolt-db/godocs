@@ -1,0 +1,1 @@
+SELECT VECTOR_MANHATTAN_DISTANCE([1, 4], [3, 2]) AS distance;

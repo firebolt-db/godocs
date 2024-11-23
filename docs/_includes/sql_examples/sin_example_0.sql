@@ -1,0 +1,1 @@
+SELECT SIN(1.57) as result;
