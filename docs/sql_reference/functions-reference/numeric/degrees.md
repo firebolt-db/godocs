@@ -33,4 +33,4 @@ DEGREES(<value>)
 ## Example
 {: .no_toc}
 
-{% include sql_examples/degrees.md %}
+{% include sql_examples/degrees_executable.md %}
