@@ -1,4 +1,8 @@
-The following query calculates the sine of 1.57 radians, which is approximately pi/2:
+The following query calculates the sin of pi, which is 0:
 
 {% include query-window.html sql_file="sql_examples/sin_example_0.sql" %}
+
+The following query calculates the sin of 0, which is 0:
+
+{% include query-window.html sql_file="sql_examples/sin_example_1.sql" %}
 

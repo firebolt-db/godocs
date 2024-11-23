@@ -1,1 +1,1 @@
-SELECT SIN(1.57) as result;
+SELECT SIN(PI()) as result;
