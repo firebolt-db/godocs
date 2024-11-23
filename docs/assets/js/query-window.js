@@ -1,28 +1,23 @@
+// For all interactive Firebolt code blocks, highlight the code and re-highlight on input
 document.addEventListener('DOMContentLoaded', function() {
   if (typeof Prism !== 'undefined') {
     const codeBlocks = document.querySelectorAll('code.firebolt-sql');
     codeBlocks.forEach(block => {
+      // Highlight code on load
       Prism.highlightElement(block);
       
+      // Re-highlight code on input
       block.addEventListener('input', () => {
         const pos = saveCaretPosition(block);
         Prism.highlightElement(block);
         restoreCaretPosition(block, pos);
-        
-        if (!block.textContent.trim()) {
-          block.innerHTML = '<br>';
-        }
       });
 
-      block.addEventListener('blur', () => {
-        if (!block.textContent.trim()) {
-          block.innerHTML = '<br>';
-        }
-      });
     });
   }
 });
 
+// Utility function used by the event listener above to save the caret position
 function saveCaretPosition(element) {
   const selection = window.getSelection();
   const range = selection.getRangeAt(0);
@@ -32,6 +27,7 @@ function saveCaretPosition(element) {
   return preSelectionRange.toString().length;
 }
 
+// Utility function used by the event listener above to restore the caret position
 function restoreCaretPosition(element, position) {
   const range = document.createRange();
   const selection = window.getSelection();
@@ -54,19 +50,17 @@ function restoreCaretPosition(element, position) {
   selection.addRange(range);
 }
 
+// Function that executes the query on Firebolt whenever the run button is clicked
 async function runQuery(button) {
   const queryWindow = button.closest('.query-window');
   const queryInput = queryWindow.querySelector('code.firebolt-sql');
   const resultsDiv = queryWindow.querySelector('.query-results');
-  const resultsContent = queryWindow.querySelector('.results-content');
 
   try {
-    if (!queryInput.getAttribute('contenteditable')) {
-      queryInput.setAttribute('contenteditable', 'true');
-    }
-
     const queryText = queryInput.textContent || '';
     
+    // Send the query to the Firebolt proxy endpoint.
+    // TODO(benjamin): Update once we have a real endpoint
     const queryResponse = await fetch('http://localhost:8000/execute-query', {
       method: 'POST',
       headers: {
@@ -77,20 +71,20 @@ async function runQuery(button) {
       })
     });
 
+    // Show the result section
     resultsDiv.classList.remove('hidden');
 
     const queryResult = await queryResponse.json();
     
     // Check for errors in the response
     if (queryResult.errors && queryResult.errors.length > 0) {
-      resultsContent.innerHTML = `
+      resultsDiv.innerHTML = `
         <div class="error-message">
           ${queryResult.errors.map(error => 
             `<div class="error-description">${error.description}</div>`
           ).join('')}
         </div>
       `;
-      resultsDiv.classList.remove('hidden');
       return;
     }
 
@@ -108,7 +102,7 @@ async function runQuery(button) {
       return value;
     };
 
-    // Create table HTML
+    // Create result table HTML
     const tableHTML = `
       <div class="table-container">
         ${queryResult.rows === 100 ? 
@@ -139,12 +133,11 @@ async function runQuery(button) {
       </div>
     `;
     
-    resultsContent.innerHTML = tableHTML;
-    resultsDiv.classList.remove('hidden');
+    resultsDiv.innerHTML = tableHTML;
 
   } catch (error) {
     console.error('Error:', error);
-    resultsContent.innerHTML = `<div class="error-message">${error.message}</div>`;
+    resultsDiv.innerHTML = `<div class="error-message">${error.message}</div>`;
     resultsDiv.classList.remove('hidden');
   }
 } 
