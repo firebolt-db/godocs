@@ -1,0 +1,1 @@
+SELECT ROUND(TAN(PI()), 5) as result;
