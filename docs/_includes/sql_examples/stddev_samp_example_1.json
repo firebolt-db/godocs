@@ -1,0 +1,14 @@
+{
+  "errors": [
+    {
+      "description": "Line 1, Column 52: Database 'docs_examples' does not exist or not authorized."
+    }
+  ],
+  "query": {
+    "query_id": "0a5bdcb7-6ad7-4ece-99ef-43dc96732547",
+    "request_id": "bd089051-3821-4e7f-888e-5e48bc79d13d"
+  },
+  "statistics": {
+    "elapsed": 0.0
+  }
+}

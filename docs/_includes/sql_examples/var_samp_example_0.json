@@ -1,0 +1,14 @@
+{
+  "errors": [
+    {
+      "description": "Multiple queries in a single request are not supported. Split the queries and send each one as an individual request."
+    }
+  ],
+  "query": {
+    "query_id": "4336a1c7-4f19-4018-89e1-0f41e0b89113",
+    "request_id": "6495e531-3ff2-4802-a1db-ecb4a334159d"
+  },
+  "statistics": {
+    "elapsed": 0.0
+  }
+}

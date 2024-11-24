@@ -17,8 +17,11 @@ def execute_query(query):
             json={'query': query},
             timeout=10
         )
-        response.raise_for_status()
-        return response.json()
+        try:
+            return response.json()
+        except json.JSONDecodeError:
+            print(f"Error decoding JSON response (status code: {response.status_code})")
+            return None
     except requests.exceptions.RequestException as e:
         print(f"Error executing query: {e}")
         return None

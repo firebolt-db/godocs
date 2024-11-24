@@ -1,0 +1,14 @@
+{
+  "errors": [
+    {
+      "description": "The system engine doesn't support CREATE AS SELECT statements. Run this statement on a user engine."
+    }
+  ],
+  "query": {
+    "query_id": "f76438ba-8382-4298-9078-963c428891fb",
+    "request_id": "6b124edb-fc95-42a2-84db-a1c9c8719231"
+  },
+  "statistics": {
+    "elapsed": 0.0
+  }
+}

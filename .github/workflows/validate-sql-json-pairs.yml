@@ -20,7 +20,7 @@ jobs:
         cd docs/_includes/sql_examples
         error=0
         # Initialize an empty file for our output
-        echo "" > temp_output.txt
+        touch temp_output.txt
         
         # Get list of modified SQL files in this PR
         modified_sql=$(git diff --name-only origin/${{ github.base_ref }} ${{ github.sha }} | grep '\.sql$' || true)
