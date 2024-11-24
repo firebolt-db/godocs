@@ -36,8 +36,11 @@ jobs:
           fi
         done
         
+        # Set the error status and validation output as separate outputs
         echo "error=$error" >> $GITHUB_OUTPUT
+        echo "output<<EOF" >> $GITHUB_OUTPUT
         cat temp_output.txt >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
 
     - name: Find SQL Validation Comment
       id: find-sql-validation
