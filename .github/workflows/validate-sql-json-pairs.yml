@@ -19,7 +19,8 @@ jobs:
       run: |
         cd docs/_includes/sql_examples
         error=0
-        output=""
+        # Initialize an empty file for our output
+        echo "" > temp_output.txt
         
         # Get list of modified SQL files in this PR
         modified_sql=$(git diff --name-only origin/${{ github.base_ref }} ${{ github.sha }} | grep '\.sql$' || true)
@@ -30,16 +31,13 @@ jobs:
           
           # Check if corresponding JSON was also modified
           if ! git diff --name-only origin/${{ github.base_ref }} ${{ github.sha }} | grep -q "$json_name"; then
-            output+="Error: $base_name was modified but $json_name was not updated
-"
+            echo "Error: $base_name was modified but $json_name was not updated" >> temp_output.txt
             error=1
           fi
         done
         
         echo "error=$error" >> $GITHUB_OUTPUT
-        echo "output<<EOF" >> $GITHUB_OUTPUT
-        echo "$output" >> $GITHUB_OUTPUT
-        echo "EOF" >> $GITHUB_OUTPUT
+        cat temp_output.txt >> $GITHUB_OUTPUT
 
     - name: Find SQL Validation Comment
       id: find-sql-validation
@@ -57,7 +55,11 @@ jobs:
         issue-number: ${{ github.event.pull_request.number }}
         body: |
           # $\color{red}{\text{❌ SQL/JSON Validation Status: FAILURE}}$
+          Please run `make package-missing-docs` to update the missing SQL/JSON pairs.
+
+          ```
           ${{ steps.check-sql-json.outputs.output }}
+          ```
         edit-mode: replace
 
 
