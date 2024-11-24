@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', function() {
   if (typeof Prism !== 'undefined') {
     const codeBlocks = document.querySelectorAll('code.firebolt-sql');
     codeBlocks.forEach(block => {
+      // Store the original query when the page loads
+      block.dataset.originalQuery = block.textContent;
+      
       // Add a non-breaking space if empty
       if (!block.textContent.trim()) {
         block.textContent = ' ';
@@ -62,27 +65,50 @@ async function runQuery(button) {
   const queryWindow = button.closest('.query-window');
   const queryInput = queryWindow.querySelector('code.firebolt-sql');
   const resultsDiv = queryWindow.querySelector('.query-results');
+  const fallbackResult = queryWindow.querySelector('.fallback-result').textContent;
+  // Load the original query from the data attribute.
+  const originalQuery = queryInput.dataset.originalQuery;
+
+  // Hide the server unavailable banner at the start of each query
+  queryWindow.querySelector('.server-unavailable-banner').classList.add('hidden');
 
   try {
     const queryText = queryInput.textContent || '';
     
-    // Send the query to the Firebolt proxy endpoint.
-    // TODO(benjamin): Update once we have a real endpoint
-    const queryResponse = await fetch('http://localhost:8000/execute-query', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        query: queryText
-      })
-    });
+    let queryResult;
+    try {
+      // Try to fetch from live server first
+      const queryResponse = await fetch('http://localhost:8000/execute-query', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          query: queryText
+        })
+      });
+
+      if (queryResponse.status === 429) {
+        // Check for rate limiting (HTTP 429 Too Many Requests)
+        throw new Error('Rate limited by Firebolt example server.');
+      } else {
+        queryResult = await queryResponse.json();
+      }
+    } catch (fetchError) {
+      // If server is unreachable, timed out, or rate limited, use fallback result
+      console.log('Using fallback result due to error:', fetchError);
+      // Install the fallback result for further processing.
+      queryResult = JSON.parse(fallbackResult);
+      queryInput.textContent = originalQuery;
+      Prism.highlightElement(queryInput);
+      
+      // Show the banner that the docs server is unavailable
+      queryWindow.querySelector('.server-unavailable-banner').classList.remove('hidden');
+    }
 
     // Show the result section
     resultsDiv.classList.remove('hidden');
 
-    const queryResult = await queryResponse.json();
-    
     // Check for errors in the response
     if (queryResult.errors && queryResult.errors.length > 0) {
       resultsDiv.innerHTML = `

@@ -15,6 +15,20 @@ Then, you can go to http://localhost:8080/ in your browser to preview the docume
 make check-links
 ```
 
+## How to package documentation examples
+We have interactive examples in the documentation. These run against a Firebolt docs server.
+If the Firebolt docs server is unavailable (or rate limited), we still want to keep the examples interactive, so we pre-package the results of the examples.
+
+To package all examples, run:
+```bash
+make package-docs
+```
+
+To package only missing examples, run:
+```bash
+make package-missing-docs
+```
+
 ## License summary
 
 The documentation is made available under the Creative Commons Attribution-ShareAlike 4.0 International License.
