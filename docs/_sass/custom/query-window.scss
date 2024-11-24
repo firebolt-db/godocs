@@ -183,7 +183,8 @@
         margin: 8px 0;
         
         .error-description {
-          font-family: system-ui, -apple-system, sans-serif;
+          font-family: 'SF Mono', 'Roboto Mono', Consolas, monospace;
+        font-size: 14px;
           line-height: 1.5;
         }
       }

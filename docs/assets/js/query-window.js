@@ -88,7 +88,9 @@ async function runQuery(button) {
       resultsDiv.innerHTML = `
         <div class="error-message">
           ${queryResult.errors.map(error => 
-            `<div class="error-description">${error.description}</div>`
+            `<div class="error-description">${error.description.split('\n').map(line => 
+              line.replace(/ /g, '&nbsp;')
+            ).join('<br>')}</div>`
           ).join('')}
         </div>
       `;
