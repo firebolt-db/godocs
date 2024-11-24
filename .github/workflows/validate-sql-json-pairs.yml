@@ -56,9 +56,7 @@ jobs:
         issue-number: ${{ github.event.pull_request.number }}
         body: |
           # $\color{red}{\text{❌ SQL/JSON Validation Status: FAILURE}}$
-          ```
           ${{ steps.check-sql-json.outputs.output }}
-          ```
         edit-mode: replace
 
 
