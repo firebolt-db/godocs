@@ -30,7 +30,8 @@ jobs:
           
           # Check if corresponding JSON was also modified
           if ! git diff --name-only origin/${{ github.base_ref }} ${{ github.sha }} | grep -q "$json_name"; then
-            output+="Error: $base_name was modified but $json_name was not updated\n"
+            output+="Error: $base_name was modified but $json_name was not updated
+"
             error=1
           fi
         done
