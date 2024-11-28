@@ -3,7 +3,7 @@ layout: default
 title: Aggregating Index
 description: Aggregating index overview
 parent: Overview
-nav_order: 1
+nav_order: 6
 ---
 
 # Aggregating Index
