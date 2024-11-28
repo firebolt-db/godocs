@@ -1,12 +1,5 @@
----
-layout: default
-title: Aggregating Index
-description: Aggregating index overview
-parent: Overview
-nav_order: 6
----
 
-# Aggregating Index
+# Firebolt Aggregating Index
 
 The Firebolt **Aggregating Index** is a powerful optimization tool that enhances query performance by precomputing and storing aggregation results. It is particularly effective for analytical workloads that frequently perform similar aggregations on large datasets.
 
@@ -25,11 +18,26 @@ The Firebolt **Aggregating Index** is a powerful optimization tool that enhances
 4. **Handles DELETE/UPDATE Operations**:
    - Any **DELETE** or **UPDATE** operation on the origin table automatically updates the corresponding aggregating index to ensure consistency.
 
-5. **Impact on Ingest Performance**:
+5. **Automatic `COUNT(*)` Aggregation**:
+   - A `COUNT(*)` aggregation is automatically added to every Aggregating Index if it is not explicitly specified by the user.
+   - This ensures proper support for `DELETE` operations on the origin table.
+
+6. **Impact on Ingest Performance**:
    - While beneficial for query performance, the Aggregating Index introduces additional overhead during data ingestion. This can slightly slow down insert operations on the origin table.
 
-6. **Primary Index Deduction**:
+7. **Primary Index Deduction**:
    - The underlying table's **Primary Index** is determined by the order of the **GROUP BY** keys specified during the Aggregating Index creation.
+
+## Maintenance
+
+### Vacuuming the Aggregating Index
+
+- It is recommended to periodically **vacuum** the Aggregating Index to:
+  - Defragment the data in the Aggregating Index table.
+  - Remove deleted items from disk (if `DELETE` operations were applied to the origin table).
+- Regular vacuuming can improve query performance, especially in the following scenarios:
+  1. **Batch Inserts**: Frequent batch inserts can lead to fragmented data in the Aggregating Index table.
+  2. **Mutations on the Origin Table**: Operations like `DELETE` or `UPDATE` on the origin table can also fragment the Aggregating Index table.
 
 ## Syntax
 
@@ -58,6 +66,8 @@ ON sales(product_id, region, SUM(sales_amount), COUNT(order_id));
 - **Grouping Keys**: `product_id`, `region`
 - **Aggregations**: Precomputes the `SUM` of `sales_amount` and the `COUNT` of `order_id`.
 
+Note: Even if `COUNT(order_id)` is not explicitly included, `COUNT(*)` will be added automatically.
+
 ## Benefits
 
 1. **Faster Query Performance**:
@@ -74,8 +84,8 @@ ON sales(product_id, region, SUM(sales_amount), COUNT(order_id));
 - **Ingestion Overhead**:
   - Maintaining the Aggregating Index increases the ingestion time into the origin table due to the need to update the pre-aggregated data.
 
-- **Automatic Updates**:
-  - Every data change, including `INSERT`, `DELETE`, or `UPDATE`, triggers an update in the Aggregating Index, ensuring it always remains consistent.
+- **Vacuuming**:
+  - Regularly vacuuming the Aggregating Index is critical to ensure optimal query performance by defragmenting the data and removing stale or deleted items.
 
 ## Behind the Scenes
 
