@@ -2,7 +2,7 @@
 layout: default
 title: Organizations and accounts
 description: Learn about Firebolt organization and account concepts to help you administer and manage your Firebolt account.
-nav_order: 2
+nav_order: 3
 parent: Overview
 ---
 
