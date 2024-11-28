@@ -1,5 +1,12 @@
+---
+layout: default
+title: Aggregating Index
+description: Aggregating index overview
+parent: Overview
+nav_order: 1
+---
 
-# Firebolt Aggregating Index
+# Aggregating Index
 
 The Firebolt **Aggregating Index** is a powerful optimization tool that enhances query performance by precomputing and storing aggregation results. It is particularly effective for analytical workloads that frequently perform similar aggregations on large datasets.
 
