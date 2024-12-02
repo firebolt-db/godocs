@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Billing
+title: Pricing and billing
 description: How Firebolt bills for usage
 parent: Overview
 nav_order: 2
 ---
 
-# Billing
+# Pricing and billing
 
 Firebolt provides a scalable cloud data warehouse solution designed to be simple, transparent, and flexible. Pricing is based on two main factors:
 
@@ -70,16 +70,7 @@ Firebolt offers two main subscription plans:
 Contact [support@firebolt.io](mailto:support@firebolt.io) to discuss custom enterprise plans or annual pricing commitments.
 
 ## Set-up account billing through AWS Marketplace
-To continue using Firebolt’s engines for query processing after your initial $200 credit, you’ll need to set up a billing account by connecting your account to the [AWS Marketplace](https://aws.amazon.com/marketplace), as follows: 
-
-1. Login to [Firebolt's Workspace](https://go.firebolt.io/login). If you haven’t yet registered with Firebolt, see the [Get Started]({% link Guides/getting-started/index.md %}) guide.
-2. In the Firebolt Workspace, select the Configure(<img src="../assets/images/configure-icon.png" width="20" alt="The Firebolt Configure Space icon">) icon from the left navigation pane.
-2. Under **Organization settings**, select **Billing**.
-3. Select **Connect to AWS Marketplace** to navigate to the Firebolt page on AWS Marketplace.
-4. Select **View Purchase Options** in the top-right corner of the screen.
-5. Select **Setup Your Account**.
-  
-Your account should now be associated with AWS Marketplace.
+To continue using Firebolt’s engines for query processing after your initial $200 credit, you’ll need to [set up a billing account]({% link Guides/managing-your-organization/billing.html %}#set-up-account-billing-through-aws-marketplace) by connecting your account to the [AWS Marketplace](https://aws.amazon.com/marketplace).
 
 ## Cost estimates
 
