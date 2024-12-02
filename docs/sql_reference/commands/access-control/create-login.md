@@ -41,5 +41,5 @@ CREATE LOGIN [ IF NOT EXISTS ] <login_name>
 The following command will create an account in the US East (N. Virginia) region.
 
 ```sql
-CREATE LOGIN "alexs@acme.com" WITH FIRST_NAME = "Alex" LAST_NAME = "Summers";
+CREATE LOGIN "alexs@acme.com" WITH FIRST_NAME = 'Alex' LAST_NAME = 'Summers';
 ```

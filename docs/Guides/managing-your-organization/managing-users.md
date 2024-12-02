@@ -113,8 +113,8 @@ Login to [Firebolt’s Workspace](https://go.firebolt.io/login). If you haven’
 4. Use the syntax in the following example code to create a login in the SQL Script Editor:
 
     ```sql
-    CREATE LOGIN <login_name>
-    WITH FIRST_NAME = <first_name>, 
+    CREATE LOGIN "<login_name>"
+    WITH FIRST_NAME = <first_name> 
     LAST_NAME = <last_name>;
     ```
 
@@ -151,7 +151,7 @@ CREATE USER <my_user>;
 
 You can also create a user and link it to a login simultaneously as shown in the following code example:
 ```sql
-CREATE USER <my_user> WITH LOGIN = <my_login>;
+CREATE USER <my_user> WITH LOGIN = "<my_login>";
 ```
 
 Create a user and link it to a service account at the same time as shown in the following code example:
@@ -181,7 +181,7 @@ If the user wasn’t associated with a login or service account when they were c
 Use the syntax in the following example code and the [ALTER_USER]({% link sql_reference/commands/access-control/alter-user.md %}) statement to link a user to a login in the **SQL Script Editor** in the **Develop Space**:
 
 ```sql
-ALTER USER <my_user> SET LOGIN = <login_name>;
+ALTER USER <my_user> SET LOGIN = "<login_name>";
 ```
 
 The following code links a user to a service account:

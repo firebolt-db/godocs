@@ -60,11 +60,7 @@ The following apply:
 
 * Parameters must be named using the following syntax: `=>`.
 
-<<<<<<< HEAD
 * If you provide either `access_key_id` or `secret_access_key`, you must provide both. AWS session token is optional.
-=======
-* If you provide either `access_key_id` or `secret_access_key`, you must provide both.
->>>>>>> gh-pages
 
 ## Return Type
 

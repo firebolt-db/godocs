@@ -65,12 +65,13 @@ Fixed an issue where the "invalid input aggregate state type" error could occur 
 
 Addressed a rare issue in the logic for caching and reusing subresults that could cause query failures with specific query patterns. This issue did not impact the correctness of query results.
 
-<!-- Auto Generated Markdown for FIR-36835 - Owned by Michael Freitag -->
-**HTTP API enhancements, JSON function deprecation, bug fixes, and performance optimizations**
+<!-- Markdown for FIR-38446 - Owned by Vitaliy Liudvichenko -->
+**Resolved issue preventing schema owners from granting "ANY" privileges**
 
-Firebolt updated the following functions:
-* Changed the HTTP API to return query execution errors in JSON format. This change will allow the inclusion of metadata such as error codes and the location of failing SQL expressions in the future.
-* Removed support for the functions `JSON_EXTRACT_RAW`, `JSON_EXTRACT_ARRAY_RAW`, `JSON_EXTRACT_VALUES`, and `JSON_EXTRACT_KEYS`.
-* Resolved an issue where the `SCANNED_BYTES` column in the Firebolt user interface displayed incorrect values for Parquet file scans.
-* Improved query performance by optimizing execution plans, resulting in faster processing and more efficient resource management.
+Fixed an issue where schema owners were unable to grant "ANY" privileges on their schema to other users.      
+For example:
 
+```sql
+GRANT SELECT ANY ON SCHEMA public TO ...
+```
+Schema owners can now execute this command which allows the specified user or role to perform SELECT operations on any table. 

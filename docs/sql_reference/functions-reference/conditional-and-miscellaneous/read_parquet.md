@@ -29,10 +29,7 @@ READ_PARQUET (
 | `<url>`                       | The location of the Amazon S3 bucket containing your files. The expected format is `s3://{bucket_name}/{full_file_path}`.          | `TEXT`                |
 | `<access_key_id>`                | The AWS key ID.                                                                                      | `TEXT`                |
 | `<secret_access_key>`            | The AWS secret key.                                                                                  | `TEXT`                |
-<<<<<<< HEAD
 | `<aws_session_token>`            | The AWS Session Token.                                                                                 | `TEXT`                |
-=======
->>>>>>> gh-pages
 
 The following apply:
 
@@ -45,11 +42,7 @@ The following apply:
 
 * Credentials are optional. 
 
-<<<<<<< HEAD
-* If you provide either `access_key_id` or `secret_access_key`, you must provide both. AWS session token is optional. 
-=======
-* If you provide either `access_key_id` or `secret_access_key`, you must provide both.
->>>>>>> gh-pages
+* If you provide either `access_key_id` or `secret_access_key`, you must provide both. AWS session token is optional.
 
 ## Return Type
 
