@@ -2,8 +2,8 @@
 layout: default
 title: Aggregating Index
 description: Aggregating index overview
-parent: Overview
-nav_order: 6
+parent: Using indexes
+nav_order: 1
 ---
 
 # Aggregating Index
