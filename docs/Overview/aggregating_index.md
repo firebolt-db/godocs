@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Aggregating Index
+title: Aggregating Indexes
 description: Aggregating index overview
-parent: Using indexes
+parent: Data modeling
 nav_order: 1
 ---
 
