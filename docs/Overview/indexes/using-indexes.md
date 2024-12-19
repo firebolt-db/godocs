@@ -3,6 +3,7 @@ layout: default
 title: Data modeling
 description: Understand how to organize data from efficient retrieval in Firebolt
 parent: Overview
+has_children: true
 nav_order: 6
 ---
 
@@ -38,7 +39,7 @@ Topics:
     * [Create a database](#create-a-database)
     * [Manage a database](#manage-a-database)
     * [Database best practices](#database-best-practices)
-    * [Evaluate your database for performance](#evaluate-your-query-performance)
+    * [Evaluate your database for performance](#evaluate-your-database-for-performance)
 * [Schema](#schema)
     * [Schema best practices](#schema-best-practices)
 * [Tables](#tables)
@@ -47,7 +48,7 @@ Topics:
     * [Editing and deleting tables](#editing-and-deleting-tables)
     * [Primary indexes in tables](#primary-indexes-in-tables)
     * [Aggregating indexes in tables](#aggregating-indexes-in-tables)
-    * [Suggested indexes and partitions](#suggest-indexes-and-partitions)
+    * [Suggested indexes and partitions](#suggested-indexes-and-partitions)
 * [Additional resources](#additional-resources)
 
 ---
@@ -72,7 +73,7 @@ Database topics:
 * [Create a database](#create-a-database) &ndash; Use a system or user engine to create a database.
 * [Manage a database](#manage-a-database) &ndash; How to edit and delete databases.
 * [Database best practices](#database-best-practices) &ndash; How to organize your databases for the best performance.
-* [Evaluate your database for performance](#evaluate-your-query-performance) &ndash; Run benchmark tests to evaluate how your database configuration affects query performance.
+* [Evaluate your database for performance](#evaluate-your-database-for-performance).
 
 #### Create a database
 
@@ -328,7 +329,7 @@ Aggregating indexes do require additional storage, because the precomputed data 
 
 Aggregating indexes can be created at the time a new table is made or afterward. You can define it as needed based on query patterns and performance.
 
-The following code example shows how to create an aggregating index to precompute the number of transactions per borrower and their average late fee on the existing `borrowedbooks` table created in the previous [Fact tables](#fact-tables) section:
+The following code example shows how to create an aggregating index to precompute the number of transactions per borrower and their average late fee on the existing `borrowedbooks` table created in the previous **Fact tables** section in [Firebolt managed-tables](#firebolt-managed-tables):
 
 ```sql
 CREATE AGGREGATING INDEX agg_borrower_statistics
@@ -403,7 +404,7 @@ If you don’t know how to effectively select a primary index or partition your 
 
 `RECOMMEND_DDL` is particularly useful in complex environments where query patterns evolve over time. By reviewing historical query data, Firebolt identifies columns that are frequently used in filtering or aggregation and recommends appropriate primary index and partitioning strategies.
 
-The following code example uses `RECOMMEND_DDL` to analyze query patterns on the books table, created in the [Dimension tables](#dimension-tables) section, based on queries run in the past week:
+The following code example uses `RECOMMEND_DDL` to analyze query patterns on the books table, created in the **Dimension tables ** section under [Firebolt managed-tables](#firebolt-managed-tables), based on queries run in the past week:
 
 ```sql
 CALL recommend_ddl(
@@ -423,7 +424,6 @@ The example output under `recommended_partition_key` suggests partitioning the `
 ### Additional resources
 
 * [Working with tables]({% link Overview/working-with-tables/working-with-tables.md %}) &ndash; An overview of how to create, manage, and optimize tables.
-* [Using Firebolt indexes]({% link Overview/using-indexes.md %}) &ndash; How Firebolt uses primary, aggregating, and join indexes to enhance query performance by minimizing scanned data and accelerating data retrieval.
 * [Working with partitions]({% link Overview/working-with-tables/working-with-partitions.md %}) &ndash; How to divide large tables into smaller partitions for optimal query efficiency and performance.
 * [RECOMMEND_DDL]({% link sql_reference/commands/queries/recommend_ddl.md %}) &ndash; Information on syntax, parameters and examples of using Firebolt’s tool to automatically recommend optimal primary index and partition strategies.
 
