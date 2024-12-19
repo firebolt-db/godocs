@@ -52,3 +52,13 @@ Quoted identifiers can contain any UTF-8 characters of the following [Unicode ge
 3. Special characters beyond standard alphanumeric characters. Examples include `@`, `#`, `-`, `$`, `%`, `?`, and others. Any object identifier that contains special characters, spaces, or are case-sensitive must be enclosed in double quotes (`"`) as follows: `"my-column"` or `"User@Name"`. 
 4. Underscores, as represented by the Unicode general category value for **Connector_Punctuation**.
 
+## User names
+
+User names must conform to the following rules:
+
+* They must be between 3 to 63 characters in length.
+* They can contain alphanumeric characters including upper and lowercase letters and numbers. 
+* The first and last characters must be either a letter or a digit.
+* You can use the following special characters: ``! # $ % & ' * + - = ? ^ _ ` { | } ~``.
+* You can not use consecutive dots (..).
+
