@@ -31,7 +31,7 @@ REVOKE <permission> ON <object_type> <object_name> [IN <object_type> <object_nam
 
 | Parameter  | Description |
 | :--------- | :---------- |
-| `<permission>` | The name of the permission to revoke from a role. Permissions that can be revoked vary depending on the object that they apply to. For a full list, see [Permissions](../../../Guides/security/rbac.md#permissions). |
+| `<permission>` | The name of the permission to revoke from a role. Permissions that can be revoked vary depending on the object that they apply to. For a full list, see [Permissions]({% link Overview/Role-Based Access Control/index.md %}). |
 | `<object_type>` | The type of the object to revoke permissions from. |
 | `<object_name>` | The name of the object to revoke permissions from. |
 | `<role_name>` | The name of the role from which the permission will be revoked. |
