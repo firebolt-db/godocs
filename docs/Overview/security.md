@@ -13,19 +13,20 @@ Firebolt employs a layered security strategy to deliver a secure and trusted clo
 
 Firebolt's layered security model has the following key areas:
 
-* [Network security](#network-security)
-* [Identity management](#identity-management)
-    * [Single sign-on (SSO)](#single-sign-on-sso)
-    * [Multi-factor authentication](#multi-factor-authentication-mfa)
-* [Access control](#access-control)
-    * [Roles](#roles)
-    * [Users](#users)
-    * [Objects and permissions](#objects-and-permissions)
-* [Data protection](#data-protection)
-    * [Data at rest](#data-at-rest)
-    * [Data in motion](#data-in-motion)
-    * [Secure communication protocols](#secure-communication-protocols)
-    * [HIPAA compliance](#hipaa-compliance)
+- [Security](#security)
+  - [Network security](#network-security)
+  - [Identity management](#identity-management)
+    - [Single sign-On (SSO)](#single-sign-on-sso)
+    - [Multi-factor authentication (MFA)](#multi-factor-authentication-mfa)
+  - [Access control](#access-control)
+    - [Roles](#roles)
+    - [Users](#users)
+    - [Objects and permissions](#objects-and-permissions)
+  - [Data protection](#data-protection)
+    - [Data at rest](#data-at-rest)
+    - [Data in motion](#data-in-motion)
+    - [Secure communication protocols](#secure-communication-protocols)
+    - [HIPAA compliance](#hipaa-compliance)
 
 
 
@@ -131,7 +132,7 @@ A role is a set of permissions assigned to a user or group that defines what act
 
 2) **User-defined roles** are custom roles that administrators can create to grant a specific set of permissions.
 
-3) **System-defined roles** align with common user personas and responsibilities including `public`, which is granted to each new user by default, a `system_admin` role, and an `account_admin` role. For more information about these roles, see [System-defined roles](../Guides/security/rbac.md#system-defined-roles).
+3) **System-defined roles** align with common user personas and responsibilities including `public`, which is granted to each new user by default, a `system_admin` role, and an `account_admin` role. For more information about these roles, see [System-defined roles]({% link Overview/Role-Based Access Control/role-management/system-roles.md %}). 
 
 You can create a role by using either the **Firebolt Workspace** or using the [CREATE ROLE](../sql_reference/commands/access-control/create-role.md) SQL statement.
 
@@ -172,7 +173,7 @@ REVOKE ROLE sales FROM bob;
 
 ### Objects and permissions
 
-Permissions in Firebolt define the actions or operations that can be performed, such as managing databases and engines, running queries, or accessing data. Each instance of a securable object, or an object that can be protected by access controls, has specific permissions that are associated with it, controlling what users can do with it. Examples of securable objects include databases, tables, and engines. If there are multiple instances of an engine object, each instance has its own set of predefined permissions. For a full list of available permissions, see [role-based access control](../Guides/security/rbac.md#permissions).
+Permissions in Firebolt define the actions or operations that can be performed, such as managing databases and engines, running queries, or accessing data. Each instance of a securable object, or an object that can be protected by access controls, has specific permissions that are associated with it, controlling what users can do with it. Examples of securable objects include databases, tables, and engines. If there are multiple instances of an engine object, each instance has its own set of predefined permissions. For a full list of available permissions, see [role-based access control]({% link Overview/Role-Based Access Control/index.md %})
 
 Any permission that Firebolt supports can be [granted](../sql_reference/commands/access-control/grant.md) or [revoked](../sql_reference/commands/access-control/revoke.md) to or from roles. 
 

@@ -35,19 +35,37 @@ There can be multiple users per login or service account. Users are managed at t
 You can [add](#set-up-a-new-user), [edit](#edit-an-existing-user) or [delete](#deleting-an-existing-user) users using SQL in the **Develop Space** or using the user interface (UI) in the **Configure Space**.
 
 {: .note}
-Managing roles requires the account_admin role. For more information about roles, see the [Roles]({% link Overview/organizations-accounts.md %}#roles) section in [Organizations and accounts]({% link Overview/organizations-accounts.md %}), and the [Account]({% link Guides/security/rbac.md %}#account) section of [Manage role-based access control]({% link Guides/security/rbac.md %}) that specifies permissions for **CREATE USER**.
+Managing roles requires the account_admin role. For more information about roles, see the [Roles]({% link Overview/organizations-accounts.md %}#roles) section in [Organizations and accounts]({% link Overview/organizations-accounts.md %}), and the [Account permissions]({% link Overview/Role-Based Access Control/account-permissions.md %})  section of [Role-based access control]({% link Overview/Role-Based Access Control/index.md %}) that specifies permissions for **CREATE USER**.
 
 **Topics**
-* [Set up a new user](#set-up-a-new-user)
-    * [Set up a new user for programmatic access](#set-up-a-new-user-for-programmatic-access)
-    * [Set up a new user for human access](#set-up-a-new-user-for-human-access)
-        * [Create a login](#create-a-login)
-        * [Create a user](#create-a-user)
-        * [Link the user to a login or service account](#link-the-user-to-the-login-or-service-account)
-        * [Create a role](#create-a-role)
-        * [Assign a role to a user](#assign-a-role-to-a-user)
-* [Edit an existing user](#edit-an-existing-user)
-* [Delete an existing user](#deleting-an-existing-user)
+- [Manage users and roles](#manage-users-and-roles)
+  - [ Logins](#-logins)
+  - [ Service accounts](#-service-accounts)
+  - [ Users](#-users)
+  - [Set up a new user](#set-up-a-new-user)
+    - [Set up a new user for programmatic access](#set-up-a-new-user-for-programmatic-access)
+    - [Set up a new user for human access](#set-up-a-new-user-for-human-access)
+      - [Create a login](#create-a-login)
+        - [Create a login using the UI](#create-a-login-using-the-ui)
+        - [Create a login using SQL](#create-a-login-using-sql)
+      - [Create a user](#create-a-user)
+        - [Create a user using the UI](#create-a-user-using-the-ui)
+        - [Create a user using SQL](#create-a-user-using-sql)
+      - [Link the user to the login or service account](#link-the-user-to-the-login-or-service-account)
+        - [Link a user using the UI](#link-a-user-using-the-ui)
+        - [Link a user using SQL](#link-a-user-using-sql)
+      - [Create a role](#create-a-role)
+        - [Create a role using the UI](#create-a-role-using-the-ui)
+        - [Create a role using SQL](#create-a-role-using-sql)
+      - [Assign a role to a user](#assign-a-role-to-a-user)
+        - [Assign a role using the UI](#assign-a-role-using-the-ui)
+        - [Assign a role using SQL](#assign-a-role-using-sql)
+  - [Edit an existing user](#edit-an-existing-user)
+    - [Edit a user using the UI](#edit-a-user-using-the-ui)
+    - [Edit a user using SQL](#edit-a-user-using-sql)
+  - [Deleting an existing user](#deleting-an-existing-user)
+    - [Delete a user using the UI](#delete-a-user-using-the-ui)
+    - [Delete a user using SQL](#delete-a-user-using-sql)
 
 
 ## Set up a new user
