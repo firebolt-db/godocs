@@ -14,14 +14,20 @@ A governance model can help manage cloud data warehouse resources by addressing 
 To address these requirements, Firebolt supports concepts of organizations and accounts. You can have different accounts within your organization and additionally benefit from consolidated billing, unified authentication, and efficient account management across all accounts.
 
 **Topics**
-* [Organizations](#organizations)
-* [Accounts](#accounts)
-    * [Users](#users)
-    * [Roles](#roles)
-* [Additional resources](#additional-resources)
-    * [Billing](#billing)
-    * [Security](#security)
-    * [Available regions](#available-regions)
+- [Organizations and accounts](#organizations-and-accounts)
+  - [Organizations](#organizations)
+  - [Accounts](#accounts)
+    - [Users](#users)
+    - [Roles](#roles)
+      - [Firebolt built-in roles](#firebolt-built-in-roles)
+        - [Public role](#public-role)
+        - [System administrative role](#system-administrative-role)
+        - [Account administrative role](#account-administrative-role)
+        - [Organizational administrative role](#organizational-administrative-role)
+  - [Additional resources](#additional-resources)
+    - [Billing](#billing)
+    - [Security](#security)
+    - [Available regions](#available-regions)
 
 The Firebolt object model is hierarchical and comes with strong containment properties in that parent objects can contain one or more child objects. Child objects are sole children of their parent objects and cannot be shared. Furthermore, there are two classes of objects: global and regional. Global objects are managed globally and can contain objects that are deployed and grouped regionally. 
 
@@ -109,16 +115,26 @@ In Firebolt, each user is associated with either a **login**, which is an email 
 
 <img src="../../assets/images/user_login_service-account.png" alt="A user must be associated with either a login or a service account." width="400">
 
-The role grants the user permission to access resources inside the account that they are associated with. A user can have several roles associated with them at the same time. Firebolt has built-in roles with defined permissions. You can also define a [custom role]({% link Guides/security/rbac.md %}#custom-roles) that grants permissions specific to your use case.
+The role grants the user permission to access resources inside the account that they are associated with. A user can have several roles associated with them at the same time. Firebolt has built-in roles with defined permissions. You can also define a [custom role]({% link Overview/Role-Based Access Control/role-management/custom-roles.md %}) that grants permissions specific to your use case.
 
 #### Firebolt built-in roles
 
 Firebolt has the following built-in roles with associated permissions for objects including databases, engines, users, network policies, and accounts:
 
-* [Public role](#public-role)
-* [System administrative role](#system-administrative-role)
-* [Account administrative role](#account-administrative-role)
-* [Organizational administrative role](#organizational-administrative-role)
+- [Organizations and accounts](#organizations-and-accounts)
+  - [Organizations](#organizations)
+  - [Accounts](#accounts)
+    - [Users](#users)
+    - [Roles](#roles)
+      - [Firebolt built-in roles](#firebolt-built-in-roles)
+        - [Public role](#public-role)
+        - [System administrative role](#system-administrative-role)
+        - [Account administrative role](#account-administrative-role)
+        - [Organizational administrative role](#organizational-administrative-role)
+  - [Additional resources](#additional-resources)
+    - [Billing](#billing)
+    - [Security](#security)
+    - [Available regions](#available-regions)
 
 ##### Public role
 
