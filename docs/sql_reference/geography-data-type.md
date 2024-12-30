@@ -88,11 +88,11 @@ Additionally, Firebolt fixes some otherwise invalid inputs when reading:
 <div style="display: flex; justify-content: flex-start;">
     <figure style="width: 400px; margin-right: 20px;">
         <img src="../assets/images/geography/intersection_in_hole_before.png" alt="A Polygon with a hole that intersects itself." width="400"/>
-        <figcaption>Input with a self-intersecting hole. The red vertices are the input vertices of the hole.</figcaption>
+        <figcaption>Input with a self-intersecting hole. The purple vertices are the input vertices of the hole.</figcaption>
     </figure>
     <figure style="width: 400px;">
         <img src="../assets/images/geography/intersection_in_hole_after.png" alt="The same Polygon but the hole has been split into two holes with no intersections." width="400"/>
-        <figcaption>In the output, the hole has been split at the intersection. The resulting Polygon has two holes. One consisting of the red vertices and one consisting of the green vertices.</figcaption>
+        <figcaption>In the output, the hole has been split at the intersection. The resulting Polygon has two holes. One consisting of the purple vertices and one consisting of the yellow vertices.</figcaption>
     </figure>
 </div>
 - Degenerate parts of Polygons are removed, potentially splitting the Polygon. Parts of Polygons are considered degenerate if they collapse to a single line or point.
