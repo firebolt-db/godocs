@@ -54,7 +54,7 @@ or multiple query parameters:
 The following code example has query parameters set to: 
 
 ```sql
-SET query_parameters = '{ "name": "level", "value": "Drift" }'
+SET query_parameters = { "name": "level", "value": "Drift" }
 ```
 
 Then, the following code example counts the number of "Drift" type levels:

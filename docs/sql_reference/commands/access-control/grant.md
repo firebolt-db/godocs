@@ -30,7 +30,7 @@ GRANT <permission> ON <object_type> <object_name> [IN <object_type> <object_name
 
 | Parameter  | Description |
 | :--------- | :---------- |
-| `<permission>` | The name of the permission to grant to a role. Available permissions vary depending on the object that they apply to. For a full list, see [Permissions](../../../Guides/security/rbac.md#permissions). |
+| `<permission>` | The name of the permission to grant to a role. Available permissions vary depending on the object that they apply to. For a full list, see [Permissions]({% link Overview/Role-Based Access Control/index.md %}). |
 | `<object_type>` | The type of object to grant permissions on. |
 | `<object_name>` | The name of the object to grant permissions on. |
 | `<role_name>` | The name of the role to grant the permission to. |
@@ -64,11 +64,7 @@ USE DATABASE db;
 GRANT SELECT ON TABLE my_table IN SCHEMA public TO user_role;
 ```
 
-<<<<<<< HEAD
 **Grant access to a database, schema, and all operations on a specific table**
-=======
-**Grant access to a databse, schema, and all operations on a specific table**
->>>>>>> gh-pages
 
 The following code example grants the role `user_role` access to the `db` database, the `public` schema within the `db` database, and all permissions on the `my_table` table in the `public` schema:
 
