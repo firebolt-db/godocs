@@ -27,7 +27,7 @@ CREATE EXTERNAL TABLE [IF NOT EXISTS] <table>
 )
 [ CREDENTIALS = ( <credentials> ) ]
 URL = 's3://<bucket_name>[/<folder>][/...]/'
-OBJECT_PATTERN = '<object_pattern>'[, '<object_pattern>'[, ...n]]
+OBJECT_PATTERN = '<object_pattern>'
 TYPE = ( <type> )
 [ <type option> ]
 [ COMPRESSION = <compression_type> ]
