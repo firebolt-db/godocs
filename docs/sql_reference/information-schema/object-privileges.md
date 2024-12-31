@@ -10,6 +10,9 @@ grand_parent: SQL reference
 
 You can use the `information_schema.object_privileges` view to return information about permissions granted to each role.  
 You can use a `SELECT` query to return information about each privilege as shown in the example below.
+
+To view information about permissions granted to the role, the user must have any [role privileges]({% link Guides/security/rbac.md %}#role), ownership of the role, or ownership of the object to which the role is granted.
+
 ```sql
 SELECT
   *

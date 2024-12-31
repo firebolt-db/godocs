@@ -9,6 +9,8 @@ grand_parent: SQL reference
 # Information schema for views
 You can use the `information_schema.views` view to return information about each view in a database. The view is available for each database and contains one row for each view in the database. You can use a `SELECT` query to return information about each view as shown in the example below.
 
+To be able to see view information, the user must have  `USAGE`  privileges on both the [schema]({% link Guides/security/rbac.md %}#schema) and the [database]({% link Guides/security/rbac.md %}#database), as well as appropriate [view-level privileges]({% link Guides/security/rbac.md %}#view) or ownership of the view.
+
 ```sql
 SELECT
   *

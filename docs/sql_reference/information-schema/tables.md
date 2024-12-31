@@ -10,6 +10,8 @@ grand_parent: SQL reference
 
 You can use the `information_schema.tables` view to return information about each table in a database. The view is available for each database and contains one row for each table in the database. You can use a `SELECT` query to return information about each table as shown in the example below.
 
+To view table information, the user must have `USAGE`  privileges on both the [schema]({% link Guides/security/rbac.md %}#schema) and the [database]({% link Guides/security/rbac.md %}#database), as well as any necessary [table-level privileges]({% link Guides/security/rbac.md %}#table) or ownership of the table.
+
 ```sql
 SELECT
   *
