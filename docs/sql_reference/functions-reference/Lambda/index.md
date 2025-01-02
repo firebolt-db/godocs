@@ -2,7 +2,7 @@
 layout: default
 title: Lambda functions
 description: Reference for lambda functions
-nav_order: 10
+nav_order: 11
 parent: SQL functions
 grand_parent: SQL reference
 great_grand_parent: SQL reference

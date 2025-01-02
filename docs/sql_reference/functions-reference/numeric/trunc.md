@@ -38,12 +38,19 @@ SELECT
     TRUNC(-20.5);
 ```
 
-**Returns**: `-20`
+**Returns**
 
-This example returns the truncated value of `-99.999999` to `3` decimal places: 
+`-20`
+
+**Example**
+
+The following code example returns the truncated value of `-99.999999` to `3` decimal places: 
+
 ```sql
 SELECT
     TRUNC(-99.999999, 3);
 ```
 
-**Returns**: `-99.999`
+**Returns**
+
+`-99.999`

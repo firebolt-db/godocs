@@ -56,7 +56,9 @@ Using them in the format string raises an error.
 
 ## Examples
 
-The example below shows our separators and non-separators can cause skips. The separator `' '` (space) in the `<format>` matches the other separator `'/'` in the `<expression>`. The non-separator `'x'` will match any other character, in this case the `'a'`. Lastly, the two separators `'++'` will match up to two other separators, here the first `'x'` matches `'.'` while the second `'x'` will simply be ignored as no other separators follow.
+**Example**
+
+The following code example shows that separators and non-separators can cause skips. The separator `' '` (space) in the `<format>` matches the other separator `'/'` in the `<expression>`. The non-separator `'x'` will match any other character, in this case the `'a'`. Lastly, the two separators `'++'` will match up to two other separators, here the first `'x'` matches `'.'` while the second `'x'` will simply be ignored as no other separators follow.
 
 ```sql
 SELECT
@@ -66,9 +68,13 @@ SELECT
     );
 ```
 
-**Returns**: `'2023-06-23'`
+**Returns**
 
-The example below shows how the year is adjusted to be nearest to 2020 because `YYY` was used to match a less than four digit number. To receive the exact year `'180'` use `YYYY` instead.
+`'2023-06-23'`
+
+**Example**
+
+The following code example shows how the year is adjusted to be nearest to 2020 because `YYY` was used to match a number that contains less than four digits. To receive the exact year `'180'` use `YYYY` instead.
 Furthermore, as the three separators are quotes `"..."` they will match any character (separator or non-separator) which in this case is `'ar '`.
 
 ```sql
@@ -79,4 +85,6 @@ SELECT
     );
 ```
 
-**Returns**: `'2180-08-04'`
+**Returns**
+
+`'2180-08-04'`

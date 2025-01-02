@@ -37,23 +37,31 @@ LOG([<base>,] <value>);
 ## Example
 {: .no_toc}
 
-This example below returns the logarithm of 64.0 to base 2:
+**Example**
+
+The following code example returns the logarithm of 64.0 to base 2:
 
 ```sql
 SELECT LOG(2, 64.0);
 ```
 
-**Returns**: `6`
+**Returns**
 
-This example below returns the logarithm of 100.0 to the default base 10:
+`6`
+
+The following code example returns the logarithm of 100.0 to the default base 10:
 
 ```sql
 SELECT LOG(100.0), LOG10(100.0);
 ```
 
-**Returns**: `2`, `2`
+**Returns**
 
-The logarithm can only be computed for values that are larger than 0. All of the functions below return an error:
+`2`, `2`
+
+**Example**
+
+The logarithm can only be computed for values that are larger than 0. All the following functions return an error:
 
 ```sql
 SELECT LOG(0.0);
@@ -61,7 +69,7 @@ SELECT LOG(-1.0);
 SELECT LOG('-Inf');
 ```
 
-When a base is provided, it needs to be positive and not equal to zero. All of the functions below return an error:
+When a base is provided, it needs to be positive and not equal to zero. All the following functions return an error:
 
 ```sql
 SELECT LOG(0.0, 10.0);

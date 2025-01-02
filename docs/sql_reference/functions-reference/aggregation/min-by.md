@@ -33,7 +33,7 @@ Same as input type of <result>
 ## Example
 {: .no_toc}
 
-For this example, see the following table, `tournaments`:
+This example uses the following table, `tournaments`:
 
 | name                          | totalprizedollars |
 | :-----------------------------| :-----------------|
@@ -44,7 +44,7 @@ For this example, see the following table, `tournaments`:
 | The Circuit Championship      | 9,739             |
 
 
-In the example below, `MIN_BY` is used to find the name of the tournament with the lowest total prize.
+In the following code example, `MIN_BY` is used to find the name of the tournament with the lowest total prize:
 
 ```sql
 SELECT
@@ -53,8 +53,11 @@ FROM
 	tournaments
 ```
 
-**Returns:** `The French Grand Prix`
+**Returns:** 
 
+The French Grand Prix`
+
+**Example**
 
 When multiple rows minimize the second argument, an arbitrary one is chosen, preferring non-NULL values of the first argument:
 ```sql
@@ -64,8 +67,11 @@ FROM UNNEST(
     [10,  1,    100,  1,   1,  NULL]
 ) t(key, value)
 ```
-**Returns** `'d'` or `'e'`, as rows 2, 4, and 5 minimize the second argument, but the first argument is NULL for row 2. Because non-NULL values of the first argument exist for the other rows, one of those values is returned. Which of them is non-deterministic, hence this query may return either `'d'` or `'e'`.
+**Returns**
 
+`'d'` or `'e'`, as rows 2, 4, and 5 minimize the second argument, but the first argument is NULL for row 2. Because non-NULL values of the first argument exist for the other rows, one of those values is returned. Which of them is non-deterministic, hence this query may return either `'d'` or `'e'`.
+
+**Example**
 
 However, if all rows minimizing the second argument are NULL in the first argument, NULL is returned:
 ```sql
@@ -75,4 +81,6 @@ FROM UNNEST(
     [10,  1,    100,  2,   1,  NULL]
 ) t(key, value)
 ```
-**Returns** `NULL`.
+**Returns** 
+
+`NULL`.

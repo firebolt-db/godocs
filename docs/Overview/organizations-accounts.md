@@ -14,14 +14,20 @@ A governance model can help manage cloud data warehouse resources by addressing 
 To address these requirements, Firebolt supports concepts of organizations and accounts. You can have different accounts within your organization and additionally benefit from consolidated billing, unified authentication, and efficient account management across all accounts.
 
 **Topics**
-* [Organizations](#organizations)
-* [Accounts](#accounts)
-    * [Users](#users)
-    * [Roles](#roles)
-* [Additional resources](#additional-resources)
-    * [Billing](#billing)
-    * [Security](#security)
-    * [Available regions](#available-regions)
+- [Organizations and accounts](#organizations-and-accounts)
+  - [Organizations](#organizations)
+  - [Accounts](#accounts)
+    - [Users](#users)
+    - [Roles](#roles)
+      - [Firebolt built-in roles](#firebolt-built-in-roles)
+        - [Public role](#public-role)
+        - [System administrative role](#system-administrative-role)
+        - [Account administrative role](#account-administrative-role)
+        - [Organizational administrative role](#organizational-administrative-role)
+  - [Additional resources](#additional-resources)
+    - [Billing](#billing)
+    - [Security](#security)
+    - [Available regions](#available-regions)
 
 The Firebolt object model is hierarchical and comes with strong containment properties in that parent objects can contain one or more child objects. Child objects are sole children of their parent objects and cannot be shared. Furthermore, there are two classes of objects: global and regional. Global objects are managed globally and can contain objects that are deployed and grouped regionally. 
 
@@ -46,7 +52,7 @@ In the Firebolt object model, an organization has the following levels:
             * **External table** - Tables that store metadata objects that reference files stored in an Amazon S3 bucket, rather than actual data. For more information, see [Work with external tables]({% link Guides/loading-data/working-with-external-tables.md %}).
             * **Managed table** - A Firebolt-managed internal structured data object within a database that stores rows and columns of data. Firebolt’s managed tables have built-in optimizations for fast query processing times. For more information, see [Working with tables]({% link Overview/working-with-tables/working-with-tables.md %}).
             * **View** - A virtual table that represents the result of a stored query, including both user-defined views and [information schema views]({% link sql_reference/information-schema/index.md %}), which provide metadata about database objects like tables, columns, and indexes.
-            * **Index** - A database structure that optimizes data retrieval by organizing specific columns, improving query performance and enabling efficient filtering, sorting, and joining of datasets. For more information, see [Using Firebolt indexes]({% link Overview/using-indexes.md %}).
+            * **Index** - A database structure that optimizes data retrieval by organizing specific columns, improving query performance and enabling efficient filtering, sorting, and joining of datasets. For more information about indexes, see [Data modeling]({% link Overview/indexes/using-indexes.md %}).
     * **Engine** - A compute resource that processes queries and manages data operations and can be scaled independently and turned on or off as needed. For more information, see [Firebolt Engines]({% link Overview/engine-fundamentals.md %}).
 
 When you [register for the first time]({% link Guides/managing-your-organization/creating-an-organization.md %}), Firebolt sets up an organization for you. During registration, you’ll set up your first account, with one user. The first user that is added is the account administrator, as shown in the following diagram:
@@ -109,16 +115,26 @@ In Firebolt, each user is associated with either a **login**, which is an email 
 
 <img src="../../assets/images/user_login_service-account.png" alt="A user must be associated with either a login or a service account." width="400">
 
-The role grants the user permission to access resources inside the account that they are associated with. A user can have several roles associated with them at the same time. Firebolt has built-in roles with defined permissions. You can also define a [custom role]({% link Guides/security/rbac.md %}#custom-roles) that grants permissions specific to your use case.
+The role grants the user permission to access resources inside the account that they are associated with. A user can have several roles associated with them at the same time. Firebolt has built-in roles with defined permissions. You can also define a [custom role]({% link Overview/Role-Based Access Control/role-management/custom-roles.md %}) that grants permissions specific to your use case.
 
 #### Firebolt built-in roles
 
 Firebolt has the following built-in roles with associated permissions for objects including databases, engines, users, network policies, and accounts:
 
-* [Public role](#public-role)
-* [System administrative role](#system-administrative-role)
-* [Account administrative role](#account-administrative-role)
-* [Organizational administrative role](#organizational-administrative-role)
+- [Organizations and accounts](#organizations-and-accounts)
+  - [Organizations](#organizations)
+  - [Accounts](#accounts)
+    - [Users](#users)
+    - [Roles](#roles)
+      - [Firebolt built-in roles](#firebolt-built-in-roles)
+        - [Public role](#public-role)
+        - [System administrative role](#system-administrative-role)
+        - [Account administrative role](#account-administrative-role)
+        - [Organizational administrative role](#organizational-administrative-role)
+  - [Additional resources](#additional-resources)
+    - [Billing](#billing)
+    - [Security](#security)
+    - [Available regions](#available-regions)
 
 ##### Public role
 

@@ -52,15 +52,18 @@ For the JSON document indicated by `<json_common_example>` below,
 see [JSON common example](./index.md#json-common-example). The **returned result** is based on the following example.
 
 **Example**
+
 The following code extracts the value at the path `value/dyid` from the JSON document represented by `<json_common_example>`, and returns it as an SQL array using the `JSONPointer` syntax:
 ```sql
 SELECT JSON_EXTRACT_ARRAY(<json_common_example>, '/value/dyid', 'JSONPointer')
 ```
 
 **Returns**
+
 The previous example returns `NULL` because the specified path does not reference an array.
 
 **Example**
+
 The following code example attempts to extract an array from a path `/value/no_such_key` in the JSON document represented by `<json_common_example>`:
 
 ```sql
@@ -68,9 +71,11 @@ SELECT JSON_EXTRACT_ARRAY(<json_common_example>, '/value/no_such_key', 'JSONPoin
 ```
 
 **Returns**
+
 The previous code example returns `NULL` because the key does not exist.
 
 **Example**
+
 The following code example extracts the array at the path `/value/keywords` from the JSON document represented by `<json_common_example>` using the JSON pointer syntax:
 
 ```sql
@@ -78,9 +83,11 @@ SELECT JSON_POINTER_EXTRACT_ARRAY(<json_common_example>,'/value/keywords')
 ```
 
 **Returns**
+
 The previous code example returns the following: `{"insanely", "fast", "analytics"}`.
 
 **Example**
+
 The following code example extracts the array located at the path `/value/events` from the JSON document represented by `<json_common_example>` using the JSON pointer syntax:
 
 ```sql
@@ -88,6 +95,7 @@ SELECT JSON_POINTER_EXTRACT_ARRAY(<json_common_example>,'/value/events')
 ```
 
 **Returns** 
+
 The previous code example returns the following SQL array, containing two text elements:
 
 ```

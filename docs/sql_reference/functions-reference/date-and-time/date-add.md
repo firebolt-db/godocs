@@ -39,5 +39,6 @@ TIMESTAMPTZ if `<expression>` has type TIMESTAMPTZ.
 SELECT date_add('week', 4, '2024-04-15 12:13:14'::timestamp);
 ```
 
-**Returns**:
+**Returns**
+
 `'2024-05-13 12:13:14'::timestamp`.

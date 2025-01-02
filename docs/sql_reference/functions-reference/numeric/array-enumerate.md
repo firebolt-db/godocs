@@ -44,22 +44,34 @@ The following example returns an array with values one to four:
 SELECT ARRAY_ENUMERATE([7, 9, 3, 4]) AS one_to_four;
 ```
 
-**Returns**: `[1, 2, 3, 4]`
+**Returns**
+
+`[1, 2, 3, 4]`
+
+**Example**
 
 The array passed to the function can contain arbitrary types:
 ```sql
 SELECT ARRAY_ENUMERATE(['hello', 'world']) AS one_to_two;
 ```
 
-**Returns**: `[1, 2]`
+**Returns**
+
+`[1, 2]`
 
 `NULL` values are still reflected in the returned result:
+
+**Example**
 
 ```sql
 SELECT ARRAY_ENUMERATE([7, NULL, 3, NULL]) AS one_to_four;
 ```
 
-**Returns**: `[1, 2, 3, 4]`
+**Returns**
+
+`[1, 2, 3, 4]`
+
+**Example**
 
 The function also works with nested arrays, but only the length of the outer array is taken into account:
 
@@ -67,7 +79,11 @@ The function also works with nested arrays, but only the length of the outer arr
 SELECT ARRAY_ENUMERATE([[ 7, NULL ], NULL, [ 1, 2 ]]) AS one_to_three;
 ```
 
-**Returns**: `[1, 2, 3]`
+**Returns**
+
+`[1, 2, 3]`
+
+**Example**
 
 If the array passed to the function is `NULL`, so is the result:
 
@@ -75,4 +91,6 @@ If the array passed to the function is `NULL`, so is the result:
 SELECT ARRAY_ENUMERATE(NULL) AS null_result;
 ```
 
-**Returns**: `NULL`
+**Returns**
+
+`NULL`

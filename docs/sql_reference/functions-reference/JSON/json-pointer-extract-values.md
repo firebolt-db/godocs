@@ -46,6 +46,7 @@ For the JSON document indicated by `<json_common_example>` below,
 see [JSON common example](./index.md#json-common-example). The **returned result** is based on the following example.
 
 **Example**
+
 The following code example extracts all the values at path `/value/events/0/EventProperties` from the JSON document, and
 returns the raw values as SQL `ARRAY(TEXT)`, labeled as `res`:
 
@@ -54,6 +55,7 @@ SELECT JSON_POINTER_EXTRACT_VALUES(<json_common_example>, '/value/events/0/Event
 ```
 
 **Returns**
+
 The previous code example returns the following:
 
 | res (ARRAY(TEXT))                    |
@@ -61,6 +63,7 @@ The previous code example returns the following:
 | {'"John Doe"', 'true'} |
 
 **Example**
+
 The following code example attempts to extract the keys at the path `/value/no_such_key` from the JSON document:
 
 ```sql
@@ -68,6 +71,7 @@ SELECT JSON_POINTER_EXTRACT_VALUES(<json_common_example>, '/value/no_such_key') 
 ```
 
 **Returns**
+
 The previous code example returns the `NULL` with the result labeled as `res`, because the key does not exist:
 
 | res (ARRAY(TEXT)) |
@@ -83,6 +87,7 @@ SELECT JSON_POINTER_EXTRACT_VALUES(<json_common_example>,'/value/keywords') AS r
 ```
 
 **Returns**
+
 The previous code example returns `NULL`, labeled as `res` because the value at the specified path is an array, not an
 object:
 

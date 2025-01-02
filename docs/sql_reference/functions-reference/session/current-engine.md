@@ -29,4 +29,6 @@ CURRENT_ENGINE()
 SELECT current_engine()
 ```
 
-**Returns**: `system`
+**Returns**
+
+`system`

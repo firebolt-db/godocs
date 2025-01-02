@@ -32,26 +32,39 @@ SIGN(<value>)
 ## Examples
 
 The following examples highlight what can be returned with the `SIGN` function: 
+
 | If               | Returns |
 | :--              | :------ |
 | `<value>` \< `0` | `-1`   |
 | `<value>` = `0`  | `0`    |
 | `<value>` \> `0` | `1`    |
 
+**Example**
+
 ```sql
 SIGN(5)
 ```
 
-**Returns**: `1`
+**Returns**
+
+`1`
+
+**Example**
 
 ```sql
 SIGN(-1.35E-10)
 ```
 
-**Returns**: `-1`
+**Returns**
+
+`-1`
+
+**Example**
 
 ```sql
 SIGN(0)
 ```
 
-**Returns**: `0`
+**Returns**
+
+`0`

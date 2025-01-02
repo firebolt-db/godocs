@@ -20,7 +20,7 @@ Each row in the output contains four columns:  object_name (`TEXT`), object_type
 {: .no_toc}
 
 ```sql
-LIST_OBJECTS ( url => <url>[, aws_key_id => <aws_key_id>][, aws_secret_key => <aws_secret_key>])
+LIST_OBJECTS ( url => <url>[, aws_access_key_id => <aws_access_key_id>][, aws_secret_access_key => <aws_secret_access_key>])
 ```
 
 ## Parameters
@@ -29,17 +29,17 @@ LIST_OBJECTS ( url => <url>[, aws_key_id => <aws_key_id>][, aws_secret_key => <a
 
 | Parameter                     | Description                                                                                      | Supported input types |
 |:------------------------------|:-------------------------------------------------------------------------------------------------|:----------------------|
-| `<url>`                       | The Amazon S3 location. The expected format is 's3://{bucket_name}/{optional_prefix}'.               | `TEXT`                |
+| `<url>`                       | The Amazon S3 location. The expected format is 's3://{bucket_name}/{optional_prefix}'.           | `TEXT`                |
 |:------------------------------|:-------------------------------------------------------------------------------------------------|:----------------------|
-| `<aws_key_id>`                | An AWS key ID.                                                                                      | `TEXT`                |
+| `<aws_access_key_id>`         | The AWS access key ID.                                                                                  | `TEXT`                |
 |:------------------------------|:-------------------------------------------------------------------------------------------------|:----------------------|
-| `<aws_secret_key>`            | An AWS secret key.                                                                                  | `TEXT`                |
-| `<aws_session_token>`            | An AWS session token.                                                                                  | `TEXT`                |
+| `<aws_secret_access_key>`     | The AWS secret access key.                                                                       | `TEXT`                |
+| `<aws_session_token>`         | The AWS session token.                                                                           | `TEXT`                |
 
 
-The AWS credential parameters, `aws_key_id`, `aws_secret_key`, and `aws_session_token` are optional, and are not required to access public buckets. 
+The AWS credential parameters, `aws_access_key_id`, `aws_secret_access_key`, and `aws_session_token` are optional, and are not required to access public buckets. 
 
-If you provide either `aws_key_id` or `aws_secret_key`, you must provide both. AWS session token is optional.
+If you provide either `aws_access_key_id` or `aws_secret_access_key`, you must provide both. Providing an AWS session token is optional.
 
 ## Return Type
 
@@ -125,7 +125,7 @@ SELECT * FROM list_objects(url => 's3://firebolt-publishing-public/help_center_a
 The following code example shows how to use your Amazon credentials to list objects in an Amazon S3 bucket that is not publicly accessible:
 
 ```sql
-SELECT * FROM list_objects(url => 's3://example_bucket/foo.csv', aws_key_id => 'my_key_id', aws_secret_key => 'my_secret_key')
+SELECT * FROM list_objects(url => 's3://example_bucket/foo.csv', aws_access_key_id => 'my_key_id', aws_secret_access_key => 'my_secret_key')
 ```
 
 **Returns**:

@@ -55,7 +55,9 @@ FROM
 	tournaments;
 ```
 
-**Returns**: `6`
+**Returns**
+
+`6`
 
 A `COUNT(DISTINCT)` function on the same column returns the number of unique rows. When applied to the `totalprizedollars` column, the value returned is `5`, as there is a repeated number in the column. 
 
@@ -66,7 +68,9 @@ FROM
 	tournaments;
 ```
 
-**Returns**: `5`
+**Returns**
+
+`5`
 
 ## Example of COUNT(DISTINCT) vs. APPROX_COUNT_DISTINCT
 
@@ -80,9 +84,9 @@ FROM
 	count_test;
 ```
 
-**Returns**: 
+**Returns** 
 
-Assuming 8,388,608 unique pk values, we will see results like: 
+Assuming 8,388,608 unique pk values, the previous code example returns the following: 
 
 
 ```sql

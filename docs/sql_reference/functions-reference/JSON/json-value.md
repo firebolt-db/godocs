@@ -48,22 +48,36 @@ see [JSON common example](./index.md#json-common-example). The **returned result
 SELECT JSON_VALUE(JSON_POINTER_EXTRACT(<json_common_example>, '/value/uid')), JSON_POINTER_EXTRACT(<json_common_example>, '/value/uid')
 ```
 
-**Returns**: `'987654', '"987654"'`
+**Returns**
+
+`'987654', '"987654"'`
+
+**Example**
 
 ```sql
 SELECT JSON_VALUE(JSON_POINTER_EXTRACT(<json_common_example>, '/key'))::INT
 ```
 
-**Returns**: `123`
+**Returns**
+
+`123`
+
+**Example**
 
 ```sql
 SELECT JSON_VALUE(JSON_POINTER_EXTRACT(<json_common_example>,'/value/keywords'))
 ```
 
-**Returns**: `NULL`
+**Returns**
+
+`NULL`
+
+**Example**
 
 ```sql
 SELECT JSON_VALUE(NULL)
 ```
 
-**Returns**: `NULL`
+**Returns**
+
+`NULL`
