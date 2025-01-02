@@ -1,21 +1,5 @@
 ## Firebolt Release Notes - Version 4.10
 
-### Behavior Changes
-
-<!-- Auto Generated Markdown for FIR-25824 - Owned by Kfir Yehuda -->
-**Enhanced PostgreSQL compliance for casting data types from text to float**
-
-Cast from text to floating-point types is now compliant with PostgreSQL with the following improvements: 
-
-1. **The correct parsing of positive floats** &ndash; A plus sign (`+`) preceding a float is now handled correctly. Example: `'+3.4'`.
-2. **Exponent-only input** &ndash; Float values starting with an exponent `'e'` or `'E'` are rejected. Example: `'E4'`.
-3. **Incomplete exponents** &ndash; Float values ending with an exponent without a subsequent exponent value are rejected. Example: `'4e+'`.
-
-<!--FIR-38448 - Owned by Dan Englund -->
-**Account-level rate limits implemented for the system engine**
-
-Firebolt has implemented account-level rate limits to ensure equitable resource usage among all users of the system engine. When these limits are exceeded, requests will be rejected with the following error message: `429: Account system engine resources usage limit exceeded`. This rate limit targets accounts with exceptionally high resource consumption. Accounts with typical resource usage should not be affected and require no further action.
-
 ### New Features
 
 **Added `CREATE TABLE CLONE` to clone an existing table in a database**
@@ -47,6 +31,21 @@ You can now use `<AWS_SESSION_TOKEN>` with access keys to securely authenticate 
 * [External tables]({% link Guides/loading-data/working-with-external-tables.md %}) located in an Amazon S3 bucket.
 * The following table-valued functions: `read_parquet`, `read_csv`, and `list_objects`.
 
+### Behavior Changes
+
+<!-- Auto Generated Markdown for FIR-25824 - Owned by Kfir Yehuda -->
+**Enhanced PostgreSQL compliance for casting data types from text to float**
+
+Cast from text to floating-point types is now compliant with PostgreSQL with the following improvements: 
+
+1. **The correct parsing of positive floats** &ndash; A plus sign (`+`) preceding a float is now handled correctly. Example: `'+3.4'`.
+2. **Exponent-only input** &ndash; Float values starting with an exponent `'e'` or `'E'` are rejected. Example: `'E4'`.
+3. **Incomplete exponents** &ndash; Float values ending with an exponent without a subsequent exponent value are rejected. Example: `'4e+'`.
+
+<!--FIR-38448 - Owned by Dan Englund -->
+**Account-level rate limits implemented for the system engine**
+
+Firebolt has implemented account-level rate limits to ensure equitable resource usage among all users of the system engine. When these limits are exceeded, requests will be rejected with the following error message: `429: Account system engine resources usage limit exceeded`. This rate limit targets accounts with exceptionally high resource consumption. Accounts with typical resource usage should not be affected and require no further action.
 
 ### Bug Fixes
 
