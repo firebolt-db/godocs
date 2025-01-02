@@ -1,36 +1,5 @@
 ## DB version 4.7
 
-### Behavior Changes
-
-<!-- Auto Generated Markdown for FIR-36501 - Owned by Leonard von Merzljak -->
-**Updated sorting method for array columns with `NULL` values to align with PostgreSQL behavior**
-{: style="color:red;"}
-
-The sorting method for array columns containing `NULL` values has been updated to ensure that `ASC NULLS FIRST` places `NULL` values before arrays, and `DESC NULLS LAST` places `NULL` values after arrays, which aligns with PostgreSQL behavior.
-
-The following code example creates a temporary table `tbl` which contains three rows: a `NULL` array, an array with the value `1`, and an array with a `NULL` element. Then, a `SELECT` statement sorts all rows in ascending order:
-```sql
-WITH tbl(i) AS (
-  SELECT NULL::INT[]
-  UNION ALL
-  SELECT ARRAY[1]::INT[]
-  UNION ALL
-  SELECT ARRAY[NULL]::INT[]
-)
-SELECT * FROM tbl ORDER BY i ASC NULLS FIRST;
-```
-
-The query previously returned `{NULL}, {1}, NULL`, but now returns `NULL, {1}, {NULL}`.
-
-`NULLS FIRST` and `NULLS LAST` apply to the array itself, not to its elements. By default, ascending order (`ASC`) assumes `NULLS LAST`, while descending order (`DESC`) assumes `NULLS FIRST` when sorting arrays.
-
-<!-- Auto Generated Markdown for FIR-37163 - Owned by Mosha Pasumansky -->
-**Allowed use of the SESSION_USER function without parentheses**
-{: style="color:red;"}
-
-The `SESSION_USER` function can now be used without parentheses, like this: `SELECT SESSION_USER`. As a result, any column named `session_user` now needs to be enclosed in double quotes as follows: `SELECT 1 AS "session_user"` or `SELECT "session_user" FROM table`.
-
-
 ### New Features
 
 <!-- Auto Generated Markdown for FIR-35515 - Owned by Judson Wilson -->
@@ -101,6 +70,35 @@ The new functions `ARRAY_ALL_MATCH` and `ARRAY_ANY_MATCH` accept an (optional) l
 **Improved performance of `JSON_EXTRACT`, `JSON_EXTRACT_ARRAY`, and `JSON_VALUE` functions**<br/>
 Enhanced the performance of the `JSON_EXTRACT`, `JSON_EXTRACT_ARRAY`, and `JSON_VALUE` functions.
 
+### Behavior Changes
+
+<!-- Auto Generated Markdown for FIR-36501 - Owned by Leonard von Merzljak -->
+**Updated sorting method for array columns with `NULL` values to align with PostgreSQL behavior**
+{: style="color:red;"}
+
+The sorting method for array columns containing `NULL` values has been updated to ensure that `ASC NULLS FIRST` places `NULL` values before arrays, and `DESC NULLS LAST` places `NULL` values after arrays, which aligns with PostgreSQL behavior.
+
+The following code example creates a temporary table `tbl` which contains three rows: a `NULL` array, an array with the value `1`, and an array with a `NULL` element. Then, a `SELECT` statement sorts all rows in ascending order:
+```sql
+WITH tbl(i) AS (
+  SELECT NULL::INT[]
+  UNION ALL
+  SELECT ARRAY[1]::INT[]
+  UNION ALL
+  SELECT ARRAY[NULL]::INT[]
+)
+SELECT * FROM tbl ORDER BY i ASC NULLS FIRST;
+```
+
+The query previously returned `{NULL}, {1}, NULL`, but now returns `NULL, {1}, {NULL}`.
+
+`NULLS FIRST` and `NULLS LAST` apply to the array itself, not to its elements. By default, ascending order (`ASC`) assumes `NULLS LAST`, while descending order (`DESC`) assumes `NULLS FIRST` when sorting arrays.
+
+<!-- Auto Generated Markdown for FIR-37163 - Owned by Mosha Pasumansky -->
+**Allowed use of the SESSION_USER function without parentheses**
+{: style="color:red;"}
+
+The `SESSION_USER` function can now be used without parentheses, like this: `SELECT SESSION_USER`. As a result, any column named `session_user` now needs to be enclosed in double quotes as follows: `SELECT 1 AS "session_user"` or `SELECT "session_user" FROM table`.
 
 ### Bug Fixes
 
