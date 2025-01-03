@@ -25,7 +25,7 @@ This public preview release includes the following functions:
 
 **Added keyboard shortcuts to the Firebolt Develop Space**
 
-The user interface in the Firebolt **Develop Space** added the following [keyboard shortcuts]({% link Guides/query-data/keyboard-shortcuts-for-sql-editor.md %}):
+The user interface in the Firebolt **Develop Space** added the following [keyboard shortcuts](https://docs.firebolt.io/Guides/query-data/keyboard-shortcuts-for-sql-editor.html):
 * Cmd + Enter &ndash; Runs the current query.
 * Cmd+Shift+Enter &ndash; Runs all queries in a script.
 

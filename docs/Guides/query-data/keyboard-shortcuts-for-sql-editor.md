@@ -2,9 +2,10 @@
 layout: default
 title: Keyboard shortcuts for the Develop Space
 description: Reference for efficient keyboard shortcuts when working in the Firebolt Develop space.
-nav_order: 4
-parent: Query data
+nav_order: 1
+parent: Use the Develop Space
 grand_parent: Guides
+published: false
 ---
 
 # Keyboard shortcuts for the Develop Space
