@@ -20,7 +20,7 @@ Copies (exports or unloads) the results of a `SELECT` query to an Amazon S3 loca
 ```sql
 COPY (<select_query>)
   TO '<location>'
-  CREDENTIALS = { AWS_KEY_ID = '<aws_key_id>' AWS_SECRET_KEY = '<aws_secret_key>' [ AWS_SESSION_TOKEN = '<aws_session_token>' ] | AWS_ROLE_ARN = '<aws_role_arn>' [ AWS_ROLE_EXTERNAL_ID = '<aws_role_external_id>' ] }
+  CREDENTIALS = { AWS_ACCESS_KEY_ID = '<aws_access_key_id>' AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>' [ AWS_SESSION_TOKEN = '<aws_session_token>' ] | AWS_ROLE_ARN = '<aws_role_arn>' [ AWS_ROLE_EXTERNAL_ID = '<aws_role_external_id>' ] }
 [ TYPE = CSV | TSV | JSON | PARQUET ]
 [ COMPRESSION = GZIP | SNAPPY | NONE ]
 [ INCLUDE_QUERY_ID_IN_FILE_NAME = TRUE | FALSE ]
@@ -57,11 +57,11 @@ Firebolt needs permissions to write query results to the specified S3 location. 
 Specify access key credentials using the syntax shown below.
 
 ```sql
-CREDENTIALS = (AWS_KEY_ID = '<aws_key_id>' AWS_SECRET_KEY = '<aws_secret_key>')
+CREDENTIALS = (AWS_ACCESS_KEY_ID = '<aws_access_key_id>' AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>')
 ```
 
-* `<aws_key_id>` is the AWS access key id associated with a user or role, for example, `AKIAIOSFODNN7EXAMPLE`.
-* `<aws_secret_key>` is the AWS secret key, for example, `wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`.
+* `<aws_access_key_id>` is the AWS access key ID associated with an AWS user or IAM role. For example, `AKIAIOSFODNN7EXAMPLE`.
+* `<aws_secret_access_key>` is the AWS secret access key. For example, `wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`.
 
 For more information on how to create access keys, see [Creating Access Key and Secret ID](../../../Guides/loading-data/creating-access-keys-aws.md).
 
@@ -126,7 +126,7 @@ COPY (SELECT * FROM test_table)
   TO 's3://my_bucket/my_fb_queries'
   TYPE=JSON
   COMPRESSION=NONE
-  CREDENTIALS=(AWS_KEY_ID='AKIAIOSFODNN7EXAMPLE' AWS_SECRET_KEY='wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY')
+  CREDENTIALS=(AWS_ACCESS_KEY_ID='AKIAIOSFODNN7EXAMPLE' AWS_SECRET_ACCESS_KEY='wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY')
   INCLUDE_QUERY_ID_IN_FILE_NAME=TRUE
   SINGLE_FILE=TRUE
   MAX_FILE_SIZE=5000000000;

@@ -48,20 +48,22 @@ or multiple query parameters:
   { “name”: “max_sales”, “value”: 10000 }
 ]`
 
-## Examples
+## Example
 {: .no_toc}
 
-With query parameters set as: 
+The following code example has query parameters set to: 
+
 ```sql
-SET query_parameters = '{ "name": "level", "value": "Drift" }'
+SET query_parameters = { "name": "level", "value": "Drift" }
 ```
 
-The query below counts the number of "Drift" type levels:
+Then, the following code example counts the number of "Drift" type levels:
 ```sql
 SELECT COUNT(*) AS level_count FROM levels WHERE leveltype = PARAM('level')
 ```
 
-**Returns**: 
+**Returns**
+
 | level_count   |
 | :------------- |
 | 2              |

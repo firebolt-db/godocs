@@ -54,9 +54,9 @@ FROM
 	count_test;
 ```
 
-**Returns**: 
+**Returns** 
 
-Assuming 8,388,608 unique pk values, we will see results like: 
+Assuming 8,388,608 unique pk values, the previous code example returns the following: 
 
 
 ```sql
@@ -67,4 +67,4 @@ Assuming 8,388,608 unique pk values, we will see results like:
 ' +----------------+--------------+-------------+-------------+
 ```
 
-where approx_count is using precision 17, hll12_count is using precision 12, and hll20_count is using precision 20, the most precise. 
+In the previous result, `approx_count` is using precision 17, `hll12_count` is using precision 12, and `hll20_count` is using precision 20, which is the most precise value. 

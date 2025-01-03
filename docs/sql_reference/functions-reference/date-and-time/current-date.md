@@ -41,7 +41,8 @@ SET time_zone = 'Europe/Berlin';
 SELECT CURRENT_DATE();
 ```
 
-**Returns:**
+**Returns**
+
 `2023-03-04`
 
 Notice that the time zone conversion from `UTC` to `Europe/Berlin` causes the resulting date to be `2023-03-04` instead of `2023-03-03`.

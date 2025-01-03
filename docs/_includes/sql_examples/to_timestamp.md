@@ -3,10 +3,10 @@ The non-separator `'x'` will match any other character, in this case the `'a'`. 
 here the first `'x'` matches `'.'` while the second `'x'` will simply be ignored as no other separators follow.
 ``` sql
 SELECT
-TO_TIMESTAMP(
-'2023/aJUN.23',
-'YYYY xMON++DD'
-) as ts;
+    TO_TIMESTAMP(
+        '2023/aJUN.23',
+        'YYYY xMON++DD'
+    ) as ts;
 ```
 
 | ts (TIMESTAMPTZ) |
@@ -17,10 +17,10 @@ The example below shows how the year is adjusted to be nearest to 2020 because `
 Furthermore, as the three separators are quotes `"..."` they will match any character (separator or non-separator) which in this case is `'ar '`.
 ``` sql
 SELECT
-TO_TIMESTAMP(
-'Year 180: August 4th',
-'xx"..."yyy: month DDxx'
-) as ts;
+    TO_TIMESTAMP(
+        'Year 180: August 4th',
+        'xx"..."yyy: month DDxx'
+    ) as ts;
 ```
 
 | ts (TIMESTAMPTZ) |
@@ -29,10 +29,10 @@ TO_TIMESTAMP(
 
 ``` sql
 SELECT
-TO_TIMESTAMP(
-'Date: August 2nd, 2023 at 3pm +2',
-'Xxxx: month DDxx, YYYY at HH12am TZH'
-) as ts;
+    TO_TIMESTAMP(
+        'Date: August 2nd, 2023 at 3pm +2',
+        'Xxxx: month DDxx, YYYY at HH12am TZH'
+    ) as ts;
 ```
 
 | ts (TIMESTAMPTZ) |
@@ -41,10 +41,10 @@ TO_TIMESTAMP(
 
 ``` sql
 SELECT
-TO_TIMESTAMP(
-'h:19 m:34 s:29 ms:035 us:000123',
-'X:hh24 X:mi X:ss XX:ms XX:us'
-) as ts;
+    TO_TIMESTAMP(
+        'h:19 m:34 s:29 ms:035 us:000123',
+        'X:hh24 X:mi X:ss XX:ms XX:us'
+    ) as ts;
 ```
 
 | ts (TIMESTAMPTZ) |
@@ -53,9 +53,9 @@ TO_TIMESTAMP(
 
 ``` sql
 SELECT
-FROM_UNIXTIME(
-1728053781.761451
-) as ts;
+    FROM_UNIXTIME(
+        1728053781.761451
+    ) as ts;
 ```
 
 | ts (TIMESTAMPTZ) |
@@ -65,13 +65,13 @@ FROM_UNIXTIME(
 Due to rounding it can happen that the conversion from an extracted epoch back to a timestamp does not generate the original timestamp.
 ``` sql
 WITH data as (
-select '1597-12-03 13:49:30.511757+00'::timestamptz as ts
+    select '1597-12-03 13:49:30.511757+00'::timestamptz as ts 
 )
 SELECT
-ts as original_ts,
-FROM_UNIXTIME(
-extract(epoch from ts)
-) as converted_ts
+    ts as original_ts,
+    FROM_UNIXTIME(
+        extract(epoch from ts)
+    ) as converted_ts
 FROM data
 ```
 

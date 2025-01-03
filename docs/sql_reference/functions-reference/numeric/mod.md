@@ -38,4 +38,6 @@ SELECT
     MOD(45, 7);
 ```
 
-**Returns**: `3`
+**Returns**
+
+`3`

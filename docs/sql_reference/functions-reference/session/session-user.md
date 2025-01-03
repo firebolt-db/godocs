@@ -20,17 +20,23 @@ SESSION_USER()
 ## Return Types
 `TEXT`
 
-## Example 1
+## Examples
 {: .no_toc}
+
+**Example**
+
 ```sql
 -- executed by user bob
 SELECT session_user()
 ```
 
-**Returns**: `bob`
+**Returns**
 
-## Example 2
-Shows effective privileges of the roles directly assigned to the user running the query:
+`bob`
+
+**Example**
+
+The following code example shows the effective privileges of the roles directly assigned to the user running the query:
 
 ```sql
 SELECT
@@ -46,14 +52,14 @@ WHERE
   AR.grantee = session_user();
 ```
 
-**Returns**: 
+**Returns** 
 
 | grantee   | role_name     | privilege_type | object_type | object_name |
 |:----------|:--------------|:---------------|:------------|:------------|
 | test_user | account_admin | USAGE | engine | engine1 | 
 | test_user | account_admin | USAGE | database | db1 |
 
-## Example 3
+**Example**
 
 Dynamic security through view which uses session_user().
 
@@ -65,7 +71,7 @@ create view my_employee_data as select * from employees where user_name = sessio
 select * from my_employee_data; -- session_user() will be evaluated to 'alice' for this query
 ```
 
-**Returns**: 
+**Returns** 
 
 | user_name   | ...   | 
 |:------------|:-------------------|

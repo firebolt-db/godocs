@@ -37,4 +37,6 @@ SELECT
     CBRT(8);
 ```
 
-**Returns**: `2`
+**Returns**
+
+`2`

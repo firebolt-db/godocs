@@ -1,5 +1,23 @@
 # Firebolt Release Notes - Version 4.3.0
 
+## New Features
+
+<!-- Auto Generated Markdown for FIR-32335 - Owned by Krishna Thotapalli -->
+### Role-based permissions for COPY FROM and External Table processes
+Enabled role-based permissions for COPY FROM and External Table processes.
+
+<!-- Auto Generated Markdown for FIR-34932 - Owned by Kfir Yehuda -->
+### HLL-based count distinct functions compatible with the Apache DataSketches library
+Firebolt now supports count-distinct functions using the HLL (HyperLogLog) algorithm, compatible with the Apache DataSketches library.
+For details and examples, see documentation on the functions 
+[APACHE_DATASKETCHES_HLL_BUILD](docs/sql_reference/functions-reference/datasketches/apache-datasketches-hll-build.md),
+[APACHE_DATASKETCHES_HLL_MERGE](docs/sql_reference/functions-reference/datasketches/apache-datasketches-hll-merge.md),
+and [APACHE_DATASKETCHES_HLL_ESTIMATE](docs/sql_reference/functions-reference/datasketches/apache-datasketches-hll-estimate.md).
+
+<!-- Auto Generated Markdown for FIR-33707 - Owned by Zhen Li -->
+### Supported additional join conditions and removed the restriction on the number of inequality predicates
+Firebolt has added enhanced support for more join conditions. As long as there is one equality predicate comparing a left column to a right column of the join, which is not part of a disjunctive (OR) expression, the remaining join condition can be arbitrary. The previous limitation on the number of inequality predicates has been removed.
+
 ## Breaking Changes
 
 <!-- Owned by Vitaliy Lyudvichenko (for FIR-35188) -->
@@ -26,26 +44,6 @@ The default value for the `CASE_SENSITIVE_COLUMN_MAPPING` parameter in `COPY FRO
 {: style="color:red;"}
 ### `extract` function returns Numeric(38,9) for Epoch, second, and millisecond extraction
 The result data type of the `extract` function for epoch, second, and millisecond was changed to return the type Numeric(38,9) instead of a narrower Numeric type. For example, `select extract(second from '2024-04-22 07:10:20'::timestamp);` now returns Numeric(38,9) instead of Numeric(8,6).
-
-
-## New Features
-
-<!-- Auto Generated Markdown for FIR-32335 - Owned by Krishna Thotapalli -->
-### Role-based permissions for COPY FROM and External Table processes
-Enabled role-based permissions for COPY FROM and External Table processes.
-
-<!-- Auto Generated Markdown for FIR-34932 - Owned by Kfir Yehuda -->
-### HLL-based count distinct functions compatible with the Apache DataSketches library
-Firebolt now supports count-distinct functions using the HLL (HyperLogLog) algorithm, compatible with the Apache DataSketches library.
-For details and examples, see documentation on the functions 
-[APACHE_DATASKETCHES_HLL_BUILD](docs/sql_reference/functions-reference/datasketches/apache-datasketches-hll-build.md),
-[APACHE_DATASKETCHES_HLL_MERGE](docs/sql_reference/functions-reference/datasketches/apache-datasketches-hll-merge.md),
-and [APACHE_DATASKETCHES_HLL_ESTIMATE](docs/sql_reference/functions-reference/datasketches/apache-datasketches-hll-estimate.md).
-
-<!-- Auto Generated Markdown for FIR-33707 - Owned by Zhen Li -->
-### Supported additional join conditions and removed the restriction on the number of inequality predicates
-Firebolt has added enhanced support for more join conditions. As long as there is one equality predicate comparing a left column to a right column of the join, which is not part of a disjunctive (OR) expression, the remaining join condition can be arbitrary. The previous limitation on the number of inequality predicates has been removed.
-
 
 ## Performance Improvements
 

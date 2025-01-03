@@ -103,17 +103,3 @@ Table `products` after:
 | quidditch gloves | 10 |
 | cauldron | 16 |
 | quill | 100 |
-
-### Known limitations
-
-Below are some known limitations of the `DELETE` command. 
-
-* `DELETE`/`UPDATE` will perform slower on the following aggregate functions:
-  * [MIN](../../functions-reference/aggregation/min.md)
-  * [MIN_BY](../../functions-reference/aggregation/min-by.md)
-  * [MAX](../../functions-reference/aggregation/max.md)
-  * [MAX_BY](../../functions-reference/aggregation/max-by.md)
-  * [ANY_VALUE](../../functions-reference/aggregation/any_value.md)
-  * [APPROX_COUNT_DISTINCT](../../functions-reference/aggregation/approx-count-distinct.md)
-
-* Queries against tables with deleted rows are supported and can be run. However, expect slower performance.

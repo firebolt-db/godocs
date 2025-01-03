@@ -38,6 +38,9 @@ See a [full function glossary](./functions-glossary.md), or find functions based
 * [Session functions](./session/index.md)  
   Obtaining information about a current session.
 
+* [Geospatial functions](./geospatial/index.md)  
+  Operations involving geospatial objects
+
 * [String functions](./string/index.md)  
   Manipulate string data types.
 

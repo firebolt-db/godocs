@@ -35,19 +35,37 @@ There can be multiple users per login or service account. Users are managed at t
 You can [add](#set-up-a-new-user), [edit](#edit-an-existing-user) or [delete](#deleting-an-existing-user) users using SQL in the **Develop Space** or using the user interface (UI) in the **Configure Space**.
 
 {: .note}
-Managing roles requires the account_admin role. For more information about roles, see the [Roles]({% link Overview/organizations-accounts.md %}#roles) section in [Organizations and accounts]({% link Overview/organizations-accounts.md %}), and the [Account]({% link Guides/security/rbac.md %}#account) section of [Manage role-based access control]({% link Guides/security/rbac.md %}) that specifies permissions for **CREATE USER**.
+Managing roles requires the account_admin role. For more information about roles, see the [Roles]({% link Overview/organizations-accounts.md %}#roles) section in [Organizations and accounts]({% link Overview/organizations-accounts.md %}), and the [Account permissions]({% link Overview/Role-Based Access Control/account-permissions.md %})  section of [Role-based access control]({% link Overview/Role-Based Access Control/index.md %}) that specifies permissions for **CREATE USER**.
 
 **Topics**
-* [Set up a new user](#set-up-a-new-user)
-    * [Set up a new user for programmatic access](#set-up-a-new-user-for-programmatic-access)
-    * [Set up a new user for human access](#set-up-a-new-user-for-human-access)
-        * [Create a login](#create-a-login)
-        * [Create a user](#create-a-user)
-        * [Link the user to a login or service account](#link-the-user-to-the-login-or-service-account)
-        * [Create a role](#create-a-role)
-        * [Assign a role to a user](#assign-a-role-to-a-user)
-* [Edit an existing user](#edit-an-existing-user)
-* [Delete an existing user](#deleting-an-existing-user)
+- [Manage users and roles](#manage-users-and-roles)
+  - [ Logins](#-logins)
+  - [ Service accounts](#-service-accounts)
+  - [ Users](#-users)
+  - [Set up a new user](#set-up-a-new-user)
+    - [Set up a new user for programmatic access](#set-up-a-new-user-for-programmatic-access)
+    - [Set up a new user for human access](#set-up-a-new-user-for-human-access)
+      - [Create a login](#create-a-login)
+        - [Create a login using the UI](#create-a-login-using-the-ui)
+        - [Create a login using SQL](#create-a-login-using-sql)
+      - [Create a user](#create-a-user)
+        - [Create a user using the UI](#create-a-user-using-the-ui)
+        - [Create a user using SQL](#create-a-user-using-sql)
+      - [Link the user to the login or service account](#link-the-user-to-the-login-or-service-account)
+        - [Link a user using the UI](#link-a-user-using-the-ui)
+        - [Link a user using SQL](#link-a-user-using-sql)
+      - [Create a role](#create-a-role)
+        - [Create a role using the UI](#create-a-role-using-the-ui)
+        - [Create a role using SQL](#create-a-role-using-sql)
+      - [Assign a role to a user](#assign-a-role-to-a-user)
+        - [Assign a role using the UI](#assign-a-role-using-the-ui)
+        - [Assign a role using SQL](#assign-a-role-using-sql)
+  - [Edit an existing user](#edit-an-existing-user)
+    - [Edit a user using the UI](#edit-a-user-using-the-ui)
+    - [Edit a user using SQL](#edit-a-user-using-sql)
+  - [Deleting an existing user](#deleting-an-existing-user)
+    - [Delete a user using the UI](#delete-a-user-using-the-ui)
+    - [Delete a user using SQL](#delete-a-user-using-sql)
 
 
 ## Set up a new user
@@ -131,14 +149,21 @@ After you create a login, the next step is to create a user.
 3. Select the **+ Create User** button at the top right of the **Govern Space**.
 4. In the **Create User** window, enter the following:
 
-    1. **User Name** - The name of the user to associate with the login. This name can be any string, excluding spaces, and special characters such as exclamation points (!), percent signs (%), at sign(@), dot sign (.), underscore sign (_), minus sign (-), and asterisks (*).
-    2. **Default Database** - (Optional) The name of the database that is associated with the user.
-    3. **Default Engine** - (Optional) The name of the engine that is associated with the user.
+   1. **User name** - The name of the user to associate with the login. This name can be any string, excluding spaces, and special characters such as exclamation points (!), percent signs (%), at sign(@), dot sign (.), underscore sign (_), minus sign (-), and asterisks (*).
 
-5. Toggle the radio button next to **Associate a login**.
-6. Select the name of the login to associate with the user from the drop-down list under **Login Associated**. This drop-down list contains only logins that are not already assigned to a user in the current account.
-7. (Optional) Choose the role you want to assign to the user. If no role is specified, the user is automatically granted a public role. For more information about roles, see the [Roles]({% link Overview/organizations-accounts.md %}#roles) section in [Organization and accounts]({% link Overview/organizations-accounts.md %}).
-8. Select **Save**.
+   2. **Assign to** - Use the dropdown to assign the user to one of the following:  
+      i. **Unassigned** - No specific assignment.
+
+      ii. **Login** - Associates the user with a login name or email address. After selecting this option, you will be prompted to choose the login name or email address.
+
+      iii. **Service Account** - Associates the user with a service account. After selecting this option, you will be prompted to choose a service account name.
+   1. **Role** - Select the role you want to assign to the user. If no role is specified, the user is automatically granted a [public role]({% link Overview/organizations-accounts.md %}#public-role). For more information about roles, see the [Roles]({% link Overview/organizations-accounts.md %}#roles) section in [Organization and accounts]({% link Overview/organizations-accounts.md %}).
+
+   2. **Default Database** - Choose a database to associate with the user, setting it as their default for access.
+
+   3. **Default Engine** - Choose a default processing engine to associate with the user.
+
+5. Select **Create new user** to save the configuration. 
 
 
 ##### Create a user using SQL

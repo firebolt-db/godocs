@@ -26,7 +26,7 @@ Use the following steps to register with Firebolt:
 3. Type in your email and password and select **Log In**.
 
 {: .note}
-New accounts receive 600 Firebolt unit (FBU) credits ($200+) to get started exploring Firebolt’s capabilities.
+New accounts receive credits ($200+) to get started exploring Firebolt’s capabilities. Credits must be used within 30 days of account creation.
 
 Firebolt’s billing is based on engine runtime, measured in seconds. AWS S3 storage costs are passed through at the rate of $23 per TB per month. Your cost depends primarily on which engines you use and how long those engines are running.
 
