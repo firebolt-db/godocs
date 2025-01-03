@@ -3,6 +3,7 @@ layout: default
 title: Use the Develop Space
 description: Learn how to navigate and use the develop space to work with your Firebolt database.
 parent: Query data
+has_children: true
 nav_order: 1
 ---
 
