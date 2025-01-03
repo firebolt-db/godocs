@@ -32,10 +32,12 @@ HASH_AGG(*)
 ## Return Type
 `BIGINT`
 
-## Example
+## Examples
 {: .no_toc}
 
-For this example, we'll create a new table `tournament_information` as shown below.
+**Example**
+
+The following code example creates a new table `tournament_information`:
 
 ```sql
 CREATE DIMENSION TABLE tournament_information (name TEXT, prizedollars DOUBLE PRECISION, tournamentid INTEGER);
@@ -48,13 +50,17 @@ VALUES
 	('The Acceleration Trials', 13877, 3)
 ```
 
-The example below calculates a hash aggregation based on all columns in the table `tournament_information`.
+**Example**
+
+The following code example calculates a hash aggregation based on all columns in the table `tournament_information`:
 
 ```sql
 SELECT HASH_AGG(*) FROM tournament_information;
 ```
 
-**Returns**: `1,889,915,309,908,437,919`
+**Returns**
+
+`1,889,915,309,908,437,919`
 
 The next example calculates a hash aggregation based on columns `prizedollars` and `tournamentid` only.
 
@@ -62,4 +68,6 @@ The next example calculates a hash aggregation based on columns `prizedollars` a
 SELECT HASH_AGG(prizedollars, tournamentid) FROM tournament_information;
 ```
 
-**Returns**: `3,058,600,455,882,068,351`
+**Returns**
+
+`3,058,600,455,882,068,351`

@@ -128,13 +128,3 @@ Table `products` after:
 | robe | 80 | 1 |
 | cauldron | 20 | 16 |
 | quill | 5 | 80 |
-
-### Known limitations
-
-Below are some known limitations of the `UPDATE` command. 
-
-* `UPDATE` cannot be used on tables that have certain aggregating indexes An attempt to issue a `UPDATE` statement on a table with a join index or aggregating index outside of the below defined will fail - these table level aggregating indexes need to be dropped first. `UPDATE` can be used on tables that have aggregating indexes containing the following aggregating functions, starting in **DB version 3.16.0:**
-  * [COUNT and COUNT(DISTINCT)](../../functions-reference/aggregation/count.md)
-  * [SUM](../../functions-reference/aggregation/sum.md)
-  * [AVG](../../functions-reference/aggregation/avg.md)
-  * [ARRAY_AGG/NEST](../../functions-reference/aggregation/array-agg.md)

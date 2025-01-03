@@ -2,16 +2,12 @@
 layout: default
 title: CREATE TABLE
 description: Reference and syntax for the CREATE TABLE statement.
-great_grand_parent: SQL reference
-grand_parent:  SQL commands
 parent: Data definition
 ---
 
 # CREATE TABLE
 
 Creates a new table in the current database.
-
-Firebolt supports create table as select (CTAS). For more information, see [CREATE TABLE AS SELECT(CTAS)](./create-fact-dimension-table-as-select.md).
 
 * Topic ToC
 {:toc}
@@ -40,21 +36,11 @@ CREATE [FACT|DIMENSION] TABLE [IF NOT EXISTS] <table_name>
 | `<column_name>` | An identifier that specifies the name of the column. This name should be unique within the table.      |
 | `<column_type>`                                 | Specifies the data type for the column.                                                                |
 
-All identifiers are case insensitive unless double-quotes are used. For more information, please see the [Object identifiers page](../../../Reference/object-identifiers.md).
+All identifiers are case-insensitive unless double-quotes are used. For more information, see [Object identifiers]({% link Reference/object-identifiers.md %}).
 
-- [CREATE TABLE](#create-table)
-  - [Syntax](#syntax)
-  - [Parameters](#parameters)
-  - [Column constraints \& default expression](#column-constraints--default-expression)
-    - [Example–Creating a table with nulls and not nulls](#examplecreating-a-table-with-nulls-and-not-nulls)
-    - [PRIMARY INDEX](#primary-index)
-      - [Syntax–primary index](#syntaxprimary-index)
-    - [PARTITION BY](#partition-by)
-    - [Table type](#table-type)
+## Column constraints and the default expression
 
-## Column constraints & default expression
-
-Firebolt supports the column constraints shown below.
+Firebolt supports the following column constraints:
 
 ```sql
 <column_name> <column_type> [NULL | NOT NULL] [DEFAULT <expression>]
@@ -63,24 +49,20 @@ Firebolt supports the column constraints shown below.
 
 | Constraint           | Description                                                                                                                                                                                                                | Default value |
 | :-------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------- |
-| `DEFAULT <expression>`     | Determines the default value that is used instead of NULL value is inserted.                                                                                                                                               |               |
-| `NULL` \| `NOT NULL` | Determines if the column may or may not contain NULLs.                                                                                                                                                                     | `NOT NULL`    |
+| `DEFAULT <expression>`     | Determines the default value used when no value is provided, instead of inserting a `NULL` value.                                                                                                                                               |               |
+| `NULL` \| `NOT NULL` | Determines if the column may or may not contain `NULL` values.                                                                                                                                                                     | `NOT NULL`    |
 
 {: .note}
-Note that nullable columns can not be used in Firebolt indexes (Primary, or Aggregating indexes).
+Nullable columns cannot be used in Firebolt primary or aggregating indexes. Additionally, only literals and the following functions are supported in default expressions: [CURRENT_DATE]({% link sql_reference/functions-reference/date-and-time/current-date.md %}), [LOCALTIMESTAMP]({% link sql_reference/functions-reference/date-and-time/localtimestamp.md %}), [CURRENT_TIMESTAMP]({% link sql_reference/functions-reference/date-and-time/current-timestamptz.md %}), and NOW, the alias for CURRENT_TIMESTAMP.
 
-{: .note}
-Note that column default expressions are temporarily disabled starting from version 4.3.0.
-We are working on a new implementation of this feature and it will be re-enabled in the near future.
+### Example: Creating a table with `NULL` and `NOT NULL` values
 
-### Example&ndash;Creating a table with nulls and not nulls
+The following example illustrates different use cases for column definitions and `INSERT` statements:
 
-This example illustrates different use cases for column definitions and `INSERT` statements.
+* An **Explicit** `NULL` insert &ndash; a direct insertion of a `NULL` value into a particular column.
+* An **Implicit** `NULL` insert &ndash; an `INSERT` statement with missing values for a particular column.
 
-* **Explicit NULL insert**&ndash;a direct insertion of a `NULL` value into a particular column.
-* **Implicit NULL insert**&ndash;an `INSERT` statement with missing values for a particular column.
-
-The example uses a fact table in which to insert different values. The example below creates the fact table `t1`.
+The following example creates a fact table `t1` with five columns, specifying if each column can contain `NULL` values, their default values, and a primary index on `col2`:
 
 ```sql
 CREATE FACT TABLE t1
@@ -94,25 +76,25 @@ CREATE FACT TABLE t1
 PRIMARY INDEX col2;
 ```
 
-Once we've created the table, we can manipulate the values with different INSERT statements. Following are detailed descriptions of different examples of these:
+After creating a table, you can manipulate the values using different `INSERT` statements, as shown in the following examples:
 
 | INSERT statement | Results and explanation  |
 | :--------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `INSERT INTO t1 VALUES (1,1,1,1,1)`                                                                                               | 1 is inserted into each column                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| `INSERT INTO t1 VALUES (NULL,1,1,1,1)`                                                                                            | col1 is `NULL`, and this is an explicit NULL insert, so NULL is inserted successfully.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| `INSERT INTO t1 (col2,col3,col4,col5) VALUES (1,1,1,1)`                                                                           | This is an example of explicit and implicit INSERT statements. col1 is `NULL`, which is an implicit insert, as a default expression was not specified. In this case, col1 is treated as `NULL DEFAULT NULL,`so Firebolt inserts NULL.                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `INSERT INTO t1 VALUES (1,NULL,1,1,1)`<br> <br>`INSERT INTO t1 (col1,col3,col4,col5) VALUES (1,1,1,1)` | The behavior here depends on the column type. For both cases, a “null mismatch” event occurs.<br><br> In the original table creation, col2 receives a `NOT NULL` value. Since a default expression is not specified, both of these INSERT statements try to insert `NOT NULL DEFAULT NULL` into col2. This means that there is an implicit attempt to insert `NULL` in both cases. |
-| `INSERT INTO t1 VALUES (1,1,NULL,1,1)`                                                                                            | col3 is`NULL DEFAULT 1,`and this is an explicit insert. `NULL` is inserted                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `INSERT INTO t1 (col1,col2,col4,col5) VALUES (1,1,1,1)`                                                                           | col3 is `NULL DEFAULT 1`. This is an implicit insert, and a default expression is specified, so 1 is inserted                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `INSERT INTO t1 VALUES (1,1,1,NULL,1)`                                                                                            | col4 is `NOT NULL DEFAULT 1`, and this is an explicit insert. Therefore, a “null mismatch” event occurs.                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `INSERT INTO t1 (col1,col2,col3,col5) VALUES (1,1,1,1)`                                                                           | col4 is `NOT NULL DEFAULT 1`, and this is an implicit insert. Therefore, the default expression is used, and 1 is inserted                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `INSERT INTO t1 VALUES (1,1,1,1,NULL)`<br><br>`INSERT INTO t1 (col1,col2,col3,col4) VALUES (1,1,1,1)` | The nullability and default expression for col5 were not specified. In this case, Firebolt treats col5 as `NOT NULL DEFAULT NULL`.<br><br>For both, the explicit and the implicit insert, Firebolt attempts to insert NULL into a NOT NULL TEXT column, and a “null mismatch” event results.                                                                                                                                                                                                                        |
+| `INSERT INTO t1 VALUES (1,1,1,1,1)`                                                                                               | This code example inserts `1` into each column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `INSERT INTO t1 VALUES (NULL,1,1,1,1)`                                                                                            | This code example explicitly inserts a `NULL` value into `col1`. Because `col1` can contain `NULL` values, this operation is successful.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `INSERT INTO t1 (col2,col3,col4,col5) VALUES (1,1,1,1)`                                                                           | This code example shows both explicit and implicit `INSERT` statements. Because `col1` has no value specified, and lacks a default expression, it is implicitly set to `NULL`.                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `INSERT INTO t1 VALUES (1,NULL,1,1,1)`<br> <br>`INSERT INTO t1 (col1,col3,col4,col5) VALUES (1,1,1,1)` | This code example shows how a **null mismatch** error is generated. Because `col2` is defined as `NOT NULL` with no default expression, both `INSERT` statements implicitly try to insert `NULL` values into `col2`, and generate “null mismatch” events. |
+| `INSERT INTO t1 VALUES (1,1,NULL,1,1)`                                                                                            | This code example explicitly inserts a `NULL` value into `col3`. Because `col3` is defined as `NULL DEFAULT 1`, the operation is successful.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `INSERT INTO t1 (col1,col2,col4,col5) VALUES (1,1,1,1)`                                                                           | By not specifying a value for `col3`, this code example implicitly inserts the default value `1` into `col3`, which is defined as `NULL DEFAULT 1`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `INSERT INTO t1 VALUES (1,1,1,NULL,1)`                                                                                            | This code example shows how another **null mismatch** error is generated. Because `col4` is defined as `NOT NULL DEFAULT 1`, the explicit insertion of a `NULL` value violates the `NOT NULL` constraint, and results in a null mismatch event.                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `INSERT INTO t1 (col1,col2,col3,col5) VALUES (1,1,1,1)`                                                                           | This code example shows how omitting a value in an implicit insert invokes the default value `1` for `col4`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `INSERT INTO t1 VALUES (1,1,1,1,NULL)`<br><br>`INSERT INTO t1 (col1,col2,col3,col4) VALUES (1,1,1,1)` | This code example shows how explicit and implicit inserts cause a **null mismatch** error. Because `col5` was neither defined with a default expression nor allowed to contain `NULL` values, Firebolt treats `col5` as `NOT NULL DEFAULT NULL`. Both `INSERT` statements attempt to insert a `NULL` value into a `NOT NULL TEXT` column, invoking in a null mismatch event.                                                                                                                                                                                                                        |
 
 ### PRIMARY INDEX
 
-The `PRIMARY INDEX` is a sparse index containing sorted data based on the indexed field. This index clusters and sorts data as it is ingested, without affecting data scan performance. A `PRIMARY INDEX` is  optional. For more information, see [Primary indexes](../../../Guides/working-with-indexes/using-primary-indexes.md).
+The `PRIMARY INDEX` is an optional sparse index that sorts and organizes data based on the indexed field as it is ingested, without affecting data scan performance. For more information, see [Primary indexes]({% link Guides/working-with-indexes/using-primary-indexes.md %}).
 
-#### Syntax&ndash;primary index
+#### Syntax
 {: .no_toc}
 
 ```sql
@@ -123,31 +105,36 @@ The following table describes the primary index parameters:
 
 | Parameter.      | Description                                                                                                                                  | Mandatory? |
 | :--------------- | :-------------------------------------------------------------------------------------------------------------------------------------------- | :---------- |
-| `<column_name>` | Specifies the name of the column in the Firebolt table which composes the index. At least one column must be used for configuring the index. | Y          |
+| `<column_name>` | Specifies the name of the column in the Firebolt table which composes the index. At least one column is required. | Y          |
 
 ### PARTITION BY
 
-The `PARTITION BY` clause specifies a column or columns by which the table will be split into physical parts. Those columns are considered to be the partition key of the table. Columns must be non-nullable. When the partition key is set with multiple columns, all columns are used as the partition boundaries.
+The `PARTITION BY` clause defines one or more columns that determine how the table is divided into physical parts. These columns serve as the partition key and cannot allow `NULL` values. When multiple columns are used as the partition key, the combination of all of these columns define the partition boundaries.
 
 ```sql
 PARTITION BY <column_name>[, <column_name>[, ...n]]
 ```
 
-SQL Functions can be used in Partition By expressions, the following subset is supported:
+The following subset of SQL functions can be used in `PARTITION BY` expressions:
 
-* `to_yyyymm`
-* `to_yyyym`
-* `extract(year|month|day|hour from <column_name>)`
-* `date_trunc`
+* [TO_YYYYMM]({% link sql_reference/functions-reference/date-and-time/to-yyyymm.md %})
+* [TO_YYYYMMDD]({% link sql_reference/functions-reference/date-and-time/to-yyyymmdd.md %})
+* [EXTRACT]({% link sql_reference/functions-reference/date-and-time/extract.md %})`(year|month|day|hour from <column_name>)`
+* [DATE_TRUNC]({% link sql_reference/functions-reference/date-and-time/date-trunc.md %})
 
-For more information, see [Working with partitions](../../../Overview/working-with-tables/working-with-partitions.md)).
+For more information, see [Working with partitions]({% link Overview/working-with-tables/working-with-partitions.md %}).
 
 ### Table type
 
-Firebolt supports two types of tables:
+Firebolt supports two types of [tables]({% link Overview/working-with-tables/working-with-tables.md %}#fact-and-dimension-tables):
     
 * `FACT` table - the data is distributed across all nodes of the engine.
-* `DIMENSION` table - entire table is replicated in every node of the engine.
+* `DIMENSION` table - the entire table is replicated in every node of the engine.
 
-The default is `FACT` table. `DIMENSION` tables are useful, when the table is relatively small (up to tens of gigabytes), and used in joins with `FACT` tables.
+The [CREATE TABLE]({% link sql_reference/commands/data-definition/create-fact-dimension-table.md %}) command defaults to a `FACT` table. `DIMENSION` tables are ideal for relatively small tables, up to tens of gigabytes, that are used in joins with `FACT` tables.
     
+## Related functions
+
+Firebolt also supports the following related functions:
+* [CREATE TABLE AS SELECT (CTAS)]({% link sql_reference/commands/data-definition/create-fact-dimension-table-as-select.md %}) &ndash; - Creates a table and loads data into it based on a `SELECT` query. 
+* [CREATE TABLE CLONE]({% link sql_reference/commands/data-definition/index.md %}) &ndash; Creates a table that is a copy of an existing table in the database.

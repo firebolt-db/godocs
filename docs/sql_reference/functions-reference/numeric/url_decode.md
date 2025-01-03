@@ -40,7 +40,9 @@ This example below decodes the percent-encoded parameters of an URL:
 SELECT URL_DECODE('https://www.firebolt.io/?example_id%3D1%26hl%3Den');
 ```
 
-**Returns**: https://www.firebolt.io/?example_id=1&hl=en
+**Returns**
+
+https://www.firebolt.io/?example_id=1&hl=en
 
 ## Related
 

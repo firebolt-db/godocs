@@ -51,7 +51,9 @@ SELECT BIT_XOR(a)
 FROM UNNEST([1,2,1]) as a;
 ```
 
-**Returns**: The previous code example returns `2`. In a 4-bit system, the binary representation of `1`, and `2` are:
+**Returns**
+
+The previous code example returns `2`. In a 4-bit system, the binary representation of `1`, and `2` are:
 
 * `1` `->` `0001`
 * `2` `->` `0010`
@@ -67,7 +69,9 @@ SELECT BIT_XOR(DISTINCT a)
 FROM UNNEST([1,2,1]) as a;
 ```
 
-**Returns**: The previous code example returns `3`. In a 4-bit system, the binary representation of `1` and `2` are:
+**Returns**
+
+The previous code example returns `3`. In a 4-bit system, the binary representation of `1` and `2` are:
 
 * `1` `->` `0001`
 * `2` `->` `0010`
@@ -83,7 +87,9 @@ SELECT BIT_XOR(a)
 FROM generate_series(1, 3) as a;
 ``` 
 
-**Returns**: The previous code example returns `0`. In a 4-bit system, the binary representation of integers from `1` to `3` are:
+**Returns**
+
+The previous code example returns `0`. In a 4-bit system, the binary representation of integers from `1` to `3` are:
 
 * `1` `->` `0001`
 * `2` `->` `0010`
@@ -100,7 +106,9 @@ SELECT BIT_XOR(a)
 FROM generate_series(-1, 2) as a;
 ```
 
-**Returns**: The previous code example returns `-4`. In a 4-bit system, the binary representation of integers from `-1` to `1` are:
+**Returns**
+
+The previous code example returns `-4`. In a 4-bit system, the binary representation of integers from `-1` to `1` are:
 
 * `-1` `->` `1111`
 * `0` `->` `0000`

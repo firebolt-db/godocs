@@ -43,7 +43,7 @@ For the following example, see the `player_information` table:
 | burchdenise | 7   |
 | sabrina21   | NULL    |
 
-This example code selects the columns in the `player_information` table and returns the values in two arrays, `nicknames` and `playerids`. 
+The following code example code selects the columns in the `player_information` table and returns the values in two arrays, `nicknames` and `playerids`: 
 
 ```sql
 SELECT
@@ -53,9 +53,11 @@ FROM
 	price_list;
 ```
 
-**Returns**: `{'stephen70', 'burchdenise', 'sabrina21'}, {1, 7, NULL}`
+**Returns**
 
-If a filter is added to the query which rejects all rows, `ARRAY_AGG` will return `NULL`.
+`{'stephen70', 'burchdenise', 'sabrina21'}, {1, 7, NULL}`
+
+The following code example shows that if a filter is added to the query which rejects all rows, `ARRAY_AGG` will return `NULL`:
 
 ```sql
 SELECT
@@ -67,4 +69,6 @@ WHERE
   playerid = 42;
 ```
 
-**Returns**: `NULL, NULL`
+**Returns**
+
+`NULL, NULL`

@@ -62,8 +62,8 @@ HEADER=TRUE AUTO_CREATE=TRUE;
 Firebolt supports authentication using both permanent AWS access keys and temporary security credentials obtained through Amazon's [AssumeRole](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html) feature. To provide your credentials for the previous example, follow these steps:
 
 #### Static Credentials
-Replace <aws_key_id> with an AWS access key ID associated with an AWS user or IAM role. The access key ID is a 20-character string (e.g., AKIAIOSFODNN7EXAMPLE).
-Replace <aws_secret_key> with the AWS Secret Access Key associated with the user or role. The Secret Access Key is a 40-character string (e.g., wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY). Optionally, an AWS_SESSION_TOKEN can be specified. 
+Replace `<aws_access_key_id>` with an AWS access key ID associated with an AWS user or IAM role. The access key ID is a 20-character string (e.g., AKIAIOSFODNN7EXAMPLE).
+Replace `<aws_secret_access_key>` with the AWS secret access key associated with the AWS user or IAM role. The secret access key is a 40-character string (e.g., wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY). You can also specify an `AWS_SESSION_TOKEN`.
 
 **Example:**
 
@@ -72,7 +72,7 @@ COPY INTO tutorial
 FROM 's3://test-bucket/data.csv'
 WITH
 CREDENTIALS = (
-    AWS_KEY_ID = 'AKIAIOSFODNN7EXAMPLE' AWS_SECRET_KEY = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
+    AWS_ACCESS_KEY_ID = 'AKIAIOSFODNN7EXAMPLE' AWS_SECRET_ACCESS_KEY = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
 )
 ```
 

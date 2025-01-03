@@ -17,6 +17,8 @@ We provide an archive of release notes for your historical reference.
 * Topic ToC
 {:toc}
 
+{% include release_notes/release_notes_4_10.md %}
+
 {% include release_notes/release_notes_4_9.md %}
 
 {% include release_notes/release_notes_4_8.md %}
@@ -31,33 +33,6 @@ We provide an archive of release notes for your historical reference.
 
 ## DB version 4.3
 **August 2024**
-
-### Breaking Changes
-
-<!-- Owned by Vitaliy Lyudvichenko (for FIR-35188) --> **Temporarily restricted column DEFAULT expressions in CREATE TABLE statements**
-{: style="color:red;"}
-
-Column DEFAULT expressions in CREATE TABLE statements have been temporarily restricted, they can only consist of literals and the following functions: `CURRENT_DATE()`, `LOCALTIMESTAMP()`, `CURRENT_TIMESTAMP()`, `NOW()`. Existing tables with column DEFAULT expressions are not affected.
-
-<!-- Auto Generated Markdown for FIR-24961 - Owned by Kfir Yehuda --> **Underflow detection while casting from TEXT to floating point data types**
-{: style="color:red;"}
-
-Firebolt now detects underflow, a condition where a numeric value becomes smaller than the minimum limit that a data type can represent, when casting from TEXT to floating point data types. For example, the query `select '10e-70'::float4;` now returns an error, while it previously returned `0.0`.
-
-<!-- Auto Generated Markdown for FIR-33925 - Owned by Tobias Humig --> **Returning query execution errors in JSON format through the HTTP API**
-{: style="color:red;"}
-
-Firebolt's HTTP API now returns query execution errors in JSON format, allowing for future enhancements like including metadata such as error codes, or the location of a failing expression within the SQL script.
-
-<!-- Auto Generated Markdown for FIR-35022 - Owned by David Boublil -->**Changed default of case_sensitive_column_mapping parameter in COPY FROM**
-{: style="color:red;"}
-
-The default value for the `CASE_SENSITIVE_COLUMN_MAPPING` parameter in `COPY FROM` is now `FALSE`, meaning that if a target table contains column names in uppercase and the source file to ingest has the same columns in lowercase, the ingestion will consider them the same column and ingest the data.
-
-<!-- Auto Generated Markdown for FIR-34581 - Owned by Kfir Yehuda -->**`extract` function returns Numeric(38,9) for Epoch, second, and millisecond extraction**
-{: style="color:red;"}
-
-The result data type of the `extract` function for epoch, second, and millisecond was changed to return the type Numeric(38,9) instead of a narrower Numeric type. For example, `select extract(second from '2024-04-22 07:10:20'::timestamp);` now returns Numeric(38,9) instead of Numeric(8,6).
 
 ### New Features
 
@@ -97,6 +72,32 @@ Selective inner and right joins on primary index and partition by columns now ca
 
 Resolved an issue where the `index_of` function would fail when applied to the result of a cross join that produced a single row.
 
+### Breaking Changes
+
+<!-- Owned by Vitaliy Lyudvichenko (for FIR-35188) --> **Temporarily restricted column DEFAULT expressions in CREATE TABLE statements**
+{: style="color:red;"}
+
+Column DEFAULT expressions in CREATE TABLE statements have been temporarily restricted, they can only consist of literals and the following functions: `CURRENT_DATE()`, `LOCALTIMESTAMP()`, `CURRENT_TIMESTAMP()`, `NOW()`. Existing tables with column DEFAULT expressions are not affected.
+
+<!-- Auto Generated Markdown for FIR-24961 - Owned by Kfir Yehuda --> **Underflow detection while casting from TEXT to floating point data types**
+{: style="color:red;"}
+
+Firebolt now detects underflow, a condition where a numeric value becomes smaller than the minimum limit that a data type can represent, when casting from TEXT to floating point data types. For example, the query `select '10e-70'::float4;` now returns an error, while it previously returned `0.0`.
+
+<!-- Auto Generated Markdown for FIR-33925 - Owned by Tobias Humig --> **Returning query execution errors in JSON format through the HTTP API**
+{: style="color:red;"}
+
+Firebolt's HTTP API now returns query execution errors in JSON format, allowing for future enhancements like including metadata such as error codes, or the location of a failing expression within the SQL script.
+
+<!-- Auto Generated Markdown for FIR-35022 - Owned by David Boublil -->**Changed default of case_sensitive_column_mapping parameter in COPY FROM**
+{: style="color:red;"}
+
+The default value for the `CASE_SENSITIVE_COLUMN_MAPPING` parameter in `COPY FROM` is now `FALSE`, meaning that if a target table contains column names in uppercase and the source file to ingest has the same columns in lowercase, the ingestion will consider them the same column and ingest the data.
+
+<!-- Auto Generated Markdown for FIR-34581 - Owned by Kfir Yehuda -->**`extract` function returns Numeric(38,9) for Epoch, second, and millisecond extraction**
+{: style="color:red;"}
+
+The result data type of the `extract` function for epoch, second, and millisecond was changed to return the type Numeric(38,9) instead of a narrower Numeric type. For example, `select extract(second from '2024-04-22 07:10:20'::timestamp);` now returns Numeric(38,9) instead of Numeric(8,6).
 
 ## DB version 4.2
 **July 2024**
@@ -106,6 +107,21 @@ Resolved an issue where the `index_of` function would fail when applied to the r
 <!--- FIR-32118---> **New `ntile` window function**
 
 Firebolt now supports the `ntile` window function. Refer to our [NTILE](../sql_reference/../../sql_reference/functions-reference/window/ntile.md) documentation for examples and usage. 
+
+### Enhancements, changes and new integrations
+
+<!--- FIR-33699---> **Improved query performance**
+
+Queries with "`SELECT [project_list] FROM [table] LIMIT [limit]`" on large tables are now significantly faster.
+
+<!--- FIR-33857---> **Updated table level RBAC**
+
+Table level RBAC is now supported by Firebolt. This means that RBAC checks also cover schemas, tables, views and aggregating indexes. Refer to our [RBAC](./../../Guides/security/rbac.md) docs for a detailed overview of this new feature. The new Firebolt version inhibits the following change:
+   * System built-in roles are promoted to contain table level RBAC information. This means that new privileges are added to `account_admin`, `system_admin` and `public` roles. The effect is transparent— any user assigned with those roles will not be affected.
+
+<!--- FIR-33857---> **Removal of Deprecated Columns from `INFORMATION_SCHEMA.ENGINES`**
+
+We removed the following columns from `INFORMATION_SCHEMA.ENGINES` that were only for FB 1.0 compatibility: `region`, `spec`, `scale`, `warmup`, and `attached_to`. These columns were always empty. (These columns are hidden and do not appear in `SELECT *` queries, but they will still work if referenced explicitly.)
 
 ### Breaking Changes 
 
@@ -169,22 +185,6 @@ We have introduced several updates to role and privilege management:
   * `Information_object_privileges` includes more privileges. Switching to to a specific user database (e.g by executing `use database db`) will only show privileges relevant for that database. Account-level privileges no longer show up when attached to a specific database. 
   * Every newly created user is granted with a `public` role. This grant can be revoked.
 
-### Enhancements, changes and new integrations
-
-<!--- FIR-33699---> **Improved query performance**
-
-Queries with "`SELECT [project_list] FROM [table] LIMIT [limit]`" on large tables are now significantly faster.
-
-<!--- FIR-33857---> **Updated table level RBAC**
-
-Table level RBAC is now supported by Firebolt. This means that RBAC checks also cover schemas, tables, views and aggregating indexes. Refer to our [RBAC](./../../Guides/security/rbac.md) docs for a detailed overview of this new feature. The new Firebolt version inhibits the following change:
-   * System built-in roles are promoted to contain table level RBAC information. This means that new privileges are added to `account_admin`, `system_admin` and `public` roles. The effect is transparent— any user assigned with those roles will not be affected.
-
-<!--- FIR-33857---> **Removal of Deprecated Columns from `INFORMATION_SCHEMA.ENGINES`**
-
-We removed the following columns from `INFORMATION_SCHEMA.ENGINES` that were only for FB 1.0 compatibility: `region`, `spec`, `scale`, `warmup`, and `attached_to`. These columns were always empty. (These columns are hidden and do not appear in `SELECT *` queries, but they will still work if referenced explicitly.)
-
-
 ## DB version 4.1
 **June 2024**
 
@@ -198,8 +198,19 @@ We removed the following columns from `INFORMATION_SCHEMA.ENGINES` that were onl
 ## DB version 4.0
 **June 2024**
 
-* [Breaking Changes](#breaking-changes)
 * [Enhancements, changes, and new integrations](#enhancements-changes-and-new-integrations)
+* [Breaking Changes](#breaking-changes)
+
+### Enhancements, changes and new integrations
+{: style="color:black;"}
+
+<!--- FIR-32711 --->**Query Cancelation on HTTP Connection Drop**
+
+Going forward, when the network connection between the client and Firebolt is dropped (for example because the Firebolt UI tab was closed or due to network issues), DML queries (INSERT, UPDATE, DELETE, etc) are no longer canceled automatically, but will keep running in the background. You can continue to monitor their progress in `information_schema.engine_running_queries` or cancel them manually using the `cancel query` statement if desired. DQL queries (SELECT) are still canceled automatically on connection drop. 
+
+<!--- FIR-31795 --->**New Aggregate Functions: `CHECKSUM` and `hash_agg`**
+
+`CHECKSUM` and `hash_agg` functions are now supported for aggregating indexes. Note that when the `hash_agg` function doesn't receive rows, the result is 0.
 
 ### Breaking Changes 
 {: style="color:red;"}
@@ -231,18 +242,6 @@ cast(a as array(int)).
 {: style="color:red;"}
 
 Casts now behave the same across the product and adhere to the list of supported casts. Some usages of casts (explicit, implicit, or assignment cast) that were previously allowed are no longer supported and now result in errors. For more details on list of supported casts, see the documentation [here](../../sql_reference/data-types.md#type-conversion).
-
-### Enhancements, changes and new integrations
-{: style="color:black;"}
-
-<!--- FIR-32711 --->**Query Cancelation on HTTP Connection Drop**
-
-Going forward, when the network connection between the client and Firebolt is dropped (for example because the Firebolt UI tab was closed or due to network issues), DML queries (INSERT, UPDATE, DELETE, etc) are no longer canceled automatically, but will keep running in the background. You can continue to monitor their progress in `information_schema.engine_running_queries` or cancel them manually using the `cancel query` statement if desired. DQL queries (SELECT) are still canceled automatically on connection drop. 
-
-<!--- FIR-31795 --->**New Aggregate Functions: `CHECKSUM` and `hash_agg`**
-
-`CHECKSUM` and `hash_agg` functions are now supported for aggregating indexes. Note that when the `hash_agg` function doesn't receive rows, the result is 0.
-
 
 ## DB version 3.34
 **May 2024**

@@ -51,4 +51,6 @@ FROM
 	tournaments;
 ```
 
-**Returns**: `true`
+**Returns**
+
+`true`

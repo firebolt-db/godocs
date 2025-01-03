@@ -8,55 +8,116 @@ parent: Access control
 ---
 
 # GRANT
-Grants permissions to a role. Can also be used to grant a role to another role or a user. 
+Grants permission or assignment to a role. `GRANT` can also be used to assign a role to another role or a user. 
 
-For more information, see [Role-based access control](../../../Guides/security/rbac.md).
+For more information, see [Role-based access control]({% link Guides/security/rbac.md %}).
 
-## Syntax
+## GRANT PRIVILEGE
+
+Grants a permission to a role.
+
+{: .note}
+Only an account_admin or a role owner can grant a permission to a role. To grant a permission, you must first have that permission granted to you.
+
+### Syntax
 
 ```sql
-GRANT <permission> ON <object_type> <object_name> TO <role_name>
+GRANT <permission> ON <object_type> <object_name> [IN <object_type> <object_name>] TO <role_name>
 ```
 
-or
-
-```sql
-GRANT ROLE <role_name> TO { USER <user_name> | ROLE <role2_name> }
-```
-
-## Parameters 
+### Parameters 
 {: .no_toc} 
 
 | Parameter  | Description |
 | :--------- | :---------- |
-| `<permission>` | The name of the permission to grant to a role. Permissions that can be granted depend on the object they are granted on - for a full list see [Permissions](../../../Guides/security/rbac.md#permissions). |
-| `<object_type>` | The object to grant permissions on - either DATABASE or ENGINE. |
-| `<object_name>` | The name of the database or engine to grant permissions on. |
-| `<role_name>` | The name of the role. |
-| `<user_name>` | The name of the user for the role grant. |
-| `<role2_name>` | The name of the role for the role grant. |
+| `<permission>` | The name of the permission to grant to a role. Available permissions vary depending on the object that they apply to. For a full list, see [Permissions]({% link Overview/Role-Based Access Control/index.md %}). |
+| `<object_type>` | The type of object to grant permissions on. |
+| `<object_name>` | The name of the object to grant permissions on. |
+| `<role_name>` | The name of the role to grant the permission to. |
 
-## Example
+### Examples
 
-The following command will grant `USAGE` permission on the database `my_db` to the role `user_role`.
+**Grant `USAGE` on a single database**
+
+The following code example grants the `USAGE` privilege on the `db` database to the role `user_role`, allowing it to access the database:
 
 ```sql
-GRANT USAGE ON DATABASE my_db TO user_role;
+GRANT USAGE ON DATABASE db TO user_role;
 ```
 
-## Example 2
+**Grant `USAGE` on all databases within an account**
 
-The following command will grant `USAGE` permissions on all databases in the account `dev` to the role `user_role`.
+The following code example grants the `USAGE` privilege on all databases in the `dev` account to the role `user_role`, allowing access to them:
 
 ```sql
 GRANT USAGE ANY DATABASE ON ACCOUNT dev TO user_role;
 ```
 
-## Example 3
+**Grant access to a databse, schema, and a specific table**
 
-The following command will grant `SELECT` permission on table `my_table` to the role `user_role`.
+The following code example grants the role `user_role` access to the `db` database, the `public` schema within the `db` database, and permission to read data from the `my_table` table in the `public` schema:
 
 ```sql
-GRANT SELECT ON TABLE my_table TO user_role;
+GRANT USAGE ON DATABASE db TO user_role;
+GRANT USAGE ON SCHEMA public IN DATABASE db TO user_role;
+USE DATABASE db;
+GRANT SELECT ON TABLE my_table IN SCHEMA public TO user_role;
 ```
 
+**Grant access to a database, schema, and all operations on a specific table**
+
+The following code example grants the role `user_role` access to the `db` database, the `public` schema within the `db` database, and all permissions on the `my_table` table in the `public` schema:
+
+```sql
+GRANT USAGE ON DATABASE db TO user_role;
+GRANT USAGE ON SCHEMA public IN DATABASE db TO user_role;
+USE DATABASE db;
+GRANT ALL ON TABLE my_table IN SCHEMA public TO user_role;
+```
+
+**Grant access to all existing and future tables or views in a schema**
+
+The following code example grants `user_role` access to the `db` database, the `public` schema within the `db` database, and permission to query all existing and future tables or views in the `public` schema:
+
+```sql
+GRANT USAGE ON DATABASE db TO user_role;
+GRANT USAGE ON SCHEMA public IN DATABASE db TO user_role;
+GRANT SELECT ANY ON SCHEMA public IN DATABASE db TO user_role;
+```
+
+## GRANT ROLE
+
+Grants a role to either a user or another role, allowing the recipient to inherit the permissions associated with the granted role.
+
+### Syntax
+
+```sql
+GRANT ROLE <role_name> TO { USER <user_name> | ROLE <role_name_2> }
+```
+
+### Parameters 
+{: .no_toc} 
+
+| Parameter  | Description |
+| :--------- | :---------- |
+| `<role_name>` | The name of the role to grant. |
+| `<user_name>` | The name of the user to grant `<role_name>` to. |
+| `<role_name_2>` | The name of the role to assign the role to. |
+
+### Examples
+
+**Grant a role to another role**
+
+The following code example assigns the `role_name` role to `role_name_2`, allowing `role_name_2` to inherit all the permissions granted to `role_name`:
+
+```sql
+GRANT ROLE role_name TO ROLE role_name_2;
+```
+
+**Grant a role to a user**
+
+The following code example assigns the `role_name` role to `user_name`, allowing the user to inherit all the permissions granted to `role_name`:
+
+```sql
+GRANT ROLE role_name TO USER user_name;
+```

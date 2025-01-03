@@ -29,9 +29,12 @@ MAX(<expression>)
 ## Return Types
 Same as input type
 
-## Example
+## Examples
 {: .no_toc}
-For this example, see the following table, `tournaments`:
+
+**Example**
+
+This code example uses the following `tournaments` table:
 
 | name                          | totalprizedollars |
 | :-----------------------------| :-----------------|
@@ -41,7 +44,7 @@ For this example, see the following table, `tournaments`:
 | The Winter Wilderness Rally   | 21,560             |
 | The Circuit Championship      | 9,739              |
 
-When used on the `totalprizedollars` column, `MAX` will return the highest value.
+When used on the `totalprizedollars` column, `MAX` will return the highest value, as follows:
 
 ```sql
 SELECT
@@ -50,8 +53,11 @@ FROM
 	tournaments;
 ```
 
-**Returns**: `24,768`
+**Returns**
 
+`24,768`
+
+**Example**
 
 `MAX` can also work on text or array columns, in which case it returns the lexicographically largest value. In this example, the function assesses the `name` column in the `tournaments` table.
 
@@ -62,4 +68,6 @@ FROM
 	tournaments;
 ```
 
-**Returns**: `The Winter Wilderness Rally`
+**Returns**
+
+`The Winter Wilderness Rally`

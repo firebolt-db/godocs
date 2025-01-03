@@ -25,12 +25,12 @@ CREATE EXTERNAL TABLE [IF NOT EXISTS] <table>
     [, <column_name2> <column_type2> [PARTITION('<regex>')]]
     [,...<column_name2> <column_type2> [PARTITION('<regex>')]]
 )
-[CREDENTIALS = (<awsCredentials>)]
+[ CREDENTIALS = ( <credentials> ) ]
 URL = 's3://<bucket_name>[/<folder>][/...]/'
-OBJECT_PATTERN = '<object_pattern>'[, '<object_pattern>'[, ...n]]
-TYPE = (<type>)
+OBJECT_PATTERN = '<object_pattern>'
+TYPE = ( <type> )
 [ <type option> ]
-[COMPRESSION = <compression_type>]
+[ COMPRESSION = <compression_type> ]
 ```
 
 ## Parameters 
@@ -99,7 +99,7 @@ CREATE EXTERNAL TABLE my_ext_table (
   c_name  TEXT,
   c_type  TEXT PARTITION('[^/]+/c_type=([^/]+)/[^/]+/[^/]+')
 )
-CREDENTIALS = (AWS_KEY_ID = 'AKIAIOSFODNN7EXAMPLE' AWS_SECRET_KEY = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY')
+CREDENTIALS = (AWS_ACCESS_KEY_ID = 'AKIAIOSFODNN7EXAMPLE' AWS_SECRET_ACCESS_KEY = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY')
 URL = 's3://my_bucket/'
 OBJECT_PATTERN= '*.parquet'
 TYPE = (PARQUET)
@@ -122,16 +122,16 @@ The credentials for accessing your data on AWS S3 using access key & secret.
 #### Syntax&ndash;authenticating using an access key and secret
 
 ```sql
-CREDENTIALS = (AWS_KEY_ID = '<aws_key_id>' AWS_SECRET_KEY = '<aws_secret_key>' [ AWS_SESSION_TOKEN = '<aws_session_token>' ] )
+CREDENTIALS = (AWS_ACCESS_KEY_ID = '<aws_access_key_id>' AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>' [ AWS_SESSION_TOKEN = '<aws_session_token>' ] )
 ```
 ## Parameters 
 {: .no_toc} 
 
 | Parameter          | Description                                             | Data type |
 |: ------------------ |: ------------------------------------------------------- |: --------- |
-| `aws_key_id`     | The AWS access key ID for the authorized app (Firebolt) | `TEXT `     |
-| `aws_secret_key` | The AWS secret access key for the app (Firebolt)        | `TEXT`      |
-| `aws_session_token` | The AWS session token for the app (Firebolt)        | `TEXT`      |
+| `aws_access_key_id`     | The AWS access key ID. | `TEXT `     |
+| `aws_secret_access_key` | The AWS secret access key.        | `TEXT`      |
+| `aws_session_token` | The AWS session token.        | `TEXT`      |
 
 {: .note}
 In case you don't have the access key and secret to access your S3 bucket, read more [here](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) on how to obtain them.
@@ -268,7 +268,7 @@ CREATE EXTERNAL TABLE my_external_table
     c_id INTEGER,
     c_name TEXT
 )
-CREDENTIALS = (AWS_KEY_ID = '*****' AWS_SECRET_KEY = '******')
+CREDENTIALS = (AWS_ACCESS_KEY_ID = '****' AWS_SECRET_ACCESS_KEY = '****')
 URL = 's3://bucket/'
 OBJECT_PATTERN= '*.parquet'
 TYPE = (PARQUET)
@@ -302,7 +302,7 @@ CREATE EXTERNAL TABLE my_external_table
     c_id INTEGER,
     c_name TEXT
 )
-CREDENTIALS = (AWS_KEY_ID = 'AKIAIOSFODNN7EXAMPLE' AWS_SECRET_KEY = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY')
+CREDENTIALS = (AWS_ACCESS_KEY_ID = 'AKIAIOSFODNN7EXAMPLE' AWS_SECRET_ACCESS_KEY = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY')
 URL = 's3://mybucket/'
 OBJECT_PATTERN= '*.csv.gz'
 TYPE = (CSV)

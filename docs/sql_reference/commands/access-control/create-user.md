@@ -41,5 +41,5 @@ CREATE USER [ IF NOT EXISTS ] <user_name>
 The following code example creates a user named `alex`, links it to the login `alexs@acme.com`, and assigns it the roles of `analyst` and `data_engineer`:
 
 ```sql
-CREATE USER alex WITH LOGIN= "alexs@acme.com", ROLE= (analyst, data_engineer);
+CREATE USER alex WITH LOGIN= "alexs@acme.com" ROLE= (analyst, data_engineer);
 ```

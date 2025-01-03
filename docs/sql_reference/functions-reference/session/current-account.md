@@ -28,4 +28,6 @@ CURRENT_ACCOUNT()
 SELECT current_account()
 ```
 
-**Returns**: `test_account`
+**Returns**
+
+`test_account`

@@ -38,9 +38,11 @@ The order of operations while computing the aggregate is non-deterministic.
 This can lead to varying total floating point error when running a query multiple times.
 If this is not acceptable for your use-case, aggregate on [NUMERIC](/sql_reference/numeric-data-type) data instead.
 
-## Example
+## Examples
 
-For this example, see the following table `tournaments`: 
+**Example**
+
+This code example uses the following `tournaments` table:
 
 | name                          | totalprizedollars |
 | :-----------------------------| :-----------------| 
@@ -59,7 +61,13 @@ FROM
 	tournaments
 ```
 
-**Returns**: `99,951`
+**Returns**
+
+`99,951`
+
+**Example**
+
+For the following code example, since both the Singapore Grand Prix and The Acceleration Championship have the same total prize of `19,274`, only one of these values in this sum in included:
 
 ```sql
 SELECT
@@ -68,6 +76,6 @@ FROM
 	tournaments
 ```
 
-For this calculation, since both the Singapore Grand Prix and The Acceleration Championship have the same total prize of `19,274`, only one of these values in this sum in included. 
+**Returns**
 
-**Returns**: `80,677`
+`80,677`

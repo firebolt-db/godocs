@@ -30,10 +30,12 @@ MAX_BY(<result>, <value>)
 
 Same as input type of <result>
 
-## Example
+## Examples
 {: .no_toc}
 
-For this example, see the following table, `tournaments`:
+**Example**
+
+This example uses the following table, `tournaments`:
 
 | name                          | totalprizedollars |
 | :-----------------------------| :-----------------|
@@ -44,7 +46,7 @@ For this example, see the following table, `tournaments`:
 | The Circuit Championship      | 9,739             |
 
 
-In the example below, `MAX_BY` is used to find the name of the tournament with the highest total prize.
+In the following code example, `MAX_BY` is used to find the name of the tournament with the highest total prize.
 
 ```sql
 SELECT
@@ -55,6 +57,7 @@ FROM
 
 **Returns:** `The Drifting Thunderdome`
 
+**Example**
 
 When multiple rows maximize the second argument, an arbitrary one is chosen, preferring non-NULL values of the first argument:
 ```sql
@@ -64,10 +67,13 @@ FROM UNNEST(
     [10,  100,   1,  100, 100, NULL]
 ) t(key, value)
 ```
-**Returns** `'d'` or `'e'`, as rows 2, 4, and 5 maximize the second argument, but the first argument is NULL for row 2. Because non-NULL values of the first argument exist for the other rows, one of those values is returned. Which of them is non-deterministic, hence this query may return either `'d'` or `'e'`.
+**Returns**
 
+`'d'` or `'e'`, as rows 2, 4, and 5 maximize the second argument, but the first argument is NULL for row 2. Because non-NULL values of the first argument exist for the other rows, one of those values is returned. Which of them is non-deterministic, hence this query may return either `'d'` or `'e'`.
 
-However, if all rows maximizing the second argument are NULL in the first argument, NULL is returned:
+**Example**
+
+However, if all rows maximizing the second argument are `NULL` in the first argument, `NULL` is returned:
 ```sql
 SELECT MAX_BY(key, value)
 FROM UNNEST(
@@ -75,4 +81,6 @@ FROM UNNEST(
     [10,  100,   1,   2,  100, NULL]
 ) t(key, value)
 ```
-**Returns** `NULL`.
+**Returns**
+
+`NULL`

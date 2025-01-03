@@ -89,7 +89,7 @@ Learn how to load and query your data with our [Get Started](../Guides/getting-s
     data-cta-action="signup"
     href="https://go.firebolt.io/signup"
     class="cta-arrow pricing w-inline-block">
-Sign up</a> to access your $200 Firebolt credit. No credit card needed
+Sign up</a> to access your $200 Firebolt credit for your first 30 days. No credit card needed.
 
 * See news, blog posts, whitepapers, events, and videos at [Firebolt's Knowledge center](https://www.firebolt.io/knowledge-center). 
 * Explore our [competitive pricing options](https://www.firebolt.io/pricing).

@@ -28,6 +28,7 @@ The system engine supports running the following commands:
     * [information_schema.transitive_applicable_roles](../../sql_reference/information-schema/transitive-applicable-roles.md)
     * [information_schema.columns](../../sql_reference/information-schema/columns.md)
     * [information_schema.catalogs](../../sql_reference/information-schema/catalogs.md)
+    * [information_schema.enabled_roles](../../sql_reference/information-schema/enabled-roles.md)
     * [information_schema.engines](../../sql_reference/information-schema/engines.md)
     * [information_schema.indexes](../../sql_reference/information-schema/indexes.md)
     * [information_schema.logins](../../sql_reference/information-schema/logins.md)

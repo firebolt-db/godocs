@@ -1,22 +1,6 @@
 ## DB version 4.6
 **September 2024**
 
-### Behavior Changes
-
-<!-- Auto Generated Markdown for FIR-35643 - Owned by Pascal Schulze -->
-**Introduced `SHOW CATALOGS` statement and aliased `SHOW DATABASES` to it while deprecating `SHOW DATABASE X`**
-{: style="color:red;"}
-
-A new statement `SHOW CATALOGS` now acts as an alias for `SHOW DATABASES`. The statement `SHOW DATABASE X` is no longer supported.
-
-<!-- Auto Generated Markdown for FIR-31001 - Owned by Asya Shneerson -->
-**`COPY FROM` now unzips Parquet files with gzip extensions**
-{: style="color:red;"}
-
-Before version 4.6, the `COPY FROM` command did not apply file-level decompression to Parquet files with a `.gzip` or `.gz` extension. The command treated these files as standard Parquet files, assuming that any compression existed only within the internal Parquet format structure.
-
-With the release of version 4.6, `COPY FROM` now processes Parquet files similarly to other formats. When a Parquet file has a `.gz` or `.gzip` extension, the command will first decompress the file before reading it as a Parquet format file. Hence, it will now fail while reading internally compressed Parquet files with gzip extensions. Users experiencing issues with loading files after this change should contact the support team at support@firebolt.io for assistance.
-
 ### New Features
 
 **`COPY TO` support for the `SNAPPY` compression type**<BR>
@@ -33,6 +17,21 @@ With the release of version 4.6, `COPY FROM` now processes Parquet files similar
 
 Firebolt has added support for vector distance and similarity calculations with the following new functions: [VECTOR_COSINE_DISTANCE]({% link sql_reference/functions-reference/vector/vector-cosine-distance.md %}), [VECTOR_MANHATTAN_DISTANCE]({% link sql_reference/functions-reference/vector/vector-manhattan-distance.md %}), [VECTOR_EUCLIDEAN_DISTANCE]({% link sql_reference/functions-reference/vector/vector-euclidean-distance.md %}), [VECTOR_SQUARED_EUCLIDEAN_DISTANCE]({% link sql_reference/functions-reference/vector/vector-squared-euclidean-distance.md %}), [VECTOR_COSINE_SIMILARITY]({% link sql_reference/functions-reference/vector/vector-cosine-similarity.md %}), and [VECTOR_INNER_PRODUCT]({% link sql_reference/functions-reference/vector/vector-inner-product.md %}).
 
+### Behavior Changes
+
+<!-- Auto Generated Markdown for FIR-35643 - Owned by Pascal Schulze -->
+**Introduced `SHOW CATALOGS` statement and aliased `SHOW DATABASES` to it while deprecating `SHOW DATABASE X`**
+{: style="color:red;"}
+
+A new statement `SHOW CATALOGS` now acts as an alias for `SHOW DATABASES`. The statement `SHOW DATABASE X` is no longer supported.
+
+<!-- Auto Generated Markdown for FIR-31001 - Owned by Asya Shneerson -->
+**`COPY FROM` now unzips Parquet files with gzip extensions**
+{: style="color:red;"}
+
+Before version 4.6, the `COPY FROM` command did not apply file-level decompression to Parquet files with a `.gzip` or `.gz` extension. The command treated these files as standard Parquet files, assuming that any compression existed only within the internal Parquet format structure.
+
+With the release of version 4.6, `COPY FROM` now processes Parquet files similarly to other formats. When a Parquet file has a `.gz` or `.gzip` extension, the command will first decompress the file before reading it as a Parquet format file. Hence, it will now fail while reading internally compressed Parquet files with gzip extensions. Users experiencing issues with loading files after this change should contact the support team at support@firebolt.io for assistance.
 
 ### Bug Fixes
 

@@ -31,10 +31,14 @@ POW(<value>, <exponent>);
 
 ## Example
 {: .no_toc}
+
 The following example calculates `2` to the power of `5`:
+
 ```sql
 SELECT
     POW(2, 5);
 ```
 
-**Returns**: `32`
+**Returns**
+
+`32`

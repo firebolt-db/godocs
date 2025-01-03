@@ -11,6 +11,8 @@ parent: Date and time functions
 
 Returns the current timestamp as a `TIMESTAMPTZ` value.
 
+**Alias:** `NOW`
+
 ## Syntax
 {: .no_toc}
 

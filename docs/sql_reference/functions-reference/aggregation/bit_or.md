@@ -51,7 +51,9 @@ SELECT BIT_OR(a)
 FROM GENERATE_SERIES(1, 3) as a;
 ```
 
-**Returns**: The previous code example returns `3`. In a 4-bit system, the binary representation of integers from `1` to `3` is:
+**Returns**
+
+The previous code example returns `3`. In a 4-bit system, the binary representation of integers from `1` to `3` is:
 
 * `1` `->` `0001`
 * `2` `->` `0010`
@@ -68,7 +70,9 @@ SELECT BIT_OR(a)
 FROM generate_series(-1, 1) as a;
 ```
 
-**Returns**: The previous code example returns `-1`. In a 4-bit system, the binary representation of integers from `-1` to `1` is:
+**Returns**
+
+The previous code example returns `-1`. In a 4-bit system, the binary representation of integers from `-1` to `1` is:
 
 * `-1` `->` `1111`
 * `0` `->` `0000`

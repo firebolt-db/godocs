@@ -1,6 +1,5 @@
 **Example**
 The following code example checks if an array contains the value `esimpson` as the result `is_he_playing`:
-
 ``` sql
 SELECT ARRAY_ANY_MATCH(x -> x = 'esimpson', [ 'kennethpark', 'sabrina21', 'steven70']) AS is_he_playing;
 ```
@@ -14,7 +13,6 @@ The previous code returns `FALSE` because the array does not contain the specifi
 
 **Example**
 The following code example checks if each element in the first array is divisible by the corresponding element in the second array in a result labeled `divisible`:
-
 ``` sql
 SELECT ARRAY_ANY_MATCH(x, y -> (x % y) = 0, [ 10, 20, 30, 45 ], [ 12, 3, 42, 15]) AS divisible;
 ```
@@ -28,13 +26,12 @@ The previous code returns `TRUE` because each element in the first array is divi
 
 **Example**
 The following code example evaluates multiple arrays using `ARRAY_ANY_MATCH`:
-
 ``` sql
 SELECT ARRAY_ANY_MATCH([])          as empty,
-ARRAY_ANY_MATCH([true])         as single_true,
-ARRAY_ANY_MATCH([false])        as single_false,
-ARRAY_ANY_MATCH([NULL])         as single_null ,
-ARRAY_ANY_MATCH([false, NULL])  as false_and_null;
+    ARRAY_ANY_MATCH([true])         as single_true,
+    ARRAY_ANY_MATCH([false])        as single_false,
+    ARRAY_ANY_MATCH([NULL])         as single_null ,
+    ARRAY_ANY_MATCH([false, NULL])  as false_and_null;
 ```
 
 **Returns**

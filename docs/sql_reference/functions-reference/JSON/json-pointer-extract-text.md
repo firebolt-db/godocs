@@ -43,6 +43,7 @@ For the JSON document indicated by `<json_common_example>` below,
 see [JSON common example](./index.md#json-common-example). The **returned result** is based on the following example.
 
 **Example**
+
 The following code example extracts the value at path `/value/uid` from the JSON document, removes the outermost quotes, and returns the result as SQL `TEXT`, labeled as `res`:
 
 ```sql
@@ -50,6 +51,7 @@ SELECT JSON_POINTER_EXTRACT_TEXT(<json_common_example>, '/value/uid') AS res
 ```
 
 **Returns**
+
 The previous code example returns the following:
 
 | res (TEXT) |
@@ -57,6 +59,7 @@ The previous code example returns the following:
 | 987654     |
 
 **Example**
+
 The following code example attempts to extract the value at the path `/value/no_such_key` from the JSON document:
 
 ```sql
@@ -64,6 +67,7 @@ SELECT JSON_POINTER_EXTRACT_TEXT(<json_common_example>, '/value/no_such_key') AS
 ```
 
 **Returns**
+
 The previous code example returns the `NULL` with the result labeled as `res`, because the key does not exist:
 
 | res (TEXT) |
@@ -79,6 +83,7 @@ SELECT JSON_POINTER_EXTRACT_TEXT(<json_common_example>,'/value/keywords') AS res
 ```
 
 **Returns**
+
 The previous code example returns `NULL`, labeled as `res` because the value at the specified path is an array, not a string:
 
 | res (TEXT) |
@@ -86,6 +91,7 @@ The previous code example returns `NULL`, labeled as `res` because the value at 
 | NULL       |
 
 **Example**
+
 The following code example navigates to the third element at index `2` of the array at `/value/keywords` in the JSON document, removes the outermost quotes, and returns it as SQL `TEXT`, labeled as `res`:
 
 ```sql
@@ -93,6 +99,7 @@ SELECT JSON_POINTER_EXTRACT_TEXT(<json_common_example>,'/value/keywords/2') AS r
 ```
 
 **Returns**
+
 The previous code example returns `"analytics"`, which is the third element in the JSON array, which uses zero-based indexing:
 
 | res (TEXT) |

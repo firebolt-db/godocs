@@ -27,7 +27,7 @@ To get started using Firebolt, begin by registering using the following steps:
 3. Type in your email and password and select **Log In**.
 
 {: .note}
-New accounts receive 600 Firebolt unit (FBU) credits ($200+) to get started exploring Firebolt’s capabilities.
+New accounts receive credits ($200+) to get started exploring Firebolt’s capabilities. These credits must be used within 30 days of account creation.
 
 Firebolt’s billing is based on engine runtime, measured in seconds. We also pass through AWS S3 storage costs at the rate of $23 per TB per month. The amount that you spend is dependent primarily on which engines you use and how long those engines are running.
 
@@ -333,10 +333,10 @@ If you want to save your data outside of Firebolt, you can use [COPY TO](../../s
   1. AWS access key credentials. The credentials must be associated with a user with permissions to write objects to the bucket. Specify access key credentials using the following syntax:
 
   ```shell
-    CREDENTIALS = (AWS_KEY_ID = '<aws_key_id>' AWS_SECRET_KEY = '<aws_secret_key>')
+    CREDENTIALS = (AWS_ACCESS_KEY_ID = '<aws_access_key_id>' AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>')
   ```
 
-  In the previous credentials example, <aws_key_id> is the AWS access key id associated with a user or role. An access key has the following form: `AKIAIOSFODNN7EXAMPLE`. The value    <aws_secret_key> is the AWS secret key. A secret key has the following form: `wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`.
+  In the previous credentials example, `<aws_access_key_id>` is the AWS access key ID associated with an AWS user or an IAM role. An access key ID has the following form: `AKIAIOSFODNN7EXAMPLE`. The value `<aws_secret_access_key>` is the AWS secret access key. A secret access key has the following form: `wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`.
 
 2. An AWS IAM policy statement attached to a user role. Firebolt requires the following minimum permissions in the IAM policy:
 

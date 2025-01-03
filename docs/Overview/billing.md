@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Billing
+title: Pricing and billing
 description: How Firebolt bills for usage
 parent: Overview
 nav_order: 2
 ---
 
-# Billing
+# Pricing and billing
 
 Firebolt provides a scalable cloud data warehouse solution designed to be simple, transparent, and flexible. Pricing is based on two main factors:
 

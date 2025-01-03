@@ -108,9 +108,13 @@ SELECT
     );
 ```
 
-**Returns**: `'Date: March 2nd, 2023 Time: 6am (33:26.466511) -08:00 (PST)'`
+**Returns**
 
-The example below outputs the current date in a formatted string with any time field set to `0` which indicates midnight. Note the quotation marks again that are required to prevent unintended replacements.
+`'Date: March 2nd, 2023 Time: 6am (33:26.466511) -08:00 (PST)'`
+
+**Example**
+
+The following example outputs the current date in a formatted string with any time field set to `0` which indicates midnight. Note the quotation marks again that are required to prevent unintended replacements:
 
 ```sql
 SELECT
@@ -120,4 +124,6 @@ SELECT
     );
 ```
 
-**Returns**: `'The 61st day in 23 is a Thursday at midnight 00:00:00.000000'`
+**Returns**
+
+`'The 61st day in 23 is a Thursday at midnight 00:00:00.000000'`

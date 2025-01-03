@@ -8,7 +8,7 @@ parent: Manage organization
 
 # Register to Firebolt 
 
-To start working with Firebolt, you first need to register your organization and create your first account. An organization provides a logical structure for managing accounts, billing, and authentication.  [Read more about organizations and accounts and their benefits.](../../Overview/organizations-accounts.md)
+To start working with Firebolt, you first need to register your organization and create your first account. An organization provides a logical structure for managing accounts, billing, and authentication.  [Read more about organizations and accounts and their benefits.]({% link Overview/organizations-accounts.md %})
 
 When registering to Firebolt, the domain name used in your registration email will determine the organization name. Organization names are globally unique — no two organizations can have the same name. If you need two organizations under the same domain, contact the Firebolt Support team for further assistance.
 
@@ -35,8 +35,8 @@ Your organization comes prepared with one account for your convenience - choose 
 ## Next steps:
 
 - [Manage accounts](managing-accounts.md)
-- [Create logins](managing-logins.md) or [set up SSO authentication](../security/sso/sso.md) 
+- [Create logins](managing-logins.md) or [set up SSO authentication]({% link Guides/security/sso/index.md %}) 
 - [Add users](managing-users.md) to your account
-- [Manage roles](../security/rbac.md)
-- Create databases, engines, and load your data. Follow our [getting started tutorial](../getting-started/index.md) to try this out with sample data.
+- [Manage roles]({% link Guides/security/rbac.md %})
+- Create databases, engines, and load your data. Follow our [getting started tutorial]({% link Guides/getting-started/index.md %}) to try this out with sample data.
 
