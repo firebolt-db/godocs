@@ -10,8 +10,8 @@ nav_order: 2
 
 Firebolt provides a scalable cloud data warehouse solution designed to be simple, transparent, and flexible. Pricing is based on two main factors:
 
-* **Compute resources** &ndash; Compute costs depend on the size and duration of the clusters you use.
-* **Data storage** &ndash; Storage costs are based on the amount of data stored, including compressed storage. 
+* [Compute costs](#compute-costs) &ndash; Compute costs depend on the size and duration of the clusters you use.
+* [Data storage](#data-storage) &ndash; Storage costs are based on the amount of data stored, including compressed storage. 
 
 Firebolt offers flexible pricing options to accommodate different workloads and business needs including the following:  
 
@@ -19,17 +19,16 @@ Firebolt offers flexible pricing options to accommodate different workloads and 
 * Workload isolation &ndash; Run multiple clusters concurrently for optimized performance without affecting other workloads.
 * Serverless capabilities &ndash; Pay only for completed queries with no charges for idle time.
 
-Start using Firebolt and receive $200 in free credits for the first 30 days.
+When you start using Firebolt, you receive $200 in free credits to use in the first 30 days. Afterwards, you can sign up for one of Firebolt's [subscription plans](#subscription-plans).
 
-## Usage-based compute costs
+## Compute costs
 
 Firebolt compute costs are determined by the following:
+
 * The number of compute nodes used to process your workload.
 * The type of node selected. You can choose a small (S), medium (M), large (L) or extra-large (XL) node.
 
 Usage is calculated with one-second granularity, from the time that Firebolt makes the engine available for queries until it enters a stopped state.
-
-## Cluster size
 
 Compute pricing is elastic, and you pay only for the resources you consume during query processing.
 
@@ -45,7 +44,7 @@ Sizing is determined in FBUs (Firebolt Units) as follows:
 | Extra Large (XL) | 64            | $22.40 / hr   |
 
 
-## Storage
+## Data storage
  
 Usage is calculated based on the daily average amount of data in bytes stored under your Firebolt account name, including both indexes and raw compressed data.
 
@@ -61,16 +60,14 @@ Data storage costs vary by AWS region and are based on the [Amazon S3 prices](ht
 
 
 ## Subscription Plans
-Firebolt offers two main subscription plans:
+To continue using Firebolt’s engines for query processing after your initial $200 credit, you must set up a subscription plan. Firebolt offers two main plans:
 
-* **Pay-as-you-go** &ndash; Flexible, on-demand pricing with no upfront commitment. This plan is ideal for startups or teams with unpredictable workloads.
+* [Pay-as-you-go](#pay-as-you-go-plan) &ndash; A flexible plan that requires no commitment.
+* [Commited-use](#committed-use-discount-plan) &ndash; A plan where you pay for usage up-front, and Firebolt loads discounted usage credits into your account.
 
-* **Committed use discounts** &ndash; Receive discounted rates in exchange for committing to a specified usage volume. This plan is recommended for organizations with predictable workloads.
+### Pay-as-you-go plan
 
-Contact [support@firebolt.io](mailto:support@firebolt.io) to discuss custom enterprise plans or annual pricing commitments.
-
-## Set-up account billing through AWS Marketplace
-To continue using Firebolt’s engines for query processing after your initial $200 credit, you’ll need to set up a billing account by connecting your account to the [AWS Marketplace](https://aws.amazon.com/marketplace), as follows: 
+A pay-as-you-go plan is flexible, and provides on-demand pricing with no upfront commitment. This plan is ideal for startups or teams with unpredictable workloads. In order to use this plan, you’ll need to set up account billing through [AWS Marketplace](https://aws.amazon.com/marketplace) as follows: 
 
 1. Login to [Firebolt's Workspace](https://go.firebolt.io/login). If you haven’t yet registered with Firebolt, see the [Get Started]({% link Guides/getting-started/index.md %}) guide.
 2. In the Firebolt Workspace, select the Configure(<img src="../assets/images/configure-icon.png" width="20" alt="The Firebolt Configure Space icon">) icon from the left navigation pane.
@@ -79,7 +76,13 @@ To continue using Firebolt’s engines for query processing after your initial $
 4. Select **View Purchase Options** in the top-right corner of the screen.
 5. Select **Setup Your Account**.
   
-Your account should now be associated with AWS Marketplace.
+You pay for your consumption through AWS Marketplace at the end of each month.
+
+### Committed-use discount plan
+
+In a committed-use discount plan, you receive discounted rates in exchange for committing to a specified usage volume. This plan is recommended for organizations with predictable workloads.
+
+Contact [support@firebolt.io](mailto:support@firebolt.io) to discuss a committed-use plan, custom enterprise plans or annual pricing commitments.
 
 ## Cost estimates
 
