@@ -9,4 +9,5 @@ check-markers:
 
 check-all:
 	scripts/check-links.sh
+	echo "Echo checking for conflict markers"
 	scripts/check_merge_conflict_markers.sh .
