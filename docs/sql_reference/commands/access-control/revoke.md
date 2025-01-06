@@ -18,7 +18,7 @@ For more information, see [Role-based access control]({% link Guides/security/rb
 Revokes a permission from a role.
 
 {: .note}
-Only an account_admin or a role owner can revoke a permission to a role.
+Only account_admin or a role owner can revoke a permission to a role.
 
 ### Syntax
 
@@ -64,11 +64,7 @@ REVOKE USAGE ANY DATABASE ON ACCOUNT dev FROM user_role;
 
 **Revoke `SELECT` permission on a specific table**
 
-<<<<<<< HEAD
 The following code example sets the active database to `db` and revokes `user_role`'s permission to read data from the `my_table` table in the `public` schema.:
-=======
-The following code example sets the active database to `db` and revokes `user_role`'s permission to read data from the `my_table` table in the `public` schema:
->>>>>>> gh-pages
 
 ```sql
 USE DATABASE db;

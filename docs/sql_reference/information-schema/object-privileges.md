@@ -69,8 +69,4 @@ Each row in `information_schema.object_privileges` contains the following column
 | object_type    | TEXT        | The type of the object on which the privilege is granted.             |
 | privilege_type | TEXT        | The type of the privilege granted on the object.                    |
 | is_grantable   | TEXT        | Specify `YES` if the privilege is grantable, and `NO` otherwise.                     |
-<<<<<<< HEAD
 | created        | TIMESTAMPTZ | The creation time of the privilege.                                   |
-=======
-| created        | TIMESTAMPTZ | The creation time of the privilege.                                   |
->>>>>>> gh-pages
