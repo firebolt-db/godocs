@@ -24,16 +24,17 @@ Added the [INFORMATION_SCHEMA.ROUTINES]({% link sql_reference/information-schema
 
 <!-- Auto Generated Markdown for FIR-41816 - Owned by Kfir Yehuda -->
 **Added support for the `GEOGRAPHY` data type in external tables using CSV and JSON formats**
+
 Firebolt can now read columns of type `GEOGRAPHY` from external tables in CSV or JSON format, which allows the querying of geospatial data including Points and Polygons.
 
 <!-- FIR-37266 - Owned by Mariia Kaplun -->
-**Remove secured objects from `information_schema` views**
+**Removed secured objects from `information_schema` views**
 
-Users can now only access information about objects for which they have the appropriate permissions or ownership in  [information_schema views]({% link sql_reference/information-schema/views.md %}).
+Users can now only access information about objects for which they have the appropriate permissions or ownership in [information_schema views]({% link sql_reference/information-schema/views.md %}).
 
 **Added a new `MONITOR USAGE` privilege**
 
-You can use the `MONITOR USAGE` privilege to view all queries running on an engine using the [information_schema.engine_query_history]({% link sql_reference/information-schema/engine-query-history.md %}) or the [information_schema.engine_running_queries]({% link sql_reference/information-schema/engine-running-queries.md %}) views.
+You can use the `MONITOR USAGE` privilege to view all queries running on an engine using [information_schema.engine_query_history]({% link sql_reference/information-schema/engine-query-history.md %}) or [information_schema.engine_running_queries]({% link sql_reference/information-schema/engine-running-queries.md %}) views.
 
 
 ### Performance Improvements
@@ -56,7 +57,7 @@ The [REGEXP_LIKE_ANY]({% link sql_reference/functions-reference/string/regexp-li
 
 The following changes affect the use of user names in [CREATE USER]({% link sql_reference/commands/access-control/create-user.md %}) AND [ALTER USER]({% link sql_reference/commands/access-control/alter-user.md %}):
 * The `@` character is no longer allowed in user names.
-* The range of permissible characters in user names is expanded. For more information, see  [CREATE USER]({% link sql_reference/commands/access-control/create-user.md %}).
+* The range of permissible characters in user names is expanded. For more information, see [CREATE USER]({% link sql_reference/commands/access-control/create-user.md %}).
 * When renaming a user with  [ALTER USER]({% link sql_reference/commands/access-control/alter-user.md %}) `old_name RENAME TO new_name`, the `new_name` must now comply with the updated user name rules.
 * Any new names created with [CREATE USER]({% link sql_reference/commands/access-control/create-user.md %}) must now comply with the updated user name rules.
 
