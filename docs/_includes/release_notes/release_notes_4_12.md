@@ -49,6 +49,16 @@ Optimized the [ST_COVERS]({% link sql_reference/functions-reference/geospatial/s
 
 The [REGEXP_LIKE_ANY]({% link sql_reference/functions-reference/string/regexp-like-any.md %}) function now performs more efficiently when matching against multiple patterns by compiling a single combined [RE2](https://github.com/google/re2/) regular expression object instead of evaluating each pattern separately.
 
+### Behavior Changes
+
+<!-- Auto Generated Markdown for FIR-37317 - Owned by Tal Zelig -->
+**Updated user name rules to improve consistency and validation**
+
+The following changes affect the use of user names in [CREATE USER]({% link sql_reference/commands/access-control/create-user.md %}) AND [ALTER USER]({% link sql_reference/commands/access-control/alter-user.md %}):
+* The `@` character is no longer allowed in user names.
+* The range of permissible characters in user names is expanded. For more information, see  [CREATE USER]({% link sql_reference/commands/access-control/create-user.md %}).
+* When renaming a user with  [ALTER USER]({% link sql_reference/commands/access-control/alter-user.md %}) `old_name RENAME TO new_name`, the `new_name` must now comply with the updated user name rules.
+* Any new names created with [CREATE USER]({% link sql_reference/commands/access-control/create-user.md %}) must now comply with the updated user name rules.
 
 ### Bug Fixes
 
@@ -71,15 +81,6 @@ The statement `ALTER SCHEMA information_schema SET OWNER owner_name;` previously
 **Fixed an out-of-memory error during large CSV imports**
 
 Updated the ingestion pipeline for [COPY FROM]({% link sql_reference/commands/data-management/copy-from.md %}) to ensure that large CSV files without a predefined schema can load into new tables without causing memory errors. This error did not affect external tables.
-
-<!-- Auto Generated Markdown for FIR-37317 - Owned by Tal Zelig -->
-**Updated user name rules to improve consistency and validation**
-
-The following changes affect the use of user names in [CREATE USER]({% link sql_reference/commands/access-control/create-user.md %}) AND [ALTER USER]({% link sql_reference/commands/access-control/alter-user.md %}):
-* The `@` character is no longer allowed in user names.
-* The range of permissible characters in user names is expanded. For more information, see  [CREATE USER]({% link sql_reference/commands/access-control/create-user.md %}).
-* When renaming a user with  [ALTER USER]({% link sql_reference/commands/access-control/alter-user.md %}) `old_name RENAME TO new_name`, the `new_name` must now comply with the updated user name rules.
-* Any new names created with [CREATE USER]({% link sql_reference/commands/access-control/create-user.md %}) must now comply with the updated user name rules.
 
 <!-- Markdown for FIR-42447 - Owned by Gil Cizer -->
 **Prevent running queries when using a dropped database**
