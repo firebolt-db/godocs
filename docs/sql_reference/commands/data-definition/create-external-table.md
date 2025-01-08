@@ -236,8 +236,8 @@ With `FIELD_DELIMITER = '<field_delimeter>'`, you can define a custom field deli
 * `[NEW_LINE_CHARACTER = '<new_line_character>']`  
 With `NEW_LINE_CHARACTER = '<new_line_character>'`, you can define a custom new line delimiter to separate entries for ingest. By default, the `NEW_LINE_CHARACTER` is set as the end of line character `\n`, but also supports other end of line conventions, such as `\r\n`, `\n\r`, and `\r`, as well as multi-character delimiters, such as `#*~`.
 
-* `[NULL_CHARACTER = '<null_character>']`  
-With `NULL_CHARACTER = '<null_character>'` you can define which character is interpreted as `NULL`. By default, the `NULL_CHARACTER` value is set to `\\N`. 
+* `[NULL_STRING = '<null_string>']`  
+With `NULL_STRING = '<null_string>'` you can define which set of characters is interpreted as `NULL`. By default, the `NULL_STRING` value is set to `\\N`. 
 
 * `[SKIP_BLANK_LINES {TRUE|FALSE}]`  
 With `SKIP_BLANK_LINES = TRUE` any blank lines encountered in the CSV input file will be skipped. By default, `SKIP_BLANK_LINES` is set to `FALSE`, and an error is generated if blank lines are enountered on ingest.
