@@ -8,7 +8,7 @@ grand_parent: SQL reference
 
 # Information schema for enabled_roles
 
-The `information_schema.enabled_roles` view provides information about roles available within a Firebolt account that the user has any [role privilege]({% link Guides/security/rbac.md %}#role) for or owns.
+The `information_schema.enabled_roles` view provides information about roles available within a Firebolt account. 
 
 The following code example uses a `SELECT` query to return information about each role:
 ```sql

@@ -8,9 +8,8 @@ grand_parent: SQL reference
 
 # Information schema for columns
 
-You can use the `information_schema.columns` view to return information about all columns in a table in a database. The view is available in each database and contains one row for each column. You can use a `SELECT` query to return information about each column as shown in the example below.
+You can use the `information_schema.columns` view to return information about all columns in any table in a database. The view is available in each database and contains one row for each column. You can use a `SELECT` query to return information about each column as shown in the example below.
 
-To view column information, the user must have `USAGE`  privileges on both the [schema]({% link Guides/security/rbac.md %}#schema) and the [database]({% link Guides/security/rbac.md %}#database), as well as any necessary [table-level privileges]({% link Guides/security/rbac.md %}#table) or ownership of the table.
 
 ```sql
 SELECT

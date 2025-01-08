@@ -9,8 +9,6 @@ grand_parent: SQL reference
 # Information schema for indexes
 You can use the `information_schema.indexes` view to return information about each index in a database. The view is available for each database and contains one row for each index in the database. You can use a `SELECT` query to return information about each index.
 
-To view index information, the user must have USAGE privilege on both the [schema]({% link Guides/security/rbac.md %}#schema) and the [database]({% link Guides/security/rbac.md %}#database), as well as appropriate [table-level privileges]({% link Guides/security/rbac.md %}#table) or ownership of the table.
-
 The following query returns all aggregating indexes defined within the current database
 
 ```sql

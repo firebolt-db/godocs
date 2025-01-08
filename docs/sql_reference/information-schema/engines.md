@@ -9,8 +9,6 @@ grand_parent: SQL reference
 
 You can use the `information_schema.engines` view to return information about each engine in an account. The view is available for each database and contains one row for each engine in the account. You can use a `SELECT` query to return information about each engine as shown in the example below, which uses a `WHERE` clause to return all engines attached to databases that begin with `deng`.
 
-To view engine information, the user must have any of the [engine]({% link Guides/security/rbac.md %}#engine) privileges or ownership of the engine.
-
 ```sql
 SELECT
   *

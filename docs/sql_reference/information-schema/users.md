@@ -9,8 +9,6 @@ grand_parent: SQL reference
 # Information schema for users
 You can use the `information_schema.users` view to return information about users. You can use a `SELECT` query to return information about each user, as shown in the example below.
 
-To view information about users, the current user must have any [user privilege]({% link Guides/security/rbac.md %}#user) or ownership of the user.
-
 ```sql
 SELECT
   *

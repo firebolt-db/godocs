@@ -10,8 +10,6 @@ grand_parent: SQL reference
 
 You can use the `information_schema.catalogs` view to get information about catalogs (databases in SQL terminology). You can use a `SELECT` query to return information about each database as shown in the example below.
 
-To view catalog information, the user must either have [catalog]({% link Guides/security/rbac.md %}#database) privileges or be the owner of the catalog.
-
 ```sql
 SELECT
   *
