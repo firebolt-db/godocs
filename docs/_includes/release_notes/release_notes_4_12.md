@@ -9,7 +9,7 @@ You can now use [ST_S2CELLIDFROMPOINT]({% link sql_reference/functions-reference
 
 **Added keyboard shortcuts to the Firebolt Develop Space**
 
-The user interface in the Firebolt **Develop Space** added the following [keyboard shortcuts]({% link Guides/query-data/using-the-develop-workspace.md %}#keyboard-shortcuts-for-the-develop-space):
+The Firebolt **Develop Space** user interface added the following [keyboard shortcuts]({% link Guides/query-data/using-the-develop-workspace.md %}#keyboard-shortcuts-for-the-develop-space):
 
 * Ctrl + Alt + E &ndash; Toggle expanding or collapsing query results.
 * Ctrl + Alt + N &ndash; Create a new script.
