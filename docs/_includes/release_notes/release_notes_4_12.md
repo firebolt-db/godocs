@@ -89,5 +89,5 @@ Updated the ingestion pipeline for [COPY FROM]({% link sql_reference/commands/da
 <!-- Markdown for FIR-42447 - Owned by Gil Cizer -->
 **Prevent running queries when using a dropped database**
 
-When the current database does not exist, such as when it has been dropped, most queries already failed as expected. We fixed a bug where some queries against specific `information_schema` views, such as `engines`, `catalogs`, `applicable_roles`, would still succeed in such cases. These queries now fail consistently, like all other queries against a non-existent database.
+When the current database does not exist, such as when it has been dropped, most queries fail as expected. We fixed a bug where some queries against specific `information_schema` views, such as `engines`, `catalogs`, `applicable_roles`, would still succeed in such cases. These queries now fail consistently, like all other queries against a non-existent database.
 For example, running `SELECT * FROM information_schema.engines` when the database is dropped previously worked, but now fails.
