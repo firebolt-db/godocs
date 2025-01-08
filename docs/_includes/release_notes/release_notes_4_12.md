@@ -36,6 +36,9 @@ Users can now only access information about objects for which they have the appr
 
 You can use the `MONITOR USAGE` privilege to view all queries running on an engine using [information_schema.engine_query_history]({% link sql_reference/information-schema/engine-query-history.md %}) or [information_schema.engine_running_queries]({% link sql_reference/information-schema/engine-running-queries.md %}) views.
 
+<!-- FIR-38440 - Owned by Ivan Koptiev -->
+**Introduced support for network policy `ADD`/`REMOVE` commands**  
+Admins can now append or remove specific IP addresses in `ALLOW` or `BLOCK` lists without overriding existing values. This update simplifies network policy management when handling large IP lists and reduces the risk of concurrent updates overwriting each other.
 
 ### Performance Improvements
 
