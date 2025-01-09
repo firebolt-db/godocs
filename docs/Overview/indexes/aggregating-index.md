@@ -39,8 +39,13 @@ Topics:
 
 
 ```sql
-CREATE AGGREGATING INDEX index_name
-ON table_name(<grouping_element>, <aggregation_element>);
+CREATE AGGREGATING INDEX <index_name>
+ON <table_name> (
+   <grouping_element>
+     [, ...n],
+     <aggregation_element>
+     [, ...m]
+);
 ```
 
 ### Parameters
