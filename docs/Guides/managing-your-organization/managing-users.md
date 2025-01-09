@@ -149,14 +149,21 @@ After you create a login, the next step is to create a user.
 3. Select the **+ Create User** button at the top right of the **Govern Space**.
 4. In the **Create User** window, enter the following:
 
-    1. **User Name** - The name of the user to associate with the login. This name can be any string, excluding spaces, and special characters such as exclamation points (!), percent signs (%), at sign(@), dot sign (.), underscore sign (_), minus sign (-), and asterisks (*).
-    2. **Default Database** - (Optional) The name of the database that is associated with the user.
-    3. **Default Engine** - (Optional) The name of the engine that is associated with the user.
+   1. **User name** - The name of the user to associate with the login. This name can be any string, excluding spaces, and special characters such as exclamation points (!), percent signs (%), at sign(@), dot sign (.), underscore sign (_), minus sign (-), and asterisks (*).
 
-5. Toggle the radio button next to **Associate a login**.
-6. Select the name of the login to associate with the user from the drop-down list under **Login Associated**. This drop-down list contains only logins that are not already assigned to a user in the current account.
-7. (Optional) Choose the role you want to assign to the user. If no role is specified, the user is automatically granted a public role. For more information about roles, see the [Roles]({% link Overview/organizations-accounts.md %}#roles) section in [Organization and accounts]({% link Overview/organizations-accounts.md %}).
-8. Select **Save**.
+   2. **Assign to** - Use the dropdown to assign the user to one of the following:  
+      i. **Unassigned** - No specific assignment.
+
+      ii. **Login** - Associates the user with a login name or email address. After selecting this option, you will be prompted to choose the login name or email address.
+
+      iii. **Service Account** - Associates the user with a service account. After selecting this option, you will be prompted to choose a service account name.
+   1. **Role** - Select the role you want to assign to the user. If no role is specified, the user is automatically granted a [public role]({% link Overview/organizations-accounts.md %}#public-role). For more information about roles, see the [Roles]({% link Overview/organizations-accounts.md %}#roles) section in [Organization and accounts]({% link Overview/organizations-accounts.md %}).
+
+   2. **Default Database** - Choose a database to associate with the user, setting it as their default for access.
+
+   3. **Default Engine** - Choose a default processing engine to associate with the user.
+
+5. Select **Create new user** to save the configuration. 
 
 
 ##### Create a user using SQL

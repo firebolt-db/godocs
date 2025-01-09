@@ -25,6 +25,7 @@ Accounts represent the physical instance of your data warehouse in Firebolt and 
 | MODIFY ANY ROLE        | Allows editing all current and future roles in the account.                    | `GRANT MODIFY ANY ROLE ON ACCOUNT <account_name> TO <role>;`         | `REVOKE MODIFY ANY ROLE ON ACCOUNT <account_name> FROM <role>;`      |
 | [CREATE USER]({%link sql_reference/commands/access-control/create-user.md %})           | Allows creating new users in the account.                                      | `GRANT CREATE USER ON ACCOUNT <account_name> TO <role>;`             | `REVOKE CREATE USER ON ACCOUNT <account_name> FROM <role>;`          |
 | MODIFY ANY USER        | Allows editing all current and future users in the account.                    | `GRANT MODIFY ANY USER ON ACCOUNT <account_name> TO <role>;`         | `REVOKE MODIFY ANY USER ON ACCOUNT <account_name> FROM <role>;`      |
+| MONITOR [ANY USAGE] | Enables the tracking of engine queries through the `engine_running_queries` view for active queries and the `engine_query_history` view for past queries in `information_schema`. | `GRANT MONITOR ANY USAGE ON ACCOUNT <account_name> TO <role>;`         | `REVOKE MONITOR ANY USAGE ON ACCOUNT <account_name> FROM <role>;` |
 
 {: .note}
 Revoking a privilege removes it from a role but does not explicitly deny the privilege. If the privilege was not previously granted, revoking has no effect.
@@ -109,3 +110,8 @@ The following code example grants the role `developer_role` permission to modify
 GRANT MODIFY ANY USER ON ACCOUNT "account-1" TO developer_role;
 ```
 
+### MONITOR [ANY USAGE] permission
+The following code example grants the role `developer_role` permission to see the query history and currently running queries on all the engines within `account-1`:
+```sql
+GRANT MONITOR ANY USAGE ON ACCOUNT "account-1" TO developer_role;
+```

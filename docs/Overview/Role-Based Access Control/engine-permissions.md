@@ -20,6 +20,7 @@ The following table outlines the privileges that can be granted for engines with
 | USAGE                 | Allows using an engine to run queries.                                   | `GRANT USAGE ON ENGINE <engine_name> TO <role>;`                       | `REVOKE USAGE ON ENGINE <engine_name> FROM <role>;`                    |
 | OPERATE                | Allows stopping and starting an engine.                                      | `GRANT OPERATE ON ENGINE <engine_name> TO <role>;`                      | `REVOKE OPERATE ON ENGINE <engine_name> FROM <role>;`                   |
 | MODIFY                 | Allows altering engine properties or dropping the engine.                       | `GRANT MODIFY ON ENGINE <engine_name> TO <role>;`                       | `REVOKE MODIFY ON ENGINE <engine_name> FROM <role>;`                    |
+| MONITOR [USAGE]    | Enables the tracking of engine queries through the `engine_running_queries` view for active queries and the `engine_query_history` view for past queries in `information_schema`. | `GRANT MONITOR USAGE ON ENGINE <engine_name> TO <role>;` | `REVOKE MONITOR USAGE ON ENGINE <engine_name> FROM <role>;`  |
 
 {: .note}
 If a user lacks **USAGE** and **OPERATE** privileges for an engine, they will not be able to select or interact with the engine via the Firebolt UI.
@@ -45,4 +46,11 @@ The following code example grants the role `developer_role` permission to alter 
 
 ```sql
 GRANT MODIFY ON ENGINE "myEngine" TO developer_role;
+```
+
+### MONITOR [USAGE] permission
+The following code example grants the role `developer_role` permission to see the query history and currently running queries for the engine `myEngine`:
+
+```sql
+GRANT MONITOR USAGE ON ENGINE "myEngine" TO developer_role;
 ```

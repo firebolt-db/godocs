@@ -29,6 +29,6 @@ Your account should now be associated with AWS Marketplace.
 * Learn about the [engines](../../Overview/engine-fundamentals.md) that Firebolt uses to process queries and how to select the right size.
 * Learn how to [load](../loading-data/loading-data.md) different kinds of data.
 * Learn more about [querying data](../query-data/index.md).
-* Learn more about using [indexes](../../Overview/using-indexes.md) to optimize your query times.
+* Learn more about using [indexes]({% link Overview/using-indexes.md %}) to optimize your query times.
 * Learn how to [set up your organization](../managing-your-organization/index.md) to use Firebolt.
 * Learn how to [integrate Firebolt](../integrations/integrations.md) with third party tools and applications.
