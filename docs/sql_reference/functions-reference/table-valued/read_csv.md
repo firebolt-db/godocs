@@ -2,8 +2,8 @@
 layout: default
 title: READ_CSV
 description: Reference material for READ_CSV function
+parent: Table-valued functions
 grand_parent: SQL functions
-parent: Conditional and miscellaneous functions
 great_grand_parent: SQL reference
 ---
 
