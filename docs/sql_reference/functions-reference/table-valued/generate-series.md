@@ -2,9 +2,9 @@
 layout: default
 title: GENERATE_SERIES
 description: Reference material for GENERATE_SERIES function
-great_grand_parent: SQL reference
+parent: Table-valued functions
 grand_parent: SQL functions
-parent: Conditional and miscellaneous functions
+great_grand_parent: SQL reference
 ---
 
 # GENERATE_SERIES
