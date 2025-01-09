@@ -10,6 +10,15 @@ nav_order: 1
 
 The Firebolt primary index is a core optimization tool designed to organize and streamline retrieval of data based on specific column values, enabling efficient data pruning and high-performance querying for large-scale analytics workloads. By leveraging high selectivity, the primary index ensures that queries target only the most relevant portions of the data, significantly reducing the volume of unnecessary scans. This selectivity is especially powerful when the indexed columns align closely with query patterns, allowing the database to quickly locate and retrieve the required data. As a result, query performance is not only optimized but also remains consistent even as data volumes grow.
 
+For more information, see [How primary indexes work]({% link Guides/working-with-indexes/using-primary-indexes.md %}#how-primary-indexes-work).
+
+Topics:
+* [Key features](#key-features)
+* [Syntax](#syntax)
+* [Parameters](#parameters)
+* [Example](#example)
+* [Considerations](#considerations)
+
 ## Key Features
 
 - **Customizable indexing**:  

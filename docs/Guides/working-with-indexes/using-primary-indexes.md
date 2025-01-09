@@ -14,6 +14,8 @@ nav_order: 7
 
 ‌Firebolt uses primary indexes to physically sort data into the Firebolt File Format (F3). The index colocates similar values, which allows data to be pruned at query runtime. When you query a table, rather than scanning the whole data set, Firebolt uses the table’s index to prune the data. Unnecessary ranges of data are never loaded from disk. Firebolt reads only the relevant ranges of data to produce query results.
 
+## How primary indexes work
+
 Primary indexes in Firebolt are a type of *sparse index*. Unlike a dense index that maps every search key value in a file, a sparse index is a smaller construct that holds only one entry per data block (a compressed range of rows). By using the primary index to read a much smaller and highly compressed range of data from F3 into the engine cache at query runtime, Firebolt produces query results much faster with less disk I/O.
 
 The video below explains sparse indexing. Eldad Farkash is the CEO of Firebolt.
