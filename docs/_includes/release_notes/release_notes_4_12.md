@@ -11,10 +11,10 @@ You can now use [ST_S2CELLIDFROMPOINT]({% link sql_reference/functions-reference
 
 The Firebolt **Develop Space** user interface added the following Windows/Mac [keyboard shortcuts]({% link Guides/query-data/using-the-develop-workspace.md %}#keyboard-shortcuts-for-the-develop-space):
 
-* Ctrl + Alt/Option + E &ndash; Toggle expanding or collapsing query results.
-* Ctrl + Alt/Option + N &ndash; Create a new script.
-* Ctrl + Alt/Option + [ &ndash; Jump to the previous script.
-* Ctrl + Alt/Option + ] &ndash; Jump to the next script.
+* Ctrl + Alt + E / Ctrl + ⌘ + E &ndash; Toggle expanding or collapsing query results.
+* Ctrl + Alt + N / Ctrl + ⌘ + N &ndash; Create a new script.
+* Ctrl + Alt + [ / Ctrl + ⌘ + [ &ndash; Jump to the previous script.
+* Ctrl + Alt + ] / Ctrl + ⌘ + ] &ndash; Jump to the next script.
 
 <!-- Auto Generated Markdown for FIR-42147 - Owned by Mosha Pasumansky -->
 **Introduced the `INFORMATION_SCHEMA.ROUTINES` view for built-in functions and operators**
