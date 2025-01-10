@@ -45,7 +45,7 @@ See a [full function glossary](./functions-glossary.md), or find functions based
   Manipulate string data types.
 
 * [Table-valued functions](./table-valued/index.md)   
-  Returns a set of rows. 
+  Return a set of rows. Commonly used to read files from Amazon S3.
 
 * [Vector functions](./vector/index.md)     
   Perform vector operations on `ARRAY`-type data. 

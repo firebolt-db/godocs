@@ -17,4 +17,4 @@ The following code example generates a series of numbers from 1 to 100 and selec
 SELECT x FROM generate_series(1, 100) r(x);
 ```
 
-You can use the `list_objects` **TVF** to explore files on **Amazon** S3. Use `read_parquet` S3 to read data from **Amazon** S3.
+You can use the `list_objects` TVF to explore files on Amazon S3. Use functions such as `read_parquet` to read data from Amazon S3.
