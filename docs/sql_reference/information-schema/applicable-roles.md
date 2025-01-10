@@ -8,7 +8,11 @@ grand_parent: SQL reference
 
 # Information schema for applicable_roles
 
-`information_schema.transitive_applicable_roles` shows every role in the account and its grantees (i.e. users or other roles whom the role is granted to).
+`information_schema.applicable_roles` view shows the following:
+
+  * All roles in the account assigned to the user, either directly or indirectly. 
+  * All roles where the user holds granted privileges or ownership.
+  * All grantees of these roles, including users or other roles to whom the roles are granted.
 
 You can use a `SELECT` query to return information about each role as shown in the example below.
 ```sql

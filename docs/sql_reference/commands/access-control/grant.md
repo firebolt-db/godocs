@@ -17,7 +17,7 @@ For more information, see [Role-based access control]({% link Guides/security/rb
 Grants a permission to a role.
 
 {: .note}
-Only account_admin or a role owner can grant a permission to a role. To grant a permission, you must first have that permission granted to you.
+Only an account_admin or a role owner can grant a permission to a role. To grant a permission, you must first have that permission granted to you.
 
 ### Syntax
 

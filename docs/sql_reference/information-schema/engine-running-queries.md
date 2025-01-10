@@ -8,8 +8,11 @@ grand_parent: SQL reference
 
 # Information schema for engine running queries
 
-You can use the `information_schema.engine_running_queries` view to return information about queries currently running in a database. The view is available in each database and contains one row for each running query in the database. You can use a `SELECT` query to return information about each running query as shown in the example below.
-The table is limited to contain at max 10'000 queries per engine cluster.
+You can use the `information_schema.engine_running_queries` view to return information about queries, executed by current user, currently running in a database. The view is available in each database and contains one row for each running query in the database. You can use a `SELECT` query to return information about each running query as shown in the example below.
+The table is limited to a maximum of 10,000 queries per engine cluster.
+
+If the user has the `MONITOR USAGE` privilege, they can view all queries running on the engine.
+
 
 ```sql
 SELECT

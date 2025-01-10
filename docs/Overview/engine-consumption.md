@@ -3,7 +3,6 @@ layout: default
 title: Engine Consumption
 description: Understand Firebolt's consumption metric, Firebolt Unit (FBU), and how to calculate FBU for a given engine configuration.
 parent: Engine Fundamentals
-nav_order: 2
 published: true
 ---
 # Engine Consumption

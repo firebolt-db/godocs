@@ -3,7 +3,6 @@ layout: default
 title: Data management
 description: Explore how Firebolt supports the data management lifecycle
 nav_order: 4
-has_children: false
 parent: Overview
 has_children: false
 ---
@@ -52,7 +51,7 @@ CREATE TABLE IF NOT EXISTS rankings (
 PRIMARY INDEX GameID, TournamentID, PlayerID;
 ```
 
-The statement also contains a [primary index](using-indexes.md#primary-indexes) definition. While primary index creation is optional in Firebolt, defining primary indexes on all tables is encouraged. Primary indexes, and indexes in general, are critical for delivering performance and achieving efficient query execution.
+The statement also contains a [primary index]({% link Overview/indexes/primary-index.md %}) definition. While primary index creation is optional in Firebolt, defining primary indexes on all tables is encouraged. Primary indexes, and indexes in general, are critical for delivering performance and achieving efficient query execution.
 
 How do indexes help with delivering this performance? Each table in Firebolt is composed of internal objects called tablets. Tablets store data in columnar format with built-in data compression, reducing disk io and resulting in efficient, performant query processing. Input data gets automatically converted into this columnar data format as the data gets ingested into the table. The size of individual tablets and the number of tablets per table is automatically determined and managed by the Firebolt system. When a table is defined as a partitioned table, individual tablets are bound to a particular partition, as tablets cannot span multiple partitions. 
 
