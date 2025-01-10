@@ -19,9 +19,9 @@ The `APACHE_DATASKETCHES_HLL_BUILD` function is used to create a new HLL (HyperL
 This is particularly useful for large datasets where exact counting is computationally expensive.
 
 Multiple sketches can be merged to a single sketch using the aggregate
-function [`APACHE_DATASKETCHES_HLL_MERGE`](apache-datasketches-hll-merge.md).
+function [APACHE_DATASKETCHES_HLL_MERGE](apache-datasketches-hll-merge.md).
 To estimate the final distinct count value from a sketch, the scalar
-function [`APACHE_DATASKETCHES_HLL_ESTIMATE`](apache-datasketches-hll-estimate.md) can be
+function [APACHE_DATASKETCHES_HLL_ESTIMATE](apache-datasketches-hll-estimate.md) can be
 used.
 
 `APACHE_DATASKETCHES_HLL_BUILD` requires less memory than exact count distinct aggregation, but also introduces

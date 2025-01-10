@@ -36,4 +36,5 @@ Examples for such workloads are customer-facing, high-concurrency data apps, or 
 For these workloads, Firebolt leverages multiple different optimizations.
 
 * [Reusing query sub-results](./understand-query-performance-subresult.md) to reduce redundant calculations across queries.
-* History-based query optimization, which leverages past query patterns to improve query plans for new queries.
+* [History-based query optimization](./understand-query-performance-hbs.md), which leverages past query patterns to improve query plans for new queries.
+

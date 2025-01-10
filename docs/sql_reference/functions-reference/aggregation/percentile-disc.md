@@ -38,7 +38,7 @@ This function ignores `NULL` values.
 ## Example
 {: .no_toc}
 
-The example below returns the median percentile value based on student grade levels. The percentile value returned is a value from the data set. 
+The following code example returns the median percentile value based on student grade levels. The percentile value returned is a value from the data set. 
 
 ```sql
 SELECT
@@ -49,7 +49,7 @@ FROM
 GROUP BY grade_level;
 ```
 
-**Returns**:
+**Returns**
 
 ```sql
 ' +-------------+------------+

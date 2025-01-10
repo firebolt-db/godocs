@@ -5,12 +5,12 @@ description: Reference material for COT function
 great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Numeric functions
-published: false
+published: true
 ---
 
 # COT
 
-Calculates the cotangent.
+Trigonometric function that calculates the cotangent of a specific value in radians.
 
 ## Syntax
 {: .no_toc}
@@ -23,21 +23,14 @@ COT(<value>)
 
 | Parameter | Description                                           | Supported input types | 
 | :--------- | :----------------------------------------------------- | :----------| 
-| `<value>`   | The value which the `COT` function will be applied to | `DOUBLE PRECISION` | 
+| `<value>`   | The value which the `COT` function will be applied to in radians. | `DOUBLE PRECISION` | 
 
 ## Return Types 
 {: .no_toc}
 
-`DOUBLE PRECISION`
+`COT` returns a value of type `DOUBLE PRECISION`.
 
 ## Example
 {: .no_toc}
 
-The following example returns the cotangent of `180`: 
-
-```sql
-SELECT
-    COT(180);
-```
-
-**Returns**: `0.7469988144140444`
+{% include sql_examples/cot.md %}

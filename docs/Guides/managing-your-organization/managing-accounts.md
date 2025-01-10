@@ -18,7 +18,7 @@ To view all accounts, click **Configure** to open the configure space, then choo
 Creating an account requires the org_admin role.
 
 ### SQL
- To create an account using SQL, use the [`CREATE ACCOUNT`](../../sql_reference/commands/data-definition/create-account.md) statement. For example:
+ To create an account using SQL, use the [CREATE ACCOUNT](../../sql_reference/commands/data-definition/create-account.md) statement. For example:
 
 ```sql
 CREATE ACCOUNT dev WITH REGION = 'us-east-1';
@@ -49,7 +49,7 @@ There can be up to 20 accounts per organization and you can use `CREATE ACCOUNT`
 Editing an account requires the account_admin or org_admin role.
 
 ### SQL 
-To edit an existing account using SQL, use the [`ALTER ACCOUNT`](../../sql_reference/commands/data-definition/alter-account.md) statement. For example:
+To edit an existing account using SQL, use the [ALTER ACCOUNT](../../sql_reference/commands/data-definition/alter-account.md) statement. For example:
 
 ```sql
 ALTER ACCOUNT dev RENAME TO staging;
@@ -72,7 +72,7 @@ Edit the name of the account.
 Deleting an account requires the account_admin or org_admin role.
 
 ### SQL 
-To delete an existing account using SQL, use the [`DROP ACCOUNT`](../../sql_reference/commands/data-definition/drop-account.md) statement. For example:
+To delete an existing account using SQL, use the [DROP ACCOUNT](../../sql_reference/commands/data-definition/drop-account.md) statement. For example:
 
 ```sql
 DROP ACCOUNT dev;

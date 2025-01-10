@@ -5,18 +5,18 @@ description: Reference material for ATAN function
 great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Numeric functions
-published: false
+published: true
 ---
 
 # ATAN
 
-Calculates the arc tangent of the real number returned by the specified expression.
+Calculates the arctangent of a value in radians.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-ATAN(<expression>)
+ATAN(<value>)
 ```
 
 ## Parameters 
@@ -24,19 +24,12 @@ ATAN(<expression>)
 
 | Parameter | Description | Supported input types | 
 | :-------- | :-----------| :------|
-| `<expression>`  | The expression that the `ATAN` function is applied to | Any expression that evaluates to a real number |
+| `<value>`   | The number that the arctangent function is applied to. | `DOUBLE PRECISION` |
 
 ## Return Type 
-`DOUBLE PRECISION` 
+`ATAN` returns a value of type `DOUBLE PRECISION`.
 
 ## Example
 {: .no_toc}
 
-The following example returns the arc tangent of the specified literal value `90`:
-
-```sql
-SELECT
-    ATAN(90);
-```
-
-**Returns**: `1.5596856728972892`
+{% include sql_examples/atan.md %}

@@ -11,6 +11,36 @@ parent: Data definition
 
 Updates the specified table.
 
+## ALTER TABLE ADD COLUMN
+
+Adds a column to an existing table.
+
+### Syntax
+
+```sql
+ALTER TABLE <table> ADD COLUMN [IF NOT EXISTS] <column_name> <column_type> [NULL | NOT NULL] [DEFAULT <expression>]
+```
+
+### Parameters
+{: .no_toc} 
+
+| Parameter          | Description                                  |
+| :------------------ | :-------------------------------------------- |
+| `<table>`       | Name of the table to which to add the column. |
+| `<column_name>` | An identifier that specifies the name of the column that will be added to the table. |
+| `<column_type>` | Specifies the data type for the column. |
+| `IF NOT EXISTS` | If specified, this clause prevents an error message that would occur if the column already exists in the table. |
+
+### Column constraints & default expression
+
+| `DEFAULT <expression>` | Determines the value that will be used for the column when this column is omitted in an `INSERT` statement. It also determines the value that is used for the rows that were inserted before the column was added. |
+| `NULL` \| `NOT NULL` | Determines if the column may or may not contain `NULL`s. |
+
+### Limitations
+The query can only be executed under the following conditions:
+* Only for managed tables created on Firebolt version 4.10 or higher (external tables are not supported).
+* The table must not have any dependent views.
+* The default expression must contain only literals or functions `CURRENT_DATE()`, `LOCALTIMESTAMP()`, `CURRENT_TIMESTAMP()`, and `NOW()`.
 
 ## ALTER TABLE DROP PARTITION
 
@@ -56,3 +86,27 @@ ALTER TABLE <table> OWNER TO <user>
 | :------------------ | :-------------------------------|
 | `<table>` | Name of the table to change the owner of. |
 | `<user>`  | The new owner of the table.               |
+
+## ALTER TABLE RENAME TO
+
+Renames a table.
+
+### Syntax
+
+```sql
+ALTER TABLE [IF EXISTS] <table_name> RENAME TO <new_table_name>
+```
+
+### Parameters
+{: .no_toc} 
+
+| Parameter          | Description                                  |
+| :------------------ | :-------------------------------------------- |
+| `<table_name>`     | The name of the table to rename. |
+| `<new_table_name>` | The new name of the table. |
+
+### Limitations
+The query can only be executed under the following conditions:
+* Only for managed tables created on Firebolt version 4.10 or higher (external tables are not supported).
+* The table must not have any dependent views.
+* Renaming tables across schemas and databases is not supported. Consider using [CREATE TABLE CLONE](./create-table-clone.md)

@@ -31,9 +31,9 @@ The `DELETE FROM <table>` without `<expression>` will delete *all* rows from the
 ## Remarks
 {: .no_toc}
 
-Deleted rows are marked for deletion, but are not automatically cleaned up. You can monitor fragmentation in [`information_schema.tables`](../../information-schema/tables.md) to understand how many rows are marked for deletion out of total rows; fragmentation = (rows marked for deletion / total rows). Total row count in `information_schema.tables` excludes the number of rows marked for deletion. Query performance is not materially impacted by delete marks.
+Deleted rows are marked for deletion, but are not automatically cleaned up. You can monitor fragmentation in [information_schema.tables](../../information-schema/tables.md) to understand how many rows are marked for deletion out of total rows; fragmentation = (rows marked for deletion / total rows). Total row count in `information_schema.tables` excludes the number of rows marked for deletion. Query performance is not materially impacted by delete marks.
   
-To mitigate fragmentation, use the [`VACUUM`](vacuum.md) command to manually clean up deleted rows.
+To mitigate fragmentation, use the [VACUUM](vacuum.md) command to manually clean up deleted rows.
 
 ## Example 
 
@@ -103,17 +103,3 @@ Table `products` after:
 | quidditch gloves | 10 |
 | cauldron | 16 |
 | quill | 100 |
-
-### Known limitations
-
-Below are some known limitations of the `DELETE` command. 
-
-* `DELETE`/`UPDATE` will perform slower on the following aggregate functions:
-  * [MIN](../../functions-reference/aggregation/min.md)
-  * [MIN_BY](../../functions-reference/aggregation/min-by.md)
-  * [MAX](../../functions-reference/aggregation/max.md)
-  * [MAX_BY](../../functions-reference/aggregation/max-by.md)
-  * [ANY_VALUE](../../functions-reference/aggregation/any_value.md)
-  * [APPROX_COUNT_DISTINCT](../../functions-reference/aggregation/approx-count-distinct.md)
-
-* Queries against tables with deleted rows are supported and can be run. However, expect slower performance.

@@ -12,7 +12,20 @@ Firebolt bills are based on the consumption of resources within each account in 
 
 * **Data storage** usage is calculated on the daily average amount of data (in bytes) stored under your Firebolt account name for indexes and raw compressed data.
 
-* **Engine resources** usage is calculated with **one-second granularity** between the time Firebolt starts to provision the engine and when the request to terminate the engine is submitted. Warmup time for caching indexes and raw data is counted in engine usage time.
+* **Engine resources** usage is calculated with **one-second granularity** between the time Firebolt makes the engine available for queries and when the the engine moves to the stopped state.
+
+## Set-up account billing through AWS Marketplace
+To continue using Firebolt’s engines for query execution after your initial $200 credit, valid for 30 days, you’ll need to set-up a billing account by connecting your account to the [AWS Marketplace](https://aws.amazon.com/marketplace). 
+
+**Steps for registration:**
+
+1. On the [Firebolt Workspace page](https://go.firebolt.io/), select the **Configure**(<img src="../../assets/images/configure-icon.png" alt="AggIndex" width="14"/>) icon from the left navigation pane. 
+2. Under **Organization settings**, select **Billing**.
+3. Click **Connect to AWS Marketplace** to take you to the Firebolt page on AWS Marketplace.
+4. On the AWS Marketplace page, click the **View Purchase Options** in the top right hand corner of the screen.
+5. Click **Setup Your Account**.
+
+Your account should now be associated with AWS Marketplace.
 
 ## Invoices
 

@@ -5,14 +5,16 @@ description: Reference material for MEDIAN
 great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Aggregation functions
-published: false
+published: true
 ---
 
 # MEDIAN
 
-Calculates an approximate median for a given column.
+Returns the middle value in a given column. If number of values are even, `MEDIAN` returns the average of the two middle values.
+
 
 ## Syntax
+
 {: .no_toc}
 
 ```sql
@@ -20,35 +22,23 @@ MEDIAN(<value>)
 ```
 
 ## Parameters
+
 {: .no_toc}
 
-| Parameter | Description                         |Supported input types |
-| :--------- | :----------------------------------- | :---------------------|
-| `<value>`   | The expression used to calculate the median value | Any numeric type |
+| Parameter | Description                                       | Supported input types                       |
+|:----------|:--------------------------------------------------|:--------------------------------------------|
+| `<value>` | The expression used to calculate the median value. | `DOUBLE PRECISION`, `REAL`, `BIGINT`, `INT` |
 
 
 ## Return Type
-`DOUBLE PRECISION`
 
-## Example
+`MEDIAN` returns a value of type `DOUBLE PRECISION`.
+
+
+* This function ignores `NULL` values.
+* If the input is empty, the function returns `NULL`.
+
+## Examples
+
 {: .no_toc}
-For this example,  see the following table, `tournaments`:
-
-| name                          | totalprizedollars  |
-| :-----------------------------| :------------------| 
-| The Drift Championship        | 22,048             |
-| The Lost Track Showdown       | 5336               |
-| The Acceleration Championship | 19,274             |
-| The French Grand Prix         | 237                |
-| The Circuit Championship      | 9,739              |
-
-`MEDIAN` returns the approximate middle value between the lower and higher halves of the values.
-
-```sql
-SELECT
-	MEDIAN(totalprizedollars)
-FROM
-	tournaments;
-```
-
-**Returns**: `9,739`
+{% include sql_examples/median.md %}

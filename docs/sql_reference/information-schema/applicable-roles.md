@@ -8,7 +8,12 @@ grand_parent: SQL reference
 
 # Information schema for applicable_roles
 
-You can use the `information_schema.applicable_roles` view to return information about roles available in the account.
+`information_schema.applicable_roles` view shows the following:
+
+  * All roles in the account assigned to the user, either directly or indirectly. 
+  * All roles where the user holds granted privileges or ownership.
+  * All grantees of these roles, including users or other roles to whom the roles are granted.
+
 You can use a `SELECT` query to return information about each role as shown in the example below.
 ```sql
 SELECT
@@ -17,6 +22,8 @@ FROM
   information_schema.applicable_roles;
 ```
 
+See also `information_schema.transitive_applicable_roles` [here](transitive-applicable-roles.md).
+
 {: .note}
 Read more about RBAC roles [here](../../Guides/security/rbac.md).
 
@@ -24,9 +31,9 @@ Read more about RBAC roles [here](../../Guides/security/rbac.md).
 
 Each row has the following columns with information about the role.
 
-|  Column Name    | Data Type | Description                                                     |
-|:----------------|:----------|:----------------------------------------------------------------|
-| grantee         | TEXT      | Role or user to whom the privilege is granted (TO USER\|ROLE).  |
-| role_name       | TEXT      | Name of the role.                                               |
-| is_grantable    | TEXT      | YES if the grantee has the admin option on the role, NO if not. |
-| created         | TIMESTAMPTZ | Creation time of the role.                                      |
+|  Column Name    | Data Type   | Description                                                         |
+|:----------------|:------------|:--------------------------------------------------------------------|
+| grantee         | TEXT        | User or role to whom the role is granted.                           |
+| role_name       | TEXT        | Name of the role.                                                   |
+| is_grantable    | TEXT        | `YES` if the grantee has the admin option on the role, `NO` if not. |
+| created         | TIMESTAMPTZ | Creation time of the role.                                          |

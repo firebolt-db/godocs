@@ -11,8 +11,93 @@ parent: SQL reference
 
 This topic lists the data types available in Firebolt.
 
-* Topic ToC
-{:toc}
+<table style="border-collapse: collapse; width: 100%;">
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Data Type</th>
+            <th>Aliases</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan="5" style="border: 1px solid #ddd; padding: 8px;">Numeric</td>
+            <td><a href="https://docs.firebolt.io/sql_reference/data-types.html#integer">INTEGER</a></td>
+            <td>INT, INT4</td>
+            <td>A four-byte signed integer.</td>
+        </tr>
+        <tr>
+            <td><a href="https://docs.firebolt.io/sql_reference/data-types.html#bigint">BIGINT</a></td>
+            <td>LONG, INT8</td>
+            <td>An eight-byte signed integer.</td>
+        </tr>
+        <tr>
+            <td><a href="https://docs.firebolt.io/sql_reference/data-types.html#numeric-1">NUMERIC</a></td>
+            <td>DECIMAL</td>
+            <td>An exact numeral defined by a fixed precision and scale, with a default of `38` for precision and `9` for scale.</td>
+        </tr>
+        <tr>
+            <td><a href="https://docs.firebolt.io/sql_reference/data-types.html#real">REAL</a></td>
+            <td>FLOAT4</td>
+            <td>A four-bye floating point number with six decimal digits of precision.</td>
+        </tr>
+        <tr>
+            <td><a href="https://docs.firebolt.io/sql_reference/data-types.html#double-precision">DOUBLE PRECISION</a></td>
+            <td>DOUBLE, FLOAT, FLOAT8, FLOAT(p)</td>
+            <td>An eight-byte floating point number with fifteen decimal digits of precision.</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Boolean</td>
+            <td><a href="https://docs.firebolt.io/sql_reference/data-types.html#boolean-1">BOOLEAN</a></td>
+            <td>BOOL</td>
+            <td>A logical boolean value of true or false.</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Composite</td>
+            <td><a href="#array">ARRAY</a></td>
+            <td></td>
+            <td>An array that holds multiple values of the same data type.</td>
+        </tr>
+        <tr>
+            <td rowspan="3" style="border: 1px solid #ddd; padding: 8px;">Date & Timestamp</td>
+            <td><a href="#date">DATE</a></td>
+            <td></td>
+            <td>A calendar date including the year, month, and day.</td>
+        </tr>
+        <tr>
+            <td><a href="#timestamp">TIMESTAMP</a></td>
+            <td></td>
+            <td>A calendar date and time in Coordinated Universal Time (UTC), including the year, month, day, hour, minute, second, and microsecond.</td>
+        </tr>
+        <tr>
+            <td><a href="#timestamptz">TIMESTAMPTZ</a></td>
+            <td></td>
+            <td>A calendar date and time in the local timezone, including year, month, day, hour, minute, second, and microsecond.</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">String</td>
+            <td><a href="#text">TEXT</a></td>
+            <td></td>
+            <td>A character string of variable length.</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Binary</td>
+            <td><a href="#bytea">BYTEA</a></td>
+            <td></td>
+            <td>Binary data of variable length.</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #ddd; padding: 8px;">Spatial</td>
+            <td><a href="#geography">GEOGRAPHY</a></td>
+            <td></td>
+            <td>Geographic data, including points, LineStrings, Polygons and collections thereof.</td>
+        </tr>
+    </tbody>
+</table>
+
+
+*For more information about converting a value with a given data type to another, see [Type Conversion](#type-conversion).* 
 
 
 ## Numeric
@@ -172,6 +257,11 @@ For historic reasons, if you set the setting `standard_conforming_strings` to `f
 
 Represents variable size binary data. A binary string is a sequence of bytes - unlike TEXT, there is no character set. The BYTEA data type is nullable. For more information, see [BYTEA data type](bytea-data-type.md).
 
+## Spatial
+
+## GEOGRAPHY
+Represents geographic objects like points, LineStrings, Polygons, or collections thereof. For more information, see [GEOGRAPHY data type](geography-data-type).
+
 ## Type Conversion
 
 Values with a given data type can be converted to another data type. There are three contexts in which this happens:
@@ -186,17 +276,18 @@ The following table lists which type conversions are supported and in which cont
 * "Assignment" means implicitly in assignment to a target column, as well as explicitly.
 * "Implicit" means implicitly in expressions, as well as the other cases.
 
-| From \ To   | UNKNOWN    | INT        | BIGINT     | REAL       | DOUBLE     | TEXT       | BYTEA      | BOOLEAN    | NUMERIC    | ARRAY      | DATE       | TIMESTAMP  | TIMESTAMPTZ |
-|-------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|-------------|
-| **UNKNOWN**     |      | Implicit   | Implicit   | Implicit   | Implicit   | Implicit   | Implicit   | Implicit   | Implicit   | Implicit   | Implicit   | Implicit   | Implicit    |
-| **INT**        | |      | Implicit   | Implicit   | Implicit   | Assignm. | | Explicit   | Implicit   | | | | |
-| **BIGINT**      | | Assignm. |      | Assignm. | Implicit   | Assignm. | | Explicit   | Implicit   | | | | |
-| **REAL**        | | Assignm. | Assignm. |      | Implicit   | Assignm. | | Explicit   | Assignm.   | | | | |
-| **DOUBLE**      | | Assignm. | Assignm. | Assignm. |      | Assignm. | | Explicit   | Assignm.   | | | | |
-| **TEXT**        | | Assignm. | Assignm. | Assignm. | Assignm. |      | Explicit   | Explicit   | Explicit   | Assignm. | Assignm. | Assignm. | Assignm.  |
-| **BYTEA**       | | | | | | Explicit   |      | | | | | | |
-| **BOOLEAN**     | | Explicit   | | | | Assignm. | |      | | | | | |
-| **NUMERIC**     | | Assignm. | Assignm. | Explicit   | Implicit   | Assignm. | | |  Explicit  | | | | |
-| **DATE**        | | | | | | Assignm. | | | | |      | Implicit   | Implicit    |
-| **TIMESTAMP**   | | | | | | Assignm. | | | | | Implicit   |      | Implicit    |
-| **TIMESTAMPTZ** | | | | | | Assignm. | | | | | Implicit   | Implicit   |       |
+| From \ To   | UNKNOWN    | INT        | BIGINT     | REAL       | DOUBLE     | TEXT       | BYTEA      | BOOLEAN    | NUMERIC    | ARRAY      | DATE       | TIMESTAMP  | TIMESTAMPTZ | GEOGRAPHY |
+|-------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|-------------|-----------|
+| **UNKNOWN**     |      | Implicit   | Implicit   | Implicit   | Implicit   | Implicit   | Implicit   | Implicit   | Implicit   | Implicit   | Implicit   | Implicit   | Implicit    | Implicit |
+| **INT**        | |      | Implicit   | Implicit   | Implicit   | Assignm. | | Explicit   | Implicit   | | | | | |
+| **BIGINT**      | | Assignm. |      | Assignm. | Implicit   | Assignm. | | Explicit   | Implicit   | | | | | |
+| **REAL**        | | Assignm. | Assignm. |      | Implicit   | Assignm. | | Explicit   | Assignm.   | | | | | |
+| **DOUBLE**      | | Assignm. | Assignm. | Assignm. |      | Assignm. | | Explicit   | Assignm.   | | | | | |
+| **TEXT**        | | Assignm. | Assignm. | Assignm. | Assignm. |      | Explicit   | Explicit   | Explicit   | Assignm. | Assignm. | Assignm. | Assignm.  | Assignm. |
+| **BYTEA**       | | | | | | Explicit   |      | | | | | | | Implicit |
+| **BOOLEAN**     | | Explicit   | | | | Assignm. | |      | | | | | | |
+| **NUMERIC**     | | Assignm. | Assignm. | Explicit   | Implicit   | Assignm. | | |  Explicit  | | | | | |
+| **DATE**        | | | | | | Assignm. | | | | |      | Implicit   | Implicit    | |
+| **TIMESTAMP**   | | | | | | Assignm. | | | | | Implicit   |      | Implicit    | |
+| **TIMESTAMPTZ** | | | | | | Assignm. | | | | | Implicit   | Implicit   |       | |
+| **GEOGRAPHY** | | | | | | Assignm. | Implicit | | | | | | | |

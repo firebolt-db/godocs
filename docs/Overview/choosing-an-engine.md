@@ -18,7 +18,7 @@ We recommend that you experiment and tune different engine configurations on pre
 
 ## Understanding performance factors
 
-The engine specification (the node type) and scale (the number of nodes) are the fundamental aspects of engine performance. Another configuration parameter, the warmup method, affects engine start times. For information about warmup choices, see [Warmup method](understanding-engine-fundamentals.md#warmup-method).
+The node type of the engine and number of nodes are fundamental aspects of engine performance.
 
 For ingestion engines, tuning considerations include the source data to be ingested, the complexity of the data structures, and the response time that your application demands. For analytics engines, considerations include the complexity of aggregations and joins that you use in your queries. We explore these performance aspects and how they affect your tuning adjustments in more detail below.
 
@@ -65,7 +65,7 @@ After data is ingested into Firebolt, your analytics engines process fact and di
 
 ### Good indexes help engines
 
-Indexes are to Firebolt analytics engines what the suspension and transmission are to a car engine. They help deliver the engine’s power efficiently for top performance. Developing excellent indexes can help to mitigate the demands on an engine, improving performance and lowering cost. Tuning indexes is a topic of its own. For more information, see [Using indexes](./using-indexes.md).
+Indexes are to Firebolt analytics engines what the suspension and transmission are to a car engine. They help deliver the engine’s power efficiently for top performance. Developing excellent indexes can help to mitigate the demands on an engine, improving performance and lowering cost. Tuning indexes is a topic of its own. For more information, see [Data modeling](indexes/using-indexes.md).
 
 ### Mix and match engines for different query types
 

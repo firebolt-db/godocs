@@ -40,7 +40,8 @@ For more details and versioning information, please visit the [NuGet Gallery](ht
 Here's a simple example to get started with the Firebolt .NET SDK:
 
 ```cs
-using FireboltNetSdk;
+using System.Data.Common;
+using FireboltDotNetSdk.Client;
 
 public class Program
 {

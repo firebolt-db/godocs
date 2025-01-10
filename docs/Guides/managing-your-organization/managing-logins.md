@@ -9,7 +9,7 @@ parent: Manage organization
 # Manage logins
 {: .no_toc}
 
-Logins are managed at the organization level and are used for authentication. Logins are a combination of a login name (email), first name, last name, and password, unless you've configured [Single Sign-On (SSO)](../security/sso/sso.md). Moreover, logins can be configured with advanced authentication properties such as [MFA](../security/enabling-mfa.md) and [network policies](../security/network-policies.md). Logins are linked to users at the account level, so that roles may be managed separately per account. A user must be linked to either a login or a service account for programmatic use to gain access to Firebolt. You can add, edit or delete logins using SQL or in the UI. 
+Logins are managed at the organization level and are used for authentication. Logins are a combination of a login name (email), first name, last name, and password, unless you've configured [Single Sign-On (SSO)](../security/sso/). Moreover, logins can be configured with advanced authentication properties such as [MFA](../security/enabling-mfa.md) and [network policies](../security/network-policies.md). Logins are linked to users at the account level, so that roles may be managed separately per account. A user must be linked to either a login or a service account for programmatic use to gain access to Firebolt. You can add, edit or delete logins using SQL or in the UI. 
 
 To view all logins, click **Configure** to open the configure space, then choose **Logins** from the menu, or query the [information_schema.logins](../../sql_reference/information-schema/logins.md) view. 
 
@@ -19,10 +19,10 @@ Managing logins requires the org_admin role.
 ## Create a new login
 
 ### SQL 
-To create a login using SQL, use the [`CREATE LOGIN`](../../sql_reference/commands/access-control/create-login.md) statement. For example:
+To create a login using SQL, use the [CREATE LOGIN](../../sql_reference/commands/access-control/create-login.md) statement. For example:
 
 ```sql
-CREATE LOGIN "alexs@acme.com" WITH FIRST_NAME = "Alex" LAST_NAME = "Summers";
+CREATE LOGIN "alexs@acme.com" WITH FIRST_NAME = 'Alex' LAST_NAME = 'Summers';
 ```
 
 ### UI
@@ -45,7 +45,7 @@ To create a login via the UI:
 ## Edit an existing login
 
 ### SQL 
-To edit an existing login using SQL, use the [`ALTER LOGIN`](../../sql_reference/commands/access-control/alter-login.md) statement. For example:
+To edit an existing login using SQL, use the [ALTER LOGIN](../../sql_reference/commands/access-control/alter-login.md) statement. For example:
 
 ```sql
 ALTER LOGIN "alexs@acme.com" SET NETWORK_POLICY = my_network_policy
@@ -66,7 +66,7 @@ Login name can not be changed for logins that were provisioned via SSO.
 ## Deleting an existing login
 
 ### SQL 
-To delete an existing login using SQL, use the [`DROP LOGIN`](../../sql_reference/commands/access-control/drop-login.md) statement. For example:
+To delete an existing login using SQL, use the [DROP LOGIN](../../sql_reference/commands/access-control/drop-login.md) statement. For example:
 
 ```sql
 DROP LOGIN "alexs@acme.com";

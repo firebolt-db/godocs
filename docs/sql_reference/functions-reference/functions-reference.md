@@ -9,7 +9,7 @@ has_toc: false
 
 # SQL functions
 
-See a [full function glossary](./functions-glossary.md), or find functions based on type from the list below. 
+See a [full function glossary](./functions-glossary.md), or find functions based on type from the list below: 
 
 * [Aggregation functions](./aggregation/index.md)  
   Perform a calculation across a set of rows, returning a single value. 
@@ -30,16 +30,22 @@ See a [full function glossary](./functions-glossary.md), or find functions based
   Manipulate date and time data types.
 
 * [JSON functions](./JSON/index.md)  
-  Extract and transform JSON into Firebolt native types, or JSON sub-objects. Used either during the ELT process or applied to columns storing JSON objects as plain `TEXT`
+  Extract and transform JSON into Firebolt native types, or JSON sub-objects. Used either during the ELT process or applied to columns storing JSON objects as plain `TEXT`.
 
 * [Numerical functions](./numeric/index.md)  
-  Manipulate data types including `INTEGER`, `BIGINT`, `DOUBLE PRECISION`, and other numeric types
+  Manipulate data types including `INTEGER`, `BIGINT`, `DOUBLE PRECISION`, and other numeric types.
 
 * [Session functions](./session/index.md)  
-  Used for obtaining information about a current session
+  Obtaining information about a current session.
+
+* [Geospatial functions](./geospatial/index.md)  
+  Operations involving geospatial objects
 
 * [String functions](./string/index.md)  
-  Manipulate string data types
+  Manipulate string data types.
+
+* [Vector functions](./vector/index.md)  
+   Perform vector operations on `ARRAY`-type data. 
 
 * [Window functions](./window/index.md)  
-  Perform a calculation across a specified set of table rows
+  Perform a calculation across a specified set of table rows.

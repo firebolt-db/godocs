@@ -5,12 +5,12 @@ description: Reference material for ACOS function
 great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Numeric functions
-published: false
+published: true
 ---
 
 # ACOS
 
-Calculates the arc cosine of a value. Returns NULL if `<value>` is higher than 1.
+Calculates the arccosine of a value in radians.
 
 ## Syntax
 {: .no_toc}
@@ -24,17 +24,12 @@ ACOS(<value>)
 
 | Parameter | Description                                                                                                         | Supported input types |
 | :--------- | :------------------------------------------------------------------------------------------------------------------- | :-------------------|
-| `<value>`   | The number that the arc cosine value function is applied to | `DOUBLE PRECISION` |
+| `<value>`   | The number that the arccosine function is applied to. | `DOUBLE PRECISION` |
 
 ## Return Type
-`DOUBLE PRECISION`
+`ACOS` returns a value of type `DOUBLE PRECISION`.
 
 ## Example
-The following example returns the arc cosine  of `0.5`:
+{: .no_toc}
 
-```sql
-SELECT
-    ACOS(0.5);
-```
-
-**Returns**: `1.0471975511965979`
+{% include sql_examples/acos.md %}

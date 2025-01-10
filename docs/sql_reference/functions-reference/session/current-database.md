@@ -28,4 +28,6 @@ CURRENT_DATABASE()
 SELECT current_database()
 ```
 
-**Returns**: `account_db`
+**Returns**
+
+`account_db`

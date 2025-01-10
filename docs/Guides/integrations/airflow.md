@@ -118,7 +118,7 @@ This DAG performs a variety of tasks in Firebolt for demonstration purposes only
 
 3. Run SQL to create a fact table to receive ingested data. For more information, see [Working with tables](../../Overview/working-with-tables/working-with-tables.md).
 
-4. Run SQL that ingests the data using an [`INSERT`](../../sql_reference/commands/data-management/insert.md) command.
+4. Run SQL that ingests the data using an [INSERT](../../sql_reference/commands/data-management/insert.md) command.
 
 In this example, the DAG is set up to run only when triggered (`schedule_interval=None`).
 

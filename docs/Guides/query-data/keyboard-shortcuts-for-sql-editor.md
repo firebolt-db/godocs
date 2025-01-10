@@ -3,68 +3,65 @@ layout: default
 title: Keyboard shortcuts for the Develop Space
 description: Reference for efficient keyboard shortcuts when working in the Firebolt Develop space.
 nav_order: 4
-parent: Query data
-grand_parent: Guides
+has_children: true
+has_toc: false
+parent: Guides
+published: false
 ---
 
 # Keyboard shortcuts for the Develop Space
 
-Firebolt supports the following keyboard shortcuts in the SQL editor.
+* [Query operations](#query-operations)
+* [Script management](#script-management)
+* [Search functionality](#search-functionality)
+* [Editing text](#editing-text)
 
-| Function | Windows & Linux shortcut | Mac shortcut |
-| :--- | :--- | :--- |
-| Select all | Ctrl + a | ⌘ + a |
-| Select to start | Ctrl + Shift + Up arrow | ⌘ + Shift + Up arrow |
-| Go to start | Ctrl + Up arrow | ⌘ + Up arrow |
-| Select to line start | Alt + Shift + Left arrow | ⌘ + Shift + Left arrow |
-| Go to line start | Alt + Left arrow | Option + Left arrow |
-| Select up | Shift + Up arrow | Shift + Up arrow |
-| Go line up | Up arrow |  Up arrow |
-| Select to end | Ctrl + Shift + Down arrow | ⌘ + Shift + Down arrow |
-| Go to end | Ctrl + Down arrow | ⌘ + Down arrow |
-| Select to line end | Alt + Shift + Right arrow | ⌘ + Shift + Right arrow |
-| Go to line end | Alt + Right arrow | Option + Right arrow |
-| Select down | Shift + Down arrow | Shift + Down arrow |
-| Go line down | Down arrow | Down arrow |
-| Select word left | Ctrl + Shift + Left arrow | Option + Shift + Left arrow |
-| Go to word left | Ctrl + Left | Option + Left arrow |
-| Select left | Shift + Left arrow | Shift + Left arrow |
-| Go to left | Left arrow | Left arrow |
-| Select word right | Ctrl + Shift + Right arrow | Option + Shift + Right arrow |
-| Go to word right | Ctrl + Right arrow | Option + Right arrow |
-| Select right | Shift + Right arrow | Shift + Right arrow |
-| Go to right | Right arrow | Right arrow |
-| Find | Ctrl + f |  ⌘ + f |
-| Find next | Ctrl + k | ⌘ + g |
-| Find previous | Ctrl + Shift + k | ⌘ + Shift + g |
-| Remove line | Ctrl + d | ⌘ + d |
-| Duplicate line | Ctrl + Shift + d | ⌘ + Shift + d |
-| Toggle comment | Ctrl + / | ⌘ + / |
-| Replace | Ctrl + h | ⌘ + Option + f |
-| Undo | Ctrl + z | ⌘ + z |
-| Copy lines up | Alt + Shift + Up arrow | ⌘ + Option + Up arrow |
-| Move lines up | Alt + Up arrow | Option + Up arrow |
-| Copy lines down | Alt + Shift + Down arrow | ⌘ + Option + Down arrow |
-| Move lines down | Alt + Down arrow | Option + Down arrow |
-| Delete | Delete | Fn + delete |
-| Backspace | Backspace | delete |
-| Remove to line start | Alt + Backspace | ⌘ + delete |
-| Remove to line end | Alt + Delete | Ctrl + k |
-| Remove word left | Ctrl + Backspace | Option + delete |
-| Remove word right | Ctrl + Delete |  ⌘ + Fn + delete |
-| Indent | Tab | Tab |
-| To uppercase | Ctrl + u | Ctrl + u |
-| To lowercase | Ctrl + Shift + u | Ctrl + Shift + u |
-| Expand to line | Ctrl + Shift + l | ⌘ + Shift + l |
-| Add cursor above | Ctrl + Alt + Up arrow | Ctrl + Option + Up arrow |
-| Add cursor below | Ctrl + Alt + Down arrow | Ctrl + Option + Down arrow |
-| Add cursor above, skip current | Ctrl + Alt + Shift + Up arrow | Ctrl + Option + Shift + Up arrow |
-| Add cursor below, skip current | Ctrl + Alt + Shift + Down arrow | Ctrl + Option + Shift + Down arrow |
-| Close current script | Ctrl + Alt + x | ⌘ + Option + x |
-| Close all scripts | Ctrl + Alt + g | ⌘ + Option + g |
-| Close all but current script | Ctrl + Alt + o | ⌘ + Option + o |
-| Save script | Ctrl + Alt + s | ⌘ + Option + s |
-| Expand/collapse results | Ctrl + Alt + e | ⌘ + Option + e |
-| Go to line | Ctrl + l | ⌘ + l |
-| Cancel query | Ctrl + Alt + k | ⌘ + Option + k |
+> **Tip:** Use the **Keyboard shortcuts panel** (`Ctrl + Shift + ?`) to quickly view available shortcuts directly within the Develop Space.
 
+
+### Query operations
+
+| Function                  | Windows & Linux Shortcut | Mac Shortcut      |
+|:--------------------------|:-------------------------|:------------------|
+| **Run** the **currently selected query**.         | Ctrl + Enter             | ⌘ + Enter         |
+| **Run all** queries in the current script. | Ctrl + Shift + Enter     | ⌘ + Shift + Enter |
+| **Toggle** expanding or collapsing **query results**.   | Ctrl + Alt + E           | ⌘ + Option + E    |
+
+
+### Script management
+
+| Function                     | Windows & Linux Shortcut | Mac Shortcut   |
+|:-----------------------------|:-------------------------|:---------------|
+| **Create** a new script.                   | Ctrl + Alt + N           | ⌘ + Option + N |
+| **Jump** to a **previous** script.     | Ctrl + Alt + [           | ⌘ + Option + [ |
+| **Jump** to the **next** script.          | Ctrl + Alt + ]           | ⌘ + Option + ] |
+| **Close** the **current** script.         | Ctrl + Alt + X           | ⌘ + Option + X |
+| **Close all** scripts.            | Ctrl + Alt + G           | ⌘ + Option + G |
+| **Close all but** the **current** script. | Ctrl + Alt + O           | ⌘ + Option + O |
+
+### Search functionality
+
+| Function          | Windows & Linux Shortcut | Mac Shortcut       |
+|:------------------|:-------------------------|:-------------------|
+| **Open** a **search** panel. | Ctrl + F                 | ⌘ + F              |
+| **Find** the **next search result**.        | F3                       | F3                 |
+| **Find** the **previous search result**.    | Shift + F3               | Shift + F3         |
+
+
+### Editing text
+
+| Function             | Windows & Linux Shortcut  | Mac Shortcut                |
+|:---------------------|:--------------------------|:----------------------------|
+| **Toggle** adding or removing a **comment marker** for the current line. | Ctrl + /                  | Cmd + /                     |
+| **Toggle** adding or removing a **block comment marker** around a block of code or text. | Shift + Alt + A           | Shift + Option + A          |
+| **Automatically organize and indent** code for readability.          | Ctrl + Alt + F            | ⌘ + Option + F              |
+| **Copy** the selected lines and paste them directly **above** the original.        | Alt + Shift + Up arrow    | Shift + Option + Up arrow   |
+| **Move** the selected lines and paste them directly **above** the original without creating a duplicate.        | Alt + Up arrow            | Option + Up arrow           |
+| **Copy** the selected lines and paste them directly **below** the original.      | Alt + Shift + Down arrow  | Shift + Option + Down arrow |
+| **Move** the selected lines and paste them directly **below** the original without creating a duplicate.      | Alt + Down arrow          | Option + Down arrow         |
+| **Select text** to the **left** of the cursor.  | Alt + Shift + Left arrow  | Ctrl + Shift + Left arrow   |
+| **Select text** to the **right** of the cursor. | Alt + Shift + Right arrow | Ctrl + Shift + Right arrow  |
+| **Select** the **entire line**.   | Alt + L                   | Ctrl + L                    |
+| **Decrease** the **indentation level** of the current or selected lines.          | Ctrl + [                  | Cmd + [                     |
+| **Increase** the **indentation level** of the current or selected lines.          | Ctrl + ]                  | Cmd + ]                     |
+| **Delete** the current or selected **lines**.          | Shift + Ctrl + K          | Shift + Cmd + K             |

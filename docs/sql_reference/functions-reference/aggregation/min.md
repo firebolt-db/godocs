@@ -10,7 +10,7 @@ parent: Aggregation functions
 
 # MIN
 
-Returns the minimum value in its argument. NULL values are ignored. If all inputs are NULL, `MIN` returns NULL.
+Returns the minimum value in its argument. `NULL` values are ignored. If all inputs are `NULL`, `MIN` returns NULL.
 
 ## Syntax
 {: .no_toc}
@@ -30,9 +30,12 @@ MIN(<expression>)
 
 Same as input type
 
-## Example
+## Examples
 {: .no_toc}
-For this example, see the following table, `tournaments`:
+
+**Example**
+
+This code example uses the following `tournaments` table:
 
 | name                          | totalprizedollars |
 | :-----------------------------| :-----------------|
@@ -51,7 +54,9 @@ FROM
 	tournaments;
 ```
 
-**Returns**: `237`
+**Returns**
+
+`237`
 
 `MIN` can also work on text or array columns, in which case it returns the lexicographically smallest value. In this example, the function assesses the `name` column in the `tournaments` table.
 
@@ -62,4 +67,6 @@ FROM
 	tournaments;
 ```
 
-**Returns**: `The Acceleration Championship`
+**Returns**
+
+`The Acceleration Championship`

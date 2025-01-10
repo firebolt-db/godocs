@@ -76,11 +76,11 @@ Accepted `<format>` patterns include:
 | `ad` or `bc`      | lower case era indicator without periods                                                          | `TO_CHAR(DATE '2023-03-03', 'ad'); --> 'ad'`                                                     |
 | `A.D.` or `B.C.`  | Upper case era indicator with periods                                                             | `TO_CHAR(DATE '2023-03-03', 'A.D.'); --> 'A.D.'`                                                 |
 | `a.d.` or `b.c.`  | Upper case era indicator with periods                                                             | `TO_CHAR(DATE '2023-03-03', 'b.c.'); --> 'a.d.'`                                                 |
-| `TZ`              | Upper case time-zone abbreviation                                                                 | `SET time_zone = 'America/Vancouver';`<br>`TO_CHAR(TIMESTAMPTZ '2023-03-03', 'TZ'); --> 'PST'`   |
-| `tz`              | Lower case time-zone abbreviation                                                                 | `SET time_zone = 'Europe/Berlin';`<br>`TO_CHAR(TIMESTAMPTZ '2023-03-03', 'tz'); --> 'cet'`       |
-| `TZH`             | Time zone hours                                                                                   | `SET TIME_ZONE = 'Israel';`<br>`TO_CHAR(TIMESTAMPTZ '2023-03-03', 'TZH'); --> '+02'`             |
-| `TZM`             | Time zone minutes                                                                                 | `SET TIME_ZONE = 'Israel';`<br>`TO_CHAR(TIMESTAMPTZ '2023-03-03', 'tzm'); --> '00'`              |
-| `OF`              | Time zone offset from UTC                                                                         | `SET TIME_ZONE = 'America/New_York';`<br>`TO_CHAR(TIMESTAMPTZ '2023-03-03', 'OF'); --> '-08:00'` |
+| `TZ`              | Upper case time-zone abbreviation                                                                 | `SET timezone = 'America/Vancouver';`<br>`TO_CHAR(TIMESTAMPTZ '2023-03-03', 'TZ'); --> 'PST'`    |
+| `tz`              | Lower case time-zone abbreviation                                                                 | `SET timezone = 'Europe/Berlin';`<br>`TO_CHAR(TIMESTAMPTZ '2023-03-03', 'tz'); --> 'cet'`        |
+| `TZH`             | Time zone hours                                                                                   | `SET TIMEZONE = 'Israel';`<br>`TO_CHAR(TIMESTAMPTZ '2023-03-03', 'TZH'); --> '+02'`              |
+| `TZM`             | Time zone minutes                                                                                 | `SET TIMEZONE = 'Israel';`<br>`TO_CHAR(TIMESTAMPTZ '2023-03-03', 'tzm'); --> '00'`               |
+| `OF`              | Time zone offset from UTC                                                                         | `SET TIMEZONE = 'America/New_York';`<br>`TO_CHAR(TIMESTAMPTZ '2023-03-03', 'OF'); --> '-08:00'`  |
 
 Additionally, modifiers can be applied to the format patterns above to alter their behavior.
 
@@ -108,9 +108,13 @@ SELECT
     );
 ```
 
-**Returns**: `'Date: March 2nd, 2023 Time: 6am (33:26.466511) -08:00 (PST)'`
+**Returns**
 
-The example below outputs the current date in a formatted string with any time field set to `0` which indicates midnight. Note the quotation marks again that are required to prevent unintended replacements.
+`'Date: March 2nd, 2023 Time: 6am (33:26.466511) -08:00 (PST)'`
+
+**Example**
+
+The following example outputs the current date in a formatted string with any time field set to `0` which indicates midnight. Note the quotation marks again that are required to prevent unintended replacements:
 
 ```sql
 SELECT
@@ -120,4 +124,6 @@ SELECT
     );
 ```
 
-**Returns**: `'The 61st day in 23 is a Thursday at midnight 00:00:00.000000'`
+**Returns**
+
+`'The 61st day in 23 is a Thursday at midnight 00:00:00.000000'`

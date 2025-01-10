@@ -38,4 +38,6 @@ DATE_DIFF('<unit>', <start_timestamp>, <end_timestamp>)
 SELECT DATE_DIFF('day', '2024-01-01'::TIMESTAMP, '2024-04-15'::TIMESTAMP);
 ```
 
-**Returns**: 105
+**Returns**
+
+105

@@ -14,14 +14,14 @@ You can use a SET statement in a SQL script to configure aspects of Firebolt's s
 
 ## Setting the time zone
 
-Use this setting to specify the session time zone. Time zone names are from the [tz database](http://www.iana.org/time-zones) (see the [list of tz database time zones](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones)). For times in the future, the latest known rule for the given time zone is applied. Firebolt does not support time zone abbreviations, as they cannot account for daylight savings time transitions, and some time zone abbreviations have meant different UTC offsets at different times. The default value of the `time_zone` setting is UTC. 
+Use this setting to specify the session time zone. Time zone names are from the [tz database](http://www.iana.org/time-zones) (see the [list of tz database time zones](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones)). For times in the future, the latest known rule for the given time zone is applied. Firebolt does not support time zone abbreviations, as they cannot account for daylight savings time transitions, and some time zone abbreviations have meant different UTC offsets at different times. The default value of the `timezone` setting is UTC. 
 
 ### Syntax
 
 {: .no_toc}
 
 ```sql
-SET time_zone = '<time_zone>'
+SET timezone = '<time_zone>'
 ```
 
 ### Example
@@ -29,11 +29,11 @@ SET time_zone = '<time_zone>'
 {: .no_toc}
 
 ```sql
-SET time_zone = 'UTC';
+SET timezone = 'UTC';
 SELECT TIMESTAMPTZ '1996-09-03 11:19:33.123456 Europe/Berlin';  --> 1996-09-03 09:19:33.123456+00
 SELECT TIMESTAMPTZ '2023-1-29 6:3:42.7-3:30';  --> 2023-01-29 09:33:42.7+00
 
-SET time_zone = 'Israel';
+SET timezone = 'Israel';
 SELECT TIMESTAMPTZ '2023-1-29 12:21:49';  --> 2023-01-29 12:21:49+02
 SELECT TIMESTAMPTZ '2023-1-29Z';  --> 2023-01-29 02:00:00+02
 ```
@@ -139,7 +139,7 @@ SET query_label = '';
 -- Find your query in information_schema.engine_running_queries and information_schema.engine_query_history
 -- e.g., to retrieve the QUERY_ID
 SELECT query_id, * FROM information_schema.engine_running_queries WHERE query_label = 'Hello Firebolt'
-SELECT query_id, * FROM information_schema.engine_running_queries WHERE query_label = 'Hello Firebolt'
+SELECT query_id, * FROM information_schema.engine_query_history WHERE query_label = 'Hello Firebolt'
 
 CANCEL QUERY WHERE query_id = '<retrieved query_id>'
 ```
@@ -167,3 +167,51 @@ SELECT checksum(*) FROM production_table;
 -- Unset the warmup flag
 SET warmup = false;
 ```
+
+## Result Cache
+
+Set `enable_result_cache` to `FALSE` to disable the use of Firebolt's result cache, which is set to `TRUE` by default. Disabling result cashing can be useful for benchmarking query performance. When `enable_result_cache` is disabled, resubmitting the same query will recompute the results rather than retrieving them from cache. 
+
+### Syntax
+
+```sql
+SET enable_result_cache = [true|false];
+```
+
+### Example
+
+The following code example disables the result cache so that no previously cached results are used, and no new cache entries are written:
+
+```sql
+-- Disable the result cache
+SET enable_result_cache = false;
+-- The following query does not use the result cache
+SELECT checksum(*) FROM production_table;
+```
+
+## Subresult Cache
+
+Firebolt implements [advanced cross-query optimization](../Guides/optimize-query-performance/understand-query-performance-subresult.md) that allows SQL queries to reuse intermediate query execution states from previous requests.
+Subresult caching operates at a semantic level, which allows Firebolt to understand and optimize queries based on the meaning and context of the data rather than solely based on their syntax or structure.
+This capability allows Firebolt to optimize across different query patterns for improved efficiency.
+
+Set `enable_subresult_cache` to `FALSE` to disable Firebolt’s subresult caching, which is set to `TRUE` by default.
+
+Disabling subresult caching is generally **not recommended**, as it can negatively impact query performance, especially for complex workloads. For most benchmarking scenarios, disable the result cache instead, as described in the previous [Result Cache](./system-settings#result-cache) section. This approach affects only the final result caching while preserving the benefits of subresult optimizations.
+
+### Syntax
+
+```sql
+SET enable_subresult_cache = [true|false];
+```
+
+### Example 
+The following code example disables the subresult cache so no previously cached subresult is used and no new cache entries are written by this query:
+```sql
+-- Disable the subresult cache
+SET enable_subresult_cache = false;
+-- This query does not use the subresult cache
+SELECT count(*) FROM fact_table INNER JOIN dim_table ON (a = b);
+```
+
+Setting `enable_subresult_cache` to `FALSE` disables the use of all [cached subresults](../Guides/optimize-query-performance/understand-query-performance-subresult.md). In particular, it deactivates two caching mechanisms that normally speed up query runtimes: the use of the `MaybeCache` operator, which includes the full result cache, and the hash-table cache used by the `Join` operator.

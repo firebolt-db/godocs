@@ -5,12 +5,12 @@ description: Reference material for PI function
 great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Numeric functions
-published: false
+published: true
 ---
 
 # PI
 
-Calculates π as a `REAL` value.
+Returns π as a `DOUBLE PRECISION` value.
 
 ## Syntax
 {: .no_toc}
@@ -20,15 +20,9 @@ PI()
 ```
 
 ## Return Type
-`DOUBLE PRECISION` 
+`PI` returns a value of type `DOUBLE PRECISION`.
 
 ## Example
 {: .no_toc}
 
-This example returns π as a `DOUBLE PRECISION` value: 
-```
-SELECT
-    PI();
-```
-
-**Returns**: `3.141592653589793`
+{% include sql_examples/pi.md %}

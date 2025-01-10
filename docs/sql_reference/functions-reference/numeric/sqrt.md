@@ -37,10 +37,13 @@ SQRT(<value>);
 ## Example
 {: .no_toc}
 
-The following example returns the square root of `64`: 
+The following example returns the square root of `64`:
+
 ```sql
 SELECT
     SQRT(64);
 ```
 
-**Returns**: `8`
+**Returns**
+
+`8`

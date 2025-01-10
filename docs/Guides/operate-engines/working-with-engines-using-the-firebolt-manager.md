@@ -30,7 +30,7 @@ For more information about settings and their meanings, see [Understanding engin
 6. Under **Engine scale**, select a scale factor of 1 to 128.  
 **Total engine stats** and the engine list in the left pane update to reflect your selection.  
 
-7. Select a **Warmup method** and **Auto-stop** duration.  
+7. Select an **Auto-stop** duration.  
 
 8. Choose **Update database**.  
 You return to the **Databases** list, and your database appears under **Database Engines**.

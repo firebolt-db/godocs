@@ -5,48 +5,40 @@ description: Reference material for STDDEV_SAMP
 great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Aggregation functions
-published: false
+published: true
 ---
 
 # STDDEV\_SAMP
 
-Computes the standard deviation of a sample consisting of a numeric expression.
+Computes the sample standard deviation of all non-`NULL` numeric values produced by an expression. 
+The sample standard deviation measures how spread out values are in a sample by calculating the square root of the average of squared deviations from the sample mean, using a correction for sample size. For information about the population standard deviation, which estimates the spread of values in the full population, see [STDDEV_POP](stddev-pop.md).
+
+**Alias**: `STDDEV`
+
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-STDDEV_SAMP(<expression>)
+{ STDDEV | STDDEV_SAMP }(<expression>)
 ```
 ## Parameters 
 {: .no_toc}
 
 | Parameter | Description               | Supported input types |
 | :--------- | :----------------------------------- | :--------|
-| `<expression>`  | The expression for calculating the standard deviation. | Any numeric type | 
+| `<expression>`  | An expression producing numeric values for which to calculate the sample standard deviation. | `REAL`, `DOUBLE PRECISION` <!-- Any numeric type-->|
 
 ## Return Type
-`DOUBLE PRECISION`
+`STDDEV_SAMP` returns a result of type `DOUBLE PRECISION`. <!--for `REAL` and `DOUBLE PRECISION` input types.-->
+<!-- `NUMERIC` for serial and `NUMERIC` input types (not yet supported)-->
+
+### Special cases
+- If there is at most one non-`NULL` input value, the result is `NULL`.
+- If the input contains an `Inf` or `NaN` value, the result will be `NaN`.
 
 ## Example
 {: .no_toc}
 
-Consider the following table `tournament_information`, which contains the name of the tournament and the total prize dollars for the tournament: 
+{% include sql_examples/stddev_samp.md %}
 
-| name | prizedollars | 
-|:-------| :--------|
-| The Snow Park Grand Prix | 20903	| 
-| The Acceleration Championship | 19274	|
-The Acceleration Trials | 13877 | 
-
-
-`STDDEV_SAMP` returns the standard deviation for the values as a `DOUBLE PRECISION`.
-
-```sql
-SELECT
-	STDDEV_SAMP(prizedollars)
-FROM
-	tournament_information;
-```
-
-**Returns**: `3,677.5427937686873`

@@ -33,7 +33,7 @@ UPDATE <table> [ [ AS ] <alias> ] SET <column1> = <expression1> [, <column2> = <
 
 Updated rows are marked for deletion, but are not automatically cleaned up. You can monitor fragmentation in `information_schema.tables` to understand how many rows are marked for deletion out of total rows; fragmentation = (rows marked for deletion / total rows). Total row count in `information_schema.tables` excludes the number of rows marked for deletion. Query performance is not materially impacted by delete marks.
   
-To mitigate fragmentation, use the [`VACUUM`](vacuum.md) command to manually clean up deleted rows.
+To mitigate fragmentation, use the [VACUUM](vacuum.md) command to manually clean up deleted rows.
 
 When a `FROM` clause is present, what essentially happens is that the target table is joined to the tables mentioned in the `from_item` list, and each output row of the join represents an update operation for the target table. When using `FROM` the join must produce at most one output row for each row to be modified. In other words, a target row shouldn't join to more than one row from the other table(s).
 
@@ -128,13 +128,3 @@ Table `products` after:
 | robe | 80 | 1 |
 | cauldron | 20 | 16 |
 | quill | 5 | 80 |
-
-### Known limitations
-
-Below are some known limitations of the `UPDATE` command. 
-
-* `UPDATE` cannot be used on tables that have certain aggregating indexes An attempt to issue a `UPDATE` statement on a table with a join index or aggregating index outside of the below defined will fail - these table level aggregating indexes need to be dropped first. `UPDATE` can be used on tables that have aggregating indexes containing the following aggregating functions, starting in **DB version 3.16.0:**
-  * [COUNT and COUNT(DISTINCT)](../../functions-reference/aggregation/count.md)
-  * [SUM](../../functions-reference/aggregation/sum.md)
-  * [AVG](../../functions-reference/aggregation/avg.md)
-  * [ARRAY_AGG/NEST](../../functions-reference/aggregation/array-agg.md)

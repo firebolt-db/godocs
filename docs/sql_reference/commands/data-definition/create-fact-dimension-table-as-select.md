@@ -9,7 +9,7 @@ parent: Data definition
 
 # CREATE FACT or DIMENSION TABLE...AS SELECT
 
-Creates a table and loads data into it based on the [SELECT](../queries/select.md) query. The table column names and types are automatically inferred based on the output columns of the [SELECT](../queries/select.md). When specifying explicit column names those override the column names inferred from the SELECT.
+Creates a table and loads data into it based on the [SELECT](../queries/select.md) query. The table column names and types are automatically inferred based on the output columns of the [SELECT](../queries/select.md). When specifying explicit column names, those override the column names inferred from `SELECT`.
 
 ## Syntax
 
@@ -43,6 +43,6 @@ AS <select_query>
 
 
 ## Remarks
-{. no_toc}
+{: .no_toc}
 
-Unlike a traditional CREATE statement, the primary index and partition definition must come *before* the AS clause.
+Unlike a traditional `CREATE` statement, the primary index and partition definition must come *before* the `AS` clause.

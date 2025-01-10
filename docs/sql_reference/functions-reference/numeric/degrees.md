@@ -5,7 +5,7 @@ description: Reference material for DEGREES function
 great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Numeric functions
-published: false
+published: true
 ---
 
 # DEGREES
@@ -23,18 +23,12 @@ DEGREES(<value>)
 
 | Parameter | Description                                           | Supported input types | 
 | :--------- | :----------------------------------------------------- | :------------|
-| `<value>`   | The value to be converted to degrees from radians | `DOUBLE PRECISION` | 
+| `<value>`   | The value to be converted to degrees from radians. | `DOUBLE PRECISION` | 
 
 ## Return Types
-`DOUBLE PRECISION` 
+`DEGREES` returns a value of type `DOUBLE PRECISION`.
 
 ## Example
 {: .no_toc}
 
-The following example returns the value `3` in degrees: 
-```sql
-SELECT
-    DEGREES(3);
-```
-
-**Returns**: `171.88733853924697`
+{% include sql_examples/degrees.md %}

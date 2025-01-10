@@ -5,12 +5,12 @@ description: Reference material for TAN function
 great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Numeric functions
-published: false
+published: true
 ---
 
 # TAN
 
-Calculates the tangent.
+Trigonometric function that calculates the tangent of a specific value in radians.
 
 ## Syntax
 {: .no_toc}
@@ -23,18 +23,12 @@ TAN(<value>)
 
 | Parameter | Description     | Supported input types | 
 | :--------- | :--------------------------------- | :---------|
-| `<value>`   | The value that determines the returned tangent | `DOUBLE PRECISION` | 
+| `<value>`   | The value that determines the returned tangent in radians. | `DOUBLE PRECISION` |
 
 ## Return Type
-`DOUBLE PRECISION`
+`TAN` returns a value of type `DOUBLE PRECISION`.
 
 ## Example
 {: .no_toc}
 
-The following example calculates the tangent of `90`: 
-```sql
-SELECT
-    TAN(90);
-```
-
-**Returns**: `-1.995200412208242`
+{% include sql_examples/tan.md %}

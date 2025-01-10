@@ -36,7 +36,7 @@ This guide shows you how to set up DBT with Firebolt and run your first DBT [mod
     ```shell
     python3 -m venv dbt-env
     ```
-2. Activate your venv, as shown in the following script example:
+2. Activate your `venv`, as shown in the following script example:
     ```shell
     source dbt-env/bin/activate
     ```
@@ -44,7 +44,7 @@ This guide shows you how to set up DBT with Firebolt and run your first DBT [mod
     ```shell
     python -m pip install dbt-firebolt
     ```
-4. (Optional) Check that both dbt packages are installed.
+4. (Optional) Check that both dbt packages are installed:
     ```shell
     python -m pip list | grep dbt
     ```
@@ -64,12 +64,13 @@ The usual place to create this file on Mac and Linux is `~/.dbt/profiles.yml`.
     target: dev
     outputs:
         dev:
-        type: firebolt
-        client_id: "<client-id>"
-        client_secret: "<client-secret>"
-        database: "<database-name>"
-        engine_name: "<engine-name>"
-        account_name: "<account-name>"
+          type: firebolt
+          client_id: "<client-id>"
+          client_secret: "<client-secret>"
+          database: "<database-name>"
+          engine_name: "<engine-name>"
+          account_name: "<account-name>"
+          schema: "<table-prefix>"
     ```
 3. Replace the placeholders with your account's information.
 
@@ -79,17 +80,19 @@ The usual place to create this file on Mac and Linux is `~/.dbt/profiles.yml`.
 
     `<account-name>` is a Firebolt account that you're connected to. Learn more [here](../managing-your-organization/managing-accounts.md).
 
+    `<table-prefix>` is a prefix prepended to your table names. Since Firebolt does not support custom schemas, this prefix serves as a [workaround](https://docs.getdbt.com/docs/core/connect-data-platform/firebolt-setup#supporting-concurrent-development) to prevent table name conflicts during concurrent development.
+
 ### Setup Jaffle Shop, a sample dbt project
 
 `jaffle_shop` is a fictional ecommerce store. This dbt project transforms raw data from an app database into a customers and orders model ready for analytics. [This version](https://github.com/firebolt-db/jaffle_shop_firebolt) is designed to showcase Firebolt's integration with DBT.
 
-1. Clone `jaffle-shop-firebolt` repository and change to the newly created directory.
+1. Clone `jaffle-shop-firebolt` repository and change to the newly created directory, as follows:
     ```shell
     git clone https://github.com/firebolt-db/jaffle_shop_firebolt.git
     cd jaffle_shop_firebolt
     ```
 
-2. Ensure your profile is setup correctly.
+2. Ensure your profile is setup correctly:
     ```shell
     dbt debug
     ```
@@ -98,7 +101,7 @@ The usual place to create this file on Mac and Linux is `~/.dbt/profiles.yml`.
     Also check that you're still in `dbt-env` virtual Python environment that we've [setup earlier](#setup-dbt-core) and that both packages are present.
 
 
-3. Install dependent packages.
+3. Install dependent packages:
     ```shell
     dbt deps
     ```
@@ -108,12 +111,12 @@ The usual place to create this file on Mac and Linux is `~/.dbt/profiles.yml`.
     dbt run-operation stage_external_sources
     ```
 
-5. Load sample CSV in your database.
+5. Load sample CSV in your database:
     ```shell
     dbt seed
     ```
 
-6. Run the models.
+6. Run the models:
     ```shell
     dbt run
     ```
@@ -128,9 +131,9 @@ Not every feature of DBT is supported in Firebolt. You can find an up-to-date li
 # External table loading strategy
 
 
-In the previous Jaffle Shop example we used a public S3 bucket to load data. If your bucket contains sensitive data, you will want to restrict access. Follow our [guide](../loading-data/creating-access-keys-aws.md) to set up AWS authentication using an ID and secret key.
+In the previous Jaffle Shop example we used a public Amazon S3 bucket to load data. If your bucket contains sensitive data, you will want to restrict access. Follow our [guide](../loading-data/creating-access-keys-aws.md) to set up AWS authentication using an ID and secret key.
 
-Now in your `dbt_project.yml`, you can specify the credentials for your external table in fields `aws_key_id` and `aws_secret_key`, as shown in the following code example:
+In your `dbt_project.yml`, you can specify the credentials for your external table in fields `aws_key_id` and `aws_secret_key`, as shown in the following code example:
 ```yaml
 sources:
   - name: firebolt_external
@@ -157,13 +160,13 @@ sources:
               data_type: <type>
 ```
 
-To use external tables, you must define a table as external in your dbt_project.yml file. Every external table must contain the fields: `url`, `type`, and `object_pattern`. The Firebolt external table [specification](../../sql_reference/commands/data-definition/create-external-table.md) requires fewer fields than those specified in the dbt documentation.
+To use external tables, you must define a table as external in your `dbt_project.yml` file. Every external table must contain the fields: `url`, `type`, and `object_pattern`. The Firebolt external table [specification](../../sql_reference/commands/data-definition/create-external-table.md) requires fewer fields than those specified in the dbt documentation.
 
 # "Copy" loading strategy
 
-An alternative method of loading data from S3 into Firebolt is using [COPY FROM](../../sql_reference/commands/data-management/copy-from.md). It has a simple syntax and doesn't require an exact match with your source data. This command does not create an intermediate table and writes your data straight into Firebolt so you can start working with it right away.
+You can also use [COPY FROM](../../sql_reference/commands/data-management/copy-from.md) to load data from Amazon S3 into Firebolt. It has a simple syntax and doesn't require an exact match with your source data. `COPY_FROM` does not create an intermediate table and writes your data straight into Firebolt so you can start working with it right away.
 
-The copy syntax in dbt closely adheres to the [specification](../../sql_reference/commands/data-management/copy-from.md#syntax), allowing you to define the necessary fields for data ingestion into Firebolt.
+The copy syntax in dbt closely adheres to the [syntax](../../sql_reference/commands/data-management/copy-from.md#syntax) in Firebolt's `COPY_FROM`.
 
 To use `COPY FROM` instead of creating an external table, set `strategy: copy` in your external source definition. For backwards compatibility, if no strategy is specified, the external table strategy is used by default.
 
@@ -204,7 +207,8 @@ options:
         date_format: 'YYYY-MM-DD'
         timestamp_format: 'YYYY-MM-DD HH24:MI:SS'
 ```
-Please note that `csv_options` are indented. For detailed descriptions of these options and their allowed values, refer to the [parameter specification](../../sql_reference/commands/data-management/copy-from.md#parameters).
+
+In the previous code example, `csv_options` are indented. For detailed descriptions of these options and their allowed values, refer to the [parameter specification](../../sql_reference/commands/data-management/copy-from.md#parameters).
 
 # Further reading
 

@@ -64,12 +64,46 @@ To use the wizard, use the following steps:
 <img src="../../assets/images/load_data_wizard_connect.png" alt="The first step in the wizard is to connect to AWS and specify an Amazon S3 bucket." width="700"/>
 <BR>
 
-1. If you are using public data and no credentials are required to access it, provide the URL for your Amazon S3 bucket, and select **Next step**.
-2. If credentials are required, Firebolt needs to provide this information to AWS in order to retrieve data on your behalf. Provide the URL for your Amazon S3 bucket, AWS Key ID, and AWS Secret Key. The following apply:
-    1. The AWS Key ID is an AWS access key that is associated with an AWS user or AWS IAM role. The AWS access key is a 20-character string such as ‘AKIAIOSFODNN7EXAMPLE’.
-    2. The AWS Secret Key is an AWS secret access key associated with the user or role associated with the AWS access key. The AWS secret access key is a 40-character string such as ‘wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY’. For more information about these credentials, see [Create Access Key and Secret ID in AWS](creating-access-keys-aws.md).
-3. If you aren’t ready to use your own data, you can use a Firebolt test dataset from the fictional company, [Ultra Fast Gaming Inc](https://help.firebolt.io/t/ultra-fast-gaming-firebolt-sample-dataset/250). Enter the following Amazon S3 bucket into Amazon S3 storage URL:
+### A. Using public data that do not require access credentials
+
+- If the data is public and no credentials are needed, simply provide the URL of your Amazon S3 bucket and select **Next Step**.
+
+### B. Using Private Data (Credentials Required)
+
+If the data requires credentials for access, you must provide them so that Firebolt can retrieve it from AWS on your behalf. You can choose either **Static Credentials** or **Assume Role Authentication**. 
+  * Use static credentials for simplicity and persistent access when security risks are low, and if your environment requires minimal configuration.  
+  * Use [AssumeRole](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html) Authentication** for enhanced security, temporary access, and dynamic role management, particularly in environments requiring fine-grained permissions or cross-account access.
+
+#### 1. Static Credentials
+
+1. Provide the **URL** for your Amazon S3 bucket.
+2. Enter your **AWS Key ID** and **AWS Secret Key**.
+3. For authentication:
+   - Select **Access Key ID & Secret Key** as your authentication method.
+   - The **AWS Key ID** is a 20-character string associated with an AWS user or IAM role (e.g., `AKIAIOSFODNN7EXAMPLE`).
+   - The **AWS Secret Key** is a 40-character string linked to the AWS Key ID (e.g., `wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`).
+   - Optionally, you can also specify an **AWS Session Token**.
+   - For more information about these credentials, see [Create Access Key and Secret ID in AWS](creating-access-keys-aws.md).
+4. Select **Next Step**.
+
+#### 2. Assume Role Authentication
+
+1. Select **IAM Role** as your authentication method.
+2. Select **Create an IAM role**. To allow Firebolt to read and write to your Amazon S3 bucket using dynamic credentials, you must do the following:
+   - Create an IAM Role.
+   - Define an **AssumeRole** Policy.
+3. After the role is created in your AWS account and the trust policy is attached, copy the **Amazon Resource Name (ARN)** of the role to your clipboard.
+4. Paste the ARN into the **Amazon Resource Name** field in Firebolt.
+5. Select **Next Step**.
+
+#### 3. Using Firebolt's Test Dataset (If You’re Not Ready with Your Own Data)
+
+If you don't have your own data ready, you can use Firebolt’s sample dataset from the fictional company [Ultra Fast Gaming Inc](https://help.firebolt.io/t/ultra-fast-gaming-firebolt-sample-dataset/250): 
+- Use the following Amazon S3 bucket URL:
 `s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/`. 
+
+Alternatively, you can click the toggle button next to **Use Firebolt Playground Bucket to load sample data**. 
+
 4. Select **Next step**.
 
 ## Select data to ingest

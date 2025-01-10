@@ -5,12 +5,12 @@ description: Reference material for ASIN function
 great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Numeric functions
-published: false
+published: true
 ---
 
 # ASIN
 
-Calculates the arcsine. `ASIN` returns `NULL` if `<value>` is higher than 1.
+Calculates the arcsine of a value in radians.
 
 ## Syntax
 {: .no_toc}
@@ -24,18 +24,12 @@ ASIN(<value>)
 
 | Parameter | Description                                                                                                         | Supported input type |
 | :--------- | :------------------------------------------------------------------------------------------------------------------- | :-----------|
-| `<value>`   | The value which the `ASIN` function is applied to | `DOUBLE_PRECISION` |
+| `<value>`   | The number that the arcsine function is applied to. | `DOUBLE_PRECISION` |
 
 ## Return Type
-`DOUBLE_PRECISION`
+`ASIN` returns a value of type `DOUBLE_PRECISION`.
 
 ## Example
 {: .no_toc}
 
-The following example calculates the arc sine of `1.0`:
-```sql
-SELECT
-    ASIN(1.0);
-```
-
-**Returns**: `1.5707963267948966`
+{% include sql_examples/asin.md %}

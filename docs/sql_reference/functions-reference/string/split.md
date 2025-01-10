@@ -33,9 +33,12 @@ SPLIT( <delimiter>, <string> )
 {: .no_toc}
 
 The following example splits the nicknames of players into separate items in an array: 
+
 ```sql
 SELECT
 	SPLIT('|','stephen70|esimpson|ruthgill|') AS nicknames;
 ```
 
-**Returns**: `["stephen70","esimpson","ruthgill"]`
+**Returns**
+
+`["stephen70","esimpson","ruthgill"]`

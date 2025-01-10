@@ -3,7 +3,7 @@ layout: default
 title: Manage organization
 description: Learn about user permissions and how to add and remove users in a Firebolt account.
 parent: Guides
-nav_order: 2
+nav_order: 1
 has_toc: false
 has_children: true
 ---

@@ -25,9 +25,9 @@ HLL_COUNT_ESTIMATE(<expression>)
 
 {: .no_toc}
 
-| Parameter      | Description                                                                       | Supported input types |
-|:---------------|:----------------------------------------------------------------------------------|:----------------------|
-| `<expression>` | An HLL++ sketch produced by the [`HLL_COUNT_BUILD`](../aggregation/hll-count-build.md) function. | `BYTEA`               |
+| Parameter      | Description                                                                                    | Supported input types |
+|:---------------|:-----------------------------------------------------------------------------------------------|:----------------------|
+| `<expression>` | An HLL++ sketch produced by the [HLL_COUNT_BUILD](../aggregation/hll-count-build.md) function. | `BYTEA`               |
 
 ## Return Type
 

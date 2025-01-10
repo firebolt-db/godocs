@@ -27,9 +27,9 @@ To get started using Firebolt, begin by registering using the following steps:
 3. Type in your email and password and select **Log In**.
 
 {: .note}
-New accounts receive 600 Firebolt unit (FBU) credits ($200+) to get started exploring Firebolt’s capabilities.
+New accounts receive credits ($200+) to get started exploring Firebolt’s capabilities. These credits must be used within 30 days of account creation.
 
-Firebolt’s billing is based on engine runtime, measured in seconds. We also pass through AWS S3 storage costs at the rate of $23 per TB. The amount that you spend is dependent primarily on which engines you use and how long those engines are running.
+Firebolt’s billing is based on engine runtime, measured in seconds. We also pass through AWS S3 storage costs at the rate of $23 per TB per month. The amount that you spend is dependent primarily on which engines you use and how long those engines are running.
 
 You can view your total cost in FBU up to the latest second and in $USD up to the latest day. For more information, see the following **Create a Database** section. For more information about costs, see [Data Warehouse Pricing](https://www.firebolt.io/pricing). If you need to buy additional credits, connect Firebolt with your AWS Marketplace account. For more information about AWS Marketplace, see the following section: [Registering through AWS Marketplace section](./get-started-next.md#register-through-the-aws-marketplace).
 
@@ -177,7 +177,7 @@ To run a query on your data, do the following:
 
 2. Enter the following simple query, which fetches a list of databases associated with your account:
   ```sql
-  SHOW DATABASES;
+  SHOW CATALOGS;
   ```
 
 3. Select **Run** to process the query. Firebolt uses the engine listed to the right of your database to run your query and its status of **Running** or **Stopped**. You can select a different engine from the dropdown menu next to the engine (<img src="../../assets/images/engine-icon.png" alt="Engine icon" width="12"/>) icon. 
@@ -285,7 +285,7 @@ You can check the size of your cache using the following example code:
 ```sql
 SHOW CACHE;
 ```
-The previous code example shows your cache usage in GB per total cache available. If your cache usage is too high, adjust your warmup strategy by reducing the amount of data loaded or increasing cache capacity.
+The previous code example shows your cache usage in GB per total cache available.
 
 When data is loaded into Firebolt, it is stored in units of data storage called tablets. A tablet contains a subset of a table’s rows and columns.  If you reach your cache’s 80% capacity, the entire tablet that contains the least recently used data, is evicted.
 
@@ -333,10 +333,10 @@ If you want to save your data outside of Firebolt, you can use [COPY TO](../../s
   1. AWS access key credentials. The credentials must be associated with a user with permissions to write objects to the bucket. Specify access key credentials using the following syntax:
 
   ```shell
-    CREDENTIALS = (AWS_KEY_ID = '<aws_key_id>' AWS_SECRET_KEY = '<aws_secret_key>')
+    CREDENTIALS = (AWS_ACCESS_KEY_ID = '<aws_access_key_id>' AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>')
   ```
 
-  In the previous credentials example, <aws_key_id> is the AWS access key id associated with a user or role. An access key has the following form: `AKIAIOSFODNN7EXAMPLE`. The value    <aws_secret_key> is the AWS secret key. A secret key has the following form: `wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`.
+  In the previous credentials example, `<aws_access_key_id>` is the AWS access key ID associated with an AWS user or an IAM role. An access key ID has the following form: `AKIAIOSFODNN7EXAMPLE`. The value `<aws_secret_access_key>` is the AWS secret access key. A secret access key has the following form: `wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`.
 
 2. An AWS IAM policy statement attached to a user role. Firebolt requires the following minimum permissions in the IAM policy:
 
@@ -371,7 +371,7 @@ Use [COPY TO](../../sql_reference/commands/data-management/copy-to.md) select al
 COPY (SELECT * FROM test_table)
   TO 's3://my_bucket/my_fb_queries'
   CREDENTIALS = 
-  (AWS_ROLE_ARN='arn:aws:iam::123456789012:role/my-firebolt-role');
+  (AWS_ROLE_ARN= 'arn:aws:iam::123456789012:role/my-firebolt-role');
 ```
 In the previous code example, the role ARN ([Amazon Resource Name](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html)) identifies the AWS IAM role that specifies the access for users or services. An ARN follows the following structure: arn:aws:iam::account-id:role/role-name. Because TYPE is omitted from `COPY TO`, the file or files will be written in the default CSV format. Because `COMPRESSION` is also omitted, the output data is compressed using GZIP (*.csv.gz) format.
 

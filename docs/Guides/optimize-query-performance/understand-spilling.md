@@ -18,7 +18,7 @@ Firebolt implements spilling for aggregations and joins, and we will explore it 
 
 The fundamental idea of spilling is to write intermediate state to disk in a partitioned way when the data set is too big to process entirely in memory, and then process the partitions in memory one by one. The following sketch illustrates this:
 
-![Illustration where the entire working set is bigger than main memory, but when split into four partitions, each partition can be comfortable processed in memory](spilling.png)
+<img src="../../assets/images/spilling.png" alt="If a working set exceeds memory, it can be processed if split into four partitions." width="700"/>
 
 Spilling-enabled operators continuously monitor how much memory remains available for use on each node of the engine. When they detect that the available amount is likely to be insufficient to complete the query, they temporarily stop accepting new data and start spilling part or all of the state that they have built up to the local SSD cache. This frees up memory to continue processing input data. If the available memory once again falls below the amount required to finish the operation, the operator spills additional parts of its state. Once the operator has read all of its input data, it needs to read the spilled data back from the SSD cache to produce the correct output. Because we already know that we do not have enough memory to process everything in memory, we read the spilled data *partition by partition*. These partitions are designed to be processed individually, without needing to refer to any other partitions to produce the operator's result for a given partition. By using 256 partitions, we can process up to 200 times more data with spilling than in memory.
 

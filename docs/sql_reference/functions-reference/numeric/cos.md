@@ -5,12 +5,12 @@ description: Reference material for COS function
 great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Numeric functions
-published: false
+published: true
 ---
 
 # COS
 
-Trigonometric function that calculates the cosine of a specific value.
+Trigonometric function that calculates the cosine of a specific value in radians.
 
 ## Syntax
 {: .no_toc}
@@ -23,18 +23,12 @@ COS(<value>)
 
 | Parameter | Description                                           | Supported input types | 
 | :--------- | :----------------------------------------------------- | :--------| 
-| `<value>`   | The value that the `COS` function is applied to | `DOUBLE PRECISION` |
+| `<value>`   | The value that determines the returned cosine in radians. | `DOUBLE PRECISION` |
 
 ## Return Type 
-`DOUBLE PRECISION`
+`COS` returns a value of type `DOUBLE PRECISION`.
 
 ## Example
 {: .no_toc}
 
-The following example returns the cosine of `180`: 
-```sql
-SELECT
-    COS(180);
-```
-
-**Returns**: `-0.5984600690578581`
+{% include sql_examples/cos.md %}

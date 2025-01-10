@@ -10,7 +10,7 @@ parent: Data management
 # VACUUM
 Optimizes tablets for query performance.
 
-`VACUUM` optimizes tablets for query performance. DML operations (such as [`DELETE`](delete.md), [`UPDATE`](update.md), [`INSERT`](insert.md) and [`COPY FROM`](copy-from.md)) might create tablets that are not optimally sized. Suboptimal tablets occur because DML efficiently utilizes resources in proportion to the cardinality of the data being inserted. In addition to standard SQL operations, tuples that are deleted by an update are not always physically removed from their table; they remain present until a `VACUUM` is done. In other words, tablets are not necessarily optimal for running queries; therefore, it’s necessary to do `VACUUM` periodically, especially on frequently updated tables.
+`VACUUM` optimizes tablets for query performance. DML operations (such as [DELETE](delete.md), [UPDATE](update.md), [INSERT](insert.md) and [COPY FROM](copy-from.md)) might create tablets that are not optimally sized. Suboptimal tablets occur because DML efficiently utilizes resources in proportion to the cardinality of the data being inserted. In addition to standard SQL operations, tuples that are deleted by an update are not always physically removed from their table; they remain present until a `VACUUM` is done. In other words, tablets are not necessarily optimal for running queries; therefore, it’s necessary to do `VACUUM` periodically, especially on frequently updated tables.
 
 ## Syntax
 
@@ -84,9 +84,9 @@ The first select is executed on data with a lot of deleted rows, while the secon
 
 | NO  | STATEMENT                                | STATUS   | DURATION   |
 |:----|:-----------------------------------------|:---------|:-----------|
-| 3   | SELECT hash_agg(*) FROM tutorial_vacuum; | Success  | 0.82 s     |
-| 2   | VACUUM tutorial_vacuum;                  | Success  | 17.53 s    |
 | 1   | SELECT hash_agg(*) FROM tutorial_vacuum; | Success  | 4.43 s     |
+| 2   | VACUUM tutorial_vacuum;                  | Success  | 17.53 s    |
+| 3   | SELECT hash_agg(*) FROM tutorial_vacuum; | Success  | 0.82 s     |
 
 
 Note that the first select was running for more than 4 seconds while exactly the same select after VACUUM completes in less than a second. 

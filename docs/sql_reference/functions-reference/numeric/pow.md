@@ -31,6 +31,7 @@ Returns a number of type `DOUBLE PRECISION`.
 
 ## Example
 {: .no_toc}
+
 The following example calculates `2` to the power of `5`:
 
 ```sql

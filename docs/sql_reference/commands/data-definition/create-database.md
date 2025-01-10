@@ -2,13 +2,14 @@
 layout: default
 title: CREATE DATABASE
 description: Reference and syntax for the CREATE DATABASE command.
-great_grand_parent: SQL reference
-grand_parent:  SQL commands
 parent: Data definition
 ---
 
 # CREATE DATABASE
 Creates a new database.
+
+{: .note}
+Each account supports up to 100 databases. If you need more, contact Firebolt's support team at [support@firebolt.io](mailto:support@firebolt.io).
 
 ## Syntax
 {: .no_toc} 
@@ -26,12 +27,12 @@ CREATE DATABASE [IF NOT EXISTS] <database_name>
 | Parameter                                      | Description                     |
 | :---------------------------------------------- | :---------------------------- |
 | `<database_name>`                              | The name of the database. | 
-| `DESCRIPTION = 'description'`                  | The engine's description (up to 64 characters). |
+| `DESCRIPTION = 'description'`                  | (Optional) The database's description, which can contain up to 64 characters. |
 
 ## Example
-The following example creates a database with non-default properties: 
+The following code example creates a database named `my_db` with an optional description, `Testing database`: 
 
 ```sql
 CREATE DATABASE IF NOT EXISTS my_db
-WITH DESCRIPTION = 'Being used for testing'
+WITH DESCRIPTION = 'Testing database'
 ```

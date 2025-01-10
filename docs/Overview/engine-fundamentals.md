@@ -3,7 +3,8 @@ layout: default
 title: Engine Fundamentals
 description: Learn fundamental concepts about Firebolt Engines.
 parent: Overview
-nav_order: 2
+has_children: true
+nav_order: 3
 ---
 
 # Firebolt Engines
@@ -39,7 +40,7 @@ A cluster is a collection of compute resources, described by “Type” and “N
 <br />
 The three attributes-  Type, Nodes and Clusters - together form the configuration or topology of an engine.
 
-To create an engine, use the [CREATE ENGINE command](../sql_reference/commands/engines/create-engine.md), specifying the node type to be used for the engine, number of clusters and number of nodes per cluster. For example, the command below will create an engine with node type ‘S’,  one cluster and four nodes per cluster:
+To create an engine, use the [CREATE ENGINE command](../sql_reference/commands/engines/create-engine.md), specifying the node type to be used for the engine, number of clusters and number of nodes per cluster. For example, the command below will create two clusters, each containing four nodes of type 'M'.
 
 ```sql
 CREATE ENGINE IF NOT EXISTS MyEngine WITH
@@ -72,8 +73,6 @@ ALTER ENGINE MyEngine SET NODES = 3 TYPE = L;
 ```
 
 For more information on modifying engines, see [ALTER ENGINE](../sql_reference/commands/engines/alter-engine.md).
-
-**NOTE**: Multi-cluster engines and online scaling are in preview. By default, engines are limited to a single cluster. You can dynamically modify a running engine to scale up or scale down, but currently running queries may not run to completion. If you would like to try multi-cluster engines or online scaling, reach out to Firebolt Support.
 
 
 ## Connecting to Engines

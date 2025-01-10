@@ -1,33 +1,7 @@
 ## DB version 4.4
 **August 2024**
 
-## Breaking Changes
-
-<!-- Auto Generated Markdown for FIR-35240 - Owned by Kfir Yehuda -->**Reserved the keyword GEOGRAPHY, requiring double quotes for use as an identifier**
-{: style="color:red;"}
-
-The word GEOGRAPHY is now a reserved keyword and must be quoted using double quotes for use as an identifier. For example, `create table geography(geography int);` will now fail, but `create table "geography" ("geography" int);` will succeed.
-
-<!-- Auto Generated Markdown for FIR-34196 - Owned by Pascal Schulze -->**Deprecated the legacy HTTP ClickHouse headers**
-{: style="color:red;"}
-
-We no longer accept or return the legacy HTTP ClickHouse header format `X-ClickHouse-*`.
-
-<!-- Auto Generated Markdown for FIR-35190 - Owned by Kfir Yehuda -->**Fixed `json_value` zero-byte handling**
-{: style="color:red;"}
-
-The `json_value` function no longer returns null characters (0x00), as the TEXT datatype does not support them. For example, `select json_value('"\u0000"');` now results in an error.
-
-<!-- Manually Generated Markdown for FIR-36032 - Owned by Paul Edgington -->**Change default values for NODES and TYPE during CREATE ENGINE**
-{: style="color:red;"}
-
-When performing a CREATE ENGINE, the default values for NODES and TYPE parameters have changed. NODES defaults to `2` (previously `1`) and TYPE defaults to `M` (previously `S`). To create an engine with the previous default values, run the following command:
-
-```sql
-CREATE ENGINE my_engine WITH NODES=1 TYPE=S
-```
-
-## New Features
+### New Features
 
 <!-- Auto Generated Markdown for FIR-24598 - Owned by Leonard von Merzljak -->**Extended support for date arithmetic**
 
@@ -76,8 +50,33 @@ Support has been added for the `SESSION_USER` function, which retrieves the curr
 
 Added two new columns to `information_schema.engine_query_history`: `query_text_normalized_hash` and `query_text_normalized`.
 
+### Breaking Changes
 
-## Bug Fixes
+<!-- Auto Generated Markdown for FIR-35240 - Owned by Kfir Yehuda -->**Reserved the keyword GEOGRAPHY, requiring double quotes for use as an identifier**
+{: style="color:red;"}
+
+The word GEOGRAPHY is now a reserved keyword and must be quoted using double quotes for use as an identifier. For example, `create table geography(geography int);` will now fail, but `create table "geography" ("geography" int);` will succeed.
+
+<!-- Auto Generated Markdown for FIR-34196 - Owned by Pascal Schulze -->**Deprecated the legacy HTTP ClickHouse headers**
+{: style="color:red;"}
+
+We no longer accept or return the legacy HTTP ClickHouse header format `X-ClickHouse-*`.
+
+<!-- Auto Generated Markdown for FIR-35190 - Owned by Kfir Yehuda -->**Fixed `json_value` zero-byte handling**
+{: style="color:red;"}
+
+The `json_value` function no longer returns null characters (0x00), as the TEXT datatype does not support them. For example, `select json_value('"\u0000"');` now results in an error.
+
+<!-- Manually Generated Markdown for FIR-36032 - Owned by Paul Edgington -->**Change default values for NODES and TYPE during CREATE ENGINE**
+{: style="color:red;"}
+
+When performing a CREATE ENGINE, the default values for NODES and TYPE parameters have changed. NODES defaults to `2` (previously `1`) and TYPE defaults to `M` (previously `S`). To create an engine with the previous default values, run the following command:
+
+```sql
+CREATE ENGINE my_engine WITH NODES=1 TYPE=S
+```
+
+### Bug Fixes
 
 <!-- Auto Generated Markdown for FIR-35343 - Owned by Judson Wilson -->**Fixed directory structure duplication in the S3 path when using the COPY TO statement with SINGLE_FILE set to FALSE**
 

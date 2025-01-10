@@ -5,7 +5,7 @@ description: Reference material for ATAN2 function
 great_grand_parent: SQL reference
 grand_parent: SQL functions
 parent: Numeric functions
-published: false
+published: true
 ---
 
 # ATAN2
@@ -32,10 +32,4 @@ ATAN2(<value_y>,<value_x>)
 ## Example
 {: .no_toc}
 
-The following example returns the arc tangent with the values `(11, 3)`:
-```sql
-SELECT ATAN2(11,3);
-```
-
-**Returns:**
-`1.3045442776439713`
+{% include sql_examples/atan2.md %}

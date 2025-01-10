@@ -17,7 +17,7 @@ Partitions are smaller physical parts of large fact and dimension tables. Partit
 
 ## When to use partitions
 
-Partitions are particularly useful to simplify table maintenance by allowing you to drop partitions and delete rows in bulk. For example, consider a transaction table with an average of approximately 150,000 transactions a day, which you partition by month. At the end of each month, you can run [ALTER TABLE](../../sql_reference/commands/data-definition/alter-table.md) to delete the last month's data, and then [INSERT](../../sql_reference/commands/data-management/insert.md) to update the fact table with the most recent month's data.
+Partitions are particularly useful to simplify table maintenance by allowing you to drop partitions and delete rows in bulk. For example, consider a transaction table with an average of approximately 1,500,000 transactions a day, which you partition by month. At the end of each month, you can run [ALTER TABLE](../../sql_reference/commands/data-definition/alter-table.md) to delete the last month's data, and then [INSERT](../../sql_reference/commands/data-management/insert.md) to update the fact table with the most recent month's data.
 
 {: .warning}
 Dropping a partition deletes all the records stored in the partition.

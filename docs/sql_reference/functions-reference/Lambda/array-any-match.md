@@ -10,9 +10,13 @@ parent: Lambda functions
 
 # ARRAY\_ANY\_MATCH
 
-Returns `true` if at least one of the elements of a `BOOLEAN` array is `true`.  Otherwise returns `false`.
+- Returns `TRUE` if any element in the array is `TRUE`.
+- Returns `FALSE` if all elements in the array are `FALSE` or if the array is empty.
+- Returns `NULL` if any element is `NULL` and no element is `TRUE`.
 
-If an optional function parameter is provided, returns `true` if the function returns `true` for at least one of the elements in the array. Otherwise returns `false`.
+
+When an optional lambda function is provided, `ARRAY_ANY_MATCH` applies the function to each element and then evaluates the resulting arrayt.
+
 
 **Alias:** `ANY_MATCH`
 
@@ -21,34 +25,22 @@ If an optional function parameter is provided, returns `true` if the function re
 {: .no_toc}
 
 ```sql
-ARRAY_ANY_MATCH([<function>], <array>)
+{ ANY_MATCH | ARRAY_ANY_MATCH }([<expression> -> <condition>], <array> [, <array2>, ...])
 ```
 ## Parameters
 {: .no_toc} 
 
-| Parameter | Description              | Supported input types | 
-| :--------- | :------------------------| :----------- | 
-| `<function>`  | A [Lambda function](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions) used to check elements in the array. | Any Lambda function returning `BOOLEAN` | 
-| `<array>`   | The array to be matched with the function.  | Any array (must be of type `BOOLEAN` if `<function>` is not provided)|       
+ Parameter      | Description                                   | Supported input types | 
+| :------------- |:--------------------------------------------- | :-----------| 
+| `<expression>`  | A lambda function applied to each element of the input arrays, returning a `BOOLEAN`. If no lambda function is provided, the function can only evaluate a single `BOOLEAN` array. For more information, see [Manipulating arrays with Lambda functions](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions). | Same as the element data types of the input arrays. |
+| `<condition>` | A `BOOLEAN` expression that evaluates each array value using a comparison operator. | See [Comparison operators](../../operators.md#comparison). |
+| `<array>` | The array to evaluate. | `ARRAY` |
 
 ## Return Types
-Returns `BOOLEAN`
+The `ARRAY_ANY_MATCH` function returns a result of type `BOOLEAN`.
 
-## Example
+## Examples
 {: .no_toc}
 
-Because there are values in the array greater than `3`, the function returns `true`. 
-```sql
-SELECT
-	ARRAY_ANY_MATCH(x -> x > 3, [ 1, 2, 3, 9 ]);
-```
+{% include sql_examples/array-any-match.md %}
 
-**Returns**: `true`
-
-As there is no value `10` in the array, the function returns `false`. 
-```sql
-SELECT
-	ARRAY_ANY_MATCH(x -> x = 10, [ 1, 2, 3, 9 ]);
-```
-
-**Returns**: `false`

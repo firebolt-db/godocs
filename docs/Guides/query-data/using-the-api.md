@@ -8,7 +8,7 @@ parent: Query data
 
 # Firebolt API
 
-Use the Firebolt REST API to execute queries on engines programmatically. Learn how to use the API, including authentication, working with engines and executing queries. A service account is required to access the API - learn about [managing service accounts here](../managing-your-organization/service-accounts.md). 
+Use the Firebolt REST API to execute queries on engines programmatically. Learn how to use the API, including authentication, working with engines and executing queries. A service account is required to access the API. Learn about [managing programmatic access to Firebolt](../managing-your-organization/service-accounts.md). 
 
 * Topic toC
 {:toc}
@@ -28,20 +28,20 @@ to receive an authentication token:
 
 
 ```bash
-    curl --location --request POST 'https://id.app.firebolt.io/oauth/token' \
-    --header 'Content-Type: application/x-www-form-urlencoded' \
-    --data-urlencode 'client_id=<id>' \
-    --data-urlencode 'client_secret=<secret>' \
-    --data-urlencode 'grant_type=client_credentials' \
-    --data-urlencode 'audience=https://api.firebolt.io'
+curl -X POST --location 'https://id.app.firebolt.io/oauth/token' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'grant_type=client_credentials' \
+--data-urlencode 'audience=https://api.firebolt.io' \
+--data-urlencode "client_id=${service_account_id}" \
+--data-urlencode "client_secret=${service_account_secret}"
 ```
 
 where:
 
 | Property                          | Data type | Description                                                                                                                                        |
 | :------------------------------   | :-------- |:---------------------------------------------------------------------------------------------------------------------------------------------------|
-| id                                | TEXT      | The service account ID ([created here](../managing-your-organization/service-accounts.md#creating-a-service-account)).                             |
-| secret                            | TEXT      | The service account secret ([generated here](../managing-your-organization/service-accounts.md#generating-a-secret-for-a-service-account)). |
+| client_id                                | TEXT      | The service [account ID](../managing-your-organization/service-accounts.md#get-a-service-account-id).                             |
+| client_secret                            | TEXT      | The service [account secret](../managing-your-organization/service-accounts.md#generate-a-secret). |
 
 
 **Response**
@@ -53,6 +53,12 @@ where:
   "expires_in":86400
 }
 ```
+
+In the previous example response, the following apply:
+
+* The `access_token` is a unique token that authorizes your API requests that acts as a temporary key to access resources or perform actions. You can use this token to authenticate with Firebolt’s platform until it expires. 
+* The `token_type` is `Bearer`, which means that the access token must be included in an authorization header of your API requests using the format: `Authorization: Bearer <access_token>`. 
+* The token `expires_in` indicates the number of seconds until the token expires.
 
 Use the returned access_token to authenticate with Firebolt.
 
