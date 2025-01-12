@@ -275,20 +275,20 @@ A virtual-column example for a function that transforms a column value is shown 
 #### Step 1&mdash;create the fact table with the virtual column in the index
 {: .no_toc}
 
-The example DDL below creates a fact table similar to the one earlier in this section. However, it adds the `upper_customer_id` column. The table creates this virtual column to store the result of an `UPPER` function that upper-cases `customer_id` values during the `INSERT INTO` operation.
+The example DDL below creates a fact table similar to the one earlier in this section. However, it adds the `upper_playerid` column. The table creates this virtual column to store the result of an `UPPER` function that upper-cases `playerid` values during the `INSERT INTO` operation.
 
-The `PRIMARY INDEX` clause uses the `upper_customer_id` column because that column is used in analytics queries.
+The `PRIMARY INDEX` clause uses the `upper_playerid` column because that column is used in analytics queries.
 
 ```sql
-CREATE FACT TABLE events_log (
+CREATE FACT TABLE player_registry (
   visit_date DATE,
   asset_id TEXT,
-  customer_id TEXT NOT NULL,
+  playerid TEXT NOT NULL,
   event_type TEXT,
   event_count INTEGER NOT NULL,
-  uppder_customer_id TEXT NOT NULL
+  upper_playerid TEXT NOT NULL
 )
-PRIMARY INDEX visit_date, upper _customer_id;
+PRIMARY INDEX visit_date, upper_playerid;
 ```
 
 #### Step 2&mdash;use the function during ingestion (`INSERT INTO` statement)
@@ -298,12 +298,12 @@ PRIMARY INDEX visit_date, upper _customer_id;
 INSERT INTO
   player_registry 
 SELECT
-  registeredon,
+  visit_date,
   asset_id,
   playerid,
   event_type,
   event_count,
-  UPPER(playerid) AS upper_player_id
+  UPPER(playerid) AS upper_playerid
 FROM
   players;
 ```
@@ -317,7 +317,7 @@ The example `SELECT` query below uses the virtual column to produce query result
 SELECT
   playerid
 FROM
-  players
+  player_registry
 WHERE
-  upper_player_id LIKE ‘AAA%’;
+  upper_playerid LIKE ‘AAA%’;
 ```
