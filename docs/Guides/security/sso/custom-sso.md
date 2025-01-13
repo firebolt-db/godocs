@@ -5,7 +5,7 @@ description: Learn how to configure a custom Identity Provider integration with 
 parent: Configure SSO
 nav_order: 6
 redirect_from:
-  - /docs/godocs/Guides/security/sso/sso.html
+  - /Guides/security/sso/sso.html
 ---
 
 # Custom Identity Provider
