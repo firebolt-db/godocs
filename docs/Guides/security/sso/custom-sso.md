@@ -1,11 +1,11 @@
 ---
+redirect_from:
+  - /Guides/security/sso/sso.html
 layout: default
 title: Custom Identity Provider
 description: Learn how to configure a custom Identity Provider integration with Firebolt. 
 parent: Configure SSO
 nav_order: 6
-redirect_from:
-  - /Guides/security/sso/sso.html
 ---
 
 # Custom Identity Provider
