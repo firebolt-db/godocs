@@ -37,3 +37,4 @@ gem "webrick", "~> 1.8"
 
 gem "activesupport", ">= 6.1.7.5"
 gem 'jekyll-sitemap'
+gem 'jekyll-redirect-from'
