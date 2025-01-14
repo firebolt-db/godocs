@@ -73,7 +73,7 @@ A pay-as-you-go plan is flexible, and provides on-demand pricing with no upfront
 
 1. Login to [Firebolt's Workspace](https://go.firebolt.io/login). If you haven’t yet registered with Firebolt, see the [Get Started]({% link Guides/getting-started/index.md %}) guide.
 2. In the Firebolt Workspace, select the Configure(<img src="../assets/images/configure-icon.png" width="20" alt="The Firebolt Configure Space icon">) icon from the left navigation pane.
-2. Under **Organization settings**, select **Billing**.
+2. Under **Configure**, select **Billing**.
 3. Select **Connect to AWS Marketplace** to navigate to the Firebolt page on AWS Marketplace.
 4. Select **View Purchase Options** in the top-right corner of the screen.
 5. Select **Setup Your Account**.
@@ -86,13 +86,16 @@ In a committed-use discount plan, you receive discounted rates in exchange for c
 
 Contact [support@firebolt.io](mailto:support@firebolt.io) to discuss a committed-use plan, custom enterprise plans or annual pricing commitments.
 
-## Billing and usage dashboard
+## Billing dashboard
 
-You can use Firebolt's billing and usage dashboard to monitor resource consumption, track expenses, monitor payments, and analyze billing trends efficiently.
+You can use Firebolt's billing dashboard to monitor resource consumption, track expenses, monitor payments, and analyze billing trends efficiently.
 
 Billing invoices are generated on a monthly basis, and provide a detailed breakdown of resource consumption and associated costs.
 
-To access the dashboard, navigate to: Configure -> Billing
+To access the dashboard:
+1. Login to [Firebolt's Workspace](https://go.firebolt.io/login). If you haven’t yet registered with Firebolt, see the [Get Started]({% link Guides/getting-started/index.md %}) guide.
+2. In the Firebolt Workspace, select the Configure(<img src="../assets/images/configure-icon.png" width="20" alt="The Firebolt Configure Space icon">) icon from the left navigation pane.
+2. Under **Configure**, select **Billing**.
 
 ## Support
 For pricing or billing inquiries, contact Firebolt's support team at [support@firebolt.io](mailto:support@firebolt.io).
