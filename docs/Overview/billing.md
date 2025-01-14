@@ -8,7 +8,9 @@ nav_order: 2
 
 # Pricing and billing
 
-Firebolt provides a scalable cloud data warehouse solution designed to be simple, transparent, and flexible. Pricing is based on two main factors:
+Firebolt provides a scalable cloud data warehouse solution designed to be simple, transparent, and flexible. 
+
+Pricing is based on two main factors:
 
 * [Compute costs](#compute-costs) &ndash; Compute costs depend on the size and duration of the clusters you use.
 * [Data storage](#data-storage) &ndash; Storage costs are based on the amount of data stored, including compressed storage. 
@@ -84,9 +86,13 @@ In a committed-use discount plan, you receive discounted rates in exchange for c
 
 Contact [support@firebolt.io](mailto:support@firebolt.io) to discuss a committed-use plan, custom enterprise plans or annual pricing commitments.
 
-## Cost estimates
+## Billing and usage dashboard
 
-Firebolt provides a usage dashboard to help you monitor resource consumption. Billing invoices are generated on a monthly basis, and provide a detailed breakdown of resource consumption and associated costs.
+You can use Firebolt's billing and usage dashboard to monitor resource consumption, track expenses, monitor payments, and analyze billing trends efficiently.
+
+Billing invoices are generated on a monthly basis, and provide a detailed breakdown of resource consumption and associated costs.
+
+To access the dashboard, navigate to: Configure -> Billing
 
 ## Support
 For pricing or billing inquiries, contact Firebolt's support team at [support@firebolt.io](mailto:support@firebolt.io).
