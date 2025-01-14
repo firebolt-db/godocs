@@ -42,9 +42,9 @@ Topics:
 CREATE AGGREGATING INDEX <index_name>
 ON <table_name> (
    <grouping_element>
-     [, ...n],
+     [, ...],
      <aggregation_element>
-     [, ...m]
+     [, ...]
 );
 ```
 
