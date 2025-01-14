@@ -84,9 +84,13 @@ In a committed-use discount plan, you receive discounted rates in exchange for c
 
 Contact [support@firebolt.io](mailto:support@firebolt.io) to discuss a committed-use plan, custom enterprise plans or annual pricing commitments.
 
-## Cost estimates
+## Billing & Usage dashboard
 
-Firebolt provides a usage dashboard to help you monitor resource consumption. Billing invoices are generated on a monthly basis, and provide a detailed breakdown of resource consumption and associated costs.
+Firebolt provides a billing & usage dashboard to help you monitor resource consumption, track expenses, monitor payments, and analyze billing trends efficiently.
+
+Billing invoices are generated on a monthly basis, and provide a detailed breakdown of resource consumption and associated costs.
+
+To access the dashboard, navigate to: Configure -> Billing
 
 ## Support
 For pricing or billing inquiries, contact Firebolt's support team at [support@firebolt.io](mailto:support@firebolt.io).
