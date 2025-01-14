@@ -39,8 +39,13 @@ Topics:
 
 
 ```sql
-CREATE AGGREGATING INDEX index_name
-ON table_name(<grouping_element>, <aggregation_element>);
+CREATE AGGREGATING INDEX <index_name>
+ON <table_name> (
+   <grouping_element>
+     [, ...],
+     <aggregation_element>
+     [, ...]
+);
 ```
 
 ### Parameters
@@ -72,7 +77,7 @@ For more information about selecting an index, see [How to choose aggregating in
 
 **Ingestion Overhead**
   
-  Maintaining an aggregating index adds processing overhead during data loading, which can slow down insert operations on the base table.
+  Maintaining an aggregating index adds processing overhead during data loading, which can slow down Data Manipulation Language (DML) operations such as `INSERT`, `DELETE`, and `UPDATE` on the base table.
 
 **Vacuuming**
 

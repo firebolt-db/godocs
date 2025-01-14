@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Keyboard shortcuts
-description: Learn how to query data with Firebolt.
+title: Keyboard shortcuts for the Develop Space
+description: Reference for efficient keyboard shortcuts when working in the Firebolt Develop space.
 nav_order: 4
 has_children: true
 has_toc: false
@@ -9,13 +9,59 @@ parent: Guides
 published: false
 ---
 
-# Query data
+# Keyboard shortcuts for the Develop Space
 
-Querying data in Firebolt is designed to be fast, flexible, and efficient, allowing you to extract insights from large datasets. Firebolt supports interactive querying through the **Develop Workspace** for hands-on exploration and offers an API for programmatic access, making it easy to integrate queries into automated workflows. 
+* [Query operations](#query-operations)
+* [Script management](#script-management)
+* [Search functionality](#search-functionality)
+* [Editing text](#editing-text)
 
-Firebolt provides the following approaches for querying data: 
+> **Tip:** Use the **Keyboard shortcuts panel** (`Ctrl + Shift + ?`) to quickly view available shortcuts directly within the Develop Space.
 
-* The [Develop Workspace](using-the-develop-workspace.md) &ndash; An intuitive, web-based user interface for writing, running, and refining SQL queries. It simplifies the query development process with features like syntax highlighting, instant query results, and result visualization. Designed for interactive exploration and analysis, the **Develop Workspace** can help you work efficiently with large datasets, troubleshoot queries, and fine-tune performance in a single integrated environment.
-* [Drivers](../developing-with-firebolt/index.md) &ndash; Libraries and SDKs that enable you to connect to Firebolt databases from your applications, scripts, and tools. Firebolt provides drivers for popular programming languages like Python, .NET, and Java, allowing you to interact with Firebolt databases programmatically and integrate them into your applications.
-* [Connectors](../integrations/integrations.md) &ndash; Pre-built integrations that enable you to connect Firebolt to third-party tools, data sources, and services. Firebolt offers connectors for popular data tools like Tableau, Looker, and dbt, allowing you to seamlessly query Firebolt databases from your preferred analytics platforms.
-* The [Firebolt API](using-the-api.md) &ndash; A REST API that provides access to Firebolt databases. Allows you to create a custom integration with Firebolt, in case none of the available drivers or connectors meet your requirements.
+
+### Query operations
+
+| Function                  | Windows & Linux Shortcut | Mac Shortcut      |
+|:--------------------------|:-------------------------|:------------------|
+| **Run** the **currently selected query**.         | Ctrl + Enter             | ⌘ + Enter         |
+| **Run all** queries in the current script. | Ctrl + Shift + Enter     | ⌘ + Shift + Enter |
+| **Toggle** expanding or collapsing **query results**.   | Ctrl + Alt + E           | ⌘ + Option + E    |
+
+
+### Script management
+
+| Function                     | Windows & Linux Shortcut | Mac Shortcut   |
+|:-----------------------------|:-------------------------|:---------------|
+| **Create** a new script.                   | Ctrl + Alt + N           | ⌘ + Option + N |
+| **Jump** to a **previous** script.     | Ctrl + Alt + [           | ⌘ + Option + [ |
+| **Jump** to the **next** script.          | Ctrl + Alt + ]           | ⌘ + Option + ] |
+| **Close** the **current** script.         | Ctrl + Alt + X           | ⌘ + Option + X |
+| **Close all** scripts.            | Ctrl + Alt + G           | ⌘ + Option + G |
+| **Close all but** the **current** script. | Ctrl + Alt + O           | ⌘ + Option + O |
+
+### Search functionality
+
+| Function          | Windows & Linux Shortcut | Mac Shortcut       |
+|:------------------|:-------------------------|:-------------------|
+| **Open** a **search** panel. | Ctrl + F                 | ⌘ + F              |
+| **Find** the **next search result**.        | F3                       | F3                 |
+| **Find** the **previous search result**.    | Shift + F3               | Shift + F3         |
+
+
+### Editing text
+
+| Function             | Windows & Linux Shortcut  | Mac Shortcut                |
+|:---------------------|:--------------------------|:----------------------------|
+| **Toggle** adding or removing a **comment marker** for the current line. | Ctrl + /                  | Cmd + /                     |
+| **Toggle** adding or removing a **block comment marker** around a block of code or text. | Shift + Alt + A           | Shift + Option + A          |
+| **Automatically organize and indent** code for readability.          | Ctrl + Alt + F            | ⌘ + Option + F              |
+| **Copy** the selected lines and paste them directly **above** the original.        | Alt + Shift + Up arrow    | Shift + Option + Up arrow   |
+| **Move** the selected lines and paste them directly **above** the original without creating a duplicate.        | Alt + Up arrow            | Option + Up arrow           |
+| **Copy** the selected lines and paste them directly **below** the original.      | Alt + Shift + Down arrow  | Shift + Option + Down arrow |
+| **Move** the selected lines and paste them directly **below** the original without creating a duplicate.      | Alt + Down arrow          | Option + Down arrow         |
+| **Select text** to the **left** of the cursor.  | Alt + Shift + Left arrow  | Ctrl + Shift + Left arrow   |
+| **Select text** to the **right** of the cursor. | Alt + Shift + Right arrow | Ctrl + Shift + Right arrow  |
+| **Select** the **entire line**.   | Alt + L                   | Ctrl + L                    |
+| **Decrease** the **indentation level** of the current or selected lines.          | Ctrl + [                  | Cmd + [                     |
+| **Increase** the **indentation level** of the current or selected lines.          | Ctrl + ]                  | Cmd + ]                     |
+| **Delete** the current or selected **lines**.          | Shift + Ctrl + K          | Shift + Cmd + K             |

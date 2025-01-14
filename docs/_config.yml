@@ -15,6 +15,7 @@ plugins:
   - jekyll-github-metadata
   - jekyll-include-cache
   - jekyll-sitemap
+  - jekyll-redirect-from
 
 search:
   # Split pages into sections that can be searched individually
