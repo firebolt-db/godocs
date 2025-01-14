@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /Guides/security/sso/sso.html
 layout: default
 title: Configure SSO
 description: Learn about how to set up SSO authentication for Firebolt.
