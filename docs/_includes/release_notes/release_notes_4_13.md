@@ -2,6 +2,11 @@
 
 ### Behavior Changes
 
+<!-- FIR-37266 - Owned by Mariia Kaplun -->
+**Removed secured objects from `information_schema` views**
+
+Users can now only access information about objects for which they have the appropriate permissions or ownership in [information_schema views]({% link sql_reference/information-schema/views.md %}).
+
 ### New Features
 
 <!-- Auto Generated Markdown for FIR-42091 - Owned by Tal Zelig -->
@@ -43,8 +48,3 @@ Fixed `explain vacuum` to:
 2. Return non-empty results when running `explain vacuum` on an AI.
 
 Also, fixed `explain` to display an error when the specified relation does not exist.
-
-
-<!-- Auto Generated Markdown for FIR-42032 - Owned by Amit Schreiber -->
-**Fixed an issue with `information_schema.tables` not correctly filtering views by permissions**
-Fixed an issue where `information_schema.tables` did not correctly filter views according to permissions.
