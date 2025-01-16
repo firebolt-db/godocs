@@ -44,7 +44,7 @@ After you create a table, you can’t modify the primary index. To change the in
 ## How to choose primary index columns
 
 The columns that you choose for the primary index and the order in which you specify them are important.
-By choosing a good a primary index, scan sizes can be reduced drastically.
+By choosing a good primary index, scan sizes can be reduced drastically.
 This in turn leads to much faster query execution.
 
 If you have already defined a workload that you want to run in Firebolt, try out the [CALL RECOMMEND_DDL](../../sql_reference/commands/queries/recommend_ddl.html) command to find suitable primary index and partition key configurations. 
@@ -71,8 +71,8 @@ F3 sorts the data in dictionary order.
 If you define a primary index `(a, b)`, this means that the data blocks on S3 are ordered by `a`.
 Rows with the same values of `a` are consecutive and ordered by `b`.
 
-If column `a` has low cardinality (i.e. few distinct values) there will be long ordered runs of `b` in the F3 files.
-If column `a` has high cardinality (i.e. many distinct values), there will be almost no ordered runs of `b`.
+If column `a` has low cardinality, or few distinct values, there will be long ordered runs of `b` in the F3 files.
+If column `a` has high cardinality, or many distinct values, there will be almost no ordered runs of `b`.
 
 Firebolt's pruning is most effective on long runs of ordered data.
 To get good pruning for both `a` and `b`, it's important that `a` has few distinct values.
@@ -123,7 +123,7 @@ WHERE
   playerid LIKE ‘AAA%’;
 ```
 
-If you know that you will use a function in a predicate ahead of time, consider creating a virtual column to store the result of the function. You can then use that virtual column in your index and queries. This is particularly useful for hashing columns.
+If you know that you will use a function in a predicate ahead of time, consider creating a column to store the result of the function. You can then use that column in your index and queries. This is particularly useful for hashing columns.
 
 ### With a star schema, include join key columns in the fact table index
 
@@ -263,19 +263,17 @@ PRIMARY INDEX (playerid, asset_id, event_type)
 * The addition of `asset_id` won’t accelerate this particular query, but adding it is not detrimental.
 * Although `event_type` has low cardinality, because it’s contained in the `WHERE` clause, adding it to the primary index has some benefit.
 
-### Example&mdash;using virtual columns
+### Example&mdash;using columns
 
-Virtual columns are most often used in a primary index to:
+Columns are most often used in a primary index to:
 
 * Accommodate functions that alter column values.
 * Calculate hash values for columns that contain long strings.
 
-A virtual-column example for a function that transforms a column value is shown below.
-
-#### Step 1&mdash;create the fact table with the virtual column in the index
+#### Step 1&mdash;create the fact table with the column in the index
 {: .no_toc}
 
-The example DDL below creates a fact table similar to the one earlier in this section. However, it adds the `upper_playerid` column. The table creates this virtual column to store the result of an `UPPER` function that upper-cases `playerid` values during the `INSERT INTO` operation.
+The example DDL below creates a fact table similar to the one earlier in this section. However, it adds the `upper_playerid` column. The table creates this column to store the result of an `UPPER` function that upper-cases `playerid` values during the `INSERT INTO` operation.
 
 The `PRIMARY INDEX` clause uses the `upper_playerid` column because that column is used in analytics queries.
 
@@ -308,10 +306,10 @@ FROM
   players;
 ```
 
-#### Step 3&mdash;query using the virtual column in predicates
+#### Step 3&mdash;query using the column in predicates
 {: .no_toc}
 
-The example `SELECT` query below uses the virtual column to produce query results and benefits from the index.
+The example `SELECT` query below uses the column to produce query results and benefits from the index.
 
 ```sql
 SELECT
