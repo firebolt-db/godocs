@@ -19,8 +19,9 @@ To interact with a view, roles must also have **USAGE** permissions on the paren
 
 | Privilege             | Description                                                                 | GRANT Syntax                                                     | REVOKE Syntax                                                   |
 |---------------------------|---------------------------------------------------------------------------------|----------------------------------------------------------------------|----------------------------------------------------------------------|
-| SELECT     | Allows selecting from the view.                                                   | `GRANT SELECT ON <view_name> TO <role_name>;`                                      | `REVOKE SELECT ON <view_name> FROM <role_name>;`                                    |
-| MODIFY     | Allows modifying and dropping the view.                                                 | `GRANT MODIFY ON <view_name> TO <role_name>;`                                      | `REVOKE MODIFY ON <view_name> FROM <role_name>;`                                   |
+| SELECT     | Allows selecting data from a view.                                                   | `GRANT SELECT ON VIEW <view_name> TO <role_name>;`                                      | `REVOKE SELECT ON VIEW <view_name> FROM <role_name>;`                                    |                              |
+| MODIFY     | Allows modifying and dropping a view.                                                 | `GRANT MODIFY ON VIEW <view_name> TO <role_name>;`                                      | `REVOKE MODIFY ON VIEW <view_name> FROM <role_name>;`                                   |                  |
+| ALL [PRIVLEGES]     | Grants all privileges over the view to a role.                                                 | `GRANT ALL ON VIEW <view_name> TO <role_name>;`                                      | `REVOKE ALL ON VIEW <view_name> FROM <role_name>;`                                   |
 
 {: .note} 
 Views are created at the schema level. To grant privileges to create views, refer to the [schema-level privileges documentation](schema-permissions.md). 
@@ -45,9 +46,15 @@ GRANT SELECT ON TABLE "referenced_table" TO view_owner;
 If the **view owner** loses access to any of these referenced objects, users with **SELECT** on the view will no longer be able to query it, even if their **SELECT** privilege remains.
 
 ### MODIFY permission
-The following code example grants the role `read_role` permission to alter or drop the `viewtest` view:
+The following code example grants the role `developer_role` permission to alter or drop the `my_view` view:
 
 ```sql
-GRANT MODIFY ON VIEW "viewtest" TO read_role;
+GRANT MODIFY ON VIEW my_view TO read_role;
 ```
 
+### ALL permissions
+The following code example grants the role `developer_role` with all permissions over the `my_view` view:
+
+```sql
+GRANT ALL ON VIEW my_view TO read_role;
+```
