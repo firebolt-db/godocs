@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/tan.html
 layout: default
 title: TAN
 description: Reference material for TAN function

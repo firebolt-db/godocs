@@ -1,5 +1,6 @@
 ---
 redirect_from:
+  - /sql-reference/functions-reference/array-agg.html
   - /sql_reference/functions-reference/aggregate-array
 layout: default
 title: ARRAY_AGG

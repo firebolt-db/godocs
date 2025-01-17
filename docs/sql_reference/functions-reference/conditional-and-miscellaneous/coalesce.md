@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/coalesce.html
 layout: default
 title: COALESCE
 description: Reference material for COALESCE function

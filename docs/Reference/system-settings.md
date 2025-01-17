@@ -1,5 +1,6 @@
 ---
 redirect_from:
+  - /sql-reference/functions-reference/timezone.html#setting-the-time-zone
   - /general-reference/system-settings.html
 layout: default
 title: System settings

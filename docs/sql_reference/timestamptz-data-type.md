@@ -1,5 +1,6 @@
 ---
 redirect_from:
+  - /sql-reference/functions-reference/to-timestamptz.html
   - /general-reference/timestamptz-data-type.html
 layout: default
 title: TIMESTAMPTZ data type

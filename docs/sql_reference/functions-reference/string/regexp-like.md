@@ -1,4 +1,7 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/regexp-matches.html
+  - /sql-reference/functions-reference/regexp-like.html
 layout: default
 title: REGEXP_LIKE
 description: Reference material for REGEXP_LIKE function

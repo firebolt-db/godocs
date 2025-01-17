@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /using-indexes/using-indexes.html
 layout: default
 title: Data modeling
 description: Understand how to organize data from efficient retrieval in Firebolt

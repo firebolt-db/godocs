@@ -1,5 +1,6 @@
 ---
 redirect_from:
+  - /working-with-engines/working-with-engines-using-the-rest-api.html
   - /developing-with-firebolt/firebolt-rest-api.html
 layout: default
 title: Use the API

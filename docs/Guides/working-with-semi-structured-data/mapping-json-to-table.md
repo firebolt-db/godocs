@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /working-with-semi-structured-data/mapping-json-to-table.html
 layout: default
 title: Map data from JSON to table
 description: Learn how to map data from a JSON document to rows and columns in a Firebolt table.
