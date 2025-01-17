@@ -5,219 +5,223 @@ description: Learn how to use the Apache Airflow provider package to connect Air
 nav_order: 1
 parent: Integrate with Firebolt
 ---
+{: .no_toc}
 
 # Connecting to Airflow
 {: .no_toc}
 
-[Apache Airflow](https://airflow.apache.org/) is a data orchestration tool that allows you to programmatically author, schedule, and monitor workflows. You can use the Airflow provider package for Firebolt to integrate a Firebolt database into your data pipeline&mdash;for example, you can set up a schedule for automatic incremental data ingestion into Firebolt.
+[Apache Airflow](https://airflow.apache.org/) is a data orchestration tool that allows you to programmatically create, schedule, and monitor workflows. You can connect a Firebolt database into your data pipeline using the Airflow provider package for Firebolt. For example, you can schedule automatic incremental data ingestion into Firebolt.
 
-This topic covers the installation of the Airflow provider package for Firebolt using pip and the [airflow-provider-firebolt package on PyPI](https://pypi.org/project/airflow-provider-firebolt/). It then provides steps for setting up a connection to Firebolt resources from the Airflow UI. Finally, a sample Airflow Directed Acyclic Graph (DAG) Python script demonstrates common Firebolt tasks.
-
-The source code for the Airflow provider package for Firebolt is available in the [airflow-provider-firebolt](https://github.com/firebolt-db/airflow-provider-firebolt) repository on GitHub.
+This guide explains how to install the [Airflow provider package](https://pypi.org/project/airflow-provider-firebolt/) for Firebolt, set up a connection to Firebolt resources using the Airflow user interface (UI), and create an example Directed Acyclic Graph (DAG) for common Firebolt tasks. The source code for the Airflow provider package for Firebolt is available in the [airflow-provider-firebolt](https://github.com/firebolt-db/airflow-provider-firebolt) repository on GitHub.
 
 * Topic ToC
 {:toc}
 
 ## Prerequisites
+Make sure that you have:
 
-* A Firebolt account. For more information, see [Creating a new account](../managing-your-organization/managing-accounts.md/#create-a-new-account).
+* A Firebolt account. [Create a new account here](../managing-your-organization/managing-accounts.md/#create-a-new-account).
 
 * A Firebolt database and engine.
 
 * [Python](https://www.python.org/) version 3.8 or later.
 
-* An installation of Airflow. For more information, see [Installation](https://airflow.apache.org/docs/apache-airflow/stable/installation/index.html) in Airflow documentation.
+* An installation of Airflow. See the [Airflow installation guide](https://airflow.apache.org/docs/apache-airflow/stable/installation/index.html). 
 
 
-## Installing the Airflow provider package for Firebolt
+## Install the Airflow provider package for Firebolt
+You need to install the Airflow provider package for Firebolt. This package enables Firebolt as a **Connection type**  in the Airflow UI. 
 
-These instructions are based on using pip to install the Airflow core package as demonstrated in the Airflow Quick Start for [Running Airflow locally](https://airflow.apache.org/docs/apache-airflow/stable/start/local.html). After you install Airflow, install the latest version of the Airflow provider package for Firebolt as shown below.
+1. Install the package.
 
+    Run the following command to install the package:
 ```bash
 pip install airflow-provider-firebolt
 ```
 
-After you install the Firebolt provider, **Firebolt** is available as a **Connection type** selection in the Airflow UI.
+2. Upgrade to the latest version.
 
-### Upgrading to the latest version
-{: .no_toc}
+    Run the latest version of the provider package. [Release history](https://pypi.org/project/airflow-provider-firebolt/#history) is available on PyPI. 
 
-We recommend running the latest version of the provider package. [Release history](https://pypi.org/project/airflow-provider-firebolt/#history) is available on PyPI. To upgrade to the most recent version, use the command below, then restart Airflow for the changes to take effect.
-
+    Use the following command to upgrade:
 ```bash
 pip install airflow-provider-firebolt --upgrade
 ```
+    Restart Airflow after upgrading to apply the new changes. 
 
-### Installing a specific version
-{: .no_toc}
+3. Install a specific version.
 
-If your application requires a specific version of the package, use the command below, replacing `1.0.0` with the version you need.
-
+    If a specific version is required, replace `1.0.0` with the desired version:
 ```bash
 pip install airflow-provider-firebolt==1.0.0
 ```
 
-### Installing the provider for AWS Managed Airflow (MWAA)
+4. Install the provider for AWS Managed Airflow (MWAA).
 
-Using the Firebolt Airflow provider with AWS Managed Airflow (MWAA) requires that you are using v2 of MWAA.
+    Ensure you are using version 2 of AWS Managed Airflow (MWAA) when working  with the Firebolt Airflow provider. Add `airflow-provider-firebolt` to the `requirements.txt` file following the instructions in the [MWAA Documentation.](https://docs.aws.amazon.com/mwaa/latest/userguide/working-dags-dependencies.html) 
 
-In order to install the provider, add `airflow-provider-firebolt` to the `requirements.txt` file configured as per the [MWAA Documentation.](https://docs.aws.amazon.com/mwaa/latest/userguide/working-dags-dependencies.html)
+## Connect Airflow to Firebolt
+Create a connection object in the Airflow UI to integrate Firebolt with Airflow.
 
-## Connecting Airflow to Firebolt
+### Steps to configure a connection
+{: .no_toc}
 
-To configure a connection to Firebolt, you create an Airflow connection object. For more information, see [Managing Connections](https://airflow.apache.org/docs/apache-airflow/stable/howto/connection.html) in Airflow documentation.
+1. Open the Airflow UI and log in.
 
-The instructions below demonstrate how to use the Airflow UI to create a connection to a Firebolt database and engine.
+2. Select the **Admin** menu.
 
-**To configure an Airflow connection to Firebolt**
+3. Choose **Connections**.
 
-1. Start the Airflow UI and log in.
+4. Select the **+** button to add a new connection.
 
-2. From the **Admin** menu, choose **Connections**.
+5. Choose Firebolt from the **Connection Type** list
 
-3. Choose the **+** button to add a new connection.
-
-    ![Airflow add connector](../../assets/images/airflow_add_connection.png)
-
-4. From the **Connection Type** list, choose **Firebolt**.
-
-5. Provide connection parameters for Firebolt according to the following guidelines. These connection parameters correspond to built-in Airflow variables.
+6. Provide the details in the following table. These connection parameters correspond to built-in Airflow variables.
 
    |   Parameter     |Description |Example value |
    |:--------------  |:---------- |:------------ |
-   | Connection id   | The name of the connection. This appears in the list of connections in the Airflow UI. | `My_Firebolt_Connection` |
-   | Description     | Self-explanatory. | `Connection to Firebolt database MyDatabase using engine MyFireboltDatabase_general_purpose.`|
+   | Connection id   | The name of the connection for the UI. | `My_Firebolt_Connection` |
+   | Description     | Information about the connection. | `Connection to Firebolt database MyDatabase using engine MyFireboltDatabase_general_purpose.`|
    | Database        | The name of the Firebolt database to connect to. | `MyFireboltDatabase` |
-   | Engine          | The name of the engine you want to run your queries. | `MyFireboltEngine` |
+   | Engine          | The name of the engine to run queries | `MyFireboltEngine` |
    | Client ID       | The ID of your service account. | `XyZ83JSuhsua82hs` |
-   | Client Secret   | The secret for your service account authentication. | `yy7h&993))29&%j` |
+   | Client Secret   | The [secret]({% link Guides/loading-data/creating-access-keys-aws.md %}) for your service account authentication. | `yy7h&993))29&%j` |
    | Account         | The name of your account. | `developer` |
-   | Extra           | Extra properties that you may need to set. Most users would not need any. | `{"property1": "value1", "property2": "value2"}` |
+   | Extra           | The additional properties that you may need to set (optional). | `{"property1": "value1", "property2": "value2"}` |
 
    {: .note}
-   Client id and secret credentials can be obtained by registering a [service account](../managing-your-organization/service-accounts.md).
+   Client ID and secret credentials can be obtained by registering a [service account](../managing-your-organization/service-accounts.md).
 
+7. Choose **Test** to verify the connection.
 
-6. Choose **Test** to verify that connection parameters are correct.
+8. Once the test succeeds, select **Save**.
 
-   The engine that you specify in **Advanced Connection Properties** must be running for the test to complete successfully.
-   {: .note}
+## Create a DAG for data processing with Firebolt
 
-7. After the test is successful, choose **Save**.
+A DAG file in Airflow is a Python script that defines tasks and their execution order for a data workflow. The following example is an example DAG for performing the following tasks:
 
-## Example&mdash;creating a DAG for data processing with Firebolt
-
-A DAG file in Airflow is a Python script that defines the tasks and execution order for a data workflow. The DAG example in this section performs the following tasks in succession.
-
-{: .note}
-This DAG performs a variety of tasks in Firebolt for demonstration purposes only. It does not demonstrate a workflow or pipeline that would be typical of real-world applications.
-
-1. Start an engine to perform subsequent tasks. For more information, see [Understanding engine fundamentals](../../Overview/engine-fundamentals.md). This task fails if the engine is running.
-
-2. Run SQL to create an external table in Firebolt connected to a data source in Amazon S3. For more information, see [Working with external tables](../loading-data/working-with-external-tables.md).
-
-3. Run SQL to create a fact table to receive ingested data. For more information, see [Working with tables](../../Overview/working-with-tables/working-with-tables.md).
-
-4. Run SQL that ingests the data using an [INSERT](../../sql_reference/commands/data-management/insert.md) command.
-
-In this example, the DAG is set up to run only when triggered (`schedule_interval=None`).
-
-### Airflow variables
-
-The DAG example uses two custom variables defined in Airflow. You can define key-value pairs for variables using the Airflow UI or JSON documents. For more information, see [Variables](https://airflow.apache.org/docs/apache-airflow/stable/concepts/variables.html) and [Managing Variables](https://airflow.apache.org/docs/apache-airflow/stable/howto/variable.html) in Airflow documentation.
-
-
-* The variable key `firebolt_sql_path` has a value that specifies a subdirectory of your airflow home directory where SQL files are stored&mdash;for example, `~/airflow/sql_store`. The example DAG uses a Python function to read SQL files that the DAG tasks run as scripts in Firebolt.
+* Start a Firebolt [engine]({% link Overview/engine-fundamentals.md %}). 
+* Create an [external table]({% link Guides/loading-data/working-with-external-tables.md %}) linked to an Amazon S3 data source.
+* Create a fact table for ingested data. For more information, see [Working with tables]({% link Overview/working-with-tables/working-with-tables.md %}).
+* Insert data into the fact table.
+* Stop the Firebolt engine. This task is not required if your engine has `AUTO_STOP` configured
 
 ### DAG script example
-The DAG script below creates a DAG named `firebolt_provider_trip_data`. It uses an Airflow connection to Firebolt named `my_firebolt_connection`. For the contents of the SQL scripts that the DAG runs, see [SQL script examples](#sql-script-examples) below. By changing connector values in Airflow, changing the `FIREBOLT_CONN_ID `value to point to your connector, and creating custom variables in Airflow, you can run this example using your own database and engine.
+{: .no_toc}
+
+The following DAG script creates a DAG named `firebolt_provider_trip_data`. It uses an Airflow connection to Firebolt named `my_firebolt_connection`. For the contents of the SQL scripts that the DAG runs, see the following [SQL script examples](#sql-script-examples). You can run this example with your own database and engine by updating the connector values in Airfow, setting the `FIREBOLT_CONN_ID ` to match your connector, and creating the necessary custom variables in Airflow.
 
 ```python
 import time
 import airflow
-from airflow.models import DAG
-from airflow.models import Variable
+from airflow.models import DAG, Variable
 from firebolt_provider.operators.firebolt \
     import FireboltOperator, FireboltStartEngineOperator, FireboltStopEngineOperator
 
+# Define function to get Firebolt connection parameters
+def connection_params(conn_opp, field):
+    connector = FireboltOperator(
+        firebolt_conn_id=conn_opp, sql="", task_id="CONNECT")
+    conn_parameters = connector.get_db_hook()._get_conn_params()
+    return getattr(conn_parameters, field)
+
+# Set up the Firebolt connection ID
+firebolt_conn_id = 'firebolt'
+firebolt_engine_name = connection_params(firebolt_conn_id, 'engine_name')
+tmpl_search_path = Variable.get("firebolt_sql_path")
 default_args = {
     'owner': 'airflow',
     'start_date': airflow.utils.dates.days_ago(1)
 }
 
-### Function to connect to Firebolt
-def connection_params(conn_opp, field):
-    connector = FireboltOperator(
-        firebolt_conn_id=conn_opp, sql="", task_id="CONNECT")
-    return connector.get_db_hook()._get_conn_params()[field]
-
-### Change the value of FIREBOLT_CONN_ID to match the name of your connector.
-FIREBOLT_CONN_ID = 'firebolt_benf_tutorial'
-FIREBOLT_ENGINE_NAME = connection_params(FIREBOLT_CONN_ID, 'engine_name')
-tmpl_search_path = Variable.get("firebolt_sql_path")
-
-### Function to open query files saved locally.
+# Function to open query files saved locally.
 def get_query(query_file):
     return open(query_file, "r").read()
 
-### Define a variable based on an Airflow DAG class.
-### For class parameters, see https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/models/dag/index.html#airflow.models.dag.DAG.
-dag = DAG('firebolt_provider_startstop_trip_data',
+# Define a variable based on an Airflow DAG class.
+# For class parameters, see https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/models/dag/index.html#airflow.models.dag.DAG.
+with DAG('firebolt_provider_startstop_trip_data',
           default_args=default_args,
           template_searchpath=tmpl_search_path,
           schedule_interval=None,
           catchup=False,
-          tags=["firebolt"])
+          tags=["firebolt"]) as dag:
 
-### Define DAG tasks and task sequence.
-### Where necessary, read local sql files using the Airflow variable.
-task_start_engine = FireboltStartEngineOperator(
-    dag=dag,
-    task_id="START_ENGINE",
-    firebolt_conn_id=FIREBOLT_CONN_ID,
-    engine_name=FIREBOLT_ENGINE_NAME)
+    # Define DAG tasks and task sequence.
+    # Where necessary, read local sql files using the Airflow variable.
+    task_start_engine = FireboltStartEngineOperator(
+        dag=dag,
+        task_id="START_ENGINE",
+        firebolt_conn_id=firebolt_conn_id,
+        engine_name=firebolt_engine_name)
 
+    task_trip_data__external_table = FireboltOperator(
+        dag=dag,
+        task_id="task_trip_data__external_table",
+        sql=get_query(f'{tmpl_search_path}/trip_data__create_external_table.sql'),
+        firebolt_conn_id=firebolt_conn_id
+    )
 
-task_trip_data__external_table = FireboltOperator(
-    dag=dag,
-    task_id="task_trip_data__external_table",
-    sql=get_query(f'{tmpl_search_path}/trip_data__create_external_table.sql'),
-    firebolt_conn_id=FIREBOLT_CONN_ID
-)
+    task_trip_data__create_table = FireboltOperator(
+        dag=dag,
+        task_id="task_trip_data__create_table",
+        sql=get_query(f'{tmpl_search_path}/trip_data__create_table.sql'),
+        firebolt_conn_id=firebolt_conn_id
+    )
+    task_trip_data__create_table.post_execute = lambda **x: time.sleep(10)
 
-task_trip_data__create_table = FireboltOperator(
-    dag=dag,
-    task_id="task_trip_data__create_table",
-    sql=get_query(f'{tmpl_search_path}/trip_data__create_table.sql'),
-    firebolt_conn_id=FIREBOLT_CONN_ID
-)
-task_trip_data__create_table.post_execute = lambda **x: time.sleep(10)
+    task_trip_data__process_data = FireboltOperator(
+        dag=dag,
+        task_id="task_trip_data__process_data",
+        sql=get_query(f'{tmpl_search_path}/trip_data__process.sql'),
+        firebolt_conn_id=firebolt_conn_id
+    )
 
-task_trip_data__process_data = FireboltOperator(
-    dag=dag,
-    task_id="task_trip_data__process_data",
-    sql=get_query(f'{tmpl_search_path}/trip_data__process.sql'),
-    firebolt_conn_id=FIREBOLT_CONN_ID
-)
+    task_stop_engine = FireboltStopEngineOperator(
+        dag=dag,
+        task_id="STOP_ENGINE",
+        firebolt_conn_id=firebolt_conn_id,
+        engine_name=firebolt_engine_name)
 
-task_stop_engine = FireboltStopEngineOperator(
-    dag=dag,
-    task_id="STOP_ENGINE",
-    firebolt_conn_id=FIREBOLT_CONN_ID,
-    engine_name=FIREBOLT_ENGINE_NAME)
+    (task_start_engine >> task_trip_data__external_table >>
+     task_trip_data__create_table >> task_trip_data__process_data >> task_stop_engine)
+```
 
-(task_start_engine >> task_trip_data__external_table >>
- task_trip_data__create_table >> task_trip_data__process_data >> task_stop_engine)
+{: .note}
+This DAG showcases various Firebolt tasks as an example and is not intended to represent a typical real-world workflow or pipeline.
+
+### Define Airflow variables
+{: .no_toc}
+
+Airflow variables store-key value pairs that DAGs can use during execution. You can create and manage variables through the Airflow user interface (UI) or JSON documents. For detailed instructions, check out Airflow's [Variables](https://airflow.apache.org/docs/apache-airflow/stable/concepts/variables.html) and [Managing Variables](https://airflow.apache.org/docs/apache-airflow/stable/howto/variable.html) documentation pages. 
+
+**Example variable for SQL files**    
+The DAG example uses the custom variable `firebolt_sql_path` to define the directory within your Airflow home directory where SQL files are stored. The DAG reads these files to execute tasks in Firebolt.
+
+* **Key**: `firebolt_sql_path` 
+* **Value**: Path to the directory containing SQL scripts. For example, `~/airflow/sql_store`. 
+
+**Using the variable in the DAG**       
+A python function in the DAG reads the SQL scripts stored in the directory defined by `firebolt_sql_path`. This allows the DAG to dynamically execute the SQL files as tasks in Firebolt. 
+
+The following example demonstrates how the variable is accessed in the DAG script:
+
+```sql
+tmpl_search_path = Variable.get("firebolt_sql_path")
+
+def get_query(query_file):
+    with open(query_file, "r") as file:
+        return file.read()
 ```
 
 ### SQL script examples
-
-The contents of the SQL scripts that DAG tasks run are shown below.
+{: .no_toc}
+Save the following SQL scripts to your `tmpl_search_path`. 
 
 #### trip_data__create_external_table.sql
 {: .no_toc}
 
-Creates a fact table, `ex_trip_data`, to connect to a public Amazon S3 data store.
+This example creates the `ex_trip_data` fact table to connect to a public Amazon S3 data store.
 
 ```sql
 CREATE EXTERNAL TABLE IF NOT EXISTS ex_trip_data(
@@ -242,13 +246,13 @@ CREATE EXTERNAL TABLE IF NOT EXISTS ex_trip_data(
 )
 url = 's3://firebolt-publishing-public/samples/taxi/'
 object_pattern = '*yellow*2020*.csv'
-type = (CSV SKIP_HEADER_ROWS = 1);
+type = (CSV SKIP_HEADER_ROWS = true);
 ```
 
 #### trip_data__create_table.sql
 {: .no_toc}
 
-Creates a fact table, `my_taxi_trip_data`, to receive ingested data.
+This example creates the `my_taxi_trip_data` fact table, to receive ingested data.
 
 ```sql
 DROP TABLE IF EXISTS my_taxi_trip_data;
@@ -270,7 +274,7 @@ CREATE FACT TABLE IF NOT EXISTS my_taxi_trip_data(
    tolls_amount REAL,
    improvement_surcharge REAL,
    total_amount REAL,
-   congestion_surcharge REAL
+   congestion_surcharge REAL,
    SOURCE_FILE_NAME TEXT,
    SOURCE_FILE_TIMESTAMP TIMESTAMP
 ) PRIMARY INDEX vendorid;
@@ -279,8 +283,8 @@ CREATE FACT TABLE IF NOT EXISTS my_taxi_trip_data(
 #### trip_data__process.sql
 {: .no_toc}
 
-An `INSERT INTO` operation that ingests data into the `my_taxi_trip_data` fact table using the `ex_trip_data` 
-external table. The example uses the external table metadata column, `$source_file_timestamp`, to retrieve records only from the latest file.
+An `INSERT INTO` operation ingests data into the `my_taxi_trip_data` fact table using the `ex_trip_data` 
+external table. This example uses the external table metadata column, `$source_file_timestamp`, to retrieve records exclusively from the latest file.
 
 ```sql
 INSERT INTO my_taxi_trip_data
@@ -306,5 +310,142 @@ SELECT
    $source_file_name,
    $source_file_timestamp
 FROM ex_trip_data
-WHERE $source_file_timestamp > (SELECT MAX($source_file_timestamp) FROM my_taxi_trip_data);
+WHERE coalesce($source_file_timestamp > (SELECT MAX(source_file_timestamp) FROM my_taxi_trip_data), true);
 ```
+
+## Example: Working with query results
+
+The `FireboltOperator` is designed to execute SQL queries but does not return query results. To retrieve query results, use the `FireboltHook` class. The following example demonstrates how to use `FireboltHook` to execute a query and log the row count in the `my_taxi_trip_data` table.
+
+### Python code example: Retrieiving query results
+{: .no_toc}
+
+```python
+import logging
+
+import airflow
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from firebolt_provider.hooks.firebolt import FireboltHook
+from airflow.providers.common.sql.hooks.sql import fetch_one_handler
+
+# Set up the Firebolt connection ID
+firebolt_conn_id = 'firebolt'
+default_args = {
+    'owner': 'airflow',
+    'start_date': airflow.utils.dates.days_ago(1)
+}
+
+
+# Function to notify the team about the data
+def notify(message: str):
+    logging.info(message)
+
+
+# Function to fetch data from Firebolt and notify the team
+def fetch_firebolt_data():
+    hook = FireboltHook(firebolt_conn_id=firebolt_conn_id)
+    results = hook.run(
+        "SELECT count(*) FROM my_taxi_trip_data",
+        handler=fetch_one_handler
+    )
+    count = results[0]
+    notify("Amount of data in Firebolt: " + str(count))
+
+
+with DAG(
+    'return_result_dag',
+    default_args=default_args,
+    schedule_interval=None,  # Run manually
+    catchup=False
+) as dag:
+    # Define a Python operator to fetch data from Firebolt and notify the team
+    monitor_firebolt_data = PythonOperator(
+        task_id='monitor_firebolt_data',
+        python_callable=fetch_firebolt_data
+    )
+
+    monitor_firebolt_data
+```
+
+## Example: Controlling query execution timeout
+
+The Firebolt provider includes parameters to control query execution time and behavior when a timeout occurs: 
+- `query_timeout`: Sets the maximum duration (in seconds) that a query can run
+- `fail_on_query_timeout` - If `True`, a timeout raises a `QueryTimeoutError`. If `False`, the task terminates quietly, and the task proceeds without raising an error.
+
+### Python code example: Using timeout settings   
+{: .no_toc}
+
+In this example, the `FireboltOperator` task stops execution after one second and proceeds without error. The `PythonOperator` task fetches data from Firebolt with a timeout of 0.5 seconds and raises an error if the query times out.
+
+```python
+import airflow
+from airflow.models import DAG, Variable
+from airflow.operators.python import PythonOperator
+from firebolt_provider.hooks.firebolt import FireboltHook
+from airflow.providers.common.sql.hooks.sql import fetch_one_handler
+from firebolt_provider.operators.firebolt import FireboltOperator
+
+# Set up the Firebolt connection ID
+firebolt_conn_id = 'firebolt'
+default_args = {
+    'owner': 'airflow',
+    'start_date': airflow.utils.dates.days_ago(1)
+}
+tmpl_search_path = Variable.get("firebolt_sql_path")
+
+
+def get_query(query_file):
+    return open(query_file, "r").read()
+
+# Function to fetch data with a timeout
+def fetch_with_timeout():
+    hook = FireboltHook(
+        firebolt_conn_id=firebolt_conn_id,
+        query_timeout=0.5, 
+        fail_on_query_timeout=True, 
+    )
+    results = hook.run(
+        "SELECT count(*) FROM my_taxi_trip_data",
+        handler=fetch_one_handler,
+    )
+    print(f"Results: {results}")
+
+# Define the DAG
+with DAG(
+    'timeout_dag',
+    default_args=default_args,
+    schedule_interval=None,  # Run manually
+    catchup=False
+) as dag:
+
+    # Firebolt operator with a timeout
+
+    firebolt_operator_with_timeout = FireboltOperator(
+        dag=dag,
+        task_id="insert_with_timeout",
+        sql=get_query(f'{tmpl_search_path}/trip_data__process.sql'),
+        firebolt_conn_id=firebolt_conn_id,
+        query_timeout=1,
+        # Task will not fail if query times out, and will proceed to the next task
+        fail_on_query_timeout=False,
+    )
+
+    # Python operator to fetch data with a timeout
+    operator_with_hook_timeout = PythonOperator(
+        dag=dag,
+        task_id='select_with_hook_timeout',
+        python_callable=fetch_with_timeout,
+    )
+
+    firebolt_operator_with_timeout >> operator_with_hook_timeout
+```
+
+## Additional resources
+For more information about connecting to Airflow, refer to the following resources:
+
+* [Managing Connections in Airflow](https://airflow.apache.org/docs/apache-airflow/stable/howto/connection.html)
+* [Firebolt Airflow provider on Pypi](https://pypi.org/project/airflow-provider-firebolt/)
+* [DAGs](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dags.html)
+* [airflow.models.dag](https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/models/dag/index.html#module-airflow.models.dag)

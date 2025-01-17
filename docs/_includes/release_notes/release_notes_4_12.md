@@ -28,10 +28,6 @@ Added the [INFORMATION_SCHEMA.ROUTINES]({% link sql_reference/information-schema
 Firebolt can now read columns of type `GEOGRAPHY` from external tables in CSV or JSON format, which allows the querying of geospatial data including Points and Polygons.
 
 <!-- FIR-37266 - Owned by Mariia Kaplun -->
-**Removed secured objects from `information_schema` views**
-
-Users can now only access information about objects for which they have the appropriate permissions or ownership in [information_schema views]({% link sql_reference/information-schema/views.md %}).
-
 **Added a new `MONITOR USAGE` privilege**
 
 You can use the `MONITOR USAGE` privilege to view all queries running on an engine using [information_schema.engine_query_history]({% link sql_reference/information-schema/engine-query-history.md %}) or [information_schema.engine_running_queries]({% link sql_reference/information-schema/engine-running-queries.md %}) views.
