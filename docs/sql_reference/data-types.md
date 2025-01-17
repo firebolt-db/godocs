@@ -1,6 +1,6 @@
 ---
 redirect_from:
-  - /general-reference/legacy-date-timestamp.html#date-and-timestamp
+  - /general-reference/legacy-date-timestamp.html
   - /general-reference/data-types.html
 layout: default
 title: Data types
