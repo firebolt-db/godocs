@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /architecture-overview.html
 layout: default
 title: Architecture
 description: Discover how the decoupled compute and storage architecture of the Firebolt data warehouse enables sub-second query performance on terabyte-scale data sets.
