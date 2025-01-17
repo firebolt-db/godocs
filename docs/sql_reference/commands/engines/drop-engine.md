@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/commands/drop-engine.html
 layout: default
 title: DROP ENGINE
 description: Reference and syntax for the DROP ENGINE command.

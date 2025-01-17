@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /loading-data/loading-data.html
 layout: default
 title: Load data
 description: Understand options for loading data into Firebolt from your data lake.

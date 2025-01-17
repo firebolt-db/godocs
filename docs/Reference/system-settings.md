@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/system-settings.html
 layout: default
 title: System settings
 description: Lists Firebolt system settings that you can configure using SQL.

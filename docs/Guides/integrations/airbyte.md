@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /integrations/data-integration-and-transformation/connecting-with-airbyte.html
 layout: default
 title: Airbyte
 description: Connecting Airbyte and Firebolt.

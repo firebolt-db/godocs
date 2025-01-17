@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/available-engine-specs.html
 layout: default
 title: Operate Engines
 description: Work with Firebolt engines.

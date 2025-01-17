@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/bytea-data-type.html
 layout: default
 title: BYTEA data type
 description: Describes the Firebolt implementation of the `BYTEA` data type

@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/information-schema/query-history-view.html
 layout: default
 title: Engine query history
 description: Use this reference to learn about the metadata available for historical queries in Firebolt.

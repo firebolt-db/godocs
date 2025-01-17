@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/commands/select.html
 layout: default
 title: SELECT
 description: Reference and syntax for SELECT queries.

@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/timestampntz-data-type.html
 layout: default
 title: TIMESTAMP data type
 description: Describes the Firebolt implementation of the `TIMESTAMP` data type

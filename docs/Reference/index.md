@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference
 layout: default
 title: General reference
 description: General reference for Firebolt.

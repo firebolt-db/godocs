@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/operators.html
 layout: default
 title: Operators
 description: Reference for SQL operators available in Firebolt.

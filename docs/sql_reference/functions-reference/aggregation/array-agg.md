@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql_reference/functions-reference/aggregate-array
 layout: default
 title: ARRAY_AGG
 description: Reference material for ARRAY_AGG function

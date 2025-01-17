@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /integrations/data-integration-and-transformation/connecting-with-estuary-flow.html
 layout: default
 title: Estuary
 description: Using Estuary to transfer data to Firebolt

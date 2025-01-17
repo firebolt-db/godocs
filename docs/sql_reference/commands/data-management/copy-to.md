@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/commands/copy-to.html
 layout: default
 title: COPY TO
 description: Reference and syntax for the COPY TO command that exports or unloads data from Firebolt to Amazon S3.

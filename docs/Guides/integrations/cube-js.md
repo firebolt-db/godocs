@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /integrations/business-intelligence/connecting-to-cubejs.html
 layout: default
 title: Cube.js
 description: Learn how to connect Cube.js to Firebolt.

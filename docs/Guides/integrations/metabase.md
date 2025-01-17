@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /integrations/business-intelligence/connecting-to-metabase.html
 layout: default
 title: Metabase
 description: Connecting Metabase and Firebolt.

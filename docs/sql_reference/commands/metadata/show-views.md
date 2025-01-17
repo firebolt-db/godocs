@@ -1,4 +1,8 @@
 ---
+redirect_from:
+  - /sql-reference/commands/show-views.html
+  - /sql_reference/commands/metadata/show-databases.html
+  - /general-reference/information-schema/views.html
 layout: default
 title: SHOW VIEWS
 description: Reference and syntax for the SHOW VIEWS command.

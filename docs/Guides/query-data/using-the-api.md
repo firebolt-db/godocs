@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /developing-with-firebolt/firebolt-rest-api.html
 layout: default
 title: Use the API
 description: Learn about using the Firebolt API to interact with Firebolt.
