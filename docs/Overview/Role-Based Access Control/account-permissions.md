@@ -4,7 +4,7 @@ title: Account Permissions
 description: Learn about account-level permissions in Firebolt.
 parent: Role-Based Access Control
 grand_parent: Overview
-nav_order: 5
+nav_order: 1
 ---
 
 # Account permissions
@@ -114,11 +114,5 @@ GRANT MODIFY ANY USER ON ACCOUNT account_name TO developer_role;
 ### MONITOR [ANY USAGE] permission
 The following code example grants the role `developer_role` permission to see the query history and currently running queries on all the engines within `account_name`:
 ```sql
-GRANT MONITOR ANY USAGE ON ACCOUNT account_name TO developer_role;
-```
-
-### ALL permissions
-The following code example grants the role `developer_role` all of the available permissions on account `account_name`:
-```sql
-GRANT ALL ON ACCOUNT account_name TO developer_role;
+GRANT MONITOR ANY USAGE ON ACCOUNT "account-1" TO developer_role;
 ```

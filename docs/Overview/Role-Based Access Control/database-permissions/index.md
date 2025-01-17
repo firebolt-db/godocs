@@ -3,7 +3,7 @@ layout: default
 title: Database permissions
 description: Understand the permissions that can be assigned at the database level in Firebolt, including controlling access to database objects and managing database-level operations.
 parent: Role-Based Access Control
-nav_order: 11
+nav_order: 2
 has_children: true
 has_toc: true
 ---

@@ -3,7 +3,7 @@ layout: default
 title: Role Management
 description: Learn about role management in Firebolt, including how to create, assign, and manage roles to control user access and permissions across your databases.
 parent: Role-Based Access Control
-nav_order: 11
+nav_order: 8
 has_children: true
 has_toc: true
 ---
