@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /managing-your-account/concepts-and-terminology.html#organizations
 layout: default
 title: Organizations and accounts
 description: Learn about Firebolt organization and account concepts to help you administer and manage your Firebolt account.
