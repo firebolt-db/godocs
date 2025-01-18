@@ -1,6 +1,7 @@
 ---
 redirect_from:
-  - /managing-your-account/concepts-and-terminology.html#organizations
+  - /working-with-engines/working-with-engines-using-the-rest-api.html
+  - /managing-your-account/concepts-and-terminology.html
 layout: default
 title: Organizations and accounts
 description: Learn about Firebolt organization and account concepts to help you administer and manage your Firebolt account.
