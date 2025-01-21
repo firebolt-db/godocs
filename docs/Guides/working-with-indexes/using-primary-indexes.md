@@ -263,17 +263,19 @@ PRIMARY INDEX (playerid, asset_id, event_type)
 * The addition of `asset_id` won’t accelerate this particular query, but adding it is not detrimental.
 * Although `event_type` has low cardinality, because it’s contained in the `WHERE` clause, adding it to the primary index has some benefit.
 
-### Example&mdash;using columns
+### Example&mdash; query optimization using primary indexes for transformed column values
 
-Columns are most often used in a primary index to:
+You can include columns inside primary indexes to:
 
-* Accommodate functions that alter column values.
-* Calculate hash values for columns that contain long strings.
+* Optimize query performance by organizing data based on frequently filtered or joined columns.
+* Improve lookup efficiency for large datasets.
+
+The following example shows how to optimize queries using primary indexes that include transformed column values. 
 
 #### Step 1&mdash;create the fact table with the column in the index
 {: .no_toc}
 
-The example DDL below creates a fact table similar to the one earlier in this section. However, it adds the `upper_playerid` column. The table creates this column to store the result of an `UPPER` function that upper-cases `playerid` values during the `INSERT INTO` operation.
+The following code example creates a fact table with an `upper_playerid` column, which stores the result of an `UPPER` function that upper-cases `playerid` values during the `INSERT INTO` operation.
 
 The `PRIMARY INDEX` clause uses the `upper_playerid` column because that column is used in analytics queries.
 
