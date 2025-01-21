@@ -3,7 +3,7 @@ layout: default
 title: Subresult Reuse
 description: How to understand subresult reuse.
 parent: Optimize query performance
-nav_order: 1
+nav_order: 2
 has_toc: false
 has_children: false
 ---
