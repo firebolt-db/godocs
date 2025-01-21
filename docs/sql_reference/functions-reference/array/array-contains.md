@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/contains.html
 layout: default
 title: ARRAY_CONTAINS
 description: Reference material for ARRAY_CONTAINS function

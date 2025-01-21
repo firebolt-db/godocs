@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference
 layout: default
 title: SQL functions
 description: Reference for SQL functions available in Firebolt.

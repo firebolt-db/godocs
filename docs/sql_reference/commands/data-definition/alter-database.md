@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/commands/alter-database.html
 layout: default
 title: ALTER DATABASE
 description: Reference and syntax for the ALTER DATABASE command.

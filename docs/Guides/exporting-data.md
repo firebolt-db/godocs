@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /exporting-query-results.html
 layout: default
 title: Export data
 parent: Guides

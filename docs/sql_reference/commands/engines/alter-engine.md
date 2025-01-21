@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/commands/alter-engine.html
 layout: default
 title: ALTER ENGINE
 description: Reference and syntax for the ALTER ENGINE command.

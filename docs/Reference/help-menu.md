@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/help-menu.html
 layout: default
 title: Help menu
 description: Describes the options of the Firebolt "Help" menu

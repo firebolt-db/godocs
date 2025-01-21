@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/available-regions.html
 layout: default
 title: Available regions
 description: Provides the AWS regions available in Firebolt.

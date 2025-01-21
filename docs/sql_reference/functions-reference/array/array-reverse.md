@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/array-reverse.html
 layout: default
 title: ARRAY_REVERSE
 description: Reference material for ARRAY_REVERSE function

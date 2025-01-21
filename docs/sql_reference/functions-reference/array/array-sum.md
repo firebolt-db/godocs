@@ -1,4 +1,7 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/array-sum.html
+  - /sql-reference/functions-reference/array-cumulative-sum.html
 layout: default
 title: ARRAY_SUM
 description: Reference material for ARRAY_SUM function

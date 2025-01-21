@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/date-trunc-new.html
 layout: default
 title: DATE_TRUNC
 description: Reference material for the DATE_TRUNC function

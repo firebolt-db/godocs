@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/max-window.html
 layout: default
 title: MAX OVER
 description: Reference material for MAX function

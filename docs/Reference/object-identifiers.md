@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/identifier-requirements.html
 layout: default
 title: Object identifers
 description: Provides requirements and guidance for using SQL identifiers with Firebolt.

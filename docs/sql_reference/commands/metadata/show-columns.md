@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/commands/show-columns.html
 layout: default
 title: SHOW COLUMNS
 description: Reference and syntax for the SHOW COLUMNS command.

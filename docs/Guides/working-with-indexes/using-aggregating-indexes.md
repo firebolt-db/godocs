@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /using-indexes/using-aggregating-indexes.html
 layout: default
 title: Aggregating indexes
 description: Learn about aggregating indexes in Firebolt and how to configure and use them.

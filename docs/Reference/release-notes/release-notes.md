@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/release-notes/release-notes.html
 layout: default
 title: Release notes
 description: Latest release notes for the Firebolt data warehouse.

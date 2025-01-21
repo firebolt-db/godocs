@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/to-char-new.html
 layout: default
 title: TO_CHAR
 description: Reference material for TO_CHAR function

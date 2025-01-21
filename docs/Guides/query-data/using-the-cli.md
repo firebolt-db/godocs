@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /using-the-cli.html
 layout: default
 title: Use the CLI
 description: Learn to install, configure, and use the Firebolt CLI.

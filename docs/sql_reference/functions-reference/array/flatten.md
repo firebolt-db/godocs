@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/flatten.html
 layout: default
 title: ARRAY_FLATTEN
 description: Reference material for ARRAY_FLATTEN function

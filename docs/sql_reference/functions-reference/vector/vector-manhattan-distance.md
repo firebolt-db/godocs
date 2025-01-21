@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql_reference/functions-reference/array/vector-manhattan-distance.html
 layout: default
 title: VECTOR_MANHATTAN_DISTANCE
 description: Reference material for VECTOR_MANHATTAN_DISTANCE function

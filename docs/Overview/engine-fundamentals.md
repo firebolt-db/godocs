@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /working-with-engines/choosing-an-engine.html
 layout: default
 title: Engine Fundamentals
 description: Learn fundamental concepts about Firebolt Engines.

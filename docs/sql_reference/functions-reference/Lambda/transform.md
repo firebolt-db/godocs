@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/transform.html
 layout: default
 title: ARRAY_TRANSFORM
 description: Reference material for ARRAY_TRANSFORM function

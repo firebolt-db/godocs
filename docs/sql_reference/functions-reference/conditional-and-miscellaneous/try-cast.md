@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/try-cast.html
 layout: default
 title: TRY_CAST
 description: Reference material for TRY_CAST function

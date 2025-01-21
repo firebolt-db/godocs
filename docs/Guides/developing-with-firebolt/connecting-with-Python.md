@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /developing-with-firebolt/connecting-with-Python.html
 layout: default
 title: Python
 description: Learn about using the Python SDK for Firebolt.

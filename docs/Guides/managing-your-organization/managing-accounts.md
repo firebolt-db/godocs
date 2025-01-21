@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /managing-your-account/creating-an-account.html
 layout: default
 title: Manage accounts
 description: Learn about how to add and remove accounts in a Firebolt organization.

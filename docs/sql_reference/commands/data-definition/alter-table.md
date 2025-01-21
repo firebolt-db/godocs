@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/commands/alter-table-drop-partition.html
 layout: default
 title: ALTER TABLE
 description: Reference and syntax for the ALTER TABLE command.

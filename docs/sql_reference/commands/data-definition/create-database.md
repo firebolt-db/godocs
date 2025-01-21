@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/commands/create-database.html
 layout: default
 title: CREATE DATABASE
 description: Reference and syntax for the CREATE DATABASE command.

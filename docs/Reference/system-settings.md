@@ -1,4 +1,7 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/timezone.html
+  - /general-reference/system-settings.html
 layout: default
 title: System settings
 description: Lists Firebolt system settings that you can configure using SQL.

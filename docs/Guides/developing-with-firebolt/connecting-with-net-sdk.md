@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /developing-with-firebolt/connecting-with-net.html
 layout: default
 title: .NET SDK
 description: Learn about using the .NET SDK for Firebolt.

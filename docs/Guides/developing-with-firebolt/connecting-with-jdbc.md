@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /developing-with-firebolt/connecting-with-jdbc.html
 layout: default
 title: JDBC
 description: How to use the Firebolt JDBC driver

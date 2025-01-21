@@ -1,4 +1,7 @@
 ---
+redirect_from:
+  - /general-reference/legacy-date-timestamp.html
+  - /general-reference/data-types.html
 layout: default
 title: Data types
 description: Provides the SQL data types available in Firebolt.

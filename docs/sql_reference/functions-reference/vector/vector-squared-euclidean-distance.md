@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql_reference/functions-reference/array/vector-squared-euclidean-distance.html
 layout: default
 title: VECTOR_SQUARED_EUCLIDEAN_DISTANCE
 description: Reference material for VECTOR_SQUARED_EUCLIDEAN_DISTANCE function
