@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/information-schema/tables.html
 layout: default
 title: Tables
 description: Use this reference to learn about the metadata available for Firebolt tables using the information schema.

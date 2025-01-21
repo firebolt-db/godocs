@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/exp.html
 layout: default
 title: POW
 description: Reference material for POW, POWER functions

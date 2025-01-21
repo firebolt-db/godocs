@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/information-schema/indexes.html
 layout: default
 title: Indexes
 description: Use this reference to learn about the metadata available for Firebolt indexes using the information schema.

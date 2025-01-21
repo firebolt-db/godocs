@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /working-with-semi-structured-data/ingesting-semi-structured-data.html
 layout: default
 title: Ingest semi-structured data
 description: Learn how to ingest (load) semi-structured data from your data lake into the Firebolt data warehouse.

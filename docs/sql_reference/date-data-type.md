@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/date-data-type.html
 layout: default
 title: DATE data type
 description: Describes the Firebolt implementation of the `DATE` data type

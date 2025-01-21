@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/avg.html
 layout: default
 title: AVG
 description: Reference material for AVG

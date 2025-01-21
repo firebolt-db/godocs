@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/date-add.html
 layout: default
 title: DATE_ADD
 description: Reference material for DATE_ADD function

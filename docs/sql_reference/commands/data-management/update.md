@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/commands/update.html
 layout: default
 title: UPDATE
 description: Reference and syntax for the UPDATE command.

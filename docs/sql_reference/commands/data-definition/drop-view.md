@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/commands/drop-view.html
 layout: default
 title: DROP VIEW
 description: Reference and syntax for the DROP VIEW command.

@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /working-with-partitions.html
 layout: default
 title: Working with partitions
 description: Learn when and how to partition Firebolt tables to accelerate query performance and simplify table maintenance.

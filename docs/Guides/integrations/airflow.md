@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /integrations/data-orchestration/airflow.html
 layout: default
 title: Airflow
 description: Learn how to use the Apache Airflow provider package to connect Airflow to Firebolt.

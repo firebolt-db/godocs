@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/date-diff.html
 layout: default
 title: DATE_DIFF
 nav_exclude: true

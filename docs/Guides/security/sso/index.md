@@ -1,4 +1,7 @@
 ---
+redirect_from:
+  - /Guides/security/sso/sso.html
+  - /Guides/security/sso/configuring-idp-for-sso.html
 layout: default
 title: Configure SSO
 description: Learn about how to set up SSO authentication for Firebolt.

@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/commands/create-aggregating-index.html
 layout: default
 title: CREATE AGGREGATING INDEX
 description: Reference and syntax for the CREATE AGGREGATING INDEX command.

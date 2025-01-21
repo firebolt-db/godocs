@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/lag.html
 layout: default
 title: LAG OVER
 description: Reference material for LAG function

@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /managing-your-account/service-accounts.html
 layout: default
 title: Service accounts
 description: Use this reference to learn about the metadata available about service accounts using the information schema.

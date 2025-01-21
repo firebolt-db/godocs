@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /managing-your-account/managing-users.html
 layout: default
 title: Manage users and roles
 description: Learn about user permissions and how to add and remove users in a Firebolt account.

@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/information-schema/engines.html
 layout: default
 title: Engines
 parent: Information schema

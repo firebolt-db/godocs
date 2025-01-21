@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /loading-data/configuring-aws-role-to-access-amazon-s3.html
 layout: default
 title: Use AWS roles to access S3
 description: Learn how to use AWS IAM roles to allow Firebolt to access your data lake in Amazon S3.

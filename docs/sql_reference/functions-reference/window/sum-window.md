@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/sum-window.html
 layout: default
 title: SUM OVER
 description: Reference material for SUM function

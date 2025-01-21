@@ -1,4 +1,7 @@
 ---
+redirect_from:
+  - /using-the-sql-workspace/using-the-sql-workspace.html
+  - /using-the-sql-workspace/keyboard-shortcuts-for-sql-workspace.html
 layout: default
 title: Use the Develop Space
 description: Learn how to navigate and use the develop space to work with your Firebolt database.

@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/date-format.html
 layout: default
 title: Date and time functions
 description: Reference for date and time functions

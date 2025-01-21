@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /using-indexes/using-primary-indexes.html
 layout: default
 title: Primary indexes
 description: Learn about primary indexes in Firebolt and how to configure and use them.

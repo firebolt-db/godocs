@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/to-month.html
 layout: default
 title: TO_YYYYMM
 description: Reference material for the TO_YYYYMM function

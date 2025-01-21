@@ -1,4 +1,6 @@
 ---
+redirect_from:
+    - /general-reference/information-schema/databases.html
 layout: default
 title: Information schema
 description: Reference for Information Schema views

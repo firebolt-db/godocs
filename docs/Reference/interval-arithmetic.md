@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/interval-arithmetic.html
 layout: default
 title: Arithmetic with intervals
 description: Describes the Firebolt implementation of arithmetic with intervals

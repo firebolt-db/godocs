@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/degrees.html
 layout: default
 title: DEGREES
 description: Reference material for DEGREES function
