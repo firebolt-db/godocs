@@ -107,7 +107,7 @@ SELECT
 FROM
   players
 WHERE
-  UPPER(playerid) LIKE ‘AA%’;
+  UPPER(playerid) LIKE 'AA%';
 ```
 
 In contrast, Firebolt can use the primary index in the following example:
@@ -120,7 +120,7 @@ SELECT
 FROM
   players
 WHERE
-  playerid LIKE ‘AAA%’;
+  playerid LIKE 'AAA%';
 ```
 
 If you know that you will use a function in a predicate ahead of time, consider creating a column to store the result of the function. You can then use that column in your index and queries. This is particularly useful for hashing columns.
@@ -209,7 +209,7 @@ SELECT
 FROM
   players
 WHERE
-  EXTRACT(YEAR FROM registeredon) = ‘2021’
+  EXTRACT(YEAR FROM registeredon) = '2021'
 ```
 
 For both queries, the best primary index is:
@@ -319,5 +319,5 @@ SELECT
 FROM
   player_registry
 WHERE
-  upper_playerid LIKE ‘AAA%’;
+  upper_playerid LIKE 'AAA%';
 ```
