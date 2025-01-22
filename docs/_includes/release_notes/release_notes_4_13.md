@@ -14,8 +14,8 @@ Users can now only access information about objects for which they have the appr
 The statements `GRANT ALL ON ACCOUNT account_name TO role_name` and `REVOKE ALL ON ACCOUNT account_name FROM role_name` are now supported. They grant or revoke all account-related privileges to the specified role `role_name`.
 
 <!-- Auto Generated Markdown for FIR-42324 - Owned by David Boublil -->
-**Supported arrays of arrays at any nested level in Parquet files**    
-Added support for arrays of arrays at any nested level in Parquet files.
+**Supported arrays of arrays at any nested level in Parquet files**
+We can now ingest Parquet files with a nested array structure of arbitrary depth, e.g., array(array(array(string))).
 
 ### Bug Fixes
 
@@ -34,9 +34,9 @@ Resolved a memory overconsumption problem that occurred when importing CSV files
 
 <!-- Auto Generated Markdown for FIR-42413 - Owned by Jonathan Doron -->
 **Fixed `explain vacuum` and `explain` to improve error handling and result accuracy**    
-Updated the behavior of `explain vacuum` to:
+The behavior of `explain vacuum` has been updated to:
 
 1. Display an accurate error message when a table has already been vacuumed.
 2. Return non-empty results when running `explain vacuum` on an AI.
 
-Additionally, improved `explain` to show an error if the specified relation does not exist.
+Additionally, `explain` has been updated to show an error if the specified relation does not exist.
