@@ -190,4 +190,4 @@ The following example configures the Firebolt JDBC driver to connect to `my_data
 
 ## Full reference documentation
 
-The complete documentation for classes and methods in the Firebolt JDBC driver is available in the [Firebolt JDBC API reference guide](https://old.docs.firebolt.io/jdbc/javadoc/).
+The complete documentation for classes and methods in the Firebolt JDBC driver is available in the [Firebolt JDBC API reference guide](https://jdbc.docs.firebolt.io/javadoc/).
