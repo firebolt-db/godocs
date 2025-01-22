@@ -194,7 +194,7 @@ SELECT checksum(*) FROM production_table;
 
 ## Subresult Cache
 
-Firebolt implements [advanced cross-query optimization](../Guides/optimize-query-performance/understand-query-performance-subresult.md) that allows SQL queries to reuse intermediate query execution states from previous requests.
+Firebolt implements [advanced cross-query optimization]({% link Overview/optimize-query-performance/understand-query-performance-subresult.md %}) that allows SQL queries to reuse intermediate query execution states from previous requests.
 Subresult caching operates at a semantic level, which allows Firebolt to understand and optimize queries based on the meaning and context of the data rather than solely based on their syntax or structure.
 This capability allows Firebolt to optimize across different query patterns for improved efficiency.
 
@@ -217,4 +217,4 @@ SET enable_subresult_cache = false;
 SELECT count(*) FROM fact_table INNER JOIN dim_table ON (a = b);
 ```
 
-Setting `enable_subresult_cache` to `FALSE` disables the use of all [cached subresults](../Guides/optimize-query-performance/understand-query-performance-subresult.md). In particular, it deactivates two caching mechanisms that normally speed up query runtimes: the use of the `MaybeCache` operator, which includes the full result cache, and the hash-table cache used by the `Join` operator.
+Setting `enable_subresult_cache` to `FALSE` disables the use of all [cached subresults]({% link Overview/optimize-query-performance/understand-query-performance-subresult.md %}). In particular, it deactivates two caching mechanisms that normally speed up query runtimes: the use of the `MaybeCache` operator, which includes the full result cache, and the hash-table cache used by the `Join` operator.
