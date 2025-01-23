@@ -16,17 +16,14 @@ parent: Integrate with Firebolt
 
 This guide explains how to install the [Airflow provider package](https://pypi.org/project/airflow-provider-firebolt/) for Firebolt, set up a connection to Firebolt resources using the Airflow user interface (UI), and create an example Directed Acyclic Graph (DAG) for common Firebolt tasks. The source code for the Airflow provider package for Firebolt is available in the [airflow-provider-firebolt](https://github.com/firebolt-db/airflow-provider-firebolt) repository on GitHub.
 
-* Topic ToC
-{:toc}
-
 ## Prerequisites
 Make sure that you have:
 
-* A Firebolt account. [Create a new account here](../managing-your-organization/managing-accounts.md/#create-a-new-account).
+* A Firebolt account. [Create a new account]({% link Guides/managing-your-organization/managing-accounts.md %}#create-a-new-account).
 
 * A Firebolt database and engine.
 
-* [Python](https://www.python.org/) version 3.8 or later.
+* [Python](https://www.python.org/downloads/) version 3.8 or later.
 
 * An installation of Airflow. See the [Airflow installation guide](https://airflow.apache.org/docs/apache-airflow/stable/installation/index.html). 
 
