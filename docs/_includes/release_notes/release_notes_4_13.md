@@ -1,12 +1,5 @@
 # Firebolt Release Notes - Version 4.13
 
-### Behavior Changes
-
-<!-- FIR-37266 - Owned by Mariia Kaplun -->
-**Removed secured objects from `information_schema` views**
-
-Users can now only access information about objects for which they have the appropriate permissions or ownership for in [information_schema views]({% link sql_reference/information-schema/views.md %}).
-
 ### New Features
 
 <!-- Auto Generated Markdown for FIR-42091 - Owned by Tal Zelig -->
@@ -14,8 +7,15 @@ Users can now only access information about objects for which they have the appr
 The statements `GRANT ALL ON ACCOUNT account_name TO role_name` and `REVOKE ALL ON ACCOUNT account_name FROM role_name` are now supported. They grant or revoke all account-related privileges to the specified role `role_name`.
 
 <!-- Auto Generated Markdown for FIR-42324 - Owned by David Boublil -->
-**Support for nested arrays in Parquet files**
-We can now ingest Parquet files with a nested array structure of arbitrary depth, e.g., array(array(array(string))).
+**Support for Nested Arrays in Parquet Files**
+You can now ingest Parquet files containing nested array structures at any depth. For example: array(array(array(string))).
+
+### Behavior Changes
+
+<!-- FIR-37266 - Owned by Mariia Kaplun -->
+**Removed secured objects from `information_schema` views**
+
+Users can now only access information about objects for which they have the appropriate permissions or ownership for in [information_schema views]({% link sql_reference/information-schema/views.md %}).
 
 ### Bug Fixes
 
