@@ -8,7 +8,7 @@ The statements `GRANT ALL ON ACCOUNT account_name TO role_name` and `REVOKE ALL 
 
 <!-- Auto Generated Markdown for FIR-42324 - Owned by David Boublil -->
 **Supported arrays of arrays at any nested level in Parquet files**
-We can now ingest Parquet files with a nested array structure of arbitrary depth, e.g., array(array(array(string))).
+Parquet files are now supported with a nested array structure of arbitrary depth, e.g., array(array(array(string))).
 
 ### Behavior Changes
 
