@@ -38,7 +38,7 @@ Each row has the following columns with information about each running query.
 | query_label    | TEXT        | User provided query label (query_label parameter)                                                                                                      |
 | query_text     | TEXT        | Text of the SQL statement.                                                                                                                             |
 | scanned_rows   | BIGINT      | The number of rows scanned to return query results.                                                                                                    |
-| scanned_bytes  | BIGINT      | The number of bytes scanned from cache and storage.                                                                                                    |
+| scanned_bytes  | BIGINT      | The number of uncompressed bytes scanned from cache and storage.                                                                                       |
 | inserted_rows  | BIGINT      | The number of rows written                                                                                                                             |
 | inserted_bytes | BIGINT      | The number of bytes written.                                                                                                                           |
 | retries        | BIGINT      | The total number of retries to execute a given query after a failure (by default, the number of retries is 0 and the number increases with each retry) |
