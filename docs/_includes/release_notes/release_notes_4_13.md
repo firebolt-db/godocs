@@ -29,7 +29,7 @@ ALTER USER user_name RENAME TO "user@example.com";
 ```
 
 <!-- Auto Generated Markdown for FIR-38781 - Owned by jingtao.huang -->
-**Resolved memory overuse during CSV import with large rows**    
+**Resolved memory overuse during CSV import**    
 Resolved a memory overconsumption problem that occurred when importing CSV files into existing tables.
 
 <!-- Auto Generated Markdown for FIR-42413 - Owned by Jonathan Doron -->
