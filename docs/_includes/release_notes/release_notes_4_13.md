@@ -3,18 +3,17 @@
 ### New Features
 
 <!-- Auto Generated Markdown for FIR-42091 - Owned by Tal Zelig -->
-**`GRANT ALL ON ACCOUNT` and `REVOKE ALL ON ACCOUNT` statements for role-based privileges**    
+**`GRANT ALL ON ACCOUNT` and `REVOKE ALL ON ACCOUNT` statements for role-based privileges**        
 The statements `GRANT ALL ON ACCOUNT account_name TO role_name` and `REVOKE ALL ON ACCOUNT account_name FROM role_name` are now supported. They grant or revoke all account-related privileges to the specified role `role_name`.
 
 <!-- Auto Generated Markdown for FIR-42324 - Owned by David Boublil -->
-**Support for Nested Arrays in Parquet Files**
-You can now ingest Parquet files containing nested array structures at any depth. For example: array(array(array(string))).
+**Support for nested arrays in Parquet files**      
+You can now ingest Parquet files containing nested array structures at any depth. For example: `array(array(array(string)))`.
 
 ### Behavior Changes
 
 <!-- FIR-37266 - Owned by Mariia Kaplun -->
-**Removed secured objects from `information_schema` views**
-
+**Removed secured objects from `information_schema` views**      
 Users can now only access information about objects for which they have the appropriate permissions or ownership for in [information_schema views]({% link sql_reference/information-schema/views.md %}).
 
 ### Bug Fixes
