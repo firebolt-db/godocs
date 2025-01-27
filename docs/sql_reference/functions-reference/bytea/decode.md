@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/decode.html
 layout: default
 title: DECODE
 description: Reference material for DECODE function

@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/any-match.html
 layout: default
 title: ARRAY_ANY_MATCH
 description: Reference material for ARRAY_ANY_MATCH function

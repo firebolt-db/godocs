@@ -8,11 +8,7 @@ grand_parent: SQL reference
 
 # Information schema for transitive_applicable_roles
 
-`information_schema.transitive_applicable_roles` view shows the following:
-
-  * All roles in the account assigned to the user, either directly or indirectly. 
-  * All roles where the user holds granted privileges or ownership.
-  * All grantees of these roles, including users or other roles to whom the roles are granted.
+The `information_schema.applicable_roles` view shows every role in the account and its grantees, who include other users or roles to whom the role is granted. 
 
 Unlike, `information_schema.applicable_roles` that shows only direct grantees, `information_schema.transitive_applicable_roles` also shows indirect grantees.
 For example, if role `engineer` is granted to role `manager` and role `manager` is granted to user `alice` then user `alice` is a direct grantee of `manager` and an indirect grantee of `engineer`.

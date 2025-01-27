@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/release-notes/release-notes-archive.html
 layout: default
 title: Release notes archive
 description: Release notes archive for the Firebolt data warehouse.

@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/regexp-replace.html
 layout: default
 title: REGEXP_REPLACE
 description: Reference material for REGEXP_REPLACE functions

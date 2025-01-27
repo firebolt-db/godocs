@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/avg-window.html
 layout: default
 title: AVG OVER
 description: Reference material for AVG function

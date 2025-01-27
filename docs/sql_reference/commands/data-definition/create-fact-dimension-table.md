@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/commands/create-fact-dimension-table.html
 layout: default
 title: CREATE TABLE
 description: Reference and syntax for the CREATE TABLE statement.

@@ -1,4 +1,7 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/json-extract-raw.html
+  - /sql-reference/functions-reference/json-extract.html
 layout: default
 title: JSON_EXTRACT
 description: Reference material for JSON_EXTRACT function

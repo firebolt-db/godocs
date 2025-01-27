@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/commands/show-tables.html
 layout: default
 title: SHOW TABLES
 description: Reference and syntax for the SHOW TABLES command.

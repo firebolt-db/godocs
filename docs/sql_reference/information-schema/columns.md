@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/information-schema/columns.html
 layout: default
 title: Columns
 description: Use this reference to learn about the metadata available for Firebolt columns using the information schema.

@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/param.html
 layout: default
 title: PARAM
 description: Reference material for PARAM function

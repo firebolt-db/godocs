@@ -2,7 +2,7 @@
 layout: default
 title: Data management
 description: Explore how Firebolt supports the data management lifecycle
-nav_order: 4
+nav_order: 5
 parent: Overview
 has_children: false
 ---

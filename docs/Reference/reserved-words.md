@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/reserved-words.html
 layout: default
 title: Reserved words
 description: Provides a list of reserved SQL  words in Firebolt.

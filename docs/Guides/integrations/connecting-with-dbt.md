@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /integrations/data-integration-and-transformation/connecting-with-dbt.html
 layout: default
 title: dbt
 description: Learn how to connect dbt to Firebolt.

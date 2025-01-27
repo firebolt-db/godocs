@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/information-schema/query-history-view.html
 layout: default
 title: Engine query history
 description: Use this reference to learn about the metadata available for historical queries in Firebolt.
@@ -8,9 +10,8 @@ grand_parent: SQL reference
 
 # Information schema for engine query history
 
-You can use the `information_schema.engine_query_history` view to return information about queries saved to query history that were run by the current user. The view is available in each database and contains two rows, the starting and ending row for each historical query in the database. The table is limited to the last 10,000 queries per engine cluster. You can use a `SELECT` query to return information about each query as shown in the following example:
-
-If the user has the `MONITOR USAGE` privilege, they can view all queries executed on the engine.
+You can use the `information_schema.engine_query_history` view to return information about queries saved to query history. The view is available in each database and contains two rows, the starting and ending row for each historical query in the database. The table includes the last ten thousand queries per engine cluster.
+You can run a `SELECT` query to retrieve details about recent queries, as shown in the following example:
 
 ```sql
 SELECT

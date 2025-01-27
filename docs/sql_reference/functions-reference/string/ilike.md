@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/like.html
 layout: default
 title: ILIKE
 description: Reference material for ILIKE function

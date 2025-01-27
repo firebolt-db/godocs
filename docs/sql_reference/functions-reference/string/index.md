@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/md5-number-upper64.html
 layout: default
 title: String functions
 description: Reference for string functions

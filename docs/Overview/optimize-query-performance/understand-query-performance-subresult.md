@@ -1,20 +1,31 @@
 ---
 layout: default
-title: Subresult Reuse
-description: How to understand subresult reuse.
+title: Subresult reuse and result caching
+description: How to understand subresult reuse and result caching.
 parent: Optimize query performance
-nav_order: 1
+nav_order: 2
 has_toc: false
 has_children: false
 ---
 
-# Subresult Reuse in Firebolt
+# Subresult reuse and result caching
 
 *Learn about subresult reuse in Firebolt in more detail in our blog post [Caching & Reuse of Subresults across Queries](https://www.firebolt.io/blog/caching-reuse-of-subresults-across-queries).*
 
 Workloads using repetitive query patterns can benefit tremendously from reuse and caching. Firebolt can cache subresults from various operators within the query plan, including hash tables from hash-joins.
-These subresults are placed in an in-memory FireCache, which can use up to 20% of the available RAM. If a sub-plan is reused in a different query, Firebolt's caching system detects it and can retrieve cached subresults, even if the rest of the query differs. Firebolt uses the following guidelines to determine which subresults to cache:
-- Firebolts optimizer may insert a `MaybeCache` operator above any node in the query plan, which may cache a subresult if it isn't too large. The `MaybeCache` operator may later retrieve and reuse the cached subresult if the same subplan, with the same underlying data, is evaluated again.
+
+
+**Topics**
+* [How firebolt caches subresults](#how-firebolt-caches-subresults) &ndash; An overview about how and when Firebolt caches subresults.
+* [Example](#example) &ndash; How Firebolt's subresult cashing and hash table reuse improve query performance for repetitive and partially similar queries.
+* [Recognizing subresult reuse in query telemetry](#recognizing-subresult-reuse-in-query-telemetry) &ndash; How to view results from `EXPLAIN (ANALYZE)` to check for subresult reuse.
+* [Limitations](#limitations) &ndash; Understand the situations where subresults cannot be cached or used.
+* [Disabling subresult reuse](#disabling-subresult-reuse) &ndash; How to turn off subresult caching for benchmarking or other tests.
+
+# How firebolt caches subresults
+
+Subresults are placed in an in-memory FireCache, which can use up to 20% of the available RAM. If a sub-plan is reused in a different query, Firebolt's caching system detects it and can retrieve cached subresults, even if the rest of the query differs. Firebolt uses the following guidelines to determine which subresults to cache:
+- Firebolt's optimizer may insert a `MaybeCache` operator above any node in the query plan, which may cache a subresult if it isn't too large. The `MaybeCache` operator may later retrieve and reuse the cached subresult if the same subplan, with the same underlying data, is evaluated again.
 Currently, the optimizer places a `MaybeCache` operator in the following places:
   - At the top of the query plan to cache the full result.
   - At nodes where “sideways information passing” occurs, optimizing joins where the probe-side has an indexed key.
@@ -45,9 +56,9 @@ On a subsequent run of exactly the same query (over unchanged data), the `MaybeC
 If the `WHERE` condition is changed to add `... AND o_orderdate >= '1998-01-01'::Date ...`, the subresult cached by the `MaybeCache` operator cannot be used because the query plan below it has changed. However, the subplan below the upper `Join` remains unchanged, allowing the previously cached hash table to be reused in that `JOIN` operator. This eliminates the need to re-evaluate the subplan and rebuild the hash table.
 This results in more than 5x speed improvement on subsequent queries, even when each query has a different date restriction.
 
-# Recognizing Subresult Reuse in Query Telemetry
+# Recognizing subresult reuse in query telemetry
 
-Firebolt transparently leverages subresult reuse. If you want to see whether subresult reuse helped to speed up your query, look for `Nothing was executed` in the [EXPLAIN (ANALYZE)](../../sql_reference/commands/queries/explain.md) output. This shows that an operator was skipped because a higher level operator retrieved the subresult from the FireCache. For example, in the following `EXPLAIN (ANALYZE)` output, the `MaybeCache` operator retrieved the result from the cache, bypassing the need to run the entire query:
+Firebolt transparently leverages subresult reuse. If you want to see whether subresult reuse helped to speed up your query, look for `Nothing was executed` in the [EXPLAIN (ANALYZE)]({% link sql_reference/commands/queries/explain.md %}) output. This shows that an operator was skipped because a higher level operator retrieved the subresult from the FireCache. For example, in the following `EXPLAIN (ANALYZE)` output, the `MaybeCache` operator retrieved the result from the cache, bypassing the need to run the entire query:
 
 ```
 [0] [MaybeCache]
@@ -62,9 +73,17 @@ Firebolt transparently leverages subresult reuse. If you want to see whether sub
 [...]
 ```
 
-# Disabling Subresult Reuse
+# Limitations
+Firebolt supports subresult caching for as many queries as possible. The following are specific limitations where subresult caching cannot be applied:
 
-Firebolt exposes [system settings](../../Reference/system-settings.md) that allow turning off subresult caching at a per-query basis:
+* **Result cache size** &ndash; The result cache is limited 1 MB per result to ensure that large results do not evict smaller cached subresults needed for other queries.
+* **Nondeterministic functions** &ndash; Queries that use nondeterministic functions such as `RANDOM` cannot cache subresults. If an operator in the query plan depends directly or indirectly on the output of a nondeterministic function, caching is disabled.
+* **External table scans** &ndash; Results from external table scans cannot be cached. These tables rely on external data sources, which may change independently of Firebolt's caching mechanism.
+* **Non-equality joins** &ndash; Cross joins and joins that use a join condition that's not an equality (for example, joining on `left_side.colum1 < right_side.column2`) cannot use subresult caching directly. The result cache can still be used for queries using such joins.
+
+# Disabling subresult reuse
+
+Firebolt exposes [system settings]({% link Reference/system-settings.md %}) that allow turning off subresult caching at a per-query basis:
 - Setting `enable_result_cache` to `FALSE` ensures that full query results aren't retrieved from cache, while still allowing for semantic cross-query subresult reuse.
 - Setting `enable_subresult_cache` to `FALSE` disables Firebolt's entire subresult caching layer.
 

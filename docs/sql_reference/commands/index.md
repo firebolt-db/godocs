@@ -1,4 +1,8 @@
 ---
+redirect_from:
+  - /sql-reference/commands/attach-engine.html#engines
+  - /general-reference/information-schema/databases.html#data-definition
+  - /sql-reference/commands
 layout: default
 title: SQL commands
 description: Reference for SQL commands and operators in Firebolt.

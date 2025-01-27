@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /developing-with-firebolt/connecting-with-go.html
 layout: default
 title: Go
 description: Learn about using the Go SDK for Firebolt.

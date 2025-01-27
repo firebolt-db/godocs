@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/commands/stop-engine.html
 layout: default
 title: STOP ENGINE
 description: Reference and syntax for the STOP ENGINE command.

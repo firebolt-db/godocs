@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/to-second.html
 layout: default
 title: TO_TIMESTAMP
 description: Reference material for TO_TIMESTAMP function

@@ -15,7 +15,7 @@ Returns the number of distinct (unique) elements in the array. As with `COUNT` a
 {: .no_toc}
 
 ```sql
-ARRAY_UNIQ(<array>)
+ARRAY_COUNT_DISTINCT(<array>)
 ```
 ## Parameters
 {: .no_toc}
@@ -31,7 +31,7 @@ ARRAY_UNIQ(<array>)
 {: .no_toc}
 
 ```sql
-SELECT ARRAY_UNIQ([ 1, 2, 4, 5, 2, NULL, 5, 1 ]) AS res;
+SELECT ARRAY_COUNT_DISTINCT([ 1, 2, 4, 5, 2, NULL, 5, 1 ]) AS res;
 ```
 
 **Returns**: `4`

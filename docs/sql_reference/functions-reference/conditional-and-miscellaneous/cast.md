@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/to-int.html
 layout: default
 title: CAST
 description: Reference material for CAST function
