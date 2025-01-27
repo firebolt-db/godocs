@@ -1,4 +1,4 @@
-# Firebolt Release Notes - Version 4.13
+## Firebolt Release Notes - Version 4.13
 
 ### New Features
 
