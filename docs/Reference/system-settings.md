@@ -173,7 +173,7 @@ SET warmup = false;
 
 ## Result Cache
 
-Set `enable_result_cache` to `FALSE` to disable the use of Firebolt's result cache, which is set to `TRUE` by default. Disabling result cashing can be useful for benchmarking query performance. When `enable_result_cache` is disabled, resubmitting the same query will recompute the results rather than retrieving them from cache. 
+Set `enable_result_cache` to `FALSE` to disable the use of Firebolt's [result cache]({% link Overview/optimize-query-performance/understand-query-performance-subresult.md %}), which is set to `TRUE` by default. Disabling result cashing can be useful for benchmarking query performance. When `enable_result_cache` is disabled, resubmitting the same query will recompute the results rather than retrieving them from cache. 
 
 ### Syntax
 
