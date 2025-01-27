@@ -24,8 +24,8 @@ Users can now only access information about objects for which they have the appr
 The usage of character `@` is allowed in usernames again, which was previously restricted. The following statements are now valid and will not cause errors.
 
 ```
-CREATE USER "ex@mple";
-ALTER USER user_name RENAME TO "ex@mple";
+CREATE USER "user@example.com";
+ALTER USER user_name RENAME TO "user@example.com";
 ```
 
 <!-- Auto Generated Markdown for FIR-38781 - Owned by jingtao.huang -->
