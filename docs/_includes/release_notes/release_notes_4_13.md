@@ -33,10 +33,9 @@ ALTER USER user_name RENAME TO "user@example.com";
 Resolved a memory overconsumption problem that occurred when importing CSV files into existing tables.
 
 <!-- Auto Generated Markdown for FIR-42413 - Owned by Jonathan Doron -->
-**Resolved `explain vacuum` and `explain` to improve error handling and result accuracy**    
-The behavior of `explain vacuum` has been updated to:
+**Resolved `EXPLAIN VACUUM` and `EXPLAIN` to improve error handling and result accuracy**    
+The following behavior of `EXPLAIN VACUUM` has been updated:
 
-1. Display an accurate error message when a table has already been vacuumed.
-2. Return non-empty results when running `explain vacuum` on an AI.
-
-Additionally, `explain` has been updated to show an error if the specified relation does not exist.
+1. If a table is fully vacuumed, no further actions are performed, and the message "Table is fully vacuumed, no vacuum jobs were executed" is returned to the user.
+2. The `EXPLAIN VACUUM` output no longer returns an empty result when the vacuumed object is an Aggregating index.
+3. `EXPLAIN` has been updated to show an error if the specified relation does not exist.
