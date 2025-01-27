@@ -1,26 +1,14 @@
 ---
 layout: default
-title: Optimize query performance
-description: Guides to optimizing query performance in Firebolt.
+title: Queries overview
+description: Learn about query execution, performance, and optimizations in Firebolt.
 parent: Overview
 has_toc: false
 has_children: true
 ---
 
-# Optimize query performance
-Firebolt employs various optimizations across components like the query planner and execution engine to maximize SQL query performance.
-
-The guides in this section show you the following:
-* What optimizations Firebolt uses to improve query performance.
-* How and when Firebolt applies these optimizations.
-* How you can use Firebolt's telemetry to verify their usage.
-
-Firebolt offers optimizations tailored to different workloads.
-Some optimizations apply to individual queries and take effect immediately when an engine starts.
-Others become powerful at the workload level, leveraging artifacts and telemetry from previous queries to enhance performance.
-
-This section covers both types of optimizations.
-Although Firebolt automatically applies these optimizations, understanding them can help you further improve your query performance.
+# Queries overview
+Firebolt is designed to execute SQL queries efficiently, leveraging advanced optimizations at both the query and workload levels. This section provides an overview of how Firebolt handles queries, the optimizations applied during execution, and tools available for monitoring and improving performance. For guidance on how to run queries and interact with data in Firebolt, see [Query data]({% link Guides/query-data/index.md %}).  
 
 ## Optimizations on a per-query basis
 Firebolt applies specific optimizations at the individual query level to ensure efficient performance, even for complex queries.
@@ -28,7 +16,6 @@ These optimizations take effect immediately when you create an account and start
 
 * [Spilling intermediate query state](./understand-spilling.md) to the local SSD cache. This allows processing queries whose working set exceeds main memory.
 * Firebolt has advanced support for correlated subqueries. These are automatically decorrelated by our query planner to maximize performance.
-
 
 ## Workload-level optimizations
 Homogeneous workloads with repeated query structures can benefit significantly from workload-level optimizations.
@@ -38,3 +25,9 @@ For these workloads, Firebolt leverages multiple different optimizations.
 * [Reusing query sub-results](./understand-query-performance-subresult.md) to reduce redundant calculations across queries.
 * [History-based query optimization](./understand-query-performance-hbs.md), which leverages past query patterns to improve query plans for new queries.
 
+## Query telemetry and monitoring  
+Firebolt provides tools to monitor and analyze query execution:  
+
+- **`EXPLAIN` command**: View the query plan to understand how Firebolt executes your query.  
+- **Telemetry data**: Analyze metrics such as runtime, memory usage, and data processed.  
+- **Query history**: Use views like `information_schema.engine_query_history` to monitor query execution details over time.  

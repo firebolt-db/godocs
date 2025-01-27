@@ -1,17 +1,14 @@
 ---
 layout: default
-title: Understanding History-based Optimization
+title: Understanding history-based optimization
 description: How to understand history-based query optimization
-parent: Optimize query performance
+parent: Queries overview
 nav_order: 1
 has_toc: false
 has_children: false
 ---
 
-# Understanding History-based Optimization
-
-## Overview
-
+# Understanding history-based optimization
 Firebolt's query plans evolve with your workload over time.
 Firebolt implements a feedback loop that enables our query optimizer to learn and improve based on past queries.
 It is designed to progressively come up with better query plans and thereby steadily improve the performance of your queries towards the optimal.
