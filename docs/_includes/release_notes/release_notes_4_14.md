@@ -2,10 +2,6 @@
 
 ### New Features
 
-<!-- Auto Generated Markdown for FIR-42736 - Owned by Demian Hespe -->
-**Supported default values for `GEOGRAPHY` columns when creating tables.**
-Default values are now supported for `GEOGRAPHY` columns. When creating a column of type `GEOGRAPHY`, users can specify a default value. For example, using `CREATE TABLE geo_table (geo_column GEOGRAPHY DEFAULT 'GEOMETRYCOLLECTION EMPTY')` sets a default. This feature simplifies table creation by reducing the need to manually insert default values later.
-
 
 <!-- Auto Generated Markdown for FIR-42324 - Owned by David Boublil -->
 **Enabled support for nested arrays of arrays in Parquet files
