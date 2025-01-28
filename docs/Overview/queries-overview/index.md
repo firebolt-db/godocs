@@ -30,4 +30,4 @@ Firebolt provides the following tools to monitor and analyze query performance:
 
 - **`EXPLAIN` command**: View the query plan to understand how Firebolt executes your query.  
 - **Telemetry data**: Analyze metrics such as runtime, memory usage, and data processed.  
-- **Query history**: Use views like `information_schema.engine_query_history` to monitor query execution details over time.  
+- **Query history**: Use views like `information_schema.engine_query_history` to monitor query performance details over time.  
