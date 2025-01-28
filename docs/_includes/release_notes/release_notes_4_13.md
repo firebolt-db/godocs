@@ -20,7 +20,7 @@ Users can now only access information about objects for which they have the appr
 
 <!-- Auto Generated Markdown for FIR-42575 - Owned by Tal Zelig -->
 **`@` character support restored in usernames**     
-The usage of character `@` is allowed in usernames again, which was previously restricted. The following statements are now valid and will not cause errors.
+The usage of character `@` is allowed in usernames again, which was previously restricted. The following statements are now valid and will not cause errors:
 
 ```
 CREATE USER "user@example.com";
@@ -36,5 +36,5 @@ Resolved a memory overconsumption problem that occurred when importing CSV files
 The following behavior of `EXPLAIN VACUUM` has been updated:
 
 1. If a table is fully vacuumed, no further actions are performed, and the message "Table is fully vacuumed, no vacuum jobs were executed" is returned to the user.
-2. The `EXPLAIN VACUUM` output no longer returns an empty result when the vacuumed object is an Aggregating index.
+2. The `EXPLAIN VACUUM` output no longer returns an empty result when the vacuumed object is an aggregating index.
 3. `EXPLAIN` has been updated to show an error if the specified relation does not exist.
