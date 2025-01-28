@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Queries overview
-description: Learn about query execution, performance, and optimizations in Firebolt.
+description: Learn about running queries, improving performance, and query optimizations in Firebolt.
 parent: Overview
 has_toc: false
 has_children: true
