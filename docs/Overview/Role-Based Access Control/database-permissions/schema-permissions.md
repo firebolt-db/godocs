@@ -25,9 +25,10 @@ To perform actions on a schema or its objects, the role must also have the **USA
 | [INSERT]({% link sql_reference/commands/data-management/insert.md %}) ANY | Allows inserting rows into all current and future tables within the schema.                | `GRANT INSERT ANY ON SCHEMA public IN <database_name> TO <role_name>;`              | `REVOKE INSERT ANY ON SCHEMA public IN <database_name> FROM <role_name>;`         |
 | [UPDATE]({% link sql_reference/commands/data-management/update.md %}) ANY | Allows updating rows in all current and future tables within the schema.                | `GRANT UPDATE ANY ON SCHEMA public IN <database_name> TO <role_name>;`              | `REVOKE UPDATE ANY ON SCHEMA public IN <database_name> FROM <role_name>;`         |
 | [TRUNCATE]({% link sql_reference/commands/data-management/truncate-table.md %}) ANY | Allows truncating all current and future tables within the schema.              | `GRANT TRUNCATE ANY ON SCHEMA public IN <database_name> TO <role_name>;`            | `REVOKE TRUNCATE ANY ON SCHEMA public IN <database_name> FROM <role_name>;`       |
-| [`VACUUM`]({% link sql_reference/commands/data-management/vacuum.md %}) ANY | Allows running the `VACUUM` operation on all current and future tables.                | `GRANT VACUUM ANY ON SCHEMA public IN <database_name> TO <role_name>;`            | `REVOKE VACUUM ANY ON SCHEMA public IN <database_name> FROM <role_name>;`       |
+| [VACUUM]({% link sql_reference/commands/data-management/vacuum.md %}) ANY | Allows running the `VACUUM` operation on all current and future tables.                | `GRANT VACUUM ANY ON SCHEMA public IN <database_name> TO <role_name>;`            | `REVOKE VACUUM ANY ON SCHEMA public IN <database_name> FROM <role_name>;`       |
 | MODIFY ANY | Allows modifying or dropping all current and future objects in the schema.        | `GRANT MODIFY ANY ON SCHEMA public IN <database_name> TO <role_name>;`            | `REVOKE MODIFY ANY ON SCHEMA public IN <database_name> FROM <role_name>;`       |
 | SELECT ANY | Allows reading data from all current and future objects within the schema.                | `GRANT SELECT ANY ON SCHEMA public IN <database_name> TO <role_name>;`             | `REVOKE SELECT ANY ON SCHEMA public IN <database_name> FROM <role_name>;`        |
+| ALL [PRIVILEGES] | Grants all direct privileges over the schema to a role.	                | `GRANT ALL ON SCHEMA public IN <database_name> TO <role_name>;`             | `REVOKE ALL ON SCHEMA public IN <database_name> FROM <role_name>;`        |
 
 ## Examples of granting schema permissions
 
@@ -99,4 +100,11 @@ The following code example gives the role `developer_role` permission to select 
 
 ```sql
 GRANT SELECT ANY ON SCHEMA "public" TO developer_role;
+```
+
+### ALL permissions  
+The following code example gives the role `developer_role` all the direct permissions over schema `public`:
+
+```sql
+GRANT ALL ON SCHEMA "public" TO developer_role;
 ```
