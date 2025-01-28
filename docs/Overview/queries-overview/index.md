@@ -26,7 +26,7 @@ For these workloads, Firebolt leverages multiple different optimizations.
 * [History-based query optimization](./understand-query-performance-hbs.md), which leverages past query patterns to improve query plans for new queries.
 
 ## Query telemetry and monitoring  
-Firebolt provides tools to monitor and analyze query execution:  
+Firebolt provides the following tools to monitor and analyze query performance:  
 
 - **`EXPLAIN` command**: View the query plan to understand how Firebolt executes your query.  
 - **Telemetry data**: Analyze metrics such as runtime, memory usage, and data processed.  
