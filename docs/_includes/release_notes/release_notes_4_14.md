@@ -43,11 +43,6 @@ The result cache now supports queries using cross joins or complex joins with OR
 Accessing `INFORMATION_SCHEMA` now requires `USAGE` permissions on the database. Queries to the `INFORMATION_SCHEMA` will fail if the database lacks these permissions, ensuring consistent behavior with other permission-restricted queries. Users should ensure their databases have the correct permissions to avoid access issues.
 
 
-<!-- Auto Generated Markdown for FIR-42393 - Owned by Judson Wilson -->
-**Certainly! Please provide the content you would like summarized, and I'll be happy to help you create a title for the release note.**
-It seems that the content for the release note is missing. Please provide the text that needs editing, and I will assist you in rewriting it based on your specifications.
-
-
 <!-- Auto Generated Markdown for FIR-42767 - Owned by Demian Hespe -->
 **Updated the `EXPLAIN` command to display accurate default values for `DATE`, `TIMESTAMP`, and `TIMESTAMPTZ` columns.  
 **
