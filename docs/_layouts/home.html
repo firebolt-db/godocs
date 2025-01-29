@@ -187,65 +187,53 @@ layout: default
         </a>
     </div>
 
-<!-- Top Documentation Resources Section -->
-<h2 class="top-docs-title">Documentation resources</h2>
-<div class="top-docs-container">
-    <!-- Overview Section -->
-    <div class="docs-group">
-        <img src="../assets/images/overview-icon.svg" alt="Overview Icon" class="icon">
-        <div class="docs-content">
-            <h3>Overview</h3>
-            <ul>
-                <a href="../Overview/architecture-overview.html" class="red-link">Architecture</a>
-                <a href="../Overview/organizations-accounts.html" class="red-link">Organization and accounts</a>
-                <a href="../Overview/engine-fundamentals.html" class="red-link">Engine fundamentals</a>
-                <a href="../Overview/data-management.html" class="red-link">Data management</a>
-                <a href="../Overview/security.html" class="red-link">Security</a>
-                <a href="../Overview/queries-overview/index.html" class="red-link">Optimize query performance</a>
-                <a href="../Overview/indexes/using-indexes.html" class="red-link">Using indexes</a>
-                <a href="../Overview/working-with-tables/working-with-tables.html" class="red-link">Working with tables</a>
-            </ul>
+    <h2 class="top-docs-title">Documentation Resources</h2>
+    <div class="top-docs-container">
+        <!-- Overview Section -->
+        <div class="docs-group">
+            <img src="../assets/images/overview-icon.svg" alt="Overview Icon" style="width: 40px; height: auto;">
+            <div class="docs-content">
+                <h3>Overview</h3>
+                <div>
+                    {% for page in site.pages %}
+                        {% if page.parent == 'Overview' %}
+                            <a href="{{ page.url | relative_url }}" class="red-link">{{ page.title }}</a><br>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    
+        <!-- Guides Section -->
+        <div class="docs-group">
+            <img src="../assets/images/guides-icon.png" alt="Guides Icon" style="width: 40px; height: auto;">
+            <div class="docs-content">
+                <h3>Guides</h3>
+                <div>
+                    {% for page in site.pages %}
+                        {% if page.parent == 'Guides' %}
+                            <a href="{{ page.url | relative_url }}" class="red-link">{{ page.title }}</a><br>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    
+        <!-- Reference Section -->
+        <div class="docs-group">
+            <img src="../assets/images/reference-icon.png" alt="Reference Icon" style="width: 40px; height: auto;">
+            <div class="docs-content">
+                <h3>Reference</h3>
+                <div>
+                    {% for page in site.pages %}
+                        {% if (page.parent == 'General reference' or page.parent == 'SQL reference') %}
+                            <a href="{{ page.url | relative_url }}" class="red-link">{{ page.title }}</a><br>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
-
-    <!-- Guides Section -->
-    <div class="docs-group">
-        <img src="../assets/images/guides-icon.png" alt="Guides Icon" class="icon">
-        <div class="docs-content">
-            <h3>Guides</h3>
-            <ul>
-                <a href="../Guides/managing-your-organization/index.html" class="red-link">Manage organization</a>
-                <a href="../Guides/getting-started/index.html" class="red-link">Get started</a>
-                <a href="../Guides/loading-data/loading-data.html" class="red-link">Load data</a>
-                <a href="../Guides/developing-with-firebolt/index.html" class="red-link">Develop with Firebolt</a>
-                <a href="../Guides/integrations/integrations.html" class="red-link">Integrate with Firebolt</a>
-                <a href="../Guides/security/index.html" class="red-link">Configure security</a>
-                <a href="../Guides/operate-engines/operate-engines.html" class="red-link">Operate engines</a>
-                <a href="../Guides/working-with-semi-structured-data/working-with-semi-structured-data.html" class="red-link">Work with semi-structured data</a>
-                <a href="../Guides/working-with-indexes/index.html" class="red-link">Work with indexes</a>
-                <a href="../Guides/exporting-data.html" class="red-link">Export data</a>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Reference Section -->
-    <div class="docs-group">
-        <img src="../assets/images/reference-icon.png" alt="Reference Icon" class="icon">
-        <div class="docs-content">
-            <h3>Reference</h3>
-            <ul>
-                <a href="../Reference/available-regions.html" class="red-link">Available regions</a>
-                <a href="../Reference/help-menu.html" class="red-link">Help menu</a>
-                <a href="../Reference/release-notes/release-notes.html" class="red-link">Release notes</a>
-                <a href="../Reference/reserved-words.html" class="red-link">Reserved words</a>
-                <a href="../Reference/object-identifiers.html" class="red-link">Object identifiers</a>
-                <a href="../sql_reference/index.html" class="red-link">SQL reference</a>
-                <a href="../Reference/system-settings.html" class="red-link">System settings</a>
-            </ul>
-        </div>
-    </div>
-</div>
-
-
+    
 </body>
 </html>
