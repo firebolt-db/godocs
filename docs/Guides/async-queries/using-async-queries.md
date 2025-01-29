@@ -43,29 +43,64 @@ If you are using the firebolt UI or a supported SDK, async handling in the clien
 The status of an async query can be checked via the built in stored procedure `fb_GetAsyncStatus`. This will return all the information needed to evaluate if the query was successful or not:
 
 ## Example
-```sql
-USE DATABASE test_db;
-CREATE TABLE test (
-  id text
-);
-SELECT * FROM test; -- Should return 0 rows
+```python
+from time import sleep
 
-SET async = true;
+from firebolt.db import connect
+from firebolt.client.auth import ClientCredentials
 
-INSERT INTO test 
-    SELECT idMod7 as id 
-    FROM (
-        SELECT id%7 as idMod7
-        FROM GENERATE_SERIES(1, 10000000000) s(id)
-    )
-GROUP BY idMod7; -- This will return right away, even if the query isn't finished
+id = "service_account_id"
+secret = "service_account_secret"
+engine_name = "your_engine_name"
+database_name = "your_test_db"
+account_name = "your_account_name"
 
-SET async=false;
+def run_async_query():
+    with connect(
+            engine_name=engine_name,
+            database=database_name,
+            account_name=account_name,
+            auth=ClientCredentials(id, secret),
+    ) as connection:
+        cursor = connection.cursor()
 
-CALL fb_GetAsyncStatus('<token>'); -- This will return the status of the query.
+        # Example query
+        query = (
+            """
+            INSERT INTO example SELECT idMod7 as id 
+            FROM (
+                SELECT id%7 as idMod7
+                FROM GENERATE_SERIES(1, 10000000000) s(id)
+            )
+            GROUP BY idMod7; 
+            """
+        )
+        cursor.execute_async(query)  # Needs firebolt-sdk 1.9.0 or later
+        # Token lets us check the status of the query later
+        token = cursor.async_query_token
+        print(f"Query Token: {token}")
+        
+    with connect(
+            engine_name=engine_name,
+            database=database_name,
+            account_name=account_name,
+            auth=ClientCredentials(id, secret),
+    ) as connection:
+        print("Checking query status...")
+        cursor = connection.cursor()
+        
+        print(f"Query Token: {token}")
+        while connection.is_async_query_running(token):
+            sleep(5)
 
--- Eventually, after the insert is finished
-SELECT * FROM test; -- Should return 7 rows
+        status = "Success" if connection.is_async_query_successful(token) else "Failed"
+        print(f"Query Status: {status}")
+    
+        cursor.execute("SELECT count(*) FROM example;") # Should contain 7 rows
+        for row in cursor.fetchall():
+            print(row)
+
+run_async_query()
 ```
 
 ## Columns in the response of fb_GetAsyncStatus
