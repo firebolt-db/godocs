@@ -31,6 +31,7 @@ For self-hosted deployments on-premises, the Firebolt connector must be installe
 * Save the downloaded driver file in the `/plugins` directory on your Metabase host system.
 * By default, the `/plugins` directory is located in the same folder where the `metabase.jar` file runs.
 After completing these steps, the Firebolt connector will be available for configuration within Metabase.
+
 ### Create a connection to metabase
 
 After setting up the Firebolt connector, use the following steps to create a connection between Metabase and your Firebolt database:
