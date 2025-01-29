@@ -226,7 +226,7 @@ layout: default
                 <h3>Reference</h3>
                 <div>
                     {% for page in site.pages %}
-                        {% if (page.parent == 'General reference' or page.parent == 'SQL reference') %}
+                        {% if page.parent == 'General reference' or page.parent == 'SQL reference' %}
                             <a href="{{ page.url | relative_url }}" class="red-link">{{ page.title }}</a><br>
                         {% endif %}
                     {% endfor %}
