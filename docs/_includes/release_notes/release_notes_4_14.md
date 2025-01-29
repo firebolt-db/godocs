@@ -3,13 +3,6 @@
 ### New Features
 
 
-<!-- Auto Generated Markdown for FIR-42324 - Owned by David Boublil -->
-**Enabled support for nested arrays of arrays in Parquet files
-
-**
-Added support for arrays of arrays with any level of nesting in Parquet. This enhancement facilitates more complex data structures, making it easier to store and query nested data within Parquet files.
-
-
 <!-- Auto Generated Markdown for FIR-42537 - Owned by Pascal Schulze -->
 **Updated `DURATION_US` to include total query time in Firebolt infrastructure for enhanced performance monitoring and optimization.**
 The `DURATION_US` in the system tables `INFORMATION_SCHEMA.ENGINE_RUNNING_QUERIES` and `INFORMATION_SCHEMA.ENGINE_QUERY_HISTORY` now includes the total time a query has spent in the Firebolt infrastructure. Previously, it only tracked time on the engine without considering retries. Now, it also counts time spent in gateway services and on retries. For example, if a query activates a stopped engine, the engine's start-up time is included in the query's duration. This update provides a more accurate representation of query execution time, aiding users in performance monitoring and optimization.
