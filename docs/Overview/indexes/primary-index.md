@@ -53,11 +53,11 @@ To define a primary index, use the following syntax within a `CREATE TABLE` stat
 
 ```sql
 CREATE TABLE <table_name> (
-   <column1> <data_type>,
-   [<column2> <data_type>,
+   <column1> <data_type>
+   [, <column2> <data_type>,
    ...]
-   PRIMARY INDEX(<column_name1>[, <column_name2>, ...])
-);
+)
+PRIMARY INDEX <column_name1>[, <column_name2>, ...];
 ```
 
 ## Parameters
@@ -80,7 +80,7 @@ CREATE [FACT|DIMENSION] TABLE QueryHistory (
   SubmitTime DATE,
   Latency INT
 )
-PRIMARY INDEX (SubmitDate, EngineName);
+PRIMARY INDEX SubmitDate, EngineName;
 ```
 
 ## Considerations
