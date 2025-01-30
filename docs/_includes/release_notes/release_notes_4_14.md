@@ -8,6 +8,10 @@
 The `DURATION_US` in the system tables `INFORMATION_SCHEMA.ENGINE_RUNNING_QUERIES` and `INFORMATION_SCHEMA.ENGINE_QUERY_HISTORY` now includes the total time a query has spent in the Firebolt infrastructure. Previously, it only tracked time on the engine without considering retries. Now, it also counts time spent in gateway services and on retries. For example, if a query activates a stopped engine, the engine's start-up time is included in the query's duration. This update provides a more accurate representation of query execution time, aiding users in performance monitoring and optimization.
 
 
+**Added support for cross-region data ingestion and export.**
+You can now ingest and export data to Amazon S3 buckets located in different regions from your Firebolt engines. Previously, the engine performing the operation needed to be in the same region as the Amazon S3 bucket. Users should note that cross-region transfers will incur additional AWS network fees and longer completion times.
+
+
 ### Behavior Changes
 
 <!-- Auto Generated Markdown for FIR-34196 - Owned by Pascal Schulze -->
