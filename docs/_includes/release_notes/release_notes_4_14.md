@@ -53,12 +53,6 @@ Accessing `INFORMATION_SCHEMA` now requires `USAGE` permissions on the database.
 The `EXPLAIN` command now displays default values for columns of type `DATE`, `TIMESTAMP`, and `TIMESTAMPTZ`. A bug was fixed that previously caused these default values to be shown inaccurately. This update assists users in verifying and understanding query plans more clearly and accurately.
 
 
-<!-- Auto Generated Markdown for FIR-32711 - Owned by Pascal Schulze -->
-**Enabled manual cancellation for ongoing DML queries after connection drops**
-Query Cancellation on Connection Drop
-
-When the network connection between a client and Firebolt is lost, DML queries like `INSERT`, `UPDATE`, and `DELETE` keep running in the background. This change allows users to maintain ongoing operations despite connection interruptions, such as when closing the Firebolt UI tab or experiencing network issues. Users can monitor the progress of these queries in `information_schema.engine_running_queries` or cancel them manually using the `CANCEL QUERY` statement. Meanwhile, DQL queries such as `SELECT` are still automatically canceled when a connection drops.
-
 
 <!-- Auto Generated Markdown for FIR-42032 - Owned by Amit Schreiber -->
 **Resolved filtering issue for views in `information_schema.tables` ensuring visibility based on user permissions
