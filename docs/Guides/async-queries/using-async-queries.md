@@ -33,12 +33,6 @@ A query can be marked as async by setting the query parameter `async=true`. The 
 
 If you are using the firebolt UI or a supported SDK, async handling in the client may already be implemented in an idiomatic way. Your SDK or client should be using firebolt protocal version 2.3 or newer to submit an async query. Query status can be checked using any client at protocal version 2.1 or newer.
 
-## List of clients with async handling built in
-
-- Firebolt UI
-- JDBC driver
-- Python driver
-
 # How to check the status of an async query
 The status of an async query can be checked via the built in stored procedure `fb_GetAsyncStatus`. This will return all the information needed to evaluate if the query was successful or not:
 
@@ -55,52 +49,41 @@ engine_name = "your_engine_name"
 database_name = "your_test_db"
 account_name = "your_account_name"
 
-def run_async_query():
-    with connect(
-            engine_name=engine_name,
-            database=database_name,
-            account_name=account_name,
-            auth=ClientCredentials(id, secret),
-    ) as connection:
-        cursor = connection.cursor()
+# Example insert query
+query = """
+    INSERT INTO example SELECT idMod7 as id
+    FROM (
+        SELECT id%7 as idMod7
+        FROM GENERATE_SERIES(1, 10000000000) s(id)
+    )
+    GROUP BY idMod7;
+    """
 
-        # Example query
-        query = (
-            """
-            INSERT INTO example SELECT idMod7 as id 
-            FROM (
-                SELECT id%7 as idMod7
-                FROM GENERATE_SERIES(1, 10000000000) s(id)
-            )
-            GROUP BY idMod7; 
-            """
-        )
-        cursor.execute_async(query)  # Needs firebolt-sdk 1.9.0 or later
-        # Token lets us check the status of the query later
-        token = cursor.async_query_token
-        print(f"Query Token: {token}")
-        
-    with connect(
-            engine_name=engine_name,
-            database=database_name,
-            account_name=account_name,
-            auth=ClientCredentials(id, secret),
-    ) as connection:
+with connect(
+    engine_name=engine_name,
+    database=database_name,
+    account_name=account_name,
+    auth=ClientCredentials(id, secret),
+) as connection:
+    cursor = connection.cursor()
+
+    cursor.execute_async(query) # Needs firebolt-sdk 1.9.0 or later
+    # Token lets us check the status of the query later
+    token = cursor.async_query_token
+    print(f"Query Token: {token}")
+
+    # Block until the query is done
+    # You can also do other work here
+    while connection.is_async_query_running(token):
         print("Checking query status...")
-        cursor = connection.cursor()
-        
-        print(f"Query Token: {token}")
-        while connection.is_async_query_running(token):
-            sleep(5)
+        sleep(5)
 
-        status = "Success" if connection.is_async_query_successful(token) else "Failed"
-        print(f"Query Status: {status}")
-    
-        cursor.execute("SELECT count(*) FROM example;") # Should contain 7 rows
-        for row in cursor.fetchall():
-            print(row)
+    status = "Success" if connection.is_async_query_successful(token) else "Failed"
+    print(f"Query Status: {status}")
 
-run_async_query()
+    cursor.execute("SELECT count(*) FROM example;")  # Should contain 7 rows
+    for row in cursor.fetchall():
+        print(row)
 ```
 
 ## Columns in the response of fb_GetAsyncStatus
