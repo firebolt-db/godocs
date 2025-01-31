@@ -9,7 +9,7 @@ Added a new column `E2E_DURATION_US` in the system tables `INFORMATION_SCHEMA.EN
 
 
 **Added support for cross-region data ingestion and export.**
-You can now ingest and export data to Amazon S3 buckets located in different regions from your Firebolt engines. Previously, the engine performing the operation needed to be in the same region as the Amazon S3 bucket. Users should note that cross-region transfers will incur additional AWS network fees and longer completion times.
+You can now ingest and export data to Amazon S3 buckets located in different AWS Regions from your Firebolt engines. Previously, the engine had to be in the same region as the Amazon S3 bucket. **Cross-region transfers will incur additional AWS network fees and longer processing times**.
 
 
 ### Behavior Changes
