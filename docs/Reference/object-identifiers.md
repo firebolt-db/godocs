@@ -4,7 +4,7 @@ redirect_from:
 layout: default
 title: Object identifers
 description: Provides requirements and guidance for using SQL identifiers with Firebolt.
-nav_order: 5
+nav_order: 4
 parent: General reference
 ---
 
