@@ -32,7 +32,7 @@ To grant permissions across all tables in a schema, use [schema-level privileges
 
 ## Aggregating Indexes
 
-An [aggregating index]({% link Guides/working-with-indexes/using-aggregating-indexes.md %}) in Firebolt accelerates queries  involving aggregate functions on large tables. This reduces compute usage and improves query performance.
+An [aggregating index]({% link Overview/indexes/aggregating-index.md %}) in Firebolt accelerates queries involving aggregate functions on large tables. This reduces compute usage and improves query performance.
 
 To **create** or **drop** an aggregating index, a role must have the following permissions:
 

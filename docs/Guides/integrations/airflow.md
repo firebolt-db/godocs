@@ -101,7 +101,7 @@ A DAG file in Airflow is a Python script that defines tasks and their execution 
 
 * Start a Firebolt [engine]({% link Overview/engine-fundamentals.md %}). 
 * Create an [external table]({% link Guides/loading-data/working-with-external-tables.md %}) linked to an Amazon S3 data source.
-* Create a fact table for ingested data. For more information, see [Working with tables]({% link Overview/working-with-tables/working-with-tables.md %}).
+* Create a fact table for ingested data. For more information, see [Firebolt-managed tables]({% link Overview/indexes/using-indexes.md %}#firebolt-managed-tables).
 * Insert data into the fact table.
 * Stop the Firebolt engine. This task is not required if your engine has `AUTO_STOP` configured
 

@@ -425,7 +425,7 @@ The example output under `recommended_partition_key` suggests partitioning the `
 
 ### Additional resources
 
-* [Working with tables]({% link Overview/working-with-tables/working-with-tables.md %}) &ndash; An overview of how to create, manage, and optimize tables.
-* [Working with partitions]({% link Overview/working-with-tables/working-with-partitions.md %}) &ndash; How to divide large tables into smaller partitions for optimal query efficiency and performance.
+* [Working with tables]({% link Overview/indexes/using-indexes.md %}#firebolt-managed-tables) &ndash; An overview of how to create, manage, and optimize tables.
+* [Partitions in tables]({% link Overview/indexes/using-indexes.md %}#partitions-in-tables) &ndash; How to divide large tables into smaller partitions for optimal query efficiency and performance.
 * [RECOMMEND_DDL]({% link sql_reference/commands/queries/recommend_ddl.md %}) &ndash; Information on syntax, parameters and examples of using Firebolt’s tool to automatically recommend optimal primary index and partition strategies.
 

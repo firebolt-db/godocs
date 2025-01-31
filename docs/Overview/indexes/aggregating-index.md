@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Aggregating Indexes
+title: Aggregating index
 description: Aggregating index overview
 parent: Data modeling
 nav_order: 1
@@ -11,8 +11,6 @@ nav_order: 1
 Firebolt's aggregating index is a powerful tool for improving performance in large-scale analytics. Similar to a materialized view, it precomputes and stores the results of aggregate functions, allowing queries to access data directly from the index instead of scanning the entire table. This approach greatly reduces compute overhead and speeds up query times, making it especially useful for repetitive tasks like generating dashboards and reports.
 
 Aggregating indexes are automatically updated in real-time whenever new data is added or when changes, such as `DELETE` or `UPDATE` operations, are made to the base table. Firebolt also enhances performance by dividing aggregating indexes into smaller segments that are distributed across multiple engine nodes. This allows queries to run in parallel across these nodes, improving both scalability and efficiency while ensuring that the data remains consistent and accurate.
-
-For more information, see [How aggregating indexes work]({% link Guides/working-with-indexes/using-aggregating-indexes.md %}#how-aggregating-indexes-work).
 
 Topics:
 * [Key features](#key-features)
@@ -71,7 +69,6 @@ In the previous code example, `product_id` and `region` are grouping keys that a
 
 Because the code example precomputes `SUM` and `COUNT`, subsequent queries using these aggregations can retrieve the precomputed values directly from the index, avoiding a full table scan.
 
-For more information about selecting an index, see [How to choose aggregating index columns]({% link Guides/working-with-indexes/using-aggregating-indexes.md %}#how-to-choose-aggregating-index-columns).
 
 ## Considerations
 
@@ -90,5 +87,3 @@ For more information about selecting an index, see [How to choose aggregating in
 
   * **Frequent batch inserts** &ndash; These inserts can lead to fragmented data in the aggregating index table.
   * **Base table mutations** &ndash; Operations like `DELETE` or `UPDATE` on the base table can also cause fragmentation, impacting query performance.
-
-  For more information, see [Aggregating index tradeoffs]({% link Guides/working-with-indexes/using-aggregating-indexes.md %}#how-aggregating-indexes-work).
