@@ -15,7 +15,7 @@ You can now ingest and export data to Amazon S3 buckets located in different AWS
 ### Behavior Changes
 
 <!-- Auto Generated Markdown for FIR-34196 - Owned by Pascal Schulze -->
-**Removed support for legacy HTTP ClickHouse headers `X-ClickHouse`**
+**Removed support for legacy  `X-ClickHouse` HTTP ClickHouse headers**
 The system no longer accepts or returns legacy HTTP ClickHouse headers of the format `X-ClickHouse`. This helps to maintain compatibility and standardization across API interactions.
 
 
