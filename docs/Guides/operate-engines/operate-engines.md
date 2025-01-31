@@ -4,7 +4,7 @@ redirect_from:
 layout: default
 title: Operate Engines
 description: Work with Firebolt engines.
-nav_order: 5
+nav_order: 3
 has_children: true
 has_toc: true
 parent: Guides

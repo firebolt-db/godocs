@@ -3,8 +3,7 @@ layout: default
 title: Account Permissions
 description: Learn about account-level permissions in Firebolt.
 parent: Role-Based Access Control
-grand_parent: Overview
-nav_order: 1
+nav_order: 5
 ---
 
 # Account permissions

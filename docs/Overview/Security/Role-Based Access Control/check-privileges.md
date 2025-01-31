@@ -3,8 +3,7 @@ layout: default
 title: Check Assigned Privileges
 description: Learn how to view and verify assigned privileges for users and roles in Firebolt.
 parent: Role-Based Access Control
-grand_parent: Overview
-nav_order: 7
+nav_order: 8
 ---
 
 # Check assigned privileges

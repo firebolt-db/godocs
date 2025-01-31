@@ -2,7 +2,7 @@
 layout: default
 title: Spilling
 description: How to understand spilling and reason about its effects.
-parent: Queries overview
+parent: Queries
 nav_order: 3
 has_toc: false
 has_children: false

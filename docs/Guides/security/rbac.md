@@ -14,7 +14,7 @@ Role-Based Access Control (RBAC) allows you to manage user permissions by contro
 ## Prerequisites
 The following material can help you understand key concepts related to organizations and RBAC in Firebolt:
 * [Organizations and accounts]({% link Overview/organizations-accounts.md %}) &ndash; How Firebolt provides a structure for managing users, resources, and permissions.
-* [Role-Based Access Control]({% link Overview/Role-Based Access Control/index.md %}) &ndash; How administrators manage user permissions and control access to resources based on predefined roles.
+* [Role-Based Access Control]({% link Overview/Security/Role-Based Access Control/index.md %}) &ndash; How administrators manage user permissions and control access to resources based on predefined roles.
 
 
 ## View all roles 

@@ -3,8 +3,7 @@ layout: default
 title: Engine Permissions
 description: Learn about engine-level permissions in Firebolt.
 parent: Role-Based Access Control
-grand_parent: Overview
-nav_order: 3
+nav_order: 6
 ---
 
 # Engine permissions

@@ -4,7 +4,7 @@ redirect_from:
 layout: default
 title: Information schema
 description: Reference for Information Schema views
-nav_order: 6
+nav_order: 2
 parent: SQL reference
 has_toc: true 
 has_children: true

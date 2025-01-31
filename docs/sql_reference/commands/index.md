@@ -7,6 +7,7 @@ layout: default
 title: SQL commands
 description: Reference for SQL commands and operators in Firebolt.
 parent: SQL reference
+nav_order: 5
 has_children: true
 has_toc: false
 ---
