@@ -4,8 +4,8 @@
 
 
 <!-- Auto Generated Markdown for FIR-42537 - Owned by Pascal Schulze -->
-**Updated `DURATION_US` to include total query time in Firebolt infrastructure for enhanced performance monitoring and optimization.**
-Added a new column `E2E_DURATION_US` in the system tables `INFORMATION_SCHEMA.ENGINE_RUNNING_QUERIES`, `INFORMATION_SCHEMA.ENGINE_QUERY_HISTORY` and INFORMATION_SCHEMA.ENGINE_USER_QUERY_HISTORY which shows the total time a query has spent in the Firebolt infrastructure. In contract, `DURATION_US`, only tracks the time on the engine without considering retries. `E2E_DURATION_US` also counts time spent in gateway services and on retries. For example, if a query activates a stopped engine, the engine's start-up time is included in the query's end-to-end duration. This update provides a more accurate representation of query execution time, aiding users in performance monitoring and optimization.
+**Updated `E2E_DURATION_US` to include total query time in Firebolt infrastructure for enhanced performance monitoring and optimization.**
+Added a new column `E2E_DURATION_US` in the system tables `INFORMATION_SCHEMA.ENGINE_RUNNING_QUERIES`, `INFORMATION_SCHEMA.ENGINE_QUERY_HISTORY` and `INFORMATION_SCHEMA.ENGINE_USER_QUERY_HISTORY` which shows the total time a query has spent within the Firebolt infrastructure. In contrast, `DURATION_US`, measures only the time spent using the engine without considering retries. `E2E_DURATION_US` also counts time spent in gateway services and on retries. For example, if a query starts a stopped engine, the engine's startup time is included in the query's end-to-end duration. This update provides a more accurate representation of query runtime, for performance monitoring and optimization.
 
 
 **Added support for cross-region data ingestion and export.**
@@ -25,7 +25,7 @@ The system no longer accepts or returns legacy HTTP ClickHouse headers of the fo
 **Enhanced data ingestion performance for `GEOGRAPHY` objects of type `POINT`
 
 **
-Enhanced the performance of data ingestion for `GEOGRAPHY` objects of type `POINT`. This improvement speeds up the process of loading geographical point data, allowing for quicker data integration and analysis.
+Improved data loading performance for `GEOGRAPHY` objects of type `POINT`, enabling faster loading of geographical point data for quicker data integration and analysis.
 
 
 <!-- Auto Generated Markdown for FIR-42803 - Owned by Asya Shneerson -->
@@ -36,8 +36,8 @@ Improved the performance of `SELECT` queries on External Tables when URLs point 
 
 
 <!-- Auto Generated Markdown for FIR-42519 - Owned by Demian Hespe -->
-**Added support for queries with cross joins and complex joins to the result cache to enhance performance by reducing repeated calculations**
-The result cache now supports queries using cross joins or complex joins with OR conditions and inequalities. This change improves query performance by reducing the need for repeated calculations.
+**Added result cache support for cross and complex joins for improved performance**
+The result cache now supports queries using cross joins or complex joins with `OR` conditions and inequalities. This change reduces redundant calculations, improving query performance.
 
 
 ### Bug Fixes
