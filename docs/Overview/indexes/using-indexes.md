@@ -6,7 +6,7 @@ title: Data modeling
 description: Understand how to organize data from efficient retrieval in Firebolt
 parent: Overview
 has_children: true
-nav_order: 6
+nav_order: 5
 ---
 
 # Data modeling
@@ -37,21 +37,30 @@ Firebolt’s data modeling strategies work best with **Firebolt’s managed tabl
 The following sections show you how to use the previous data modeling strategies to decrease the number of bytes scanned to improve query performance, reduce storage costs, and optimize compute resources.
 
 Topics:
-* [Databases](#databases)
-    * [Create a database](#create-a-database)
-    * [Manage a database](#manage-a-database)
-    * [Database best practices](#database-best-practices)
-    * [Evaluate your database for performance](#evaluate-your-database-for-performance)
-* [Schema](#schema)
-    * [Schema best practices](#schema-best-practices)
-* [Tables](#tables)
-    * [Firebolt-managed tables](#firebolt-managed-tables)
-    * [External tables](#external-tables)
-    * [Editing and deleting tables](#editing-and-deleting-tables)
-    * [Primary indexes in tables](#primary-indexes-in-tables)
-    * [Aggregating indexes in tables](#aggregating-indexes-in-tables)
-    * [Suggested indexes and partitions](#suggested-indexes-and-partitions)
-* [Additional resources](#additional-resources)
+- [Data modeling](#data-modeling)
+  - [How it works](#how-it-works)
+    - [Databases](#databases)
+      - [Create a database](#create-a-database)
+      - [Manage a database](#manage-a-database)
+      - [Database best practices](#database-best-practices)
+        - [Database best practice example](#database-best-practice-example)
+      - [Evaluate your database for performance](#evaluate-your-database-for-performance)
+    - [Schema](#schema)
+      - [Schema best practices](#schema-best-practices)
+    - [Tables](#tables)
+      - [Firebolt-managed tables](#firebolt-managed-tables)
+      - [External tables](#external-tables)
+      - [Editing and deleting tables](#editing-and-deleting-tables)
+      - [Primary indexes in tables](#primary-indexes-in-tables)
+        - [Create a primary index](#create-a-primary-index)
+        - [Primary index best practices](#primary-index-best-practices)
+      - [Aggregating indexes in tables](#aggregating-indexes-in-tables)
+        - [Create an aggregating index](#create-an-aggregating-index)
+        - [Best practices for aggregate indexes](#best-practices-for-aggregate-indexes)
+      - [Partitions in tables](#partitions-in-tables)
+        - [Create a partition](#create-a-partition)
+      - [Suggested indexes and partitions](#suggested-indexes-and-partitions)
+    - [Additional resources](#additional-resources)
 
 ---
 

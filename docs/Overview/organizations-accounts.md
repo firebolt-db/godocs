@@ -118,7 +118,7 @@ In Firebolt, each user is associated with either a **login**, which is an email 
 
 <img src="../../assets/images/user_login_service-account.png" alt="A user must be associated with either a login or a service account." width="400">
 
-The role grants the user permission to access resources inside the account that they are associated with. A user can have several roles associated with them at the same time. Firebolt has built-in roles with defined permissions. You can also define a [custom role]({% link Overview/Role-Based Access Control/role-management/custom-roles.md %}) that grants permissions specific to your use case.
+The role grants the user permission to access resources inside the account that they are associated with. A user can have several roles associated with them at the same time. Firebolt has built-in roles with defined permissions. You can also define a [custom role]({% link Overview/Security/Role-Based Access Control/role-management/custom-roles.md %}) that grants permissions specific to your use case.
 
 #### Firebolt built-in roles
 

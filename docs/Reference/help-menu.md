@@ -4,7 +4,7 @@ redirect_from:
 layout: default
 title: Help menu
 description: Describes the options of the Firebolt "Help" menu
-nav_order: 7
+nav_order: 6
 parent: General reference
 ---
 
@@ -93,7 +93,7 @@ To grant access to the support team:
 3. Fill in the following:
 
     - **Duration** - Specify the duration for which you'd like to grant access to the support team. Once this period ends, access will be automatically revoked.
-    - **Assign Roles** - Select the role(s) that you want to assign to the support team. Their access will be limited to these roles. You can create a dedicated role by following the [instructions here]({%link Overview/Role-Based Access Control/role-management/custom-roles.md %}). Note that the support team will have full access data at the organization level.
+    - **Assign Roles** - Select the role(s) that you want to assign to the support team. Their access will be limited to these roles. You can create a dedicated role by following the [instructions here]({%link Overview/Security/Role-Based Access Control/role-management/custom-roles.md %}). Note that the support team will have full access data at the organization level.
 
 4. Select **Grant Access**.
 

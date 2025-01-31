@@ -11,7 +11,7 @@ grand_parent: SQL reference
 You can use the `information_schema.schemata` view to return information about schemas available in the database.
 Run a `SELECT` query to return information about each schema as shown in the example below.
 
-To view schema information, you must have [schema privilege]({% link Overview/Role-Based Access Control/database-permissions/schema-permissions.md %}#schema-level-privileges) or ownership of the schema object. 
+To view schema information, you must have [schema privilege]({% link Overview/Security/Role-Based Access Control/database-permissions/schema-permissions.md %}#schema-level-privileges) or ownership of the schema object. 
 
 ```sql
 SELECT

@@ -2,7 +2,7 @@
 layout: default
 title: Understanding history-based optimization
 description: How to understand history-based query optimization
-parent: Queries overview
+parent: Queries
 nav_order: 1
 has_toc: false
 has_children: false

@@ -2,7 +2,7 @@
 layout: default
 title: Subresult reuse and result caching
 description: How to understand subresult reuse and result caching.
-parent: Queries overview
+parent: Queries
 nav_order: 2
 has_toc: false
 has_children: false

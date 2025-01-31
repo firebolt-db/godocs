@@ -2,7 +2,7 @@
 layout: default
 title: Security
 description: Introduction to Firebolt security features and functionality
-nav_order: 7
+nav_order: 8
 parent: Overview
 ---
 
@@ -34,14 +34,14 @@ Firebolt's layered security model has the following key areas:
 
 Firebolt ensures secure data transmission by implementing end-to-end encryption with Transport Layer Security (TLS) version 1.2, protecting data as it moves between end users and the cloud service.
 
-Firebolt supports the creation of custom [network policies](../Guides/security/network-policies.md), adding an extra layer of security to your applications. This functionality allows administrators to exercise fine-grained control over which IP ranges can access Firebolt. 
+Firebolt supports the creation of custom [network policies]({% link Guides/security/network-policies.md %}), adding an extra layer of security to your applications. This functionality allows administrators to exercise fine-grained control over which IP ranges can access Firebolt. 
 
 In Firebolt, network policies contain `allowed_IP_list` and `blocked_IP_list` properties that capture definition of IP address ranges. Each property is a list that can contain one or more IP ranges.
 
 Firebolt supports individual and programmatic access through the following: 
-* [Login](../Guides/managing-your-organization/managing-logins.md) - A login object represents an individual user, identified by an email address, who will authenticate by verifying their identity to access Firebolt.
+* [Login]({% link Guides/managing-your-organization/managing-logins.md %}) - A login object represents an individual user, identified by an email address, who will authenticate by verifying their identity to access Firebolt.
 
-* [Service account](../Guides/managing-your-organization/service-accounts.md) - A service account object is used to represent a machine or application that will authenticate and interact with Firebolt without human intervention.
+* [Service account]({% link Guides/managing-your-organization/service-accounts.md %}) - A service account object is used to represent a machine or application that will authenticate and interact with Firebolt without human intervention.
 
 {: .no_toc}
 
@@ -54,7 +54,7 @@ CREATE NETWORK POLICY IF NOT EXISTS my_network_policy WITH ALLOWED_IP_LIST = (â€
 DESCRIPTION = 'my new network policy'
 ```
 
-A network policy can be attached to [an organization](../Guides/managing-your-organization/creating-an-organization.md), individual logins, and service accounts. 
+A network policy can be attached to [an organization]({% link Guides/managing-your-organization/creating-an-organization.md %}), individual logins, and service accounts. 
 
 {: .no_toc}
 
@@ -68,7 +68,7 @@ ALTER ORGANIZATION my_organization SET NETWORK_POLICY = my_network_policy;
 ALTER LOGIN 'kate@acme.com' SET NETWORK_POLICY = my_network_policy;
 ```
 
-For more information, see [network policies](../Guides/security/network-policies.md).
+For more information, see [network policies]({% link Guides/security/network-policies.md %}).
 
 ## Identity management
 
@@ -82,13 +82,13 @@ Firebolt provides the SSO and MFA authentication methods.
 
 ### Single sign-On (SSO)
 
-[Single Sign-On (SSO)](../Guides/security/sso/) is an authentication method that allows users to access multiple applications or services using a single set of login credentials, simplifying the authentication process and improving security through centralized identity management. Firebolt uses SSO to simplify and streamline implementation of secure access to its platform, enhancing the overall security posture and protecting against unauthorized access and data breaches. SSO configuration is accessible to users with the `org_account` built-in role.
+[Single Sign-On (SSO)]({% link Guides/security/sso/index.md %}) is an authentication method that allows users to access multiple applications or services using a single set of login credentials, simplifying the authentication process and improving security through centralized identity management. Firebolt uses SSO to simplify and streamline implementation of secure access to its platform, enhancing the overall security posture and protecting against unauthorized access and data breaches. SSO configuration is accessible to users with the `org_account` built-in role.
 
 {: .no_toc}
 
 ### Multi-factor authentication (MFA)
 
-[MFA](../Guides/security/enabling-mfa.md) strengthens security by requiring users to provide multiple forms of authentication to access their accounts. 
+[MFA]({% link Guides/security/enabling-mfa.md %}) strengthens security by requiring users to provide multiple forms of authentication to access their accounts. 
 Many industries have compliance and regulatory standards that require the use of MFA for securing certain types of data and systems. Firebolt fully supports these standards by offering MFA configuration and implementation directly linked to the login object, ensuring secure and compliant access control.
 
 {: .no_toc}
@@ -107,7 +107,7 @@ IS_MFA_ENABLED = TRUE;
 
 ## Access control
 
-Access control ensures that users have the necessary and appropriate permissions to engage with Firebolt's system or resources. Firebolt implements [role-based access control](../Guides/security/rbac.md) (RBAC) to manage permissions.
+Access control ensures that users have the necessary and appropriate permissions to engage with Firebolt's system or resources. Firebolt implements [role-based access control]({% link Guides/security/rbac.md %}) (RBAC) to manage permissions.
 
 The RBAC model is centered around the following principles: 
 
@@ -128,13 +128,13 @@ The RBAC model contains the following:
 
 A role is a set of permissions assigned to a user or group that defines what actions they are authorized to perform and what resources they can access within Firebolt. Firebolt has the following types of roles:
 
-1) **Built-in roles** have a set of pre-defined permissions and custom user-defined roles that can allow for more specific use cases. You can use [GRANT](../sql_reference/commands/access-control/grant.md) and [REVOKE](../sql_reference/commands/access-control/revoke.md) statements to modify permissions for custom roles. Built-in roles become available as soon as a new organization is created, and the first account is set up.
+1) **Built-in roles** have a set of pre-defined permissions and custom user-defined roles that can allow for more specific use cases. You can use [GRANT]({% link sql_reference/commands/access-control/grant.md %}) and [REVOKE]({% link sql_reference/commands/access-control/revoke.md %}) statements to modify permissions for custom roles. Built-in roles become available as soon as a new organization is created, and the first account is set up.
 
 2) **User-defined roles** are custom roles that administrators can create to grant a specific set of permissions.
 
-3) **System-defined roles** align with common user personas and responsibilities including `public`, which is granted to each new user by default, a `system_admin` role, and an `account_admin` role. For more information about these roles, see [System-defined roles]({% link Overview/Role-Based Access Control/role-management/system-roles.md %}). 
+3) **System-defined roles** align with common user personas and responsibilities including `public`, which is granted to each new user by default, a `system_admin` role, and an `account_admin` role. For more information about these roles, see [System-defined roles]({% link Overview/Security/Role-Based Access Control/role-management/system-roles.md %}). 
 
-You can create a role by using either the **Firebolt Workspace** or using the [CREATE ROLE](../sql_reference/commands/access-control/create-role.md) SQL statement.
+You can create a role by using either the **Firebolt Workspace** or using the [CREATE ROLE]({% link sql_reference/commands/access-control/create-role.md %}) SQL statement.
 
 {: .no_toc}
 
@@ -150,7 +150,7 @@ CREATE ROLE sales;
 
 ### Users
 
-Users are linked to either a login or service account in order to gain access to Firebolt. They can be created using the [CREATE USER](../sql_reference/commands/access-control/create-user.md) statement in SQL or through the **Firebolt Workspace**. 
+Users are linked to either a login or service account in order to gain access to Firebolt. They can be created using the [CREATE USER]({% link sql_reference/commands/access-control/create-user.md %}) statement in SQL or through the **Firebolt Workspace**. 
 
 **Example**
 
@@ -173,9 +173,9 @@ REVOKE ROLE sales FROM bob;
 
 ### Objects and permissions
 
-Permissions in Firebolt define the actions or operations that can be performed, such as managing databases and engines, running queries, or accessing data. Each instance of a securable object, or an object that can be protected by access controls, has specific permissions that are associated with it, controlling what users can do with it. Examples of securable objects include databases, tables, and engines. If there are multiple instances of an engine object, each instance has its own set of predefined permissions. For a full list of available permissions, see [role-based access control]({% link Overview/Role-Based Access Control/index.md %})
+Permissions in Firebolt define the actions or operations that can be performed, such as managing databases and engines, running queries, or accessing data. Each instance of a securable object, or an object that can be protected by access controls, has specific permissions that are associated with it, controlling what users can do with it. Examples of securable objects include databases, tables, and engines. If there are multiple instances of an engine object, each instance has its own set of predefined permissions. For a full list of available permissions, see [role-based access control]({% link Overview/Security/Role-Based Access Control/index.md %})
 
-Any permission that Firebolt supports can be [granted](../sql_reference/commands/access-control/grant.md) or [revoked](../sql_reference/commands/access-control/revoke.md) to or from roles. 
+Any permission that Firebolt supports can be [granted]({% link sql_reference/commands/access-control/grant.md %}) or [revoked]({% link sql_reference/commands/access-control/revoke.md %}) to or from roles. 
 
 {: .no_toc}
 

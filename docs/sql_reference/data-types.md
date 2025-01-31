@@ -5,7 +5,7 @@ redirect_from:
 layout: default
 title: Data types
 description: Provides the SQL data types available in Firebolt.
-nav_order: 5
+nav_order: 1
 parent: SQL reference
 ---
 

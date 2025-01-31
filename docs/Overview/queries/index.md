@@ -1,13 +1,15 @@
 ---
 layout: default
-title: Queries overview
+title: Queries
 description: Learn about running queries, improving performance, and query optimizations in Firebolt.
 parent: Overview
+nav_order: 7
 has_toc: false
 has_children: true
+
 ---
 
-# Queries overview
+# Queries
 Firebolt is designed to run SQL queries efficiently, using advanced optimizations at both the query and workload levels. This section provides an overview of how Firebolt processes queries, the optimizations applied during query handling, and the tools available for monitoring and improving performance. For guidance on how to run queries and interact with data in Firebolt, see [Query data]({% link Guides/query-data/index.md %}).  
 
 ## Optimizations on a per-query basis
