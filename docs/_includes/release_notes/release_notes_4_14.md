@@ -8,8 +8,8 @@
 Added a new column `E2E_DURATION_US` in the system tables `INFORMATION_SCHEMA.ENGINE_RUNNING_QUERIES`, `INFORMATION_SCHEMA.ENGINE_QUERY_HISTORY` and `INFORMATION_SCHEMA.ENGINE_USER_QUERY_HISTORY` which shows the total time a query has spent within the Firebolt infrastructure. In contrast, `DURATION_US`, measures only the time spent using the engine without considering retries or routing. The `E2E_DURATION_US` metric measures the total time a query takes from initiation to final result delivery - it includes all sub-components of latency such as routing, preparation, queuing, compilation, retries, and execution times. For example, if a query starts a stopped engine, the engine's startup time is included in the query's end-to-end duration. This update provides a more accurate representation of total query latency, for performance monitoring and optimization.
 
 
-**Added support for cross-region data ingestion and export.**
-You can now ingest and export data to Amazon S3 buckets located in different AWS Regions from your Firebolt engines. Previously, the engine had to be in the same region as the Amazon S3 bucket. **Cross-region transfers will incur additional AWS network fees and longer processing times**.
+**Added support for cross-region data access and export.**
+You can now run queries that access data in Amazon S3 buckets located in different AWS regions, as well as export to these buckets from your Firebolt engines. Previously, the engine had to be in the same region as the Amazon S3 bucket. **Cross-region transfers will incur additional AWS network fees and longer processing times**.
 
 
 ### Performance Improvements
