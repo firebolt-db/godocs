@@ -48,7 +48,7 @@ The `EXPLAIN` command now displays default values for columns of type `DATE`, `T
 
 
 <!-- Auto Generated Markdown for FIR-42032 - Owned by Amit Schreiber -->
-**Resolved filtering issue for views in `information_schema.tables` ensuring visibility based on user permissions
+**Resolved filtering issue for views in `information_schema.tables` to enforce user permissions
 
 **
 Fixed an issue in `information_schema.tables` where filtering for views did not function correctly. It now filters views based on permissions. This ensures users only see views they are authorized to access, improving data security.
