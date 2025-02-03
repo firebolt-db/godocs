@@ -48,7 +48,7 @@ Accessing `INFORMATION_SCHEMA` now requires `USAGE` permissions on the database.
 
 
 <!-- Auto Generated Markdown for FIR-42767 - Owned by Demian Hespe -->
-**Updated the `EXPLAIN` command to display accurate default values for `DATE`, `TIMESTAMP`, and `TIMESTAMPTZ` columns.  
+**Improved `EXPLAIN` command accuracy for default values of `DATE`, `TIMESTAMP`, and `TIMESTAMPTZ` columns.  
 **
 The `EXPLAIN` command now displays default values for columns of type `DATE`, `TIMESTAMP`, and `TIMESTAMPTZ` columns. This update fixes a bug that previously caused default values to be shown incompletely, improving clarity and accuracy in query plan analysis.
 
