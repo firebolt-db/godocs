@@ -20,23 +20,11 @@ Async queries should be used for any supported operation that may take more than
 - Engine operations (START ENGINE, STOP ENGINE, ALTER ENGINE, etc.)
 
 # How to submit an async query
-A query can be marked as async by setting the query parameter `async=true`. The query will return as soon as the query is accepted by the engine with HTTP status 202, and the body will contain the token. 
 
-## Example body
-```
-{
-  "message": "the query was accepted for async processing",
-  "token": ["<token>"],
-  "monitorSql": "CALL fb_GetAsyncStatus('<token>');"
-}
-```
+## Using a firebolt SDK
+Some firebolt SDKs have idiomatic async support built in. 
 
-If you are using the firebolt UI or a supported SDK, async handling in the client may already be implemented in an idiomatic way. Your SDK or client should be using firebolt protocal version 2.3 or newer to submit an async query. Query status can be checked using any client at protocal version 2.1 or newer.
-
-# How to check the status of an async query
-The status of an async query can be checked via the built in stored procedure `fb_GetAsyncStatus`. This will return all the information needed to evaluate if the query was successful or not:
-
-## Example
+## Python Example
 ```python
 from time import sleep
 
@@ -86,6 +74,25 @@ with connect(
         print(row)
 ```
 
+## Using a HTTP request
+
+A query can be marked as async by setting the query parameter `async=true`. The query will return as soon as the query is accepted by the engine with HTTP status 202, and the body will contain the token. 
+
+## Example body
+```
+{
+  "message": "the query was accepted for async processing",
+  "token": ["<token>"],
+  "monitorSql": "CALL fb_GetAsyncStatus('<async_token>');"
+}
+```
+
+If using a raw HTTP request, you must use firebolt protocal version 2.3 or newer to submit an async query. Query status can be checked using any client at protocal version 2.1 or newer.
+
+# How to check the status of an async query
+## Token discovery
+The token for checking the status is available in the original repsonse, but it is also available via the [engine_running_queries](../../sql_reference/information-schema/engine-running-queries.md) view. 
+
 ## Columns in the response of fb_GetAsyncStatus
 
 `CALL fb_GetAsyncStatus` will return a single row in the following schema.
@@ -105,15 +112,15 @@ with connect(
 | scanned_bytes               | LONG        | Number of bytes scanned by the async query. |
 | scanned_rows                | LONG        | Number of rows scanned by the async query. |
 
-## Token discovery
-The token for checking the status is available in the original repsonse, but it is also available via the [engine_running_queries](../../sql_reference/information-schema/engine-running-queries.md) view. 
 
 ### Example queries
 ```sql
 SELECT query_id, async_token 
 FROM information_schema.engine_running_queries
 LIMIT 100;
+
+CALL fb_GetAsyncStatus('<async_token>');
 ```
 
 # Permissions
-The user calling `fb_GetAsyncStatus` must have permissions to view the query. A user always has permission to view their own queries. To see another user's queries, they must have MONITOR ENGINE or MONITOR ALL privileges.
+Submitting an async query does not require any different permissions than the query would require if it were not async. The user calling `fb_GetAsyncStatus` must have permissions to view the query. A user always has permission to view their own queries. To see another user's queries, they must have MONITOR ENGINE or MONITOR ALL privileges.
