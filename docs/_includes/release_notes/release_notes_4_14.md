@@ -12,13 +12,6 @@ Added a new column `E2E_DURATION_US` in the system tables `INFORMATION_SCHEMA.EN
 You can now ingest and export data to Amazon S3 buckets located in different AWS Regions from your Firebolt engines. Previously, the engine had to be in the same region as the Amazon S3 bucket. **Cross-region transfers will incur additional AWS network fees and longer processing times**.
 
 
-### Behavior Changes
-
-<!-- Auto Generated Markdown for FIR-34196 - Owned by Pascal Schulze -->
-**Removed support for legacy  `X-ClickHouse` HTTP ClickHouse headers**
-The system no longer accepts or returns legacy HTTP ClickHouse headers of the format `X-ClickHouse`. This helps to maintain compatibility and standardization across API interactions.
-
-
 ### Performance Improvements
 
 <!-- Auto Generated Markdown for FIR-42903 - Owned by Demian Hespe -->
