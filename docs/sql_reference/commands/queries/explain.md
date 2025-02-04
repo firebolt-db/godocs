@@ -1,7 +1,7 @@
 ---
 layout: default
 title: EXPLAIN
-parent: Queries
+parent: Querying and query optimization
 ---
 
 # EXPLAIN
