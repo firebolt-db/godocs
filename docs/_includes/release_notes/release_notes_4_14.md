@@ -16,9 +16,8 @@ Improved data loading performance for `GEOGRAPHY` objects of type `POINT`, enabl
 
 
 <!-- Auto Generated Markdown for FIR-42803 - Owned by Asya Shneerson -->
-**Optimized performance of `SELECT` queries on External Tables with URLs to multi-file directories**
-Improved the performance of `SELECT` queries on External Tables when URLs point to folders containing many files across different directories. This update speeds up data access and processing.
-
+**Improved file listing times for large external scans**
+In operations that read data from external tables Amazon S3 buckets such as external table definitions scans or COPY FROM queries, Firebolt lists files in a URL to an Amazon S3 bucket. This process is constrained by the AWS API, which limits file listing to 1,000 files per request. Firebolt has increased the number of concurrent operations so that listing a large number of files is up to 3.5 times faster.
 
 <!-- Auto Generated Markdown for FIR-42519 - Owned by Demian Hespe -->
 **Added result cache support for cross and complex joins for improved performance**
