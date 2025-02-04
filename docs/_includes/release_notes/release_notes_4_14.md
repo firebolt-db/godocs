@@ -27,7 +27,7 @@ The [query result cache]({% link Reference/system-settings.md %}#result-cache) n
 ### Bug Fixes
 
 <!-- Auto Generated Markdown for FIR-42330 - Owned by Gil Cizer -->
-**Required `USAGE` permissions for accessing `INFORMATION_SCHEMA`**
+**`USAGE` permissions are now required to access `INFORMATION_SCHEMA` views**
 Accessing `INFORMATION_SCHEMA` now requires `USAGE` permissions on the database. Queries to the `INFORMATION_SCHEMA` will fail if the database lacks these permissions, ensuring consistent behavior with other permission-restricted queries. Users should ensure their databases have the correct permissions to avoid access issues.
 
 
