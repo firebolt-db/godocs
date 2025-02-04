@@ -21,7 +21,7 @@ In operations that read data from external tables Amazon S3 buckets such as exte
 
 <!-- Auto Generated Markdown for FIR-42519 - Owned by Demian Hespe -->
 **Added result cache support for cross and complex joins for improved performance**
-The result cache now supports queries using cross joins or complex joins with `OR` conditions and inequalities. This change reduces redundant calculations, improving query performance.
+The [query result cache]({% link Reference/system-settings.md %}#result-cache) now supports queries using cross joins or complex joins with `OR` conditions and inequalities. This change reduces redundant calculations, improving query performance.
 
 
 ### Bug Fixes
