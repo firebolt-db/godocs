@@ -11,16 +11,12 @@ Added a new column `E2E_DURATION_US` in the system tables `INFORMATION_SCHEMA.EN
 ### Performance Improvements
 
 <!-- Auto Generated Markdown for FIR-42903 - Owned by Demian Hespe -->
-**Enhanced data ingestion performance for `GEOGRAPHY` objects of type `POINT`
-
-**
+**Enhanced data ingestion performance for `GEOGRAPHY` objects of type `POINT`**
 Improved data loading performance for `GEOGRAPHY` objects of type `POINT`, enabling faster loading of geographical point data for quicker data integration and analysis.
 
 
 <!-- Auto Generated Markdown for FIR-42803 - Owned by Asya Shneerson -->
-**Optimized performance of `SELECT` queries on External Tables with URLs to multi-file directories
-
-**
+**Optimized performance of `SELECT` queries on External Tables with URLs to multi-file directories**
 Improved the performance of `SELECT` queries on External Tables when URLs point to folders containing many files across different directories. This update speeds up data access and processing.
 
 
@@ -37,14 +33,9 @@ Accessing `INFORMATION_SCHEMA` now requires `USAGE` permissions on the database.
 
 
 <!-- Auto Generated Markdown for FIR-42767 - Owned by Demian Hespe -->
-**Improved `EXPLAIN` command accuracy for default values of `DATE`, `TIMESTAMP`, and `TIMESTAMPTZ` columns.  
-**
+**Improved `EXPLAIN` command accuracy for default values of `DATE`, `TIMESTAMP`, and `TIMESTAMPTZ` columns.**
 The `EXPLAIN` command now displays default values for columns of type `DATE`, `TIMESTAMP`, and `TIMESTAMPTZ` columns. This update fixes a bug that previously caused default values to be shown incompletely, improving clarity and accuracy in query plan analysis.
 
-
-
 <!-- Auto Generated Markdown for FIR-42032 - Owned by Amit Schreiber -->
-**Resolved filtering issue for views in `information_schema.tables` to enforce user permissions
-
-**
+**Resolved filtering issue for views in `information_schema.tables` to enforce user permissions**
 Fixed an issue in `information_schema.tables` where filtering for views did not function correctly. It now filters views based on permissions. This ensures users only see views they are authorized to access, improving data security.
