@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Queries
+title: Querying and query optimization
 description: Reference for querying and query optimization commands
 nav_order: 5
 parent: SQL commands
