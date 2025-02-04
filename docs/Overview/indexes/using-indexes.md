@@ -11,7 +11,7 @@ nav_order: 5
 
 # Data modeling
 
-Firebolt optimizes data storage and retrieval by using indexing, partitioning, and compute scaling to enhance query efficiency. Discover how to design your data model, including databases and tables, and use indexes to achieve optimal query performance.
+Firebolt optimizes data storage and retrieval by using indexing, partitioning, and compute scaling to enhance query efficiency. Discover how to design your data model, consisting of databases and tables, using our best practices to achieve optimal query performance.
 
 * **Minimizing data scans**  
 Firebolt indexes retrieve only the specific data ranges needed to satisfy a query, reducing the amount of data scanned.
