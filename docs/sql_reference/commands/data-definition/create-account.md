@@ -28,10 +28,7 @@ CREATE ACCOUNT [IF NOT EXISTS] <account_name>
 | Parameter  | Description                                                                                                                                                                                                                                                            |
 | :--------- |:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `<account_name>`                              | The name of the account, must start and end with an alphabetic character and cannot contain spaces or special characters except for hyphens (-).                                                                                                                       |
-| `<region>`                      | The region in which the account is configured. If not specified, the default is `us-east-1` US East (N. Virginia).|
-
-{: .note}
-If the selected region differs from the [AWS Region]({% link Reference/available-regions.md %}) of your Amazon S3 bucket containing your data, you will experience [AWS cross-region latencies and fees](https://aws.amazon.com/blogs/architecture/overview-of-data-transfer-costs-for-common-architectures/).  
+| `<region>`                      | The region in which the account is configured. Choose the same region as the Amazon S3 bucket that contains data you ingest. See [Available AWS Regions](../../../Reference/available-regions.md) If not specified, `us-east-1` (US East (N. Virginia) is the default. |                                                                                                    
 
 ## Example
 

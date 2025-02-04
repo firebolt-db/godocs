@@ -10,10 +10,7 @@ parent: Data definition
 # CREATE EXTERNAL TABLE
 {: .no_toc}
 
-Creates an external table. External tables serve as connectors to your external data sources. External tables contain no data within Firebolt other than metadata virtual columns that are automatically populated with metadata. For more information, see [Working with external tables]({% link Guides/loading-data/working-with-external-tables.md %}).
-
-{: .note}
-If the AWS Region of the external table differs from the [AWS Region]({% link Reference/available-regions.md %}) of the Amazon S3 bucket that contains your data, you will experience [AWS cross-region latencies and fees](https://aws.amazon.com/blogs/architecture/overview-of-data-transfer-costs-for-common-architectures/).
+Creates an external table. External tables serve as connectors to your external data sources. External tables contain no data within Firebolt other than metadata virtual columns that are automatically populated with metadata. For more information, see [Working with external tables](../../../Guides/loading-data/working-with-external-tables.md). Data that you ingest must be in an Amazon S3 bucket in the same AWS Region as the Firebolt database.
 
 * ToC
 {:toc}
@@ -143,7 +140,7 @@ In case you don't have the access key and secret to access your S3 bucket, read 
 ### URL and OBJECT_PATTERN
 
 An external table enables reading some (or all) files from an S3 bucket that you have read access to. 
-It is recommended to keep your S3 bucket in the same AWS region as your Firebolt engine to avoid AWS cross-region latencies and fees.
+Note that the S3 bucket that you reference must be in the same AWS Region as the Firebolt database.
 
 The`URL`and`OBJECT_PATTERN` parameters identify which files represent the data for the external table.`URL` must be a
 listable directory: it will be either an entire bucket or some subfolder. `OBJECT_PATTERN` is a glob that selects 
