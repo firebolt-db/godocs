@@ -12,7 +12,7 @@ Added a new column `E2E_DURATION_US` in the system tables `INFORMATION_SCHEMA.EN
 
 <!-- Auto Generated Markdown for FIR-42903 - Owned by Demian Hespe -->
 **Enhanced data ingestion performance for `GEOGRAPHY` objects of type `POINT`**
-Improved data loading performance for `GEOGRAPHY` objects of type `POINT`, enabling faster loading of geographical point data for quicker data integration and analysis.
+Improved data loading performance for `GEOGRAPHY` objects of type `POINT`, enabling up to ten times faster loading of geographical point data for more efficient data integration and analysis.
 
 
 <!-- Auto Generated Markdown for FIR-42803 - Owned by Asya Shneerson -->
