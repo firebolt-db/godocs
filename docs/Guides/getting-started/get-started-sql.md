@@ -27,7 +27,7 @@ To get started using Firebolt, begin by registering using the following steps:
 3. Type in your email and password and select **Log In**.
 
 {: .note}
-New accounts receive credits ($1000) to get started exploring Firebolt’s capabilities. These credits must be used within 30 days of account creation.
+New accounts receive credits ($200) to get started exploring Firebolt’s capabilities. These credits must be used within 30 days of account creation.
 
 Firebolt’s billing is based on engine runtime, measured in seconds. We also pass through AWS S3 storage costs at the rate of $23 per TB per month. The amount that you spend is dependent primarily on which engines you use and how long those engines are running.
 
