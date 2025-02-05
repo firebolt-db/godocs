@@ -1,22 +1,25 @@
 ---
 layout: default
-title: Understanding History-based Optimization
+title: Understanding history-based optimization
 description: How to understand history-based query optimization
-parent: Optimize query performance
+parent: Queries
 nav_order: 1
 has_toc: false
 has_children: false
 ---
 
-# Understanding History-based Optimization
+# Understanding history-based optimization
+Firebolt's query plans adapt and evolve with your workload over time.
+Through a feedback loop, Firebolt's query optimizer learns from previous queries and progressively generates more efficient plans, steadily improving query performance towards optimal runtimes.
 
-## Overview
+**Topics**
+* [Scope of history-based optimization](#scope-of-history-based-optimization) &ndash; Learn which processes utilize history-based optimization.
+* [How it works](#how-it-works) &ndash; Learn how telemetry data and query history help optimize future query plans and performance.
+  * [How recording query history works](#how-recording-query-history-works) &ndash; Learn what is recorded in query history and how information is protected.
+  * [How planning queries based on history work](#how-planning-queries-based-on-history-work) &ndash; Learn how history-based snapshots are continually updated to improve query performance across all engines in the same database and account.
+* [Observability](#observability) &ndash; Learn how to check if history-based optimization is used in your query plan.
 
-Firebolt's query plans evolve with your workload over time.
-Firebolt implements a feedback loop that enables our query optimizer to learn and improve based on past queries.
-It is designed to progressively come up with better query plans and thereby steadily improve the performance of your queries towards the optimal.
-
-## Scope of history-based optimizations
+## Scope of history-based optimization
 Firebolt's history-based optimization techniques include the following:
 - **Join ordering** ---
   The sequence in which tables are joined during query processing, especially in complex queries with multiple tables, can significantly affect query performance.
@@ -39,21 +42,13 @@ Consequently, previously run queries aid the query optimizer in finding better q
 
 <img src="../../assets/images/history-based-optimization.png" alt="Telemetry data flows back from the runtime into the query optimizer where the next run is planned." width="700"/>
 
-### Recording query history
+### How recording query history works
 
-Firebolt’s query optimizer continually improves runtime performance by recording telemetry data from your past queries and extracting statistical information from it.
-This process runs automatically in the background without user intervention.
+Firebolt’s query optimizer improves runtime performance by automatically collecting and analyzing telemetry data from past queries, without requiring user intervention.
 
-Firebolt stores in its history snapshot only the query plan of a query together with its telemetry data.
-The telemetry contains information for each operator of the query plan, e.g. how many rows and bytes of data an operator processed, how much time passed, or how much memory was consumed.
-The query plan contains the original query string.
-This means, if the original query contains PII, so does the query plan, and hence PII is stored in the history snapshot.
-The query result of the query is not considered in any way by history-based optimization.
-If the query result contains PII, you can rest assured that it is not stored in the history snapshot.
-While PII from the original query string is stored in the history snapshot, the snapshot is guarded against unauthorized access;
-only engines running on the same database -- and hence the same account -- and authorized Firebolt personnel can access the snapshot.
+Only the query plan and its related telemetry data are stored in the history snapshot. This telemetry includes metrics for each query operator, such as the number of rows and bytes processed, time elapsed, and memory usage. The query plan itself retains the original query string, meaning if the query contains personally identifiable information (PII), it will appear in the snapshot. However, the query result is not used in optimization, so PII in the result is not stored. While PII in the query string is stored, the history snapshot is securely protected. Access is restricted to engines on the same database and account, as well as to authorized Firebolt personnel only.
 
-### Planning queries based on history
+### How planning queries based on history work
 
 When you submit a query, Firebolt analyzes its recorded history to predict how different query plans will perform, and chooses one that should deliver the best performance.
 This query history is released to the query optimizer every `10` minutes in the form of a history-based statistics (HBS) snapshot.

@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql_reference/functions-reference/array/vector-cosine-similarity.html
 layout: default
 title: VECTOR_COSINE_SIMILARITY
 description: Reference material for VECTOR_COSINE_SIMILARITY function

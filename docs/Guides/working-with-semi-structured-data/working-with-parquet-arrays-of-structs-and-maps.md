@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /working-with-semi-structured-data/working-with-parquet-arrays-of-structs-and-maps.html
 layout: default
 title: Work with Parquet arrays and maps
 description: Learn how to ingest (load) Parquet data into Firebolt and work with Parquet maps, structs, and arrays of structs.

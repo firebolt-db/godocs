@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/commands/create-engine.html
 layout: default
 title: CREATE ENGINE
 description: Reference and syntax for the CREATE ENGINE command.

@@ -1,8 +1,11 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference
 layout: default
 title: SQL functions
 description: Reference for SQL functions available in Firebolt.
 parent: SQL reference
+nav_order: 6
 has_children: true
 has_toc: false
 ---

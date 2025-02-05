@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/any_value.html
 layout: default
 title: ANY_VALUE
 description: Reference material for ANY_VALUE

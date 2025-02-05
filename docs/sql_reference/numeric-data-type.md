@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/numeric-data-type.html
 layout: default
 title: NUMERIC data type
 description: Describes the Firebolt implementation of the `NUMERIC` data type

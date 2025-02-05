@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/array-fill.html
 layout: default
 title: Lambda functions
 description: Reference for lambda functions

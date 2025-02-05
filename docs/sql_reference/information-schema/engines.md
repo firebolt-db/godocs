@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/information-schema/engines.html
 layout: default
 title: Engines
 parent: Information schema
@@ -8,6 +10,8 @@ grand_parent: SQL reference
 # Information schema for engines
 
 You can use the `information_schema.engines` view to return information about each engine in an account. The view is available for each database and contains one row for each engine in the account. You can use a `SELECT` query to return information about each engine as shown in the example below, which uses a `WHERE` clause to return all engines attached to databases that begin with `deng`.
+
+To view engine information, the user must have ownership of the engine or access to the necessary [engine]({% link Overview/Security/Role-Based Access Control/engine-permissions.md %}#engine-permissions) privileges. 
 
 ```sql
 SELECT

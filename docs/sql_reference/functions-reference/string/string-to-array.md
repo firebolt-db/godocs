@@ -10,7 +10,10 @@ published: true
 
 # STRING_TO_ARRAY
 
-This function splits a given string by a given separator and returns the result in an array of strings.
+Splits a string into an array of strings based on a specified delimiter, with the following behaviors:
+
+* If the delimiter is an empty string `''`, the result is an array containing the entire original input string as a single element.
+* If the delimiter is `NULL`, the string is split into individual characters, with one character per array element.
 
 ## Syntax
 {: .no_toc}
@@ -29,13 +32,7 @@ STRING_TO_ARRAY(<string>, <delimiter>)
 ## Return Types
 `ARRAY(TEXT)`
 
-## Example
+## Examples
 {: .no_toc}
 
-The following example splits the nicknames of players into separate items in an array: 
-```sql
-SELECT
-	STRING_TO_ARRAY('stephen70|esimpson|ruthgill|', '|') AS nicknames;
-```
-
-**Returns**: `["stephen70","esimpson","ruthgill",""]`
+{% include sql_examples/string_to_array.md %}

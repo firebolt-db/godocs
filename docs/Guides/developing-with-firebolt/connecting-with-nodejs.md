@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /developing-with-firebolt/connecting-with-nodejs.html
 layout: default
 title: Node.js
 description: Learn about using the Node.js SDK for Firebolt.

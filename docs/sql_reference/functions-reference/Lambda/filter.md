@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/filter.html
 layout: default
 title: ARRAY_FILTER
 description: Reference material for ARRAY_FILTER function

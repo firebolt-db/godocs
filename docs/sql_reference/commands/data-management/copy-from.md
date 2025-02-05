@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /loading-data/incrementally-loading-data.html
 layout: default
 title: COPY FROM
 description: Reference and syntax for the COPY command that copies data from S3 files into a Firebolt table.

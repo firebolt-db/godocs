@@ -8,7 +8,9 @@ grand_parent: SQL reference
 
 # Information schema for object_privileges
 
-The `information_schema.object_privileges` view to provides information about permissions granted to each role.  
+The `information_schema.object_privileges` view provides information about permissions granted to each role.  
+
+To be able to access this information, you must have [role privileges]({% link Overview/Security/Role-Based Access Control/role-permissions.md %}#role-permissions), ownership of the role, or ownership of the object to which the role is granted.
 
 ### View account, role, user, engine, and database permissions
 

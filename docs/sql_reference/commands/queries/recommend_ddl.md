@@ -3,11 +3,11 @@ layout: default
 title: RECOMMEND DDL
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
-parent: Queries
+parent: Querying and query optimization
 ---
 
 # RECOMMEND DDL
-`CALL recommend_ddl` can help you optimize schema configurations to enhance query performance by early data pruning. The statement finds [primary indexes](../../../Guides/working-with-indexes/using-primary-indexes.md) (PIs) and [parition key](../../../Overview/working-with-tables/working-with-partitions.md) (PartK) recommendations for the specified table tailored to the given workload.
+`CALL recommend_ddl` can help you optimize schema configurations to enhance query performance by early data pruning. The statement finds [primary indexes]({% link Overview/indexes/primary-index.md %}) (PIs) and [partition]({% link Overview/indexes/using-indexes.md %}#partitions-in-tables) recommendations for the specified table tailored to the given workload.
 
 ## Syntax
 

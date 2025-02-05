@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/commands/attach-engine.html
 layout: default
 title: Engine commands
 description: Reference for engine commands

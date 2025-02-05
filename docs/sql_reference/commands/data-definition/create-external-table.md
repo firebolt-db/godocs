@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/commands/create-external-table.html
 layout: default
 title: CREATE EXTERNAL TABLE
 description: Reference and syntax for the CREATE EXTERNAL TABLE command.

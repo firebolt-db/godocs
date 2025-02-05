@@ -1,8 +1,10 @@
 ---
+redirect_from:
+  - /general-reference/available-engine-specs.html
 layout: default
 title: Operate Engines
 description: Work with Firebolt engines.
-nav_order: 5
+nav_order: 3
 has_children: true
 has_toc: true
 parent: Guides

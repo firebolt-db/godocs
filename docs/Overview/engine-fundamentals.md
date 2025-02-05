@@ -1,10 +1,12 @@
 ---
+redirect_from:
+  - /working-with-engines/choosing-an-engine.html
 layout: default
 title: Engine Fundamentals
 description: Learn fundamental concepts about Firebolt Engines.
 parent: Overview
 has_children: true
-nav_order: 3
+nav_order: 4
 ---
 
 # Firebolt Engines

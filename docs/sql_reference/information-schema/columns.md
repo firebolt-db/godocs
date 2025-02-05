@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/information-schema/columns.html
 layout: default
 title: Columns
 description: Use this reference to learn about the metadata available for Firebolt columns using the information schema.
@@ -8,8 +10,9 @@ grand_parent: SQL reference
 
 # Information schema for columns
 
-You can use the `information_schema.columns` view to return information about all columns in any table in a database. The view is available in each database and contains one row for each column. You can use a `SELECT` query to return information about each column as shown in the example below.
+You can use the `information_schema.columns` view to return information about all columns in a table in a database. The view is available in each database and contains one row for each column. You can use a `SELECT` query to return information about each column as shown in the example below.
 
+To view column information, the user must have `USAGE`  privileges on both the [schema]({% link Overview/Security/Role-Based Access Control/database-permissions/schema-permissions.md %}#schema-level-privileges) and the [database]({% link Overview/Security/Role-Based Access Control/database-permissions/index.md %}#database-level-privileges), as well as any necessary [table-level privileges]({% link Overview/Security/Role-Based Access Control/database-permissions/table-permissions.md %}#table-level-privileges) or ownership of the table.
 
 ```sql
 SELECT

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Primary indexes
+title: Primary index
 description: Primary index overview
 parent: Data modeling
 nav_order: 1
@@ -9,8 +9,6 @@ nav_order: 1
 # Primary index
 
 The Firebolt primary index is a core optimization tool designed to organize and streamline retrieval of data based on specific column values, enabling efficient data pruning and high-performance querying for large-scale analytics workloads. By leveraging high selectivity, the primary index ensures that queries target only the most relevant portions of the data, significantly reducing the volume of unnecessary scans. This selectivity is especially powerful when the indexed columns align closely with query patterns, allowing the database to quickly locate and retrieve the required data. As a result, query performance is not only optimized but also remains consistent even as data volumes grow.
-
-For more information, see [How primary indexes work]({% link Guides/working-with-indexes/using-primary-indexes.md %}#how-primary-indexes-work).
 
 Topics:
 * [Key features](#key-features)
@@ -52,12 +50,12 @@ Topics:
 To define a primary index, use the following syntax within a `CREATE TABLE` statement:
 
 ```sql
-CREATE TABLE table_name (
-   column1 data_type,
-   column2 data_type,
-   ...
-   PRIMARY INDEX(column_name1, column_name2, ...)
-);
+CREATE TABLE <table_name> (
+   <column1> <data_type>
+   [, <column2> <data_type>,
+   ...]
+)
+PRIMARY INDEX <column_name1>[, <column_name2>, ...];
 ```
 
 ## Parameters
@@ -80,7 +78,7 @@ CREATE [FACT|DIMENSION] TABLE QueryHistory (
   SubmitTime DATE,
   Latency INT
 )
-PRIMARY INDEX (SubmitDate, EngineName);
+PRIMARY INDEX SubmitDate, EngineName;
 ```
 
 ## Considerations

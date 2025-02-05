@@ -1,15 +1,17 @@
 ---
+redirect_from:
+  - /using-indexes/using-indexes.html
 layout: default
 title: Data modeling
 description: Understand how to organize data from efficient retrieval in Firebolt
 parent: Overview
 has_children: true
-nav_order: 6
+nav_order: 5
 ---
 
 # Data modeling
 
-Firebolt employs advanced indexing techniques and partitioning strategies to optimize query performance and compute efficiency. 
+Firebolt optimizes data storage and retrieval by using indexing, partitioning, and compute scaling to enhance query efficiency. Discover how to design your data model of databases and tables, using our best practices to achieve optimal query performance.
 
 * **Minimizing data scans**  
 Firebolt indexes retrieve only the specific data ranges needed to satisfy a query, reducing the amount of data scanned.
@@ -35,21 +37,30 @@ Firebolt’s data modeling strategies work best with **Firebolt’s managed tabl
 The following sections show you how to use the previous data modeling strategies to decrease the number of bytes scanned to improve query performance, reduce storage costs, and optimize compute resources.
 
 Topics:
-* [Databases](#databases)
-    * [Create a database](#create-a-database)
-    * [Manage a database](#manage-a-database)
-    * [Database best practices](#database-best-practices)
-    * [Evaluate your database for performance](#evaluate-your-database-for-performance)
-* [Schema](#schema)
-    * [Schema best practices](#schema-best-practices)
-* [Tables](#tables)
-    * [Firebolt-managed tables](#firebolt-managed-tables)
-    * [External tables](#external-tables)
-    * [Editing and deleting tables](#editing-and-deleting-tables)
-    * [Primary indexes in tables](#primary-indexes-in-tables)
-    * [Aggregating indexes in tables](#aggregating-indexes-in-tables)
-    * [Suggested indexes and partitions](#suggested-indexes-and-partitions)
-* [Additional resources](#additional-resources)
+- [Data modeling](#data-modeling)
+  - [How it works](#how-it-works)
+    - [Databases](#databases)
+      - [Create a database](#create-a-database)
+      - [Manage a database](#manage-a-database)
+      - [Database best practices](#database-best-practices)
+        - [Database best practice example](#database-best-practice-example)
+      - [Evaluate your database for performance](#evaluate-your-database-for-performance)
+    - [Schema](#schema)
+      - [Schema best practices](#schema-best-practices)
+    - [Tables](#tables)
+      - [Firebolt-managed tables](#firebolt-managed-tables)
+      - [External tables](#external-tables)
+      - [Editing and deleting tables](#editing-and-deleting-tables)
+      - [Primary indexes in tables](#primary-indexes-in-tables)
+        - [Create a primary index](#create-a-primary-index)
+        - [Primary index best practices](#primary-index-best-practices)
+      - [Aggregating indexes in tables](#aggregating-indexes-in-tables)
+        - [Create an aggregating index](#create-an-aggregating-index)
+        - [Best practices for aggregate indexes](#best-practices-for-aggregate-indexes)
+      - [Partitions in tables](#partitions-in-tables)
+        - [Create a partition](#create-a-partition)
+      - [Suggested indexes and partitions](#suggested-indexes-and-partitions)
+    - [Additional resources](#additional-resources)
 
 ---
 
@@ -423,7 +434,7 @@ The example output under `recommended_partition_key` suggests partitioning the `
 
 ### Additional resources
 
-* [Working with tables]({% link Overview/working-with-tables/working-with-tables.md %}) &ndash; An overview of how to create, manage, and optimize tables.
-* [Working with partitions]({% link Overview/working-with-tables/working-with-partitions.md %}) &ndash; How to divide large tables into smaller partitions for optimal query efficiency and performance.
+* [Working with tables]({% link Overview/indexes/using-indexes.md %}#firebolt-managed-tables) &ndash; An overview of how to create, manage, and optimize tables.
+* [Partitions in tables]({% link Overview/indexes/using-indexes.md %}#partitions-in-tables) &ndash; How to divide large tables into smaller partitions for optimal query efficiency and performance.
 * [RECOMMEND_DDL]({% link sql_reference/commands/queries/recommend_ddl.md %}) &ndash; Information on syntax, parameters and examples of using Firebolt’s tool to automatically recommend optimal primary index and partition strategies.
 

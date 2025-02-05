@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /loading-data/working-with-external-tables.html
 layout: default
 title: Work with external tables
 description: Understand the role of external tables when loading data into Firebolt, and learn how to configure them to connect to your data lake.
@@ -8,7 +10,7 @@ parent: Load data
 
 # Work with external tables
 
-Firebolt supports loading data using *external tables*, which are different from [fact and dimension tables](../../Overview/working-with-tables/working-with-tables.md). External tables store metadata objects that reference files stored in an Amazon S3 bucket, rather than actual data.
+Firebolt supports loading data using *external tables*, which are different from [fact and dimension tables]({% link Overview/indexes/using-indexes.md %}#firebolt-managed-tables). External tables store metadata objects that reference files stored in an Amazon S3 bucket, rather than actual data.
 
 To create an external table, run the [CREATE EXTERNAL TABLE](../../sql_reference/commands/data-definition/create-external-table.md) command. After you create an external table, use the [INSERT](../../sql_reference/commands/data-management/insert.md) command to load the data from the external table into a fact or dimension table. Data that you ingest must be in the same AWS Region as the target Firebolt database.
 

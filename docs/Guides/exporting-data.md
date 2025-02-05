@@ -1,8 +1,10 @@
 ---
+redirect_from:
+  - /exporting-query-results.html
 layout: default
 title: Export data
 parent: Guides
-nav_order: 9
+nav_order: 10
 ---
 
 # Export data

@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/floor.html
 layout: default
 title: FLOOR
 description: Reference material for FLOOR function

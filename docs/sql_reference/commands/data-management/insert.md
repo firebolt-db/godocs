@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/commands/insert-into.html
 layout: default
 title: INSERT
 description: Reference and syntax for the INSERT command.

@@ -1,8 +1,10 @@
 ---
+redirect_from:
+  - /general-reference/operators.html
 layout: default
 title: Operators
 description: Reference for SQL operators available in Firebolt.
-nav_order: 7
+nav_order: 3
 parent: SQL reference
 ---
 
