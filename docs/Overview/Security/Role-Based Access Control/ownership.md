@@ -3,7 +3,6 @@ layout: default
 title: Ownership
 description: Learn about ownership in Firebolt & how it impacts permissions and access control.
 parent: Role-Based Access Control
-grand_parent: Overview
 nav_order: 7
 ---
 

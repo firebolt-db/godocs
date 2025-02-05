@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/acos.html
 layout: default
 title: ACOS
 description: Reference material for ACOS function

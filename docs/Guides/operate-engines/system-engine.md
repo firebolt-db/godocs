@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /working-with-engines/system-engine.html
 layout: default
 title: System Engine
 description: System engine documentation

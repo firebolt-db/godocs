@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /developing-with-firebolt/connecting-with-sqlalchemy.html
 layout: default
 title: SQLAlchemy
 description: Learn about using the Firebolt adapter for the SQLAlchemy Python SQL toolkit.

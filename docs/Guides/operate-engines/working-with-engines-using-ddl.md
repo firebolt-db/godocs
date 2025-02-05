@@ -1,4 +1,8 @@
 ---
+redirect_from:
+  - /working-with-engines/working-with-engines-using-the-firebolt-manager.html
+  - /working-with-engines/working-with-engines-using-ddl.html
+  - /working-with-engines
 layout: default
 title: Work with engines using DDL
 description: Learn how to create, modify and run Firebolt engines.

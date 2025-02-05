@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/commands/alter-table-drop-partition.html
 layout: default
 title: ALTER TABLE
 description: Reference and syntax for the ALTER TABLE command.
@@ -65,7 +67,7 @@ ALTER TABLE <table> DROP PARTITION <value1>[,...<value2]
 
 ### Examples
 
-See the examples in [Working with partitions](../../../Overview/working-with-tables/working-with-partitions.md).
+See the examples in [Working with partitions]({% link Overview/indexes/using-indexes.md %}#partitions-in-tables).
 
 ## ALTER TABLE OWNER TO
 

@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/commands/vacuum.html
 layout: default
 title: VACUUM
 description: Reference and syntax for the VACUUM command.

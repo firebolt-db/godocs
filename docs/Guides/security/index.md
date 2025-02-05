@@ -3,7 +3,7 @@ layout: default
 title: Configure security
 description: Learn about configuring security options in Firebolt
 parent: Guides
-nav_order: 8
+nav_order: 6
 has_children: true
 has_toc: true
 ---

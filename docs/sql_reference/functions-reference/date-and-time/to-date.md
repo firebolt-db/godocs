@@ -1,4 +1,7 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/to-date-new.html
+  - /sql-reference/functions-reference/to-date.html
 layout: default
 title: TO_DATE
 description: Reference material for TO_DATE function

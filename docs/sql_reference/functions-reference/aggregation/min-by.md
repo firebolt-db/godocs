@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/min-by.html
 layout: default
 title: MIN_BY
 description: Reference material for MIN_BY

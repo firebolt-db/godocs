@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /managing-your-account
 layout: default
 title: Accounts
 description: Use this reference to learn about the metadata available about accounts using the information schema.

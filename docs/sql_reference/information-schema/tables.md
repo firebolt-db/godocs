@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/information-schema/tables.html
 layout: default
 title: Tables
 description: Use this reference to learn about the metadata available for Firebolt tables using the information schema.
@@ -9,6 +11,8 @@ grand_parent: SQL reference
 # Information schema for tables
 
 You can use the `information_schema.tables` view to return information about each table in a database. The view is available for each database and contains one row for each table in the database. You can use a `SELECT` query to return information about each table as shown in the example below.
+
+To view table information, you must have `USAGE` privileges on both the [schema]({% link Overview/Security/Role-Based Access Control/database-permissions/schema-permissions.md %}#schema-level-privileges) and the [database]({% link Overview/Security/Role-Based Access Control/database-permissions/index.md %}#database-level-privileges). You also need ownership of the table or the necessary [table-level privileges]({% link Overview/Security/Role-Based Access Control/database-permissions/table-permissions.md %}#table-level-privileges) required for the intended action. 
 
 ```sql
 SELECT

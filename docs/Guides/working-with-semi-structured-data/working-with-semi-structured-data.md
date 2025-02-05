@@ -1,9 +1,11 @@
 ---
+redirect_from:
+  - /working-with-semi-structured-data/working-with-semi-structured-data.html
 layout: default
 title: Work with semi-structured data
 description: Learn how to handle semi-structured data in Firebolt.
 parent: Guides
-nav_order: 6
+nav_order: 9
 has_children: true
 ---
 

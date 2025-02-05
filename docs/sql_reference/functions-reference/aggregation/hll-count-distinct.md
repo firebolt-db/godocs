@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/hll-count-distinct.html
 layout: default
 title: HLL_COUNT_DISTINCT
 description: Reference material for HLL_COUNT_DISTINCT

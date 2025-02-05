@@ -10,7 +10,7 @@ parent: Access control
 # GRANT
 Grants permission or assignment to a role. `GRANT` can also be used to assign a role to another role or a user. 
 
-For more information, see [Role-based access control]({% link Guides/security/rbac.md %}).
+For more information, see [Role-based access control]({% link Overview/Security/Role-Based Access Control/role-management/index.md %}).
 
 ## GRANT PRIVILEGE
 
@@ -30,7 +30,7 @@ GRANT <permission> ON <object_type> <object_name> [IN <object_type> <object_name
 
 | Parameter  | Description |
 | :--------- | :---------- |
-| `<permission>` | The name of the permission to grant to a role. Available permissions vary depending on the object that they apply to. For a full list, see [Permissions]({% link Overview/Role-Based Access Control/index.md %}). |
+| `<permission>` | The name of the permission to grant to a role. Available permissions vary depending on the object that they apply to. For a full list, see [Permissions]({% link Overview/Security/Role-Based Access Control/role-management/index.md %}). |
 | `<object_type>` | The type of object to grant permissions on. |
 | `<object_name>` | The name of the object to grant permissions on. |
 | `<role_name>` | The name of the role to grant the permission to. |

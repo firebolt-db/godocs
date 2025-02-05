@@ -27,7 +27,7 @@ To get started using Firebolt, begin by registering using the following steps:
 3. Type in your email and password and select **Log In**.
 
 {: .note}
-New accounts receive credits ($200+) to get started exploring Firebolt’s capabilities. These credits must be used within 30 days of account creation.
+New accounts receive credits ($1000) to get started exploring Firebolt’s capabilities. These credits must be used within 30 days of account creation.
 
 Firebolt’s billing is based on engine runtime, measured in seconds. We also pass through AWS S3 storage costs at the rate of $23 per TB per month. The amount that you spend is dependent primarily on which engines you use and how long those engines are running.
 
@@ -52,7 +52,7 @@ The following instructions show you how to create a database and then an engine.
 
 2. Select **Create new database**. 
 
-3. Enter the name for your database in the **Database Name** field. For this example, use “tutorial_database” as your database name. In Firebolt, the names of engines and databases are **case-sensitive**. If you are using both uppercase and lowercase characters in their names, enclose their name inside double quotes (“) when you refer to them in SQL.
+3. Enter the name for your database in the **Database Name** field. For this example, use “tutorial_database” as your database name. In Firebolt, the names of engines and databases are **case-sensitive**. If you are using uppercase characters in their names, enclose their name inside double quotes (“) when you refer to them in SQL.
 
 Firebolt creates a new database with the following two default schemas:
 * **Public** - A namespace where you can create and manage your database objects including tables, engines and queries. The default schema includes **tables**, **external tables**, and **views**.
@@ -215,7 +215,7 @@ CREATE TABLE IF NOT EXISTS levels (
 PRIMARY INDEX "LevelID", "Name";
 ```
 
-In the previous code example, the primary index contains two values. The first value, `LevelID`, is required in order to create a primary index. The second value, `Name`, and any following values are optional. Firebolt will use all listed primary indexes to optimize query scans. If Name has lower cardinality than `LevelID`, then Firebolt can optimize these indexes to eliminate scanning over irrelevant data.  For more information about primary indexes and sort order, see [Primary Indexes](../working-with-indexes/using-primary-indexes.md).
+In the previous code example, the primary index contains two values. The first value, `LevelID`, is required in order to create a primary index. The second value, `Name`, and any following values are optional. Firebolt will use all listed primary indexes to optimize query scans. If Name has lower cardinality than `LevelID`, then Firebolt can optimize these indexes to eliminate scanning over irrelevant data.  For more information about primary indexes and sort order, see [Primary index]({% link Overview/indexes/primary-index.md %}).
 
 To read data into the `levels` table, enter the following into a new script tab:
 ```sql
@@ -243,9 +243,9 @@ ON tutorial (
   );
 ```
 
-After you run the script,  the `levels_agg_idx` aggregate index listed in the left navigation pane under **Indexes** in the **tutorial** table. Any queries that run over the tutorial table that use an average of the **NumberOfLaps** column grouped by **LevelType** will now use the levels_agg_idx index instead of reading the entire table to calculate it.
+After you run the script, the `levels_agg_idx` aggregate index listed in the left navigation pane under **Indexes** in the **tutorial** table. Any queries that run over the tutorial table that use an average of the **NumberOfLaps** column grouped by **LevelType** will now use the `levels_agg_idx` index instead of reading the entire table to calculate it.
 
-For more information, see [Aggregating indexes](../working-with-indexes/using-aggregating-indexes.md).
+For more information, see [Aggregating index]({% link Overview/indexes/aggregating-index.md %}).
 
 ### Warm data and cache eviction
 

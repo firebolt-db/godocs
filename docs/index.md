@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /godocs/404.html
 # Feel free to add content and custom Front Matter to this file.
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
@@ -23,7 +25,6 @@ Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics
 <a href="Overview/data-management.html">Data management</a><br>
 <a href="Overview/security.html">Security</a><br>
 <a href="Overview/indexes/using-indexes.html">Using indexes</a><br>
-<a href="Overview/working-with-tables/working-with-tables.html">Working with tables</a><br>
 </div>
 
 <div class="column">
@@ -38,7 +39,6 @@ Firebolt is a cloud data warehouse purpose-built to provide sub-second analytics
 <a href="Guides/query-data/index.html">Query data</a><br>
 <a href="Guides/operate-engines/operate-engines.html">Operate engines</a><br>
 <a href="Guides/working-with-semi-structured-data/working-with-semi-structured-data.html">Work with semi-structured data</a><br>
-<a href="Guides/working-with-indexes/index.html">Work with indexes</a><br>
 <a href="Guides/security/index.html">Configure security</a><br>
 <a href="Guides/exporting-data.html">Export data</a><br>
 <a href="Guides/developing-with-firebolt/index.html">Develop with Firebolt</a><br>

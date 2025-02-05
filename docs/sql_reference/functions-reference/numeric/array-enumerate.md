@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/array-enumerate.html
 layout: default
 title: ARRAY_ENUMERATE
 description: Reference material for ARRAY_ENUMERATE function

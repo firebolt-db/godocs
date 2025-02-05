@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/json-extract-array-raw.html
 layout: default
 title: JSON_EXTRACT_ARRAY
 description: Reference material for JSON_EXTRACT_ARRAY function

@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/information-schema/running-queries.html
 layout: default
 title: Engine running queries
 description: Use this reference to learn about the metadata available for running queries in Firebolt using the information schema.
@@ -8,11 +10,7 @@ grand_parent: SQL reference
 
 # Information schema for engine running queries
 
-You can use the `information_schema.engine_running_queries` view to return information about queries, executed by current user, currently running in a database. The view is available in each database and contains one row for each running query in the database. You can use a `SELECT` query to return information about each running query as shown in the example below.
-The table is limited to a maximum of 10,000 queries per engine cluster.
-
-If the user has the `MONITOR USAGE` privilege, they can view all queries running on the engine.
-
+You can use the `information_schema.engine_running_queries` view to return information about queries currently running in a database. This view is available in each database and includes one row for each running query. The table contains a maximum of ten thousand queries per engine cluster. You can use a `SELECT` query to return information about each running query as shown in the example below. 
 
 ```sql
 SELECT

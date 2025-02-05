@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/commands/create-view.html
 layout: default
 title: CREATE VIEW
 description: Reference and syntax for the CREATE VIEW command.

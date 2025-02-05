@@ -1,8 +1,11 @@
 ---
+redirect_from:
+  - /working-with-engines/working-with-engines-using-the-rest-api.html
+  - /managing-your-account/concepts-and-terminology.html
 layout: default
 title: Organizations and accounts
 description: Learn about Firebolt organization and account concepts to help you administer and manage your Firebolt account.
-nav_order: 2
+nav_order: 3
 parent: Overview
 ---
 
@@ -50,7 +53,7 @@ In the Firebolt object model, an organization has the following levels:
     * **Database** - A logical collection of schemas and data objects, such as tables and views, that organizes and manages user data and metadata for querying and data processing. For more information about databases see [Create a Database]({% link Guides/getting-started/get-started-sql.md %}#create-a-database) in the [Get started using SQL]({% link Guides/getting-started/get-started-sql.md %}) guide. Under database are the following levels:
         * **Schema** - A collection of system views containing metadata about objects in the current database, including tables, columns, indexes, and other database components. For more information, see [Information Schema Views]({% link sql_reference/information-schema/index.md %}). Under schema are the following levels:
             * **External table** - Tables that store metadata objects that reference files stored in an Amazon S3 bucket, rather than actual data. For more information, see [Work with external tables]({% link Guides/loading-data/working-with-external-tables.md %}).
-            * **Managed table** - A Firebolt-managed internal structured data object within a database that stores rows and columns of data. Firebolt’s managed tables have built-in optimizations for fast query processing times. For more information, see [Working with tables]({% link Overview/working-with-tables/working-with-tables.md %}).
+            * **Managed table** - A Firebolt-managed internal structured data object within a database that stores rows and columns of data. Firebolt’s managed tables have built-in optimizations for fast query processing times. For more information, see [Tables]({% link Overview/indexes/using-indexes.md %}#tables).
             * **View** - A virtual table that represents the result of a stored query, including both user-defined views and [information schema views]({% link sql_reference/information-schema/index.md %}), which provide metadata about database objects like tables, columns, and indexes.
             * **Index** - A database structure that optimizes data retrieval by organizing specific columns, improving query performance and enabling efficient filtering, sorting, and joining of datasets. For more information about indexes, see [Data modeling]({% link Overview/indexes/using-indexes.md %}).
     * **Engine** - A compute resource that processes queries and manages data operations and can be scaled independently and turned on or off as needed. For more information, see [Firebolt Engines]({% link Overview/engine-fundamentals.md %}).
@@ -115,7 +118,7 @@ In Firebolt, each user is associated with either a **login**, which is an email 
 
 <img src="../../assets/images/user_login_service-account.png" alt="A user must be associated with either a login or a service account." width="400">
 
-The role grants the user permission to access resources inside the account that they are associated with. A user can have several roles associated with them at the same time. Firebolt has built-in roles with defined permissions. You can also define a [custom role]({% link Overview/Role-Based Access Control/role-management/custom-roles.md %}) that grants permissions specific to your use case.
+The role grants the user permission to access resources inside the account that they are associated with. A user can have several roles associated with them at the same time. Firebolt has built-in roles with defined permissions. You can also define a [custom role]({% link Overview/Security/Role-Based Access Control/role-management/custom-roles.md %}) that grants permissions specific to your use case.
 
 #### Firebolt built-in roles
 

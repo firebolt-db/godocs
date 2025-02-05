@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /managing-your-account/managing-users.html
 layout: default
 title: Manage users and roles
 description: Learn about user permissions and how to add and remove users in a Firebolt account.
@@ -35,7 +37,7 @@ There can be multiple users per login or service account. Users are managed at t
 You can [add](#set-up-a-new-user), [edit](#edit-an-existing-user) or [delete](#deleting-an-existing-user) users using SQL in the **Develop Space** or using the user interface (UI) in the **Configure Space**.
 
 {: .note}
-Managing roles requires the account_admin role. For more information about roles, see the [Roles]({% link Overview/organizations-accounts.md %}#roles) section in [Organizations and accounts]({% link Overview/organizations-accounts.md %}), and the [Account permissions]({% link Overview/Role-Based Access Control/account-permissions.md %})  section of [Role-based access control]({% link Overview/Role-Based Access Control/index.md %}) that specifies permissions for **CREATE USER**.
+Managing roles requires the account_admin role. For more information about roles, see the [Roles]({% link Overview/organizations-accounts.md %}#roles) section in [Organizations and accounts]({% link Overview/organizations-accounts.md %}), and the [Account permissions]({% link Overview/Security/Role-Based Access Control/account-permissions.md %})  section of [Role-based access control]({% link Overview/Security/Role-Based Access Control/index.md %}) that specifies permissions for **CREATE USER**.
 
 **Topics**
 - [Manage users and roles](#manage-users-and-roles)

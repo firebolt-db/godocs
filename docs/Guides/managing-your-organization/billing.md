@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /managing-your-account/billing.html
 layout: default
 title: Billing
 description: Understand how Firebolt bills for compute and storage through the AWS Marketplace and your AWS account.
@@ -15,7 +17,7 @@ Firebolt bills are based on the consumption of resources within each account in 
 * **Engine resources** usage is calculated with **one-second granularity** between the time Firebolt makes the engine available for queries and when the the engine moves to the stopped state.
 
 ## Set-up account billing through AWS Marketplace
-To continue using Firebolt’s engines for query execution after your initial $200 credit, valid for 30 days, you’ll need to set-up a billing account by connecting your account to the [AWS Marketplace](https://aws.amazon.com/marketplace). 
+To continue using Firebolt’s engines for query execution after your initial $1000 credit, valid for 30 days, you’ll need to set-up a billing account by connecting your account to the [AWS Marketplace](https://aws.amazon.com/marketplace). 
 
 **Steps for registration:**
 

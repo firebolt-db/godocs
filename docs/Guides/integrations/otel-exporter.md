@@ -1,4 +1,7 @@
 ---
+redirect_from:
+  - /integrations/data-observability/sifflet.html
+  - /integrations/data-observability/
 layout: default
 title: OpenTelemetry Exporter
 description: Learn how to enable Firebolt OpenTelemetry Exporter.
