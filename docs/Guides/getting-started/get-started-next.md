@@ -11,7 +11,7 @@ Now that you have successfully created your first engine and database, run your 
 
 ## Register through the AWS Marketplace
 
-If you have exhausted your initial $1000 credit, you can continue to use Firebolt after registering through the [AWS Marketplace](https://aws.amazon.com/marketplace). You must set up an account for billing in order to continue using Firebolt’s engines to run queries.
+If you have exhausted your initial $200 credit, you can continue to use Firebolt after registering through the [AWS Marketplace](https://aws.amazon.com/marketplace). You must set up an account for billing in order to continue using Firebolt’s engines to run queries.
 
 **To register**
 
