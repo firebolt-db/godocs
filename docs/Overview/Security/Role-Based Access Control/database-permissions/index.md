@@ -12,7 +12,7 @@ has_toc: true
 
 In Firebolt, a **database** is a logical container that organizes your data warehouse by holding components such as **tables**, **views**, **indexes**, and other database objects, as shown in the following diagram:
 
-<img src="../../../assets/images/database-hierarchy.png" width="700" alt="Firebolt's object model contains schema under databases, and tables, views, and indexes under schema.>
+<img src="../../../../assets/images/database-hierarchy.png" width="700" alt="Firebolt's object model contains schema under databases, and tables, views, and indexes under schema.">
 
 Database-level permissions define what actions roles can perform within a database and its associated objects.
 
