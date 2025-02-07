@@ -25,20 +25,21 @@ LIMIT
 
 Each row has the following columns with information about each running query.
 
-| Column Name    | Data Type   | Description                                                                                                                                            |
-|:---------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------|
-| account_name   | TEXT        | The name of the account in which the query was executed.                                                                                               |
-| user_name      | TEXT        | The user that executed the query                                                                                                                       |
-| submitted_time | TIMESTAMPTZ | The time when the query was submitted by a user (UTC)                                                                                                  |
-| start_time     | TIMESTAMPTZ | The query execution start time (UTC).                                                                                                                  |
-| duration_us    | BIGINT      | The elapsed time in microseconds between `<START_TIME>` and the time that the query over `information_schema.engine_running_queries` returns results.  |
-| status         | TEXT        | The status of the query, eiteher `RUNNING`, `SUSPENDED`, or `CANCELING`.                                                                               |
-| request_id     | TEXT        | The ID of the request from which the query originates.                                                                                                 |
-| query_id       | TEXT        | The query id of this query.                                                                                                                            |
-| query_label    | TEXT        | User provided query label (query_label parameter)                                                                                                      |
-| query_text     | TEXT        | Text of the SQL statement.                                                                                                                             |
-| scanned_rows   | BIGINT      | The number of rows scanned to return query results.                                                                                                    |
-| scanned_bytes  | BIGINT      | The number of uncompressed bytes scanned from cache and storage.                                                                                       |
-| inserted_rows  | BIGINT      | The number of rows written                                                                                                                             |
-| inserted_bytes | BIGINT      | The number of bytes written.                                                                                                                           |
-| retries        | BIGINT      | The total number of retries to execute a given query after a failure (by default, the number of retries is 0 and the number increases with each retry) |
+| Column Name     | Data Type   | Description                                                                                                                                                                            |
+|:----------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| account_name    | TEXT        | The name of the account in which the query was executed.                                                                                                                               |
+| user_name       | TEXT        | The user that executed the query                                                                                                                                                       |
+| submitted_time  | TIMESTAMPTZ | The time when the query was submitted by a user (UTC)                                                                                                                                  |
+| start_time      | TIMESTAMPTZ | The query execution start time (UTC).                                                                                                                                                  |
+| duration_us     | BIGINT      | The time elapsed in microseconds from `<START_TIME>` to when the query on `information_schema.engine_running_queries` returns results.                                  |
+| e2e_duration_us | BIGINT      | The time elapsed in microseconds from the time of query submission to when the query on `information_schema.engine_running_queries` returns results. |
+| status          | TEXT        | The status of the query, eiteher `RUNNING`, `SUSPENDED`, or `CANCELING`.                                                                                                               |
+| request_id      | TEXT        | The ID of the request from which the query originates.                                                                                                                                 |
+| query_id        | TEXT        | The query id of this query.                                                                                                                                                            |
+| query_label     | TEXT        | User provided query label (query_label parameter)                                                                                                                                      |
+| query_text      | TEXT        | Text of the SQL statement.                                                                                                                                                             |
+| scanned_rows    | BIGINT      | The number of rows scanned to return query results.                                                                                                                                    |
+| scanned_bytes   | BIGINT      | The number of bytes scanned from cache and storage.                                                                                                                                    |
+| inserted_rows   | BIGINT      | The number of rows written                                                                                                                                                             |
+| inserted_bytes  | BIGINT      | The number of bytes written.                                                                                                                                                           |
+| retries         | BIGINT      | The total number of retries to execute a given query after a failure (by default, the number of retries is 0 and the number increases with each retry)                                 |

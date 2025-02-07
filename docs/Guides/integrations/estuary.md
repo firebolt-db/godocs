@@ -9,6 +9,7 @@ parent: Integrate with Firebolt
 ---
 
 # Integrate Estuary Flow with Firebolt
+{: .no_toc}
 
 <img src="../../assets/images/estuary.png" alt="Estuary logo" width="600">
 
@@ -17,13 +18,13 @@ Estuary Flow is a real-time data integration platform designed to streamline the
 This guide shows you how to set up a Flow pipeline that automatically moves data from your Amazon S3 bucket to your Firebolt database using the Estuary Flow user interface (UI). You must have access to an Estuary Flow account, an Amazon S3 bucket, and a Firebolt service account.
 
 Topics:
-* [Prerequisites](#prerequisites)
-* [Configure your Estuary Flow source](#configure-your-estuary-flow-source)
-* [Configure your Estuary Flow destination](#configure-your-estuary-flow-destination)
-* [Monitor your materialization](#monitor-your-materialization)
-* [Validate your materialization](#validate-your-materialization)
-* [Additional resources](#additional-resources)
-
+- [Integrate Estuary Flow with Firebolt](#integrate-estuary-flow-with-firebolt)
+  - [Prerequisites](#prerequisites)
+  - [Configure your Estuary Flow source](#configure-your-estuary-flow-source)
+  - [Configure your Estuary Flow destination](#configure-your-estuary-flow-destination)
+  - [Monitor your materialization](#monitor-your-materialization)
+  - [Validate your materialization](#validate-your-materialization)
+  - [Additional resources](#additional-resources)
 
 ## Prerequisites
 

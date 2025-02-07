@@ -2,7 +2,7 @@
 layout: default
 title: Spilling
 description: How to understand spilling and reason about its effects.
-parent: Optimize query performance
+parent: Queries
 nav_order: 3
 has_toc: false
 has_children: false
@@ -14,7 +14,7 @@ Most query execution operators in Firebolt can react dynamically to memory press
 
 Firebolt implements spilling for aggregations and joins, and we will explore it in more detail in the sections below.
 
-## How Spilling Works
+## How spilling works
 
 The fundamental idea of spilling is to write intermediate state to disk in a partitioned way when the data set is too big to process entirely in memory, and then process the partitions in memory one by one. The following sketch illustrates this:
 
@@ -24,7 +24,7 @@ Spilling-enabled operators continuously monitor how much memory remains availabl
 
 Note that spilling only kicks in when absolutely necessarily. This makes sure that when the working set of a query fits fully into main-memory, it is executed as efficiently as possible.
 
-## Implications of Spilling
+## Implications of spilling
 
 When an operator spills, it has to write a significant amount of data to the SSD cache and later read it back. This comes at a performance cost. If the engine has only slightly too little memory, using a bigger engine -- whether by scaling up or by scaling out -- can avoid the need for spilling and result in significantly reduced latency.
 

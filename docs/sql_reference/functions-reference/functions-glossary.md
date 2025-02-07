@@ -3,6 +3,7 @@ layout: default
 title: Functions glossary
 description: Reference for SQL functions available in Firebolt.
 parent: SQL reference
+nav_order: 4
 ---
 
 # Functions glossary

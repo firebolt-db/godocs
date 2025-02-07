@@ -142,7 +142,7 @@ In case you don't have the access key and secret to access your S3 bucket, read 
 ### URL and OBJECT_PATTERN
 
 An external table enables reading some (or all) files from an S3 bucket that you have read access to. 
-Note that the S3 bucket that you reference must be in the same AWS Region as the Firebolt database.
+The Amazon S3 bucket that you reference must be in the same AWS Region as the Firebolt database.
 
 The`URL`and`OBJECT_PATTERN` parameters identify which files represent the data for the external table.`URL` must be a
 listable directory: it will be either an entire bucket or some subfolder. `OBJECT_PATTERN` is a glob that selects 

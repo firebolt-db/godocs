@@ -38,7 +38,7 @@ Added the following aggregate functions:
 
 **Added support to meet HIPAA regulations for health information**
 
-Added [support to meet federal HIPAA regulations](../../Overview/security#hipaa-compliance) to ensure the confidentiality, integrity, and availability of electronic protected health information within the Firebolt platform.
+Added [support to meet federal HIPAA regulations]({% link Overview/Security/security.md %}#hipaa-compliance) to ensure the confidentiality, integrity, and availability of electronic protected health information within the Firebolt platform.
 
 ### Performance Improvements
 

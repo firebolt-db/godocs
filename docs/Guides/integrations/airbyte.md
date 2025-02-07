@@ -88,7 +88,7 @@ If you already have an airbyte deployment skip to the [configuration section](#s
 
 ### Output schema
 
-The Firebolt Destination connector is a V1 connector, meaning it works with raw data. Refer to Airbyte’s [Destination V2 document](https://docs.airbyte.com/using-airbyte/core-concepts/typing-deduping#what-is-destinations-v2) to learn about the differences. Each stream is written into its own [Fact table](../../Overview/working-with-tables/working-with-tables.md#fact-and-dimension-tables) in Firebolt, containing three columns:
+The Firebolt Destination connector is a V1 connector, meaning it works with raw data. Refer to Airbyte’s [Destination V2 document](https://docs.airbyte.com/using-airbyte/core-concepts/typing-deduping#what-is-destinations-v2) to learn about the differences. Each stream is written into its own [Fact table]({% link Overview/indexes/using-indexes.md %}#firebolt-managed-tables) in Firebolt, containing three columns:
 
 *`_airbyte_ab_id`: a UUID assigned by Airbyte to each processed event. The column type is TEXT.
 * `_airbyte_emitted_at`: a TIMESTAMP indicating when the event was pulled from the source.

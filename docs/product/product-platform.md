@@ -30,7 +30,7 @@ Firebolt employs a multi-layered approach to data protection, utilizing industry
 
 <img src="../../assets/images/firebolt-security-layers.png" alt="Firebolt's security layers include access control, identity management, infrastructure and network security." width="700"/>
 
-For more information, see [Security](../Overview/security.md).
+For more information, see [Security](../Overview/Security/security.md).
 
 ## <img src="../../assets/images/icon-observability.png" alt="Icon for observability." width="40"/> Observability
 

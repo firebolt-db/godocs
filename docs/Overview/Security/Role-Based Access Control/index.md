@@ -2,7 +2,7 @@
 layout: default
 title: Role-Based Access Control
 description: Learn about role-based access control (RBAC) in Firebolt, including how to define and manage roles, assign permissions, and control access to database resources.
-parent: Overview
+parent: Security
 nav_order: 11
 has_children: true
 has_toc: true
