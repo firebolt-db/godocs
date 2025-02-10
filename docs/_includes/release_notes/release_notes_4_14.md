@@ -8,7 +8,7 @@
 
 Added a new column `E2E_DURATION_US` in the system tables `INFORMATION_SCHEMA.ENGINE_RUNNING_QUERIES`, `INFORMATION_SCHEMA.ENGINE_QUERY_HISTORY`, and `INFORMATION_SCHEMA.ENGINE_USER_QUERY_HISTORY` which shows the total time a query has spent within the Firebolt infrastructure. In contrast, `DURATION_US` measures only the time spent using the engine without considering retries or routing. The `E2E_DURATION_US` metric measures the total time a query takes from initiation to final result delivery, and includes all sub-components of latency such as routing, preparation, queuing, compilation, retries, and runtimes. For example, if a query starts a stopped engine, the engine's startup time is included in the query's end-to-end duration. This update provides a more accurate representation of total query latency, for performance monitoring and optimization.
 
-**Unhid `scanned_storage_bytes` and `scanned_cache_bytes` to information schema views**
+**Unhid `scanned_storage_bytes` and `scanned_cache_bytes` from information schema views**
 
 Unhid `scanned_storage_bytes` and `scanned_cache_bytes` columns from `information_schema.engine_query_history` and `information_schema.engine_user_query_history` views. These columns were previously accessible when explicitly used in a `SELECT` clause, but will now appear by default when you use `SELECT *`.
 
