@@ -1,12 +1,12 @@
 {
   "errors": [
     {
-      "description": "The system engine doesn't support DML statements. Run this statement on a user engine."
+      "description": "relation 'sketch_of_data_to_count' does not exist or not authorized."
     }
   ],
   "query": {
-    "query_id": "43d04725-bbae-4d77-86ca-e4a1f7a77e69",
-    "request_id": "7a1f05a3-5e38-44fd-ad6d-85b98f8f5866"
+    "query_id": "71d63a66-a56d-45a3-9b62-7f6dd13aadd1",
+    "request_id": "3c1efb7d-a48f-4301-9979-b63e4d587df7"
   },
   "statistics": {
     "elapsed": 0.0

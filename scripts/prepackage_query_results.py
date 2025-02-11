@@ -12,7 +12,7 @@ def read_sql_file(file_path):
 def execute_query(query):
     try:
         response = requests.post(
-            'http://localhost:8000/execute-query',
+            'https://api.staging.firebolt.io/demo/execute-query',
             headers={'Content-Type': 'application/json'},
             json={'query': query},
             timeout=10

@@ -25,6 +25,13 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   }
+
+  // Load the pre-packaged query results when the page loads.
+  // We don't want to have the query latency on the hot path of loading the page.
+  const runButtons = document.querySelectorAll('.run-button');
+  runButtons.forEach(button => {
+    runQuery(button, true);
+  });
 });
 
 // Utility function used by the event listener above to save the caret position
@@ -61,7 +68,7 @@ function restoreCaretPosition(element, position) {
 }
 
 // Function that executes the query on Firebolt whenever the run button is clicked
-async function runQuery(button) {
+async function runQuery(button, loadPrepackagedResults = false) {
   const queryWindow = button.closest('.query-window');
   const queryInput = queryWindow.querySelector('code.firebolt-sql');
   const resultsDiv = queryWindow.querySelector('.query-results');
@@ -78,7 +85,8 @@ async function runQuery(button) {
     let queryResult;
     try {
       // Try to fetch from live server first
-      const queryResponse = await fetch('http://localhost:8000/execute-query', {
+      // TODO(benjamin): Move to production server once this is fully rolled out.
+      const queryResponse = await fetch('https://api.staging.firebolt.io/demo/execute-query', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -97,13 +105,19 @@ async function runQuery(button) {
     } catch (fetchError) {
       // If server is unreachable, timed out, or rate limited, use fallback result
       console.log('Using fallback result due to error:', fetchError);
+
+      // Show the banner that the docs server is unavailable
+      queryWindow.querySelector('.server-unavailable-banner').classList.remove('hidden');
+
+      // Force loading the pre-packaged results.
+      loadPrepackagedResults = true;
+    }
+
+    if (loadPrepackagedResults) {
       // Install the fallback result for further processing.
       queryResult = JSON.parse(fallbackResult);
       queryInput.textContent = originalQuery;
       Prism.highlightElement(queryInput);
-      
-      // Show the banner that the docs server is unavailable
-      queryWindow.querySelector('.server-unavailable-banner').classList.remove('hidden');
     }
 
     // Show the result section

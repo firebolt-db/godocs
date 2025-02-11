@@ -4,14 +4,13 @@ start-local:
 check-links:
 	scripts/check-links.sh
 
-<<<<<<< HEAD
 check-markers:
 	scripts/check_merge_conflict_markers.sh .
 
 check-all:
 	scripts/check-links.sh
 	scripts/check_merge_conflict_markers.sh .
-=======
+
 package-docs: setup-python
 	.venv/bin/python scripts/prepackage_query_results.py
 
@@ -26,4 +25,3 @@ setup-python:
 
 clean:
 	rm -rf .venv
->>>>>>> 6531493b (Add prepackaging to the docs examples)

@@ -1,12 +1,12 @@
 {
   "errors": [
     {
-      "description": "Line 2, Column 6: Database 'docs_examples' does not exist or not authorized."
+      "description": "Line 2, Column 6: relation 'sketch_of_data_to_count' does not exist or not authorized."
     }
   ],
   "query": {
-    "query_id": "fa0b2c2b-f473-425b-bae2-b278ce2f0550",
-    "request_id": "64a2c751-3779-449d-97e6-3a61534f4f5c"
+    "query_id": "720fe9ab-aabb-4371-ae74-8f5f7c63a18f",
+    "request_id": "fba54941-1784-47a3-8a16-78491ba8ace8"
   },
   "statistics": {
     "elapsed": 0.0

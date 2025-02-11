@@ -1,12 +1,12 @@
 {
   "errors": [
     {
-      "description": "The system engine doesn't support CREATE AS SELECT statements. Run this statement on a user engine."
+      "description": "Could not create on the schema. You have insufficient permissions. Reach out to an admin to update your permissions, or adjust the statement and re-execute."
     }
   ],
   "query": {
-    "query_id": "dc60eaee-8610-4094-abf0-049763affbba",
-    "request_id": "ef3d3dc2-39bd-4b86-b0fe-bbcb7d59bb87"
+    "query_id": "f078212f-2bfa-4ee1-80a6-bb126ce4244d",
+    "request_id": "3cd811f7-0e35-4c73-87f7-b7fe9e87bc5c"
   },
   "statistics": {
     "elapsed": 0.0
