@@ -1,15 +1,17 @@
 ---
 layout: default
-title: Async Queries
+title: Asynchronous queries
 description: Learn how to submit async queries and get their status. 
-parent: Overview # FIXME
+parent: Queries overview
 nav_order: 1 # FIXME
 ---
 
-# What are async queries?
-Usually, when a query is submitted to firebolt, the http connection is kept open for the duration of the query, with the status and results returned as they are available. For some operations though, this model doesn't make sense. Queries like insert, vacuum, or copy to may run for a long time, and return 0 rows at the end anyway. Keeping an HTTP connection open for a very long time can also be unreliable. By default, these types of queries continue to run on connection drops, but can be challenging to check and reason about after the connection has dropped.
+# Asynchronous queries
 
-The solution to this problem is async queries. When an async query is submitted, the client gets a successful response as soon as it is accepted by the cluster. The client can then check the status of the query at a frequency that is meaningful to them and dependent on the amount of time the query is expected to take.
+An asynchronous query runs in the background and returns a successful response once it is accepted by the computing cluster, so that a client can proceed with other tasks without waiting for the query to finish. The status of an asynchronous query can be checked at specified intervals, which provides flexibility, so that you can check the query's status at meaningful times based on the expected duration of the operation. For example, a user can avoid unnecessary resource consumption by only checking the status periodically, rather than maintaining an open connection for the entire duration of the query, which might be unreliable or unnecessary for certain tasks.
+
+Asynchronous queries are ideal for long-running operations, such as `INSERT`, `VACUUM`, or `COPY INTO`, where keeping an HTTP connection open is both unreliable and unnecessary, and where the query might return zero rows. While these operations continue running even if the connection drops, tracking them can be challenging. Using an asynchronous query allows you to check the status of operations at intervals, based on the expected duration.
+
 
 # When to use async queries
 Async queries should be used for any supported operation that may take more than a few minutes for which there are no results.
