@@ -15,9 +15,25 @@ Then, you can go to http://localhost:8080/ in your browser to preview the docume
 make check-links
 ```
 
-## How to package documentation examples
+## How to add an interactive example
 We have interactive examples in the documentation. These run against a Firebolt docs server.
+Just add your single query as a sql file in `docs/_includes/sql_examples`. You can then add the following to your main markdown page:
+
+```
+{% include query-window.html sql_file="sql_examples/<your file>" %}
+```
+
+For example:
+
+```
+{% include query-window.html sql_file="sql_examples/median_example_1.sql" %}
+```
+
+You then need to pre-package results for that example or CI will fail.
+
+### How to package documentation examples
 If the Firebolt docs server is unavailable (or rate limited), we still want to keep the examples interactive, so we pre-package the results of the examples.
+These are also used on the initial page to show example results as quickly as possible.
 
 To package all examples, run:
 ```bash
