@@ -83,34 +83,37 @@ async function runQuery(button, loadPrepackagedResults = false) {
     const queryText = queryInput.textContent || '';
     
     let queryResult;
-    try {
-      // Try to fetch from live server first
-      // TODO(benjamin): Move to production server once this is fully rolled out.
-      const queryResponse = await fetch('https://api.staging.firebolt.io/demo/execute-query', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          query: queryText
-        })
-      });
+    if (!loadPrepackagedResults) {
+      // If we look for live results, we need to send a query to the demo server.
+      try {
+        // Try to fetch from live server first
+        // TODO(benjamin): Move to production server once this is fully rolled out.
+        const queryResponse = await fetch('https://api.staging.firebolt.io/demo/execute-query', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            query: queryText
+          })
+        });
 
-      if (queryResponse.status === 429) {
-        // Check for rate limiting (HTTP 429 Too Many Requests)
-        throw new Error('Rate limited by Firebolt example server.');
-      } else {
-        queryResult = await queryResponse.json();
+        if (queryResponse.status === 429) {
+          // Check for rate limiting (HTTP 429 Too Many Requests)
+          throw new Error('Rate limited by Firebolt example server.');
+        } else {
+          queryResult = await queryResponse.json();
+        }
+      } catch (fetchError) {
+        // If server is unreachable, timed out, or rate limited, use fallback result
+        console.log('Using fallback result due to error:', fetchError);
+
+        // Show the banner that the docs server is unavailable
+        queryWindow.querySelector('.server-unavailable-banner').classList.remove('hidden');
+
+        // Force loading the pre-packaged results.
+        loadPrepackagedResults = true;
       }
-    } catch (fetchError) {
-      // If server is unreachable, timed out, or rate limited, use fallback result
-      console.log('Using fallback result due to error:', fetchError);
-
-      // Show the banner that the docs server is unavailable
-      queryWindow.querySelector('.server-unavailable-banner').classList.remove('hidden');
-
-      // Force loading the pre-packaged results.
-      loadPrepackagedResults = true;
     }
 
     if (loadPrepackagedResults) {
