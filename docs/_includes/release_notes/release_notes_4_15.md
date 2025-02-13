@@ -45,13 +45,6 @@ The `duration_us` value in the system tables `information_schema.engine_running_
 
 ### Bug Fixes
 
-<!-- Auto Generated Markdown for FIR-42032 - Owned by Amit Schreiber -->
-**Fixed an issue with `information_schema.tables` not filtering views by permissions
-
-**
-Resolved an issue where `information_schema.tables` did not filter views based on permissions. This ensures that users now see only the views they have permission to access, improving data security and access management.
-
-
 <!-- Auto Generated Markdown for FIR-43280 - Owned by Lorenz Hübschle -->
 **Fixed a bug in the shuffle elimination logic for distributed outer join operators, ensuring query accuracy and reliability
 
