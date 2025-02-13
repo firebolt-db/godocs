@@ -16,6 +16,12 @@ The `EXPLAIN(STATISTICS)` function now provides estimated row counts and column 
 Resolved a bug in the shuffle elimination logic for distributed `GROUP BY` operators. This bug sometimes led to missed optimization opportunities and, in rare cases, incorrect results. Addressing this issue improves query performance and result accuracy, enhancing overall data processing efficiency.
 
 
+<!-- Markdown for FIR-42197 - Owned by Tal Zelig -->
+**Use NULL instead of empty strings for passing unset TVF parameters**
+
+NULL must be used instead of empty strings ('') to pass unset TVF parameters.
+
+
 ### Performance Improvements
 
 <!-- Auto Generated Markdown for FIR-42755 - Owned by Andres Senac -->
