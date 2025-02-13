@@ -81,7 +81,9 @@ Your new service account is listed in the **Configure Space** in the **Service a
 
 <img src="../../assets/images/service_accounts_secret.png" alt="The third step to obtain programmatic access is to generate a secret." width="500"/>
 
-Each service account requires a secret to access Firebolt programmatically. You can generate a secret using SQL scripts in the **Develop Space** or through the UI in the **Configure Space**. If you generate a new secret, your previous secret will no longer work.
+Each service account requires a secret to access Firebolt programmatically. You can generate a secret using SQL scripts in the **Develop Space** or through the UI in the **Configure Space**. 
+
+{: .warning} If you generate a new secret, the previous secret for service account will no longer work inside your applications or services. 
 
 ### Generate a secret using the UI
 
