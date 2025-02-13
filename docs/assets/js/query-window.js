@@ -1,12 +1,12 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const codeBlocks = document.querySelectorAll('code.firebolt-sql');
   codeBlocks.forEach(block => {
     // Store the original query when the page loads
     block.dataset.originalQuery = block.textContent;
-    
+
     // Highlight code on load
     Prism.highlightElement(block);
-    
+
     // Re-highlight code on input
     block.addEventListener('input', () => {
       if (!block.textContent.trim()) {
@@ -18,14 +18,38 @@ document.addEventListener('DOMContentLoaded', function() {
       restoreCaretPosition(block, pos);
     });
 
-    // Run the query on Ctrl + Enter
-    block.addEventListener('keydown', function(e) {
+    block.addEventListener('keydown', function (e) {
       if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        // Run the query on Ctrl + Enter
         e.preventDefault();
         const runButton = this.closest('.query-window').querySelector('.run-button');
         if (runButton) {
           runButton.click();
         }
+      } else if (e.key === 'Enter' && !(e.ctrlKey || e.metaKey)) {
+        e.preventDefault();
+        const selection = window.getSelection();
+        const range = selection.getRangeAt(0);
+        
+        // Check if we're at the end of the content
+        const isAtEnd = range.startOffset === range.startContainer.length &&
+                        !range.startContainer.nextSibling;
+        
+        const newline = document.createTextNode('\n');
+        range.insertNode(newline);
+        
+        // Add an extra space if we're at the end. This way the cursor doesn't hover in 
+        // the middle of the line if we do a newline on the last line.
+        if (isAtEnd) {
+          const space = document.createTextNode(' ');
+          range.setStartAfter(newline);
+          range.insertNode(space);
+        }
+        
+        range.setStartAfter(newline);
+        range.setEndAfter(newline);
+        selection.removeAllRanges();
+        selection.addRange(range);
       }
     });
   });
@@ -52,11 +76,11 @@ function saveCaretPosition(element) {
 function restoreCaretPosition(element, position) {
   const range = document.createRange();
   const selection = window.getSelection();
-  
+
   let currentPos = 0;
   const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
   let node;
-  
+
   while ((node = walker.nextNode())) {
     const nodeLength = node.length;
     if (currentPos + nodeLength >= position) {
@@ -66,7 +90,7 @@ function restoreCaretPosition(element, position) {
     }
     currentPos += nodeLength;
   }
-  
+
   selection.removeAllRanges();
   selection.addRange(range);
 }
@@ -85,7 +109,7 @@ async function runQuery(button, loadPrepackagedResults = false) {
 
   try {
     const queryText = queryInput.textContent || '';
-    
+
     let queryResult;
     if (!loadPrepackagedResults) {
       // If we look for live results, we need to send a query to the demo server.
@@ -134,11 +158,11 @@ async function runQuery(button, loadPrepackagedResults = false) {
     if (queryResult.errors && queryResult.errors.length > 0) {
       resultsDiv.innerHTML = `
         <div class="error-message">
-          ${queryResult.errors.map(error => 
-            `<div class="error-description">${error.description.split('\n').map(line => 
-              line.replace(/ /g, '&nbsp;')
-            ).join('<br>')}</div>`
-          ).join('')}
+          ${queryResult.errors.map(error =>
+        `<div class="error-description">${error.description.split('\n').map(line =>
+          line.replace(/ /g, '&nbsp;')
+        ).join('<br>')}</div>`
+      ).join('')}
         </div>
       `;
       return;
@@ -148,7 +172,7 @@ async function runQuery(button, loadPrepackagedResults = false) {
     const formatCell = (value, type) => {
       if (value === null) return '<span class="null">NULL</span>';
       if (Array.isArray(value)) {
-        return `<span class="array">[${value.map(v => 
+        return `<span class="array">[${value.map(v =>
           v === null ? '<span class="null">NULL</span>' : v
         ).join(', ')}]</span>`;
       }
@@ -161,23 +185,23 @@ async function runQuery(button, loadPrepackagedResults = false) {
     // Create result table HTML
     const tableHTML = `
       <div class="table-container">
-        ${queryResult.rows === 100 ? 
-          '<div class="info-message">For readability, results are limited to 100 rows.</div>' 
-          : ''}
+        ${queryResult.rows === 100 ?
+        '<div class="info-message">For readability, results are limited to 100 rows.</div>'
+        : ''}
         <table class="results-table">
           <thead>
             <tr>
-              ${queryResult.meta.map(col => 
-                `<th data-type="Type: ${col.type}">${col.name}</th>`
-              ).join('')}
+              ${queryResult.meta.map(col =>
+          `<th data-type="Type: ${col.type}">${col.name}</th>`
+        ).join('')}
             </tr>
           </thead>
           <tbody>
             ${queryResult.data.map(row => `
               <tr>
-                ${row.map((value, index) => 
-                  `<td>${formatCell(value, queryResult.meta[index].type)}</td>`
-                ).join('')}
+                ${row.map((value, index) =>
+          `<td>${formatCell(value, queryResult.meta[index].type)}</td>`
+        ).join('')}
               </tr>
             `).join('')}
           </tbody>
@@ -188,7 +212,7 @@ async function runQuery(button, loadPrepackagedResults = false) {
         <span>Time: ${(queryResult.statistics.elapsed * 1000).toFixed(2)}ms</span>
       </div>
     `;
-    
+
     resultsDiv.innerHTML = tableHTML;
 
   } catch (error) {
