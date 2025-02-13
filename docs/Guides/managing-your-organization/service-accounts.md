@@ -84,7 +84,7 @@ Your new service account is listed in the **Configure Space** in the **Service a
 Each service account requires a secret to access Firebolt programmatically. You can generate a secret using SQL scripts in the **Develop Space** or through the UI in the **Configure Space**. 
 
 {: .warning}
-If you generate a new secret, the previous secret for service account will no longer work inside your applications or services. 
+If you generate a new secret, the previous secret for the service account will no longer work inside your applications or services. 
 
 ### Generate a secret using the UI
 
