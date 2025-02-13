@@ -65,7 +65,8 @@ def main():
         else:
             print(f"Failed to get result for {sql_file.name}")
         
-        # Sleep for 100ms between files
+        # Sleep for 100ms between files. The demo proxy is rate limited to 100 QPS and this way we consume
+        # at most 10% of the available quota.
         time.sleep(0.1)
 
 if __name__ == '__main__':

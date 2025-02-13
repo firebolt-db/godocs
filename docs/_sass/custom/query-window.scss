@@ -19,7 +19,6 @@
     background: #f5f2f0;
     width: 100%;
     box-sizing: border-box;
-    white-space: pre;
     transition: background-color 0.2s ease;
 
     // When in Focus, make the background a bit darker. This makes the query window feel more interactive.
@@ -178,7 +177,7 @@
           }
 
           &:hover::after {
-            content: attr(title);
+            content: attr(data-type);
             position: absolute;
             bottom: 100%;
             left: 50%;

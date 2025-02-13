@@ -1,30 +1,34 @@
 document.addEventListener('DOMContentLoaded', function() {
-  if (typeof Prism !== 'undefined') {
-    const codeBlocks = document.querySelectorAll('code.firebolt-sql');
-    codeBlocks.forEach(block => {
-      // Store the original query when the page loads
-      block.dataset.originalQuery = block.textContent;
-      
-      // Add a non-breaking space if empty
+  const codeBlocks = document.querySelectorAll('code.firebolt-sql');
+  codeBlocks.forEach(block => {
+    // Store the original query when the page loads
+    block.dataset.originalQuery = block.textContent;
+    
+    // Highlight code on load
+    Prism.highlightElement(block);
+    
+    // Re-highlight code on input
+    block.addEventListener('input', () => {
       if (!block.textContent.trim()) {
+        // We never allow a fully empty code block, this leads to the cursor being in the wrong place
         block.textContent = ' ';
       }
-      
-      // Highlight code on load
+      const pos = saveCaretPosition(block);
       Prism.highlightElement(block);
-      
-      // Re-highlight code on input
-      block.addEventListener('input', () => {
-        if (!block.textContent.trim()) {
-          // We never allow a fully empty code block, this leads to the cursor being in the wrong place
-          block.textContent = ' ';
-        }
-        const pos = saveCaretPosition(block);
-        Prism.highlightElement(block);
-        restoreCaretPosition(block, pos);
-      });
+      restoreCaretPosition(block, pos);
     });
-  }
+
+    // Run the query on Ctrl + Enter
+    block.addEventListener('keydown', function(e) {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        e.preventDefault();
+        const runButton = this.closest('.query-window').querySelector('.run-button');
+        if (runButton) {
+          runButton.click();
+        }
+      }
+    });
+  });
 
   // Load the pre-packaged query results when the page loads.
   // We don't want to have the query latency on the hot path of loading the page.
@@ -164,7 +168,7 @@ async function runQuery(button, loadPrepackagedResults = false) {
           <thead>
             <tr>
               ${queryResult.meta.map(col => 
-                `<th title="Type: ${col.type}">${col.name}</th>`
+                `<th data-type="Type: ${col.type}">${col.name}</th>`
               ).join('')}
             </tr>
           </thead>
