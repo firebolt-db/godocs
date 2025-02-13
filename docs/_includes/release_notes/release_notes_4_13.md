@@ -38,3 +38,7 @@ The following behavior of `EXPLAIN VACUUM` has been updated:
 1. If a table is fully vacuumed, no further actions are performed, and the message "Table is fully vacuumed, no vacuum jobs were executed" is returned to the user.
 2. The `EXPLAIN VACUUM` output no longer returns an empty result when the vacuumed object is an aggregating index.
 3. `EXPLAIN` has been updated to show an error if the specified relation does not exist.
+
+<!-- FIR-42464 - Owned by Andres Gonzalez -->
+**Fixed incorrect evaluation of `IS NULL` in outer joins**   
+Fixed an issue where `IS NULL` predicates on non-nullable columns from the non-preserving side of an outer join were incorrectly reduced to `FALSE` during common table expression (CTE) optimization. When the optimizer attempted to fuse multiple CTEs, it mistakenly replaced `t2.x IS NULL` with `FALSE`, altering query semantics and producing incorrect results. This occurred because `t2.x`, though defined as non-nullable, became nullable when used in a left join. The fix ensures that `IS NULL` predicates are correctly preserved during optimization.
