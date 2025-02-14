@@ -36,28 +36,4 @@ IS_FINITE(<value>);
 
 {: .no_toc}
 
-**Example**
-
-The following code example checks whether the value `inf`, after being cast to a `DOUBLE PRECISION` data type, is a finite number:
-
-```sql
-SELECT
-    IS_FINITE('inf'::DOUBLE PRECISION);
-```
-
-**Returns**
-
-The previous code example returns `FALSE` because infinity is an infinite value.
-
-**Example**
-
-The following code example checks whether the value `10`, after being cast to a `REAL` data type, is an infinite number:
-
-```sql
-SELECT
-    IS_FINITE(10::REAL);
-```
-
-**Returns**
-
-The previous code example returns `TRUE` because `10` is a finite value.
+{% include sql_examples/is_finite_executable.md %}

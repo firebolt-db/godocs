@@ -1,4 +1,4 @@
-The following code example generates a random UUID as a `TEXT` value:
+The following example generates a random UUID as TEXT
 ``` sql
 SELECT gen_random_uuid_text() as id_col
 ```

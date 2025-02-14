@@ -25,10 +25,4 @@ CURRENT_ENGINE()
 ## Example
 {: .no_toc}
 
-```sql
-SELECT current_engine()
-```
-
-**Returns**
-
-`system`
+{% include sql_examples/current_engine_executable.md %}

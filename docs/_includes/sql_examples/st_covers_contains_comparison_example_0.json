@@ -1,0 +1,49 @@
+{
+  "query": {
+    "query_id": "6848bd41-a075-45d2-83ad-386a00e49dff",
+    "request_id": "4a4bc427-a145-4c29-9b49-1ce8b3670205",
+    "query_label": null
+  },
+  "meta": [
+    {
+      "name": "polygon",
+      "type": "text"
+    },
+    {
+      "name": "linestring",
+      "type": "text"
+    },
+    {
+      "name": "contains",
+      "type": "boolean"
+    },
+    {
+      "name": "covers",
+      "type": "boolean"
+    }
+  ],
+  "data": [
+    [
+      "POLYGON((0 0, 0 1, 1 1, 1 0, 0 0))",
+      "LINESTRING(0 0, 0 0.5)",
+      false,
+      true
+    ],
+    [
+      "POLYGON((0 0, 0 1, 1 1, 1 0, 0 0))",
+      "LINESTRING(0 0, 0 0.5, 0.5 0.5)",
+      true,
+      true
+    ]
+  ],
+  "rows": 2,
+  "statistics": {
+    "elapsed": 0.013768,
+    "rows_read": 1,
+    "bytes_read": 1,
+    "time_before_execution": 0.000671141,
+    "time_to_execute": 0.000495346,
+    "scanned_bytes_cache": 0,
+    "scanned_bytes_storage": 0
+  }
+}
