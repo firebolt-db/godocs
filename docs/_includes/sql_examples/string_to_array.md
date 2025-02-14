@@ -1,4 +1,7 @@
-The following example splits the text into an array at the `|` character.
+**Example**
+
+The following code example splits the string `stephen70|esimpson|ruthgill|` at each `|` character and returns the resulting array as `nicknames`:
+
 ``` sql
 SELECT STRING_TO_ARRAY('stephen70|esimpson|ruthgill|', '|') AS nicknames;
 ```
@@ -9,7 +12,10 @@ SELECT STRING_TO_ARRAY('stephen70|esimpson|ruthgill|', '|') AS nicknames;
 | :--- |
 | {stephen70,esimpson,ruthgill,""} |
 
-The following example calls `STRING_TO_ARRAY` with an empty delimiter, resulting in an array of size one containing the input text.
+**Example**
+
+The following code example calls `STRING_TO_ARRAY` with an empty delimiter, producing an array containing a single element which contains the input text:
+
 ``` sql
 SELECT STRING_TO_ARRAY('firebolt', '') as size_one_array;
 ```
@@ -20,7 +26,10 @@ SELECT STRING_TO_ARRAY('firebolt', '') as size_one_array;
 | :--- |
 | {firebolt} |
 
-The following example calls `STRING_TO_ARRAY` with `NULL` as the delimiter, resulting in the text being split into separate characters.
+**Example**
+
+The following example calls `STRING_TO_ARRAY` with `NULL` as the delimiter, splitting the text into individual characters:
+
 ``` sql
 SELECT STRING_TO_ARRAY('firebolt', NULL) AS single_characters;
 ```
