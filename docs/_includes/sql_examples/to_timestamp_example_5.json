@@ -1,0 +1,33 @@
+{
+  "query": {
+    "query_id": "5c5bb78a-5887-4a69-ad25-e001156735c1",
+    "request_id": "667f30c0-7e73-4f08-a60d-e7a33c4e4f89",
+    "query_label": null
+  },
+  "meta": [
+    {
+      "name": "original_ts",
+      "type": "timestamptz"
+    },
+    {
+      "name": "converted_ts",
+      "type": "timestamptz"
+    }
+  ],
+  "data": [
+    [
+      "1597-12-03 13:49:30.511757+00",
+      "1597-12-03 13:49:30.511756+00"
+    ]
+  ],
+  "rows": 1,
+  "statistics": {
+    "elapsed": 0.007578,
+    "rows_read": 1,
+    "bytes_read": 1,
+    "time_before_execution": 0.000301219,
+    "time_to_execute": 0.000113283,
+    "scanned_bytes_cache": 0,
+    "scanned_bytes_storage": 0
+  }
+}

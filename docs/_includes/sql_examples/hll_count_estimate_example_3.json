@@ -1,0 +1,14 @@
+{
+  "errors": [
+    {
+      "description": "relation 'sketch_of_data_to_count' does not exist or not authorized."
+    }
+  ],
+  "query": {
+    "query_id": "71d63a66-a56d-45a3-9b62-7f6dd13aadd1",
+    "request_id": "3c1efb7d-a48f-4301-9979-b63e4d587df7"
+  },
+  "statistics": {
+    "elapsed": 0.0
+  }
+}

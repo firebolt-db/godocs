@@ -20,6 +20,18 @@
     })(window, document, 'script', 'dataLayer', 'GTM-WQS7M2G');</script>
     <!-- End Google Tag Manager -->
 
+    <!-- Query Window JS - interactive query pane for running Firebolt queries -->
+    <!-- Include Prism for syntax highlighting -->
+    <script>
+    window.Prism = window.Prism || {};
+        Prism.manual = true;
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+
+    <!-- And include the actual custom JS for the query window -->
+    <script src="{{ '/assets/js/query-window.js' | relative_url }}"></script>
+
     {% if site.search_enabled != false %}
     <script type="text/javascript" src="{{ '/assets/js/vendor/lunr.min.js' | relative_url }}"></script>
     {% endif %}
@@ -31,5 +43,6 @@
 
     {% include head_custom.html %}
     {% include head_fonts.html %}
+
 
 </head>

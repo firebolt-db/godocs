@@ -25,4 +25,4 @@ PI()
 ## Example
 {: .no_toc}
 
-{% include sql_examples/pi.md %}
+{% include sql_examples/pi_executable.md %}

@@ -33,4 +33,4 @@ COT(<value>)
 ## Example
 {: .no_toc}
 
-{% include sql_examples/cot.md %}
+{% include sql_examples/cot_executable.md %}

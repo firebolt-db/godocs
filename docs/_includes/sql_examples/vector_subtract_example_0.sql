@@ -1,0 +1,1 @@
+select vector_subtract([1, 5, 6], [3, 4, -2]) as res
