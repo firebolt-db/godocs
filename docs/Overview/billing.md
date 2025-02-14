@@ -21,7 +21,7 @@ Firebolt offers flexible pricing options to accommodate different workloads and 
 * Workload isolation &ndash; Run multiple clusters concurrently for optimized performance without affecting other workloads.
 * Serverless capabilities &ndash; Pay only for completed queries with no charges for idle time.
 
-When you start using Firebolt, you receive $1000 in free credits to use in the first 30 days. Afterwards, you can sign up for one of Firebolt's [subscription plans](#subscription-plans).
+When you start using Firebolt, you receive $200 in free credits to use in the first 30 days. Afterwards, you can sign up for one of Firebolt's [subscription plans](#subscription-plans).
 
 ## Compute costs
 
@@ -62,7 +62,7 @@ Data storage costs vary by AWS region and are based on the [Amazon S3 prices](ht
 
 
 ## Subscription Plans
-To continue using Firebolt’s engines for query processing after your initial $1000 credit, you must set up a subscription plan. Firebolt offers two main plans:
+To continue using Firebolt’s engines for query processing after your initial $200 credit, you must set up a subscription plan. Firebolt offers two main plans:
 
 * [Pay-as-you-go](#pay-as-you-go-plan) &ndash; A flexible plan that requires no commitment.
 * [Commited-use](#committed-use-discount-plan) &ndash; A plan where you pay for usage up-front, and Firebolt loads discounted usage credits into your account.

@@ -34,4 +34,4 @@ ACOS(<value>)
 ## Example
 {: .no_toc}
 
-{% include sql_examples/acos.md %}
+{% include sql_examples/acos_executable.md %}

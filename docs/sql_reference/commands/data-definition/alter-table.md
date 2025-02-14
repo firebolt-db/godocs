@@ -67,7 +67,7 @@ ALTER TABLE <table> DROP PARTITION <value1>[,...<value2]
 
 ### Examples
 
-See the examples in [Working with partitions](../../../Overview/working-with-tables/working-with-partitions.md).
+See the examples in [Working with partitions]({% link Overview/indexes/using-indexes.md %}#partitions-in-tables).
 
 ## ALTER TABLE OWNER TO
 

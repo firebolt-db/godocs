@@ -1,0 +1,14 @@
+{
+  "errors": [
+    {
+      "description": "Could not create on the schema. You have insufficient permissions. Reach out to an admin to update your permissions, or adjust the statement and re-execute."
+    }
+  ],
+  "query": {
+    "query_id": "cb737f0f-c77c-447b-8f2c-6cef5f3478d3",
+    "request_id": "112e1007-e9b4-4586-959f-c2de093bc991"
+  },
+  "statistics": {
+    "elapsed": 0.0
+  }
+}

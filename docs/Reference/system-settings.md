@@ -5,7 +5,7 @@ redirect_from:
 layout: default
 title: System settings
 description: Lists Firebolt system settings that you can configure using SQL.
-nav_order: 4
+nav_order: 3
 parent: General reference
 ---
 
@@ -173,7 +173,7 @@ SET warmup = false;
 
 ## Result Cache
 
-Set `enable_result_cache` to `FALSE` to disable the use of Firebolt's [result cache]({% link Overview/queries-overview/understand-query-performance-subresult.md %}), which is set to `TRUE` by default. Disabling result cashing can be useful for benchmarking query performance. When `enable_result_cache` is disabled, resubmitting the same query will recompute the results rather than retrieving them from cache. 
+Set `enable_result_cache` to `FALSE` to disable the use of Firebolt's [result cache]({% link Overview/queries/understand-query-performance-subresult.md %}), which is set to `TRUE` by default. Disabling result cashing can be useful for benchmarking query performance. When `enable_result_cache` is disabled, resubmitting the same query will recompute the results rather than retrieving them from cache. 
 
 ### Syntax
 
@@ -194,7 +194,7 @@ SELECT checksum(*) FROM production_table;
 
 ## Subresult Cache
 
-Firebolt implements [advanced cross-query optimization]({% link Overview/queries-overview/understand-query-performance-subresult.md %}) that allows SQL queries to reuse intermediate query execution states from previous requests.
+Firebolt implements [advanced cross-query optimization]({% link Overview/queries/understand-query-performance-subresult.md %}) that allows SQL queries to reuse intermediate query execution states from previous requests.
 Subresult caching operates at a semantic level, which allows Firebolt to understand and optimize queries based on the meaning and context of the data rather than solely based on their syntax or structure.
 This capability allows Firebolt to optimize across different query patterns for improved efficiency.
 
@@ -217,4 +217,4 @@ SET enable_subresult_cache = false;
 SELECT count(*) FROM fact_table INNER JOIN dim_table ON (a = b);
 ```
 
-Setting `enable_subresult_cache` to `FALSE` disables the use of all [cached subresults]({% link Overview/queries-overview/understand-query-performance-subresult.md %}). In particular, it deactivates two caching mechanisms that normally speed up query runtimes: the use of the `MaybeCache` operator, which includes the full result cache, and the hash-table cache used by the `Join` operator.
+Setting `enable_subresult_cache` to `FALSE` disables the use of all [cached subresults]({% link Overview/queries/understand-query-performance-subresult.md %}). In particular, it deactivates two caching mechanisms that normally speed up query runtimes: the use of the `MaybeCache` operator, which includes the full result cache, and the hash-table cache used by the `Join` operator.

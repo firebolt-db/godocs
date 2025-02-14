@@ -1,0 +1,1 @@
+SELECT pi() as result;

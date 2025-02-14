@@ -27,13 +27,14 @@ CREATE EXTERNAL TABLE [IF NOT EXISTS] <table>
     [, <column_name2> <column_type2> [PARTITION('<regex>')]]
     [,...<column_name2> <column_type2> [PARTITION('<regex>')]]
 )
-[ CREDENTIALS = ( <credentials> ) ]
+[   CREDENTIALS = { AWS_ACCESS_KEY_ID = '<aws_access_key_id>' AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>' [ AWS_SESSION_TOKEN = '<aws_session_token>' ] | AWS_ROLE_ARN = '<aws_role_arn>' } ]
 URL = 's3://<bucket_name>[/<folder>][/...]/'
 OBJECT_PATTERN = '<object_pattern>'
 TYPE = ( <type> )
 [ <type option> ]
 [ COMPRESSION = <compression_type> ]
 ```
+
 
 ## Parameters 
 {: .no_toc} 
@@ -134,6 +135,7 @@ CREDENTIALS = (AWS_ACCESS_KEY_ID = '<aws_access_key_id>' AWS_SECRET_ACCESS_KEY =
 | `aws_access_key_id`     | The AWS access key ID. | `TEXT `     |
 | `aws_secret_access_key` | The AWS secret access key.        | `TEXT`      |
 | `aws_session_token` | The AWS session token.        | `TEXT`      |
+| `aws_role_arn` | The AWS role ARN (Amazon Resource Name).        | `TEXT`      |
 
 {: .note}
 In case you don't have the access key and secret to access your S3 bucket, read more [here](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) on how to obtain them.
@@ -142,7 +144,7 @@ In case you don't have the access key and secret to access your S3 bucket, read 
 ### URL and OBJECT_PATTERN
 
 An external table enables reading some (or all) files from an S3 bucket that you have read access to. 
-Note that the S3 bucket that you reference must be in the same AWS Region as the Firebolt database.
+The Amazon S3 bucket that you reference must be in the same AWS Region as the Firebolt database.
 
 The`URL`and`OBJECT_PATTERN` parameters identify which files represent the data for the external table.`URL` must be a
 listable directory: it will be either an entire bucket or some subfolder. `OBJECT_PATTERN` is a glob that selects 

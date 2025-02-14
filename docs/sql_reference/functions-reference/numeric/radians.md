@@ -31,4 +31,4 @@ RADIANS(<value>)
 ## Example
 {: .no_toc}
 
-{% include sql_examples/radians.md %}
+{% include sql_examples/radians_executable.md %}

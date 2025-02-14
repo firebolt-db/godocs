@@ -32,4 +32,4 @@ ATAN(<value>)
 ## Example
 {: .no_toc}
 
-{% include sql_examples/atan.md %}
+{% include sql_examples/atan_executable.md %}

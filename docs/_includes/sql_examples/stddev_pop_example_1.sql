@@ -1,0 +1,1 @@
+SELECT ROUND(STDDEV_POP(grade), 3) as stddev from exams;

@@ -32,4 +32,4 @@ ASIN(<value>)
 ## Example
 {: .no_toc}
 
-{% include sql_examples/asin.md %}
+{% include sql_examples/asin_executable.md %}

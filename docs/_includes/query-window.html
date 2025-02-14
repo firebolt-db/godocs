@@ -1,0 +1,16 @@
+<div class="query-window">
+  <div class="query-toolbar">
+    <span class="window-title">Interactive SQL Playground 🔥</span>
+    <button class="run-button" onclick="runQuery(this)">Run Query</button>
+  </div>
+  <div class="query-content">
+    <pre><code class="firebolt-sql language-sql" contenteditable="true" spellcheck="false">{% include {{ include.sql_file }} %}</code></pre>
+    <script type="application/json" class="fallback-result" style="display: none;">
+      {% include {{ include.sql_file | replace: '.sql', '.json' }} %}
+    </script>
+    <div class="server-unavailable-banner hidden">
+      The Firebolt docs server is currently unavailable. Serving pre-computed query results.
+    </div>
+    <div class="query-results"></div>
+  </div>
+</div>

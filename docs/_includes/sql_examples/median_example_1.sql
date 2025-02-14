@@ -1,0 +1,1 @@
+SELECT MEDIAN(a) as result FROM UNNEST(array[100,NULL,1,2,5]) as a;
