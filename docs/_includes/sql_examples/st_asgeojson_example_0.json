@@ -1,0 +1,28 @@
+{
+  "query": {
+    "query_id": "70888076-3c57-4ad6-a525-4bef0f0a69aa",
+    "request_id": "098def8a-0a08-4518-8d36-2423394237a2",
+    "query_label": null
+  },
+  "meta": [
+    {
+      "name": "result",
+      "type": "text"
+    }
+  ],
+  "data": [
+    [
+      "{\"type\":\"Point\",\"coordinates\":[-73.98551041593687,40.75793403395676]}"
+    ]
+  ],
+  "rows": 1,
+  "statistics": {
+    "elapsed": 0.008969,
+    "rows_read": 1,
+    "bytes_read": 1,
+    "time_before_execution": 0.000254208,
+    "time_to_execute": 0.000102245,
+    "scanned_bytes_cache": 0,
+    "scanned_bytes_storage": 0
+  }
+}

@@ -31,13 +31,4 @@ MOD(<value_n>,<value_d>)
 ## Example
 {: .no_toc}
 
-The following example returns the remainder of `45` and `7`: 
-
-```sql
-SELECT
-    MOD(45, 7);
-```
-
-**Returns**
-
-`3`
+{% include sql_examples/mod_executable.md %}

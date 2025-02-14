@@ -57,11 +57,16 @@ PARTITION BY DATE_TRUNC('month', d), DATE_TRUNC('hour', t);
 ## Example
 {: .no_toc}
 
-```sql
-SELECT DATE_TRUNC('century', DATE '1996-09-03');  --> 1901-01-01
-SELECT DATE_TRUNC('hour', TIMESTAMP '1996-09-03 11:19:42.123');  --> 1996-09-03 11:00:00
+The following examples truncate `DATE` and `TIMESTAMP` values without timezones.
 
+{% include sql_examples/date_trunc_executable.md %}
+
+You can also truncate `TIMESTAMPTZ` values.
+
+```sql
 SET time_zone = 'US/Pacific';
-SELECT DATE_TRUNC('week', TIMESTAMPTZ '1996-09-03 11:19:42.123 Europe/Berlin');  --> 1996-09-02 00:00:00-07
-SELECT DATE_TRUNC('week', TIMESTAMPTZ '1996-09-03 11:19:42.123 Europe/Berlin', 'Europe/Berlin');  --> 1996-09-01 15:00:00-07
+-- Returns 1996-09-02 00:00:00-07
+SELECT DATE_TRUNC('week', TIMESTAMPTZ '1996-09-03 11:19:42.123 Europe/Berlin');  
+-- returns 1996-09-01 15:00:00-07
+SELECT DATE_TRUNC('week', TIMESTAMPTZ '1996-09-03 11:19:42.123 Europe/Berlin', 'Europe/Berlin');
 ```

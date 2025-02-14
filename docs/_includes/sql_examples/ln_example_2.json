@@ -1,0 +1,18 @@
+{
+  "errors": [
+    {
+      "description": "Line 1, Column 8: Cannot take the logarithm of 0. The argument needs to be larger than 0.",
+      "location": {
+        "failing_line": 1,
+        "start_offset": 8
+      }
+    }
+  ],
+  "query": {
+    "query_id": "768ac3c0-1c0f-4afe-8a2a-9695abd044c9",
+    "request_id": "f820a892-8656-4abf-9b38-8bb3bceca03c"
+  },
+  "statistics": {
+    "elapsed": 0.00046054
+  }
+}

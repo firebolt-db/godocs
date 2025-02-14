@@ -1,0 +1,28 @@
+{
+  "query": {
+    "query_id": "8bd7247d-e5ef-48ae-b341-059aff9ff689",
+    "request_id": "8d11b1b2-84da-4355-aae5-e7ff45fe39fa",
+    "query_label": null
+  },
+  "meta": [
+    {
+      "name": "?column?",
+      "type": "Decimal(20, 4)"
+    }
+  ],
+  "data": [
+    [
+      213.0
+    ]
+  ],
+  "rows": 1,
+  "statistics": {
+    "elapsed": 0.008095,
+    "rows_read": 1,
+    "bytes_read": 1,
+    "time_before_execution": 0.000305422,
+    "time_to_execute": 9.7486e-05,
+    "scanned_bytes_cache": 0,
+    "scanned_bytes_storage": 0
+  }
+}
