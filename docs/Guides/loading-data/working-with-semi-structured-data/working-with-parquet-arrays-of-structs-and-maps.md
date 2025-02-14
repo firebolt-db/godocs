@@ -2,16 +2,16 @@
 redirect_from:
   - /working-with-semi-structured-data/working-with-parquet-arrays-of-structs-and-maps.html
 layout: default
-title: Work with Parquet arrays and maps
-description: Learn how to ingest (load) Parquet data into Firebolt and work with Parquet maps, structs, and arrays of structs.
-nav_order: 4
+title: Load semi-structured Parquet data
+description: Learn how to load Parquet data into Firebolt.
+nav_order: 2
 parent: Work with semi-structured data
 ---
 
-# Work with Parquet arrays and maps
+# Load semi-structured Parquet data
 {: .no_toc}
 
-Apache Parquet is a binary file format that can store complex nested file structures in a compressed, columnar format. This topic provides guidance for ingesting and querying Parquet data that is stored as structs in arrays or as maps of key-value pairs.
+Apache Parquet is binary file format that can store structured columns and also semi-structured nested or repeated data in the form of arrays, structs, and maps. If these nested structures do not align to a strictly relational schema, they are described as semi-structured. Firebolt’s external-table syntax supports extracting these semi-structured fields from Parquet files, treating them similarly as other semi-structured data such as JSON. This document shows how to load and query Parquet data that is stored as structs in arrays or as maps of key-value pairs.
 
 * Topic ToC
 {:toc}
@@ -22,7 +22,7 @@ When you set up an external table to ingest Parquet data files, you use a hierar
 
 ## Syntax for defining a Parquet nested structure
 
-You specify the top grouping element of a nested structure in Parquet followed by the field in that structure that contains the data to ingest. You then declare the column type using the `ARRAY(<data_type>)` notation, where `<data type>` is the [Firebolt data type](../../sql_reference/data-types.md) corresponding to the data type of the field in Parquet.
+You specify the top grouping element of a nested structure in Parquet followed by the field in that structure that contains the data to ingest. You then declare the column type using the `ARRAY(<data_type>)` notation, where `<data type>` is the [Firebolt data type]({% link sql_reference/data-types.md %}) corresponding to the data type of the field in Parquet.
 
 ```sql
 "<grouping1>.<datafield>" ARRAY(<data_type>)

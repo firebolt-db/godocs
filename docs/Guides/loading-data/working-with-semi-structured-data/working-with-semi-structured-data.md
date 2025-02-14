@@ -4,7 +4,7 @@ redirect_from:
 layout: default
 title: Work with semi-structured data
 description: Learn how to handle semi-structured data in Firebolt.
-parent: Guides
+parent: Load data
 nav_order: 9
 has_children: true
 ---

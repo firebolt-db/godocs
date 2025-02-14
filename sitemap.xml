@@ -91,7 +91,7 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://docs.firebolt.io/Guides/working-with-semi-structured-data/working-with-arrays.html</loc>
+    <loc>https://docs.firebolt.io/Guides/loading-data/working-with-semi-structured-data/working-with-arrays.html</loc>
     <lastmod>2023-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -127,7 +127,7 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://docs.firebolt.io/Guides/working-with-semi-structured-data/mapping-json-to-table.html</loc>
+    <loc>https://docs.firebolt.io/Guides/loading-data/working-with-semi-structured-data/mapping-json-to-table.html</loc>
     <lastmod>2023-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -1135,7 +1135,7 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://docs.firebolt.io/Guides/working-with-semi-structured-data/working-with-semi-structured-data.html</loc>
+    <loc>https://docs.firebolt.io/Guides/loading-data/working-with-semi-structured-data/working-with-semi-structured-data.html</loc>
     <lastmod>2023-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -1399,7 +1399,7 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://docs.firebolt.io/Guides/working-with-semi-structured-data/working-with-parquet-arrays-of-structs-and-maps.html</loc>
+    <loc>https://docs.firebolt.io/Guides/loading-data/working-with-semi-structured-data/working-with-parquet-arrays-of-structs-and-maps.html</loc>
     <lastmod>2023-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -1717,7 +1717,7 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://docs.firebolt.io/Guides/working-with-semi-structured-data/ingesting-semi-structured-data.html</loc>
+    <loc>https://docs.firebolt.io/Guides/loading-data/working-with-semi-structured-data/ingesting-semi-structured-data.html</loc>
     <lastmod>2023-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>

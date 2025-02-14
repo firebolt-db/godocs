@@ -61,7 +61,7 @@ Firebolt's multi-dimensional approach to elasticity allows it to dynamically ada
 
 ### <img src="../../assets/images/icon-simplicity.png" alt="Icon for SQL simplicity." width="40"/> SQL simplicity
 
-Firebolt supports a PostgreSQL-compliant SQL dialect, allowing your teams to leverage Firebolt's capabilities without needing to learn a new query language. This simplifies integration with existing workflows that contain tasks that include data provisioning, processing, and management. With support for both structured and [semi-structured data](../Guides/working-with-semi-structured-data/working-with-semi-structured-data.md), Firebolt allows you to analyze diverse datasets within a single platform.
+Firebolt supports a PostgreSQL-compliant SQL dialect, allowing your teams to leverage Firebolt's capabilities without needing to learn a new query language. This simplifies integration with existing workflows that contain tasks that include data provisioning, processing, and management. With support for both structured and [semi-structured data]({% link Guides/loading-data/working-with-semi-structured-data/working-with-semi-structured-data.md %}), Firebolt allows you to analyze diverse datasets within a single platform.
 
 # Eco-system and integrations
 
