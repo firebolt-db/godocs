@@ -9,12 +9,6 @@
 The `EXPLAIN(STATISTICS)` function now provides estimated row counts and column distinct counts, when available. This enhancement offers more detailed insights for analyzing query performance.
 ### Behavior Changes
 
-<!-- Auto Generated Markdown for FIR-43103 - Owned by Michael Freitag -->
-**Fixed a bug in the shuffle elimination logic for distributed `GROUP BY` operators that improved query performance and result accuracy
-
-**
-Resolved a bug in the shuffle elimination logic for distributed `GROUP BY` operators. This bug sometimes led to missed optimization opportunities and, in rare cases, incorrect results. Addressing this issue improves query performance and result accuracy, enhancing overall data processing efficiency.
-
 
 <!-- Markdown for FIR-42197 - Owned by Tal Zelig -->
 **Use NULL instead of empty strings for passing unset TVF parameters**
