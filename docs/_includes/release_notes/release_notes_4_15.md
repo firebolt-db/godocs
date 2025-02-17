@@ -19,7 +19,8 @@ NULL must be used instead of empty strings ('') to pass unset TVF parameters.
 ### Performance Improvements
 
 <!-- Auto Generated Markdown for FIR-42755 - Owned by Andres Senac -->
-**Optimized conversion of outer joins to inner joins with null-rejecting filters for improved query performance**
+**Improved outer join conversion to inner joins for better query performance**
+
 Optimized the system to convert outer joins on the non-preserving side of another outer join into inner joins when a null-rejecting filter is present. This change improves query performance by reducing unnecessary outer join operations.
 
 
