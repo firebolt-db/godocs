@@ -21,7 +21,7 @@ NULL must be used instead of empty strings ('') to pass unset TVF parameters.
 <!-- Auto Generated Markdown for FIR-42755 - Owned by Andres Senac -->
 **Improved outer join conversion to inner joins for better query performance**
 
-Optimized the system to convert outer joins on the non-preserving side of another outer join into inner joins when a null-rejecting filter is present. This change improves query performance by reducing unnecessary outer join operations.
+Firebolt now automatically converts outer joins on the non-preserving side of another outer join to inner joins when a null-rejecting filter is present. The non-preserving side can exclude rows without matching values, while a null-rejecting filter excludes rows with NULL values. This optimization improves query performance by reducing unnecessary outer join operations.
 
 
 <!-- Auto Generated Markdown for FIR-42992 - Owned by Tobias Humig -->
