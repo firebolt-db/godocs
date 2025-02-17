@@ -28,7 +28,7 @@ Firebolt now automatically converts outer joins on the non-preserving side of an
 **Improved performance by allowing multiple `INSERT INTO <tbl> VALUES ...` statements to be combined in a single request
 
 **
-Multiple `INSERT INTO <tbl> VALUES ...` statements can now be combined in a single request if they insert into the same table. These statements are merged and processed together on the server. This improvement reduces network overhead and enhances performance for batch data insertion.
+Workloads that send multiple consecutive `INSERT INTO <tbl> VALUES ...` statements into the same table can now run much faster by combining these statements into a single request. These statements are now automatically merged and processed together on the server within a single transaction, which means that either all of them succeed or fail. This improvement reduces network overhead and enhances performance for batch data insertion.
 
 
 <!-- Auto Generated Markdown for FIR-42537 - Owned by Pascal Schulze -->
