@@ -37,5 +37,5 @@ The `duration_us` value in the system tables `information_schema.engine_running_
 Resolved a bug in the optimization process for distributed `GROUP BY` and `JOIN` operators. This bug sometimes led to missed optimization opportunities and, in rare cases, incorrect results.
 
 <!-- Auto Generated Markdown for FIR-43315 - Owned by Andres Senac -->
-**Fixed a bug with correlated `EXISTS` subqueries that caused duplicated outer tuples in query results**
+**Fixed a bug in correlated `EXISTS` subqueries that caused duplicated outer tuples in query results**
 Resolved a bug in correlated `EXISTS` subqueries that occurred when both correlated and non-correlated filters were applied. This bug caused the outer rows, or tuples, in the query results to duplicate. The fix ensures that only unique outer rows appear in the result, improving query accuracy and reliability.
