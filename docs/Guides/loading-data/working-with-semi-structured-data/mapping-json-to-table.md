@@ -59,7 +59,7 @@ CREATE TABLE doc_visits_source (
   raw_json TEXT
 );
 
--- Insert raw JSON data (each row contains a single JSON object)
+-- Insert raw JSON data (each row contains a single JSON object) into column named 'raw_json'
 INSERT INTO doc_visits_source (raw_json)
 VALUES
 ('{"id": 1, "StartTime": "2020-01-06 17:00:00", "Duration": 450, "tags": ["summer-sale", "sports"], "user_agent": {"agent": "Mozilla/5.0", "platform": "Windows NT 6.1", "resolution": "1024x4069"}}'),
