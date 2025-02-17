@@ -10,7 +10,7 @@ The `EXPLAIN(STATISTICS)` function now provides estimated row counts and column 
 
 <!-- Markdown for FIR-42197 - Owned by Tal Zelig -->
 **Use NULL instead of empty strings for passing unset TVF parameters**      
-NULL must be used instead of empty strings ('') to pass unset TVF parameters.
+`NULL` is now required instead of empty strings (`''`) to indicate unset parameters in table-valued functions (TVFs). Previously, specifying `aws_access_key_id => ''` was treated as an unset value. Now, use `aws_access_key_id => NULL` to define a parameter as unset.
 
 ### Performance Improvements
 
