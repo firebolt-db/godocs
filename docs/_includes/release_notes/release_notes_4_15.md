@@ -6,7 +6,7 @@
 
 <!-- Auto Generated Markdown for FIR-43042 - Owned by Immanuel Haffner -->
 **Improved `EXPLAIN(STATISTICS)` to include estimated row counts and column distinct counts when available  **
-The `EXPLAIN(STATISTICS)` function now provides estimated row counts and column distinct counts when available. This enhancement helps in analyzing query performance by offering more detailed insights.
+The `EXPLAIN(STATISTICS)` function now provides estimated row counts and column distinct counts, when available. This enhancement offers more detailed insights for analyzing query performance.
 
 
 <!-- Auto Generated Markdown for FIR-43103 - Owned by Michael Freitag -->
