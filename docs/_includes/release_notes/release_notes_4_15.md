@@ -6,12 +6,6 @@
 **Improved `EXPLAIN(STATISTICS)` to include estimated row counts and column distinct counts when available**    
 The `EXPLAIN(STATISTICS)` function now provides estimated row counts and column distinct counts, when available. This enhancement offers more detailed insights for analyzing query performance.
 
-### Behavior Changes
-
-<!-- Markdown for FIR-42197 - Owned by Tal Zelig -->
-**Use NULL instead of empty strings for passing unset TVF parameters**      
-`NULL` is now required instead of empty strings (`''`) to indicate unset parameters in table-valued functions (TVFs). Previously, specifying `aws_access_key_id => ''` was treated as an unset value. Now, use `aws_access_key_id => NULL` to define a parameter as unset.
-
 ### Performance Improvements
 
 <!-- Auto Generated Markdown for FIR-42755 - Owned by Andres Senac -->
@@ -26,6 +20,11 @@ Workloads that send multiple consecutive `INSERT INTO <tbl> VALUES ...` statemen
 **Updated `duration_us` in `information_schema.engine_running_queries` and `information_schema.engine_query_history` to include total query time across Firebolt infrastructure including retries and gateway services**       
 The `duration_us` value in the system tables `information_schema.engine_running_queries` and `information_schema.engine_query_history` now reflects the complete time a query spends in the Firebolt infrastructure. Previously, it included only the time on the engine and did not consider retries. The duration now also accounts for time spent in gateway services and retries. For example, if a query activates a stopped engine, the start-up time is included in the query's duration. This change provides a more accurate measurement of query duration, allowing users to better understand and optimize performance.
 
+### Behavior Changes
+
+<!-- Markdown for FIR-42197 - Owned by Tal Zelig -->
+**Use NULL instead of empty strings for passing unset TVF parameters**      
+`NULL` is now required instead of empty strings (`''`) to indicate unset parameters in table-valued functions (TVFs). Previously, specifying `aws_access_key_id => ''` was treated as an unset value. Now, use `aws_access_key_id => NULL` to define a parameter as unset.
 
 ### Bug Fixes
 
