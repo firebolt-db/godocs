@@ -38,4 +38,4 @@ Resolved a bug in the optimization process for distributed `GROUP BY` and `JOIN`
 
 <!-- Auto Generated Markdown for FIR-43315 - Owned by Andres Senac -->
 **Fixed a bug with correlated `EXISTS` subqueries that caused duplicated outer tuples in query results**
-Resolved a bug where a correlated `EXISTS` subquery with both correlated and non-correlated filters duplicated the outer tuples in the query result. Users benefit from more accurate query results.
+Resolved a bug in correlated `EXISTS` subqueries that occurred when both correlated and non-correlated filters were applied. This bug caused the outer rows, or tuples, in the query results to duplicate. The fix ensures that only unique outer rows appear in the result, improving query accuracy and reliability.
