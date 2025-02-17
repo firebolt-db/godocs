@@ -41,7 +41,7 @@ The `duration_us` value in the system tables `information_schema.engine_running_
 ### Bug Fixes
 
 <!-- Auto Generated Markdown for FIR-43280 - Owned by Lorenz Hübschle -->
-**Fixed a bug in the shuffle elimination logic for distributed outer join operators, ensuring query accuracy and reliability
+**Fixed a bug in the logic for distributed outer join operators
 
 **
 A bug in the shuffle elimination logic for distributed outer join operators was fixed. This fix ensures correct results in queries using these operators, enhancing data accuracy and reliability.
