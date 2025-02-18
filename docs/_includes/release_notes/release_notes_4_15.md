@@ -10,7 +10,30 @@ The `EXPLAIN(STATISTICS)` function now provides estimated row counts and column 
 
 <!-- Auto Generated Markdown for FIR-42755 - Owned by Andres Senac -->
 **Improved outer join conversion to inner joins for better query performance**     
-Firebolt now automatically converts outer joins on the non-preserving side of another outer join to inner joins when a null-rejecting filter is present. The non-preserving side can exclude rows without matching values, while a null-rejecting filter excludes rows with NULL values. This optimization improves query performance by reducing unnecessary outer join operations.
+A `LEFT JOIN` nested within another `LEFT JOIN` is now converted into an `INNER` join if the upper `LEFT JOIN` discards the null-padded rows introduced by the lower `LEFT JOIN`. This occurs when the upper `LEFT JOIN` filters out `NULL` values from the right-hand side of the lower `LEFT JOIN`. For example, the following query:
+```sql
+SELECT * 
+FROM t1 
+LEFT JOIN (
+    SELECT t3.x 
+    FROM t2 
+    LEFT JOIN t3 ON t2.x = t3.x
+) t4 
+ON t1.x = t4.x;
+```
+Is now treated as:
+
+```sql
+SELECT * 
+FROM t1 
+LEFT JOIN (
+    SELECT t3.x 
+    FROM t2 
+    INNER JOIN t3 ON t2.x = t3.x
+) t4 
+ON t1.x = t4.x;
+```
+This occurs because the upper `LEFT JOIN` filters out rows from `t4` where `t3.x` is `NULL`, making the lower `LEFT JOIN` redundant.
 
 <!-- Auto Generated Markdown for FIR-42992 - Owned by Tobias Humig -->
 **Improved performance by allowing multiple `INSERT INTO <tbl> VALUES ...` statements to be combined in a single request**      
