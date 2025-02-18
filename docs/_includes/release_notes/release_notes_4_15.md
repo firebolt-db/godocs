@@ -57,4 +57,24 @@ Resolved a bug in the optimization process for distributed `GROUP BY` and `JOIN`
 
 <!-- Auto Generated Markdown for FIR-43315 - Owned by Andres Senac -->
 **Fixed a bug in correlated `EXISTS` subqueries that caused duplicated outer tuples in query results**      
-Resolved a bug in correlated `EXISTS` subqueries that occurred when both correlated and non-correlated filters were applied. This bug caused the outer rows, or tuples, in the query results to duplicate. The fix ensures that only unique outer rows appear in the result, improving query accuracy and reliability.
+Fixed a bug with non-trivial correlated `EXISTS` subquery whereby the rows from the outer relation were duplicated in the query result. In the following example,
+```sql
+create table t1(x int null)
+
+create table t2(x int null, y int null)
+
+insert into t1 values (1), (2)
+
+insert into t2 values (1, 2), (1, 3)
+
+select *,
+  exists(select 1 from t2 where coalesce(t2.x, t2.y) = t1.x)
+from t1
+--
+x INTEGER,?column? BOOLEAN
+1,t
+1,t
+2,f
+```
+
+The matching rows from t1 are repeated in the query output as many times as the number of distinct values of `(x, y)` tuples in t2.
