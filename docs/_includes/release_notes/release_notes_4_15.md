@@ -37,7 +37,7 @@ This occurs because the upper `LEFT JOIN` filters out rows from `t4` where `t3.x
 
 <!-- Auto Generated Markdown for FIR-42992 - Owned by Tobias Humig -->
 **Improved performance by allowing multiple `INSERT INTO <tbl> VALUES ...` statements to be combined in a single request**      
-Workloads that send multiple consecutive `INSERT INTO <tbl> VALUES ...` statements into the same table can now run much faster by combining these statements into a single request. These statements are now automatically merged and processed together on the server within a single transaction, which means that either all of them succeed or fail. This improvement reduces network overhead and enhances performance for batch data insertion.
+Workloads that send multiple consecutive `INSERT INTO <tbl> VALUES ...` statements into the same table can now run much faster by sending all statements in a single request separated by semicolons. These statements are now automatically merged and processed together on the server within a single transaction, which means that either all of them succeed or fail. This improvement reduces network overhead and enhances performance for batch data insertion.
 
 <!-- Auto Generated Markdown for FIR-42537 - Owned by Pascal Schulze -->
 **Updated `duration_us` in `information_schema.engine_running_queries` and `information_schema.engine_query_history` to include total query time across Firebolt infrastructure including retries and gateway services**       
