@@ -177,6 +177,7 @@ The **Review configuration** window displays your selections in SQL code. If you
 
 ## View results and query statistics
 <img src="../../assets/images/load_data_wizard_results.png" alt="The next step in the wizard is to specify a data source." width="700"/>
+
 After your load data job completes, you can view the results of each query that was configured by the **Load data** wizard in Firebolt user interface under **Results** in the bottom window. If you need to edit the queries, you can enter the change into the **SQL Editor** directly and select **Run**.
 
 1. View information about your query in the **Statistics** tab. This information contains the status of the query, how long it took to run, and the number of rows processed during the data loading job.
@@ -194,4 +195,4 @@ After your load data job completes, you can view the results of each query that 
 
     1. Select the **Refresh** icon to update the query history and ID.
     2. Select the filter icon (<img src="../../assets/images/filter-icon.png" alt="filter icon" width="12"/>) to remove or add columns to display.
-    3. Select the **More options** icon (<img src="../../assets/images/more_options_icon.png" alt="more options icon" width="12"/>) to export the contents of the Query history tab to a JSON or CSV file.
+    3. Select the **More options** icon (<img src="../../assets/images/more_options_icon.png" alt="more options icon" width="10"/>) to export the contents of the Query history tab to a JSON or CSV file.
