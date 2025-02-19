@@ -83,7 +83,8 @@ SELECT
   TO_TIMESTAMP(TRIM(BOTH '"' FROM JSON_POINTER_EXTRACT(raw_json, '/StartTime')), 'YYYY-MM-DD HH24:MI:SS') AS start_time,
   JSON_POINTER_EXTRACT(raw_json, '/Duration')::INT AS duration,
   JSON_POINTER_EXTRACT(raw_json, '/tags')::ARRAY(TEXT) AS tags,
-  JSON_POINTER_EXTRACT(raw_json, '/user_agent') AS user_agent
+  JSON_POINTER_EXTRACT_KEYS(raw_json, '/user_agent') AS agent_props_keys,
+  JSON_POINTER_EXTRACT_VALUES(raw_json, '/user_agent') AS agent_props_vals
 FROM doc_visits_source;
 ```
 
