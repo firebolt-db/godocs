@@ -122,6 +122,7 @@ The following code example creates a table that stores raw JSON, allowing you to
 
 ```sql
 -- Create a staging table to hold the raw JSON data
+DROP TABLE IF EXISTS doc_visits_source;
 CREATE TABLE doc_visits_source (
   raw_json TEXT
 );
