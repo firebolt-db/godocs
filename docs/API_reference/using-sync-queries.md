@@ -2,8 +2,8 @@
 layout: default
 title: Synchronous queries
 description: Learn how to submit sync queries and get their status. 
-parent: Queries overview
-nav_order: 1 # FIXME
+parent: API reference
+nav_order: 1
 ---
 
 # Synchronous queries

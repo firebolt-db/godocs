@@ -2,8 +2,8 @@
 layout: default
 title: Asynchronous queries
 description: Learn how to submit async queries and get their status. 
-parent: Queries overview
-nav_order: 1 # FIXME
+parent: API reference
+nav_order: 2
 ---
 
 # Asynchronous queries
