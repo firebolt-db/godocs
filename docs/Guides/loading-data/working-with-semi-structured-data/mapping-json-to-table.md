@@ -71,7 +71,8 @@ CREATE FACT TABLE visits (
   start_time TIMESTAMP,
   duration INT,
   tags ARRAY(TEXT),
-  user_agent TEXT
+  agent_props_keys ARRAY (TEXT),
+  agent_props_vals ARRAY (TEXT)
 )
 PRIMARY INDEX start_time;
 
