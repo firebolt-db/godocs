@@ -102,10 +102,11 @@ FROM doc_visits_source;
 
 The following table shows the expected output:
 
-| id | start_time      | duration | tags                           | user_agent                                                        |
-|----|-----------------|----------|--------------------------------|-------------------------------------------------------------------|
-| 2  | 1/5/2020 12:00  | 959      | ["gadgets","audio"]            | {"agent": "Safari", "platform": "iOS 14"}                         |
-| 1  | 1/6/2020 17:00  | 450      | ["summer-sale","sports"]       | {"agent": "Mozilla/5.0", "platform": "Windows NT 6.1", "resolution": "1024x4069"} |
+| id | start_time      | duration | tags                           | agent_props_keys	                                                 | agent_props_vals                               |
+|----|-----------------|----------|--------------------------------|-------------------------------------------------------------------| -----------------------------------------------|
+| 2  | 1/5/2020 12:00  | 959      | ["gadgets","audio"]            | [“agent”, “platform”]                                             | [“Safari”, “iOS 14”]                           |
+| 1  | 1/6/2020 17:00  | 450      | ["summer-sale","sports"]       | [“agent”, “platform”, “resolution”]	                             | [“Mozilla/5.0”, “Windows NT 6.1”, “1024x4069”] |
+
 
 
 Important characteristics of the previous table:
