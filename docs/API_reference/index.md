@@ -12,6 +12,11 @@ has_children: true
 API calls are X. You can do X with API calls. At FB you make API calls using a driver. The basic set up is driver - query.
 What are drivers briefly
 
+Prereqs
+You need service account
+- user associated w service account
+- etc
+
 This is the syntax.
 This is a diagram explaining it.
 
