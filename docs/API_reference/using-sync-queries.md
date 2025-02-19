@@ -30,6 +30,19 @@ You can also submit a synchronous query programmatically using the Firebolt API.
 - **Firebolt database and engine** &ndash; You must have access to a Firebolt database. If you do not have access, you can [create a database]({% link Guides/getting-started/get-started-sql.md %}#create-a-database) and then [create an engine]({% link Guides/getting-started/get-started-sql.md %}#create-an-engine).
 - **Firebolt service account** &ndash; You must have an active Firebolt [service account]({% link Guides/managing-your-organization/service-accounts.md %}) for programmatic access, along with its ID and secret.
 
+To submit a synchronous query programatically, use a Firebolt SDK to send an HTTP request with the SQL query to Firebolt's API endpoint. 
+
+### Using a firebolt SDK
+
+Use a Firebolt SDK to connect to a Firebolt database, authenticate securely, and run queries with minimal setup. The SDK provides built-in methods for running queries, handling responses, and managing connections. All Firebolt SDKs support synchronous queries. See the documentation for each SDK or driver for specific details on how to submit synchronous queries programmatically:
+
+* [Node.js SDK]({% link Guides/developing-with-firebolt/connecting-with-nodejs.md %}) &ndash; Firebolt Node.js SDK
+* [Python SDK]({% link Guides/developing-with-firebolt/connecting-with-Python.md %}) &ndash; Firebolt Python SDK
+* [JDBC Driver]({% link Guides/developing-with-firebolt/connecting-with-jdbc.md %}) &ndash; Firebolt JDBC Driver
+* [SQLAlchemy]({% link Guides/developing-with-firebolt/connecting-with-sqlalchemy.md %}) &ndash; Firebolt SQLAlchemy adapter
+* [.NET SDK]({% link Guides/developing-with-firebolt/connecting-with-net-sdk.md %}) &ndash; Firebolt .NET SDK
+* [Go SDK]({% link Guides/developing-with-firebolt/connecting-with-go.md %}) &ndash; Firebolt Go SDK
+
 ### Firebolt API endpoint
 
 To submit a synchronous query programmatically, use the following API endpoint:
@@ -70,18 +83,7 @@ An example response follows:
 }
 ```
 
-## Using a firebolt SDK
-
-Use a Firebolt SDK to connect to a Firebolt database, authenticate securely, and run queries with minimal setup. The SDK provides built-in methods for running queries, handling responses, and managing connections. All Firebolt SDKs support synchronous queries. See the documentation for each SDK or driver for specific details on how to submit synchronous queries programmatically:
-
-* [Node.js SDK]({% link Guides/developing-with-firebolt/connecting-with-nodejs.md %}) &ndash; Firebolt Node.js SDK
-* [Python SDK]({% link Guides/developing-with-firebolt/connecting-with-Python.md %}) &ndash; Firebolt Python SDK
-* [JDBC Driver]({% link Guides/developing-with-firebolt/connecting-with-jdbc.md %}) &ndash; Firebolt JDBC Driver
-* [SQLAlchemy]({% link Guides/developing-with-firebolt/connecting-with-sqlalchemy.md %}) &ndash; Firebolt SQLAlchemy adapter
-* [.NET SDK]({% link Guides/developing-with-firebolt/connecting-with-net-sdk.md %}) &ndash; Firebolt .NET SDK
-* [Go SDK]({% link Guides/developing-with-firebolt/connecting-with-go.md %}) &ndash; Firebolt Go SDK
-
-## Python example API call
+### Python example API call
 
 The following code example establishes a connection to a Firebolt database using a service account's credentials, runs a simple `SELECT` query, retrieves and prints the result:
 
@@ -131,7 +133,7 @@ Common errors and solutions when using synchronous queries:
 The queries running on an engine are available via the [engine_running_queries](../../sql_reference/information-schema/engine-running-queries.md) view. 
 
 
-# Query cancelation 
+### Query cancelation 
 
 A running query can be cancelled using the [cancel](../../sql_reference/commands/queries/cancel.md) statement as follows:
 

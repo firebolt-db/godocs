@@ -12,16 +12,23 @@ An asynchronous query runs in the background and returns a successful response o
 
 Asynchronous queries are ideal for long-running operations, such as `INSERT`, `VACUUM`, or `COPY INTO`, where keeping an HTTP connection open is both unreliable and unnecessary, and where the query might return zero rows. While these operations continue running even if the connection drops, tracking them can be challenging. Using an asynchronous query allows you to check the status of operations at intervals, based on the expected duration.
 
+You should use asynchronous queries for any supported operation that may take more than a few minutes for which there are no results.
 
-# When to use async queries
-Async queries should be used for any supported operation that may take more than a few minutes for which there are no results.
-
-## List of supported kinds of queries 
+**Supported asynchronous queries**
 
 - Insert queries
 - Engine operations (START ENGINE, STOP ENGINE, ALTER ENGINE, etc.)
 
-# How to submit an async query
+## How to submit an asynchronous query
+
+You can only submit a synchronous query programmatically using the Firebolt API. Every query submitted using the Firebolt **Develop Space** is a synchronous query. 
+
+The following are required prerequisites to submit a query programmatically:
+
+- **Firebolt account** &ndash; You need an active Firebolt account. If you do not have one, you can [sign up](https://go.firebolt.io/signup) for one.
+- **Firebolt database and engine** &ndash; You must have access to a Firebolt database. If you do not have access, you can [create a database]({% link Guides/getting-started/get-started-sql.md %}#create-a-database) and then [create an engine]({% link Guides/getting-started/get-started-sql.md %}#create-an-engine).
+- **Firebolt service account** &ndash; You must have an active Firebolt [service account]({% link Guides/managing-your-organization/service-accounts.md %}) for programmatic access, along with its ID and secret.
+- **Permissions** &ndash; You will need to have [USAGE permission]({% link Overview/Security/Role-Based Access Control/engine-permissions.md %}#engine-permissions) on the engine that runs the query. A user always has permission to view their own queries. To see another user's queries, you must have `MONITOR ENGINE` or `MONITOR ALL` privileges.
 
 ## Using a firebolt SDK
 Some firebolt SDKs have idiomatic async support built in. 
