@@ -165,6 +165,7 @@ The following code example defines columns that map directly to known keys:
 
 ```sql
 -- Create a staging table for raw JSON data (one JSON object per row)
+DROP TABLE IF EXISTS doc_visits_source;
 CREATE TABLE doc_visits_source (
   raw_json TEXT
 );
