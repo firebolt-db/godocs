@@ -8,15 +8,17 @@ nav_order: 1
 
 # Synchronous queries
 
-Syncronous queries are the default mode of submitting queries in firebolt. All kinds of sql queries are accepted as sync queries. See the [SQL reference](../../sql_reference/index.md) for the full range of queries supported by firebolt.
+Synchronous queries in Firebolt allow users to send a query and wait for an immediate response before proceeding with other operations. These queries are best suited for interactive analytics, dashboards, and data retrieval where low-latency performance is essential. Unlike asynchronous queries, which run in the background and return results later, synchronous queries complete within a single request-response cycle.
 
-## Long running sync queries
+Synchronous queries are the default query mode for submitting queries in Firebolt. All of the statements in the [SQL reference](../../sql_reference/index.md) guide can be used inside a synchronous query. 
 
-Syncronous queries keep a HTTP connection open for the duration of the query, and stream results back as they are available. While there is no enforced time limit on query run time, it is not guaranteed that the HTTP connection can survive for a very long time. This is particularly true past the 1 hour mark. If the HTTP connection is severred, some kinds of queries like `INSERT` continue to run by default. `SELECT` queries are cancelled by default. This behavior can be changed via the setting [cancel_query_on_connection_drop](../../Reference/system-settings.md#query-cancellation-mode-on-connection-drop). 
+## Handling long-running synchronous queries
 
-Some kinds of queries can be submitted as [async](using-async-queries.md) queries to mitigate this problem. 
+Synchronous queries maintain an open HTTP connection for the duration of the query, and stream results back as they become available. While there is no strict time limit, queries running longer than one hour may experience connectivity interruptions. If the HTTP connection is lost, some queries, including `INSERT`, continue to run by default, while `SELECT` queries are cancelled. You can modify this behavior using the [cancel_query_on_connection_drop](../../Reference/system-settings.md#query-cancellation-mode-on-connection-drop) setting. 
 
-# How to submit an sync query
+To avoid connection issues, consider submitting long-running queries as [asynchronous](using-async-queries.md) queries. 
+
+## How to submit a synchronous query
 
 ## Using the firebolt UI
 Every query submitted via the UI is a syncronous query. 
