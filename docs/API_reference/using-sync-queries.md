@@ -10,7 +10,7 @@ nav_order: 1
 
 Synchronous queries in Firebolt allow users to send a query and wait for an immediate response before proceeding with other operations. These queries are best suited for interactive analytics, dashboards, and data retrieval where low-latency performance is essential. Unlike asynchronous queries, which run in the background and return results later, synchronous queries complete within a single request-response cycle.
 
-Synchronous queries are the default query mode for submitting queries in Firebolt. All of the statements in the [SQL reference](../../sql_reference/index.md) guide can be used inside a synchronous query. 
+Synchronous queries are the default query mode for submitting queries in Firebolt. All of the statements in the [SQL reference]({% link sql_reference/index.md %}) guide can be used inside a synchronous query. 
 
 ## Handling long-running synchronous queries
 
@@ -72,7 +72,7 @@ An example response follows:
 
 ## Using a firebolt SDK
 
-All Firebolt SDKs support synchronous queries. See the documentation for each SDK or driver for details on how to submit synchronous queries programmatically:
+Use a Firebolt SDK to connect to a Firebolt database, authenticate securely, and run queries with minimal setup. The SDK provides built-in methods for running queries, handling responses, and managing connections. All Firebolt SDKs support synchronous queries. See the documentation for each SDK or driver for specific details on how to submit synchronous queries programmatically:
 
 * [Node.js SDK]({% link Guides/developing-with-firebolt/connecting-with-nodejs.md %}) &ndash; Firebolt Node.js SDK
 * [Python SDK]({% link Guides/developing-with-firebolt/connecting-with-Python.md %}) &ndash; Firebolt Python SDK
