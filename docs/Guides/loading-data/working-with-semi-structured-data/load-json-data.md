@@ -113,7 +113,7 @@ Important characteristics of the previous table:
 
 * The mandatory scalar fields, `id`, `start_time`, and `duration`, are stored in separate columns, which makes it easier to filter, sort, or join by these fields.
 * A `tags` column is stored as type ARRAY(TEXT), which accommodates variable-length lists of strings without needing to modify the schema.
-* The `user_agent` object is stored in two arrays: `agent_props_keys` and `agent_props_vals`. Splitting keys and values into parallel arrays offers flexibility if the `user_agent` map changes and avoids schema changes for new or removed fields.
+* The `user_agent` object is stored in two arrays: `agent_props_keys` and `agent_props_vals`. The [`JSON_POINTER_EXTRACT_KEYS`]({% link sql_reference/functions-reference/JSON/json-pointer-extract-keys.md %}) function extracts the keys from the `user_agent` object into the `agent_props_keys` array, while the [`JSON_POINTER_EXTRACT_VALUES`]({% link sql_reference/functions-reference/JSON/json-pointer-extract-values.md %}) function extracts the corresponding values into the `agent_props_vals` array. Storing keys and values in parallel arrays offers flexibility when the `user_agent` map changes and avoids schema updates for new or removed fields.
 
 ## Store JSON as text
 
