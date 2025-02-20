@@ -58,23 +58,3 @@ FROM table1
 For example, if an outer table contained a value, and the inner table had two matching values, the outer table's row would appear twice in the final result instead of just once. This happened because the query checked for matches individually for each row in the inner table, rather than treating the condition as a simple existence check. 
 
 This bug fix corrected this issue by ensuring that the `EXISTS` condition only determines whether at least one match exists, without duplicating rows in the outer table. Now, each row in the outer table correctly appears once, with `TRUE` if a match exists and `FALSE` otherwise, improving the accuracy of query results.
-```sql
-create table t1(x int null)
-
-create table t2(x int null, y int null)
-
-insert into t1 values (1), (2)
-
-insert into t2 values (1, 2), (1, 3)
-
-select *,
-  exists(select 1 from t2 where coalesce(t2.x, t2.y) = t1.x)
-from t1
---
-x INTEGER,?column? BOOLEAN
-1,t
-1,t
-2,f
-```
-
-The matching rows from t1 are repeated in the query output as many times as the number of distinct values of `(x, y)` tuples in t2.
