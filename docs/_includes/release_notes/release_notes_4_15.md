@@ -3,9 +3,9 @@
 ### New Features
 
 <!-- Auto Generated Markdown for FIR-43042 - Owned by Immanuel Haffner -->
-**Improved `EXPLAIN(STATISTICS)` to include estimated row counts and column distinct counts**
+**Improved `EXPLAIN (STATISTICS)` to include estimated row counts and column distinct counts**
 
-The [EXPLAIN(STATISTICS)]({% link sql_reference/commands/queries/explain.md %}) function now provides estimated row counts and column distinct counts, when available. This enhancement offers more detailed insights for analyzing query performance.
+The [EXPLAIN (STATISTICS)]({% link sql_reference/commands/queries/explain.md %}) function now provides estimated row counts and column distinct counts, when available. This enhancement offers more detailed insights for analyzing query performance.
 
 **Added a Tableau connector for the current version of Firebolt**
 
@@ -41,7 +41,7 @@ The `duration_us` value in the system tables `information_schema.engine_running_
 
 <!-- Markdown for FIR-42197 - Owned by Tal Zelig -->
 **Use `NULL` instead of empty strings for passing unset TVF parameters**
-      
+
 Table-valued functions (TVFs) such as [LIST_OBJECTS]({% link sql_reference/functions-reference/table-valued/list-objects.md %}), [READ_PARQUET]({% link sql_reference/functions-reference/table-valued/read_parquet.md %}), and [READ_CSV]({% link sql_reference/functions-reference/table-valued/read_csv.md %}) that accept string named parameters like `aws_access_key_id` and `aws_role_arn` will no longer treat empty strings (`''`) as unset arguments. The empty strings will instead be forwarded to the credential provider and may return errors. If you want to pass an explicitly unset parameter, use `NULL` instead.
 
 ### Bug Fixes
