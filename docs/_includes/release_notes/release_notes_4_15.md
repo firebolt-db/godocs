@@ -49,7 +49,11 @@ Resolved a bug in the optimization process for distributed `GROUP BY` and `JOIN`
 
 <!-- Auto Generated Markdown for FIR-43315 - Owned by Andres Senac -->
 **Fixed a bug in correlated `EXISTS` subqueries that caused duplicated outer tuples in query results**      
-Fixed a bug with non-trivial correlated `EXISTS` subquery whereby the rows from the outer relation were duplicated in the query result. In the following example,
+Fixed a bug with non-trivial correlated `EXISTS` subquery, which is a dependent subquery inside an `EXISTS` condition that references a column from an outer query. Previously, when using a correlated `EXISTS` subquery, rows from the outer table were incorrectly duplicated if multiple matching rows existed in the inner table. Instead of returning a single `TRUE` or `FALSE` value for each row in the outer table, the query produced multiple identical rows whenever multiple matches were found in the inner table. 
+
+For example, if an outer table contained a value, and the inner table had two matching values, the outer table's row would appear twice in the final result instead of just once. This happened because the query checked for matches individually for each row in the inner table, rather than treating the condition as a simple existence check. 
+
+This bug fix corrected this issue by ensuring that the `EXISTS` condition only determines whether at least one match exists, without duplicating rows in the outer table. Now, each row in the outer table correctly appears once, with `TRUE` if a match exists and `FALSE` otherwise, improving the accuracy of query results.
 ```sql
 create table t1(x int null)
 
