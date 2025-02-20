@@ -11,7 +11,7 @@ parent: Data definition
 
 # CREATE AGGREGATING INDEX
 
-Different syntax is used when creating an aggregating index on an empty table or a table populated with data. After an aggregating index is created, Firebolt automatically updates the index as new data is ingested. For more information, see [Using aggregating indexes](../../../Guides/working-with-indexes/using-aggregating-indexes.md).
+Different syntax is used when creating an aggregating index on an empty table or a table populated with data. After an aggregating index is created, Firebolt automatically updates the index as new data is ingested. For more information, see [Aggregating index]({% link Overview/indexes/aggregating-index.md %}).
 
 ## Syntax&ndash;aggregating index on an empty table
 

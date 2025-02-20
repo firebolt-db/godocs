@@ -1,0 +1,28 @@
+{
+  "query": {
+    "query_id": "2d60efa3-0e7e-46e6-99de-89ddfc2a5200",
+    "request_id": "3dde04cf-231b-4451-9638-c63e92dc640a",
+    "query_label": null
+  },
+  "meta": [
+    {
+      "name": "result",
+      "type": "bytea"
+    }
+  ],
+  "data": [
+    [
+      "\\x01010000003d94479a127f52c0502f80fb03614440"
+    ]
+  ],
+  "rows": 1,
+  "statistics": {
+    "elapsed": 0.008609,
+    "rows_read": 1,
+    "bytes_read": 1,
+    "time_before_execution": 0.000489176,
+    "time_to_execute": 0.000111785,
+    "scanned_bytes_cache": 0,
+    "scanned_bytes_storage": 0
+  }
+}

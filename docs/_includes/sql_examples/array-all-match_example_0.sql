@@ -1,0 +1,1 @@
+SELECT ARRAY_ALL_MATCH(name -> name like '%2024', [ 'kennethpark2024', 'sabrina2024', 'steven2024']) AS result;

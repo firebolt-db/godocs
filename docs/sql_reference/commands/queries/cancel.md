@@ -3,7 +3,7 @@ layout: default
 title: CANCEL QUERY
 great_grand_parent: SQL reference
 grand_parent: SQL commands
-parent: Queries
+parent: Querying and query optimization
 ---
 
 # CANCEL QUERY

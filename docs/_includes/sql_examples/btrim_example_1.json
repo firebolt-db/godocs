@@ -1,0 +1,28 @@
+{
+  "query": {
+    "query_id": "cb69ade9-bb0b-45ea-93f2-4fe82c6ed809",
+    "request_id": "a1eef7ed-708a-4f18-99ad-4085e06660a0",
+    "query_label": null
+  },
+  "meta": [
+    {
+      "name": "result",
+      "type": "text"
+    }
+  ],
+  "data": [
+    [
+      "The Acceleration Cup"
+    ]
+  ],
+  "rows": 1,
+  "statistics": {
+    "elapsed": 0.007408,
+    "rows_read": 1,
+    "bytes_read": 1,
+    "time_before_execution": 0.001199434,
+    "time_to_execute": 9.7297e-05,
+    "scanned_bytes_cache": 0,
+    "scanned_bytes_storage": 0
+  }
+}

@@ -1,10 +1,7 @@
 The following example gets the value of pi:
-
 ``` sql
 SELECT pi() as result;
 ```
-
-**Returns**
 
 | result (DOUBLE PRECISION) |
 | :--- |

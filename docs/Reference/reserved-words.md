@@ -4,7 +4,7 @@ redirect_from:
 layout: default
 title: Reserved words
 description: Provides a list of reserved SQL  words in Firebolt.
-nav_order: 6
+nav_order: 5
 parent: General reference
 ---
 

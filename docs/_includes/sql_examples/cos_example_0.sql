@@ -1,0 +1,1 @@
+SELECT COS(0) as result;

@@ -6,8 +6,6 @@ The following code example shifts `0001`, the binary representation of `1`, to t
 SELECT bit_shift_right(1, 2) AS res;
 ```
 
-**Returns**
-
 | res (INTEGER) |
 | :--- |
 | 0 |
@@ -20,8 +18,6 @@ The following code example shifts `00101`, the binary representation of `5`, to 
 SELECT bit_shift_right(5, 2) AS res;
 ```
 
-**Returns**
-
 | res (INTEGER) |
 | :--- |
 | 1 |
@@ -33,8 +29,6 @@ The following code example shifts the binary representation of `-3`, which is `1
 ``` sql
 SELECT bit_shift_right(-3, 1) AS res;
 ```
-
-**Returns**
 
 | res (INTEGER) |
 | :--- |

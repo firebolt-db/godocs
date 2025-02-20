@@ -1,0 +1,28 @@
+{
+  "query": {
+    "query_id": "bcb1df6b-443c-49f1-b3e3-ecbb50eaf593",
+    "request_id": "71fe79fa-84c7-4082-8d01-4f38f044a4af",
+    "query_label": null
+  },
+  "meta": [
+    {
+      "name": "?column?",
+      "type": "text"
+    }
+  ],
+  "data": [
+    [
+      "Date: March 2nd, 2023 Time: 6am (33:26.466511) +00 (UTC)"
+    ]
+  ],
+  "rows": 1,
+  "statistics": {
+    "elapsed": 0.009505,
+    "rows_read": 1,
+    "bytes_read": 1,
+    "time_before_execution": 0.000255582,
+    "time_to_execute": 9.4734e-05,
+    "scanned_bytes_cache": 0,
+    "scanned_bytes_storage": 0
+  }
+}

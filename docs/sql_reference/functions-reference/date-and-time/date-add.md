@@ -37,10 +37,4 @@ TIMESTAMPTZ if `<expression>` has type TIMESTAMPTZ.
 ## Example
 {: .no_toc}
 
-```sql
-SELECT date_add('week', 4, '2024-04-15 12:13:14'::timestamp);
-```
-
-**Returns**
-
-`'2024-05-13 12:13:14'::timestamp`.
+{% include sql_examples/date_add_executable.md %}

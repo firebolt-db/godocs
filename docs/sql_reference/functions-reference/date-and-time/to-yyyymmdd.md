@@ -43,3 +43,8 @@ CREATE TABLE test (
 )
 PARTITION BY TO_YYYYMMDD(t);
 ```
+
+## Example
+{: .no_toc}
+
+{% include sql_examples/to_yyyymmdd_executable.md %}

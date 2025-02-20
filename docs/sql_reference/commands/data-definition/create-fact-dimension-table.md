@@ -94,7 +94,7 @@ After creating a table, you can manipulate the values using different `INSERT` s
 
 ### PRIMARY INDEX
 
-The `PRIMARY INDEX` is an optional sparse index that sorts and organizes data based on the indexed field as it is ingested, without affecting data scan performance. For more information, see [Primary indexes]({% link Guides/working-with-indexes/using-primary-indexes.md %}).
+The `PRIMARY INDEX` is an optional sparse index that sorts and organizes data based on the indexed field as it is ingested, without affecting data scan performance. For more information, see [Primary index]({% link Overview/indexes/primary-index.md %}).
 
 #### Syntax
 {: .no_toc}
@@ -124,11 +124,11 @@ The following subset of SQL functions can be used in `PARTITION BY` expressions:
 * [EXTRACT]({% link sql_reference/functions-reference/date-and-time/extract.md %})`(year|month|day|hour from <column_name>)`
 * [DATE_TRUNC]({% link sql_reference/functions-reference/date-and-time/date-trunc.md %})
 
-For more information, see [Working with partitions]({% link Overview/working-with-tables/working-with-partitions.md %}).
+For more information, see [Working with partitions]({% link Overview/indexes/using-indexes.md %}#partitions-in-tables).
 
 ### Table type
 
-Firebolt supports two types of [tables]({% link Overview/working-with-tables/working-with-tables.md %}#fact-and-dimension-tables):
+Firebolt supports two types of [tables]({% link Overview/indexes/using-indexes.md %}#tables):
     
 * `FACT` table - the data is distributed across all nodes of the engine.
 * `DIMENSION` table - the entire table is replicated in every node of the engine.

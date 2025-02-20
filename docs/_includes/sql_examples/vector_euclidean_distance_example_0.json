@@ -1,0 +1,28 @@
+{
+  "query": {
+    "query_id": "09db9bc9-c82f-4f67-8fcf-f7c114453f4d",
+    "request_id": "dfa03c50-ee01-4d45-a314-cf4af88ca6d1",
+    "query_label": null
+  },
+  "meta": [
+    {
+      "name": "distance",
+      "type": "double"
+    }
+  ],
+  "data": [
+    [
+      2.8284271247461903
+    ]
+  ],
+  "rows": 1,
+  "statistics": {
+    "elapsed": 0.007525,
+    "rows_read": 1,
+    "bytes_read": 1,
+    "time_before_execution": 0.0002957,
+    "time_to_execute": 9.6717e-05,
+    "scanned_bytes_cache": 0,
+    "scanned_bytes_storage": 0
+  }
+}

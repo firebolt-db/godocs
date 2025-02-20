@@ -165,7 +165,7 @@ Map the values in your data to columns into the target table. Firebolt automatic
 
        Using Firebolt's suggested primary index is preferable to having none. In the absence of a query history, Firebolt prioritizes choosing a column for the primary index in the following order: a datetime or timestamp column, a column with low cardinality, or the first column.
 
-   * If you include multiple columns as a composite primary index, they will be added in sort order. For example, if you select `column_1` first, then select `column_3`, then `column_3` will be added as a primary index after `column_1`. This means `column_1` will be used first as a sparse index, followed by `column_3`. If you choose more than one primary index, the order of sorting appears next to the toggle switch under the **Primary Index** column. In the previous example, the number `1` appears next to `column_1` and a number `2` appears next to `column_3`. To achieve optimal results, choose indexes in the order of their cardinality, or the number of unique values. Start with the column that has the highest number of unique values as your first primary index, followed by the column with the next highest cardinality. For more information about how to choose a primary index, see [Primary indexes](../../Guides/working-with-indexes/using-primary-indexes.md).
+   * If you include multiple columns as a composite primary index, they will be added in sort order. For example, if you select `column_1` first, then select `column_3`, then `column_3` will be added as a primary index after `column_1`. This means `column_1` will be used first as a sparse index, followed by `column_3`. If you choose more than one primary index, the order of sorting appears next to the toggle switch under the **Primary Index** column. In the previous example, the number `1` appears next to `column_1` and a number `2` appears next to `column_3`. To achieve optimal results, choose indexes in the order of their cardinality, or the number of unique values. Start with the column that has the highest number of unique values as your first primary index, followed by the column with the next highest cardinality. For more information about how to choose a primary index, see [Primary index]({% link Overview/indexes/primary-index.md %}).
 
 4. Select **Next step**.
    
@@ -177,6 +177,7 @@ The **Review configuration** window displays your selections in SQL code. If you
 
 ## View results and query statistics
 <img src="../../assets/images/load_data_wizard_results.png" alt="The next step in the wizard is to specify a data source." width="700"/>
+
 After your load data job completes, you can view the results of each query that was configured by the **Load data** wizard in Firebolt user interface under **Results** in the bottom window. If you need to edit the queries, you can enter the change into the **SQL Editor** directly and select **Run**.
 
 1. View information about your query in the **Statistics** tab. This information contains the status of the query, how long it took to run, and the number of rows processed during the data loading job.
@@ -194,4 +195,4 @@ After your load data job completes, you can view the results of each query that 
 
     1. Select the **Refresh** icon to update the query history and ID.
     2. Select the filter icon (<img src="../../assets/images/filter-icon.png" alt="filter icon" width="12"/>) to remove or add columns to display.
-    3. Select the **More options** icon (<img src="../../assets/images/more_options_icon.png" alt="more options icon" width="12"/>) to export the contents of the Query history tab to a JSON or CSV file.
+    3. Select the **More options** icon (<img src="../../assets/images/more_options_icon.png" alt="more options icon" width="10"/>) to export the contents of the Query history tab to a JSON or CSV file.
