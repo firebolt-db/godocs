@@ -32,7 +32,7 @@ You can also submit a synchronous query programmatically using the Firebolt API.
 
 To submit a synchronous query programatically, use a Firebolt SDK to send an HTTP request with the SQL query to Firebolt's API endpoint. 
 
-### Using a firebolt SDK
+### Use a Firebolt SDK
 
 Use a Firebolt SDK to connect to a Firebolt database, authenticate securely, and run queries with minimal setup. The SDK provides built-in methods for running queries, handling responses, and managing connections. All Firebolt SDKs support synchronous queries. See the documentation for each SDK or driver for specific details on how to submit synchronous queries programmatically:
 
@@ -55,7 +55,7 @@ To submit a synchronous query programmatically, use the following API endpoint:
 - **Authentication:** Use your Firebolt service account ID and secret to obtain an access token.
 
 ### **Request body format**
-A query request must be sent as a JSON object with the following structure:
+A synchronous query request must be sent as a JSON object with the following structure:
 
 ```json
 {
@@ -66,7 +66,8 @@ A query request must be sent as a JSON object with the following structure:
 }
 ```
 
-### Handling API responses
+### Response body format
+
 A successful response returns JSON output containing:
 
 * `query_id` – The unique identifier for the submitted query.
@@ -99,7 +100,6 @@ engine_name = "your_engine_name"
 database_name = "your_test_db"
 account_name = "your_account_name"
 
-# Example query
 query = """
     SELECT 42;
     """
@@ -130,15 +130,16 @@ Common errors and solutions when using synchronous queries:
 
 ### How to check the status of a sync query
 
-The queries running on an engine are available via the [engine_running_queries](../../sql_reference/information-schema/engine-running-queries.md) view. 
+The queries running on an engine are available in the [engine_running_queries]({% link sql_reference/information-schema/engine-running-queries.md %}) view. 
 
 
 ### Query cancelation 
 
-A running query can be cancelled using the [cancel](../../sql_reference/commands/queries/cancel.md) statement as follows:
+A running synchronous query can be cancelled using the [cancel]({% link sql_reference/commands/queries/cancel.md %}) statement as follows:
 
 ```sql
 CANCEL QUERY '<query_id>';
 ```
-Use the query ID retrieved from the `engine_running_queries` view to cancel a specific query.
+
+Use the query ID retrieved from the [engine_running_queries]({% link sql_reference/information-schema/engine-running-queries.md %}) view to cancel a specific query.
 
