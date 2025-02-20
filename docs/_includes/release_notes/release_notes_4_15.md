@@ -21,30 +21,11 @@ The Firebolt Resource Center is now accessible from the **Firebolt Workspace**. 
 
 <!-- Auto Generated Markdown for FIR-42755 - Owned by Andres Senac -->
 **Improved outer join conversion to inner joins for better query performance**     
-A `LEFT JOIN` nested within another `LEFT JOIN` is now converted into an `INNER` join if the upper `LEFT JOIN` discards the null-padded rows introduced by the lower `LEFT JOIN`. This occurs when the upper `LEFT JOIN` filters out `NULL` values from the right-hand side of the lower `LEFT JOIN`. For example, the following query:
-```sql
-SELECT * 
-FROM t1 
-LEFT JOIN (
-    SELECT t3.x 
-    FROM t2 
-    LEFT JOIN t3 ON t2.x = t3.x
-) t4 
-ON t1.x = t4.x;
-```
-Is now treated as:
+### **Optimized outer join conversion for better query performance**  
 
-```sql
-SELECT * 
-FROM t1 
-LEFT JOIN (
-    SELECT t3.x 
-    FROM t2 
-    INNER JOIN t3 ON t2.x = t3.x
-) t4 
-ON t1.x = t4.x;
-```
-This occurs because the upper `LEFT JOIN` filters out rows from `t4` where `t3.x` is `NULL`, making the lower `LEFT JOIN` redundant.
+A **nested `LEFT JOIN`** can now be **automatically converted to an `INNER JOIN`** when the query structure makes the inner `LEFT JOIN` redundant. This optimization occurs when the outer `LEFT JOIN` eliminates rows where the right-hand side contains `NULL` values, effectively discarding the null-padded rows introduced by the nested `LEFT JOIN`.  
+
+In such cases, replacing the nested `LEFT JOIN` with an `INNER JOIN` improves efficiency without changing the query results. The conversion ensures that unnecessary `LEFT JOIN` operations are avoided, reducing computational overhead and improving performance.
 
 <!-- Auto Generated Markdown for FIR-42992 - Owned by Tobias Humig -->
 **Improved performance by allowing multiple `INSERT INTO <tbl> VALUES ...` statements to be combined in a single request**      
