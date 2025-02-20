@@ -60,6 +60,6 @@ SELECT *,
   EXISTS(SELECT 1 FROM table2 where COALESCE(table2.col_1, table2.col_2) = table1.col_1)
 FROM table1
 ```
-For example, if an outer table contained a value, and the inner table had two matching values, the outer table's row would appear twice in the final result instead of just once. This happened because the query checked for matches individually for each row in the inner table, rather than treating the condition as a simple existence check. 
+Previously, if an outer table contained a value, and the inner table had two matching values, the outer table's row would appear twice in the final result instead of just once. This happened because the query checked for matches individually for each row in the inner table, rather than treating the condition as a simple existence check. 
 
 This bug fix corrected this issue by ensuring that the `EXISTS` condition only determines whether at least one match exists, without duplicating rows in the outer table. Now, each row in the outer table correctly appears once, with `TRUE` if a match exists and `FALSE` otherwise, improving the accuracy of query results.
