@@ -6,6 +6,17 @@
 **Improved `EXPLAIN(STATISTICS)` to include estimated row counts and column distinct counts when available**    
 The `EXPLAIN(STATISTICS)` function now provides estimated row counts and column distinct counts, when available. This enhancement offers more detailed insights for analyzing query performance.
 
+**Added a Tableau connector for the current version of Firebolt**
+
+Tableau is a visual analytics platform that empowers users to explore, analyze, and present data through interactive visualizations. The current Firebolt connector in Tableau Exchange supports only an older version of Firebolt. You can now download the latest connector directly from Firebolt and integrate it with Tableau Desktop or Tableau Server. Follow the installation instructions in [Integrate with Tableau]({% link Guides/integrations/tableau.md %}) to set up the updated connector.
+
+**Added a DBeaver connector for the current version of Firebolt**
+
+DBeaver is a free, open-source database administration tool that supports multiple database types, provides a graphical interface for managing databases, running queries, and analyzing data. You can now connect to DBeaver using the [Firebolt JDBC driver](https://docs.firebolt.io/Guides/developing-with-firebolt/connecting-with-jdbc.html). Follow the instructions in [Integrate with DBeaver]({% link Guides/integrations/dbeaver.md %}) to set up a connection to DBeaver.
+
+**Added the Firebolt Resource Center to the Firebolt Workspace**
+
+The Firebolt Resource Center is now accessible from the **Firebolt Workspace**. Select the Firebolt icon in the bottom-right corner to access links to the Get Started guide, Knowledge Center, documentation, release notes, announcements, and a unified search tool covering all Firebolt resources.
 ### Performance Improvements
 
 <!-- Auto Generated Markdown for FIR-42755 - Owned by Andres Senac -->
