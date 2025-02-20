@@ -58,7 +58,7 @@ The `duration_us` value in the system tables `information_schema.engine_running_
 
 <!-- Markdown for FIR-42197 - Owned by Tal Zelig -->
 **Use NULL instead of empty strings for passing unset TVF parameters**      
-Table-valued functions (TVFs) such as `list_objects`, `read_parquet`, and `read_csv`, that accept string named parameters like `aws_access_key_id` and `aws_role_arn`, will no longer treat empty strings (`''`) as unset arguments. The empty strings will instead be forwarded to the credential provider and may return errors. If you want to pass an explicitly unset parameter, use `NULL` instead.
+Table-valued functions (TVFs) such as [LIST_OBJECTS]({% link sql_reference/functions-reference/table-valued/list-objects.md %}), [READ_PARQUET]({% link sql_reference/functions-reference/table-valued/read_parquet.md %}), and [READ_CSV]({% link sql_reference/functions-reference/table-valued/read_csv.md %}) that accept string named parameters like `aws_access_key_id` and `aws_role_arn` will no longer treat empty strings (`''`) as unset arguments. The empty strings will instead be forwarded to the credential provider and may return errors. If you want to pass an explicitly unset parameter, use `NULL` instead.
 
 ### Bug Fixes
 
