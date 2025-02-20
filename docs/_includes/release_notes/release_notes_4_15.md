@@ -24,7 +24,7 @@ The [Firebolt Resource Center](https://www.firebolt.io/resources) is now accessi
 <!-- Auto Generated Markdown for FIR-42755 - Owned by Andres Senac -->
 **Optimized `LEFT JOIN` conversion for better query performance**       
 
-A **nested** `LEFT JOIN` can now be **automatically replaced with a more efficient join** when its results are not needed due to filtering in a later step. This optimization occurs when a `LEFT JOIN` removes rows where the right-hand side contains `NULL` values, effectively discarding the extra rows introduced by the earlier `LEFT JOIN`.
+A nested `LEFT JOIN` can now be automatically replaced with a more efficient join when its results are not needed due to filtering in a later step. This optimization occurs when a `LEFT JOIN` removes rows where the right-hand side contains `NULL` values, effectively discarding the extra rows introduced by the earlier `LEFT JOIN`.
 In such cases, simplifying the join structure improves efficiency without altering query results. This conversion reduces unnecessary operations, lowering computational overhead and enhancing performance.
 
 <!-- Auto Generated Markdown for FIR-42992 - Owned by Tobias Humig -->
