@@ -34,7 +34,9 @@ Each row has the following columns with information about each engine.
 | scale                       | INTEGER     | \[DEPRECATED\] The number of nodes in the engine. |
 | type                        | TEXT        | Determines the capability of the nodes in the engine. |
 | nodes                       | INTEGER     | The number of nodes in a cluster. |
-| clusters                    | INTEGER     | The number of node groupings in an engine. |
+| clusters                    | INTEGER     | The current number of node groupings in an engine. |
+| min_clusters                | INTEGER     | The minimum allowed number of node groupings in an engine. |
+| max_clusters                | INTEGER     | The maximum allowed number of node groupings in an engine. |
 | status                      | TEXT        | The engine status. For more information, see [Viewing and understanding engine status](../../Overview/engine-fundamentals.md#viewing-and-understanding-engine-status). |
 | attached_to                 | TEXT        | \[DEPRECATED\] The name of the database to which the engine is attached. |
 | auto_start                  | BOOLEAN     | When true, queries issued to a stopped engine will attempt to start the engine first. |
