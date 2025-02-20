@@ -44,7 +44,7 @@ Table-valued functions (TVFs) such as [LIST_OBJECTS]({% link sql_reference/funct
 ### Bug Fixes
 
 <!-- Auto Generated Markdown for FIR-43280 - Owned by Lorenz Hübschle and FIR-43103 - Owned by Michael Freitag -->
-**Resolved issue in distributed GROUP BY and JOIN planning**         
+**Resolved issue in distributed `GROUP BY` and `JOIN` planning**         
 Resolved a bug in the optimization process for distributed `GROUP BY` and `JOIN` operators. This bug sometimes led to missed optimization opportunities and, in rare cases, incorrect results.
 
 <!-- Auto Generated Markdown for FIR-43315 - Owned by Andres Senac -->
