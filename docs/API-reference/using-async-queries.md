@@ -76,7 +76,7 @@ In the previous JSON request, the following apply:
 
 ### Response body format
 
-A successful response for an asynchronous query returns JSON output containing:
+A successful response for an asynchronous query returns HTTP status 202 with JSON output containing:
 
 * `message` &ndash; Confirmation that the query has been accepted for asynchronous execution.
 * `token` &ndash; A unique identifier for tracking the query's progress.

@@ -58,6 +58,7 @@ Firebolt API queries are sent as JSON objects using a driver with the following 
   "account": "<your_account_name>",
   "query": "SELECT * FROM my_table"
 }
+```
 
 **Example API call**
 
