@@ -9,17 +9,27 @@ has_children: true
 
 # API reference
 
-The Firebolt API allows you to interact programmatically with Firebolt databases, enabling query execution, data retrieval, and engine management. API calls allow you to submit queries, retrieve results, and perform administrative tasks without using the user interface (UI). 
+The Firebolt API allows you to interact programmatically with Firebolt databases, enabling sql execution, data retrieval, and engine management. API calls allow you to submit queries, retrieve results, and perform administrative tasks without using the user interface (UI). 
 
-Firebolt provides official SDKs and drivers to simplify API interactions. These drivers act as an interface between your application and Firebolt, handling authentication, query submission, and result processing.
+Firebolt provides official SDKs and drivers to simplify API interactions. These drivers act as an interface between your application and Firebolt, handling authentication, sql statement submission, and result processing.
 
 <img src="../assets/images/API-workflow.png" alt="Use a service account and a driver to connect to the Firebolt API which returns a result." width="700">
 
-## **Drivers**
+## **Prerequisites**
+To submit API queries, you need:
+
+1. **A Firebolt account** – [Sign up](https://go.firebolt.io/signup) if you do not have one.
+2. **A Firebolt service account** – Required for programmatic access.
+3. **A user associated with the service account** – The user must have the necessary permissions.
+4. **A Firebolt database and engine** – Queries must be run on a valid database using an active engine.
+5. **Choose a Firebolt supported driver** – This is the easiest way to get started. Refer to each driver's documentation for installation instructions.
+6. **Submit your first sql statement** – This will test connectivity and that your credentials are correct.
+
+### **Drivers**
 Drivers are software components that facilitate communication between applications and databases. Use a Firebolt drivers for:
 
 - **Simplified API access** – Handles authentication and request formatting.
-- **Optimized performance** – Enables efficient data streaming and query execution.
+- **Optimized performance** – Enables efficient data streaming and sql statement execution.
 - **Secure authentication** – Uses service accounts for programmatic access. Firebolt provides multiple drivers and SDKs, including:
 
 * [Node.js SDK]({% link Guides/developing-with-firebolt/connecting-with-nodejs.md %}) &ndash; For JavaScript-based applications.
@@ -31,13 +41,42 @@ Drivers are software components that facilitate communication between applicatio
 
 Firebolt also supports custom implementations if you need to build your own driver. Refer to the [developer documentation]({% link Guides/developing-with-firebolt/index.md %}) for details.
 
-## **Prerequisites**
-To submit API queries, you need:
+## **Submitting your first query**
 
-1. **A Firebolt account** – [Sign up](https://go.firebolt.io/signup) if you do not have one.
-2. **A Firebolt service account** – Required for programmatic access.
-3. **A user associated with the service account** – The user must have the necessary permissions.
-4. **A Firebolt database and engine** – Queries must be run on a valid database using an active engine.
+### Python
+
+```python
+from firebolt.db import connect
+from firebolt.client.auth import ClientCredentials
+
+id = "service_account_id"
+secret = "service_account_secret"
+engine_name = "your_engine_name"
+database_name = "your_test_db"
+account_name = "your_account_name"
+
+firstQuery = """
+    SELECT 42;
+    """
+secondQuery = """
+    SELECT 'my second query';
+"""
+    
+with connect(
+    engine_name=engine_name,
+    database=database_name,
+    account_name=account_name,
+    auth=ClientCredentials(id, secret),
+) as connection:
+    cursor = connection.cursor()
+    cursor.execute(firstQuery)
+    for row in cursor.fetchall():
+        print(row)
+    # The cursor can be reused for multiple queries.
+    cursor.execute(secondQuery)
+    for row in cursor.fetchall():
+        print(row)
+```
 
 ## **Query types**
 Firebolt supports two types of queries: synchronous and asynchronous queries.
@@ -49,42 +88,12 @@ A synchronous query waits for a response before proceeding. This mode is ideal f
 An asynchronous query runs in the background, allowing your application to continue executing other tasks. This is useful for long-running queries, such as `INSERT`, `VACUUM`, or `COPY INTO`, where waiting for a response is unnecessary. The query status can be checked periodically using a query token.
 
 ## **API Query Syntax**
-Firebolt API queries are sent as JSON objects using a driver with the following structure:
+Firebolt API queries are sent over HTTP with the engine and database specified as query params, and with SQL text in the payload.
 
-```json
-{
-  "database": "<your_database_name>",
-  "engine_name": "<your_engine_name>",
-  "account": "<your_account_name>",
-  "query": "SELECT * FROM my_table"
-}
-```
-
-**Example API call**
-
-The following code example connects to a Firebolt database using service account credentials, runs a SQL query to retrieve all records from `my_table`, and prints the query results:
-
+Example payload:
 ```sql
-from firebolt.db import connect
-from firebolt.client.auth import ClientCredentials
-
-id = "service_account_id"
-secret = "service_account_secret"
-engine_name = "your_engine_name"
-database_name = "your_test_db"
-account_name = "your_account_name"
-
-query = "SELECT * FROM my_table;"
-
-with connect(
-    engine_name=engine_name,
-    database=database_name,
-    account_name=account_name,
-    auth=ClientCredentials(id, secret),
-) as connection:
-    cursor = connection.cursor()
-    cursor.execute(query)
-    for row in cursor.fetchall():
-        print(row)
+SELECT * FROM my_table;
 ```
+
+For a full specification of the HTTP api, see the [firebolt openapi spec](https://github.com/firebolt-db/openapi/blob/main/specification/yaml/firebolt_query_v2.3.yaml).
 

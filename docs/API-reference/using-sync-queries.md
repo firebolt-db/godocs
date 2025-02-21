@@ -89,8 +89,6 @@ An example response follows:
 The following code example establishes a connection to a Firebolt database using a service account's credentials, runs a simple `SELECT` query, retrieves and prints the result:
 
 ```python
-from time import sleep
-
 from firebolt.db import connect
 from firebolt.client.auth import ClientCredentials
 
