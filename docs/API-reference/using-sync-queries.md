@@ -10,11 +10,11 @@ nav_order: 1
 
 Synchronous queries in Firebolt allow users to send a sql statement and wait for an immediate response before proceeding with other operations. These queries are best suited for interactive analytics, dashboards, and data retrieval where low-latency performance is essential. Synchronous queries complete within a single request-response cycle.
 
-Synchronous queries are the default query mode for submitting queries in Firebolt. All of the statements in the [SQL reference]({% link sql_reference/index.md %}) guide can be used inside a synchronous query. 
+Synchronous queries are the default query mode for submitting sql statements in Firebolt. All of the statements in the [SQL reference]({% link sql_reference/index.md %}) guide can be used inside a synchronous query. 
 
 ## How to submit a synchronous query
 
-You can submit a synchronous query using either the user interface (UI) in the Firebolt **Develop Space**. Every query submitted using the UI is a synchronous query. For more information about how to submit a query using the UI, see [Get started using SQL]({% link Guides/getting-started/get-started-sql.md %}). 
+You can submit a synchronous query using either the user interface (UI) in the Firebolt **Develop Space**. Every sql statement submitted using the UI is a synchronous query. For more information about how to submit a sql statement using the UI, see [Get started using SQL]({% link Guides/getting-started/get-started-sql.md %}). 
 
 You can also submit a synchronous query programmatically using the Firebolt API. The following are required prerequisites to submit a query programmatically:
 
@@ -23,11 +23,11 @@ You can also submit a synchronous query programmatically using the Firebolt API.
 - **Firebolt service account** &ndash; You must have an active Firebolt [service account]({% link Guides/managing-your-organization/service-accounts.md %}) for programmatic access, along with its ID and secret.
 - **Sufficient permissions** You will need to have [USAGE permission]({% link Overview/Security/Role-Based Access Control/engine-permissions.md %}#engine-permissions) on the engine that runs the query. A user always has permission to view their own queries. To see another user's queries, you must have `MONITOR ENGINE` or `MONITOR ALL` privileges.
 
-To submit a synchronous query programatically, use a Firebolt Driver to send an HTTP request with the SQL query to Firebolt's API endpoint. 
+To submit a synchronous query programatically, use a Firebolt Driver to send an HTTP request with the SQL statement to Firebolt's API endpoint. 
 
 ### Use a Firebolt Driver
 
-Use a Firebolt driver to connect to a Firebolt database, authenticate securely, and run queries with minimal setup. The driver provides built-in methods for running queries, handling responses, and managing connections. All Firebolt drivers support synchronous queries. See the documentation for each driver for specific details on how to submit synchronous queries programmatically:
+Use a Firebolt driver to connect to a Firebolt database, authenticate securely, and run sql statements with minimal setup. The driver provides built-in methods for running sql statements, handling responses, and managing connections. All Firebolt drivers support synchronous queries. See the documentation for each driver for specific details on how to submit synchronous queries programmatically:
 
 * [Node.js SDK]({% link Guides/developing-with-firebolt/connecting-with-nodejs.md %}) &ndash; Firebolt Node.js SDK
 * [Python SDK]({% link Guides/developing-with-firebolt/connecting-with-Python.md %}) &ndash; Firebolt Python SDK
@@ -38,7 +38,7 @@ Use a Firebolt driver to connect to a Firebolt database, authenticate securely, 
 
 ### Python example API call
 
-The following code example establishes a connection to a Firebolt database using a service account's credentials, runs a simple `SELECT` query, retrieves and prints the result:
+The following code example establishes a connection to a Firebolt database using a service account's credentials, runs a simple `SELECT` statement, retrieves and prints the result:
 
 ```python
 from firebolt.db import connect
@@ -69,20 +69,9 @@ with connect(
 
 ## Handling long-running synchronous queries
 
-Synchronous queries maintain an open HTTP connection for the duration of the query, and stream results back as they become available. While there is no strict time limit, queries running longer than one hour may experience connectivity interruptions. If the HTTP connection is lost, some queries, including `INSERT`, continue to run by default, while `SELECT` queries are cancelled. You can modify this behavior using the [cancel_query_on_connection_drop](../../Reference/system-settings.md#query-cancellation-mode-on-connection-drop) setting. 
+Synchronous queries maintain an open HTTP connection for the duration of the query, and stream results back as they become available. While there is no strict time limit, queries running longer than one hour may experience connectivity interruptions. If the HTTP connection is lost, some sql statements, including `INSERT`, continue to run by default, while `SELECT` statements are cancelled. You can modify this behavior using the [cancel_query_on_connection_drop](../../Reference/system-settings.md#query-cancellation-mode-on-connection-drop) setting. 
 
 To avoid connection issues, consider submitting long-running queries as [asynchronous](using-async-queries.md) queries. 
-
-## Error handling
-
-Common errors and solutions when using synchronous queries:
-
-| Error Type         | Cause                                    | Solution |
-|--------------------|-----------------------------------------|----------|
-| **Timeout**       | The query runs longer than expected.        | Submit as an [asynchronous query](using-async-queries.md). |
-| **Connection loss** | The HTTP connection is interrupted.        | Use the `cancel_query_on_connection_drop` setting to modify behavior. |
-| **Permission denied** | The user lacks required permissions.     | Ensure the user has `USAGE` permission on the engine. |
-
 
 ### How to check the status of a sync query
 
@@ -99,3 +88,11 @@ CANCEL QUERY '<query_id>';
 
 Use the query ID retrieved from the [engine_running_queries]({% link sql_reference/information-schema/engine-running-queries.md %}) view to cancel a specific query.
 
+## Error handling
+
+Common errors and solutions when using synchronous queries:
+
+| Error Type         | Cause                                    | Solution |
+|--------------------|-----------------------------------------|----------|
+| **Connection loss** | The HTTP connection is interrupted.        | Depending on the type of query, the query may still be running. Check [engine_running_queries]({% link sql_reference/information-schema/engine-running-queries.md %}) to verify, and use the `cancel_query_on_connection_drop` setting to modify behavior. |
+| **Engine does not exist or you don't have permission to access it** | The user lacks required permissions.     | Ensure the user has `USAGE` permission on the engine and that the engine exists.|
