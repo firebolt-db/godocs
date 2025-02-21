@@ -87,13 +87,3 @@ A synchronous query waits for a response before proceeding. This mode is ideal f
 ### **Asynchronous Queries**
 An asynchronous query runs in the background, allowing your application to continue executing other tasks. This is useful for long-running queries, such as `INSERT`, `VACUUM`, or `COPY INTO`, where waiting for a response is unnecessary. The query status can be checked periodically using a query token.
 
-## **API Query Syntax**
-Firebolt API queries are sent over HTTP with the engine and database specified as query params, and with SQL text in the payload.
-
-Example payload:
-```sql
-SELECT * FROM my_table;
-```
-
-For a full specification of the HTTP api, see the [firebolt openapi spec](https://github.com/firebolt-db/openapi/blob/main/specification/yaml/firebolt_query_v2.3.yaml).
-
