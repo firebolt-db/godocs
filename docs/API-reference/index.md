@@ -5,32 +5,48 @@ description: Learn how to use Firebolt programmatically
 nav_order: 7
 has_toc: true
 has_children: true
+has_toc: false
 ---
 
 # API reference
 
-The Firebolt API allows you to interact programmatically with Firebolt databases, enabling sql execution, data retrieval, and engine management. API calls allow you to submit queries, retrieve results, and perform administrative tasks without using the user interface (UI). 
+The Firebolt API enables programmatic interaction with Firebolt databases for running SQL statements, retrieving data, and managing engines. Use API calls to submit queries, retrieve results, and perform administrative tasks without the user interface (UI).  
 
-Firebolt provides official SDKs and drivers to simplify API interactions. These drivers act as an interface between your application and Firebolt, handling authentication, sql statement submission, and result processing.
+Firebolt offers official SDKs and drivers to simplify API usage. These drivers interface between your application and Firebolt, handling authentication, SQL statement submission, and result processing.
 
-<img src="../assets/images/API-workflow.png" alt="Use a service account and a driver to connect to the Firebolt API which returns a result." width="700">
+<img src="../assets/images/API-workflow.png" alt="Use a service account and a driver to connect to the Firebolt API which returns a result." width="500">
 
-## **Prerequisites**
-To submit API queries, you need:
+To submit an API request, set up a Firebolt driver and use it to send a query to Firebolt, as explained in the following sections.
 
-1. **A Firebolt account** – [Sign up](https://go.firebolt.io/signup) if you do not have one.
-2. **A Firebolt service account** – Required for programmatic access.
-3. **A user associated with the service account** – The user must have the necessary permissions.
-4. **A Firebolt database and engine** – Queries must be run on a valid database using an active engine.
-5. **Choose a Firebolt supported driver** – This is the easiest way to get started. Refer to each driver's documentation for installation instructions.
-6. **Submit your first sql statement** – This will test connectivity and that your credentials are correct.
+{:.no_toc}
 
-### **Drivers**
-Drivers are software components that facilitate communication between applications and databases. Use a Firebolt drivers for:
+**Topics:**
 
-- **Simplified API access** – Handles authentication and request formatting.
-- **Optimized performance** – Enables efficient data streaming and sql statement execution.
-- **Secure authentication** – Uses service accounts for programmatic access. Firebolt provides multiple drivers and SDKs, including:
+* [Prerequisites](#prerequisites) &ndash; Set up your account and credentials before submitting an API request.
+* [Set up a driver](#set-up-a-driver) &ndash; Download, install, and configure a Firebolt driver to send queries using the Firebolt API.
+* [Submit a query](#submit-a-query) &ndash; Use a driver to connect to Firebolt and submit a query.
+
+## Prerequisites
+Before you submit API queries, you need the following:
+
+1. **A Firebolt account** &ndash; Ensure that you have access to an active Firebolt account. If you don't have access, you can [sign up for an account](https://www.firebolt.io/sign-up). For more information about how to register with Firebolt, see [Get started with Firebolt](../../Guides/getting-started/index.md).
+2. **A Firebolt service account** &ndash; You must have access to an active Firebolt [service account](../managing-your-organization/service-accounts.md), which facilitates programmatic access to Firebolt.
+3. **A Firebolt database and engine** &ndash; Queries must be run on a valid database using an active engine. If you don't have access, you can [create a database]({% link Guides/getting-started/get-started-sql.md %}#create-a-database) and [create an engine]({% link Guides/getting-started/get-started-sql.md %}#create-an-engine). 
+4. **A user associated with the Firebolt service account** &ndash; You must associate a [user]({% link Guides/managing-your-organization/managing-users.md %}#-users) with your service account, and the user must have the necessary permissions to run the query on the specified database using the specified engine.
+5. **Sufficient permissions** You will need to have [USAGE permission]({% link Overview/Security/Role-Based Access Control/engine-permissions.md %}#engine-permissions) on the engine that runs the query. A user always has permission to view their own queries. To see another user's queries, you must have `MONITOR ENGINE` or `MONITOR ALL` privileges.
+
+## Set up a driver
+
+Drivers are software components that facilitate communication between applications and databases.  Use a Firebolt driver to connect to a Firebolt database, authenticate securely, and run SQL statements with minimal setup. 
+
+ Use a Firebolt driver for the following:
+
+- **Simplified API access** &ndash; Manages authentication and request formatting, eliminating the need for manual API calls. Requires only installation and basic configuration to connect and run SQL statements.
+- **Optimized performance** &ndash; Improves query processing and connection management for faster response times.
+- **Secure authentication** &ndash; Uses service accounts and industry-standard methods to ensure secure access.
+- **Cross language support** &ndash; Provides SDKs and drivers for multiple programming languages. 
+
+Firebolt provides multiple drivers and SDKs. Refer to the following [driver documentation]({% link Guides/integrations/integrations.md %}) for installation instructions:
 
 * [Node.js SDK]({% link Guides/developing-with-firebolt/connecting-with-nodejs.md %}) &ndash; For JavaScript-based applications.
 * [Python SDK]({% link Guides/developing-with-firebolt/connecting-with-Python.md %}) &ndash; For Python-based applications and data workflows.
@@ -39,11 +55,11 @@ Drivers are software components that facilitate communication between applicatio
 * [.NET SDK]({% link Guides/developing-with-firebolt/connecting-with-net-sdk.md %}) &ndash; For applications running on the .NET framework.
 * [Go SDK]({% link Guides/developing-with-firebolt/connecting-with-go.md %}) &ndash; For applications using the Go programming language.
 
-Firebolt also supports custom implementations if you need to build your own driver. Refer to the [developer documentation]({% link Guides/developing-with-firebolt/index.md %}) for details.
+## Submit a query
 
-## **Submitting your first query**
+After setting up a Firebolt driver, submit a query to verify connectivity and validate your credentials.
 
-### Python
+The following code example shows how to submit a query using the [Python SDK]({% link Guides/developing-with-firebolt/connecting-with-Python.md %}):
 
 ```python
 from firebolt.db import connect
@@ -78,12 +94,10 @@ with connect(
         print(row)
 ```
 
-## **Query types**
-Firebolt supports two types of queries: synchronous and asynchronous queries.
+### Query types
+Firebolt supports two types of query modes: **synchronous** and **asynchronous** queries.
 
-### **Synchronous Queries**
-A synchronous query waits for a response before proceeding. This mode is ideal for interactive queries that require immediate results, such as dashboard queries or user-initiated requests. Firebolt maintains an open HTTP connection for the duration of the query and streams results back as they become available.
+A [synchronous query]({% link API-reference/using-sync-queries.md %}) waits for a response before proceeding. This mode is ideal for interactive queries that require immediate results, such as dashboard queries or user-initiated requests. Firebolt maintains an open HTTP connection for the duration of the query and streams results back as they become available.
 
-### **Asynchronous Queries**
-An asynchronous query runs in the background, allowing your application to continue executing other tasks. This is useful for long-running queries, such as `INSERT`, `VACUUM`, or `COPY INTO`, where waiting for a response is unnecessary. The query status can be checked periodically using a query token.
+An [asynchronous query]({% link API-reference/using-async-queries.md %}) runs in the background, allowing your application to continue executing other tasks. This is useful for long-running queries, such as [INSERT]({% link sql_reference/commands/data-management/insert.md %}), or [VACUUM]({% link sql_reference/commands/data-management/vacuum.md %}), where waiting for a response is unnecessary. The query status can be checked periodically using a query token.
 

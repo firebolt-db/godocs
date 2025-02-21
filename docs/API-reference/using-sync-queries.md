@@ -8,26 +8,27 @@ nav_order: 1
 
 # Synchronous queries
 
-Synchronous queries in Firebolt allow users to send a sql statement and wait for an immediate response before proceeding with other operations. These queries are best suited for interactive analytics, dashboards, and data retrieval where low-latency performance is essential. Synchronous queries complete within a single request-response cycle.
+Synchronous queries in Firebolt process SQL statements and wait for a response before proceeding with other operations. These queries are best suited for interactive analytics, dashboards, and data retrieval where low-latency performance is essential. Synchronous queries complete within a single request-response cycle.
 
-Synchronous queries are the default query mode for submitting sql statements in Firebolt. All of the statements in the [SQL reference]({% link sql_reference/index.md %}) guide can be used inside a synchronous query. 
+Synchronous queries are the default query mode for submitting SQL statements in Firebolt. All statements in the [SQL reference]({% link sql_reference/index.md %}) guide can be used inside a synchronous query. 
 
 ## How to submit a synchronous query
 
-You can submit a synchronous query using either the user interface (UI) in the Firebolt **Develop Space**. Every sql statement submitted using the UI is a synchronous query. For more information about how to submit a sql statement using the UI, see [Get started using SQL]({% link Guides/getting-started/get-started-sql.md %}). 
+You can submit a synchronous query using either the user interface (UI) in the Firebolt **Develop Space**. Every SQL statement submitted using the UI is a synchronous query. For more information about how to submit a SQL statement using the UI, see [Get started using SQL]({% link Guides/getting-started/get-started-sql.md %}). 
 
 You can also submit a synchronous query programmatically using the Firebolt API. The following are required prerequisites to submit a query programmatically:
 
-- **Firebolt account** &ndash; You need an active Firebolt account. If you do not have one, you can [sign up](https://go.firebolt.io/signup) for one.
-- **Firebolt database and engine** &ndash; You must have access to a Firebolt database. If you do not have access, you can [create a database]({% link Guides/getting-started/get-started-sql.md %}#create-a-database) and then [create an engine]({% link Guides/getting-started/get-started-sql.md %}#create-an-engine).
-- **Firebolt service account** &ndash; You must have an active Firebolt [service account]({% link Guides/managing-your-organization/service-accounts.md %}) for programmatic access, along with its ID and secret.
-- **Sufficient permissions** You will need to have [USAGE permission]({% link Overview/Security/Role-Based Access Control/engine-permissions.md %}#engine-permissions) on the engine that runs the query. A user always has permission to view their own queries. To see another user's queries, you must have `MONITOR ENGINE` or `MONITOR ALL` privileges.
+1. **A Firebolt account** &ndash; Ensure that you have access to an active Firebolt account. If you don't have access, you can [sign up for an account](https://www.firebolt.io/sign-up). For more information about how to register with Firebolt, see [Get started with Firebolt](../../Guides/getting-started/index.md).
+2. **A Firebolt service account** &ndash; You must have access to an active Firebolt [service account](../managing-your-organization/service-accounts.md), which facilitates programmatic access to Firebolt.
+3. **A Firebolt database and engine** &ndash; Queries must be run on a valid database using an active engine. If you don't have access, you can [create a database]({% link Guides/getting-started/get-started-sql.md %}#create-a-database) and [create an engine]({% link Guides/getting-started/get-started-sql.md %}#create-an-engine). 
+4. **A user associated with the Firebolt service account** &ndash; You must associate a [user]({% link Guides/managing-your-organization/managing-users.md %}#-users) with your service account, and the user must have the necessary permissions to run the query on the specified database using the specified engine.
+5. **Sufficient permissions** You will need to have [USAGE permission]({% link Overview/Security/Role-Based Access Control/engine-permissions.md %}#engine-permissions) on the engine that runs the query. A user always has permission to view their own queries. To see another user's queries, you must have `MONITOR ENGINE` or `MONITOR ALL` privileges.
 
 To submit a synchronous query programatically, use a Firebolt Driver to send an HTTP request with the SQL statement to Firebolt's API endpoint. 
 
 ### Use a Firebolt Driver
 
-Use a Firebolt driver to connect to a Firebolt database, authenticate securely, and run sql statements with minimal setup. The driver provides built-in methods for running sql statements, handling responses, and managing connections. All Firebolt drivers support synchronous queries. See the documentation for each driver for specific details on how to submit synchronous queries programmatically:
+Use a Firebolt driver to connect to a Firebolt database, authenticate securely, and run SQL statements with minimal setup. The driver provides built-in methods for running SQL statements, handling responses, and managing connections. All Firebolt drivers support synchronous queries. See the documentation for each driver for specific details on how to submit synchronous queries programmatically:
 
 * [Node.js SDK]({% link Guides/developing-with-firebolt/connecting-with-nodejs.md %}) &ndash; Firebolt Node.js SDK
 * [Python SDK]({% link Guides/developing-with-firebolt/connecting-with-Python.md %}) &ndash; Firebolt Python SDK
@@ -36,7 +37,9 @@ Use a Firebolt driver to connect to a Firebolt database, authenticate securely, 
 * [.NET SDK]({% link Guides/developing-with-firebolt/connecting-with-net-sdk.md %}) &ndash; Firebolt .NET SDK
 * [Go SDK]({% link Guides/developing-with-firebolt/connecting-with-go.md %}) &ndash; Firebolt Go SDK
 
-### Python example API call
+### Submit a query
+
+After setting up a Firebolt driver, submit a query to verify connectivity and validate your credentials.
 
 The following code example establishes a connection to a Firebolt database using a service account's credentials, runs a simple `SELECT` statement, retrieves and prints the result:
 
@@ -67,18 +70,18 @@ with connect(
         print(row)
 ```
 
-## Handling long-running synchronous queries
+#### Handling long-running synchronous queries
 
-Synchronous queries maintain an open HTTP connection for the duration of the query, and stream results back as they become available. While there is no strict time limit, queries running longer than one hour may experience connectivity interruptions. If the HTTP connection is lost, some sql statements, including `INSERT`, continue to run by default, while `SELECT` statements are cancelled. You can modify this behavior using the [cancel_query_on_connection_drop](../../Reference/system-settings.md#query-cancellation-mode-on-connection-drop) setting. 
+Synchronous queries maintain an open HTTP connection for the duration of the query, and stream results back as they become available. While there is no strict time limit, queries running longer than one hour may experience connectivity interruptions. If the HTTP connection is lost, some SQL statements, including `INSERT`, continue to run by default, while `SELECT` statements are cancelled. You can modify this behavior using the [cancel_query_on_connection_drop](../../Reference/system-settings.md#query-cancellation-mode-on-connection-drop) setting. 
 
 To avoid connection issues, consider submitting long-running queries as [asynchronous](using-async-queries.md) queries. 
 
-### How to check the status of a sync query
+#### Check query status
 
 The queries running on an engine are available in the [engine_running_queries]({% link sql_reference/information-schema/engine-running-queries.md %}) view. 
 
 
-### Query cancelation 
+#### Cancel a query 
 
 A running synchronous query can be cancelled using the [cancel]({% link sql_reference/commands/queries/cancel.md %}) statement as follows:
 

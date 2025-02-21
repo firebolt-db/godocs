@@ -10,7 +10,7 @@ nav_order: 2
 
 An asynchronous query runs in the background and returns a successful response once it is accepted by the computing cluster, so that a client can proceed with other tasks without waiting for the statement to finish. The status of an asynchronous query can be checked at specified intervals, which provides flexibility, so that you can check the query's status at meaningful times based on the expected duration of the operation. For example, a user can avoid unnecessary resource consumption by only checking the status periodically, rather than maintaining an open connection for the entire duration of the query, which might be unreliable or unnecessary for certain tasks.
 
-Asynchronous queries are ideal for long-running sql statements, such as `INSERT`, `VACUUM`, or `COPY INTO`, where keeping an HTTP connection open is both unreliable and unnecessary, and where the statement might return zero rows. While these operations continue running even if the connection drops, tracking them can be challenging. Using an asynchronous query allows you to check the status of operations at intervals, based on the expected duration.
+Asynchronous queries are ideal for long-running sql statements, such as `INSERT`, or `VACUUM`, where keeping an HTTP connection open is both unreliable and unnecessary, and where the statement might return zero rows. While these operations continue running even if the connection drops, tracking them can be challenging. Using an asynchronous query allows you to check the status of operations at intervals, based on the expected duration.
 
 You should use asynchronous queries for any supported operation that may take more than a few minutes for which there are no results.
 
@@ -25,10 +25,11 @@ You can only submit a synchronous query programmatically using the Firebolt API.
 
 The following are required prerequisites to submit a query programmatically:
 
-- **Firebolt account** &ndash; You need an active Firebolt account. If you do not have one, you can [sign up](https://go.firebolt.io/signup) for one.
-- **Firebolt database and engine** &ndash; You must have access to a Firebolt database. If you do not have access, you can [create a database]({% link Guides/getting-started/get-started-sql.md %}#create-a-database) and then [create an engine]({% link Guides/getting-started/get-started-sql.md %}#create-an-engine).
-- **Firebolt service account** &ndash; You must have an active Firebolt [service account]({% link Guides/managing-your-organization/service-accounts.md %}) for programmatic access, along with its ID and secret.
-- **Permissions** &ndash; You will need to have [USAGE permission]({% link Overview/Security/Role-Based Access Control/engine-permissions.md %}#engine-permissions) on the engine that runs the query. A user always has permission to view their own queries. To see another user's queries, you must have `MONITOR ENGINE` or `MONITOR ALL` privileges. A user calling `fb_GetAsyncStatus` must have permissions to view the query.
+1. **A Firebolt account** &ndash; Ensure that you have access to an active Firebolt account. If you don't have access, you can [sign up for an account](https://www.firebolt.io/sign-up). For more information about how to register with Firebolt, see [Get started with Firebolt](../../Guides/getting-started/index.md).
+2. **A Firebolt service account** &ndash; You must have access to an active Firebolt [service account](../managing-your-organization/service-accounts.md), which facilitates programmatic access to Firebolt.
+3. **A Firebolt database and engine** &ndash; Queries must be run on a valid database using an active engine. If you don't have access, you can [create a database]({% link Guides/getting-started/get-started-sql.md %}#create-a-database) and [create an engine]({% link Guides/getting-started/get-started-sql.md %}#create-an-engine). 
+4. **A user associated with the Firebolt service account** &ndash; You must associate a [user]({% link Guides/managing-your-organization/managing-users.md %}#-users) with your service account, and the user must have the necessary permissions to run the query on the specified database using the specified engine.
+5. **Sufficient permissions** You will need to have [USAGE permission]({% link Overview/Security/Role-Based Access Control/engine-permissions.md %}#engine-permissions) on the engine that runs the query. A user always has permission to view their own queries. To see another user's queries, you must have `MONITOR ENGINE` or `MONITOR ALL` privileges.
 
 To submit an asynchronous query via a raw HTTP request, you must use Firebolt protocol version 2.3 or later, while query status can be checked with any client using protocol version 2.1 or later. You can verify the protocol version by checking the X-Firebolt-Protocol-Version header in API response.
 
@@ -40,9 +41,9 @@ Use a Firebolt driver to connect to a Firebolt database, authenticate securely, 
 * [SQLAlchemy]({% link Guides/developing-with-firebolt/connecting-with-sqlalchemy.md %}) &ndash; Firebolt SQLAlchemy adapter
 * [Go SDK]({% link Guides/developing-with-firebolt/connecting-with-go.md %}) &ndash; Firebolt Go SDK
 
-## Python example API call
+## Submit a query
 
-The following code example establishes a connection to a Firbolt database using a service account, submits an asynchronous `INSERT` statement that groups generated numbers, periodically checks its run status, and then retrieves the row count from the `example` table:
+The following code example establishes a connection to a Firebolt database using a service account, submits an asynchronous `INSERT` statement that groups generated numbers, periodically checks its run status, and then retrieves the row count from the `example` table:
 
 ```python
 from time import sleep
@@ -92,7 +93,7 @@ with connect(
         print(row)
 ```
 
-### How to check the status of an async query
+### Check query statusy
 
 The query status token is included in the initial response when the query is submitted. If needed, you can also retrieve the token from the [engine_running_queries](../../sql_reference/information-schema/engine-running-queries.md) view.
 
@@ -106,20 +107,20 @@ The previous code example returns a single row with the following schema:
 
 | Column Name                 | Data Type   | Description |
 | :---------------------------| :-----------| :-----------|
-| account_name                | TEXT        | Name of the account where the async query was submitted. |
-| user_name                   | TEXT        | Name of the user who submitted the async query. |
-| request_id                  | TEXT        | Unique ID of the request which submitted the async query. |
-| query_id                    | TEXT        | Unique ID of the async query. |
+| account_name                | TEXT        | The name of the account where the asynchronous query was submitted. |
+| user_name                   | TEXT        | The name of the user who submitted the asynchronous query. |
+| request_id                  | TEXT        | Unique ID of the request which submitted the asynchronous query. |
+| query_id                    | TEXT        | Unique ID of the asynchronous query. |
 | status                      | TEXT        | Current status of the query: SUSPENDED, RUNNING, CANCELLED, FAILED, SUCCEEDED or IN_DOUBT. |
-| submitted_time              | TIMESTAMPTZ | Time the async query was submitted. |
-| start_time                  | TIMESTAMPTZ | Time the async query was most recently started. |
-| end_time                    | TIMESTAMPTZ | If the async query is completed, the time it finished. |
-| error_message               | TEXT        | If the async query failed, the error message from the failure. |
-| retries                     | LONG        | Number of times the async query has retried. |
-| scanned_bytes               | LONG        | Number of bytes scanned by the async query. |
-| scanned_rows                | LONG        | Number of rows scanned by the async query. |
+| submitted_time              | TIMESTAMPTZ | The time the asynchronous query was submitted. |
+| start_time                  | TIMESTAMPTZ | The time the async query was most recently started. |
+| end_time                    | TIMESTAMPTZ | If the asynchronous query is completed, the time it finished. |
+| error_message               | TEXT        | If the asynchronous query failed, the error message from the failure. |
+| retries                     | LONG        | The number of times the asynchronous query has retried. |
+| scanned_bytes               | LONG        | The number of bytes scanned by the asynchronous query. |
+| scanned_rows                | LONG        | The number of rows scanned by the asynchronous query. |
 
-### Query cancelation
+### Cancel a query
 
 A running asynchronous query can be cancelled using the [cancel]({% link sql_reference/commands/queries/cancel.md %}) statement as follows:
 
