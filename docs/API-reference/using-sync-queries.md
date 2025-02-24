@@ -18,8 +18,8 @@ You can submit a synchronous query using either the user interface (UI) in the F
 
 You can also submit a synchronous query programmatically using the Firebolt API. The following are required prerequisites to submit a query programmatically:
 
-1. **A Firebolt account** &ndash; Ensure that you have access to an active Firebolt account. If you don't have access, you can [sign up for an account](https://www.firebolt.io/sign-up). For more information about how to register with Firebolt, see [Get started with Firebolt](../../Guides/getting-started/index.md).
-2. **A Firebolt service account** &ndash; You must have access to an active Firebolt [service account](../managing-your-organization/service-accounts.md), which facilitates programmatic access to Firebolt.
+1. **A Firebolt account** &ndash; Ensure that you have access to an active Firebolt account. If you don't have access, you can [sign up for an account](https://www.firebolt.io/sign-up). For more information about how to register with Firebolt, see [Get started with Firebolt]({% link Guides/getting-started/index.md %}).
+2. **A Firebolt service account** &ndash; You must have access to an active Firebolt [service account]({% link Guides/managing-your-organization/service-accounts.md %}), which facilitates programmatic access to Firebolt.
 3. **A Firebolt database and engine** &ndash; Queries must be run on a valid database using an active engine. If you don't have access, you can [create a database]({% link Guides/getting-started/get-started-sql.md %}#create-a-database) and [create an engine]({% link Guides/getting-started/get-started-sql.md %}#create-an-engine). 
 4. **A user associated with the Firebolt service account** &ndash; You must associate a [user]({% link Guides/managing-your-organization/managing-users.md %}#-users) with your service account, and the user must have the necessary permissions to run the query on the specified database using the specified engine.
 5. **Sufficient permissions** You will need to have [USAGE permission]({% link Overview/Security/Role-Based Access Control/engine-permissions.md %}#engine-permissions) on the engine that runs the query. A user always has permission to view their own queries. To see another user's queries, you must have `MONITOR ENGINE` or `MONITOR ALL` privileges.
@@ -72,7 +72,7 @@ with connect(
 
 #### Handling long-running synchronous queries
 
-Synchronous queries maintain an open HTTP connection for the duration of the query, and stream results back as they become available. While there is no strict time limit, queries running longer than one hour may experience connectivity interruptions. If the HTTP connection is lost, some SQL statements, including `INSERT`, continue to run by default, while `SELECT` statements are cancelled. You can modify this behavior using the [cancel_query_on_connection_drop](../../Reference/system-settings.md#query-cancellation-mode-on-connection-drop) setting. 
+Synchronous queries maintain an open HTTP connection for the duration of the query, and stream results back as they become available. While there is no strict time limit, queries running longer than one hour may experience connectivity interruptions. If the HTTP connection is lost, some SQL statements, including `INSERT`, continue to run by default, while `SELECT` statements are cancelled. You can modify this behavior using the [cancel_query_on_connection_drop]({% link Reference/system-settings.md %}#query-cancellation-mode-on-connection-drop) setting. 
 
 To avoid connection issues, consider submitting long-running queries as [asynchronous](using-async-queries.md) queries. 
 

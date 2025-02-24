@@ -25,8 +25,8 @@ You can only submit a synchronous query programmatically using the Firebolt API.
 
 The following are required prerequisites to submit a query programmatically:
 
-1. **A Firebolt account** &ndash; Ensure that you have access to an active Firebolt account. If you don't have access, you can [sign up for an account](https://www.firebolt.io/sign-up). For more information about how to register with Firebolt, see [Get started with Firebolt](../../Guides/getting-started/index.md).
-2. **A Firebolt service account** &ndash; You must have access to an active Firebolt [service account](../managing-your-organization/service-accounts.md), which facilitates programmatic access to Firebolt.
+1. **A Firebolt account** &ndash; Ensure that you have access to an active Firebolt account. If you don't have access, you can [sign up for an account](https://www.firebolt.io/sign-up). For more information about how to register with Firebolt, see [Get started with Firebolt]({% link Guides/getting-started/index.md %}).
+2. **A Firebolt service account** &ndash; You must have access to an active Firebolt [service account]({% link Guides/managing-your-organization/service-accounts.md %}), which facilitates programmatic access to Firebolt.
 3. **A Firebolt database and engine** &ndash; Queries must be run on a valid database using an active engine. If you don't have access, you can [create a database]({% link Guides/getting-started/get-started-sql.md %}#create-a-database) and [create an engine]({% link Guides/getting-started/get-started-sql.md %}#create-an-engine). 
 4. **A user associated with the Firebolt service account** &ndash; You must associate a [user]({% link Guides/managing-your-organization/managing-users.md %}#-users) with your service account, and the user must have the necessary permissions to run the query on the specified database using the specified engine.
 5. **Sufficient permissions** You will need to have [USAGE permission]({% link Overview/Security/Role-Based Access Control/engine-permissions.md %}#engine-permissions) on the engine that runs the query. A user always has permission to view their own queries. To see another user's queries, you must have `MONITOR ENGINE` or `MONITOR ALL` privileges.
@@ -95,7 +95,7 @@ with connect(
 
 ### Check query statusy
 
-The query status token is included in the initial response when the query is submitted. If needed, you can also retrieve the token from the [engine_running_queries](../../sql_reference/information-schema/engine-running-queries.md) view.
+The query status token is included in the initial response when the query is submitted. If needed, you can also retrieve the token from the [engine_running_queries]({% link sql_reference/information-schema/engine-running-queries.md %}) view.
 
 To check the status of an asynchronous query, use the token with the `CALL fb_GetAsyncStatus` function as follows:
 
