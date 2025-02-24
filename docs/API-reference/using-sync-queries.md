@@ -14,7 +14,7 @@ Synchronous queries are the default query mode for submitting SQL statements in 
 
 ## How to submit a synchronous query
 
-You can submit a synchronous query using either the user interface (UI) in the Firebolt **Develop Space**. Every SQL statement submitted using the UI is a synchronous query. For more information about how to submit a SQL statement using the UI, see [Get started using SQL]({% link Guides/getting-started/get-started-sql.md %}). 
+You can submit a synchronous query using the user interface (UI) in the Firebolt **Develop Space**. Every SQL statement submitted using the UI is a synchronous query. For more information about how to submit a SQL statement using the UI, see [Get started using SQL]({% link Guides/getting-started/get-started-sql.md %}). 
 
 You can also submit a synchronous query programmatically using the Firebolt API. The following are required prerequisites to submit a query programmatically:
 
@@ -26,7 +26,7 @@ You can also submit a synchronous query programmatically using the Firebolt API.
 
 To submit a synchronous query programatically, use a Firebolt Driver to send an HTTP request with the SQL statement to Firebolt's API endpoint. 
 
-### Use a Firebolt Driver
+### Use a Firebolt driver
 
 Use a Firebolt driver to connect to a Firebolt database, authenticate securely, and run SQL statements with minimal setup. The driver provides built-in methods for running SQL statements, handling responses, and managing connections. All Firebolt drivers support synchronous queries. See the documentation for each driver for specific details on how to submit synchronous queries programmatically:
 
@@ -41,7 +41,7 @@ Use a Firebolt driver to connect to a Firebolt database, authenticate securely, 
 
 After setting up a Firebolt driver, submit a query to verify connectivity and validate your credentials.
 
-The following code example establishes a connection to a Firebolt database using a service account's credentials, runs a simple `SELECT` statement, retrieves and prints the result:
+Submitting a query through a Firebolt drivers and SDKs have similar formats. The following code example shows how to establish a connection to a Firebolt database using a service account's credentials, runs a simple `SELECT` statement, retrieves and prints the result using the [Python SDK]({% link Guides/developing-with-firebolt/connecting-with-Python.md %}). For other languages, consult the specific driver for details.
 
 ```python
 from firebolt.db import connect

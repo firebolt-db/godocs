@@ -33,9 +33,8 @@ Before you submit API queries, you need the following:
 
 1. **A Firebolt account** &ndash; Ensure that you have access to an active Firebolt account. If you don't have access, you can [sign up for an account](https://www.firebolt.io/sign-up). For more information about how to register with Firebolt, see [Get started with Firebolt]({% link Guides/getting-started/index.md %}).
 2. **A Firebolt service account** &ndash; You must have access to an active Firebolt [service account]({% link Guides/managing-your-organization/service-accounts.md %}), which facilitates programmatic access to Firebolt.
-3. **A Firebolt database and engine** &ndash; Queries must be run on a valid database using an active engine. If you don't have access, you can [create a database]({% link Guides/getting-started/get-started-sql.md %}#create-a-database) and [create an engine]({% link Guides/getting-started/get-started-sql.md %}#create-an-engine). 
-4. **A user associated with the Firebolt service account** &ndash; You must associate a [user]({% link Guides/managing-your-organization/managing-users.md %}#-users) with your service account, and the user must have the necessary permissions to run the query on the specified database using the specified engine.
-5. **Sufficient permissions** You will need to have [USAGE permission]({% link Overview/Security/Role-Based Access Control/engine-permissions.md %}#engine-permissions) on the engine that runs the query. A user always has permission to view their own queries. To see another user's queries, you must have `MONITOR ENGINE` or `MONITOR ALL` privileges.
+3. **A user associated with the Firebolt service account** &ndash; You must associate a [user]({% link Guides/managing-your-organization/managing-users.md %}#-users) with your service account, and the user must have the necessary permissions to run the query on the specified database using the specified engine.
+4. **Sufficient permissions** If you want to query user data through a specific engine, you must have sufficient permissions on the engine, as well as on any tables and databases you access.
 
 ## Set up a driver
 
@@ -43,10 +42,9 @@ Drivers are software components that facilitate communication between applicatio
 
  Use a Firebolt driver for the following:
 
-- **Simplified API access** &ndash; Manages authentication and request formatting, eliminating the need for manual API calls. Requires only installation and basic configuration to connect and run SQL statements.
-- **Optimized performance** &ndash; Improves query processing and connection management for faster response times.
-- **Secure authentication** &ndash; Uses service accounts and industry-standard methods to ensure secure access.
-- **Cross language support** &ndash; Provides SDKs and drivers for multiple programming languages. 
+- **Simplified API access** &ndash; Manage authentication and request formatting, eliminating the need for manual API calls. Requires only installation and basic configuration to connect and run SQL statements.
+- **Optimized performance** &ndash; Improve query processing and connection management for faster response times.
+- **Secure authentication** &ndash; Use service accounts and industry-standard methods to ensure secure access.
 
 Firebolt provides multiple drivers and SDKs. Refer to the following [driver documentation]({% link Guides/integrations/integrations.md %}) for installation instructions:
 

@@ -10,18 +10,23 @@ nav_order: 2
 
 An asynchronous query runs in the background and returns a successful response once it is accepted by the computing cluster, so that a client can proceed with other tasks without waiting for the statement to finish. The status of an asynchronous query can be checked at specified intervals, which provides flexibility, so that you can check the query's status at meaningful times based on the expected duration of the operation. For example, a user can avoid unnecessary resource consumption by only checking the status periodically, rather than maintaining an open connection for the entire duration of the query, which might be unreliable or unnecessary for certain tasks.
 
-Asynchronous queries are ideal for long-running sql statements, such as `INSERT`, or `VACUUM`, where keeping an HTTP connection open is both unreliable and unnecessary, and where the statement might return zero rows. While these operations continue running even if the connection drops, tracking them can be challenging. Using an asynchronous query allows you to check the status of operations at intervals, based on the expected duration.
+Asynchronous queries are ideal for long-running sql statements, such as `INSERT`, or `VACUUM`, where keeping an HTTP connection open is both unreliable and unnecessary, and where the statement might return zero rows. In addition, tracking them can be challenging. Using an asynchronous query allows you to check the status of operations at intervals, based on the expected duration.
 
 You should use asynchronous queries for any supported operation that may take more than a few minutes for which there are no results.
 
 **Supported asynchronous queries**
 
 - Insert statements
-- Engine operations (START ENGINE, STOP ENGINE, ALTER ENGINE, etc.)
+- [VACUUM] check w pascal
+- [COPY FROM]
+copy to
+- [UPDATE] check w pascal
+- [DELETE] (check w pascal)
+- [Engine commands]({% link sql_reference/commands/engines/ %}) including ALTER ENGINE, STOP ENGINE, and START ENGINE
 
 ## How to submit an asynchronous query
 
-You can only submit a synchronous query programmatically using the Firebolt API. Every sql statement submitted using the Firebolt **Develop Space** user interface is a synchronous query. 
+You can only submit a synchronous query programmatically using the Firebolt API or the following listed drivers. Every SQL statement submitted using the Firebolt **Develop Space** user interface is a synchronous query. 
 
 The following are required prerequisites to submit a query programmatically:
 
@@ -31,7 +36,7 @@ The following are required prerequisites to submit a query programmatically:
 4. **A user associated with the Firebolt service account** &ndash; You must associate a [user]({% link Guides/managing-your-organization/managing-users.md %}#-users) with your service account, and the user must have the necessary permissions to run the query on the specified database using the specified engine.
 5. **Sufficient permissions** You will need to have [USAGE permission]({% link Overview/Security/Role-Based Access Control/engine-permissions.md %}#engine-permissions) on the engine that runs the query. A user always has permission to view their own queries. To see another user's queries, you must have `MONITOR ENGINE` or `MONITOR ALL` privileges.
 
-To submit an asynchronous query via a raw HTTP request, you must use Firebolt protocol version 2.3 or later, while query status can be checked with any client using protocol version 2.1 or later. You can verify the protocol version by checking the X-Firebolt-Protocol-Version header in API response.
+To submit an asynchronous query via a raw HTTP request, you must use Firebolt protocol version 2.3 or later, while query status can be checked with any client. You can verify the protocol version by checking the X-Firebolt-Protocol-Version header in API response.
 
 ## Use a Firebolt Driver
 
