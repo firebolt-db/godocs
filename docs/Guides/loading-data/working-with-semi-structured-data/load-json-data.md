@@ -134,7 +134,20 @@ FROM doc_visits_source;
 
 ```
 
-A common error may occur if a field path does not exist in the JSON document. Firebolt returns an error because `NULL` values cannot be cast to `INT`. Use a default value or conditional expression to avoid this error, as shown in the following code example:
+The following table shows the expected results:
+
+| id | start_time      | duration | tags                           | agent_props_keys	                                                 | agent_props_vals                               |
+|----|-----------------|----------|--------------------------------|-------------------------------------------------------------------| -----------------------------------------------|
+| 1  | 1/6/2020 17:00  | 450      | ["summer-sale","sports"]       | [“agent”, “platform”, “resolution”]	                             | [“Mozilla/5.0”, “Windows NT 6.1”, “1024x4069”] |
+| 2  | 1/5/2020 12:00  | 959      | ["gadgets","audio"]            | [“agent”, “platform”]                                             | [“Safari”, “iOS 14”]                           |
+
+Important characteristics of the previous table:
+
+* The mandatory scalar fields, `id`, `start_time`, and `duration`, are stored in separate columns, which makes it easier to filter, sort, or join by these fields.
+* A `tags` column is stored as type ARRAY(TEXT), which accommodates variable-length lists of strings without needing to modify the schema.
+* The `user_agent` object is stored in two arrays: `agent_props_keys` and `agent_props_vals`. The [`JSON_POINTER_EXTRACT_KEYS`]({% link sql_reference/functions-reference/JSON/json-pointer-extract-keys.md %}) function extracts the keys from the `user_agent` object into the `agent_props_keys` array. The [`JSON_POINTER_EXTRACT_VALUES`]({% link sql_reference/functions-reference/JSON/json-pointer-extract-values.md %}) function extracts the corresponding values into the `agent_props_vals` array. Storing keys and values in parallel arrays offers flexibility when the `user_agent` map changes and avoids schema updates for new or removed fields.
+
+* A common error may occur if a field path does not exist in the JSON document. Firebolt returns an error because `NULL` values cannot be cast to `INT`. Use a default value or conditional expression to avoid this error, as shown in the following code example:
 
 ```sql
 INSERT INTO visits
@@ -149,17 +162,13 @@ FROM doc_visits_source;
 
 The following table shows the expected results:
 
-| id | start_time      | duration | tags                           | agent_props_keys	                                                 | agent_props_vals                               |
-|----|-----------------|----------|--------------------------------|-------------------------------------------------------------------| -----------------------------------------------|
-| 1  | 1/6/2020 17:00  | 450      | ["summer-sale","sports"]       | [“agent”, “platform”, “resolution”]	                             | [“Mozilla/5.0”, “Windows NT 6.1”, “1024x4069”] |
-| 2  | 1/5/2020 12:00  | 959      | ["gadgets","audio"]            | [“agent”, “platform”]                                             | [“Safari”, “iOS 14”]                           |
+| id | start_time       | duration | tags                           |
+|----|-----------------|----------|--------------------------------|
+| 0  | NULL           | NULL     | NULL                           |
+| 0  | NULL           | NULL     | NULL                           |
+| 2  | 1/5/2020 12:00 | 959      | ["gadgets", "audio"]           |
+| 1  | 1/6/2020 17:00 | 450      | ["summer-sale", "sports"]      |
 
-
-Important characteristics of the previous table:
-
-* The mandatory scalar fields, `id`, `start_time`, and `duration`, are stored in separate columns, which makes it easier to filter, sort, or join by these fields.
-* A `tags` column is stored as type ARRAY(TEXT), which accommodates variable-length lists of strings without needing to modify the schema.
-* The `user_agent` object is stored in two arrays: `agent_props_keys` and `agent_props_vals`. The [`JSON_POINTER_EXTRACT_KEYS`]({% link sql_reference/functions-reference/JSON/json-pointer-extract-keys.md %}) function extracts the keys from the `user_agent` object into the `agent_props_keys` array. The [`JSON_POINTER_EXTRACT_VALUES`]({% link sql_reference/functions-reference/JSON/json-pointer-extract-values.md %}) function extracts the corresponding values into the `agent_props_vals` array. Storing keys and values in parallel arrays offers flexibility when the `user_agent` map changes and avoids schema updates for new or removed fields.
 
 ## Store JSON as text
 
