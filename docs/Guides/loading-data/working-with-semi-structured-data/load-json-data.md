@@ -178,6 +178,7 @@ The following code example uses the previously created `doc_visits_source` table
 
 ```sql
 -- Create the target table 'visits_raw'
+DROP TABLE IF EXISTS visits_raw;
 CREATE FACT TABLE visits_raw (
   raw_json TEXT
 )
