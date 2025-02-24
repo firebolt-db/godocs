@@ -147,7 +147,7 @@ Important characteristics of the previous table:
 * A `tags` column is stored as type ARRAY(TEXT), which accommodates variable-length lists of strings without needing to modify the schema.
 * The `user_agent` object is stored in two arrays: `agent_props_keys` and `agent_props_vals`. The [`JSON_POINTER_EXTRACT_KEYS`]({% link sql_reference/functions-reference/JSON/json-pointer-extract-keys.md %}) function extracts the keys from the `user_agent` object into the `agent_props_keys` array. The [`JSON_POINTER_EXTRACT_VALUES`]({% link sql_reference/functions-reference/JSON/json-pointer-extract-values.md %}) function extracts the corresponding values into the `agent_props_vals` array. Storing keys and values in parallel arrays offers flexibility when the `user_agent` map changes and avoids schema updates for new or removed fields.
 
-* A common error may occur if a field path does not exist in the JSON document. Firebolt returns an error because `NULL` values cannot be cast to `INT`. Use a default value or conditional expression to avoid this error, as shown in the following code example:
+A common error may occur if a field path does not exist in the JSON document. Firebolt returns an error because `NULL` values cannot be cast to `INT`. Use a default value or conditional expression to avoid this error, as shown in the following code example:
 
 ```sql
 INSERT INTO visits
