@@ -61,16 +61,17 @@ DROP TABLE IF EXISTS doc_visits_source;
 CREATE TABLE doc_visits_source (
   raw_json TEXT
 );
-```
 
-The following code example defines columns that map directly to known keys:
-```sql
 -- Insert raw JSON data as individual rows
 INSERT INTO doc_visits_source (raw_json)
 VALUES
 ('{"id": 1, "StartTime": "2020-01-06 17:00:00", "Duration": 450, "tags": ["summer-sale", "sports"], "user_agent": {"agent": "Mozilla/5.0", "platform": "Windows NT 6.1", "resolution": "1024x4069"}}'),
 ('{"id": 2, "StartTime": "2020-01-05 12:00:00", "Duration": 959, "tags": ["gadgets", "audio"], "user_agent": {"agent": "Safari", "platform": "iOS 14"}}');
+```
 
+The following code example defines columns that map directly to known keys:
+
+```sql
 -- Create the target table 'visits_fixed' with a fixed schema
 DROP TABLE IF EXISTS visits_fixed;
 CREATE FACT TABLE visits_fixed (
@@ -194,6 +195,7 @@ VALUES
 ```
 
 The following code example creates a table that stores raw JSON, allowing you to parse only what you need on demand:
+
 ```sql
 -- Create the target table 'visits_raw'
 CREATE FACT TABLE visits_raw (
