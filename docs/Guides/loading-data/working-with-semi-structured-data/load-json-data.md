@@ -48,7 +48,8 @@ The following JSON data shows two session records for a website, where each line
   }
 ]
 ```
-The following code example creates a staging table which contains the raw JSON data so that you can run the subsequent code examples:
+The following code example creates a staging table that stores the raw JSON data, allowing you to run the subsequent examples:
+
 ```sql
 -- Create a staging table for raw JSON data with one JSON object per row
 DROP TABLE IF EXISTS doc_visits_source;
@@ -65,9 +66,9 @@ VALUES
 
 ## Load JSON into a fixed schema
 
-If your JSON data has a stable set of fields with shallow nesting, you can load it into a table with a fixed schema to simplify queries. Missing keys are assigned default values, while extra keys are ignored, making this approach less flexible for changing data. This method allows you to query columns directly without additional parsing, making queries faster and easier to write.
+If your JSON data has a stable set of fields with shallow nesting, you can load it into a table with a fixed schema to simplify queries. Missing keys are assigned default values, while extra keys that are not explicitly mapped are excluded from structured tables, making this approach less flexible for changing data. If stored separately in a `TEXT` column, they remain accessible for later extraction. This method allows you to query columns directly without additional parsing, making queries faster and easier to write.
 
-The following code example defines columns that map directly to known keys:
+The following code example uses the previously created `doc_visits_source` table to define columns that map directly to known keys:
 
 ```sql
 -- Create the target table 'visits_fixed' with a fixed schema
@@ -84,7 +85,7 @@ PRIMARY INDEX start_time;
 INSERT INTO visits_fixed
 SELECT
   JSON_POINTER_EXTRACT(raw_json, '/id')::INT AS id,
-  TO_TIMESTAMP(TRIM(BOTH '"' FROM JSON_POINTER_EXTRACT(raw_json, '/StartTime')), 'YYYY-MM-DD HH24:MI:SS') AS start_time,
+  TO_TIMESTAMP(JSON_POINTER_EXTRACT(raw_json, '/StartTime'), 'YYYY-MM-DD HH24:MI:SS') AS start_time,
   JSON_POINTER_EXTRACT(raw_json, '/Duration')::INT AS duration,
   JSON_POINTER_EXTRACT(raw_json, '/tags')::ARRAY(TEXT) AS tags
 FROM doc_visits_source;
@@ -100,44 +101,48 @@ The following table shows the expected results:
 Important characteristics of the table:
 
 * Each column maps directly to a known JSON key, allowing for simpler queries without the need for JSON functions.
-* Default values ensure that the table loads even if some fields are missing or additional keys appear. Extra JSON fields are ignored and not stored in the table.
+* Default values ensure that the table loads even if some fields are missing or additional keys appear. Extra JSON fields such as `user_agent` with `agent`, `platform`, and `resolution` are ignored and not stored in the table.
 * Array columns are used to store `tags`, which supports arbitrary numbers of values without schema changes.
 
 ## Transform the input during load
 
 Parsing JSON data during ingestion eliminates the need for subsequent query-time parsing, simplifying and accelerating queries. However, transforming data during load also requires well-defined JSON paths that remain consistent. If the JSON paths change, the load might fail.
 
-The following code example parses JSON data as it loads and inserts extracted fields into a Firebolt table named `visits`. It shows how to handle mandatory scalar fields, an array field, and a `user_agent` map by storing keys and values in separate arrays:
+The following code example uses the previously created `doc_visits_source` table to parse JSON data as it loads and inserts extracted fields into a Firebolt table named `visits_transformed`. It shows how to use `JSON_POINTER_EXTRACT_KEYS` and `JSON_POINTER_EXTRACT_VALUES` to store a dynamic key-value pair &ndash; `agent_props_keys` and `agent_props_vals` &ndash; from a nested object:
 
 ```sql
--- Create the target table 'visits'
-CREATE FACT TABLE visits (
+CREATE FACT TABLE visits_transformed (
   id INT,
   start_time TIMESTAMP,
   duration INT,
-  tags ARRAY(TEXT)
+  tags ARRAY(TEXT),
+  agent_props_keys ARRAY(TEXT),
+  agent_props_vals ARRAY(TEXT)
 )
 PRIMARY INDEX start_time;
 
--- Insert parsed JSON data into the 'visits' table
-INSERT INTO visits
+INSERT INTO visits_transformed
 SELECT
-  JSON_POINTER_EXTRACT(raw_json, '/id')::INT AS id,
-  TO_TIMESTAMP(TRIM(BOTH '"' FROM JSON_POINTER_EXTRACT(raw_json, '/StartTime')), 'YYYY-MM-DD HH24:MI:SS') AS start_time,
-  JSON_POINTER_EXTRACT(raw_json, '/Duration')::INT AS duration,
-  JSON_POINTER_EXTRACT(raw_json, '/tags')::ARRAY(TEXT) AS tags
+  JSON_POINTER_EXTRACT(raw_json, '/id')::INT,
+  TO_TIMESTAMP(JSON_POINTER_EXTRACT(raw_json, '/StartTime'), 'YYYY-MM-DD HH24:MI:SS'),
+  JSON_POINTER_EXTRACT(raw_json, '/Duration')::INT,
+  JSON_POINTER_EXTRACT(raw_json, '/tags')::ARRAY(TEXT),
+  JSON_POINTER_EXTRACT_KEYS(raw_json, '/user_agent')::ARRAY(TEXT),
+  JSON_POINTER_EXTRACT_VALUES(raw_json, '/user_agent')::ARRAY(TEXT)
 FROM doc_visits_source;
-```
 
-{: .note}
-The data type is shown in capital letters beside the column name for clarity and is not part of the column name.
+```
 
 A common error may occur if a field path does not exist in the JSON document. Firebolt returns an error because `NULL` values cannot be cast to `INT`. Use a default value or conditional expression to avoid this error, as shown in the following code example:
 
 ```sql
 INSERT INTO visits
 SELECT
-  JSON_POINTER_EXTRACT(raw_json, '/unknown_field')::INT AS id
+  CASE 
+    WHEN JSON_POINTER_EXTRACT(raw_json, '/unknown_field') IS NOT NULL 
+    THEN JSON_POINTER_EXTRACT(raw_json, '/unknown_field')::INT 
+    ELSE 0 
+  END AS id
 FROM doc_visits_source;
 ```
 
@@ -149,19 +154,17 @@ The following table shows the expected results:
 | 2  | 1/5/2020 12:00  | 959      | ["gadgets","audio"]            | [“agent”, “platform”]                                             | [“Safari”, “iOS 14”]                           |
 
 
-
-
 Important characteristics of the previous table:
 
 * The mandatory scalar fields, `id`, `start_time`, and `duration`, are stored in separate columns, which makes it easier to filter, sort, or join by these fields.
 * A `tags` column is stored as type ARRAY(TEXT), which accommodates variable-length lists of strings without needing to modify the schema.
-* The `user_agent` object is stored in two arrays: `agent_props_keys` and `agent_props_vals`. The [`JSON_POINTER_EXTRACT_KEYS`]({% link sql_reference/functions-reference/JSON/json-pointer-extract-keys.md %}) function extracts the keys from the `user_agent` object into the `agent_props_keys` array, while the [`JSON_POINTER_EXTRACT_VALUES`]({% link sql_reference/functions-reference/JSON/json-pointer-extract-values.md %}) function extracts the corresponding values into the `agent_props_vals` array. Storing keys and values in parallel arrays offers flexibility when the `user_agent` map changes and avoids schema updates for new or removed fields.
+* The `user_agent` object is stored in two arrays: `agent_props_keys` and `agent_props_vals`. The [`JSON_POINTER_EXTRACT_KEYS`]({% link sql_reference/functions-reference/JSON/json-pointer-extract-keys.md %}) function extracts the keys from the `user_agent` object into the `agent_props_keys` array. The [`JSON_POINTER_EXTRACT_VALUES`]({% link sql_reference/functions-reference/JSON/json-pointer-extract-values.md %}) function extracts the corresponding values into the `agent_props_vals` array. Storing keys and values in parallel arrays offers flexibility when the `user_agent` map changes and avoids schema updates for new or removed fields.
 
 ## Store JSON as text
 
 You can store JSON as a single text column if the data structure changes frequently or if you only need certain fields in some queries. This approach simplifies ingestion since no parsing occurs during loading, but it requires parsing fields at query time, which can make queries more complex if you need to extract many fields regularly.
 
-The following code example creates a table that stores raw JSON, allowing you to parse only what you need on demand:
+The following code example uses the previously created `doc_visits_source` table to create a table that stores raw JSON, allowing you to parse only what you need on demand:
 
 ```sql
 -- Create the target table 'visits_raw'
