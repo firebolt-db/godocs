@@ -12,9 +12,10 @@ parent: Work with semi-structured data
 
 Semi-structured data does not follow a strict table format but contains structured tags or key-value pairs. JSON is an example of semi-structured data. Firebolt supports the following three ways to ingest JSON based on how your data changes and how you query it:
 
+- [Load JSON into a fixed schema](#load-json-into-a-fixed-schema) if your JSON data has a stable set of fields with shallow nesting.
 - [Transform the input during load](#transform-the-input-during-load) if your table must always contain certain fields.
 - [Store JSON as text](#store-json-as-text) if you need only specific fields on demand or if the table structure changes frequently.
-- [Load JSON into a fixed schema](#load-json-into-a-fixed-schema) if your JSON data has a stable set of fields with shallow nesting.
+
 
 This document shows you how to load data using each of the previous methods and the sample JSON dataset in the following section.
 
@@ -48,17 +49,75 @@ The following JSON data shows two session records for a website, where each line
 ]
 ```
 
+## Load JSON into a fixed schema
+
+If your JSON data has a stable set of fields with shallow nesting, you can load it into a table with a fixed schema to simplify queries. Missing keys are assigned default values, while extra keys are ignored, making this approach less flexible for changing data. This method allows you to query columns directly without additional parsing, making queries faster and easier to write.
+
+The following code example creates a staging table which contains the raw JSON data so that you can run the subsequent code example:
+
+```sql
+-- Create a staging table for raw JSON data (one JSON object per row)
+DROP TABLE IF EXISTS doc_visits_source;
+CREATE TABLE doc_visits_source (
+  raw_json TEXT
+);
+```
+
+The following code example defines columns that map directly to known keys:
+```sql
+-- Insert raw JSON data as individual rows
+INSERT INTO doc_visits_source (raw_json)
+VALUES
+('{"id": 1, "StartTime": "2020-01-06 17:00:00", "Duration": 450, "tags": ["summer-sale", "sports"], "user_agent": {"agent": "Mozilla/5.0", "platform": "Windows NT 6.1", "resolution": "1024x4069"}}'),
+('{"id": 2, "StartTime": "2020-01-05 12:00:00", "Duration": 959, "tags": ["gadgets", "audio"], "user_agent": {"agent": "Safari", "platform": "iOS 14"}}');
+
+-- Create the target table 'visits_fixed' with a fixed schema
+CREATE FACT TABLE visits_fixed (
+  id INT DEFAULT 0,
+  start_time TIMESTAMP DEFAULT '1970-01-01 00:00:00',
+  duration INT DEFAULT 0,
+  tags ARRAY(TEXT) DEFAULT []
+)
+PRIMARY INDEX start_time;
+
+-- Insert data into 'visits_fixed' by extracting values from the raw JSON
+INSERT INTO visits_fixed
+SELECT
+  JSON_POINTER_EXTRACT(raw_json, '/id')::INT AS id,
+  TO_TIMESTAMP(TRIM(BOTH '"' FROM JSON_POINTER_EXTRACT(raw_json, '/StartTime')), 'YYYY-MM-DD HH24:MI:SS') AS start_time,
+  JSON_POINTER_EXTRACT(raw_json, '/Duration')::INT AS duration,
+  JSON_POINTER_EXTRACT(raw_json, '/tags')::ARRAY(TEXT) AS tags
+FROM doc_visits_source;
+```
+The following table shows the expected results:
+
+| id | start_time     | duration | tags                          |
+|----|----------------|----------|-------------------------------|
+| 1  | 1/6/2020 17:00 | 450      | ["summer-sale", "sports"]     |
+| 2  | 1/5/2020 12:00 | 959      | ["gadgets", "audio"]          |
+
+
+Important characteristics of the table:
+
+* Each column maps directly to a known JSON key, allowing for simpler queries without the need for JSON functions.
+* Default values ensure that the table loads even if some fields are missing or additional keys appear. Extra JSON fields are ignored and not stored in the table.
+* Array columns are used to store `tags`, which supports arbitrary numbers of values without schema changes.
+
 ## Transform the input during load
 
-Parsing JSON data during ingestion eliminates the need for query-time parsing, simplifying and accelerating queries. However, transforming data during load also requires well-defined JSON paths that remain consistent. If the JSON paths change, the load might fail.
+Parsing JSON data during ingestion eliminates the need for subsequent query-time parsing, simplifying and accelerating queries. However, transforming data during load also requires well-defined JSON paths that remain consistent. If the JSON paths change, the load might fail.
 
-The following code example parses JSON data as it loads and inserts extracted fields into a Firebolt table named `visits`. It shows how to handle mandatory scalar fields, an array field, and a `user_agent` map by storing keys and values in separate arrays:
+The following code example creates an intermediate table which contains the raw JSON data so that you can run the subsequent code example:
 
 ```sql
 CREATE TABLE doc_visits_source (
   raw_json TEXT
 );
+```
 
+The following code example parses JSON data as it loads and inserts extracted fields into a Firebolt table named `visits`. It shows how to handle mandatory scalar fields, an array field, and a `user_agent` map by storing keys and values in separate arrays:
+
+```sql
 -- Insert raw JSON data (each row contains a single JSON object) into column named 'raw_json'
 INSERT INTO doc_visits_source (raw_json)
 VALUES
@@ -70,9 +129,7 @@ CREATE FACT TABLE visits (
   id INT,
   start_time TIMESTAMP,
   duration INT,
-  tags ARRAY(TEXT),
-  agent_props_keys ARRAY (TEXT),
-  agent_props_vals ARRAY (TEXT)
+  tags ARRAY(TEXT)
 )
 PRIMARY INDEX start_time;
 
@@ -82,9 +139,7 @@ SELECT
   JSON_POINTER_EXTRACT(raw_json, '/id')::INT AS id,
   TO_TIMESTAMP(TRIM(BOTH '"' FROM JSON_POINTER_EXTRACT(raw_json, '/StartTime')), 'YYYY-MM-DD HH24:MI:SS') AS start_time,
   JSON_POINTER_EXTRACT(raw_json, '/Duration')::INT AS duration,
-  JSON_POINTER_EXTRACT(raw_json, '/tags')::ARRAY(TEXT) AS tags,
-  JSON_POINTER_EXTRACT_KEYS(raw_json, '/user_agent') AS agent_props_keys,
-  JSON_POINTER_EXTRACT_VALUES(raw_json, '/user_agent') AS agent_props_vals
+  JSON_POINTER_EXTRACT(raw_json, '/tags')::ARRAY(TEXT) AS tags
 FROM doc_visits_source;
 ```
 
@@ -100,12 +155,13 @@ SELECT
 FROM doc_visits_source;
 ```
 
-The following table shows the expected output:
+The following table shows the expected results:
 
 | id | start_time      | duration | tags                           | agent_props_keys	                                                 | agent_props_vals                               |
 |----|-----------------|----------|--------------------------------|-------------------------------------------------------------------| -----------------------------------------------|
-| 2  | 1/5/2020 12:00  | 959      | ["gadgets","audio"]            | [“agent”, “platform”]                                             | [“Safari”, “iOS 14”]                           |
 | 1  | 1/6/2020 17:00  | 450      | ["summer-sale","sports"]       | [“agent”, “platform”, “resolution”]	                             | [“Mozilla/5.0”, “Windows NT 6.1”, “1024x4069”] |
+| 2  | 1/5/2020 12:00  | 959      | ["gadgets","audio"]            | [“agent”, “platform”]                                             | [“Safari”, “iOS 14”]                           |
+
 
 
 
@@ -145,7 +201,7 @@ INSERT INTO visits_raw
 SELECT raw_json
 FROM doc_visits_source;
 ```
-The following table shows the expected output:
+The following table shows the expected results:
 
 | raw_json |
 | -------- |
@@ -159,52 +215,4 @@ Important characteristics of the table:
 * Parsing occurs at query time, which can save upfront processing when data is loaded, but it might increase query complexity and cost if you need to parse many fields frequently.
 * Subsequent queries need to extract fields manually with JSON functions as needed.
 
-## Load JSON into a fixed schema
 
-If your JSON data has a stable set of fields with shallow nesting, you can load it into a table with a fixed schema to simplify queries. Missing keys are assigned default values, while extra keys are ignored, making this approach less flexible for changing data. This method allows you to query columns directly without additional parsing, making queries faster and easier to write.
-
-The following code example defines columns that map directly to known keys:
-
-```sql
--- Create a staging table for raw JSON data (one JSON object per row)
-DROP TABLE IF EXISTS doc_visits_source;
-CREATE TABLE doc_visits_source (
-  raw_json TEXT
-);
-
--- Insert raw JSON data as individual rows
-INSERT INTO doc_visits_source (raw_json)
-VALUES
-('{"id": 1, "StartTime": "2020-01-06 17:00:00", "Duration": 450, "tags": ["summer-sale", "sports"], "user_agent": {"agent": "Mozilla/5.0", "platform": "Windows NT 6.1", "resolution": "1024x4069"}}'),
-('{"id": 2, "StartTime": "2020-01-05 12:00:00", "Duration": 959, "tags": ["gadgets", "audio"], "user_agent": {"agent": "Safari", "platform": "iOS 14"}}');
-
--- Create the target table 'visits_fixed' with a fixed schema
-CREATE FACT TABLE visits_fixed (
-  id INT DEFAULT 0,
-  start_time TIMESTAMP DEFAULT '1970-01-01 00:00:00',
-  duration INT DEFAULT 0,
-  tags ARRAY(TEXT) DEFAULT []
-)
-PRIMARY INDEX start_time;
-
--- Insert data into 'visits_fixed' by extracting values from the raw JSON
-INSERT INTO visits_fixed
-SELECT
-  JSON_POINTER_EXTRACT(raw_json, '/id')::INT AS id,
-  TO_TIMESTAMP(TRIM(BOTH '"' FROM JSON_POINTER_EXTRACT(raw_json, '/StartTime')), 'YYYY-MM-DD HH24:MI:SS') AS start_time,
-  JSON_POINTER_EXTRACT(raw_json, '/Duration')::INT AS duration,
-  JSON_POINTER_EXTRACT(raw_json, '/tags')::ARRAY(TEXT) AS tags
-FROM doc_visits_source;
-```
-The following table shows the expected output:
-
-| id | start_time     | duration | tags                          |
-|----|----------------|----------|-------------------------------|
-| 2  | 1/5/2020 12:00 | 959      | ["gadgets", "audio"]          |
-| 1  | 1/6/2020 17:00 | 450      | ["summer-sale", "sports"]     |
-
-Important characteristics of the table:
-
-* Each column maps directly to a known JSON key, allowing for simpler queries without the need for JSON functions.
-* Default values ensure that the table loads even if some fields are missing or additional keys appear. Extra JSON fields are ignored and not stored in the table.
-* Array columns are used to store `tags`, which supports arbitrary numbers of values without schema changes.
