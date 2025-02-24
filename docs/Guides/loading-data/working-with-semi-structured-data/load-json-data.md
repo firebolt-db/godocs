@@ -66,7 +66,7 @@ VALUES
 
 ## Load JSON into a fixed schema
 
-If your JSON data has a stable set of fields with shallow nesting, you can load it into a table with a fixed schema to simplify queries. Missing keys are assigned default values, while extra keys that are not explicitly mapped are excluded from structured tables, making this approach less flexible for changing data. If stored separately in a `TEXT` column, they remain accessible for later extraction. This method allows you to query columns directly without additional parsing, making queries faster and easier to write.
+If your JSON data has a stable set of fields with shallow nesting, you can load it into a table with a fixed schema to simplify queries. Missing keys are assigned default values. This method allows you to query columns directly without additional parsing, making queries faster and easier to write. Extra keys that are not explicitly mapped are excluded from structured tables, making this approach less flexible for changing data. If stored separately in a `TEXT` column, they remain accessible for later extraction. This method allows you to query columns directly without additional parsing, making queries faster and easier to write.
 
 The following code example uses the previously created `doc_visits_source` table to define columns that map directly to known keys:
 
@@ -131,7 +131,6 @@ SELECT
   JSON_POINTER_EXTRACT_KEYS(raw_json, '/user_agent')::ARRAY(TEXT),
   JSON_POINTER_EXTRACT_VALUES(raw_json, '/user_agent')::ARRAY(TEXT)
 FROM doc_visits_source;
-
 ```
 
 The following table shows the expected results:
@@ -150,12 +149,12 @@ Important characteristics of the previous table:
 A common error may occur if a field path does not exist in the JSON document. Firebolt returns an error because `NULL` values cannot be cast to `INT`. Use a default value or conditional expression to avoid this error, as shown in the following code example:
 
 ```sql
-INSERT INTO visits
+INSERT INTO visits_transformed
 SELECT
   CASE 
     WHEN JSON_POINTER_EXTRACT(raw_json, '/unknown_field') IS NOT NULL 
     THEN JSON_POINTER_EXTRACT(raw_json, '/unknown_field')::INT 
-    ELSE 0 
+    ELSE NULL
   END AS id
 FROM doc_visits_source;
 ```
@@ -166,8 +165,8 @@ The following table shows the expected results:
 |----|-----------------|----------|--------------------------------|
 | 0  | NULL           | NULL     | NULL                           |
 | 0  | NULL           | NULL     | NULL                           |
-| 2  | 1/5/2020 12:00 | 959      | ["gadgets", "audio"]           |
 | 1  | 1/6/2020 17:00 | 450      | ["summer-sale", "sports"]      |
+| 2  | 1/5/2020 12:00 | 959      | ["gadgets", "audio"]           |
 
 
 ## Store JSON as text
