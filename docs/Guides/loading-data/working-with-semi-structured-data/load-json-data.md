@@ -124,7 +124,7 @@ PRIMARY INDEX start_time;
 INSERT INTO visits_transformed
 SELECT
   JSON_POINTER_EXTRACT(raw_json, '/id')::INT,
-  TO_TIMESTAMP(JSON_POINTER_EXTRACT(raw_json, '/StartTime'), 'YYYY-MM-DD HH24:MI:SS'),
+  TO_TIMESTAMP(TRIM(BOTH '"' FROM JSON_POINTER_EXTRACT(raw_json, '/StartTime')), 'YYYY-MM-DD HH24:MI:SS'),
   JSON_POINTER_EXTRACT(raw_json, '/Duration')::INT,
   JSON_POINTER_EXTRACT(raw_json, '/tags')::ARRAY(TEXT),
   JSON_POINTER_EXTRACT_KEYS(raw_json, '/user_agent')::ARRAY(TEXT),
