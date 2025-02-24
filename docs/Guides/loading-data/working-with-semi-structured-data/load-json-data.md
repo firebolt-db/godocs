@@ -111,6 +111,7 @@ Parsing JSON data during ingestion eliminates the need for subsequent query-time
 The following code example uses the previously created `doc_visits_source` table to parse JSON data as it loads and inserts extracted fields into a Firebolt table named `visits_transformed`. It shows how to use `JSON_POINTER_EXTRACT_KEYS` and `JSON_POINTER_EXTRACT_VALUES` to store a dynamic key-value pair &ndash; `agent_props_keys` and `agent_props_vals` &ndash; from a nested object:
 
 ```sql
+DROP TABLE IF EXISTS visits_transformed;
 CREATE FACT TABLE visits_transformed (
   id INT,
   start_time TIMESTAMP,
