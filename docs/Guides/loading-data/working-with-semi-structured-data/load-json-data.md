@@ -72,6 +72,7 @@ VALUES
 ('{"id": 2, "StartTime": "2020-01-05 12:00:00", "Duration": 959, "tags": ["gadgets", "audio"], "user_agent": {"agent": "Safari", "platform": "iOS 14"}}');
 
 -- Create the target table 'visits_fixed' with a fixed schema
+DROP TABLE IF EXISTS visits_fixed;
 CREATE FACT TABLE visits_fixed (
   id INT DEFAULT 0,
   start_time TIMESTAMP DEFAULT '1970-01-01 00:00:00',
@@ -110,20 +111,21 @@ Parsing JSON data during ingestion eliminates the need for subsequent query-time
 The following code example creates an intermediate table which contains the raw JSON data so that you can run the subsequent code example:
 
 ```sql
+DROP TABLE IF EXISTS doc_visits_source;
 CREATE TABLE doc_visits_source (
   raw_json TEXT
 );
-```
 
-The following code example parses JSON data as it loads and inserts extracted fields into a Firebolt table named `visits`. It shows how to handle mandatory scalar fields, an array field, and a `user_agent` map by storing keys and values in separate arrays:
-
-```sql
 -- Insert raw JSON data (each row contains a single JSON object) into column named 'raw_json'
 INSERT INTO doc_visits_source (raw_json)
 VALUES
 ('{"id": 1, "StartTime": "2020-01-06 17:00:00", "Duration": 450, "tags": ["summer-sale", "sports"], "user_agent": {"agent": "Mozilla/5.0", "platform": "Windows NT 6.1", "resolution": "1024x4069"}}'),
 ('{"id": 2, "StartTime": "2020-01-05 12:00:00", "Duration": 959, "tags": ["gadgets", "audio"], "user_agent": {"agent": "Safari", "platform": "iOS 14"}}');
+```
 
+The following code example parses JSON data as it loads and inserts extracted fields into a Firebolt table named `visits`. It shows how to handle mandatory scalar fields, an array field, and a `user_agent` map by storing keys and values in separate arrays:
+
+```sql
 -- Create the target table 'visits'
 CREATE FACT TABLE visits (
   id INT,
@@ -175,8 +177,8 @@ Important characteristics of the previous table:
 
 You can store JSON as a single text column if the data structure changes frequently or if you only need certain fields in some queries. This approach simplifies ingestion since no parsing occurs during loading, but it requires parsing fields at query time, which can make queries more complex if you need to extract many fields regularly.
 
-The following code example creates a table that stores raw JSON, allowing you to parse only what you need on demand:
 
+The following code example creates an intermediate table which contains the raw JSON data so that you can run the subsequent code example:
 ```sql
 -- Create a staging table to hold the raw JSON data
 DROP TABLE IF EXISTS doc_visits_source;
@@ -184,12 +186,15 @@ CREATE TABLE doc_visits_source (
   raw_json TEXT
 );
 
--- Insert raw JSON data as individual rows (one JSON object per row)
+-- Insert raw JSON data as individual rows with one JSON object per row
 INSERT INTO doc_visits_source (raw_json)
 VALUES
 ('{"id": 1, "StartTime": "2020-01-06 17:00:00", "Duration": 450, "tags": ["summer-sale", "sports"], "user_agent": {"agent": "Mozilla/5.0", "platform": "Windows NT 6.1", "resolution": "1024x4069"}}'),
 ('{"id": 2, "StartTime": "2020-01-05 12:00:00", "Duration": 959, "tags": ["gadgets", "audio"], "user_agent": {"agent": "Safari", "platform": "iOS 14"}}');
+```
 
+The following code example creates a table that stores raw JSON, allowing you to parse only what you need on demand:
+```sql
 -- Create the target table 'visits_raw'
 CREATE FACT TABLE visits_raw (
   raw_json TEXT
