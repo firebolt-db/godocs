@@ -48,13 +48,7 @@ The following JSON data shows two session records for a website, where each line
   }
 ]
 ```
-
-## Load JSON into a fixed schema
-
-If your JSON data has a stable set of fields with shallow nesting, you can load it into a table with a fixed schema to simplify queries. Missing keys are assigned default values, while extra keys are ignored, making this approach less flexible for changing data. This method allows you to query columns directly without additional parsing, making queries faster and easier to write.
-
-The following code example creates a staging table which contains the raw JSON data so that you can run the subsequent code example:
-
+The following code example creates a staging table which contains the raw JSON data so that you can run the subsequent code examples:
 ```sql
 -- Create a staging table for raw JSON data with one JSON object per row
 DROP TABLE IF EXISTS doc_visits_source;
@@ -68,6 +62,10 @@ VALUES
 ('{"id": 1, "StartTime": "2020-01-06 17:00:00", "Duration": 450, "tags": ["summer-sale", "sports"], "user_agent": {"agent": "Mozilla/5.0", "platform": "Windows NT 6.1", "resolution": "1024x4069"}}'),
 ('{"id": 2, "StartTime": "2020-01-05 12:00:00", "Duration": 959, "tags": ["gadgets", "audio"], "user_agent": {"agent": "Safari", "platform": "iOS 14"}}');
 ```
+
+## Load JSON into a fixed schema
+
+If your JSON data has a stable set of fields with shallow nesting, you can load it into a table with a fixed schema to simplify queries. Missing keys are assigned default values, while extra keys are ignored, making this approach less flexible for changing data. This method allows you to query columns directly without additional parsing, making queries faster and easier to write.
 
 The following code example defines columns that map directly to known keys:
 
@@ -108,21 +106,6 @@ Important characteristics of the table:
 ## Transform the input during load
 
 Parsing JSON data during ingestion eliminates the need for subsequent query-time parsing, simplifying and accelerating queries. However, transforming data during load also requires well-defined JSON paths that remain consistent. If the JSON paths change, the load might fail.
-
-The following code example creates an intermediate table which contains the raw JSON data so that you can run the subsequent code example:
-
-```sql
-DROP TABLE IF EXISTS doc_visits_source;
-CREATE TABLE doc_visits_source (
-  raw_json TEXT
-);
-
--- Insert raw JSON data (each row contains a single JSON object) into column named 'raw_json'
-INSERT INTO doc_visits_source (raw_json)
-VALUES
-('{"id": 1, "StartTime": "2020-01-06 17:00:00", "Duration": 450, "tags": ["summer-sale", "sports"], "user_agent": {"agent": "Mozilla/5.0", "platform": "Windows NT 6.1", "resolution": "1024x4069"}}'),
-('{"id": 2, "StartTime": "2020-01-05 12:00:00", "Duration": 959, "tags": ["gadgets", "audio"], "user_agent": {"agent": "Safari", "platform": "iOS 14"}}');
-```
 
 The following code example parses JSON data as it loads and inserts extracted fields into a Firebolt table named `visits`. It shows how to handle mandatory scalar fields, an array field, and a `user_agent` map by storing keys and values in separate arrays:
 
@@ -177,22 +160,6 @@ Important characteristics of the previous table:
 ## Store JSON as text
 
 You can store JSON as a single text column if the data structure changes frequently or if you only need certain fields in some queries. This approach simplifies ingestion since no parsing occurs during loading, but it requires parsing fields at query time, which can make queries more complex if you need to extract many fields regularly.
-
-
-The following code example creates an intermediate table which contains the raw JSON data so that you can run the subsequent code example:
-```sql
--- Create a staging table to hold the raw JSON data
-DROP TABLE IF EXISTS doc_visits_source;
-CREATE TABLE doc_visits_source (
-  raw_json TEXT
-);
-
--- Insert raw JSON data as individual rows with one JSON object per row
-INSERT INTO doc_visits_source (raw_json)
-VALUES
-('{"id": 1, "StartTime": "2020-01-06 17:00:00", "Duration": 450, "tags": ["summer-sale", "sports"], "user_agent": {"agent": "Mozilla/5.0", "platform": "Windows NT 6.1", "resolution": "1024x4069"}}'),
-('{"id": 2, "StartTime": "2020-01-05 12:00:00", "Duration": 959, "tags": ["gadgets", "audio"], "user_agent": {"agent": "Safari", "platform": "iOS 14"}}');
-```
 
 The following code example creates a table that stores raw JSON, allowing you to parse only what you need on demand:
 
