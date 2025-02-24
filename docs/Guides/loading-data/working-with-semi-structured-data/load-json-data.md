@@ -85,7 +85,7 @@ PRIMARY INDEX start_time;
 INSERT INTO visits_fixed
 SELECT
   JSON_POINTER_EXTRACT(raw_json, '/id')::INT AS id,
-  TO_TIMESTAMP(JSON_POINTER_EXTRACT(raw_json, '/StartTime'), 'YYYY-MM-DD HH24:MI:SS') AS start_time,
+  TO_TIMESTAMP(TRIM(BOTH '"' FROM JSON_POINTER_EXTRACT(raw_json, '/StartTime')), 'YYYY-MM-DD HH24:MI:SS') AS start_time,
   JSON_POINTER_EXTRACT(raw_json, '/Duration')::INT AS duration,
   JSON_POINTER_EXTRACT(raw_json, '/tags')::ARRAY(TEXT) AS tags
 FROM doc_visits_source;
