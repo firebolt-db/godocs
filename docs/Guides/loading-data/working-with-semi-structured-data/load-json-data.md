@@ -56,7 +56,7 @@ If your JSON data has a stable set of fields with shallow nesting, you can load 
 The following code example creates a staging table which contains the raw JSON data so that you can run the subsequent code example:
 
 ```sql
--- Create a staging table for raw JSON data (one JSON object per row)
+-- Create a staging table for raw JSON data with one JSON object per row
 DROP TABLE IF EXISTS doc_visits_source;
 CREATE TABLE doc_visits_source (
   raw_json TEXT
