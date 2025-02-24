@@ -1,0 +1,1 @@
+SELECT FIRST_VALUE(a) OVER (ORDER BY a) as result FROM UNNEST(array[1,2,5]) as a;

@@ -1,0 +1,37 @@
+{
+  "query": {
+    "query_id": "bb5c5ce1-1db8-4688-9af6-43b6353f30ba",
+    "request_id": "aa478042-410b-4fc5-9e89-ef4a83d1d3e4",
+    "query_label": null
+  },
+  "meta": [
+    {
+      "name": "single_characters",
+      "type": "array(text)"
+    }
+  ],
+  "data": [
+    [
+      [
+        "f",
+        "i",
+        "r",
+        "e",
+        "b",
+        "o",
+        "l",
+        "t"
+      ]
+    ]
+  ],
+  "rows": 1,
+  "statistics": {
+    "elapsed": 0.008524,
+    "rows_read": 1,
+    "bytes_read": 1,
+    "time_before_execution": 0.000275236,
+    "time_to_execute": 9.2812e-05,
+    "scanned_bytes_cache": 0,
+    "scanned_bytes_storage": 0
+  }
+}

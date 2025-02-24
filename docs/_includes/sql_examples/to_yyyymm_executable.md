@@ -1,0 +1,4 @@
+{% include query-window.html sql_file="sql_examples/to_yyyymm_example_0.sql" %}
+
+{% include query-window.html sql_file="sql_examples/to_yyyymm_example_1.sql" %}
+

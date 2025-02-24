@@ -33,37 +33,4 @@ LN(<value>);
 ## Examples
 {: .no_toc}
 
-**Example**
-
-The following code example  computes the natural logarithm of 1.0:
-
-```sql
-SELECT LN(1.0);
-```
-
-**Returns**
-
-`0.0`
-
-**Example**
-
-The following code example returns the natural logarithm close to e:
-
-```sql
-SELECT LN(2.7182818284590452353);
-```
-
-**Returns**
-
-`1.0`
-
-**Example**
-
-The natural logarithm can only be computed for values that are larger than 0. All the following functions return an error:
-
-```sql
-SELECT LN(0.0);
-SELECT LN(-1.0);
-SELECT LN('-Inf');
-```
-
+{% include sql_examples/ln_executable.md %}

@@ -24,10 +24,4 @@ CURRENT_DATABASE()
 ## Example
 {: .no_toc}
 
-```sql
-SELECT current_database()
-```
-
-**Returns**
-
-`account_db`
+{% include sql_examples/current_database_executable.md %}
