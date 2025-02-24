@@ -11,7 +11,7 @@ parent: Work with semi-structured data
 # Load semi-structured Parquet data
 {: .no_toc}
 
-Apache Parquet is binary file format that can store structured columns and also semi-structured nested or repeated data in the form of arrays, structs, and maps. If these nested structures do not align to a strictly relational schema, they are described as semi-structured. Firebolt’s external-table syntax supports extracting these semi-structured fields from Parquet files, treating them similarly as other semi-structured data such as JSON. This document shows how to load and query Parquet data that is stored as structs in arrays or as maps of key-value pairs.
+Apache Parquet is a binary file format that supports both structured columns and semi-structured data, including arrays, structs, and maps. If these nested structures do not align to a strictly relational schema, they are described as semi-structured. Firebolt’s external tables support extracting these semi-structured fields from Parquet files, treating them similarly as other semi-structured data such as JSON. This document shows how to load and query Parquet data that is stored as structs in arrays or as maps of key-value pairs.
 
 * Topic ToC
 {:toc}
@@ -45,6 +45,8 @@ optional group hashtags (LIST) {
     optional group array_element {
       optional binary some_value (TEXT);
     }
+  }
+}
 ```
 
 The steps below demonstrate the process to ingest the array values into Firebolt. You create an external table, create a fact table, and insert data into the fact table from the external table, which is connected to the Parquet data store.
@@ -99,14 +101,13 @@ INSERT INTO my_parquet_array_fact_tbl
 After you ingest array values into the fact table, you can query and manipulate the array using array functions and Lambda functions. For more information, see [Working with arrays](working-with-arrays.md).
 
 {: .note}
-Multipart parquet column names are used only for nested parquet containers. A simple ARRAY of primitive type TEXT, for 
-example, requires a single top level name with no extensions.
+Use multipart Parquet column names to extract data from nested structures. For simple `ARRAY(TEXT)`, use a single top-level field name.
 
 ## Example&ndash;ingest and work with maps
 
 External tables connected to AWS Glue currently do not support reading maps from Parquet files.
 
-Map keys and values in Parquet appear within a group similar to arrays. Consider the Parquet schema example below. The following define the key-value elements of the map:
+Parquet stores maps as arrays of key-value pairs, where each key_value group contains a key and its corresponding value. Consider the Parquet schema example below. The following define the key-value elements of the map:
 
 * A single, optional group, `context`, is a group of mappings that contains any number of the group `key_value`.
 * The `key_value` groups each contain a required field, `key`, which contains the key name as a `TEXT`. Each group also contains an optional field `value`, which contains the value as a `TEXT` corresponding to the key name in the same `key_value` group.
@@ -146,7 +147,7 @@ Create a Firebolt fact or dimension table that defines columns of the same `ARRA
 CREATE FACT TABLE IF NOT EXISTS my_parquet_map_fact_tbl
 (
   [...,] --additional columns possible, not shown
-  my_parquet_array_keys ARRAY(TEXT)
+  my_parquet_array_keys ARRAY(TEXT),
   my_parquet_array_values ARRAY(TEXT)
   [,...]
 )
@@ -162,7 +163,7 @@ The example below demonstrates an `INSERT INTO` statement that selects the array
 INSERT INTO my_parquet_map_fact_tbl
   SELECT "context.keys" AS my_parquet_array_keys,
          "context.values" AS my_parquet_array_values
-  FROM my_parquet_map_ext_tbl
+  FROM my_parquet_map_ext_tbl;
 ```
 
 ### Step 4&ndash;query map values
