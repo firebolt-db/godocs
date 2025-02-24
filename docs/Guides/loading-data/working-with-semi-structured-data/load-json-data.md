@@ -100,6 +100,7 @@ The following table shows the expected results:
 
 Important characteristics of the table:
 
+* The mandatory scalar fields, `id`, `start_time`, and `duration`, are stored in separate columns, which makes it easier to filter, sort, or join by these fields.
 * Each column maps directly to a known JSON key, allowing for simpler queries without the need for JSON functions.
 * Default values ensure that the table loads even if some fields are missing or additional keys appear. Extra JSON fields such as `user_agent` with `agent`, `platform`, and `resolution` are ignored and not stored in the table.
 * Array columns are used to store `tags`, which supports arbitrary numbers of values without schema changes.
@@ -142,8 +143,7 @@ The following table shows the expected results:
 
 Important characteristics of the previous table:
 
-* The mandatory scalar fields, `id`, `start_time`, and `duration`, are stored in separate columns, which makes it easier to filter, sort, or join by these fields.
-* A `tags` column is stored as type ARRAY(TEXT), which accommodates variable-length lists of strings without needing to modify the schema.
+
 * The `user_agent` object is stored in two arrays: `agent_props_keys` and `agent_props_vals`. The [`JSON_POINTER_EXTRACT_KEYS`]({% link sql_reference/functions-reference/JSON/json-pointer-extract-keys.md %}) function extracts the keys from the `user_agent` object into the `agent_props_keys` array. The [`JSON_POINTER_EXTRACT_VALUES`]({% link sql_reference/functions-reference/JSON/json-pointer-extract-values.md %}) function extracts the corresponding values into the `agent_props_vals` array. Storing keys and values in parallel arrays offers flexibility when the `user_agent` map changes and avoids schema updates for new or removed fields.
 
 A common error may occur if a field path does not exist in the JSON document. Firebolt returns an error because `NULL` values cannot be cast to `INT`. Use a default value or conditional expression to avoid this error, as shown in the following code example:
@@ -181,7 +181,7 @@ DROP TABLE IF EXISTS visits_raw;
 CREATE FACT TABLE visits_raw (
   raw_json TEXT
 )
-PRIMARY INDEX raw_json;
+;
 
 -- Insert data into the 'visits_raw' table from the staging table
 INSERT INTO visits_raw
@@ -198,6 +198,7 @@ The following table shows the expected results:
 
 Important characteristics of the table:
 
+* The `id`, `start_time`, `durations`, and `tags` columns follow the same purpose as in the [previous table example](#transform-the-input-during-load). 
 * The entire JSON object is stored in a single `TEXT` column, which is beneficial when you do not know which fields you need or if the structure evolves quickly. 
 * Parsing occurs at query time, which can save upfront processing when data is loaded, but it might increase query complexity and cost if you need to parse many fields frequently.
 * Subsequent queries need to extract fields manually with JSON functions as needed.
