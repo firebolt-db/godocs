@@ -59,7 +59,7 @@ Firebolt provides multiple drivers and SDKs. Refer to the following [driver docu
 
 After setting up a Firebolt driver, submit a query to verify connectivity and validate your credentials.
 
-The following code example shows how to submit a query using the [Python SDK]({% link Guides/developing-with-firebolt/connecting-with-Python.md %}):
+Submitting a query through a Firebolt drivers and SDKs have similar formats. The following code example shows how to submit a query using the [Python SDK]({% link Guides/developing-with-firebolt/connecting-with-Python.md %}). For other languages, consult the specific driver for details:
 
 ```python
 from firebolt.db import connect

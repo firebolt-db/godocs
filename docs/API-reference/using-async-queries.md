@@ -48,6 +48,8 @@ Use a Firebolt driver to connect to a Firebolt database, authenticate securely, 
 
 ## Submit a query
 
+Submitting a query through a Firebolt drivers and SDKs have similar formats. The following code example shows how to submit an asynchronous query using the [Python SDK]({% link Guides/developing-with-firebolt/connecting-with-Python.md %}). For other languages, consult the specific driver for details:
+
 The following code example establishes a connection to a Firebolt database using a service account, submits an asynchronous `INSERT` statement that groups generated numbers, periodically checks its run status, and then retrieves the row count from the `example` table:
 
 ```python
