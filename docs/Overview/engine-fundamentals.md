@@ -25,12 +25,12 @@ Firebolt engines provide **full workload isolation**, so that multiple workloads
  This document explains engine configuration, scaling, monitoring, security and connection options.
 
 **Topics**
-* [Key engine concepts](#key-engine-concepts)
-* [Multi-dimensional elasticity](#multi-dimensional-elasticity)
-* [Connecting to engines](#connecting-to-engines)
-* [Monitoring engine usage](#monitoring-engine-usage)
-* [Engine governance and security](#engine-governance-and-security)
-* [Viewing and understanding engine status](#viewing-and-understanding-engine-status)
+* [Key engine concepts](#key-engine-concepts) &ndash; Learn about the `TYPE`, `NODES`, and `CLUSTERS` attributes that define a Firebolt engine’s configuration and scaling options.
+* [Multi-dimensional elasticity](#multi-dimensional-elasticity) &ndash; Scale engines dynamically by adjusting engine attributes without stopping workloads.
+* [Connecting to engines](#connecting-to-engines) &ndash; How to connect to a Firebolt engine using the UI, Engine URL, or third-party tools.
+* [Monitoring engine usage](#monitoring-engine-usage) &ndash; Track engine performance using observability views in `information_schema` to optimize resource allocation.
+* [Engine governance and security](#engine-governance-and-security) &ndash; Control engine access using [Role-Based Access Control (RBAC)]({% link Overview/Security/Role-Based Access Control/index.md %}) and account-level isolation to enforce security policies.
+* [Viewing and understanding engine status](#viewing-and-understanding-engine-status) &ndash; Learn how to use `SHOW ENGINES` to check the status of all engines, including running, resizing, and stopped states.
 
 
 ## Key engine concepts
@@ -61,7 +61,7 @@ A cluster is a collection of compute resources within an engine that shares the 
 <br />
 The three attributes:  `TYPE`, `NODES` and `CLUSTERS` &ndash; form the configuration of an engine.
 
-To create an engine, use the [CREATE ENGINE command](../sql_reference/commands/engines/create-engine.md), specifying the node type to be used for the engine, number of clusters and number of nodes per cluster.
+To create an engine, use the [CREATE ENGINE command]({% link sql_reference/commands/engines/create-engine.md %}), specifying the node type to be used for the engine, number of clusters and number of nodes per cluster.
 
 The following code example creates two clusters, each containing four nodes of type `M`:
 
@@ -120,8 +120,8 @@ For more information on modifying engines, see [ALTER ENGINE]({% link sql_refere
 
 You can connect to an engine using the following methods:
 
-* Firebolt user interface (UI)
-* Engine URL
+* Firebolt's [user interface](https://go.firebolt.io/login).
+* An engine URL.
 * Third-party [connectors]({% link Guides/integrations/integrations.md %}) such as Airflow and DBT.
 
 The engine URL is based on your account name and org name, with the following format:
