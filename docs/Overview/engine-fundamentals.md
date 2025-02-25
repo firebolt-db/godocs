@@ -39,7 +39,7 @@ Engines in Firebolt are defined by three attributes: **Type**, **Nodes**, and **
 
 **Type**
 
-The `TYPE` of engine defines the **compute node size** used as a building block for an engine. They are available in Small, Medium, Large, and X-Large sizes. Change the node type to **vertically scale** up or down.
+The `TYPE` of engine defines the **compute node size** used as a building block for an engine. They are available in Small, Medium, Large, and X-Large sizes. Change the node type to **vertically scale** up or down. Small and medium engines are available for use right away. If you want to use a large or extra-large engine, reach out to [support@firebolt.io](mailto:support@firebolt.io).
 
 **Nodes**
 
@@ -91,8 +91,8 @@ Use the [ALTER ENGINE]({% link sql_reference/commands/engines/alter-engine.md %}
 
 **Best practices**
 
-* Increase the node **type** to improve single-query performance.
-* Increase the **number of nodes** to process queries in parallel.
+* Use a **larger node type** to improve performance for both single queries and multiple concurrent queries, especially as data size grows
+* Increase the number of nodes for finer control over scaling, such as distributing workloads across multiple smaller nodes or when further vertical scaling is not possible.
 * Increase the **number of clusters** to support higher query concurrency.
 
 The following code example uses `ALTER ENGINE` to horizontally scale an engine from two to three nodes:
