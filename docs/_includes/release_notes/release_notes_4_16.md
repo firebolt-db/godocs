@@ -68,10 +68,10 @@ The `DDL` column in `INFORMATION_SCHEMA.TABLES` now reflects new formatting for 
 ### Performance Improvements
 
 <!-- Auto Generated Markdown for FIR-43659 - Owned by Demian Hespe -->
-**Introduced spatial indexing for `GEOGRAPHY` columns at the tablet level to enhance query performance
+**Introduced pruning for `GEOGRAPHY` columns at the tablet level to enhance query performance
 
 **
-Introduced spatial indexing at the tablet level for `GEOGRAPHY` columns, improving query performance. For tables created before this release, running `VACUUM` is necessary to activate spatial pruning.
+Introduced pruning at the tablet level for `GEOGRAPHY` columns, improving query performance. For tables created before this release, running `VACUUM` is necessary to activate spatial pruning.
 
 
 <!-- Auto Generated Markdown for FIR-42544 - Owned by Judson Wilson -->
