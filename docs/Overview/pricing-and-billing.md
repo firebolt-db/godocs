@@ -99,7 +99,7 @@ Note that there are no additional storage charges beyond S3 costs. Contact [supp
 
 ### Self-managed editions (Customer-managed infrastructure)
 
-Firebolt offers two self-managed editions: Firebolt Core and Private Cloud. 
+Firebolt offers two self-managed editions: Firebolt Core and Private Cloud. Both editions exclusively use the storage compute pricing option and are supported by Google Cloud Platform (GCP), as well as AWS. 
    
 **Firebolt Core**: A free, downloadable version offering complete control over deployment on any infrastructure. Runs on cloud, on-prem, or local machine. 
   * You manage: Hosting, upgrades, and maintenance
@@ -108,12 +108,6 @@ Firebolt offers two self-managed editions: Firebolt Core and Private Cloud.
   * You manage: infrastructure, compute, and storage costs
   * We provide: software and updates
   * For BYOC pricing, contact [support@firebolt.io](mailto:support@firebolt.io)
-
-* Platforms supported:
-  * Google Cloud Platform (GCP)
-  * Amazon Web Services (AWS)
-* Compute & storage:
-  * Both editions use the storage optimized compute exclusively
 
 ## Billing dashboard
 
