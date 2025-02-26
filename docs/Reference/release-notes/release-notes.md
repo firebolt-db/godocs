@@ -1,6 +1,4 @@
 ---
-redirect_from:
-  - /general-reference/release-notes/release-notes.html
 layout: default
 title: Release notes
 description: Latest release notes for the Firebolt data warehouse.
@@ -19,4 +17,4 @@ Firebolt continuously releases updates so that you can benefit from the latest a
 {: .note}
 Firebolt might roll out releases in phases. New features and changes may not yet be available to all accounts on the release date shown.
 
-{% include release_notes/release_notes_4_14.md %}
+{% include release_notes/release_notes_4_15.md %}

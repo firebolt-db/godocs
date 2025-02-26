@@ -1,0 +1,63 @@
+{
+  "query": {
+    "query_id": "0e969e0d-f389-44d2-b575-37aa603cbaf8",
+    "request_id": "bf8ca3da-78ed-4ae4-8eb2-f802a249dd1d",
+    "query_label": null
+  },
+  "meta": [
+    {
+      "name": "grantee",
+      "type": "text"
+    },
+    {
+      "name": "role_name",
+      "type": "text"
+    },
+    {
+      "name": "privilege_type",
+      "type": "text"
+    },
+    {
+      "name": "object_type",
+      "type": "text"
+    },
+    {
+      "name": "object_name",
+      "type": "text"
+    }
+  ],
+  "data": [
+    [
+      "demoproxy",
+      "proxy_role",
+      "SELECT",
+      "table",
+      "usaccidentdata"
+    ],
+    [
+      "demoproxy",
+      "proxy_role",
+      "SELECT",
+      "table",
+      "t"
+    ],
+    [
+      "demoproxy",
+      "proxy_role",
+      "USAGE",
+      "schema",
+      "public"
+    ]
+  ],
+  "rows": 3,
+  "rows_before_limit_at_least": 3,
+  "statistics": {
+    "elapsed": 0.074536,
+    "rows_read": 26,
+    "bytes_read": 3384,
+    "time_before_execution": 0.000944245,
+    "time_to_execute": 0.032463759,
+    "scanned_bytes_cache": 0,
+    "scanned_bytes_storage": 0
+  }
+}
