@@ -10,19 +10,14 @@ nav_order: 2
 
 An asynchronous query runs in the background and returns a successful response once it is accepted by the computing cluster, so that a client can proceed with other tasks without waiting for the statement to finish. The status of an asynchronous query can be checked at specified intervals, which provides flexibility, so that you can check the query's status at meaningful times based on the expected duration of the operation. For example, a user can avoid unnecessary resource consumption by only checking the status periodically, rather than maintaining an open connection for the entire duration of the query, which might be unreliable or unnecessary for certain tasks.
 
-Asynchronous queries are ideal for long-running sql statements, such as `INSERT`, or `VACUUM`, where keeping an HTTP connection open is both unreliable and unnecessary, and where the statement might return zero rows. In addition, tracking them can be challenging. Using an asynchronous query allows you to check the status of operations at intervals, based on the expected duration.
+Asynchronous queries are ideal for long-running SQL statements, such as `INSERT`, `STOP ENGINE`, and `ALTER ENGINE`, where keeping an HTTP connection open is both unreliable and unnecessary, and where the statement might return zero rows. In addition, tracking them can be challenging. Using an asynchronous query allows you to check the status of operations at intervals, based on the expected duration.
 
 You should use asynchronous queries for any supported operation that may take more than a few minutes for which there are no results.
 
 **Supported asynchronous queries**
 
-- Insert statements
-- [VACUUM] check w pascal
-- [COPY FROM]
-copy to
-- [UPDATE] check w pascal
-- [DELETE] (check w pascal)
-- [Engine commands]({% link sql_reference/commands/engines/ %}) including ALTER ENGINE, STOP ENGINE, and START ENGINE
+- [INSERT]({% link sql_reference/commands/data-management/insert.md %}) &ndash; Inserts one or more values into a specified table.
+- [Engine commands]({% link sql_reference/commands/engines/index.md %}) including [ALTER ENGINE]({% link sql_reference/commands/engines/alter-engine.md %}), [STOP ENGINE]({% link sql_reference/commands/engines/stop-engine.md %}), and [START ENGINE]({% link sql_reference/commands/engines/start-engine.md %}). By default, Firebolt engines finish running queries before returning results, which can take significant time. Starting an engine can also take more than a few minutes.
 
 ## How to submit an asynchronous query
 
@@ -40,7 +35,7 @@ To submit an asynchronous query via a raw HTTP request, you must use Firebolt pr
 
 ## Use a Firebolt Driver
 
-Use a Firebolt driver to connect to a Firebolt database, authenticate securely, and run sql statements with minimal setup. The driver provides built-in methods for running sql statements, handling responses, and managing connections. Only some Firebolt drivers support synchronous queries. See the documentation for each driver for specific details on how to submit asynchronous queries programmatically:
+Use a Firebolt driver to connect to a Firebolt database, authenticate securely, and run SQL statements with minimal setup. The driver provides built-in methods for running SQL statements, handling responses, and managing connections. Only some Firebolt drivers support synchronous queries. See the documentation for each driver for specific details on how to submit asynchronous queries programmatically:
 
 * [Python SDK]({% link Guides/developing-with-firebolt/connecting-with-Python.md %}) &ndash; Firebolt Python SDK
 * [SQLAlchemy]({% link Guides/developing-with-firebolt/connecting-with-sqlalchemy.md %}) &ndash; Firebolt SQLAlchemy adapter
@@ -129,7 +124,7 @@ The previous code example returns a single row with the following schema:
 
 ### Cancel a query
 
-A running asynchronous query can be cancelled using the [cancel]({% link sql_reference/commands/queries/cancel.md %}) statement as follows:
+A running asynchronous query can be cancelled using the [CANCEL]({% link sql_reference/commands/queries/cancel.md %}) statement as follows:
 
 ```sql
 CANCEL QUERY '<query_id>';

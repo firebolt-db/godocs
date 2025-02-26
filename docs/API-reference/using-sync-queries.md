@@ -83,7 +83,7 @@ The queries running on an engine are available in the [engine_running_queries]({
 
 #### Cancel a query 
 
-A running synchronous query can be cancelled using the [cancel]({% link sql_reference/commands/queries/cancel.md %}) statement as follows:
+A running synchronous query can be cancelled using the [CANCEL]({% link sql_reference/commands/queries/cancel.md %}) statement as follows:
 
 ```sql
 CANCEL QUERY '<query_id>';
