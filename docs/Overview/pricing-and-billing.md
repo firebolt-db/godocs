@@ -11,7 +11,7 @@ nav_order: 2
 Firebolt offers flexible deployment models to meet diverse business needs, providing scalability and cost efficiency. When you start using Firebolt, you receive $200 in free credits to use in the first 30 days. Afterwards, you can sign up for one of Firebolt's fully managed or self-managed solutions tailored to your infrastructure and workload requirements. 
 
 ## Choose your deployment model
-Firebolt offers two deployment models: [Fully managed](#fully-managed-firebolt-managed-infrastructure) and [Self-managed](#self-managed-editions-customer-managed-infrastructure). Each model includes specific editions and pricing options. Fully Managed has Standard, Enterprise, and Dedicated editions with Pay-As-You-Go or Committed-Use Discount pricing. Self-Managed includes Firebolt Core (free) and Private Cloud editions, with pricing based on your infrastructure setup.
+Firebolt offers two deployment models: [Fully managed](#fully-managed-editions-firebolt-managed-infrastructure) and [Self-managed](#self-managed-editions-customer-managed-infrastructure). Each model includes specific editions and pricing options. Fully Managed has Standard, Enterprise, and Dedicated editions with Pay-As-You-Go or Committed-Use Discount pricing. Self-Managed includes Firebolt Core (free) and Private Cloud editions, with pricing based on your infrastructure setup.
 
 This section outlines the available deployment models, their editions, and associated pricing options.
 
@@ -65,12 +65,12 @@ Firebolt offers flexible pricing options to accommodate different workloads and 
       * |                      | Regional Pricing within the US |                          | Regional Pricing outside the US |                          |
     |----------------------|-------------------------------|--------------------------|---------------------------------|--------------------------|
     |                      | **Standard**                  | **Enterprise**           | **Standard**                    | **Enterprise**           |
-    | **$/FBU/hr**         | 0.23                          | 0.35                     | 0.35                            | 0.42                     |
-    | **FBU's**            | 8                             | 8                        | 8                               | 8                        |
-    | **Small**            | 1.84                          | 2.8                      | 2.8                             | 3.36                     |
-    | **Medium**           | 3.68                          | 5.6                      | 5.6                             | 6.72                     |
-    | **Large**            | 7.36                          | 11.2                     | 11.2                            | 13.44                    |
-    | **X-Large**          | 14.72                         | 22.4                     | 22.4                            | 26.88                    |
+    | **$/FBU/hr**         | 0.23                          | 0.35                     | 0.28                            | 0.42                     |
+    | **FBU's**            | 4                             | 4                        | 4                               | 4                        |
+    | **Small**            | 0.92                         | 1.4                      | 1.12                             | 1.68                     |
+    | **Medium**           | 1.84                          | 2.8                      | 2.24                             | 3.36                     |
+    | **Large**            | 3.68                          | 5.6                     | 4.48                            | 6.72                    |
+    | **X-Large**          | 7.36                         | 11.2                     | 8.96                            | 13.44                    |
 
     * **Storage optimized**&mdash; Default option; High SSD capacity for caching and production workloads.
       * |                      | Regional Pricing within the US |                          | Regional Pricing outside the US |                          |
