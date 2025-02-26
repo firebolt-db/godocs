@@ -109,7 +109,7 @@ Important characteristics of the table:
 
 Parsing JSON data during ingestion eliminates the need for subsequent query-time parsing, simplifying and accelerating queries. However, transforming data during load also requires well-defined JSON paths that remain consistent. If the JSON paths change, the load might fail.
 
-The following code example uses the previously created `doc_visits_source` table to parse JSON data as it loads and inserts extracted fields into a Firebolt table named `visits_transformed`. It shows how to use `JSON_POINTER_EXTRACT_KEYS` and `JSON_POINTER_EXTRACT_VALUES` to store a dynamic key-value pair &ndash; `agent_props_keys` and `agent_props_vals` &ndash; from a nested object:
+The following code example uses the previously created `doc_visits_source` table to parse JSON data as it loads and inserts extracted fields into a Firebolt table named `visits_transformed`. It shows how to use [JSON_POINTER_EXTRACT_KEYS]({% link sql_reference/functions-reference/JSON/json-pointer-extract-keys.md %}) and [JSON_POINTER_EXTRACT_VALUES]({% link sql_reference/functions-reference/JSON/json-pointer-extract-values.md %}) to store a dynamic key-value pair &ndash; `agent_props_keys` and `agent_props_vals` &ndash; from a nested object:
 
 ```sql
 DROP TABLE IF EXISTS visits_transformed;
@@ -146,7 +146,14 @@ Important characteristics of the previous table:
 
 * The `user_agent` object is stored in two arrays: `agent_props_keys` and `agent_props_vals`. The [`JSON_POINTER_EXTRACT_KEYS`]({% link sql_reference/functions-reference/JSON/json-pointer-extract-keys.md %}) function extracts the keys from the `user_agent` object into the `agent_props_keys` array. The [`JSON_POINTER_EXTRACT_VALUES`]({% link sql_reference/functions-reference/JSON/json-pointer-extract-values.md %}) function extracts the corresponding values into the `agent_props_vals` array. Storing keys and values in parallel arrays offers flexibility when the `user_agent` map changes and avoids schema updates for new or removed fields.
 
-A common error may occur if a field path does not exist in the JSON document. Firebolt returns an error because `NULL` values cannot be cast to `INT`. Use a default value or conditional expression to avoid this error, as shown in the following code example:
+A common error may occur if a field path does not exist in the JSON document. Firebolt returns an error because `NULL` values cannot be cast to `INT`. For example, the following query attempts to extract a non-existent field `/unknown_field` and cast it to `INT`, which results in an error:
+
+```sql
+SELECT JSON_POINTER_EXTRACT(raw_json, '/unknown_field')::INT 
+FROM doc_visits_source;
+```
+
+To avoid this error, use a default value or conditional expression as shown in the following code example:
 
 ```sql
 INSERT INTO visits_transformed
@@ -173,10 +180,9 @@ The following table shows the expected results:
 
 You can store JSON as a single text column if the data structure changes frequently or if you only need certain fields in some queries. This approach simplifies ingestion since no parsing occurs during loading, but it requires parsing fields at query time, which can make queries more complex if you need to extract many fields regularly.
 
-The following code example uses the previously created `doc_visits_source` table to create a table that stores raw JSON, allowing you to parse only what you need on demand:
+The following code example uses the previously created intermediary `doc_visits_source` table to create a permanent table that stores raw JSON, allowing you to parse only what you need on demand:
 
 ```sql
--- Create the target table 'visits_raw'
 DROP TABLE IF EXISTS visits_raw;
 CREATE FACT TABLE visits_raw (
   raw_json TEXT
@@ -198,7 +204,7 @@ The following table shows the expected results:
 Important characteristics of the table:
 
 * The `id`, `start_time`, `durations`, and `tags` columns follow the same purpose as in the [previous table example](#transform-the-input-during-load). 
-* The entire JSON object is stored in a single `TEXT` column, which is beneficial when you do not know which fields you need or if the structure evolves quickly. 
+* Each row in the previous table contains a complete JSON object stored in a single `TEXT` column, rather than being parsed into separate fields. This approach is beneficial when the required fields are unknown at ingestion or the JSON structure changes frequently, allowing for flexible data storage without modifying the schema. Fields can be extracted dynamically at query time using Firebolt's JSON functions, though frequent parsing may increase query complexity and cost.
 * Parsing occurs at query time, which can save upfront processing when data is loaded, but it might increase query complexity and cost if you need to parse many fields frequently.
 * Subsequent queries need to extract fields manually with JSON functions as needed.
 
