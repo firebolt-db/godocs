@@ -66,7 +66,7 @@ VALUES
 
 ## Load JSON into a fixed schema
 
-If your JSON data has a stable set of fields with shallow nesting, you can load it into a table with a fixed schema to simplify queries. Missing keys are assigned default values. This method allows you to query columns directly without additional parsing, making queries faster and easier to write. Extra keys that are not explicitly mapped are excluded from structured tables, making this approach less flexible for changing data. If stored separately in a `TEXT` column, they remain accessible for later extraction. This method allows you to query columns directly without additional parsing, making queries faster and easier to write.
+If your JSON data has a stable set of fields with shallow nesting, you can load it into a table with a fixed schema to simplify queries. Missing keys are assigned default values. This method allows you to query columns directly without additional parsing, making queries faster and easier to write. Extra keys that are not explicitly mapped are excluded from structured tables, making this approach less flexible for changing data. If stored separately in a `TEXT` column, they remain accessible for later extraction. 
 
 The following code example uses the previously created `doc_visits_source` table to define columns that map directly to known keys:
 
@@ -180,8 +180,7 @@ The following code example uses the previously created `doc_visits_source` table
 DROP TABLE IF EXISTS visits_raw;
 CREATE FACT TABLE visits_raw (
   raw_json TEXT
-)
-;
+);
 
 -- Insert data into the 'visits_raw' table from the staging table
 INSERT INTO visits_raw
