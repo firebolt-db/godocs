@@ -71,7 +71,7 @@ The `DDL` column in `INFORMATION_SCHEMA.TABLES` now reflects new formatting for 
 **Introduced pruning for `GEOGRAPHY` columns at the tablet level to enhance query performance
 
 **
-Introduced pruning at the tablet level for `GEOGRAPHY` columns, improving query performance. For tables created before this release, running `VACUUM` is necessary to activate spatial pruning.
+Introduced pruning at the tablet level for `GEOGRAPHY` columns, improving query performance. For tables created before this release, running `VACUUM` is necessary to activate spatial pruning. For more information as well as tips for improving pruning potential, read our [blog post](https://www.firebolt.io/blog/architecture-and-internal-representation-of-the-geography-data-type).
 
 
 <!-- Auto Generated Markdown for FIR-42544 - Owned by Judson Wilson -->
