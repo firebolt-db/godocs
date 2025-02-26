@@ -1,1 +1,1 @@
-select pow(2, 3) as result;
+select pow(2, 5) as result;

@@ -1,0 +1,1 @@
+SELECT FLOOR(1998, -3);

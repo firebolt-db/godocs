@@ -23,45 +23,11 @@ SESSION_USER()
 ## Examples
 {: .no_toc}
 
-**Example**
-
-```sql
--- executed by user bob
-SELECT session_user()
-```
-
-**Returns**
-
-`bob`
+{% include sql_examples/current_user_executable.md %}
 
 **Example**
 
-The following code example shows the effective privileges of the roles directly assigned to the user running the query:
-
-```sql
-SELECT
-AR.grantee,
-  AR.role_name,
-  OP.privilege_type,
-  OP.object_type,
-  OP.object_name
-FROM information_schema.applicable_roles AS AR
-JOIN information_schema.object_privileges AS OP
-ON (AR.role_name = OP.grantee)
-WHERE
-  AR.grantee = session_user();
-```
-
-**Returns** 
-
-| grantee   | role_name     | privilege_type | object_type | object_name |
-|:----------|:--------------|:---------------|:------------|:------------|
-| test_user | account_admin | USAGE | engine | engine1 | 
-| test_user | account_admin | USAGE | database | db1 |
-
-**Example**
-
-Dynamic security through view which uses session_user().
+Dynamic security through a view which uses `session_user()`.
 
 ```sql
 -- user bob created view:
