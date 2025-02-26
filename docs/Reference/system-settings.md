@@ -98,9 +98,11 @@ SELECT * FROM table LIMIT 20000;
 ## Query cancellation mode on connection drop
 
 Specify how the query should behave when the HTTP connection to Firebolt is dropped (e.g., UI window is closed). For this, you can choose between 3 different mode:
-- NONE: The query will not be canceled on connection drop
-- ALL : The query will be canceled on connection drop
-- TYPE_DEPENDENT: Only queries without side effects will be canceled (e.g., `SELECT`). 
+- `NONE`: The query will not be canceled on connection drop.
+- `ALL` : The query will be canceled on connection drop.
+- `TYPE_DEPENDENT`: Only queries without side effects will be canceled (e.g., `SELECT`). 
+
+The default is `TYPE_DEPENDENT`.
 
 ### Syntax
 ```sql
