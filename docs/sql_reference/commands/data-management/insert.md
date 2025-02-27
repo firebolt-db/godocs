@@ -44,7 +44,7 @@ CREATE TABLE students (
     gender TEXT)
 ```
 
-Now we can use `INSERT` to add two rows into table `students`
+Next, use `INSERT` to add two rows into the `students` table as follows:
 
 ```sql
 INSERT INTO students VALUES
