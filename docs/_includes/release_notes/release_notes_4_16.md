@@ -53,8 +53,8 @@ Added the `INDEX_GRANULARITY` storage parameter to `CREATE TABLE` to control the
 ### Bug Fixes
 
 <!-- Auto Generated Markdown for FIR-38200 - Owned by Jonathan Doron -->  
-**Removed the `AggregateCaseToAggregateIfRule` function to simplify query structures**            
-The function `AggregateCaseToAggregateIfRule`, which transformed aggregations like `agg(CASE WHEN P THEN V ELSE NULL END)` into `AGGIF(V, P)`, has been removed. This change simplifies query structures by eliminating the use of `AggregateCaseToAggregateIfRule`.
+**Removed a planner rule that transform aggregations on a case statement**
+The dedicated planner rule, which transformed aggregations like `agg(CASE WHEN P THEN V ELSE NULL END)` into `AGGIF(V, P)`, has been removed. This change simplifies query structures by removing unused internal plan representation.
 
 
 <!-- Auto Generated Markdown for FIR-43485 - Owned by Tal Zelig -->
