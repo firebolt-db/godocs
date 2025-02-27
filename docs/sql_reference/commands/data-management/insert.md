@@ -52,7 +52,7 @@ INSERT INTO students VALUES
     (2, 'Hermione Granger', DATE '1979-09-19', 'F')
 ```
 
-We can also add another row with only some of the columns populated. The missing column `dob` (date of birth) does not have default value, therefore it will be populated with `NULL`
+You can also add another row with only some of the columns populated. The missing `dob`  column for date of birth does not have default value, so Firebolt  sets it to `NULL`.
 
 ```sql
 INSERT INTO students (id, full_name, gender) VALUES (3, 'Ron Weasley', 'M')
