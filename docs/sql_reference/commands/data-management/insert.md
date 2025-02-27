@@ -34,7 +34,7 @@ INSERT INTO <table> [(<column1>[, <column2>][, ...])]
 
 ## Example
 
-First, let's create table with students information
+First, create a table populated with student information as follows:
 
 ```sql
 CREATE TABLE students (
