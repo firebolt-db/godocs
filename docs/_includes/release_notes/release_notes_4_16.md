@@ -38,6 +38,10 @@ The SQL data warehouse now supports the `FROM` first syntax. This change permits
 **Updated the `DDL` column in `INFORMATION_SCHEMA.TABLES` to reflect new formatting for external tables**        
 The `DDL` column in `INFORMATION_SCHEMA.TABLES` now reflects new formatting for external tables. This update ensures that users see consistent and accurate data definitions when accessing information about external tables.
 
+**Added concurrency auto-scaling**
+Engines can now be created with concurrency auto-scaling enabled, or modified to enable concurrency auto-scaling. Setting the `MIN_CLUSTERS` and `MAX_CLUSTERS` parameters on CREATE ENGINE and ALTER ENGINE commands turns on concurrency auto-scaling: the engine will dynamically resize between the specified `MIN_CLUSTERS` and `MAX_CLUSTERS` values to match demand.
+
+
 ### Behavior Changes
 
 ### Performance Improvements
