@@ -28,6 +28,7 @@ ALTER ENGINE <engine_name> SET
     [MAX_CLUSTERS = <clusters>]
     [NODES = <nodes>]
     [TYPE = <type>]
+    [FAMILY = <family>]
 ```
 
 ### Options 
@@ -44,6 +45,7 @@ ALTER ENGINE <engine_name> SET
 | `MAX_CLUSTERS = <clusters>`          | Specifies a maximum number of clusters in an engine. If `MIN_CLUSTERS` is different from `MAX_CLUSTERS`, the engine will automatically change the number of clusters depending on load. If not specified, `1` is used as default. |
 | `NODES = <nodes>`                    | Specifies the number of nodes in each cluster within an engine. You can specify any integer between `1` to `128`, inclusive. |
 | `TYPE =<type>`                       | Specifies the node type for the engine. You can choose `S`, `M`, `L`, or `XL`. |
+| `FAMILY =<family>`                   | Defines the family of node used in the engine. Options include `STORAGE_OPTIMIZED` (alias `SO`) or `COMPUTE_OPTIMIZED` (alias `CO`). |
 
 **Limitations:**
 * Each engine is limited to a maximum of two clusters.

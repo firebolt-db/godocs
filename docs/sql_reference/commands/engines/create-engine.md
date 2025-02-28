@@ -26,7 +26,8 @@ CREATE ENGINE [IF NOT EXISTS] <engine_name>
     [MIN_CLUSTERS = <clusters>]
     [MAX_CLUSTERS = <clusters>]
     [NODES = <nodes>]
-    [TYPE = <type>]]
+    [TYPE = <type>]
+    [FAMILY = <family>]]
 ```
 ## Options
 {: .no_toc}  
@@ -44,6 +45,7 @@ CREATE ENGINE [IF NOT EXISTS] <engine_name>
 | `MAX_CLUSTERS = <clusters>`          | Specifies a maximum number of clusters in an engine. If `MIN_CLUSTERS` is different from `MAX_CLUSTERS`, the engine will automatically change the number of clusters depending on load.<br><br>If not specified, `1` is used as default. |
 | `NODES = <nodes>`                    | Indicates the number of nodes in each cluster within an engine. This number can range from `1` to `128`. <br><br>If not specified, `2` is used as default. |
 | `TYPE =<type>`                       | Defines the type of node used in the engine. Options include `S`, `M`, `L`, or `XL` <br><br>If not specified, `M` is used as default. |
+| `FAMILY =<family>`                   | Defines the family of node used in the engine. Options include `STORAGE_OPTIMIZED` (alias `SO`) or `COMPUTE_OPTIMIZED` (alias `CO`) <br><br>If not specified, `STORAGE_OPTIMIZED` is used as default. |
 
 **Limitations:**  
 * The number of clusters per engine is limited to two. 
@@ -79,11 +81,11 @@ WITH TYPE="M" NODES=3 INITIALLY_STOPPED=true;
 ```
 
 ### Create an engine with auto-stop
-The following example creates an engine with one cluster, using node type 'L' and 2 nodes per cluster. The engine will be automatically stopped after 10 mins of idle time because `AUTO_STOP` is set to 10.
+The following example creates an engine with one cluster, using node type 'L' in the compute optimized family with 2 nodes per cluster. The engine will be automatically stopped after 10 mins of idle time because `AUTO_STOP` is set to 10.
 
 ```sql
 CREATE ENGINE my_engine
-WITH TYPE="L" NODES=2 AUTO_STOP=10;
+WITH TYPE="L" FAMILY="COMPUTE_OPTIMIZED" NODES=2 AUTO_STOP=10;
 ```
 
 {: .note}
