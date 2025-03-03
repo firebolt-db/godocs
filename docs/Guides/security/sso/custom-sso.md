@@ -103,7 +103,7 @@ ALTER ORGANIZATION vsko SET SSO = '{
     "given_name": "name",
     "family_name": "surname"
   },
-  "certificate": "-----BEGIN CERTIFICATE-----FooBarBaz-----END CERTIFICATE-----"
+  "certificate": "-----BEGIN CERTIFICATE-----SampleCertificate-----END CERTIFICATE-----"
 }';
 ```
 Make sure that the certificate value is provided as one string, without any line breaks or control characters such as `\r\n`.
