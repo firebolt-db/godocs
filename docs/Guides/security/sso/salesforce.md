@@ -67,14 +67,14 @@ Once your Identity Provider(IdP) is configured, you can now configure Firebolt t
 - ```field mapping```: Mapping to your identity provider's first and last name in key-value pairs. If additional fields are required, choose **Add another key-value pair**. Mapping is required for Firebolt to fill in the login’s given and last names the first time the user logs in using SSO. 
       Here’s an example of how to set up field mapping:
 
-      ```json  
-        {
-            "given_name": "name",
-            "family_name": "surname"
-        }
-      ```
+  ```json  
+  {
+      "given_name": "name",
+      "family_name": "surname"
+  }
+  ```
 
-      where the "given_name" (first name) is mapped to the "name" field from the IDP, and the "family_name" (last name) is mapped from the "surname" field.
+    In the previous code example, `given_name` is your first name, and is mapped to the "name" field from the IDP. The  `family_name` is your last name, and is mapped from the "surname" field.
 3. Choose **Update changes**
 
 ##### SQL

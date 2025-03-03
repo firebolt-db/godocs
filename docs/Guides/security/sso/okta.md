@@ -84,7 +84,7 @@ ALTER ORGANIZATION vsko SET SSO = '{
     "given_name": "name",
     "family_name": "surname"
   },
-  "certificate": "<certificate>",
+  "certificate": "<certificate>"
 }';
 ```
 

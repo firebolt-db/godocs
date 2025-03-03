@@ -77,12 +77,12 @@ Once your Identity Provider(IdP) is configured, you can now configure Firebolt t
 - ```Field mapping```: Mapping to your identity provider's first and last name in key-value pairs. If additional fields are required, choose **Add another key-value pair**. Mapping is required for Firebolt to fill in the login’s given and last names the first time the user logs in using SSO. If this field remains empty when a login that represents the user is being created (read more in the [log in using SSO](#log-in-using-sso) section), the login's first and last name fields will contain “NA”. Those fields can be updated later by running the [ALTER LOGIN]({% link sql_reference/commands/access-control/alter-login.md %}) command. 
       Here’s an example of how to set up **Field mapping**:
 
-      ```json  
-        {
-            "given_name": "name",
-            "family_name": "surname"
-        }
-      ```
+  ```json  
+    {
+        "given_name": "name",
+        "family_name": "surname"
+    }
+  ```
 
    In this example:
      * given_name (first name) is mapped to the ```name``` field from the IdP.
@@ -103,9 +103,10 @@ ALTER ORGANIZATION vsko SET SSO = '{
     "given_name": "name",
     "family_name": "surname"
   },
-  "certificate": "<certificate>",
+  "certificate": "-----BEGIN CERTIFICATE-----SampleCertificate-----END CERTIFICATE-----"
 }';
 ```
+Make sure that the certificate value is provided as one string, without any line breaks or control characters such as `\r\n`.
 
 ## Log in using SSO
 
@@ -131,15 +132,15 @@ You’ll be redirected to your identity provider (IdP) for authentication. Once 
 SSO settings can be edited in two ways - using SQL or the UI.  To edit SSO settings using SQL, use the [ALTER ORGANIZATION]({% link sql_reference/commands/data-definition/alter-organization.md %}) statement. For example:
 
 ```sql
-ALTER ORGANIZATION SET SSO = ‘{
-  “signOnUrl”: “https://abc.okta.com/app/okta_firebolt_app_id/sso/saml”,
-  “signOutUrl”: “https://myapp.exampleco.com/saml/logout”, 
-  “issuer”: “issuer”,
-  “provider”: “Okta”, 
-  “label”: “Okta”,
-  “fieldMapping”: “mapping”,
-  “certificate”: “XXXXXXXXXXXXXXXX”,
-}’;
+ALTER ORGANIZATION vsko SET SSO = '{
+  "signOnUrl": "https://abc.okta.com/app/okta_firebolt_app_id/sso/saml",
+  "signOutUrl": "https://myapp.exampleco.com/saml/logout", 
+  "issuer": "issuer",
+  "provider": "Okta", 
+  "label": "Okta",
+  "fieldMapping": "mapping",
+  "certificate": "-----BEGIN CERTIFICATE-----SampleCertificate-----END CERTIFICATE-----"
+}';
 ```
 
 To edit SSO settings using the UI, see [Configure Firebolt to integrate with IdP using the UI](#integrate-with-idp-using-the-ui). 
@@ -149,7 +150,7 @@ To edit SSO settings using the UI, see [Configure Firebolt to integrate with IdP
 To disable SSO login, you can delete the SSO settings using either SQL or the UI. To modify SSO settings using SQL, use the following command:
 
 ```sql
-ALTER ORGANIZATION SET SSO = DEFAULT;
+ALTER ORGANIZATION vsko SET SSO = DEFAULT;
 ```
 
 To modify SSO settings using the UI:
