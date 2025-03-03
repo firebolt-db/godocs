@@ -38,6 +38,10 @@ The SQL data warehouse now supports the `FROM` first syntax. This change permits
 **Updated the `DDL` column in `INFORMATION_SCHEMA.TABLES` to reflect new formatting for external tables**        
 The `DDL` column in `INFORMATION_SCHEMA.TABLES` now reflects new formatting for external tables. This update ensures that users see consistent and accurate data definitions when accessing information about external tables.
 
+<!-- Markdown for FIR-35591 - Owned by Adam Bouhmad -->
+**Support for AWS PrivateLink is now in public preview**      
+Firebolt Enterprise customers can now securely access Firebolt APIs over AWS’s backbone network through AWS PrivateLink integration.
+
 ### Behavior Changes
 
 ### Performance Improvements
