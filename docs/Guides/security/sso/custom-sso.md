@@ -139,7 +139,7 @@ ALTER ORGANIZATION vsko SET SSO = '{
   "provider": "Okta", 
   "label": "Okta",
   "fieldMapping": "mapping",
-  "certificate": "-----BEGIN CERTIFICATE-----FooBarBaz-----END CERTIFICATE-----"
+  "certificate": "-----BEGIN CERTIFICATE-----SampleCertificate-----END CERTIFICATE-----"
 }';
 ```
 
