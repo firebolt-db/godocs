@@ -42,6 +42,10 @@ The `DDL` column in `INFORMATION_SCHEMA.TABLES` now reflects new formatting for 
 **Support for AWS PrivateLink is now in public preview**      
 Firebolt Enterprise customers can now securely access Firebolt APIs over AWS’s backbone network through AWS PrivateLink integration.
 
+**Added concurrency auto-scaling**        
+Engines can now be created with concurrency auto-scaling enabled, or modified to enable concurrency auto-scaling. Setting the `MIN_CLUSTERS` and `MAX_CLUSTERS` parameters on CREATE ENGINE and ALTER ENGINE commands turns on concurrency auto-scaling: the engine will dynamically resize between the specified `MIN_CLUSTERS` and `MAX_CLUSTERS` values to match demand.
+
+
 ### Behavior Changes
 
 ### Performance Improvements
@@ -57,8 +61,8 @@ Added the `INDEX_GRANULARITY` storage parameter to `CREATE TABLE` to control the
 ### Bug Fixes
 
 <!-- Auto Generated Markdown for FIR-38200 - Owned by Jonathan Doron -->  
-**Removed the `AggregateCaseToAggregateIfRule` function to simplify query structures**            
-The function `AggregateCaseToAggregateIfRule`, which transformed aggregations like `agg(CASE WHEN P THEN V ELSE NULL END)` into `AGGIF(V, P)`, has been removed. This change simplifies query structures by eliminating the use of `AggregateCaseToAggregateIfRule`.
+**Removed a planner rule that transform aggregations on a case statement**
+The dedicated planner rule, which transformed aggregations like `agg(CASE WHEN P THEN V ELSE NULL END)` into `AGGIF(V, P)`, has been removed. This change simplifies query structures by removing unused internal plan representation.
 
 
 <!-- Auto Generated Markdown for FIR-43485 - Owned by Tal Zelig -->
