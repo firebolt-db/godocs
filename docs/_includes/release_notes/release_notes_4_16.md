@@ -45,7 +45,6 @@ Firebolt Enterprise customers can now securely access Firebolt APIs over AWS’s
 **Added concurrency auto-scaling**        
 Engines can now be created with concurrency auto-scaling enabled, or modified to enable concurrency auto-scaling. Setting the `MIN_CLUSTERS` and `MAX_CLUSTERS` parameters on CREATE ENGINE and ALTER ENGINE commands turns on concurrency auto-scaling: the engine will dynamically resize between the specified `MIN_CLUSTERS` and `MAX_CLUSTERS` values to match demand.
 
-
 ### Behavior Changes
 
 ### Performance Improvements
@@ -64,11 +63,6 @@ Added the `INDEX_GRANULARITY` storage parameter to `CREATE TABLE` to control the
 **Removed a planner rule that transform aggregations on a case statement**
 The dedicated planner rule, which transformed aggregations like `agg(CASE WHEN P THEN V ELSE NULL END)` into `AGGIF(V, P)`, has been removed. This change simplifies query structures by removing unused internal plan representation.
 
-
 <!-- Auto Generated Markdown for FIR-43485 - Owned by Tal Zelig -->
 **Fixed conflicts when granting identical permissions on public schemas in different databases**            
 Resolved an issue where granting the same permissions on public schemas across different databases caused conflicts. This fix ensures that permissions are applied correctly, improving database management and security.
-
-<!-- Auto Generated Markdown for FIR-42393 - Owned by Judson Wilson -->
-**Please provide the specific content of the release note you'd like to summarize, and I'll be happy to assist with creating a concise title based on it.**
-Unfortunately, without specific content from the original release note, I can only guide you on how to format and rewrite such a note based on the instructions and examples provided. You can start by summarizing each change or improvement briefly, keeping the sentences clear and concise, and focusing on the end-user impact. Once the original content is provided, I can assist with specific revisions and suggestions. Feel free to provide the content whenever you're ready!
