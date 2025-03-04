@@ -27,18 +27,21 @@ CREATE [FACT|DIMENSION] TABLE [IF NOT EXISTS] <table_name>
 )
 [PRIMARY INDEX <column_name>[, <column_name>[, ...k]]]
 [PARTITION BY <column_name>[, <column_name>[, ...m]]]
+[WITH ( <storage_parameter> = <storage_parameter_value>[, <storage_parameter> = <storage_parameter_value>[, ...p]] ) ]
 ```
 
 ## Parameters 
 {: .no_toc} 
 
-| Parameter                                       | Description                                                                                            |
-| :----------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
-| `<table_name>`                                  | An identifier that specifies the name of the table. This name should be unique within the database. |
-| `<column_name>` | An identifier that specifies the name of the column. This name should be unique within the table.      |
-| `<column_type>`                                 | Specifies the data type for the column.                                                                |
+| Parameter                   | Description                                                                                                      |
+| :-------------------------- | :--------------------------------------------------------------------------------------------------------------- |
+| `<table_name>`              | An identifier that specifies the name of the table. This name should be unique within the database.              |
+| `<column_name>`             | An identifier that specifies the name of the column. This name should be unique within the table.                |
+| `<column_type>`             | Specifies the data type for the column.                                                                          |
+| `<storage_parameter>`       | The name of a [storage parameter](#storage-parameters) for controlling behaviors related to storage and indexes. |
+| `<storage_parameter_value>` | The value assigned to a `<storage_parameter>`.                                                                   |
 
-All identifiers are case-insensitive unless double-quotes are used. For more information, see [Object identifiers]({% link Reference/object-identifiers.md %}).
+All identifiers are case-insensitive unless enclosed in double-quotes. For more information, see [Object identifiers]({% link Reference/object-identifiers.md %}).
 
 ## Column constraints and the default expression
 
@@ -134,7 +137,18 @@ Firebolt supports two types of [tables]({% link Overview/indexes/using-indexes.m
 * `DIMENSION` table - the entire table is replicated in every node of the engine.
 
 The [CREATE TABLE]({% link sql_reference/commands/data-definition/create-fact-dimension-table.md %}) command defaults to a `FACT` table. `DIMENSION` tables are ideal for relatively small tables, up to tens of gigabytes, that are used in joins with `FACT` tables.
-    
+
+## Storage Parameters
+{: .no_toc} 
+
+Storage parameters are specified in the optional `WITH (...)` clause as comma separated `<storage_parameter> = <storage_parameter_value>` assignments.
+
+| Storage Parameter     | Description                                                                                                                                                                                                                                                                          |
+| :-------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `<index_granularity>` | The maximum number of rows in each tablet subrange. `<storage_parameter_value>` must be a power of 2 between 128 and 8192. The default value is 8192. For more information, see [Index granularity]({% link Overview/indexes/primary-index.md %}#advanced-option-index-granularity). |
+
+All identifiers are case-insensitive unless enclosed in double-quotes. For more information, see [Object identifiers]({% link Reference/object-identifiers.md %}).
+
 ## Related functions
 
 Firebolt also supports the following related functions:
