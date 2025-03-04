@@ -35,7 +35,7 @@ In order to set up a SAML 2.0 compliant service or application as your Identity 
 
    These values are crucial for successful SSO authentication. If not configured properly, authentication will fail.
       For example, if your organization name is `acmeorg` and the provider name is `custom`:
-       - Audience URI: `urn:auth0:firebolt-app-v2:acmeorg-custom`
+       - Audience URI: `urn:auth0:app-firebolt-v2:acmeorg-custom`
        - ACS URL: `https://id.app.firebolt.io/login/callback?connection=acmeorg-custom&organization=<organization_identifier>`
 
     > **`<org_name>`** : The organizational name used to create your Firebolt account, as seen in your vanity URL.

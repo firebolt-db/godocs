@@ -33,7 +33,7 @@ where ```original.crt``` is the name of the downloaded .crt file.
 4. Select on the provided link to create a new connected app in Salesforce. 
 5. You will be redirected to the **Manage Connected Apps / New Connected App** view. Fill in required fields **Connected App Name, API Name** (for instance, type ‘Firebolt’) and **Contact email**.
 6. Move to **Web App Settings,** and check the **Enable SAML** box.
-7. Fill in the Entity Id field with value: `urn:auth0:firebolt-app-v2:<organization_name>-<provider>`, 
+7. Fill in the Entity Id field with value: `urn:auth0:app-firebolt-v2:<organization_name>-<provider>`, 
 where
 - ```<organization_name>``` is the name of the organization in Firebolt, and 
 - ```<provider>``` is the IdP name, 'salesforce' in this case
