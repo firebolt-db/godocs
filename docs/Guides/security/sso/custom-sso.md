@@ -41,7 +41,7 @@ In order to set up a SAML 2.0 compliant service or application as your Identity 
     * **`<organization_identifier>`** : A unique identifier for your organization. To retrieve this value, navigate to **Configure > SSO** in the Firebolt UI and select **Copy organization SSO identifier**.
 
     For example, if your organization name is `acmeorg` and the provider name is `custom`, the values for Audience URI and ACS URL should be as follows:
-   * Audience URI: `urn:auth0:firebolt-app-v2:acmeorg-custom`
+   * Audience URI: `urn:auth0:app-firebolt-v2:acmeorg-custom`
    * ACS URL: `https://id.app.firebolt.io/login/callback?connection=acmeorg-custom&organization=<organization_identifier>`
 
     {: .note} 
