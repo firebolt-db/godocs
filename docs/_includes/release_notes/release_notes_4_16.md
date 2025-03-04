@@ -34,10 +34,6 @@ The PostgreSQL function `DATE(<arg>)` was added as an alternative syntax to `<ar
 **Supported the `FROM` first syntax for enhanced query flexibility and readability**           
 The SQL data warehouse now supports the `FROM` first syntax. This change permits placing the `FROM` clause before the `SELECT` clause, enhancing query flexibility. For instance, it allows queries like `FROM t SELECT a, SUM(b) GROUP BY a` or even just `FROM t` by omitting the `SELECT` clause. Users can experience improved readability and ordering of SQL queries.
 
-<!-- Auto Generated Markdown for FIR-43458 - Owned by Tal Zelig -->
-**Updated the `DDL` column in `INFORMATION_SCHEMA.TABLES` to reflect new formatting for external tables**        
-The `DDL` column in `INFORMATION_SCHEMA.TABLES` now reflects new formatting for external tables. This update ensures that users see consistent and accurate data definitions when accessing information about external tables.
-
 <!-- Markdown for FIR-35591 - Owned by Adam Bouhmad -->
 **Support for AWS PrivateLink is now in public preview**      
 Firebolt Enterprise customers can now securely access Firebolt APIs over AWS’s backbone network through AWS PrivateLink integration.
