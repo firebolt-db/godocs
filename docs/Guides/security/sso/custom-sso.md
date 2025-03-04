@@ -27,26 +27,25 @@ In order to set up a SAML 2.0 compliant service or application as your Identity 
     * Ensure that each user’s email address is correctly specified. Firebolt uses these email addresses to create corresponding logins in Firebolt.
    For more details, refer to [setting up SSO]({% link Guides/security/sso/index.md %}).
 
-3. **Obtain Required Values for IdP Setup**
+3. **Obtain required values for IdP setup**
 
-   To properly configure your IdP, you’ll need the following values:
+   To properly configure your IdP, you’ll need to configure the **Audience URI and ACS (Assertion Consumer Service) URL**, which are crucial for successful SSO authentication. If not configured properly, authentication will fail.
 
-   **Audience URI and ACS (Consumer) URL**
+   The **Audience URI** ensures that authentication requests are directed to the correct Firebolt tenant, and has the following format: `urn:auth0:app-firebolt-v2:<org_name>-<provider_name>`.
+   
+   The **ACS URL** is where the IdP sends authentication responses after login, and has the following format: `https://id.app.firebolt.io/login/callback?connection=<org_name>-<provider_name>&organization=<organization_identifier>`.
 
-   These values are crucial for successful SSO authentication. If not configured properly, authentication will fail.
-      For example, if your organization name is `acmeorg` and the provider name is `custom`:
-       - Audience URI: `urn:auth0:app-firebolt-v2:acmeorg-custom`
-       - ACS URL: `https://id.app.firebolt.io/login/callback?connection=acmeorg-custom&organization=<organization_identifier>`
+    In the previous example formats, the following apply:
+    * **`<org_name>`** : The organizational name used to create your Firebolt account, as seen in your vanity URL.
+    * **`<provider>`** : The provider being configured as your IdP
+    * **`<organization_identifier>`** : A unique identifier for your organization. To retrieve this value, navigate to **Configure > SSO** in the Firebolt UI and select **Copy organization SSO identifier**.
 
-    > **`<org_name>`** : The organizational name used to create your Firebolt account, as seen in your vanity URL.
-    
-    > **`<provider>`** : The provider being configured as your IdP.
-    
-    > **`<organization_identifier>`** : A unique identifier for your organization. To retrieve this value, navigate to **Configure > SSO** in the Firebolt UI and select Copy organization SSO identifier.
+    For example, if your organization name is `acmeorg` and the provider name is `custom`, the values for Audience URI and ACS URL should be as follows:
+   * Audience URI: `urn:auth0:app-firebolt-v2:acmeorg-custom`
+   * ACS URL: `https://id.app.firebolt.io/login/callback?connection=acmeorg-custom&organization=<organization_identifier>`
 
-        {: .note} 
-        The **Audience URI** (or Audience Restriction) defines the intended recipient of the SAML (Security Assertion Markup Language) Assertion. Depending on the vendor, this might also be   
-        referred to as the **Entity ID**.
+    {: .note} 
+    The **Audience URI** (also known as Audience Restriction) defines the intended recipient of the SAML (Security Assertion Markup Language) Assertion. Depending on the vendor, this might also be referred to as the **Entity ID**.
 
 5. **Obtain SSO URL and Certificate**
 
