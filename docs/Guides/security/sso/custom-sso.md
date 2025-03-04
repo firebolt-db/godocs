@@ -31,7 +31,7 @@ In order to set up a SAML 2.0 compliant service or application as your Identity 
 
    To properly configure your IdP, you’ll need to configure the **Audience URI and ACS (Assertion Consumer Service) URL**, which are crucial for successful SSO authentication. If not configured properly, authentication will fail.
 
-   The **Audience URI** ensures that authentication requests are directed to the correct Firebolt tenant, and has the following format: `urn:auth0:firebolt-app-v2:<org_name>-<provider_name>`.
+   The **Audience URI** ensures that authentication requests are directed to the correct Firebolt tenant, and has the following format: `urn:auth0:app-firebolt-v2:<org_name>-<provider_name>`.
    
    The **ACS URL** is where the IdP sends authentication responses after login, and has the following format: `https://id.app.firebolt.io/login/callback?connection=<org_name>-<provider_name>&organization=<organization_identifier>`.
 
