@@ -4,11 +4,11 @@
 
 <!-- Auto Generated Markdown for FIR-43599 - Owned by Misha Shneerson -->
 **Added `MAX_CONCURRENCY` option to the `VACUUM` statement for enhanced concurrency control**         
-A new option, `MAX_CONCURRENCY`, was added to the `VACUUM` statement. This allows users to specify the number of concurrent processes, improving efficiency and speed for data maintenance tasks.
+The [VACUUM]({% link sql_reference/commands/data-management/vacuum.md %}) statement now includes the `MAX_CONCURRENCY` option, allowing users to limit the number of concurrent streams. This improves control over resource usage during `VACUUM` operation.
 
 <!-- Auto Generated Markdown for FIR-43506 - Owned by Misha Shneerson -->
-**Introduced the `INDEXES = ALL | NONE` option for the `VACUUM` statement to enhance index maintenance control during vacuum operations**         
-Added a new option to the `VACUUM` statement: `INDEXES = ALL | NONE`. This feature provides users with more control over index maintenance during vacuum operations.
+**Introduced the `INDEXES = ALL | NONE` for the `VACUUM` statement**         
+The [VACUUM]({% link sql_reference/commands/data-management/vacuum.md %}) statement now supports the `INDEXES = ALL | NONE` option, giving users control over whether indexes are optimized during vacuum operations.
 
 <!-- Auto Generated Markdown for FIR-43695 - Owned by Tobias Humig -->
 **Added support for casting text literals to interval literals with expressions like `'1 month'::INTERVAL`**         
