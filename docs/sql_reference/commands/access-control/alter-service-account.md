@@ -20,6 +20,7 @@ ALTER SERVICE ACCOUNT <service_account_name> SET
       [ NETWORK_POLICY = <network_policy_name> | DEFAULT ] 
       [ DESCRIPTION = <description> | DEFAULT ]
       [ IS_ORGANIZATION_ADMIN = { TRUE | FALSE } ]
+      [ CONNECTION_PREFERENCE = { PUBLIC_ONLY | PRIVATE_ONLY | PREFER_PUBLIC | PREFER_PRIVATE | DEFAULT } ]
       [ IS_ENABLED = { TRUE | FALSE } ]
 ```
 
@@ -33,24 +34,36 @@ ALTER SERVICE ACCOUNT <service_account_name> RENAME TO <new_name>;
 
 {: .no_toc}
 
-| Parameter                | Description                                                                                                                                                                                |
-|:-------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<service_account_name>` | The name of the service account to edit.                                                                                                                                                   |
-| `<description>`          | An optional description for the service account.                                                                                                                                           |
-| `<network_policy_name>`  | An optional parameter to define the network policy to link to the edited service account. Specifying `DEFAULT` will detach any linked network policy.                                      |         
-| `IS_ORGANIZATION_ADMIN`  | A `BOOLEAN` value specifying if the service account is an organization admin. By default this value is `FALSE`.                                                                            |         
-| `IS_ENABLED`             | A `BOOLEAN` value specifying whether authentication with this service account should be possible. Disable service account if you want to prevent access to the system without dropping it. |
-| `<new_name>`             | The new name of the service account. Must start with a letter and may contain only alphanumeric, digit, or underscore(_) characters.                                                       |
+| Parameter                | Description |
+|:-------------------------|:------------|
+| `<service_account_name>` | The name of the service account to edit. |
+| `<description>`          | An optional description for the service account. |
+| `<network_policy_name>`  | An optional parameter to define the network policy to link to the edited service account. Specifying `DEFAULT` will detach any linked network policy. |         
+| `IS_ORGANIZATION_ADMIN`  | A `BOOLEAN` value specifying if the service account is an organization admin. By default, this value is `FALSE`. |         
+| `IS_ENABLED`             | A `BOOLEAN` value specifying whether authentication with this service account should be possible. Disable the service account to prevent access without dropping it. |
+| `CONNECTION_PREFERENCE`  | Defines how the service account connects to Firebolt. The default value is `PREFER_PUBLIC` if not specified. See **Connection preferences** for details. |
+| `<new_name>`             | The new name of the service account. Must start with a letter and may contain only alphanumeric, digit, or underscore (_) characters. |
+
+
+### Connection Preferences  
+
+The `CONNECTION_PREFERENCE` parameter determines how a [service account]({% link Guides/managing-your-organization/service-accounts.md %}) accesses Firebolt:  
+
+* **`PUBLIC_ONLY`**: Allows access only through public APIs.  
+* **`PRIVATE_ONLY`**: Allows access only through AWS PrivateLink.  
+* **`PREFER_PUBLIC`** (Default): Prefers public APIs but can use AWS PrivateLink if needed.  
+* **`PREFER_PRIVATE`**: Prefers AWS PrivateLink but can use public APIs if needed.  
+
 
 ## Example
 
-The following command will rename the "sa1" login to "serviceaccount1".
+The following code example renames the service account `sa1` to `serviceaccount1`:
 
 ```sql
 ALTER SERVICE ACCOUNT "sa1" RENAME TO "serviceaccount1";
 ```
 
-This command will link the network policy "my_network_policy" to the "serviceaccount1" service account.
+The following code example assigns the network policy `my_network_policy` to the `serviceaccount1` service account:
 
 ```sql
 ALTER SERVICE ACCOUNT "serviceaccount1" SET NETWORK_POLICY = "my_network_policy";
