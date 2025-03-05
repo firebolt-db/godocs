@@ -68,5 +68,5 @@ Added the `INDEX_GRANULARITY` storage parameter to `CREATE TABLE` to control the
 The dedicated planner rule, which transformed aggregations like `agg(CASE WHEN P THEN V ELSE NULL END)` into `AGGIF(V, P)`, has been removed. This change simplifies query structures by removing unused internal plan representation.
 
 <!-- Auto Generated Markdown for FIR-43485 - Owned by Tal Zelig -->
-**Fixed conflicts when granting identical permissions on public schemas in different databases**            
+**Fixed permission conflicts on public schemas across multiple databases**            
 Resolved an issue where granting the same permissions on public schemas across different databases caused conflicts. This fix ensures that permissions are applied correctly, improving database management and security.
