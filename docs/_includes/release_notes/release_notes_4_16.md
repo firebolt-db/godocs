@@ -51,6 +51,10 @@ Enterprise and Dedicated customers also get **faster support response times**, *
 
 ### Behavior Changes
 
+<!-- Auto Generated Markdown for FIR-38200 - Owned by Jonathan Doron -->  
+**Removed a planner rule that transform aggregations on a case statement**
+The planner rule that converted `AGG(CASE WHEN P THEN V ELSE NULL END)` into `AGGIF(V, P)` has been removed to simplify query processing.
+
 ### Performance Improvements
 
 <!-- Auto Generated Markdown for FIR-43659 - Owned by Demian Hespe -->
@@ -62,10 +66,6 @@ Firebolt now prunes [GEOGRAPHY]({% link sql_reference/geography-data-type.md %}#
 Added the `INDEX_GRANULARITY` storage parameter to `CREATE TABLE` to control the internal tablet range size for new tables. This setting optimizes table storage for specific query patterns, enhancing performance.
 
 ### Bug Fixes
-
-<!-- Auto Generated Markdown for FIR-38200 - Owned by Jonathan Doron -->  
-**Removed a planner rule that transform aggregations on a case statement**
-The planner rule that converted `AGG(CASE WHEN P THEN V ELSE NULL END)` into `AGGIF(V, P)` has been removed to simplify query processing.
 
 <!-- Auto Generated Markdown for FIR-43485 - Owned by Tal Zelig -->
 **Fixed permission conflicts on public schemas across multiple databases**            
