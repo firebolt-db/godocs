@@ -65,7 +65,7 @@ Added the `INDEX_GRANULARITY` storage parameter to `CREATE TABLE` to control the
 
 <!-- Auto Generated Markdown for FIR-38200 - Owned by Jonathan Doron -->  
 **Removed a planner rule that transform aggregations on a case statement**
-The dedicated planner rule, which transformed aggregations like `agg(CASE WHEN P THEN V ELSE NULL END)` into `AGGIF(V, P)`, has been removed. This change simplifies query structures by removing unused internal plan representation.
+The planner rule that converted `AGG(CASE WHEN P THEN V ELSE NULL END)` into `AGGIF(V, P)` has been removed to simplify query processing.
 
 <!-- Auto Generated Markdown for FIR-43485 - Owned by Tal Zelig -->
 **Fixed permission conflicts on public schemas across multiple databases**            
