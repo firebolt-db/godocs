@@ -69,4 +69,4 @@ The dedicated planner rule, which transformed aggregations like `agg(CASE WHEN P
 
 <!-- Auto Generated Markdown for FIR-43485 - Owned by Tal Zelig -->
 **Fixed permission conflicts on public schemas across multiple databases**            
-Resolved an issue where granting the same permissions on public schemas across different databases caused conflicts. This fix ensures that permissions are applied correctly, improving database management and security.
+Resolved an issue where granting identical permissions on public schemas in different databases caused conflicts. This fix ensures correct permission application for improved database security.
