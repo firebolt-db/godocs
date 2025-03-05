@@ -16,7 +16,7 @@ Interval literals are now supported as casts from text literals, such as `'1 mon
 
 <!-- Auto Generated Markdown for FIR-42736 - Owned by Demian Hespe -->
 **Added default value support for `GEOGRAPHY` columns**         
-Default value support was added for `GEOGRAPHY` columns. Users can now specify a default value when creating a `GEOGRAPHY` column. For example, use `CREATE TABLE geo_table (geo_column GEOGRAPHY DEFAULT 'GEOMETRYCOLLECTION EMPTY')`. This simplifies table setup and ensures consistency across database entries when no explicit value is provided.
+Firebolt now supports default values for columns with the [GEOGRAPHY]({% link sql_reference/geography-data-type.md %}#geography-data-type) data type. For example, `CREATE TABLE geo_table (geo_column GEOGRAPHY DEFAULT 'GEOMETRYCOLLECTION EMPTY')` ensures consistency across database entries when no explicit value is provided.
 
 <!-- Auto Generated Markdown for FIR-43706 - Owned by Anton Perkov -->
 **Added `MIN_CLUSTERS` and `MAX_CLUSTERS` columns to `INFORMATION_SCHEMA.ENGINES`**            
@@ -55,7 +55,7 @@ Enterprise and Dedicated customers also get **faster support response times**, *
 
 <!-- Auto Generated Markdown for FIR-43659 - Owned by Demian Hespe -->
 **Introduced pruning for `GEOGRAPHY` columns at the tablet level to enhance query performance**           
-Introduced pruning at the tablet level for `GEOGRAPHY` columns, improving query performance. For tables created before this release, running `VACUUM` is necessary to activate spatial pruning. For more information as well as tips for improving pruning potential, read our [blog post](https://www.firebolt.io/blog/architecture-and-internal-representation-of-the-geography-data-type).
+Firebolt now prunes [GEOGRAPHY]({% link sql_reference/geography-data-type.md %}#geography-data-type) data at the tablet level to enhance query performance. To activate spatial pruning on tables created before this release, run `VACUUM`. For additional details, see our [blog post](https://www.firebolt.io/blog/architecture-and-internal-representation-of-the-geography-data-type).
 
 <!-- Auto Generated Markdown for FIR-42544 - Owned by Judson Wilson -->
 **Introduced the `INDEX_GRANULARITY` storage parameter in `CREATE TABLE` to optimize table storage for specific query patterns**          
