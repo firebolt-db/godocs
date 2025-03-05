@@ -32,7 +32,7 @@ The PostgreSQL function `DATE(<arg>)` was added as an alternative syntax to `<ar
 
 <!-- Auto Generated Markdown for FIR-36879 - Owned by Mosha Pasumansky -->
 **Supported the `FROM` first syntax for enhanced query flexibility and readability**           
-The SQL data warehouse now supports the `FROM` first syntax. This change permits placing the `FROM` clause before the `SELECT` clause, enhancing query flexibility. For instance, it allows queries like `FROM t SELECT a, SUM(b) GROUP BY a` or even just `FROM t` by omitting the `SELECT` clause. Users can experience improved readability and ordering of SQL queries.
+SQL queries can now use `FROM` before `SELECT`, allowing for more flexible query structures such as `FROM t SELECT a, SUM(b) GROUP BY a` or even `FROM t` without a `SELECT` clause.
 
 <!-- Markdown for FIR-35591 - Owned by Adam Bouhmad -->
 **Support for AWS PrivateLink is now in public preview**      
