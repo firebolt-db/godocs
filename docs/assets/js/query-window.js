@@ -185,8 +185,8 @@ async function runQuery(button, loadPrepackagedResults = false) {
     // Create result table HTML
     const tableHTML = `
       <div class="table-container">
-        ${queryResult.rows === 100 ?
-        '<div class="info-message">For readability, results are limited to 100 rows.</div>'
+        ${queryResult.rows === 100000 ?
+        '<div class="info-message">Results are limited to 100,000 rows.</div>'
         : ''}
         <table class="results-table">
           <thead>
