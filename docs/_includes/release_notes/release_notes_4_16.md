@@ -24,7 +24,7 @@ The [INFORMATION_SCHEMA.ENGINES]({% link sql_reference/information-schema/engine
 
 <!-- Auto Generated Markdown for FIR-41942 - Owned by Mosha Pasumansky -->
 **Added support for `STATEMENT_TIMEOUT` to manage query run time limits**              
-Added support for `STATEMENT_TIMEOUT`. This feature specifies the number of milliseconds a statement is allowed to run. Any statement or query exceeding the specified time is canceled. A value of zero disables the timeout by default. This addition helps prevent excessively long-running queries, improving system efficiency and resource use.
+Added support for `STATEMENT_TIMEOUT`. This feature specifies the number of milliseconds a statement is allowed to run. Any statement or query exceeding the specified time is canceled. A value of zero disables the timeout by default. Using `STATEMENT_TIMEOUT` helps prevent excessively long-running queries, improving system efficiency and resource use.
 
 <!-- Auto Generated Markdown for FIR-43693 - Owned by Tobias Humig -->
 **Added the PostgreSQL function `DATE(<arg>)` as an alternative to `<arg>::DATE`**        
