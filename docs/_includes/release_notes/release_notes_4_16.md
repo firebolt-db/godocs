@@ -63,7 +63,7 @@ Firebolt now prunes [GEOGRAPHY]({% link sql_reference/geography-data-type.md %}#
 
 <!-- Auto Generated Markdown for FIR-42544 - Owned by Judson Wilson -->
 **Added `INDEX_GRANULARITY` storage parameter to optimize table storage**          
-Added the `INDEX_GRANULARITY` storage parameter to `CREATE TABLE` to control the internal tablet range size for new tables. This setting optimizes table storage for specific query patterns, enhancing performance.
+The `CREATE TABLE` statement now supports the `INDEX_GRANULARITY` storage parameter, allowing users to configure internal tablet range sizes for better performance based on query patterns. 
 
 ### Bug Fixes
 
