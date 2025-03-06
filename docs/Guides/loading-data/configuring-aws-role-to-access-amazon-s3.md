@@ -115,6 +115,52 @@ To integrate Firebolt with AWS Identity and Access Management (IAM), you must fi
 10. Select **Create role**.
 11. Record the **Role ARN** listed on the role summary page.
 
-## Specify the IAM role in the external table definition
+Once you've created your IAM policy and associated it with your IAM role, you're ready to load data into Firebolt using IAM roles. Firebolt assumes the IAM role to securely access and read data from your Amazon S3 bucket.
 
-Use the role ARN from the previous step when you specify the role ARN in the [CREDENTIALS]({% link sql_reference/commands/data-definition/create-external-table.md %}) of the `CREATE EXTERNAL TABLE` statement. If you specified an external ID, make sure to specify it in addition to the role ARN. When you use an `INSERT INTO` statement to load data from your source to a fact or dimension table, Firebolt assumes the IAM role to obtain permission to read from the location specified in the external table definition.
+## Specifying the IAM Role for Data Loading
+
+When loading data into Firebolt, specify the IAM role ARN from the previous step to grant the necessary permissions. If you configured an external ID, ensure it is included along with the role ARN. Below are a few references for how to Load Data into Firebolt using AWS IAM Roles to access your storage bucket.
+
+### Specify the IAM role in COPY FROM
+
+Use the role ARN from the previous step when you specify the role ARN in the [CREDENTIALS]({% link sql_reference/commands/data-management/copy-from.md %}) of the `COPY FROM` statement. If you specified an external ID, make sure to specify it in addition to the role ARN. When you use the `COPY FROM` statement to load data from your source, Firebolt assumes the IAM role to obtain permissions to read from the location specified in the `COPY FROM` statement. 
+
+Use the IAM role ARN when specifying the [CREDENTIALS]({% link sql_reference/commands/data-management/copy-from.md %}) in the COPY FROM statement. If you specified an external ID, include it with the role ARN. Firebolt assumes this role to access the specified data source.
+
+For a step-by-step guide, see [Loading Data Wizard](../loading-data/loading-data-sql.md#the-simplest-copy-from-workflow)
+
+#### Example: 
+
+```sql
+COPY INTO tutorial 
+FROM 's3://your_s3_bucket/your_file.csv'
+WITH
+CREDENTIALS = (
+    AWS_ROLE_ARN='arn:aws:iam::123456789012:role/my-firebolt-role'
+    AWS_EXTERNAL_ID='ca4f5690-4fdf-4684-9d1c-2d5f9fabc4c9'
+)
+HEADER=TRUE AUTO_CREATE=TRUE;
+```
+
+### Using IAM Role in the Firebolt UI Wizard 
+
+You can use the role ARN from the previous step when loading data via the Loading Data Wizard in the Firebolt UI. For a step-by-step guide, see [Loading Data Wizard](../loading-data/loading-data-wizard.md). 
+
+
+### Using IAM Role in External Table Definitions
+
+Specify the IAM role ARN and optional external_id in the [`CREDENTIALS`]({% link sql_reference/commands/data-definition/create-external-table.md %}) of the `CREATE EXTERNAL TABLE` statement. Firebolt assumes this IAM role when using an `INSERT INTO` statement to load data into a fact or dimension table.
+
+#### Example:
+
+```sql
+CREATE EXTERNAL TABLE my_ext_table (
+  c_id    INTEGER,
+  c_name  TEXT,
+  c_type  TEXT PARTITION('[^/]+/c_type=([^/]+)/[^/]+/[^/]+')
+)
+CREDENTIALS = (AWS_ROLE_ARN='arn:aws:iam::123456789012:role/my-firebolt-role' AWS_ROLE_EXTERNAL_ID='ca4f5690-4fdf-4684-9d1c-2d5f9fabc4c9')
+URL = 's3://my_bucket/'
+OBJECT_PATTERN= '*.parquet'
+TYPE = (PARQUET)
+```
