@@ -47,7 +47,7 @@ Firebolt now offers **Standard, Enterprise, and Dedicated editions**, each desig
 * **Enterprise & Dedicated**: Includes **multi-cluster scaling, AWS PrivateLink**, and **advanced security features**.
 * **Dedicated**: Built for regulated industries (finance, healthcare) with **single-tenant infrastructure** and compliance with **HIPAA, SOC 2, ISO**.
   
-Enterprise and Dedicated customers also get **faster support response times**, **Slack-based support**, and a **designated support engineer**. For more information on Firebolt's editions, refer to the [Pricing and billing]({% link Overview/billing.md %}) page. 
+Enterprise and Dedicated customers also get **faster support response times**, **Slack-based support**, and support from a **designated engineer**. For more information on Firebolt's editions, refer to the [Pricing and billing]({% link Overview/billing.md %}) page. 
 
 ### Behavior Changes
 
