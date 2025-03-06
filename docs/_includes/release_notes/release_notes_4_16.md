@@ -11,7 +11,7 @@ The [VACUUM]({% link sql_reference/commands/data-management/vacuum.md %}) statem
 The [VACUUM]({% link sql_reference/commands/data-management/vacuum.md %}) statement now supports the `INDEXES = ALL | NONE` option, giving users control over whether indexes are optimized during vacuum operations.
 
 <!-- Auto Generated Markdown for FIR-43695 - Owned by Tobias Humig -->
-**Added support for casting text literals to interval literals with expressions like `'1 month'::INTERVAL`**         
+**Added support for casting text literals to interval literals**         
 Interval literals are now supported as casts from text literals, such as `'1 month'::INTERVAL`. This makes it easier to represent time intervals in SQL queries.
 
 <!-- Auto Generated Markdown for FIR-42736 - Owned by Demian Hespe -->
@@ -27,8 +27,8 @@ Added two new columns, `MIN_CLUSTERS` and `MAX_CLUSTERS`, to the `INFORMATION_SC
 Added support for `STATEMENT_TIMEOUT`. This feature specifies the number of milliseconds a statement is allowed to run. Any statement or query exceeding the specified time is canceled. A value of zero disables the timeout by default. This addition helps prevent excessively long-running queries, improving system efficiency and resource use.
 
 <!-- Auto Generated Markdown for FIR-43693 - Owned by Tobias Humig -->
-**Added the PostgreSQL function `DATE(<arg>)` as an alternative to `<arg>::DATE` for improved query readability and usability**        
-The PostgreSQL function `DATE(<arg>)` was added as an alternative syntax to `<arg>::DATE`. This addition provides users with a more intuitive way to convert data to dates, enhancing readability and ease of use in SQL queries.
+**Added the PostgreSQL function `DATE(<arg>)` as an alternative to `<arg>::DATE`**        
+Firebolt now supports the `DATE(<arg>)` function, offering an alternative to the `<arg>::DATE` syntax for improved readability and usability in SQL queries.
 
 <!-- Auto Generated Markdown for FIR-36879 - Owned by Mosha Pasumansky -->
 **Supported the `FROM` first syntax for enhanced query flexibility and readability**           
