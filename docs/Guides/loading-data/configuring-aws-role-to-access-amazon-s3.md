@@ -13,7 +13,7 @@ has_children: false
 
 # Use AWS roles to access Amazon S3
 {: .no_toc}
-Firebolt uses AWS Identity and Access Management (IAM) permissions to load data from an Amazon S3 bucket into Firebolt. This requires you to set up permissions using the AWS Management Console. You have two options to specify credentials with the appropriate `CREDENTIALS` when you create an external table:
+Firebolt uses AWS Identity and Access Management (IAM) permissions to load data from an Amazon S3 bucket into Firebolt. This requires you to set up permissions using the AWS Management Console. You have two options to specify credentials when you create an external table:
 
 * You can provide **Access Keys** associated with an IAM principal that has the required permissions
 * You can specify an **IAM role** that Firebolt assumes for the appropriate permissions.
@@ -68,7 +68,7 @@ This guide explains how to configure an IAM role and an AWS IAM permissions poli
    }
    ```
 
-   * If you encounter the following error: `Access Denied (Status Code: 403; Error Code: AccessDenied)`, remove the following condition from the IAM policy:
+   * If you encounter the following error: `Access Denied (Status Code: 403; Error Code: AccessDenied)`, one possible fix may be to remove the following condition from the IAM policy:
 
    ```javascript
               "Condition": {
@@ -117,11 +117,11 @@ To integrate Firebolt with AWS Identity and Access Management (IAM), you must fi
 
 Once you've created your IAM policy and associated it with your IAM role, you're ready to load data into Firebolt using IAM roles. Firebolt assumes the IAM role to securely access and read data from your Amazon S3 bucket.
 
-## Specifying the IAM Role for Data Loading
+## Specifying the IAM role for data loading
 
-When loading data into Firebolt, specify the IAM role ARN from the previous step to grant the necessary permissions. If you configured an external ID, ensure it is included along with the role ARN. Below are a few references for how to Load Data into Firebolt using AWS IAM Roles to access your storage bucket.
+When loading data into Firebolt, specify the IAM role ARN from the previous step to grant the necessary permissions. If you configured an external ID, ensure it is included along with the role ARN. The following sections show you how load data into Firebolt using AWS IAM Roles to access your storage bucket.
 
-### Specify the IAM role in COPY FROM
+### Specify the IAM role in `COPY FROM`
 
 Use the role ARN from the previous step when you specify the role ARN in the [CREDENTIALS]({% link sql_reference/commands/data-management/copy-from.md %}) of the `COPY FROM` statement. If you specified an external ID, make sure to specify it in addition to the role ARN. When you use the `COPY FROM` statement to load data from your source, Firebolt assumes the IAM role to obtain permissions to read from the location specified in the `COPY FROM` statement. 
 
@@ -129,7 +129,9 @@ Use the IAM role ARN when specifying the [CREDENTIALS]({% link sql_reference/com
 
 For a step-by-step guide, see [Loading Data Wizard](../loading-data/loading-data-sql.md#the-simplest-copy-from-workflow)
 
-#### Example: 
+**Example**
+
+The following code example loads data from a CSV file in an Amazon S3 bucket into the `tutorial` table in Firebolt, using an AWS IAM role for authentication, treating the first row as a header, and automatically creating the table if it does not exist:
 
 ```sql
 COPY INTO tutorial 
@@ -144,14 +146,16 @@ HEADER=TRUE AUTO_CREATE=TRUE;
 
 ### Using IAM Role in the Firebolt UI Wizard 
 
-You can use the role ARN from the previous step when loading data via the Loading Data Wizard in the Firebolt UI. For a step-by-step guide, see [Loading Data Wizard](../loading-data/loading-data-wizard.md). 
+You can use the role ARN from the previous step when loading data using the **Load data** wizard in the **Firebolt Workspace**. For a step-by-step guide, see [Load data using a wizard]({% link Guides/loading-data/loading-data-wizard.md %}). 
 
 
-### Using IAM Role in External Table Definitions
+### Using IAM Role in external table definitions
 
-Specify the IAM role ARN and optional external_id in the [`CREDENTIALS`]({% link sql_reference/commands/data-definition/create-external-table.md %}) of the `CREATE EXTERNAL TABLE` statement. Firebolt assumes this IAM role when using an `INSERT INTO` statement to load data into a fact or dimension table.
+Specify the IAM role ARN and optional `external_id` in the [`CREDENTIALS`]({% link sql_reference/commands/data-definition/create-external-table.md %}) of the `CREATE EXTERNAL TABLE` statement. Firebolt assumes this IAM role when using an `INSERT INTO` statement to load data into a fact or dimension table.
 
-#### Example:
+**Example**
+
+The following code example creates an external table which maps to Parquet files stored in an Amazon S3 bucket, using an AWS IAM role for access, and extracts partition values for `c_type` from the file path based on a specified regex pattern:
 
 ```sql
 CREATE EXTERNAL TABLE my_ext_table (
