@@ -36,7 +36,7 @@ SQL queries can now use `FROM` before `SELECT`, allowing for more flexible query
 
 <!-- Markdown for FIR-35591 - Owned by Adam Bouhmad -->
 **Support for AWS PrivateLink is now in public preview**      
-Firebolt Enterprise customers can now securely access Firebolt APIs over AWS’s backbone network through AWS PrivateLink integration.
+[Firebolt now supports AWS PrivateLink]({% link Guides/security/privatelink.md %}), allowing Firebolt Enterprise customers to securely access the Firebolt API without exposing traffic to the public internet. AWS PrivateLink enhances security, minimizes data exposure, and improves network reliability by keeping traffic within AWS.
 
 **Added concurrency auto-scaling**        
 Engines can now be created with concurrency auto-scaling enabled, or modified to enable concurrency auto-scaling. Setting the `MIN_CLUSTERS` and `MAX_CLUSTERS` parameters on CREATE ENGINE and ALTER ENGINE commands turns on concurrency auto-scaling: the engine will dynamically resize between the specified `MIN_CLUSTERS` and `MAX_CLUSTERS` values to match demand.
