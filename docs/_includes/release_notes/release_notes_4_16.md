@@ -45,12 +45,12 @@ SQL queries can now use `FROM` before `SELECT`, allowing for more flexible query
 Engines can now be created with concurrency auto-scaling enabled, or modified to enable concurrency auto-scaling. Setting the `MIN_CLUSTERS` and `MAX_CLUSTERS` parameters on [CREATE ENGINE]({% link sql_reference/commands/engines/create-engine.md %}) and [ALTER ENGINE]({% link sql_reference/commands/engines/alter-engine.md %}) commands turns on concurrency auto-scaling: the engine will dynamically resize between the specified `MIN_CLUSTERS` and `MAX_CLUSTERS` values to match demand.
 
 **Firebolt introduces three fully managed editions**
-Firebolt now offers **Standard, Enterprise, and Dedicated editions**, each designed for different performance, security, and scalability needs.
+Firebolt now offers **Standard, Enterprise, and Dedicated editions**, each designed for different capabilities, security, and scalability needs.
 * **Standard**: High-performance, elastic scaling for cost-efficient, fully managed analytics.
-* **Enterprise & Dedicated**: Includes **multi-cluster scaling, AWS PrivateLink**, and **advanced security features**.
+* **Enterprise & Dedicated**: Includes scaling capabilities like **multi-cluster scaling**, as well as advanced security features like **AWS PrivateLink**.
 * **Dedicated**: Built for regulated industries (finance, healthcare) with **single-tenant infrastructure** and compliance with **HIPAA, SOC 2, ISO**.
   
-Enterprise and Dedicated customers also get **faster support response times**, **Slack-based support**, and support from a **designated engineer**. For more information on Firebolt's editions, refer to the [Pricing and billing]({% link Overview/billing.md %}) page. 
+Enterprise and Dedicated customers also get **24/7 support** with **faster support response times**, **Slack-based support**, and support from a **designated engineer**. For more information on Firebolt's editions, refer to the [Pricing and billing]({% link Overview/billing.md %}) page. 
 
 ### Behavior Changes
 
