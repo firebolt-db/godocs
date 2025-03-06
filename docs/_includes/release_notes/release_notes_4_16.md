@@ -11,7 +11,7 @@ The [VACUUM]({% link sql_reference/commands/data-management/vacuum.md %}) statem
 The [VACUUM]({% link sql_reference/commands/data-management/vacuum.md %}) statement now supports the `INDEXES = ALL | NONE` option, giving users control over whether indexes are optimized during vacuum operations.
 
 **`VACUUM` now runs automatically**
-Firebolt now automatically evaluates the data layout of tables and runs the `VACUUM` command when necessary to optimize performance and storage efficiency. After [INSERT]({% link sql_reference/commands/data-management/insert.md %}), [UPDATE]({% link sql_reference/commands/data-management/update.md %}), or [DELETE]({% link sql_reference/commands/data-management/delete.md %}) operations modify data, the engine that performed the operation determines whether `VACUUM` is required based on factors such as the number of deleted rows and the need to consolidate storage for faster query performance and reduced disk space usage. 
+Firebolt now automatically evaluates the data layout of tables and runs the `VACUUM` command to optimize performance and storage efficiency. After [INSERT]({% link sql_reference/commands/data-management/insert.md %}), [UPDATE]({% link sql_reference/commands/data-management/update.md %}), or [DELETE]({% link sql_reference/commands/data-management/delete.md %}) operations modify data, the engine that performed the operation determines whether `VACUUM` is required based on factors such as the number of deleted rows and the need to consolidate storage for faster query performance and reduced disk space usage. 
 
 <!-- Auto Generated Markdown for FIR-43695 - Owned by Tobias Humig -->
 **Added support for casting text literals to interval literals**         
