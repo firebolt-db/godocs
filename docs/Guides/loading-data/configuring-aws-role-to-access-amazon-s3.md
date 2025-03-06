@@ -127,7 +127,7 @@ Use the role ARN from the previous step when you specify the role ARN in the [CR
 
 Use the IAM role ARN when specifying the [CREDENTIALS]({% link sql_reference/commands/data-management/copy-from.md %}) in the COPY FROM statement. If you specified an external ID, include it with the role ARN. Firebolt assumes this role to access the specified data source.
 
-For a step-by-step guide, see [Loading Data Wizard](../loading-data/loading-data-sql.md#the-simplest-copy-from-workflow)
+For a step-by-step guide, see [The simplest COPY FROM workflow]({% link Guides/loading-data/loading-data-sql.md %}#the-simplest-copy-from-workflow)
 
 **Example**
 
