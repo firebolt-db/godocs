@@ -97,14 +97,14 @@ Response Time Commitments (TFR = Time to First Response)
 | Low (Sev4)    | General inquiries or documentation questions | Response within 48 business hours | Response within 24 business hours |
 
 
-**Premium support features**            
-Premium customers receive additional support benefits beyond response time commitments:
-* **Proactive monitoring**: Alerts for issues and potential optimizations available to Premium customers
-* **Enhanced support channels**: All customers can access support via email and the in-app form. Premium customers also have access to Slack, with in-app chat under consideration for the future. 
-* **Dedicated support engineer**: Premium customers are assigned a designated support engineer who has a deep understanding of their use and care for personalized support. Standard customers receive assistance from the general support pool. 
-* **Critical event management (Upcoming feature)**: Premium customers will have the option to pay for dedicated support engineers during specific timeframes, such as major product launches or key business events. 
+**Entreprise edition support features**            
+Entreprise edition customers receive additional support benefits beyond response time commitments:
+* **Proactive monitoring**: Alerts for issues and potential optimizations available to Enterprise edition customers
+* **Enhanced support channels**: All customers can access support via email and the in-app form. Enterprise edition customers also have access to Slack, with in-app chat under consideration for the future. 
+* **Dedicated support engineer**: Enterprise edition customers are assigned a designated support engineer who has a deep understanding of their use and care for personalized support. Standard customers receive assistance from the general support pool. 
+* **Critical event management (Upcoming feature)**: Enterprise edition customers will have the option to pay for dedicated support engineers during specific timeframes, such as major product launches or key business events. 
 
-Contact [support@firebolt.io](mailto:support@firebolt.io) to learn more about Premium Support offerings. 
+Contact [support@firebolt.io](mailto:support@firebolt.io) to learn more about Enterprise edition support offerings. 
 
 
 ## Billing setup and monitoring
