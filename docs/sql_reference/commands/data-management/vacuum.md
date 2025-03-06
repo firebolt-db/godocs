@@ -16,29 +16,55 @@ Optimizes tablets for query performance.
 
 ## Syntax
 
-```sql
-VACUUM <table>
+```text
+VACUUM [ (option_name = option_value) ] <table>
+```
+Where `<table>` is the name of the table to be optimized.
+
+## Options
+{: .no_toc}
+
+
+
+| Option name | Option value and description         |
+| :---------  | :----------------------------------- |
+| `INDEXES`   | `ALL` &ndash; (Default) Specifies whether to apply optimizations to both the table and all its aggregating indexes.<br> `NONE` &ndash; Optimizes only the table. |
+| `MAX_CONCURRENCY`   | `<Number>` &mdash; The maximum number of concurrent jobs to use during optimization. |
+
+
+
+## Examples
+{: .no_toc}
+
+**Optimize a table and its aggregating indexes** 
+
+Optimizing a table along with its aggregating indexes ensures that both the data and aggregating indexes remain efficient, reducing query latency and improving overall performance.   
+
+The following code example optimizes the `games` table and all its aggregating indexes:
+
+```text
+VACUUM games;
 ```
 
-## Parameters
-{: .no_toc}
+**Optimize a table without its indexes**
 
-| Parameter | Description                         |Supported input types |
-| :--------- | :----------------------------------- | :---------------------|
-| `<table>` | The name of the table to be optimized | FACT, DIMENSION table or AGGREGATE INDEX |
+If you need to optimize a table without including its aggregating indexes to reduce resource usage, or retain efficient indexes, you can optimize only the table to prevent unnecessary computations.  
 
-## Example
-{: .no_toc}
+The following code example optimizes the `players` table without updating its aggregating indexes:
 
-Optimize table named `games`.
+```text
+VACUUM (INDEXES = NONE) players;
+```
 
-```sql
-VACUUM games;
+Optimize table named `players`, using a single concurrent stream.
+
+```text
+VACUUM (MAX_CONCURRENCY = 1) players;
 ```
 
 ### Usage Notes
 
-Here are considerations related to running the `VACUUM` command.
+The following are considerations for running the `VACUUM` command:
 
 * **What happens during VACUUM**<br>
 `VACUUM` analyzes the tablets, selects the ones that are too small or have too many deleted rows, and produces new versions that are optimized for query execution for both tablets and Aggregate Indexes.<br>
@@ -47,19 +73,27 @@ Here are considerations related to running the `VACUUM` command.
 * **Space and performance considerations**<br>
 Users must be aware that `VACUUM` consumes both compute and storage resources.<br>
 `VACUUM` can consume a considerable amount of compute resources depending on the table size, number of tablets, and number of mutations in the table.<br>
+`VACUUM` parallelizes its work into multiple concurrent streams, based on the number of CPU cores. While this can be beneficial for the speed of the operation, each stream consumes memory and CPU resources. Use the `MAX_CONCURRENCY` option to limit the number of concurrent streams.<br>
 `VACUUM` produces optimized versions of the data, while leaving behind older versions subject to the garbage collection (GC) process. These older tablets will continue to consume storage space until the GC process completes the clean-up.<br>
 If users would like to have precise control over `VACUUM`, it may be preferable to execute on a dedicated engine that could be sized and run just for `VACUUM` operations. With `VACUUM` running on a dedicated engine, it would not conflict with other queries' execution and cache resources, and would provide operational separation from other scenarios.<br>
 `VACUUM` may introduce a performance penalty as the newly created optimized tablets need to be synchronized with other engines operating on the same table(s).<br>
 
 * **Automatic scheduling**<br>
-You can enable automatic scheduling of processes such as `VACUUM` by integrating with external tools. Please see section [Integrate with Firebolt](../../../Guides/integrations/integrations.md) for more detail on our current support for these tools.
+You can enable automatic scheduling of processes such as `VACUUM` by integrating with external tools. Please see section [Integrate with Firebolt]({% link Guides/integrations/integrations.md %}) for more detail on our current support for these tools.
 
-### Example of running VACUUM to improve query performance. 
+### Example with measuring the performance impact of VACUUM
 
-This example demonstrates a use case for running `VACUUM` and its performance impact. Let’s create a large table with 10 million rows: 
+Over time, operations such as `INSERT`, `DELETE`, and `UPDATE` can create suboptimal tablets that decrease query performance. The `VACUUM` command restructures these tablets by removing deleted rows and optimizing storage, leading to faster queries.
+
+This example demonstrates the impact of `VACUUM` by:
+1. Creating a large table with 10 million rows.
+2. Deleting 90% of the rows, leaving behind fragmented data.
+3. Running a query before and after `VACUUM` to compare run times.
+
+The following code example loads data from a CSV file in an Amazon S3 bucket into the `tutorial_vacuum` table with headers:
 
 ```sql
-COPY tutorial_vacuum 
+COPY tutorial_vacuum
 FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
 WITH HEADER=TRUE;
 
@@ -68,13 +102,13 @@ SELECT a.* FROM tutorial_vacuum a, GENERATE_SERIES(1, 1000000); -- This may run 
 ```
 
 Script above loads 10 rows from S3 csv file; after that it inserts into the same table the cross product of the 10 inserted rows with 1 million integers.
-Next we will delete about 90% of rows from the table, that would result in about 900,000 deleted rows.
+Next, the following code example deletes all rows from the `tutorial_vacuum` table where the `LevelID` value is greater than 1, resulting in about 900,000 deleted rows:
 
 ```sql
-DELETE FROM tutorial_vacuum WHERE "LevelID" > 1; 
+DELETE FROM tutorial_vacuum WHERE "LevelID" > 1;
 ```
 
-Let’s run a simple select from the tutorial_vacuum table; VACUUM it, and repeat the same select.
+The following code example runs a query computing checksum of the entire `tutorial_vacuum` table before and after performing `VACUUM`, allowing a comparison of query performance and efficiency improvements after optimization.
 
 ```sql
 SELECT hash_agg(*) FROM tutorial_vacuum;
@@ -82,13 +116,12 @@ VACUUM tutorial_vacuum;
 SELECT hash_agg(*) FROM tutorial_vacuum;
 ```
 
-The first select is executed on data with a lot of deleted rows, while the second is run after `VACUUM` and benefits from it. Let’s examine query history and see the performance benefit of the `VACUUM` operation:
+In the previous code example, the first `SELECT` is run on data with many deleted rows, while the second runs after `VACUUM`, benefiting from it. The following query history shows the performance benefit of the `VACUUM` operation:
 
-| NO  | STATEMENT                                | STATUS   | DURATION   |
-|:----|:-----------------------------------------|:---------|:-----------|
-| 1   | SELECT hash_agg(*) FROM tutorial_vacuum; | Success  | 4.43 s     |
-| 2   | VACUUM tutorial_vacuum;                  | Success  | 17.53 s    |
-| 3   | SELECT hash_agg(*) FROM tutorial_vacuum; | Success  | 0.82 s     |
+| NO  | STATEMENT                                  | STATUS   | DURATION   |
+|:----|:-------------------------------------------|:---------|:-----------|
+| 1   | `SELECT hash_agg(*) FROM tutorial_vacuum;` | Success  | 4.43 s     |
+| 2   | `VACUUM tutorial_vacuum;`                  | Success  | 17.53 s    |
+| 3   | `SELECT hash_agg(*) FROM tutorial_vacuum;` | Success  | 0.82 s     |
 
-
-Note that the first select was running for more than 4 seconds while exactly the same select after VACUUM completes in less than a second. 
+Note that the initial `SELECT` query ran for over 4 seconds, while the identical `SELECT` query ran for under a second, after running `VACUUM`.
