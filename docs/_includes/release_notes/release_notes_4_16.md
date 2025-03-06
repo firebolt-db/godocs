@@ -39,7 +39,7 @@ SQL queries can now use `FROM` before `SELECT`, allowing for more flexible query
 [Firebolt now supports AWS PrivateLink]({% link Guides/security/privatelink.md %}), allowing Firebolt Enterprise customers to securely access the Firebolt API without exposing traffic to the public internet. AWS PrivateLink enhances security, minimizes data exposure, and improves network reliability by keeping traffic within AWS.
 
 **Added concurrency auto-scaling**        
-Engines can now be created with concurrency auto-scaling enabled, or modified to enable concurrency auto-scaling. Setting the `MIN_CLUSTERS` and `MAX_CLUSTERS` parameters on CREATE ENGINE and ALTER ENGINE commands turns on concurrency auto-scaling: the engine will dynamically resize between the specified `MIN_CLUSTERS` and `MAX_CLUSTERS` values to match demand.
+Engines can now be created with concurrency auto-scaling enabled, or modified to enable concurrency auto-scaling. Setting the `MIN_CLUSTERS` and `MAX_CLUSTERS` parameters on [CREATE ENGINE]({% link sql_reference/commands/engines/create-engine.md %}) and [ALTER ENGINE]({% link sql_reference/commands/engines/alter-engine.md %}) commands turns on concurrency auto-scaling: the engine will dynamically resize between the specified `MIN_CLUSTERS` and `MAX_CLUSTERS` values to match demand.
 
 **Firebolt introduces three fully managed editions**
 Firebolt now offers **Standard, Enterprise, and Dedicated editions**, each designed for different performance, security, and scalability needs.
