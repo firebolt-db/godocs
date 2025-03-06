@@ -20,7 +20,7 @@ Firebolt now supports default values for columns with the [GEOGRAPHY]({% link sq
 
 <!-- Auto Generated Markdown for FIR-43706 - Owned by Anton Perkov -->
 **Added `MIN_CLUSTERS` and `MAX_CLUSTERS` columns to `INFORMATION_SCHEMA.ENGINES`**            
-Added two new columns, `MIN_CLUSTERS` and `MAX_CLUSTERS`, to the `INFORMATION_SCHEMA.ENGINES` table. This enhancement provides users with additional details about cluster configurations, facilitating improved database management and analysis.
+The [INFORMATION_SCHEMA.ENGINES]({% link sql_reference/information-schema/engines.md %}) table now includes `MIN_CLUSTERS` and `MAX_CLUSTERS` columns, providing visibility into cluster configuration for improved database management.
 
 <!-- Auto Generated Markdown for FIR-41942 - Owned by Mosha Pasumansky -->
 **Added support for `STATEMENT_TIMEOUT` to manage query execution time limits**              
