@@ -62,7 +62,7 @@ The planner rule that converted `AGG(CASE WHEN P THEN V ELSE NULL END)` into `AG
 Firebolt now prunes [GEOGRAPHY]({% link sql_reference/geography-data-type.md %}#geography-data-type) data at the tablet level to enhance query performance. To activate spatial pruning on tables created before this release, run `VACUUM`. For additional details, see our [blog post](https://www.firebolt.io/blog/architecture-and-internal-representation-of-the-geography-data-type).
 
 <!-- Auto Generated Markdown for FIR-42544 - Owned by Judson Wilson -->
-**Introduced the `INDEX_GRANULARITY` storage parameter in `CREATE TABLE` to optimize table storage for specific query patterns**          
+**Added `INDEX_GRANULARITY` storage parameter to optimize table storage**          
 Added the `INDEX_GRANULARITY` storage parameter to `CREATE TABLE` to control the internal tablet range size for new tables. This setting optimizes table storage for specific query patterns, enhancing performance.
 
 ### Bug Fixes
