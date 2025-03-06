@@ -97,7 +97,7 @@ To integrate Firebolt with AWS Identity and Access Management (IAM), you must fi
 2. Select the plus (**+**) sign in Firebolt's **Develop Space**.
 3. Select an engine for loading data.
 4. Next to **Authentication method**, select the radio button for **IAM Role**.
-5. In ***IAM Role Setup Guidance**, select **Create an IAM role**.
+5. In **IAM Role Setup Guidance**, select **Create an IAM role**.
 6. In the **Create new IAM role** popup window, note your Firebolt account ID from ARN in the custom trust policy. An example ARN is formatted as follows: `arn:aws:iam::123456789012:role/my-firebolt-role`. In the previous example, the account ID is `123456789012`.
 
 ### Create an IAM policy in AWS
