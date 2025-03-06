@@ -12,7 +12,7 @@ The [VACUUM]({% link sql_reference/commands/data-management/vacuum.md %}) statem
 
 <!-- Auto Generated Markdown for FIR-43695 - Owned by Tobias Humig -->
 **Added support for casting text literals to interval literals**         
-Interval literals are now supported as casts from text literals, such as `'1 month'::INTERVAL`. This makes it easier to represent time intervals in SQL queries.
+Firebolt now supports casting text literals to interval literals using expressions like `'1 month'::INTERVAL`, making it easier to define time intervals in queries.
 
 <!-- Auto Generated Markdown for FIR-42736 - Owned by Demian Hespe -->
 **Added default value support for `GEOGRAPHY` columns**         
