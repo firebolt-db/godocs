@@ -46,13 +46,13 @@ Compute costs are measured in Firebolt Units (FBUs) and vary based on [engine]({
 
 **Storage-optimized pricing for compute usage**
 
-| Node Type       | Sizing in FBU | US Region Pricing | US Region Pricing | Non-US Region Pricing | Non-US Region Pricing |
+| Node Type       | Sizing in FBU | US Region Pricing |                 | Non-US Region Pricing |                   |
 |----------------|--------------|-------------------|-------------------|---------------------|---------------------|
 |               |              | **Standard ($0.23/FBU/hr)** | **Enterprise ($0.35/FBU/hr)** | **Standard ($0.28/FBU/hr)** | **Enterprise ($0.42/FBU/hr)** |
 | **Small (S)**  | 8            | $1.84            | $2.80            | $2.24              | $3.36              |
 | **Medium (M)** | 16           | $3.68            | $5.60            | $4.48              | $6.72              |
 | **Large (L)**  | 32           | $7.36            | $11.20           | $8.96              | $13.44             |
-| **Extra Large (XL)** | 64      | $14.72           | $22.40           | $17.92             | $26.88            |                   |
+| **Extra Large (XL)** | 64      | $14.72           | $22.40           | $17.92             | $26.88            |                   
 
 **Compute-optimized pricing for compute usage**
 
@@ -62,7 +62,7 @@ Compute costs are measured in Firebolt Units (FBUs) and vary based on [engine]({
 | **Small (S)**  | 4            | $0.92            | $1.40            | $1.12              | $1.68              |
 | **Medium (M)** | 8            | $1.84            | $2.80            | $2.24              | $3.36              |
 | **Large (L)**  | 16           | $3.68            | $5.60            | $4.48              | $6.72              |
-| **Extra Large (XL)** | 32      | $7.36            | $11.20           | $8.96              | $13.44            |                                          |
+| **Extra Large (XL)** | 32      | $7.36            | $11.20           | $8.96              | $13.44            |                                          
 
 **Data storage pricing**:     
 Data storage costs are based on the compressed data stored, including indexes and raw data. Pricing is based on Amazon S3 costs in your selected AWS region. There are no additional storage charges beyond S3 costs.
