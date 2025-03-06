@@ -19,20 +19,20 @@ This section outlines the available deployment models, their editions, and assoc
 Firebolt’s fully managed service ensures high performance and reliability with Firebolt handling the infrastructure, scaling, maintenance, and performance optimizations. There are three editions available:
 
 **Standard edition**       
-The Standard edition is best for teams seeking high performance and scalability without managing infrastructure. Customers get sub-second query performance, elastic scaling and high cost efficiency, along with security features such as Role-Based Access Control (RBAC), single-sign-on (SSO), multi-factor authentication(MFA) and audit logging.
+The Standard edition is best for teams seeking a low-cost entry point without the need to manage compute infrastructure. You receive high performance with sub-second query latency, multi-dimensional compute elasticity, and security features such as Role-Based Access Control (RBAC), single sign-on (SSO), multi-factor authentication (MFA), and audit logging.
 
 **Enterprise edition**              
 The Enterprise edition is designed for organizations that need advanced security, compliance, and scalability. It includes all the features in the Standard edition, plus multi-cluster scaling, auto-scaling for concurrency, AWS PrivateLink and HIPAA compliance support.
 
 **Dedicated edition**               
-The Dedicated edition is ideal for enterprises with strict security and isolation needs (e.g., government clouds). It includes all the features in the Enterprise edition, plus complete data isolation on single-tenant infrastructure offering the highest level of security.
+The Dedicated edition is ideal for enterprises with strict security and isolation needs (e.g., government clouds). It includes all the features in the Enterprise edition, plus complete data isolation on a single-tenant infrastructure, offering the highest level of security.
 
 ### Fully managed pricing:       
 Firebolt offers two pricing options for the Standard and Enterprise editions:
 
 * **Pay-as-you-go**: A pay-as-you-go plan is flexible, and provides on-demand pricing with no upfront cost or commitment. This plan is ideal for startups or teams with unpredictable workloads. Customers get billed monthly based on actual usage and only pay for what they use with per-second billing
 
-* **Committed-use discounts**: A committed-use discount plan provides discounted rates against a prepaid usage commitment. This plan is ideal for organizations with consistent, high-volume workloads and results in lower total costs compared to the pay-as-you-go plan.
+* **Committed-use discounts**: A committed-use discount prepaid consumption model that provides discounted rates against a prepaid usage commitment. This plan is ideal for organizations with consistent, high-volume workloads and results in lower total costs compared to the pay-as-you-go plan. Once all prepaid FBU credits are consumed, your plan  switches to the pay-as-you-go pricing model. Customers can always continue using Firebolt, with consumption either drawing from prepaid credits or transitioning to the pay-as-you-go model when credits run out.
 
 Contact [support@firebolt.io](mailto:support@firebolt.io) to discuss a committed-use plan, annual pricing commitments, dedicated edition pricing. 
 
@@ -40,7 +40,7 @@ Contact [support@firebolt.io](mailto:support@firebolt.io) to discuss a committed
 Firebolt pricing is based on compute usage and data storage. 
 
 **Compute usage pricing**         
-Compute costs are measured in Firebolt Units (FBUs) and vary on node type, number of nodes cluster size, and usage duration. Compute costs are only billed for the time Firebolt engines are running. Firebolt offers two compute family options:
+Compute costs are measured in Firebolt Units (FBUs) and vary based on [engine]({% link Overview/engine-fundamentals.md %}) node type, number of nodes (cluster size), the number of clusters and usage duration. Costs are only billed for the time Firebolt engines are running. Firebolt offers two compute family options:
 * **Storage-optimized** (default): High SSD capacity for caching and production workloads.
 * **Compute-optimized**: About 2x cheaper; ideal for development and test environments or workloads with smaller active datasets.
 
