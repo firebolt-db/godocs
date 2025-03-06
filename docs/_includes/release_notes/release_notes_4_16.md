@@ -31,7 +31,7 @@ Added support for `STATEMENT_TIMEOUT`. This feature specifies the number of mill
 Firebolt now supports the `DATE(<arg>)` function, offering an alternative to the `<arg>::DATE` syntax for improved readability and usability in SQL queries.
 
 <!-- Auto Generated Markdown for FIR-36879 - Owned by Mosha Pasumansky -->
-**Supported the `FROM` first syntax for enhanced query flexibility and readability**           
+**Added support for `FROM` first syntax**           
 SQL queries can now use `FROM` before `SELECT`, allowing for more flexible query structures such as `FROM t SELECT a, SUM(b) GROUP BY a` or even `FROM t` without a `SELECT` clause.
 
 <!-- Markdown for FIR-35591 - Owned by Adam Bouhmad -->
