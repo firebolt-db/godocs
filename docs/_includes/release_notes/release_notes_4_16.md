@@ -46,7 +46,7 @@ Engines can now be created with concurrency auto-scaling enabled, or modified to
 
 **Firebolt introduces three fully managed editions**
 Firebolt now offers **Standard, Enterprise, and Dedicated editions**, each designed for different capabilities, security, and scalability needs.
-* **Standard**: High-performance, elastic scaling for cost-efficient, fully managed analytics.
+* **Standard**: High-performance, elastic scaling &ndash; in and out, up and down &ndash; for cost-efficient, fully managed analytics on a single cluster.
 * **Enterprise & Dedicated**: Includes scaling capabilities like **multi-cluster scaling**, as well as advanced security features like **AWS PrivateLink**.
 * **Dedicated**: Built for regulated industries (finance, healthcare) with **single-tenant infrastructure** and compliance with **HIPAA, SOC 2, ISO**.
   
