@@ -11,27 +11,33 @@ nav_order: 2
 Firebolt offers flexible deployment models that provide scalability and cost efficiency, to meet diverse business needs. Choose between fully managed or self-managed solutions tailored to your infrastructure and workload requirements. 
 
 ## Choose your deployment model
-Firebolt offers two deployment models: fully managed and self-managed. Each model includes specific editions and pricing options. 
+Firebolt offers two deployment models: **fully managed** and **self-managed**. Each model includes specific editions and pricing options. 
 
 * The [fully managed](#fully-managed-editions-and-pricing) deployment option has **Standard**, **Enterprise**, and **Dedicated** editions with Pay-As-You-Go or Committed-Use discount pricing
 * The [self-managed](#self-managed-editions-and-pricing) deployment model includes Firebolt's free **Core** and **Private Cloud**, with pricing based on your infrastructure setup.
 
-This section outlines the available deployment models, their editions, and associated pricing options.
+The following sections outline the available deployment models, their editions, and associated pricing options.
 
 ### Fully managed editions and pricing  
 Firebolt’s fully-managed editions provide a SaaS-like experience, where Firebolt manages compute infrastructure, software maintenance, and upgrades. It enables multi-dimensional elasticity, high performance, and concurrency while handling scaling, maintenance, and performance optimizations.
+
+* [Fully-managed editions](#fully-managed-editions)
+* [Fully-managed pricing models](#fully-managed-pricing-models)
+    *[Data storage pricing](#fully-managed-data-storage-pricing) &ndash; The storage portion of your total cost.
+    *[Compute usage pricing](#fully-managed-compute-usage-pricing) &ndash; The compute portion of your total cost.
+* [Fully-managed pricing plans](#fully-managed-pricing-plans) &ndash; How to pay for resource usage.
 
 #### Fully-managed editions
  There are three editions available: **Standard**, **Enterprise**, and **Dedicated**. 
 
 <br>
-<img src="../../assets/images/firebolt-fully-managed.png" width="700"/>
+<img src="../../assets/images/firebolt-fully-managed.png" width="800" alt="Firebolt offers the Standard, Enterprise, and Dedicated editions with different features."/>
 
 **Standard edition**       
-The Standard edition is best for teams seeking a low-cost entry point without the need to manage compute infrastructure. You receive high performance with sub-second query latency, multi-dimensional compute elasticity, and security features such as Role-Based Access Control (RBAC), single sign-on (SSO), multi-factor authentication (MFA), and audit logging. Standard includes a flexible compute option that is optimized for either storage or for compute. Firebolt manages your compute infrastructure, software maintenance, and upgrades.
+The Standard edition is best for teams seeking a low-cost entry point without the need to manage compute infrastructure. It offers high performance with sub-second query latency, flexible compute scaling within a single cluster. Security features include Role-Based Access Control (RBAC), single sign-on (SSO), multi-factor authentication (MFA), and audit logging. Standard includes a flexible compute option that is optimized for either storage or for compute. Firebolt manages your compute infrastructure, software maintenance, and upgrades.
 
 **Enterprise edition**              
-The Enterprise edition is designed for organizations that need advanced security, compliance, and automatic compute scaling. It includes all the features in the Standard edition, plus multi-cluster scaling, auto-scaling for concurrency, AWS PrivateLink, and HIPAA compliance support.
+The Enterprise edition is designed for organizations that need advanced security, compliance, and automatic compute scaling. It includes all the features in the Standard edition, plus multi-cluster scaling, auto-scaling for concurrency, [AWS PrivateLink]({% link Guides/security/privatelink.md %}), and HIPAA compliance support.
 
 **Dedicated edition**               
 The Dedicated edition is ideal for organizations that require high levels of security and isolation, such as those operating in government clouds. It includes all the features in the Enterprise edition, plus complete data isolation on a single-tenant infrastructure, offering the highest level of security.
@@ -42,7 +48,7 @@ Firebolt pricing is based on compute usage and data storage. The total cost for 
 <br>
 <img src="../../assets/images/compute-usage-cost.png" width="700"/>
 
-### Fully-managed data storage pricing
+#### Fully-managed data storage pricing
 Data storage costs are based on the amount of compressed data stored, including indexes and raw data. Pricing is based on Amazon S3 costs in your selected AWS region. There are no additional storage charges beyond S3 costs.
 
 | Available AWS Regions           | Price per TB/month ($USD)     |
@@ -53,7 +59,7 @@ Data storage costs are based on the amount of compressed data stored, including 
 | Europe (Ireland)                | $23.00                        |
 | Asia Pacific (Singapore)        | $25.00                        |
 
-### Fully-managed compute usage pricing
+#### Fully-managed compute usage pricing
 Compute costs are measured in Firebolt Units (FBUs) and vary based on node type, number of nodes or cluster size, the number of clusters and usage duration. Costs are only billed for the time Firebolt [engines]({% link Overview/engine-fundamentals.md %}) are running. Firebolt offers two compute family options:
 
 * **Storage-optimized** (default): High SSD capacity for caching and production workloads.
@@ -91,14 +97,14 @@ Contact [support@firebolt.io](mailto:support@firebolt.io) to discuss a committed
 Firebolt pricing is based on compute usage and data storage. 
 
 **Compute usage pricing**         
-Compute costs are measured in Firebolt Units (FBUs) and vary based on [engine]({% link Overview/engine-fundamentals.md %}) node type, number of nodes (cluster size), the number of clusters and usage duration. Costs are only billed for the time Firebolt engines are running. Firebolt offers two compute family options:
+Compute costs are measured in Firebolt Units (FBUs) and vary based on [engine]({% link Overview/engine-fundamentals.md %}) node type, number of nodes or cluster size, the number of clusters and usage duration. Costs are only billed for the time Firebolt engines are running. Firebolt offers two compute family options:
 
 ## Support plans and service level agreements
 Firebolt offers support options based on your selected edition. 
 
 Response Time Commitments (TFR = Time to First Response)
 
-| Severity Level    | Issue Type                                    | Standard Edition TFR         | Enterprise Edition TFR     |
+| Severity Level    | Issue Type                                    | Standard Edition TFR         | Dedicated and Enterprise Edition TFR     |
 |------------------|----------------------------------------------|------------------------------|----------------------------|
 | Critical (Sev1) | Service outage or major disruption          | Response within 4 hours      | Response within 30 minutes |
 | High (Sev2)   | Significant performance degradation         | Response within 8 business hours | Response within 2 hours   |
@@ -106,7 +112,7 @@ Response Time Commitments (TFR = Time to First Response)
 | Low (Sev4)    | General inquiries or documentation questions | Response within 48 business hours | Response within 24 business hours |
 
 **Premium support features**            
-Entreprise, Private, and Dedicated edition customers receive additional support benefits beyond response time commitments:
+Enterprise, Private, and Dedicated edition customers receive additional support benefits beyond response time commitments:
 * **Proactive monitoring**: Alerts for issues and potential optimizations available to Enterprise edition customers
 * **Enhanced support channels**: All customers can access support via email and the in-app form, which can be accessed through the [help menu]({% link Reference/help-menu.md %}). Customers also have access to Slack support.
 * **Dedicated support engineer**: Customers are assigned a designated support engineer who has a deep understanding of their use and care for personalized support. Standard customers receive assistance from the general support pool. 
@@ -132,7 +138,7 @@ Firebolt will bill you monthly through **AWS Marketplace** based on usage.
 Firebolt offers two self-managed options, where you run Firebolt on your own infrastructure: **Core** and **Private cloud**. 
 
 <br>
-<img src="../../assets/images/self-managed.png" width="700"/>
+<img src="../../assets/images/self-managed.png" width="700" alt="Firebolt offers two self-managed editions. One that is free that you manage, and one for a private cloud."/>
    
 **Firebolt Core**             
 Firebolt Core is a free downloadable version that can be deployed on cloud, on-premises, or on a local machine. This option is best for teams needing full control over deployment with a lightweight Firebolt engine. Customers manage compute and storage infrastructure, hosting, all software upgrades, and maintenance.
