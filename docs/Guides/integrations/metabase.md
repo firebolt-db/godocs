@@ -15,9 +15,12 @@ parent: Integrate with Firebolt
 
 [Metabase](https://www.metabase.com/) is an open-source business intelligence platform. You can use Metabase's user interface to explore, analyze, and visualize data, query databases, generate reports, and create dashboards. 
 
-This guide shows you how to [set up a Firebolt connector](#set-up-a-connector-to-metabase) for a self-hosted Metabase instance and how to [create a connection](#create-a-connection-to-metabase). If you are using either the managed or cloud-hosted version of [**Metabase Cloud**](https://www.metabase.com/docs/latest/cloud/start), you can skip directly to the [Create a Connection](#create-a-connection-to-metabase). 
+This guide shows you how to [set up a Firebolt connector](#set-up-a-connector-to-metabase) for a self-hosted Metabase instance and how to [create a connection](#create-a-connection-to-metabase). If you are using either the managed or cloud-hosted version of [**Metabase Cloud**](https://www.metabase.com/docs/latest/cloud/start), you can skip directly to the [Create a Connection](#create-a-connection-to-metabase).
 
+You can also watch a short video on how to connect Metabase to Firebolt:
+<iframe width="560" height="315" src="https://www.youtube.com/embed/LT6yoA67UW8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+**Topics:**
 1. Topic ToC
 {:toc}
 

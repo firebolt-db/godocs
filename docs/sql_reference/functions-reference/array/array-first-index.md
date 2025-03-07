@@ -25,7 +25,7 @@ ARRAY_FIRST_INDEX(<function>, <array>)
 
 | Parameter | Description                          | Supported input types | 
 | :--------- | :------------------------ | :---------| 
-| `<function>`  | A [Lambda function](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions) used to check elements in the array | Any Lambda function | 
+| `<function>`  | A [Lambda function]({% link Guides/loading-data/working-with-semi-structured-data/working-with-arrays.md %}#manipulating-arrays-with-lambda-functions) used to check elements in the array | Any Lambda function | 
 | `<array>`   | The array evaluated by the function     | Any array | 
 
 ## Return Type

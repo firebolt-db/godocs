@@ -26,7 +26,7 @@ npm install firebolt-sdk
 
 ## Authentication
 
-After installation, you must authenticate before you can use the SDK to establish connections, run queries, and manage database resources. The following code example sets up a connection using your Firebolt service account credentials:
+After installation, you must authenticate before you can use the SDK to establish connections, run queries, and manage database resources. The following code example sets up a connection using your Firebolt [service account]({% link Guides/managing-your-organization/service-accounts.md %}) credentials:
 
 ```typescript
 const connection = await firebolt.connect({
@@ -41,12 +41,12 @@ const connection = await firebolt.connect({
 ```
 In the previous code example, the following details apply:
 
-* `client_id` and `client_secret`: These are your service account credentials. Refer to Firebolt's guide to learn how to [create a service account]({% link Guides/managing-your-organization/service-accounts.md %}#create-a-service-account) and obtain its ID and secret. 
+* `client_id` and `client_secret`: These are your service account credentials. Refer to Firebolt's guide to learn how to [create a service account]({% link Guides/managing-your-organization/service-accounts.md %}#create-a-service-account) and obtain its [ID]({% link Guides/managing-your-organization/service-accounts.md %}#get-a-service-account-id) and [secret]({% link Guides/managing-your-organization/service-accounts.md %}#generate-a-secret). 
 * `engineName`: The name of the engine used to run your queries on.
 * `database`: The target database where your tables will be stored.
 * `account`: The object within your organization that encapsulates resources for storing, querying, and managing data. In the Node.js SDK, the [account]({% link Overview/organizations-accounts.md %}#accounts) parameter specifies which organizational environment the connection will use. 
 
-## Quick Start
+## Quick start
 In the following code example, credentials are stored in environment variables.
 
 ```javascript

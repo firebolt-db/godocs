@@ -47,10 +47,10 @@ Once your OneLogin application is configured, you can now configure Firebolt to 
     Here’s an example of how to set up **Field mapping**:
 
       ```json  
-        {
-            "given_name": "name",
-            "family_name": "surname"
-        }
+     {
+         "given_name": "name",
+         "family_name": "surname"
+     }
       ```
 
    In the previous example:
@@ -73,7 +73,7 @@ ALTER ORGANIZATION vsko SET SSO = '{
     "given_name": "name",
     "family_name": "surname"
   },
-  "certificate": "<certificate>",
+  "certificate": "<certificate>"
 }';
 ```
 
