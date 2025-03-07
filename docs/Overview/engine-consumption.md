@@ -23,12 +23,17 @@ Firebolt uses a metric called Firebolt Units (FBU) to track engine consumption. 
 
 Each node type provides a minimum number of FBUs as shown in the following table:
 
-|      Engine Type      |  Firebolt Units (FBUs) per hour  |      
-| :-------------------- | :------------------------------- | 
-|      Small (S)        |              8                   |
-|      Medium (M)       |              16                  |
-|      Large (L)        |              32                  |
-|      XLarge (XL)      |              64                  |
+| Node type        | Compute family    | Firebolt Units (FBUs) per hour   |
+|------------------|-------------------|---------------------------------|
+| Small (S)        | Storage-optimized | 8                               |
+| Medium (M)       | Storage-optimized | 16                              |
+| Large (L)        | Storage-optimized | 32                              |
+| Extra Large (XL) | Storage-optimized | 64                              |
+| Small (S)        | Compute-optimized | 4                               |
+| Medium (M)       | Compute-optimized | 8                               |
+| Large (L)        | Compute-optimized | 16                              |
+| Extra Large (XL) | Compute-optimized | 32                              |
+
 
 {: .note}
 Small and medium engines are available for use right away. If you want to use a large or extra-large engine, reach out to support@firebolt.io.

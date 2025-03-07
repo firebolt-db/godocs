@@ -81,7 +81,7 @@ WITH TYPE="M" NODES=3 INITIALLY_STOPPED=true;
 ```
 
 ### Create an engine with auto-stop
-The following example creates an engine with one cluster, using node type 'L' in the compute optimized family with 2 nodes per cluster. The engine will be automatically stopped after 10 mins of idle time because `AUTO_STOP` is set to 10.
+The following example creates an engine with one cluster, using node type 'L' in the compute-optimized family with 2 nodes per cluster. The engine will be automatically stopped after 10 minutes of idle time because `AUTO_STOP` is set to 10.
 
 ```sql
 CREATE ENGINE my_engine
