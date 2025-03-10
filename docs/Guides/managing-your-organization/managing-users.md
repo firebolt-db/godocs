@@ -127,7 +127,7 @@ Login to [Firebolt’s Workspace](https://go.firebolt.io/login). If you haven’
 
     * The database that **Script 1** will use is located directly below the tab name. If you want to change the database, select another database from the drop-down list.
 
-    * An engine must be running to process the script in a selected tab. The name and status of the engine that **Script 1** uses for computation is located to the right of the current selected database. If the engine has auto-start set to `TRUE`, it will start from a stopped state. For more information about auto-start, see [Immediately Starting or Automatically Stopping an Engine]({% link Guides/operate-engines/working-with-engines-using-ddl.md %}#immediately-starting-or-automatically-stopping-an-engine). 
+    * An engine must be running to process the script in a selected tab. The name and status of the engine that **Script 1** uses for computation is located to the right of the current selected database. If the engine has auto-start set to `TRUE`, it will start from a stopped state. For more information about auto-start, see [Immediately Starting or Automatically Stopping an Engine]({% link Guides/operate-engines/working-with-engines-using-ddl.md %}#automatically-start-or-stop-an-engine). 
 
 3. Select **system** from the drop-down arrow next to the engine name. The system engine is always running, and you can use it to create a login. You can also use an engine that you create.
 4. Use the syntax in the following example code to create a login in the SQL Script Editor:

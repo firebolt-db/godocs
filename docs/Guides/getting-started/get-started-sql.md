@@ -88,11 +88,7 @@ Each FBU is related to the amount of time as follows:
 | Find optimal query performance |  32-240 FBU    |
 | Find optimal test integrations |  32-240 FBU    |
 
-Engines can cache the following dataset sizes:
-* A small (S) engine can cache 1.8 TB of data. 
-* A medium (M) engine can cache 3.7 TB. 
-* A large (L) engine can cache 7.5 TB of data. 
-* An extra-large (XL) engine can cache 15 TB of data. 
+Each engine node can cache data locally to improve performance. 
 
 Small and medium engines are available for use right away. If you want to use a large or extra-large engine, reach out to support@firebolt.io. The default engine configuration uses a small node, which is sufficient for this tutorial. To learn more about how to select the correct engine size for your workload, see [Sizing Engines](../operate-engines/sizing-engines.md).
 
@@ -273,13 +269,7 @@ The following guidance applies:
   ```
 
 #### Cache eviction
-After your cache usage exceeds approximately 80% of its capacity, Firebolt will evict, or remove the least recently used data into an Amazon S3 bucket. Then, if you want to query this data, you will have to read it back into cache. The total available cache size depends on the size of your engine as follows:
-  * A small engine has a cache size of 1.8 TB.
-  * A medium engine has a cache size of 3.7 TB.
-  * A large engine has a cache size of 7.5 TB.
-  * An extra large engine has a cache size of 15 TB.
-
-Small and medium sized engines are available for use right away. If you want to use a large or extra-large engine, reach out to support@firebolt.io.
+When your cache usage exceeds approximately 80% of its capacity, Firebolt automatically evicts the some data from the cache. If you query this data later, Firebolt reloads it into the cache before processing the query. The total available cache size depends on your engine's size and family. Larger engine sizes provide more cache space, and the storage-optimized family offers more cache than the compute-optimized family. Small and medium sized engines are available for use right away. If you want to use a large or extra-large engine, reach out to [support@firebolt.io](mailto:support@firebolt.io).
 
 You can check the size of your cache using the following example code:
 ```sql
