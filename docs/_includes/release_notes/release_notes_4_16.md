@@ -10,8 +10,8 @@ The [VACUUM]({% link sql_reference/commands/data-management/vacuum.md %}) statem
 **Introduced the `INDEXES = ALL | NONE` for the `VACUUM` statement**         
 The [VACUUM]({% link sql_reference/commands/data-management/vacuum.md %}) statement now supports the `INDEXES = ALL | NONE` option, giving users control over whether indexes are optimized during vacuum operations.
 
-**`VACUUM` now runs automatically**
-Firebolt now automatically evaluates the data layout of tables and runs the `VACUUM` command to optimize performance and storage efficiency. After [INSERT]({% link sql_reference/commands/data-management/insert.md %}), [UPDATE]({% link sql_reference/commands/data-management/update.md %}), or [DELETE]({% link sql_reference/commands/data-management/delete.md %}) operations modify data, the engine that performed the operation determines whether `VACUUM` is required based on factors such as the number of deleted rows and the need to consolidate storage for faster query performance and reduced disk space usage. 
+**`VACUUM` now runs automatically**<br>
+Firebolt now automatically evaluates the data layout of tables and runs [VACUUM]({% link sql_reference/commands/data-management/vacuum.md %}) to optimize performance and storage efficiency. After [INSERT]({% link sql_reference/commands/data-management/insert.md %}), [UPDATE]({% link sql_reference/commands/data-management/update.md %}), or [DELETE]({% link sql_reference/commands/data-management/delete.md %}) operations modify data, the engine that performed the operation determines whether `VACUUM` is required based on factors such as the number of deleted rows and the need to consolidate storage for faster query performance and reduced disk space usage. 
 
 <!-- Auto Generated Markdown for FIR-43695 - Owned by Tobias Humig -->
 **Added support for casting text literals to interval literals**         
@@ -56,6 +56,7 @@ Enterprise and Dedicated customers also get **24/7 support** with **faster suppo
 
 <!-- Auto Generated Markdown for FIR-38200 - Owned by Jonathan Doron -->  
 **Removed a planner rule that transform aggregations on a case statement**
+
 The planner rule that converted `AGG(CASE WHEN P THEN V ELSE NULL END)` into `AGGIF(V, P)` has been removed to simplify query processing.
 
 ### Performance Improvements

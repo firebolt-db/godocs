@@ -26,9 +26,9 @@ The following sections outline the available deployment models, their editions, 
  Firebolt manages compute infrastructure, software maintenance, and upgrades across all fully-managed editions. Firebolt handles multi-dimensional elasticity, high performance, scaling, maintenance, and performance optimizations.
 
 * [Fully-managed editions](#fully-managed-editions) &ndash; Firebolt offers the **Standard**, **Enterprise** and **Dedicated** editions.
-* [Fully-managed pricing model](#fully-managed-pricing-models) &ndash; Your total price consists of a storage and a compute cost.
-    * [Data storage pricing](#fully-managed-data-storage-pricing) &ndash; The storage portion of your total cost.
-    * [Compute usage pricing](#fully-managed-compute-usage-pricing) &ndash; The compute portion of your total cost.
+* [Fully-managed pricing model](#fully-managed-pricing-model) &ndash; Your total price consists of a storage and a compute cost.
+    * [Data storage pricing](#data-storage-pricing) &ndash; The storage portion of your total cost.
+    * [Compute usage pricing](#compute-usage-pricing) &ndash; The compute portion of your total cost.
 * [Fully-managed pricing plans](#fully-managed-pricing-plans) &ndash; How to pay for resource usage.
     * [Billing setup and monitoring](#billing-setup-and-monitoring) &ndash; How to use the Billing dashboard to view resource consumption and set up billing and a plan.
     * [Set up billing for fully-managed plans](#set-up-billing-for-fully-managed-plans) &ndash; How to set up pay-as-you-go billing through AWS Marketplace.
@@ -71,12 +71,10 @@ Data storage costs are based on the amount of compressed data stored, including 
 #### Compute usage pricing
 Compute costs are measured in Firebolt Units (FBUs) and vary based on [engine]({% link Overview/engine-fundamentals.md %}) node type, number of nodes or cluster size, the number of clusters and usage duration. Costs are only billed for the time Firebolt engines are running. Firebolt offers two compute family options:
 
-The price of an FBU varies by Firebolt edition and region.
-
 * **Storage-optimized** (default): High SSD capacity for caching and production workloads.
 * **Compute-optimized**: About 2x cheaper; ideal for development and test environments or workloads with smaller active datasets.
 
-The following table outlines the available node types, their compute family, and the corresponding Firebolt Unit (FBU) sizing:
+The following table outlines the available node types, their compute family, and the corresponding FBU sizing:
 
 | Node type        | Compute family    | Sizing in FBU    |
 |------------------|-------------------|------------------|
@@ -89,6 +87,8 @@ The following table outlines the available node types, their compute family, and
 | Large (L)        | Compute-optimized | 16               |
 | Extra Large (XL) | Compute-optimized | 32               |
 
+Firebolt's compute usage pricing is based on **FBUs**, which vary by node type and region. The following table provides hourly pricing for **storage-optimized** node types across **Standard** and **Enterprise** plans, distinguishing between **US and Non-US regions**. Compute costs are only incurred while Firebolt engines are running, with **per-second billing**.
+
 **Storage-optimized pricing for compute usage**
 
 | Node Type         | Sizing in FBU | Standard: US Region Pricing ($0.23/FBU/hr) | Enterprise: US Region Pricing ($0.35/FBU/hr) | Standard: Non-US Region Pricing ($0.28/FBU/hr) | Enterprise: Non-US Region Pricing ($0.42/FBU/hr) |
@@ -97,6 +97,8 @@ The following table outlines the available node types, their compute family, and
 | **Medium (M)**   | 16           | $3.68                            | $5.60                            | $4.48                            | $6.72                            |
 | **Large (L)**    | 32           | $7.36                            | $11.20                           | $8.96                            | $13.44                           |
 | **Extra Large (XL)** | 64       | $14.72                           | $22.40                           | $17.92                           | $26.88                           |
+
+The following table provides hourly pricing for **compute-optimized** node types across **Standard** and **Enterprise** plans, distinguishing between **US and Non-US regions**. Compute costs are only incurred while Firebolt engines are running, with **per-second billing**.
 
 **Compute-optimized pricing for compute usage**
 
@@ -175,10 +177,11 @@ Response Time Commitments (TFR = Time to First Response)
 | Medium (Sev3) | Minor impact or feature issue               | Response within 24 business hours | Response within 6 business hours |
 | Low (Sev4)    | General inquiries or documentation questions | Response within 48 business hours | Response within 24 business hours |
 
-**Premium support features**            
-**Enterprise**, **Private Cloud**, and **Dedicated** edition customers receive additional support benefits beyond response time commitments:
-* **Proactive monitoring**: Alerts for issues and potential optimizations available to **Enterprise** edition customers
-* **Enhanced support channels**: All customers can access support via email and the in-app form, which can be accessed through the [help menu]({% link Reference/help-menu.md %}). Customers also have access to Slack support.
-* **Dedicated support engineer**: Customers are assigned a designated support engineer who has a deep understanding of their use and care for personalized support. **Standard** customers receive assistance from the general support pool. 
+**Premium support features**
+
+**Enterprise**, **Private Cloud**, and **Dedicated** edition customers receive the following additional support benefits beyond response time commitments:
+* **Proactive monitoring**: Alerts for issues and potential optimizations available to **Enterprise** edition customers.
+* **Enhanced support channels**: Support through Slack, email and the [help menu]({% link Reference/help-menu.md %}) in the **Firebolt Workspace**.
+* **Dedicated support engineer**: Customers are assigned a designated support engineer with deep knowledge of their environment, providing personalized support. This premium support level differs from **Standard** customers, who receive assistance from the general support pool. 
 
 Contact [support@firebolt.io](mailto:support@firebolt.io) to learn more about **Enterprise** edition Support offerings. 
