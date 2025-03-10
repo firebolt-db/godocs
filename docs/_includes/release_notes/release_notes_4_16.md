@@ -4,14 +4,14 @@
 
 <!-- Auto Generated Markdown for FIR-43599 - Owned by Misha Shneerson -->
 **Added `MAX_CONCURRENCY` option to the `VACUUM` statement for enhanced concurrency control**         
-The [VACUUM]({% link sql_reference/commands/data-management/vacuum.md %}) statement now includes the `MAX_CONCURRENCY` option, allowing users to limit the number of concurrent streams. This improves control over resource usage during `VACUUM` operation.
+The [VACUUM]({% link sql_reference/commands/data-management/vacuum.md %}) statement now includes the `MAX_CONCURRENCY` option, allowing users to limit the number of concurrent streams. This improves control over resource usage during `VACUUM` operations.
 
 <!-- Auto Generated Markdown for FIR-43506 - Owned by Misha Shneerson -->
 **Introduced the `INDEXES = ALL | NONE` for the `VACUUM` statement**         
-The [VACUUM]({% link sql_reference/commands/data-management/vacuum.md %}) statement now supports the `INDEXES = ALL | NONE` option, giving users control over whether indexes are optimized during vacuum operations.
+The [VACUUM]({% link sql_reference/commands/data-management/vacuum.md %}) statement now supports the `INDEXES = ALL | NONE` option, giving users control over whether indexes are optimized during `VACUUM` operations.
 
-**`VACUUM` now runs automatically**
-Firebolt now automatically evaluates the data layout of tables and runs the `VACUUM` command to optimize performance and storage efficiency. After [INSERT]({% link sql_reference/commands/data-management/insert.md %}), [UPDATE]({% link sql_reference/commands/data-management/update.md %}), or [DELETE]({% link sql_reference/commands/data-management/delete.md %}) operations modify data, the engine that performed the operation determines whether `VACUUM` is required based on factors such as the number of deleted rows and the need to consolidate storage for faster query performance and reduced disk space usage. 
+**`VACUUM` now runs automatically**<br>
+Firebolt now automatically evaluates the data layout of tables and runs [VACUUM]({% link sql_reference/commands/data-management/vacuum.md %}) to optimize performance and storage efficiency. After [INSERT]({% link sql_reference/commands/data-management/insert.md %}), [UPDATE]({% link sql_reference/commands/data-management/update.md %}), or [DELETE]({% link sql_reference/commands/data-management/delete.md %}) operations modify data, the engine that performed the operation determines whether `VACUUM` is required. This decision is based on factors such as the number of deleted rows and the need to consolidate storage for faster query performance and reduced disk space usage. 
 
 <!-- Auto Generated Markdown for FIR-43695 - Owned by Tobias Humig -->
 **Added support for casting text literals to interval literals**         
@@ -45,6 +45,7 @@ SQL queries can now use `FROM` before `SELECT`, allowing for more flexible query
 Engines can now be created with concurrency auto-scaling enabled, or modified to enable concurrency auto-scaling. Setting the `MIN_CLUSTERS` and `MAX_CLUSTERS` parameters on [CREATE ENGINE]({% link sql_reference/commands/engines/create-engine.md %}) and [ALTER ENGINE]({% link sql_reference/commands/engines/alter-engine.md %}) commands turns on concurrency auto-scaling: the engine will dynamically resize between the specified `MIN_CLUSTERS` and `MAX_CLUSTERS` values to match demand.
 
 **Firebolt introduces three fully managed editions**
+
 Firebolt now offers **Standard, Enterprise, and Dedicated editions**, each designed for different capabilities, security, and scalability needs.
 * **Standard**: High-performance, elastic scaling &ndash; in and out, up and down &ndash; for cost-efficient, fully managed analytics on a single cluster.
 * **Enterprise & Dedicated**: Includes scaling capabilities like **multi-cluster scaling**, as well as advanced security features like **AWS PrivateLink**.
@@ -55,7 +56,7 @@ Enterprise and Dedicated customers also get **24/7 support** with **faster suppo
 ### Behavior Changes
 
 <!-- Auto Generated Markdown for FIR-38200 - Owned by Jonathan Doron -->  
-**Removed a planner rule that transform aggregations on a case statement**
+**Removed a planner rule that transform aggregations on a case statement**<br>
 The planner rule that converted `AGG(CASE WHEN P THEN V ELSE NULL END)` into `AGGIF(V, P)` has been removed to simplify query processing.
 
 ### Performance Improvements
