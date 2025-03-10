@@ -28,7 +28,7 @@ When you start using Firebolt, you receive $200 in free credits to use in the fi
 Firebolt compute costs are determined by the following:
 
 * The number of compute nodes used to process your workload.
-* The type of node selected. You can choose a small (S), medium (M), large (L) or extra-large (XL) node.
+* The type of node selected. You can choose a small (S), medium (M), large (L) or extra-large (XL) node from either the storage-optimized or compute-optimized node family.
 
 Usage is calculated with one-second granularity, from the time that Firebolt makes the engine available for queries until it enters a stopped state.
 
@@ -36,15 +36,18 @@ Compute pricing is elastic, and you pay only for the resources you consume durin
 
 Sizing is determined in FBUs (Firebolt Units) as follows:
 
-1 FBU = $0.35 /hr
+| Node type        | Compute family    | Sizing in FBU    |
+|------------------|-------------------|------------------|
+| Small (S)        | Storage-optimized | 8                |
+| Medium (M)       | Storage-optimized | 16               |
+| Large (L)        | Storage-optimized | 32               |
+| Extra Large (XL) | Storage-optimized | 64               |
+| Small (S)        | Compute-optimized | 4                |
+| Medium (M)       | Compute-optimized | 8                |
+| Large (L)        | Compute-optimized | 16               |
+| Extra Large (XL) | Compute-optimized | 32               |
 
-| Node type        | Sizing in FBU | Pricing in $USD |
-|------------------|---------------|--------------|
-| Small (S)        | 8             | $2.80 / hr    |
-| Medium (M)       | 16            | $5.60 / hr    |
-| Large (L)        | 32            | $11.20 / hr   |
-| Extra Large (XL) | 64            | $22.40 / hr   |
-
+The price of an FBU varies by Firebolt edition and region.
 
 ## Data storage
  

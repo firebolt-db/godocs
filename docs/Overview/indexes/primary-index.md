@@ -8,7 +8,7 @@ nav_order: 1
 
 # Primary index
 
-The Firebolt primary index is a core optimization tool designed to organize and streamline retrieval of data based on specific column values, enabling efficient data pruning and high-performance querying for large-scale analytics workloads. By leveraging high selectivity, the primary index ensures that queries target only the most relevant portions of the data, significantly reducing the volume of unnecessary scans. This selectivity is especially powerful when the indexed columns align closely with query patterns, allowing the database to quickly locate and retrieve the required data. As a result, query performance is not only optimized but also remains consistent even as data volumes grow.
+The Firebolt primary index optimizes data retrieval by organizing it based on column values. This enables efficient data pruning and high-performance queries for large-scale analytics. The primary index ensures that queries target only the most relevant portions of the data, significantly reducing the volume of unnecessary scans. This selectivity is especially powerful when the indexed columns align closely with query patterns, allowing the database to quickly locate and retrieve the required data. As a result, query performance is not only optimized but also remains consistent even as data volumes grow.
 
 Topics:
 * [Key features](#key-features)
@@ -16,11 +16,12 @@ Topics:
 * [Parameters](#parameters)
 * [Example](#example)
 * [Considerations](#considerations)
+* [Advanced option: index granularity](#advanced-option-index-granularity)
 
-## Key Features
+## Key features
 
 - **Customizable indexing**:  
-  - Unlike traditional databases, Firebolt allows primary indexes to be created on any columns, providing you with flexibility to align with query patterns.  
+  - Unlike traditional databases, Firebolt allows primary indexes on any column, so that you have the flexibility to align with query patterns.  
   - Primary key constraints are not enforced, allowing for greater customization.
 
 - **Tablet-based data organization**:  
@@ -55,15 +56,17 @@ CREATE TABLE <table_name> (
    [, <column2> <data_type>,
    ...]
 )
-PRIMARY INDEX <column_name1>[, <column_name2>, ...];
+PRIMARY INDEX <column_name1>[, <column_name2>, ...]
+[WITH ( index_granularity = <index_granularity_value> ) ];
 ```
 
 ## Parameters
 
-| Parameter           | Description                                                                 |
-|---------------------|-----------------------------------------------------------------------------|
-| `table_name`        | The name of the table where the primary index is applied.                  |
-| `column_name1, ...` | The columns chosen to be included in the primary index.                    |
+| Parameter                 | Description                                                                                                      |
+|---------------------------|------------------------------------------------------------------------------------------------------------------|
+| `table_name`              | The name of the table where the primary index is applied.                                                        |
+| `column_name1, ...`       | The columns chosen to be included in the primary index.                                                          |
+| `index_granularity_value` | The maximum number of rows in each tablet subrange. See [Index granularity](#advanced-option-index-granularity). |
 
 ## Example
 
@@ -89,7 +92,7 @@ PRIMARY INDEX SubmitDate, EngineName;
 * **Managing fragmentation**:  
   Fragmentation can occur as you insert, delete, or update data in a table, which impacts storage efficiency and potentially affects your query performance. Firebolt provides tools to help mitigate this effect:  
   - **Efficient deletion management**:  
-    Instead of immediately removing rows from the table, Firebolt uses a deletion mask vector to flag rows as deleted. This vector acts as a lightweight overlay that marks rows for exclusion during queries while keeping the underlying data intact until cleanup is performed.  
+    Instead of immediately removing rows from the table, Firebolt uses a deletion mask vector to flag rows as deleted. This vector marks rows for exclusion during queries while keeping the underlying data intact until cleanup is performed.  
     This approach ensures consistency and avoids disrupting the primary index during updates or deletions.  
   - **fragmentation metric**:  
     Use the `information_schema.tables` to access the fragmentation metric to assess fragmentation levels and determine whether maintenance actions are needed.  
@@ -102,5 +105,35 @@ PRIMARY INDEX SubmitDate, EngineName;
 * **Column Selection**:  
   Choose columns with high selectivity and relevance to query patterns for optimal performance. **Selectivity** refers to the ability of a column to significantly narrow down the dataset when filtered, typically measured by the proportion of unique values in the column. Columns with higher selectivity, such as IDs or timestamps, help reduce the number of rows scanned, leading to faster query execution and better resource efficiency.
 
-By leveraging Firebolt’s primary index, your organization can enhance its query performance, optimize data management, and scale efficiently for modern analytics workloads.
+Using Firebolt’s primary indexes can help you enhance your query performance, optimize data management, and scale efficiently for modern analytics workloads.
+
+## Advanced option: index granularity
+
+The `index_granularity` [storage parameter]({% link sql_reference/commands/data-definition/create-fact-dimension-table.md %}#storage-parameters),
+specified in the `WITH` clause, is an advanced setting that may be useful for improving performance in very specific query patterns.
+It defines the maximum number of rows per tablet range, which directly impacts how data is indexed and queried.
+
+### How index granularity works
+
+Primary indexes store a sparse set of column values in memory, capturing values at tablet range boundaries. Increasing the tablet range size reduces the number of ranges, while decreasing it creates more ranges. This directly affects the primary index’s selectivity and memory usage.
+
+There is a tradeoff between the following:
+
+* **Lower index granularity values** provide more precise indexing, minimizing unnecessary row scans for selective queries. However, they increase static memory usage for the primary index and may introduce overhead from managing additional tablet ranges.
+* **Higher index granularity values** reduce memory overhead but may increase the number of irrelevant rows scanned during filtering, particularly for selective queries.
+
+For more information about the fundamentals of Firebolt's primary indexes and tablet ranges, see Firebolt's blog post on [primary indexes](https://www.firebolt.io/blog/primary-indexes-in-firebolt-a-comprehensive-guide-to-understanding-managing-and-selecting).
+
+### Accepted values
+
+`<index_granularity_value>` must be a power of 2, ranging from 128 to 8192. The default value is 8192. We recommend using the default value, but lower values can decrease query latency by 10x or more in some query patterns.
+
+### Best practices
+
+Use the default value of `index_granularity`, which should translate to good performance for most queries.  The following workload patterns may benefit from higher or lower values for `index_granularity`:
+
+* If your queries access only a few rows per tablet range, such as single-row queries or individual rows spread throughout a table, setting a **lower** `index_granularity` value can reduce unnecessary row scans and improve efficiency. However, this increases static memory usage for storing the index.
+* If most of your queries scan large portions of the table, such as a large bounded range of primary index columns, a **higher** `index_granularity` is more efficient, as it reduces index memory usage and overhead introduced by each tablet range boundary.
+
+If you want to adjust `index_granularity`, start with the default value, then create duplicate tables with different settings to compare both the query latency and memory usage.
 

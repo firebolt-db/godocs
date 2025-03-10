@@ -24,10 +24,13 @@ Firebolt Engines provide full workload isolation, enabling multiple workloads to
 **Type** <br />
 This attribute represents a compute node used as a building block for the engine. Compute nodes come in Small, Medium, Large, or X-Large sizes. Vertical engine scaling (scale-up or scale-down) is supported through this attribute.
 
+**Family** <br />
+Compute nodes can also be storage-optimized with larger cache sizes or compute-optimized which have smaller caches. The default is storage optimized.  
+
 **Nodes** <br />
 This attribute represents the number (1 - 128) of compute nodes, allowing granular horizontal scaling to fine-tune query performance characteristics while avoiding overprovisioning and unnecessary cost. Both scaling in and out are supported.
 
-**Clusters [Preview]** <br />
+**Clusters** <br />
 A cluster is a collection of compute resources, described by “Type” and “Nodes” attributes. A given Firebolt engine can contain one or more clusters. The maximum number of clusters is specified by the Clusters attribute. Only homogeneous cluster configurations (clusters with the same number of Nodes and Type) are supported within a single engine. Users can leverage the “Clusters” attribute to support query concurrency scaling.
 
 ![An engine cluster in Firebolt](../assets/images/engine_cluster_type_M.png){: width="600" .centered}
