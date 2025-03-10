@@ -12,7 +12,9 @@ parent: Data management
 # VACUUM
 Optimizes tablets for query performance.
 
-`VACUUM` optimizes tablets for query performance. DML operations (such as [DELETE](delete.md), [UPDATE](update.md), [INSERT](insert.md) and [COPY FROM](copy-from.md)) might create tablets that are not optimally sized. Suboptimal tablets occur because DML efficiently utilizes resources in proportion to the cardinality of the data being inserted. In addition to standard SQL operations, tuples that are deleted by an update are not always physically removed from their table; they remain present until a `VACUUM` is done. In other words, tablets are not necessarily optimal for running queries; therefore, it’s necessary to do `VACUUM` periodically, especially on frequently updated tables.
+`VACUUM` improves query efficiency by restructuring tablets for optimal performance.. DML operations such as [DELETE](delete.md), [UPDATE](update.md), [INSERT](insert.md), and [COPY FROM](copy-from.md) might create tablets that are not optimally sized. Suboptimal tablets occur because DML efficiently utilizes resources in proportion to the cardinality of the data being inserted. In addition to standard SQL operations, tuples that are deleted by an update are not always physically removed from their table; they remain present until a `VACUUM` is finished operating. In other words, tablets are not necessarily optimal for running queries; therefore, it’s necessary to run `VACUUM` periodically, especially on frequently updated tables.
+
+Any engine that processes a DML operation automatically assesses the health of tables’ data layout and runs the `VACUUM` command when necessary to maintain the underlying table health. The fragmentation ratio—the ratio of rows marked for deletion to the total number of rows—can be monitored using the `information_schema.tables view`. You can also run `VACUUM` manually using the syntax and options described below.
 
 ## Syntax
 
@@ -24,13 +26,10 @@ Where `<table>` is the name of the table to be optimized.
 ## Options
 {: .no_toc}
 
-
-
 | Option name | Option value and description         |
 | :---------  | :----------------------------------- |
-| `INDEXES`   | `ALL` &ndash; (Default) Specifies whether to apply optimizations to both the table and all its aggregating indexes.<br> `NONE` &ndash; Optimizes only the table. |
+| `INDEXES`   | `ALL` &mdash; (Default) Specifies whether to apply optimizations to both the table and all its aggregating indexes.<br> `NONE` &mdash; Optimizes only the table. |
 | `MAX_CONCURRENCY`   | `<Number>` &mdash; The maximum number of concurrent jobs to use during optimization. |
-
 
 
 ## Examples
@@ -39,7 +38,6 @@ Where `<table>` is the name of the table to be optimized.
 **Optimize a table and its aggregating indexes** 
 
 Optimizing a table along with its aggregating indexes ensures that both the data and aggregating indexes remain efficient, reducing query latency and improving overall performance.   
-
 The following code example optimizes the `games` table and all its aggregating indexes:
 
 ```text
@@ -49,7 +47,6 @@ VACUUM games;
 **Optimize a table without its indexes**
 
 If you need to optimize a table without including its aggregating indexes to reduce resource usage, or retain efficient indexes, you can optimize only the table to prevent unnecessary computations.  
-
 The following code example optimizes the `players` table without updating its aggregating indexes:
 
 ```text
@@ -68,14 +65,14 @@ The following are considerations for running the `VACUUM` command:
 
 * **What happens during VACUUM**<br>
 `VACUUM` analyzes the tablets, selects the ones that are too small or have too many deleted rows, and produces new versions that are optimized for query execution for both tablets and Aggregate Indexes.<br>
-`VACUUM` is a non-blocking process and runs alongside other operations executed by the user. Consequently, some changes performed by `VACUUM` may conflict with mutations run by the user. The operation that commits first wins (see Transaction and concurrency for details) . This means that applications that execute mutations in parallel with `VACUUM` should gracefully handle transaction conflicts. It also means that benefits of the `VACUUM` may be diminished by a mutation that committed data first.<br>
+`VACUUM` runs as a non-blocking process, alongside other user-initiated operations. Consequently, some changes performed by `VACUUM` may conflict with mutations run by the user.  If `VACUUM` and a user mutation modify the same data, the first committed operation takes precedence; see [Transactions and concurrency]({% link Overview/data-management.md %}#transactions-and-concurrency) for more details. This means that applications that run mutations in parallel with `VACUUM` should gracefully handle transaction conflicts. It also means that benefits of the `VACUUM` may be diminished by a mutation that committed data first.<br>
 
 * **Space and performance considerations**<br>
 Users must be aware that `VACUUM` consumes both compute and storage resources.<br>
 `VACUUM` can consume a considerable amount of compute resources depending on the table size, number of tablets, and number of mutations in the table.<br>
 `VACUUM` parallelizes its work into multiple concurrent streams, based on the number of CPU cores. While this can be beneficial for the speed of the operation, each stream consumes memory and CPU resources. Use the `MAX_CONCURRENCY` option to limit the number of concurrent streams.<br>
 `VACUUM` produces optimized versions of the data, while leaving behind older versions subject to the garbage collection (GC) process. These older tablets will continue to consume storage space until the GC process completes the clean-up.<br>
-If users would like to have precise control over `VACUUM`, it may be preferable to execute on a dedicated engine that could be sized and run just for `VACUUM` operations. With `VACUUM` running on a dedicated engine, it would not conflict with other queries' execution and cache resources, and would provide operational separation from other scenarios.<br>
+If users would like to have precise control over `VACUUM`, it may be preferable to run on a dedicated engine that could be sized and run just for `VACUUM` operations. With `VACUUM` running on a dedicated engine, it would not conflict with other queries' execution and cache resources, and would provide operational separation from other scenarios.<br>
 `VACUUM` may introduce a performance penalty as the newly created optimized tablets need to be synchronized with other engines operating on the same table(s).<br>
 
 * **Automatic scheduling**<br>
