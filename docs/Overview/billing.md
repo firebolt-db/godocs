@@ -52,7 +52,7 @@ The **Dedicated** edition is ideal for organizations that require high levels of
 
 ### Fully-managed pricing model
 
-Firebolt pricing is based on compute usage and data storage. The total cost for Firebolt’s fully-managed editions consists of a **cost for data storage** plus a **cost for compute usage**. The compute usage cost depends on the type of engine that you select: compute-optimized or storage-optimized.
+The total cost for Firebolt’s fully-managed editions consists of a **cost for data storage** plus a **cost for compute usage**. The compute usage cost depends on the type of engine that you select: compute-optimized or storage-optimized.
 
 <br>
 <img src="../../assets/images/compute-usage-cost.png" width="700"/>
@@ -145,7 +145,7 @@ If you want to sign up or upgrade your fully-managed edition type, you can choos
     1. To select the **Standard** or **Enterprise** plan, choose **Select plan** and confirm your selection.
     2. To select the **Dedicated** plan, do the following:
         1. Choose **Talk to Sales**. 
-        2. In the pop-up window, **Your email** is automatically populated with the email associated with your loging. 
+        2. In the pop-up window, **Your email** is automatically populated with the email associated with your login. 
         3. Enter a **Subject** or accept the default **Pricing plan** entry.
         4. Enter a **Description**.
         5. Select **Send** to notify Firebolt's support team.
@@ -158,12 +158,12 @@ Firebolt offers two self-managed options, where you run Firebolt on your own inf
 
 <br>
 <img src="../../assets/images/self-managed-editions.png" width="700" alt="Firebolt offers two self-managed editions. One that is free that you manage, and one for a private cloud."/>
-   
-**Firebolt Core**             
-**Firebolt Core** is a free downloadable version that can be deployed on cloud, on-premises, or on a local machine. This option is best for teams needing full control over deployment with a lightweight Firebolt engine. Customers manage compute and storage infrastructure, hosting, all software upgrades, and maintenance.
 
 **Private Cloud (BYOC)**                 
 The **Private Cloud** is a BYOC (Bring your own cloud) offering for organizations that want Firebolt’s software but prefer to use their own cloud infrastructure. Customers manage their own infrastructure for both compute and storage, whereas Firebolt manages hosting, Firebolt upgrades and maintenance. For BYOC pricing, contact [support@firebolt.io](mailto:support@firebolt.io). 
+
+**Firebolt Core**             
+**Firebolt Core** is a free downloadable version that can be deployed on cloud, on-premises, or on a local machine. This option is best for teams needing full control over deployment with a lightweight Firebolt engine. Customers manage compute and storage infrastructure, hosting, all software upgrades, and maintenance.
 
 ## Support plans and service level agreements
 Firebolt offers support options based on your selected edition for fully-managed and **Private Cloud** editions. 
