@@ -69,7 +69,18 @@ Data storage costs are based on the amount of compressed data stored, including 
 
 #### Compute usage pricing
 Compute costs are measured in Firebolt Units (FBUs) and vary based on [engine]({% link Overview/engine-fundamentals.md %}) node type, number of nodes or cluster size, the number of clusters and usage duration. Costs are only billed for the time Firebolt engines are running. Firebolt offers two compute family options:
+| Node type        | Compute family    | Sizing in FBU    |
+|------------------|-------------------|------------------|
+| Small (S)        | Storage-optimized | 8                |
+| Medium (M)       | Storage-optimized | 16               |
+| Large (L)        | Storage-optimized | 32               |
+| Extra Large (XL) | Storage-optimized | 64               |
+| Small (S)        | Compute-optimized | 4                |
+| Medium (M)       | Compute-optimized | 8                |
+| Large (L)        | Compute-optimized | 16               |
+| Extra Large (XL) | Compute-optimized | 32               |
 
+The price of an FBU varies by Firebolt edition and region.
 
 * **Storage-optimized** (default): High SSD capacity for caching and production workloads.
 * **Compute-optimized**: About 2x cheaper; ideal for development and test environments or workloads with smaller active datasets.

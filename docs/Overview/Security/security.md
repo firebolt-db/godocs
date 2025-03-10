@@ -26,6 +26,7 @@ Firebolt's layered security model has the following key areas:
     - [Data at rest](#data-at-rest)
     - [Data in motion](#data-in-motion)
     - [Secure communication protocols](#secure-communication-protocols)
+    - [AWS PrivateLink](#aws-privatelink)
     - [HIPAA compliance](#hipaa-compliance)
 
 
@@ -217,7 +218,12 @@ Firebolt automatically encrypts sensitive data being transmitted between service
 
 Firebolt uses secure communication protocols, such as Transport Layer Security (TLS), to provide an additional layer of protection against man-in-the-middle attacks. These attacks occur when an unauthorized party intercepts or alters data as it is transmitted between two points. By encrypting data and ensuring secure connections, Firebolt prevents unauthorized access or tampering during data transmission, safeguarding sensitive information as it moves between systems.
 
-{: .no_toc}
+### AWS PrivateLink
+
+AWS PrivateLink enables secure connectivity between your VPC and Firebolt without routing traffic over the public internet. Firebolt supports AWS PrivateLink to provide a private, one-way connection from your VPC to the Firebolt private API, ensuring data confidentiality, integrity, and availability during transit. 
+
+Users with an [account administrator]({% link Overview/organizations-accounts.md %}#account-administrative-role) or [organizational administrative]({% link Overview/organizations-accounts.md %}#organizational-administrative-role) role can request access to PrivateLink. For more information, see [Request PrivateLink access]({% link Guides/security/privatelink.md %}#request-aws-privatelink-access). 
+
 
 ### HIPAA compliance
 HIPAA compliance consists of federal regulations designed to safeguard the privacy and security of patient health information. Firebolt supports HIPAA compliance to ensure the confidentiality, integrity, and availability of electronic protected health information (ePHI) stored within its platform.

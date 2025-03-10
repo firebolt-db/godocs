@@ -28,6 +28,7 @@ Each row has the following columns with information about each engine.
 | engine_owner                | TEXT        | The name of the user who owns the engine. |
 | cluster_id                  | INT         | Ordinal numbers to identify engine clusters. |
 | type                        | TEXT(5)     | Node type used in a given engine (S, M, L or XL). |
+| family                      | TEXT        | The family of a given engine. Choose from `STORAGE_OPTIMIZED` or `COMPUTE_OPTIMIZED`. |
 | nodes                       | INT         | Number of nodes in each of the cluster of the engine. |
 | clusters                    | INT         | The number of clusters used in the engine. |
 | auto_start                  | BOOLEAN     | If True, automatically start the engine if in stopped state when a query comes in. |
