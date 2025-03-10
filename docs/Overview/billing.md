@@ -43,7 +43,7 @@ The following sections outline the available deployment models, their editions, 
 **Standard edition**       
 The **Standard** edition is best for teams seeking a low-cost entry point without the need to manage compute infrastructure. It offers high performance with sub-second query latency, flexible compute scaling within a single cluster. Security features include Role-Based Access Control (RBAC), single sign-on (SSO), multi-factor authentication (MFA), and audit logging. **Standard** includes a flexible compute option that is optimized for either storage or for compute. Firebolt manages your compute infrastructure, software maintenance, and upgrades.
 
-**Enterprise** edition**              
+**Enterprise edition**              
 The **Enterprise** edition is designed for organizations that need advanced security, compliance, and automatic compute scaling. It includes all the features in the **Standard** edition, plus multi-cluster scaling, auto-scaling for concurrency, [AWS PrivateLink]({% link Guides/security/privatelink.md %}), and HIPAA compliance support.
 
 **Dedicated edition**               
