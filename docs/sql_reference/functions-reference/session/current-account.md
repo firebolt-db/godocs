@@ -24,10 +24,4 @@ CURRENT_ACCOUNT()
 ## Example
 {: .no_toc}
 
-```sql
-SELECT current_account()
-```
-
-**Returns**
-
-`test_account`
+{% include sql_examples/current_account_executable.md %}

@@ -50,8 +50,7 @@ When the input is of type `NUMERIC`, `FLOOR` throws an overflow error if the res
 The following code example calculates the nearest whole number smaller than `-99.99` and specifies that the output should contain a total of `4` digits, with only `2` digits reserved for the decimal part:
 
 ```sql
-SELECT
-    FLOOR(-'99.99'::NUMERIC(4,2));
+SELECT FLOOR(-'99.99'::NUMERIC(4,2));
 ```
 
 **Returns** 
@@ -62,54 +61,4 @@ The previous code returns an `OVERFLOW ERROR` because `FLOOR` returns `-100.00`,
 
 {: .no_toc}
 
-**Example**
-
-The following code example returns the nearest whole number smaller than `2.5549900`:
-
-```sql
-SELECT
-    FLOOR(2.5549900);
-```
-
-**Returns** 
-
-The previous code example returns the value `2`.
-
-**Example**
-
-The following code example calculates the nearest whole number smaller  than `213.1549`, and returns a result of type `NUMERIC(20,4)`, which allows for a total of `20` digits, with `4` values allowed after the decimal point:
-
-```sql
-SELECT
-    FLOOR('213.1549'::NUMERIC(20,4));
-```
-
-**Returns** 
-
-The previous code example returns `213.0000`.
-
-**Example**
-
-The following code example rounds the number `2.5549900` down to the second decimal place: 
-
-```sql
-SELECT
-    FLOOR(2.5549900, 2);
-```
-
-**Returns**
-
-The previous code example returns `2.55` because the second parameter `2` specifies rounding to the second digit **after** the decimal, which corresponds to the hundredths place.
-
-**Example**
-
-The following code example calculates the nearest whole number smaller than `1998` that is a multiple of `1000`:
-
-```sql
-SELECT
-    FLOOR(1998, -3);
-```
-
-**Returns**
-
-The previous code example returns `1000` because the second parameter `-3` specifies rounding to the third digit **before** the decimal point, which corresponds to the thousands place.
+{% include sql_examples/floor_executable.md %}

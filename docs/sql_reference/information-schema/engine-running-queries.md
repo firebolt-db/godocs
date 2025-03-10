@@ -42,4 +42,5 @@ Each row has the following columns with information about each running query.
 | scanned_bytes   | BIGINT      | The number of bytes scanned from cache and storage.                                                                                                                                    |
 | inserted_rows   | BIGINT      | The number of rows written                                                                                                                                                             |
 | inserted_bytes  | BIGINT      | The number of bytes written.                                                                                                                                                           |
+| async_token     | TEXT        | If the query is an async query, this handle can be used to check the status via the built in stored procedure fb_GetAsyncStatus(<token>).              |
 | retries         | BIGINT      | The total number of retries to execute a given query after a failure (by default, the number of retries is 0 and the number increases with each retry)                                 |

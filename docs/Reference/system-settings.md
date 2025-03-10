@@ -111,6 +111,8 @@ Specify how the query should behave when the HTTP connection to Firebolt is drop
 - `ALL` : The query will be canceled on connection drop
 - `TYPE_DEPENDENT`: Only queries without side effects will be canceled, such as `SELECT`. 
 
+The default is `TYPE_DEPENDENT`.
+
 ### Syntax
 ```sql
 SET cancel_query_on_connection_drop = <mode>

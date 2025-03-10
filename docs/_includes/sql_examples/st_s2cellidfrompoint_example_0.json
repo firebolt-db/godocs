@@ -1,0 +1,48 @@
+{
+  "query": {
+    "query_id": "7a972eed-a0c6-4ca8-939d-cb208a9aec6d",
+    "request_id": "b82e0bec-ad2e-4260-937f-3331ba84a4af",
+    "query_label": null
+  },
+  "meta": [
+    {
+      "name": "id",
+      "type": "int"
+    },
+    {
+      "name": "cell30",
+      "type": "long null"
+    },
+    {
+      "name": "cell10",
+      "type": "long null"
+    }
+  ],
+  "data": [
+    [
+      1,
+      "6093613931972369317",
+      "6093613287902019584"
+    ],
+    [
+      2,
+      null,
+      null
+    ],
+    [
+      3,
+      null,
+      null
+    ]
+  ],
+  "rows": 3,
+  "statistics": {
+    "elapsed": 0.010997,
+    "rows_read": 3,
+    "bytes_read": 66,
+    "time_before_execution": 0.000276763,
+    "time_to_execute": 0.000110032,
+    "scanned_bytes_cache": 0,
+    "scanned_bytes_storage": 0
+  }
+}

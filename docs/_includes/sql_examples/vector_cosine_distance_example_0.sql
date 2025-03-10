@@ -1,0 +1,1 @@
+SELECT VECTOR_COSINE_DISTANCE([1, 2], [3, 4]) AS distance;

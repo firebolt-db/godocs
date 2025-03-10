@@ -1,0 +1,1 @@
+SELECT TO_YYYYMM('2025-04-03') as yyyymm, TO_YYYYMMDD('2025-04-03') as yyyymmdd;

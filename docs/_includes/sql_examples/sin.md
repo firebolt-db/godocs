@@ -1,9 +1,17 @@
-The following query calculates the sine of 1.57 radians, which is approximately pi/2:
-
+The following query calculates the sine of 0:
 ``` sql
-SELECT SIN(1.57) as result;
+SELECT SIN(0) as result;
 ```
 
 | result (DOUBLE PRECISION) |
 | :--- |
-| 0.9999996829318346 |
+| 0 |
+
+The following query calculates the sine of pi:
+``` sql
+SELECT ROUND(SIN(PI()), 5) as result;
+```
+
+| result (DOUBLE PRECISION) |
+| :--- |
+| 0 |

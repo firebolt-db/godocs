@@ -1,0 +1,1 @@
+SELECT bit_shift_left(1, 2) AS res;

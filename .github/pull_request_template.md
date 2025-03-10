@@ -8,6 +8,7 @@ If it's part of a **future release**, please file the PR against the correcspond
 # Documentation Checklist
 - [ ] I've previewed my documentation locally running `make start-local` (or using [this](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll) tutorial) 
 - [ ] I've validated that indexing works and that I'm able to navigate to the documentation page from the table of contents
+- [ ] If I added SQL examples, I have validated that they run correctly and as described. 
 
 If this PR touches a function implementation (aggregate, scalar, or table-valued):
 - [ ] I've made sure my documentation is aligned with [these](https://github.com/firebolt-analytics/firebolt-docs-staging/blob/gh-pages/.github/ISSUE_TEMPLATE/new-function-template.md) guidelines on function documentation 

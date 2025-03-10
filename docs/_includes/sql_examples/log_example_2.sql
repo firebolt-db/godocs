@@ -1,0 +1,3 @@
+SELECT LOG(0.0);
+-- SELECT LOG(-1.0);
+-- SELECT LOG('-Inf');

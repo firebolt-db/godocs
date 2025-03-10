@@ -1,0 +1,1 @@
+SELECT ATAN2(11,3) as result;

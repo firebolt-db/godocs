@@ -1,0 +1,14 @@
+{
+  "errors": [
+    {
+      "description": "Line 2, Column 6: relation 'sketch_of_data_to_count' does not exist or not authorized."
+    }
+  ],
+  "query": {
+    "query_id": "720fe9ab-aabb-4371-ae74-8f5f7c63a18f",
+    "request_id": "fba54941-1784-47a3-8a16-78491ba8ace8"
+  },
+  "statistics": {
+    "elapsed": 0.0
+  }
+}

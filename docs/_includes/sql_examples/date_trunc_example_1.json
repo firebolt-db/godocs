@@ -1,0 +1,28 @@
+{
+  "query": {
+    "query_id": "0e843506-2d1e-4230-af96-9633903c37de",
+    "request_id": "36a0e284-ebd5-4e71-8362-ef6835064d8d",
+    "query_label": null
+  },
+  "meta": [
+    {
+      "name": "?column?",
+      "type": "timestamp"
+    }
+  ],
+  "data": [
+    [
+      "1996-09-03 11:00:00"
+    ]
+  ],
+  "rows": 1,
+  "statistics": {
+    "elapsed": 0.008734,
+    "rows_read": 1,
+    "bytes_read": 1,
+    "time_before_execution": 0.000277249,
+    "time_to_execute": 0.000101848,
+    "scanned_bytes_cache": 0,
+    "scanned_bytes_storage": 0
+  }
+}

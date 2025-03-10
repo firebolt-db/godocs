@@ -31,4 +31,4 @@ COS(<value>)
 ## Example
 {: .no_toc}
 
-{% include sql_examples/cos.md %}
+{% include sql_examples/cos_executable.md %}

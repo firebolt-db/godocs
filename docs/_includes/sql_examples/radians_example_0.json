@@ -1,0 +1,28 @@
+{
+  "query": {
+    "query_id": "ddfb6f3a-199d-4116-be18-46253bcd6e84",
+    "request_id": "8f6dd607-e08f-4904-b0fb-c7a55cb67a82",
+    "query_label": null
+  },
+  "meta": [
+    {
+      "name": "result",
+      "type": "double"
+    }
+  ],
+  "data": [
+    [
+      3.141592653589793
+    ]
+  ],
+  "rows": 1,
+  "statistics": {
+    "elapsed": 0.019329,
+    "rows_read": 1,
+    "bytes_read": 1,
+    "time_before_execution": 0.000324582,
+    "time_to_execute": 0.000101677,
+    "scanned_bytes_cache": 0,
+    "scanned_bytes_storage": 0
+  }
+}

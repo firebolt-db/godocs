@@ -41,8 +41,6 @@ The metadata virtual columns listed below are available in external tables.
 | `$source_file_timestamp` | The UTC creation timestamp in second resolution of the row's source file in Amazon S3. (S3 objects are immutable. In cases where files are overwritten with new data - this will be Last Modified time.)                                             | TIMESTAMPTZ |
 | `$source_file_size`      | Size in bytes of the row's source file in Amazon S3.                                                                                                                                                                                                 | BIGINT      |
 
-For examples of metadata virtual column usage, see [Extracting partition values using INSERT](../../sql_reference/commands/data-management/insert.md#extracting-partition-values-using-insert).
-
 ### Example&ndash;querying metadata virtual column values
 
 The query example below creates an external table that references an AWS S3 bucket that contains Parquet files from which Firebolt will ingest values for `c_id` and `c_name`.

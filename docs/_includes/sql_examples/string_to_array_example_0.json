@@ -1,0 +1,33 @@
+{
+  "query": {
+    "query_id": "b5466e4a-2356-4996-a6d6-83e865f291d8",
+    "request_id": "325c993b-8815-44a5-a19f-e44960ab3865",
+    "query_label": null
+  },
+  "meta": [
+    {
+      "name": "nicknames",
+      "type": "array(text)"
+    }
+  ],
+  "data": [
+    [
+      [
+        "stephen70",
+        "esimpson",
+        "ruthgill",
+        ""
+      ]
+    ]
+  ],
+  "rows": 1,
+  "statistics": {
+    "elapsed": 0.008867,
+    "rows_read": 1,
+    "bytes_read": 1,
+    "time_before_execution": 0.000273081,
+    "time_to_execute": 0.000105334,
+    "scanned_bytes_cache": 0,
+    "scanned_bytes_storage": 0
+  }
+}

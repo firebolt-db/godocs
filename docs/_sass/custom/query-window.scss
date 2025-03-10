@@ -1,0 +1,260 @@
+// Main query window container
+.query-window {
+  background: #ffffff;
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+
+  .hidden {
+    display: none !important;
+  }
+
+  // Query editor
+  code.firebolt-sql {
+    display: block;
+    min-height: 4em;
+    padding: 16px;
+    cursor: text;
+    font-size: 14px;
+    background: #f5f2f0;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease;
+
+    // When in Focus, make the background a bit darker. This makes the query window feel more interactive.
+    &:focus {
+      background: #f0ece8;
+      outline: none;
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.37);
+    }
+
+    // Prism syntax highlighting
+    &.language-sql {
+      font-family: var(--mono-font);
+    }
+
+    .token {
+      &.keyword {
+        color: #07a;
+      }
+
+      &.function {
+        color: #DD4A68;
+      }
+
+      &.string {
+        color: #690;
+      }
+
+      &.number {
+        color: #905;
+      }
+
+      &.operator {
+        color: #9a6e3a;
+        background: none;
+      }
+    }
+
+    &:empty {
+      display: block;
+      min-height: 100px;
+    }
+
+    br {
+      display: block;
+      content: '';
+      margin-top: 0;
+    }
+  }
+
+  // Toolbar section
+  .query-toolbar {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e1e4e8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .window-title {
+      font-size: 0.95em;
+      color: #24292e;
+      font-weight: 500;
+    }
+
+    .run-button {
+      background: darken(#FF3B4E, 10%);
+      color: white;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.2s ease;
+
+      &:hover {
+        background: darken(#FF3B4E, 15%);
+      }
+    }
+  }
+
+  // Query results section
+  .query-content {
+    pre {
+      margin: 0;
+      padding: 0;
+      min-height: 4em;
+      font-size: 0; // removes whitespace at the bottom of the query box 
+
+      code {
+        font-family: monospace;
+        font-size: 14px;
+        line-height: 1.5;
+        outline: none;
+        display: block;
+        height: 100%;
+        margin: 0;
+      }
+    }
+
+    .query-results {
+      padding: 16px;
+      border-top: 1px solid #e1e4e8;
+      margin: 0;
+
+      // Results table styling (moved here)
+      .results-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 1rem;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        font-size: 13px;
+
+        th,
+        td {
+          padding: 8px 12px;
+          text-align: left;
+          border-bottom: 1px solid #e1e4e8;
+        }
+
+        td {
+          color: #24292e;
+
+          // Style for NULL values
+          .null {
+            color: #6a737d;
+            font-style: italic;
+          }
+
+          // Style for numbers and arrays - use monospace font
+          .number,
+          .array {
+            font-family: 'SF Mono', 'Roboto Mono', Consolas, monospace;
+          }
+        }
+
+        th {
+          background-color: #f6f8fa;
+          font-weight: 600;
+          position: sticky;
+          top: 0;
+          z-index: 1;
+          cursor: default;
+          padding-right: 24px;
+          color: #24292e;
+          font-size: 12px;
+
+          &::before {
+            content: "ⓘ";
+            position: absolute;
+            right: 8px;
+            opacity: 0.5;
+            font-size: 12px;
+          }
+
+          &:hover::before {
+            opacity: 1;
+          }
+
+          &:hover::after {
+            content: attr(data-type);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 4px 8px;
+            background: #333;
+            color: white;
+            font-size: 12px;
+            border-radius: 4px;
+            white-space: nowrap;
+            z-index: 2;
+          }
+        }
+      }
+
+      // Error message styling
+      .error-message {
+        background-color: #fdf2f2;
+        border: 1px solid #fde8e8;
+        border-radius: 4px;
+        color: #9b1c1c;
+        padding: 12px;
+        margin: 8px 0;
+
+        .error-description {
+          font-family: 'SF Mono', 'Roboto Mono', Consolas, monospace;
+          font-size: 14px;
+          line-height: 1.5;
+        }
+      }
+
+      // Info message styling
+      .info-message {
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 4px;
+        color: #666;
+        font-size: 0.9em;
+        margin: 8px 0;
+        padding: 8px 12px;
+      }
+
+      // Query statistics bar
+      .query-stats {
+        font-size: 0.9em;
+        color: #666;
+        padding: 8px;
+        border-top: 1px solid #ddd;
+        background: #f9f9f9;
+
+        span {
+          margin-right: 1rem;
+        }
+      }
+    }
+
+    // Server unavailable banner styling
+    .server-unavailable-banner {
+      background-color: #fff8e6;
+      border: 1px solid #ffd666;
+      border-radius: 4px;
+      color: #664d03;
+      padding: 12px;
+      margin: 8px 16px;
+      font-family: var(--body-font);
+      font-size: 14px;
+      line-height: 1.5;
+      display: flex;
+      align-items: center;
+
+      &::before {
+        content: "⚠️";
+        margin-right: 8px;
+        font-size: 16px;
+      }
+    }
+
+  }
+
+}
