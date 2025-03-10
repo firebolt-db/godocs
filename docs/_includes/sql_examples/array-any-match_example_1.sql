@@ -1,0 +1,1 @@
+SELECT ARRAY_ANY_MATCH(x, y -> (x % y) = 0, [ 10, 20, 30, 45 ], [ 12, 3, 42, 15]) AS divisible;

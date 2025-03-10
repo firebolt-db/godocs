@@ -1,0 +1,18 @@
+{
+  "errors": [
+    {
+      "description": "Line 1, Column 8: Cannot take the logarithm of base 0. The base needs to be larger than 0 but not 1.",
+      "location": {
+        "failing_line": 1,
+        "start_offset": 8
+      }
+    }
+  ],
+  "query": {
+    "query_id": "120e0f9d-c72b-4298-8ddb-b27bb70174ae",
+    "request_id": "ab6c45af-2c84-462f-a583-0b9e8374d46b"
+  },
+  "statistics": {
+    "elapsed": 0.000666705
+  }
+}

@@ -167,8 +167,8 @@ CREATE USER bob;
 The following code example grants the permissions associated with the `sales` role to `kate` and revokes it from `bob`:
 
 ```sql
-GRANT ROLE sales TO kate;
-REVOKE ROLE sales FROM bob; 
+GRANT ROLE sales TO USER kate;
+REVOKE ROLE sales FROM USER bob; 
 ```
 {: .no_toc}
 

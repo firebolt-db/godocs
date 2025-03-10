@@ -31,4 +31,4 @@ SIN(<value>)
 ## Example
 {: .no_toc}
 
-{% include sql_examples/sin.md %}
+{% include sql_examples/sin_executable.md %}

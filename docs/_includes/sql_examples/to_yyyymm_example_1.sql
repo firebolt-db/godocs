@@ -1,0 +1,1 @@
+SELECT TO_YYYYMM('1920-12-30') as yyyymm, TO_YYYYMMDD('1920-12-30') as yyyymmdd;

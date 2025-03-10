@@ -1,0 +1,1 @@
+SELECT STRING_TO_ARRAY('stephen70|esimpson|ruthgill|', '|') AS nicknames;

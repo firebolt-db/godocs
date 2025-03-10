@@ -1,0 +1,28 @@
+{
+  "query": {
+    "query_id": "5bbee976-6005-4406-9866-3ed5f6ba6166",
+    "request_id": "8f1960e9-acdb-4067-ac82-3d042389d09b",
+    "query_label": null
+  },
+  "meta": [
+    {
+      "name": "product",
+      "type": "double"
+    }
+  ],
+  "data": [
+    [
+      4
+    ]
+  ],
+  "rows": 1,
+  "statistics": {
+    "elapsed": 0.007279,
+    "rows_read": 1,
+    "bytes_read": 1,
+    "time_before_execution": 0.000303887,
+    "time_to_execute": 0.000104153,
+    "scanned_bytes_cache": 0,
+    "scanned_bytes_storage": 0
+  }
+}

@@ -27,7 +27,7 @@ ARRAY_COUNT(<function>, <array>)
 
 | Parameter | Description         | Supported input types |
 | :--------- | :-------------------------------------------- | :--------|
-| `<function>`  | Optional. A [Lambda function](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#lambda-function-general-syntax) used to check elements in the array. If `<function>` is not provided, `x -> x` is used. | Any Lambda function returning `BOOLEAN` |
+| `<function>`  | Optional. A [Lambda function]({% link Guides/loading-data/working-with-semi-structured-data/working-with-arrays.md %}#lambda-function-general-syntax) used to check elements in the array. If `<function>` is not provided, `x -> x` is used. | Any Lambda function returning `BOOLEAN` |
 | `<array>`   | An array of elements | Any `ARRAY` type if `<function>` is provided, else `ARRAY(BOOLEAN)`  |
 
 ## Return Type

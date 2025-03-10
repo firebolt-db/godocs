@@ -33,4 +33,4 @@ TAN(<value>)
 ## Example
 {: .no_toc}
 
-{% include sql_examples/tan.md %}
+{% include sql_examples/tan_executable.md %}

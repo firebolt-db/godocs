@@ -32,4 +32,4 @@ ATAN2(<value_y>,<value_x>)
 ## Example
 {: .no_toc}
 
-{% include sql_examples/atan2.md %}
+{% include sql_examples/atan2_executable.md %}

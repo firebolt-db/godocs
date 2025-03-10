@@ -33,7 +33,7 @@ where ```original.crt``` is the name of the downloaded .crt file.
 4. Select on the provided link to create a new connected app in Salesforce. 
 5. You will be redirected to the **Manage Connected Apps / New Connected App** view. Fill in required fields **Connected App Name, API Name** (for instance, type ‘Firebolt’) and **Contact email**.
 6. Move to **Web App Settings,** and check the **Enable SAML** box.
-7. Fill in the Entity Id field with value: `urn:auth0:firebolt-app-v2:<organization_name>-<provider>`, 
+7. Fill in the Entity Id field with value: `urn:auth0:app-firebolt-v2:<organization_name>-<provider>`, 
 where
 - ```<organization_name>``` is the name of the organization in Firebolt, and 
 - ```<provider>``` is the IdP name, 'salesforce' in this case
@@ -67,14 +67,14 @@ Once your Identity Provider(IdP) is configured, you can now configure Firebolt t
 - ```field mapping```: Mapping to your identity provider's first and last name in key-value pairs. If additional fields are required, choose **Add another key-value pair**. Mapping is required for Firebolt to fill in the login’s given and last names the first time the user logs in using SSO. 
       Here’s an example of how to set up field mapping:
 
-      ```json  
-        {
-            "given_name": "name",
-            "family_name": "surname"
-        }
-      ```
+  ```json  
+  {
+      "given_name": "name",
+      "family_name": "surname"
+  }
+  ```
 
-      where the "given_name" (first name) is mapped to the "name" field from the IDP, and the "family_name" (last name) is mapped from the "surname" field.
+    In the previous code example, `given_name` is your first name, and is mapped to the "name" field from the IDP. The  `family_name` is your last name, and is mapped from the "surname" field.
 3. Choose **Update changes**
 
 ##### SQL

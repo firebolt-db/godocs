@@ -1,0 +1,1 @@
+SELECT ROUND(VAR_POP(grade), 3) as variance from exams;

@@ -57,8 +57,7 @@ When the input is of type `NUMERIC`, `CEIL` throws an overflow error if the resu
 The following code example calculates the nearest whole number larger than `99.99` and specifies that the output should contain a total of `4` digits, with only `2` digits reserved for the decimal part:
 
 ```sql
-SELECT
-    CEIL('99.99'::NUMERIC(4,2));
+SELECT CEIL('99.99'::NUMERIC(4,2));
 ```
 
 **Returns** 
@@ -69,54 +68,4 @@ The previous code returns an `OVERFLOW ERROR` because `CEIL` returns `100.00`, w
 
 {: .no_toc}
 
-**Example**
-
-The following code example returns the nearest whole number larger than `2.5549900`:
-
-```sql
-SELECT
-    CEIL(2.5549900);
-```
-
-**Returns** 
-
-The previous code example returns the value `3`.
-
-**Example**
-
-The following code example calculates the nearest whole number larger than `213.1549`, and returns a result of type `NUMERIC(20,4)`, which allows for a total of `20` digits, with `4` values allowed after the decimal point:
-
-```sql
-SELECT
-    CEIL('213.1549'::NUMERIC(20,4));
-```
-
-**Returns** 
-
-The previous code example returns `214.0000`.
-
-**Example**
-
-The following code example rounds the number `2.5549900` up to the second decimal place: 
-
-```sql
-SELECT
-    CEIL(2.5549900, 2);
-```
-
-**Returns** 
-
-The previous code example returns `2.56` because the second parameter `2` specifies rounding to the second digit **after** the decimal, which corresponds to the hundredths place.
-
-**Example**
-
-The following code example calculates the nearest whole number greater than `1998` that is a multiple of `1000`:
-
-```sql
-SELECT
-    CEIL(1998, -3);
-```
-
-**Returns** 
-
-The previous code example returns `2000` because the second parameter `-3` specifies rounding to the third digit **before** the decimal point, which corresponds to the thousands place.
+{% include sql_examples/ceil_executable.md %}

@@ -1,0 +1,1 @@
+SELECT PERCENTILE_CONT(0.2) WITHIN GROUP (ORDER BY x) as result FROM generate_series(0, 10) as x;
