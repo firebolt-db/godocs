@@ -65,7 +65,7 @@ Once your Identity Provider(IdP) is configured, you can now configure Firebolt t
       }   
       ```
 
-    In the previous code example, `given_name` is your first name, and is mapped to the "name" field from the IDP. The `family_name`  is your last name, and is mapped from the "surname" field.
+    In the previous code example, `given_name` is your first name, and is mapped to the "name" field from the IDP. The `family_name` is your last name, and is mapped from the "surname" field.
 
 3. Choose **Update changes**.
 
