@@ -53,12 +53,6 @@ Firebolt now offers **Standard, Enterprise, and Dedicated editions**, each desig
   
 Enterprise and Dedicated customers also get **24/7 support** with **faster support response times**, **Slack-based support**, and support from a **designated engineer**. For more information on Firebolt's editions, refer to the [Pricing and billing]({% link Overview/billing.md %}) page. 
 
-### Behavior Changes
-
-<!-- Auto Generated Markdown for FIR-38200 - Owned by Jonathan Doron -->  
-**Removed a planner rule that transform aggregations on a case statement**<br>
-The planner rule that converted `AGG(CASE WHEN P THEN V ELSE NULL END)` into `AGGIF(V, P)` has been removed to simplify query processing.
-
 ### Performance Improvements
 
 <!-- Auto Generated Markdown for FIR-43659 - Owned by Demian Hespe -->
