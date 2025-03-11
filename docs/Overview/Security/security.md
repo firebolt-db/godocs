@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /Overview/security.html
 layout: default
 title: Security
 description: Introduction to Firebolt security features and functionality

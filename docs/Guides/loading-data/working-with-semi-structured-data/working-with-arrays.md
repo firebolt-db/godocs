@@ -1,6 +1,7 @@
 ---
 redirect_from:
   - /working-with-semi-structured-data/working-with-arrays.html
+  - /godocs/Guides/working-with-semi-structured-data/working-with-arrays.html
 layout: default
 title: Work with arrays
 description: Learn techniques to manipulate and transform arrays in Firebolt.

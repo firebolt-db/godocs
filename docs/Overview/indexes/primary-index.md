@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /godocs/Guides/working-with-indexes/using-primary-indexes.html
 layout: default
 title: Primary index
 description: Primary index overview

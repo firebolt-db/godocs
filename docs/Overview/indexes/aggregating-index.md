@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /godocs/Guides/working-with-indexes/using-aggregating-indexes.html
 layout: default
 title: Aggregating index
 description: Aggregating index overview

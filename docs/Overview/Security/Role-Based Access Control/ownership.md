@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /Overview/Role-Based Access Control/ownership.html
 layout: default
 title: Ownership
 description: Learn about ownership in Firebolt & how it impacts permissions and access control.
