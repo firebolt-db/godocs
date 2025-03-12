@@ -7,9 +7,6 @@ check-links:
 check-markers:
 	scripts/check_merge_conflict_markers.sh .
 
-check-images:
-	scripts/check_image.sh .
-
 check-all:
 	scripts/check-links.sh
 	scripts/check_merge_conflict_markers.sh .
