@@ -13,7 +13,6 @@ check-images:
 check-all:
 	scripts/check-links.sh
 	scripts/check_merge_conflict_markers.sh .
-	scripts/check_image.sh
 
 package-docs: setup-python
 	.venv/bin/python scripts/prepackage_query_results.py
