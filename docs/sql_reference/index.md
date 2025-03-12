@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/commands/
 layout: default
 title: SQL reference
 description: Reference for SQL commands and functions in Firebolt. 

@@ -37,6 +37,7 @@ The `DATE` type represents a calendar date, independent of a time zone.
 SELECT DATE '2023-02-13';
 SELECT '2023-02-13'::DATE;
 SELECT CAST('2023-6-03' AS DATE);
+SELECT DATE('2023-02-13');
 ```
 
 ## Functions and operators

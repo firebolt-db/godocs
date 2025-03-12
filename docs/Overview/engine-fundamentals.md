@@ -1,6 +1,7 @@
 ---
 redirect_from:
   - /working-with-engines/choosing-an-engine.html
+  - /Overview/understanding-engine-fundamentals.html
 layout: default
 title: Engine Fundamentals
 description: Learn fundamental concepts about Firebolt Engines.
@@ -37,17 +38,14 @@ Firebolt engines provide **full workload isolation**, so that multiple workloads
 
 Engines in Firebolt are defined by three attributes: **Type**, **Nodes**, and **Clusters**. These attributes determine the engine’s configuration and scaling options.
 
-**Type**
+**Family** <br />
+Compute nodes can also be storage-optimized with larger cache sizes or compute-optimized which have smaller caches. The default is storage optimized.  
 
-The `TYPE` of engine defines the **compute node size** used as a building block for an engine. They are available in Small, Medium, Large, and X-Large sizes. Change the node type to **vertically scale** up or down. Small and medium engines are available for use right away. If you want to use a large or extra-large engine, reach out to [support@firebolt.io](mailto:support@firebolt.io).
+**Nodes** <br />
+This attribute represents the number (1 - 128) of compute nodes, allowing granular horizontal scaling to fine-tune query performance characteristics while avoiding overprovisioning and unnecessary cost. Both scaling in and out are supported.
 
-**Nodes**
-
-The `NODES` attribute defines the number of compute nodes in an engine. The minimum is **one node** and the maximum is **128 nodes**. Increase or decrease the number of nodes to **scale in or out** and improve parallel processing to fine-tune query performance characteristics and avoid over-provisioning and unnecessary cost.
-
-**Clusters**
-
-A cluster is a collection of compute resources within an engine that shares the same type and node configuration. A Firebolt engine can contain one or more clusters. Use the `CLUSTERS` attribute to specify the maximum number of clusters and **scale concurrency** by distributing workloads across multiple clusters. 
+**Clusters** <br />
+A cluster is a collection of compute resources, described by “Type” and “Nodes” attributes. A given Firebolt engine can contain one or more clusters. The maximum number of clusters is specified by the Clusters attribute. Only homogeneous cluster configurations (clusters with the same number of Nodes and Type) are supported within a single engine. Users can leverage the “Clusters” attribute to support query concurrency scaling.
 
 ![An engine cluster in Firebolt](../assets/images/engine_cluster_type_M.png){: width="600" .centered}
  <br /> **An engine cluster with four nodes of type 'M'** 
