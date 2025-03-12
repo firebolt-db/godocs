@@ -1,4 +1,6 @@
 ---
+redirect_from:
+- /sql_reference/functions-reference/aggregation/checksum.html
 layout: default
 title: HASH_AGG
 description: Reference material for HASH_AGG

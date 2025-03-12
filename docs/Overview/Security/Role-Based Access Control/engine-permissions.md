@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /Overview/Role-Based Access Control/engine-permissions.html
 layout: default
 title: Engine Permissions
 description: Learn about engine-level permissions in Firebolt.

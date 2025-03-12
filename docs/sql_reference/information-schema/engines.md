@@ -33,6 +33,7 @@ Each row has the following columns with information about each engine.
 | spec                        | TEXT        | \[DEPRECATED\] The specification of nodes comprising the engine. |
 | scale                       | INTEGER     | \[DEPRECATED\] The number of nodes in the engine. |
 | type                        | TEXT        | Determines the capability of the nodes in the engine. |
+| family                      | TEXT        | The family of a given engine. Choose from `STORAGE_OPTIMIZED` or `COMPUTE_OPTIMIZED`. |
 | nodes                       | INTEGER     | The number of nodes in a cluster. |
 | clusters                    | INTEGER     | The number of node groupings in an engine. |
 | status                      | TEXT        | The engine status. For more information, see [Viewing and understanding engine status](../../Overview/engine-fundamentals.md#viewing-and-understanding-engine-status). |
