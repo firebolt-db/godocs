@@ -4,6 +4,8 @@ redirect_from:
   - /Overview/using-indexes.html
   - /Overview/working-with-tables/working-with-tables.html
   - /Overview/working-with-tables/working-with-partitions.html
+  - /godocs/Overview/working-with-tables/working-with-partitions.html
+  - /working-with-partitions.html
 layout: default
 title: Data modeling
 description: Understand how to organize data from efficient retrieval in Firebolt

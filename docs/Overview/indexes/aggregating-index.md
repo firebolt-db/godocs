@@ -1,6 +1,7 @@
 ---
 redirect_from:
   - /godocs/Guides/working-with-indexes/using-aggregating-indexes.html
+  - /using-indexes/using-aggregating-indexes.html
 layout: default
 title: Aggregating index
 description: Aggregating index overview
@@ -15,11 +16,12 @@ Firebolt's aggregating index is a powerful tool for improving performance in lar
 Aggregating indexes are automatically updated in real-time whenever new data is added or when changes, such as `DELETE` or `UPDATE` operations, are made to the base table. Firebolt also enhances performance by dividing aggregating indexes into smaller segments that are distributed across multiple engine nodes. This allows queries to run in parallel across these nodes, improving both scalability and efficiency while ensuring that the data remains consistent and accurate.
 
 Topics:
-* [Key features](#key-features)
-* [Syntax](#syntax)
-* [Parameters](#parameters)
-* [Example](#example)
-* [Considerations](#considerations)
+- [Aggregating index](#aggregating-index)
+  - [Key features](#key-features)
+  - [Syntax](#syntax)
+    - [Parameters](#parameters)
+  - [Example](#example)
+  - [Considerations](#considerations)
 
 ## Key features
 

@@ -1,5 +1,6 @@
 ---
-layout: default
+redirect_from:
+- /godocs/Guides/working-with-engines/sizing-engines.html
 title: Sizing Engines
 description: Learn how to size engines initially and use engine observability to monitor and resize engines
 nav_order: 3
