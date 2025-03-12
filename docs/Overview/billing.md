@@ -55,7 +55,7 @@ The **Dedicated** edition is ideal for organizations that require high levels of
 The total cost for Firebolt’s fully-managed editions consists of a **cost for data storage** plus a **cost for compute usage**. The compute usage cost depends on the type of engine that you select: compute-optimized or storage-optimized.
 
 <br>
-<img src="../../assets/images/compute-usage-cost.png" width="700"/>
+<img src="../../assets/images/compute-usage-cost.png" width="700" alt="Total cost consists of data storage and compute usage with two types of compute options."/>
 
 #### Data storage pricing
 Data storage costs are based on the amount of compressed data stored, including indexes and raw data. Pricing is based on Amazon S3 costs in your selected AWS region. There are no additional storage charges beyond S3 costs.
