@@ -160,7 +160,7 @@ Firebolt offers two self-managed options, where you run Firebolt on your own inf
 <img src="../../assets/images/self-managed-editions.png" width="700" alt="Firebolt offers two self-managed editions. One that is free that you manage, and one for a private cloud."/>
 
 **Private Cloud (BYOC)**                 
-The **Private Cloud** edition is a BYOC (Bring your own cloud) offering for organizations that want Firebolt’s software but prefer to use their own cloud infrastructure. Customers manage their own infrastructure for both compute and storage, whereas Firebolt manages hosting, Firebolt upgrades and maintenance. For BYOC pricing, contact [support@firebolt.io](mailto:support@firebolt.io). 
+The **Private Cloud** edition is a BYOC (bring your own cloud) offering for organizations that want Firebolt’s software but prefer to use their own cloud infrastructure. Customers manage their own infrastructure for both compute and storage, whereas Firebolt manages hosting, Firebolt upgrades and maintenance. For BYOC pricing, contact [support@firebolt.io](mailto:support@firebolt.io). 
 
 **Firebolt Core**             
 The **Firebolt Core** edition is a free downloadable version that can be deployed on cloud, on-premises, or on a local machine. This option is best for teams needing full control over deployment with a lightweight Firebolt engine. Customers manage compute and storage infrastructure, hosting, all software upgrades, and maintenance.
