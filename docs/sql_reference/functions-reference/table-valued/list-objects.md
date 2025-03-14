@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql_reference/functions-reference/conditional-and-miscellaneous/list-objects.html
 layout: default
 title: LIST_OBJECTS
 description: Reference material for LIST_OBJECTS function

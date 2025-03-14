@@ -1,6 +1,11 @@
 ---
 redirect_from:
   - /using-indexes/using-indexes.html
+  - /Overview/using-indexes.html
+  - /Overview/working-with-tables/working-with-tables.html
+  - /Overview/working-with-tables/working-with-partitions.html
+  - /godocs/Overview/working-with-tables/working-with-partitions.html
+  - /working-with-partitions.html
 layout: default
 title: Data modeling
 description: Understand how to organize data from efficient retrieval in Firebolt
@@ -11,7 +16,7 @@ nav_order: 5
 
 # Data modeling
 
-Firebolt optimizes data storage and retrieval by using indexing, partitioning, and compute scaling to enhance query efficiency. Discover how to design your data model of databases and tables, using our best practices to achieve optimal query performance.
+Firebolt optimizes data storage and retrieval by using indexing, partitioning, and compute scaling to enhance query efficiency. Design your data model and use databases, tables, and indexes to optimize query performance.
 
 * **Minimizing data scans**  
 Firebolt indexes retrieve only the specific data ranges needed to satisfy a query, reducing the amount of data scanned.

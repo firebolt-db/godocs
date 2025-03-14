@@ -34,7 +34,7 @@ When an optional lambda function is provided, `ARRAY_ANY_MATCH` applies the func
 
  Parameter      | Description                                   | Supported input types | 
 | :------------- |:--------------------------------------------- | :-----------| 
-| `<expression>`  | A lambda function applied to each element of the input arrays, returning a `BOOLEAN`. If no lambda function is provided, the function can only evaluate a single `BOOLEAN` array. For more information, see [Manipulating arrays with Lambda functions](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions). | Same as the element data types of the input arrays. |
+| `<expression>`  | A lambda function applied to each element of the input arrays, returning a `BOOLEAN`. If no lambda function is provided, the function can only evaluate a single `BOOLEAN` array. For more information, see [Manipulating arrays with Lambda functions]({% link Guides/loading-data/working-with-semi-structured-data/working-with-arrays.md %}#manipulating-arrays-with-lambda-functions). | Same as the element data types of the input arrays. |
 | `<condition>` | A `BOOLEAN` expression that evaluates each array value using a comparison operator. | See [Comparison operators](../../operators.md#comparison). |
 | `<array>` | The array to evaluate. | `ARRAY` |
 

@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql_reference/functions-reference/conditional-and-miscellaneous/read_parquet.html
 layout: default
 title: READ_PARQUET
 description: Reference material for READ_PARQUET function

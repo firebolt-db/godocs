@@ -1,6 +1,7 @@
 ---
 redirect_from:
   - /working-with-semi-structured-data/working-with-arrays.html
+  - /godocs/Guides/working-with-semi-structured-data/working-with-arrays.html
 layout: default
 title: Work with arrays
 description: Learn techniques to manipulate and transform arrays in Firebolt.
@@ -46,11 +47,11 @@ SELECT [1,2,3,4]
 
 All examples in this topic are based on the table below, named `visits`. The column `id` is of type `INTEGER`. All other columns are of type `ARRAY(TEXT)`.
 
-![](../../assets/images/array_example_table.png)
+![](../../../assets/images/array_example_table.png)
 
 ## Simple array functions
 
-There are several fundamental functions that you can use to work with arrays, including [ARRAY_LENGTH](../../sql_reference/functions-reference/array/array-length.md), [ARRAY_CONCAT](../../sql_reference/functions-reference/array/array-concat.md), and [ARRAY_FLATTEN](../../sql_reference/functions-reference/array/flatten.md). See the respective reference for a full description. Brief examples are shown below.
+There are several fundamental functions that you can use to work with arrays, including [ARRAY_LENGTH]({% link sql_reference/functions-reference/array/array-length.md %}), [ARRAY_CONCAT]({% link sql_reference/functions-reference/array/array-concat.md %}), and [ARRAY_FLATTEN]({% link sql_reference/functions-reference/array/flatten.md %}). See the respective reference for a full description. Brief examples are shown below.
 
 ### LENGTH example
 {: .no_toc}
@@ -125,7 +126,7 @@ Firebolt *Lambda functions* are a powerful tool that you can use on arrays to ex
 
 ### Lambda function general syntax
 
-The general syntax pattern of a Lambda function is shown below. For detailed syntax and examples see the reference topics for [Lambda functions](../../sql_reference/functions-reference/Lambda/index.md).
+The general syntax pattern of a Lambda function is shown below. For detailed syntax and examples see the reference topics for [Lambda functions]({% link sql_reference/functions-reference/Lambda/index.md %}).
 
 ```
 <LAMBDA_FUNC>(<arr1_var>[, <arr2_var>][, ...<arrN_var>]) -> <operation>, <array1>[, <array2>][, ...<arrayN>])
@@ -133,7 +134,7 @@ The general syntax pattern of a Lambda function is shown below. For detailed syn
 
 | Parameter                                     | Description    |
 | :-------------------------------------------- | :------------- |
-| `<LAMBDA_FUNC>`                                | Any array function that accepts a Lambda expression as an argument. For a list, see [Lambda functions](../../sql_reference/functions-reference/Lambda/index.md).|
+| `<LAMBDA_FUNC>`                                | Any array function that accepts a Lambda expression as an argument. For a list, see [Lambda functions]({% link sql_reference/functions-reference/Lambda/index.md %}).|
 | `<arr1_var>[, <arr2_var>][, ...<arrN_var>]`   | A list of one or more variables that you specify. The list is specified in the same order and must be the same length as the list of array expressions (`<array1>[, <array2>][, ...<arrayN>]`). At runtime, each variable contains an element of the corresponding array. The specified `<operation>` is performed for each variable.|
 | <operation>                                   | The operation that is performed for each element of the array. This is typically a function or Boolean expression. |
 | <array1>[, <array2>][, ...<arrayN>]           | A comma-separated list of expressions, each of which evaluates to an `ARRAY` data type. |
@@ -141,7 +142,7 @@ The general syntax pattern of a Lambda function is shown below. For detailed syn
 
 ### Lambda function example&ndash;single array
 
-Consider the following [TRANSFORM](../../sql_reference/functions-reference/Lambda/transform.md) array function that uses a single array variable and reference in the Lambda expression. This example applies the `UPPER` function to each element `t` in the `ARRAY`-typed column `tags`. This converts each element in each `tags` array to upper-case.
+Consider the following [TRANSFORM]({% link sql_reference/functions-reference/Lambda/transform.md %}) array function that uses a single array variable and reference in the Lambda expression. This example applies the `UPPER` function to each element `t` in the `ARRAY`-typed column `tags`. This converts each element in each `tags` array to upper-case.
 
 
 ```sql
@@ -165,7 +166,7 @@ FROM visits;
 
 ### Lambda function example&ndash;multiple arrays
 
-[ARRAY_FIRST](../../sql_reference/functions-reference/Lambda/array-first.md) is an example of a function that takes multiple arrays as arguments in a map of key-value pairs. One array represents the keys and the other represents the values.
+[ARRAY_FIRST]({% link sql_reference/functions-reference/Lambda/array-first.md %}) is an example of a function that takes multiple arrays as arguments in a map of key-value pairs. One array represents the keys and the other represents the values.
 
 `ARRAY_FIRST` uses a Boolean expression that you specify to find the key in the key array. If the Boolean expression resolves to true, the function returns the first value in the value array that corresponds to the key's element position. If there are duplicate keys, only the first corresponding value is returned.
 
@@ -189,7 +190,7 @@ FROM visits;
 | 3  | iOS 14         |
 +----+----------------+
 ```
-[ARRAY_SORT](../../sql_reference/functions-reference/array/array-sort.md) sorts one array by another. One array represents the values and the other represents the sort order.
+[ARRAY_SORT]({% link sql_reference/functions-reference/array/array-sort.md %}) sorts one array by another. One array represents the values and the other represents the sort order.
 
 The example below sorts the first array by the positions defined in the second array
 
@@ -212,7 +213,7 @@ SELECT
 
 You might want to transform a nested array structure to a standard tabular format. `UNNEST` serves this purpose.
 
-[UNNEST](../../sql_reference/commands/queries/select.md#unnest) is a table-valued function (TVF) that transforms an input row containing an array into a set of rows.
+[UNNEST]({% link sql_reference/commands/queries/select.md %}#unnest) is a table-valued function (TVF) that transforms an input row containing an array into a set of rows.
 `UNNEST` unfolds the elements of the array and duplicates all other columns found in the `SELECT` clause for each array element.
 If the input array is empty, the corresponding row is eliminated.
 

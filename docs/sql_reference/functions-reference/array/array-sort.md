@@ -1,6 +1,6 @@
 ---
 redirect_from:
-  - /sql-reference/functions-reference/array-sort.html
+  - /sql_reference/functions-reference/array/array_sort.html
 layout: default
 title: ARRAY_SORT
 description: Reference material for ARRAY_SORT function

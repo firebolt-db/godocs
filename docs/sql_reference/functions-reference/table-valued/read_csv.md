@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql_reference/functions-reference/conditional-and-miscellaneous/read_csv.html
 layout: default
 title: READ_CSV
 description: Reference material for READ_CSV function

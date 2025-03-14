@@ -1,6 +1,7 @@
 ---
 redirect_from:
   - /sql-reference/functions-reference/match-any.html
+  - /sql_reference/functions-reference/string/regexp_like_any.html
 layout: default
 title: REGEXP_LIKE_ANY
 description: Reference material for REGEXP_LIKE_ANY function

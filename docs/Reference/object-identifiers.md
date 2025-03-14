@@ -1,6 +1,7 @@
 ---
 redirect_from:
   - /general-reference/identifier-requirements.html
+  - /sql_reference/sql-syntax/identifiers.html
 layout: default
 title: Object identifers
 description: Provides requirements and guidance for using SQL identifiers with Firebolt.
@@ -10,7 +11,7 @@ parent: General reference
 
 # Object identifers
 
-Firebolt object identifiers are used to refer to database items as columns, tables, indexes, views, and engines.
+Firebolt object identifiers are used to refer to database items such as columns, tables, indexes, views, and engines.
 
 ## Syntax
 
