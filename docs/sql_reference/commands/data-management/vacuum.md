@@ -19,16 +19,16 @@ Any engine that processes a DML operation automatically assesses the health of t
 ## Syntax
 
 ```text
-VACUUM [ (option_name = option_value) ] <table>
+VACUUM [ (option_name = option_value) ] <table|aggregating index>
 ```
-Where `<table>` is the name of the table to be optimized.
+Where `<table|aggregating index>` is the name of the table or aggregating index to be optimized.
 
 ## Options
 {: .no_toc}
 
 | Option name | Option value and description         |
 | :---------  | :----------------------------------- |
-| `INDEXES`   | `ALL` &mdash; (Default) Specifies whether to apply optimizations to both the table and all its aggregating indexes.<br> `NONE` &mdash; Optimizes only the table. |
+| `INDEXES`   | `FULL` &mdash; (Default) Specifies whether to apply optimizations to both the table and all its aggregating indexes.<br> `INCREMENTAL` &mdash; Similar to `FULL`, but will apply incremental optimizations to aggregating indexes, instead of complete reevaluation.<br> `NONE` &mdash; Optimizes only the table. |
 | `MAX_CONCURRENCY`   | `<Number>` &mdash; The maximum number of concurrent jobs to use during optimization. |
 
 
@@ -42,6 +42,11 @@ The following code example optimizes the `games` table and all its aggregating i
 
 ```text
 VACUUM games;
+```
+
+The example above performs a complete rebuild of related aggregating indexes. Alternatively, you can specify to apply incremental optimization, which still improves index layout while using fewer resources, though it may not achieve optimal layout:
+```text
+VACUUM (INDEXES = INCREMENTAL) games;
 ```
 
 **Optimize a table without its indexes**
