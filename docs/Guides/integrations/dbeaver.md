@@ -49,7 +49,7 @@ To connect to Firebolt, you must configure a new database connection in DBeaver 
 
    | Parameter    | Description |
    |-------------|-------------|
-   | **JDBC URL** | Use `jdbc:firebolt:<db_name>?engine=<engine_name>&account<account_name>` replacing `<db_name>` with your Firebolt [database name]({% link Overview/indexes/using-indexes.md %}#databases), `<engine_name>` with your [engine name]({% link Guides/getting-started/get-started-sql.md %}#create-an-engine) and `<account_name>` with your [account name]({% link Guides/managing-your-organization/managing-accounts.md %}). |
+   | **JDBC URL** | Use `jdbc:firebolt:<db_name>?engine=<engine_name>&account=<account_name>` replacing `<db_name>` with your Firebolt [database name]({% link Overview/indexes/using-indexes.md %}#databases), `<engine_name>` with your [engine name]({% link Guides/getting-started/get-started-sql.md %}#create-an-engine) and `<account_name>` with your [account name]({% link Guides/managing-your-organization/managing-accounts.md %}). |
    | **Username** | Your Firebolt [service account]({% link Guides/managing-your-organization/service-accounts.md %}#get-a-service-account-id) ID. |
    | **Password** | Your Firebolt [service account]({% link Guides/managing-your-organization/service-accounts.md %}#generate-a-secret) secret. |
 5. Select **Test Connection** to verify the connection. Ensure your Firebolt database is running before testing.
