@@ -28,7 +28,7 @@ The following sections will guide you through understanding Firebolt’s archite
 Topics:
 * [Architectural differences](#architectural-differences) &ndash; Firebolt separates compute from storage, enabling independent scaling, workload isolation, and cost efficiency.
 * [Schema differences](#schema-differences) &ndash; Firebolt replaces Redshift’s manual distribution keys and rigid schemas with dynamic indexing, denormalization, and flexible JSON handling for faster, simpler queries.
-* [Exporting data from Redshift](#exporting-data-from-redshift)
+* [Exporting data from Redshift](#exporting-data-from-redshift) &ndash; Export Redshift data to Amazon S3 in CSV or Parquet format, prepared for efficient loading into Firebolt.
 * [Loading data into Firebolt](#loading-data-into-firebolt)
 * [Translating queries](#translating-queries)
 * [Performance testing and optimization](#performance-testing-and-optimization)
