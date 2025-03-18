@@ -19,7 +19,7 @@ The `VACUUM` command now supports the `MAX_CONCURRENCY` option, enabling you to 
 
 <!-- Manually Generated Markdown for FIR-43757 - Owned by Demian Hespe -->
 **Added longitude wrapping for `GEOGRAPHY` data**          
-Firebolt now automatically wraps longitude values outside the range of -180 to 180 degrees when parsing `GEOGRAPHY` data from WKT, GeoJSON, WKB, or using the `ST_GeogPoint` function. For example `POINT(180.5 1)` is now correctly interpreted as `POINT(-179.5 1)`. This improvement simplifies geographic data handling. 
+Firebolt now automatically wraps longitude values outside the range of -180 to 180 degrees when parsing `GEOGRAPHY` data from WKT, GeoJSON, WKB, or using the `ST_GeogPoint` function. For example, `POINT(180.5 1)` is now correctly interpreted as `POINT(-179.5 1)`. This improvement simplifies geographic data handling. 
 
 <!-- Auto Generated Markdown for FIR-44120 - Owned by Mosha Pasumansky -->
 **Enhanced the `EXPLAIN` function to support all SQL statements except for DDL and DCL**          
