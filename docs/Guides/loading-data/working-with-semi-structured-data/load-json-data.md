@@ -1,6 +1,8 @@
 ---
 redirect_from:
   - /working-with-semi-structured-data/mapping-json-to-table.html
+  - /Guides/loading-data/working-with-semi-structured-data/mapping-json-to-table.html
+  - /Guides/working-with-semi-structured-data/mapping-json-to-table.html
 layout: default
 title: Load semi-structured JSON data
 description: Learn how to map semi-structured data from a JSON document to a Firebolt table.
