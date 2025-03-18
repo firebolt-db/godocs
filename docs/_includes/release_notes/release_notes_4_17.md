@@ -4,14 +4,14 @@
 
 <!-- Auto Generated Markdown for FIR-44170 - Owned by Mosha Pasumansky -->
 **Introduced the `IF` function to enhance query readability and simplify conditional expressions**           
-The new `IF` function simplifies query writing as a more concise alternative to the `CASE WHEN` expression.                 
+The new [`IF`]({% link sql_reference/functions-reference/conditional-and-miscellaneous/if.md %}) function simplifies query writing as a more concise alternative to the `CASE WHEN` expression.                 
 You can now use
 `IF(<cond_expr>, <then_expr>, <else_expr>)`
 as a shorter equivalent to
 `CASE WHEN <cond_expr> THEN <then_expr> ELSE <else_expr> END`.
 
  **Added `INCREMENTAL` index optimization with `VACUUM`**             
-The `VACUUM` statement now supports an `INDEXES = INCREMENTAL` option, allowing incremental optimization of related indexes. This new mode uses fewer resources compared to a full reevaluation, improving index layouts. Although incremental optimization may not achieve the optimal layout of a full reevaluation, it maintains a balance between performance and resource usage. 
+The [`VACUUM`]({% link sql_reference/commands/data-management/vacuum.md %}) statement now supports an `INDEXES = INCREMENTAL` option, allowing incremental optimization of related indexes. This new mode uses fewer resources compared to a full reevaluation, improving index layouts. Although incremental optimization may not achieve the optimal layout of a full reevaluation, it maintains a balance between performance and resource usage. 
 
 <!-- Auto Generated Markdown for FIR-43599 - Owned by Misha Shneerson -->
 **Added `MAX_CONCURRENCY` option to `VACUUM` statement**            
@@ -19,11 +19,11 @@ The `VACUUM` command now supports the `MAX_CONCURRENCY` option, enabling you to 
 
 <!-- Manually Generated Markdown for FIR-43757 - Owned by Demian Hespe -->
 **Added longitude wrapping for `GEOGRAPHY` data**          
-Firebolt now automatically wraps longitude values outside the range of -180 to 180 degrees when parsing `GEOGRAPHY` data from WKT, GeoJSON, WKB, or using the `ST_GeogPoint` function. For example `POINT(180.5 1)` is now correctly interpreted as `POINT(-179.5 1)`. This improvement simplifies geographic data handling. 
+Firebolt now automatically wraps longitude values outside the range of -180 to 180 degrees when parsing `GEOGRAPHY` data from WKT, GeoJSON, WKB, or using the `ST_GeogPoint` function. For example, `POINT(180.5 1)` is now correctly interpreted as `POINT(-179.5 1)`. This improvement simplifies geographic data handling. 
 
 <!-- Auto Generated Markdown for FIR-44120 - Owned by Mosha Pasumansky -->
 **Enhanced the `EXPLAIN` function to support all SQL statements except for DDL and DCL**          
-The `EXPLAIN` feature now supports analysis of all SQL statements. However, it does not provide output details for DDL (Data Definition Language) and DCL (Data Control Language) statements.
+The [`EXPLAIN`]({% link sql_reference/commands/queries/explain.md %}) feature now supports analysis of all SQL statements. However, it does not provide output details for DDL (Data Definition Language) and DCL (Data Control Language) statements.
 
 ### Performance Improvements
 
