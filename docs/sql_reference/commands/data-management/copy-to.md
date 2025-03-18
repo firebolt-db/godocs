@@ -30,6 +30,7 @@ COPY (<select_query>)
 [ SINGLE_FILE = FALSE | TRUE ]
 [ MAX_FILE_SIZE = <bytes> ]
 [ OVERWRITE_EXISTING_FILES = FALSE | TRUE ]
+[ HEADER = TRUE | FALSE ]
 ```
 
 
@@ -46,8 +47,9 @@ COPY (<select_query>)
 | `INCLUDE_QUERY_ID_IN_FILE_NAME`  | Specifies whether a query ID is included in the file name. Each time the statement runs, Firebolt generates a new query ID. If omitted, defaults to `TRUE`, and Firebolt saves file names using the pattern `<query_id>.[type].gz`, for example, `123ABCXY2.csv.gz`. This allows Firebolt to generate unique file names by default. If `FALSE`, and `FILE_NAME_PREFIX` is not specified, files are exported with a generic `output` file name, for example, `output.csv.gz`.                                               |
 | `FILE_NAME_PREFIX`               | Specifies an optional string to use in the file name. If `FILE_NAME_PREFIX` is omitted and `INCLUDE_QUERY_ID_IN_FILE_NAME` is `TRUE`, the exported file name is in the pattern `<query_id><file_string>.<type>.gz`. If `FILE_NAME_PREFIX` is specified and `INCLUDE_QUERY_ID_IN_FILE_NAME` is set to `FALSE`, the specified string replaces `output` and the file is in the pattern `<file_string>.<type>.gz`.                                                                                                         |
 | `SINGLE_FILE`                    | Specifies whether the export should be a single file or multiple files. If omitted, the default is `FALSE`, and the export is split based on the `MAX_FILE_SIZE` value. Exported files are appended with `_<n>` incrementally to indicate the position in series, starting with `0`. For example, the first file in a series might be named `123ABCXY2_0.parquet.gz`. If `TRUE`, only a single file is written. If set to `TRUE` and the file exceeds `MAX_FILE_SIZE`, an error occurs.                        |
-| `MAX_FILE_SIZE`                  | Specifies the max file size in bytes. If omitted, the default value is `16000000` (16 MB). The maximum file size that can be specified is `5000000000` (5 GB).                                                                                                                                                                                                                                                                                                                                     |
+| `MAX_FILE_SIZE`                  | Specifies the max file size in bytes. If omitted, the default value is 16,000,000 bytes (about 16 MB). The maximum file size that can be specified is 5,368,709,120 bytes (5 GB).                                                                                                                                                                                                                                                                                                                                     |
 | `OVERWRITE_EXISTING_FILES`       | Specifies whether exported files should overwrite existing files of the same name in the specified S3 location. If omitted, defaults to `FALSE`, and files of the same name are not overwritten.                                                                                                                                                                                                                                                                                                  |
+| `HEADER`       | Specifies whether CSV files should contain a header line containing the column names. If omitted, defaults to `TRUE`. Must be omitted for TSV, JSON, or Parquet files. |
 
 
 ## CREDENTIALS

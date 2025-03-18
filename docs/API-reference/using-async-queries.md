@@ -17,6 +17,11 @@ You should use asynchronous queries for any supported operation that may take mo
 **Supported asynchronous queries**
 
 - [INSERT]({% link sql_reference/commands/data-management/insert.md %}) &ndash; Inserts one or more values into a specified table.
+- [COPY FROM]({% link sql_reference/commands/data-management/copy-from.md %}) &ndash; Loads data from an Amazon S3 bucket into Firebolt.
+- [COPY TO]({% link sql_reference/commands/data-management/copy-to.md %}) &ndash; Copies the result of a `SELECT` query to an Amazon S3 location.
+- [VACUUM]({% link sql_reference/commands/data-management/vacuum.md %}) &ndash; Optimizes tablets for query performance.
+- [CREATE AGGREGATING INDEX]({% link sql_reference/commands/data-definition/create-aggregating-index.md %}) &ndash; Creates an index for precomputing and storing frequent aggregations.
+- [CREATE AS SELECT]({% link sql_reference/commands/data-definition/create-fact-dimension-table-as-select.md %}) &ndash; Creates a table and loads data into it based on a `SELECT` query.
 - [Engine commands]({% link sql_reference/commands/engines/index.md %}) including [ALTER ENGINE]({% link sql_reference/commands/engines/alter-engine.md %}), [STOP ENGINE]({% link sql_reference/commands/engines/stop-engine.md %}), and [START ENGINE]({% link sql_reference/commands/engines/start-engine.md %}). By default, Firebolt engines finish running queries before returning results, which can take significant time. Starting an engine can also take more than a few minutes.
 
 ## How to submit an asynchronous query
