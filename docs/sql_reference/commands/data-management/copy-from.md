@@ -4,6 +4,8 @@ redirect_from:
 layout: default
 title: COPY FROM
 description: Reference and syntax for the COPY command that copies data from S3 files into a Firebolt table.
+great_grand_parent: SQL reference
+grand_parent:  SQL commands
 parent: Data management
 ---
 
@@ -231,6 +233,96 @@ The first three rows of the sample output follow:
 | 2              | 2023-02-27 10:06:52          |
 | 3              | 2023-02-27 10:06:52          |
 
+### Column mapping
+When loading data into a target table, you can manually map source and target schemas by [column name](#mapping-by-column-name) or [index position](#mapping-by-index-position). Column mapping ensures that data from the source file is correctly inserted into the appropriate columns in the target table. 
+
+##### Handling case sensitivity
+{: .no_toc}
+
+By default, column mapping in Firebolt is **case-insensitive**, meaning column names in the `COPY INTO` statement are matched without quotes and are treated as lowercase. The [`CASE_SENSITIVE_COLUMN_MAPPING`](#parameters) parameter is ignored, and data loads into the table regardless of case differences. If you need to enforce case-sensitive column mapping, set the `CASE_SENSITIVE_COLUMN_MAPPING` parameter to `TRUE`. When enabled, column names must match exactly, including case, and `COPY FROM` will either fail or populate columns with `NULL` values if there is a case mismatch. You can also use quoted identifiers to preserve case-sensitive behavior. 
+
+##### Mapping by column name
+{: .no_toc}
+
+Before mapping schemas and ingesting data, you must first create a target table. You can explicitly map source columns to target table columns by matching column names.                         
+The following code example creates a table and maps columns by name:
+```sql
+CREATE TABLE column_mapping_by_name (
+    LevelID INT,
+    Name TEXT
+);
+
+COPY INTO column_mapping_by_name
+(
+   LevelID,
+   Name
+)
+FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
+WITH HEADER = TRUE;
+```
+
+This approach allows the column order to differ between the source file and target table, as long as the column names in the `COPY INTO` statement match exactly with the source file. 
+
+##### Mapping by index position
+{: .no_toc}
+
+Instead of mapping by column name, you can reference column positions in the source file using `$cN` notation, where `N` represents the column index starting from one.                      
+The following code example maps the first column in the source file to the `id` column in the target table and the fourth column to `name`: 
+
+```sql
+CREATE TABLE column_mapping_positional (
+    id INT,
+    name TEXT
+);
+
+COPY INTO column_mapping_positional
+(
+   id $c1,
+   name $c4
+)
+FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
+WITH HEADER = TRUE
+```
+
+This method is useful when column names do not match or when working with files that lack headers. 
+
+##### Mapping source columns and metadata
+{: .no_toc}
+
+You can also map both source columns and metadata columns to store additional details about the ingested data. Metadata columns provide useful information such as file creation date, size, and last modified timestamp.                                
+The following code example maps source file columns by name and includes metadata:
+ 
+```sql
+CREATE TABLE levels (
+  "LevelID"          TEXT NOT NULL,
+  "NumberOfLaps"     INT,
+  "SceneDetails"     TEXT,
+  date_of_creation   TIMESTAMP,
+  file_name          TEXT,
+  file_last_modified TIMESTAMP,
+  file_size          BIGINT
+);
+
+COPY INTO levels (
+  "LevelID",
+  "NumberOfLaps",
+  "SceneDetails",
+  date_of_creation   $source_file_timestamp,
+  file_name          $source_file_name,
+  file_last_modified $source_file_timestamp,
+  file_size          $source_file_size
+)
+FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
+WITH HEADER=TRUE;
+```
+
+In the previous example:
+* Standard columns such as `LevelID`, `NumberofLaps`, and `SceneDetails` are mapped by name. 
+* Metadata columns such as `date_of_creation`, `file_name`, `file_last_modified`, and `file_size` capture file-level information from the source file. 
+This approach is particularly useful for auditing, tracking data lineage, or managing incremental loads.  
+
+Note that if a required column in the mapping is missing from the source file, the load will fail unless `ALLOW_COLUMN_MISMATCH` is enabled. For cases where column names may change or be missing in the source file, see the following section [`ALLOW_COLUMN_MISMATCH`](#allow-column-name-mismatch). 
+
 ### Allow column name mismatch
 If you specify a column mapping during data loading, `COPY FROM` treats the columns listed in the `<column_mapping>` as required. If no column mapping is specified, the columns in the target table are considered required. To allow the data to continue loading when some required columns are missing from the source file, you can use `ALLOW_COLUMN_MISMATCH`, which is enabled by default.
 
@@ -246,6 +338,7 @@ WITH HEADER=TRUE MAX_ERRORS_PER_FILE='0%';
 The following sections show you how to handle errors for both CSV and Parquet files.
 
 #### Row-based errors in CSV
+{: .no_toc}
 
 `COPY FROM` generates a row-based error when there’s a mismatch between source and target table columns. In the following example, the `col_mismatch_csv` table includes a `LevelID2` column defined as `NOT NULL`, that does not exist in the source `levels.csv` table:
 
@@ -259,6 +352,7 @@ In the previous code example, when `COPY FROM` does not see the same column name
 `ERROR: The INSERT INTO statement failed because it tried to insert a NULL into the column LevelID2, which is NOT NULL. Please specify a value or redefine the column's logical constraints.` and stops loading into the table.
 
 ##### Allow all row-based errors in CSV
+{: .no_toc}
 The previous code example uses `MAX_ERRORS_PER_FILE='0%'`, which causes the loading job to fail if there is a single error. You can change this behavior to allow errors. The following code example allows all errors, and the load job completes even if no data loads into the target table:
 
 ```sql
@@ -269,7 +363,7 @@ WITH HEADER=TRUE MAX_ERRORS_PER_FILE='100%';
 ```
 
 ##### Column data type mismatch in CSV
-
+{: .no_toc}
 If you try to load data into a column in an existing table that has a different data type than the source data, `COPY FROM` will attempt to cast the data into the specified data type. If the cast fails, `COPY FROM` generates an error. To demonstrate this error, the following example intentionally creates a table that defines the `LevelID` column incorrectly as an integer, instead of as text, and then attempts to copy data into it:
 
 ```sql
@@ -286,7 +380,7 @@ The previous code example generates the following error:
 In the previous code example, the query generates an error because the default value for `MAX_ERRORS_PER_FILE` is `0`. You can set `MAX_ERRORS_PER_FILE` to `100%` to allow all errors, as shown in the following section.
 
 #### Allow all errors, and write them to file
-
+{: .no_toc}
 You can also allow all errors, so that the loading job continues until it has attempted to load all rows in your dataset. Firebolt can write these errors to an Amazon S3 bucket as CSV files.  If your specified S3 bucket requires access credentials, you must specify them so that Firebolt can write the files on your behalf. Data rows that load without error are ingested in row order. A loading job that specifies writing error files will write files with the following syntax to your Amazon S3 bucket:
 
 * `error_reasons.csv` - An error file that contains all the reasons that a row generated an error, and also file-based errors.
@@ -314,6 +408,7 @@ To provide your credentials in the previous example, do the following:
 * Replace the `<aws_secret_access_key>` with an AWS secret access key associated with an AWS user or IAM role associated with the AWS access key ID. The AWS secret access key is a 40-character string such as `wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`.
 
 #### Read errors from file
+{: .no_toc}
 
 The previous `COPY FROM` example shows how to create two error files, one that describes the error reasons and one that contains the rows that had errors. This example shows how to load and view the contents of these files.
 
@@ -358,6 +453,7 @@ The following output shows the contents of the `rejected_rows` table after runni
 | 1         | The Snow Park Grand Prix |1          |  20903    | 2021-05-28 20:40:54 | 2021-05-29 04:51:43 |   ...     |
 
 #### Column mapping and default values
+{: .no_toc}
 You can map a specific source column to a target column, and specify a default value to replace any `NULL` values generated during mapping. 
 
 The following code example maps the `LevelID` column from the `levels.csv` sample dataset, into a column `LevelID_team_A` in a `target_default_mapping` table. It also maps a non-existent `Country` column in the `levels.csv` dataset, into `LevelsID_team_B`: 
@@ -372,6 +468,7 @@ WITH HEADER=TRUE;
 In the previous example, all rows under `LevelsID_team_B` will contain the value `50`.
 
 #### Type mismatch errors
+{: .no_toc}
 
 If you read a column from a source file into a table with an incompatible data type, the mapping generates a casting error. A loading job that specifies writing error files will write files starting with the following prefixes to a specified Amazon S3 bucket:
 

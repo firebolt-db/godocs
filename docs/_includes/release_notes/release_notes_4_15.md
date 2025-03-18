@@ -32,11 +32,6 @@ In such cases, simplifying the join structure improves efficiency without alteri
 
 Workloads that send multiple consecutive `INSERT INTO <tbl> VALUES ...` statements into the same table can now run much faster by sending all statements in a single request separated by semicolons. These statements are now automatically merged and processed together on the server within a single transaction, which means that either all of them succeed or fail. This improvement reduces network overhead and enhances performance for batch data insertion.
 
-<!-- Auto Generated Markdown for FIR-42537 - Owned by Pascal Schulze -->
-**Updated `duration_us` in `information_schema.engine_running_queries` and `information_schema.engine_query_history` to include total query time across Firebolt infrastructure**
-
-The `duration_us` value in the system tables `information_schema.engine_running_queries` and `information_schema.engine_query_history` now reflects the complete time a query spends in the Firebolt infrastructure. Previously, it included only the time on the engine and did not consider retries. The duration now also accounts for time spent in gateway services and retries. For example, if a query activates a stopped engine, the start-up time is included in the query's duration. This change provides a more accurate measurement of query duration, allowing users to better understand and optimize performance.
-
 ### Behavior Changes
 
 <!-- Markdown for FIR-42197 - Owned by Tal Zelig -->
