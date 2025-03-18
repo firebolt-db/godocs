@@ -25,16 +25,18 @@ Migrating from Redshift to Firebolt is more than just moving data. It requires r
 
 The following sections will guide you through understanding Firebolt’s architecture, selecting the right compute engines, transforming your schema, and optimizing query performance to ensure a seamless and efficient migration.
 
-Topics:
+Overview:
 * [Architectural differences](#architectural-differences) &ndash; Firebolt separates compute from storage, enabling independent scaling, workload isolation, and cost efficiency.
 * [Schema differences](#schema-differences) &ndash; Firebolt replaces Redshift’s manual distribution keys and rigid schemas with dynamic indexing, denormalization, and flexible JSON handling for faster, simpler queries.
-* [Exporting data from Redshift](#exporting-data-from-redshift) &ndash; Export Redshift data to Amazon S3 in CSV or Parquet format, prepared for efficient loading into Firebolt.
-* [Loading data into Firebolt](#loading-data-into-firebolt)
-* [Translating queries](#translating-queries)
+
+Steps:
+* [Export data from Redshift](#export-data-from-redshift) &ndash; Export Redshift data to Amazon S3 in CSV or Parquet format, prepared for efficient loading into Firebolt.
+* [Load data into Firebolt](#load-data-into-firebolt) &ndash; 
+* [Translate queries](#translate-queries)
 * [Performance testing and optimization](#performance-testing-and-optimization)
 * [Automated migration](#automated-migration)
 * [Post-migration validation and maintenance](#post-migration-validation-and-maintenance)
-* [Best practices](#best-practices)
+
 
 ## Architectural differences
 
@@ -510,7 +512,7 @@ Matching checksums confirm that all data has been migrated accurately.
 
 By validating row counts, aggregates, query plans, and checksums before final migration, you ensure that schema changes deliver consistent, reliable, and optimized results in Firebolt.
 
-## Exporting data from Redshift
+## Export data from Redshift
 
 Before migrating to Firebolt, export your Redshift data to Amazon S3. Redshift supports efficient parallel unloading of data in various formats such as CSV or Parquet, which Firebolt can load directly.
 
@@ -546,9 +548,10 @@ Follow these steps to export data:
     * Follow consistent naming conventions including table names, export dates, or partitions.  
     * Clean up any incomplete or partial exports to avoid loading invalid data.
 
-## Loading data into Firebolt
+## Load data into Firebolt
 
-## Translating queries
+Firebolt uses `COPY` 
+## Translate queries
 
 ## Performance testing and optimization
 
