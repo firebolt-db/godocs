@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Migrate from Redshift 
+title: Migrate from Amazon Redshift 
 description: Learn how to migrate your workflow from Redshift
 nav_order: 1 
 parent: Migrate to Firebolt
@@ -8,7 +8,7 @@ has_toc: true
 has_children: false
 ---
 
-# Migrate from Redshift to Firebolt
+# Migrate from Amazon Redshift to Firebolt
 
 Migrating from Amazon Redshift to Firebolt unlocks significant improvements in performance, scalability, and cost efficiency for analytics workloads. Firebolt’s modern, decoupled architecture eliminates many of the constraints of Redshift’s monolithic cluster approach, enabling faster query performance, elastic compute scaling, and optimized workload management.
 
@@ -27,7 +27,7 @@ The following sections will guide you through understanding Firebolt’s archite
 
 Topics:
 * [Architectural differences](#architectural-differences) &ndash; Firebolt separates compute from storage, enabling independent scaling, workload isolation, and cost efficiency.
-* [Schema differences](#schema-differences)
+* [Schema differences](#schema-differences) &ndash; Firebolt replaces Redshift’s manual distribution keys and rigid schemas with dynamic indexing, denormalization, and flexible JSON handling for faster, simpler queries.
 * [Exporting data from Redshift](#exporting-data-from-redshift)
 * [Loading data into Firebolt](#loading-data-into-firebolt)
 * [Translating queries](#translating-queries)
@@ -60,13 +60,13 @@ Since Firebolt allows dedicated compute engines for different workloads, selecti
 
 | **Best practices for architectural differences** | **Impact**                                      | **How to implement**  |
 |------------------------------------------------|------------------------------------------------|----------------------|
-| [Use separate Firebolt engines for different workloads](#use-separate-firebolt-engines-for-different-workloads) | Prevents resource contention and improves workload isolation. | Assign dedicated engines for ingestion, analytics, and transformations to avoid competition for resources. |
-| [Scale compute and storage independently](#scale-compute-and-storage-independently) | Allows flexible resource allocation without overprovisioning. | Increase compute resources for analytics without expanding storage, and scale engines independently based on workload needs. |
-| [Pause idle engines to reduce costs](#pause-idle-engines-to-reduce-costs) | Lowers operational costs while keeping data accessible. | Use auto-stop settings to pause unused engines and restart them on demand. |
-| [Optimize queries with indexing](#optimize-queries-with-indexing) | Speeds up query processing and reduces scan times. | Use primary indexes for efficient filtering and aggregating indexes for precomputed aggregations. |
+| [1. Use separate Firebolt engines for different workloads](#1-use-separate-firebolt-engines-for-different-workloads) | Prevents resource contention and improves workload isolation. | Assign dedicated engines for ingestion, analytics, and transformations to avoid competition for resources. |
+| [2. Scale compute and storage independently](#2-scale-compute-and-storage-independently) | Allows flexible resource allocation without overprovisioning. | Increase compute resources for analytics without expanding storage, and scale engines independently based on workload needs. |
+| [3. Pause idle engines to reduce costs](#3-pause-idle-engines-to-reduce-costs) | Lowers operational costs while keeping data accessible. | Use auto-stop settings to pause unused engines and restart them on demand. |
+| [4. Optimize queries with indexing](#4-optimize-queries-with-indexing) | Speeds up query processing and reduces scan times. | Use primary indexes for efficient filtering and aggregating indexes for precomputed aggregations. |
  
 
-##### Use separate Firebolt engines for different workloads
+##### 1. Use separate Firebolt engines for different workloads
 
 Unlike Redshift, where all queries run in a shared cluster, Firebolt enables workload isolation by assigning dedicated compute engines for different tasks. This ensures that data loading processes no longer compete with analytical queries, maintaining consistent performance. Allocate dedicated engines for critical workloads such as real-time dashboards or high-volume data transformation pipelines to maximize efficiency. 
 
@@ -105,7 +105,7 @@ CREATE ENGINE "analytics_engine" WITH
 TYPE = "L"
 NODES = 8;
 ```
-##### Scale compute and storage independently
+##### 2. Scale compute and storage independently
 
 Firebolt allows scaling compute without affecting storage, unlike Redshift, where storage grows with compute. You can allocate more compute resources for analytics while keeping storage unchanged. Use smaller engines for intermittent workloads.
 
@@ -113,7 +113,7 @@ The following code example shows how to scale an engine for high-currency analyt
 ```sql
 ALTER ENGINE "analytics_engine" SET NODES = 10;
 ```
-##### Pause idle engines to reduce costs
+##### 3. Pause idle engines to reduce costs
 
 Firebolt engines consume credits only when engines are running, so pausing unused engines can significantly reduce costs. In Redshift, charges are based on cluster uptime, even if it is idle. In Firebolt, you can pause an engine without losing access to stored data.
 
@@ -126,7 +126,7 @@ AUTO_STOP = 30
 AUTO_START = TRUE;
 ```
 
-##### Optimize queries with indexing
+##### 4. Optimize queries with indexing
 
 Firebolt eliminates the need for `SORT` and `DIST` keys by using indexing for faster query performance. You can filter by a primary index to reduce scan times and use an aggregating index for precomputed aggregations.
 
@@ -175,19 +175,23 @@ The following sections explain key schema differences and best practices for ada
 
 | **Best practices for migrating schema** | **Impact**                                          | **How to implement**  |
 |--------------------------------------|--------------------------------------------------|----------------------|
-| [Replace SORTKEY and DISTKEY with indexes](#replace-sortkey-and-distkey-with-indexes) | Reduces manual optimization, improves query efficiency | Use primary, aggregating, and join indexes instead of `SORTKEY` and `DISTKEY`. |
-| [Optimize schema for columnar storage](#optimize-schema-for-columnar-storage)  | Improves data pruning, query performance, and reduces joins | Use fact tables for large datasets, primary indexes for filtering, aggregating indexes for precomputed calculations, and denormalize frequently joined tables. |
-| [Convert JSON SUPER columns to `TEXT`](#convert-json-super-columns-to-text)    | Enables flexible querying of semi-structured data | Store JSON as `TEXT`, extract values with `JSON_VALUE` and `JSON_EXTRACT`. |
-| [Validate schema changes before migration](#validate-schema-changes-before-migration) | Ensures data consistency and query optimization   | Compare row counts, query execution times, and indexing efficiency between Redshift and Firebolt. |
+| [1. Replace SORTKEY and DISTKEY with indexes](#replace-sortkey-and-distkey-with-indexes) | Reduces manual optimization, improves query efficiency | Use primary, aggregating, and join indexes instead of `SORTKEY` and `DISTKEY`. |
+| [2. Optimize schema for columnar storage](#optimize-schema-for-columnar-storage)  | Improves data pruning, query performance, and reduces joins | Use fact tables for large datasets, primary indexes for filtering, aggregating indexes for precomputed calculations, and denormalize frequently joined tables. |
+| [3. Convert JSON SUPER columns to TEXT](#convert-json-super-columns-to-text)    | Enables flexible querying of semi-structured data | Store JSON as `TEXT`, extract values with `JSON_VALUE` and `JSON_EXTRACT`. |
+| [4. Validate schema changes before migration](#validate-schema-changes-before-migration) | Ensures data consistency and query optimization   | Compare row counts, query execution times, and indexing efficiency between Redshift and Firebolt. |
 
 
-#### Replace `SORTKEY` and `DISTKEY` with indexes
+#### 1. Replace `SORTKEY` and `DISTKEY` with indexes
 
-Amazon Redshift relies on `SORTKEY` and `DISTKEY` to optimize data distribution and query performance. `SORTKEY` determines the order in which data is physically stored, improving range queries and filtering, while `DISTKEY` controls how data is distributed across cluster nodes to balance query performance. These keys require manual selection and tuning based on query patterns, making performance optimization a complex and ongoing task.
+Amazon Redshift relies on `SORTKEY` and `DISTKEY` to optimize data distribution and query performance. `SORTKEY` determines the order in which data is physically stored, improving range queries and filtering, while `DISTKEY` controls how data is distributed across cluster nodes to balance query performance. These keys require manual selection and tuning based on query patterns, making performance optimization a complex and ongoing task. Additionally, these keys must be set at table creation and cannot be changed without recreating the table and reloading data, making schema adjustments rigid and time-consuming.
+
+In Redshift, data is partitioned across nodes based on the `DISTKEY`. Selecting a poor distribution key can lead to data skew, where some nodes store significantly more data than others, causing uneven workloads and performance bottlenecks.
 
 One major limitation of Redshift’s approach is that scaling a cluster involves redistributing data across nodes, which can lead to performance degradation and downtime. When the cluster size changes, Redshift must redistribute data based on the defined `DISTKEY`, potentially causing imbalanced workloads and requiring manual re-optimization of data distribution.
 
-Firebolt eliminates the need for manual data distribution and sorting by using indexes to optimize query execution automatically. [Primary indexes]({% link Overview/indexes/primary-index.md %}) improve scan efficiency by physically storing data in an ordered structure, [aggregating indexes]({% link Overview/indexes/aggregating-index.md %}) precompute results at ingestion time for faster aggregations, and join indexes optimize joins between large tables. Firebolt’s indexing strategy ensures faster query performance with minimal manual tuning, reducing the need for manual `VACUUM` and `ANALYZE` operations required in Redshift to maintain query efficiency.
+Firebolt eliminates the need for manual data distribution and sorting by using indexes to optimize query processing automatically. Unlike Redshift’s fixed distribution and sorting keys, Firebolt’s indexes can be dynamically modified based on changing workloads or replaced without reloading data. [Primary indexes]({% link Overview/indexes/primary-index.md %}) improve scan efficiency by physically storing data in an ordered structure, [aggregating indexes]({% link Overview/indexes/aggregating-index.md %}) precompute results during loading time for faster aggregations, and join indexes optimize joins between large tables. 
+
+Firebolt’s indexing strategy, combined with tablet-based storage, ensures faster query performance with minimal manual tuning, reducing the need for manual `VACUUM` and `ANALYZE` operations required in Redshift to maintain query efficiency. Firebolt’s decoupled architecture makes node-level data distribution unnecessary. Indexes enable the engine to dynamically access only the relevant data. Understanding how indexes and tablet-based storage replace distribution and sort keys is critical. Firebolt stores data in tablets and uses indexing to prune unnecessary data, allowing faster queries without manual tuning.
 
 To migrate Redshift keys to Firebolt indexes, do the following:
 * Use a primary index instead of a `SORTKEY` to efficiently filter and scan only relevant data during query runtime.
@@ -247,7 +251,33 @@ In the previous code example, the following apply:
 * `SORTKEY(sale_date)` is replaced with the primary index `(sale_date)`.
 * The join index on `customer_id` replaces an explicit join optimization in Redshift, ensuring faster lookups between `sales` and `customers`.
 
-#### Optimize schema for columnar storage
+ In the following example, the `DISTKEY` in Redshift partitions data across nodes by `game_id`. Firebolt’s primary index on `GameID` and `PlayerID` allows the engine to quickly prune data during query processing, achieving similar optimization without manual distribution.
+
+In Redshift, the following schema uses `DISTKEY` and `SORTKEY` for the `playstats` table:
+
+```sql
+CREATE TABLE playstats (
+    game_id INT,
+    player_id INT,
+    score BIGINT,
+    play_time INT
+)
+DISTSTYLE KEY
+DISTKEY (game_id)
+SORTKEY (game_id, player_id);
+```
+In Firebolt, the equivalent schema uses a primary index on `GameID` and `PlayerID`:
+```sql
+CREATE FACT TABLE playstats ( 
+    GameID INT, 
+    PlayerID INT, 
+    CurrentScore BIGINT, 
+    CurrentPlayTime INT 
+) 
+PRIMARY INDEX (GameID, PlayerID);
+```
+
+#### 2. Optimize schema for columnar storage
 
 Firebolt’s columnar storage model organizes data in tablets, allowing queries to scan only the necessary portions of a dataset. Unlike row-based storage, columnar storage reduces I/O overhead and improves query performance by efficiently storing, filtering, and aggregating data.
 
@@ -308,11 +338,213 @@ In the previous code example, the following apply:
 
 By optimizing schema for Firebolt’s columnar storage, you can reduce query complexity, improve filtering efficiency, and accelerate data retrieval without relying on traditional row-based storage and extensive joins.
 
-#### Convert JSON `SUPER` columns to `TEXT`
+#### 3. Convert JSON `SUPER` columns to `TEXT` 
 
-#### Validate schema changes before migration
+Firebolt improves the handling of JSON data by storing it as `TEXT`, allowing dynamic field extraction without predefined schemas. Firebolt includes specialized JSON functions to extract, convert, and manipulate JSON data stored in `TEXT` columns, enabling flexible and efficient querying without predefined structures. Unlike Redshift’s `SUPER` type, which requires fixed structures and functions like `JSON_EXTRACT_PATH_TEXT`, Firebolt enables flexible querying with [JSON_VALUE]({% link sql_reference/functions-reference/JSON/json-value.md %}), [JSON_EXTRACT]({% link sql_reference/functions-reference/JSON/json-extract.md %}), and [JSON_POINTER_EXTRACT_TEXT]({% link sql_reference/functions-reference/JSON/json-pointer-extract-text.md %}). These functions allow queries to retrieve only the necessary JSON fields, reducing scan time and improving performance.
+
+Firebolt’s approach removes the need for manual schema updates, simplifies query logic, and supports dynamic key lookups without restructuring the data model. Queries are easier to write and maintain because Firebolt avoids the nested function calls required in Redshift. By replacing `SUPER` with `TEXT`, users gain a more efficient and flexible way to query JSON data.
+
+In Redshift, tables may store JSON data using the `SUPER` type as follows:  
+
+```sql
+CREATE TABLE events (
+    event_id INT PRIMARY KEY,
+    event_data SUPER
+);
+```
+
+When migrating to Firebolt, export the JSON data from Redshift as `TEXT`, for example, by unloading to S3 in JSON or CSV format. Then, define the column in Firebolt as `TEXT` as follows:
+
+```sql
+CREATE FACT TABLE events (
+    event_id INT,
+    event_data TEXT
+);
+```
+The previous code example allows you to load JSON content into Firebolt as plain text and query it using Firebolt’s JSON functions.
+
+**Extracting JSON in Redshift versus Firebolt**
+
+In Redshift, extracting a JSON field requires fixed paths and multiple function calls for nested structures as follows:  
+
+```sql
+SELECT JSON_EXTRACT_PATH_TEXT(event_data, 'user_id') AS user_id
+FROM events;
+```
+For nested JSON fields, Redshift queries become more complex as shown in the following code example:
+
+```sql
+SELECT JSON_EXTRACT_PATH_TEXT(JSON_EXTRACT_PATH_TEXT(event_data, 'metadata'), 'user_id') AS user_id
+FROM events;
+```
+Firebolt simplifies this by allowing direct field extraction with `JSON_VALUE` as follows:
+
+```sql
+SELECT JSON_VALUE(event_data, 'user_id') AS user_id
+FROM events;
+```
+
+For nested fields, Firebolt uses a single function call as follows:
+
+```sql
+SELECT JSON_VALUE(JSON_POINTER_EXTRACT_TEXT(event_data, '/metadata/user/id')) AS user_id
+FROM events;
+```
+JSON pointer expressions are used to navigate JSON documents, enabling precise access to nested elements and arrays by specifying the path to the desired value.
+
+Firebolt also supports dynamic key lookups without predefined paths. The following example shows dynamic path construction with `CONCAT`:
+
+```sql
+SELECT JSON_VALUE(JSON_POINTER_EXTRACT_TEXT(event_data, CONCAT('/users/', user_index, '/id'))) AS dynamic_user_id
+FROM events;
+```
+#### 4. Validate schema changes before migration  
+
+Before migrating from Redshift to Firebolt, validate your schema changes to ensure data consistency and optimized query performance. Differences in data types, indexing, and table design require careful verification to avoid mismatches and unexpected results after migration.
+
+The following table shows common Redshift data types and their Firebolt equivalents to help you adjust column definitions during schema migration:
+
+| Redshift type          | Firebolt equivalent  | Notes                                                      |
+|------------------------|----------------------|------------------------------------------------------------|
+| SMALLINT               | SMALLINT             | Identical.                                                 |
+| INTEGER                | INT or INTEGER       | Firebolt uses INT for integer types.                       |
+| BIGINT                 | BIGINT               | Identical.                                                 |
+| REAL                   | FLOAT4               | Alias mapping for single-precision floats.                 |
+| DOUBLE PRECISION       | DOUBLE               | Use DOUBLE for double-precision floats.                    |
+| NUMERIC(p, s)          | DECIMAL(p, s)        | Equivalent; Firebolt uses DECIMAL.                         |
+| BOOLEAN                | BOOLEAN              | Identical.                                                 |
+| CHAR(n) or VARCHAR(n)  | TEXT                 | Firebolt uses TEXT with no length restrictions.            |
+| DATE                   | DATE                 | Identical.                                                 |
+| TIMESTAMP              | TIMESTAMP            | Firebolt supports TIMESTAMP without time zone.             |
+| JSON                   | TEXT                 | JSON is stored as TEXT and queried using JSON functions.   |
+| ARRAY                  | ARRAY(TEXT)          | Firebolt arrays require explicit type definitions.         |
+
+**Example schema conversion**  
+
+The following example shows how to convert a Redshift table to a Firebolt dimension table with type adjustments and a primary index:  
+
+In Redshift, the following code example creates a `players` table with columns for `player_id`, `nickname`, registration date, and `score` using specified data types:
+
+```sql
+CREATE TABLE players (
+    player_id INTEGER,
+    nickname VARCHAR(50),
+    registered_on DATE,
+    score NUMERIC(10, 2)
+);
+```
+
+In Firebolt, the following code example creates a `players` dimension table with columns for `PlayerID`, `Nickname`, registration date, and `Score`, and defines a primary index on `PlayerID` to optimize filtering and lookups.:
+
+```sql
+CREATE DIMENSION TABLE players (
+    PlayerID INT,
+    Nickname TEXT,
+    RegisteredOn DATE,
+    Score DECIMAL(10, 2)
+) PRIMARY INDEX PlayerID;
+```
+
+Although Firebolt’s indexing and denormalization reduce the need for manual tuning, you should still validate that queries and aggregations behave as expected. Data integrity checks help ensure that row counts and aggregated results in Firebolt match those in Redshift. Performance tests verify that indexing strategies deliver the intended improvements.
+
+**Validate row counts and aggregate metrics**  
+
+Run queries in both Redshift and Firebolt to compare row counts and sum totals.  
+
+In Redshift, the following code example counts the total number of rows in the `playstats` table and calculates the sum of the `currentscore` column:
+
+```sql
+SELECT COUNT(*) FROM playstats;
+SELECT SUM(currentscore) AS total_score FROM playstats;
+```
+
+In Firebolt, the following code performs the equivalent check:
+
+```sql
+SELECT COUNT(*) FROM playstats;
+SELECT SUM(currentscore) AS total_score FROM playstats;
+```
+Ensure that counts and aggregates are identical between both systems.
+
+**Validate indexing efficiency with EXPLAIN**
+
+Review query plans to identify sequential scans and costly joins. 
+
+The following code example displays the query plan for grouping `playstats` by `gameid` and summing `currentscore` showing how Redshift's database will process the query:
+
+```sql
+EXPLAIN 
+SELECT gameid, SUM(currentscore)
+FROM playstats
+GROUP BY gameid;
+```
+
+In Firebolt, use [EXPLAIN (ANALYZE)]({% link sql_reference/commands/queries/explain.md %}#example-with-analyze) to view actual data scanned and confirm that indexes are applied. This example runs the same query and returns runtime metrics, showing row counts and processing times for each step:
+
+```sql
+EXPLAIN (ANALYZE)
+SELECT gameid, SUM(currentscore)
+FROM playstats
+GROUP BY gameid;
+```
+The output from the previous code example shows row counts and processing times for each step, confirming that indexes are reducing scanned data.
+
+**Validate consistency using checksums**
+
+Firebolt’s [HASH_AGG]({% link sql_reference/functions-reference/aggregation/hash-agg.md %}) function provides a checksum of table contents to compare against Redshift results.
+
+In Redshift, the following code example generates a checksum value by concatenating all `gameid`, `playerid`, and `currentscore` values from the `playstats` table, aggregating them into a single string, and applying the MD5 hash to verify data consistency:
+
+```sql
+SELECT MD5(STRING_AGG(CONCAT(gameid, ',', playerid, ',', currentscore), '')) AS table_checksum
+FROM playstats;
+```
+
+In Firebolt, use HASH_AGG to generate a checksum across all rows and columns as follows:
+
+```sql
+SELECT HASH_AGG(*) AS table_checksum
+FROM playstats;
+```
+Matching checksums confirm that all data has been migrated accurately.
+
+By validating row counts, aggregates, query plans, and checksums before final migration, you ensure that schema changes deliver consistent, reliable, and optimized results in Firebolt.
 
 ## Exporting data from Redshift
+
+Before migrating to Firebolt, export your Redshift data to Amazon S3. Redshift supports efficient parallel unloading of data in various formats such as CSV or Parquet, which Firebolt can load directly.
+
+Follow these steps to export data:
+
+1. Use Redshift’s `UNLOAD` command to export tables or query results to Amazon S3.
+
+    The following code example unloads the sales table data in CSV format to the specified Amazon S3 bucket:
+    
+    ```sql
+    UNLOAD ('SELECT * FROM sales')
+    TO 's3://your-redshift-data/sales/'
+    CREDENTIALS 'aws_access_key_id=your-access-key;aws_secret_access_key=your-secret-key'
+    PARALLEL OFF
+    ALLOWOVERWRITE
+    DELIMITER ',';
+    ```
+
+2. Format data for Firebolt as follows:
+
+    * Ensure that exported data is in CSV or Parquet format.  
+    * Include headers in CSV files to simplify mapping during loading.  
+    * Use Parquet for efficient compression and faster loading.  
+    * Compress CSV files with gzip to reduce storage and speed up transfer.  
+    * Use consistent delimiters and avoid special characters that may cause parsing errors.  
+    * Validate that exported data types match the expected Firebolt schema.  
+    * Disable schema evolution in Parquet exports to avoid mismatches during loading.
+
+3. Organize files in Amazon S3 for parallel loading.
+
+    * Store exported files in Amazon S3 folders using clear prefixes, for example: `s3://your-redshift-data/sales/2024/01/`.  
+    * Use multiple small-to-medium sized files of 100 MB to 1 GB each to maximize parallel loading in Firebolt.  
+    * Follow consistent naming conventions including table names, export dates, or partitions.  
+    * Clean up any incomplete or partial exports to avoid loading invalid data.
 
 ## Loading data into Firebolt
 
