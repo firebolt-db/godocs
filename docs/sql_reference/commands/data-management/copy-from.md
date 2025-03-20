@@ -239,7 +239,7 @@ When loading data into a target table, you can manually map source and target sc
 ##### Handling case sensitivity
 {: .no_toc}
 
-By default, column mapping in Firebolt is **case-insensitive**, meaning column names in the `COPY INTO` statement are matched without quotes and are treated as lowercase. The [`CASE_SENSITIVE_COLUMN_MAPPING`](#parameters) parameter is ignored, and data loads into the table regardless of case differences. If you need to enforce case-sensitive column mapping, set the `CASE_SENSITIVE_COLUMN_MAPPING` parameter to `TRUE`. When enabled, column names must match exactly, including case, and `COPY FROM` will either fail or populate columns with `NULL` values if there is a case mismatch. You can also use quoted identifiers to preserve case-sensitive behavior. 
+By default, column mapping in Firebolt is **case-insensitive**, meaning column names in the `COPY FROM` statement are matched without quotes and are treated as lowercase. The [`CASE_SENSITIVE_COLUMN_MAPPING`](#parameters) parameter is ignored, and data loads into the table regardless of case differences. If you need to enforce case-sensitive column mapping, set the `CASE_SENSITIVE_COLUMN_MAPPING` parameter to `TRUE`. When enabled, column names must match exactly, including case, and `COPY FROM` will either fail or populate columns with `NULL` values if there is a case mismatch. You can also use quoted identifiers to preserve case-sensitive behavior. 
 
 ##### Mapping by column name
 {: .no_toc}
@@ -261,7 +261,7 @@ FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset
 WITH HEADER = TRUE;
 ```
 
-This approach allows the column order to differ between the source file and target table, as long as the column names in the `COPY INTO` statement match exactly with the source file. 
+This approach allows the column order to differ between the source file and target table, as long as the column names in the `COPY FROM` statement match exactly with the source file. 
 
 ##### Mapping by index position
 {: .no_toc}
