@@ -24,12 +24,12 @@ READ_PARQUET (
 
 ## Parameters
 
-| Parameter                     | Description                                                                                      | Supported input types |
-|:------------------------------|:-------------------------------------------------------------------------------------------------|:----------------------|
-| `<url>`                       | The location of the Amazon S3 bucket containing your files. The expected format is `s3://{bucket_name}/{full_file_path}`.          | `TEXT`                |
-| `<aws_access_key_id>`                | The AWS access key ID.                                                                                      | `TEXT`                |
-| `<aws_secret_access_key>`            | The AWS secret access key.                                                                                  | `TEXT`                |
-| `<aws_session_token>`            | The AWS session token.                                                                                 | `TEXT`                |
+| Parameter                     | Description                                                                                                               | Supported input types |
+|:------------------------------|:--------------------------------------------------------------------------------------------------------------------------|:----------------------|
+| `<url>`                       | The location containing your files in an Amazon S3 bucket. The expected format is `s3://{bucket_name}/{full_file_path_glob_pattern}`.  | `TEXT`                |
+| `<aws_access_key_id>`                | The AWS access key ID.                                                                                                    | `TEXT`                |
+| `<aws_secret_access_key>`            | The AWS secret access key.                                                                                                | `TEXT`                |
+| `<aws_session_token>`            | The AWS session token.                                                                                                    | `TEXT`                |
 
 The following apply:
 
@@ -38,6 +38,11 @@ The following apply:
     ```sql
     SELECT * FROM READ_PARQUET('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/TournamentID=92/cc2a2a0b4e8b4fb39abf20a956e7cc3e-0.parquet');
     SELECT * FROM READ_PARQUET(url => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/TournamentID=92/cc2a2a0b4e8b4fb39abf20a956e7cc3e-0.parquet');
+    ```
+* The `url` can represent a single file or a [glob](https://en.wikipedia.org/wiki/Glob_(programming)) pattern. If a glob pattern is used, all files matching the pattern will be read:
+
+    ```sql
+    SELECT * FROM READ_PARQUET('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/*.parquet')
     ```
 
 * Credentials are optional. 
