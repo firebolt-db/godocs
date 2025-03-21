@@ -36,7 +36,7 @@ READ_CSV (
 
 | Parameter                     | Description                                                                                      | Supported input types |
 |:------------------------------|:-------------------------------------------------------------------------------------------------|:----------------------|
-| `<url>`                       | The location of the Amazon S3 bucket containing your files. The expected format is `s3://{bucket_name}/{full_file_path}`.          | `TEXT`                |
+| `<url>`                       | The location containing your files in an Amazon S3 bucket. The expected format is `s3://{bucket_name}/{full_file_path_glob_pattern}`.          | `TEXT`                |
 | `<compression>`               | The [compression type](../../commands/data-definition/create-external-table.md#compression) of the input file. If `compression` is not set, `compression` is inferred from the file extension.           | `TEXT`                |
 | `<aws_access_key_id>`                | The AWS access key ID.                                                                                      | `TEXT`                |
 | `<aws_secret_access_key>`            | The AWS secret access key.                                                                                  | `TEXT`                |
@@ -56,6 +56,11 @@ The following apply:
     ```sql
     SELECT * FROM READ_CSV(url => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv');
     SELECT * FROM READ_CSV('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv');
+    ```
+* The `url` can represent a single file or a [glob](https://en.wikipedia.org/wiki/Glob_(programming)) pattern. If a glob pattern is used, all files matching the pattern will be read:
+
+    ```sql
+    SELECT * FROM READ_CSV('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/*.csv')
     ```
 
 * All parameters, except for `url`, are optional. 
