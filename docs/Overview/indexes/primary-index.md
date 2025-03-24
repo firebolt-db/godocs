@@ -59,7 +59,7 @@ CREATE TABLE <table_name> (
    ...]
 )
 PRIMARY INDEX <column_name1>[, <column_name2>, ...]
-[WITH ( index_granularity = <index_granularity_value> ) ];
+[WITH ( index_granularity_value = <index_granularity_value> ) ];
 ```
 
 ## Parameters
@@ -117,12 +117,10 @@ It defines the maximum number of rows per tablet range, which directly impacts h
 
 ### How index granularity works
 
-Primary indexes store a sparse set of column values in memory, capturing values at tablet range boundaries. Increasing the tablet range size reduces the number of ranges, while decreasing it creates more ranges. This directly affects the primary index’s selectivity and memory usage.
+A granule is the smallest block of rows that Firebolt can skip or read during query filtering. Index granularity defines the number of rows in each granule. In other words, it sets the smallest group of rows the engine can access independently.
 
-There is a tradeoff between the following:
-
-* **Lower index granularity values** provide more precise indexing, minimizing unnecessary row scans for selective queries. However, they increase static memory usage for the primary index and may introduce overhead from managing additional tablet ranges.
-* **Higher index granularity values** reduce memory overhead but may increase the number of irrelevant rows scanned during filtering, particularly for selective queries.
+* **Lower index granularity** creates smaller granules, allowing more precise filtering and reducing unnecessary row scans in selective queries. However, lower index granularity also increases memory usage and overhead from managing more granules.
+* **Higher index granularity values** creates larger granules, lowering memory usage and management overhead but increasing the chance of scanning irrelevant rows, especially in selective queries.
 
 For more information about the fundamentals of Firebolt's primary indexes and tablet ranges, see Firebolt's blog post on [primary indexes](https://www.firebolt.io/blog/primary-indexes-in-firebolt-a-comprehensive-guide-to-understanding-managing-and-selecting).
 
