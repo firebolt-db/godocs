@@ -12,23 +12,23 @@ parent: Data management
 # VACUUM
 Optimizes tablets for query performance.
 
-`VACUUM` improves query efficiency by restructuring tablets for optimal performance.. DML operations such as [DELETE](delete.md), [UPDATE](update.md), [INSERT](insert.md), and [COPY FROM](copy-from.md) might create tablets that are not optimally sized. Suboptimal tablets occur because DML efficiently utilizes resources in proportion to the cardinality of the data being inserted. In addition to standard SQL operations, tuples that are deleted by an update are not always physically removed from their table; they remain present until a `VACUUM` is finished operating. In other words, tablets are not necessarily optimal for running queries; therefore, it’s necessary to run `VACUUM` periodically, especially on frequently updated tables.
+`VACUUM` improves query efficiency by restructuring tablets for optimal performance. DML operations such as [DELETE](delete.md), [UPDATE](update.md), [INSERT](insert.md), and [COPY FROM](copy-from.md) might create tablets that are not optimally sized. Suboptimal tablets occur because DML efficiently utilizes resources in proportion to the cardinality of the data being inserted. In addition to standard SQL operations, tuples that are deleted by an update are not always physically removed from their table; they remain present until a `VACUUM` is finished operating. In other words, tablets are not necessarily optimal for running queries; therefore, it’s necessary to run `VACUUM` periodically, especially on frequently updated tables.
 
 Any engine that processes a DML operation automatically assesses the health of tables’ data layout and runs the `VACUUM` command when necessary to maintain the underlying table health. The fragmentation ratio—the ratio of rows marked for deletion to the total number of rows—can be monitored using the `information_schema.tables view`. You can also run `VACUUM` manually using the syntax and options described below.
 
 ## Syntax
 
 ```text
-VACUUM [ (option_name = option_value) ] <table>
+VACUUM [ (option_name = option_value) ] <table|aggregating index>
 ```
-Where `<table>` is the name of the table to be optimized.
+Where `<table|aggregating index>` is the name of the table or aggregating index to be optimized.
 
 ## Options
 {: .no_toc}
 
 | Option name | Option value and description         |
 | :---------  | :----------------------------------- |
-| `INDEXES`   | `ALL` &mdash; (Default) Specifies whether to apply optimizations to both the table and all its aggregating indexes.<br> `NONE` &mdash; Optimizes only the table. |
+| `INDEXES`   | `FULL` &mdash; (Default) Specifies whether to apply optimizations to both the table and all its aggregating indexes.<br> `INCREMENTAL` &mdash; Similar to `FULL`, but will apply incremental optimizations to aggregating indexes, instead of complete reevaluation.<br> `NONE` &mdash; Optimizes only the table. |
 | `MAX_CONCURRENCY`   | `<Number>` &mdash; The maximum number of concurrent jobs to use during optimization. |
 
 
@@ -42,6 +42,11 @@ The following code example optimizes the `games` table and all its aggregating i
 
 ```text
 VACUUM games;
+```
+
+The example above performs a complete rebuild of related aggregating indexes. Alternatively, you can specify to apply incremental optimization, which still improves index layout while using fewer resources, though it may not achieve optimal layout:
+```text
+VACUUM (INDEXES = INCREMENTAL) games;
 ```
 
 **Optimize a table without its indexes**

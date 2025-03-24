@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql_reference/functions-reference/conditional-and-miscellaneous/generate-series.html
 layout: default
 title: GENERATE_SERIES
 description: Reference material for GENERATE_SERIES function
