@@ -999,22 +999,36 @@ Automating the migration process from Redshift to Firebolt can streamline the tr
 
 You can automate the data migration process from Redshift to Firebolt using Apache Airflow, which helps you create workflows to export data from Redshift, store it in S3, and load it into Firebolt.
 
+Before automating your migration with Airflow, you'll need set `aws_access_key_id`, `aws_secret_access_key`, and `s3_redshift_data_bucket` variables for your migration tasks. For more information, see the [Apache Airflow documentation on variables](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/variables.html).
+
 Use Airflow to run Redshift's `UNLOAD` command on a scheduled basis to export data from Redshift tables to Amazon S3 as follows:
 
-```python
-unload_data = PostgresOperator(
+```pytho
+unload_task = SQLExecuteQueryOperator(
     task_id='unload_data_from_redshift',
-    sql="UNLOAD ('SELECT * FROM your_table') TO 's3://your-bucket/your_table/' CREDENTIALS 'aws_access_key_id={{ var.value.aws_access_key }};aws_secret_access_key={{ var.value.aws_secret_key }}' PARALLEL OFF DELIMITER ',';",
-    postgres_conn_id='redshift_connection',
+    sql="""
+    UNLOAD ('SELECT * FROM your_table')
+    TO '{{ var.value.s3_redshift_data_bucket }}/your_table/'
+    CREDENTIALS 'aws_access_key_id={{ var.value.aws_access_key_id }};aws_secret_access_key={{ var.value.aws_secret_access_key }}
+    PARALLEL OFF
+    DELIMITER ',';
+    """,
+    conn_id='redshift_connection',
     dag=dag
 )
 ```
 Once the data is in Amazon S3, use another Airflow task to run Firebolt’s [COPY FROM]({% link sql_reference/commands/data-management/copy-from.md %}) command to load the data into your Firebolt tables as follows:
 
 ```python
-load_data_to_firebolt = FireboltOperator(
-    task_id='load_data_into_firebolt',
-    sql="COPY INTO your_table FROM 's3://your-bucket/your_table/' TYPE = PARQUET;",
+load_task = FireboltOperator(
+    task_id='load_data_to_firebolt',
+    sql="""
+    COPY INTO your_table
+    FROM '{{ var.value.s3_redshift_data_bucket }}/your_table/'
+    WITH
+    TYPE = CSV
+    CREDENTIALS = (AWS_ACCESS_KEY_ID='{{ var.value.aws_access_key_id }}' AWS_SECRET_ACCESS_KEY='{{ var.value.aws_secret_access_key }}');
+    """,
     firebolt_conn_id='firebolt_connection',
     dag=dag
 )
@@ -1025,10 +1039,28 @@ After migrating the schema and data, test the performance of different Firebolt 
 The following code example runs a query in Firebolt:
 
 ```python
-performance_test = FireboltOperator(
-    task_id='performance_testing',
-    sql="EXPLAIN (ANALYZE) SELECT gameid, SUM(currentplaytime) FROM playstats GROUP BY gameid;",
-    firebolt_conn_id='firebolt_connection',
+# Define the performance test function
+def run_performance_test(**context):
+    """Run performance test on Firebolt."""
+    try:
+        # Replace the query with the one you want to test
+        sql_to_test = "SELECT * FROM your_table"
+
+        sql_to_run = """
+        EXPLAIN (ANALYZE)
+        SELECT * FROM your_table
+        """
+        hook = FireboltHook(firebolt_conn_id='firebolt_connection')
+        result = hook.get_first(sql_to_run)[0]
+        logging.info("Performance test result: %s", result)
+    except Exception as e:
+        logging.error("Error in performance test: %s", str(e))
+        raise
+
+performance_test = PythonOperator(
+    task_id='run_performance_test',
+    python_callable=run_performance_test,
+    provide_context=True,
     dag=dag
 )
 ```
@@ -1039,23 +1071,81 @@ The following code example uses a DAG to automate migrating data, transforming s
 
 ```python
 from airflow import DAG
-from airflow.operators.dummy_operator import DummyOperator
-from airflow.operators.postgres_operator import PostgresOperator
-from airflow.operators.firebolt_operator import FireboltOperator
-from airflow.operators.python_operator import PythonOperator
+from airflow.providers.common.sql.operators.sql import SQLExecuteQueryOperator
+from firebolt_provider.operators.firebolt import FireboltOperator
+from firebolt_provider.hooks.firebolt import FireboltHook
+from airflow.operators.python import PythonOperator
+from datetime import datetime, timedelta
+import logging
 
-dag = DAG('redshift_to_firebolt_migration', default_args=default_args, schedule_interval='@daily')
+# Define the dbt model execution function
+def run_dbt_model(**context):
+    """Execute dbt models for schema conversion and data transformation."""
+    try:
+        # Add your dbt execution logic here
+        logging.info("Starting dbt model execution")
+        # Example: subprocess.run(['dbt', 'run', '--models', 'your_model'])
+        logging.info("dbt model execution completed successfully")
+    except Exception as e:
+        logging.error("Error in dbt model execution: %s", e)
+        raise
 
-unload_task = PostgresOperator(
+# Define the performance test function
+def run_performance_test(**context):
+    """Run performance test on Firebolt."""
+    try:
+        # Replace the query with the one you want to test
+        sql_to_test = "SELECT * FROM your_table"
+
+        sql_to_run = """
+        EXPLAIN (ANALYZE)
+        SELECT * FROM your_table
+        """
+        hook = FireboltHook(firebolt_conn_id='firebolt_connection')
+        result = hook.get_first(sql_to_run)[0]
+        logging.info("Performance test result: %s", result)
+    except Exception as e:
+        logging.error("Error in performance test: %s", str(e))
+        raise
+
+default_args = {
+    'owner': 'airflow',
+    'depends_on_past': False,
+    'start_date': datetime(2025, 1, 1),
+    'email_on_failure': False,
+    'email_on_retry': False,
+}
+
+dag = DAG(
+    'redshift_to_firebolt_migration',
+    default_args=default_args,
+    schedule_interval='@daily',
+    catchup=False,
+    tags=['migration', 'redshift', 'firebolt']
+)
+
+unload_task = SQLExecuteQueryOperator(
     task_id='unload_data_from_redshift',
-    sql="UNLOAD ('SELECT * FROM your_table') TO 's3://your-bucket/your_table/' CREDENTIALS 'aws_access_key_id={{ var.value.aws_access_key }};aws_secret_access_key={{ var.value.aws_secret_key }}' PARALLEL OFF DELIMITER ',';",
-    postgres_conn_id='redshift_connection',
+    sql="""
+    UNLOAD ('SELECT * FROM your_table')
+    TO '{{ var.value.s3_redshift_data_bucket }}/your_table/'
+    CREDENTIALS 'aws_access_key_id={{ var.value.aws_access_key_id }};aws_secret_access_key={{ var.value.aws_secret_access_key }}
+    PARALLEL OFF
+    DELIMITER ',';
+    """,
+    conn_id='redshift_connection',
     dag=dag
 )
 
 load_task = FireboltOperator(
     task_id='load_data_to_firebolt',
-    sql="COPY INTO your_table FROM 's3://your-bucket/your_table/' TYPE = PARQUET;",
+    sql="""
+    COPY INTO your_table
+    FROM '{{ var.value.s3_redshift_data_bucket }}/your_table/'
+    WITH
+    TYPE = CSV
+    CREDENTIALS = (AWS_ACCESS_KEY_ID='{{ var.value.aws_access_key_id }}' AWS_SECRET_ACCESS_KEY='{{ var.value.aws_secret_access_key }}');
+    """,
     firebolt_conn_id='firebolt_connection',
     dag=dag
 )
@@ -1063,16 +1153,19 @@ load_task = FireboltOperator(
 dbt_task = PythonOperator(
     task_id='run_dbt_for_schema_conversion',
     python_callable=run_dbt_model,
+    provide_context=True,
     dag=dag
 )
 
-performance_test = FireboltOperator(
-    task_id='performance_testing',
-    sql="EXPLAIN (ANALYZE) SELECT gameid, SUM(currentplaytime) FROM playstats GROUP BY gameid;",
-    firebolt_conn_id='firebolt_connection',
+
+performance_test = PythonOperator(
+    task_id='run_performance_test',
+    python_callable=run_performance_test,
+    provide_context=True,
     dag=dag
 )
 
+# Set task dependencies
 unload_task >> load_task >> dbt_task >> performance_test
 ```
 
