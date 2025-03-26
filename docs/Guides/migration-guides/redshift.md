@@ -22,12 +22,12 @@ This guide walks you through migrating from Redshift to Firebolt. It starts with
 
 **Topics:**
 
-* [Architectural differences](#overview-architectural-differences) &ndash; An overview of how to adapt your Redshift workflow to Firebolt’s decoupled compute-storage model, which provides elastic scaling, workload isolation, and advanced indexing.
+* [Architectural differences](#architectural-differences) &ndash; An overview of how to adapt your Redshift workflow to Firebolt’s decoupled compute-storage model, which provides elastic scaling, workload isolation, and advanced indexing.
     * [Compute and storage](#compute-and-storage) &ndash; Scale compute resources for different workloads without resizing clusters or redistributing data.
     * [Scalability and elasticity](#scalability-and-elasticity) &ndash; Use right-sized engines for ingestion, analytics, and ETL without downtime.
     * [Workload isolation](#workload-isolation) &ndash;  Assign dedicated engines to individual workloads to avoid resource contention and improve reliability.
     * [Cost model](#cost-model) &ndash; Control costs with pay-as-you-go billing and flexible engine usage. Pause idle engines and size compute resources according to workload demand.
-* [Schema differences](#overview-schema-differences) &ndash; An overview of how to adapt your schema from Redshift’s `SORT` and `DIST` keys to Firebolt’s dynamic indexing, denormalization, and flexible JSON handling, which replace manual distribution keys and rigid schemas for faster, simpler queries.
+* [Schema differences](#schema-differences) &ndash; An overview of how to adapt your schema from Redshift’s `SORT` and `DIST` keys to Firebolt’s dynamic indexing, denormalization, and flexible JSON handling, which replace manual distribution keys and rigid schemas for faster, simpler queries.
     * [Table design](#table-design) &ndash; Use fact tables for large datasets and dimension tables for reference data. Optimize queries with columnar storage and primary indexes.
     * [Indexing](#indexing) &ndash;  Replace manual `SORTKEY` and `DISTKEY` tuning with dynamic primary and aggregating indexes for faster query performance and automatic data pruning.
     * [Denormalization](#denormalization) &ndash; Reduce joins and query complexity by storing frequently used fields directly in fact tables.
@@ -37,9 +37,9 @@ This guide walks you through migrating from Redshift to Firebolt. It starts with
 **Migration steps:**
 1. [Export data from Redshift](#export-data-from-redshift) &ndash; Learn how to efficiently export your Redshift data to Amazon S3 in CSV or Parquet format, format it for Firebolt, and organize it for optimal parallel loading.
 2. [Load data into Firebolt](#load-data-into-firebolt) &ndash; Load exported data into Firebolt using the [COPY FROM]({% link sql_reference/commands/data-management/copy-from.md %}) command, using parallel ingestion and indexing to optimize loading speed and query performance.
-3. [Translate queries](#translate-queries) &ndash; Use indexing, denormalization, and JSON functions to improve query efficiency and reduce complexity when migrating to Firebolt.
-4. [Performance testing and optimization](#performance-testing-and-optimization) &ndash; Validate data consistency, test query performance, adjust engine configurations, and fine-tune indexes to maximize speed and resource efficiency.
-5. [Automated migration](#automated-migration) &ndash; Set up an automated pipeline using tools like Airflow or dbt to streamline data migration, schema deployment, and query adaptation.
+3. [Translate queries](#translate-queries-into-firebolt) &ndash; Use indexing, denormalization, and JSON functions to improve query efficiency and reduce complexity when migrating to Firebolt.
+4. [Performance testing and optimization](#performance-testing) &ndash; Validate data consistency, test query performance, adjust engine configurations, and fine-tune indexes to maximize speed and resource efficiency.
+5. [Automate migration](#automate-migration) &ndash; Set up an automated pipeline using tools like Airflow or dbt to streamline data migration, schema deployment, and query adaptation.
 
 ## Architectural differences
 
@@ -526,7 +526,7 @@ CREATE DIMENSION TABLE players (
 2. [Load data into Firebolt](#load-data-into-firebolt)
 3. [Translate queries into Firebolt](#translate-queries-into-firebolt)
 4. [Validation, testing, and optimization](#validation-testing-and-optimization)
-5. [Automated migration](#automated-migration)
+5. [Automated migration](#automate-migration)
 
 ### Export data from Redshift
 
