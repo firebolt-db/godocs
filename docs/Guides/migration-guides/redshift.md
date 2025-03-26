@@ -1003,7 +1003,7 @@ Before automating your migration with Airflow, you'll need set `aws_access_key_i
 
 Use Airflow to run Redshift's `UNLOAD` command on a scheduled basis to export data from Redshift tables to Amazon S3 as follows:
 
-```pytho
+```python
 unload_task = SQLExecuteQueryOperator(
     task_id='unload_data_from_redshift',
     sql="""
