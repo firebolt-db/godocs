@@ -4,14 +4,17 @@ redirect_from:
   - /working-with-engines/working-with-engines-using-ddl.html
   - /working-with-engines
 layout: default
-title: Work with engines using DDL
+title: Work with engines
 description: Learn how to create, modify and run Firebolt engines.
 nav_order: 2
 parent: Operate Engines
 ---
-# Work with engines using DDL
+# Work with engines
 
-You can create, run, and modify engines from the UI or SQL API. Firebolt allows dynamic scaling of engines without stopping them. 
+You can create, run, modify, and scale Firebolt engines using either the **Firebolt Workspace** [user interface]({% link Guides/query-data/using-the-develop-workspace.md %}) (UI) or using the [Firebolt API]({% link API-reference/index.md %}). Firebolt allows dynamic scaling without stopping engines. Learn how to perform key engine operations, including starting, stopping, resizing, and configuring auto-start/stop settings, using both the UI and SQL commands.
+
+
+create, run, and modify engines either from the **Firebolt Workspace** user interface (UI) or by using API commands. Firebolt allows dynamic scaling of engines without stopping them. 
 
 {: .note}
  All engine operations below can be performed using a System Engine. 
