@@ -113,7 +113,7 @@ Using Firebolt’s primary indexes can help you enhance your query performance, 
 
 The `index_granularity` [storage parameter]({% link sql_reference/commands/data-definition/create-fact-dimension-table.md %}#storage-parameters),
 specified in the `WITH` clause, is an advanced setting that may be useful for improving performance in very specific query patterns.
-It defines the maximum number of rows per tablet range, which directly impacts how data is indexed and queried.
+It defines the maximum number of rows per granule, which directly impacts how data is indexed and queried.
 
 ### How index granularity works
 
@@ -122,18 +122,18 @@ A granule is the smallest block of rows that Firebolt can skip or read during qu
 * **Lower index granularity** creates smaller granules, allowing more precise filtering and reducing unnecessary row scans in selective queries. However, lower index granularity also increases memory usage and overhead from managing more granules.
 * **Higher index granularity values** creates larger granules, lowering memory usage and management overhead but increasing the chance of scanning irrelevant rows, especially in selective queries.
 
-For more information about the fundamentals of Firebolt's primary indexes and tablet ranges, see Firebolt's blog post on [primary indexes](https://www.firebolt.io/blog/primary-indexes-in-firebolt-a-comprehensive-guide-to-understanding-managing-and-selecting).
+For more information about the fundamentals of Firebolt's primary indexes and granules, see Firebolt's blog post on [primary indexes](https://www.firebolt.io/blog/primary-indexes-in-firebolt-a-comprehensive-guide-to-understanding-managing-and-selecting).
 
 ### Accepted values
 
-`<index_granularity_value>` must be a power of 2, ranging from 128 to 8192. The default value is 8192. We recommend using the default value, but lower values can decrease query latency by 10x or more in some query patterns.
+`<index_granularity>` must be a power of 2, ranging from 128 to 8192. The default value is 8192. We recommend using the default value, but lower values can decrease query latency by 10x or more in some query patterns.
 
 ### Best practices
 
 Use the default value of `index_granularity`, which should translate to good performance for most queries.  The following workload patterns may benefit from higher or lower values for `index_granularity`:
 
-* If your queries access only a few rows per tablet range, such as single-row queries or individual rows spread throughout a table, setting a **lower** `index_granularity` value can reduce unnecessary row scans and improve efficiency. However, this increases static memory usage for storing the index.
-* If most of your queries scan large portions of the table, such as a large bounded range of primary index columns, a **higher** `index_granularity` is more efficient, as it reduces index memory usage and overhead introduced by each tablet range boundary.
+* If your queries access only a few rows per granule, such as single-row queries or individual rows spread throughout a table, setting a **lower** `index_granularity` value can reduce unnecessary row scans and improve efficiency. However, this increases static memory usage for storing the index.
+* If most of your queries scan large portions of the table, such as a large bounded range of primary index columns, a **higher** `index_granularity` value is more efficient, as it reduces index memory usage and overhead introduced by each granule boundary.
 
 If you want to adjust `index_granularity`, start with the default value, then create duplicate tables with different settings to compare both the query latency and memory usage.
 
