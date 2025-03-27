@@ -59,7 +59,7 @@ CREATE TABLE <table_name> (
    ...]
 )
 PRIMARY INDEX <column_name1>[, <column_name2>, ...]
-[WITH ( index_granularity = <index_granularity ) ];
+[WITH ( index_granularity = <index_granularity> ) ];
 ```
 
 ## Parameters
