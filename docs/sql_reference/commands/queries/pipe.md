@@ -229,14 +229,9 @@ Use the `ORDER BY` pipe operator to sort the input data based on one or more exp
 
 #### Syntax
 
-Use the `ORDER BY` pipe operator to sort the input data based on one or more expressions, similar to the [`ORDER BY`](select.md#order-by) clause in standard SQL to organize query results in a meaningful order. You can use `ORDER BY` to specify the sorting order with options for ascending (`ASC`) or descending (`DESC`) order, as well as the handling of `NULL` values with `NULLS FIRST` or `NULLS LAST`. 
-
-#### Syntax
-
 ```sql
 |> ORDER BY <expression> [ ASC | DESC ] [ NULLS FIRST | NULLS LAST] [, ...]
 ```
-
 
 **Example**
 
@@ -249,9 +244,6 @@ FROM levels
 ```
 
 ### `JOIN` pipe operator
-Use the `JOIN` pipe operator to combine rows from two or more tables based on a related column and merge datasets in a query  similar to the standard SQL [`JOIN`](select.md#join) clause. You can perform different types of joins, such as `INNER`, `LEFT`, `RIGHT`, and `FULL`, to retrieve and merge data based on specific conditions.
-
-#### Syntax
 Use the `JOIN` pipe operator to combine rows from two or more tables based on a related column and merge datasets in a query  similar to the standard SQL [`JOIN`](select.md#join) clause. You can perform different types of joins, such as `INNER`, `LEFT`, `RIGHT`, and `FULL`, to retrieve and merge data based on specific conditions.
 
 #### Syntax
