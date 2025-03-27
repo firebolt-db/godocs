@@ -59,15 +59,15 @@ CREATE TABLE <table_name> (
    ...]
 )
 PRIMARY INDEX <column_name1>[, <column_name2>, ...]
-[WITH ( index_granularity = <index_granularity_value> ) ];
+[WITH ( index_granularity = <index_granularity ) ];
 ```
 
 ## Parameters
 
-| Parameter                 | Description                                                                                                      |
-|---------------------------|------------------------------------------------------------------------------------------------------------------|
-| `table_name`              | The name of the table where the primary index is applied.                                                        |
-| `column_name1, ...`       | The columns chosen to be included in the primary index.                                                          |
+| Parameter           | Description                                                                                                      |
+|---------------------|------------------------------------------------------------------------------------------------------------------|
+| `table_name`        | The name of the table where the primary index is applied.                                                        |
+| `column_name1, ...` | The columns chosen to be included in the primary index.                                                          |
 | `index_granularity` | The maximum number of rows in each tablet subrange. See [Index granularity](#advanced-option-index-granularity). |
 
 ## Example
