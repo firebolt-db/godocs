@@ -19,7 +19,7 @@ This syntax was first presented by Google in the research paper [SQL Has Problem
 
 SQL Pipe syntax has the following structure:
 
-*   Each pipe operator consists of the pipe symbol, `|>`, an operator name, and arguments: `|> operator_name arguments`
+*   Each pipe operator consists of the pipe symbol, `|>`, an operator name, and arguments: `|> operator_name arguments`.
 *   You can add pipe operators to the end of any valid query.
 *   You can apply pipe operators in any order, and apply them as many times as needed.
 *   Pipe syntax can be used anywhere that standard syntax is used including in queries, subqueries, and views.
@@ -28,7 +28,7 @@ SQL Pipe syntax has the following structure:
 For more information, see Google's original research paper, [SQL Has Problems. We Can Fix Them: Pipe Syntax In SQL](https://research.google/pubs/sql-has-problems-we-can-fix-them-pipe-syntax-in-sql/).
 ### Example
 
-The following code example is taken from Query 13 in the TPC-H benchmark suite, a standard set of queries used to measure database performance. Query 13 specifically analyzes customer order patterns to identify how many customers fall into different order-count categories. In **standard SQL**, the following query counts how many customers have placed a certain number of orders, excluding special requests, and sorts the results by customer count and order count:
+The following code example is taken from [Query 13 in the TPC-H benchmark suite](https://github.com/apache/impala/blob/master/testdata/workloads/tpch/queries/tpch-q13.test), a standard set of queries used to measure database performance. Query 13 specifically analyzes customer order patterns to identify how many customers fall into different order-count categories. In **standard SQL**, the following query counts how many customers have placed a certain number of orders, excluding special requests, and sorts the results by customer count and order count:
 
 ```sql
 SELECT c_count, COUNT(*) AS custdist
@@ -77,6 +77,15 @@ FROM generate_series(1,5);
 ```
 
 ## Pipe operators
+
+* [SELECT](#select-pipe-operator)<br>
+* [EXTEND](#extend-pipe-operator)<br>
+* [AS](#as-pipe-operator)<br>
+* [WHERE](#where-pipe-operator)<br>
+* [LIMIT](#limit-pipe-operator)<br>
+* [AGGREGATE](#aggregate-pipe-operator)<br>
+* [ORDER BY](#order-by-pipe-operator)<br>
+* [JOIN](#join-pipe-operator)<br>
 
 ### `SELECT` pipe operator
 
@@ -184,7 +193,7 @@ FROM generate_series(1,1000)
 
 ### `AGGREGATE` pipe operator
 
-You can use the `AGGREGATE` pipe operator to perform either **full table aggregation** or **aggregation across groups**, similar to using the[`GROUP BY` clause](select.md#group-by) clause in standard SQL. Use this operator to apply aggregate functions like `SUM`, `AVG`, or `COUNT` to grouped data. 
+You can use the `AGGREGATE` pipe operator to perform either **full table aggregation** or **aggregation across groups**, similar to using the [`GROUP BY`](select.md#group-by) clause in standard SQL. Use this operator to apply aggregate functions like `SUM`, `AVG`, or `COUNT` to grouped data. 
 
 Unlike SQL, where grouping expressions need to be repeated in both the `SELECT` and `GROUP BY` clauses, in pipe syntax, grouping expressions are listed only once in the `GROUP BY` clause and are automatically included in the output columns. The `AGGREGATE` operator's output first includes the grouping expressions, followed by the aggregated expressions, using their assigned aliases as column names.
 
