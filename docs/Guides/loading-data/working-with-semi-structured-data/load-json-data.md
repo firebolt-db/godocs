@@ -65,6 +65,7 @@ VALUES
 ('{"id": 1, "StartTime": "2020-01-06 17:00:00", "Duration": 450, "tags": ["summer-sale", "sports"], "user_agent": {"agent": "Mozilla/5.0", "platform": "Windows NT 6.1", "resolution": "1024x4069"}}'),
 ('{"id": 2, "StartTime": "2020-01-05 12:00:00", "Duration": 959, "tags": ["gadgets", "audio"], "user_agent": {"agent": "Safari", "platform": "iOS 14"}}');
 ```
+
 If you want to load JSON data from an Amazon S3 bucket, you can create an external table that references the file as follows:
 
 ```sql
