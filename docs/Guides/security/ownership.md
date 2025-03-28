@@ -58,4 +58,35 @@ ALTER VIEW v OWNER TO new_owner
 Any objects owned by a user must first be dropped or have their owner changed before dropping the user.
 
 {: .note}
-A table owner can drop the table even if there are views referencing it that are not owned by the table's owner, using the `CASCADE` parameter to `DROP TABLE`.
+A table owner can drop the table even if there are views referencing it that are not owned by the table's owner, using the `CASCADE` parameter to [DROP TABLE]({% link sql_reference/commands/data-definition/drop-table.md %}).
+
+## Transfer ownership using the Firebolt Workspace
+
+You can use the user interface in the **Firebolt Workspace** to transfer ownership of objects as follows:
+
+1. Log in to the [Firebolt Workspace](https://firebolt.go.firebolt.io/signup). If you don't yet have an account with Firebolt, you can sign up for one.
+2. Select the Govern icon (<img src="../../assets/images/govern-icon.png" alt="The icon to open the Govern Space." width="20"/>) in the left navigation pane to open the **Govern Space**.
+3. Select **Ownership** from the left navigation pane.
+4. Select the three horizontal dots (...) to the right of the object that you want to transfer ownership of.
+5. Select **Transfer ownership** from the drop-down list.
+6. In the **Transfer ownership** window that opens, choose a new owner from the drop-down list.
+7. Select the **Transfer ownership** button to confirm.
+
+##### Viewing all objects owned by a user
+
+1. From the [Firebolt Workspace](https://firebolt.go.firebolt.io/signup), select the Govern icon (<img src="../../assets/images/govern-icon.png" alt="The icon to open the Govern Space." width="20"/>) in the left navigation pane to open the **Govern Space**.
+2. Select **Users** from the left navigation pane.
+3. Select the user from the **User Name** column.
+4. Select the **Ownership** tab to view a list of objects owned by the selected user.
+
+##### Bulk transferring or deleting objects owned by a user
+
+1. From the [Firebolt Workspace](https://firebolt.go.firebolt.io/signup), select the Govern icon (<img src="../../assets/images/govern-icon.png" alt="The icon to open the Govern Space." width="20"/>) in the left navigation pane to open the **Govern Space**.
+2. Select **Users** from the left navigation pane.
+3. Select the three horizontal dots (...) to the right of the user whose objects you want to transfer ownership of.
+4. Select **Transfer ownership** from the drop-down list.
+5. In the window that opens, select the checkboxes next to objects that you want to delete or transfer ownership of.
+6. Select the **Delete object** or **Transfer ownership** button to apply changes.
+
+{: .note}  
+Ownership transfer using the **Firebolt Workspace** is not available for `Schema`, `Table`, and `View` objects. These must be modified using SQL commands in the **Develop Workspace** or using the [Firebolt API]({% link API-reference/index.md %}).
