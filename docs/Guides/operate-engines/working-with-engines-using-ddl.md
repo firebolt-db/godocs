@@ -145,7 +145,7 @@ The previous example updates the engine so that it uses three nodes.
 You can use the `CLUSTERS` attribute to enable auto-scaling by setting the `MIN_CLUSTERS` and `MAX_CLUSTERS` parameters. This allows the engine to adjust the number of clusters based on workload, between the defined minimum and maximum. Firebolt scales the clusters based on engine CPU usage, time in the queue, and other factors that vary with demand. Auto-scaling helps your engine adapt to fluctuating workloads, improving performance, minimizing delays during high demand, avoiding bottlenecks, ensuring consistent query response times, and optimizing resource utilization for a more cost-effective solution.
 
 To use auto-scale, do the following:
-1. Select a database and create an engine with `MIN_CLUSTERS` set to a value and `MAX_CLUSTERS` set to a value higher than `MIN_CLUSTERS` as shown in the following code example:
+1. Create an engine with `MIN_CLUSTERS` set to a value and `MAX_CLUSTERS` set to a value higher than `MIN_CLUSTERS` as shown in the following code example:
 
     ```sql   
     CREATE ENGINE your_engine with MIN_CLUSTERS = 1 MAX_CLUSTERS = 2;
