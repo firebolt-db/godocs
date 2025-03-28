@@ -147,8 +147,7 @@ You can use the `CLUSTERS` attribute to enable auto-scaling by setting the `MIN_
 To use auto-scale, do the following:
 1. Select a database and create an engine with `MIN_CLUSTERS` set to a value and `MAX_CLUSTERS` set to a value higher than `MIN_CLUSTERS` as shown in the following code example:
 
-    ```sql
-    USE DATABASE your_database;
+    ```sql   
     CREATE ENGINE your_engine with MIN_CLUSTERS = 1 MAX_CLUSTERS = 2;
     ```
 In the previous code example, If `MIN_CLUSTERS` has the same value as `MAX_CLUSTERS`, auto-scaling is not enabled.
@@ -160,7 +159,7 @@ In the previous code example, If `MIN_CLUSTERS` has the same value as `MAX_CLUST
     FROM information_schema.engines WHERE engine_name = 'your_engine'
     ```
 
-3. Test auto-scaling using a query that will overload a single cluster and check `information_schema.engines` to see the value of `CLUSTERS` change.
+3. Test auto-scaling by running a query that overloads a single cluster, then check `information_schema.engines` to observe the change in the `CLUSTERS` value. The specific query used to test this functionality should only be capable of overloading the engine. The following example is one such query, but you can use any query that causes the engine to overload.
 
     1. In the **Develop Space**, run the following example query **in two separate tabs simultaneously**.  
        The following code example calculates the maximum product of `a.x` and `b.y` after casting them to `BIGINT`, and the total count of joined rows from two generated series of numbers ranging from 1 to 1,000,000:
@@ -175,7 +174,11 @@ In the previous code example, If `MIN_CLUSTERS` has the same value as `MAX_CLUST
        |----------|--------------|--------------|
        | 2        | 1            | 2            |
 
-    3. Stop the jobs to stop consuming resources.
+    3. Stop the jobs to stop consuming resources. A query that can overload a cluster uses a lot of resources. The following code example stops an engine without waiting for running queries to finish:
+
+    ```sql
+    STOP ENGINE my_engine WITH TERMINATE=true
+    ```
 
 
 {: .note}
