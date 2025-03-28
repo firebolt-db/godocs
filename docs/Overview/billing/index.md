@@ -4,6 +4,7 @@ title: Pricing and billing
 description: How Firebolt bills for usage
 parent: Overview
 nav_order: 2
+has_children: true
 ---
 
 # Firebolt pricing and deployment models
