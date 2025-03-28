@@ -22,7 +22,7 @@ Topics:
 * [Start or resume an engine](#start-or-resume-an-engine) &ndash; Learn how to start or resume an engine.
 * [Stop an engine](#stop-an-engine) &ndash; Learn how to stop an engine either gracefully or immediately.
 * [Resize engines](#resize-engines) &ndash; Learn how to scale engines up or down by adjusting the node type or number of nodes.
-* [Auto-scaling](#auto-scaling) &ndash; Learn how to enable auto-scaling for engines to automatically adjust the number of clusters based on workload.
+* [Concurrency auto-scaling](#concurrency-auto-scaling) &ndash; Learn how to enable auto-scaling for engines to automatically adjust the number of clusters based on workload.
 * [Automatically start or stop an engine](#automatically-start-or-stop-an-engine) &ndash; Learn how to configure engines to start and stop automatically based on specific conditions.
 
 ## Create engines
@@ -140,9 +140,9 @@ ALTER ENGINE my_prod_engine SET NODES = 3;
 
 The previous example updates the engine so that it uses three nodes. 
 
-## Auto-scaling
+## Concurrency auto-scaling
 
-You can use the `CLUSTERS` attribute to enable auto-scaling by setting the `MIN_CLUSTERS` and `MAX_CLUSTERS` parameters. This allows the engine to adjust the number of clusters based on workload, between the defined minimum and maximum. Firebolt scales the clusters based on engine CPU usage, time in the queue, and other factors that vary with demand. Auto-scaling helps your engine adapt to fluctuating workloads, improving performance, minimizing delays during high demand, avoiding bottlenecks, ensuring consistent query response times, and optimizing resource utilization for a more cost-effective solution.
+You can use the `MIN_CLUSTERS` and `MAX_CLUSTERS` parameters to enable auto-scaling and allow the engine to adjust the number of clusters based on workload. Firebolt scales the clusters between the defined minimum and maximum based on engine CPU usage, time in the queue, and other factors that vary with demand. Auto-scaling helps your engine adapt to fluctuating workloads, improving performance, minimizing delays during high demand, avoiding bottlenecks, ensuring consistent query response times, and optimizing resource utilization for a more cost-effective solution.
 
 To use auto-scale, do the following:
 1. Select a database and create an engine with `MIN_CLUSTERS` set to a value and `MAX_CLUSTERS` set to a value higher than `MIN_CLUSTERS` as shown in the following code example:
@@ -159,7 +159,13 @@ In the previous code example, If `MIN_CLUSTERS` has the same value as `MAX_CLUST
     FROM information_schema.engines WHERE engine_name = 'your_engine'
     ```
 
-3. Test auto-scaling by running a query that overloads a single cluster, then check `information_schema.engines` to observe the change in the `CLUSTERS` value. The specific query used to test this functionality should only be capable of overloading the engine. The following example is one such query, but you can use any query that causes the engine to overload.
+    You can also select the **Engine monitoring** tab at the bottom of the **SQL script editor** in the **Develop Workspace** as shown in the following image:
+
+    <img src="../../assets/images/icon-engine-monitoring.png" alt="Icon showing the engine monitoring tab selected in the Firebolt Develop Workspace." width="40%">
+
+    The **Engine monitoring** tab displays CPU, memory, and disk use, cache reads, number of running and suspended queries, and spilled bytes. 
+
+3. Test auto-scaling by running a query that overloads a single cluster, then check `information_schema.engines` to observe the change in the `CLUSTERS` value. You can use any query to test this functionality as long as it can overload the engine. The following example is one such query, but you can use any query that causes the engine to overload.
 
     1. In the **Develop Space**, run the following example query **in two separate tabs simultaneously**.  
        The following code example calculates the maximum product of `a.x` and `b.y` after casting them to `BIGINT`, and the total count of joined rows from two generated series of numbers ranging from 1 to 1,000,000:
@@ -174,7 +180,7 @@ In the previous code example, If `MIN_CLUSTERS` has the same value as `MAX_CLUST
        |----------|--------------|--------------|
        | 2        | 1            | 2            |
 
-    3. Stop the jobs to stop consuming resources. A query that can overload a cluster uses a lot of resources. The following code example stops an engine without waiting for running queries to finish:
+    3. Stop the engine to stop resource consumption. These queries can run for a very long time and prevent the engine from stopping automatically. The following code example stops an engine without waiting for running queries to finish:
 
     ```sql
     STOP ENGINE my_engine WITH TERMINATE=true
