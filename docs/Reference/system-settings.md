@@ -63,8 +63,8 @@ SET standard_conforming_strings = true;
 SELECT '\x3132'; --> \x3132
 ```
 
-## Query timeout
-Specifies the number of milliseconds a query is allowed to run. Any statement or query exceeding the specified time is canceled. A value of zero disables the timeout by default.
+## Statement timeout
+Specifies the number of milliseconds a SQL statement is allowed to run. Any SQL statement or query exceeding the specified time is canceled. A value of zero disables the timeout by default.
 
 ### Syntax
 {: .no_toc}
