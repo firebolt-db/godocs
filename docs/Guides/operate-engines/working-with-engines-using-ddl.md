@@ -177,7 +177,7 @@ In the previous code example, If `MIN_CLUSTERS` has the same value as `MAX_CLUST
     3. Stop the jobs to prevent further resource consumption. A query that overloads a cluster consumes significant resources. The following code example stops the engine immediately, without waiting for running queries to complete:
 
     ```sql
-    STOP ENGINE my_engine WITH TERMINATE=true
+    STOP ENGINE your_engine WITH TERMINATE=true
     ```
 
 
