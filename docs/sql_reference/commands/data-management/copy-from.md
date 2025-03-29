@@ -215,7 +215,7 @@ The following code creates the `levels` table, and populates it with information
 
 ```sql
 CREATE TABLE levels ("LevelID" TEXT NOT NULL, date_of_creation TIMESTAMP);
-COPY FROM levels("LevelID", date_of_creation $source_file_timestamp)
+COPY INTO levels("LevelID", date_of_creation $source_file_timestamp)
 FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv' WITH HEADER=TRUE;
 ```
 
@@ -252,7 +252,7 @@ CREATE TABLE column_mapping_by_name (
     Name TEXT
 );
 
-COPY FROM column_mapping_by_name
+COPY INTO column_mapping_by_name
 (
    LevelID,
    Name
@@ -275,7 +275,7 @@ CREATE TABLE column_mapping_positional (
     name TEXT
 );
 
-COPY FROM column_mapping_positional
+COPY INTO column_mapping_positional
 (
    id $c1,
    name $c4
@@ -303,7 +303,7 @@ CREATE TABLE levels (
   file_size          BIGINT
 );
 
-COPY FROM levels (
+COPY INTO levels (
   "LevelID",
   "NumberOfLaps",
   "SceneDetails",
