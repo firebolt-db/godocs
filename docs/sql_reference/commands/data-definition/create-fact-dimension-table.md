@@ -145,7 +145,7 @@ Storage parameters are specified in the optional `WITH (...)` clause as comma se
 
 | Storage Parameter     | Description                                                                                                                                                                                                                                                                          |
 | :-------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `<index_granularity>` | The maximum number of rows in each tablet subrange. `<storage_parameter_value>` must be a power of 2 between 128 and 8192. The default value is 8192. For more information, see [Index granularity]({% link Overview/indexes/primary-index.md %}#advanced-option-index-granularity). |
+| `<index_granularity>` | The maximum number of rows in each granule. `<storage_parameter_value>` must be a power of 2 between 128 and 8192. The default value is 8192. For more information, see [Index granularity]({% link Overview/indexes/primary-index.md %}#advanced-option-index-granularity). |
 
 All identifiers are case-insensitive unless enclosed in double-quotes. For more information, see [Object identifiers]({% link Reference/object-identifiers.md %}).
 
