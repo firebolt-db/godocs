@@ -14,8 +14,8 @@ You can use data from the `information_schema.engines_billing` and `information_
 
 **Cost tracking and analysis**
 
-* [Track hourly average costs over time](#how-to-track-hourly-average-costs-over-time) &ndash; Learn how to track hourly patterns in compute costs.
-* [Find top users by cost](#how-to-find-top-users-by-cost) &ndash; Learn how to identify users that are responsible for the highest compute costs.
+* [Track hourly average costs over time](#track-hourly-average-costs-over-time) &ndash; Learn how to track hourly patterns in compute costs.
+* [Find top users by cost](#find-top-users-by-cost) &ndash; Learn how to identify users that are responsible for the highest compute costs.
 * [Find the cost impact of auto-stop events](#find-the-cost-impact-of-auto-stop-events) &ndash; Learn how to query engine history before and after an auto-stop event to determine if the auto-stop functionality leads to cost savings.
 * [Calculate costs incurred after engine deletion](#calculate-costs-incurred-after-engine-deletion) &ndash; Learn how to track costs that continue to accumulate even an engine has stopped running.
 * [Calculate costs incurred after engine creation or scaling](#calculate-costs-incurred-after-engine-creation-or-scaling) &ndash; Learn how to calculate the cost of provisioning or resizing engines to optimize resource allocation.
