@@ -76,7 +76,7 @@ func main() {
     // Open a connection to the Firebolt database
     db, err := sql.Open("firebolt", dsn)
     if err != nil {
-        fmt.Fatalf("Error opening database connection: %v\n", err)
+        log.Fatalf("Error opening database connection: %v\n", err)
         return
     }
     defer db.Close()
@@ -93,21 +93,21 @@ Once connected, you can run SQL queries. The following examples show you how to 
 // Create a table
 _, err = db.Exec("CREATE TABLE IF NOT EXISTS test_table (id INT, value TEXT)")
 if err != nil {
-    fmt.Fatalf("Error creating table: %v\n", err)
+    log.Fatalf("Error creating table: %v\n", err)
     return
 }
 
 // Insert data into the table
 _, err = db.Exec("INSERT INTO test_table (id, value) VALUES (?, ?)", 1, "sample value")
 if err != nil {
-    fmt.Fatalf("Error inserting data: %v\n", err)
+    log.Fatalf("Error inserting data: %v\n", err)
     return
 }
 
 // Query data from the table
 rows, err := db.Query("SELECT id, value FROM test_table")
 if err != nil {
-    fmt.Fatalf("Error querying data: %v\n", err)
+    log.Fatalf("Error querying data: %v\n", err)
     return
 }
 defer rows.Close()
@@ -117,10 +117,10 @@ for rows.Next() {
     var id int
     var value string
     if err := rows.Scan(&id, &value); err != nil {
-        fmt.Fatalf("Error scanning row: %v\n", err)
+        log.Fatalf("Error scanning row: %v\n", err)
         return
     }
-    fmt.Printf("Row: id=%d, value=%s\n", id, value)
+    log.Print("Row: id=%d, value=%s\n", id, value)
 }
 ```
 
@@ -157,7 +157,8 @@ func main() {
     
     streamingCtx := fireboltContext.WithStreaming(context.Background())
     
-    rows, err := db.QueryContext(ctx, "SELECT * FROM large_table")
+    // Execute a query with streaming enabled. Imitate large query result
+    rows, err := db.QueryContext(ctx, "SELECT 123, 'data' FROM generate_series(1, 100000000)")
     if err != nil {
         log.Fatalf("Query execution failed: %v", err)
     }
@@ -169,7 +170,7 @@ func main() {
         if err := rows.Scan(&col1, &col2); err != nil {
             log.Fatalf("Error scanning row: %v", err)
         }
-        fmt.Printf("Row: col1=%s, col2=%d\n", col1, col2)
+        log.Print("Row: col1=%s, col2=%d\n", col1, col2)
     }
     if err := rows.Err(); err != nil {
         log.Fatalf("Row iteration error: %v", err)
