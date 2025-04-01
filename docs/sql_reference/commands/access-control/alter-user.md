@@ -13,6 +13,9 @@ Updates the configuration of the specified user.
 
 For more information, see [Managing users](../../../Guides/managing-your-organization/managing-users.md).
 
+{: .note}
+Users can modify most of their own account settings without requiring [RBAC]({% link Overview/Security/Role-Based Access Control/index.md %}#role-based-access-control-rbac) permissions, except when altering [LOGIN]({% link Guides/managing-your-organization/managing-logins.md %}) configurations or a [SERVICE ACCOUNT]({% link Guides/managing-your-organization/service-accounts.md %}).
+
 ## ALTER USER SET
 
 ### Syntax
