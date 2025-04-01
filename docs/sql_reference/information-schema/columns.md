@@ -31,10 +31,13 @@ Each row has the following columns with information about each column.
 | table_schema              | TEXT    | Name of the database containing the table. |
 | table_name                | TEXT    | Name of the table containing the column. |
 | column_name               | TEXT    | Name of the column. |
+| ordinal_position          | BIGINT  | Ordinal position of the column. |
+| column_default            | TEXT    | The default expression for the column, if exists. |
 | is_nullable               | TEXT    | `YES` if the column may contain NULL, `NO` otherwise. |
 | data_type                 | TEXT    | The data type of the column. |
 | is_in_partition_expr      | TEXT    | `YES` if the column is included in the table's `PARTITION BY` clause, `NO` otherwise. |
 | is_in_primary_index       | TEXT    | `YES` if the column is included in the tables's `PRIMARY INDEX` clause, `NO` otherwise. |
+| numeric_precision         | BIGINT    | For numeric columns, the numeric precision. |
 | character_maximum_length  | NULL      | Not applicable for Firebolt. |
 | character_octet_length    | NULL      | Not applicable for Firebolt. |
 | numeric_precision_radix   | NULL      | Not applicable for Firebolt. |

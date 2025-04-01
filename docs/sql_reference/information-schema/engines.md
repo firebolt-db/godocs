@@ -36,10 +36,13 @@ Each row has the following columns with information about each engine.
 | family                      | TEXT        | The family of a given engine. Choose from `STORAGE_OPTIMIZED` or `COMPUTE_OPTIMIZED`. |
 | nodes                       | INTEGER     | The number of nodes in a cluster. |
 | clusters                    | INTEGER     | The number of node groupings in an engine. |
+| min_clusters                | BIGINT      | The minimum number of clusters in the engine. Auto-scaling scales the clusters between the defined minimum and maximum. |
+| max_clusters                | BIGINT      | The maximum number of clusters in the engine. Auto-scaling scales the clusters between the defined minimum and maximum. |
 | status                      | TEXT        | The engine status. For more information, see [Viewing and understanding engine status](../../Overview/engine-fundamentals.md#viewing-and-understanding-engine-status). |
 | attached_to                 | TEXT        | \[DEPRECATED\] The name of the database to which the engine is attached. |
 | auto_start                  | BOOLEAN     | When true, queries issued to a stopped engine will attempt to start the engine first. |
 | auto_stop                   | INTEGER     | Indicates the amount of time (in minutes) after which the engine automatically stops. |
+| auto_vacuum                 | BOOLEAN     | Indicates whether Auto-VACCUM is enabled/disabled by the user. Could also be `NULL` to indicate default behavior of enabled Auto-VACUUM. |
 | engine_type                 | TEXT        | \[DEPRECATED\] The type of the engine. |
 | initially_stopped           | BOOLEAN     | When true, the engine will have attempted to start after creation. |
 | url                         | TEXT        | A url which can be used to issue queries to this engine. |
