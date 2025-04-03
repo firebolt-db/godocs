@@ -1,16 +1,19 @@
 ---
+redirect_from:
+  - /Overview/billing.html
 layout: default
 title: Pricing and billing
 description: How Firebolt bills for usage
 parent: Overview
 nav_order: 2
+has_children: true
 ---
 
 # Firebolt pricing and deployment models
 {: .no_toc}
 Firebolt offers flexible deployment models that provide scalability and cost efficiency to meet diverse business needs. Choose between fully-managed and self-managed solutions tailored to your infrastructure and workload requirements. 
 
-<img src="../assets/images/deployment-models.png" alt="Firebolt offers fully-managed and self-managed deployment models" width="750">
+<img src="../../assets/images/deployment-models.png" alt="Firebolt offers fully-managed and self-managed deployment models" width="750">
 
 ## Choose your deployment model
 Firebolt offers two deployment models: **fully-managed** and **self-managed**. Each model includes specific editions and pricing options. 
@@ -127,7 +130,7 @@ Billing invoices are generated on a monthly basis, and provide a detailed breakd
 #### Set up billing for fully-managed plans
 **Pay-As-You-Go setup via AWS Marketplace:**
 1. Log in to [Firebolt's Workspace](https://go.firebolt.io/login). If you haven’t yet registered with Firebolt, see the [Get Started]({% link Guides/getting-started/index.md %}) guide.
-2. In the Firebolt Workspace, select the Configure(<img src="../assets/images/configure-icon.png" width="20" alt="The Firebolt Configure Space icon">) icon from the left navigation pane.
+2. In the Firebolt Workspace, select the Configure(<img src="../../assets/images/configure-icon.png" width="20" alt="The Firebolt Configure Space icon">) icon from the left navigation pane.
 3. Under **Configure**, select **Billing**. This page allows you to view invoices and consumption details.
 4. Select **Connect to AWS Marketplace**.
 5. On AWS Marketplace, click **View Purchase Options** > **Setup Your Account**.
@@ -138,7 +141,7 @@ Firebolt will bill you monthly through **AWS Marketplace** based on usage.
 
 If you want to sign up or upgrade your fully-managed edition type, you can choose the **Standard**, **Enterprise** or **Dedicated** plan. Select your new choice in the **Firebolt Workspace** as follows:
 1. Log in to [Firebolt's Workspace](https://go.firebolt.io/login).
-2. In the Firebolt Workspace, select the Configure(<img src="../assets/images/configure-icon.png" width="20" alt="The Firebolt Configure Space icon">) icon from the left navigation pane.
+2. In the Firebolt Workspace, select the Configure(<img src="../../assets/images/configure-icon.png" width="20" alt="The Firebolt Configure Space icon">) icon from the left navigation pane.
 3. Under **Configure**, expand the drop-down list next to **Billing**.
 4. Under **Billing**, select **Plan** to open the list of available plans. Your active plan is labeled as **Current Plan**. For information about each plan, select **Learn more** to be directed to Firebolt's [Pricing](https://www.firebolt.io/pricing) page.
 5. Select your desired plan. 
