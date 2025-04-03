@@ -8,7 +8,7 @@ nav_order: 1
 
 # Explore compute cost
 
-You can use data from the `information_schema.engines_billing` and `information_schema.engine_history` views, to analyze and optimize compute costs related to engine usage, scaling, and auto-stop events. The following queries help track compute costs, identify cost patterns, and understand the impact of different configurations on your compute expenses.
+You can use data from the [`information_schema.engines_billing`]({% link sql_reference/information-schema/engines-billing.md %}) and [`information_schema.engine_history`]({% link sql_reference/information-schema/engine-history.md %}) views, to analyze and optimize compute costs related to engine usage, scaling, and auto-stop events. The following queries help track compute costs, identify cost patterns, and understand the impact of different configurations on your compute expenses.
 
 **Examples**
 
