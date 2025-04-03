@@ -8,7 +8,7 @@ nav_order: 2
 
 # Explore storage cost
 
-You can use data from the `information_schema.storage_billing` and `information_schema.storage_history` views to analyze and optimize storage costs across different regions, accounts, and data usage trends. The following queries will guide you in tracking storage expenses, understanding regional cost variations, and identifying storage inefficiencies.
+You can use data from the [`information_schema.storage_billing`]({% link sql_reference/information-schema/storage-billing.md %}) and [`information_schema.storage_history`]({% link sql_reference/information-schema/storage-history.md %}) views to analyze and optimize storage costs across different regions, accounts, and data usage trends. The following queries will guide you in tracking storage expenses, understanding regional cost variations, and identifying storage inefficiencies.
 
 **Examples**
 
