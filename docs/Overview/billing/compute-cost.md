@@ -10,7 +10,7 @@ nav_order: 1
 
 You can use data from the [`information_schema.engines_billing`]({% link sql_reference/information-schema/engines-billing.md %}) and [`information_schema.engine_history`]({% link sql_reference/information-schema/engine-history.md %}) views, to analyze and optimize compute costs related to engine usage, scaling, and auto-stop events. The following queries help track compute costs, identify cost patterns, and understand the impact of different configurations on your compute expenses.
 
-**Examples**
+## Examples
 
 **Cost tracking and analysis**
 
@@ -26,7 +26,7 @@ You can use data from the [`information_schema.engines_billing`]({% link sql_ref
 * [Rank efficiency by cluster count](#rank-efficiency-by-cluster-count) &ndash; Learn how to determine if single or multi-cluster setups are more efficient.
 * [Calculate cost savings through auto-stop](#calculate-cost-savings-through-auto-stop) &ndash; Learn how to compare the average cost of engines with auto-stop enabled versus disabled.
 
-## Track hourly average costs over time
+### Track hourly average costs over time
 
 You can use `information_schema.engines_billing` to track hourly average costs over time and identify peak load hours, allowing you to pinpoint when engine usage and costs are highest. Use this data to enable more efficient resource allocation and better cost optimization. Analyze daily trends to identify peak load hours and better understand the times when engine usage and associated costs are the highest. 
 
@@ -41,7 +41,7 @@ GROUP BY EXTRACT(HOUR FROM usage_date::TIMESTAMP)
 ORDER BY usage_hour;
 ```
 
-## Find top users by cost
+### Find top users by cost
 
 You can use `information_schema.engines_billing` and `information_schema.engine_history` to identify the top engine owners by analyzing engine billing data. Pinpoint the individuals or teams responsible for the highest engine costs over a specific period, fostering accountability and enabling more effective resource management.
 
@@ -56,7 +56,7 @@ GROUP BY engine_history_table.engine_owner
 ORDER BY total_cost DESC;
 ```
 
-## Find the cost impact of auto-stop events
+### Find the cost impact of auto-stop events
 
 When you [create an engine]({% link sql_reference/commands/engines/create-engine.md %}), you can set the `AUTO_STOP` parameter to automatically stop an engine after it has been idle for a specified number of minutes. Query the engine history before and after an auto-stop event to see if auto-stop functionality results in cost savings.
 
@@ -73,7 +73,7 @@ WHERE engine_history_table.event_type = 'AUTO_STOP'
 GROUP BY engine_billing_table.engine_name, CAST(engine_history_table.event_start_time AS DATE);
 ```
 
-## Calculate costs incurred after engine deletion
+### Calculate costs incurred after engine deletion
 
 Use engine history and billing information to identify any billing discrepancies that occur after an engine has been deleted. By examining any charges that incurred after an engine was deleted, you can detect any unresolved billing issues or configuration errors.
 
@@ -90,7 +90,7 @@ GROUP BY engine_billing_table.engine_name
 HAVING SUM(engine_billing_table.billed_cost) > 0;
 ```
 
-## Calculate costs incurred after engine creation or scaling
+### Calculate costs incurred after engine creation or scaling
 
 Analyze engine billing data to track the costs incurred after engine creation or scaling events to understand the immediate financial impact of provisioning or resizing engines and optimize resource allocation. Rank them to find top combinations of engine size and architecture by cost.
 
@@ -107,7 +107,7 @@ GROUP BY engine_billing_table.engine_name, engine_history_table.event_type, CAST
 ORDER BY total_cost_after_event DESC;
 ```
 
-## Rank engine configurations by total cost
+### Rank engine configurations by total cost
 
 Analyze engine billing data to rank engine configurations by total cost, identifying those driving the highest expenses. Optimize resource allocation and more cost-effective decisions for your engine setup.
 
@@ -122,7 +122,7 @@ GROUP BY engine_history_table.type, engine_history_table.family, engine_history_
 ORDER BY total_cost DESC;
 ```
 
-## Rank efficiency by cluster count
+### Rank efficiency by cluster count
 
 Ranking efficiency by cluster count helps assess the cost-effectiveness of single versus multi-cluster setups. Analyzing engine billing data enables you to track associated costs and optimize resource allocation based on cost efficiency.
 
@@ -137,7 +137,7 @@ GROUP BY engine_history_table.clusters
 ORDER BY cost_per_fbu DESC;
 ```
 
-## Calculate cost savings through auto-stop
+### Calculate cost savings through auto-stop
 
 Calculating cost savings through auto-stop allows you to compare the daily costs of engines with auto-stop enabled and disabled, helping you understand its impact on costs and optimize resource allocation.
 

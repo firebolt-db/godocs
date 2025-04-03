@@ -10,7 +10,7 @@ nav_order: 2
 
 You can use data from the [`information_schema.storage_billing`]({% link sql_reference/information-schema/storage-billing.md %}) and [`information_schema.storage_history`]({% link sql_reference/information-schema/storage-history.md %}) views to analyze and optimize storage costs across different regions, accounts, and data usage trends. The following queries will guide you in tracking storage expenses, understanding regional cost variations, and identifying storage inefficiencies.
 
-**Examples**
+## Examples
 
 **Track and attribute storage costs**
 
@@ -39,7 +39,7 @@ You can use data from the [`information_schema.storage_billing`]({% link sql_ref
 * [Attribute storage billing to catalogs](#attribute-storage-billing-to-catalogs) &ndash; Learn how to attribute storage billing to specific tables, views, and schemas.
 
 
-## Track total storage cost over time
+### Track total storage cost over time
 
 You can track total storage cost over time to monitor spending trends, identify potential cost increases, and ensure that storage usage aligns with budget expectations. Query `information_schema.storage_billing` to help you proactively manage costs, so you can make adjustments to optimize storage efficiency and prevent unexpected charges. 
 
@@ -55,7 +55,7 @@ GROUP BY usage_date
 ORDER BY usage_date;
 ```
 
-## Identify storage cost by region
+### Identify storage cost by region
 
 Use [`information_schema.storage_billing`]({% link sql_reference/information-schema/storage-billing.md %}) inside a query to understand which regions incur the highest storage costs, helping you optimize resource allocation based on geographical pricing differences. 
 
@@ -68,7 +68,7 @@ GROUP BY region
 ORDER BY total_cost DESC;
 ```
 
-## Attribute storage costs to accounts
+### Attribute storage costs to accounts
 
 You can use `information_schema.storage_billing` to attribute storage costs to specific accounts or business units and gain visibility into where your storage expenses originate. This can help you track usage, optimize costs, and allocate resources more effectively.
 
@@ -81,7 +81,7 @@ GROUP BY account_name
 ORDER BY total_cost DESC;
 ```
 
-## Track storage credits usage
+### Track storage credits usage
 
 Analyzing how much of your storage costs is paid with Firebolt credits versus billed costs helps optimize expenses, track credit usage, identify cost-saving opportunities, and improve budget management. Use `information_schema.storage_billing` to analyze how much of your storage cost is paid using Firebolt credits and how much is billed. 
 
@@ -93,7 +93,7 @@ FROM information_schema.storage_billing
 GROUP BY is_credit;
 ```
 
-## Monitor active vs inactive data trends
+### Monitor active vs inactive data trends
 
 Inactive data refers to data that is no longer actively used or is infrequently accessed but still consumes storage resources. Retaining large volumes of inactive data can result in higher costs and wasted storage. Use [`information_schema.storage_history`]({% link sql_reference/information-schema/storage-history.md %}) to identify this data so that you can make decisions about optimizing storage to reduce unnecessary expenses.
 
@@ -108,7 +108,7 @@ GROUP BY usage_date
 ORDER BY usage_date;
 ```
 
-## Identify databases with high inactive storage
+### Identify databases with high inactive storage
 
 You can identify databases that contain large amounts of inactive data, which may be a candidate for cleanup or archiving. 
 
@@ -122,7 +122,7 @@ GROUP BY catalog_name
 ORDER BY inactive_gib DESC;
 ```
 
-## Track storage growth by catalog
+### Track storage growth by catalog
 
 You can use `information_schema.storage_history` to track storage growth by catalog, or objects that hold metadata and database objects such as tables, views, databases and schemas, to monitor how storage usage is changing across different databases or projects. Identify trends, optimize storage allocation, and ensure that resources are being used efficiently, while also providing insight into which catalogs may require further optimization or cost management.
 
@@ -135,7 +135,7 @@ FROM information_schema.storage_history
 ORDER BY catalog_name, usage_date;
 ```
 
-## Evaluate cost efficiency per unit of storage
+### Evaluate cost efficiency per unit of storage
 
 You can use `information_schema.storage_billing` to evaluate cost efficiency per unit of storage by assessing whether storage costs are proportional to the amount of data being stored. This can help you identify discrepancies, optimize spending, and ensure that storage resources are being utilized efficiently. Determine if your storage costs align with the volume of data stored by calculating the cost per GiB. 
 
@@ -149,7 +149,7 @@ GROUP BY usage_date
 ORDER BY usage_date;
 ```
 
-## Assess inactive data as a percentage of total storage
+### Assess inactive data as a percentage of total storage
 
 You can use `information_schema.storage_history` to measure the amount of inactive data as a percentage of total storage to identify how much of storage is being underutilized.  Assessing inactive data as a percentage of total storage helps you understand how much of your storage is underutilized, enabling you to optimize costs by cleaning up or archiving inactive data.
 
@@ -164,7 +164,7 @@ GROUP BY usage_date
 ORDER BY usage_date;
 ```
 
-## Attribute storage billing to catalogs
+### Attribute storage billing to catalogs
 
 You can use `information_schema.storage_billing` to attribute storage billing to catalogs, or objects that hold metadata and database objects such as tables, databases, views, and schemas. Use this data to better understand and allocate storage costs to specific departments, projects, or business units, so that you can enable more accurate cost tracking, budgeting, and optimization across different catalogs.
 
