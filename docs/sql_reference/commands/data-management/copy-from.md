@@ -190,7 +190,7 @@ The previous code example returns a table containing 50 rows of data that was mo
 
 **Recommended best practice**
 
-The following code example builds on the previous example by using a `LOCATION` to authenticate:  
+The following code example builds on the previous example by using a `LOCATION` to store credentials to authenticate:  
 
 ```sql
 COPY tournament_results

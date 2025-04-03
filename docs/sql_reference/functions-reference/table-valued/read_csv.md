@@ -52,7 +52,7 @@ READ_CSV (
 
 | Parameter | Description | Supported input types |
 |:----------|:------------|:---------------------|
-| LOCATION | The name of a location object that contains the Amazon S3 URL and credentials. Firebolt recommends using `LOCATION` to authenticate. See [CREATE LOCATION]({% link sql_reference/commands/data-definition/create-location.md %}) for details. | `IDENTIFIER` |
+| LOCATION | The name of a location object that contains the Amazon S3 URL and credentials. Firebolt recommends using `LOCATION` to store credentials for authentication. See [CREATE LOCATION]({% link sql_reference/commands/data-definition/create-location.md %}) for details. | `IDENTIFIER` |
 | `URL` | The location containing your files in an Amazon S3 bucket. The expected format is `s3://{bucket_name}/{full_file_path_glob_pattern}`. | `TEXT` |
 | `COMPRESSION`               | The [compression type]({% link sql_reference/commands/data-definition/create-external-table.md %}#compression) of the input file. If `compression` is not set, `compression` is inferred from the file extension.           | `TEXT`                |
 | `AWS_ACCESS_KEY_ID`                | The AWS access key ID.                                                                                      | `TEXT`                |
@@ -79,7 +79,7 @@ The result is a table with the data from the CSV file. Each cell is read as a `T
 
 **Best practice**
 
-Firebolt recommends using a `LOCATION` object for authentication.
+Firebolt recommends using a `LOCATION` object to store credentials for authentication.
 
 The following code example reads a CSV file from the location specified by `my_location`, treating the first row as a header containing column names:
 

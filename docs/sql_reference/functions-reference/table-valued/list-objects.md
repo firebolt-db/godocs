@@ -70,11 +70,11 @@ Amazon S3 is not a traditional filesystem.  In AWS, what is commonly referred to
 
 ## Examples
 
-### Using LOCATION object to authenticate
+### Using LOCATION object to store credentials
 
 **Best practice**
 
-Firebolt recommends using a `LOCATION` object for authentication.
+Firebolt recommends using a `LOCATION` object to store credentials for authentication.
 
 The following code example retrieves all objects from the specified `LOCATION` using the `LIST_OBJECTS` function:
 

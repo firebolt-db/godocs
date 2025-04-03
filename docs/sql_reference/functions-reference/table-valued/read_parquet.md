@@ -36,7 +36,7 @@ READ_PARQUET (
 
 | Parameter | Description | Supported input types |
 |:----------|:------------|:---------------------|
-| `LOCATION` | The name of a location object that contains the Amazon S3 URL and credentials. Firebolt recommends using `LOCATION` to authenticate. See [CREATE LOCATION]({% link sql_reference/commands/data-definition/create-location.md %}) for details. | `IDENTIFIER` |
+| `LOCATION` | The name of a location object that contains the Amazon S3 URL and credentials. Firebolt recommends using `LOCATION` to store credentials for authentication. See [CREATE LOCATION]({% link sql_reference/commands/data-definition/create-location.md %}) for details. | `IDENTIFIER` |
 | `URL` | The location of the Amazon S3 bucket containing your files. The expected format is `s3://{bucket_name}/{full_file_path_glob_pattern}`. | `TEXT` |
 | `AWS_ACCESS_KEY_ID` | The AWS access key ID. | `TEXT` |
 | `AWS_SECRET_ACCESS_KEY` | The AWS secret access key. | `TEXT` |
@@ -58,13 +58,13 @@ The result is a table with data from the Parquet files. Columns are read and par
 
 ## Best practice
 
-Firebolt recommends using a `LOCATION` object to authenticate.
+Firebolt recommends using a `LOCATION` object to store credentials for authentication.
 
 ## Examples
 
 **Example**
 
-The following code example reads the first 5 rows from a Parquet file using a `LOCATION` object for authentication:
+The following code example reads the first 5 rows from a Parquet file using a `LOCATION` object to store credentials for authentication:
 
 ```sql
 SELECT * 
