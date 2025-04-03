@@ -11,58 +11,63 @@ great_grand_parent: SQL reference
 
 # READ_CSV
 
-A table-valued function (TVF) that accepts a URL to an Amazon bucket containing CSV files, credentials and CSV configuration options. `READ_CSV` returns a table with data from the specified CSV file, where each cell is read as `TEXT`.
+A table-valued function (TVF) that reads CSV files from Amazon S3. The function can use either a location object (recommended) or direct credentials to access the data. `READ_CSV` returns a table with data from the specified CSV file, where each cell is read as `TEXT`.
 
 ## Syntax
 
 ```sql
+-- Using LOCATION object (recommended)
 READ_CSV ( 
-    url => <file_url>
-    [, compression => <file_compression>]
-    [, aws_access_key_id => <aws_access_key_id>]
-    [, aws_secret_access_key => <aws_secret_access_key>]
-    [, aws_session_token => <aws_session_token>]
-    [, header => <csv_has_header_row>]
-    [, delimiter => <field_delimiter>]
-    [, quote => { "'" | '"' | SINGLE_QUOTE | DOUBLE_QUOTE}]
-    [, null_string => <null_string>]
-    [, escape => <escape_character>]
-    [, skip_blank_lines => <skip_blank_lines>]
-    [, empty_field_as_null => <empty_field_as_null>]
-    )
+  LOCATION => location_name
+  [, COMPRESSION => <file_compression>]
+  [, HEADER => { TRUE | FALSE }]
+  [, DELIMITER => <field_delimiter>]
+  [, QUOTE => { "'" | '"' | SINGLE_QUOTE | DOUBLE_QUOTE}]
+  [, NULL_STRING => <null_string>]
+  [, ESCAPE => <escape_character>]
+  [, SKIP_BLANK_LINES => { TRUE | FALSE }]
+  [, EMPTY_FIELD_AS_NULL => { TRUE | FALSE }]
+)
+|
+-- Using static credentials
+READ_CSV ( 
+  URL => <url>
+  [, COMPRESSION => <file_compression>]
+  [, AWS_ACCESS_KEY_ID => <aws_access_key_id>]
+  [, AWS_SECRET_ACCESS_KEY => <aws_secret_access_key>]
+  [, AWS_SESSION_TOKEN => <aws_session_token>]
+  [, AWS_ROLE_ARN => <aws_role_arn>]
+  [, AWS_ROLE_EXTERNAL_ID => <aws_role_external_id>]
+  [, HEADER => { TRUE | FALSE }]
+  [, DELIMITER => <field_delimiter>]
+  [, QUOTE => { "'" | '"' | SINGLE_QUOTE | DOUBLE_QUOTE}]
+  [, NULL_STRING => <null_string>]
+  [, ESCAPE => <escape_character>]
+  [, SKIP_BLANK_LINES => { TRUE | FALSE }]
+  [, EMPTY_FIELD_AS_NULL => { TRUE | FALSE }]
+)
 ```
 
 ## Parameters
 
-| Parameter                     | Description                                                                                      | Supported input types |
-|:------------------------------|:-------------------------------------------------------------------------------------------------|:----------------------|
-| `<url>`                       | The location of the Amazon S3 bucket containing your files. The expected format is `s3://{bucket_name}/{full_file_path}`.          | `TEXT`                |
-| `<compression>`               | The [compression type](../../commands/data-definition/create-external-table.md#compression) of the input file. If `compression` is not set, `compression` is inferred from the file extension.           | `TEXT`                |
-| `<aws_access_key_id>`                | The AWS access key ID.                                                                                      | `TEXT`                |
-| `<aws_secret_access_key>`            | The AWS secret access key.                                                                                  | `TEXT`                |
-| `<aws_session_token>`            | The AWS session token.                                                                                  | `TEXT`                |
-| `<header>`                    | Set to `TRUE` if the first row of the CSV file contains a header row containing the column names.                                 | `TEXT`                |
-| `<delimiter>`                 | Specify the character used to separate fields. The default delimiter is a comma (`,`).                                                            | `TEXT`                |
-| `<quote>`                     | Specify the character used for quoting fields. The default is double quote (`"`). If a single quote is specified, the quote character will be set to (`'`). Accepts only `DOUBLE_QUOTE`, `SINGLE_QUOTE`, `'`, or `"`.     | `TEXT`                |
-| `<null_string>`               | Specify the string used to represent `NULL` values. The default is an empty string, which means that empty strings are interpreted as null values.                                                             | `TEXT`                |
-| `<escape>`                    | Specify the character used to escape special characters. The default character is the quote (`'`) character.                                                                                 | `TEXT`                |
-| `<skip_blank_lines>`          | Set to `TRUE` to ignore blank lines in the file.                                                     | `BOOL`                |
-| `<empty_field_as_null>`       | Specify whether empty fields should be interpreted as `NULL` values. The default is `TRUE`. If set to `FALSE`, empty fields are interpreted as empty strings.                                               | `BOOL`                |
+| Parameter | Description | Supported input types |
+|:----------|:------------|:---------------------|
+| LOCATION | The name of a location object that contains the Amazon S3 URL and credentials. Firebolt recommends using `LOCATION` to store credentials for authentication. See [CREATE LOCATION]({% link sql_reference/commands/data-definition/create-location.md %}) for details. | `IDENTIFIER` |
+| `URL` | The location containing your files in an Amazon S3 bucket. The expected format is `s3://{bucket_name}/{full_file_path_glob_pattern}`. | `TEXT` |
+| `COMPRESSION`               | The [compression type]({% link sql_reference/commands/data-definition/create-external-table.md %}#compression) of the input file. If `compression` is not set, `compression` is inferred from the file extension.           | `TEXT`                |
+| `AWS_ACCESS_KEY_ID`                | The AWS access key ID.                                                                                      | `TEXT`                |
+| `AWS_SECRET_ACCESS_KEY`            | The AWS secret access key.                                                                                  | `TEXT`                |
+| `AWS_SESSION_TOKEN`            | The AWS session token.                                                                                  | `TEXT`                |
+| `AWS_ROLE_ARN`                | The AWS role arn.                                                                                      | `TEXT`                |
+| `AWS_ROLE_EXTERNAL_ID`                | The AWS role external ID.                                                                                      | `TEXT`                |
+| `HEADER`                    | Set to `TRUE` if the first row of the CSV file contains a header row containing the column names.                                 | `BOOL`                |
+| `DELIMITER`                 | Specify the character used to separate fields. The default delimiter is a comma (`,`).                                                            | `TEXT`                |
+| `QUOTE`                     | Specify the character used for quoting fields. The default is double quote (`"`). If a single quote is specified, the quote character will be set to (`'`). Accepts only `DOUBLE_QUOTE`, `SINGLE_QUOTE`, `'`, or `"`.     | `TEXT`                |
+| `NULL_STRING`               | Specify the string used to represent `NULL` values. The default is an empty string, which means that empty strings are interpreted as `NULL` values.                                                             | `TEXT`                |
+| `ESCAPE`                    | Specify the character used to escape special characters. The default character is the quote (`'`) character.                                                                                 | `TEXT`                |
+| `SKIP_BLANK_LINES`          | Set to `TRUE` to ignore blank lines in the file.                                                     | `BOOL`                |
+| `EMPTY_FIELD_AS_NULL`       | Specify whether empty fields should be interpreted as `NULL` values. The default is `TRUE`. If set to `FALSE`, empty fields are interpreted as empty strings.                                               | `BOOL`                |
 
-The following apply:
-
-* The `url` can be passed as either the first positional parameter or a named parameter. For example, the following two queries will both read the same file:
-
-    ```sql
-    SELECT * FROM READ_CSV(url => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv');
-    SELECT * FROM READ_CSV('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv');
-    ```
-
-* All parameters, except for `url`, are optional. 
-
-* Parameters must be named using the following syntax: `=>`.
-
-* If you provide either `aws_access_key_id` or `aws_secret_access_key`, you must provide both. Providing an AWS session token is optional.
 
 ## Return Type
 
@@ -70,8 +75,33 @@ The result is a table with the data from the CSV file. Each cell is read as a `T
 
 ## Examples
 
-**Query:**
-In the following example, the `url` is set as the first positional parameter and reads a CSV file.
+### Using LOCATION object
+
+**Best practice**
+
+Firebolt recommends using a `LOCATION` object to store credentials for authentication.
+
+The following code example reads a CSV file from the location specified by `my_location`, treating the first row as a header containing column names:
+
+```sql
+SELECT * FROM READ_CSV(
+    LOCATION => my_location,
+    HEADER => true
+);
+```
+
+### Using static credentials
+
+```sql
+SELECT * FROM READ_CSV(
+    URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv',
+    HEADER => true
+);
+```
+
+**Example**
+
+In the following example, the `URL` is set as the first positional parameter and reads a CSV file:
 
 ```sql
 SELECT * FROM READ_CSV('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv');
@@ -93,14 +123,16 @@ SELECT * FROM READ_CSV('s3://firebolt-publishing-public/help_center_assets/fireb
 | 10 | 1 | 10 | Acceleration Alley | FirstToComplete | null | 200 | 500 | 50 | ... |
 
 
-**Query:**
-The following example accepts `url` as a named parameter and reads a CSV file with column names in the first row:
+**Example**
+
+The following example accepts `URL` as a named parameter and reads a CSV file with column names in the first row:
 
 ```sql
-SELECT * FROM READ_CSV(url => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv', 
-        header => true);
+SELECT * FROM READ_CSV(URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv', 
+        HEADER => true);
 ```
-**Returns**:
+
+**Returns**
 
 | LevelID | GameID | Level              | Name                | LevelType       | NextLevel | MinPointsToPass | MaxPoints | NumberOfLaps | ... |
 |:------- |:------ |:------------------ |:------------------- |:--------------- |:--------- |:--------------- |:--------- |:------------ |:-- |
@@ -116,12 +148,13 @@ SELECT * FROM READ_CSV(url => 's3://firebolt-publishing-public/help_center_asset
 | 10 | 1 | Acceleration Alley | FirstToComplete  | null   | 200| 500| 50 | 50 | ... |
 
 
-**Query:**
-The following example reads a CSV with headers and reads empty values as empty strings, rather than null values:
+**Example**
+
+The following example reads a CSV with headers and reads empty values as empty strings, rather than `NULL` values:
 
 ```sql
-SELECT * FROM READ_CSV(url => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv',
-        header => true, empty_field_as_null => false);
+SELECT * FROM READ_CSV(URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv',
+        HEADER => true, EMPTY_FIELD_AS_NULL => false);
 ```
 **Returns**:
 
