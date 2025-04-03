@@ -57,7 +57,7 @@ ORDER BY usage_date;
 
 ## Identify storage cost by region
 
-Use `information_schema.storage_billing` inside a query to understand which regions incur the highest storage costs, helping you optimize resource allocation based on geographical pricing differences. 
+Use [`information_schema.storage_billing`]({% link sql_reference/information-schema/storage-billing.md %}) inside a query to understand which regions incur the highest storage costs, helping you optimize resource allocation based on geographical pricing differences. 
 
 The following code example calculates the total storage cost for each region and sorts the results in descending order of total cost:
 
