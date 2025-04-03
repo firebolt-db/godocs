@@ -95,7 +95,7 @@ GROUP BY is_credit;
 
 ## Monitor active vs inactive data trends
 
-Inactive data refers to data that is no longer actively used or is infrequently accessed but still consumes storage resources. Retaining large volumes of inactive data can result in higher costs and wasted storage. Use `information_schema.storage_history` to identify this data so that you can make decisions about optimizing storage to reduce unnecessary expenses.
+Inactive data refers to data that is no longer actively used or is infrequently accessed but still consumes storage resources. Retaining large volumes of inactive data can result in higher costs and wasted storage. Use [`information_schema.storage_history`]({% link sql_reference/information-schema/storage-history.md %}) to identify this data so that you can make decisions about optimizing storage to reduce unnecessary expenses.
 
 The following code example shows daily trends for active and inactive data in Gibibyte (GiB), which is equal to 1,073,741,824 bytes:
 
