@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /integrations/business-intelligence/connecting-to-apache-superset.html
 layout: default
 title: Apache Superset
 description: Learn about connecting Apache Superset to Firebolt.

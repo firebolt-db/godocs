@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/commands/create-fact-dimension-table.html
 layout: default
 title: CREATE TABLE
 description: Reference and syntax for the CREATE TABLE statement.
@@ -25,18 +27,21 @@ CREATE [FACT|DIMENSION] TABLE [IF NOT EXISTS] <table_name>
 )
 [PRIMARY INDEX <column_name>[, <column_name>[, ...k]]]
 [PARTITION BY <column_name>[, <column_name>[, ...m]]]
+[WITH ( <storage_parameter> = <storage_parameter_value>[, <storage_parameter> = <storage_parameter_value>[, ...p]] ) ]
 ```
 
 ## Parameters 
 {: .no_toc} 
 
-| Parameter                                       | Description                                                                                            |
-| :----------------------------------------------- | :------------------------------------------------------------------------------------------------------ |
-| `<table_name>`                                  | An identifier that specifies the name of the table. This name should be unique within the database. |
-| `<column_name>` | An identifier that specifies the name of the column. This name should be unique within the table.      |
-| `<column_type>`                                 | Specifies the data type for the column.                                                                |
+| Parameter                   | Description                                                                                                      |
+| :-------------------------- | :--------------------------------------------------------------------------------------------------------------- |
+| `<table_name>`              | An identifier that specifies the name of the table. This name should be unique within the database.              |
+| `<column_name>`             | An identifier that specifies the name of the column. This name should be unique within the table.                |
+| `<column_type>`             | Specifies the data type for the column.                                                                          |
+| `<storage_parameter>`       | The name of a [storage parameter](#storage-parameters) for controlling behaviors related to storage and indexes. |
+| `<storage_parameter_value>` | The value assigned to a `<storage_parameter>`.                                                                   |
 
-All identifiers are case-insensitive unless double-quotes are used. For more information, see [Object identifiers]({% link Reference/object-identifiers.md %}).
+All identifiers are case-insensitive unless enclosed in double-quotes. For more information, see [Object identifiers]({% link Reference/object-identifiers.md %}).
 
 ## Column constraints and the default expression
 
@@ -92,7 +97,7 @@ After creating a table, you can manipulate the values using different `INSERT` s
 
 ### PRIMARY INDEX
 
-The `PRIMARY INDEX` is an optional sparse index that sorts and organizes data based on the indexed field as it is ingested, without affecting data scan performance. For more information, see [Primary indexes]({% link Guides/working-with-indexes/using-primary-indexes.md %}).
+The `PRIMARY INDEX` is an optional sparse index that sorts and organizes data based on the indexed field as it is ingested, without affecting data scan performance. For more information, see [Primary index]({% link Overview/indexes/primary-index.md %}).
 
 #### Syntax
 {: .no_toc}
@@ -122,17 +127,28 @@ The following subset of SQL functions can be used in `PARTITION BY` expressions:
 * [EXTRACT]({% link sql_reference/functions-reference/date-and-time/extract.md %})`(year|month|day|hour from <column_name>)`
 * [DATE_TRUNC]({% link sql_reference/functions-reference/date-and-time/date-trunc.md %})
 
-For more information, see [Working with partitions]({% link Overview/working-with-tables/working-with-partitions.md %}).
+For more information, see [Working with partitions]({% link Overview/indexes/using-indexes.md %}#partitions-in-tables).
 
 ### Table type
 
-Firebolt supports two types of [tables]({% link Overview/working-with-tables/working-with-tables.md %}#fact-and-dimension-tables):
+Firebolt supports two types of [tables]({% link Overview/indexes/using-indexes.md %}#tables):
     
 * `FACT` table - the data is distributed across all nodes of the engine.
 * `DIMENSION` table - the entire table is replicated in every node of the engine.
 
 The [CREATE TABLE]({% link sql_reference/commands/data-definition/create-fact-dimension-table.md %}) command defaults to a `FACT` table. `DIMENSION` tables are ideal for relatively small tables, up to tens of gigabytes, that are used in joins with `FACT` tables.
-    
+
+## Storage Parameters
+{: .no_toc} 
+
+Storage parameters are specified in the optional `WITH (...)` clause as comma separated `<storage_parameter> = <storage_parameter_value>` assignments.
+
+| Storage Parameter     | Description                                                                                                                                                                                                                                                                          |
+| :-------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `<index_granularity>` | The maximum number of rows in each granule. `<storage_parameter_value>` must be a power of 2 between 128 and 8192. The default value is 8192. For more information, see [Index granularity]({% link Overview/indexes/primary-index.md %}#advanced-option-index-granularity). |
+
+All identifiers are case-insensitive unless enclosed in double-quotes. For more information, see [Object identifiers]({% link Reference/object-identifiers.md %}).
+
 ## Related functions
 
 Firebolt also supports the following related functions:

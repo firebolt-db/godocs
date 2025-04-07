@@ -1,0 +1,48 @@
+{
+  "query": {
+    "query_id": "d315a4de-d613-4ac1-b45e-eaadd39ce9a4",
+    "request_id": "f3ddae64-e3d5-46e1-99f9-59d710384423",
+    "query_label": null
+  },
+  "meta": [
+    {
+      "name": "empty",
+      "type": "boolean"
+    },
+    {
+      "name": "single_true",
+      "type": "boolean"
+    },
+    {
+      "name": "single_false",
+      "type": "boolean"
+    },
+    {
+      "name": "single_null",
+      "type": "boolean null"
+    },
+    {
+      "name": "false_and_null",
+      "type": "boolean null"
+    }
+  ],
+  "data": [
+    [
+      true,
+      true,
+      false,
+      null,
+      false
+    ]
+  ],
+  "rows": 1,
+  "statistics": {
+    "elapsed": 0.010586,
+    "rows_read": 1,
+    "bytes_read": 1,
+    "time_before_execution": 0.000424135,
+    "time_to_execute": 0.000132948,
+    "scanned_bytes_cache": 0,
+    "scanned_bytes_storage": 0
+  }
+}

@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/tan.html
 layout: default
 title: TAN
 description: Reference material for TAN function
@@ -31,4 +33,4 @@ TAN(<value>)
 ## Example
 {: .no_toc}
 
-{% include sql_examples/tan.md %}
+{% include sql_examples/tan_executable.md %}

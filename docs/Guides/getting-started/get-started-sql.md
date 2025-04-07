@@ -27,7 +27,7 @@ To get started using Firebolt, begin by registering using the following steps:
 3. Type in your email and password and select **Log In**.
 
 {: .note}
-New accounts receive credits ($200+) to get started exploring Firebolt’s capabilities. These credits must be used within 30 days of account creation.
+New accounts receive credits ($200) to get started exploring Firebolt’s capabilities. These credits must be used within 30 days of account creation.
 
 Firebolt’s billing is based on engine runtime, measured in seconds. We also pass through AWS S3 storage costs at the rate of $23 per TB per month. The amount that you spend is dependent primarily on which engines you use and how long those engines are running.
 
@@ -52,7 +52,7 @@ The following instructions show you how to create a database and then an engine.
 
 2. Select **Create new database**. 
 
-3. Enter the name for your database in the **Database Name** field. For this example, use “tutorial_database” as your database name. In Firebolt, the names of engines and databases are **case-sensitive**. If you are using both uppercase and lowercase characters in their names, enclose their name inside double quotes (“) when you refer to them in SQL.
+3. Enter the name for your database in the **Database Name** field. For this example, use “tutorial_database” as your database name. In Firebolt, the names of engines and databases are **case-sensitive**. If you are using uppercase characters in their names, enclose their name inside double quotes (“) when you refer to them in SQL.
 
 Firebolt creates a new database with the following two default schemas:
 * **Public** - A namespace where you can create and manage your database objects including tables, engines and queries. The default schema includes **tables**, **external tables**, and **views**.
@@ -88,11 +88,7 @@ Each FBU is related to the amount of time as follows:
 | Find optimal query performance |  32-240 FBU    |
 | Find optimal test integrations |  32-240 FBU    |
 
-Engines can cache the following dataset sizes:
-* A small (S) engine can cache 1.8 TB of data. 
-* A medium (M) engine can cache 3.7 TB. 
-* A large (L) engine can cache 7.5 TB of data. 
-* An extra-large (XL) engine can cache 15 TB of data. 
+Each engine node can cache data locally to improve performance. 
 
 Small and medium engines are available for use right away. If you want to use a large or extra-large engine, reach out to support@firebolt.io. The default engine configuration uses a small node, which is sufficient for this tutorial. To learn more about how to select the correct engine size for your workload, see [Sizing Engines](../operate-engines/sizing-engines.md).
 
@@ -215,7 +211,7 @@ CREATE TABLE IF NOT EXISTS levels (
 PRIMARY INDEX "LevelID", "Name";
 ```
 
-In the previous code example, the primary index contains two values. The first value, `LevelID`, is required in order to create a primary index. The second value, `Name`, and any following values are optional. Firebolt will use all listed primary indexes to optimize query scans. If Name has lower cardinality than `LevelID`, then Firebolt can optimize these indexes to eliminate scanning over irrelevant data.  For more information about primary indexes and sort order, see [Primary Indexes](../working-with-indexes/using-primary-indexes.md).
+In the previous code example, the primary index contains two values. The first value, `LevelID`, is required in order to create a primary index. The second value, `Name`, and any following values are optional. Firebolt will use all listed primary indexes to optimize query scans. If Name has lower cardinality than `LevelID`, then Firebolt can optimize these indexes to eliminate scanning over irrelevant data.  For more information about primary indexes and sort order, see [Primary index]({% link Overview/indexes/primary-index.md %}).
 
 To read data into the `levels` table, enter the following into a new script tab:
 ```sql
@@ -243,9 +239,9 @@ ON tutorial (
   );
 ```
 
-After you run the script,  the `levels_agg_idx` aggregate index listed in the left navigation pane under **Indexes** in the **tutorial** table. Any queries that run over the tutorial table that use an average of the **NumberOfLaps** column grouped by **LevelType** will now use the levels_agg_idx index instead of reading the entire table to calculate it.
+After you run the script, the `levels_agg_idx` aggregate index listed in the left navigation pane under **Indexes** in the **tutorial** table. Any queries that run over the tutorial table that use an average of the **NumberOfLaps** column grouped by **LevelType** will now use the `levels_agg_idx` index instead of reading the entire table to calculate it.
 
-For more information, see [Aggregating indexes](../working-with-indexes/using-aggregating-indexes.md).
+For more information, see [Aggregating index]({% link Overview/indexes/aggregating-index.md %}).
 
 ### Warm data and cache eviction
 
@@ -273,13 +269,7 @@ The following guidance applies:
   ```
 
 #### Cache eviction
-After your cache usage exceeds approximately 80% of its capacity, Firebolt will evict, or remove the least recently used data into an Amazon S3 bucket. Then, if you want to query this data, you will have to read it back into cache. The total available cache size depends on the size of your engine as follows:
-  * A small engine has a cache size of 1.8 TB.
-  * A medium engine has a cache size of 3.7 TB.
-  * A large engine has a cache size of 7.5 TB.
-  * An extra large engine has a cache size of 15 TB.
-
-Small and medium sized engines are available for use right away. If you want to use a large or extra-large engine, reach out to support@firebolt.io.
+When your cache usage exceeds approximately 80% of its capacity, Firebolt automatically evicts the some data from the cache. If you query this data later, Firebolt reloads it into the cache before processing the query. The total available cache size depends on your engine's size and family. Larger engine sizes provide more cache space, and the storage-optimized family offers more cache than the compute-optimized family. Small and medium sized engines are available for use right away. If you want to use a large or extra-large engine, reach out to [support@firebolt.io](mailto:support@firebolt.io).
 
 You can check the size of your cache using the following example code:
 ```sql
@@ -369,7 +359,7 @@ Use [COPY TO](../../sql_reference/commands/data-management/copy-to.md) select al
 
 ```sql
 COPY (SELECT * FROM test_table)
-  TO 's3://my_bucket/my_fb_queries'
+  TO 's3://my-bucket/path/to/data'
   CREDENTIALS = 
   (AWS_ROLE_ARN= 'arn:aws:iam::123456789012:role/my-firebolt-role');
 ```

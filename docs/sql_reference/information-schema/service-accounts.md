@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /managing-your-account/service-accounts.html
 layout: default
 title: Service accounts
 description: Use this reference to learn about the metadata available about service accounts using the information schema.
@@ -8,8 +10,8 @@ grand_parent: SQL reference
 
 # Information schema for service_accounts
 
-You can use the `information_schema.service_accounts` view to return information about service accounts.
-You can use a `SELECT` query to return information about each service account as shown in the example below.
+Use the `information_schema.service_accounts` view to return information about service accounts.
+The following code example uses a `SELECT` query to return information about each service account:
 
 ```sql
 SELECT
@@ -18,21 +20,23 @@ FROM
   information_schema.service_accounts;
 ```
 
-Read more about service accounts [here](../../Guides/managing-your-organization/service-accounts.md).
+For more information about service accounts, see [Manage programmatic access to Firebolt]({% link Guides/managing-your-organization/service-accounts.md %}).
 
 ## Columns in information_schema.service_accounts
 
-Each row has the following columns with information about a service account.
+Each row has the following columns with information about a service account:
 
 | Column Name                 | Data Type   | Description                                                                                                                                                |
 |:----------------------------|:------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | service_account_id          | TEXT        | The ID of the service account.                                                                                                                             |
 | service_account_name        | TEXT        | The name of the service account.                                                                                                                           |
 | network_policy_name         | TEXT        | The name of the network policy used by this service account.                                                                                               |
-| service_account_description | TEXT        | The description of the service account.                                                                                                                    |
-| is_organization_admin       | BOOLEAN     | Specifies if the service account is an organization admin.                                                                                                 |
+| description | TEXT        | The description of the service account.                                                                                                                    |
+| is_organization_admin       | BOOLEAN     | Specifies if the user associated with the service account has an [organizational administrative role]({% link Overview/organizations-accounts.md %}#organizational-administrative-role).                                                                                                 |
+| connection_preference       | TEXT        | Defines the connectivity preference for a service account. The default value is `PREFER_PUBLIC` if not specified. A user with an [organizational administrator role]({% link Overview/organizations-accounts.md %}#organizational-administrative-role) can configure this setting, and it can be modified after creation. Available options include the following: <br> - **`PUBLIC_ONLY`**: Allows access only through public APIs. <br> - **`PRIVATE_ONLY`**: Allows access only using AWS PrivateLink. <br> - **`PREFER_PUBLIC`** (Default): Prefers public APIs but can use AWS PrivateLink if needed. <br> - **`PREFER_PRIVATE`**: Prefers AWS PrivateLink but can use public APIs if needed. |
 | is_enabled                  | BOOLEAN     | Specifies if the service account is allowed to authenticate.                                                                                               |
 | created                     | TIMESTAMPTZ | Time of the service account creation.                                                                                                                      |
 | service_account_owner       | TEXT        | The name of the login that created the service account. If the service account was created by a service account, the service account name appears instead. |
 | last_altered                | TIMESTAMPTZ | Time the service account was last altered.                                                                                                                 |
 | last_altered_by             | TEXT        | The name of the login that edited the service account. If the service account was edited by a service account, the service account name appears instead.   |
+

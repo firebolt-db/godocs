@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /integrations/business-intelligence/connecting-to-metabase.html
 layout: default
 title: Metabase
 description: Connecting Metabase and Firebolt.
@@ -13,9 +15,12 @@ parent: Integrate with Firebolt
 
 [Metabase](https://www.metabase.com/) is an open-source business intelligence platform. You can use Metabase's user interface to explore, analyze, and visualize data, query databases, generate reports, and create dashboards. 
 
-This guide shows you how to [set up a Firebolt connector](#set-up-a-connector-to-metabase) for a self-hosted Metabase instance and how to [create a connection](#create-a-connection-to-metabase). If you are using either the managed or cloud-hosted version of [**Metabase Cloud**](https://www.metabase.com/docs/latest/cloud/start), you can skip directly to the [Create a Connection](#create-a-connection-to-metabase). 
+This guide shows you how to [set up a Firebolt connector](#set-up-a-connector-to-metabase) for a self-hosted Metabase instance and how to [create a connection](#create-a-connection-to-metabase). If you are using either the managed or cloud-hosted version of [**Metabase Cloud**](https://www.metabase.com/docs/latest/cloud/start), you can skip directly to the [Create a Connection](#create-a-connection-to-metabase).
 
+You can also watch a short video on how to connect Metabase to Firebolt:
+<iframe width="560" height="315" src="https://www.youtube.com/embed/LT6yoA67UW8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+**Topics:**
 1. Topic ToC
 {:toc}
 
@@ -31,6 +36,7 @@ For self-hosted deployments on-premises, the Firebolt connector must be installe
 * Save the downloaded driver file in the `/plugins` directory on your Metabase host system.
 * By default, the `/plugins` directory is located in the same folder where the `metabase.jar` file runs.
 After completing these steps, the Firebolt connector will be available for configuration within Metabase.
+
 ### Create a connection to metabase
 
 After setting up the Firebolt connector, use the following steps to create a connection between Metabase and your Firebolt database:
@@ -71,4 +77,3 @@ For more information about Metabase configuration and troubleshooting, refer to 
 * [**Troubleshooting Database Connections**](https://www.metabase.com/docs/latest/troubleshooting-guide/db-connection) — Guidance on resolving issues when connecting [Metabase](https://www.metabase.com/docs/latest/databases/connecting) to your databases. 
 
 * [**Troubleshooting Database Performance**](https://www.metabase.com/docs/latest/troubleshooting-guide/db-performance) — Tips for identifying and addressing performance issues with connected databases. 
-

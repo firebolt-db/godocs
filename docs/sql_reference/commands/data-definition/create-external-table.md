@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/commands/create-external-table.html
 layout: default
 title: CREATE EXTERNAL TABLE
 description: Reference and syntax for the CREATE EXTERNAL TABLE command.
@@ -10,7 +12,7 @@ parent: Data definition
 # CREATE EXTERNAL TABLE
 {: .no_toc}
 
-Creates an external table. External tables serve as connectors to your external data sources. External tables contain no data within Firebolt other than metadata virtual columns that are automatically populated with metadata. For more information, see [Working with external tables](../../../Guides/loading-data/working-with-external-tables.md). Data that you ingest must be in an Amazon S3 bucket in the same AWS Region as the Firebolt database.
+Creates an external table. External tables serve as connectors to your external data sources. External tables contain no data within Firebolt other than metadata virtual columns that are automatically populated with metadata. For more information, see [Working with external tables]({% link Guides/loading-data/working-with-external-tables.md %}). Data that you ingest must be in an Amazon S3 bucket in the same AWS Region as the Firebolt database.
 
 * ToC
 {:toc}
@@ -19,19 +21,34 @@ Creates an external table. External tables serve as connectors to your external 
 {: .no_toc}
 
 ```sql
+-- Using location object (recommended)
 CREATE EXTERNAL TABLE [IF NOT EXISTS] <table>
 (
     <column_name> <column_type>[ PARTITION('<regex>')]
     [, <column_name2> <column_type2> [PARTITION('<regex>')]]
     [,...<column_name2> <column_type2> [PARTITION('<regex>')]]
 )
-[ CREDENTIALS = ( <credentials> ) ]
+LOCATION = <location_name>
+OBJECT_PATTERN = '<object_pattern>'
+TYPE = ( <type> )
+[ <type_option> ]
+[ COMPRESSION = <compression_type> ]
+|
+-- Using static credentials
+CREATE EXTERNAL TABLE [IF NOT EXISTS] <table>
+(
+    <column_name> <column_type>[ PARTITION('<regex>')]
+    [, <column_name2> <column_type2> [PARTITION('<regex>')]]
+    [,...<column_name2> <column_type2> [PARTITION('<regex>')]]
+)
+[ CREDENTIALS = { AWS_ACCESS_KEY_ID = '<aws_access_key_id>' AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>' [ AWS_SESSION_TOKEN = '<aws_session_token>' ] | AWS_ROLE_ARN = '<aws_role_arn>' [ AWS_ROLE_EXTERNAL_ID = '<aws_role_external_id>' ] } ]
 URL = 's3://<bucket_name>[/<folder>][/...]/'
 OBJECT_PATTERN = '<object_pattern>'
 TYPE = ( <type> )
-[ <type option> ]
+[ <type_option> ]
 [ COMPRESSION = <compression_type> ]
 ```
+
 
 ## Parameters 
 {: .no_toc} 
@@ -42,11 +59,62 @@ TYPE = ( <type> )
 | `<column_name>`            | An identifier that specifies the name of the column. This name should be unique within the table.<br><b>Note:</b> If column names are using mixed case, wrap your column name definitions in double quotes (`"`); otherwise they will be translated to lower case and will not match the mixed case Parquet schema. |
 | `<column_type>`            | Specifies the data type for the column. |
 | `PARTITION`                | An optional keyword. When specified, allows you to use a regular expression `<regex>` to extract a value from the file prefix to be stored as the column value. For more information, see [PARTITION](#partition). |
-| `CREDENTIALS`              | Specifies the AWS credentials with permission to access the S3 location specified using `URL`. For more information, see [CREDENTIALS](#credentials). |
-| `URL` and `OBJECT_PATTERN` | Specifies the S3 location and the file naming pattern that Firebolt ingests when using this table. For more information, see [URL & OBJECT_PATTERN](#url-and-object_pattern). |
+| `LOCATION`                 | The name of a location object that contains the Amazon S3 URL and credentials. This is the recommended approach for specifying the source. See ([CREATE LOCATION]({% link sql_reference/commands/data-definition/create-location.md %})) for details. The location must exist and you must have appropriate permissions to use it. |
+| `CREDENTIALS`              | Specifies the AWS credentials with permission to access the Amazon S3 location specified using `URL`. For more information, see [CREDENTIALS](#credentials). |
+| `URL`                      | The path to an Amazon S3 URL where the source files are located. For example, `s3://my_bucket/my_folder/`. |
+| `OBJECT_PATTERN`           | Specifies the file naming pattern that Firebolt ingests when using this table. For more information, see [OBJECT_PATTERN](#object_pattern). |
 | `TYPE`                     | Specifies the file type Firebolt expects to ingest given the `OBJECT_PATTERN`. If a file referenced using `OBJECT_PATTERN` does not conform to the specified `TYPE`, an error occurs. For more information, see [TYPE](#type). |
-| `<type option>`            | Allows configuration for ingesting different CSV file formats. Type option can be set at this top level, or as an option in the `TYPE` parameter. |
+| `<type_option>`            | Allows configuration for ingesting different CSV file formats. Type option can be set at this top level, or as an option in the `TYPE` parameter. |
 | `COMPRESSION`              | See [COMPRESSION](#compression). |
+
+
+### Using location objects
+
+Firebolt recommends using location objects as a secure, centralized way to manage Amazon S3 credentials and URLs.
+
+Use location objects for:
+
+- Centralized credential management.
+- Eliminating the exposure of credentials in queries.
+- Enabling role-based access control.
+- Simplified maintenance and updates.
+
+**Example**
+
+The following code example creates `my_external_table` in that loads data from Parquet files matching the *.parquet pattern in `my_data_location`:
+
+```sql
+CREATE EXTERNAL TABLE my_external_table
+(
+    c_id INTEGER,
+    c_name TEXT
+)
+LOCATION = my_data_location
+OBJECT_PATTERN = '*.parquet'
+TYPE = (PARQUET);
+```
+
+For detailed information, see [CREATE LOCATION]({% link sql_reference/commands/data-definition/create-location.md %}).
+
+### Common `LOCATION` errors
+
+* Providing the location name as a string literal instead of an identifier results in an error, as shown in the following code example:
+
+  ```sql
+  CREATE EXTERNAL TABLE et_1 (x INT NOT NULL, y TEXT NOT NULL) 
+  LOCATION = 'location_1'  -- Error: Parameter LOCATION must be of type IDENTIFIER
+  OBJECT_PATTERN = 'simple.csv' 
+  TYPE = CSV;
+  ```
+
+* If the specified location doesn't exist or you lack permission to use it, an error occurs, as shown in the following code example:
+
+  ```sql
+  CREATE EXTERNAL TABLE et_2 (x INT NOT NULL, y TEXT NOT NULL) 
+  LOCATION = nonexistent_location  -- Error: location 'nonexistent_location' does not exist or not authorized
+  OBJECT_PATTERN = 'simple.csv' 
+  TYPE = CSV;
+  ```
 
 ### PARTITION
 
@@ -54,7 +122,7 @@ In some applications, such as Hive partitioning, files use a folder naming conve
 The `PARTITION` keyword allows you to specify a regular expression, `<regex>`, to extract a portion of the file path and store it in the specified column when Firebolt uses the external table to ingest partitioned data.
 
 Using `PARTITION` in this way is one method of extracting partition data from file paths. Another method is to use 
-the table metadata column, `$source_file_name`, during the `INSERT` operation. For more information, see [Example&ndash;extracting partition values using INSERT](../data-management/insert.md#extracting-partition-values-using-insert).
+the table metadata column, `$source_file_name`, during the `INSERT` operation.
 
 #### Guidelines for creating the regex
 {: .no_toc}
@@ -79,7 +147,7 @@ For more information, see [Match groups](https://regexone.com/lesson/capturing_g
 #### Example&ndash;extract Hive-compatible partitions
 {: .no_toc}
 
-The example below demonstrates a `CREATE EXTERNAL TABLE` statement that creates the table `my_ext_table`. This table is used to ingest all files with a `*.parquet` file extension in any sub-folder of the S3 bucket `s3://my_bucket`.
+The example below demonstrates a `CREATE EXTERNAL TABLE` statement that creates the table `my_ext_table`. This table is used to ingest all files with a `*.parquet` file extension in any sub-folder of the Amazon S3 bucket `s3://my_bucket`.
 
 Consider an example where folders and files in the bucket have the following consistent pattern, which is common for Hive partitions:
 
@@ -91,7 +159,7 @@ s3://my_bucket/c_type=abc/year=2018/month=01/part-00002.parquet
 [...]
 ```
 
-In the example `CREATE EXTERNAL TABLE` statement below, the `PARTITION` keyword in the column definition for `c_type` specifies a regular expression. This expression extracts the portion of the S3 path name that correspond to the `xyz` or `abc` within `c_type=xyz` or `c_type=abc`.
+In the example `CREATE EXTERNAL TABLE` statement below, the `PARTITION` keyword in the column definition for `c_type` specifies a regular expression. This expression extracts the portion of the Amazon S3 path name that correspond to the `xyz` or `abc` within `c_type=xyz` or `c_type=abc`.
 
 ```sql
 CREATE EXTERNAL TABLE my_ext_table (
@@ -115,9 +183,9 @@ When Firebolt ingests the data from a Parquet file stored in that path, the `c_t
 | 448dfgkl12 | Harris     | abc    |
 | j987rr3233 | Espinoza   | abc    |
 
-### CREDENTIALS
+### Credentials
 
-The credentials for accessing your data on AWS S3 using access key & secret.
+The credentials for accessing your data on AWS Amazon S3 using access key & secret.
 
 #### Syntax&ndash;authenticating using an access key and secret
 
@@ -127,30 +195,29 @@ CREDENTIALS = (AWS_ACCESS_KEY_ID = '<aws_access_key_id>' AWS_SECRET_ACCESS_KEY =
 ## Parameters 
 {: .no_toc} 
 
-| Parameter          | Description                                             | Data type |
+| Parameters          | Description                                             | Data type |
 |: ------------------ |: ------------------------------------------------------- |: --------- |
-| `aws_access_key_id`     | The AWS access key ID. | `TEXT `     |
-| `aws_secret_access_key` | The AWS secret access key.        | `TEXT`      |
-| `aws_session_token` | The AWS session token.        | `TEXT`      |
+| `AWS_ACCESS_KEY_ID`     | The AWS access key ID. | `TEXT `     |
+| `AWS_SECRET_ACCESS_KEY` | The AWS secret access key.        | `TEXT`      |
+| `AWS_SESSION_TOKEN` | The AWS session token.        | `TEXT`      |
+| `AWS_ROLE_ARN` | The AWS role ARN (Amazon Resource Name).        | `TEXT`      |
+| `AWS_ROLE_EXTERNAL_ID` | The AWS role external id.        | `TEXT`      |
 
 {: .note}
-In case you don't have the access key and secret to access your S3 bucket, read more [here](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) on how to obtain them.
+In case you don't have the access key and secret to access your Amazon S3 bucket, read more [here](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) on how to obtain them.
 
 
-### URL and OBJECT_PATTERN
+### OBJECT_PATTERN
 
-An external table enables reading some (or all) files from an S3 bucket that you have read access to. 
-Note that the S3 bucket that you reference must be in the same AWS Region as the Firebolt database.
+An external table enables reading some (or all) files from an Amazon S3 bucket that you have read access to. 
+The Amazon S3 bucket that you reference must be in the same AWS Region as the Firebolt database.
 
-The`URL`and`OBJECT_PATTERN` parameters identify which files represent the data for the external table.`URL` must be a
-listable directory: it will be either an entire bucket or some subfolder. `OBJECT_PATTERN` is a glob that selects 
-files within the`URL`. 
+The`OBJECT_PATTERN` parameter identifies which files represent the data for the external table.`OBJECT_PATTERN` is a glob that selects files within the `URL` or `LOCATION`. 
 
 #### Syntax
 {: .no_toc}
 
 ```sql
-URL = 's3://<bucket>[/<folder>][/...]/'
 OBJECT_PATTERN = '<object_pattern>'
 ```
 ## Parameters 
@@ -158,8 +225,7 @@ OBJECT_PATTERN = '<object_pattern>'
 
 | Parameters       | Description                                                                                                                          | Data type |
 | :---------------- | :------------------------------------------------------------------------------------------------------------------------------------ | :--------- |
-| `<url>`            | This is the URL of the specific bucket and path within the bucket where the relevant files are located (common path prefix).         | `TEXT`      |
-| `<object_pattern>` | Specify the data pattern to be found in your data source. For example, \*.parquet indicates that all parquet files should be found. | `TEXT`      |
+| `OBJECT_PATTERN` | Specify the data pattern to be found in your data source. For example, \*.parquet indicates that all parquet files should be found. | `TEXT`      |
 
 The following wildcards are supported:
 
@@ -171,7 +237,7 @@ The following wildcards are supported:
 #### Example
 {: .no_toc}
 
-In the following layout of objects in a bucket, the data is partitioned according to client type, year, and month, with multiple parquet files in each partition. The examples demonstrate how choosing both URL and OBJECT\_PATTERN impacts the objects that are retrieved from S3.
+In the following layout of objects in a bucket, the data is partitioned according to client type, year, and month, with multiple parquet files in each partition. The examples demonstrate how choosing both URL and OBJECT\_PATTERN impacts the objects that are retrieved from Amazon S3.
 
 ```
 s3://bucket/c_type=xyz/year=2018/month=01/part-00001.parquet
@@ -201,17 +267,17 @@ Following are some common use cases for URL and object pattern combinations:
 
 ### TYPE
 
-Specifies the type of the files in S3. The following types and type options are supported.
+Specifies the type of the files in Amazon S3. The following types and type options are supported.
 
 #### CSV Types
 
 ```sql
-TYPE = (CSV [ <type option> ])
+TYPE = (CSV [ <type_option> ])
 ```
 or 
 ```sql
 TYPE = (CSV)
-[ <type option> ]
+[ <type_option> ]
 ```
 
 
@@ -243,7 +309,7 @@ With `NULL_STRING = '<null_string>'` you can define which set of characters is i
 With `SKIP_BLANK_LINES = TRUE` any blank lines encountered in the CSV input file will be skipped. By default, `SKIP_BLANK_LINES` is set to `FALSE`, and an error is generated if blank lines are enountered on ingest.
 
 * `[SKIP_HEADER_ROWS = {TRUE|FALSE}]`  
-With `SKIP_HEADER_ROWS = TRUE`, Firebolt assumes that the first row in each file read from S3 is a header row and skips it when ingesting data. When set to `FALSE`, which is the default if not specified, Firebolt ingests the first row as data.  
+With `SKIP_HEADER_ROWS = TRUE`, Firebolt assumes that the first row in each file read from Amazon S3 is a header row and skips it when ingesting data. When set to `FALSE`, which is the default if not specified, Firebolt ingests the first row as data.  
 
 #### JSON Types
 * `TYPE = (JSON [PARSE_AS_TEXT = {TRUE|FALSE}])`  
@@ -260,7 +326,7 @@ All type options for CSV above, except for `FIELD_DELIMITER`, are also supported
 #### Example
 {: .no_toc}
 
-Creating an external table that reads parquet files from S3 is being done with the following statement:
+Creating an external table that reads parquet files from Amazon S3 is being done with the following statement:
 
 ```sql
 CREATE EXTERNAL TABLE my_external_table
@@ -276,7 +342,7 @@ TYPE = (PARQUET)
 
 ### COMPRESSION
 
-Specifies the compression type of the files matching the specified `OBJECT_PATTERN` in S3.
+Specifies the compression type of the files matching the specified `OBJECT_PATTERN` in Amazon S3.
 
 #### Syntax
 {: .no_toc}
@@ -294,7 +360,7 @@ Specifies the compression type of the files matching the specified `OBJECT_PATTE
 #### Example
 {: .no_toc}
 
-The example below creates an external table to ingest CSV files from S3 that are compressed using gzip. The credentials for an IAM user with access to the bucket are provided.
+The example below creates an external table to ingest CSV files from Amazon S3 that are compressed using gzip. The credentials for an IAM user with access to the bucket are provided.
 
 ```sql
 CREATE EXTERNAL TABLE my_external_table

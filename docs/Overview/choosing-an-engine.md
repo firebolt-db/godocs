@@ -2,7 +2,7 @@
 layout: default
 title: Engine Sizing
 description: Choosing an engine configuration based on your data type and query patterns.
-nav_order: 4
+nav_order: 5
 parent: Overview
 published: false
 ---

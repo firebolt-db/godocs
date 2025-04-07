@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql_reference/functions-reference/array/vector-inner-product.html
 layout: default
 title: VECTOR_INNER_PRODUCT
 description: Reference material for VECTOR_INNER_PRODUCT function

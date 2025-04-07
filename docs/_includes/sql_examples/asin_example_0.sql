@@ -1,0 +1,1 @@
+SELECT ASIN(1) as result;

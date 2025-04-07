@@ -44,6 +44,34 @@ Firebolt supports the following `GEOGRAPHY` types, with examples provided in the
 
 Firebolt supports creating `GEOGRAPHY` from the industry standard GeoJSON, Well-Known Text (WKT), and Well-Known Binary (WKB) representations, as well as the extended formats EWKT and EWKB introduced by the PostGIS extension. See the corresponding [function documentations](../sql_reference/functions-reference/geospatial/index.md) for further detail.
 
+### Literal string interpretation
+
+You can create a `GEOGRAPHY` object from a string by using the `GEOGRAPHY` prefix in a query, as shown in the following code example:
+
+```sql
+SELECT GEOGRAPHY '<string in supported format>';
+```
+
+`GEOGRAPHY` literals are automatically decoded based on the encoding format used. Supported formats include:
+* [(Extended) Well-Known Text (EWKT)](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry).
+* [GeoJSON](https://datatracker.ietf.org/doc/html/rfc7946).
+* Hex-encoded [(Extended) Well-Known Binary (EWKB)](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry#Well-known_binary).
+
+For more information, refer to [Cast from TEXT](#cast-from-text).
+
+**Examples**
+
+You can use any supported format to create a `GEOGRAPHY` object. The following examples demonstrate how to create the same `GEOGRAPHY` object representing a Point at longitude -73.98551041593687 and latitude 40.75793403395676 using WKT, GeoJSON, and EWKB formats: 
+
+```sql
+-- Example: WKT format
+SELECT GEOGRAPHY 'POINT(-73.98551041593687 40.75793403395676)';
+-- Example: GeoJSON format
+SELECT GEOGRAPHY '{"type":"Point","coordinates":[-73.98551041593687,40.75793403395676]}';
+-- Example: Hex-encoded EWKB format
+SELECT GEOGRAPHY '0101000020E61000003D94479A127F52C0502F80FB03614440';
+```
+
 ### Cast from BYTEA
 
 The cast from `BYTEA` to `GEOGRAPHY` behaves exactly like the [ST_GEOGFROMWKB](../sql_reference/functions-reference/geospatial/st_geogfromwkb.md) function.

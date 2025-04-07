@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql_reference/functions-reference/array/vector-cosine-distance.html
 layout: default
 title: VECTOR_COSINE_DISTANCE
 description: Reference material for VECTOR_COSINE_DISTANCE function

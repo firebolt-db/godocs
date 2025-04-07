@@ -9,7 +9,7 @@ parent: JSON functions
 
 # JSON_POINTER_EXTRACT_TEXT
 
-Accepts a JSON document and pointer expression. If the key exists and holds a JSON string, `JSON_POINTER_EXTRACT_TEXT` returns it as SQL `TEXT`, removing outer quotes and decoding characters. Otherwise, it returns `NULL`.
+Accepts a JSON document and pointer expression. If the key exists and the value is a JSON string, `JSON_POINTER_EXTRACT_TEXT` returns it as SQL `TEXT`, removing outer quotes and decoding characters. Otherwise, it returns `NULL`.
 
 ## Syntax
 
@@ -47,7 +47,7 @@ see [JSON common example](./index.md#json-common-example). The **returned result
 The following code example extracts the value at path `/value/uid` from the JSON document, removes the outermost quotes, and returns the result as SQL `TEXT`, labeled as `res`:
 
 ```sql
-SELECT JSON_POINTER_EXTRACT_TEXT(<json_common_example>, '/value/uid') AS res
+SELECT JSON_POINTER_EXTRACT_TEXT('{"value": {"uid": "987654"} }', '/value/uid') AS res
 ```
 
 **Returns**
@@ -63,7 +63,7 @@ The previous code example returns the following:
 The following code example attempts to extract the value at the path `/value/no_such_key` from the JSON document:
 
 ```sql
-SELECT JSON_POINTER_EXTRACT_TEXT(<json_common_example>, '/value/no_such_key') AS res
+SELECT JSON_POINTER_EXTRACT_TEXT('{"value": {"uid": "987654"} }', '/value/no_such_key') AS res
 ```
 
 **Returns**
@@ -76,15 +76,15 @@ The previous code example returns the `NULL` with the result labeled as `res`, b
 
 **Example**
 
-The following code example attempts to extract the value at the path `/value/keywords` from the JSON document:
+The following code example attempts to extract the value at the path `/value/code` from the JSON document:
 
 ```sql
-SELECT JSON_POINTER_EXTRACT_TEXT(<json_common_example>,'/value/keywords') AS res
+SELECT JSON_POINTER_EXTRACT_TEXT('{"value": {"code": 12} }', '/value/code') AS res
 ```
 
 **Returns**
 
-The previous code example returns `NULL`, labeled as `res` because the value at the specified path is an array, not a string:
+The previous code example returns `NULL`, labeled as `res` because the value at the specified path is an integer, not a string:
 
 | res (TEXT) |
 |:-----------|

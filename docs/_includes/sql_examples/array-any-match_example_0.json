@@ -1,0 +1,28 @@
+{
+  "query": {
+    "query_id": "00471831-7668-4a62-a52c-b44ae84950e3",
+    "request_id": "9fe11bb5-0572-4e3f-a6f3-c5c25415c6db",
+    "query_label": null
+  },
+  "meta": [
+    {
+      "name": "is_he_playing",
+      "type": "boolean"
+    }
+  ],
+  "data": [
+    [
+      false
+    ]
+  ],
+  "rows": 1,
+  "statistics": {
+    "elapsed": 0.006486,
+    "rows_read": 1,
+    "bytes_read": 1,
+    "time_before_execution": 0.000279829,
+    "time_to_execute": 8.8877e-05,
+    "scanned_bytes_cache": 0,
+    "scanned_bytes_storage": 0
+  }
+}

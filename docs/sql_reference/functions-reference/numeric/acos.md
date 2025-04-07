@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/acos.html
 layout: default
 title: ACOS
 description: Reference material for ACOS function
@@ -32,4 +34,4 @@ ACOS(<value>)
 ## Example
 {: .no_toc}
 
-{% include sql_examples/acos.md %}
+{% include sql_examples/acos_executable.md %}

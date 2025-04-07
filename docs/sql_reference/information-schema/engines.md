@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/information-schema/engines.html
 layout: default
 title: Engines
 parent: Information schema
@@ -8,6 +10,8 @@ grand_parent: SQL reference
 # Information schema for engines
 
 You can use the `information_schema.engines` view to return information about each engine in an account. The view is available for each database and contains one row for each engine in the account. You can use a `SELECT` query to return information about each engine as shown in the example below, which uses a `WHERE` clause to return all engines attached to databases that begin with `deng`.
+
+To view engine information, the user must have ownership of the engine or access to the necessary [engine]({% link Overview/Security/Role-Based Access Control/engine-permissions.md %}#engine-permissions) privileges. 
 
 ```sql
 SELECT
@@ -29,12 +33,16 @@ Each row has the following columns with information about each engine.
 | spec                        | TEXT        | \[DEPRECATED\] The specification of nodes comprising the engine. |
 | scale                       | INTEGER     | \[DEPRECATED\] The number of nodes in the engine. |
 | type                        | TEXT        | Determines the capability of the nodes in the engine. |
+| family                      | TEXT        | The family of a given engine. Choose from `STORAGE_OPTIMIZED` or `COMPUTE_OPTIMIZED`. |
 | nodes                       | INTEGER     | The number of nodes in a cluster. |
 | clusters                    | INTEGER     | The number of node groupings in an engine. |
+| min_clusters                | BIGINT      | The minimum number of clusters in the engine. Auto-scaling scales the clusters between the defined minimum and maximum. |
+| max_clusters                | BIGINT      | The maximum number of clusters in the engine. Auto-scaling scales the clusters between the defined minimum and maximum. |
 | status                      | TEXT        | The engine status. For more information, see [Viewing and understanding engine status](../../Overview/engine-fundamentals.md#viewing-and-understanding-engine-status). |
 | attached_to                 | TEXT        | \[DEPRECATED\] The name of the database to which the engine is attached. |
 | auto_start                  | BOOLEAN     | When true, queries issued to a stopped engine will attempt to start the engine first. |
 | auto_stop                   | INTEGER     | Indicates the amount of time (in minutes) after which the engine automatically stops. |
+| auto_vacuum                 | BOOLEAN     | Indicates whether [VACUUM]({% link sql_reference/commands/data-management/vacuum.md %}) is enabled or disabled by the user. Could also be `NULL` to indicate that `VACUUM` is automatically enabled by default. |
 | engine_type                 | TEXT        | \[DEPRECATED\] The type of the engine. |
 | initially_stopped           | BOOLEAN     | When true, the engine will have attempted to start after creation. |
 | url                         | TEXT        | A url which can be used to issue queries to this engine. |

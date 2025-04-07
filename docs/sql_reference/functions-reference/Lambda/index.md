@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/array-fill.html
 layout: default
 title: Lambda functions
 description: Reference for lambda functions
@@ -11,4 +13,4 @@ has_children: true
 
 ### Lambda functions
 
-For more information about using Lambda functions, see [Manipulating arrays with Lambda functions](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions).
+For more information about using Lambda functions, see [Manipulating arrays with Lambda functions]({% link Guides/loading-data/working-with-semi-structured-data/working-with-arrays.md %}#manipulating-arrays-with-lambda-functions).

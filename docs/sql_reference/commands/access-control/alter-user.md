@@ -13,6 +13,9 @@ Updates the configuration of the specified user.
 
 For more information, see [Managing users](../../../Guides/managing-your-organization/managing-users.md).
 
+{: .note}
+Users can modify most of their own account settings without requiring [RBAC]({% link Overview/Security/Role-Based Access Control/index.md %}#role-based-access-control-rbac) permissions, except when altering [LOGIN]({% link Guides/managing-your-organization/managing-logins.md %}) configurations or a [SERVICE ACCOUNT]({% link Guides/managing-your-organization/service-accounts.md %}).
+
 ## ALTER USER SET
 
 ### Syntax
@@ -39,8 +42,8 @@ ALTER USER <user_name> RENAME TO <new_user_name>;
 | `<new_user_name>` | The new name of the user, used with the `RENAME TO` option. The new user name can be any string, and can also contain spaces and non-alpha-numeric characters such as exclamation points (!), percent signs (%), at signs(@), dot signs (.), underscore signs (_), minus signs (-), and asterisks (*). If the string contains spaces or non-alphanumeric characters, it must be enclosed in single or double quotes.
 | `<login_name>` | An optional, case-insensitive parameter to specify the name of the login to link the user with, used with the `SET` option. This cannot be used in conjunction with the `SERVICE_ACCOUNT` parameter - a user can be linked to a login OR a service account but not both. `DEFAULT` disassociates the user from its login. The user will become unusable before it's re-associated with some login or service account. |
 | `<service_account_name>` | An optional parameter to specify the name of the service account to link the user with, used with the `SET` option. This cannot be used in conjunction with the `LOGIN` parameter - a user can be linked to a login OR a service account but not both. `DEFAULT` disassociates the user from its service account. The user will become unusable before it's re-associated with some login or service account. |
-| `<database_name>`                      | An optional parameter to define a default database for the user (for future purposes). Used with the `SET` option. |
-| `<engine_name>` | An optional parameter to define a default engine for the user (for future purposes).Used with the `SET` option. |
+| `<database_name>`                      | An optional parameter to define a default database for the user. Used with the `SET` option. |
+| `<engine_name>` | An optional parameter to define a default engine for the user. Used with the `SET` option. |
 
 ### Example
 

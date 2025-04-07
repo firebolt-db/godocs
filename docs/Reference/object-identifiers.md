@@ -1,14 +1,17 @@
 ---
+redirect_from:
+  - /general-reference/identifier-requirements.html
+  - /sql_reference/sql-syntax/identifiers.html
 layout: default
 title: Object identifers
 description: Provides requirements and guidance for using SQL identifiers with Firebolt.
-nav_order: 5
+nav_order: 4
 parent: General reference
 ---
 
 # Object identifers
 
-Firebolt object identifiers are used to refer to database items as columns, tables, indexes, views, and engines.
+Firebolt object identifiers are used to refer to database items such as columns, tables, indexes, views, and engines.
 
 ## Syntax
 
@@ -59,6 +62,6 @@ User names must conform to the following rules:
 * They must be between 3 to 63 characters in length.
 * They can contain alphanumeric characters including upper and lowercase letters and numbers. 
 * The first and last characters must be either a letter or a digit.
-* You can use the following special characters: ``! # $ % & ' * + - = ? ^ _ ` { | } ~ .``
+* You can use the following special characters: ``@ ! # $ % & ' * + - = ? ^ _ ` { | } ~ .``
 * You can not use consecutive dots (..).
 

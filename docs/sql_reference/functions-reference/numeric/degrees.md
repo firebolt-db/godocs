@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/degrees.html
 layout: default
 title: DEGREES
 description: Reference material for DEGREES function
@@ -31,4 +33,4 @@ DEGREES(<value>)
 ## Example
 {: .no_toc}
 
-{% include sql_examples/degrees.md %}
+{% include sql_examples/degrees_executable.md %}

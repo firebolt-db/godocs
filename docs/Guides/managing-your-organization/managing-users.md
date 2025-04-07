@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /managing-your-account/managing-users.html
 layout: default
 title: Manage users and roles
 description: Learn about user permissions and how to add and remove users in a Firebolt account.
@@ -35,7 +37,7 @@ There can be multiple users per login or service account. Users are managed at t
 You can [add](#set-up-a-new-user), [edit](#edit-an-existing-user) or [delete](#deleting-an-existing-user) users using SQL in the **Develop Space** or using the user interface (UI) in the **Configure Space**.
 
 {: .note}
-Managing roles requires the account_admin role. For more information about roles, see the [Roles]({% link Overview/organizations-accounts.md %}#roles) section in [Organizations and accounts]({% link Overview/organizations-accounts.md %}), and the [Account permissions]({% link Overview/Role-Based Access Control/account-permissions.md %})  section of [Role-based access control]({% link Overview/Role-Based Access Control/index.md %}) that specifies permissions for **CREATE USER**.
+Managing roles requires the account_admin role. For more information about roles, see the [Roles]({% link Overview/organizations-accounts.md %}#roles) section in [Organizations and accounts]({% link Overview/organizations-accounts.md %}), and the [Account permissions]({% link Overview/Security/Role-Based Access Control/account-permissions.md %})  section of [Role-based access control]({% link Overview/Security/Role-Based Access Control/index.md %}) that specifies permissions for **CREATE USER**.
 
 **Topics**
 - [Manage users and roles](#manage-users-and-roles)
@@ -125,7 +127,7 @@ Login to [Firebolt’s Workspace](https://go.firebolt.io/login). If you haven’
 
     * The database that **Script 1** will use is located directly below the tab name. If you want to change the database, select another database from the drop-down list.
 
-    * An engine must be running to process the script in a selected tab. The name and status of the engine that **Script 1** uses for computation is located to the right of the current selected database. If the engine has auto-start set to `TRUE`, it will start from a stopped state. For more information about auto-start, see [Immediately Starting or Automatically Stopping an Engine]({% link Guides/operate-engines/working-with-engines-using-ddl.md %}#immediately-starting-or-automatically-stopping-an-engine). 
+    * An engine must be running to process the script in a selected tab. The name and status of the engine that **Script 1** uses for computation is located to the right of the current selected database. If the engine has auto-start set to `TRUE`, it will start from a stopped state. For more information about auto-start, see [Immediately Starting or Automatically Stopping an Engine]({% link Guides/operate-engines/working-with-engines-using-ddl.md %}#automatically-start-or-stop-an-engine). 
 
 3. Select **system** from the drop-down arrow next to the engine name. The system engine is always running, and you can use it to create a login. You can also use an engine that you create.
 4. Use the syntax in the following example code to create a login in the SQL Script Editor:
@@ -342,6 +344,9 @@ The following code example changes a user's login:
 ```sql
 ALTER USER alex SET LOGIN="alexs@acme.com";
 ```
+
+{: .note}
+Users can modify most of their own account settings without requiring [RBAC]({% link Overview/Security/Role-Based Access Control/index.md %}#role-based-access-control-rbac) permissions, except when altering [LOGIN]({% link Guides/managing-your-organization/managing-logins.md %}) configurations or a [SERVICE ACCOUNT]({% link Guides/managing-your-organization/service-accounts.md %}).
 
 ## Deleting an existing user
 

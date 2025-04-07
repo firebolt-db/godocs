@@ -1,4 +1,7 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/regexp-matches.html
+  - /sql-reference/functions-reference/regexp-like.html
 layout: default
 title: REGEXP_LIKE
 description: Reference material for REGEXP_LIKE function
@@ -9,7 +12,7 @@ parent: String functions
 
 # REGEXP_LIKE
 
-Checks whether a text pattern matches a regular expression string. Returns `0` if it doesn’t match, or `1` if it matches. This is a RE2 regular expression.
+Checks whether a text pattern matches a regular expression string. Returns a `BOOLEAN` value, specifically `false` if the text doesn’t match and `true` if it does match. This is a RE2 regular expression.
 
 ## Syntax
 {: .no_toc}
@@ -37,22 +40,22 @@ SELECT
     REGEXP_LIKE('123','[a-z]');
 ```
 
-**Returns**: `f`
+**Returns**: `false`
 
 ```sql
 SELECT
-    REGEXP_LIKE('123','\\d+');
+    REGEXP_LIKE('123','\\\\d+');
 ```
 
-**Returns**: `t`
+**Returns**: `true`
 
 ## Example using flags
 
-The `i` flag causes the regular expression to be case-insensitive. Without this flag, this query would return `0` as no match is found.
+The `i` flag causes the regular expression to be case-insensitive. Without this flag, this query would return `false` as no match is found.
 
 ```sql
 SELECT
 	REGEXP_LIKE('ABC', '[a-z]', 'i');
 ```
 
-**Returns**: `t`
+**Returns**: `true`

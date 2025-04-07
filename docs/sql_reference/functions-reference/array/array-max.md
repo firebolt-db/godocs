@@ -1,4 +1,7 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/max.html
+  - /sql-reference/functions-reference/array-max.html
 layout: default
 title: ARRAY_MAX
 description: Reference material for ARRAY_MAX function

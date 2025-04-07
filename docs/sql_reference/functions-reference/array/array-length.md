@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/length.html
 layout: default
 title: ARRAY_LENGTH
 description: Reference material for ARRAY_LENGTH function

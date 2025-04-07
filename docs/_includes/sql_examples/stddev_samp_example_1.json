@@ -1,0 +1,14 @@
+{
+  "errors": [
+    {
+      "description": "Line 1, Column 52: relation 'exams' does not exist or not authorized."
+    }
+  ],
+  "query": {
+    "query_id": "4cdaf64e-43d5-4445-b4fc-7870dcb32542",
+    "request_id": "1688fc94-455c-4881-88d7-571988a164f0"
+  },
+  "statistics": {
+    "elapsed": 0.0
+  }
+}

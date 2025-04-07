@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/to-month.html
 layout: default
 title: TO_YYYYMM
 description: Reference material for the TO_YYYYMM function
@@ -43,3 +45,8 @@ CREATE TABLE test (
 )
 PARTITION BY TO_YYYYMM(t);
 ```
+
+## Example
+{: .no_toc}
+
+{% include sql_examples/to_yyyymm_executable.md %}

@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /loading-data/working-with-external-tables.html
 layout: default
 title: Work with external tables
 description: Understand the role of external tables when loading data into Firebolt, and learn how to configure them to connect to your data lake.
@@ -8,7 +10,7 @@ parent: Load data
 
 # Work with external tables
 
-Firebolt supports loading data using *external tables*, which are different from [fact and dimension tables](../../Overview/working-with-tables/working-with-tables.md). External tables store metadata objects that reference files stored in an Amazon S3 bucket, rather than actual data.
+Firebolt supports loading data using *external tables*, which are different from [fact and dimension tables]({% link Overview/indexes/using-indexes.md %}#firebolt-managed-tables). External tables store metadata objects that reference files stored in an Amazon S3 bucket, rather than actual data.
 
 To create an external table, run the [CREATE EXTERNAL TABLE](../../sql_reference/commands/data-definition/create-external-table.md) command. After you create an external table, use the [INSERT](../../sql_reference/commands/data-management/insert.md) command to load the data from the external table into a fact or dimension table. Data that you ingest must be in the same AWS Region as the target Firebolt database.
 
@@ -38,8 +40,6 @@ The metadata virtual columns listed below are available in external tables.
 | `$source_file_name`      | The full path of the row data's source file in Amazon S3, without the bucket. For example, with a source file of `s3://my_bucket/xyz/year=2018/month=01/part-00001.parquet`, the `$source_file_name` is `xyz/year=2018/month=01/part-00001.parquet`. | TEXT        |
 | `$source_file_timestamp` | The UTC creation timestamp in second resolution of the row's source file in Amazon S3. (S3 objects are immutable. In cases where files are overwritten with new data - this will be Last Modified time.)                                             | TIMESTAMPTZ |
 | `$source_file_size`      | Size in bytes of the row's source file in Amazon S3.                                                                                                                                                                                                 | BIGINT      |
-
-For examples of metadata virtual column usage, see [Extracting partition values using INSERT](../../sql_reference/commands/data-management/insert.md#extracting-partition-values-using-insert).
 
 ### Example&ndash;querying metadata virtual column values
 

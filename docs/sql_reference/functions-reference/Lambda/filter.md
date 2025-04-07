@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/filter.html
 layout: default
 title: ARRAY_FILTER
 description: Reference material for ARRAY_FILTER function
@@ -30,7 +32,7 @@ ARRAY_FILTER(<function>, <array> [, ...] )
 
 | Parameter         | Description                                                                                                                                                                                        | Supported input types                                |
 | :---------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------- |
-| `<function>`      | A [Lambda function](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions) used to check elements in the array.                       | Any Lambda function                                  |
+| `<function>`      | A [Lambda function]({% link Guides/loading-data/working-with-semi-structured-data/working-with-arrays.md %}#manipulating-arrays-with-lambda-functions) used to check elements in the array.                       | Any Lambda function                                  |
 | `<array> [, ...]` | One or more arrays that will be evaluated by the Lambda function. Only the first array that is included will be filtered in the results. All the arrays must have exactly same number of elements. | Arrays that each contain the same amount of elements |
 
 ## Return Type

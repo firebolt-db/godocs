@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/transform.html
 layout: default
 title: ARRAY_TRANSFORM
 description: Reference material for ARRAY_TRANSFORM function
@@ -26,7 +28,7 @@ ARRAY_TRANSFORM(<function>, <array>)
 
 | Parameter    | Description                                                                                                                                                                  | Supported input type |
 | :----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------- |
-| `<function>` | A [Lambda function](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#manipulating-arrays-with-lambda-functions) used to check elements in the array. | Any Lambda function  |
+| `<function>` | A [Lambda function]({% link Guides/loading-data/working-with-semi-structured-data/working-with-arrays.md %}#manipulating-arrays-with-lambda-functions) used to check elements in the array. | Any Lambda function  |
 | `<array>`    | The array to be transformed by the function.                                                                                                                                 | Any array            |
 
 ## Return Type

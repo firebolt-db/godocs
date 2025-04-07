@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/information-schema/tables.html
 layout: default
 title: Tables
 description: Use this reference to learn about the metadata available for Firebolt tables using the information schema.
@@ -9,6 +11,8 @@ grand_parent: SQL reference
 # Information schema for tables
 
 You can use the `information_schema.tables` view to return information about each table in a database. The view is available for each database and contains one row for each table in the database. You can use a `SELECT` query to return information about each table as shown in the example below.
+
+To view table information, you must have `USAGE` privileges on both the [schema]({% link Overview/Security/Role-Based Access Control/database-permissions/schema-permissions.md %}#schema-level-privileges) and the [database]({% link Overview/Security/Role-Based Access Control/database-permissions/index.md %}#database-level-privileges). You also need ownership of the table or the necessary [table-level privileges]({% link Overview/Security/Role-Based Access Control/database-permissions/table-permissions.md %}#table-level-privileges) required for the intended action. 
 
 ```sql
 SELECT
@@ -26,18 +30,18 @@ Each row has the following columns with information about each table.
 | table_catalog               | TEXT        | The name of the database. |
 | table_schema                | TEXT        | The name of the schema. |
 | table_name                  | TEXT        | The name of the table. |
-| table_type                  | TEXT        | The table's type, e.g. `BASE TABLE`, `EXTERNAL` `VIEW`. |
-| table_owner                 | TEXT        | The owner of the table, `NULL` if there is none. |
-| created                     | TIMESTAMPTZ | Not applicable for Firebolt. |
+| table_type                  | TEXT        | The table's type, such as `BASE TABLE`, `EXTERNAL` `VIEW`. |
+| table_owner                 | TEXT        | The owner of the table, or `NULL` if there is no owner. |
+| created                     | TIMESTAMPTZ | The time that the table or view was created. |
 | last_altered                | TIMESTAMPTZ | Not applicable for Firebolt. |
 | last_altered_by             | TEXT        | Not applicable for Firebolt. |
-| primary_index               | TEXT        | An ordered array of the column names comprising the primary index definition, if applicable. |
+| primary_index               | TEXT        | An ordered array of the column names that comprise the primary index definition, if applicable. |
 | number_of_rows              | BIGINT      | The number of rows in the table. |
 | compressed_bytes            | BIGINT      | The compressed size of the table in bytes. |
 | uncompressed_bytes          | BIGINT      | The uncompressed size of the table in bytes. |
 | compression_ratio           | NUMERIC     | The compression ratio (`<uncompressed_bytes>`/`<compressed_bytes>`). |
-| number_of_tablets           | INTEGER     | The number of tablets comprising the table. |
-| fragmentation               | DECIMAL     | Table fragmentation percentage (between 0-100). |
+| number_of_tablets           | INTEGER     | The number of tablets that comprise the table. |
+| fragmentation               | DECIMAL     | The table fragmentation percentage (between 0-100). |
 | type                        | TEXT        | The table's type. |
 | location_name               | TEXT        | Not applicable for Firebolt. |
 | ddl                         | TEXT        | The text of the SQL statement that created the table. |

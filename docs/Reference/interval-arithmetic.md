@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/interval-arithmetic.html
 layout: default
 title: Arithmetic with intervals
 description: Describes the Firebolt implementation of arithmetic with intervals
@@ -36,14 +38,26 @@ The `+` and `*` operators shown below come in commutative pairs (e.g., both `DAT
 
 `Interval` literals can be specified in two formats. 
 
-### First format
-{:.no_toc}
+### Format examples
 
+
+**Cast from text literal**       
+The following examples demonstrate different ways to cast a text literal to an interval in SQL. Each method converts a string representing a time interval into the `INTERVAL` data type using various casting syntaxes.
+
+Using interval keyword:
 ```sql
 interval 'quantity unit [quantity unit...] [direction]'
 ```
+Using double colon:
+```sql
+'quantity unit [quantity unit...] [direction]'::interval
+```
+Using `CAST` function: 
+```sql
+CAST('quantity unit [quantity unit...] [direction]' AS interval)
+```
 
-where `direction` can be `ago` or empty (`ago` negates all the quantities), `quantity` is a possibly signed integer, and `unit` is one of the following, matched case-insensitively:
+In these examples,  `direction` can be either `ago` or left empty. Using `ago` negates all specified quantities. The `quantity` represents a signed or unsigned integer, and `unit` refers to one of the following time units, matched case-insensitively:
 
 | Unit                    |
 | :---------------------- |
@@ -63,14 +77,14 @@ where `direction` can be `ago` or empty (`ago` negates all the quantities), `qua
 Each `unit` can appear only once in an interval literal.
 The value of the interval is determined by adding the quantities of the specified units with the appropriate signs.
 
-### Second format
-{:.no_toc}
+**Unit outside of text literal**        
+The following example demonstrates how to cast a numeric value to an interval by placing the unit outside of the text literal.
 
 ```sql
 interval 'N' unit
 ```
 
-where `N` is a possibly signed integer, and `unit` is one of the following, matched case-insensitively:
+In this format, `N` represents a signed or unsigned integer, and `unit` specifies the time unit, matched case-insensitively, from the following options:
 
 | Unit   |
 | :----- |

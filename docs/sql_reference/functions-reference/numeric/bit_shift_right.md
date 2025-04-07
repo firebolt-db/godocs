@@ -34,4 +34,4 @@ The `BIT_SHIFT_RIGHT` function returns a result of either type `INT` or `BIGINT`
 
 {: .no_toc}
 
-{% include sql_examples/bit_shift_right.md %}
+{% include sql_examples/bit_shift_right_executable.md %}

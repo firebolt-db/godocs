@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/lower.html
 layout: default
 title: LOWER
 description: Reference material for LOWER function

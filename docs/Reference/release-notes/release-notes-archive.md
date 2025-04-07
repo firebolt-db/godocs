@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/release-notes/release-notes-archive.html
 layout: default
 title: Release notes archive
 description: Release notes archive for the Firebolt data warehouse.
@@ -16,6 +18,18 @@ We provide an archive of release notes for your historical reference.
 
 * Topic ToC
 {:toc}
+
+{% include release_notes/release_notes_4_17.md %}
+
+{% include release_notes/release_notes_4_16.md %}
+
+{% include release_notes/release_notes_4_15.md %}
+
+{% include release_notes/release_notes_4_14.md %}
+
+{% include release_notes/release_notes_4_13.md %}
+
+{% include release_notes/release_notes_4_12.md %}
 
 {% include release_notes/release_notes_4_11.md %}
 

@@ -1,4 +1,7 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/array-uniq.html
+  - /sql-reference/functions-reference/array-distinct.html
 layout: default
 title: ARRAY_DISTINCT
 description: Reference material for ARRAY_DISTINCT function

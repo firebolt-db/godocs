@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /general-reference/information-schema/columns.html
 layout: default
 title: Columns
 description: Use this reference to learn about the metadata available for Firebolt columns using the information schema.
@@ -8,8 +10,9 @@ grand_parent: SQL reference
 
 # Information schema for columns
 
-You can use the `information_schema.columns` view to return information about all columns in any table in a database. The view is available in each database and contains one row for each column. You can use a `SELECT` query to return information about each column as shown in the example below.
+You can use the `information_schema.columns` view to return information about all columns in a table in a database. The view is available in each database and contains one row for each column. You can use a `SELECT` query to return information about each column as shown in the example below.
 
+To view column information, the user must have `USAGE` privileges on both the [schema]({% link Overview/Security/Role-Based Access Control/database-permissions/schema-permissions.md %}#schema-level-privileges) and the [database]({% link Overview/Security/Role-Based Access Control/database-permissions/index.md %}#database-level-privileges), as well as any necessary [table-level privileges]({% link Overview/Security/Role-Based Access Control/database-permissions/table-permissions.md %}#table-level-privileges) or ownership of the table.
 
 ```sql
 SELECT
@@ -28,10 +31,13 @@ Each row has the following columns with information about each column.
 | table_schema              | TEXT    | Name of the database containing the table. |
 | table_name                | TEXT    | Name of the table containing the column. |
 | column_name               | TEXT    | Name of the column. |
+| ordinal_position          | BIGINT  | The ordinal position of the column. |
+| column_default            | TEXT    | The default expression for the column, if it exists. |
 | is_nullable               | TEXT    | `YES` if the column may contain NULL, `NO` otherwise. |
 | data_type                 | TEXT    | The data type of the column. |
 | is_in_partition_expr      | TEXT    | `YES` if the column is included in the table's `PARTITION BY` clause, `NO` otherwise. |
-| is_in_primary_index       | TEXT    | `YES` if the column is included in the tables's `PRIMARY INDEX` clause, `NO` otherwise. |
+| is_in_primary_index       | TEXT    | `YES` if the column is included in the table's `PRIMARY INDEX` clause, `NO` otherwise. |
+| numeric_precision         | BIGINT    | The numeric precision. For numeric columns only. |
 | character_maximum_length  | NULL      | Not applicable for Firebolt. |
 | character_octet_length    | NULL      | Not applicable for Firebolt. |
 | numeric_precision_radix   | NULL      | Not applicable for Firebolt. |

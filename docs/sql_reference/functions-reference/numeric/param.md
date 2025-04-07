@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/param.html
 layout: default
 title: PARAM
 description: Reference material for PARAM function
@@ -26,44 +28,49 @@ PARAM(<parameter>)
 `TEXT`
 
 ## Specifying query parameters
-To pass query parameters to the query, you must specify a request property named `query_parameters`.
-The `PARAM` function looks for this request property and expects a JSON format with the following schema:
+To use the `PARAM` function, you need to define query parameters using the `SET PARAM` command. The function relies on a request property named `query_parameters` in JSON format. Use the following schema:
 
 ```sql
 query_parameters: json_array | json_object
 json_array: [ json_object, … ]
-json_object: { “name” : parameter_name, “value” : parameter_value }
+json_object: { "name" : parameter_name, "value" : parameter_value }
 ```
 
 You can include a single query parameter in the request properties, for example: 
 
-`{ “name”: “country”, “value”: “USA” }`
+`{ "name": "country", "value": "USA" }`
 
 
 or multiple query parameters:
 
 `[ 
-  { “name”: “country”, “value”: “USA” },
-  { “name”: “states”, “value”: “WA, OR, CA” },
-  { “name”: “max_sales”, “value”: 10000 }
+  { "name": "country", "value": "USA" },
+  { "name": "states", "value": "WA, OR, CA" },
+  { "name": "max_sales", "value": 10000 }
 ]`
 
 ## Example
 {: .no_toc}
 
-The following code example has query parameters set to: 
+The following example shows how to use a Common Table Expression (CTE), through a `WITH` clause, to generate input data and apply a query parameter in a computation. The `WITH` clause defines a temporary dataset, and the query evaluates whether each row matches the parameter value using `PARAM`.
 
 ```sql
-SET query_parameters = { "name": "level", "value": "Drift" }
-```
+SET query_parameters = [{ "name": "level_type_value", "value": "Drift" }];
 
-Then, the following code example counts the number of "Drift" type levels:
-```sql
-SELECT COUNT(*) AS level_count FROM levels WHERE leveltype = PARAM('level')
+WITH Table AS (
+  SELECT 'Drift' AS col1
+  UNION ALL
+  SELECT 'FastestLap'
+)
+SELECT col1,
+       (col1 = PARAM('level_type_value')) AS match_status
+FROM Table;
 ```
 
 **Returns**
 
-| level_count   |
-| :------------- |
-| 2              |
+| col1       | match_status |
+| ---------- | ------------ |
+| Drift      | 1            |
+| FastestLap | 0            |
+

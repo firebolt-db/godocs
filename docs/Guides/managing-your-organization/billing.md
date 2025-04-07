@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /managing-your-account/billing.html
 layout: default
 title: Billing
 description: Understand how Firebolt bills for compute and storage through the AWS Marketplace and your AWS account.

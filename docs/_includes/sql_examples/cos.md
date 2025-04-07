@@ -1,11 +1,17 @@
-The following query calculates the cosine of 1.57 radians, which is approximately pi/2:
-
+The following query calculates the cosine of 0:
 ``` sql
-SELECT COS(1.57) as result;
+SELECT COS(0) as result;
 ```
-
-**Returns**
 
 | result (DOUBLE PRECISION) |
 | :--- |
-| 0.0007963267107332633 |
+| 1 |
+
+The following query calculates the cosine of pi:
+``` sql
+SELECT ROUND(COS(PI()), 5) as result;
+```
+
+| result (DOUBLE PRECISION) |
+| :--- |
+| -1 |

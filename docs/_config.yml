@@ -15,24 +15,35 @@ plugins:
   - jekyll-github-metadata
   - jekyll-include-cache
   - jekyll-sitemap
+  - jekyll-redirect-from
 
 search:
+  sort: relevance
+  stopwords: false
+  edge_ngram: true
+  min_chars: 3
+  min_word_length: 2
+  lunr_index_boost:
+    title: 10
+    headings: 5
+    content: 1
+  fuzzy: true #allow approximate matches
   # Split pages into sections that can be searched individually
   # Supports 1 - 6, default: 2
-  heading_level: 2
+  heading_level: 1
   # Maximum amount of previews per search result
   # Default: 3
   previews: 3
   # Maximum amount of words to display before a matched word in the preview
   # Default: 5
-  preview_words_before: 5
+  preview_words_before: 10
   # Maximum amount of words to display after a matched word in the preview
   # Default: 10
-  preview_words_after: 10
+  preview_words_after: 15
   # Set the search token separator
   # Default: /[\s\-/]+/
   # Example: enable support for hyphenated search words
-  tokenizer_separator: /[\s/]+/
+  tokenizer_separator: /[\s\-/]+/
   # Display the relative url in search results
   # Supports true (default) or false
   rel_url: true
