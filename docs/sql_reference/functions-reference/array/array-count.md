@@ -28,13 +28,8 @@ ARRAY_COUNT(<array>, <function>)
 
 | Parameter | Description         | Supported input types |
 | :--------- | :-------------------------------------------- | :--------|
-<<<<<<< HEAD
-| `<function>`  | (Optional) A [Lambda function](../../../Guides/working-with-semi-structured-data/working-with-arrays.md#lambda-function-general-syntax) used to evaluate each element in the array. If `<function>` is not provided, the function `x -> x` is used by default. | Any Lambda function that returns a `BOOLEAN` value. |
-| `<array>`   | An array of elements. | Any `ARRAY` type if a `<function>` is provided, otherwise, the `ARRAY` must contain `BOOLEAN` values.  |
-=======
 | `<function>`  | Optional. A [Lambda function]({% link Guides/loading-data/working-with-semi-structured-data/working-with-arrays.md %}#lambda-function-general-syntax) used to check elements in the array. If `<function>` is not provided, `x -> x` is used. | Any Lambda function returning `BOOLEAN` |
 | `<array>`   | An array of elements | Any `ARRAY` type if `<function>` is provided, else `ARRAY(BOOLEAN)`  |
->>>>>>> gh-pages
 
 ## Return Type
 Returns an `INTEGER` value.
