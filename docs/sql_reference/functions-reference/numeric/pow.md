@@ -34,16 +34,4 @@ Returns a number of type `DOUBLE PRECISION`.
 ## Example
 {: .no_toc}
 
-<<<<<<< HEAD
-The following example calculates `2` to the power of `5`:
-
-```sql
-SELECT
-    POW(2, 5);
-```
-
-**Returns**
-`32`
-=======
 {% include sql_examples/pow_executable.md %}
->>>>>>> gh-pages

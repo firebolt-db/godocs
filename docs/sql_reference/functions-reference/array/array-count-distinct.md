@@ -30,11 +30,5 @@ Returns an `INTEGER` value.
 ## Example
 {: .no_toc}
 
-<<<<<<< HEAD
 {% include sql_examples/array_count_distinct.md %}
-=======
-```sql
-SELECT ARRAY_COUNT_DISTINCT([ 1, 2, 4, 5, 2, NULL, 5, 1 ]) AS res;
-```
->>>>>>> gh-pages
 
