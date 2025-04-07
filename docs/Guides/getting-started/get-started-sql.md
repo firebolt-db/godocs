@@ -359,7 +359,7 @@ Use [COPY TO](../../sql_reference/commands/data-management/copy-to.md) select al
 
 ```sql
 COPY (SELECT * FROM test_table)
-  TO 's3://my_bucket/my_fb_queries'
+  TO 's3://my-bucket/path/to/data'
   CREDENTIALS = 
   (AWS_ROLE_ARN= 'arn:aws:iam::123456789012:role/my-firebolt-role');
 ```
