@@ -42,7 +42,7 @@ Each row has the following columns with information about each engine.
 | attached_to                 | TEXT        | \[DEPRECATED\] The name of the database to which the engine is attached. |
 | auto_start                  | BOOLEAN     | When true, queries issued to a stopped engine will attempt to start the engine first. |
 | auto_stop                   | INTEGER     | Indicates the amount of time (in minutes) after which the engine automatically stops. |
-| auto_vacuum                 | BOOLEAN     | Indicates whether Auto-VACUUM is enabled/disabled by the user. Could also be `NULL` to indicate default behavior of enabled Auto-VACUUM. |
+| auto_vacuum                 | BOOLEAN     | Indicates whether [VACUUM]({% link sql_reference/commands/data-management/vacuum.md %}) is enabled or disabled by the user. Could also be `NULL` to indicate that `VACUUM` is automatically enabled by default. |
 | engine_type                 | TEXT        | \[DEPRECATED\] The type of the engine. |
 | initially_stopped           | BOOLEAN     | When true, the engine will have attempted to start after creation. |
 | url                         | TEXT        | A url which can be used to issue queries to this engine. |
