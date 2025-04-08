@@ -66,6 +66,16 @@ VALUES
 ('{"id": 2, "StartTime": "2020-01-05 12:00:00", "Duration": 959, "tags": ["gadgets", "audio"], "user_agent": {"agent": "Safari", "platform": "iOS 14"}}');
 ```
 
+If you want to load JSON data from an Amazon S3 bucket, you can create an external table that references the file as follows:
+
+```sql
+CREATE EXTERNAL TABLE visits_external (
+  raw_json TEXT
+)
+LOCATION = 's3://your-bucket-name/path/to/json-file/'
+FILE_FORMAT = (TYPE = 'JSON');
+```
+
 ## Load JSON into a fixed schema
 
 If your JSON data has a stable set of fields with shallow nesting, you can load it into a table with a fixed schema to simplify queries. Missing keys are assigned default values. This method allows you to query columns directly without additional parsing, making queries faster and easier to write. Extra keys that are not explicitly mapped are excluded from structured tables, making this approach less flexible for changing data. If stored separately in a `TEXT` column, they remain accessible for later extraction. 

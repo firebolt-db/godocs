@@ -30,7 +30,6 @@ Each row has the following columns with information about the account.
 | Column Name     | Data Type | Description                                                     |
 |:----------------|:----------|:----------------------------------------------------------------|
 | account_name    | TEXT      | The name of the account.                                        |
-| organization_name | TEXT      | The name of the organization to which the account belongs. |
 | region    | TEXT      | The region in which the account can be used. |
 | url    | TEXT      | The account login page URL.                                       |
 | account_id         | TEXT | The unique account ID.                                   |
