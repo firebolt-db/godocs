@@ -101,7 +101,7 @@ The following code example uses keys to authenticate to AWS:
 ```sql
 CREATE LOCATION my_location WITH
   SOURCE = 'AMAZON_S3'
-  CREDENTIALS = { AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' }
+  CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' )
   URL = 's3://my-bucket/path/to/data'
 ```
 
@@ -111,7 +111,7 @@ The following code example use a role to authenticate to AWS:
 ```sql
 CREATE LOCATION my_location WITH
   SOURCE = 'AMAZON_S3'
-  CREDENTIALS = { AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/S3Access' }
+  CREDENTIALS = ( AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/S3Access' )
   URL = 's3://my-bucket/path/to/data'
 ```
 
@@ -122,7 +122,7 @@ The following code example creates a location object named `my_location`, for an
 ```sql
 CREATE LOCATION my_location WITH
   SOURCE = 'AMAZON_S3'
-  CREDENTIALS = { AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' }
+  CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' )
   URL = 's3://my-bucket/path/to/data'
   DESCRIPTION = 'Main data storage location'
 ```
@@ -134,7 +134,7 @@ The following code example creates a location object named `my_location`, for an
 ```sql
 CREATE LOCATION my_location WITH
   SOURCE = 'AMAZON_S3'
-  CREDENTIALS = { AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' AWS_SESSION_TOKEN = 'session-token' }
+  CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' AWS_SESSION_TOKEN = 'session-token' )
   URL = 's3://my-bucket/path/to/data'
 ```
 
@@ -145,7 +145,7 @@ The following code example uses an access key to authenticate to AWS using a loc
 ```sql
 CREATE LOCATION IF NOT EXISTS my_location WITH
   SOURCE = 'AMAZON_S3'
-  CREDENTIALS = { AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' }
+  CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' )
   URL = 's3://my-bucket/path/to/data'
 ```
 
