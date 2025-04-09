@@ -39,6 +39,7 @@ ALTER ENGINE <engine_name> SET
 | `<engine_name>`                      | The name of the engine to be altered.        |
 | `AUTO_START = <true/false>`          | When set to `TRUE`, sending a query to a stopped engine will automatically start the engine before processing the query. |
 | `AUTO_STOP = <minutes>`              | Specifies the number of minutes after which an engine automatically stops. Setting `minutes` to `0` disables `AUTO_STOP`. |
+| `AUTO_VACUUM = <on/off>`             | When `on`, the engine will automatically assess the health of tables’ data layout after processing a DML operation, and will run the `VACUUM` command when necessary to maintain the underlying table health. |
 | `DEFAULT_DATABASE = <database_name>` | Specifies the default database that an engine will attempt to use when processing queries that require a database. To remove the default database, set `DEFAULT_DATABASE=default`. |
 | `CLUSTERS = <clusters>`              | Specifies the number of clusters in an engine. Each cluster is a group of nodes, and all clusters within an engine are identical in terms of node type and number of nodes. |
 | `MIN_CLUSTERS = <clusters>`          | Specifies a minimum number of clusters in an engine. If `MIN_CLUSTERS` is different from `MAX_CLUSTERS`, the engine will automatically change the number of clusters depending on load. If not specified, `1` is used as default. |

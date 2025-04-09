@@ -19,6 +19,7 @@ CREATE ENGINE [IF NOT EXISTS] <engine_name>
 [WITH 
     [AUTO_START = <true/false>]
     [AUTO_STOP = <minutes>]
+    [AUTO_VACUUM = <on/off>]
     [DEFAULT_DATABASE = <database_name>]
     [INITIALLY_STOPPED = <true/false>]
     [START_IMMEDIATELY = <true/false>]
@@ -37,6 +38,7 @@ CREATE ENGINE [IF NOT EXISTS] <engine_name>
 | `<engine_name>`                      | The name of the engine to be created. |
 | `AUTO_START = <true/false>`          | When `true`, sending a query to a stopped engine will start the engine before processing the query.<br><br>If not specified, `true` will be used as default. |
 | `AUTO_STOP = <minutes>`              | The amount of idle time (in minutes) after which the engine automatically stops.<br>Setting the minutes to `0` indicates that `AUTO_STOP` is disabled.<br><br>If not specified, `20` is used as default. |
+| `AUTO_VACUUM = <on/off>`             | When `on`, the engine will automatically assess the health of tables’ data layout after processing a DML operation, and will run the `VACUUM` command when necessary to maintain the underlying table health. |
 | `DEFAULT_DATABASE = <database_name>` | The database an engine will attempt to use by default when dealing with queries that require a database.<br><br>If not specified, `NULL` is used as default. |
 | `INITIALLY_STOPPED = <true/false>`   | When `false`, the newly created engine will be started as part of the `CREATE ENGINE` command.<br>Cannot be used with `START_IMMEDIATELY`.<br><br>If not specified, `false` is used as default. |
 | `START_IMMEDIATELY = <true/false>`   | When `true`, the newly created engine will be started as part of the `CREATE ENGINE` command.<br>Cannot be used with `INITIALLY_STOPPED`.<br><br>If not specified, `true` is used as default. |

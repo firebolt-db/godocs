@@ -14,7 +14,15 @@ Optimizes tablets for query performance.
 
 `VACUUM` improves query efficiency by restructuring tablets for optimal performance. DML operations such as [DELETE](delete.md), [UPDATE](update.md), [INSERT](insert.md), and [COPY FROM](copy-from.md) might create tablets that are not optimally sized. Suboptimal tablets occur because DML efficiently utilizes resources in proportion to the cardinality of the data being inserted. In addition to standard SQL operations, tuples that are deleted by an update are not always physically removed from their table; they remain present until a `VACUUM` is finished operating. In other words, tablets are not necessarily optimal for running queries; therefore, it’s necessary to run `VACUUM` periodically, especially on frequently updated tables.
 
-Any engine that processes a DML operation automatically assesses the health of tables’ data layout and runs the `VACUUM` command when necessary to maintain the underlying table health. The fragmentation ratio—the ratio of rows marked for deletion to the total number of rows—can be monitored using the `information_schema.tables view`. You can also run `VACUUM` manually using the syntax and options described below.
+By default, any engine that processes a DML operation automatically assesses the health of tables’ data layout and runs the `VACUUM` command when necessary to maintain the underlying table health. You can disable Auto `VACUUM` for a specific engine using the 'ALTER ENGINE' statement:
+
+```text
+ALTER ENGINE <name> SET AUTOVACUUM = OFF;
+```
+
+Firebolt recommends keeping the default setting to maintain optimal layout of your tables' underlying data.  
+
+You can also run `VACUUM` manually using the syntax and options described below.
 
 ## Syntax
 
@@ -80,8 +88,12 @@ Users must be aware that `VACUUM` consumes both compute and storage resources.<b
 If users would like to have precise control over `VACUUM`, it may be preferable to run on a dedicated engine that could be sized and run just for `VACUUM` operations. With `VACUUM` running on a dedicated engine, it would not conflict with other queries' execution and cache resources, and would provide operational separation from other scenarios.<br>
 `VACUUM` may introduce a performance penalty as the newly created optimized tablets need to be synchronized with other engines operating on the same table(s).<br>
 
-* **Automatic scheduling**<br>
-You can enable automatic scheduling of processes such as `VACUUM` by integrating with external tools. Please see section [Integrate with Firebolt]({% link Guides/integrations/integrations.md %}) for more detail on our current support for these tools.
+* **VACUUM and AUTOMATIC VACUUM OBSERVABILITY**<br>
+There are several aspects of `VACUUM` that you can examine using the information schema tables. Auto VACUUM settings for an engine can be checked using the `information_schema.engines` view and looking at the column `auto_vacuum`. Engines with Auto `VACUUM` explicitly enabled will have the value `true` and when disabled will have the value `false`. Another possible value is `null` &ndash; this indicates default behavior of Auto `VACUUM` which is enabled.
+ 
+The fragmentation ratio, defined as the ratio of rows marked for deletion to the total number of rows, can be monitored using the `information_schema.tables` view and looking at the "fragmentation" column. When a `VACUUM` operation completes for a table, you should expect to see the fragmentation ratio go down. 
+ 
+ Lastly, you can see the number of tablets for a table by querying `information_schema.tables` and looking at the column `number_of_tablets`. Typically, a `VACUUM` operation will reduce this number as tablets are merged to an optimal state to maintain the underlying health of your tables.
 
 ### Example with measuring the performance impact of VACUUM
 
