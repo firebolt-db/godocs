@@ -23,7 +23,7 @@ You can use wildcard characters such as `*` or `?` to specify a file URL as a [g
 
 <!-- Auto Generated Markdown for FIR-42972 - Owned by Eugene Fomenko -->
 **Added functionality to transfer ownership of objects in the Firebolt Workspace**<br>
-You can now [transfer ownership]({% link Guides/security/ownership.md %}#transfer-ownership-using-the-firebolt-workspace) of Firebolt objects through the **Firebolt Workspace** user interface (UI). You can transfer ownership of individual objects or bulk transfer owned by a specific user. You can also delete individual objects or in bulk, helping to simplify the management of object ownership within the UI.
+You can now [transfer ownership]({% link Guides/security/ownership.md %}#managing-ownership-in-the-firebolt-workspace) of Firebolt objects through the **Firebolt Workspace** user interface (UI). You can transfer ownership of individual objects or bulk transfer owned by a specific user. You can also delete individual objects or in bulk, helping to simplify the management of object ownership within the UI.
 
 
 ### Performance Improvements

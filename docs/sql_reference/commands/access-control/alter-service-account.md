@@ -9,11 +9,13 @@ parent: Access control
 
 # ALTER SERVICE ACCOUNT
 
+## ALTER SERVICE ACCOUNT SET
+
 Updates the configuration of the specified service account.
 
-For more information, see [Service accounts](../../../Guides/managing-your-organization/service-accounts.md).
+For more information, see [Service accounts]({% link Guides/managing-your-organization/service-accounts.md %}).
 
-## Syntax
+### Syntax
 
 ```sql
 ALTER SERVICE ACCOUNT <service_account_name> SET 
@@ -24,13 +26,7 @@ ALTER SERVICE ACCOUNT <service_account_name> SET
       [ IS_ENABLED = { TRUE | FALSE } ]
 ```
 
-or
-
-```sql
-ALTER SERVICE ACCOUNT <service_account_name> RENAME TO <new_name>;
-```
-
-## Parameters
+### Parameters
 
 {: .no_toc}
 
@@ -44,8 +40,7 @@ ALTER SERVICE ACCOUNT <service_account_name> RENAME TO <new_name>;
 | `CONNECTION_PREFERENCE`  | Defines how the service account connects to Firebolt. The default value is `PREFER_PUBLIC` if not specified. See **Connection preferences** for details. |
 | `<new_name>`             | The new name of the service account. Must start with a letter and may contain only alphanumeric, digit, or underscore (_) characters. |
 
-
-### Connection Preferences  
+#### Connection Preferences  
 
 The `CONNECTION_PREFERENCE` parameter determines how a [service account]({% link Guides/managing-your-organization/service-accounts.md %}) accesses Firebolt:  
 
@@ -54,17 +49,60 @@ The `CONNECTION_PREFERENCE` parameter determines how a [service account]({% link
 * **`PREFER_PUBLIC`** (Default): Prefers public APIs but can use AWS PrivateLink if needed.  
 * **`PREFER_PRIVATE`**: Prefers AWS PrivateLink but can use public APIs if needed.  
 
-
-## Example
-
-The following code example renames the service account `sa1` to `serviceaccount1`:
-
-```sql
-ALTER SERVICE ACCOUNT "sa1" RENAME TO "serviceaccount1";
-```
+### Example
 
 The following code example assigns the network policy `my_network_policy` to the `serviceaccount1` service account:
 
 ```sql
 ALTER SERVICE ACCOUNT "serviceaccount1" SET NETWORK_POLICY = "my_network_policy";
 ```
+
+## ALTER SERVICE ACCOUNT RENAME TO
+
+Renames a service account.
+
+### Syntax
+
+```sql
+ALTER SERVICE ACCOUNT <service_account_name> RENAME TO <new_service_account_name>;
+```
+
+### Parameters
+
+{: .no_toc}
+
+| Parameter          | Description                                |
+|:-------------------|:-------------------------------------------|
+| `<service_account_name>`     | The name of the service account to rename. |
+| `<new_service_account_name>` | The new name of the service account.       |
+
+### Example
+
+The following command will rename the service account "machine_user" to "ai_agent".
+
+```sql
+ALTER SERVICE ACCOUNT "machine_user" RENAME TO "ai_agent";
+```
+
+## ALTER SERVICE ACCOUNT OWNER TO
+
+Changes the owner of a service account.
+
+You can view the current owner in the `service_account_owner` column of the `information_schema.service_accounts` view.
+
+For more information, see [ownership]({% link Guides/security/ownership.md %}).
+
+### Syntax
+
+```sql
+ALTER SERVICE ACCOUNT <service_account_name> OWNER TO <identity>
+```
+
+### Parameters
+
+{: .no_toc}
+
+| Parameter                | Description                                                                      |
+|:-------------------------|:---------------------------------------------------------------------------------|
+| `<service_account_name>` | The name of the service account to change the owner of.                          |
+| `<identity>`             | The new owner of the service account, which can be the name of another login or service account. |
