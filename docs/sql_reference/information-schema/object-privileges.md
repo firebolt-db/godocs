@@ -10,7 +10,34 @@ grand_parent: SQL reference
 
 The `information_schema.object_privileges` view provides information about permissions granted to each role.  
 
-To be able to access this information, you must have [role privileges]({% link Overview/Security/Role-Based Access Control/role-permissions.md %}#role-permissions), ownership of the role, or ownership of the object to which the role is granted.
+To be able to access this information, you must have [role privileges]({% link Overview/Security/Role-Based Access Control/role-permissions.md %}#role-permissions), ownership of the role, ownership of the object to which the role is granted, or be the member of the role.
+
+All object privileges are explicitly listed in `information_schema.object_privileges`. If the `ANY` privilege is granted on an object, it also shows the corresponding privilege on the object's descendants.
+
+For example, if you grant `USAGE ANY ENGINE` privilege on the account, you will be able to see `USAGE` privilege for all of the engines in the account.
+
+The following code example creates two engines, a role, and grants that role permission to use any engine in the specified account:
+```sql
+CREATE ENGINE engine1;
+CREATE ENGINE engine2;
+CREATE ROLE developer_role;
+GRANT USAGE ANY ENGINE ON ACCOUNT account_name TO developer_role;
+```
+Then, the following code example retrieves all privileges granted to the `developer_role` on Firebolt objects, showing the grantor, grantee, object name, object type, and privilege type:
+```sql
+SELECT
+  grantor, grantee, object_name, object_type, privilege_type
+FROM
+  information_schema.object_privileges
+WHERE 
+  grantee = 'developer_role';
+```
+
+| grantor | grantee | object_name | object_type | privilege_type |
+|---|---|---|---|---|
+| admin_user | role_name |  account_name | account | `USAGE ANY ENGINE` |
+| admin_user | role_name |  engine1 | engine | `USAGE` |
+| admin_user | role_name |  engine2 | engine | `USAGE` |
 
 ### View account, role, user, engine, and database permissions
 

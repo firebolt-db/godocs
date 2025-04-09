@@ -77,6 +77,14 @@ The following code revokes `user_role`'s permission to read data from all existi
 ```sql
 REVOKE SELECT ANY ON SCHEMA public  IN DATABASE db TO user_role;
 ```
+**Revoke `MODIFY` permission on a database while retaining it on all other databases in the `dev` account**
+
+The following code example revokes the `MODIFY` permission on the `db` database from the role `user_role`, while keeping it for any other existing and future databases of the account:
+
+```sql
+GRANT MODIFY ANY DATABASE ON ACCOUNT dev TO user_role;
+REVOKE MODIFY ON DATABASE db FROM user_role;
+```
 
 ## REVOKE ROLE
 
