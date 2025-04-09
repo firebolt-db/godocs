@@ -11,43 +11,30 @@ parent: Array functions
 
 # ARRAY\_SORT
 
-Returns the elements of the input array in ascending order.
+Returns the elements of the input array sorted in ascending order.
 
-If the argument `<function>` is provided, the sorting order is determined by the result of applying `<function>` on each element of the array.
+If a `<function>` is provided, the elements are sorted based on the results of applying the `<function>` to each element.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-ARRAY_SORT([<function>,] <array>)
+ARRAY_SORT([<function>], <array>)
 ```
 ## Parameters
 {: .no_toc} 
 
 | Parameter | Description                                                  | Supported input type | 
 | :--------- | :------------------------------------------------------------ |:------|
-| `<function>`  | An optional function to be used to determine the sort order. | Any lambda function that takes the elements of `<array>` as input | 
-| `<array>`   | The array to be sorted.                                      | Any array | 
+| `<function>`  | (Optional) A function used to determine the sorting order. It must return a value that can be used for sorting. | Any Lambda function that accepts the elements of `<array>` as input. | 
+| `<array>`   | The array to be sorted.                                      | Any type of [ARRAY](https://docs.firebolt.io/sql_reference/data-types.html#array). | 
 
 ## Return Type 
-`ARRAY` of the same type as the input array
+Returns an `ARRAY` of the same type as the input array.
 
 
-## Example
+## Examples
 {: .no_toc}
 
-```sql
-SELECT
-	ARRAY_SORT([ 4, 1, 3, 2 ]);
-```
+{% include sql_examples/array_sort.md %}
 
-**Returns**: `[1,2,3,4]`
-
-In this example below, the modulus operator is used to calculate the remainder on any odd numbers. Therefore `ARRAY_SORT` puts the higher (odd) numbers last in the results.
-
-```sql
-SELECT
-	ARRAY_SORT(x -> x % 2, [ 4, 1, 3, 2 ]);
-```
-
-**Returns**: `[4,2,1,3]`

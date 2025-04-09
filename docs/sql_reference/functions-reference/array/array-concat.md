@@ -14,7 +14,7 @@ parent: Array functions
 # ARRAY\_CONCAT
 **Alias:** `ARRAY_CAT`
 
-Combines one or more arrays that are passed as arguments.
+Combines one or more arrays that are passed as arguments into a single array.
 
 ## Syntax
 {: .no_toc}
@@ -22,7 +22,7 @@ Combines one or more arrays that are passed as arguments.
 ```sql
 ARRAY_CONCAT(<array> [, ...n])
 ```
-**&mdash;OR&mdash;**
+**OR**
 
 ```sql
 <expression> || <expression>
@@ -33,49 +33,27 @@ ARRAY_CONCAT(<array> [, ...n])
 
 | Parameter        | Description                                                                            | Supported input types |
 | :---------------- | :-------------------------------------------------------------------------------------- | :----------|
-| `<array> [, ...n]` | The arrays to be combined. If only one array is given, an identical array is returned. | `ARRAY`  |
+| `<array> [, ...n]` | The arrays to combine. If only one array is specified, it is returned unchanged. | `ARRAY`  |
 
 
-### `||` operator
+### The concatenation operator `||`
 
 | Parameter | Description                         |Supported input types |
 | :--------- | :----------------------------------- | :---------------------|
-| `<expression>` | The expressions to be concatenated. | `TEXT` / `ARRAY`, but at least one `ARRAY` |
+| `<expression>` | The expressions to be concatenated. | Either `TEXT` or `ARRAY`, but at least one operand must be an `ARRAY`. |
 
 
-To enable array concatenation, one parameter to the `||` operator must be of type `ARRAY`, while the other parameter can be a string whose value can be converted to the underlying type of the array parameter, or it can be an array of the same type. 
+To enable array concatenation, one operand of the `||` operator must be of type `ARRAY`. The other operand can either be a string that can be converted to the array's element type, or another array of the same type. 
 
-If one parameter to the `||` operator is `NULL`, the result will be the non-null parameter; if both parameters are `NULL`, the result will be `NULL`.
+* If one operand to the `||` operator is `NULL`, the result will be the non-null operand. If both operands are `NULL`, the result will also be `NULL`.
 
-The concatenation operator `||` can also be used for [string concatenation](../string/concat.md).
+* The concatenation operator `||` can also be used for [string concatenation](../string/concat.md).
 
 
 ## Return Type
-`ARRAY` of the same type as the input arrays 
+Returns an `ARRAY` of the same type as the input arrays. 
 
-## Example
+## Examples
 {: .no_toc}
 
-In the following example, two arrays are combined to show all of the levels in a particular game: 
-
-```sql
-SELECT
-    ARRAY_CONCAT([ 1, 2, 3, 4 ], [ 5, 6, 7, 8, 9, 10 ]) AS levels;
-```
-
-**Returns**: `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`
-
-The following example concatenates two integer arrays:
-
-```sql
-SELECT ARRAY[1,2] || ARRAY[3];
-```
-**Returns**: `[1, 2, 3]`
-
-The following example concatenates a string, whose value can be converted to integer, with an integer array:
-
-```sql
-SELECT '{2}' || ARRAY[1];
-```
-
-**Returns**: `[2, 1]`
+{% include sql_examples/array_concat.md %}

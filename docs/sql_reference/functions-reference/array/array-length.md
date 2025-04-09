@@ -11,7 +11,7 @@ parent: Array functions
 
 # ARRAY_LENGTH
 
-Returns the length of the given array, i.e., how many elements it contains. Produces `NULL` for `NULL` arrays.
+Returns the number of elements in the specified array. If the array is `NULL`, `ARRAY_LENGTH` returns `NULL`. For nested arrays, `ARRAY_LENGTH` only counts the elements in the outermost array.
 
 **Alias:** [LENGTH](../string/length.md) (when used with an array argument)
 
@@ -27,25 +27,12 @@ ARRAY_LENGTH(<array>)
 
 | Parameter  | Description                                 | Supported input types |
 | :--------- | :------------------------------------------ | :----------|
-| `<array>`  | The array whose length should be calculated | `ARRAY` |
+| `<array>`  | The array for which to calculate the length. | Any type of [ARRAY](https://docs.firebolt.io/sql_reference/data-types.html#array). |
 
 ## Return Type
-`INTEGER`
+Returns an `INTEGER` value.
 
-## Example
+## Examples
 {: .no_toc}
 
-```sql
-SELECT
-	ARRAY_LENGTH([ 1, 2, 3, 4 ]) AS levels;
-```
-
-**Returns**: `4`
-
-
-```sql
-SELECT
-	ARRAY_LENGTH([ [ 1, 2, 3 ], [ 4, 5, 6, 7 ]) AS levels;
-```
-
-**Returns**: `2`
+{% include sql_examples/array_length.md %}

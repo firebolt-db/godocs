@@ -12,15 +12,16 @@ parent: Array functions
 
 
 # ARRAY\_COUNT
-Counts the number of elements in an array for which `function(array[i])` evaluates to TRUE, if a function is provided.
-If `<function>` is not provided, counts the number of elements in the array that evaluate to TRUE, equivalent to using `x -> x`.
-To count the elements in an array without any conditions, use the [ARRAY_LENGTH](../array/array-length.md) function instead.
+Counts the number of elements in an array where `function(array[i])` evaluates to `TRUE`, if `<function>` is provided.
+If `<function>` is not provided, `ARRAY_COUNT` counts the elements that evaluate to `TRUE`, by default. This is equivalent to using a `<function>` defined as `x -> x`.
+
+To count all elements in an array without any conditions, use [ARRAY_LENGTH](../array/array-length.md) instead.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-ARRAY_COUNT(<function>, <array>)
+ARRAY_COUNT(<array>, <function>)
 ```
 ## Parameters
 {: .no_toc}
@@ -31,25 +32,10 @@ ARRAY_COUNT(<function>, <array>)
 | `<array>`   | An array of elements | Any `ARRAY` type if `<function>` is provided, else `ARRAY(BOOLEAN)`  |
 
 ## Return Type
-`INTEGER`
+Returns an `INTEGER` value.
 
 ## Examples
 {: .no_toc}
 
-The example below searches through the array for any elements that are greater than 3. Only one number that matches this criteria is found, so the function returns `1`
+{% include sql_examples/array_count.md %}
 
-```sql
-SELECT
-	ARRAY_COUNT(x -> x > 3, [ 1, 2, 3, 9, NULL ]) AS levels;
-```
-
-**Returns**: `1`
-
-In this example below, there is no `<function>` provided in the `ARRAY_COUNT` function. This means the function will count all of the elements in the array that evaluate to TRUE. Below, this is the case for all values except `FALSE` and `null`:
-
-```sql
-SELECT
-	ARRAY_COUNT([TRUE, FALSE, 2::BOOLEAN, 3 is not null, null is null, null]) AS levels;
-```
-
-**Returns**: `4`

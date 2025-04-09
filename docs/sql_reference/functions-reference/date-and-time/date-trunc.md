@@ -67,6 +67,6 @@ You can also truncate `TIMESTAMPTZ` values.
 SET time_zone = 'US/Pacific';
 -- Returns 1996-09-02 00:00:00-07
 SELECT DATE_TRUNC('week', TIMESTAMPTZ '1996-09-03 11:19:42.123 Europe/Berlin');  
--- Returns 1996-09-01 15:00:00-07
+-- returns 1996-09-01 15:00:00-07
 SELECT DATE_TRUNC('week', TIMESTAMPTZ '1996-09-03 11:19:42.123 Europe/Berlin', 'Europe/Berlin');
 ```
