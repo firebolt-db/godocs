@@ -9,11 +9,17 @@ parent: Data definition
 
 # ALTER ORGANIZATION
 
-Updates the specified organization to manage Single Sign-On configuration.
+## ALTER ORGANIZATION SET
 
-For more information, see [Configure SSO]({% link Guides/security/sso/index.md %}).
+Updates the current organization.
 
-## Syntax
+Can be used to manage Single Sign-On configuration or network policy.
+
+For more information, see:
+- [Configure SSO]({% link Guides/security/sso/index.md %})
+- [Manage network policies]({% link Guides/security/network-policies.md %}).
+
+### Syntax
 
 ```sql
 ALTER ORGANIZATION SET 
@@ -30,7 +36,8 @@ ALTER ORGANIZATION SET
   ;
 ```
 
-## Parameters 
+### Parameters 
+
 {: .no_toc} 
 
 | Parameter | Description |
@@ -44,8 +51,7 @@ ALTER ORGANIZATION SET
 | `<certificate>` | The certificate to verify the communication between the identity provider and Firebolt. |
 | `<network_policy_name>` | An optional parameter to define the network policy to link to the organization. Specifying `DEFAULT` will detach any linked network policy.  |
 
-
-## Example
+### Example
 
 The following command will configure SSO using the Okta identity provider. For more examples for other IdPs, see [Configure your identity provider]({% link Guides/security/sso/index.md %}).
 
@@ -59,4 +65,35 @@ ALTER ORGANIZATION SET SSO = '{
   “fieldMapping”: “mapping”,
   “certificate”: “XXXXXXXXXXXXXXXX”,
 }';
+```
+
+## ALTER ORGANIZATION OWNER TO
+
+Changes the owner of an organization.
+
+You can view the current owner in the `organization_owner` column of the `information_schema.organization` view.
+
+For more information, see [ownership]({% link Guides/security/ownership.md %}).
+
+### Syntax
+
+```sql
+ALTER ORGANIZATION <organization_name> OWNER TO <identity>
+```
+
+### Parameters
+
+{: .no_toc}
+
+| Parameter             | Description                                                             |
+|:----------------------|:------------------------------------------------------------------------|
+| `<organization_name>` | The name of the organization to change the owner of.                    |
+| `<identity>`          | The new owner of the organization, which can be the name of a login or service account. |
+
+### Example
+
+The following command will set organization owner to "alice@acme.com".
+
+```sql
+ALTER ORGANIZATION my_organization OWNER TO "alice@acme.com";
 ```

@@ -38,9 +38,9 @@ After you create a `LOCATION`, you can use the `information_schema.locations` vi
 ## Syntax
 
 ```sql
-CREATE [OR REPLACE] LOCATION [IF NOT EXISTS] <location_name> WITH
+CREATE LOCATION [IF NOT EXISTS] <location_name> WITH
   SOURCE = <source_type>
-  CREDENTIALS = { AWS_ACCESS_KEY_ID = '<aws_access_key_id>' AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>' [ AWS_SESSION_TOKEN = '<aws_session_token>' ] | AWS_ROLE_ARN = '<aws_role_arn>' [ AWS_ROLE_EXTERNAL_ID = '<aws_role_external_id>' ] }
+  CREDENTIALS = ( AWS_ACCESS_KEY_ID = '<aws_access_key_id>' AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>' [ AWS_SESSION_TOKEN = '<aws_session_token>' ] | AWS_ROLE_ARN = '<aws_role_arn>' [ AWS_ROLE_EXTERNAL_ID = '<aws_role_external_id>' ] )
   URL = '<url>'
   [ DESCRIPTION = '<description>' ]
 ```
@@ -88,7 +88,6 @@ You can use either access key-based or role-based credentials to authenticate to
 * [Create a location with a description](#create-a-location-with-a-description)
 * [Create a location with an AWS session token](#create-a-location-with-an-aws-session-token)
 * [Create a location only if it doesn't exist](#create-a-location-only-if-it-doesnt-exist)
-* [Replace a location if it already exists](#replace-a-location-if-it-already-exists)
 * [Use a location to load data into an external table](#use-a-location-to-load-data-into-an-external-table)
 * [Use a location to load data using COPY statements](#use-a-location-to-load-data-using-copy-statements)
 * [Use a location to load data with a TVF](#use-a-location-to-load-data-with-a-tvf)
@@ -102,7 +101,7 @@ The following code example uses keys to authenticate to AWS:
 ```sql
 CREATE LOCATION my_location WITH
   SOURCE = 'AMAZON_S3'
-  CREDENTIALS = { AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' }
+  CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' )
   URL = 's3://my-bucket/path/to/data'
 ```
 
@@ -112,7 +111,7 @@ The following code example use a role to authenticate to AWS:
 ```sql
 CREATE LOCATION my_location WITH
   SOURCE = 'AMAZON_S3'
-  CREDENTIALS = { AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/S3Access' }
+  CREDENTIALS = ( AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/S3Access' )
   URL = 's3://my-bucket/path/to/data'
 ```
 
@@ -123,7 +122,7 @@ The following code example creates a location object named `my_location`, for an
 ```sql
 CREATE LOCATION my_location WITH
   SOURCE = 'AMAZON_S3'
-  CREDENTIALS = { AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' }
+  CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' )
   URL = 's3://my-bucket/path/to/data'
   DESCRIPTION = 'Main data storage location'
 ```
@@ -135,7 +134,7 @@ The following code example creates a location object named `my_location`, for an
 ```sql
 CREATE LOCATION my_location WITH
   SOURCE = 'AMAZON_S3'
-  CREDENTIALS = { AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' AWS_SESSION_TOKEN = 'session-token' }
+  CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' AWS_SESSION_TOKEN = 'session-token' )
   URL = 's3://my-bucket/path/to/data'
 ```
 
@@ -146,18 +145,7 @@ The following code example uses an access key to authenticate to AWS using a loc
 ```sql
 CREATE LOCATION IF NOT EXISTS my_location WITH
   SOURCE = 'AMAZON_S3'
-  CREDENTIALS = { AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' }
-  URL = 's3://my-bucket/path/to/data'
-```
-
-### Replace a location if it already exists
-
-The following code example uses an access key to authenticate to AWS replacing a previous location if it already exists:
-
-```sql
-CREATE OR REPLACE LOCATION my_location WITH
-  SOURCE = 'AMAZON_S3'
-  CREDENTIALS = { AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' }
+  CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' )
   URL = 's3://my-bucket/path/to/data'
 ```
 
@@ -222,10 +210,10 @@ DROP LOCATION [IF EXISTS] <location_name> [WITH FORCE]
 
 ## Notes
 
-- The `IF NOT EXISTS` and `OR REPLACE` clauses cannot be used together
 - All identifiers are case-insensitive unless enclosed in double-quotes
 - The `SOURCE` parameter is required. Currently, the only supported source is 'AMAZON_S3'
 - The `URL` parameter is required and must be a valid S3 URL
+- Locations cannot be created on the system engine
 - For more information about object identifiers, see [Object identifiers]({% link Reference/object-identifiers.md %})
 
 ## Error Handling

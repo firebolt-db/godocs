@@ -23,15 +23,14 @@ Read more about network policies [here](../../Guides/security/network-policies.m
 
 Each row has the following columns with information about a network policy.
 
-|  Column Name    | Data Type | Description                                                     |
-|:----------------|:----------|:----------------------------------------------------------------|
-| network_policy_name | TEXT      | The name of the network policy. |
-| allowed_ips  | ARRAY(TEXT)      | List of allowed ips |
-| blocked_ips     | ARRAY(TEXT)      | List of blocked ips                                        |
-| is_organizational | BOOLEAN | Specifies if the network policy is active at the organization level . |
-| description | TEXT | The description of the network policy.  |
-| created         | TIMESTAMPTZ | Time the service account was created.   |
-| network_policy_owner      | TEXT   | The name of the login that created the network policy. If the network policy was created by a service account, the service account name appears instead. |
-| last_altered    | TIMESTAMPTZ | Time the service account was last altered.   |
-| last_altered_by | TEXT      | The name of the login that edited the network policy. If the network policy was edited by a service account, the service account name appears instead. |
-
+| Column Name          | Data Type   | Description                                                                                                                                            |
+|:---------------------|:------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| network_policy_name  | TEXT        | The name of the network policy.                                                                                                                        |
+| allowed_ips          | ARRAY(TEXT) | List of allowed ips                                                                                                                                    |
+| blocked_ips          | ARRAY(TEXT) | List of blocked ips                                                                                                                                    |
+| is_organizational    | BOOLEAN     | Specifies if the network policy is active at the organization level .                                                                                  |
+| description          | TEXT        | The description of the network policy.                                                                                                                 |
+| created              | TIMESTAMPTZ | Time the service account was created.                                                                                                                  |
+| network_policy_owner | TEXT        | The name of the identity to whom this network policy belongs.                                                                                          |
+| last_altered         | TIMESTAMPTZ | Time the service account was last altered.                                                                                                             |
+| last_altered_by      | TEXT        | The name of the login that edited the network policy. If the network policy was edited by a service account, the service account name appears instead. |
