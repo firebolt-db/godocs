@@ -23,7 +23,6 @@ CREATE ENGINE [IF NOT EXISTS] <engine_name>
     [DEFAULT_DATABASE = <database_name>]
     [INITIALLY_STOPPED = <true/false>]
     [START_IMMEDIATELY = <true/false>]
-    [CLUSTERS = <clusters>]
     [MIN_CLUSTERS = <clusters>]
     [MAX_CLUSTERS = <clusters>]
     [NODES = <nodes>]
@@ -42,7 +41,7 @@ CREATE ENGINE [IF NOT EXISTS] <engine_name>
 | `DEFAULT_DATABASE = <database_name>` | The database an engine will attempt to use by default when dealing with queries that require a database.<br><br>If not specified, `NULL` is used as default. |
 | `INITIALLY_STOPPED = <true/false>`   | When `false`, the newly created engine will be started as part of the `CREATE ENGINE` command.<br>Cannot be used with `START_IMMEDIATELY`.<br><br>If not specified, `false` is used as default. |
 | `START_IMMEDIATELY = <true/false>`   | When `true`, the newly created engine will be started as part of the `CREATE ENGINE` command.<br>Cannot be used with `INITIALLY_STOPPED`.<br><br>If not specified, `true` is used as default. |
-| `CLUSTERS = <clusters>`              | Specifies the number of clusters in an engine. Each cluster is a group of nodes, and all clusters within an engine are identical in terms of node type and number of nodes.<br><br>If not specified, `1` is used as default. |
+| `CLUSTERS = <clusters>` (deprecated) | Specifies the number of clusters in an engine. Each cluster is a group of nodes, and all clusters within an engine are identical in terms of node type and number of nodes.<br><br>If not specified, `1` is used as default. |
 | `MIN_CLUSTERS = <clusters>`          | Specifies a minimum number of clusters in an engine. If `MIN_CLUSTERS` is different from `MAX_CLUSTERS`, the engine will automatically change the number of clusters depending on load.<br><br>If not specified, `1` is used as default. |
 | `MAX_CLUSTERS = <clusters>`          | Specifies a maximum number of clusters in an engine. If `MIN_CLUSTERS` is different from `MAX_CLUSTERS`, the engine will automatically change the number of clusters depending on load.<br><br>If not specified, `1` is used as default. |
 | `NODES = <nodes>`                    | Indicates the number of nodes in each cluster within an engine. This number can range from `1` to `128`. <br><br>If not specified, `2` is used as default. |
@@ -71,7 +70,7 @@ The following example creates an engine with one cluster, using node type 'S' of
 
 ```sql
 CREATE ENGINE my_engine
-WITH TYPE="S" FAMILY="CO" NODES = 5 CLUSTERS = 1;
+WITH TYPE="S"  FAMILY="CO" NODES = 5 MIN_CLUSTERS = 1 MAX_CLUSTERS = 1;
 ```
 
 ### Create an engine with delayed start
