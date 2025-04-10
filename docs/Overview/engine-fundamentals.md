@@ -36,10 +36,13 @@ Firebolt engines provide **full workload isolation**, so that multiple workloads
 
 ## Key engine concepts
 
-Engines in Firebolt are defined by three attributes: **Type**, **Nodes**, and **Clusters**. These attributes determine the engine’s configuration and scaling options.
+Engines in Firebolt are defined by four attributes: **Type**, **Family**, **Nodes**, and **Clusters**. These attributes determine the engine’s configuration and scaling options.
+
+**Type** <br/>
+The `TYPE` of engine defines the **compute node size** used as a building block for an engine. They are available in Small, Medium, Large, and X-Large sizes. Change the node type to **vertically scale** up or down. Small and medium engines are available for use right away. If you want to use a large or extra-large engine, reach out to [support@firebolt.io](mailto:support@firebolt.io).
 
 **Family** <br />
-Compute nodes can also be storage-optimized with larger cache sizes or compute-optimized which have smaller caches. The default is storage optimized.  
+Compute nodes can be storage-optimized with larger cache sizes or compute-optimized which have smaller caches. The default is storage-optimized.
 
 **Nodes** <br />
 This attribute represents the number (1 - 128) of compute nodes, allowing granular horizontal scaling to fine-tune query performance characteristics while avoiding overprovisioning and unnecessary cost. Both scaling in and out are supported.
@@ -61,11 +64,12 @@ The three attributes:  `TYPE`, `NODES` and `CLUSTERS` &ndash; form the configura
 
 To create an engine, use the [CREATE ENGINE command]({% link sql_reference/commands/engines/create-engine.md %}), specifying the node type to be used for the engine, number of clusters and number of nodes per cluster.
 
-The following code example creates two clusters, each containing four nodes of type `M`:
+The following code example creates two clusters, each containing four nodes of type `M`, from the compute-optimized family:
 
 ```sql
 CREATE ENGINE IF NOT EXISTS MyEngine 
 WITH TYPE = M 
+FAMILY = COMPUTE_OPTIMIZED
 NODES = 4 
 CLUSTERS = 2;
 ```
@@ -77,13 +81,13 @@ For a full list of engine attributes, see [CREATE ENGINE](../sql_reference/comma
 
 Firebolt engines enable dynamic and fully online scaling operations, meaning you do not need to stop your engines to scale them. You can scale an engine along three dimensions: 
 
-| Scaling Type          | Action                      | Example SQL Command                     |
-|----------------------|---------------------------|-----------------------------------------|
-| **Vertical Scaling** | Change the node type     | `ALTER ENGINE MyEngine SET TYPE = L;`  |
-| **Horizontal Scaling** | Change the number of nodes | `ALTER ENGINE MyEngine SET NODES = 3;`  |
-| **Concurrency Scaling** | Change the number of clusters | `ALTER ENGINE MyEngine SET CLUSTERS = 2;` |
+| Scaling Type          | Action                          | Example SQL Command                               |
+|----------------------|---------------------------------|---------------------------------------------------|
+| **Vertical Scaling** | Change the node type and family | `ALTER ENGINE MyEngine SET TYPE = L FAMILY = SO;` |
+| **Horizontal Scaling** | Change the number of nodes      | `ALTER ENGINE MyEngine SET NODES = 3;`            |
+| **Concurrency Scaling** | Change the number of clusters   | `ALTER ENGINE MyEngine SET CLUSTERS = 2;`         |
 
-You can scale up or down using the engine type, scaling out or in with number of nodes and add or remove clusters for concurrency scaling. This multidimensional scaling allows you to fine-tune the price-performance characteristics of engines and dynamically scale your compute resources based on your workload requirements.
+You can scale up or down using the engine type and family, scaling out or in with number of nodes and add or remove clusters for concurrency scaling. This multidimensional scaling allows you to fine-tune the price-performance characteristics of engines and dynamically scale your compute resources based on your workload requirements.
 
 Use the [ALTER ENGINE]({% link sql_reference/commands/engines/alter-engine.md %}) to modify the configuration of an engine to dynamically scale the engine even while it is running, without impacting the workload. 
 
@@ -108,7 +112,7 @@ ALTER ENGINE MyEngine SET TYPE = L;
 The following code example changes more than one attribute at the same time:
 
 ```sql
-ALTER ENGINE MyEngine SET NODES = 3 TYPE = L;
+ALTER ENGINE MyEngine SET NODES = 3 TYPE = L FAMILY = COMPUTE_OPTIMIZED;
 ```
 
 For more information on modifying engines, see [ALTER ENGINE]({% link sql_reference/commands/engines/alter-engine.md %}).

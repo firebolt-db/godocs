@@ -77,6 +77,13 @@ The following code example scales up an engine by increasing its capacity from s
 ALTER ENGINE my_engine SET TYPE = "L";
 ```
 
+### Change Family
+The following code example changes engine's family type to compute-optimized by setting the engine's `FAMILY` parameter to `CO`:
+
+```sql
+ALTER ENGINE my_engine SET FAMILY = "CO";
+```
+
 ### Scale up and out an engine     
 The following code example both scales up and scales out an engine by increasing node capacity and the number of nodes: 
 
@@ -94,7 +101,7 @@ The following code example adjusts the maximum number of engine clusters to enab
 ALTER ENGINE my_engine SET MAX_CLUSTERS = 2;
 ```
 
-## ALTER ENGINE RENAME TO
+## ALTER ENGINE RENAME TO 
 Renames an engine.
 
 ### Syntax

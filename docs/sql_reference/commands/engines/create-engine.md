@@ -60,18 +60,18 @@ If you would like to remove the above limitations or use a large or extra-large 
 ## Examples
 
 ### Create a basic engine
-The following example creates an engine with one cluster, using node type 'S' and 1 nodes per cluster : 
+The following example creates an engine with one cluster, using node type 'M' from the storage-optimized family and 2 nodes per cluster : 
 
 ```sql
 CREATE ENGINE my_engine;
 ```
 
 ### Create an engine with multiple nodes
-The following example creates an engine with one cluster, using node type 'S' and 5 nodes per cluster : 
+The following example creates an engine with one cluster, using node type 'S' of Compute Optimized family and 5 nodes per cluster : 
 
 ```sql
 CREATE ENGINE my_engine
-WITH TYPE="S" NODES = 5 CLUSTERS = 1;
+WITH TYPE="S" FAMILY="CO" NODES = 5 CLUSTERS = 1;
 ```
 
 ### Create an engine with delayed start
