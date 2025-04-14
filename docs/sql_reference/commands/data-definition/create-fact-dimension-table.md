@@ -55,10 +55,10 @@ Firebolt supports the following column constraints:
 | Constraint           | Description                                                                                                                                                                                                                | Default value |
 | :-------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------- |
 | `DEFAULT <expression>`     | Determines the default value used when no value is provided, instead of inserting a `NULL` value.                                                                                                                                               |               |
-| `NULL` \| `NOT NULL` | Determines if the column may or may not contain `NULL` values.                                                                                                                                                                     | `NOT NULL`    |
+| `NULL` \| `NOT NULL` | Determines if the column may or may not contain `NULL` values.                                                                                                                                                                     | `NULL`    |
 
 {: .note}
-Nullable columns cannot be used in Firebolt primary or aggregating indexes. Additionally, only literals and the following functions are supported in default expressions: [CURRENT_DATE]({% link sql_reference/functions-reference/date-and-time/current-date.md %}), [LOCALTIMESTAMP]({% link sql_reference/functions-reference/date-and-time/localtimestamp.md %}), [CURRENT_TIMESTAMP]({% link sql_reference/functions-reference/date-and-time/current-timestamptz.md %}), and NOW, the alias for CURRENT_TIMESTAMP.
+Only literals and the following functions are supported in default expressions: [CURRENT_DATE]({% link sql_reference/functions-reference/date-and-time/current-date.md %}), [LOCALTIMESTAMP]({% link sql_reference/functions-reference/date-and-time/localtimestamp.md %}), [CURRENT_TIMESTAMP]({% link sql_reference/functions-reference/date-and-time/current-timestamptz.md %}), and NOW, which is an alias for CURRENT_TIMESTAMP.
 
 ### Example: Creating a table with `NULL` and `NOT NULL` values
 
