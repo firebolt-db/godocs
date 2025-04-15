@@ -9,30 +9,43 @@ parent: Array functions
 
 # ARRAY\_REVERSE\_SORT
 
-Returns the elements of the input array sorted in descending order.
+Returns the elements of the input array in descending order.
 
-If a `<function>` is provided, the elements are sorted based on the results of applying the `<function>` to each element.
+If the argument `<function>` is provided, the sorting order is determined by the result of applying `<function>` on each element of the array.
 
 ## Syntax
 {: .no_toc}
 
 ```sql
-ARRAY_REVERSE_SORT([<function>], <array>)
+ARRAY_REVERSE_SORT([<function>,] <array>)
 ```
 ## Parameters
 {: .no_toc} 
 
 | Parameter | Description                                                  | Supported input type | 
 | :--------- | :------------------------------------------------------------ |:------|
-| `<function>`  | (Optional) A function used to determine the sorting order. It must return a value that can be used for sorting.| Any Lambda function that accepts the elements of `<array>` as input. | 
-| `<array>`   | The array to be sorted.                                      | Any type of [ARRAY](https://docs.firebolt.io/sql_reference/data-types.html#array). | 
+| `<function>`  | An optional function to be used to determine the sort order. | Any lambda function that takes the elements of `<array>` as input | 
+| `<array>`   | The array to be sorted.                                      | Any array | 
 
 ## Return Type 
-Returns an `ARRAY` of the same type as the input array.
+`ARRAY` of the same type as the input array
 
 
-## Examples
+## Example
 {: .no_toc}
 
-{% include sql_examples/array_reverse_sort.md %}
+```sql
+SELECT
+	ARRAY_REVERSE_SORT([ 4, 1, 3, 2 ]);
+```
 
+**Returns**: `[4,3,2,1]`
+
+In this example below, the modulus operator is used to calculate the remainder on any odd numbers. Therefore `ARRAY_REVERSE_SORT` puts the lower (even) numbers last in the results.
+
+```sql
+SELECT
+	ARRAY_REVERSE_SORT(x -> x % 2, [ 4, 1, 3, 2 ]);
+```
+
+**Returns**: `[1,3,4,2]`

@@ -12,7 +12,7 @@ parent: Array functions
 
 # ARRAY\_SUM
 
-Returns the sum of elements in `<array>`.
+Returns the sum of elements of `<array>`.
 
 ## Syntax
 {: .no_toc}
@@ -25,13 +25,17 @@ ARRAY_SUM(<array>)
 
 | Parameter | Description | Supported input types | 
 | :--------- | :-------------------------------- |
-| `<array>`   | The array to be summed.     | Any array containing elements with a [numeric](https://docs.firebolt.io/sql_reference/data-types.html#numeric) data type. | 
+| `<array>`   | The array to be used to calculate the function.     | Any array of numeric types | 
 
 ## Return Type 
-Returns `BIGINT` if the array elements are `INTEGER`, `DOUBLE PRECISION`, if they are `REAL`, or the same type as the array elements for other numeric data types.
+The return type is `BIGINT` if the element type of `<array>` is `INT` and `DOUBLE PRECISION` if the element type is `REAL`. Otherwise, it matches the element type.
 
-## Examples
+## Example
 {: .no_toc}
 
-{% include sql_examples/array_sum.md %}
+```sql
+SELECT
+	ARRAY_SUM([ 4, 1, 3, 2 ]) AS levels;
+```
 
+**Returns**: `10`

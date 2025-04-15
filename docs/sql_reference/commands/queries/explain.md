@@ -286,28 +286,28 @@ ORDER BY
 	1,2,3,4;
 ```
 
-In the following output, each plan node includes a `[Logical Profile]`, which specifies the `source` of the estimation for that node, along with estimated row counts and, if available, distinct column counts:
+In the following output, each plan node is annotated with a `[Logical Profile]`, indicating the `source` of the estimation for that node.
 
 ```
 explain TEXT
-[0] [Projection] ref_2, ref_1, ref_0, ref_3
-|   [RowType]: date null, text null, bigint null, numeric(38, 9) null
-|   [Logical Profile]: [est. #rows=6676, column profiles={}, source: estimated]
- \_[1] [Sort] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last]
-   |   [RowType]: bigint null, text null, date null, numeric(38, 9) null
-   |   [Logical Profile]: [est. #rows=6676, column profiles={}, source: estimated]
-    \_[2] [Aggregate] GroupBy: [ref_0, ref_2, ref_3] Aggregates: [avg2(ref_1)]
-      |   [RowType]: bigint null, text null, date null, numeric(38, 9) null
-      |   [Logical Profile]: [est. #rows=6676, column profiles={[ref_3: #distinct=6676]}, source: estimated]
-       \_[3] [Projection] ref_0, ref_1, ref_3, ref_4
-         |   [RowType]: bigint null, numeric(38, 9) null, text null, date null
-         |   [Logical Profile]: [est. #rows=23489, column profiles={}, source: estimated]
-          \_[4] [Filter] (ref_2 = 'N'), (ref_4 > DATE '1996-01-01')
-            |   [RowType]: bigint null, numeric(38, 9) null, text null, text null, date null
-            |   [Logical Profile]: [est. #rows=23489, column profiles={[ref_2: #distinct=1]}, source: estimated]
-             \_[5] [StoredTable] Name: "lineitem", used 5/16 column(s) FACT, ref_0: "l_orderkey" ref_1: "l_discount" ref_2: "l_returnflag" ref_3: "l_linestatus" ref_4: "l_shipdate"
-                   [RowType]: bigint null, numeric(38, 9) null, text null, text null, date null
-                   [Logical Profile]: [est. #rows=6.59431e+08, column profiles={}, source: metadata]
+[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, lineitem.l_orderkey, avg2(lineitem.l_discount)
+|   [RowType]: date not null, text not null, bigint not null, numeric(12, 2) null
+|   [Logical Profile]: [source: estimated]
+ \_[1] [Sort] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, lineitem.l_orderkey Ascending Last, avg2(lineitem.l_discount) Ascending Last]
+   |   [RowType]: bigint not null, text not null, date not null, numeric(12, 2) null
+   |   [Logical Profile]: [source: estimated]
+    \_[2] [Aggregate] GroupBy: [lineitem.l_orderkey, lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg2(lineitem.l_discount)]
+      |   [RowType]: bigint not null, text not null, date not null, numeric(12, 2) null
+      |   [Logical Profile]: [source: estimated]
+       \_[3] [Projection] lineitem.l_orderkey, lineitem.l_discount, lineitem.l_linestatus, lineitem.l_shipdate
+         |   [RowType]: bigint not null, numeric(12, 2) not null, text not null, date not null
+         |   [Logical Profile]: [source: estimated]
+          \_[4] [Filter] (lineitem.l_returnflag = 'N'), (lineitem.l_shipdate > DATE '1996-01-01')
+            |   [RowType]: bigint not null, numeric(12, 2) not null, text not null, text not null, date not null
+            |   [Logical Profile]: [source: estimated]
+             \_[5] [StoredTable] Name: "lineitem", used 5/16 column(s) FACT
+                   [RowType]: bigint not null, numeric(12, 2) not null, text not null, text not null, date not null
+                   [Logical Profile]: [source: metadata]
 ```
 
 The possible sources are as follows:

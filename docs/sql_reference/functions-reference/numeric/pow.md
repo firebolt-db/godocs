@@ -29,7 +29,7 @@ POW(<value>, <exponent>);
 | `<exponent>`   | The power value of the exponent | `DOUBLE PRECISION` |
 
 ## Return Type
-Returns a number of type `DOUBLE PRECISION`.
+`DOUBLE PRECISION`
 
 ## Example
 {: .no_toc}

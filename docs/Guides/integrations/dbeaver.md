@@ -1,6 +1,4 @@
 ---
-redirect_from:
-  - /integrations/setting-up-dbeaver-jdbc-connection-to-firebolt.html
 layout: default
 title: DBeaver
 description: Configure DBeaver to connect to Firebolt using the JDBC driver.

@@ -12,7 +12,7 @@ parent: Array functions
 
 # ARRAY\_MIN
 
-Returns the minimum element in an array. If the input array is empty or contains only `NULL` values, `ARRAY_MIN` will return `NULL`.
+Returns the minimum element in an array.
 
 ## Syntax
 {: .no_toc}
@@ -26,15 +26,20 @@ ARRAY_MIN(<array>)
 
 | Parameter | Description                                  | Supported input types | 
 | :--------- | :-------------------------------------------- | :----------|
-| `<array>`   | The array or array-type column to evaluate, containing comparable elements. | Any type of [ARRAY](https://docs.firebolt.io/sql_reference/data-types.html#array). | 
+| `<array>`   | The array or array-type column to be checked | `ARRAY` | 
 
 
 ## Return Type
 
-Returns an element of the same data type as the input array, or `NULL` if the array is empty or contains only `NULL` values.
+Same as the element type of the array.
 
-## Examples
+## Example
 {: .no_toc}
 
-{% include sql_examples/array_min.md %}
+The following example calculates the minimum number in the `levels` array:
+```sql
+SELECT
+	ARRAY_MIN([ 1, 2, 3, 4 ]) AS levels;
+```
 
+**Returns**: `1`

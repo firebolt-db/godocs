@@ -11,7 +11,7 @@ parent: Array functions
 
 # ARRAY\_TO\_STRING
 
-Converts the elements of an array to text and joins them into a single string, separated by an optional delimiter. If no delimiter is provided, the elements are concatenated without spaces. `NULL` elements are skipped during concatenation, and do not appear in the result.
+Converts each array element to its text representation, and concatenates those using an optional delimiter. If no delimiter is provided, an empty string is used instead. `NULL` array elements are omitted.
 
 **Alias:** `ARRAY_JOIN`
 
@@ -19,7 +19,7 @@ Converts the elements of an array to text and joins them into a single string, s
 {: .no_toc}
 
 ```sql
-ARRAY_TO_STRING(<array>, [<delimiter>])
+ARRAY_TO_STRING(<array>[, <delimiter>])
 ```
 
 ## Parameters 
@@ -27,13 +27,38 @@ ARRAY_TO_STRING(<array>, [<delimiter>])
 
 | Parameter     | Description                            | Supported input types | 
 | :------------- | :------------------------------------ |:---------|
-| `<array>`       | The array whose elements will be converted to text and concatenated. | Any type of [ARRAY](https://docs.firebolt.io/sql_reference/data-types.html#array) that contains elements that can be converted to text. |
-| `<delimiter>` | The delimiter used to concatenate the elements of `<array>`. | `TEXT` | 
+| `<array>`       | An array to be concatenated | `ARRAY` |
+| `<delimiter>` | The delimiter used for concatenating the array elements | `TEXT` | 
 
 ## Return Type
-Returns `TEXT` that contains the concatenated elements of the array.
+`TEXT`
 
 ## Example
 {: .no_toc}
 
-{% include sql_examples/array_to_string.md %}
+In the example below, the three elements are concatenated with no delimiter.
+
+```sql
+SELECT
+	ARRAY_TO_STRING([ '1', '2', '3' ]) AS levels;
+```
+
+**Returns**: `123`
+
+In this example below, the levels are concatenated separated by a comma. 
+
+```sql
+SELECT
+	ARRAY_TO_STRING([ '1', '2', '3' ], ',') AS levels;
+```
+
+**Returns**: `1,2,3`
+
+In this example below, the elements of a nested array containing a `NULL` are concatenated. 
+
+```sql
+SELECT
+	ARRAY_TO_STRING([ [ 1, 2 ], [3, 4], [NULL, 5] ], ',') AS levels;
+```
+
+**Returns**: `1,2,3,4,5`

@@ -11,12 +11,12 @@ parent: Array functions
 
 # ARRAY_FLATTEN
 
-Converts an array of arrays into a flat array, meaning it eliminates any nested or multi-dimensional structures. For each array element, `ARRAY_FLATTEN` extracts its individual elements and combines them into a single flattened array that contains all the elements from the source arrays.
+Converts an array of arrays into a flat array. For every element that is an array, this function extracts its elements into the new array. The resulting flattened array contains all the elements from all source arrays.
 
-The following apply:
+The function:
 
-* `ARRAY_FLATTEN` flattens only one level of nested arrays.
-* `ARRAY_FLATTEN` cannot be applied to arrays that are already flat.
+* Applies to one level of nested arrays.
+* Does not accept arrays that are already flat.
 
 ## Syntax
 {: .no_toc}
@@ -30,13 +30,19 @@ ARRAY_FLATTEN(<array>)
 
 | Parameter | Description                         |Supported input types |
 | :--------- | :----------------------------------- | :---------------------|
-| `<array>` | The array of arrays to be flattened. | Any type of [ARRAY](https://docs.firebolt.io/sql_reference/data-types.html#array). | 
+| `<array>` | The array of arrays to be flattened | Any `ARRAY` of `ARRAY` types | 
 
 ## Return Type
-Returns an `ARRAY` of the same type as the input array.
+`ARRAY` of the same type as the input array
 
-## Examples
+## Example
 {: .no_toc}
 
-{% include sql_examples/array_flatten.md %}
+The following example flattens multiple arrays of level IDs: 
 
+```sql
+SELECT
+	ARRAY_FLATTEN([ [ [ 1, 2 ] ], [ [ 2, 3 ], [ 3, 4 ] ] ])
+```
+
+**Returns**: `[ [ 1, 2 ], [ 2, 3 ], [ 3, 4 ] ]`
