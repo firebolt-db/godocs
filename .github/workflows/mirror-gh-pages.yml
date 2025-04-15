@@ -1,9 +1,7 @@
 name: Mirror GH Pages
 
 on:
-  push:
-    branches:
-      - gh-pages
+  workflow_dispatch:
 
 jobs:
   mirror:
@@ -16,6 +14,7 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
+          ref: gh-pages
       - uses: actions/create-github-app-token@v1
         id: app-token
         with:
