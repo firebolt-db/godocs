@@ -2,6 +2,8 @@
 redirect_from:
   - /sql-reference/functions-reference/extract-new.html
   - /sql-reference/functions-reference/extract.html
+  - /sql-reference/functions-reference/to-second.html
+  - /sql-reference/functions-reference/to-month.html
 layout: default
 title: EXTRACT
 description: Reference material for the EXTRACT function

@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/split.html
 layout: default
 title: STRING_TO_ARRAY
 description: Reference material for STRING_TO_ARRAY function

@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/min.html
 layout: default
 title: MIN
 description: Reference material for MIN

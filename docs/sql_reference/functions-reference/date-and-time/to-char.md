@@ -1,6 +1,7 @@
 ---
 redirect_from:
   - /sql-reference/functions-reference/to-char-new.html
+  - /sql-reference/functions-reference/date-format.html
 layout: default
 title: TO_CHAR
 description: Reference material for TO_CHAR function

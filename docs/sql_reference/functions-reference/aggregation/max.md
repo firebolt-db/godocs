@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/max.html
 layout: default
 title: MAX
 description: Reference material for MAX

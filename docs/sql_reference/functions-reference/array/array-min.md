@@ -1,6 +1,5 @@
 ---
 redirect_from:
-  - /sql-reference/functions-reference/min.html
   - /sql-reference/functions-reference/array-min.html
 layout: default
 title: ARRAY_MIN

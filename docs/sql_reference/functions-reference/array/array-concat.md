@@ -1,7 +1,5 @@
 ---
 redirect_from:
-  - /sql-reference/functions-reference/concat.html
-  - /sql-reference/functions-reference/array-join.html
   - /sql-reference/functions-reference/array-concat.html
 layout: default
 title: ARRAY_CONCAT

@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/trim.html
 layout: default
 title: TRIM
 description: Reference material for TRIM function
