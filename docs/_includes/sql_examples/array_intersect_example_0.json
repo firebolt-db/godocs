@@ -1,0 +1,15 @@
+{
+  "errors": [
+    {
+      "description": "Line 1, Column 8: function 'array_intersect' not found"
+    }
+  ],
+  "query": {
+    "query_id": "d6dee431-aa0e-4934-9f2c-d11b0e752d88",
+    "query_label": null,
+    "request_id": "75c6928d-3b38-4e53-9b07-c29305ddc587"
+  },
+  "statistics": {
+    "elapsed": 0.0
+  }
+}

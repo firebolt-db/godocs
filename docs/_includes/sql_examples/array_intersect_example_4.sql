@@ -1,0 +1,1 @@
+SELECT ARRAY_INTERSECT([ 1, 2, 2, 8 ],[ 1, 2, 2, 2, 6 ]) as unique;
