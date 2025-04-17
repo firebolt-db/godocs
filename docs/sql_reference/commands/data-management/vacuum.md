@@ -17,7 +17,7 @@ Optimizes tablets for query performance.
 By default, any engine that processes a DML operation automatically assesses the health of tables’ data layout and runs the `VACUUM` command when necessary to maintain the underlying table health. You can disable Auto `VACUUM` for a specific engine using the 'ALTER ENGINE' statement:
 
 ```text
-ALTER ENGINE <name> SET AUTOVACUUM = OFF;
+ALTER ENGINE <name> SET AUTO_VACUUM = OFF;
 ```
 
 Firebolt recommends keeping the default setting to maintain optimal layout of your tables' underlying data.  
