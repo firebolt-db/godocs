@@ -15,7 +15,7 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
           ref: gh-pages
-      - uses: actions/create-github-app-token@v1
+      - uses: actions/create-github-app-token@v2
         id: app-token
         with:
           app-id: ${{ secrets.FB_DB_CI_WRITER_ID }}
