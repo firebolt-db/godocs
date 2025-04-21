@@ -11,69 +11,99 @@ great_grand_parent: SQL reference
 
 # LIST_OBJECTS
 
-Table-valued function which takes an Amazon S3 URL and credentials as parameters.
-
-The resulting table lists objects and prefixes from the URL up until the next slash.
-
-Each row in the output contains four columns:  object_name (`TEXT`), object_type (`TEXT`), object_bytes (`BIGINT`), and file_timestamp (`TIMESTAMPTZ`).
+A table-valued function (TVF) that lists objects and their metadata from Amazon S3. The function can use either a location object (recommended) or direct credentials to access the data. Each row in the output contains four columns: `object_name` (`TEXT`), `object_type` (`TEXT`), `object_bytes` (`BIGINT`), and `file_timestamp` (`TIMESTAMPTZ`).
 
 ## Syntax
 
 {: .no_toc}
 
 ```sql
-LIST_OBJECTS ( url => <url>[, aws_access_key_id => <aws_access_key_id>][, aws_secret_access_key => <aws_secret_access_key>])
+-- Using location object (recommended)
+LIST_OBJECTS (
+  LOCATION => location_name
+)
+|
+-- Using static credentials
+LIST_OBJECTS (
+  URL => <url>
+  [, AWS_ACCESS_KEY_ID => <aws_access_key_id>]
+  [, AWS_SECRET_ACCESS_KEY => <aws_secret_access_key>]
+  [, AWS_SESSION_TOKEN => <aws_session_token>]
+  [, AWS_ROLE_ARN => <aws_role_arn>]
+  [, AWS_ROLE_EXTERNAL_ID => <aws_role_externakl_id>]
+)
 ```
 
 ## Parameters
 
-{: .no_toc}
-
-| Parameter                     | Description                                                                                      | Supported input types |
-|:------------------------------|:-------------------------------------------------------------------------------------------------|:----------------------|
-| `<url>`                       | The Amazon S3 location. The expected format is 's3://{bucket_name}/{optional_prefix}'.           | `TEXT`                |
-|:------------------------------|:-------------------------------------------------------------------------------------------------|:----------------------|
-| `<aws_access_key_id>`         | The AWS access key ID.                                                                                  | `TEXT`                |
-|:------------------------------|:-------------------------------------------------------------------------------------------------|:----------------------|
-| `<aws_secret_access_key>`     | The AWS secret access key.                                                                       | `TEXT`                |
-| `<aws_session_token>`         | The AWS session token.                                                                           | `TEXT`                |
-
-
-The AWS credential parameters, `aws_access_key_id`, `aws_secret_access_key`, and `aws_session_token` are optional, and are not required to access public buckets. 
-
-If you provide either `aws_access_key_id` or `aws_secret_access_key`, you must provide both. Providing an AWS session token is optional.
+| Parameter | Description | Supported input types |
+|:----------|:------------|:---------------------|
+| `LOCATION` | The name of a location object that contains the S3 URL and credentials. This is the recommended approach. See [CREATE LOCATION]({% link sql_reference/commands/data-definition/create-location.md %}) for details. | `IDENTIFIER` |
+| `URL` | The location of the Amazon S3 bucket containing your files. The expected format is `s3://{bucket_name}/{full_file_path}`. | `TEXT` |
+| `AWS_ACCESS_KEY_ID` | The AWS access key ID. | `TEXT` |
+| `AWS_SECRET_ACCESS_KEY` | The AWS secret access key. | `TEXT` |
+| `AWS_SESSION_TOKEN` | The AWS session token. | `TEXT` |
+| `AWS_ROLE_ARN` | The AWS role ARN. | `TEXT` |
+| `AWS_ROLE_EXTERNAL_ID` | The AWS role external ID. | `TEXT` |
 
 ## Return Type
 
-The output is a table with four columns: object_name (`TEXT`), object_type (`TEXT`), object_bytes (`BIGINT`), and last_modified (`TIMESTAMPTZ`).
+The output is a table with four columns:
 
-The object_name contains both the full path and the file extension.
+- `object_name` (`TEXT`)
+- `object_type` (`TEXT`)
+- `object_bytes` (`BIGINT`)
+- `last_modified` (`TIMESTAMPTZ`)
 
-The object_type can be either “file” or “folder”.
+**Column Descriptions**
 
-If object_type = "folder", then the object_bytes and last_modified columns will contain `NULL` values because folders do not have associated sizes or timestamps.
+- **`object_name`**: Contains both the full path and the file extension.
+- **`object_type`**: Can be either “file” or “folder”.
+  
+  - If `object_type` = "folder", the `object_bytes` and `last_modified` columns will contain `NULL` values, as folders do not have associated sizes or timestamps.
+  
+  - If `object_type` = “file”, the following apply:
+    1. The `last_modified` column is populated from the `LastModified` attribute in Amazon S3. Note that AWS does not expose the creation timestamp, so the values in this column only differ from the creation time if an immutable object has been overwritten.
+    2. The `object_bytes` column contains the size of the file in bytes.
 
-If object_type = “file”, the following apply:
-1. The `last_modified` column is populated from the `LastModified` attribute in Amazon S3. AWS does not expose the creation timestamp, so the values in this column only differ from the creation time if an immutable object has been overwritten.
+Amazon S3 is not a traditional filesystem.  In AWS, what is commonly referred to as "folders" is called "common_prefixes," and what are typically considered "files" are referred to as "objects."
 
-2. The `object_bytes` column contains values in bytes.
+## Examples
 
-Note: Amazon S3 is not a traditional filesystem. AWS refers to what we commonly think of as "folders" as “common_prefixes”, and "files" as “objects”.
+### Using LOCATION object to store credentials
 
-## Example
+**Best practice**
 
-{: .no_toc}
+Firebolt recommends using a `LOCATION` object to store credentials for authentication.
 
-The following code examples show how to list all objects (folders) that start with a specified prefix within an Amazon S3 bucket. You can specify either a part of the prefix or the full prefix. For example, the urls ending with the prefixes `fire` or `firebolt_sample_dataset` both return identical results because both are valid matches for the `firebolt_sample_dataset` folder.
+The following code example retrieves all objects from the specified `LOCATION` using the `LIST_OBJECTS` function:
 
 ```sql
-SELECT * FROM list_objects(url => 's3://firebolt-publishing-public/help_center_assets/fire')
+SELECT * FROM LIST_OBJECTS(
+    LOCATION => my_location
+);
+```
+
+**Returns**:
+
+| object_name        | object_type | object_bytes | last_modified          |
+|:-------------------|:------------|:-------------|:-----------------------|
+| data/file1.csv     | file        | 1421277      | 2023-02-27 10:49:13+01 |
+| data/folder1/      | folder      | NULL         | NULL                   |
+
+
+### Using static credentials
+
+The following code examples show how to list all objects (folders) that start with a specified prefix within an Amazon S3 bucket. You can specify either a part of the prefix or the full prefix. For example, the URLs ending with the prefixes `fire` or `firebolt_sample_dataset` both return identical results because both are valid matches for the `firebolt_sample_dataset` folder as follows:
+
+```sql
+SELECT * FROM LIST_OBJECTS(url => 's3://firebolt-publishing-public/help_center_assets/fire')
 ```
 
 and
 
 ```sql
-SELECT * FROM list_objects(url => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset')
+SELECT * FROM LIST_OBJECTS(url => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset')
 ```
 
 
@@ -83,10 +113,10 @@ SELECT * FROM list_objects(url => 's3://firebolt-publishing-public/help_center_a
 |:------------------------------------------------------------|:-------------------|:----------------------|:-----------------------------|
 | help_center_assets/firebolt_sample_dataset/                 | folder             | NULL                  | NULL                         |
 
-The following code example shows how to list all objects (files, folders, and associated metadata) that start with a specified prefix in an Amazon S3 bucket:
+The following code example shows how to list all objects such as files, folders, and associated metadata, that start with a specified prefix in an Amazon S3 bucket:
 
 ```sql
-SELECT * FROM list_objects(url => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/')
+SELECT * FROM LIST_OBJECTS(url => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/')
 ```
 
 **Returns**:
@@ -105,16 +135,16 @@ SELECT * FROM list_objects(url => 's3://firebolt-publishing-public/help_center_a
 |:------------------------------------------------------------|:-------------------|:----------------------|:-----------------------------|
 | help_center_assets/firebolt_sample_dataset/playstats/       | folder             | NULL                  | NULL                         |
 
-The following code examples show how to list all objects (files and associated metadata) that start with a specified prefix in an Amazon S3 bucket. The urls ending with the prefixes `lev` or `levels.csv` return identical results because both are valid matches for the `levels.csv` file.
+The following code examples show how to list all objects such as files and associated metadata, that start with a specified prefix in an Amazon S3 bucket. The URLs ending with the prefixes `lev` or `levels.csv` return identical results because both are valid matches for the `levels.csv` file as follows:
 
 ```sql
-SELECT * FROM list_objects(url => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/lev')
+SELECT * FROM LIST_OBJECTS(url => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/lev')
 ```
 
 and
 
 ```sql
-SELECT * FROM list_objects(url => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv')
+SELECT * FROM LIST_OBJECTS(url => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv')
 ```
 
 **Both Return**:
@@ -127,7 +157,7 @@ SELECT * FROM list_objects(url => 's3://firebolt-publishing-public/help_center_a
 The following code example shows how to use your Amazon credentials to list objects in an Amazon S3 bucket that is not publicly accessible:
 
 ```sql
-SELECT * FROM list_objects(url => 's3://example_bucket/foo.csv', aws_access_key_id => 'my_key_id', aws_secret_access_key => 'my_secret_key')
+SELECT * FROM LIST_OBJECTS(url => 's3://example_bucket/foo.csv', AWS_ACCESS_KEY_ID => 'my_key_id', AWS_SECRET_ACCESS_KEY => 'my_secret_key')
 ```
 
 **Returns**:

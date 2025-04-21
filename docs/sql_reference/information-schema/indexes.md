@@ -35,7 +35,9 @@ Each row has the following columns with information about the database.
 | table_name                    | TEXT    | The name of the table for which the index is defined. |
 | index_name                    | TEXT    | The name defined for the index. |
 | index_type                    | TEXT    | One of either `primary` or `aggregating`. |
+| index_owner                   | TEXT    | The owner of the table, which is the owner of the index. |
 | index_definition              | TEXT    | The part of the index statement that specifies the columns and any aggregations included in the index. |
-| index_compressed_size         | BIGINT    | The compressed size of the index, in bytes. |
-| index_uncompressed_size       | BIGINT    | The uncompressed size of the index, in bytes. |
+| compressed_bytes              | BIGINT    | The compressed size of the index, in bytes. |
+| uncompressed_bytes            | BIGINT    | The uncompressed size of the index, in bytes. |
 | number_of_tablets             | BIGINT    | The number of tablets in the index. |
+| created                       | TIMESTAMPTZ | Time that the index was created. |

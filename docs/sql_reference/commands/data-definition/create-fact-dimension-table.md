@@ -55,10 +55,10 @@ Firebolt supports the following column constraints:
 | Constraint           | Description                                                                                                                                                                                                                | Default value |
 | :-------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------- |
 | `DEFAULT <expression>`     | Determines the default value used when no value is provided, instead of inserting a `NULL` value.                                                                                                                                               |               |
-| `NULL` \| `NOT NULL` | Determines if the column may or may not contain `NULL` values.                                                                                                                                                                     | `NOT NULL`    |
+| `NULL` \| `NOT NULL` | Determines if the column may or may not contain `NULL` values.                                                                                                                                                                     | `NULL`    |
 
 {: .note}
-Nullable columns cannot be used in Firebolt primary or aggregating indexes. Additionally, only literals and the following functions are supported in default expressions: [CURRENT_DATE]({% link sql_reference/functions-reference/date-and-time/current-date.md %}), [LOCALTIMESTAMP]({% link sql_reference/functions-reference/date-and-time/localtimestamp.md %}), [CURRENT_TIMESTAMP]({% link sql_reference/functions-reference/date-and-time/current-timestamptz.md %}), and NOW, the alias for CURRENT_TIMESTAMP.
+Only literals and the following functions are supported in default expressions: [CURRENT_DATE]({% link sql_reference/functions-reference/date-and-time/current-date.md %}), [LOCALTIMESTAMP]({% link sql_reference/functions-reference/date-and-time/localtimestamp.md %}), [CURRENT_TIMESTAMP]({% link sql_reference/functions-reference/date-and-time/current-timestamptz.md %}), and NOW, which is an alias for CURRENT_TIMESTAMP.
 
 ### Example: Creating a table with `NULL` and `NOT NULL` values
 
@@ -145,7 +145,9 @@ Storage parameters are specified in the optional `WITH (...)` clause as comma se
 
 | Storage Parameter     | Description                                                                                                                                                                                                                                                                          |
 | :-------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `<index_granularity>` | The maximum number of rows in each tablet subrange. `<storage_parameter_value>` must be a power of 2 between 128 and 8192. The default value is 8192. For more information, see [Index granularity]({% link Overview/indexes/primary-index.md %}#advanced-option-index-granularity). |
+| `<index_granularity>` | The maximum number of rows in each granule. `<storage_parameter_value>` must be a power of 2 between 128 and 8192. The default value is 8192. For more information, see [Index granularity]({% link Overview/indexes/primary-index.md %}#advanced-option-index-granularity). |
+| `<compression>` | The compression to use at the table level. The default value is `LZ4`. For more information, see [Custom Compression]({% link Overview/table-and-column-compression.md %}). |
+| `<compression_level>` | The compression level to use  for the specidfied compression. This parameter cannot be set without `compression`. For more information, see [Custom Compression]({% link Overview/table-and-column-compression.md %}). |
 
 All identifiers are case-insensitive unless enclosed in double-quotes. For more information, see [Object identifiers]({% link Reference/object-identifiers.md %}).
 

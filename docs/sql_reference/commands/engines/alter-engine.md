@@ -23,7 +23,6 @@ ALTER ENGINE <engine_name> SET
     [AUTO_START = <true/false>]
     [AUTO_STOP = <minutes>]
     [DEFAULT_DATABASE = <database_name>]
-    [CLUSTERS = <clusters>]
     [MIN_CLUSTERS = <clusters>]
     [MAX_CLUSTERS = <clusters>]
     [NODES = <nodes>]
@@ -39,8 +38,9 @@ ALTER ENGINE <engine_name> SET
 | `<engine_name>`                      | The name of the engine to be altered.        |
 | `AUTO_START = <true/false>`          | When set to `TRUE`, sending a query to a stopped engine will automatically start the engine before processing the query. |
 | `AUTO_STOP = <minutes>`              | Specifies the number of minutes after which an engine automatically stops. Setting `minutes` to `0` disables `AUTO_STOP`. |
+| `AUTO_VACUUM = <on/off>`             | When `on`, the engine will automatically assess the health of tables’ data layout after processing a DML operation, and will run the `VACUUM` command when necessary to maintain the underlying table health. |
 | `DEFAULT_DATABASE = <database_name>` | Specifies the default database that an engine will attempt to use when processing queries that require a database. To remove the default database, set `DEFAULT_DATABASE=default`. |
-| `CLUSTERS = <clusters>`              | Specifies the number of clusters in an engine. Each cluster is a group of nodes, and all clusters within an engine are identical in terms of node type and number of nodes. |
+| `CLUSTERS = <clusters>` (deprecated) | Specifies the number of clusters in an engine. Each cluster is a group of nodes, and all clusters within an engine are identical in terms of node type and number of nodes. |
 | `MIN_CLUSTERS = <clusters>`          | Specifies a minimum number of clusters in an engine. If `MIN_CLUSTERS` is different from `MAX_CLUSTERS`, the engine will automatically change the number of clusters depending on load. If not specified, `1` is used as default. |
 | `MAX_CLUSTERS = <clusters>`          | Specifies a maximum number of clusters in an engine. If `MIN_CLUSTERS` is different from `MAX_CLUSTERS`, the engine will automatically change the number of clusters depending on load. If not specified, `1` is used as default. |
 | `NODES = <nodes>`                    | Specifies the number of nodes in each cluster within an engine. You can specify any integer between `1` to `128`, inclusive. |
@@ -76,6 +76,13 @@ The following code example scales up an engine by increasing its capacity from s
 ALTER ENGINE my_engine SET TYPE = "L";
 ```
 
+### Change Family
+The following code example changes engine's family type to compute-optimized by setting the engine's `FAMILY` parameter to `CO`:
+
+```sql
+ALTER ENGINE my_engine SET FAMILY = "CO";
+```
+
 ### Scale up and out an engine     
 The following code example both scales up and scales out an engine by increasing node capacity and the number of nodes: 
 
@@ -93,7 +100,7 @@ The following code example adjusts the maximum number of engine clusters to enab
 ALTER ENGINE my_engine SET MAX_CLUSTERS = 2;
 ```
 
-## ALTER ENGINE RENAME TO
+## ALTER ENGINE RENAME TO 
 Renames an engine.
 
 ### Syntax

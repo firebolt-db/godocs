@@ -1,5 +1,6 @@
 ---
 redirect_from:
+  - /sql-reference/functions-reference/array-join.html
   - /sql-reference/functions-reference/array-to-string.html
 layout: default
 title: ARRAY_TO_STRING

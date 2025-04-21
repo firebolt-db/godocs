@@ -1,4 +1,6 @@
 ---
+redirect_from:
+  - /sql-reference/functions-reference/concat.html
 layout: default
 title: CONCAT
 description: Reference material for CONCAT function

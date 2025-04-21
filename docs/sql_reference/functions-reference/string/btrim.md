@@ -1,6 +1,5 @@
 ---
 redirect_from:
-  - /sql-reference/functions-reference/trim.html
   - /sql-reference/functions-reference/btrim.html
 layout: default
 title: BTRIM

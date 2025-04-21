@@ -1,6 +1,4 @@
 ---
-redirect_from:
-  - /sql-reference/functions-reference/split.html
 layout: default
 title: SPLIT_PART
 description: Reference material for SPLIT_PART function
