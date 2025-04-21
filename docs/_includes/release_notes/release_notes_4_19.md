@@ -3,7 +3,7 @@
 ### New Features
 
 <!-- Manually added by Mosha for FIR-42774 -->
-** Added support for [GROUPING SETS](../../../sql_reference/commands/queries/select.html#group-by-grouping-sets), [ROLLUP](../../../sql_reference/commands/queries/select.html#group-by-rollup) and [CUBE](../../../sql_reference/commands/queries/select.html#group-by-cube) clauses
+**Added support for [GROUPING SETS](../../../sql_reference/commands/queries/select.html#group-by-grouping-sets), [ROLLUP](../../../sql_reference/commands/queries/select.html#group-by-rollup) and [CUBE](../../../sql_reference/commands/queries/select.html#group-by-cube) clauses**
 Expanded SQL support with the addition of `GROUPING SETS`, `ROLLUP` and `CUBE` clauses for `GROUP BY` operations. These clauses enable more flexible and efficient multi-level aggregations in a single query, simplifying complex reporting and analytics workflows.
 * `GROUPING SETS`: Specify multiple groupings in a single query.
 * `ROLLUP`: Create subtotals that roll up from the most detailed level to a grand total.
@@ -24,7 +24,7 @@ These functions enable deeper insight into relationships between variables, maki
 Added a new function `ARRAY_INTERSECT`, which finds common elements across given arrays. This functionality simplifies operations that require comparing multiple arrays to identify shared items, enhancing data analysis capabilities.
 
 
-**Added the ability to attach a certificate's public key to a service account using ALTER SERVICE ACCOUNT.**          
+**Added the ability to attach a certificate's public key to a service account using ALTER SERVICE ACCOUNT.**
 
 <!-- Manually added by mshneer for FIR-44433 -->
 **Added the ability to control an engine's Auto VACUUM behavior**
