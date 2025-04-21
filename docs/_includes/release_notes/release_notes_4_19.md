@@ -3,7 +3,7 @@
 ### New Features
 
 <!-- Manually added by Mosha for FIR-42774 -->
-** Added support for `GROUPING SETS`, `ROLLUP` and `CUBE` clauses
+** Added support for [GROUPING SETS](../../../sql_reference/commands/queries/select.html#group-by-grouping-sets), [ROLLUP](../../../sql_reference/commands/queries/select.html#group-by-rollup) and [CUBE](../../../sql_reference/commands/queries/select.html#group-by-cube) clauses
 Expanded SQL support with the addition of `GROUPING SETS`, `ROLLUP` and `CUBE` clauses for `GROUP BY` operations. These clauses enable more flexible and efficient multi-level aggregations in a single query, simplifying complex reporting and analytics workflows.
 * `GROUPING SETS`: Specify multiple groupings in a single query.
 * `ROLLUP`: Create subtotals that roll up from the most detailed level to a grand total.
@@ -19,9 +19,8 @@ Added support for advanced statistical analysis directly in SQL with the introdu
 * `CORR`: Returns the Pearson correlation coefficient.
 These functions enable deeper insight into relationships between variables, making it easier to perform in-database analytics without external tools.
 
-
 <!-- Auto Generated Markdown for FIR-37933 - Owned by David Gichev -->
-**Added `ARRAY_INTERSECT` function to find common elements in arrays**          
+**Added [ARRAY_INTERSECT]({%link sql_reference/functions-reference/array/array-intersect.md %}) function to find common elements in arrays**          
 Added a new function `ARRAY_INTERSECT`, which finds common elements across given arrays. This functionality simplifies operations that require comparing multiple arrays to identify shared items, enhancing data analysis capabilities.
 
 
@@ -57,7 +56,7 @@ Join pruning now supports almost any join between the table scan being pruned an
 ### Behavior Changes
 
 <!-- FIR-42938 - Owned by Mariia Kaplun -->
-**Updated how ANY privileges are displayed in `information_schema.object_privileges`**          
+**Updated how ANY privileges are displayed in [information_schema.object_privileges]({%link sql_reference/information-schema/object-privileges.md %})**          
 The representation of privileges in the `information_schema.object_privileges` has been updated so that all objects privileges granted to the user are explicitly enumerated.
 So `usage any database on account` privilege will be expanded to:
 - usage any database on account
