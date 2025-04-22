@@ -3,7 +3,7 @@
 ### New Features
 
 <!-- Manually added by Mosha for FIR-42774 -->
-**Added support for [GROUPING SETS](../../../sql_reference/commands/queries/select.html#group-by-grouping-sets), [ROLLUP](../../../sql_reference/commands/queries/select.html#group-by-rollup) and [CUBE](../../../sql_reference/commands/queries/select.html#group-by-cube) clauses**
+**Added support for [GROUPING SETS](../../../sql_reference/commands/queries/select.html#group-by-grouping-sets), [ROLLUP](../../../sql_reference/commands/queries/select.html#group-by-rollup) and [CUBE](../../../sql_reference/commands/queries/select.html#group-by-cube) clauses**  
 Expanded SQL support with the addition of `GROUPING SETS`, `ROLLUP` and `CUBE` clauses for `GROUP BY` operations. These clauses enable more flexible and efficient multi-level aggregations in a single query, simplifying complex reporting and analytics workflows.
 * `GROUPING SETS`: Specify multiple groupings in a single query.
 * `ROLLUP`: Create subtotals that roll up from the most detailed level to a grand total.
@@ -12,7 +12,7 @@ These enhancements unlock more powerful data summarization directly within SQL.
 
 
 <!-- Manually added by Mosha for FIR-24769 -->
-**Added `COVAR_POP`, `COVAR_SAMP` and `CORR` functions**
+**Added `COVAR_POP`, `COVAR_SAMP` and `CORR` functions**  
 Added support for advanced statistical analysis directly in SQL with the introduction of the following aggregate functions:
 * `COVAR_POP`: Calculates the population covariance between two sets of values.
 * `COVAR_SAMP`: Computes the sample covariance.
@@ -27,7 +27,7 @@ Added a new function `ARRAY_INTERSECT`, which finds common elements across given
 **Added the ability to attach a certificate's public key to a service account using ALTER SERVICE ACCOUNT.**
 
 <!-- Manually added by mshneer for FIR-44433 -->
-**Added the ability to control an engine's Auto VACUUM behavior**
+**Added the ability to control an engine's Auto VACUUM behavior**  
 `CREATE ENGINE` and `ALTER ENGINE` statements now support an `AUTO_VACUUM` parameter.
 
 
