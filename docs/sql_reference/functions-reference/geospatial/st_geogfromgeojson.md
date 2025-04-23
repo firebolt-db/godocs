@@ -18,6 +18,8 @@ Both lines show the LineString from the GeoJSON string `{"coordinates": [[-0.124
 
 <img src="../../../assets/images/geography/geojson_difference.png" alt="An example showing the interpretation of a GeoJSON string according to the GeoJSON standard and in Firebolt." width="600"/>
 
+[Normalization]({% link sql_reference/geography-data-type.md %}#normalization) and [invalid input handling]({% link sql_reference/geography-data-type.md %}#invalid-inputs) are applied as descibed in the [GEOGRAPHY type documentation]({% link sql_reference/geography-data-type.md %}).
+
 ## Syntax
 {: .no_toc}
 

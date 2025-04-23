@@ -91,6 +91,7 @@ The cast from `GEOGRAPHY` to `TEXT` returns the hexadecimal representation of th
 ### Normalization
 
 For all input formats, Firebolt applies normalization steps to the input. These steps ensure that Firebolt can perform operations efficiently and correctly.
+- Longitudes are wrapped to be in the range [-180, 180]. Note that latitudes outside of the range [-90, 90] are rejected.
 - All shapes that overlap a Polygon will be removed. This means that Polygons may be merged if they overlap and LineStrings may be cut to only include the parts outside of any Polygons.
 
 <div style="display: flex; justify-content: flex-start;">

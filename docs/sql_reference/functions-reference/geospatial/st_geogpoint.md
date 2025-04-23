@@ -10,6 +10,8 @@ published: true
 
 Constructs a Point in the `GEOGRAPHY` data type created from specified longitude and latitude coordinates.
 
+Coordinate validation and wrapping is applied as explained in the [GEOGRAPHY type documentation]({% link sql_reference/geography-data-type.md %}#normalization).
+
 ## Syntax
 {: .no_toc}
 
