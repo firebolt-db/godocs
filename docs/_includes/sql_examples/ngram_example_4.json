@@ -1,0 +1,15 @@
+{
+  "errors": [
+    {
+      "description": "Line 1, Column 8: function 'ngram' not found. Did you mean: param?"
+    }
+  ],
+  "query": {
+    "query_id": "fe09eacb-00ad-437e-b14a-99692ab38c20",
+    "query_label": null,
+    "request_id": "4665269e-a6ab-4e04-ae2c-cbd7f1506a81"
+  },
+  "statistics": {
+    "elapsed": 0.0
+  }
+}

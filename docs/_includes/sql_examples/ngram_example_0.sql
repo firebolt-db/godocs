@@ -1,0 +1,1 @@
+SELECT NGRAM(2, 'hello world') AS result;

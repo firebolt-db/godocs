@@ -1,0 +1,1 @@
+SELECT NGRAM(10, 'hi') AS result;

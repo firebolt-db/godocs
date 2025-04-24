@@ -1,0 +1,1 @@
+SELECT NGRAM(2, '😊👍🎉') AS result;
