@@ -35,7 +35,10 @@ Topics:
 
 * **Primary index deduction**
 
-   The primary index for a Firebolt table is established based on the order of the **GROUP BY** keys specified during the creation of an aggregating index. Firebolt physically organizes the data according to these keys, which align with how queries group and aggregate the data. This optimization enables effective data pruning and reduces scan times, making data retrieval more efficient.
+   Because an aggregating index is a unique type of table, when you create an aggregating index, the primary indexes for that created table are established based 
+   on the order of the **GROUP BY** keys specified during the creation of the aggregating index. This primary index works like any other primary index: Firebolt 
+   physically organizes the data according to these keys, which align with how queries group and aggregate the data. This optimization enables effective data 
+   pruning and reduces scan times, making data retrieval more efficient.
 
 ## Syntax
 
