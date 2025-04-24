@@ -30,6 +30,10 @@ Added a new function `ARRAY_INTERSECT`, which finds common elements across given
 **Added the ability to control an engine's Auto VACUUM behavior**  
 `CREATE ENGINE` and `ALTER ENGINE` statements now support an `AUTO_VACUUM` parameter.
 
+<!-- Manually added by Mariia Kaplun for FIR-42321 -->
+**Added the ability to revoke a privilege for a specific object, even if the privilege is inherited via an ANY-privilege from its parent object.**
+We've added the ability to revoke a privilege for a specific object, even when that privilege is inherited through an ANY-privilege granted to the parent object. For example, if a `SELECT ANY` privilege is granted on a schema, it is now possible to revoke the `SELECT` privilege for a specific table within that schema.
+
 
 ### Performance Improvements
 
