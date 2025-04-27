@@ -10,9 +10,8 @@ Expanded SQL support with the addition of `GROUPING SETS`, `ROLLUP` and `CUBE` c
 * `CUBE`: Generate subtotals for all combinations of a set of columns.
 These enhancements unlock more powerful data summarization directly within SQL.
 
-
 <!-- Manually added by Mosha for FIR-24769 -->
-**Added `COVAR_POP`, `COVAR_SAMP` and `CORR` functions**  
+**Added [COVAR_POP] ({%link sql_reference/functions-reference/aggregation/covar-pop.md %}), [COVAR_SAMP] ({%link sql_reference/functions-reference/aggregation/covar-samp.md %}), and [CORR] ({%link sql_reference/functions-reference/aggregation/corr.md %}) functions**  
 Added support for advanced statistical analysis directly in SQL with the introduction of the following aggregate functions:
 * `COVAR_POP`: Calculates the population covariance between two sets of values.
 * `COVAR_SAMP`: Computes the sample covariance.
@@ -31,7 +30,7 @@ Added a new function `ARRAY_INTERSECT`, which finds common elements across given
 `CREATE ENGINE` and `ALTER ENGINE` statements now support an `AUTO_VACUUM` parameter.
 
 <!-- Manually added by Mariia Kaplun for FIR-42321 -->
-**Added the ability to revoke a privilege for a specific object, even if the privilege is inherited via an ANY-privilege from its parent object.**
+**Added the ability to revoke a privilege for a specific object, even if the privilege is inherited via an ANY-privilege from its parent object.**     
 We've added the ability to revoke a privilege for a specific object, even when that privilege is inherited through an ANY-privilege granted to the parent object. For example, if a `SELECT ANY` privilege is granted on a schema, it is now possible to revoke the `SELECT` privilege for a specific table within that schema.
 
 
