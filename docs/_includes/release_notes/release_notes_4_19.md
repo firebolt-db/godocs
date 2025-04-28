@@ -11,11 +11,11 @@ Expanded SQL support with the addition of `GROUPING SETS`, `ROLLUP` and `CUBE` c
 These enhancements unlock more powerful data summarization directly within SQL.
 
 <!-- Manually added by Mosha for FIR-24769 -->
-Added **[COVAR_POP]({% link sql_reference/functions-reference/aggregation/covar-pop.md %})**, **[COVAR_SAMP]({% link sql_reference/functions-reference/aggregation/covar-samp.md %})**, and **[CORR]({% link sql_reference/functions-reference/aggregation/corr.md %})** functions  
-Added support for advanced statistical analysis directly in SQL with the introduction of the following aggregate functions:
-* `COVAR_POP`: Calculates the population covariance between two sets of values.
-* `COVAR_SAMP`: Computes the sample covariance.
-* `CORR`: Returns the Pearson correlation coefficient.
+**Added `COVAR_POP`, `COVAR_SAMP` and `CORR` functions**  
+Added support for advanced statistical analysis directly in SQL with the introduction of the following aggregate functions:  
+* [COVAR_POP]({% link sql_reference/functions-reference/aggregation/covar-pop.md %}) : Calculates the population covariance between two sets of values. 
+* [COVAR_SAMP]({% link sql_reference/functions-reference/aggregation/covar-samp.md %}) : Computes the sample covariance. 
+* [CORR]({% link sql_reference/functions-reference/aggregation/corr.md %}) : Returns the Pearson correlation coefficient. 
 These functions enable deeper insight into relationships between variables, making it easier to perform in-database analytics without external tools.
 
 <!-- Auto Generated Markdown for FIR-37933 - Owned by David Gichev -->
