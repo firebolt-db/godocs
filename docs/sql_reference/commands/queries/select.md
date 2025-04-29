@@ -878,3 +878,29 @@ OFFSET <start>
 | Component | Description                                          | Valid values and syntax |
 | :--------- | :---------------------------------------------------- | :----------------------- |
 | `<start>` | Indicates the number of rows that should be skipped. | An integer.              |
+
+## VALUES Lists
+
+`VALUES` creates an in-memory "constant table" with one or multiple rows for use in queries.
+Each parenthesized list of expressions represents a row.
+All rows must have the same number of elements, and corresponding elements in each row must have compatible data types.
+As an example:
+```
+SELECT * FROM (VALUES (1, 'one'), (2, 'two'), (3, 'three')) AS t (num, letter);
+```
+is effectively equivalent to:
+```
+SELECT 1 AS num, 'one' AS letter
+UNION ALL
+SELECT 2, 'two'
+UNION ALL
+SELECT 3, 'three';
+```
+Syntactically, `VALUES` can be used anywhere a `SELECT` is allowed.
+
+### Syntax
+{: .no_toc}
+
+```
+VALUES ( <expression> [, ...] ) [, ...]
+```
