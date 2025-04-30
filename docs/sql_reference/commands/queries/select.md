@@ -687,7 +687,7 @@ GROUP BY GROUPING SETS ( [ <grouping_set_arg> [, ...n] ] )
 
 | Component          | Description                                                                                                                                                                                                               |
 | :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-|`<grouping_set_arg>`| A proper `<grouping_set>`, a singleton set represented by a `<grouping_element>`, or a empty set represente by a `<grand_total>`. Each argument produces a result equivalent to a simple `GROUP BY <grouping_set_arg>`.   |
+|`<grouping_set_arg>`| A proper `<grouping_set>`, a singleton set represented by a `<grouping_element>`, or an empty set represented by a `<grand_total>`. Each argument produces a result equivalent to a simple `GROUP BY <grouping_set_arg>`.   |
 |`<grouping_set>`    | A comma separated list of `<grouping_element>` wrapped in parentheses `( <grouping_element> [, <grouping_element> ] )`.                                                                                                   |
 |`<grouping_element>`| A column reference, a position from the `SELECT` list or a complex expression. Note that we allow at most 31 distinct grouping elements in the entire `GROUP BY` clause.                                                  |
 |`<grand_total>`     | The empty grouping set `()`.                                                                                                                                                                                              |
