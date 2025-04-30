@@ -71,8 +71,9 @@ FROM '<url>'
     [ ERROR_FILE = <directoryLocation> ]
     [ ERROR_FILE_CREDENTIALS = <credentials> ]
     [ MAX_ERRORS_PER_FILE = { integer | '<percentage>' } ]
-    [ CASE_SENSITIVE_COLUMN_MAPPING = { TRUE | **FALSE** } ]
+    [ CASE_SENSITIVE_COLUMN_MAPPING = { **FALSE** | TRUE } ]
     [ <csv_options> ]
+    [ <parquet_options> ]
 
 <credentials>:
     { AWS_ACCESS_KEY_ID = '<aws_access_key_id>' AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>' [ AWS_SESSION_TOKEN = '<aws_session_token>' ]
@@ -89,6 +90,9 @@ FROM '<url>'
     [ SKIP_BLANK_LINES = { **FALSE** | TRUE } ]
     [ DATE_FORMAT = <date_format> ]
     [ TIMESTAMP_FORMAT = <timestamp_format> ]
+
+<parquet_options>:
+    [ SUPPORT_STRUCTS = { **FALSE** | TRUE } ]
 
 ```
 
@@ -115,7 +119,6 @@ FROM '<url>'
 | `MAX_ERRORS_PER_FILE`         | Specify the maximum number of rows that can be rejected per file. `MAX_ERRORS_PER_FILE` can be an integer or percentage in the format "integer%", such as `100%`. The only valid percentage options are `0%` and `100%`. If you specify an integer value, the `COPY FROM` job will load the job until it encounters the number of errors specified, and then stop the loading job. For example, if you specify `3`, then `COPY FROM` will load data until it encounters `3` errors, and then end the job with an error. If the threshold is exceeded, `COPY FROM` job will stop and return an error. By default, no errors are allowed. If `MAX_ERRORS_PER_FILE` is set to `100%`, then all errors are allowed. |
 | `CASE_SENSITIVE_COLUMN_MAPPING` | Specify if column names should be case-sensitive when mapping from source to target tables. When set to `TRUE`, mapping between source and target columns is case-sensitive, and `COPY FROM` will fail or populate columns with `NULL` values when there is a case mismatch. You can use [QUOTED_IDENTIFERS]({% link Reference/object-identifiers.md %}#quoted-identifiers) as an alternative when requiring case-sensitive behavior. When set to the default `FALSE` value, and if no target table exists, it is created with lowercase column identifiers if the source file's column identifiers have capital, lowercase, or a combination of the two. When set to the default `FALSE` value, and the table already exists, `CASE_SENSITIVE_COLUMN_MAPPING` is ignored, and data will load from source to target. |
 
-
 ### Parameters for CSV files
 
 | Parameter             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
@@ -131,6 +134,12 @@ FROM '<url>'
 | `DATE_FORMAT`         | Specify the date format for parsing text into date columns. This format will apply to all columns loaded as date columns. For supported formats, see [TO_DATE](../../functions-reference/date-and-time/to-date.md).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `TIMESTAMP_FORMAT`    | Specify the timestamp format for parsing text into timestamp columns. The format will apply to all columns loaded as timestamp columns. For supported formats, see [TO_TIMESTAMP](../../functions-reference/date-and-time/to-timestamp.md).                                                                                                                                                                                                                                                                                                                                                                   |
 
+
+### Parameters for Parquet files
+
+| Parameter             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+|:----------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `SUPPORT_STRUCTS`     |  A boolean which specifies whether structs in the source data are to be inferred as STRUCT data types. The default value is `FALSE`. For more information, see [Load Parquet structs](./copy-from.md#load-parquet-structs). |
 
 ## Best practice
 
@@ -412,6 +421,34 @@ COPY col_mismatch
   FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
 WITH HEADER=TRUE MAX_ERRORS_PER_FILE='0%';
 ```
+
+### Load Parquet structs
+
+The `SUPPORT_STRUCTS` parameter controls how structs in Parquet files are handled during schema inference.
+
+```sql
+COPY INTO new_table FROM 's3://path/to/file.parquet'
+WITH TYPE=parquet SUPPORT_STRUCTS=TRUE;
+```
+
+- When `SUPPORT_STRUCTS=TRUE`: Nested structures in the source data will be treated as `STRUCT` data types.
+- When `SUPPORT_STRUCTS=FALSE`: Nested structures in the source data will be treated as individual shredded columns.
+
+
+`SUPPORT_STRUCTS` applies only **during schema discovery**: It controls the type inference process for structs.
+When working with **predefined schemas**: It has no effect, as the system maps incoming data to your defined schema.
+
+```sql
+-- Example with STRUCT column. SUPPORT_STRUCTS is not used because it would have no effect.
+CREATE TABLE table_with_struct_type (kv STRUCT(key INT, value TEXT);
+COPY INTO table_with_struct_type FROM 's3://path/to/file.parquet';
+
+-- Example with shredded struct columns. Again, SUPPORT_STRUCTS is not used because it would have no effect.
+CREATE TABLE table_without_struct_type ("kv.key" INT, "kv.value" TEXT);
+COPY INTO table_without_struct_type FROM 's3://path/to/file.parquet';
+```
+
+Note that we do not fully support mixed cases with regular structs and shredded structs. Internally, we check if the header has at least one struct column. If it does, it will prioritize ingest into struct columns and will not attempt to match shredded columns. We recommend using a consistent schema design that follows either the struct-based or shredded column pattern.
 
 ### Error handling
 The following sections show you how to handle errors for both CSV and Parquet files.
