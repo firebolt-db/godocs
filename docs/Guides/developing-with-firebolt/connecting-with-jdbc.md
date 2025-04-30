@@ -165,7 +165,7 @@ The following table lists the available parameters that can be added to a Firebo
 | ssl_mode                             | TEXT      | `strict`                                     | `strict` or `none`  | When set to `strict`, the SSL or TLS certificate is validated for accuracy and authenticity. If set to `none`, certificate verification is omitted.                                                                                        |
 | ssl_certificate_path                 | TEXT      | No default value.                           |                 | The absolute file path for the SSL root certificate.                                                                                                                                                                  |
 | validate_on_system_engine            | BOOLEAN   | `FALSE`                                      | `TRUE` or `FALSE`   | When set to `TRUE`, the connection is always validated against a system engine, even if it's connected to a regular engine. For more information, see [Connection validation](#connection-validation).                     |
-
+| cache_connection                     | BOOLEAN   | `TRUE`                                       | `TRUE` or `FALSE`   | Keep this enabled for better performance when interacting with Firebolt. If you experience connection issues that might be related to stale cache set this to FALSE. Available only with JDBC driver version 3.6.1 and above. |
 
 ### System settings as connection parameters
 
