@@ -90,11 +90,20 @@ Users must be aware that `VACUUM` consumes both compute and storage resources.
 `VACUUM` produces optimized versions of the data, while leaving behind older versions subject to the garbage collection (GC) process. These older tablets will continue to consume storage space until the GC process completes the clean-up.
 
 If users would like to have precise control over `VACUUM`, it may be preferable to run on a dedicated engine that could be sized and run just for `VACUUM` operations. With `VACUUM` running on a dedicated engine, it would not conflict with other queries' execution and cache resources, and would provide operational separation from other scenarios.
-`VACUUM` produces more optimal tablets when it is run on a single node engine, especially if table is partitioned. Because `VACUUM` only merges tablets that are assigned to the same node, and only tablets from the same partition can be merged together, single node `VACUUM` has opportunity to pre-sort more data according to the Primary Index, which later results in more targeted granule selection for efficient IO.
 
-`VACUUM` may introduce a performance penalty as the newly created optimized tablets need to be synchronized with other engines operating on the same table(s).
+As a general guidance, the smaller is the number of tablets the better Firebolt queries perform. Following this principle,
+running `VACUUM` on a single-node engine produces less tablets.
+This is because `VACUUM` can only merge tablets that are both:
+
+* Assigned to the same node, and
+* Belong to the same partition.
+
+This principle is especially important for high-cardinality table partitions.
+
+Finally, `VACUUM` may introduce a temporary performance penalty as the newly created optimized tablets need to be synchronized to other engines operating on the same table(s).
 
 ### VACUUM and Auto VACUUM observability
+
 There are several aspects of `VACUUM` that you can examine using the information schema tables.
 
 Auto VACUUM settings for an engine can be checked using the `information_schema.engines` view and looking at the column `auto_vacuum`. Engines with Auto VACUUM explicitly enabled will have the value `true` and when disabled will have the value `false`. Another possible value is `null` &ndash; this indicates default behavior of Auto `VACUUM` which is enabled.
@@ -103,26 +112,26 @@ The fragmentation ratio, defined as the ratio of rows marked for deletion to the
 
 You can see the number of tablets for a table by querying `information_schema.tables` and looking at the column `number_of_tablets`. Typically, a `VACUUM` operation will reduce this number as tablets are merged to an optimal state to maintain the underlying health of your tables.
 
-Additionally, both `information_schema.engine_running_queries` and `information_schema.engine_query_history` show `VACUUM` telemetry in the `telemetry` column, which contains a JSON blob. `VACUUM` operation creates multiple jobs, each one responsible for specific portion of table or aggregating index. One can observe the progress and telemetry of both VACUUM operation and its jobs by inspecting the `vacuum_stats` object in the JSON blob.
+Additionally, both `information_schema.engine_running_queries` and `information_schema.engine_query_history` show `VACUUM` telemetry in the `telemetry` column, which contains JSON. `VACUUM` operation creates multiple jobs, each one responsible for specific portion of table or aggregating index. One can observe the progress and telemetry of both `VACUUM` operation and its jobs by inspecting the `vacuum_stats` object in the JSON.
 
-For the VACUUM operation itself, the fields in `vacuum_stats` are:
+For the `VACUUM` operation itself, the fields in `vacuum_stats` are:
 
 |Field              |Description |
 |:------------------|:------------|
 |`type`             |Always set to `vacuum` |
-|`objects`          |Number of tables and aggregating indexes the command operates on.|
-|`processed_objects`|Number of tables and/or aggregating indexes have been already vacuumed.|
-|`success_jobs`     |Number of jobs completed successfully.|
-|`failed_jobs`| Number of failed jobs.|
+|`objects`          |Number of tables and aggregating indexes the command operates on|
+|`processed_objects`|Number of tables and aggregating indexes have been already vacuumed|
+|`success_jobs`     |Number of jobs completed successfully|
+|`failed_jobs`| Number of failed jobs|
 
-For the VACUUM job, the fields in `vacuum_stats` are:
+For the `VACUUM` job, the fields in `vacuum_stats` are:
 
 |Field              |Description |
 |:------------------|:------------|
 |`type`             |Always set to `vacuum_job` |
-|`parent_query_id`  |The unique identifier of the VACUUM command this sub-job is part of. |
-|`node-ordinal`     |The ordinal number of the node the sub-job is running on.|
-|`tablets`     |Number of tablets that the sub-job is optimizing|
+|`parent_query_id`  |The unique identifier of the `VACUUM` command this sub-job is part of |
+|`node-ordinal`     |The ordinal number of the node the sub-job is running on |
+|`tablets`     |Number of tablets that the sub-job is optimizing |
 |`rows`     |Total number of rows (included deleted rows) in those `tablets` |
 |`deleted_rows`     |Total number of deleted rows in those `tablets` |
 
@@ -145,7 +154,6 @@ AND STATUS = 'ENDED_SUCCESSFULLY';
 |{"vacuum_stats":{"type":"vacuum_job", "version":"v0.0.0", "parent_query_id":"c1bf80a4-005b-4063-a271-696de6906471", "node_ordinal":1, "tablets":1, "rows":2, "deleted_rows":1}}|
 |{"vacuum_stats":{"type":"vacuum_job", "version":"v0.0.0", "parent_query_id":"c1bf80a4-005b-4063-a271-696de6906471", "node_ordinal":1, "tablets":2, "rows":2, "deleted_rows":0}}|
 |{"vacuum_stats":{"type":"vacuum", "version":"v0.0.0", "objects":1, "processed_objects":1, "success_jobs":2, "failed_jobs":0}}
-
 
 ### Example with measuring the performance impact of VACUUM
 
