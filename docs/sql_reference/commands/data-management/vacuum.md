@@ -20,7 +20,7 @@ By default, any engine that processes a DML operation automatically assesses the
 ALTER ENGINE <name> SET AUTO_VACUUM = OFF;
 ```
 
-Firebolt recommends keeping the default setting to maintain optimal layout of your tables' underlying data.  
+Firebolt recommends keeping the default setting to maintain optimal layout of your tables' underlying data.
 
 You can also run `VACUUM` manually using the syntax and options described below.
 
@@ -43,9 +43,9 @@ Where `<table|aggregating index>` is the name of the table or aggregating index 
 ## Examples
 {: .no_toc}
 
-**Optimize a table and its aggregating indexes** 
+**Optimize a table and its aggregating indexes**
 
-Optimizing a table along with its aggregating indexes ensures that both the data and aggregating indexes remain efficient, reducing query latency and improving overall performance.   
+Optimizing a table along with its aggregating indexes ensures that both the data and aggregating indexes remain efficient, reducing query latency and improving overall performance.
 The following code example optimizes the `games` table and all its aggregating indexes:
 
 ```text
@@ -59,7 +59,7 @@ VACUUM (INDEXES = INCREMENTAL) games;
 
 **Optimize a table without its indexes**
 
-If you need to optimize a table without including its aggregating indexes to reduce resource usage, or retain efficient indexes, you can optimize only the table to prevent unnecessary computations.  
+If you need to optimize a table without including its aggregating indexes to reduce resource usage, or retain efficient indexes, you can optimize only the table to prevent unnecessary computations.
 The following code example optimizes the `players` table without updating its aggregating indexes:
 
 ```text
@@ -72,34 +72,87 @@ Optimize table named `players`, using a single concurrent stream.
 VACUUM (MAX_CONCURRENCY = 1) players;
 ```
 
-### Usage Notes
+## Usage Notes
 
 The following are considerations for running the `VACUUM` command:
 
-* **What happens during VACUUM**<br>
-`VACUUM` analyzes the tablets, selects the ones that are too small or have too many deleted rows, and produces new versions that are optimized for query execution for both tablets and Aggregate Indexes.<br>
-`VACUUM` runs as a non-blocking process, alongside other user-initiated operations. Consequently, some changes performed by `VACUUM` may conflict with mutations run by the user.  If `VACUUM` and a user mutation modify the same data, the first committed operation takes precedence; see [Transactions and concurrency]({% link Overview/data-management.md %}#transactions-and-concurrency) for more details. This means that applications that run mutations in parallel with `VACUUM` should gracefully handle transaction conflicts. It also means that benefits of the `VACUUM` may be diminished by a mutation that committed data first.<br>
+### What happens during VACUUM
+`VACUUM` analyzes the tablets, selects the ones that are too small or have too many deleted rows, and produces new versions that are optimized for query execution for both tablets and Aggregate Indexes.
 
-* **Space and performance considerations**<br>
-Users must be aware that `VACUUM` consumes both compute and storage resources.<br>
-`VACUUM` can consume a considerable amount of compute resources depending on the table size, number of tablets, and number of mutations in the table.<br>
-`VACUUM` parallelizes its work into multiple concurrent streams, based on the number of CPU cores. While this can be beneficial for the speed of the operation, each stream consumes memory and CPU resources. Use the `MAX_CONCURRENCY` option to limit the number of concurrent streams.<br>
-`VACUUM` produces optimized versions of the data, while leaving behind older versions subject to the garbage collection (GC) process. These older tablets will continue to consume storage space until the GC process completes the clean-up.<br>
-If users would like to have precise control over `VACUUM`, it may be preferable to run on a dedicated engine that could be sized and run just for `VACUUM` operations. With `VACUUM` running on a dedicated engine, it would not conflict with other queries' execution and cache resources, and would provide operational separation from other scenarios.<br>
-`VACUUM` may introduce a performance penalty as the newly created optimized tablets need to be synchronized with other engines operating on the same table(s).<br>
+`VACUUM` runs as a non-blocking process, alongside other user-initiated operations. Consequently, some changes performed by `VACUUM` may conflict with mutations run by the user.  If `VACUUM` and a user mutation modify the same data, the first committed operation takes precedence; see [Transactions and concurrency]({% link Overview/data-management.md %}#transactions-and-concurrency) for more details. This means that applications that run mutations in parallel with `VACUUM` should gracefully handle transaction conflicts. It also means that benefits of the `VACUUM` may be diminished by a mutation that committed data first.
 
-* **VACUUM and AUTOMATIC VACUUM OBSERVABILITY**<br>
-There are several aspects of `VACUUM` that you can examine using the information schema tables. Auto VACUUM settings for an engine can be checked using the `information_schema.engines` view and looking at the column `auto_vacuum`. Engines with Auto `VACUUM` explicitly enabled will have the value `true` and when disabled will have the value `false`. Another possible value is `null` &ndash; this indicates default behavior of Auto `VACUUM` which is enabled.
- 
-The fragmentation ratio, defined as the ratio of rows marked for deletion to the total number of rows, can be monitored using the `information_schema.tables` view and looking at the "fragmentation" column. When a `VACUUM` operation completes for a table, you should expect to see the fragmentation ratio go down. 
- 
- Lastly, you can see the number of tablets for a table by querying `information_schema.tables` and looking at the column `number_of_tablets`. Typically, a `VACUUM` operation will reduce this number as tablets are merged to an optimal state to maintain the underlying health of your tables.
+### Space and performance considerations
+Users must be aware that `VACUUM` consumes both compute and storage resources.
+`VACUUM` can consume a considerable amount of compute resources depending on the table size, number of tablets, and number of mutations in the table.
+
+`VACUUM` parallelizes its work into multiple concurrent streams, based on the number of CPU cores. While this can be beneficial for the speed of the operation, each stream consumes memory and CPU resources. Use the `MAX_CONCURRENCY` option to limit the number of concurrent streams.
+
+`VACUUM` produces optimized versions of the data, while leaving behind older versions subject to the garbage collection (GC) process. These older tablets will continue to consume storage space until the GC process completes the clean-up.
+
+If users would like to have precise control over `VACUUM`, it may be preferable to run on a dedicated engine that could be sized and run just for `VACUUM` operations. With `VACUUM` running on a dedicated engine, it would not conflict with other queries' execution and cache resources, and would provide operational separation from other scenarios.
+`VACUUM` produces more optimal tablets when it is run on a single node engine, especially if table is partitioned. Because `VACUUM` only merges tablets that are assigned to the same node, and only tablets from the same partition can be merged together, single node `VACUUM` has opportunity to pre-sort more data according to the Primary Index, which later results in more targeted granule selection for efficient IO.
+
+`VACUUM` may introduce a performance penalty as the newly created optimized tablets need to be synchronized with other engines operating on the same table(s).
+
+### VACUUM and Auto VACUUM observability
+There are several aspects of `VACUUM` that you can examine using the information schema tables.
+
+Auto VACUUM settings for an engine can be checked using the `information_schema.engines` view and looking at the column `auto_vacuum`. Engines with Auto VACUUM explicitly enabled will have the value `true` and when disabled will have the value `false`. Another possible value is `null` &ndash; this indicates default behavior of Auto `VACUUM` which is enabled.
+
+The fragmentation ratio, defined as the ratio of rows marked for deletion to the total number of rows, can be monitored using the `information_schema.tables` view and looking at the `fragmentation` column. When a `VACUUM` operation completes for a table, you should expect to see the fragmentation ratio go down.
+
+You can see the number of tablets for a table by querying `information_schema.tables` and looking at the column `number_of_tablets`. Typically, a `VACUUM` operation will reduce this number as tablets are merged to an optimal state to maintain the underlying health of your tables.
+
+Additionally, both `information_schema.engine_running_queries` and `information_schema.engine_query_history` show `VACUUM` telemetry in the `telemetry` column, which contains a JSON blob. `VACUUM` operation creates multiple jobs, each one responsible for specific portion of table or aggregating index. One can observe the progress and telemetry of both VACUUM operation and its jobs by inspecting the `vacuum_stats` object in the JSON blob.
+
+For the VACUUM operation itself, the fields in `vacuum_stats` are:
+
+|Field              |Description |
+|:------------------|:------------|
+|`type`             |Always set to `vacuum` |
+|`objects`          |Number of tables and aggregating indexes the command operates on.|
+|`processed_objects`|Number of tables and/or aggregating indexes have been already vacuumed.|
+|`success_jobs`     |Number of jobs completed successfully.|
+|`failed_jobs`| Number of failed jobs.|
+
+For the VACUUM job, the fields in `vacuum_stats` are:
+
+|Field              |Description |
+|:------------------|:------------|
+|`type`             |Always set to `vacuum_job` |
+|`parent_query_id`  |The unique identifier of the VACUUM command this sub-job is part of. |
+|`node-ordinal`     |The ordinal number of the node the sub-job is running on.|
+|`tablets`     |Number of tablets that the sub-job is optimizing|
+|`rows`     |Total number of rows (included deleted rows) in those `tablets` |
+|`deleted_rows`     |Total number of deleted rows in those `tablets` |
+
+Consider following example:
+```sql
+CREATE TABLE vacuum_example (a int, b int) PARTITION BY a;
+INSERT INTO vacuum_example VALUES (1, 1);
+INSERT INTO vacuum_example VALUES (1, 2);
+INSERT INTO vacuum_example VALUES (2, 1), (2, 2);
+DELETE FROM vacuum_example WHERE a = 2 and b = 2;
+VACUUM vacuum_example;
+
+SELECT telemetry
+FROM information_schema.engine_query_history WHERE query_text LIKE 'VACUUM%'
+AND STATUS = 'ENDED_SUCCESSFULLY';
+```
+
+| telemetry |
+|:----|
+|{"vacuum_stats":{"type":"vacuum_job", "version":"v0.0.0", "parent_query_id":"c1bf80a4-005b-4063-a271-696de6906471", "node_ordinal":1, "tablets":1, "rows":2, "deleted_rows":1}}|
+|{"vacuum_stats":{"type":"vacuum_job", "version":"v0.0.0", "parent_query_id":"c1bf80a4-005b-4063-a271-696de6906471", "node_ordinal":1, "tablets":2, "rows":2, "deleted_rows":0}}|
+|{"vacuum_stats":{"type":"vacuum", "version":"v0.0.0", "objects":1, "processed_objects":1, "success_jobs":2, "failed_jobs":0}}
+
 
 ### Example with measuring the performance impact of VACUUM
 
 Over time, operations such as `INSERT`, `DELETE`, and `UPDATE` can create suboptimal tablets that decrease query performance. The `VACUUM` command restructures these tablets by removing deleted rows and optimizing storage, leading to faster queries.
 
 This example demonstrates the impact of `VACUUM` by:
+
 1. Creating a large table with 10 million rows.
 2. Deleting 90% of the rows, leaving behind fragmented data.
 3. Running a query before and after `VACUUM` to compare run times.
