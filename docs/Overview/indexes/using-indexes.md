@@ -18,13 +18,13 @@ nav_order: 5
 
 Firebolt optimizes data storage and retrieval by using indexing, partitioning, and compute scaling to enhance query efficiency. Design your data model and use databases, tables, and indexes to optimize query performance.
 
-* **Minimizing data scans**  
+* **Minimizing data scans**
 Firebolt indexes retrieve only the specific data ranges needed to satisfy a query, reducing the amount of data scanned.
-* **Automatic index maintenance**  
+* **Automatic index maintenance**
 During data loading, Firebolt automatically sorts, compresses, and incrementally updates indexes to keep them optimized.
-* **Tablet-based optimization**  
+* **Tablet-based optimization**
 Data and indexes are committed as tablets, which Firebolt automatically merges and optimizes as the data evolves.
-* **Best practices for performance**  
+* **Best practices for performance**
 This guide provides recommendations for organizing tables, indexes, and data to achieve fast query results and peak performance.
 
 ## How it works
@@ -37,7 +37,7 @@ Firebolt’s indexing and partitioning strategies are designed to take advantage
 
 Firebolt also separates compute resources from storage resources so you can scale either up or down depending on your use case. Optimize your resources based on your changing workloads, and pay only for what you use.
 
-Firebolt’s data modeling strategies work best with **Firebolt’s managed tables**, which leverage Firebolt’s performance optimizations. External tables, which allow users to access data without loading it into Firebolt, provide flexibility for querying external data sources like Amazon S3, but they do not offer the same performance benefits as managed tables. 
+Firebolt’s data modeling strategies work best with **Firebolt’s managed tables**, which leverage Firebolt’s performance optimizations. External tables, which allow users to access data without loading it into Firebolt, provide flexibility for querying external data sources like Amazon S3, but they do not offer the same performance benefits as managed tables.
 
 The following sections show you how to use the previous data modeling strategies to decrease the number of bytes scanned to improve query performance, reduce storage costs, and optimize compute resources.
 
@@ -63,7 +63,7 @@ Topics:
         - [Create an aggregating index](#create-an-aggregating-index)
         - [Best practices for aggregate indexes](#best-practices-for-aggregate-indexes)
       - [Partitions in tables](#partitions-in-tables)
-        - [Create a partition](#create-a-partition)
+        - [Create a partition](#create-a-partitioned-table)
       - [Suggested indexes and partitions](#suggested-indexes-and-partitions)
     - [Additional resources](#additional-resources)
 
@@ -71,17 +71,17 @@ Topics:
 
 ### Databases
 
-**Logical structure**  
+**Logical structure**
 In Firebolt, a database is a logical structure that organizes and stores data for efficient querying and management. Databases are created using the `CREATE DATABASE` statement and can be modified or deleted using `ALTER` and `DROP`.
 
-**Compute and storage separation**  
+**Compute and storage separation**
 Firebolt separates compute and storage layers, ensuring databases are efficiently managed without impacting processing power.
 
-**Data Security**  
+**Data Security**
 Databases integrate with Firebolt's data security layers, enforcing access controls and user permissions to safeguard sensitive information.
 
-**Performance and integration**  
-- **Fast analytics**: Firebolt databases enable quick querying of large datasets, supporting fast analytics.  
+**Performance and integration**
+- **Fast analytics**: Firebolt databases enable quick querying of large datasets, supporting fast analytics.
 - **Third-Party integration**: They are easily integrated with third-party tools through APIs and drivers for programming languages like Python and .NET.
 
 Database topics:
@@ -102,13 +102,13 @@ Firebolt provides two types of engines:
 The following code example creates a `test_library` database with an optional description:
 
 ```sql
-CREATE DATABASE IF NOT EXISTS test_library 
+CREATE DATABASE IF NOT EXISTS test_library
     WITH DESCRIPTION = 'database about library';
 ```
 
 #### Manage a database
 
-After you create a database, you can create additional objects and run queries within it. You can also modify the database parameters. 
+After you create a database, you can create additional objects and run queries within it. You can also modify the database parameters.
 
 The following code example modifies the description of a database:
 
@@ -116,7 +116,7 @@ The following code example modifies the description of a database:
 ALTER DATABASE library SET DESCRIPTION = 'database about library';
 ```
 
-You can delete a database with [DROP DATABASE]({% link sql_reference/commands/data-definition/drop-database.md %}), which permanently deletes the database and all its contents. Since this action cannot be undone, use it carefully. Create a backup before dropping the database to prevent data loss. 
+You can delete a database with [DROP DATABASE]({% link sql_reference/commands/data-definition/drop-database.md %}), which permanently deletes the database and all its contents. Since this action cannot be undone, use it carefully. Create a backup before dropping the database to prevent data loss.
 
 The following code example uses the optional `IF EXISTS` clause to see if the `test_library` database exists, and then deletes it:
 
@@ -146,7 +146,7 @@ The developers have two options:
 1. Store the new region's data in the existing database.
 2. Create a separate database specifically for the new region.
 
-**Recommended solution** 
+**Recommended solution**
 Create a separate database for the new region for the following reasons:
 * **Optimal Query Performance** &ndash; Firebolt's decoupled architecture requires metadata synchronization for schema changes. As the number of tables in a database grows, this synchronization can introduce slight query latency. Storing data for each region in separate databases eliminates this risk and ensures efficient query performance.
 * **Improved data isolation** &ndash; Queries for one region are not impacted by schema changes in another. Separate databases allow role-based access control, restricting access to data by region, which enhances security and operational control.
@@ -201,7 +201,7 @@ By designing tables with both fact and dimension roles, users can optimize data 
 
 **Fact tables**
 
-The following code example creates a **fact table**: 
+The following code example creates a **fact table**:
 
 ```sql
 CREATE TABLE borrowedbooks (
@@ -218,7 +218,7 @@ The internal structure of a fact table facilitates fast access to data even for 
 
 **Dimension tables**
 
-Dimension tables are often replicated across all nodes, which enhances query performance and ensures quick access to frequently referenced information. 
+Dimension tables are often replicated across all nodes, which enhances query performance and ensures quick access to frequently referenced information.
 
 The following code example creates a **dimension table**:
 
@@ -244,7 +244,7 @@ After you create a table, you can modify your table ownership, delete it includi
 
 **Change table ownership**
 
-To change the ownership of a table, use the ALTER TABLE statement with the OWNER TO clause. 
+To change the ownership of a table, use the ALTER TABLE statement with the OWNER TO clause.
 
 The following command assigns a new owner to the `borrowedbooks` table:
 
@@ -264,7 +264,7 @@ DROP TABLE IF EXISTS borrowedbooks;
 
 **Delete a managed table that has dependencies**
 
-If the table that you want to delete has dependent objects such as views or aggregating indexes, you can use the `CASCADE` option to remove all dependencies together. 
+If the table that you want to delete has dependent objects such as views or aggregating indexes, you can use the `CASCADE` option to remove all dependencies together.
 
 The following code deletes the `borrowedbooks` table and all related objects:
 
@@ -305,7 +305,7 @@ CREATE TABLE borrowedbooks_pi(
   late_fees NUMERIC)
 PRIMARY INDEX (book_id, checkout_date);
 ```
-In the previous example, [CREATE TABLE]({% link sql_reference/commands/data-definition/create-fact-dimension-table.md %}) creates a fact table by default, and the primary index acts as a composite index of both the `book_id` and `checkout_date` columns. 
+In the previous example, [CREATE TABLE]({% link sql_reference/commands/data-definition/create-fact-dimension-table.md %}) creates a fact table by default, and the primary index acts as a composite index of both the `book_id` and `checkout_date` columns.
 
 You can also create a primary index on a dimension table as shown in the following code example:
 
@@ -370,7 +370,7 @@ CREATE AGGREGATING INDEX agg_total_late_fees
 
 Additionally, aggregating indexes integrate seamlessly with Firebolt’s partitioning strategies, further improving query performance by allowing the query engine to access only the relevant partitions. This reduces the amount of data scanned and processed, particularly when dealing with large, partitioned datasets. The combination of partition pruning and aggregate indexing helps achieve superior query performance in data-intensive environments, allowing for quicker insights and more efficient use of system resources.
 
-##### Best practices for aggregate indexes 
+##### Best practices for aggregate indexes
 
 To optimize query performance and manage resources effectively, follow these best practices for creating and maintaining aggregating indexes:
 
@@ -381,11 +381,22 @@ To optimize query performance and manage resources effectively, follow these bes
 
 #### Partitions in tables
 
-Firebolt's table partitioning supports efficient data lifecycle management by organizing data based on specific criteria: date ranges, regions, product categories, or customer types. This helps streamline data retention, archiving, and access, ensuring optimal performance. Partitioning reduces the amount of data scanned during queries, improving speed, particularly when query patterns consistently filter data by columns like date or region. It also enables data pruning, skipping partitions that don’t match the query criteria, making tasks like vacuuming and archiving more efficient.
+Firebolt’s table partitioning improves query performance and data lifecycle management by physically organizing data according to values in one or more partition key columns — commonly date, region, or category. Effective partitioning reduces the volume of data scanned during queries by enabling partition pruning, where irrelevant partitions are skipped entirely. This improves performance, and also makes operations like vacuuming and archiving more efficient.
 
-##### Create a partition
+##### Best practices for partitioning
 
-You can create a partition for a new table; however, it's recommended to define the partition when creating a new table to ensure the data is organized from the start.
+To optimize query performance and data lifecycle management, follow these best practices when defining and maintaining table partitions:
+
+* **Focus on frequent filters** &ndash; Partitions are only effective when your queries consistently filter on the partition key columns. Without the opportunity for pruning, partitions merely fragment your data.
+* **Avoid over-partitioning** &ndash; Limit the number of partitions to under 1,000. A reasonable number of partitions will ensure that the physical data is not overly spread out, and amortize the overhead of processing separate physical batches.
+**Use fixed-size types for keys** &ndash; Fixed-size types like `DATE` or `INTEGER` make it easier to reason about and control partition cardinality — such as maintaining one partition per day over the last three years, or one partition per month over the last 80 years. In contrast, variable-length types like `STRING` can evolve unpredictably. For example, a `product_category` column that starts with a dozen values may grow to thousands of distinct entries over time, unintentionally ballooning the number of partitions and hurting performance.
+* **Balance partition sizes** &ndash; Strive for even data distribution across partitions. If most of your data resides in a single partition, pruning will not be effective, and performance gains will be minimal.
+* **Consider future growth** &ndash; Choose a partitioning strategy that will scale with your data volume. Re-partitioning an existing tables will require full re-ingest.
+**Prefer primary indexes when in doubt** &ndash; If your queries consistently filter on certain columns, defining a **primary index** is generally safer and more flexible than forcing a partition — offering similar performance benefits without the rigidity or potential downsides of over-partitioning. 
+
+##### Create a partitioned table
+
+Partitioning is defined during table creation. This ensures that data is physically organized from the outset.
 
 The following code example **creates a new table** with a primary index, and partitions the table by month:
 
@@ -403,20 +414,22 @@ PRIMARY INDEX transaction_id
 PARTITION BY DATE_TRUNC('month', checkout_date);
 ```
 
-In the previous example, the new `librarybooks` table is partitioned by the month of `checkout_date`, so that Firebolt can prune irrelevant partitions and speed up queries for specific date ranges. 
+In this example, the table is partitioned by the month of `checkout_date`, allowing Firebolt to skip entire months of data when queries filter by date ranges.
 
-You can **drop** an existing partition as shown in the following code example, which removes a partition for January 1, 2023:
+To **drop** an existing partition, use `ALTER TABLE ... DROP PARTITION`. For example, to remove all records for January 2023:
 
 ``` sql
 ALTER TABLE borrowedbooks
 DROP PARTITION '2023-01-01';
 ```
 
+This removes the physical partition corresponding to data from that month.
+
 #### Suggested indexes and partitions
 
-If you understand your data and query patterns, you should select high-cardinality columns frequently used in `WHERE`, `JOIN`, or `GROUP BY` clauses to minimize the amount of data scanned and improve query efficiency. 
+If you understand your data and query patterns, you should select high-cardinality columns frequently used in `WHERE`, `JOIN`, or `GROUP BY` clauses to minimize the amount of data scanned and improve query efficiency.
 
-If you don’t know how to effectively select a primary index or partition your data, you can use Firebolt's [RECOMMEND_DDL]({% link sql_reference/commands/queries/recommend_ddl.md %}) tool to provide automated insights. `RECOMMEND_DDL` will make recommendations to optimize database performance by analyzing your query patterns and suggesting the most efficient configurations for primary indexes and partitioning. By examining historical query data, the tool identifies columns frequently used in filtering, grouping, or aggregating operations and recommends appropriate primary indexes and partition keys. These suggestions help reduce the amount of data scanned during queries, enabling faster execution and improved resource utilization. 
+If you don’t know how to effectively select a primary index or partition your data, you can use Firebolt's [RECOMMEND_DDL]({% link sql_reference/commands/queries/recommend_ddl.md %}) tool to provide automated insights. `RECOMMEND_DDL` will make recommendations to optimize database performance by analyzing your query patterns and suggesting the most efficient configurations for primary indexes and partitioning. By examining historical query data, the tool identifies columns frequently used in filtering, grouping, or aggregating operations and recommends appropriate primary indexes and partition keys. These suggestions help reduce the amount of data scanned during queries, enabling faster execution and improved resource utilization.
 
 `RECOMMEND_DDL` is particularly useful in complex environments where query patterns evolve over time. By reviewing historical query data, Firebolt identifies columns that are frequently used in filtering or aggregation and recommends appropriate primary index and partitioning strategies.
 
@@ -439,7 +452,5 @@ The example output under `recommended_partition_key` suggests partitioning the `
 
 ### Additional resources
 
-* [Working with tables]({% link Overview/indexes/using-indexes.md %}#firebolt-managed-tables) &ndash; An overview of how to create, manage, and optimize tables.
-* [Partitions in tables]({% link Overview/indexes/using-indexes.md %}#partitions-in-tables) &ndash; How to divide large tables into smaller partitions for optimal query efficiency and performance.
 * [RECOMMEND_DDL]({% link sql_reference/commands/queries/recommend_ddl.md %}) &ndash; Information on syntax, parameters and examples of using Firebolt’s tool to automatically recommend optimal primary index and partition strategies.
 
