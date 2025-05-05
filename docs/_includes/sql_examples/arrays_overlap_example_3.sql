@@ -1,1 +1,0 @@
-SELECT ARRAYS_OVERLAP(NULL, ARRAY[1, 2]) AS have_overlap
