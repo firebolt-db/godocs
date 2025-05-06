@@ -13,7 +13,7 @@ Deletes a database.
 ## Syntax
 {: .no_toc}
 
-Deletes the database and all of its tables and attached engines.
+Deletes the database and all of its objects including tables, views and aggregating indexes.
 
 ```DROP DATABASE [IF EXISTS] <database_name>```
 
