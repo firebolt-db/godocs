@@ -19,7 +19,22 @@ Common formats of semi-structured data include:
 * **Parquet and ORC**&mdash; Serialization formats that support nested structures and complex data types. For  information on loading Parquet data with Firebolt, see [Load semi-structured Parquet data]({% link Guides/loading-data/working-with-semi-structured-data/load-parquet-data.md %}). 
 
 ## Firebolt's approach to semi-structured data
-Firebolt transforms semi-structured data using arrays, enabling efficient querying. Arrays in Firebolt represent the following data constructs:
 
-* **Variable-length arrays**&mdash; Arrays with unpredictable lengths in the source data are supported by Firebolt. These arrays can have arbitrary nesting levels, provided the nesting level is consistent within a column and known during table creation. 
-* **Maps**&mdash; Maps, also known as dictionaries, are represented using two coordinated arrays&mdash;one for keys and one for values. This approach is particularly useful for JSON-like data where objects have varying keys.
+Firebolt transforms semi-structured data using arrays and structs, enabling efficient querying. These data types allow for flexible modeling of nested and hierarchical data.
+
+### Arrays
+
+Firebolt supports arrays with unpredictable lengths in the source data. These arrays can have arbitrary nesting levels, provided the nesting level is consistent within a column and known during table creation. For more details, see [Work with arrays]({% link Guides/loading-data/working-with-semi-structured-data/working-with-arrays.md %}).
+
+### Structs
+
+The `STRUCT` data type allows you to group multiple attributes of varying data types into a single logical unit. This is especially useful for modeling nested or hierarchical data. For more information, see [STRUCT data type]({% link sql_reference/struct-data-type.md %}).
+
+### Maps
+
+Maps, also known as dictionaries, are not supported natively by Firebolt at the moment. However, there are
+different approaches to represent them in Firebolt using arrays and structs.
+
+* A map can be represented using two coordinated arrays&mdash;one for keys and one for values. This approach is particularly useful for JSON-like data where objects have varying keys.
+
+* Alternatively, a map can be represented using an array of `STRUCT(key T, value U)` data type where `T` is the data type of the keys and `U` is the data type of the values. Instead of manipulating two arrays and coordinating indexes, let Firebolt do it for you and enjoy the simpler query syntax.

@@ -57,10 +57,15 @@ This topic lists the data types available in Firebolt.
             <td>A logical boolean value of true or false.</td>
         </tr>
         <tr>
-            <td style="border: 1px solid #ddd; padding: 8px;">Composite</td>
+            <td rowspan="2" style="border: 1px solid #ddd; padding: 8px;">Composite</td>
             <td><a href="#array">ARRAY</a></td>
             <td></td>
             <td>An array that holds multiple values of the same data type.</td>
+        </tr>
+        <tr>
+            <td><a href="#struct">STRUCT</a></td>
+            <td></td>
+            <td>Named values of varying data types grouped in a defined structure.</td>
         </tr>
         <tr>
             <td rowspan="3" style="border: 1px solid #ddd; padding: 8px;">Date & Timestamp</td>
@@ -200,6 +205,10 @@ INSERT INTO demo VALUES
     NULL
   )
 ```
+
+### STRUCT
+
+The struct data type is a composite type that allows you to group multiple fields of varying data types into a single logical unit. For more information, see [STRUCT data type](struct-data-type).
 
 ## Date and timestamp
 
