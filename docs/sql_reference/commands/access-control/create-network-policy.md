@@ -16,7 +16,7 @@ For more information, see [Network policies](../../../Guides/security/network-po
 
 ```sql
 CREATE NETWORK POLICY [IF NOT EXISTS] <network_policy_name>
-WITH ALLOWED_IP_LIST = ( '<allowed_ip1>', '<allowed_ip2>', ... )
+WITH [ALLOWED_IP_LIST = ( '<allowed_ip1>', '<allowed_ip2>', ... )]
 [ BLOCKED_IP_LIST = ( '<blocked_ip1>', '<blocked_ip2>', ... ) ]
 [ DESCRIPTION = '<description>' ]
 ```
@@ -27,9 +27,12 @@ WITH ALLOWED_IP_LIST = ( '<allowed_ip1>', '<allowed_ip2>', ... )
 | Parameter  | Description |
 | :--------- | :---------- |
 | `<network_policy_name>`                              | The name of the network policy. Must start with a letter, and may contain only alphanumeric and underscore(_) characters.   |
-| `<allowed_ip>`                      | The comma-separated and quoted list of IP addresses to allow in the created network policy.  |         
+| `<allowed_ip>`                      | An optional comma-separated and quoted list of IP addresses to allow in the created network policy.  |         
 | `<blocked_ip>` | An optional comma-separated and quoted list of IP addresses to block in the created network policy.  |
 | `<description>` | An optional description for the created network policy. | 
+
+{: .note}
+Either `ALLOWED_IP_LIST` or `BLOCKED_IP_LIST` must be specified when creating a new network policy.
 
 ## Example
 
