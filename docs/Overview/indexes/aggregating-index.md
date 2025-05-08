@@ -27,7 +27,7 @@ Topics:
 
 * **Automatic synchronization**
 
-   The aggregating index is automatically updated in real-time to reflect changes in the base table after each transaction including **DELETE** or **UPDATE** operations.
+   The aggregating index is automatically updated in real-time to reflect changes in the base table within the same DML transaction which modified base table using **INSERT**, **DELETE** or **UPDATE** operations.
 
 * **Automatic `COUNT(*)` aggregations**
 
