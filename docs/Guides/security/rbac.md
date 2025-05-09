@@ -51,12 +51,15 @@ To create a custom role using the UI:
 
 1. Select the **Govern** icon (<img src="../../assets/images/govern-icon.png" alt="The Firebolt Govern Space icon." width="20">) from the left navigation bar to open the **Govern Space**.
 2. Choose **Roles** from the left panel under **Govern**.
-3. Choose the **+ New Role** button in the upper-right corner of the page. 
-4. Under **Create role**, enter a role name. 
-5. Under **Role privileges:**, select the object type that you want to grant permissions for. You can choose either **Databases** or **Engines**.
-6. Configure permissions for the role:
-  * Toggle the buttons under **Databases privileges** or **Engine privileges** to grant permissions to **create** or **modify** an objects across all databases or engines. If you want to apply permissions to a specific engine or database, select it from the table under the toggle buttons.
-  * Define permissions more granularly using table views.
+3. Choose the **+ New Role** button in the upper-right corner of the page.
+4. Under **Define role**, enter a role name.
+5. Select **Configure permissions**.
+6. Under **Configure permissions** for each category you can select objects that you want to grant permissions for. For each category you can have multiple groups of permissions. To add additional group use **Add another group** button.
+7. Configure permissions for each group:
+  * Grant permissions to **operate**, **usage**, **modify**, etc group of objects, using the **Add permissions** button.
+8. Select **Assign role**.
+9. Select the users for which you want to assign this role or create the role without any assignment.
+10. Select **Create role*
 
 
 ## Delete a role
@@ -81,7 +84,7 @@ To delete a role via the UI:
 
 ## Grant permissions to a role
 
-### Grant permissions using SQL 
+### Grant permissions using SQL
 To grant a permission to a role using SQL, use [GRANT]({% link sql_reference/commands/access-control/grant.md %}) as shown in the following code example:
 
 ```sql
@@ -93,9 +96,15 @@ To grant a permission to a role via the UI:
 1. Select **Govern** to open the govern space, then choose **Roles** from the menu:
 
 
-2. Search for the relevant role either by using the search filters at the top of the page, or by scrolling through the list of logins. Hover over the right-most column to make the role menu appear, then choose **Edit role**. 
-3. Navigate to the permissions tab and select the desired permissions. To grant permissions over all objects of that type, choose the topmost line.
-4. Select **Update**.
+2. Search for the relevant role either by using the search filters at the top of the page, or by scrolling through the list of logins. Hover over the right-most column to make the role menu appear, then choose **Edit role**.
+3. Navigate to the **Configure permissions** tab to add or remove permissions.
+4. Navigate to the **Configure database permissions** tab and select the database for which you want to edit permissions.
+   * Edit the desired permissions, relevant to the selected database.
+   * Choose a different database if you need to edit its permissions. Repeat this step as many times as needed.
+4. Select **Assign role**.
+5. Select checkbox next to the users that you want to grant role to.
+6. Select **Save role**
+
 
 
 ## Grant a role to users
