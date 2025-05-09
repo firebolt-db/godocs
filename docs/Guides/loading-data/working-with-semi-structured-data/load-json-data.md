@@ -72,8 +72,10 @@ If you want to load JSON data from an Amazon S3 bucket, you can create an extern
 CREATE EXTERNAL TABLE visits_external (
   raw_json TEXT
 )
-LOCATION = 's3://your-bucket-name/path/to/json-file/'
-FILE_FORMAT = (TYPE = 'JSON');
+URL = 's3://your-bucket-name/path/to/json-file/'
+OBJECT_PATTERN = '*.json'
+TYPE = JSON
+PARSE_AS_TEXT = true
 ```
 
 ## Load JSON into a fixed schema
@@ -85,11 +87,11 @@ The following code example uses the previously created `doc_visits_source` table
 ```sql
 -- Create the target table 'visits_fixed' with a fixed schema
 DROP TABLE IF EXISTS visits_fixed;
-CREATE FACT TABLE visits_fixed (
-  id INT DEFAULT 0,
-  start_time TIMESTAMP DEFAULT '1970-01-01 00:00:00',
-  duration INT DEFAULT 0,
-  tags ARRAY(TEXT) DEFAULT []
+CREATE TABLE visits_fixed (
+  id INT,
+  start_time TIMESTAMP,
+  duration INT,
+  tags ARRAY(TEXT)
 )
 PRIMARY INDEX start_time;
 
@@ -97,7 +99,7 @@ PRIMARY INDEX start_time;
 INSERT INTO visits_fixed
 SELECT
   JSON_POINTER_EXTRACT(raw_json, '/id')::INT AS id,
-  TO_TIMESTAMP(TRIM(BOTH '"' FROM JSON_POINTER_EXTRACT(raw_json, '/StartTime')), 'YYYY-MM-DD HH24:MI:SS') AS start_time,
+  TO_TIMESTAMP(JSON_VALUE(JSON_POINTER_EXTRACT(raw_json, '/StartTime')), 'YYYY-MM-DD HH24:MI:SS') AS start_time,
   JSON_POINTER_EXTRACT(raw_json, '/Duration')::INT AS duration,
   JSON_POINTER_EXTRACT(raw_json, '/tags')::ARRAY(TEXT) AS tags
 FROM doc_visits_source;
@@ -125,7 +127,7 @@ The following code example uses the previously created `doc_visits_source` table
 
 ```sql
 DROP TABLE IF EXISTS visits_transformed;
-CREATE FACT TABLE visits_transformed (
+CREATE TABLE visits_transformed (
   id INT,
   start_time TIMESTAMP,
   duration INT,
@@ -138,7 +140,7 @@ PRIMARY INDEX start_time;
 INSERT INTO visits_transformed
 SELECT
   JSON_POINTER_EXTRACT(raw_json, '/id')::INT,
-  TO_TIMESTAMP(TRIM(BOTH '"' FROM JSON_POINTER_EXTRACT(raw_json, '/StartTime')), 'YYYY-MM-DD HH24:MI:SS'),
+  TO_TIMESTAMP(JSON_VALUE(JSON_POINTER_EXTRACT(raw_json, '/StartTime')), 'YYYY-MM-DD HH24:MI:SS'),
   JSON_POINTER_EXTRACT(raw_json, '/Duration')::INT,
   JSON_POINTER_EXTRACT(raw_json, '/tags')::ARRAY(TEXT),
   JSON_POINTER_EXTRACT_KEYS(raw_json, '/user_agent')::ARRAY(TEXT),
@@ -196,7 +198,7 @@ The following code example uses the previously created intermediary `doc_visits_
 
 ```sql
 DROP TABLE IF EXISTS visits_raw;
-CREATE FACT TABLE visits_raw (
+CREATE TABLE visits_raw (
   raw_json TEXT
 );
 
