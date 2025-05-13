@@ -1,0 +1,15 @@
+{
+  "errors": [
+    {
+      "description": "Line 1, Column 8: function 'arrays_overlap' not found"
+    }
+  ],
+  "query": {
+    "query_id": "323e4398-0f22-48f1-bb80-2dd1144dd850",
+    "query_label": null,
+    "request_id": "0c8415e8-50c8-4824-9cfa-4da518fe5c7d"
+  },
+  "statistics": {
+    "elapsed": 0.0
+  }
+}
