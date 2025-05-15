@@ -91,7 +91,7 @@ Other utilities like [`READ_PARQUET`](../sql_reference/functions-reference/table
 
 ## Querying structs
 
-In Firebolt, a struct attribute is stored as an individual column. When processing struct values, the system never packs attributes of a struct into a binary format. Instead, it always works on a list of attribute columns directly. The query optimizer applies column pruning techniques on struct attributes, too. This means Firebolt only accesses struct attributes that are strictly needed for answering a query.
+In Firebolt, each attribute of a struct is stored as an individual column. When processing struct values, the system never packs attributes of a struct into a binary format. Instead, it always works on a list of attribute columns directly. The query optimizer applies column pruning techniques on struct attributes, too. This means Firebolt only accesses struct attributes that are strictly needed for answering a query.
 
 ### Accessing attributes
 
