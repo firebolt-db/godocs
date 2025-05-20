@@ -35,3 +35,4 @@ Each row has the following columns with information about each engine cluster.
 | spilled_bytes     | BIGINT      | amount of spilled data to disk in bytes                                                    |
 | running_queries   | BIGINT      | number of currently running queries in the system                                          |
 | suspended_queries | BIGINT      | number of queries that have been suspended (not-running and awaiting to be executed)       |
+| evicted_bytes     | BIGINT      | amount of data evicted from the disk in bytes                                              |
