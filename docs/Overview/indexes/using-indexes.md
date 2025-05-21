@@ -182,7 +182,7 @@ To enhance query performance, simplify access control, and ensure scalability as
 In Firebolt, tables are the key components for organizing and storing data. They consist of rows (records) and columns (attributes), making them an integral tool in data modeling. Firebolt supports two main types of tables:
 
 Table topics:
-* [Firebolt-managed tables](#firebolt-managed-tables) &ndash; Fast and dimension tables make the best use of Firebolt's optimization strategies.
+* [Firebolt-managed tables](#firebolt-managed-tables) &ndash; Fact and dimension tables make the best use of Firebolt's optimization strategies.
 * [External tables](#external-tables) &ndash; Users can access and query data without loading it into Firebolt. External tables generally have poorer performance compared to Firebolt-managed tables.
 * [Editing and deleting tables](#editing-and-deleting-tables) &ndash; You can edit and delete an existing table.
 * [Primary indexes in tables](#primary-indexes-in-tables) &ndash; Select the most efficient primary index for your tables based on your query patterns and data characteristics.
