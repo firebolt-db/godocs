@@ -37,6 +37,24 @@ The following example alters a description of the database:
 ALTER DATABASE my_database WITH DESCRIPTION = 'Database for query management';
 ```
 
+## ALTER DATABASE RENAME TO
+
+Renames the specified database.
+
+### Syntax
+
+```sql
+ALTER DATABASE <database_name> RENAME TO <new_database_name>
+```
+
+### Parameters
+{: .no_toc}
+
+| Parameter | Description |
+| :--- | :--- |
+| `<database_name>` | The name of the database to rename. |
+| `<new_database_name>` | The new name of the database. |
+
 ## ALTER DATABASE OWNER TO
 
 Change the owner of a database. The current owner of a database can be viewed in the [information_schema.catalogs](../../information-schema/catalogs.md) view on `catalog_owner` column.
