@@ -47,6 +47,7 @@ Each row has the following columns with information about each query in query hi
 | query_text                 | TEXT        | The text of the SQL statement.|
 | query_text_normalized      | TEXT        | The normalized text of the SQL statement.|
 | query_text_normalized_hash | TEXT        | The hash of the normalized text of the SQL statement.|
+| telemetry                  | TEXT        | Displays additional telemetry information about the query in JSON format. This data is currently only available for VACUUM queries and jobs.|
 | error_message              | TEXT        | The returned error message.|
 | scanned_rows               | BIGINT      | The total number of rows scanned.|
 | scanned_bytes              | BIGINT      | The total number of uncompressed bytes scanned.|
@@ -59,4 +60,6 @@ Each row has the following columns with information about each query in query hi
 | returned_bytes             | BIGINT      | The total number of bytes returned from the query.|
 | time_in_queue_us           | BIGINT      | The number of microseconds the query spent in queue.|
 | retries                    | BIGINT      | The number of retried attempts in case of query failure. Defaults to 0.|
-| telemetry                  | TEXT        | Displays additional telemetry information about the query in JSON format. This data is currently only available for VACUUM queries and jobs.|
+| node_ordinal               | INTEGER     | Index of the node in the cluster that has received the query and manages the execution of it. (1-indexed) |
+| cluster_ordinal            | INTEGER     | Index of the cluster in the engine that has received the query and executes it. (1-indexed) |
+| number_of_clusters         | INTEGER     | Number of cluster in the engine at the point of query execution. |
