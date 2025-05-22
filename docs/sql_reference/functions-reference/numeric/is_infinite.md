@@ -15,15 +15,11 @@ Returns `TRUE` if the argument is infinite, and `FALSE` otherwise. Only `REAL` a
 
 ## Syntax
 
-{: .no_toc}
-
 ```sql
 IS_FINITE(<value>);
 ```
 
 ## Parameters
-
-{: .no_toc}
 
 | Parameter | Description                                      | Supported input types                 |
 | :-------- | :----------------------------------------------- | :------------------------------------ |
@@ -34,7 +30,5 @@ IS_FINITE(<value>);
 `IS_INFINITE` returns a value of type `BOOLEAN`.
 
 ## Examples
-
-{: .no_toc}
 
 {% include sql_examples/is_infinite_executable.md %}

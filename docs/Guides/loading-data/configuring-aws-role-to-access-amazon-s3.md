@@ -85,8 +85,8 @@ This guide explains how to create an AWS IAM permissions policy and an IAM role 
 10. Enter an optional **Description**.
 11. Select the **Create policy** button in the bottom-right corner of the workspace.
 
-{: .warning}
 Setting the s3:prefix condition key to * grants access to **all** prefixes in the specified bucket for the associated action.
+{: .warning}
 
 ## Create the IAM role in AWS
 

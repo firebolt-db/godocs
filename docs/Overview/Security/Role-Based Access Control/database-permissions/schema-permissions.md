@@ -11,8 +11,8 @@ nav_order: 2
 
 In Firebolt, a **schema** is a logical namespace within a database that organizes **tables**, **views**, and other objects. Schema-level permissions allow roles to perform specific actions, such as accessing, modifying, or managing objects within a schema.
 
-{: .note}
 To perform actions on a schema or its objects, the role must also have the **USAGE** privilege on the schema's parent database.
+{: .note}
 
 ## Schema-level privileges 
 

@@ -26,10 +26,7 @@ APPROX_COUNT_DISTINCT(<expression>)
 
 | Parameter | Description  | Supported input types | 
 | :--------- | :-----------|:----------|
-| `<expression>`  | Expression on which to approximate the distinct count  | Any type | 
-
-{: .note}
- 
+| `<expression>`  | Expression on which to approximate the distinct count  | Any type |
 
 ## Return Type
 `BIGINT`

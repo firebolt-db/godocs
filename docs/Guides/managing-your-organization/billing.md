@@ -42,5 +42,5 @@ Organization cost details are captured in two information_schema tables. Query t
 1) [Engines billing](../../sql_reference/information-schema/engines-billing.md)
 2) [Storage billing](../../sql_reference/information-schema/storage-billing.md)
 
-{: .note}
 Firebolt billing is reported to the AWS Marketplace at the beginning of the next day. By default, the **Accounts & Billing** page displays the engine usage breakdown based on billing time. If you prefer to see the engine usage by actual usage day, you can click the **Engines breakdown** selector under the **Usage cost by engine** table and click **Actual running time**. 
+{: .note}

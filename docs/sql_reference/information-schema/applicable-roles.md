@@ -20,8 +20,8 @@ FROM
 
 See also `information_schema.transitive_applicable_roles` [here](transitive-applicable-roles.md).
 
-{: .note}
 Read more about RBAC roles [here](../../Guides/security/rbac.md).
+{: .note}
 
 ## Columns in information_schema.applicable_roles
 

@@ -14,7 +14,7 @@ Firebolt continuously releases updates so that you can benefit from the latest a
 
 - See the [Release notes archive](../release-notes/release-notes-archive.md) for earlier-version release notes.
 
-{: .note}
 Firebolt might roll out releases in phases. New features and changes may not yet be available to all accounts on the release date shown.
+{: .note}
 
 {% include release_notes/release_notes_4_20.md %}

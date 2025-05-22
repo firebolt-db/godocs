@@ -11,11 +11,10 @@ has_toc: false
 # Load data using SQL
 If the **Load data** wizard does not meet your needs, or you prefer to write directly in SQL, you can enter SQL and run it in the **Firebolt Workspace**, or use an API.
 
-{: .note}
 Before you can load data using a SQL script, you must register with Firebolt, and create a database and an engine.
+{: .note}
 
 A general workflow to load data using SQL is shown in the following diagram, with the highlighted path representing the SQL workflow and the muted path representing using the **Load data** wizard:
-<br>
 
 <img src="../../assets/images/load_data_sql_workflow.png" alt="You can use either the load data wizard or SQL to create a database, engine, and then load data." width="700"/>
 

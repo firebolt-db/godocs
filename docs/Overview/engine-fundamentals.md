@@ -14,7 +14,7 @@ nav_order: 4
 # Firebolt Engines
 {: .no_toc}
 
- Engines are compute resources that process data and serve queries in Firebolt. Use engines to load data into Firebolt and run queries on the ingested data. 
+Engines are compute resources that process data and serve queries in Firebolt. Use engines to load data into Firebolt and run queries on the ingested data.
 
 Firebolt engines provide **full workload isolation**, so that multiple workloads run independently while sharing the same data. Engines are **decoupled from databases**, meaning:
 
@@ -50,17 +50,19 @@ This attribute represents the number (1 - 128) of compute nodes, allowing granul
 **Clusters** <br />
 A cluster is a collection of compute resources, described by “Type” and “Nodes” attributes. A given Firebolt engine can contain one or more clusters. The maximum number of clusters is specified by the max_clusters attribute. Only homogeneous cluster configurations (clusters with the same number of Nodes and Type) are supported within a single engine. Users can leverage the “min_clusters” and "max_clusters" attributes to support query concurrency scaling.
 
-![An engine cluster in Firebolt](../assets/images/engine_cluster_type_M.png){: width="600" .centered}
- <br /> **An engine cluster with four nodes of type 'M'** 
- {: style="color: red; font-size: 90%; text-align: center;"}
+<center>
+<figure>
+    <img src="../assets/images/engine_cluster_type_M.png" alt="An engine cluster in Firebolt" width="600" />
+    <figcaption><b>An engine cluster with four nodes of type M</b></figcaption>
+</figure>
 
+<figure>
+    <img src="../assets/images/Engine_two_clusters_type_M.png" alt="A Firebolt engine with two clusters, each cluster containing four nodes of type 'M'" width="600" />
+    <figcaption><b>A Firebolt engine with two clusters, each cluster containing four nodes of type M</b></figcaption>
+</figure>
+</center>
 
-![A Firebolt engine with two clusters, each cluster containing four nodes of type 'M'](../assets/images/Engine_two_clusters_type_M.png){: width="600" .centered}
- <br /> **A Firebolt engine with two clusters, each cluster containing four nodes of type 'M'** 
- {: style="color: red; font-size: 90%; text-align: center;"}
-
-<br />
-The four attributes:  `TYPE`, `NODES`, `MIN_CLUSTERS` and "MAX_CLUSTERS" &ndash; form the configuration of an engine.
+The four attributes `TYPE`, `NODES`, `MIN_CLUSTERS` and `MAX_CLUSTERS` form the configuration of an engine.
 
 To create an engine, use the [CREATE ENGINE command]({% link sql_reference/commands/engines/create-engine.md %}), specifying the node type to be used for the engine, number of clusters and number of nodes per cluster.
 

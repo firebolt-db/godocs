@@ -30,8 +30,6 @@ ALTER LOGIN <login_name> SET
 
 ### Parameters
 
-{: .no_toc}
-
 | Parameter                     | Description                                                                                                                                                                                          |
 |:------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `<login_name>`                | The name of the login in the form of an email address. The login must be unique within the organization.                                                                                             |
@@ -65,8 +63,6 @@ ALTER LOGIN <login_name> RENAME TO <new_login_name>
 
 ### Parameters
 
-{: .no_toc}
-
 | Parameter          | Description                                                                                                                                                                    |
 |:-------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `<login_name>`     | The name of the login to rename.                                                                                                                                               |
@@ -95,8 +91,6 @@ ALTER LOGIN <login_name> OWNER TO <identity>
 ```
 
 ### Parameters
-
-{: .no_toc}
 
 | Parameter      | Description                                                            |
 |:---------------|:-----------------------------------------------------------------------|

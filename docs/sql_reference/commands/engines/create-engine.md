@@ -89,8 +89,8 @@ CREATE ENGINE my_engine
 WITH TYPE="L" FAMILY="COMPUTE_OPTIMIZED" NODES=2 AUTO_STOP=10;
 ```
 
-{: .note}
 If you need to use a large or extra-large engine, reach out to [support@firebolt.io](mailto:support@firebolt.io). 
+{: .note}
 
 ### Create an engine with concurrency auto-scaling
 The following example creates an engine that automatic concurrency scaling. The engine adjusts the number of clusters based on workload demand, maintaining between one and two clusters. 

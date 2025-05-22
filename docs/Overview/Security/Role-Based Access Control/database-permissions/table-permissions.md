@@ -11,8 +11,8 @@ nav_order: 3
 
 In Firebolt, a **table** is a structured data object within a database, composed of rows and columns. Tables are the foundational units for organizing, querying, and managing data in your Firebolt data warehouse. Table-level permissions allow roles to perform actions such as selecting, modifying, or managing data within specific tables.
 
-{: .note}
 To perform actions on a table, roles must also have **USAGE** permissions on both the parent schema and the parent database of the table.
+{: .note}
 
 ## Table-level privileges 
 
@@ -27,8 +27,8 @@ To perform actions on a table, roles must also have **USAGE** permissions on bot
 | [VACUUM]({% link sql_reference/commands/data-management/vacuum.md %})     | Allows running the `VACUUM` operation. Applies to managed tables only.              | `GRANT VACUUM ON TABLE <table_name> TO <role_name>;`                                      | `REVOKE VACUUM ON TABLE <table_name> FROM <role_name>;`                                   |
 | ALL [PRIVILEGES]     | Grants all privileges over the table to a role.	              | `GRANT ALL ON TABLE <table_name> TO <role_name>;`                                      | `REVOKE ALL ON TABLE <table_name> FROM <role_name>;`                                   |
 
-{: .note}
 To grant permissions across all tables in a schema, use [schema-level privileges](schema-permissions.md). For example, privileges like **SELECT ANY**, **INSERT ANY**, or **DELETE ANY** at the schema level will apply to all current and future tables within that schema.
+{: .note}
 
 ## Aggregating Indexes
 

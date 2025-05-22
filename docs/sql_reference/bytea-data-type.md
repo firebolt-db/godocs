@@ -100,8 +100,8 @@ and then cast to type `BYTEA`.
 **For CSV, TSV, or JSON files:**
 The input data are read exactly as they are in the source, and then cast to data type `BYTEA`.
 
-{: .note}
 JSON files must be UTF-8 encoded; however this is not required for CSV and TSV files. In the case that these files are not UTF-8 encoded, field values must not start with `\x` - data starting with the characters `\x` will throw an error on ingest. Any data not starting with the characters `\x` will be copied as bytes to the column of data type `BYTEA`.
+{: .note}
 
 **CSV File Example:**
 

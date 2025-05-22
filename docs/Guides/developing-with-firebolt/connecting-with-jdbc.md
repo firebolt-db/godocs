@@ -27,36 +27,38 @@ Download the driver from [GitHub JDBC releases](https://github.com/firebolt-db/j
 
 To connect your project to Firebolt using [Apache Maven](https://maven.apache.org/), add the Firebolt JDBC driver as a dependency in your **pom.xml** configuration file. Link to the [Firebolt Maven repository](https://central.sonatype.com/artifact/io.firebolt/firebolt-jdbc){:target="_blank"}, so that Maven can download and include the JDBC driver in your project, as shown in the following code example:
 
-    <!-- pom.xml  -->
-    
-    <project ...>
-           <dependency>
-                	<groupId>io.firebolt</groupId>
-                	<artifactId>firebolt-jdbc</artifactId>
-                	<version>3.3.0</version>
-           </dependency>
-    </project>
+```xml
+<!-- pom.xml  -->
+<project ...>
+  <dependency>
+    <groupId>io.firebolt</groupId>
+    <artifactId>firebolt-jdbc</artifactId>
+    <version>3.3.0</version>
+  </dependency>
+</project>
+```
 
+In the previous code example, replace `<version>3.3.0</version>` with the latest version available in the [Firebolt Maven Central repository](https://central.sonatype.com/artifact/io.firebolt/firebolt-jdbc){:target="_blank"}.
 {: .note}
-  In the previous code example, replace `<version>3.3.0</version>` with the latest version available in the [Firebolt Maven Central repository](https://central.sonatype.com/artifact/io.firebolt/firebolt-jdbc){:target="_blank"}.
 
 ## Adding the Firebolt JDBC driver as a Gradle dependency
 
 If you are using the [Gradle Build Tool](https://gradle.org/), you can configure your Gradle project to use the Firebolt JDBC driver by specifying Apache's [Maven Central](https://maven.apache.org/repository/index.html) as a repository and adding the Firebolt JDBC driver as a dependency as follows:
   
+```gradle
+/* build.gradle */
 
-    /* build.gradle */
-    
-    repositories {
-        mavenCentral()
-    }
-    
-    dependencies {
-        implementation 'io.firebolt:firebolt-jdbc:3.3.0'
-    }
+repositories {
+    mavenCentral()
+}
 
+dependencies {
+    implementation 'io.firebolt:firebolt-jdbc:3.3.0'
+}
+```
+
+In the previous code example, replace `3.3.0` with the latest version available in the [Firebolt Maven Central repository](https://central.sonatype.com/artifact/io.firebolt/firebolt-jdbc){:target="_blank"}.
 {: .note}
-  In the previous code example, replace `3.3.0` with the latest version available in the [Firebolt Maven Central repository](https://central.sonatype.com/artifact/io.firebolt/firebolt-jdbc){:target="_blank"}.
 
 ## Connecting to Firebolt with the JDBC driver
 
@@ -143,8 +145,8 @@ Connection properties:
 
   Because the previous configuration example omits specifying the engine name, `my_database` connects to the default engine.
 
-  {: .note}
   Since the connection string is a URI, make sure to [percent-encode](https://en.wikipedia.org/wiki/Percent-encoding){:target="_blank"} any reserved characters or special characters used in parameter keys or parameter values.
+  {: .note}
 
 ### Available connection parameters
 

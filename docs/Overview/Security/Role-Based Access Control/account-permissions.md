@@ -27,8 +27,8 @@ Accounts represent the physical instance of your data warehouse in Firebolt and 
 | MONITOR [ANY USAGE] | Enables the tracking of engine queries through the `engine_running_queries` view for active queries and the `engine_query_history` view for past queries in `information_schema`. | `GRANT MONITOR ANY USAGE ON ACCOUNT <account_name> TO <role>;`         | `REVOKE MONITOR ANY USAGE ON ACCOUNT <account_name> FROM <role>;` |
 | ALL [PRIVILEGES] | Grants all direct privileges for a specified account to a specified role. | `GRANT ALL ON ACCOUNT <account_name> TO <role>;`         | `REVOKE ALL ON ACCOUNT <account_name> FROM <role>;` |
 
-{: .note}
 Revoking a privilege removes it from a role but does not explicitly deny the privilege. If the privilege was not previously granted, revoking it has no effect.
+{: .note}
 
 ## Examples of granting account-level permissions
 

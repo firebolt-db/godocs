@@ -18,15 +18,11 @@ This function pairs with the [JSON_EXTRACT](json-extract.md) function, which doe
 
 ## Syntax
 
-{: .no_toc}
-
 ```sql
 JSON_VALUE(<json>)
 ```
 
 ## Parameters
-
-{: .no_toc}
 
 | Parameter                | Description                                                                                      | Supported input types |
 |:-------------------------|:-------------------------------------------------------------------------------------------------|:----------------------|
@@ -38,8 +34,6 @@ JSON_VALUE(<json>)
 * If any of the input is `NULL` the output is `NULL` (propagates nulls).
 
 ## Example
-
-{: .no_toc}
 
 For the JSON document indicated by `<json_common_example>` below,
 see [JSON common example](./index.md#json-common-example). The **returned result** is based on this example.

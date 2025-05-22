@@ -206,7 +206,8 @@ The following code example deletes a `LOCATION` from your Firbolt account:
 DROP LOCATION [IF EXISTS] <location_name> [WITH FORCE]
 ```
 
-{: .note} Deleting a location will affect all objects that depend on the `LOCATION` that you are dropping.
+Deleting a location will affect all objects that depend on the `LOCATION` that you are dropping.
+{: .note}
 
 ## Notes
 

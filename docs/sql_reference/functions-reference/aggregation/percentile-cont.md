@@ -44,16 +44,12 @@ In the previous example, the set `[10,20,30]` is in ascending order. If the set 
 
 ## Syntax
 
-{: .no_toc}
-
 ```sql
 PERCENTILE_CONT
 ( <percentile> ) WITHIN GROUP ( ORDER BY <expression> [ { ASC | DESC } ] )
 ```
 
 ## Parameters
-
-{: .no_toc}
 
 | Parameter      | Description                                                                              | Supported input types                                  | 
 |:---------------|:-----------------------------------------------------------------------------------------|:-------------------------------------------------------|
@@ -67,8 +63,6 @@ PERCENTILE_CONT
 - This function returns `NULL` if the input is either empty or contains only `NULL` values.
 
 ## Examples
-
-{: .no_toc}
 
 These calculations use 1-based indexing, where the first element is at position `1`.
 

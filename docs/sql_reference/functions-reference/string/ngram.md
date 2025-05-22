@@ -16,15 +16,11 @@ overlapping contiguous subsequences of length `n`.
 
 ## Syntax
 
-{: .no_toc}
-
 ```sql
 NGRAM( <n>, <text> )
 ```
 
 ## Parameters
-
-{: .no_toc}
 
 | Parameter | Description                                      | Datatype  |
 |:----------|:-------------------------------------------------|:----------|
@@ -53,7 +49,5 @@ An error is thrown if `n` is smaller than 1.
 Propagates nulls: If any input is `NULL`, the result is `NULL`.
 
 ## Examples
-
-{: .no_toc}
 
 {% include sql_examples/ngram.md %}

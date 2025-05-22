@@ -17,8 +17,9 @@ For more information, see [Managing logins](../../../Guides/managing-your-organi
 ```sql
 DROP LOGIN [ IF EXISTS ] <login_name>;
 ```
-{: .note}
+
 If the login is linked to a user, it can not be dropped. In order to drop a login linked to a user, the link must be reset `alter user foo set login="new-login@acme.com"|DEFAULT` or the user dropped.
+{: .note}
 
 ## Parameters 
 {: .no_toc} 

@@ -57,8 +57,8 @@ The current owner of an object can be viewed in the corresponding information_sc
 | Table    | [information_schema.tables][tables]                                      |
 | View     | [information_schema.views][views] or [information_schema.tables][tables] |
 
-{: .note}
 Index ownership, shown in [information_schema.indexes][indexes], will always show the table owner as an index's owner.
+{: .note}
 
 ### Organization-Level Objects
 
@@ -114,8 +114,8 @@ ALTER NETWORK POLICY "my_policy" OWNER TO "alice@acme.com"
 
 Any objects owned by a user must first be dropped or have their owner changed before dropping the user.
 
-{: .note}
 A table owner can drop the table even if there are views referencing it that are not owned by the table's owner, using the `CASCADE` parameter to [DROP TABLE]({% link sql_reference/commands/data-definition/drop-table.md %}).
+{: .note}
 
 ### Dropping Logins or Service Accounts that Own Objects
 
@@ -149,11 +149,11 @@ You can use the user interface in the **Firebolt Workspace** to transfer ownersh
 5. In the window that opens, select the checkboxes next to objects that you want to delete or transfer ownership of.
 6. Select the **Delete object** or **Transfer ownership** button to apply changes.
 
-{: .note}
 Ownership transfer using the **Firebolt Workspace** is not available for `Schema`, `Table`, and `View` objects. These must be modified using SQL commands in the **Develop Workspace** or using the [Firebolt API]({% link API-reference/index.md %}).
-
 {: .note}
+
 The Firebolt Workspace currently only supports managing ownership for account-level objects. Organization-level object ownership must be managed using SQL commands.
+{: .note}
 
 [users]: {% link sql_reference/information-schema/users.md %}
 [catalogs]: {% link sql_reference/information-schema/catalogs.md %}

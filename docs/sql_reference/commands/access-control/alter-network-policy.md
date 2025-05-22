@@ -34,8 +34,6 @@ ALTER NETWORK POLICY [ IF EXISTS ] <network_policy_name>
 
 ### Parameters 
 
-{: .no_toc} 
-
 | Parameter  | Description |
 | :--------- | :---------- |
 | `<network_policy_name>`                              | The name of the network policy to edit.  |
@@ -79,8 +77,6 @@ ALTER NETWORK POLICY <network_policy_name> RENAME TO <new_network_policy_name>
 
 ### Parameters
 
-{: .no_toc}
-
 | Parameter          | Description                                                         |
 |:-------------------|:--------------------------------------------------------------------|
 | `<network_policy_name>`     | The name of the network policy to rename.                           |
@@ -109,8 +105,6 @@ ALTER NETWORK POLICY <network_policy_name> OWNER TO <identity>
 ```
 
 ### Parameters
-
-{: .no_toc}
 
 | Parameter               | Description                                                                     |
 |:------------------------|:--------------------------------------------------------------------------------|

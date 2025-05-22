@@ -34,7 +34,3 @@ Each row has the following columns with information about the schema.
 | default_character_set_name    | TEXT | Default character set of the schema. Defaults to `UTF-8`.      |
 | sql_path        | TEXT      | SQL path of the schema.                                                 |
 | description     | TEXT      | Description of the schema.                                              |
-
-{: .note}
-
-

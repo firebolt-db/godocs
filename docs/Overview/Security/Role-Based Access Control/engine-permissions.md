@@ -24,9 +24,8 @@ The following table outlines the privileges that can be granted for engines with
 | MONITOR [USAGE]    | Enables the tracking of engine queries through the `engine_running_queries` view for active queries and the `engine_query_history` view for past queries in `information_schema`. | `GRANT MONITOR USAGE ON ENGINE <engine_name> TO <role>;` | `REVOKE MONITOR USAGE ON ENGINE <engine_name> FROM <role>;`  |
 | ALL [PRIVILEGES]    | Grants all privileges over the engine to a role. | `GRANT ALL ON ENGINE <engine_name> TO <role>;` | `REVOKE ALL ON ENGINE <engine_name> FROM <role>;`  |
 
-
-{: .note}
 If a user lacks **USAGE** and **OPERATE** privileges for an engine, they will not be able to select or interact with the engine via the Firebolt UI.
+{: .note}
 
 ## Examples of granting engine permissions
 

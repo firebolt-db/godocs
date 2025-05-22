@@ -17,8 +17,6 @@ Rounds an input `<value>` up to the nearest multiple based on the specified prec
 
 ## Syntax
 
-{: .no_toc}
-
 ```sql
 CEIL(<value>);
 CEIL(<value>, <digit>);
@@ -32,8 +30,6 @@ CEILING(<value>, <digit>);
 ```
 
 ## Parameters
-
-{: .no_toc}
 
 | Parameter | Description                                                                                                                                                                                                                                                            | Supported input types         |
 | :-------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------- |
@@ -50,8 +46,6 @@ CEILING(<value>, <digit>);
 
 ## Remarks
 
-{: .no_toc}
-
 When the input is of type `NUMERIC`, `CEIL` throws an overflow error if the result of `CEIL` exceeds the defined precision and scale limits of the return data type.
 
 The following code example calculates the nearest whole number larger than `99.99` and specifies that the output should contain a total of `4` digits, with only `2` digits reserved for the decimal part:
@@ -65,7 +59,5 @@ SELECT CEIL('99.99'::NUMERIC(4,2));
 The previous code returns an `OVERFLOW ERROR` because `CEIL` returns `100.00`, which exceeds the `NUMERIC(4,2)` data type's limit of `2` digits before the decimal point, and `100` requires `3` digits.
 
 ## Examples
-
-{: .no_toc}
 
 {% include sql_examples/ceil_executable.md %}

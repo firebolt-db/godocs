@@ -16,11 +16,10 @@ You can load data into Firebolt from an Amazon S3 bucket using two different wor
 
 If you want to get started quickly, load data using a **wizard** in the **Firebolt Workspace**. If you want a more customized experience, you can write **SQL scripts** to handle each part of your workflow. This guide shows you how to load data using both the wizard and SQL, and some common data loading workflows and errors.
 
-<br>
 <img src="../../assets/images/load_data_workflow.png" alt="You can use either the load data wizard or SQL to create a database, engine, and then load data." width="700"/>
 
-{: .note}
 Before you can load data, you must first register with Firebolt, then create a database and an engine. For information about how to register, see [Get Started](../../Guides/getting-started/). See the following sections for information about how to create a database and engine.
+{: .note}
 
 ## Load data using a wizard
 You can use the **Load data** wizard in the **Firebolt Workspace** to load data in either CSV or Parquet format, and choose from a variety of different loading parameters which include the following:

@@ -21,20 +21,16 @@ to [HLL_COUNT_DISTINCT](hll-count-distinct.md).
 `HLL_COUNT_BUILD` requires less memory than exact count distinct aggregation, but also introduces statistical uncertainty.
 The default precision is 12, with a maximum of 20 set optionally.
 
+Higher precision comes at a memory and performance cost.
 {: .note}
-> Higher precision comes at a memory and performance cost.
 
 ## Syntax
-
-{: .no_toc}
 
 ```sql
 HLL_COUNT_BUILD(<expression> [, <precision> ])
 ```
 
 ## Parameters
-
-{: .no_toc}
 
 | Parameter      | Description                                                                                                            | Supported input types |
 |:---------------|:-----------------------------------------------------------------------------------------------------------------------|:----------------------|
@@ -46,8 +42,6 @@ HLL_COUNT_BUILD(<expression> [, <precision> ])
 `BYTEA`
 
 ## Example
-
-{: .no_toc}
 
 ```sql
 CREATE TABLE data_to_count AS

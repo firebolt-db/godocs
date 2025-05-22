@@ -50,7 +50,3 @@ Each row in `information_schema.routines` contains the following information abo
 | data_type       | TEXT      | The return type name of the function. These type names are simplified, for example, returning `ARRAY` instead of `ARRAY(INT)`. If the function accepts and returns data any type, its `data_type` is `ANY`. |
 | is_deterministic | TEXT     | A flag that indicates if the function is deterministic or not. A deterministic function returns the same output when called with the same inputs *within the same query*, even if it can produce a different output when called in a different query. An example of a deterministic function is `CURRENT_TIMESTAMP`. An example of a non-deterministic function is `RANDOM`. |
 | routine_parameters | ARRAY(TEXT) | An array of data types representing the function's parameters.                      |
-
-{: .note}
-
-

@@ -153,8 +153,8 @@ If you want to sign up or upgrade your fully-managed edition type, you can choos
         4. Enter a **Description**.
         5. Select **Send** to notify Firebolt's support team.
 
-{: .note}
 Changing your plan is **not immediate** and may take **up to 24 hours** to process. You will receive updates about the status of your request through email. 
+{: .note}
 
 ### Self-managed editions and pricing
 Firebolt offers two self-managed options, where you run Firebolt on your own infrastructure: **Firebolt Core** and **Private Cloud**. 

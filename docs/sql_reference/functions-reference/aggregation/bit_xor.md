@@ -18,8 +18,6 @@ Numbers are represented in two's complement, a binary method for signed integers
 
 ## Syntax
 
-{: .no_toc}
-
 ```sql
 BIT_XOR
 ([ DISTINCT ] <expression>)
@@ -27,8 +25,6 @@ BIT_XOR
 Note: `DISTINCT` has no effect on the function's result.
 
 ## Parameters
-
-{: .no_toc}
 
 | Parameter      | Description                                  | Supported input types |
 |:---------------|:---------------------------------------------|:----------------------|
@@ -39,8 +35,6 @@ Note: `DISTINCT` has no effect on the function's result.
 The `BIT_XOR` function returns a result of either type `INT` or `BIGINT`, depending on the type of the input.
 
 ## Examples
-
-{: .no_toc}
 
 **Example**
 

@@ -88,8 +88,8 @@ Create a connection object in the Airflow UI to integrate Firebolt with Airflow.
    | Account         | The name of your account. | `developer` |
    | Extra           | The additional properties that you may need to set (optional). | `{"property1": "value1", "property2": "value2"}` |
 
-   {: .note}
    Client ID and secret credentials can be obtained by registering a [service account](../managing-your-organization/service-accounts.md).
+   {: .note}
 
 7. Choose **Test** to verify the connection.
 
@@ -186,8 +186,8 @@ with DAG('firebolt_provider_startstop_trip_data',
      task_trip_data__create_table >> task_trip_data__process_data >> task_stop_engine)
 ```
 
-{: .note}
 This DAG showcases various Firebolt tasks as an example and is not intended to represent a typical real-world workflow or pipeline.
+{: .note}
 
 ### Define Airflow variables
 {: .no_toc}

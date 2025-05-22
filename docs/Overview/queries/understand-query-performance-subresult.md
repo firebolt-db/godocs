@@ -87,6 +87,6 @@ Firebolt exposes [system settings]({% link Reference/system-settings.md %}) that
 - Setting `enable_result_cache` to `FALSE` ensures that full query results aren't retrieved from cache, while still allowing for semantic cross-query subresult reuse.
 - Setting `enable_subresult_cache` to `FALSE` disables Firebolt's entire subresult caching layer.
 
-{: .note}
 For most benchmarking scenarios, disable the result cache.
 This approach affects only the final result caching while preserving the benefits of cross-query subresult optimizations.
+{: .note}

@@ -12,8 +12,8 @@ Deletes a user.
 
 For more information, see [Managing users](../../../Guides/managing-your-organization/managing-users.md).
 
-{: .warning}
 A user cannot be dropped if it owns objects. In this case, an error message will be displayed, and you need to manually drop the objects, or transfer ownership.
+{: .warning}
 
 for more information, see [Ownership](../../../Guides/security/ownership.md).
 

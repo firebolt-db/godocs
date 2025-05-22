@@ -18,8 +18,8 @@ Firebolt supports AWS PrivateLink to help you securely access the Firebolt API w
 * [Configure your service account](#configure-your-service-account)
 * [Test your AWS PrivateLink connection](#test-your-aws-privatelink-connection)
 
-{: .note}
 AWS PrivateLink for Firebolt is in public preview and available in all Firebolt regions.
+{: .note}
 
 ## Prerequisites
 
@@ -96,13 +96,13 @@ curl https://api.go.firebolt.io/web/v3/account/developer/engineUrl \
 }
 ```
 
-{: .note}
 If your service account has the `PRIVATE_ONLY` claim, requests from that service account to any Firebolt public endpoint will fail.
+{: .note}
 
 When using the `PRIVATE_ONLY` claim, requests to the private endpoint complete successfully if the traffic originates from an authorized AWS VPC endpoint with the necessary route tables, security group rules, and network access control lists to enable communication. 
 
 The following code example sends a `SELECT 42` query to a Firebolt private API endpoint using `curl`, authenticates with a bearer token, and returns a JSON response containing the query result:
-```bash
+```
 curl --location 'https://01hnj3r1xrx3a4t3kb1ec7qs2b.api-private.us-east-1.app.firebolt.io' \
 --header "Authorization: Bearer $TOKEN" \
 --data 'SELECT 42'
@@ -124,6 +124,7 @@ curl --location 'https://01hnj3r1xrx3a4t3kb1ec7qs2b.api-private.us-east-1.app.fi
         "elapsed": 0.014256,
         "rows_read": 1,
         "bytes_read": 1
+    }
 }
 ```
 

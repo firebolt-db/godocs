@@ -22,8 +22,8 @@ Firebolt supports the following compression algorithms:
 - `lz4`&ndash; Default option; fast compression and decompression, ideal for general workloads. 
 - `zstd`&ndash; Higher compression ratios at the cost of increased CPU usage; useful for large datasets. 
 
-{: .note}
 Disabling compression with `NONE` is not supported. Firebolt always compresses data using one of the supported algorithms. 
+{: .note}
 
 ## Specify compression settings
 

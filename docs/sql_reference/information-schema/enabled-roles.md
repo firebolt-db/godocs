@@ -19,8 +19,8 @@ FROM
   information_schema.enabled_roles;
 ```
 
-{: .note}
 For more information about permissions to access and perform operations on specific objects by role, see [Manage role-based access control]({% link Guides/security/rbac.md %}). 
+{: .note}
 
 ## Columns in information_schema.enabled_roles
 

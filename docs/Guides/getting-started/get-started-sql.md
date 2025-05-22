@@ -26,8 +26,8 @@ To get started using Firebolt, begin by registering using the following steps:
 
 3. Type in your email and password and select **Log In**.
 
-{: .note}
 New accounts receive credits ($200) to get started exploring Firebolt’s capabilities. These credits must be used within 30 days of account creation.
+{: .note}
 
 Firebolt’s billing is based on engine runtime, measured in seconds. We also pass through AWS S3 storage costs at the rate of $23 per TB per month. The amount that you spend is dependent primarily on which engines you use and how long those engines are running.
 
@@ -43,8 +43,8 @@ Firebolt’s structure is organized as follows:
 * A database holds the elements that you need to run queries such as tables, views and information schema.  
 * An [engine](../../Overview/engine-fundamentals.md) provides the compute resources for ingesting data and running queries. For more information on using Firebolt engines and how to select the correct size for your workload, see [Operate engines](../operate-engines/operate-engines.md).
 
-{: .note}
 If you used the **Load data** wizard, Firebolt has already created a database for you, and you can skip creating a database.
+{: .note}
 
 The following instructions show you how to create a database and then an engine. Note that you can also create the engine first.
 
@@ -97,8 +97,8 @@ By default, when you login to **Firebolt’s Workspace** for the first time, Fir
   
 * An engine must be running to process the script in a selected tab. The name and status of the engine that **Script 1** uses for computation is located to the right of the current selected database. To change either the engine or the status, select the drop-down arrow next to the engine name. You can select a new engine and change its status from **Stopped** to **Running** by selecting **Start engine**. If you select **Run** at the bottom of the workspace, the selected engine starts automatically. Select **Stop engine** to change the status to **Stopped**. Firebolt automatically stops your engine if it is inactive for 20 minutes.
 
-{: .note}
 Because an engine is a dedicated compute node that nobody else can use, you are charged for each second that your engine is **Running**, even if it’s not processing a query. 
+{: .note}
 
 If you used the **Load data** wizard, Firebolt has already created an engine for you, and you can skip the following step.
 
@@ -114,8 +114,8 @@ If you used the **Load data** wizard, Firebolt has already created an engine for
 
 After creating an engine, you can load your data. This tutorial uses Firebolt's publicly available Firebolt’s sample dataset, from the fictional [“Ultra Fast Gaming Inc.”](https://help.firebolt.io/t/ultra-fast-gaming-firebolt-sample-dataset/250) company. This dataset does not require access credentials. If your personal dataset requires access credentials, you will need to provide them. For examples of how to provide access credentials and more complex loading workflows, see [Loading data](../loading-data/loading-data.md). For more information about AWS access credentials, see [Creating Access key and Secret ID](../loading-data/creating-access-keys-aws.md)
 
-{: .note}
 If you used the **Load data** wizard, skip ahead to the following **Run query** section.
+{: .note}
 
 Use [COPY FROM](../../sql_reference/commands/data-management/copy-from.md) in the **Develop Space** to copy data directly from a source into a Firebolt managed table.
 
@@ -330,24 +330,24 @@ If you want to save your data outside of Firebolt, you can use [COPY TO](../../s
 
 2. An AWS IAM policy statement attached to a user role. Firebolt requires the following minimum permissions in the IAM policy:
 
-    ```shell
+    ```json
     {
-    "Version": "2012-10-17",
-    "Statement": [
+      "Version": "2012-10-17",
+      "Statement": [
         {
-            "Effect": "Allow",
-            "Action": [
-                "s3:Get*",
-                "s3:List*",
-                "s3:PutObject",
-                "s3:DeleteObject"
-            ],									
-            "Resource": [
-                "arn:aws:s3:::my_s3_bucket",
-                "arn:aws:s3:::my_s3_bucket/*"
-            ]
+          "Effect": "Allow",
+          "Action": [
+            "s3:Get*",
+            "s3:List*",
+            "s3:PutObject",
+            "s3:DeleteObject"
+          ],
+          "Resource": [
+            "arn:aws:s3:::my_s3_bucket",
+            "arn:aws:s3:::my_s3_bucket/*"
+          ]
         }
-     ]
+      ]
     }
     ```
 

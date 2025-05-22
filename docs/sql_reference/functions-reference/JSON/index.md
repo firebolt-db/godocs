@@ -80,7 +80,7 @@ In the previous JSON document, the JSON pointer expressions evaluate to the foll
 
 The following JSON document, represented by the `<json_common_example>` placeholder, is used as a basis for all JSON function examples in this reference.
 
-```javascript
+```json
 {
     "key": 123,
     "value": {
@@ -110,7 +110,7 @@ The following JSON document, represented by the `<json_common_example>` placehol
                 "items": 2
             }
         }
-    ]
+      ]
     }
 }
 ```

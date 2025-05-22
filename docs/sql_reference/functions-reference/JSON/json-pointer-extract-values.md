@@ -16,16 +16,12 @@ Otherwise, it returns `NULL`.
 
 ## Syntax
 
-{: .no_toc}
-
 ```sql
 JSON_POINTER_EXTRACT_VALUES
 (<json>, <json_pointer_expression>)
 ```
 
 ## Parameters
-
-{: .no_toc}
 
 | Parameter                   | Description                                                                                                                                                                               | Supported input types |
 |:----------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
@@ -39,8 +35,6 @@ JSON_POINTER_EXTRACT_VALUES
 * If any input values are `NULL`, the function will return `NULL`.
 
 ## Examples
-
-{: .no_toc}
 
 For the JSON document indicated by `<json_common_example>` below,
 see [JSON common example](./index.md#json-common-example). The **returned result** is based on the following example.

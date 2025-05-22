@@ -100,8 +100,8 @@ INSERT INTO my_parquet_array_fact_tbl
 
 After you ingest array values into the fact table, you can query and manipulate the array using array functions and Lambda functions. For more information, see [Working with arrays](working-with-arrays.md).
 
-{: .note}
 Use multipart Parquet column names to extract data from nested structures. For simple `ARRAY(TEXT)`, use a single top-level field name.
+{: .note}
 
 ## Example&ndash;ingest and work with maps
 

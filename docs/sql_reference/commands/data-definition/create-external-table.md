@@ -203,8 +203,8 @@ CREDENTIALS = (AWS_ACCESS_KEY_ID = '<aws_access_key_id>' AWS_SECRET_ACCESS_KEY =
 | `AWS_ROLE_ARN` | The AWS role ARN (Amazon Resource Name).        | `TEXT`      |
 | `AWS_ROLE_EXTERNAL_ID` | The AWS role external id.        | `TEXT`      |
 
-{: .note}
 In case you don't have the access key and secret to access your Amazon S3 bucket, read more [here](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) on how to obtain them.
+{: .note}
 
 
 ### OBJECT_PATTERN

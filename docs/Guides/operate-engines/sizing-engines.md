@@ -27,12 +27,10 @@ See the [engine fundamentals]({% link Overview/engine-fundamentals.md %}) page f
 Firebolt provides engine observability metrics that give visibility into how the engine resources are being utilized by your workloads. Use the [Information_Schema.engine_metrics_history]({% link sql_reference/information-schema/engine-metrics-history.md %}) view to understand how much CPU, RAM, and disk are utilized by your workloads. In addition, this view also provides details on how often your queries hit the local cache and how much of your query data is spilling onto the disk. These metrics can help you decide whether your engine needs a different node type and whether you need to add more nodes to improve the query performance. Use the [Information_Schema.engine_running_queries]({% link sql_reference/information-schema/engine-running-queries.md %}) view to understand how many queries are waiting in the queue to be run. If there are a number of queries still waiting to be run, adding another cluster to your engine may help improve the query throughput. 
 
 ## Initial Sizing
-**ELT Workloads** <br />
-{: .fs-6}
+### ELT Workloads
 For the ELT workloads, the engine size would depend on the number of files and the size of the files used to ingest the data. You can parallelize the ingest process with additional nodes, which can provide improved performance.
 
-**Queries** <br />
-{: .fs-6}
+### Queries
 To correctly size an engine for querying data, there are several factors to consider:
 - The size of frequently accessed data under your query pattern. More data will require a engine with a larger cache size.
 - The relative amount of processing performed within the queries in your query pattern. More complex queries will generally require more CPU cores.
@@ -43,14 +41,10 @@ For query processing, our recommendation is to start with a S or M storage-optim
 
 **TIP:** You can use [Multi-Cluster Engine Warmup]({% link Reference/system-settings.md %}#multi-cluster-engine-warmup) to submit your checksum queries to all clusters in a multi-cluster engine. 
 
-{: .note}
 Small and medium storage-optimized engines are available for use right away. Compute-optimized instance types are available, but may see longer engine start times. If you want to use a large or extra-large engine, reach out to [support@firebolt.io](mailto:support@firebolt.io).
-
-<br />
-
+{: .note}
 
 **TIP:** You also have the option to run your workload simultaneously on engines with different configurations and use these metrics to identify which configuration best fits your needs. 
 
-{: .note}
 You will need to have the appropriate [RBAC]({% link Guides/operate-engines/rbac-for-engines.md %}) permissions to use the engine observability metrics.
-
+{: .note}

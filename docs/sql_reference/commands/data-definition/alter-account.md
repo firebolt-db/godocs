@@ -25,8 +25,6 @@ ALTER ACCOUNT <account_name> RENAME TO <new_account_name>;
 
 ### Parameters 
 
-{: .no_toc} 
-
 | Parameter | Description                                                                                                                                                            |
 | :--- |:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `<account_name>` | The name of the account to be altered.                                                                                                                                 |
@@ -55,8 +53,6 @@ ALTER ACCOUNT <account_name> OWNER TO <identity>
 ```
 
 ### Parameters
-
-{: .no_toc}
 
 | Parameter        | Description                                                        |
 |:-----------------|:-------------------------------------------------------------------|

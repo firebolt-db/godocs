@@ -14,9 +14,9 @@ Some functions support an optional `frame_clause`.
 The `frame_clause` can be one of the following: 
 
 ```sql
-    { RANGE | ROWS } <frame_start>
-    { RANGE | ROWS } BETWEEN <frame_start> AND <frame_end>
-  ```
+{ RANGE | ROWS } <frame_start>
+{ RANGE | ROWS } BETWEEN <frame_start> AND <frame_end>
+```
 
 where `<frame_start>` and `<frame_end>` is one of the following: 
 

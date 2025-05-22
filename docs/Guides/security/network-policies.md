@@ -17,8 +17,8 @@ The IP allow and blocked lists used to specify a network policy are specified as
 
 To view all network policies, click **Configure** to open the configure space, then choose **Network policies** from the menu, or query the [information_schema.network_policies](../../sql_reference/information-schema/network_policies.md) view. 
 
-{: .note}
 Managing network policies requires the org_admin role.
+{: .note}
 
 ## Create a network policy
 

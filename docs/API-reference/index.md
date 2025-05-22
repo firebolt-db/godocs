@@ -5,7 +5,6 @@ layout: default
 title: API reference
 description: Learn how to use Firebolt programmatically
 nav_order: 7
-has_toc: true
 has_children: true
 has_toc: false
 ---
@@ -19,8 +18,6 @@ Firebolt offers official SDKs and drivers to simplify API usage. These drivers i
 <img src="../assets/images/API-workflow.png" alt="Use a service account and a driver to connect to the Firebolt API which returns a result." width="500">
 
 To submit an API request, set up a Firebolt driver and use it to send a query to Firebolt, as explained in the following sections.
-
-{:.no_toc}
 
 **Topics:**
 

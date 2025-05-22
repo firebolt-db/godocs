@@ -91,7 +91,7 @@ For more information on how to create access keys, see [Creating Access Key and 
 
 The example AWS IAM policy statement below demonstrates the minimum actions that must be allowed for Firebolt to write query files to an example Amazon S3 URL. A permissions policy that allows at least these actions for the `<s3_url>` that you specify in the `COPY TO` statement must be attached to the user or role specified in the `CREDENTIALS` clause.
 
-```
+```json
 {
     "Version": "2012-10-17",
     "Statement": [

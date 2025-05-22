@@ -28,8 +28,6 @@ ALTER SERVICE ACCOUNT <service_account_name> SET
 
 ### Parameters
 
-{: .no_toc}
-
 | Parameter                | Description |
 |:-------------------------|:------------|
 | `<service_account_name>` | The name of the service account to edit. |
@@ -69,8 +67,6 @@ ALTER SERVICE ACCOUNT <service_account_name> RENAME TO <new_service_account_name
 
 ### Parameters
 
-{: .no_toc}
-
 | Parameter          | Description                                |
 |:-------------------|:-------------------------------------------|
 | `<service_account_name>`     | The name of the service account to rename. |
@@ -99,8 +95,6 @@ ALTER SERVICE ACCOUNT <service_account_name> OWNER TO <identity>
 ```
 
 ### Parameters
-
-{: .no_toc}
 
 | Parameter                | Description                                                                      |
 |:-------------------------|:---------------------------------------------------------------------------------|

@@ -8,13 +8,14 @@ parent: SQL functions
 # FUNCTION
 Function description, starting with a verb, such as Returns, Counts, Takes, Allows. Define what the function does without assuming prior knowledge, and without using the function to define itself. For example, if you want to define the Manhattan distance, do not define the function by saying that it calculates the Manhattan distance. State how the Manhattan distance is calculated using the simplest terms possible, and write the definition in terms that a 10th grader can follow. Do not use jargon which doesn't translate well, or parentheses unless it's to define an abbreviation, or latinisms such as i.e. or e.g., or etc. Do not use personal pronouns including "we". Avoid passive voice if possible.
 
-
-**Note**
+Optional note, includes limitations on this function.
+<br><br>Notice that `{: .note}` is a jekyll block attribute that applies to the block above it. Placing the `{: .note}` above the block may or may not work depending on the surrounding blocks. Inside a `{: .note}` block prefer using `<br>` if you need multiple paragraphs.
 {: .note}
-(optional, includes limitations on this function)
+
+Optional warning. Same behavior as with `{: .note}` above.
+{: .warning}
 
 ## Syntax
-{: .no_toc}
 
 ```sql
 FUNCTION(<exp1>, <exp2>)
@@ -25,7 +26,6 @@ FUNCTION_ALIAS(<exp1>, <exp2>)
 ```
 
 ## Parameters
-{: .no_toc}
 
 | Parameter | Description                         |Supported input types |
 | :--------- | :----------------------------------- | :---------------------|
@@ -38,13 +38,10 @@ FUNCTION_ALIAS(<exp1>, <exp2>)
 The `FUNCTION` function returns a result of type `DATATYPE`.
 
 ## Remarks (Optional)
-{: .no_toc}
 
 (optional, includes any additional remarks about this function)
 
-
 ## Example(s) (Optional if there are several examples)
-{: .no_toc}
 
 **Example**
 
@@ -55,8 +52,6 @@ SELECT
 	 AS ;
 ```
 
-**Returns**(make sure there is a carriage return after this line so that the text renders correctly)
-
-``
+**Returns**: `1,2,3,4,'some results'`
 
 (Optional) The previous code example returns (insert what and why it returns what it does, if necessary for understanding.)

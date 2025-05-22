@@ -15,15 +15,11 @@ Returns the middle value in a given column. If number of values are even, `MEDIA
 
 ## Syntax
 
-{: .no_toc}
-
 ```sql
 MEDIAN(<value>)
 ```
 
 ## Parameters
-
-{: .no_toc}
 
 | Parameter | Description                                       | Supported input types                       |
 |:----------|:--------------------------------------------------|:--------------------------------------------|
@@ -40,5 +36,4 @@ MEDIAN(<value>)
 
 ## Examples
 
-{: .no_toc}
 {% include sql_examples/median.md %}

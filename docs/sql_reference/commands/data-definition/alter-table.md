@@ -48,8 +48,8 @@ The query can only be executed under the following conditions:
 
 Use to delete a partition from a fact or dimension table.
 
-{: .warning}
 Dropping a partition deletes the partition and the data stored in that partition.
+{: .warning}
 
 ### Syntax
 

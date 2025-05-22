@@ -41,8 +41,8 @@ SELECT [ ALL | DISTINCT ] {<select_expression> [, ...]}
 
 The `SELECT` list defines the columns that it returns. Each `<select_expression>` in the `SELECT` list can be either an individual expression or a wildcard.
 
-{: .note}
 You cannot select **only** [partitioned]({% link Overview/indexes/using-indexes.md %}#partitions-in-tables) or [virtual columns](../../../Guides/loading-data/working-with-external-tables.md#using-metadata-virtual-columns). Selecting both partitioned or virtual columns together with regular columns is supported, but selecting only partitioned or virtual columns is not. 
+{: .note}
 
 ### SELECT expression
 

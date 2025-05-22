@@ -66,8 +66,8 @@ The current owner of an object can be viewed in the corresponding `information_s
 | Table           | `information_schema.tables`                               |
 | View            | `information_schema.views` or `information_schema.tables` |
 
-{: .note}
 Indexes inherit ownership from their parent table. In `information_schema.indexes`, the table owner is displayed as the index owner.
+{: .note}
 
 ## Changing an object's owner
 

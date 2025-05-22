@@ -127,13 +127,11 @@ curl --location 'https://<system engine URL>/query' \
 ## Execute a query on a user engine
 
 Use the following endpoint to run a query on a user engine:
-
 ```bash
 curl --location 'https://<user engine URL>&database=<database name>' \
 --header 'Authorization: Bearer <access token>' \
 --data '<SQL query>'
 ```
-
 where:
 
 | Property                          | Data type | Description |
@@ -142,5 +140,5 @@ where:
 | database name                     | TEXT      | The database to run the query |
 | SQL query                         | TEXT      | Any valid SQL query |                 
 
-{: .note}
 Queries are per request. To run multiple statement queries, separate queries each into one request. 
+{: .note}

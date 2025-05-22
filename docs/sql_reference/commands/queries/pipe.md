@@ -11,8 +11,6 @@ parent: Querying and query optimization
 
 # SQL Pipe syntax
 
-{: .no_toc}
-
 Firebolt supports SQL Pipe syntax, an alternative SQL syntax that uses the `|>` operator to chain query transformations step by step.
 SQL Pipe syntax supports the same functionality as standard SQL, but can improve readability by allowing queries to flow in a linear, top-to-bottom structure, which makes it easier to express, compose and understand queries.
 This syntax was first presented by Google in the research paper [SQL Has Problems. We Can Fix Them: Pipe Syntax In SQL](https://research.google/pubs/sql-has-problems-we-can-fix-them-pipe-syntax-in-sql/).

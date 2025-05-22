@@ -12,8 +12,8 @@ parent: Integrate with Firebolt
 
 [Tableau](https://www.tableau.com/) is a visual analytics platform that empowers users to explore, analyze, and present data through interactive visualizations. It supports diverse use cases such as data exploration, reporting, and collaboration, and helps users gain insights and make informed decisions. This guide shows you how to set up your Firebolt account to integrate with [Tableau Desktop](https://www.tableau.com/products/desktop) and [Tableau Exchange](https://exchange.tableau.com). 
 
-{: .note}
 The latest Firebolt version is not compatible with Tableau Online, and you will not be able to connect it to your Firebolt account. You can only use the connector from Tableau Exchange with an older version of Firebolt. If you want to use the latest version, use Tableau Desktop or Tableau Server and follow the instructions below.
+{: .note}
 
 ## Prerequisites
 

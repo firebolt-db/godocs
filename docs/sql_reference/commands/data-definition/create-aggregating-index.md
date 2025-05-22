@@ -35,8 +35,8 @@ CREATE AGGREGATING INDEX <index_name> ON <table_name> (
 | `<key_expressions>` | One or more expressions that will be used for filtering or as aggregation dimensions in queries. |
 | `<aggregations>`    | [Aggregation functions]({% link sql_reference/functions-reference/aggregation/index.md %}) including `SUM`, `COUNT`, `AVG`, applied to table column expressions.  |
 
-{: .note}
 Firebolt automatically maintains the aggregating index when the table is updated, ensuring it stays optimized for queries.
+{: .note}
 
 ## Examples
 

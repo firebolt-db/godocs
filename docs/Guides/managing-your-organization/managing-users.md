@@ -36,8 +36,8 @@ There can be multiple users per login or service account. Users are managed at t
 
 You can [add](#set-up-a-new-user), [edit](#edit-an-existing-user) or [delete](#deleting-an-existing-user) users using SQL in the **Develop Space** or using the user interface (UI) in the **Configure Space**.
 
-{: .note}
 Managing roles requires the account_admin role. For more information about roles, see the [Roles]({% link Overview/organizations-accounts.md %}#roles) section in [Organizations and accounts]({% link Overview/organizations-accounts.md %}), and the [Account permissions]({% link Overview/Security/Role-Based Access Control/account-permissions.md %})  section of [Role-based access control]({% link Overview/Security/Role-Based Access Control/index.md %}) that specifies permissions for **CREATE USER**.
+{: .note}
 
 **Topics**
 - [Manage users and roles](#manage-users-and-roles)
@@ -345,8 +345,8 @@ The following code example changes a user's login:
 ALTER USER alex SET LOGIN="alexs@acme.com";
 ```
 
-{: .note}
 Users can modify most of their own account settings without requiring [RBAC]({% link Overview/Security/Role-Based Access Control/index.md %}#role-based-access-control-rbac) permissions, except when altering [LOGIN]({% link Guides/managing-your-organization/managing-logins.md %}) configurations or a [SERVICE ACCOUNT]({% link Guides/managing-your-organization/service-accounts.md %}).
+{: .note}
 
 ## Deleting an existing user
 

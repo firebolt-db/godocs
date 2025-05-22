@@ -30,16 +30,12 @@ see [Apache HyperLogLog sketch docs](https://datasketches.apache.org/docs/HLL/HL
 
 ## Syntax
 
-{: .no_toc}
-
 ```sql
 APACHE_DATASKETCHES_HLL_BUILD
 (<expression> [,hll_precision => <hll_precision>] [, hll_type => <hll_type>] [, text_utf16_little_endian => <text_utf16_little_endian>])
 ```
 
 ## Parameters
-
-{: .no_toc}
 
 | Parameter                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Supported input types                         |
 |:-----------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------|
@@ -85,8 +81,6 @@ SELECT DECODE(<druid_sketch>, 'base64');
 ```
 
 ## Example
-
-{: .no_toc}
 
 ```sql
 CREATE TABLE data_to_count AS

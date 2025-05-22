@@ -15,8 +15,6 @@ A table-valued function (TVF) that lists objects and their metadata from Amazon 
 
 ## Syntax
 
-{: .no_toc}
-
 ```sql
 -- Using location object (recommended)
 LIST_OBJECTS (

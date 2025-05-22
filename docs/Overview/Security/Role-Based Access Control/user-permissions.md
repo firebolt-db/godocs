@@ -17,8 +17,8 @@ The following table outlines the privileges that can be granted for users within
 |---------------------------|---------------------------------------------------------------------------------|----------------------------------------------------------------------|----------------------------------------------------------------------|
 | MODIFY                 | Grants the ability to drop the specified user.                       | `GRANT MODIFY ON USER <user_name> TO <role>;`                       | `REVOKE MODIFY ON USER <user_name> FROM <role>;`                    |
 
-{: .note}
 Users can modify most of their own account settings without requiring [RBAC]({% link Overview/Security/Role-Based Access Control/index.md %}#role-based-access-control-rbac) permissions, except when altering [LOGIN]({% link Guides/managing-your-organization/managing-logins.md %}) configurations or a [SERVICE ACCOUNT]({% link Guides/managing-your-organization/service-accounts.md %}).
+{: .note}
 
 ## Examples of granting user permissions
 

@@ -44,8 +44,5 @@ SELECT CAST('1' AS INTEGER) as level;
 
 `CAST` can also be done by writing the format before the object, for example - `SELECT DATE '2022-01-01'` , `SELECT TIMESTAMP '2022-01-01 01:02:03'.`
 
-{: .note}
 `CAST` can also be done by using the `::` operator. For more information, see [:: operator for CAST](../../operators.md#-type-cast).
-
-
-
+{: .note}

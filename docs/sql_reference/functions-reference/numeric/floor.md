@@ -17,16 +17,12 @@ Rounds an input `<value>` down to the nearest multiple based on the specified pr
 
 ## Syntax
 
-{: .no_toc}
-
 ```sql
 FLOOR(<value>);
 FLOOR(<value>, <digit>);
 ```
 
 ## Parameters
-
-{: .no_toc}
 
 | Parameter | Description                                                                                                                                                                                                                                                              | Supported input types         |
 | :-------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------- |
@@ -43,8 +39,6 @@ FLOOR(<value>, <digit>);
 
 ## Remarks
 
-{: .no_toc}
-
 When the input is of type `NUMERIC`, `FLOOR` throws an overflow error if the result of `FLOOR` exceeds the defined precision and scale limits of the return data type.
 
 The following code example calculates the nearest whole number smaller than `-99.99` and specifies that the output should contain a total of `4` digits, with only `2` digits reserved for the decimal part:
@@ -58,7 +52,5 @@ SELECT FLOOR(-'99.99'::NUMERIC(4,2));
 The previous code returns an `OVERFLOW ERROR` because `FLOOR` returns `-100.00`, which exceeds the `NUMERIC(4,2)` data type's limit of `2` digits before the decimal point, and `-100` requires `3` digits.
 
 ## Examples
-
-{: .no_toc}
 
 {% include sql_examples/floor_executable.md %}

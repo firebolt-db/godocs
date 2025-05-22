@@ -14,15 +14,11 @@ Returns `TRUE` if the argument is finite, and `FALSE` otherwise. Only `REAL` and
 
 ## Syntax
 
-{: .no_toc}
-
 ```sql
 IS_FINITE(<value>);
 ```
 
 ## Parameters
-
-{: .no_toc}
 
 | Parameter | Description                                    | Supported input types                 |
 | :-------- | :--------------------------------------------- | :------------------------------------ |
@@ -33,7 +29,5 @@ IS_FINITE(<value>);
 `IS_FINITE` returns a value of type `BOOLEAN`.
 
 ## Examples
-
-{: .no_toc}
 
 {% include sql_examples/is_finite_executable.md %}

@@ -27,8 +27,8 @@ Single-sign on (SSO) is an authentication process that allows access to multiple
 
 Before you can use SSO with Firebolt, you must complete specific configuration steps in your Identity Provider (IdP) system, which is responsible for authenticating users and managing their credentials. Part of these steps include defining an **Audience URI**, which specifies the intended recipient of a SAML assertion about a user's authentication. The configuration of an Audience URI depends on your IdP. See the following list of supported IdPs for specific instructions.
 
-{: .note}
 If your Audience URI is not configured correctly, Security Assertion Markup Language (SAML) assertions used for authentication will fail, preventing users from signing in using SSO.
+{: .note}
 
 ## Supported IdPs
 

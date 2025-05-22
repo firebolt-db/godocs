@@ -14,15 +14,11 @@ Returns the first value evaluated in the specified window frame. If there are no
 
 ## Syntax
 
-{: .no_toc}
-
 ```sql
 FIRST_VALUE( <expression> ) OVER ( [ PARTITION BY <partition_by> ] ORDER BY <order_by> [ASC|DESC] )
 ```
 
 ## Parameters
-
-{: .no_toc}
 
 | Parameter        | Description                                       | Supported input types | 
 |:-----------------|:--------------------------------------------------|:----------------------| 
@@ -43,5 +39,4 @@ otherwise specified in the `ORDER BY` clause. If no `ORDER BY` clause is applied
 
 The following code example selects the `nickname`, `level`, `current_score`, and `highest_score` for each level, using the `NTH_VALUE` function to retrieve the top score within each level, ordered by `current_score` in descending order.
 
-{: .no_toc}
 {% include sql_examples/first_value.md %}

@@ -61,7 +61,7 @@ Now that you have created the user, you will now assign this user appropriate pe
 
    ![Set Permissions](../../assets/images/Specify_Permissions.png){: width="800" .centered}
 
-   ```javascript
+   ```json
    {
       "Version": "2012-10-17",
       "Statement": [

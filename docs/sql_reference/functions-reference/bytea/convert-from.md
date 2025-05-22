@@ -14,16 +14,12 @@ Converts a binary string from a specified encoding to the `TEXT` data type, usin
 
 ## Syntax
 
-{: .no_toc}
-
 ```sql
 CONVERT_FROM
 (<bytes>, <src_encoding>)
 ```
 
 ## Parameters
-
-{: .no_toc}
 
 | Parameter        | Description                                                                                                                                                                          | Supported input types |
 |:-----------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
@@ -40,8 +36,6 @@ If `<src_encoding>` is invalid, an error is thrown.
 If `<bytes>` are malformed according to `<src_encoding>`, the behavior is undefined and may result in replacement characters or errors, depending on the encoding. For example, in `UTF-8` encoding, malformed bytes are replaced with the � character.
 
 ## Examples
-
-{: .no_toc}
 
 **Example**
 

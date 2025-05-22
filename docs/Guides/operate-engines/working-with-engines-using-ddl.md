@@ -13,8 +13,8 @@ parent: Operate Engines
 
 You can create, run, modify, and scale Firebolt engines using either the **Firebolt Workspace** [user interface]({% link Guides/query-data/using-the-develop-workspace.md %}) (UI) or the [Firebolt API]({% link API-reference/index.md %}).  Learn how to perform key engine operations, including starting, stopping, resizing, and configuring auto-start/stop settings, using both the UI and SQL commands. Firebolt also allows the dynamic scaling of engines without stopping them.
 
+All the engine operations in this guide can be performed using a [system engine]({% link Guides/operate-engines/system-engine.md %}). 
 {: .note}
- All the engine operations in this guide can be performed using a [system engine]({% link Guides/operate-engines/system-engine.md %}). 
 
 Topics:
 
@@ -59,19 +59,17 @@ CREATE ENGINE myengine WITH
 TYPE="M" NODES=2 CLUSTERS=1;
 ```  
 
-{: .note}
 When creating an engine using the UI, Firebolt preserves the exact capitalization of the engine name. For example, an engine named **MyEngine** will retain its casing. To reference this engine in SQL commands, enclose the name in quotes: "MyEngine". For more information, visit the [Object Identifiers]({% link Reference/object-identifiers.md %}) page.
+{: .note}
 
 ## Start or resume an engine
-### Start an engine using the UI <br />
-{: .fs-6}
+### Start an engine using the UI
 1. In the **Engines** list, find the engine you want to start. 
 2. Open the dropdown menu next to the engine and select **Start engine**. <br />
 ![](../../assets/images/Start_Engine.png){: width="600" .centered} <br /> 
 3. The engine status changes to **Running** once started. 
 
-### Start an engine using the API <br />
-{: .fs-6}
+### Start an engine using the API
 To start your engine, use the [START ENGINE]({% link sql_reference/commands/engines/start-engine.md %}) command:
 
 ```sql
@@ -79,15 +77,13 @@ START ENGINE myengine;
 ```  
 
 ## Stop an engine
-### Stop an engine using the UI <br />
-{: .fs-6}
+### Stop an engine using the UI
 1. In the **Engines** list, find the engine you want to stop. 
 2. Open the dropdown menu and select **Stop engine**.<br />
 ![](../../assets/images/Stop_Engine.png){: width="600" .centered}
  <br /> 
 
-### Stop an engine using the API <br />
-{: .fs-6}
+### Stop an engine using the API
 To stop an engine, use the [STOP ENGINE]({% link sql_reference/commands/engines/stop-engine.md %}) command:
 
 ```sql
@@ -100,12 +96,11 @@ To stop an engine immediately without waiting for running queries to complete, u
 STOP ENGINE myengine WITH TERMINATE=TRUE;
 ```
 
-{: .note}
 Stopping an engine clears its cache. Queries run after restarting will experience a cold start, potentially impacting performance until the cache is rebuilt. 
+{: .note}
 
 ## Resize engines
-### Scale engines up or down using the UI <br /> 
-{: .fs-6}
+### Scale engines up or down using the UI
 1. In the **Engines** list, find the engine to modify. 
 2. Open the dropdown menu and select the **More options** icon (<img src="../../assets/images/more_options_icon.png" alt="More options icon" width="7"/>). 
 3. Choose **Modify engine**.<br />
@@ -114,8 +109,7 @@ Stopping an engine clears its cache. Queries run after restarting will experienc
 ![](../../assets/images/Modify_Engine_Type.png){: width="600" .centered}
  <br /> 
 
-### Scale engines up or down using the API <br />
-{: .fs-6}
+### Scale engines up or down using the API
 Use the [ALTER ENGINE]({% link sql_reference/commands/engines/alter-engine.md %}) command to change the node type:
 
 ```sql
@@ -124,15 +118,13 @@ ALTER ENGINE my_prod_engine SET TYPE = “M”;
 The previous example updates all nodes in the engine to use the 'M' type. 
 
 ### Scale engines out or in using the UI
-{: .fs-6}
 1. In the **Engines** list, find the engine to modify. 
 2. Open the dropdown menu, select the **More options** icon (<img src="../../assets/images/more_options_icon.png" alt="More options icon" width="7"/>), and choose **Modify engine**.<br /> 
 ![](../../assets/images/Alter_Engine_Popup.png){: width="600" .centered}<br /> 
 3. Adjust the number of nodes using the (-) and (+) buttons. 
 
 ### Scale engines out or in using the API
- {: .fs-6}
- Use the [ALTER ENGINE]({% link sql_reference/commands/engines/alter-engine.md %}) command to change the number of nodes:
+Use the [ALTER ENGINE]({% link sql_reference/commands/engines/alter-engine.md %}) command to change the number of nodes:
 
 ```sql
 ALTER ENGINE my_prod_engine SET NODES = 3;
@@ -186,15 +178,13 @@ In the previous code example, If `MIN_CLUSTERS` has the same value as `MAX_CLUST
     STOP ENGINE your_engine WITH TERMINATE=true
     ```
 
-
-{: .note}
 If you are using Firebolt in preview mode, you can only use a single cluster for your engines. If you want to try using multi-cluster engines, contact [Firebolt support](mailto:support@firebolt.io). Additionally, when scaling an engine, both the old and new compute resources may be active at the same time for a period. This simultaneous operation can result in higher consumption of Firebolt Units ([FBUs]({% link Overview/engine-consumption.md %})). 
+{: .note}
 
 ## Automatically start or stop an engine
 You can configure an engine to start automatically after creation and to stop after a set idle time. 
 
 ### Configure automatic start/stop using the UI
-{: .fs-6}
 1. In the **Create new engine** menu, open **Advanced Settings**. 
 2. Disable **Start engine immediately** to prevent the engine from starting upon creation.<br />
 ![](../../assets/images/Engine_Initially_Stopped.png){: width="600" .centered}<br />
@@ -202,8 +192,7 @@ You can configure an engine to start automatically after creation and to stop af
 ![](../../assets/images/Engine_Auto_Stop.png){: width="600" .centered} <br /> 
 
 ### Configure automatic start/stop using the API
- {: .fs-6}
- Use the [CREATE ENGINE]({% link sql_reference/commands/engines/create-engine.md %}) command to set auto-start and auto-stop options:
+Use the [CREATE ENGINE]({% link sql_reference/commands/engines/create-engine.md %}) command to set auto-start and auto-stop options:
  
  ```sql
 CREATE ENGINE my_prod_engine WITH 
@@ -218,8 +207,8 @@ To modify the auto-stop feature later, use the [ALTER ENGINE]({% link sql_refere
 ALTER ENGINE my_prod_engine SET AUTO_STOP = 30;
 ```
 
-{: .note}
 The `INITIALLY_STOPPED` function can only be set during engine creation and cannot be modified afterward. 
+{: .note}
 
 
 

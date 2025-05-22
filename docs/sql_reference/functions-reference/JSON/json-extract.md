@@ -17,8 +17,6 @@ specified in the JSON path exists, `JSON_EXTRACT` returns the sub-JSON document 
 
 ## Syntax
 
-{: .no_toc}
-
 ```sql
 JSON_EXTRACT
 (<json>, <json_path_expression>, path_syntax => <path_syntax>)
@@ -34,8 +32,6 @@ JSON_EXTRACT(<json>, <json_path_expression>, path_syntax => 'JSONPointer')
 
 ## Parameters
 
-{: .no_toc}
-
 | Parameter                | Description                                                                                                                                                                                            | Supported input types |
 |:-------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
 | `<json>`                 | The JSON document.                                                                                                                                                                                     | `TEXT`                |
@@ -49,8 +45,6 @@ JSON_EXTRACT(<json>, <json_path_expression>, path_syntax => 'JSONPointer')
 * If any input values are `NULL`, the function will return `NULL`.
 
 ## Examples
-
-{: .no_toc}
 
 For the JSON document indicated by `<json_common_example>` below,
 see [JSON common example](./index.md#json-common-example). The **returned result** is based on the following example.

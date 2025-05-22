@@ -90,8 +90,8 @@ The following code example both scales up and scales out an engine by increasing
 ALTER ENGINE my_engine SET TYPE = "L" NODES = 5;
 ```
 
-{: .note}
 If you need to use a large or extra-large engine, reach out to [support@firebolt.io](mailto:support@firebolt.io).
+{: .note}
 
 ### Enable concurrency auto-scaling         
 The following code example adjusts the maximum number of engine clusters to enable concurrency auto-scaling: 

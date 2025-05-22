@@ -31,8 +31,8 @@ WITH [ALLOWED_IP_LIST = ( '<allowed_ip1>', '<allowed_ip2>', ... )]
 | `<blocked_ip>` | An optional comma-separated and quoted list of IP addresses to block in the created network policy.  |
 | `<description>` | An optional description for the created network policy. | 
 
-{: .note}
 Either `ALLOWED_IP_LIST` or `BLOCKED_IP_LIST` must be specified when creating a new network policy.
+{: .note}
 
 ## Example
 

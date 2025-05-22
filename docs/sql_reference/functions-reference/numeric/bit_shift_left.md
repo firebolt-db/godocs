@@ -11,15 +11,11 @@ Shifts the bits in the first argument to the left by `n` bits, where `n` is the 
 
 ## Syntax
 
-{: .no_toc}
-
 ```sql
 BIT_SHIFT_LEFT(<value>, <bits>)
 ```
 
 ## Parameters
-
-{: .no_toc}
 
 | Parameter | Description                   | Supported input types |
 |:----------|:------------------------------|:----------------------|
@@ -31,7 +27,5 @@ BIT_SHIFT_LEFT(<value>, <bits>)
 The `BIT_SHIFT_LEFT` function returns a result of either type `INT` or `BIGINT`, depending on the type of the input `<expression>`.
 
 ## Examples
-
-{: .no_toc}
 
 {% include sql_examples/bit_shift_left_executable.md %}

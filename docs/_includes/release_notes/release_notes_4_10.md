@@ -22,10 +22,10 @@ This functionality is temporarily limited to tables that were created on Firebol
 You can use `ALTER TABLE RENAME` to change the name of Firebolt-managed tables.
 This functionality is temporarily limited to tables created on Firebolt version 4.10 or higher.
 
-<!-- FIR-38051 - Owned by Asya Shneerson --> 
-**Added support for external file access using AWS session tokens**          
+<!-- FIR-38051 - Owned by Asya Shneerson -->
+**Added support for external file access using AWS session tokens**
 
-You can now use `<AWS_SESSION_TOKEN>` with access keys to securely authenticate and access external files on AWS with the following features: 
+You can now use `<AWS_SESSION_TOKEN>` with access keys to securely authenticate and access external files on AWS with the following features:
 
 * The [COPY TO]({% link sql_reference/commands/data-management/copy-to.md %}) and [COPY FROM]({% link sql_reference/commands/data-management/copy-from.md %}) commands.
 * [External tables]({% link Guides/loading-data/working-with-external-tables.md %}) located in an Amazon S3 bucket.
@@ -36,7 +36,7 @@ You can now use `<AWS_SESSION_TOKEN>` with access keys to securely authenticate 
 <!-- Auto Generated Markdown for FIR-25824 - Owned by Kfir Yehuda -->
 **Enhanced PostgreSQL compliance for casting data types from text to float**
 
-Cast from text to floating-point types is now compliant with PostgreSQL with the following improvements: 
+Cast from text to floating-point types is now compliant with PostgreSQL with the following improvements:
 
 1. **The correct parsing of positive floats** &ndash; A plus sign (`+`) preceding a float is now handled correctly. Example: `'+3.4'`.
 2. **Exponent-only input** &ndash; Float values starting with an exponent `'e'` or `'E'` are rejected. Example: `'E4'`.
@@ -52,7 +52,7 @@ Firebolt has implemented account-level rate limits to ensure equitable resource 
 <!-- Auto Generated Markdown for FIR-37817 - Owned by Demian Hespe -->
 **Corrected runtime reporting**
 
-Resolved an issue where the runtime displayed in Firebolt's user interface and JSON responses omitted including processing times for some query steps. 
+Resolved an issue where the runtime displayed in Firebolt's user interface and JSON responses omitted including processing times for some query steps.
 
 <!-- Auto Generated Markdown for FIR-38001 - Owned by Zhen Li -->
 **Resolved "Invalid Input Aggregate State Type" error with aggregating indexes**

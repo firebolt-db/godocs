@@ -13,8 +13,8 @@ parent: Conditional and miscellaneous functions
 
 Converts data types into other data types based on the specified parameters. If the conversion cannot be performed, returns a NULL. To return an error message instead, use [CAST](./cast.md).
 
+`TRY_CAST` replaces only execution errors with NULLs. However, during planning, impossible casts between two non-castable types still produce an error because the query is invalid.
 {: .note}
-TRY_CAST replaces only execution errors with NULLs. However, during planning, impossible casts between two non-castable types still produce an error because the query is invalid.
 
 ## Syntax
 {: .no_toc}

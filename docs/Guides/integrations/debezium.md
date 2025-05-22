@@ -49,8 +49,8 @@ Before using Kafka Connect to register the Firebolt connector, you need to confi
 
     ```json
     {
-    "name": "firebolt-sink-connector",
-    "config": {
+      "name": "firebolt-sink-connector",
+      "config": {
         "connector.class": "io.debezium.connector.jdbc.JdbcSinkConnector",
         "topics": "cdc.public.demo",
         "connection.url": "jdbc:firebolt:database?account=<account_name>&engine=<engine_name>&merge_prepared_statement_batches=true",
@@ -69,21 +69,21 @@ Before using Kafka Connect to register the Firebolt connector, you need to confi
     
     Use the following configuration parameters for your sink connector:
 
-    | Parameter               | Description                                                                                                       |
-    |-------------------------|-------------------------------------------------------------------------------------------------------------------|
-    | `name`                 | A name for this connector.                                                                                         |
-    | `connector.class`      | Set the connector class to Debezium's sink connector `io.debezium.connector.jdbc.JdbcSinkConnector`.                                                                                                            |
-    | `topics`               | The list of Kafka topics that this connector will be listening to, separated by commas. If Debezium source connector is used to create events then the topics would have a specific [naming scheme](https://debezium.io/documentation/reference/stable/connectors/postgresql.html#postgresql-topic-names). For this example you can use `cdc.public.demo` (see `topic.prefix` and `topic.include.list` fields in [Create a Postgres connector configuration](#create-a-postgres-connector-configuration) for reference)                                             |
-    | `connection.url`       | The Firebolt JDBC [connection string]({% link Guides/developing-with-firebolt/connecting-with-jdbc.md %}#connecting-to-firebolt-with-the-jdbc-driver). `merge_prepared_statement_batches` here is important to improve the insert performance, see the [note below](#merge-prepared-statement-batches) for more information. |
-    | `connection.username`  | The client ID of your Firebolt [service account]({% link Guides/managing-your-organization/service-accounts.md %}).                   |
-    | `connection.password`  | THe secret of your Firebolt [service account]({% link Guides/managing-your-organization/service-accounts.md %}).                      |
-    | `hibernate.dialect`    | Specifies the SQL dialect for the target database. Set to `org.hibernate.dialect.PostgreSQLDialect`.                                       |
-    | `insert.mode`          | A Kafka Connect property that defines how data is written to a target system. You can use either `insert` for new rows, or `update` to modify existing rows in your Firebolt database. `upsert` allows combining both insert and update operations.        |
-    | `primary.key.mode`     | Specifies how the connector resolves [primary key](https://debezium.io/documentation/reference/stable/connectors/jdbc.html#jdbc-property-primary-key-mode), which is required for `"insert.mode": "update"` or when `"delete.enabled"` is set to `true`. Otherwise set to `"none"`
-    | `primary.key.fields`   | Specify which fields to use as primary key columns, separated by commas. This parameter is only used when `insert.mode` is set to update. |
-    | `schema.evolution`     | Controls how the connector handles schema changes. Use `basic` for basic schema evolution (adding columns if a new one is encountered or if the name is changed) or `none` to disable schema evolution entirely. For more information see [Schema evolution](https://debezium.io/documentation/reference/stable/connectors/jdbc.html#jdbc-schema-evolution) in Debezium's documentation. |
-    | `delete.enabled`       | A boolean value that determines whether delete operations from the source database should be propagated to Firebolt. Set to `true` to enable deletion of rows in Firebolt when they are deleted in the source database. Requires `primary.key.mode` set to other than `none`. |
-    | `quote.identifiers`   | A boolean value that determines whether to quote database identifiers (e.g., table and column names). Set to `true` to ensure compatibility with case-sensitive or reserved keywords in Firebolt. |
+    | Parameter             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+    |-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+    | `name`                | A name for this connector.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+    | `connector.class`     | Set the connector class to Debezium's sink connector `io.debezium.connector.jdbc.JdbcSinkConnector`.                                                                                                                                                                                                                                                                                                                                                                                                                    |
+    | `topics`              | The list of Kafka topics that this connector will be listening to, separated by commas. If Debezium source connector is used to create events then the topics would have a specific [naming scheme](https://debezium.io/documentation/reference/stable/connectors/postgresql.html#postgresql-topic-names). For this example you can use `cdc.public.demo` (see `topic.prefix` and `topic.include.list` fields in [Create a Postgres connector configuration](#create-a-postgres-connector-configuration) for reference) |
+    | `connection.url`      | The Firebolt JDBC [connection string]({% link Guides/developing-with-firebolt/connecting-with-jdbc.md %}#connecting-to-firebolt-with-the-jdbc-driver). `merge_prepared_statement_batches` here is important to improve the insert performance, see the [note below](#merge-prepared-statement-batches) for more information.                                                                                                                                                                                            |
+    | `connection.username` | The client ID of your Firebolt [service account]({% link Guides/managing-your-organization/service-accounts.md %}).                                                                                                                                                                                                                                                                                                                                                                                                     |
+    | `connection.password` | THe secret of your Firebolt [service account]({% link Guides/managing-your-organization/service-accounts.md %}).                                                                                                                                                                                                                                                                                                                                                                                                        |
+    | `hibernate.dialect`   | Specifies the SQL dialect for the target database. Set to `org.hibernate.dialect.PostgreSQLDialect`.                                                                                                                                                                                                                                                                                                                                                                                                                    |
+    | `insert.mode`         | A Kafka Connect property that defines how data is written to a target system. You can use either `insert` for new rows, or `update` to modify existing rows in your Firebolt database. `upsert` allows combining both insert and update operations.                                                                                                                                                                                                                                                                     |
+    | `primary.key.mode`    | Specifies how the connector resolves [primary key](https://debezium.io/documentation/reference/stable/connectors/jdbc.html#jdbc-property-primary-key-mode), which is required for `"insert.mode": "update"` or when `"delete.enabled"` is set to `true`. Otherwise set to `"none"`                                                                                                                                                                                                                                      |
+   | `primary.key.fields`  | Specify which fields to use as primary key columns, separated by commas. This parameter is only used when `insert.mode` is set to update.                                                                                                                                                                                                                                                                                                                                                                               |
+    | `schema.evolution`    | Controls how the connector handles schema changes. Use `basic` for basic schema evolution (adding columns if a new one is encountered or if the name is changed) or `none` to disable schema evolution entirely. For more information see [Schema evolution](https://debezium.io/documentation/reference/stable/connectors/jdbc.html#jdbc-schema-evolution) in Debezium's documentation.                                                                                                                                |
+    | `delete.enabled`      | A boolean value that determines whether delete operations from the source database should be propagated to Firebolt. Set to `true` to enable deletion of rows in Firebolt when they are deleted in the source database. Requires `primary.key.mode` set to other than `none`.                                                                                                                                                                                                                                           |
+    | `quote.identifiers`   | A boolean value that determines whether to quote database identifiers (e.g., table and column names). Set to `true` to ensure compatibility with case-sensitive or reserved keywords in Firebolt.                                                                                                                                                                                                                                                                                                                       |
 
     For more information, see [Apache Kafka's sink connector configs](https://kafka.apache.org/documentation.html#sinkconnectconfigs) and [Debezium's connector for JDBC](https://debezium.io/documentation/reference/stable/connectors/jdbc.html)
 
@@ -339,26 +339,26 @@ The following code example starts a Kafka console producer that sends messages t
 After running this command, the console producer will display a prompt where you can paste a payload or message. Paste the following example of a Kafka message that defines a single integer field "id" with a value 1.
   
 ```json
-    {
-      "schema": {
-        "type": "struct",
-        "name": "connector-name.database-name.table-name.Key",
-        "optional": false,
-        "fields": [
-              {
-                  "name": "id",
-                  "index": "0",
-                  "schema": {
-                      "type": "INT32",
-                      "optional": "false"
-                  }
-              }
-          ]
-      },
-      "payload": {
-          "id": "1"
-      },
-    }
+{
+  "schema": {
+    "type": "struct",
+    "name": "connector-name.database-name.table-name.Key",
+    "optional": false,
+    "fields": [
+      {
+        "name": "id",
+        "index": "0",
+        "schema": {
+          "type": "INT32",
+          "optional": "false"
+        }
+      }
+    ]
+  },
+  "payload": {
+    "id": "1"
+  }
+}
 ```
 
 You must paste the message without newlines as a single line as follows:

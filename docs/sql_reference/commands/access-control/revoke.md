@@ -17,8 +17,8 @@ For more information, see [Role-based access control]({% link Guides/security/rb
 
 Revokes a permission from a role.
 
-{: .note}
 Only account_admin or a role owner can revoke a permission to a role.
+{: .note}
 
 ### Syntax
 

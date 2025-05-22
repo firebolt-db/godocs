@@ -47,8 +47,6 @@ Firebolt supports individual and programmatic access through the following:
 
 * [Service account]({% link Guides/managing-your-organization/service-accounts.md %}) - A service account object is used to represent a machine or application that will authenticate and interact with Firebolt without human intervention.
 
-{: .no_toc}
-
 **Example**
 
 The following code example creates a network policy `my_network_policy` with a description that allows only two IP addresses:
@@ -59,8 +57,6 @@ DESCRIPTION = 'my new network policy'
 ```
 
 A network policy can be attached to [an organization]({% link Guides/managing-your-organization/creating-an-organization.md %}), individual logins, and service accounts. 
-
-{: .no_toc}
 
 **Example**
 
@@ -82,20 +78,14 @@ Firebolt uses [Auth0](https://auth0.com/) as its identity provider for managing 
 
 Firebolt provides the SSO and MFA authentication methods.
 
-{: .no_toc}
-
 ### Single sign-On (SSO)
 
 [Single Sign-On (SSO)]({% link Guides/security/sso/index.md %}) is an authentication method that allows users to access multiple applications or services using a single set of login credentials, simplifying the authentication process and improving security through centralized identity management. Firebolt uses SSO to simplify and streamline implementation of secure access to its platform, enhancing the overall security posture and protecting against unauthorized access and data breaches. SSO configuration is accessible to users with the `org_account` built-in role.
-
-{: .no_toc}
 
 ### Multi-factor authentication (MFA)
 
 [MFA]({% link Guides/security/enabling-mfa.md %}) strengthens security by requiring users to provide multiple forms of authentication to access their accounts. 
 Many industries have compliance and regulatory standards that require the use of MFA for securing certain types of data and systems. Firebolt fully supports these standards by offering MFA configuration and implementation directly linked to the login object, ensuring secure and compliant access control.
-
-{: .no_toc}
 
 **Example**
 
@@ -126,8 +116,6 @@ The RBAC model contains the following:
 * [Users](#users)
 * [Objects and permissions](#objects-and-permissions). 
 
-{: .no_toc}
-
 ### Roles 
 
 A role is a set of permissions assigned to a user or group that defines what actions they are authorized to perform and what resources they can access within Firebolt. Firebolt has the following types of roles:
@@ -139,8 +127,6 @@ A role is a set of permissions assigned to a user or group that defines what act
 3) **System-defined roles** align with common user personas and responsibilities including `public`, which is granted to each new user by default, a `system_admin` role, and an `account_admin` role. For more information about these roles, see [System-defined roles]({% link Overview/Security/Role-Based Access Control/role-management/system-roles.md %}). 
 
 You can create a role by using either the **Firebolt Workspace** or using the [CREATE ROLE]({% link sql_reference/commands/access-control/create-role.md %}) SQL statement.
-
-{: .no_toc}
 
 **Example**
 
@@ -181,12 +167,8 @@ Permissions in Firebolt define the actions or operations that can be performed, 
 
 Any permission that Firebolt supports can be [granted]({% link sql_reference/commands/access-control/grant.md %}) or [revoked]({% link sql_reference/commands/access-control/revoke.md %}) to or from roles. 
 
-{: .no_toc}
-
-{: .note}
 Privileges can be granted or revoked only for roles, not directly for users. Once a role has the necessary permissions, it can then be assigned to users, allowing them to inherit those privileges.
-
-{: .no_toc}
+{: .note}
 
 **Example**
 
@@ -203,19 +185,13 @@ REVOKE OPERATE ON ENGINE sales_eng FROM sales;   -- revokes the ability to START
 
 Firebolt is firmly committed to data security, privacy, and compliance by ensuring that all data it manages is properly safeguarded and protected through strict encryption standards for data both in motion and at rest. The following security functionality is automatically available to customers:
 
-{: .no_toc}
-
 ### Data at rest
 
 By default, all data at rest is encrypted and stored using Amazon Simple Storage Service (S3). All new objects are automatically encrypted using either Amazon S3-managed keys or AWS Key Management Service (KMS) keys, which are securely managed through AWS KMS. 
 
-{: .no_toc}
-
 ### Data in motion
 
 Firebolt automatically encrypts sensitive data being transmitted between service components, ensuring that it remains secure as it moves across networks and cannot be intercepted by unauthorized parties.
-
-{: .no_toc}
 
 ### Secure communication protocols
 

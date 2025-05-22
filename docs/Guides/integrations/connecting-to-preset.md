@@ -21,8 +21,8 @@ You will only need:
 * To have a Firebolt account and service account [credentials](../managing-your-organization/service-accounts.md).
 * [Load data](../loading-data/loading-data.md) you want to visualise.
 
+Make sure that your [service account's network policy](https://docs.firebolt.io/Guides/managing-your-organization/service-accounts.html#edit-your-service-account-using-the-ui) allows connections from [Preset IPs](https://docs.preset.io/docs/connecting-your-data).
 {: .note}
-  Make sure that your [service account's network policy](https://docs.firebolt.io/Guides/managing-your-organization/service-accounts.html#edit-your-service-account-using-the-ui) allows connections from [Preset IPs](https://docs.preset.io/docs/connecting-your-data).
 
 # Quickstart
 

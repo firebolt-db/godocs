@@ -11,15 +11,11 @@ Shifts the bits in the first argument to the right by `n` bits, where `n` is the
 
 ## Syntax
 
-{: .no_toc}
-
 ```sql
 BIT_SHIFT_RIGHT(<value>, <bits>)
 ```
 
 ## Parameters
-
-{: .no_toc}
 
 | Parameter | Description                   | Supported input types |
 |:----------|:------------------------------|:----------------------|
@@ -31,7 +27,5 @@ BIT_SHIFT_RIGHT(<value>, <bits>)
 The `BIT_SHIFT_RIGHT` function returns a result of either type `INT` or `BIGINT`, depending on the type of the input `<expression>`.
 
 ## Examples
-
-{: .no_toc}
 
 {% include sql_examples/bit_shift_right_executable.md %}

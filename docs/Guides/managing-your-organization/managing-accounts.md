@@ -16,8 +16,8 @@ To view all accounts, click **Configure** to open the configure space, then choo
 
 ## Create a new account
 
-{: .note}
 Creating an account requires the org_admin role.
+{: .note}
 
 ### SQL
  To create an account using SQL, use the [CREATE ACCOUNT](../../sql_reference/commands/data-definition/create-account.md) statement. For example:
@@ -42,13 +42,13 @@ Type a name for the account and choose a region. You won't be able to change the
 
 Then you will see your new account on the **Accounts management** page. 
 
-{: .note}
 There can be up to 20 accounts per organization and you can use `CREATE ACCOUNT` 25 times. If you have a need for additional account creations beyond this limit, contact [Firebolt Support](https://docs.firebolt.io/godocs/Reference/help-menu.html) for assistance. Our team can provide guidance and, if appropriate, adjust your account settings to accommodate your needs.
+{: .note}
 
 ## Edit an existing account
 
-{: .note}
 Editing an account requires the account_admin or org_admin role.
+{: .note}
 
 ### SQL 
 To edit an existing account using SQL, use the [ALTER ACCOUNT](../../sql_reference/commands/data-definition/alter-account.md) statement. For example:
@@ -70,8 +70,8 @@ Edit the name of the account.
 
 ## Delete an existing account
 
-{: .note}
 Deleting an account requires the account_admin or org_admin role.
+{: .note}
 
 ### SQL 
 To delete an existing account using SQL, use the [DROP ACCOUNT](../../sql_reference/commands/data-definition/drop-account.md) statement. For example:

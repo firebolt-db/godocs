@@ -22,8 +22,8 @@ LIMIT
   100;
 ```
 
-{: .note}
 The `information_schema.engine_query_history` view retains only the most recent 10,000 queries. Queries exceeding this limit are excluded and will not appear in the query history. This limitation is important for high-volume workloads and tools like the [OTEL exporter]({% link Guides/integrations/otel-exporter.md %}), which can rapidly fill the query history. To retain critical query data, regularly export or archive query history.
+{: .note}
 
 ## Columns in information_schema.engine_query_history
 

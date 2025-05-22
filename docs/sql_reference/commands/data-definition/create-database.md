@@ -10,8 +10,8 @@ parent: Data definition
 # CREATE DATABASE
 Creates a new database.
 
-{: .note}
 Each account supports up to 100 databases. If you need more, contact Firebolt's support team at [support@firebolt.io](mailto:support@firebolt.io).
+{: .note}
 
 ## Syntax
 {: .no_toc} 

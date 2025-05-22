@@ -20,8 +20,8 @@ FROM
   information_schema.accounts;
 ```
 
-{: .note}
 Read more about managing accounts [here](../../Guides/managing-your-organization/managing-accounts.md).
+{: .note}
 
 ## Columns in information_schema.accounts
 

@@ -20,15 +20,11 @@ or a sketch built with precision 13 and a sketch built with precision 14.
 
 ## Syntax
 
-{: .no_toc}
-
 ```sql
 HLL_COUNT_MERGE(<expression>)
 ```
 
 ## Parameters
-
-{: .no_toc}
 
 | Parameter      | Description                                                                                            | Supported input types |
 |:---------------|:-------------------------------------------------------------------------------------------------------|:----------------------|
@@ -39,8 +35,6 @@ HLL_COUNT_MERGE(<expression>)
 `BYTEA`
 
 ## Example
-
-{: .no_toc}
 
 Following the [example](hll-count-build.md#example) in [HLL_COUNT_BUILD](hll-count-build.md):
 

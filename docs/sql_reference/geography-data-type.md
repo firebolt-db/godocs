@@ -6,8 +6,8 @@ nav_exclude: true
 search_exclude: false
 ---
 
-{: .note}
 Firebolt's geospatial capabilities are currently in public preview. We are gathering feedback and further refining this feature.
+{: .note}
 
 # GEOGRAPHY data type
 {:.no_toc}

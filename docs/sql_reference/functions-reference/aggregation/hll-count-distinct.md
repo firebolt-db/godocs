@@ -17,8 +17,8 @@ Counts the approximate number of unique or not NULL values, to the precision spe
 
 `HLL_COUNT_DISTINCT` requires less memory than exact aggregation functions, but also introduces statistical uncertainty. The default precision is 12, with a maximum of 20.
 
+Higher precision comes at a memory and performance cost.
 {: .note}
->Higher precision comes at a memory and performance cost.
 
 ## Syntax
 {: .no_toc}
@@ -35,8 +35,8 @@ HLL_COUNT_DISTINCT ( <expression> [, <precision> ] )
 ## Return Type
 `BIGINT`
 
+`APPROX_COUNT_DISTINCT(expression)` and `HLL_COUNT_DISTINCT(expression, 17)` return the same results, as `APPROX_COUNT_DISTINCT` uses the HLL algorithm with the default parameter to control the sketch size set to 17.
 {: .note}
-> `APPROX_COUNT_DISTINCT(expression)` and `HLL_COUNT_DISTINCT(expression, 17)` return the same results, as `APPROX_COUNT_DISTINCT` uses the HLL algorithm with the default parameter to control the sketch size set to 17.
 
 ## Return Type
 `NUMERIC`

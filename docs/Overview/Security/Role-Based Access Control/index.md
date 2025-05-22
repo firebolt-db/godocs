@@ -53,7 +53,7 @@ Firebolt divides objects into **global** and **regional** types, depending on th
             * Indexes
     * Engines
 
-{: .note}
 Firebolt provides the [organization_admin]({% link Overview/organizations-accounts.md %}#organizational-administrative-role) role to manage organizational resources. While granular RBAC is currently only available at the account level, Firebolt plans to include making RBAC available at the organizational level in a future release.
+{: .note}
 
-For more information about Firebolt’s RBAC model & how to administer your Firebolt cluster, access the sections below:
+For more information about Firebolt’s RBAC model & how to administer your Firebolt cluster, see the next sections:

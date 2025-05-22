@@ -38,8 +38,6 @@ ALTER ORGANIZATION SET
 
 ### Parameters 
 
-{: .no_toc} 
-
 | Parameter | Description |
 | :--- | :--- |
 | `<signOnUrl>` | The sign-on URL, provided by the SAML identity provider, to which Firebolt sends the SAML requests. The URL is IdP-specific and is determined by the identity provider during configuration. |
@@ -82,8 +80,6 @@ ALTER ORGANIZATION <organization_name> OWNER TO <identity>
 ```
 
 ### Parameters
-
-{: .no_toc}
 
 | Parameter             | Description                                                             |
 |:----------------------|:------------------------------------------------------------------------|

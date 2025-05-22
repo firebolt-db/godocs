@@ -71,9 +71,7 @@ In addition, Firebolt supports singleton inserts via a `INSERT INTO VALUES` stat
 
 Let’s review how these utilities work in more detail, and their corresponding performance.
 
-{: .no_toc}
-
-### **Bulk inserts**
+### Bulk inserts
 
 In Firebolt, bulk data ingestion utilities are designed to be inherently scalable. There are 4 major stages that each loading process goes through: 
 
@@ -97,9 +95,7 @@ COPY INTO rankings FROM 's3://Bucket/directory/';
 //The statement above copies all the files from a directory in an S3 bucket into the rankings table.
 ```
 
-{: .no_toc}
-
-### **Singleton insert**
+### Singleton insert
 
 While singleton insert is a supported pattern in Firebolt, using bulk insert utilities is recommended to optimize performance of large data ingestion. 
 
@@ -121,8 +117,8 @@ Firebolt supports deleting a single record in a table or deleting data in bulk. 
 
 Having frequent deletes in the system could lead to tablet fragmentation, so there's a background process that continuously and automatically optimizes tablets behind the scenes. For more information, refer to [optimizing storage](#optimizing-storage) below.
 
-{: .note}
 For optimal performance, leverage primary key(s) for deleting the data whenever possible.
+{: .note}
 
 Bulk delete statement example
 ```sql

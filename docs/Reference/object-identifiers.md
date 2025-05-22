@@ -26,7 +26,7 @@ Unquoted identifiers must adhere to the following syntax:
 
 Firebolt evaluates unquoted identifiers such as table and column names **entirely in lowercase**. The following queries:
 
-```
+```sql
 SELECT my_column FROM my_table
 SELECT MY_COLUMN FROM MY_TABLE
 SELECT mY_cOlUmn FROM mY_tAbLe
@@ -34,13 +34,13 @@ SELECT mY_cOlUmn FROM mY_tAbLe
 
 are all equivalent to:
 
-```
+```sql
 SELECT my_column FROM my_table
 ```
 
 You can keep uppercase identifiers by enclosing them in double-quotes. For example, the following identifiers are unique:
 
-```
+```sql
 "COLUMN_NAME"
 "column_name"
 "CoLuMn_NaMe"

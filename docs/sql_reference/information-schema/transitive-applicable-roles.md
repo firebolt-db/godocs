@@ -23,8 +23,8 @@ FROM
 
 See also `information_schema.applicable_roles` [here](applicable-roles.md).
 
-{: .note}
 Read more about RBAC roles [here](../../Guides/security/rbac.md#check-assigned-privileges-using-sql).
+{: .note}
 
 ## Columns in information_schema.transitive_applicable_roles
 

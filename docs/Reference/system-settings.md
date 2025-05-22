@@ -11,8 +11,6 @@ parent: General reference
 
 # Firebolt system settings
 
-{: .no_toc}
-
 You can use a `SET` statement in a SQL script to configure aspects of Firebolt's system behavior. Each statement is a query in its own right and must be terminated with a semi-colon (;). The `SET` statement cannot be included in other queries. This topic provides a list of available settings by function.
 
 ## Setting the time zone

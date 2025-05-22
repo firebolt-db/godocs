@@ -28,8 +28,8 @@ COUNT([ DISTINCT ] <expression>)
 
 Valid values for the input expression include column names or functions that return a column name. When `DISTINCT` is being used, only the unique number of rows with no `NULL` values are counted. `COUNT(*)` returns a total count of all rows in the table, while `COUNT(<column_name>)` returns a count of non-null rows in the specified `<column_name>`.
 
+By default, `COUNT(DISTINCT)` returns exact results. If you do not require a precise result and want to have faster performance, consider using the APPROX_COUNT_DISTINCT function.  See below for examples and considerations.
 {: .note}
-> By default, `COUNT(DISTINCT)` returns exact results. If you do not require a precise result and want to have faster performance, consider using the APPROX_COUNT_DISTINCT function.  See below for examples and considerations. 
 
 ## Return Type
 `NUMERIC`
@@ -74,7 +74,7 @@ FROM
 
 ## Example of COUNT(DISTINCT) vs. APPROX_COUNT_DISTINCT
 
-To understand the difference between `COUNT(DISTINCT pk)` with exact precision enabled and using default approximation, consider a table, `count_test` with 8,388,608 unique `pk` values. The `APPROX_COUNT_DISTINCT` function returns the same approximate results as the `COUNT(DISTINCT)` function with exact precision disabled, so we can see the difference between these methods with the following example. 
+To understand the difference between `COUNT(DISTINCT pk)` with exact precision enabled and using default approximation, consider a table, `count_test` with 8,388,608 unique `pk` values. The `APPROX_COUNT_DISTINCT` function returns the same approximate results as the `COUNT(DISTINCT)` function with exact precision disabled, so we can see the difference between these methods with the following example.
 
 ```sql
 SELECT

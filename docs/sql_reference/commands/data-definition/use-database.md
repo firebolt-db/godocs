@@ -21,7 +21,6 @@ USE [DATABASE] <database_name>;
 
 ## Parameters 
 
-{: .no_toc} 
 | Parameter  | Description |
 | :--------- | :---------- |
 | `DATABASE`                              | This is an optional keyword.  |

@@ -36,8 +36,8 @@ Consider tuning adjustments in any of the following situations:
 
 Firebolt caches files in RAM when processing them for ingestion. You want enough RAM available to each node, and to the entire engine, to accommodate caching. The more completely your engine can cache files during this process, the faster the engine performs.
 
-{: .note}
 The size of the ingestion payload should never exceed the total amount of RAM available to the engine. This may cause an out of memory condition and cause ingestion to fail.
+{: .note}
 
 ### Adjust node RAM using the engine specification, and then use scale to increase overall engine RAM
 

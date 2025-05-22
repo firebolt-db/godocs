@@ -15,15 +15,11 @@ function [HLL_COUNT_BUILD](../aggregation/hll-count-build.md).
 
 ## Syntax
 
-{: .no_toc}
-
 ```sql
 HLL_COUNT_ESTIMATE(<expression>)
 ```
 
 ## Parameters
-
-{: .no_toc}
 
 | Parameter      | Description                                                                                    | Supported input types |
 |:---------------|:-----------------------------------------------------------------------------------------------|:----------------------|
@@ -34,8 +30,6 @@ HLL_COUNT_ESTIMATE(<expression>)
 `BIGINT`
 
 ## Example
-
-{: .no_toc}
 
 Following the [example](../aggregation/hll-count-build.md#example) in [HLL_COUNT_BUILD](../aggregation/hll-count-build.md):
 

@@ -395,8 +395,8 @@ The `LIMIT_DISTINCT` syntax is no longer supported by Firebolt.
 
 All cast logic has been moved to runtime in Firebolt. The `castColumn` function is now replaced by `fbCastColumn`, ensuring consistent casting behavior and resolving issues with the `COPY FROM` operation and other cast calls. Uses of implicit/explicit `CAST` may result in errors due to this fix.
 
-  {: .note}
-  New breaking change.
+New breaking change.
+{: .note}
 
 ### Resolved issues
 
