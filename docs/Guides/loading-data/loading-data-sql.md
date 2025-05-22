@@ -77,7 +77,7 @@ CREDENTIALS = (
 ```
 
 #### Assume Role Authentication
-Replace <aws_role_arn> with your role's Amazon Resource Name (ARN) of the IAM role that you want Firebolt to assume. This method gives Firebolt temporary credentials to authenticate and access your Amazon S3 bucket. 
+Replace `<aws_role_arn>` with your role's Amazon Resource Name (ARN) of the IAM role that you want Firebolt to assume. This method gives Firebolt temporary credentials to authenticate and access your Amazon S3 bucket. 
 
 **Example:**
 
@@ -129,16 +129,16 @@ You can use the `PATTERN` option in `COPY FROM` to load several files at the sam
 ```sql
 COPY INTO nyc_restaurant_inspections FROM 
 's3://firebolt-sample-datasets-public-us-east-1/nyc_sample_datasets/nyc_restaurant_inspections/parquet/'
-WITH PATTERN="*.parquet" AUTO_CREATE=TRUE TYPE=PARQUET;
+WITH PATTERN='*.parquet' AUTO_CREATE=TRUE TYPE=PARQUET;
 ```
 
 In the previous code example, the following apply:
     
-- **COPY INTO**: Specifies the target table to load the data into.
-- **FROM**: Specifies the S3 bucket location of the data.
-- **WITH PATTERN**= "\*.parquet": Uses a regular expressions pattern with wildcards (\*) to include all Parquet files in the directory.
-- **AUTO_CREATE=TRUE**: Automatically creates the table and the schema if the table does not already exist. Parquet files include rich data, and typically have schema information for simple and high-fidelity schema creation. Specifying AUTO_CREATE to TRUE ensures the schema in the Parquet file is preserved after loading.
-- **TYPE = PARQUET**: Specifies the data format as Parquet.
+- `COPY INTO`: Specifies the target table to load the data into.
+- `FROM`: Specifies the S3 bucket location of the data.
+- `PATTERN='*.parquet'`: Uses a regular expressions pattern with wildcards (\*) to include all Parquet files in the directory.
+- `AUTO_CREATE=TRUE`: Automatically creates the table and the schema if the table does not already exist. Parquet files include rich data, and typically have schema information for simple and high-fidelity schema creation. Specifying AUTO_CREATE to TRUE ensures the schema in the Parquet file is preserved after loading.
+- `TYPE=PARQUET`: Specifies the data format as Parquet.
 
 ## Filter data before loading using OFFSET and LIMIT
 
@@ -148,14 +148,14 @@ You can use `COPY FROM` with the `LIMIT` and `OFFSET` clauses to filter out data
 COPY offset_limit
 FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv'
 OFFSET 5 LIMIT 3
-WITH TYPE = CSV HEADER = TRUE;
+WITH TYPE=CSV HEADER=TRUE;
 ```
 In the previous code example, the following apply:
 
-- **OFFSET**: Specifies a non-negative number of rows that are skipped before returning results from the query.
-- **LIMIT**: Restricts the number of rows that are included in the result set.
-- **TYPE = CSV**: Specifies the data format as CSV.
-- **HEADER**: Specifies that the first row of the source file contains column headers.
+- `OFFSET`: Specifies a non-negative number of rows that are skipped before returning results from the query.
+- `LIMIT`: Restricts the number of rows that are included in the result set.
+- `TYPE=CSV`: Specifies the data format as CSV.
+- `HEADER`: Specifies that the first row of the source file contains column headers.
 
 For more information about `OFFSET` and `LIMIT`, see [SELECT Query Syntax](../../sql_reference/commands/queries/select.md).
 

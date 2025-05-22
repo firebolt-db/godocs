@@ -28,7 +28,7 @@ To get started, [sign-in](https://firebolt.go.firebolt.io/) to your Firebolt acc
 
 ### Navigating the Develop Space
 {: .no_toc}
-You can launch the Develop Space for a database by clicking the **Develop** icon (**</>**) from the left navigation pane. 
+You can launch the Develop Space for a database by clicking the **Develop** icon (**\</>**) from the left navigation pane. 
 
 #### Using the UI
 {: .no_toc}

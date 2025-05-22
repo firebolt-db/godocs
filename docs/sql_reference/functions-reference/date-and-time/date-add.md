@@ -26,7 +26,7 @@ DATE_ADD('<unit>', <quantity>, <expression>)
 | Parameter      | Description                                                                                                                                                                             |
 | :------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `<unit>`       | A TEXT literal specifying the time unit. Must be one of `microsecond`,`millisecond`,`second`,`minute`,`hour`,`day`,`week`,`month`,`quarter`,`year`,`decade`,`century`, or `millennium`. |
-| `<quantity>`   | An INT or BIGINT specifying how often the time unit should be added or subtracted to <expression>.                                                                                      |
+| `<quantity>`   | An INT or BIGINT specifying how often the time unit should be added or subtracted to `<expression>`.                                                                                      |
 | `<expression>` | An expression evaluating to type DATE, TIMESTAMP, or TIMESTAMPTZ.                                                                                                                       |
 
 ## Return Types

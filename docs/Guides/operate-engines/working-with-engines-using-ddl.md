@@ -32,8 +32,8 @@ You can create an engine using SQL scripts or through the UI in the **Develop Sp
 ### Create an engine using the UI
 
 1. Login to the [Firebolt Workspace](https://firebolt.go.firebolt.io/signup).
-2. Select the **Develop Space** icon (</>) from the left navigation bar.
-3. Select the red plus (+) button from the top of the left navigation bar.
+2. Select the **Develop Space** icon (**\</>**) from the left navigation bar.
+3. Select the red plus (**+**) button from the top of the left navigation bar.
 4. Select **Create new engine**.<br>
     ![](../../assets/images/Engine_Create_Popup.png){: width="600" .centered} 
     <br /> 

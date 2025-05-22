@@ -113,7 +113,7 @@ Make sure that the certificate value is provided as one string, without any line
 2. Enter your organization name and select **Continue to login**. If you don’t remember your organization name, select **Find out** next to **Don’t know your organization name?**.
 3. Enter the email address you use for Firebolt and select **Send link**.  
 4. Check your inbox for an email containing a direct login link for your organization. Bookmark this link for future use.  
-5. Select **Login with <IDP>**.  
+5. Select **Login with \<IdP>**.  
 You’ll be redirected to your identity provider (IdP) for authentication. Once authenticated, you’ll return to Firebolt. 
 
 **During Login**

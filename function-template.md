@@ -10,7 +10,7 @@ Function description, starting with a verb, such as Returns, Counts, Takes, Allo
 
 
 **Note**
-<Note>
+{: .note}
 (optional, includes limitations on this function)
 
 ## Syntax

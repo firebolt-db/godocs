@@ -1,6 +1,6 @@
 The following example shows that separators and non-separators can cause skips.
 The separator `' '` (space) in the `<format>` matches the other separator `'/'` in the
-<expression>. The non-separator `'x'` will match any other character, in this case the
+`<expression>`. The non-separator `'x'` will match any other character, in this case the
 `'a'`. Lastly, the two separators `'++'` will match up to two other separators, here the
 first `'x'` matches `'.'` while the second `'x'` will simply be ignored as no other separators follow.
 ``` sql

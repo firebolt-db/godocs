@@ -52,7 +52,7 @@ Connect via the connector without specifying the engine_name. Database parameter
 System engine does not need a database defined. If you wish to connect to an existing database and run metadata queries with the system engine, just specify the name of your database.
 
 **Example**
-```json
+```python
 from firebolt.db import connect
 from firebolt.client import DEFAULT_API_URL
 from firebolt.client.auth import ClientCredentials

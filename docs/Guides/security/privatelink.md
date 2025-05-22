@@ -65,10 +65,10 @@ After you have requested AWS PrivateLink on Firebolt's user interface, login to 
 15. Select the **Create endpoint** button in the bottom-right corner of the main workspace.
 16. After the endpoint is created, ensure that your security groups and route tables are correctly configured to allow traffic to the endpoint, so that your intended workloads can access Firebolt over the Private API endpoint. Use the following code example to validate your connection to Firebolt by sending it from an EC2 instance in your VPC:
 
-```sql
+```bash
 curl -v https://api.app.firebolt.io --resolve api.app.firebolt.io:443:<PRIVATE_IP_OF_VPC_ENDPOINT>
 ```
-In the previous code example, replace <PRIVATE_IP_OF_VPC_ENDPOINT> with the private IP address of your newly created VPC endpoint network interface.
+In the previous code example, replace `<PRIVATE_IP_OF_VPC_ENDPOINT>` with the private IP address of your newly created VPC endpoint network interface.
 
 ### Configure your service account
 

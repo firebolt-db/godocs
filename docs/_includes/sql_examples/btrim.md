@@ -16,7 +16,7 @@ SELECT BTRIM('xyxyThe Acceleration Cupyyxx', 'xy') as result;
 | :--- |
 | 'The Acceleration Cup' |
 
-The following example omits the <trim_characters> parameter, and thus trims whitespace from both sides of a string:
+The following example omits the `<trim_characters>` parameter, and thus trims whitespace from both sides of a string:
 ``` sql
 SELECT BTRIM('   The Acceleration Cup     ') as result;
 ```

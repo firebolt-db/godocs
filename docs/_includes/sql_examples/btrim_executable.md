@@ -6,7 +6,7 @@ The following example trims the characters `x` and `y` from both sides of a stri
 
 {% include query-window.html sql_file="sql_examples/btrim_example_1.sql" %}
 
-The following example omits the <trim_characters> parameter, and thus trims whitespace from both sides of a string:
+The following example omits the `<trim_characters>` parameter, and thus trims whitespace from both sides of a string:
 
 {% include query-window.html sql_file="sql_examples/btrim_example_2.sql" %}
 
