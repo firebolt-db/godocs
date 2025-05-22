@@ -63,8 +63,9 @@ In the previous code example, replace `3.3.0` with the latest version available 
 ## Connecting to Firebolt with the JDBC driver
 
 Provide connection details to the Firebolt JDBC driver using a connection string in the following format:
-
-    jdbc:firebolt:<database>?<connection_params>
+```
+jdbc:firebolt:<database>?<connection_params>
+```
 
 In the previous connection example, the following apply:
 
@@ -84,9 +85,9 @@ The following are examples of how to specify connection strings for authenticati
 
 The following example connection string configures the Firebolt JDBC driver to connect to `my_database` using a specified `client_id` and `secret_id` for authentication:
 
-  ```
-  jdbc:firebolt:my_database?client_id=<client_id>&client_secret=<client_secret>&account=my_account&engine=my_engine&buffer_size=1000000&connection_timeout_millis=10000
-  ```
+```
+jdbc:firebolt:my_database?client_id=<client_id>&client_secret=<client_secret>&account=my_account&engine=my_engine&buffer_size=1000000&connection_timeout_millis=10000
+```
 
 The previous example string also specifies an account name `my_account`, an engine name `my_engine`, a buffer size of `1000000` bytes, and a connection timeout of `10000` milliseconds, or `10` seconds.
 
@@ -96,35 +97,35 @@ The following example provides `client_id` and `client_secret` as separate prope
 
 Connection string:
 
-  ```
-  jdbc:firebolt:my_database?account=my_account&engine=my_engine&buffer_size=1000000&connection_timeout_millis=10000`
-  ```
+```
+jdbc:firebolt:my_database?account=my_account&engine=my_engine&buffer_size=1000000&connection_timeout_millis=10000`
+```
 
 Connection properties:
-  ```
-  client_id=<client_id>
-  client_secret=<client_secret>
-  ```
+```
+client_id=<client_id>
+client_secret=<client_secret>
+```
 
 **Example**
  
- The following example connects to `my_database` using only connection properties for authentication and parameters, without including any parameters directly in the string.
+The following example connects to `my_database` using only connection properties for authentication and parameters, without including any parameters directly in the string.
 
 Connection string:
 
-  ```
-  jdbc:firebolt:my_database
-  ```
+```
+jdbc:firebolt:my_database
+```
   
 Connection properties:
-  ```
-  client_id=<client_id>
-  client_secret=<client_secret>
-  account=my_account
-  engine=my_engine
-  buffer_size=1000000
-  connection_timeout_millis=10000
-  ```
+```
+client_id=<client_id>
+client_secret=<client_secret>
+account=my_account
+engine=my_engine
+buffer_size=1000000
+connection_timeout_millis=10000
+```
 
 **Example**
 
@@ -132,55 +133,58 @@ The following example is a minimal URL that connects to `my_database` using `cli
 
 Connection string:
 
-  ```
-  jdbc:firebolt:my_database
-  ```
+```
+jdbc:firebolt:my_database
+```
   
 Connection properties:
-  ```
-  client_id=<client_id>
-  client_secret=<client_secret>
-  account=my_account
-  ```
+```
+client_id=<client_id>
+client_secret=<client_secret>
+account=my_account
+```
 
-  Because the previous configuration example omits specifying the engine name, `my_database` connects to the default engine.
+Because the previous configuration example omits specifying the engine name, `my_database` connects to the default engine.
 
-  Since the connection string is a URI, make sure to [percent-encode](https://en.wikipedia.org/wiki/Percent-encoding){:target="_blank"} any reserved characters or special characters used in parameter keys or parameter values.
-  {: .note}
+Since the connection string is a URI, make sure to [percent-encode](https://en.wikipedia.org/wiki/Percent-encoding){:target="_blank"} any reserved characters or special characters used in parameter keys or parameter values.
+{: .note}
 
 ### Available connection parameters
 
 The following table lists the available parameters that can be added to a Firebolt JDBC connection string. All parameter keys are case-sensitive.
 
-| Parameter key                        | Data type | Default value                              | Range           | Description                                                                                                                                                                                                           |
-|--------------------------------------|-----------|--------------------------------------------|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| client_id                            | TEXT      | No default value.                           |                 | (**Required**) The Firebolt service account ID.                                                                                                                                                                        |
-| client_secret                        | TEXT      | No default value.                           |                 | (**Required**) The secret generated for the Firebolt service account.                                                                                                                                                  |
-| account                              | TEXT      | No default value.                           |                 | (**Required**) Your Firebolt account name.                                                                                                                                                                              |
-| database                             | TEXT      | No default value.                           |                 | The name of the database to connect to. Takes precedence over the database name provided as a path parameter.                                                                                                         |
-| engine                               | TEXT      | The default engine attached to the specified database. |                 | The name of the engine to connect to.                                                                                                                                                                                 |
-| buffer_size                          | INTEGER   | `65536`                                      | `1` to `2147483647` | The buffer size, in bytes, that the driver uses to read the responses from the Firebolt API.                                                                                                                                   |
-| connection_timeout_millis            | INTEGER   | `60000`                                      | `0` to `2147483647` | The wait time in milliseconds before a connection to the server is considered failed. A timeout value of zero means that the connection will wait indefinitely.                  |
-| max_connections_total                | INTEGER   | `300`                                        | `1` to `2147483647` | The maximum total number of connections.                                                                                                                                                                              |
-| socket_timeout_millis                | INTEGER   | `0`                                          | `0` to `2147483647` | The socket timeout, in milliseconds, which specifies the maximum wait time for data, defining the longest allowed inactivity between consecutive data packets. A value of zero means that there is no timeout limit. |
-| connection_keep_alive_timeout_millis | INTEGER   | `300000`                                     | `1` to `2147483647` | Defines the duration to keep a server connection open in the connection pool before it is closed.                                                                                                               |
-| ssl_mode                             | TEXT      | `strict`                                     | `strict` or `none`  | When set to `strict`, the SSL or TLS certificate is validated for accuracy and authenticity. If set to `none`, certificate verification is omitted.                                                                                        |
-| ssl_certificate_path                 | TEXT      | No default value.                           |                 | The absolute file path for the SSL root certificate.                                                                                                                                                                  |
-| validate_on_system_engine            | BOOLEAN   | `FALSE`                                      | `TRUE` or `FALSE`   | When set to `TRUE`, the connection is always validated against a system engine, even if it's connected to a regular engine. For more information, see [Connection validation](#connection-validation).                     |
-| cache_connection                     | BOOLEAN   | `TRUE`                                       | `TRUE` or `FALSE`   | Keep this enabled for better performance when interacting with Firebolt. If you experience connection issues that might be related to stale cache set this to FALSE. Available only with JDBC driver version 3.6.1 and above. |
+| Parameter key                          | Data type | Default value                                          | Range               | Description                                                                                                                                                                                                                   |
+|----------------------------------------|-----------|--------------------------------------------------------|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `client_id`                            | TEXT      | No default value.                                      |                     | (**Required**) The Firebolt service account ID.                                                                                                                                                                               |
+| `client_secret`                        | TEXT      | No default value.                                      |                     | (**Required**) The secret generated for the Firebolt service account.                                                                                                                                                         |
+| `account`                              | TEXT      | No default value.                                      |                     | (**Required**) Your Firebolt account name.                                                                                                                                                                                    |
+| `database`                             | TEXT      | No default value.                                      |                     | The name of the database to connect to. Takes precedence over the database name provided as a path parameter.                                                                                                                 |
+| `engine`                               | TEXT      | The default engine attached to the specified database. |                     | The name of the engine to connect to.                                                                                                                                                                                         |
+| `buffer_size`                          | INTEGER   | `65536`                                                | `1` to `2147483647` | The buffer size, in bytes, that the driver uses to read the responses from the Firebolt API.                                                                                                                                  |
+| `connection_timeout_millis`            | INTEGER   | `60000`                                                | `0` to `2147483647` | The wait time in milliseconds before a connection to the server is considered failed. A timeout value of zero means that the connection will wait indefinitely.                                                       |
+| `max_connections_total`                | INTEGER   | `300`                                                  | `1` to `2147483647` | The maximum total number of connections.                                                                                                                                                                                      |
+| `socket_timeout_millis`                | INTEGER   | `0`                                                    | `0` to `2147483647` | The socket timeout, in milliseconds, which specifies the maximum wait time for data, defining the longest allowed inactivity between consecutive data packets. A value of zero means that there is no timeout limit.          |
+| `connection_keep_alive_timeout_millis` | INTEGER   | `300000`                                               | `1` to `2147483647` | Defines the duration to keep a server connection open in the connection pool before it is closed.                                                                                                                          |
+| `ssl_mode`                             | TEXT      | `strict`                                               | `strict` or `none`  | When set to `strict`, the SSL or TLS certificate is validated for accuracy and authenticity. If set to `none`, certificate verification is omitted.                                                                           |
+| `ssl_certificate_path`                 | TEXT      | No default value.                                      |                     | The absolute file path for the SSL root certificate.                                                                                                                                                                          |
+| `validate_on_system_engine`            | BOOLEAN   | `FALSE`                                                | `TRUE` or `FALSE`   | When set to `TRUE`, the connection is always validated against a system engine, even if it's connected to a regular engine. For more information, see [Connection validation](#connection-validation).                     |
+| `cache_connection`                     | BOOLEAN   | `TRUE`                                                 | `TRUE` or `FALSE`   | Keep this enabled for better performance when interacting with Firebolt. If you experience connection issues that might be related to stale cache set this to FALSE. Available only with JDBC driver version 3.6.1 and above. |
 
 ### System settings as connection parameters
 
 In addition to the parameters specified in the previous table, any [system setting](../../Reference/system-settings.md){:target="_blank"} can be passed as a connection string parameter. For example, to set a custom time zone, use the following format:
-    
-    jdbc:firebolt:my_database?time_zone=UTC&<other_connection_params>
+```
+jdbc:firebolt:my_database?time_zone=UTC&<other_connection_params>
+```
     
 ## Applying system settings using SET
 
 In addition to passing system settings as connection string parameters, any [system setting](../../Reference/system-settings.md){:target="_blank"} can be passed using the SQL `SET` command. Multiple `SET` statements can be run consecutively, separated by semicolons, as shown below:
 
+```sql
     SET time_zone = 'UTC';
     SET standard_conforming_strings = false;
+```
 
 ## Connection validation
 
@@ -188,7 +192,9 @@ The Firebolt JDBC driver validates the connection by sending a `SELECT 1` query 
 
 The following example configures the Firebolt JDBC driver to connect to `my_database` and validate the connection using the system engine with additional connection parameters specified in `other_connection_parameters`:
 
-    jdbc:firebolt:my_database?validate_on_system_engine=true&<other_connection_params>
+```
+jdbc:firebolt:my_database?validate_on_system_engine=true&<other_connection_params>
+```
 
 ## Full reference documentation
 

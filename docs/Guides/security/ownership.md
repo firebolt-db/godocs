@@ -47,28 +47,28 @@ The current owner of an object can be viewed in the corresponding information_sc
 
 ### Account-Level Objects
 
-| Object   | View                                                                     |
-|:---------|:-------------------------------------------------------------------------|
-| Role     | N/A                                                                      |
-| User     | [information_schema.users][users]                                        |
-| Database | [information_schema.catalogs][catalogs]                                  |
-| Engine   | [information_schema.engines][engines]                                    |
-| Schema   | [information_schema.schemata][schemata]                                  |
-| Table    | [information_schema.tables][tables]                                      |
-| View     | [information_schema.views][views] or [information_schema.tables][tables] |
+| Object   | View                                                                                                                                                                   |
+|:---------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Role     | N/A                                                                                                                                                                    |
+| User     | [information_schema.users]({% link sql_reference/information-schema/users.md %})                                                                                       |
+| Database | [information_schema.catalogs]({% link sql_reference/information-schema/catalogs.md %})                                                                                 |
+| Engine   | [information_schema.engines]({% link sql_reference/information-schema/engines.md %})                                                                                   |
+| Schema   | [information_schema.schemata]({% link sql_reference/information-schema/schemata.md %})                                                                                 |
+| Table    | [information_schema.tables]({% link sql_reference/information-schema/tables.md %})                                                                                     |
+| View     | [information_schema.views]({% link sql_reference/information-schema/views.md %}) or [information_schema.tables]({% link sql_reference/information-schema/tables.md %}) |
 
-Index ownership, shown in [information_schema.indexes][indexes], will always show the table owner as an index's owner.
+Index ownership, shown in [information_schema.indexes]({% link sql_reference/information-schema/indexes.md %}), will always show the table owner as an index's owner.
 {: .note}
 
 ### Organization-Level Objects
 
-| Object          | View                                                    |
-|:----------------|:--------------------------------------------------------|
-| Organization    | [information_schema.organization][organization]         |
-| Account         | [information_schema.accounts][accounts]                 |
-| Login           | [information_schema.logins][logins]                     |
-| Service Account | [information_schema.service_accounts][service_accounts] |
-| Network Policy  | [information_schema.network_policies][network_policies] |
+| Object          | View                                                                                                   |
+|:----------------|:-------------------------------------------------------------------------------------------------------|
+| Organization    | [information_schema.organization]({% link sql_reference/information-schema/organization.md %})         |
+| Account         | [information_schema.accounts]({% link sql_reference/information-schema/accounts.md %})                 |
+| Login           | [information_schema.logins]({% link sql_reference/information-schema/logins.md %})                     |
+| Service Account | [information_schema.service_accounts]({% link sql_reference/information-schema/service-accounts.md %}) |
+| Network Policy  | [information_schema.network_policies]({% link sql_reference/information-schema/network_policies.md %}) |
 
 ## Changing an Object's Owner
 
@@ -154,16 +154,3 @@ Ownership transfer using the **Firebolt Workspace** is not available for `Schema
 
 The Firebolt Workspace currently only supports managing ownership for account-level objects. Organization-level object ownership must be managed using SQL commands.
 {: .note}
-
-[users]: {% link sql_reference/information-schema/users.md %}
-[catalogs]: {% link sql_reference/information-schema/catalogs.md %}
-[engines]: {% link sql_reference/information-schema/engines.md %}
-[schemata]: {% link sql_reference/information-schema/schemata.md %}
-[tables]: {% link sql_reference/information-schema/tables.md %}
-[views]: {% link sql_reference/information-schema/views.md %}
-[indexes]: {% link sql_reference/information-schema/indexes.md %}
-[organization]: {% link sql_reference/information-schema/organization.md %}
-[accounts]: {% link sql_reference/information-schema/accounts.md %}
-[logins]: {% link sql_reference/information-schema/logins.md %}
-[service_accounts]: {% link sql_reference/information-schema/service-accounts.md %}
-[network_policies]: {% link sql_reference/information-schema/network_policies.md %}

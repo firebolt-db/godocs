@@ -7,7 +7,7 @@ grand_parent: SQL functions
 parent: Aggregation functions
 ---
 
-# MAX\_BY
+# MAX_BY
 
 Returns the value of the first argument for the row that contains the maximum of the second argument. If the maximum of the second argument is not unique, an arbitrary non-NULL value of the first argument is returned from the set of rows that maximize the second argument. If the first argument is NULL for all rows maximizing the second argument, NULL is returned.
 
@@ -21,14 +21,14 @@ MAX_BY(<result>, <value>)
 ## Parameters
 {: .no_toc}
 
-| Parameter | Description                         |Supported input types |
-| :--------- | :----------------------------------- | :---------------------|
-| `<result>` | The column from which the value is returned | Any type |
-| `<value>` | The column that is maximized | Any type |
+| Parameter  | Description                                 | Supported input types |
+|:-----------|:--------------------------------------------|:----------------------|
+| `<result>` | The column from which the value is returned | Any type              |
+| `<value>`  | The column that is maximized                | Any type              |
 
 ## Return Types
 
-Same as input type of <result>
+Same as input type of `<result>`
 
 ## Examples
 {: .no_toc}

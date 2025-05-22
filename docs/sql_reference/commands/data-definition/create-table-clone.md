@@ -1,7 +1,7 @@
 ---
 layout: default
 title: CREATE TABLE CLONE
-Description: Reference and syntax for the CLONE SQL command.
+description: Reference and syntax for the CLONE SQL command.
 parent: Data definition
 ---
 

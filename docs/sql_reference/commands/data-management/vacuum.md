@@ -149,11 +149,11 @@ FROM information_schema.engine_query_history WHERE query_text LIKE 'VACUUM%'
 AND STATUS = 'ENDED_SUCCESSFULLY';
 ```
 
-| telemetry |
-|:----|
-|{"vacuum_stats":{"type":"vacuum_job", "version":"v0.0.0", "parent_query_id":"c1bf80a4-005b-4063-a271-696de6906471", "node_ordinal":1, "tablets":1, "rows":2, "deleted_rows":1}}|
-|{"vacuum_stats":{"type":"vacuum_job", "version":"v0.0.0", "parent_query_id":"c1bf80a4-005b-4063-a271-696de6906471", "node_ordinal":1, "tablets":2, "rows":2, "deleted_rows":0}}|
-|{"vacuum_stats":{"type":"vacuum", "version":"v0.0.0", "objects":1, "processed_objects":1, "success_jobs":2, "failed_jobs":0}}
+| telemetry                                                                                                                                                                         |
+|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `{"vacuum_stats":{"type":"vacuum_job", "version":"v0.0.0", "parent_query_id":"c1bf80a4-005b-4063-a271-696de6906471", "node_ordinal":1, "tablets":1, "rows":2, "deleted_rows":1}}` |
+| `{"vacuum_stats":{"type":"vacuum_job", "version":"v0.0.0", "parent_query_id":"c1bf80a4-005b-4063-a271-696de6906471", "node_ordinal":1, "tablets":2, "rows":2, "deleted_rows":0}}` |
+| `{"vacuum_stats":{"type":"vacuum", "version":"v0.0.0", "objects":1, "processed_objects":1, "success_jobs":2, "failed_jobs":0}}`                                                   |
 
 ### Example with measuring the performance impact of VACUUM
 

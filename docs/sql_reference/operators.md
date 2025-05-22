@@ -80,11 +80,11 @@ SELECT col_a::BIGINT;
 | /        | division (integer division truncates the result) | INTEGER, BIGINT, NUMERIC, REAL, DOUBLE PRECISION | Corresponding type | `SELECT 4 / 2;`   | 2      |
 | %        | modulo (remainder)                               | INTEGER, BIGINT                                  | Corresponding type | `SELECT 5 % 4;`   | 1      |
 | ^        | exponentiation                                   | INTEGER, BIGINT, NUMERIC, REAL, DOUBLE PRECISION | DOUBLE PRECISION   | `SELECT 2 ^ 3.0;` | 8      |
-  
-In arithmetic operations like +, -, *, and / , the result's data type aligns with the most encompassing type of the operands indicated as " Corresponding type" in the table above. For clarity:
+
+In arithmetic operations like +, -, *, and / , the result's data type aligns with the most encompassing type of the operands indicated as "Corresponding type" in the table above. For clarity:
 - When both operands are of the same data type (e.g., two INTEGERs or two NUMERICs), the result will also be of that same data type.
    - `INTEGER <op> INTEGER = INTEGER`
-   - `INTEGER <op> BIGINT = BIGINT` 
+   - `INTEGER <op> BIGINT = BIGINT`
 - For operations involving two different numeric data types, the result will typically be of the more precise or larger data type.
    - `INTEGER <op> REAL = DOUBLE PRECISION`
 - Overflow checks and floating point errors are applied according to the result data type only.
@@ -98,28 +98,28 @@ When performing arithmetic, the number of leading digits in the output is the pr
 
 Logical operators return the result of a boolean operation using [three valued logic](https://en.wikipedia.org/wiki/Three-valued_logic)
 
-| Operator | Example   | Explanation                   |
-| :-------- | :--------- | :----------------------------- |
-| `AND`      | `x AND y` | True if both x and y are true |
-| `NOT`      | `NOT x`   | True if x is false            |
-|  `OR`   | `x OR y`  | True if either x or y is true |
+| Operator  | Example   | Explanation                   |
+|:----------|:----------|:------------------------------|
+| `AND`     | `x AND y` | True if both x and y are true |
+| `NOT`     | `NOT x`   | True if x is false            |
+| `OR`      | `x OR y`  | True if either x or y is true |
 
 ## Comparison
 
 | Operator               | Syntax                     | Explanation                                                |
 |:-----------------------|:---------------------------|:-----------------------------------------------------------|
-| =                      | `a=b`                      | a is equal to b.                                           |
-| !=                     | `a!=b`                     | a is not equal to b.                                       |
-| <>                     | `a<>b`                     | a is not equal to b.                                       |
-| <=                     | `a<=b`                     | a is less than or equal to b.                              |
-| >                      | `a>b`                      | a is greater than b.                                       |
-| >=                     | `a>=b`                     | a is greater than or equal to b.                           |
-| <                      | `a<b`                      | a is less than b.                                          |
-| BETWEEN                | `a BETWEEN b AND c`        | equivalent to b <= a <= c                                  |
-| IS NULL                | `a IS NULL`                | a contains a NULL value                                    |
-| IS NOT NULL            | `a IS NOT NULL`            | a doesn't contain a NULL value                             |
-| IS NOT DISTINCT FROM 	 | `a IS NOT DISTINCT FROM b` | equivalent to a=b where NULL is considered equal to NULL.  |
-| IS DISTINCT FROM       | `a IS DISTINCT FROM b`     | equivalent to a!=b where NULL is considered equal to NULL. |
+| `=`                    | `a=b`                      | a is equal to b.                                           |
+| `!=`                   | `a!=b`                     | a is not equal to b.                                       |
+| `<>`                   | `a<>b`                     | a is not equal to b.                                       |
+| `<=`                   | `a<=b`                     | a is less than or equal to b.                              |
+| `>`                    | `a>b`                      | a is greater than b.                                       |
+| `>=`                   | `a>=b`                     | a is greater than or equal to b.                           |
+| `<`                    | `a<b`                      | a is less than b.                                          |
+| `BETWEEN`              | `a BETWEEN b AND c`        | equivalent to `b <= a <= c`                                |
+| `IS NULL`              | `a IS NULL`                | a contains a NULL value                                    |
+| `IS NOT NULL`          | `a IS NOT NULL`            | a doesn't contain a NULL value                             |
+| `IS NOT DISTINCT FROM` | `a IS NOT DISTINCT FROM b` | equivalent to a=b where NULL is considered equal to NULL.  |
+| `IS DISTINCT FROM`     | `a IS DISTINCT FROM b`     | equivalent to a!=b where NULL is considered equal to NULL. |
 
 Example of using comparison operator in `WHERE` clause
 
@@ -147,29 +147,29 @@ CASE
 END;
 ```
 
-### Parameters 
+### Parameters
 {: .no_toc}
 
-| Parameter     | Description      | Supported input types | 
-| :------------- | :-------------------------- | :--------|
-| `<condition>` | A condition can be defined for each `WHEN`, and `ELSE` clause.   |  `BOOLEAN` | 
-| `<result>`    | The result of any condition. Every `THEN` clause receives a single result. All results in a single `CASE` function must share the same data type. | Any |
+| Parameter       | Description                                                                                                                                       | Supported input types |
+|:----------------|:--------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
+| `<condition>`   | A condition can be defined for each `WHEN`, and `ELSE` clause.                                                                                    | `BOOLEAN`             |
+| `<result>`      | The result of any condition. Every `THEN` clause receives a single result. All results in a single `CASE` function must share the same data type. | Any                   |
 
-### Return type 
+### Return type
 Same data type as `<result>`
 
 ### Example
 {: .no_toc}
 
-This example references a table `player_level` with the following columns and values: 
+This example references a table `player_level` with the following columns and values:
 
-| player              | currentlevel |
-| :-------------------- | :------ |
-| kennethpark         | 3   |
-| esimpson       | 8     |
-| sabrina21 | 11   |
-| rileyjon      | 15    |
-| burchdenise     | 4    |
+| player                | currentlevel |
+|:----------------------|:-------------|
+| kennethpark           | 3            |
+| esimpson              | 8            |
+| sabrina21             | 11           |
+| rileyjon              | 15           |
+| burchdenise           | 4            |
 
 
 The following example categorizes each entry by length. If the movie is longer than zero minutes and less than 50 minutes it is categorized as SHORT. When the length is 50-120 minutes, it's categorized as Medium, and when even longer, it's categorized as Long.
@@ -193,16 +193,16 @@ ORDER BY
 
 **Returns**:
 
-| player              | currentlevel | ranking | 
-| :-------------------- | :------ | :-------|
-| kennethpark         | 3   | Beginner | 
-| esimpson       | 8     | Intermediate | 
-| sabrina21 | 11   | Intermediate |
-| rileyjon      | 15    | Expert |
-| burchdenise     | 4    | Beginner | 
+| player                | currentlevel   | ranking      |
+|:----------------------|:---------------|:-------------|
+| kennethpark           | 3              | Beginner     |
+| esimpson              | 8              | Intermediate |
+| sabrina21             | 11             | Intermediate |
+| rileyjon              | 15             | Expert       |
+| burchdenise           | 4              | Beginner     |
 
 
-## Date and time arithmetic 
+## Date and time arithmetic
 
 Use the `INTERVAL` operator to add to or subtract from a period of time in `DATE`, `TIME`, or `TIMESTAMP` data types.
 
@@ -213,10 +213,10 @@ Use the `INTERVAL` operator to add to or subtract from a period of time in `DATE
 { +|- } INTERVAL '<quantity> [ <date_unit> ] [ ...]'
 ```
 
-| Component     | Description|
-|:------------  | :----------|
-| `<quantity>`  | An integer. Multiple `<quantities>` and `<date_units>` can be used in the same `INTERVAL` command if they are separated by spaces.|
-| `<date_unit>` | A date measurement including any of the following: `millennium`, `century`, `decade`, `year`, `month`, `week`, `day`, `hour`, `minute`, `second`, `millisecond`, `microsecond `or their plural forms.  If unspecified, `<date_unit>` defaults to `second`.  |
+| Component     | Description                                                                                                                                                                                                                                                |
+|:------------  |:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<quantity>`  | An integer. Multiple `<quantities>` and `<date_units>` can be used in the same `INTERVAL` command if they are separated by spaces.                                                                                                                         |
+| `<date_unit>` | A date measurement including any of the following: `millennium`, `century`, `decade`, `year`, `month`, `week`, `day`, `hour`, `minute`, `second`, `millisecond`, `microsecond `or their plural forms.  If unspecified, `<date_unit>` defaults to `second`. |
 
 ### Example
 {: .no_toc}
@@ -245,12 +245,12 @@ SELECT 'This' || ' is' || ' a' || ' double pipe' || ' concantenation.' AS concat
 
 Subqueries are queries nested within another query. They allow complex data retrieval by enabling a query to filter results based on the outcome of another query. Subquery operators are crucial in constructing these nested queries, especially within the WHERE clause, to filter data based on specific conditions.
 
-| Operator     | Explanation                                                                                                                                        |
-| :------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `EXISTS`     | The `EXISTS` operator is used to check for the existence of any record in a subquery. It returns TRUE if the subquery returns one or more records. The subquery within EXISTS is executed repeatedly, once for each row that might be selected by the outer query. If the subquery returns any row, the EXISTS condition is met, and the outer query processing continues for that row. |
-| `NOT EXISTS` | It is opposite of EXISTS and is used to find records in one table that have no related records in another table. If the subquery returns no rows, NOT EXISTS returns TRUE.                                                                |
-| `IN`         | The `IN` operator checks if a specific value is present in a list of values or the results of a subquery. Commonly utilized in a `WHERE` clause, it compares a column's value against a predefined set. When the column's value matches any value in this set, `IN` yields `TRUE`.                                                                    |
-| `NOT IN`     | Retrieve all entries from the value list that don't match the required value.                                                                      |
+| Operator       | Explanation                                                                                                                                                                                                                                                                                                                                                                             |
+|:---------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `EXISTS`       | The `EXISTS` operator is used to check for the existence of any record in a subquery. It returns TRUE if the subquery returns one or more records. The subquery within EXISTS is executed repeatedly, once for each row that might be selected by the outer query. If the subquery returns any row, the EXISTS condition is met, and the outer query processing continues for that row. |
+| `NOT EXISTS`   | It is opposite of EXISTS and is used to find records in one table that have no related records in another table. If the subquery returns no rows, NOT EXISTS returns TRUE.                                                                                                                                                                                                              |
+| `IN`           | The `IN` operator checks if a specific value is present in a list of values or the results of a subquery. Commonly utilized in a `WHERE` clause, it compares a column's value against a predefined set. When the column's value matches any value in this set, `IN` yields `TRUE`.                                                                                                      |
+| `NOT IN`       | Retrieve all entries from the value list that don't match the required value.                                                                                                                                                                                                                                                                                                           |
 
 ### Example&ndash;using EXISTS to find all suppliers with products equal to the price of 22
 {: .no_toc}

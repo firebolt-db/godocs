@@ -3,7 +3,7 @@ redirect_from:
   - /sql-reference/commands/create-fact-dimension-table-as-select.html
 layout: default
 title: CREATE TABLE AS SELECT (CTAS)
-Description: Reference and syntax for the CTAS SQL command.
+description: Reference and syntax for the CTAS SQL command.
 great_grand_parent: SQL reference
 grand_parent:  SQL commands
 parent: Data definition

@@ -94,5 +94,5 @@ where
 - ```signOnURL``` is the SAML 2.0 endpoint value copied during Salesforce setup, 
 - ```issuer``` is the name of the issuer, 'salesforce' in this case,
 - ```provider``` is the IdP name, 'salesforce' in this case,
-- ```label``` is text that will appear on the **Sign in** form (this defaults to ‘<organization_name>-<provider>’ if a value is not provided, for instance ‘acme-salesforce`), and 
+- ```label``` is text that will appear on the **Sign in** form (this defaults to `<organization_name>-<provider>` if a value is not provided, for instance **acme-salesforce**), and
 - ```certificate``` is the X.509 certificate in PEM format downloaded during setup.

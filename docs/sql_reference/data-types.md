@@ -123,7 +123,7 @@ Aliases: `FLOAT4`.
 
 ### DOUBLE PRECISION
 A floating-point number that has 15 decimal-digit precision. `DOUBLE` data types require 8 bytes.
-Aliases: `DOUBLE`, `FLOAT`, `FLOAT8`, `FLOAT(p)` where 25 <= p <= 53.
+Aliases: `DOUBLE`, `FLOAT`, `FLOAT8`, `FLOAT(p)` where `25 <= p <= 53`.
 
 ## Boolean
 

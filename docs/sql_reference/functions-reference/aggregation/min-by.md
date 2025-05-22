@@ -23,14 +23,14 @@ MIN_BY(<result>, <value>)
 ## Parameters
 {: .no_toc}
 
-| Parameter | Description                         |Supported input types |
-| :--------- | :----------------------------------- | :---------------------|
-| `<result>` | The column from which the value is returned | Any type |
-| `<value>`  | The column that is minimized | Any type |
+| Parameter  | Description                                 | Supported input types |
+|:-----------|:--------------------------------------------|:----------------------|
+| `<result>` | The column from which the value is returned | Any type              |
+| `<value>`  | The column that is minimized                | Any type              |
 
 ## Return Types
 
-Same as input type of <result>
+Same as input type of `<result>`
 
 ## Example
 {: .no_toc}

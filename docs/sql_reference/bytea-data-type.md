@@ -39,7 +39,7 @@ In addition to casting, the [ENCODE](./functions-reference/bytea/encode.md) and 
 
 ### Comparison operator
 
-The `BYTEA` comparison operator will work as lexicographical comparison but with bytes. Two empty `BYTEA` type expressions are equal. If two `BYTEA` type expressions have equivalent bytes and are of the same length, then they are equal. In a greater than (>) or less than (<) comparison, two `BYTEA` type expressions are compared byte by byte, and the first mismatching byte defines which is greater or less than the other.
+The `BYTEA` comparison operator will work as lexicographical comparison but with bytes. Two empty `BYTEA` type expressions are equal. If two `BYTEA` type expressions have equivalent bytes and are of the same length, then they are equal. In a greater than (`>`) or less than (`<`) comparison, two `BYTEA` type expressions are compared byte by byte, and the first mismatching byte defines which is greater or less than the other.
 
 **Examples:**
 
