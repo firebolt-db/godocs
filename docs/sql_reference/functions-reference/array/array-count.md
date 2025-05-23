@@ -2,6 +2,7 @@
 redirect_from:
   - /sql-reference/functions-reference/array-count-global.html
   - /sql-reference/functions-reference/array-count.html
+  - /sql-reference/functions-reference/Lambda/array-count.html
 layout: default
 title: ARRAY_COUNT
 description: Reference material for ARRAY_COUNT function

@@ -9,7 +9,7 @@ published: false
 
 You can create, edit, and delete an engine using the Firebolt Manager. Keep in mind that an engine must be stopped for you to perform these tasks.
 
-For more information about settings and their meanings, see [Understanding engine properties](../../Overview/understanding-engine-fundamentals.md#understanding-engine-properties).
+For more information about settings and their meanings, see [Understanding engine properties](../../Overview/engine-fundamentals.md).
 
 ## To create or edit an engine using the Firebolt Manager
 

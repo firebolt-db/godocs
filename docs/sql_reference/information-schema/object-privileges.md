@@ -54,7 +54,7 @@ FROM
   information_schema.object_privileges;
 ```
 
-You can also deselect the current database in the **Firebolt Develop Space** user interface (UI), by choosing `None` in [the current database selector](/assets/images/current_database_dropdown_none_option.png).
+You can also deselect the current database in the **Firebolt Develop Space** user interface (UI), by choosing `None` in ![the current database selector](/assets/images/current_database_dropdown_none_option.png).
 
 **View privileges in a specific database**
 
@@ -82,7 +82,7 @@ FROM
   information_schema.object_privileges;
 ```
 
-You can also use the [database selector](/assets/images/current_database_dropdown.png) in the UI.
+You can also use the ![database selector](/assets/images/current_database_dropdown.png) in the UI.
 
 ## Columns in `information_schema.object_privileges`
 

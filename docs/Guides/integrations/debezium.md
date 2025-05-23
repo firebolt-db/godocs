@@ -33,7 +33,7 @@ Topics:
 You must have the following prerequisites before connecting Firebolt to Debezium:
 * **Firebolt account** &ndash; You need an active Firebolt account. If you do not have one, you can [sign up](https://go.firebolt.io/signup) for one. 
 * **Firebolt service account** &ndash; You must have access to an active Firebolt service account, which facilitates programmatic access to Firebolt, its ID and secret. 
-* **Firebolt User**: You need a separate user [associated](../managing-your-organization/service-accounts.md#create-a-user) with your service account. The user should have [USAGE](../../Overview/Security/Role-Based%20Access%20Control/database-permissions/) permission to query your database, and [OPERATE](../../Overview/Security/Role-Based%20Access%20Control/engine-permissions.html) permission to start and stop an engine if it is not already started. It should also have at least USAGE, SELECT and INSERT [permissions](../../Overview/Security/Role-Based%20Access%20Control/database-permissions/schema-permissions.html) on the schema you are planning to query.
+* **Firebolt User**: You need a separate user [associated](../managing-your-organization/service-accounts.md#create-a-user) with your service account. The user should have [USAGE](../../Overview/Security/Role-Based Access Control/database-permissions/index.md) permission to query your database, and [OPERATE](../../Overview/Security/Role-Based Access Control/engine-permissions.md) permission to start and stop an engine if it is not already started. It should also have at least USAGE, SELECT and INSERT [permissions](../../Overview/Security/Role-Based Access Control/database-permissions/schema-permissions.md) on the schema you are planning to query.
 
 
 # Quickstart
