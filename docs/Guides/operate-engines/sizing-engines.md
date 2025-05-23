@@ -26,6 +26,32 @@ See the [engine fundamentals]({% link Overview/engine-fundamentals.md %}) page f
 ## Using Observability Metrics to Resize an Engine
 Firebolt provides engine observability metrics that give visibility into how the engine resources are being utilized by your workloads. Use the [Information_Schema.engine_metrics_history]({% link sql_reference/information-schema/engine-metrics-history.md %}) view to understand how much CPU, RAM, and disk are utilized by your workloads. In addition, this view also provides details on how often your queries hit the local cache and how much of your query data is spilling onto the disk. These metrics can help you decide whether your engine needs a different node type and whether you need to add more nodes to improve the query performance. Use the [Information_Schema.engine_running_queries]({% link sql_reference/information-schema/engine-running-queries.md %}) view to understand how many queries are waiting in the queue to be run. If there are a number of queries still waiting to be run, adding another cluster to your engine may help improve the query throughput. 
 
+### Approximate engine node sizes
+The following table provides approximate information on each engine node type. It is provided for informational purposes only and is subject to change without notice.
+
+Storage-optimized nodes:
+
+| Node Type | vCPU | RAM | Disk Size |
+|-----------|------|-----|-----------|
+| S | 8 | 64GB | 1875GB |
+| M | 16 | 128GB | 3750GB |
+| L | 32 | 256GB | 7500GB |
+| XL | 64 | 512GB | 15000GB |
+
+Compute-optimized nodes:
+
+| Node Type | vCPU | RAM | Disk Size |
+|-----------|------|-----|-----------|
+| S | 8 | 16GB | 475GB |
+| M | 16 | 32GB | 950GB |
+| L | 32 | 64GB | 1900GB |
+| XL | 64 | 128GB | 3800GB |
+
+**Note:** Firebolt reserves approximately 25% of the disk size for other system operations and caches.
+{: .note}
+
+**TIP:** We recommend loading a representative sample of your data into Firebolt to get a sense of the compression ratio you will achieve. This value can vary widely based on the data types and distribution of values.
+
 ## Initial Sizing
 ### ELT Workloads
 For the ELT workloads, the engine size would depend on the number of files and the size of the files used to ingest the data. You can parallelize the ingest process with additional nodes, which can provide improved performance.
