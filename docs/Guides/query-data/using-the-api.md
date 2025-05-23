@@ -142,3 +142,7 @@ where:
 
 Queries are per request. To run multiple statement queries, separate queries each into one request. 
 {: .note}
+
+### OpenAPI spec
+
+For a full definition of the query API, see the [OpenAPI spec](https://github.com/firebolt-db/openapi).
