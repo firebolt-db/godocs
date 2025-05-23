@@ -1,73 +1,21 @@
 import re
 import typing
-from dataclasses import dataclass, asdict
-from pathlib import Path
 
 import markdown_it.parser_block as md_b
-import yaml
 
-from md_utils import split_into_blocks, join_blocks, Block, compare_block_metadata
-
-
-@dataclass(kw_only=True, frozen=True)
-class FrontMatterJekyll:
-    title: str | None = None
-    parent: str | None = None
-    nav_order: int | None = None
-    description: str | None = None
-    layout: str | None = None
-    permalink: str | None = None
-    redirect_from: list[str] | None = None
-    has_children: bool | None = None
-    redirect_to: str | None = None
-    nav_exclude: bool | None = None
-    search_exclude: bool | None = None
-    sitemap: bool | None = None
-    published: bool | None = None
-
-    has_toc: bool | None = None
-    grand_parent: str | None = None
-    great_grand_parent: str | None = None
-
-
-@dataclass(kw_only=True, frozen=True)
-class FrontMatterMint:
-    title: str | None = None
-    description: str | None = None
-    sidebarTitle: str | None = None
-    icon: str | None = None
-    iconType: str | None = None
-    mode: str | None = None
-    url: str | None = None
-    groups: list[str] | None = None
-    # openapi: str | None = None
-    # keywords: list[str] | None = None
-    # meta_tags: dict[str, str] | None = None
-
-
-@dataclass(kw_only=True, frozen=True)
-class ParsedPage:
-    rel_path: Path
-    fm: FrontMatterJekyll | None
-    content: str
-
-
-@dataclass(kw_only=True)
-class ConvertedPage:
-    src: ParsedPage
-    fm: FrontMatterMint
-    content: str
+import markdown
+import page
 
 
 class MarkdownStructureChangedException(Exception):
     meta_diff: list[str]
     meta_content_diff: list[str]
     content_diff: list[str]
-    blocks_old: list[Block]
-    blocks_new: list[Block]
+    blocks_old: list[markdown.Block]
+    blocks_new: list[markdown.Block]
 
     def __init__(self, meta_diff: list[str], meta_content_diff: list[str], content_diff: list[str],
-                 blocks_old: list[Block], blocks_new: list[Block],
+                 blocks_old: list[markdown.Block], blocks_new: list[markdown.Block],
                  message: str = "Markdown structure changed"):
         super().__init__(message)
         self.meta_diff = meta_diff
@@ -83,54 +31,16 @@ class MarkdownStructureChangedException(Exception):
         return f"{str(super())}\n===== meta diff:\n{m}\n==== meta and content diff:\n{mc}\n==== content diff:\n{c}"
 
 
-def _filter_none(d: dict[str, typing.Any]) -> dict[str, typing.Any]:
-    """Filter out None values from a dictionary."""
-    return {k: v for k, v in d.items() if v is not None}
-
-
-def parse_page(page: str, rel_path: Path) -> ParsedPage:
-    """Parse a page from a string.
-    >>> parse_page('---\\ntitle: bar\\n---\\n# Header\\nContent', Path('path/to/file.md')).content
-    '# Header\\nContent'
-    >>> _filter_none(asdict(parse_page('---\\ntitle: bar\\n---\\n# Header\\nContent', Path('path/to/file.md')).fm))
-    {'title': 'bar'}
-    >>> parse_page('---\\n---\\n# Header\\nContent', Path('path/to/file.md')).content
-    '# Header\\nContent'
-    >>> _filter_none(asdict(parse_page('---\\n---\\n# Header\\nContent', Path('path/to/file.md')).fm))
-    {}
-    """
-    frontmatter_match = re.match(r'^---\n(.*?)---\n', page, re.DOTALL)
-    if frontmatter_match is None:
-        raise Exception(f"front matter not found in {rel_path}")
-    fm = frontmatter_match.group(0)
-    fm_yaml = frontmatter_match.group(1)
-    fm_raw = yaml.safe_load(fm_yaml) or {}
-    return ParsedPage(
-        rel_path=rel_path,
-        fm=FrontMatterJekyll(**fm_raw),
-        content=page[len(fm):]
-    )
-
-
-def convert_md_page(p: ParsedPage) -> ConvertedPage:
-    return ConvertedPage(
+def convert_md_page(p: page.ParsedPage) -> page.ConvertedPage:
+    return page.ConvertedPage(
         src=p,
         fm=_convert_front_matter(p.fm),
         content=_convert_md_content(p.content),
     )
 
 
-def render_page(p: ConvertedPage) -> str:
-    fm_dict = asdict(p.fm)
-    for k in list(fm_dict.keys()):
-        if fm_dict[k] is None:
-            del fm_dict[k]
-    fm_raw = yaml.dump(fm_dict, default_flow_style=False)
-    return f"---\n{fm_raw}---\n{p.content}\n"
-
-
-def _convert_front_matter(fm: FrontMatterJekyll) -> FrontMatterMint:
-    return FrontMatterMint(
+def _convert_front_matter(fm: page.FrontMatterJekyll) -> page.FrontMatterMint:
+    return page.FrontMatterMint(
         title=fm.title,
         description=fm.description,
         sidebarTitle=fm.title,
@@ -141,13 +51,13 @@ def _convert_front_matter(fm: FrontMatterJekyll) -> FrontMatterMint:
 def _convert_md_content(content: str) -> str:
     # Keeping the original blocks aside to revalidate the markup later
     # to ensure it's not mingled by the transformations
-    blocks_orig = split_into_blocks(content)
+    blocks_orig = markdown.split_into_blocks(content)
     # Same result, independent copy
-    blocks = split_into_blocks(content)
+    blocks = markdown.split_into_blocks(content)
     blocks = _transform_content(blocks, _normalize_html_tags_in_content)
     # Strip file type extensions from links
-    blocks = _transform_content(blocks, _convert_asset_urls)
     blocks = _transform_content(blocks, _convert_link_tags)
+    blocks = _transform_content(blocks, _convert_asset_urls)
     blocks = _transform_content(blocks, _convert_page_urls)
     blocks = _transform_content(blocks, _convert_jtd_image_attrs)
     blocks = _transform_content(blocks, _strip_jtd_link_attrs)
@@ -155,8 +65,8 @@ def _convert_md_content(content: str) -> str:
     blocks = _transform_content(blocks, _strip_include_tags)
     blocks = _transform_content(blocks, _convert_jtd_block_attrs)
 
-    # The operations above shouldn't change the block-level parsing
-    if diff := compare_block_metadata(blocks_orig, blocks, [(["html_block"], ["paragraph_open", "inline"])]):
+    # The operations above shouldn't change the _Block-level parsing
+    if diff := markdown.compare_block_metadata(blocks_orig, blocks, [(["html_block"], ["paragraph_open", "inline"])]):
         raise MarkdownStructureChangedException(diff[0], diff[1], diff[2], blocks_orig, blocks)
 
     blocks = _transform_content(blocks, _strip_html_comments)
@@ -166,14 +76,14 @@ def _convert_md_content(content: str) -> str:
     for b in blocks:
         if b.is_inline() or b.is_html_block():
             _check_unconverted(b)
-    return join_blocks(blocks)
+    return markdown.join_blocks(blocks)
 
 
-def _transform_content(blocks: list[Block], func: typing.Callable[[str], str]) -> list[Block]:
+def _transform_content(blocks: list[markdown.Block], func: typing.Callable[[str], str]) -> list[markdown.Block]:
     res = []
     for b in blocks:
         if b.is_inline() or b.is_html_block():
-            res.append(Block(tokens=b.tokens, content=func(b.content)))
+            res.append(markdown.Block(tokens=b.tokens, content=func(b.content)))
         else:
             res.append(b)
     return res
@@ -198,14 +108,22 @@ def _convert_asset_urls(content: str) -> str:
     """Convert asset paths from Jekyll to Mintlify format.
     >>> _convert_asset_urls('![alt text](.././../assets/image.png)')
     '![alt text](/assets/image.png)'
+    >>> _convert_asset_urls('![alt text](..//.//..//assets/image.png)')
+    '![alt text](/assets/image.png)'
+    >>> _convert_asset_urls('![alt text](//assets/image.png)')
+    '![alt text](/assets/image.png)'
+    >>> _convert_asset_urls('![alt text](/assets/image.png)')
+    '![alt text](/assets/image.png)'
     >>> _convert_asset_urls('<img src="../assets/image.png" />')
     '<img src="/assets/image.png" />'
     """
-    return re.sub(r'(?:\.\.?/)*assets/', '/assets/', content)
+    return re.sub(r'(?:\.\.?/+|/+)*assets/', '/assets/', content)
 
 
 def _convert_page_urls(content: str) -> str:
     """Strips .md and .html from internal links.
+    >>> _convert_page_urls('[Link](path/to/file.md)')
+    '[Link](./path/to/file)'
     >>> _convert_page_urls('[Link](../path/to/file.md) [Link](../path/to/file.md)')
     '[Link](../path/to/file) [Link](../path/to/file)'
     >>> _convert_page_urls('[Link](../path/to/file.html)')
@@ -229,7 +147,9 @@ def _convert_page_urls(content: str) -> str:
     """
     def fix_url(url: str) -> str:
         if re.match(r'^[a-z][a-z0-9+.-]*:', url, flags=re.IGNORECASE) is None:
-            return re.sub(r'\.(?:md|html)(#.*)?$', r'\1', url)
+            url = re.sub(r'\.(?:md|html)(#.*)?$', r'\1', url)
+            if not re.match(r'^[./].*', url):
+                url = './' + url
         return url
 
     content = re.sub(r'\[(.*?)\]\((.*?)\)',
@@ -298,7 +218,7 @@ def _strip_html_comments(content: str) -> str:
 
 
 def _convert_jtd_block_attrs(content: str) -> str:
-    """Convert Jekyll block attributes to Mintlify format.
+    """Convert Jekyll _Block attributes to Mintlify format.
     >>> _convert_jtd_block_attrs("  A paragraph\\n  {:.note}\\n")
     '  <Note>\\n  A paragraph\\n  </Note>\\n'
     >>> _convert_jtd_block_attrs("> A paragraph\\n{:.note}\\n")
@@ -314,17 +234,17 @@ def _convert_jtd_block_attrs(content: str) -> str:
     return re.sub(r'^(\s*)(.*?)(\s*)\{:\s*\.(note|warning)\s*\}(\s*)$', transform, content, flags=re.DOTALL)
 
 
-def _convert_h1(blocks: list[Block]) -> list[Block]:
+def _convert_h1(blocks: list[markdown.Block]) -> list[markdown.Block]:
     """Deletes first h1 from markdown content if present, demotes all other h1 to h2.
-    >>> join_blocks(_convert_h1([
-    ...     Block(tokens=[],
+    >>> markdown.join_blocks(_convert_h1([
+    ...     markdown.Block(tokens=[],
     ...         content="\\n\\n"),
-    ...     Block(tokens=[
+    ...     markdown.Block(tokens=[
     ...         (0, md_b.Token(type="heading_open", tag="h1", nesting=1, markup='#')),
     ...         (1, md_b.Token(type="paragraph_open", tag='', nesting=1)),
     ...         (2, md_b.Token(type="inline", tag='', nesting=0))],
     ...         content="# Header 1 # something"),
-    ...     Block(tokens=[
+    ...     markdown.Block(tokens=[
     ...         (3, md_b.Token(type="blockquote_open", tag="blockquote", nesting=1)),
     ...         (4, md_b.Token(type="heading_open", tag="h1", nesting=1, markup='#')),
     ...         (5, md_b.Token(type="paragraph_open", tag='', nesting=1)),
@@ -348,8 +268,8 @@ def _convert_h1(blocks: list[Block]) -> list[Block]:
         if is_h1:
             b.content = b.content.replace('# ', '## ', 1)
         res.append(b)
-    # fixes all block metadata
-    return split_into_blocks(join_blocks(res))
+    # fixes all markdown.Block metadata
+    return markdown.split_into_blocks(markdown.join_blocks(res))
 
 
 def _strip_toc_markers(content: str) -> str:
@@ -377,24 +297,18 @@ def _strip_jtd_attrs(content: str) -> str:
     return re.sub(r'^(\s*)\{:.*?\}\s*', r'\1', content, flags=re.MULTILINE)
 
 
-def _check_unconverted(b: Block) -> None:
-    # {% %} or {: %} or {{ }}
+def _check_unconverted(b: markdown.Block) -> None:
     if b.is_fence():
         return
-    m = re.search(r"\{[%:{].*?\}", b.content)
-    if m is not None:
+    # {% %} or {: %} or {{ }}
+    if m := re.search(r"\{[%:{].*?\}", b.content):
         raise Exception(f"found unconverted jekyll or jtd markup {m.group(0)}\n{b.get_types()}\n{b.content}")
-    m = re.search(r"\[.*?\]\([./].*?\.(md|html)(#.*?)\)", b.content)
-    if m is not None:
+    if m := re.search(r"\[.*?\]\([./].*?\.(md|html)(#.*?)\)", b.content):
         raise Exception(f"found unconverted url {m.group(0)}\n{b.get_types()}\n{b.content}")
-    m = re.search(r'<a[^>]+?href="[./].*?\.(md|html)(#.*?)"', b.content)
-    if m is not None:
+    if m := re.search(r'<a[^>]+?href="[./].*?\.(md|html)(#.*?)"', b.content):
         raise Exception(f"found unconverted url {m.group(0)}\n{b.get_types()}\n{b.content}")
-    m = re.search(r'(\*|1\.|1\)).*?\btoc\b', b.content, flags=re.IGNORECASE)
-    if m is not None:
+    if not (re.search(r'`.*?\[.*?\]\[.*?\].*?`', b.content)) \
+            and (m := re.search(r'\[[^`[]*?\]\[[^`[]*?\]', b.content)):
+        raise Exception(f"found unconverted reference link {m.group(0)}\n{b.get_types()}\n{b.content}")
+    if m := re.search(r'(\*|1\.|1\)).*?\btoc\b', b.content, flags=re.IGNORECASE):
         raise Exception(f"found unconverted {m.group(0)}\n{b.get_types()}\n{b.content}")
-
-
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()

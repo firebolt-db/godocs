@@ -193,6 +193,6 @@ def _render_block_metadata_with_content(blocks: list[Block]) -> list[str]:
     return [f"B: {"/".join(b.get_types())} :: {b.content!r}" for b in blocks]
 
 
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
+def print_markdown(src: str) -> None:
+    for b in split_into_blocks(src):
+        print([(i, t.as_dict()) for i, t in b.tokens], repr(b.content))

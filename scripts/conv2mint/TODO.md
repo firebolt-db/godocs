@@ -1,9 +1,9 @@
 * [ ] Existing content works
   * [x] own tests pass (same md, no markup left)
   * [x] mint compiler accepts
-  * [ ] mint link check accepts 
+  * [x] mint link check accepts 
   * [ ] navigation tree works
-  * [ ] All includes work
+  * [ ] all includes work
 * [ ] Urls are beautiful
   * [ ] mint link check accepts with new urls
   * [ ] all old urls redirect to new urls
