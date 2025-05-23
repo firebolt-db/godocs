@@ -46,7 +46,7 @@ The example below converts characters that are not unreserved that appear in the
 SELECT CONCAT('https://www.firebolt.io/?', URL_ENCODE('example_id=1&hl=en'));
 ```
 
-**Returns**: https://www.firebolt.io/?example_id%3D1%26hl%3Den
+**Returns**: `https://www.firebolt.io/?example_id%3D1%26hl%3Den`
 
 ## Related
 
