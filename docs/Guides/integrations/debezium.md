@@ -3,9 +3,6 @@ layout: default
 title: Kafka CDC with Debezium
 description: CDC events with Kafka and Debezium
 nav_order: 12
-nav_exclude: true
-search_exclude: true
-sitemap: false
 parent: Integrate with Firebolt
 ---
 

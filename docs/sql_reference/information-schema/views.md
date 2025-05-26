@@ -1,7 +1,7 @@
 ---
 redirect_from:
   - /general-reference/information-schema/information-schema-and-usage-views.html
-  - sql_reference/information-schema/information-schema-and-usage-views.html
+  - /sql_reference/information-schema/information-schema-and-usage-views.html
 layout: default
 title: Views
 description: Use this reference to learn about the metadata available for Firebolt views using the information schema.

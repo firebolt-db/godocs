@@ -1,7 +1,7 @@
 ---
 redirect_from:
   - /integrations/data-orchestration/prefect.html
-  - integrations/data-integration-and-transformation/
+  - /integrations/data-integration-and-transformation/
   - /integrations/data-orchestration
   - /integrations/data-integration-and-transformation/connecting-with-dataddo.html
   - /integrations/data-integration-and-transformation/connecting-to-rivery.html

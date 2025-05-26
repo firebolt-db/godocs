@@ -1,6 +1,5 @@
 ---
 redirect_from:
-  - /working-with-engines/working-with-engines-using-the-rest-api.html
   - /managing-your-account/concepts-and-terminology.html
 layout: default
 title: Organizations and accounts
