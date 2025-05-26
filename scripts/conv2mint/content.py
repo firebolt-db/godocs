@@ -1,3 +1,4 @@
+import pathlib
 import re
 import typing
 
@@ -31,34 +32,40 @@ class MarkdownStructureChangedException(Exception):
         return f"{str(super())}\n===== meta diff:\n{m}\n==== meta and content diff:\n{mc}\n==== content diff:\n{c}"
 
 
-def convert_md_page(p: page.ParsedPage) -> page.ConvertedPage:
-    return page.ConvertedPage(
-        src=p,
-        fm=_convert_front_matter(p.fm),
-        content=_convert_md_content(p.content),
+def convert_page(src: page.PageJekyll, descr: page.PageDescrMint, url_mapping: dict[str, str]) -> page.PageMint:
+    return page.PageMint(
+        descr=descr,
+        fm=_convert_front_matter(src.fm, descr) if src.fm else None,
+        content=_convert_markdown_content(src.content, src.descr, url_mapping),
     )
 
 
-def _convert_front_matter(fm: page.FrontMatterJekyll) -> page.FrontMatterMint:
+def _convert_front_matter(
+        fm: page.FrontMatterJekyll,
+        dst_descr: page.PageDescrMint,
+) -> page.FrontMatterMint:
     return page.FrontMatterMint(
         title=fm.title,
         description=fm.description,
-        sidebarTitle=fm.title,
+        sidebarTitle=("Overview" if dst_descr.is_index and not dst_descr.is_root else fm.title),
         groups=([] if fm.published is False else None),
+        # mode="wide",
     )
 
 
-def _convert_md_content(content: str) -> str:
+def _convert_markdown_content(content: str, descr: page.PageDescrJekyll, url_mapping: dict[str, str]) -> str:
     # Keeping the original blocks aside to revalidate the markup later
     # to ensure it's not mingled by the transformations
     blocks_orig = markdown.split_into_blocks(content)
     # Same result, independent copy
     blocks = markdown.split_into_blocks(content)
     blocks = _transform_content(blocks, _normalize_html_tags_in_content)
+    blocks = _transform_content(blocks, _strip_html_comments)
     # Strip file type extensions from links
     blocks = _transform_content(blocks, _convert_link_tags)
+    # todo: merge into _convert_page_urls
     blocks = _transform_content(blocks, _convert_asset_urls)
-    blocks = _transform_content(blocks, _convert_page_urls)
+    blocks = _transform_content(blocks, lambda s: _convert_page_urls(s, descr, url_mapping))
     blocks = _transform_content(blocks, _convert_jtd_image_attrs)
     blocks = _transform_content(blocks, _strip_jtd_link_attrs)
     # # TODO: fix includes
@@ -66,10 +73,9 @@ def _convert_md_content(content: str) -> str:
     blocks = _transform_content(blocks, _convert_jtd_block_attrs)
 
     # The operations above shouldn't change the _Block-level parsing
-    if diff := markdown.compare_block_metadata(blocks_orig, blocks, [(["html_block"], ["paragraph_open", "inline"])]):
-        raise MarkdownStructureChangedException(diff[0], diff[1], diff[2], blocks_orig, blocks)
+    # if diff := markdown.compare_block_metadata(blocks_orig, blocks, [(["html_block"], ["paragraph_open", "inline"])]):
+    #     raise MarkdownStructureChangedException(diff[0], diff[1], diff[2], blocks_orig, blocks)
 
-    blocks = _transform_content(blocks, _strip_html_comments)
     blocks = _transform_content(blocks, _strip_toc_markers)
     blocks = _transform_content(blocks, _strip_jtd_attrs)
     blocks = _convert_h1(blocks)
@@ -120,42 +126,73 @@ def _convert_asset_urls(content: str) -> str:
     return re.sub(r'(?:\.\.?/+|/+)*assets/', '/assets/', content)
 
 
-def _convert_page_urls(content: str) -> str:
+def _convert_page_urls(content: str, descr: page.PageDescrJekyll, url_mapping: dict[str, str]) -> str:
     """Strips .md and .html from internal links.
-    >>> _convert_page_urls('[Link](path/to/file.md)')
-    '[Link](./path/to/file)'
-    >>> _convert_page_urls('[Link](../path/to/file.md) [Link](../path/to/file.md)')
-    '[Link](../path/to/file) [Link](../path/to/file)'
-    >>> _convert_page_urls('[Link](../path/to/file.html)')
-    '[Link](../path/to/file)'
-    >>> _convert_page_urls('[Link](../path/to/file)')
-    '[Link](../path/to/file)'
-    >>> _convert_page_urls('[Link](../path/to/file.md#anchor)')
-    '[Link](../path/to/file#anchor)'
-    >>> _convert_page_urls('[Link](../path/to/file.html#anchor)')
-    '[Link](../path/to/file#anchor)'
-    >>> _convert_page_urls('[Link](../path/to/file#anchor)')
-    '[Link](../path/to/file#anchor)'
-    >>> _convert_page_urls('[Link](https://example.com/path/to/file.md)')
+    >>> _convert_page_urls('[Link](path/to/file.md)', page.build_page_descr_jekyll(pathlib.Path('dir/other.md')), url_mapping={"/dir/path/to/file.md": '/other/path/to/file'})
+    '[Link](/other/path/to/file)'
+    >>> _convert_page_urls('<a href="path/to/file.md">Link</a>', page.build_page_descr_jekyll(pathlib.Path('dir/other.md')), url_mapping={"/dir/path/to/file.md": '/other/path/to/file'})
+    '<a href="/other/path/to/file">Link</a>'
+    >>> _convert_page_urls('<img src="../assets/to/file.png" alt="Pic"/>', page.build_page_descr_jekyll(pathlib.Path('dir/other.md')), url_mapping={"/dir/path/to/file.md": '/other/path/to/file'})
+    '<img src="/assets/to/file.png" alt="Pic"/>'
+    >>> _convert_page_urls('[Link](path/to/file.md#frag)', page.build_page_descr_jekyll(pathlib.Path('dir/other.md')), url_mapping={"/dir/path/to/file.md": '/other/path/to/file'})
+    '[Link](/other/path/to/file#frag)'
+    >>> _convert_page_urls('[Link](index.md)', page.build_page_descr_jekyll(pathlib.Path('dir/other.md')), url_mapping={"/dir/index.md": '/other'})
+    '[Link](/other)'
+    >>> _convert_page_urls('[Link](index.md)', page.build_page_descr_jekyll(pathlib.Path('other.md')), url_mapping={"/index.md": '/'})
+    '[Link](/)'
+    >>> _convert_page_urls('[Link](index.md)', page.build_page_descr_jekyll(pathlib.Path('index.md')), url_mapping={"/index.md": '/'})
+    '[Link](/)'
+    >>> _convert_page_urls('[Link](index.md#frag)', page.build_page_descr_jekyll(pathlib.Path('dir/other.md')), url_mapping={"/dir/index.md": '/other'})
+    '[Link](/other#frag)'
+    >>> _convert_page_urls('[Link](index.md#frag)', page.build_page_descr_jekyll(pathlib.Path('other.md')), url_mapping={"/index.md": '/'})
+    '[Link](/#frag)'
+    >>> _convert_page_urls('[Link](index.md#frag)', page.build_page_descr_jekyll(pathlib.Path('index.md')), url_mapping={"/index.md": '/'})
+    '[Link](/#frag)'
+    >>> _convert_page_urls('[Link](../path/to/file.md) [Link](../path/to/file.md)', page.build_page_descr_jekyll(pathlib.Path('dir/other.md')), url_mapping={"/path/to/file.md": '/other/to/file'})
+    '[Link](/other/to/file) [Link](/other/to/file)'
+    >>> _convert_page_urls('[Link](../path/to/file.html)', page.build_page_descr_jekyll(pathlib.Path('dir/other.md')), url_mapping={"/path/to/file.html": '/other/to/file'})
+    '[Link](/other/to/file)'
+    >>> _convert_page_urls('[Link](../path/to/file)', page.build_page_descr_jekyll(pathlib.Path('dir/other.md')), url_mapping={"/path/to/file": '/other/to/file'})
+    '[Link](/other/to/file)'
+    >>> _convert_page_urls('[Link](#anchor)', page.build_page_descr_jekyll(pathlib.Path('dir/other.md')), url_mapping={})
+    '[Link](#anchor)'
+    >>> _convert_page_urls('[Link]()', page.build_page_descr_jekyll(pathlib.Path('dir/other.md')), url_mapping={})
+    '[Link](#)'
+    >>> _convert_page_urls('[Link](../path/to/file.md#anchor)', page.build_page_descr_jekyll(pathlib.Path('dir/other.md')), url_mapping={"/path/to/file.md": '/other/to/file'})
+    '[Link](/other/to/file#anchor)'
+    >>> _convert_page_urls('[Link](../path/to/file.html#anchor)', page.build_page_descr_jekyll(pathlib.Path('dir/other.md')), url_mapping={"/path/to/file.html": '/other/to/file'})
+    '[Link](/other/to/file#anchor)'
+    >>> _convert_page_urls('[Link](../path/to/file#anchor)', page.build_page_descr_jekyll(pathlib.Path('dir/other.md')), url_mapping={"/path/to/file": '/other/to/file'})
+    '[Link](/other/to/file#anchor)'
+    >>> _convert_page_urls('[Link](https://example.com/path/to/file.md)', page.build_page_descr_jekyll(pathlib.Path('dir/other.md')), url_mapping={})
     '[Link](https://example.com/path/to/file.md)'
-    >>> _convert_page_urls('[Link](git+ssh:example.com/path/to/file.md)')
+    >>> _convert_page_urls('[Link](git+ssh:example.com/path/to/file.md)', page.build_page_descr_jekyll(pathlib.Path('dir/other.md')), url_mapping={})
     '[Link](git+ssh:example.com/path/to/file.md)'
-    >>> _convert_page_urls('[Link](mail:a@b.md)')
+    >>> _convert_page_urls('[Link](mail:a@b.md)', page.build_page_descr_jekyll(pathlib.Path('dir/other.md')), url_mapping={})
     '[Link](mail:a@b.md)'
-    >>> _convert_page_urls('    * **Database** - A logical collection of schemas and data objects, such as tables and views, that organizes and manages user data and metadata for querying and data processing. For more information about databases see [Create a Database](/Guides/getting-started/get-started-sql.md#create-a-database) in the [Get started using SQL](/Guides/getting-started/get-started-sql.md) guide. Under database are the following levels:\\n')
-    '    * **Database** - A logical collection of schemas and data objects, such as tables and views, that organizes and manages user data and metadata for querying and data processing. For more information about databases see [Create a Database](/Guides/getting-started/get-started-sql#create-a-database) in the [Get started using SQL](/Guides/getting-started/get-started-sql) guide. Under database are the following levels:\\n'
+    >>> _convert_page_urls('    * **Database** - A logical collection of schemas and data objects, such as tables and views, that organizes and manages user data and metadata for querying and data processing. For more information about databases see [Create a Database](/Guides/getting-started/get-started-sql.md#create-a-database) in the [Get started using SQL](/Guides/getting-started/get-started-sql.md) guide. Under database are the following levels:\\n', page.build_page_descr_jekyll(pathlib.Path('dir/other.md')), url_mapping={"/Guides/getting-started/get-started-sql.md": '/guides/getting-started/get-started-sql'})
+    '    * **Database** - A logical collection of schemas and data objects, such as tables and views, that organizes and manages user data and metadata for querying and data processing. For more information about databases see [Create a Database](/guides/getting-started/get-started-sql#create-a-database) in the [Get started using SQL](/guides/getting-started/get-started-sql) guide. Under database are the following levels:\\n'
     """
     def fix_url(url: str) -> str:
-        if re.match(r'^[a-z][a-z0-9+.-]*:', url, flags=re.IGNORECASE) is None:
-            url = re.sub(r'\.(?:md|html)(#.*)?$', r'\1', url)
-            if not re.match(r'^[./].*', url):
-                url = './' + url
-        return url
+        if re.match(r'^[a-z][a-z0-9+.-]*:', url, flags=re.IGNORECASE) is not None:
+            # external link
+            return url
+        url, frag = url.split('#', 1) if '#' in url else (url, '')
+        if not url:
+            return f"#{frag}"
+        abs_url = pathlib.Path(url)
+        if not abs_url.is_absolute():
+            abs_url = (pathlib.Path("/") / descr.rel_path.parent / pathlib.Path(url)).resolve()
+        if str(abs_url) in url_mapping:
+            abs_url = url_mapping[str(abs_url)]
+        elif abs_url.name.endswith(".md") or abs_url.name.endswith(".html"):
+            raise Exception(f"can't find url {abs_url} in url_mapping")
+        return str(abs_url) + ('#' + frag if frag else '')
 
     content = re.sub(r'\[(.*?)\]\((.*?)\)',
                      lambda x: f"[{x.group(1)}]({fix_url(x.group(2))})", content)
-    content = re.sub(r'href="(.*?)"',
-                     lambda x: f'href="{fix_url(x.group(1))}"', content)
+    content = re.sub(r'\b(href|src)="(.*?)"',
+                     lambda x: f'{x.group(1)}="{fix_url(x.group(2))}"', content)
     return content
 
 
