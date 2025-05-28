@@ -2,15 +2,6 @@
 
 ### New Features
 
-<!-- Auto Generated Markdown for FIR-37010 - Owned by Asya Shneerson -->
-**Supported cross-region data ingestion and export for Amazon S3 buckets in Firebolt
-
-**
-Added support for cross-region data ingestion and export.
-
-Firebolt now supports data ingestion and export to Amazon S3 buckets in different regions from the Firebolt engines. Previously, the Firebolt engine had to be in the same region as the Amazon S3 bucket. Note that these cross-region transfers may lead to additional AWS network fees and longer completion times. This update allows greater flexibility in data management and integration across different geographical locations.
-
-
 <!-- Auto Generated Markdown for FIR-46137 - Owned by Jonathan Doron -->
 **Added the `ICU_NORMALIZE` function to standardize text formats across locales
 
