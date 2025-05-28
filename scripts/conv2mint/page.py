@@ -79,6 +79,7 @@ class FrontMatterMint:
     sidebarTitle: str | None = None
     mode: str | None = None
     groups: list[str] | None = None
+    no_index: bool | None = None
     # icon: str | None = None
     # iconType: str | None = None
     # openapi: str | None = None
@@ -180,7 +181,7 @@ def convert_page_descr(src: PageDescrJekyll, path_mappings: dict[str, str]) -> P
         rel_path = rel_path.parent.with_suffix(".mdx")
     if not rel_path.name.endswith(".mdx"):
         raise Exception(f"invalid path mapping for {src.rel_path}: {rel_path}")
-    if re.match(r'[\sA-Z]', str(rel_path)):
+    if re.search(r'[\sA-Z]', str(rel_path)):
         raise Exception(f"invalid path mapping for {src.rel_path}: {rel_path} contains upper-case or whitespace characters")
     main_url = f"/{rel_path.with_suffix('')}" if not src.is_fragment else None
     if is_root:

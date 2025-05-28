@@ -99,6 +99,8 @@ def main():
 
         "Guides":
             "guides",
+        "Guides/developing-with-firebolt/connecting-with-Python.md":
+            "guides/developing-with-firebolt/connecting-with-python.mdx",
         "Guides/integrations/integrations.md":
             "guides/integrations/index.mdx",
         "Guides/loading-data/loading-data.md":
@@ -142,23 +144,24 @@ def main():
 
     cleanup_assets(dst_root, [
         "assets",
+        "snippets",
         "_includes",
     ])
     cleanup_pages(dst_root, [descr for _, descr in pages])
     copy_assets(src_root, dst_root, [
         "assets/**/*",
-        "_includes/sql_examples/*.json",
-        "_includes/sql_examples/*.sql",
+        "snippets/**/*",
     ])
 
-    url_mapping = navigation.build_and_check_url_mapping(pages)
+    src_redirects = navigation.collect_src_redirects([pj for pj, pdm in pages])
+    url_mapping = navigation.build_and_check_url_mapping(pages, src_redirects)
     navigatable: list[tuple[page.PageJekyll, page.PageMint]] = []
 
     for src_page, dst_descr in pages:
         print(f"Processing {src_page.descr.rel_path} ...")
         dst_path = dst_root / dst_descr.rel_path
         dst_path.parent.mkdir(parents=True, exist_ok=True)
-        dst_page = content.convert_page(src_page, dst_descr, url_mapping)
+        dst_page = content.convert_page(src_page, dst_descr, url_mapping, src_root)
         if not src_page.descr.is_fragment and src_page.fm.is_navigatable:
             navigatable.append((src_page, dst_page))
         p_raw = page.render_page_mint(dst_page)
@@ -169,15 +172,28 @@ def main():
 
     print(f"Processed {len(pages)} files")
 
-    nav_tree = navigation.build_navigation_tree(navigatable)
-    # pprint.pprint(nav_tree.to_json())
-    # pprint.pprint(dirs)
-    # pprint.pprint(navigation.collect_src_redirects(src_pages))
-
     docs = json.loads((dst_root / "docs.json").read_text())
+
+    nav_tree = navigation.build_navigation_tree(navigatable)
     docs["navigation"]["groups"] = nav_tree.to_json()["pages"]
+
+    # TODO: postprocess pages based on the navigation tree and rendered contents
+
+    redirects = [{"source": "/godocs/:slug*",
+                  "destination": "/:slug*",
+                  "permanent": False}]
+    for k, v in url_mapping.items():
+        if k == v or k.endswith(".md") or k in ("/", "/index", "/index.html"):
+            continue
+        redirects.append({"source": k,
+                          "destination": v,
+                          "permanent": False})
+    redirects.sort(key=lambda r: (len(r["source"]), r["source"]), reverse=True)
+    docs["redirects"] = redirects
+
     docs_json = json.dumps(docs, indent=2)
-    (dst_root / "docs.json").write_text(docs_json)
+    (dst_root / "docs.json").write_text(docs_json + "\n")
+
     print("DONE")
 
 

@@ -1,3 +1,4 @@
+import json
 import pathlib
 import re
 import typing
@@ -32,44 +33,46 @@ class MarkdownStructureChangedException(Exception):
         return f"{str(super())}\n===== meta diff:\n{m}\n==== meta and content diff:\n{mc}\n==== content diff:\n{c}"
 
 
-def convert_page(src: page.PageJekyll, descr: page.PageDescrMint, url_mapping: dict[str, str]) -> page.PageMint:
+def convert_page(src: page.PageJekyll, descr: page.PageDescrMint, url_mapping: dict[str, str], src_root: pathlib.Path) -> page.PageMint:
     return page.PageMint(
         descr=descr,
         fm=_convert_front_matter(src.fm, descr) if src.fm else None,
-        content=_convert_markdown_content(src.content, src.descr, url_mapping),
+        content=_convert_markdown_content(src.content, src.descr, url_mapping, src_root),
     )
 
 
 def _convert_front_matter(
-        fm: page.FrontMatterJekyll,
+        src_fm: page.FrontMatterJekyll,
         dst_descr: page.PageDescrMint,
 ) -> page.FrontMatterMint:
-    return page.FrontMatterMint(
-        title=fm.title,
-        description=fm.description,
-        sidebarTitle=("Overview" if dst_descr.is_index and not dst_descr.is_root else fm.title),
-        groups=([] if fm.published is False else None),
-        # mode="wide",
+    dst_fm = page.FrontMatterMint(
+        title=src_fm.title,
+        description=src_fm.description,
+        sidebarTitle=("Overview" if dst_descr.is_index and not dst_descr.is_root else src_fm.title),
+        groups=([] if src_fm.published is False else None),
     )
+    if src_fm.search_exclude or src_fm.published is False:
+        dst_fm.no_index = True
+    return dst_fm
 
 
-def _convert_markdown_content(content: str, descr: page.PageDescrJekyll, url_mapping: dict[str, str]) -> str:
+def _convert_markdown_content(content: str, descr: page.PageDescrJekyll, url_mapping: dict[str, str], src_root: pathlib.Path) -> str:
     # Keeping the original blocks aside to revalidate the markup later
     # to ensure it's not mingled by the transformations
-    blocks_orig = markdown.split_into_blocks(content)
+    # blocks_orig = markdown.split_into_blocks(content)
     # Same result, independent copy
+    content = _prepend_import_query_window(content, descr)
     blocks = markdown.split_into_blocks(content)
     blocks = _transform_content(blocks, _normalize_html_tags_in_content)
     blocks = _transform_content(blocks, _strip_html_comments)
     # Strip file type extensions from links
     blocks = _transform_content(blocks, _convert_link_tags)
-    # todo: merge into _convert_page_urls
-    blocks = _transform_content(blocks, _convert_asset_urls)
     blocks = _transform_content(blocks, lambda s: _convert_page_urls(s, descr, url_mapping))
     blocks = _transform_content(blocks, _convert_jtd_image_attrs)
     blocks = _transform_content(blocks, _strip_jtd_link_attrs)
+    blocks = _transform_content(blocks, _convert_html_style_attrs)
     # # TODO: fix includes
-    blocks = _transform_content(blocks, _strip_include_tags)
+    blocks = _transform_content(blocks, lambda s: _convert_include_tags(s, src_root))
     blocks = _transform_content(blocks, _convert_jtd_block_attrs)
 
     # The operations above shouldn't change the _Block-level parsing
@@ -83,6 +86,12 @@ def _convert_markdown_content(content: str, descr: page.PageDescrJekyll, url_map
         if b.is_inline() or b.is_html_block():
             _check_unconverted(b)
     return markdown.join_blocks(blocks)
+
+
+def _prepend_import_query_window(content: str, descr: page.PageDescrJekyll) -> str:
+    if re.search(r'\{%\s*include\s+query-window\.html.*?%\}', content, flags=re.DOTALL):
+        return f'\n\nimport {{QueryWindow}} from \'/snippets/query-window.mdx\';\n\n{content}'
+    return content
 
 
 def _transform_content(blocks: list[markdown.Block], func: typing.Callable[[str], str]) -> list[markdown.Block]:
@@ -232,16 +241,54 @@ def _strip_jtd_link_attrs(content: str) -> str:
     return re.sub(r'(\[.*?\]\(.*?\))\{:.*?\}', r'\1', content)
 
 
-def _strip_include_tags(content: str) -> str:
+def _convert_html_style_attrs(content: str) -> str:
+    """Convert HTML style attributes to Mintlify format.
+    >>> _convert_html_style_attrs('<a href="xxx?style=">Content</a>')
+    '<a href="xxx?style=">Content</a>'
+    >>> _convert_html_style_attrs('<a href="xxx?style="><img src="in-style/icon.png" style="color: red;" alt="foo"/>Content</a>')
+    '<a href="xxx?style="><img src="in-style/icon.png" style={{"color": "red"}} alt="foo"/>Content</a>'
+    """
+    def convert_style(match: re.Match) -> str:
+        style = match.group(2)
+        res = {}
+        for item in style.split(';'):
+            if item.strip() == '':
+                continue
+            key, value = item.split(':', 1)
+            res[key.strip()] = value.strip()
+        return f'{match.group(1)}style={{{json.dumps(res)}}}{match.group(3)}'
+    return re.sub(r'(<[^>]+?\s)style="([^">]*)"([^>]*>)', convert_style, content, flags=re.DOTALL)
+
+
+def _convert_include_tags(content: str, src_root: pathlib.Path) -> str:
     """Strips Jekyll include tags from markdown content if present.
-    >>> _strip_include_tags('{% include path/to/file.md %}')
-    '**INCLUDE WAS HERE**'
-    >>> _strip_include_tags('Some content {% include path/to/file.md %} More content')
-    'Some content **INCLUDE WAS HERE** More content'
-    >>> _strip_include_tags('No % include tag % here')
+    >>> _convert_include_tags(' {% include path/to/my_file.md param1="value1" param2="value2" %} ', pathlib.Path(__file__).parent.parent.parent / 'docs')
+    '\\n\\nimport PathToMyFile from \\'/snippets/path/to/my_file.mdx\\';\\n\\n<PathToMyFile param1="value1" param2="value2" />\\n\\n'
+    >>> _convert_include_tags(' {% include path/to/my_file.md param1="value1" param2="value2" %} ', pathlib.Path(__file__).parent.parent.parent / 'docs')
+    '\\n\\nimport PathToMyFile from \\'/snippets/path/to/my_file.mdx\\';\\n\\n<PathToMyFile param1="value1" param2="value2" />\\n\\n'
+    >>> _convert_include_tags(' {% include query-window.html sql_file="sql_examples/to_char_example_1.sql" %} ', pathlib.Path(__file__).parent.parent.parent / 'docs')
+    '\\n\\n<QueryWindow content={{"sql": "SELECT TO_CHAR(\\\\n    DATE \\'2023-03-02\\' ,\\\\n    \\\'\\\\"The\\\\" fmDDDth \\\\"day in\\\\" YY \\\\"is a\\\\" fmDay \\\\"at midnight\\\\" hh24:mi:ss.us\\\'\\\\n);", "result": {"query": {"query_id": "adeb527d-12b1-480d-9fdc-6f85f4f95527", "request_id": "5e750e4c-0d97-4e21-9ee3-980432e1278d", "query_label": null}, "meta": [{"name": "?column?", "type": "text"}], "data": [["The 61st day in 23 is a Thursday at midnight 00:00:00.000000"]], "rows": 1, "statistics": {"elapsed": 0.008269, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000248666, "time_to_execute": 9.6239e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />\\n\\n'
+    >>> _convert_include_tags('Some content {% include path/to/file.md param1="value1" param2="value2" %} More content', pathlib.Path(__file__).parent.parent.parent / 'docs')
+    'Some content {% include path/to/file.md param1="value1" param2="value2" %} More content'
+    >>> _convert_include_tags('No % include tag % here', pathlib.Path(__file__).parent.parent.parent / 'docs')
     'No % include tag % here'
     """
-    return re.sub(r'\{%\s*include\s+.*?%\}', '**INCLUDE WAS HERE**', content, flags=re.DOTALL)
+    def convert_include(match: re.Match) -> str:
+        path = match.group(1).strip()
+        params = match.group(2).strip() or ''
+        params_dict = dict([tuple(p.strip().split('=', 1)) for p in re.split(r'\s+', params) if p.strip()])
+        if path == "query-window.html":
+            if len(params_dict) != 1 or 'sql_file' not in params_dict:
+                raise Exception(f"Invalid parameters for query-window include: {params_dict}")
+            sql_file = params_dict['sql_file'].strip('"\'')
+            sql = (src_root / '_includes' / sql_file).read_text()
+            result = (src_root / '_includes' / sql_file).with_suffix('.json').read_text()
+            return f"\n\n<QueryWindow content={{{json.dumps({"sql": sql, "result": json.loads(result)})}}} />\n\n"
+        else:
+            path = path.removesuffix(".md")
+            tag_name = "".join([s.capitalize() for s in re.split(r'[\W_]+', path) if s])
+            return f"\n\nimport {tag_name} from '/snippets/{path}.mdx';\n\n<{tag_name} {params} />\n\n"
+    return re.sub(r'^\s*\{%\s*include\s+(\S*)(\s+.*?)?\%\}\s*$', convert_include, content, flags=re.MULTILINE)
 
 
 def _strip_html_comments(content: str) -> str:
@@ -338,7 +385,9 @@ def _check_unconverted(b: markdown.Block) -> None:
     if b.is_fence():
         return
     # {% %} or {: %} or {{ }}
-    if m := re.search(r"\{[%:{].*?\}", b.content):
+    if m := re.search(r"(?<!(..\bstyle=|\bcontent=))\{\{.*?\}", b.content):
+        raise Exception(f"found unconverted jekyll or jtd markup {m.group(0)}\n{b.get_types()}\n{b.content}")
+    if m := re.search(r"\{[%:].*?\}", b.content):
         raise Exception(f"found unconverted jekyll or jtd markup {m.group(0)}\n{b.get_types()}\n{b.content}")
     if m := re.search(r"\[.*?\]\([./].*?\.(md|html)(#.*?)\)", b.content):
         raise Exception(f"found unconverted url {m.group(0)}\n{b.get_types()}\n{b.content}")

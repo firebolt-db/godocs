@@ -27,14 +27,13 @@ class GroupDescr:
         }
 
 
-def build_and_check_url_mapping(pages: list[tuple[page.PageJekyll, page.PageDescrMint]]) -> dict[str, str]:
+def build_and_check_url_mapping(pages: list[tuple[page.PageJekyll, page.PageDescrMint]], src_redirects: dict[str, str]) -> dict[str, str]:
     """Validates the page structure ensuring the page structure is regular and consistent:
         - no pages with the same url
         - all directories have an index page of the same name as the directory but with .mdx suffix
         - jtd navigation structure is mapped to the mint directory structure
         - no mint top-level directories are present in jekyll urls including redirects
     """
-    src_redirects = _collect_src_redirects([p for p, _ in pages])
     src2dst: dict[str, str] = {}
     dst2src: dict[str, str] = {}
     top_dirs: set[str] = set()
@@ -64,7 +63,7 @@ def build_and_check_url_mapping(pages: list[tuple[page.PageJekyll, page.PageDesc
     return src2dst
 
 
-def _collect_src_redirects(pages: list[page.PageJekyll]) -> dict[str, str]:
+def collect_src_redirects(pages: list[page.PageJekyll]) -> dict[str, str]:
     """Collect the preexisting redirects except for the godocs prefix.
     Need to ensure that the redirects in mintlify do not conflict with the old redirects.
     """
