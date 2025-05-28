@@ -40,11 +40,14 @@ def cleanup_pages(dst_root: pathlib.Path, page_descrs: list[page.PageDescrMint])
         print(f"... done")
 
 
-def copy_assets(src_root: pathlib.Path, dst_root: pathlib.Path, asset_globs: list[str]):
+def copy_assets(src_root: pathlib.Path, dst_root: pathlib.Path, asset_globs: list[str], skip_globs: list[str] = None):
     for g in asset_globs:
         print(f"Copying {src_root / g} to {dst_root / g} ...")
         i = 0
         for i, f in enumerate(src_root.glob(g)):
+            if skip_globs and any(pathlib.Path(f).match(src_root / skip) for skip in skip_globs):
+                print(f"Skipping {f} as it matches skip patterns {skip_globs}")
+                continue
             if f.is_file():
                 dst_path = dst_root / f.relative_to(src_root)
                 dst_path.parent.mkdir(parents=True, exist_ok=True)
@@ -151,6 +154,7 @@ def main():
     copy_assets(src_root, dst_root, [
         "assets/**/*",
         "snippets/**/*",
+        "docs.json",
     ])
 
     src_redirects = navigation.collect_src_redirects([pj for pj, pdm in pages])
@@ -169,6 +173,13 @@ def main():
             raise Exception(f"destination path {dst_path} already exists.")
         dst_path.write_text(p_raw)
         print(f"... done as {dst_descr.rel_path}")
+
+    copy_assets(src_root, dst_root, [
+        "**/*.mdx",
+    ], skip_globs=[
+        "_site/**/*",
+        "_site/*",
+    ])
 
     print(f"Processed {len(pages)} files")
 
