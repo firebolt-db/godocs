@@ -1,0 +1,41 @@
+## Firebolt Release Notes - Version 4.21
+
+### New Features
+
+<!-- Auto Generated Markdown for FIR-45492 - Owned by Amit Schreiber -->
+**Enabled renaming of databases with the `ALTER DATABASE <existing name> RENAME TO <new name>` command**
+
+Users can now [rename databases]({% link sql_reference/commands/data-definition/alter-database.md %}#alter-database-rename-to ) using the `ALTER DATABASE <existing name> RENAME TO <new name>` command. This update provides greater flexibility in managing database names, allowing for easier organization and management.
+
+
+<!-- Auto Generated Markdown for FIR-45484 - Owned by Pascal Schulze -->
+**Expanded the `information_schema.engine_query_history` table with `NODE_ORDINAL`, `CLUSTER_ORDINAL`, and `NUMBER_OF_CLUSTERS` columns to enhance query distribution insights and engine scaling behavior analysis**
+
+The [information_schema.engine_query_history]({% link sql_reference/information-schema/engine-query-history.md %}) table now includes three new columns: `NODE_ORDINAL`, `CLUSTER_ORDINAL`, and `NUMBER_OF_CLUSTERS`. `NODE_ORDINAL` identifies the node that received the query, `CLUSTER_ORDINAL` indicates the engine cluster that handled the query, and `NUMBER_OF_CLUSTERS` shows the number of clusters active during the query.
+
+These additions help users understand query distribution across clusters and provide insights into engine scaling behavior, such as automatic upscaling and downscaling.
+
+
+<!-- FIR-45742 - Owned by Zhen Li -->
+**Add preliminary support for `STRUCT` data type**
+
+Added preliminary support for `STRUCT` data type. This feature is in public preview. We are gathering feedback and further refining this feature. For details, please refer to the [Firebolt SQL reference]({% link sql_reference/struct-data-type.md %}).
+
+
+<!-- FIR-45623 -->
+**Added `evicted_bytes` to `information_schema.engine_metrics_history`**
+
+Added a new metric that tracks the total amount of data (in bytes) that has been evicted from disk.
+This metric helps users monitor disk space management and understand how much data is being evicted from the cache.
+For details, please refer to the [Information schema for engine metrics history]({% link sql_reference/information-schema/engine-metrics-history.md %}).
+
+
+### Performance Improvements
+
+<!-- FIR-44928 - Owned by Yoni Doron -->
+**Enhanced REGEXP_LIKE_ANY performance**
+
+We have significantly improved the performance of `REGEXP_LIKE_ANY` by up to 10x when the pattern list (`<pattern>`) contains no regular expression metacharacters. 
+By intelligently detecting these cases, we now leverage **[Hyperscan](https://github.com/intel/hyperscan)**, a high-performance regex engine, in combination with the **Volnitsky text search algorithm** to deliver substantial speedups in text matching workloads.
+
+
