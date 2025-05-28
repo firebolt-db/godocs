@@ -1,0 +1,79 @@
+{
+	"query":
+	{
+		"query_id": "3639e23c-7fe7-46da-a10f-3282835de439",
+		"request_id": "9e6f1e02-95d8-461c-9680-877cd2c45b06",
+		"query_label": "query_statement.b2b5dac4-3c7c-43a8-87f7-8f4ef41cb2e9"
+	},
+	"meta":
+	[
+		{
+			"name": "?column?",
+			"type": "text"
+		}
+	],
+
+	"data":
+	[
+		["Munchen"]
+	],
+
+	"rows": 1,
+
+	"statistics":
+	{
+		"elapsed": 0.009749,
+		"rows_read": 1,
+		"bytes_read": 1,
+		"time_before_execution": 0.000420553,
+		"time_to_execute": 0.000137518,
+		"scanned_bytes_cache": 0,
+		"scanned_bytes_storage": 0
+	}
+        , "explain_analyze": 
+{
+    "version": 1,
+    "root_description": "",
+    "explain_type": "analyze",
+    "query_id": "3639e23c-7fe7-46da-a10f-3282835de439",
+    "operators": [
+        {
+            "operator_id": 0,
+            "operator_type": "Projection",
+            "annotations": {
+                "label": "'Munchen'",
+                "output_types": [
+                    "text"
+                ],
+                "execution_metrics": {
+                    "cpu_time_ms": 0,
+                    "max_single_work_call_thread_time_us": 23,
+                    "thread_time_ms": 0,
+                    "output_cardinality": 1
+                }
+            },
+            "input_ids": [
+                1
+            ]
+        },
+        {
+            "operator_id": 1,
+            "operator_type": "SystemOneTable",
+            "annotations": {
+                "label": "",
+                "output_types": [
+                    "integer"
+                ],
+                "execution_metrics": {
+                    "cpu_time_ms": 0,
+                    "max_single_work_call_thread_time_us": 5,
+                    "thread_time_ms": 0,
+                    "output_cardinality": 1
+                }
+            },
+            "input_ids": []
+        }
+    ],
+    "root_operator_id": 0
+}
+}

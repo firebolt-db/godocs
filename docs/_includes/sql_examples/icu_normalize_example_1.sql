@@ -1,0 +1,1 @@
+SELECT icu_normalize('München', 'Latin-ASCII');
