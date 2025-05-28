@@ -21,7 +21,7 @@ You can access a Firebolt database programmatically using either of the followin
 *  The [Firebolt API](https://docs.firebolt.io/godocs/Guides/query-data/using-the-api.html#firebolt-api) - directly interacts with Firebolt’s data warehouse using HTTP requests.
 *  The [Firebolt drivers](https://docs.firebolt.io/godocs/Guides/developing-with-firebolt/) - use a third party tool or programming language to integrate with Firebolt’s data warehouse. Firebolt supports several languages including Python, Node, .Net, and Go.
 
-The service account provides access to the organization, and the associated user provides access to an account within the organization. Service accounts must be linked to a [user account](https://docs.firebolt.io/godocs/Guides/managing-your-organization/managing-users.html) during creation of service account or after. To use Firebolt programmatically, you must authenticate with an ID and a secret. These are generated when you create a service account. You can add, delete and generate secrets for service accounts using SQL scripts in the **Develop Space** or through the user interface (UI) in the **Configure Space**. 
+The service account provides access to the organization, and the associated user provides access to an account within the organization. Service accounts must be linked to a [user account](https://docs.firebolt.io/godocs/Guides/managing-your-organization/managing-users.html) during creation of service account or after. To use Firebolt programmatically, you must authenticate with an ID and a secret. These are generated when you create a service account. You can add, delete and generate secrets for service accounts using SQL scripts in the **Develop Space** or through the user interface (UI) in the **Configure Space**.
 
 Follow these steps to **gain programmatic access to Firebolt**:
 1. [Create a service account](#create-a-service-account).
@@ -42,29 +42,37 @@ You can create a service account using SQL scripts in the **Develop Space** or t
 ### Create a service account using the UI
 Login to Firebolt’s [Workspace](https://go.firebolt.io/login). If you haven’t yet registered with Firebolt, see the [Get Started](https://docs.firebolt.io/Guides/getting-started/) guide. If you encounter any issues, reach out to support@firebolt.io for help. Then, do the following:
 
-1. Select the **Configure** icon (<img src="../../assets/images/configure-icon.png" alt="The icon to open the Configure Space." width="20"/>) in the left navigation pane to open the **Configure Space**. 
+1. Select the **Configure** icon (<img src="../../assets/images/configure-icon.png" alt="The icon to open the Configure Space." width="20" style="display: inline; margin-bottom: 0; margin-top: 0" />) in the left navigation pane to open the **Configure Space**.
+
 2. Select Service accounts on the left sub-menu bar.
+
 3. Select the **+ Create a service account** button at the top right of the **Configure Space**.
+
 4. In the **Create a service account** window that appears, enter the following:
-  * Name - The name of the service account. 
-  * [Network policy](https://docs.firebolt.io/Guides/security/network-policies.html) - A security feature that defines a list of allowed and blocked IP addresses or ranges to manage access at the organization level, login level, or for service accounts.
-  * Description - A description for the service account.
+   * Name - The name of the service account.
+   * [Network policy](https://docs.firebolt.io/Guides/security/network-policies.html) - A security feature that defines a list of allowed and blocked IP addresses or ranges to manage access at the organization level, login level, or for service accounts.
+   * Description - A description for the service account.
+
 5. Toggle **Is organization admin** to designate the service account as an account with administrative privileges in your organization. In Firebolt, the organization admin role provides full administrative privileges over the organization, allowing management of users, service accounts, network policies, and other organization-wide settings.
+
 6. Select account and user in that account with which you want to associate this service account. Or select **New user** and fill user details.
+
 7. Select **Create** to finish creating the service account.
+
 8. After creating service account generate **Secret**
 
 ### Create a service account using SQL
 Login to Firebolt’s [Workspace](https://go.firebolt.io/login). If you haven’t yet registered with Firebolt, see [Get Started](https://docs.firebolt.io/Guides/getting-started/). If you encounter any issues, reach out to support@firebolt.io for help. Then, do the following:
 
-1. Select the **Develop** icon (<img src="../../assets/images/develop-icon.png" alt="The icon to open the Develop Space." width="20"/>). 
+1. Select the **Develop** icon (**\</>**).
+
 2. By default, when you login to **Firebolt’s Workspace** for the first time, Firebolt creates a tab in the **Develop Space** called **Script 1**. The following apply:
-*  The database that **Script 1** will run using is located directly below the tab name. If you want to change the database, select another database from the drop-down list.
-*  An engine must be running to process the script in a selected tab. The name and status of the engine that **Script 1** uses for computation is located to the right of the current selected database. 
+   *  The database that **Script 1** will run using is located directly below the tab name. If you want to change the database, select another database from the drop-down list.
+   *  An engine must be running to process the script in a selected tab. The name and status of the engine that **Script 1** uses for computation is located to the right of the current selected database.
 
-    Select **system** from the drop-down arrow next to the engine name. The system engine is always running, and you can use it to create a service account. You can also use an engine that you create.
+3. Select **system** from the drop-down arrow next to the engine name. The system engine is always running, and you can use it to create a service account. You can also use an engine that you create.
 
-3. Use the syntax in the following example code to create a service account in the **SQL Script Editor**: 
+4. Use the syntax in the following example code to create a service account in the **SQL Script Editor**:
 
     ```sql
     CREATE SERVICE ACCOUNT IF NOT EXISTS "service_account_name" WITH DESCRIPTION = 'service account 1';
@@ -82,17 +90,21 @@ Your new service account is listed in the **Configure Space** in the **Service a
 
 <img src="../../assets/images/service_accounts_secret.png" alt="The third step to obtain programmatic access is to generate a secret." width="500"/>
 
-Each service account requires a secret to access Firebolt programmatically. You can generate a secret using SQL scripts in the **Develop Space** or through the UI in the **Configure Space**. 
+Each service account requires a secret to access Firebolt programmatically. You can generate a secret using SQL scripts in the **Develop Space** or through the UI in the **Configure Space**.
 
-If you generate a new secret, the previous secret for your service account will no longer work inside your applications or services. 
+If you generate a new secret, the previous secret for your service account will no longer work inside your applications or services.
 {: .warning}
 
 ### Generate a secret using the UI
 
-1. Select the **Configure** icon (<img src="../../assets/images/configure-icon.png" alt="The icon to open the Configure Space." width="20"/>) in the left navigation pane to open the **Configure Space**.
+1. Select the **Configure** icon (<img src="../../assets/images/configure-icon.png" alt="The icon to open the Configure Space." width="20" style="display: inline; margin-bottom: 0; margin-top: 0" />) in the left navigation pane to open the **Configure Space**.
+
 2. Select **Service accounts** from the left sub-menu bar.
-3. Select the three horizontal dots (...) to the right of the service account that you want to generate a secret. 
-4. Select **Rotate secret**. 
+
+3. Select the three horizontal dots (...) to the right of the service account that you want to generate a secret.
+
+4. Select **Rotate secret**.
+
 5. Select the copy icon from the pop-up window **New secret for service account** that displays the new secret to copy the secret to your clipboard. This secret is not stored anywhere. Once you close the pop-up window, you will no longer be able to retrieve this secret.
 
 ### Generate a secret using SQL
@@ -110,15 +122,18 @@ The `CALL fb_GENERATESERVICEACCOUNTKEY` command in the previous code example ret
 <img src="../../assets/images/service_accounts_user.png" alt="The last step to obtain programmatic access is to create a user." width="500"/>
 
 Service account must be associated with a user. Your organization may have multiple Firebolt accounts, each with its own set of resources, databases, and users. Each service account can only be linked to one user per Firebolt account, but it can be assigned to different users across multiple accounts. This setup allows the service account to work across multiple accounts, while ensuring it is linked to only one user per account.
-You can create a user using SQL scripts in the **Develop Space** or through the UI in the **Govern Space**.  
+You can create a user using SQL scripts in the **Develop Space** or through the UI in the **Govern Space**.
 
 Note, if you create service account using UI we automatically create and associate user with the service account.
 
 ### Create a user using the UI
 
-1. Select the Govern icon (<img src="../../assets/images/govern-icon.png" alt="The icon to open the Govern Space." width="20"/>) in the left navigation pane to open the **Govern Space**.
+1. Select the Govern icon (<img src="../../assets/images/govern-icon.png" alt="The icon to open the Govern Space." width="20" style="display: inline; margin-bottom: 0; margin-top: 0" />) in the left navigation pane to open the **Govern Space**.
+
 2. Select Users from the left sub-menu bar.
+
 3. Select the **+ Create User** button at the top right of the **Govern Space**.
+
 4. In the **Create User** window, enter the following:
 
     * **User Name** - The name of the user to associate with the service account.
@@ -158,7 +173,7 @@ In the previous code example, use the service account ID and secret from the pre
 
 The following is an example response to the REST API request:
 
-**Response:** 
+**Response:**
 
 ```json
 {
@@ -170,21 +185,24 @@ The following is an example response to the REST API request:
 
 In the previous example response, the following apply:
 
-* The `access_token` is a unique token that authorizes your API requests that acts as a temporary key to access resources or perform actions. You can use this token to authenticate with Firebolt’s platform until it expires. 
-* The `token_type` is `Bearer`, which means that the access token must be included in an authorization header of your API requests using the format: `Authorization: Bearer <access_token>`. 
+* The `access_token` is a unique token that authorizes your API requests that acts as a temporary key to access resources or perform actions. You can use this token to authenticate with Firebolt’s platform until it expires.
+* The `token_type` is `Bearer`, which means that the access token must be included in an authorization header of your API requests using the format: `Authorization: Bearer <access_token>`.
 * The token `expires_in` indicates the number of seconds until the token expires.
 
 Use the returned `access_token` to authenticate with Firebolt.
 
-## Edit your service account 
+## Edit your service account
 
 You can edit your service account using SQL scripts in the **Develop Space** or through the UI in the **Configure Space**.
 
 ### Edit your service account using the UI
 
-1. Select **Configure** icon (<img src="../../assets/images/configure-icon.png" alt="The icon to open the Configure Space." width="20"/>) in the left navigation pane to open the **Configure Space**.
+1. Select **Configure** icon (<img src="../../assets/images/configure-icon.png" alt="The icon to open the Configure Space." width="20" style="display: inline; margin-bottom: 0; margin-top: 0" />) in the left navigation pane to open the **Configure Space**.
+
 2. Select **Service accounts** from the left sub-menu bar.
+
 3. Select the three horizontal dots (...) to the right of the service account that you want to edit.
+
 4. Select **Edit service account**.
 
     In the **Edit service account** pop-up window, you can edit the following:
@@ -213,13 +231,16 @@ You can delete your service account using SQL scripts in the **Develop Space** o
 You can’t delete a service account if it is linked to users. You must first unlink the service account from all users. You can view all users linked to a service account by navigating to the **Users** section in the **Govern Space**. In the **Users Management** table, each **User Name** has the name of a **Service Account** if it is associated with one. To unlink a user account, select the three horizontal dots (...) to the right of the **User Name**, and select **Edit user details**. Then, toggle off **Associate a service account**.
 {: .note}
 
- 
+
 ### Delete your service account using the UI
 
-1. Select the **Configure** icon (<img src="../../assets/images/configure-icon.png" alt="The icon to open the Configure Space." width="20"/>) in the left navigation pane to open the **Configure Space**.
+1. Select the **Configure** icon (<img src="../../assets/images/configure-icon.png" alt="The icon to open the Configure Space." width="20" style="display: inline; margin-bottom: 0; margin-top: 0" />) in the left navigation pane to open the **Configure Space**.
+
 2. Select **Service accounts** from the left sub-menu bar.
-3. Select the three horizontal dots (...) to the right of the service account that you want to delete. 
-4. Select **Delete service account**. 
+
+3. Select the three horizontal dots (...) to the right of the service account that you want to delete.
+
+4. Select **Delete service account**.
 
 ### Delete your service account using SQL
 

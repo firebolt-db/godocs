@@ -1,4 +1,4 @@
-## DB version 4.7
+## Firebolt Release Notes - Version 4.7
 
 ### New Features
 

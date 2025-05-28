@@ -183,7 +183,7 @@ Select the SQL code you want to run as a statement and then choose **Run**. Behi
 Switch themes by selecting the toggle (<img src="../../assets/images/dark-mode-toggle.png" alt="toggle button for dark and light mode" width="15"/>) at the bottom-left corner of the workspace.
 
 ## Resource center
-The Resource Center provides quick access to essential Firebolt resources. Select the **Firebolt icon**(<img src="../../assets/images/firebolt-icon-transparent.png" alt="Firebolt icon transparent" width="22"/>) in the bottom-right corner of the Results panel to open the Resource Center, which includes:
+The Resource Center provides quick access to essential Firebolt resources. Select the **Firebolt icon**(<img src="../../assets/images/firebolt-icon-transparent.png" alt="Firebolt icon transparent" width="22" style="display: inline; margin-bottom: 0; margin-top: 0" />) in the bottom-right corner of the Results panel to open the Resource Center, which includes:
 * **Get started with Firebolt**: Quick-start guide for new users.
 * **Knowledge Center**: Central hub for comprehensive Firebolt information.
 * **Overview**: Explains core Firebolt concepts.

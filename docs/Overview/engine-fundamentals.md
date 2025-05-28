@@ -48,19 +48,12 @@ Compute nodes can be storage-optimized with larger cache sizes or compute-optimi
 This attribute represents the number (1 - 128) of compute nodes, allowing granular horizontal scaling to fine-tune query performance characteristics while avoiding overprovisioning and unnecessary cost. Both scaling in and out are supported.
 
 **Clusters** <br />
-A cluster is a collection of compute resources, described by “Type” and “Nodes” attributes. A given Firebolt engine can contain one or more clusters. The maximum number of clusters is specified by the max_clusters attribute. Only homogeneous cluster configurations (clusters with the same number of Nodes and Type) are supported within a single engine. Users can leverage the “min_clusters” and "max_clusters" attributes to support query concurrency scaling.
+A cluster is a collection of compute resources, described by `TYPE` and `NODES` attributes. A given Firebolt engine can contain one or more clusters. The maximum number of clusters is specified by the max_clusters attribute. Only homogeneous cluster configurations (clusters with the same number of Nodes and Type) are supported within a single engine. Users can leverage the `MIN_CLUSTERS` and `MAX_CLUSTERS` attributes to support query concurrency scaling.
 
-<center>
-<figure>
-    <img src="../assets/images/engine_cluster_type_M.png" alt="An engine cluster in Firebolt" width="600" />
-    <figcaption><b>An engine cluster with four nodes of type M</b></figcaption>
-</figure>
+Examples:
+* An engine cluster with four nodes of type M.<br><img src="../assets/images/engine_cluster_type_M.png" alt="An engine cluster in Firebolt" width="600" style="margin-bottom: 0"/>
 
-<figure>
-    <img src="../assets/images/Engine_two_clusters_type_M.png" alt="A Firebolt engine with two clusters, each cluster containing four nodes of type 'M'" width="600" />
-    <figcaption><b>A Firebolt engine with two clusters, each cluster containing four nodes of type M</b></figcaption>
-</figure>
-</center>
+* An engine with two clusters, each containing four nodes of type M.<br><img src="../assets/images/Engine_two_clusters_type_M.png" alt="A Firebolt engine with two clusters, each cluster containing four nodes of type 'M'" width="600" style="margin-bottom: 0" />
 
 The four attributes `TYPE`, `NODES`, `MIN_CLUSTERS` and `MAX_CLUSTERS` form the configuration of an engine.
 

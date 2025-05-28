@@ -13,15 +13,15 @@ parent: Manage organization
 
 In Firebolt, an **organization** can have multiple **accounts**, each serving as a separate workspace for managing resources and data. Within each account, users are created to control access, with their identities defined through logins or service accounts. **Logins** are associated with individual human users, each authenticated by unique credentials, allowing them to interact directly with Firebolt's resources according to assigned roles. **Service accounts** provide programmatic access for applications and automated processes within the account, such as data pipelines or monitoring tools. Each login and service account is linked to specific **roles**, which define their permissions, ensuring that access is managed efficiently and securely across the organization.
 
-## <img src="../../assets/images/icon-login.png" alt="Icon for a Firebolt login for human access." width="30"/> Logins
+## <img src="../../assets/images/icon-login.png" alt="Icon for a Firebolt login for human access." width="30" style="display: inline; margin-bottom: 0; margin-top: 0" /> Logins
 
 A **login** in Firebolt represents a **human user** and is associated with an individual’s credentials, identified by an **email address**. Logins are tied to user roles, which define what the individual can access or modify. A login is primarily used for human authentication and allows a user to access the platform, run queries, and interact with databases and other resources. For instance, a login object might be created for a specific person such as `kate@acme.com`, and this login is linked to roles that control permissions.
 
-## <img src="../../assets/images/icon-service-account.png" alt="Icon for a Firebolt service account for programmatic access." width="30"/> Service accounts
+## <img src="../../assets/images/icon-service-account.png" alt="Icon for a Firebolt service account for programmatic access." width="30" style="display: inline; margin-bottom: 0; margin-top: 0" /> Service accounts
 
 A **service account** represents a **machine or application** rather than a human user. It allows automated processes to authenticate and interact with Firebolt resources. A service account is used for programmatic access, such as in pipelines, monitoring systems, application data access, and scheduled queries. Service accounts are associated with roles just like logins but are designed to operate without human intervention. For example, a service account might be used for a data pipeline that regularly ingests data into Firebolt. Each service account must be associated with a user. For more information about how to create and manage service accounts, see [Manage programmatic access to Firebolt]({% link Guides/managing-your-organization/service-accounts.md %}).
 
-## <img src="../../assets/images/icon-user-bangs.png" alt="Icon for a Firebolt user." width="30"/> Users
+## <img src="../../assets/images/icon-user-bangs.png" alt="Icon for a Firebolt user." width="30" style="display: inline; margin-bottom: 0; margin-top: 0" /> Users
 
  A **user** is a distinct identity that interacts with the Firebolt platform. Each user is assigned specific **roles**, which determine what actions they can perform and which resources they can access. Users are essential for controlling access in Firebolt and are managed through **role-based access control (RBAC)**. Users authenticate via **logins** or **service accounts**, depending on whether they are human users or machine-based processes.
 
@@ -99,11 +99,11 @@ A login is an **email** that is used for authentication. A login can be associat
 
 Login to [Firebolt’s Workspace](https://go.firebolt.io/login). If you haven’t yet registered with Firebolt, see the [Get Started]({% link Guides/getting-started/index.md %}) guide. If you encounter any issues, reach out to [support@firebolt.io](mailto:support@firebolt.io) for help. Then, do the following:
 
-1. Select the Configure icon (<img src="../../assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." width="12"/>) in the left navigation pane to open the **Configure Space**.
+1. Select the Configure icon (<img src="../../assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." width="12" style="display: inline; margin-bottom: 0; margin-top: 0" />) in the left navigation pane to open the **Configure Space**.
 2. Select **Logins**.
 3. Select **Create Login**.
 4. In the **Create login** window that pops up, enter the following:
-  
+
     1. First Name - The first name of the user.
     2. Last Name - The last name of the user.
     3. Login Name - The email address of the user.
@@ -121,20 +121,20 @@ Login to [Firebolt’s Workspace](https://go.firebolt.io/login). If you haven’
 
 Login to [Firebolt’s Workspace](https://go.firebolt.io/login). If you haven’t yet registered with Firebolt, see the [Get Started]({% link Guides/getting-started/index.md %}) guide. If you encounter any issues, reach out to [support@firebolt.io](mailto:support@firebolt.io) for help. Then, do the following:
 
-1. Select the **Develop** icon (<img src="../../assets/images/develop-icon.png" alt="The Firebolt Develop Space icon" width="12"/>).
+1. Select the **Develop** icon (**\</>**).
 
     By default, when you login to **Firebolt’s Workspace** for the first time, Firebolt creates a tab in the **Develop Space** called **Script 1**. The following apply:
 
     * The database that **Script 1** will use is located directly below the tab name. If you want to change the database, select another database from the drop-down list.
 
-    * An engine must be running to process the script in a selected tab. The name and status of the engine that **Script 1** uses for computation is located to the right of the current selected database. If the engine has auto-start set to `TRUE`, it will start from a stopped state. For more information about auto-start, see [Immediately Starting or Automatically Stopping an Engine]({% link Guides/operate-engines/working-with-engines-using-ddl.md %}#automatically-start-or-stop-an-engine). 
+    * An engine must be running to process the script in a selected tab. The name and status of the engine that **Script 1** uses for computation is located to the right of the current selected database. If the engine has auto-start set to `TRUE`, it will start from a stopped state. For more information about auto-start, see [Immediately Starting or Automatically Stopping an Engine]({% link Guides/operate-engines/working-with-engines-using-ddl.md %}#automatically-start-or-stop-an-engine).
 
 3. Select **system** from the drop-down arrow next to the engine name. The system engine is always running, and you can use it to create a login. You can also use an engine that you create.
 4. Use the syntax in the following example code to create a login in the SQL Script Editor:
 
     ```sql
     CREATE LOGIN "<login_name>"
-    WITH FIRST_NAME = <first_name> 
+    WITH FIRST_NAME = <first_name>
     LAST_NAME = <last_name>;
     ```
 
@@ -146,14 +146,14 @@ After you create a login, the next step is to create a user.
 
 ##### Create a user using the UI
 
-1. Select the **Govern** icon (<img src="../../assets/images/govern-icon.png" alt="The Firebolt Govern Space icon." width="12"/>) in the left navigation pane to open the **Govern Space**.
+1. Select the **Govern** icon (<img src="../../assets/images/govern-icon.png" alt="The Firebolt Govern Space icon." width="12" style="display: inline; margin-bottom: 0; margin-top: 0" />) in the left navigation pane to open the **Govern Space**.
 2. Select **Users** from the left sub-menu bar.
 3. Select the **+ Create User** button at the top right of the **Govern Space**.
 4. In the **Create User** window, enter the following:
 
    1. **User name** - The name of the user to associate with the login. This name can be any string, excluding spaces, and special characters such as exclamation points (!), percent signs (%), at sign(@), dot sign (.), underscore sign (_), minus sign (-), and asterisks (*).
 
-   2. **Assign to** - Use the dropdown to assign the user to one of the following:  
+   2. **Assign to** - Use the dropdown to assign the user to one of the following:
       i. **Unassigned** - No specific assignment.
 
       ii. **Login** - Associates the user with a login name or email address. After selecting this option, you will be prompted to choose the login name or email address.
@@ -165,7 +165,7 @@ After you create a login, the next step is to create a user.
 
    3. **Default Engine** - Choose a default processing engine to associate with the user.
 
-5. Select **Create new user** to save the configuration. 
+5. Select **Create new user** to save the configuration.
 
 
 ##### Create a user using SQL
@@ -195,7 +195,7 @@ If the user wasn’t associated with a login or service account when they were c
 
 ##### Link a user using the UI
 
-1. Select the Govern icon (<img src="../../assets/images/govern-icon.png" alt="The Firebolt Govern Space icon" width="12"/>) in the left navigation pane to open the **Govern Space**.
+1. Select the Govern icon (<img src="../../assets/images/govern-icon.png" alt="The Firebolt Govern Space icon" width="12" style="display: inline; margin-bottom: 0; margin-top: 0" />) in the left navigation pane to open the **Govern Space**.
 2. Select **Users** from the left sub-menu bar.
 3. Select the three horizontal dots (…) to the right of the user that you need to link to a login.
 4. Select **Edit user details**.
@@ -224,7 +224,7 @@ If you don’t already have a role that you want to assign to a user, you can cr
 
 ##### Create a role using the UI
 
-1. Select the Govern icon (<img src="../../assets/images/govern-icon.png" alt="The Firebolt Govern Space icon." width="12"/>) in the left navigation pane to open the **Govern Space**.
+1. Select the Govern icon (<img src="../../assets/images/govern-icon.png" alt="The Firebolt Govern Space icon." width="12" style="display: inline; margin-bottom: 0; margin-top: 0" />) in the left navigation pane to open the **Govern Space**.
 2. Select **Roles** from the left sub-menu bar.
 3. Select the **+ New Role** button at the top right of the **Govern Space**.
 4. In the left sub-menu bar, enter the following:
@@ -294,7 +294,7 @@ You can assign a new role to the user or change the role assigned to the user fr
 
 ##### Assign a role using the UI
 
-1. Select the Govern icon (<img src="../../assets/images/govern-icon.png" alt="The Firebolt Govern Space icon." width="12"/>) in the left navigation pane to open the **Govern Space**. 
+1. Select the Govern icon (<img src="../../assets/images/govern-icon.png" alt="The Firebolt Govern Space icon." width="12" style="display: inline; margin-bottom: 0; margin-top: 0" />) in the left navigation pane to open the **Govern Space**.
 2. Select **Users** from the left sub-menu bar.
 3. Select the three horizontal dots (…) to the right of the user that you need to link to a login.
 4. Select **Edit user details**.
@@ -322,16 +322,16 @@ You can alter a user's name, login or service account that they are associated w
 
 ### Edit a user using the UI
 
-1. Select the Govern icon (<img src="../../assets/images/govern-icon.png" alt="The Firebolt Govern Space icon." width="12"/>) in the left navigation pane to open the **Govern Space**. 
+1. Select the Govern icon (<img src="../../assets/images/govern-icon.png" alt="The Firebolt Govern Space icon." width="12" style="display: inline; margin-bottom: 0; margin-top: 0" />) in the left navigation pane to open the **Govern Space**.
 2. Select **Users** from the left sub-menu bar.
 3. Select the three horizontal dots (…) to the right of the user that you need to edit.
 4. Select **Edit user details**.
 5. Edit the desired fields.
 6. Select **Save**.
 
-### Edit a user using SQL 
+### Edit a user using SQL
 
-Use the [ALTER USER]({% link sql_reference/commands/access-control/alter-user.md %}) statement to change a user's information in the **SQL Script Editor** in the **Develop Space**. 
+Use the [ALTER USER]({% link sql_reference/commands/access-control/alter-user.md %}) statement to change a user's information in the **SQL Script Editor** in the **Develop Space**.
 
 The following code example changes a user's name:
 

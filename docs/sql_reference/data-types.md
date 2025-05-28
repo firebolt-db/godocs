@@ -26,80 +26,80 @@ This topic lists the data types available in Firebolt.
     <tbody>
         <tr>
             <td rowspan="5" style="border: 1px solid #ddd; padding: 8px;">Numeric</td>
-            <td><a href="https://docs.firebolt.io/sql_reference/data-types.html#integer">INTEGER</a></td>
-            <td>INT, INT4</td>
-            <td>A four-byte signed integer.</td>
+            <td style="border: 1px solid #ddd; padding: 8px;"><a href="https://docs.firebolt.io/sql_reference/data-types.html#integer">INTEGER</a></td>
+            <td style="border: 1px solid #ddd; padding: 8px;">INT, INT4</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">A four-byte signed integer.</td>
         </tr>
         <tr>
-            <td><a href="https://docs.firebolt.io/sql_reference/data-types.html#bigint">BIGINT</a></td>
-            <td>LONG, INT8</td>
-            <td>An eight-byte signed integer.</td>
+            <td style="border: 1px solid #ddd; padding: 8px;"><a href="https://docs.firebolt.io/sql_reference/data-types.html#bigint">BIGINT</a></td>
+            <td style="border: 1px solid #ddd; padding: 8px;">LONG, INT8</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">An eight-byte signed integer.</td>
         </tr>
         <tr>
-            <td><a href="https://docs.firebolt.io/sql_reference/data-types.html#numeric-1">NUMERIC</a></td>
-            <td>DECIMAL</td>
-            <td>An exact numeral defined by a fixed precision and scale, with a default of `38` for precision and `9` for scale.</td>
+            <td style="border: 1px solid #ddd; padding: 8px;"><a href="https://docs.firebolt.io/sql_reference/data-types.html#numeric-1">NUMERIC</a></td>
+            <td style="border: 1px solid #ddd; padding: 8px;">DECIMAL</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">An exact numeral defined by a fixed precision and scale, with a default of `38` for precision and `9` for scale.</td>
         </tr>
         <tr>
-            <td><a href="https://docs.firebolt.io/sql_reference/data-types.html#real">REAL</a></td>
-            <td>FLOAT4</td>
-            <td>A four-bye floating point number with six decimal digits of precision.</td>
+            <td style="border: 1px solid #ddd; padding: 8px;"><a href="https://docs.firebolt.io/sql_reference/data-types.html#real">REAL</a></td>
+            <td style="border: 1px solid #ddd; padding: 8px;">FLOAT4</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">A four-bye floating point number with six decimal digits of precision.</td>
         </tr>
         <tr>
-            <td><a href="https://docs.firebolt.io/sql_reference/data-types.html#double-precision">DOUBLE PRECISION</a></td>
-            <td>DOUBLE, FLOAT, FLOAT8, FLOAT(p)</td>
-            <td>An eight-byte floating point number with fifteen decimal digits of precision.</td>
+            <td style="border: 1px solid #ddd; padding: 8px;"><a href="https://docs.firebolt.io/sql_reference/data-types.html#double-precision">DOUBLE PRECISION</a></td>
+            <td style="border: 1px solid #ddd; padding: 8px;">DOUBLE, FLOAT, FLOAT8, FLOAT(p)</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">An eight-byte floating point number with fifteen decimal digits of precision.</td>
         </tr>
         <tr>
             <td style="border: 1px solid #ddd; padding: 8px;">Boolean</td>
-            <td><a href="https://docs.firebolt.io/sql_reference/data-types.html#boolean-1">BOOLEAN</a></td>
-            <td>BOOL</td>
-            <td>A logical boolean value of true or false.</td>
+            <td style="border: 1px solid #ddd; padding: 8px;"><a href="https://docs.firebolt.io/sql_reference/data-types.html#boolean-1">BOOLEAN</a></td>
+            <td style="border: 1px solid #ddd; padding: 8px;">BOOL</td>
+            <td style="border: 1px solid #ddd; padding: 8px;">A logical boolean value of true or false.</td>
         </tr>
         <tr>
             <td rowspan="2" style="border: 1px solid #ddd; padding: 8px;">Composite</td>
-            <td><a href="#array">ARRAY</a></td>
-            <td></td>
-            <td>An array that holds multiple values of the same data type.</td>
+            <td style="border: 1px solid #ddd; padding: 8px;"><a href="#array">ARRAY</a></td>
+            <td style="border: 1px solid #ddd; padding: 8px;"></td>
+            <td style="border: 1px solid #ddd; padding: 8px;">An array that holds multiple values of the same data type.</td>
         </tr>
         <tr>
-            <td><a href="#struct">STRUCT</a></td>
-            <td></td>
-            <td>Named values of varying data types grouped in a defined structure.</td>
+            <td style="border: 1px solid #ddd; padding: 8px;"><a href="#struct">STRUCT</a></td>
+            <td style="border: 1px solid #ddd; padding: 8px;"></td>
+            <td style="border: 1px solid #ddd; padding: 8px;">Named values of varying data types grouped in a defined structure.</td>
         </tr>
         <tr>
             <td rowspan="3" style="border: 1px solid #ddd; padding: 8px;">Date & Timestamp</td>
-            <td><a href="#date">DATE</a></td>
-            <td></td>
-            <td>A calendar date including the year, month, and day.</td>
+            <td style="border: 1px solid #ddd; padding: 8px;"><a href="#date">DATE</a></td>
+            <td style="border: 1px solid #ddd; padding: 8px;"></td>
+            <td style="border: 1px solid #ddd; padding: 8px;">A calendar date including the year, month, and day.</td>
         </tr>
         <tr>
-            <td><a href="#timestamp">TIMESTAMP</a></td>
-            <td></td>
-            <td>A calendar date and time in Coordinated Universal Time (UTC), including the year, month, day, hour, minute, second, and microsecond.</td>
+            <td style="border: 1px solid #ddd; padding: 8px;"><a href="#timestamp">TIMESTAMP</a></td>
+            <td style="border: 1px solid #ddd; padding: 8px;"></td>
+            <td style="border: 1px solid #ddd; padding: 8px;">A calendar date and time in Coordinated Universal Time (UTC), including the year, month, day, hour, minute, second, and microsecond.</td>
         </tr>
         <tr>
-            <td><a href="#timestamptz">TIMESTAMPTZ</a></td>
-            <td></td>
-            <td>A calendar date and time in the local timezone, including year, month, day, hour, minute, second, and microsecond.</td>
+            <td style="border: 1px solid #ddd; padding: 8px;"><a href="#timestamptz">TIMESTAMPTZ</a></td>
+            <td style="border: 1px solid #ddd; padding: 8px;"></td>
+            <td style="border: 1px solid #ddd; padding: 8px;">A calendar date and time in the local timezone, including year, month, day, hour, minute, second, and microsecond.</td>
         </tr>
         <tr>
             <td style="border: 1px solid #ddd; padding: 8px;">String</td>
-            <td><a href="#text">TEXT</a></td>
-            <td></td>
-            <td>A character string of variable length.</td>
+            <td style="border: 1px solid #ddd; padding: 8px;"><a href="#text">TEXT</a></td>
+            <td style="border: 1px solid #ddd; padding: 8px;"></td>
+            <td style="border: 1px solid #ddd; padding: 8px;">A character string of variable length.</td>
         </tr>
         <tr>
             <td style="border: 1px solid #ddd; padding: 8px;">Binary</td>
-            <td><a href="#bytea">BYTEA</a></td>
-            <td></td>
-            <td>Binary data of variable length.</td>
+            <td style="border: 1px solid #ddd; padding: 8px;"><a href="#bytea">BYTEA</a></td>
+            <td style="border: 1px solid #ddd; padding: 8px;"></td>
+            <td style="border: 1px solid #ddd; padding: 8px;">Binary data of variable length.</td>
         </tr>
         <tr>
             <td style="border: 1px solid #ddd; padding: 8px;">Spatial</td>
-            <td><a href="#geography">GEOGRAPHY</a></td>
-            <td></td>
-            <td>Geographic data, including points, LineStrings, Polygons and collections thereof.</td>
+            <td style="border: 1px solid #ddd; padding: 8px;"><a href="#geography">GEOGRAPHY</a></td>
+            <td style="border: 1px solid #ddd; padding: 8px;"></td>
+            <td style="border: 1px solid #ddd; padding: 8px;">Geographic data, including points, LineStrings, Polygons and collections thereof.</td>
         </tr>
     </tbody>
 </table>

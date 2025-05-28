@@ -110,7 +110,7 @@ You can monitor your new data pipeline in Estuary Flow's dashboard as follows:
 You can validate that your data has arrived at Firebolt as follows:
 
 1. Log in to the [Firebolt Workspace](https://firebolt.go.firebolt.io/signup).
-2. Select the **Develop** icon (<img src="../../assets/images/develop-icon.png" alt="The Firebolt Develop Space icon." width="20">) from the left navigation pane.
+2. Select the **Develop** icon (**\</>**) from the left navigation pane.
 3. In the **Script Editor**, run a query on the table that you specified as an Estuary Flow destination to confirm the transfer of data as follows:
     1. Select the name of the database that you specified as your Estuary Flow destination from the drop-down list next to **Databases**.
     2. Enter a script in the script editor to query the table that you specified as an Estuary Flow destination. The following code example returns the contents of all rows and all columns from the `games` table:

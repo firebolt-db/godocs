@@ -36,15 +36,15 @@ Firebolt is inherently **scalable** helping you to adapt rapidly to changes in y
 * [Elasticity](#-elasticity) — Seamlessly scale to handle hundreds of terabytes of data without sacrificing speed or efficiency.
 * [SQL Simplicity](#-sql-simplicity) — Use a subset of PostgreSQL-compatible SQL, allowing teams to adapt easily with minimal training.
 
-### <img src="../../assets/images/icon-efficiency.png" alt="Icon for efficiency." width="40"/> High efficiency
+### <img src="../assets/images/icon-efficiency.png" alt="Icon for efficiency." width="40" style="display: inline; margin-bottom: 0; margin-top: 0" /> High efficiency
 
 Firebolt delivers low-latency, high performance analytics with one of the best price-to-performance ratios in the industry. Its architecture is optimized for fast query execution through features like vectorized processing and sparse indexing, which minimize data scans and optimize CPU usage. These features enable fast responses to data-intensive queries, even at petabyte scale, without overloading compute resources. Whether analyzing structured or semi-structured data, Firebolt delivers millisecond-level query responses, backed by ACID compliance to ensure data consistency, integrity, and reliability.
 
-### <img src="../../assets/images/icon-concurrency.png" alt="Icon for concurrency at scale." width="40"/> Concurrency at scale
+### <img src="../assets/images/icon-concurrency.png" alt="Icon for concurrency at scale." width="40" style="display: inline; margin-bottom: 0; margin-top: 0" /> Concurrency at scale
 
 Firebolt enables thousands of concurrent queries, ensuring your applications can manage heavy query loads with consistent, reliable performance. Its fine-grained scaling capabilities allow for high query throughput efficiently, even during peak workloads, ensuring optimal resource allocation and minimizing query latency.
 
-### <img src="../../assets/images/icon-elasticity.png" alt="Icon for elasticity or vertical, horizontal or concurrent scaling." width="40"/> Elasticity
+### <img src="../assets/images/icon-elasticity.png" alt="Icon for elasticity or vertical, horizontal or concurrent scaling." width="40" style="display: inline; margin-bottom: 0; margin-top: 0" /> Elasticity
 
 Firebolt's fully decoupled architecture and multi-dimensional elasticity allow compute, storage, and management resources to scale independently, optimizing both performance and cost efficiency. This architecture enables fine-grained control over resources as your workloads evolve, including scaling out to accommodate massive datasets. You can access any database from any engine, giving you flexibility to access any data while offering workload isolation to achieve predictable performance. Furthermore, Firebolt's system allows fine-grained control over provisioned resources for achieving needed price-performance characteristics and minimizing cost. Firebolt’s architecture supports:
 
@@ -54,12 +54,12 @@ Firebolt's fully decoupled architecture and multi-dimensional elasticity allow c
 
 The following diagram includes code examples of how to scale vertically, horizontally or scale for concurrency using SQL in the **Firebolt Workspace**:
 
-<img src="../../assets/images/product-scaling-engines.png" alt="You can scale vertically, horizontally, or concurrently in the Firebolt Workspace." width="700"/>
+<img src="../assets/images/product-scaling-engines.png" alt="You can scale vertically, horizontally, or concurrently in the Firebolt Workspace." width="700"/>
 
 
 Firebolt's multi-dimensional approach to elasticity allows it to dynamically adapt to any workload, ensuring optimal system performance while keeping costs under control.
 
-### <img src="../../assets/images/icon-simplicity.png" alt="Icon for SQL simplicity." width="40"/> SQL simplicity
+### <img src="../assets/images/icon-simplicity.png" alt="Icon for SQL simplicity." width="40" style="display: inline; margin-bottom: 0; margin-top: 0" /> SQL simplicity
 
 Firebolt supports a PostgreSQL-compliant SQL dialect, allowing your teams to leverage Firebolt's capabilities without needing to learn a new query language. This simplifies integration with existing workflows that contain tasks that include data provisioning, processing, and management. With support for both structured and [semi-structured data]({% link Guides/loading-data/working-with-semi-structured-data/working-with-semi-structured-data.md %}), Firebolt allows you to analyze diverse datasets within a single platform.
 
@@ -69,9 +69,9 @@ Firebolt’s platform is optimized for integration within modern data workflows.
 
 You can leverage industry-standard tools like Apache Airflow, dbt, and Superset for orchestration and visualization. Firebolt’s SDKs offer wide support for language clients like Python, Node.js, Java, and .NET. This flexibility empowers your team to build and query data using their preferred environments, ensuring smooth data workflows from ingestion to advanced analytics.
 
-<img src="../../assets/images/firebolt-framework.png" alt="Firebolt supports popular SDKs and connectors to integrate with many workflows." width="700"/>
+<img src="../assets/images/firebolt-framework.png" alt="Firebolt supports popular SDKs and connectors to integrate with many workflows." width="700"/>
 
-### <img src="../../assets/images/icon-isolation.png" alt="Icon for workload isolation." width="40"/> Workload isolation for smooth operations
+### <img src="../assets/images/icon-isolation.png" alt="Icon for workload isolation." width="40" style="display: inline; margin-bottom: 0; margin-top: 0" /> Workload isolation for smooth operations
 
 Firebolt optimizes workloads by considering configuration, resource utilization, and history-based statistics to balance both latency and throughput. Any Firebolt engine can handle both read and write operations on any database, ensuring strong consistency across all engines.  Workloads are managed independently with dedicated compute resources, allowing you to run complex ELT processes, fast queries, BI reports, among others, without interference. Workload isolation ensures that resource-heavy tasks do not impact your most critical applications and dashboards, enabling smooth operations across diverse use cases.
 

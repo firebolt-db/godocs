@@ -39,11 +39,11 @@ You can view your total cost in FBU up to the latest second and in $USD up to th
 
 You can use the **Load data** wizard to load data in either CSV or Parquet form.
 
- To start the **Load data** wizard, select the plus (+) icon in the **Develop Space** next to **Databases** in the left navigation pane and select **Load data**. The wizard will guide you through creating a database, an engine, and loading data. See [Load data using a wizard](../loading-data/loading-data-wizard.md#load-data-using-a-wizard) for detailed information about the workflow and the available options in the wizard.
- 
- Even though the **Load data** wizard creates a database and engine for you, the [**Create a Database**](./get-started-sql.md#create-a-database) and [**Create an Engine**](./get-started-sql.md#create-an-engine) sections in the [Use SQL to load data](./get-started-sql.md) guide contain useful information about billing for engine runtime and schema.
+To start the **Load data** wizard, select the plus (**+**) icon in the **Develop Space** next to **Databases** in the left navigation pane and select **Load data**. The wizard will guide you through creating a database, an engine, and loading data. See [Load data using a wizard](../loading-data/loading-data-wizard.md#load-data-using-a-wizard) for detailed information about the workflow and the available options in the wizard.
 
-To use the **Load data** wizard, select the plus (+) icon. For detailed information about how to use the **Load data** wizard, see the [Load data](../loading-data/loading-data.md) guide.
+Even though the **Load data** wizard creates a database and engine for you, the [**Create a Database**](./get-started-sql.md#create-a-database) and [**Create an Engine**](./get-started-sql.md#create-an-engine) sections in the [Use SQL to load data](./get-started-sql.md) guide contain useful information about billing for engine runtime and schema.
+
+To use the **Load data** wizard, select the plus (**+**) icon. For detailed information about how to use the **Load data** wizard, see the [Load data](../loading-data/loading-data.md) guide.
 
 ## Run query, optimize, clean up, and export
 
@@ -57,7 +57,7 @@ After you have loaded your data in the wizard, the rest of the steps in getting 
 * For information about how to get started optimizing your workflow, see [Optimize your workflow](get-started-sql#optimize-your-workflow).
 
 * For information about how to get started cleaning up resources and data, see [Clean up resources](./get-started-sql#clean-up).
-  
+
 * For information on how to export your data, see [Export data](get-started-sql.md#export-data).
 
 ## Next steps

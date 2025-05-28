@@ -30,7 +30,7 @@ To integrate Auth0 with Firebolt's platform, you need to configure both an [Auth
     * **`<organization_identifier>`** - the unique identifier for your organization in Firebolt. To retrieve your **`<organization_identifier>`**, do the following:
         
         1. Login to the [Firebolt Workspace](https://go.firebolt.io/signup).
-        2. Select the **Configure** icon (<img src="../../../assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." width="20">).
+        2. Select the **Configure** icon (<img src="../../../assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." width="20" style="display: inline; margin-bottom: 0; margin-top: 0" />).
         3. Select **SSO** from the left navigation pane.
         4. Select **Copy organization SSO identifier**. 
 
@@ -51,7 +51,7 @@ Once your Identity Provider(IdP) is configured, you can now configure Firebolt t
 ### Configure Firebolt to integrate with Auth0 using the UI
 
 1. Login to the [Firebolt Workspace](https://go.firebolt.io/signup).
-2. Select the **Configure** icon (<img src="../../../assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." width="20">).
+2. Select the **Configure** icon (<img src="../../../assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." width="20" style="display: inline; margin-bottom: 0; margin-top: 0" />).
 3. Select **SSO** from the left navigation pane.
 4. Under **Configure SSO for your organization**, enter the following:
     
@@ -68,15 +68,12 @@ Once your Identity Provider(IdP) is configured, you can now configure Firebolt t
 
 Login to Firebolt’s [Workspace](https://go.firebolt.io/login). If you haven’t yet registered with Firebolt, see [Get Started]({% link Guides/getting-started/index.md %}). If you encounter any issues, reach out to [support@firebolt.io](mailto:support@firebolt.io) for help. Then, do the following:
 
-1. Select the Develop icon (<img src="../../../assets/images/develop-icon.png" alt="The Firebolt Develop Space icon." width="20">).
+1. Select the Develop icon (**\</>**).
 2. By default, when you login to **Firebolt’s Workspace** for the first time, Firebolt creates a tab in the **Develop Space** called **Script 1**. The following apply:
-
-  * The database that Script 1 will run using is located directly below the tab name. If you want to change the database, select another database from the drop-down list.
-  * An engine must be running to process the script in a selected tab. The name and status of the engine that Script 1 uses for computation is located to the right of the current selected database.
-
-  Select system from the drop-down arrow next to the engine name. The system engine is always running, and you can use it to create a service account. You can also use an engine that you create.
-
-3. Use the syntax in the following example code to create an SSO connection in the **SQL Script Editor**:
+   * The database that Script 1 will run using is located directly below the tab name. If you want to change the database, select another database from the drop-down list.
+   * An engine must be running to process the script in a selected tab. The name and status of the engine that Script 1 uses for computation is located to the right of the current selected database.
+3. Select system from the drop-down arrow next to the engine name. The system engine is always running, and you can use it to create a service account. You can also use an engine that you create.
+4. Use the syntax in the following example code to create an SSO connection in the **SQL Script Editor**:
 
 ```sql
 ALTER ORGANIZATION vsko SET SSO = '{

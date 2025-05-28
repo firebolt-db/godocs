@@ -26,7 +26,7 @@ To integrate Okta with Firebolt's platform, you need to [configure your Okta app
         * **`<organization_identifier>`** - the unique identifier for your organization in Firebolt. To retrieve your **`<organization_identifier>`**, do the following:
 
             1. Login to the [Firebolt Workspace](https://go.firebolt.io/signup).
-            2. Select the **Configure** icon (<img src="../../../assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." width="20">).
+            2. Select the **Configure** icon (<img src="../../../assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." width="20" style="display: inline; margin-bottom: 0; margin-top: 0" />).
             3. Select **SSO** from the left navigation pane.
             4. Select **Copy organization SSO identifier**. 
 
@@ -46,7 +46,7 @@ Once your Identity Provider(IdP) is configured, you can now configure Firebolt t
 ### Configure Firebolt to integrate with Okta using the UI
 
 1. Login to the [Firebolt Workspace](https://go.firebolt.io/signup).
-2. Select the **Configure** icon (<img src="../../../assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." width="20">).
+2. Select the **Configure** icon (<img src="../../../assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." width="20" style="display: inline; margin-bottom: 0; margin-top: 0" />).
 3. Select **SSO** from the left navigation pane.
 4. Under **Configure SSO for your organization**, enter the following:
 
@@ -63,7 +63,7 @@ Once your Identity Provider(IdP) is configured, you can now configure Firebolt t
 
 Login to Firebolt’s [Workspace](https://go.firebolt.io/login). Then, do the following:
 
-1. Select the Develop icon (<img src="../../../assets/images/develop-icon.png" alt="The Firebolt Develop Space icon." width="20">).
+1. Select the Develop icon (**\</>**).
 2. By default, when you login to **Firebolt’s Workspace** for the first time, Firebolt creates a tab in the **Develop Space** called **Script 1**. The following apply:
 
   * The database that Script 1 will run using is located directly below the tab name. If you want to change the database, select another database from the drop-down list.

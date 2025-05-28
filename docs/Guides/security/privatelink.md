@@ -34,7 +34,7 @@ Before setting up AWS PrivateLink, ensure you have the following:
 After meeting the previous prerequisites, request AWS PrivateLink access using Firebolt's user interface as follows:
 
 1. [Log in](https://go.firebolt.io/signup) to the **Firebolt Workspace**.
-2. Select the **Help** icon (?) at the bottom of the left navigation pane. 
+2. Select the **Help** icon (**?**) at the bottom of the left navigation pane.
 3. Select **Request PrivateLink**.
 4. In the pop-up window, enter the following information:
     1. **Organization Name** &ndash; The name of your [organization]({% link Overview/organizations-accounts.md %}#organizations) in Firebolt.
@@ -50,15 +50,15 @@ After you have requested AWS PrivateLink on Firebolt's user interface, login to 
 2. In the search bar at the top, enter **VPC**.
 3. Select **VPC (Virtual Private Cloud)** from the dropdown list.
 4. In the left navigation pane under **VPC Dashboard**, expand **PrivateLink and Lattice**.
-5. Select **Endpoints**. 
+5. Select **Endpoints**.
 6. In the upper right corner, select **Create endpoint**.
 7. In the **Create endpoint** pane, enter an optional  **Name tag** to identify your endpoint.
 8. Select the radio button next to **Endpoint services that use NLBs and GWLBs**.
 8. In the **Service settings** pane, in the text box under **Service name**, enter the `endpointServiceId` provided in the email from Firebolt's support team in the previous step to [request AWS PrivateLink access](#request-aws-privatelink-access).
-9. Select **Verify service** to confirm that your AWS PrivateLink access is configured correctly. 
- and select Other endpoint services. 
-10. In the **Network settings** pane, select the down arrow to select your autopopulated **VPC** from the dropdown list. 
-11. Select the checkbox **Enable DNS NAME**. 
+9. Select **Verify service** to confirm that your AWS PrivateLink access is configured correctly.
+ and select Other endpoint services.
+10. In the **Network settings** pane, select the down arrow to select your autopopulated **VPC** from the dropdown list.
+11. Select the checkbox **Enable DNS NAME**.
 12. In the **Subnets** pane select the checkbox next to the subnets that match the **Availability Zone** where your resources reside in your AWS Region.
 13. Select the down arrow under **Subnet ID** and hoose the appropriate Subnet ID for your VPC.
 14. In the **Security groups** pane, select the checkbox next to the **Group ID** of your security group. Your security group should allow inbound traffic on **port 443** in order to interact with the Firebolt API.
@@ -72,7 +72,7 @@ In the previous code example, replace `<PRIVATE_IP_OF_VPC_ENDPOINT>` with the pr
 
 ### Configure your service account
 
-Configure your Firebolt [service account]({% link Guides/managing-your-organization/service-accounts.md %}) with the `PRIVATE_ONLY` connection preference to ensure it accesses Firebolt only through AWS PrivateLink and uses private APIs. A claim is a setting that defines how a connection behaves. The `PRIVATE_ONLY` claim enforces private networking by restricting access to public endpoints. 
+Configure your Firebolt [service account]({% link Guides/managing-your-organization/service-accounts.md %}) with the `PRIVATE_ONLY` connection preference to ensure it accesses Firebolt only through AWS PrivateLink and uses private APIs. A claim is a setting that defines how a connection behaves. The `PRIVATE_ONLY` claim enforces private networking by restricting access to public endpoints.
 
 Use the following code example inside the **Develop Workspace** in the **Firebolt Workspace**:
 
@@ -83,7 +83,7 @@ WITH CONNECTION_PREFERENCE = PRIVATE_ONLY;
 
 ### Test your AWS PrivateLink connection
 
-After configuring your VPC to use the Firebolt AWS PrivateLink endpoint, test connectivity using the endpoint URL provided by the Firebolt support team. 
+After configuring your VPC to use the Firebolt AWS PrivateLink endpoint, test connectivity using the endpoint URL provided by the Firebolt support team.
 
 Use the following curl command to retrieve the private endpoint from your account:
 
@@ -99,7 +99,7 @@ curl https://api.go.firebolt.io/web/v3/account/developer/engineUrl \
 If your service account has the `PRIVATE_ONLY` claim, requests from that service account to any Firebolt public endpoint will fail.
 {: .note}
 
-When using the `PRIVATE_ONLY` claim, requests to the private endpoint complete successfully if the traffic originates from an authorized AWS VPC endpoint with the necessary route tables, security group rules, and network access control lists to enable communication. 
+When using the `PRIVATE_ONLY` claim, requests to the private endpoint complete successfully if the traffic originates from an authorized AWS VPC endpoint with the necessary route tables, security group rules, and network access control lists to enable communication.
 
 The following code example sends a `SELECT 42` query to a Firebolt private API endpoint using `curl`, authenticates with a bearer token, and returns a JSON response containing the query result:
 ```

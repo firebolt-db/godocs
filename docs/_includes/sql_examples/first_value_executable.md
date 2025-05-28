@@ -20,5 +20,4 @@ The following query uses `UNNEST` to convert an array `[100, NULL, 1]` into a co
 
 The previous code example returns `NULL` values because `ORDER BY` specifies 'nulls first'.
 
-{% include query-window.html sql_file="sql_examples/first_value_example_2.sql" %}
-
+<!-- {% include query-window.html sql_file="sql_examples/first_value_example_2.sql" %} -->

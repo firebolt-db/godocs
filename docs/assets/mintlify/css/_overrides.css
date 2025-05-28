@@ -1,0 +1,4 @@
+/* Use all available space for the content container */
+div:has(#content-container) {
+    max-width: 100%;
+}

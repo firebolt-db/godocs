@@ -89,9 +89,7 @@ In arithmetic operations like +, -, *, and / , the result's data type aligns wit
    - `INTEGER <op> REAL = DOUBLE PRECISION`
 - Overflow checks and floating point errors are applied according to the result data type only.
 
-**Floating point precision** means that the representation of a number is accurate up to a certain number of digits. In Firebolt, `REAL` data types have 6-digit precision and `DOUBLE PRECISION` have 16-digit precision. This means that calculations have a precision of 6 or 16 respectively, and numbers are truncated to that precision. For example, if a number is stored as 1.234567, it is automatically truncated to 1.23456 for `REAL`.
-<br><br>
-When performing arithmetic, the number of leading digits in the output is the product of the leading digits in both inputs. This means that if either or both of the input numbers are larger than 6, those numbers are the first truncated, and then the arithmetic is performed.
+**Floating point precision** means that the representation of a number is accurate up to a certain number of digits. In Firebolt, `REAL` data types have 6-digit precision and `DOUBLE PRECISION` have 16-digit precision. This means that calculations have a precision of 6 or 16 respectively, and numbers are truncated to that precision. For example, if a number is stored as 1.234567, it is automatically truncated to 1.23456 for `REAL`.<br><br>When performing arithmetic, the number of leading digits in the output is the product of the leading digits in both inputs. This means that if either or both of the input numbers are larger than 6, those numbers are the first truncated, and then the arithmetic is performed.
 {: .note}
 
 ## Logical

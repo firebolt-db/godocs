@@ -1,4 +1,4 @@
-## DB version 4.4
+## Firebolt Release Notes - Version 4.4
 **August 2024**
 
 ### New Features

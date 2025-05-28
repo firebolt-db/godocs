@@ -22,7 +22,7 @@ The following material can help you understand key concepts related to organizat
 To view all roles using the **Firebolt Workspace**, do the following:
 
 1. Login to the [Firebolt Workspace](https://firebolt.go.firebolt.io/signup).
-2. Select the **Govern** icon (<img src="../../assets/images/govern-icon.png" alt="The Firebolt Govern Space icon." width="20">)from the left navigation bar to open the **Govern Space**.
+2. Select the **Govern** icon (<img src="../../assets/images/govern-icon.png" alt="The Firebolt Govern Space icon." width="20" style="display: inline; margin-bottom: 0; margin-top: 0" />)from the left navigation bar to open the **Govern Space**.
 3. Choose **Roles** from the left panel under **Govern**.
 
 To view all roles using SQL, query the [information_schema.applicable_roles]({% link sql_reference/information-schema/applicable-roles.md %}) view as shown in the following code example:
@@ -49,7 +49,7 @@ CREATE ROLE user_role;
 To create a custom role using the UI:
 
 
-1. Select the **Govern** icon (<img src="../../assets/images/govern-icon.png" alt="The Firebolt Govern Space icon." width="20">) from the left navigation bar to open the **Govern Space**.
+1. Select the **Govern** icon (<img src="../../assets/images/govern-icon.png" alt="The Firebolt Govern Space icon." width="20" style="display: inline; margin-bottom: 0; margin-top: 0" />) from the left navigation bar to open the **Govern Space**.
 2. Choose **Roles** from the left panel under **Govern**.
 3. Choose the **+ New Role** button in the upper-right corner of the page.
 4. Under **Define role**, enter a role name.
@@ -76,7 +76,7 @@ DROP ROLE user_role;
 ### Delete a role using the UI
 To delete a role via the UI:
 
-1. Select the **Govern** icon (<img src="../../assets/images/govern-icon.png" alt="The Firebolt Govern Space icon." width="20">) from the left navigation bar to open the **Govern Space**.
+1. Select the **Govern** icon (<img src="../../assets/images/govern-icon.png" alt="The Firebolt Govern Space icon." width="20" style="display: inline; margin-bottom: 0; margin-top: 0" />) from the left navigation bar to open the **Govern Space**.
 2. Choose **Roles** from the left panel under **Govern**.
 2. Search for the relevant role using the top search filters or by scrolling through the list. Hover over the right-most column to make the role menu appear, then choose **Delete role**. 
 3. Choose **Confirm**.

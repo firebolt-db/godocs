@@ -30,22 +30,22 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
         const selection = window.getSelection();
         const range = selection.getRangeAt(0);
-        
+
         // Check if we're at the end of the content
         const isAtEnd = range.startOffset === range.startContainer.length &&
                         !range.startContainer.nextSibling;
-        
+
         const newline = document.createTextNode('\n');
         range.insertNode(newline);
-        
-        // Add an extra space if we're at the end. This way the cursor doesn't hover in 
+
+        // Add an extra space if we're at the end. This way the cursor doesn't hover in
         // the middle of the line if we do a newline on the last line.
         if (isAtEnd) {
           const space = document.createTextNode(' ');
           range.setStartAfter(newline);
           range.insertNode(space);
         }
-        
+
         range.setStartAfter(newline);
         range.setEndAfter(newline);
         selection.removeAllRanges();
@@ -97,6 +97,10 @@ function restoreCaretPosition(element, position) {
 
 // Function that executes the query on Firebolt whenever the run button is clicked
 async function runQuery(button, loadPrepackagedResults = false) {
+  // check if the button is an event, and if so, get the actual button element
+  if (button instanceof PointerEvent) {
+    button = button.target;
+  }
   const queryWindow = button.closest('.query-window');
   const queryInput = queryWindow.querySelector('code.firebolt-sql');
   const resultsDiv = queryWindow.querySelector('.query-results');
@@ -105,7 +109,7 @@ async function runQuery(button, loadPrepackagedResults = false) {
   const originalQuery = queryInput.dataset.originalQuery;
 
   // Hide the server unavailable banner at the start of each query
-  queryWindow.querySelector('.server-unavailable-banner').classList.add('hidden');
+  queryWindow.querySelector('.server-unavailable-banner').classList.add('query-window-hidden');
 
   try {
     const queryText = queryInput.textContent || '';
@@ -137,7 +141,7 @@ async function runQuery(button, loadPrepackagedResults = false) {
         console.log('Using fallback result due to error:', fetchError);
 
         // Show the banner that the docs server is unavailable
-        queryWindow.querySelector('.server-unavailable-banner').classList.remove('hidden');
+        queryWindow.querySelector('.server-unavailable-banner').classList.remove('query-window-hidden');
 
         // Force loading the pre-packaged results.
         loadPrepackagedResults = true;
@@ -152,7 +156,7 @@ async function runQuery(button, loadPrepackagedResults = false) {
     }
 
     // Show the result section
-    resultsDiv.classList.remove('hidden');
+    resultsDiv.classList.remove('query-window-hidden');
 
     // Check for errors in the response
     if (queryResult.errors && queryResult.errors.length > 0) {
@@ -161,7 +165,7 @@ async function runQuery(button, loadPrepackagedResults = false) {
           ${queryResult.errors.map(error =>
         `<div class="error-description">${error.description.split('\n').map(line =>
           line.replace(/ /g, '&nbsp;')
-        ).join('<br>')}</div>`
+        ).join('<br/>')}</div>`
       ).join('')}
         </div>
       `;
@@ -208,8 +212,7 @@ async function runQuery(button, loadPrepackagedResults = false) {
         </table>
       </div>
       <div class="query-stats">
-        <span>Rows: ${queryResult.rows}</span>
-        <span>Time: ${(queryResult.statistics.elapsed * 1000).toFixed(2)}ms</span>
+        <span>Rows: ${queryResult.rows}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>Execution time: ${(queryResult.statistics.elapsed * 1000).toFixed(2)}ms</span>
       </div>
     `;
 
@@ -218,6 +221,6 @@ async function runQuery(button, loadPrepackagedResults = false) {
   } catch (error) {
     console.error('Error:', error);
     resultsDiv.innerHTML = `<div class="error-message">${error.message}</div>`;
-    resultsDiv.classList.remove('hidden');
+    resultsDiv.classList.remove('query-window-hidden');
   }
-} 
+}

@@ -23,11 +23,11 @@ The wizard also guides you through setting up an AWS connection. To use the wiza
 To use the wizard, use the following steps:
 
 1. Register and/or log in to the [Firebolt Workspace](https://firebolt.go.firebolt.io/signup).
-2. Select the (+) icon from the left navigation pane next to **Databases**.
+2. Select the (**+**) icon from the left navigation pane next to **Databases**.
 3. Select **Load data** from the drop-down menu, as shown in the following image:
 
 <img src="../../assets/images/load_data_wizard_launch.png" alt="To launch the wizard, select the plus icon in the left navigation pane of the Firebolt Workspace." width="400"/>
-   
+
 ## Select an engine
 <img src="../../assets/images/load_data_wizard_engine.png" alt="The next step in the wizard is to create an engine." width="700"/>
 <BR>
@@ -50,11 +50,11 @@ To use the wizard, use the following steps:
 
    - Using more than one node allows Firebolt to load your data and perform operations on your data in parallel on multiple nodes within a single cluster, which can speed up the data loading process.
    - A higher number of nodes also means increased costs for compute resources. You can see the total cost per hour for your selection under Advanced settings, given in Firebolt Units (FBU). Each FBU is equivalent to $0.35 US dollars per hour. Find the right balance between cost and speed for your workload. You must use at least one node.
-  
+
 4. Select the number of clusters next to **Number of clusters**. A cluster is a group of nodes that work together. The following apply:
 
     - If you increase the number of clusters, you will add the number of compute nodes that you selected for each added cluster.
-  
+
       You can see the total cost per hour for your selection under **Advanced settings**, given in Firebolt Units (FBU).  Find the right balance between cost and speed for your workload. You must use at least one cluster.
 
 3. Select the down arrow next to **Advanced settings** for more options for your engine including setting a time to stop the engine after a period of inactivity.
@@ -70,8 +70,8 @@ To use the wizard, use the following steps:
 
 ### B. Using Private Data (Credentials Required)
 
-If the data requires credentials for access, you must provide them so that Firebolt can retrieve it from AWS on your behalf. You can choose either **Static Credentials** or **Assume Role Authentication**. 
-  * Use static credentials for simplicity and persistent access when security risks are low, and if your environment requires minimal configuration.  
+If the data requires credentials for access, you must provide them so that Firebolt can retrieve it from AWS on your behalf. You can choose either **Static Credentials** or **Assume Role Authentication**.
+  * Use static credentials for simplicity and persistent access when security risks are low, and if your environment requires minimal configuration.
   * Use [AssumeRole](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html) Authentication** for enhanced security, temporary access, and dynamic role management, particularly in environments requiring fine-grained permissions or cross-account access.
 
 #### 1. Static Credentials
@@ -98,11 +98,11 @@ If the data requires credentials for access, you must provide them so that Fireb
 
 #### 3. Using Firebolt's Test Dataset (If You’re Not Ready with Your Own Data)
 
-If you don't have your own data ready, you can use Firebolt’s sample dataset from the fictional company [Ultra Fast Gaming Inc](https://help.firebolt.io/t/ultra-fast-gaming-firebolt-sample-dataset/250): 
+If you don't have your own data ready, you can use Firebolt’s sample dataset from the fictional company [Ultra Fast Gaming Inc](https://help.firebolt.io/t/ultra-fast-gaming-firebolt-sample-dataset/250):
 - Use the following Amazon S3 bucket URL:
-`s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/`. 
+`s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/`.
 
-Alternatively, you can click the toggle button next to **Use Firebolt Playground Bucket to load sample data**. 
+Alternatively, you can click the toggle button next to **Use Firebolt Playground Bucket to load sample data**.
 
 4. Select **Next step**.
 
@@ -134,12 +134,12 @@ Specify the table inside a database that you want to load your data into.
 A default formatting and error handling scheme shows a preview of your data. You can change the default configuration using the following options:
 
 1. Toggle off **Use default formatting** to show custom formatting options. You can specify options including different file delimiter, quote character, and escape character.
-    - Enter a new value in the text box or select an option from the drop-down arrow next to the option that you want to change. 
+    - Enter a new value in the text box or select an option from the drop-down arrow next to the option that you want to change.
     - After each change, the data preview changes to reflect your selection.
 
 2. Toggle off **Use default error handling** to show the following additional error handling options:
    - You can specify a file to write errors to. Enter the name of the file that you want to write including the URL address for an Amazon S3 bucket that contains that file, and your AWS credentials. Firebolt will use these credentials to write an error file on your behalf. The output file should be in the following format:
-  
+
      ```sql
      s3://<your_bucket_name>/<your_error_file.ext>>
      ```
@@ -147,7 +147,7 @@ A default formatting and error handling scheme shows a preview of your data. You
    - **Max errors per file** - Specify the percentage of errors you want to allow during data loading. By default, the maximum is set to `0%`, meaning any error will stop the loading process. If you wish to continue loading despite errors, set **Max errors per file** to a non-zero value. For example, entering `10%` or `10` allows the process to continue until errors affect `10%` of the rows.
 
 3. Select **Next step**.
-   
+
 ## Map data
 <img src="../../assets/images/load_data_wizard_map.png" alt="The next step in the wizard is to map your data to your table." width="700"/> <BR>
 
@@ -168,7 +168,7 @@ Map the values in your data to columns into the target table. Firebolt automatic
    * If you include multiple columns as a composite primary index, they will be added in sort order. For example, if you select `column_1` first, then select `column_3`, then `column_3` will be added as a primary index after `column_1`. This means `column_1` will be used first as a sparse index, followed by `column_3`. If you choose more than one primary index, the order of sorting appears next to the toggle switch under the **Primary Index** column. In the previous example, the number `1` appears next to `column_1` and a number `2` appears next to `column_3`. To achieve optimal results, choose indexes in the order of their cardinality, or the number of unique values. Start with the column that has the highest number of unique values as your first primary index, followed by the column with the next highest cardinality. For more information about how to choose a primary index, see [Primary index]({% link Overview/indexes/primary-index.md %}).
 
 4. Select **Next step**.
-   
+
 ## Review configuration
 
 The **Review configuration** window displays your selections in SQL code. If you want to change the configuration, you must go back through the **Load data** wizard workflow to the section that you want to change and amend your selection. You cannot edit the SQL code in the **Review configuration** window.
@@ -182,17 +182,16 @@ After your load data job completes, you can view the results of each query that 
 
 1. View information about your query in the **Statistics** tab. This information contains the status of the query, how long it took to run, and the number of rows processed during the data loading job.
 2. View metrics in the **Query Profile** tab for each operator used in your query. Select an operation to view metrics. These metrics include the following:
-   
     1. The output cardinality - the number of rows each operator produced.
     2. The thread time - the sum of the wall clock time that threads spent to run the selected operation across all nodes.
     3. The CPU time - the sum of the time that threads that ran the operator were scheduled on a CPU core.
     4. The output types - the data types of the result of the query.
-    
+
     You can use metrics in the **Query Profile** tab to analyze and measure the efficiency and performance of your query. For example, If the CPU time is much smaller than thread time, the input-output (IO) latency may be high or the engine that you are using may be running multiple queries at the same time. For more information, see [Example with ANALYZE](../../sql_reference/commands/queries/explain.md).
 
 3. View monitoring information including the percent CPU, memory, disk use and cache read in the **Engine monitoring** tab. Information is shown from the last 5 minutes by default. Select a different time interval from the drop-down menu next to **Last 5 minutes**. You can also select the **Refresh** icon next to the drop-down menu to update the graphical information.
 4. View detailed information associated with each query in the **Query history** tab. This information includes the query status, start time, number of rows and bytes scanned during the load, user and account information. You can do the following:
 
     1. Select the **Refresh** icon to update the query history and ID.
-    2. Select the filter icon (<img src="../../assets/images/filter-icon.png" alt="filter icon" width="12"/>) to remove or add columns to display.
-    3. Select the **More options** icon (<img src="../../assets/images/more_options_icon.png" alt="more options icon" width="10"/>) to export the contents of the Query history tab to a JSON or CSV file.
+    2. Select the filter icon ( **⫼** ) to remove or add columns to display.
+    3. Select the **More options** icon ( **⋮** ) to export the contents of the Query history tab to a JSON or CSV file.

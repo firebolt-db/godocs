@@ -53,7 +53,7 @@ We provide an archive of release notes for your historical reference.
 
 {% include release_notes/release_notes_4_4_0.md %}
 
-## DB version 4.3
+## Firebolt Release Notes - Version 4.3
 **August 2024**
 
 ### New Features
@@ -121,7 +121,7 @@ The default value for the `CASE_SENSITIVE_COLUMN_MAPPING` parameter in `COPY FRO
 
 The result data type of the `extract` function for epoch, second, and millisecond was changed to return the type Numeric(38,9) instead of a narrower Numeric type. For example, `select extract(second from '2024-04-22 07:10:20'::timestamp);` now returns Numeric(38,9) instead of Numeric(8,6).
 
-## DB version 4.2
+## Firebolt Release Notes - Version 4.2
 **July 2024**
 
 ### New features
@@ -207,7 +207,7 @@ We have introduced several updates to role and privilege management:
   * `Information_object_privileges` includes more privileges. Switching to to a specific user database (e.g by executing `use database db`) will only show privileges relevant for that database. Account-level privileges no longer show up when attached to a specific database. 
   * Every newly created user is granted with a `public` role. This grant can be revoked.
 
-## DB version 4.1
+## Firebolt Release Notes - Version 4.1
 **June 2024**
 
 * [Resolved issues](#resolved-issues)
@@ -217,7 +217,7 @@ We have introduced several updates to role and privilege management:
 <!--- FIR-32985--->
 * Fixed an issue causing errors when using `WHERE column IN (...)` filters on external table scans.
   
-## DB version 4.0
+## Firebolt Release Notes - Version 4.0
 **June 2024**
 
 * [Enhancements, changes, and new integrations](#enhancements-changes-and-new-integrations)
@@ -265,7 +265,7 @@ cast(a as array(int)).
 
 Casts now behave the same across the product and adhere to the list of supported casts. Some usages of casts (explicit, implicit, or assignment cast) that were previously allowed are no longer supported and now result in errors. For more details on list of supported casts, see the documentation [here](../../sql_reference/data-types.md#type-conversion).
 
-## DB version 3.34
+## Firebolt Release Notes - Version 3.34
 **May 2024**
 
 * [Enhancements, changes, and new integrations](#enhancements-changes-and-new-integrations)
@@ -373,7 +373,7 @@ A breaking change has been implemented in raising an error on reading a Parquet/
 <!--- FIR-32432 --->
 * Fixed a bug where negation did not check for overflows correctly.
 
-## DB version 3.33
+## Firebolt Release Notes - Version 3.33
 **April 2024**
 
 * [Enhancements, changes, and new integrations](#enhancements-changes-and-new-integrations)
@@ -405,7 +405,7 @@ New breaking change.
 <!--- FIR-31069 --->
 * Fixed a bug in `array_position` where searching for `NULL` in an array with non-null elements incorrectly returned a match in some cases. 
 
-## DB version 3.32
+## Firebolt Release Notes - Version 3.32
 **April 2024**
 
 * [New features](#new-features)
@@ -496,7 +496,7 @@ Note that before, it was not an error and resulted in: 9999999999999999775261218
 <!--- FIR-30490 --->
 * Fixed a bug involving ['btrim'](../../sql_reference/functions-reference/string/btrim.md) string characters, where invoking `btrim`, `ltrim`, `rtrim`, or `trim` with a literal string but non-literal trim characters could result in an error.
 
-## DB version 3.31
+## Firebolt Release Notes - Version 3.31
 **March 2024**
 
 * [New features](#new-features)
@@ -564,7 +564,7 @@ Aggregating index is now placed in the same namespace as tables and views.
 
 <!--- FIR-29759 --->TRY_CAST from TEXT to NUMERIC now works as expected: if the value cannot be parsed as NUMERIC it produces null.
 
-## DB version 3.30
+## Firebolt Release Notes - Version 3.30
 **November 2023**
 
 * [New features](#new-features)
@@ -592,7 +592,7 @@ Support has been added to allow the ANY_MATCH lambda function to work with nulla
 
 * Fixed an issue where `ARRAY_FIRST` and `ARRAY_FIRST_INDEX` returned an error if the given input was nullable.
 
-## DB version 3.29
+## Firebolt Release Notes - Version 3.29
 **October 2023**
 
 * [New features](#new-features)
@@ -621,7 +621,7 @@ Use `source_file_timestamp - NOW()` instead of `DATE_DIFF('second', source_file_
 
 A new alias [ARRAY_TO_STRING](../../sql_reference/functions-reference/array/array-to-string.md) has been added to function `ARRAY_JOIN`.
 
-## DB version 3.28
+## Firebolt Release Notes - Version 3.28
 **September 2023**
 
 * [Resolved issues](#resolved-issues)
