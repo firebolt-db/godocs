@@ -14,6 +14,7 @@ Added the `ICU_NORMALIZE` function to process text based on a specific locale. T
 
 **
 Added the `AGO(interval)` function, which subtracts the specified interval from the current timestamp. This addition provides users with a convenient way to calculate past dates and times, enhancing time-based data analysis.
+Documentation for the function is available [here]({% link sql_reference/functions-reference/date-and-time/ago.md %}).
 
 
 <!-- Auto Generated Markdown for FIR-45210 - Owned by Arsenii Krasikov -->
