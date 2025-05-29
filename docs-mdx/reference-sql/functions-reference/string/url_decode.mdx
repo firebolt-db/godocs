@@ -1,0 +1,43 @@
+---
+description: Reference material for URL_DECODE function
+sidebarTitle: URL_DECODE
+title: URL_DECODE
+---
+
+
+Decodes [percent-encoded](https://en.wikipedia.org/wiki/Percent-encoding) characters and replaces them with their binary value.
+
+## Syntax
+
+
+```sql
+URL_DECODE(<expression>)
+```
+
+## Parameters
+
+
+| Parameter | Description                |Supported input types |
+| :--------- | :------------------------ | :--------------------|
+| `<expression>` | The string to be decoded. | `TEXT`           |
+
+## Return Type
+
+
+`TEXT`
+
+## Example
+
+
+The example below decodes the percent-encoded parameters of an URL:
+
+```sql
+SELECT URL_DECODE('https://www.firebolt.io/?example_id%3D1%26hl%3Den');
+```
+
+**Returns**: `https://www.firebolt.io/?example_id=1&hl=en`
+
+## Related
+
+* [URL_ENCODE](/reference-sql/functions-reference/string/url_encode)
+

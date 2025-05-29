@@ -1,0 +1,38 @@
+---
+description: Reference material for BTRIM function.
+sidebarTitle: BTRIM
+title: BTRIM
+---
+
+
+Removes the longest string containing only characters in `<trim_characters>` from both sides of the source string `<expression>`. If no `<trim_characters>` parameter is specified, the longest string containing only whitespace characters (ASCII Decimal 32) is removed from both sides of the specified source string `<expression>`.
+
+## Syntax
+
+
+```sql
+BTRIM(<expression>[, <trim_characters>])
+```
+
+## Parameters
+
+
+| Parameter        | Description                | Supported input types | 
+| :--------------- | :------------------------- | :----------|
+| `<expression>`  | An expression that returns the string to be trimmed. | `TEXT` | 
+| `<trim_characters>` | Optional. An expression that returns characters to trim from both sides of the `<expression>` string. If omitted, whitespace (ASCII Decimal 32) is trimmed. | `TEXT` | 
+
+## Return Type
+`TEXT`
+
+## Examples
+
+
+
+
+import SqlExamplesBtrim from '/snippets/sql_examples/btrim.mdx';
+
+<SqlExamplesBtrim  />
+
+
+

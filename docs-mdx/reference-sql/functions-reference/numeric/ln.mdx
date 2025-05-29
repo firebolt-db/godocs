@@ -1,0 +1,37 @@
+---
+description: Reference material for LN function
+sidebarTitle: LN
+title: LN
+---
+
+
+Returns natural (base e) logarithm of a numerical expression.
+The value for which `ln` is computed needs to be larger than 0, otherwise an error is returned.
+You can use the function [LOG](/reference-sql/functions-reference/numeric/log) if you want to provide a different base.
+
+## Syntax
+
+
+```sql
+LN(<value>);
+```
+## Parameters 
+
+
+| Parameter   | Description                                                                                                         | Supported input types |
+| :----------- | :------------------------------------------------------------------------------------------------------------------- |:--------------------|
+| `<value>` | The value for which to compute the natural logarithm. | `DOUBLE PRECISION` |
+
+## Return Type
+`DOUBLE PRECISION`
+
+## Examples
+
+
+
+
+import SqlExamplesLnExecutable from '/snippets/sql_examples/ln_executable.mdx';
+
+<SqlExamplesLnExecutable  />
+
+

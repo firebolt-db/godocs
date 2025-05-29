@@ -1,0 +1,28 @@
+---
+description: Reference and syntax for the ALTER VIEW command.
+sidebarTitle: ALTER VIEW
+title: ALTER VIEW
+---
+
+
+Updates the specified VIEW.
+
+## ALTER VIEW OWNER TO
+
+Change the owner of a view. The current owner of a view can be viewed in the `information_schema.views` view on `view_owner` column.
+
+check [ownership](/guides/security/ownership) page for more info.
+
+### Syntax
+
+```sql
+ALTER VIEW <view> OWNER TO <user>
+```
+
+### Parameters 
+
+
+| Parameter | Description |
+| :--- | :--- |
+| `<view>` | Name of the view to change the owner of. |
+| `<user>` | The new owner of the view. |

@@ -1,0 +1,18 @@
+
+
+import {QueryWindow} from '/snippets/query-window.mdx';
+
+The following example returns the rounded value of 5.4. Since there is no specification of the decimal range, the functions returns a whole number:
+
+
+
+<QueryWindow content={{"sql": "SELECT ROUND(5.4);", "result": {"query": {"query_id": "8f07ef76-7c9f-400b-b269-ba7729a03570", "request_id": "1164b033-da57-4791-b738-44b5dcb92075", "query_label": null}, "meta": [{"name": "?column?", "type": "double"}], "data": [[5]], "rows": 1, "statistics": {"elapsed": 0.012777, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000279956, "time_to_execute": 0.000108266, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+
+
+The following example rounds the value 5.6930 to 1 decimal place:
+
+
+
+<QueryWindow content={{"sql": "SELECT ROUND(5.6930, 1);", "result": {"query": {"query_id": "96e04d6f-2b78-4c5f-9252-3091158ca451", "request_id": "289f1676-9896-4957-9f92-de5aa9449e3c", "query_label": null}, "meta": [{"name": "?column?", "type": "double"}], "data": [[5.7]], "rows": 1, "statistics": {"elapsed": 0.009664, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000266506, "time_to_execute": 9.4577e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+
+

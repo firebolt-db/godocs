@@ -1,0 +1,14 @@
+
+
+import {QueryWindow} from '/snippets/query-window.mdx';
+
+The following codes example creates a Polygon and a Point around Times Square in New York City from their WKT representations and checks if the Polygon covers the Point:
+
+
+
+
+<QueryWindow content={{"sql": "SELECT ST_COVERS(\nST_GEOGFROMTEXT('POLYGON((-73.98519512134791 40.75939223091697, -73.98566488210841 40.75807135585606, -73.9856079414103 40.75804080469413, -73.98470163529633 40.75918017383259, -73.98519512134791 40.75939223091697))'),\nST_GEOGFROMTEXT('POINT(-73.98504378555772 40.75894662495352)')\n) AS result", "result": {"query": {"query_id": "11db2e2a-3f4f-4528-8778-b76604930aa5", "request_id": "f63cb1ec-d43a-42d1-b874-c048ffe90dbd", "query_label": null}, "meta": [{"name": "result", "type": "boolean"}], "data": [[true]], "rows": 1, "statistics": {"elapsed": 0.008974, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000289873, "time_to_execute": 9.2152e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+
+
+**Returns**
+

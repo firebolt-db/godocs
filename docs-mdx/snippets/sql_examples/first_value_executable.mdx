@@ -1,0 +1,33 @@
+
+
+import {QueryWindow} from '/snippets/query-window.mdx';
+
+**Example**
+
+The following query uses `UNNEST` to convert an array `[1,2,5]` into a column, order the values, and returns the first value as `result`:
+
+
+
+
+<QueryWindow content={{"sql": "SELECT FIRST_VALUE(a) OVER (ORDER BY a) as result FROM UNNEST(array[1,2,5]) as a;", "result": {"query": {"query_id": "007ff74a-edfe-462a-9d54-9682b02fe0c0", "request_id": "a28781ca-b095-4503-b53f-63c0c46a7ba5", "query_label": null}, "meta": [{"name": "result", "type": "int null"}], "data": [[1], [1], [1]], "rows": 3, "statistics": {"elapsed": 0.009012, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000644724, "time_to_execute": 0.000163763, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+
+
+**Returns**
+
+The previous code example returns the first element after ordering.
+
+**Example**
+
+The following query uses `UNNEST` to convert an array `[100, NULL, 1]` into a column, order the values, and returns the first value as `result`:
+
+
+
+
+<QueryWindow content={{"sql": "SELECT FIRST_VALUE(a) OVER (ORDER BY a desc nulls first) as result FROM UNNEST(array[100,NULL,1]) as a;", "result": {"query": {"query_id": "5a813171-d394-47ea-a82e-bee89809a540", "request_id": "32382d92-b565-4248-adc5-47a5ccff03c1", "query_label": null}, "meta": [{"name": "result", "type": "int null"}], "data": [[null], [null], [null]], "rows": 3, "statistics": {"elapsed": 0.009204, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.00066703, "time_to_execute": 0.00017208, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+
+
+**Returns**
+
+The previous code example returns `NULL` values because `ORDER BY` specifies 'nulls first'.
+
+

@@ -1,0 +1,39 @@
+---
+description: Reference material for ARRAY_MIN function
+sidebarTitle: ARRAY_MIN
+title: ARRAY_MIN
+---
+
+
+Returns the minimum element in an array.
+
+## Syntax
+
+
+```sql
+ARRAY_MIN(<array>)
+```
+
+## Parameters 
+
+
+| Parameter | Description                                  | Supported input types | 
+| :--------- | :-------------------------------------------- | :----------|
+| `<array>`   | The array or array-type column to be checked | `ARRAY` | 
+
+
+## Return Type
+
+Same as the element type of the array.
+
+## Example
+
+
+The following example calculates the minimum number in the `levels` array:
+```sql
+SELECT
+	ARRAY_MIN([ 1, 2, 3, 4 ]) AS levels;
+```
+
+**Returns**: `1`
+

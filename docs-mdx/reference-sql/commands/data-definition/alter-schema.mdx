@@ -1,0 +1,28 @@
+---
+description: Reference and syntax for the ALTER SCHEMA command.
+sidebarTitle: ALTER SCHEMA
+title: ALTER SCHEMA
+---
+
+
+Updates the specified SCHEMA.
+
+## ALTER SCHEMA OWNER TO
+
+Change the owner of a schema.<br/>The current owner of a view can be viewed in the `information_schema.schemata` view on `schema_owner` column.
+
+check [ownership](/guides/security/ownership) page for more info.
+
+### Syntax
+
+```sql
+ALTER SCHEMA <schema> OWNER TO <user>
+```
+
+### Parameters 
+
+
+| Parameter | Description |
+| :--- | :--- |
+| `<schema>` | Name of the schema to change the owner of. |
+| `<user>` | The new owner of the view. |

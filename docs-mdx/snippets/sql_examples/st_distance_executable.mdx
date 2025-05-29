@@ -1,0 +1,14 @@
+
+
+import {QueryWindow} from '/snippets/query-window.mdx';
+
+The following code example constructs two Points from their WKT representations: One at the Statue of Liberty in New York City, and one at the Big Ben in London. It then returns the shortest distance between them, as measured as a geodesic arc, in meters:
+
+
+
+
+<QueryWindow content={{"sql": "SELECT ST_DISTANCE(\nST_GEOGFROMTEXT('POINT(-74.04447010745835 40.68924450077543)'),\nST_GEOGFROMTEXT('POINT(-0.12418551935155021 51.50086274661804)')\n) AS result", "result": {"query": {"query_id": "ade01115-fe7f-4fe1-820b-55719f4fcecc", "request_id": "0da07954-ee46-4935-b84a-6ca543b52abd", "query_label": null}, "meta": [{"name": "result", "type": "double null"}], "data": [[5574863.932096738]], "rows": 1, "statistics": {"elapsed": 0.012135, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000327064, "time_to_execute": 9.8694e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+
+
+**Returns**
+

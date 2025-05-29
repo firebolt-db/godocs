@@ -1,0 +1,34 @@
+
+
+import {QueryWindow} from '/snippets/query-window.mdx';
+
+The following example returns the nearest whole number smaller than `2.5549900`:
+
+
+
+<QueryWindow content={{"sql": "SELECT FLOOR(2.5549900);", "result": {"query": {"query_id": "e772c43d-eb35-4b8e-be9d-570f77437d27", "request_id": "f0a12740-d650-4eb2-af43-7d72cc147678", "query_label": null}, "meta": [{"name": "?column?", "type": "double"}], "data": [[2]], "rows": 1, "statistics": {"elapsed": 0.007961, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000321875, "time_to_execute": 9.1416e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+
+
+The following example calculates the nearest whole number smaller than `213.1549`, and returns a result of type `NUMERIC(20,4)`, which allows for a total of 20 digits, with 4 values allowed after the decimal point:
+
+
+
+<QueryWindow content={{"sql": "SELECT FLOOR('213.1549'::NUMERIC(20,4));", "result": {"query": {"query_id": "8bd7247d-e5ef-48ae-b341-059aff9ff689", "request_id": "8d11b1b2-84da-4355-aae5-e7ff45fe39fa", "query_label": null}, "meta": [{"name": "?column?", "type": "Decimal(20, 4)"}], "data": [[213.0]], "rows": 1, "statistics": {"elapsed": 0.008095, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000305422, "time_to_execute": 9.7486e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+
+
+The following code example rounds the number `2.5549900` down to the second decimal place.
+It returns `2.55` because the second parameter 2 specifies rounding to the second digit after the decimal, which corresponds to the hundredths place.
+
+
+
+<QueryWindow content={{"sql": "SELECT FLOOR(2.5549900, 2);", "result": {"query": {"query_id": "ebea3453-9d17-4586-849d-859c983a7c12", "request_id": "b623be97-436f-4c9f-9888-cbe12bcc68c8", "query_label": null}, "meta": [{"name": "?column?", "type": "double"}], "data": [[2.55]], "rows": 1, "statistics": {"elapsed": 0.01028, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000274356, "time_to_execute": 0.000125301, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+
+
+The following example calculates the nearest whole number smaller than `1998` that is a multiple of `1000`.
+It returns `1000` because the second parameter -3 specifies rounding to the third digit before the decimal point, which corresponds to the thousands place.
+
+
+
+<QueryWindow content={{"sql": "SELECT FLOOR(1998, -3);", "result": {"query": {"query_id": "92225fb0-1e7c-4f6e-9d63-3a5e48613c70", "request_id": "85a0ef34-40c0-4083-89c5-20b7b3d58230", "query_label": null}, "meta": [{"name": "?column?", "type": "double"}], "data": [[1000]], "rows": 1, "statistics": {"elapsed": 0.008435, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000283166, "time_to_execute": 9.2363e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+
+

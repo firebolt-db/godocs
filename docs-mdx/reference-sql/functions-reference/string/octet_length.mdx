@@ -1,0 +1,39 @@
+---
+description: Reference material for OCTET_LENGTH function
+sidebarTitle: OCTET_LENGTH
+title: OCTET_LENGTH
+---
+
+
+Calculates the length of the input string in bytes.
+
+## Syntax
+
+
+```sql
+OCTET_LENGTH(<expression>)
+```
+## Parameters 
+
+
+| Parameter      | Description                                  |Supported input types |
+| :--------------| :--------------------------------------------|:----------------------|
+| `<expression>` | The string or binary data for which to return the length.   | `TEXT`, `BYTEA`       |
+
+## Return Type
+`INTEGER` 
+
+## Example
+
+
+Use the `OCTET_LENGTH` to find the length of any string in bytes, such as: 
+
+```sql
+SELECT LENGTH('🔥')
+```
+
+**Returns**: `4`
+
+Because the UTF8 encoding of '🔥' has the byte sequence `0xF0 0x9F 0x94 0xA5`.
+
+

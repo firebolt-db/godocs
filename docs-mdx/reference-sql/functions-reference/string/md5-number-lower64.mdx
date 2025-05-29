@@ -1,0 +1,40 @@
+---
+description: Reference material for MD5_NUMBER_LOWER64 function
+groups: []
+no_index: true
+sidebarTitle: MD5_NUMBER_LOWER64
+title: MD5_NUMBER_LOWER64
+---
+
+
+Represent the lower 64 bits of the MD5 hash value of the input string as `BIGINT`.
+
+## Syntax
+
+
+```sql
+MD5_NUMBER_LOWER64(<expression>)
+```
+
+## Parameters 
+
+
+| Parameter  | Description                                                              | Supported input type | 
+| :---------- | :------------------------------------------------------------------------ | :-------|
+| `<expression>` | The string to calculate the MD5 hash value on and represent as `BIGINT` | `TEXT` | 
+
+## Return Type
+`BIGINT`
+
+## Example
+
+
+The following example represents the username `esimpson` as a `BIGINT`: 
+
+```sql
+SELECT
+	MD5_NUMBER_LOWER64('esimpson') AS username;
+```
+
+**Returns**: `624,533,696,996,866,075`
+

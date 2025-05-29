@@ -1,0 +1,36 @@
+---
+description: Reference material for ROUND function
+sidebarTitle: ROUND
+title: ROUND
+---
+
+
+Rounds a value to a specified number of decimal places.
+
+## Syntax
+
+
+```sql
+ROUND(<value> [, <decimal>])
+```
+## Parameters
+
+
+| Parameter | Description                                                                                                                   | Supported input types | 
+| :--------- | :----------------------------------------------------------------------------------------------------------------------------- |:------| 
+| `<value>`   | The value to be rounded       |
+| `<decimal>`   | Optional. An `INTEGER` constant that defines the decimal range of the returned value. By default, `ROUND` returns whole numbers. | `INTEGER` | 
+
+## Return Types
+`DOUBLE PRECISION`
+
+## Example
+
+
+
+
+import SqlExamplesRoundExecutable from '/snippets/sql_examples/round_executable.mdx';
+
+<SqlExamplesRoundExecutable  />
+
+

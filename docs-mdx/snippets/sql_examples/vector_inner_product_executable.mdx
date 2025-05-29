@@ -1,0 +1,40 @@
+
+
+import {QueryWindow} from '/snippets/query-window.mdx';
+
+**Example**
+
+The following code returns the inner product of two vectors that have similar directions and magnitudes:
+
+
+
+
+<QueryWindow content={{"sql": "SELECT VECTOR_INNER_PRODUCT([1, 2], [3, 4]) AS product;", "result": {"query": {"query_id": "f30b69e6-cd0b-44d3-890f-2c5f86d920f5", "request_id": "fb200961-7357-4381-b1d2-e32d3b4fbcf3", "query_label": null}, "meta": [{"name": "product", "type": "double"}], "data": [[11]], "rows": 1, "statistics": {"elapsed": 0.008822, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.00028862, "time_to_execute": 0.000100411, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+
+
+**Returns**
+
+**Example**
+
+The following code returns the inner product of two vectors that are orthogonal to each other:
+
+
+
+
+<QueryWindow content={{"sql": "SELECT VECTOR_INNER_PRODUCT([3, 4], [-4, 3]) AS product;", "result": {"query": {"query_id": "778aad31-07b6-4b05-92f8-0b94a5626910", "request_id": "645e6ea5-44a5-498d-a307-205c347eef7d", "query_label": null}, "meta": [{"name": "product", "type": "double"}], "data": [[0]], "rows": 1, "statistics": {"elapsed": 0.00893, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.00029089, "time_to_execute": 9.9263e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+
+
+**Returns**
+
+**Example**
+
+The following code returns the inner product of two vectors that are pointing in very different directions that are not orthogonal:
+
+
+
+
+<QueryWindow content={{"sql": "SELECT VECTOR_INNER_PRODUCT([3, 4], [4, -2]) AS product;", "result": {"query": {"query_id": "5bbee976-6005-4406-9866-3ed5f6ba6166", "request_id": "8f1960e9-acdb-4067-ac82-3d042389d09b", "query_label": null}, "meta": [{"name": "product", "type": "double"}], "data": [[4]], "rows": 1, "statistics": {"elapsed": 0.007279, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000303887, "time_to_execute": 0.000104153, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+
+
+**Returns**
+

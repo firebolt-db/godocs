@@ -1,0 +1,46 @@
+
+
+import {QueryWindow} from '/snippets/query-window.mdx';
+
+In the following example, the only element shared between all three arrays is the `1`:
+
+
+
+<QueryWindow content={{"sql": "SELECT ARRAY_INTERSECT([ 1, 2, 3 ], [ 0, 1 ], [ 1, 5 ]) as result;", "result": {"errors": [{"description": "Line 1, Column 8: function 'array_intersect' not found"}], "query": {"query_id": "d6dee431-aa0e-4934-9f2c-d11b0e752d88", "query_label": null, "request_id": "75c6928d-3b38-4e53-9b07-c29305ddc587"}, "statistics": {"elapsed": 0.0}}}} />
+
+
+Passing in one argument array is allowed:
+
+
+
+<QueryWindow content={{"sql": "SELECT ARRAY_INTERSECT([ 'red', 'maroon', 'crimson' ]) as colors;", "result": {"errors": [{"description": "Line 1, Column 8: function 'array_intersect' not found"}], "query": {"query_id": "c34c8351-ea48-4ed4-8296-ec2cad3d406b", "query_label": null, "request_id": "174527ec-6021-4928-badd-de8cd7fc2463"}, "statistics": {"elapsed": 0.0}}}} />
+
+
+In the following example, `ARRAY_SORT` is used to ensure the results are in ascending order:
+
+
+
+<QueryWindow content={{"sql": "SELECT ARRAY_SORT(\n        ARRAY_INTERSECT([ 5, 4, 3, 2, 1 ],[ 5, 3, 1 ])\n    ) as sorted;", "result": {"errors": [{"description": "Line 2, Column 9: function 'array_intersect' not found"}], "query": {"query_id": "fc401a52-8f30-4007-a5a2-96dd02e0a216", "query_label": null, "request_id": "a6b2fcf5-0c84-4113-9cc5-7fdca340756e"}, "statistics": {"elapsed": 0.0}}}} />
+
+
+`NULL` can appear in the intersection, only if it appears in all the argument arrays:
+
+
+
+<QueryWindow content={{"sql": "SELECT ARRAY_INTERSECT([ 1, 9, NULL ],[ 8, 9, NULL ], [4, 9, NULL]) as contains_null;", "result": {"errors": [{"description": "Line 1, Column 8: function 'array_intersect' not found"}], "query": {"query_id": "a92954e5-b007-4ac4-ae2e-ab0607a078a0", "query_label": null, "request_id": "c274f7ac-294d-42c7-aa34-07ad28335520"}, "statistics": {"elapsed": 0.0}}}} />
+
+
+The result does not contain duplicates, even if the same value appears multiple times in all argument arrays:
+
+
+
+<QueryWindow content={{"sql": "SELECT ARRAY_INTERSECT([ 1, 2, 2, 8 ],[ 1, 2, 2, 2, 6 ]) as unique;", "result": {"errors": [{"description": "Line 1, Column 8: function 'array_intersect' not found"}], "query": {"query_id": "f9f10db9-7f93-46f8-a557-9dfcced8d5cd", "query_label": null, "request_id": "418ef345-43ba-43e4-aad8-1336270b56d2"}, "statistics": {"elapsed": 0.0}}}} />
+
+
+Arbitrarily nested arrays are also supported:
+
+
+
+<QueryWindow content={{"sql": "SELECT ARRAY_INTERSECT([ [1], [2], NULL, [1,2] ], [ [1,2], NULL ]) as nested;", "result": {"errors": [{"description": "Line 1, Column 8: function 'array_intersect' not found"}], "query": {"query_id": "664aa27b-eec2-4edf-8841-9e1b8932fb31", "query_label": null, "request_id": "c93c373e-a42a-4804-b3c0-2d3b96e86c49"}, "statistics": {"elapsed": 0.0}}}} />
+
+

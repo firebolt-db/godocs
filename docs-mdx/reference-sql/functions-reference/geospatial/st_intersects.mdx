@@ -1,0 +1,41 @@
+---
+description: Reference material for ST_INTERSECTS function
+sidebarTitle: ST_INTERSECTS
+title: ST_INTERSECTS
+---
+
+
+The `ST_INTERSECTS` function determines whether two input `GEOGRAPHY` objects intersect each other.
+
+If either input is empty, `ST_INTERSECTS` will return `FALSE`.
+
+Before performing the intersection check, the two inputs are aligned through a snapping process, ensuring precise calculation. For more details on snapping, refer to the [snapping documentation](/reference-sql/geography-data-type#snapping).
+
+## Syntax
+
+
+```sql
+ST_INTERSECTS(<geo1>, <geo2>)
+```
+
+## Parameters 
+
+
+| Parameter | Description                                                                                                         | Supported input types |
+| :--------- | :------------------------------------------------------------------------------------------------------------------- | :-------------------|
+| `<geo1>`   | The first `GEOGRAPHY` object to check for intersection with the second object. | `GEOGRAPHY` |
+| `<geo2>`   | The second `GEOGRAPHY` object to check for intersection with the first object. | `GEOGRAPHY` |
+
+## Return Type
+`ST_INTERSECTS` returns a value of type `BOOLEAN`.
+
+## Example
+
+
+
+
+import SqlExamplesStIntersects from '/snippets/sql_examples/st_intersects.mdx';
+
+<SqlExamplesStIntersects  />
+
+

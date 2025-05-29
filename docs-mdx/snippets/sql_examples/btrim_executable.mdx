@@ -1,0 +1,25 @@
+
+
+import {QueryWindow} from '/snippets/query-window.mdx';
+
+The following example trims the character `x` from both sides of a string:
+
+
+
+<QueryWindow content={{"sql": "SELECT BTRIM('xxThe Acceleration Cupxxx', 'x') as result", "result": {"query": {"query_id": "02249c06-6b58-46a5-b1c7-ea938f75af4e", "request_id": "613c8dc8-4e23-4a9f-904a-c398538b80e3", "query_label": null}, "meta": [{"name": "result", "type": "text"}], "data": [["The Acceleration Cup"]], "rows": 1, "statistics": {"elapsed": 0.011626, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000259304, "time_to_execute": 0.000123073, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+
+
+The following example trims the characters `x` and `y` from both sides of a string. Note that the ordering of characters in `<trim_characters>` is irrelevant:
+
+
+
+<QueryWindow content={{"sql": "SELECT BTRIM('xyxyThe Acceleration Cupyyxx', 'xy') as result;", "result": {"query": {"query_id": "cb69ade9-bb0b-45ea-93f2-4fe82c6ed809", "request_id": "a1eef7ed-708a-4f18-99ad-4085e06660a0", "query_label": null}, "meta": [{"name": "result", "type": "text"}], "data": [["The Acceleration Cup"]], "rows": 1, "statistics": {"elapsed": 0.007408, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.001199434, "time_to_execute": 9.7297e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+
+
+The following example omits the `<trim_characters>` parameter, and thus trims whitespace from both sides of a string:
+
+
+
+<QueryWindow content={{"sql": "SELECT BTRIM('   The Acceleration Cup     ') as result;", "result": {"query": {"query_id": "ec7d8f51-c09e-47de-a685-4125ef28febe", "request_id": "4409358e-5277-43ee-9bef-07eb9760ecfb", "query_label": null}, "meta": [{"name": "result", "type": "text"}], "data": [["The Acceleration Cup"]], "rows": 1, "statistics": {"elapsed": 0.009394, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000257243, "time_to_execute": 9.6345e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+
+

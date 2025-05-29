@@ -1,0 +1,35 @@
+---
+description: Reference material for BIT_SHIFT_LEFT
+sidebarTitle: BIT_SHIFT_LEFT
+title: BIT_SHIFT_LEFT
+---
+
+
+Shifts the bits in the first argument to the left by `n` bits, where `n` is the second argument. Shifting left by `n` positions is equivalent to multiplying the number by `2^n`.
+
+## Syntax
+
+```sql
+BIT_SHIFT_LEFT(<value>, <bits>)
+```
+
+## Parameters
+
+| Parameter | Description                   | Supported input types |
+|:----------|:------------------------------|:----------------------|
+| `<value>` | Specifies the value to shift. | `INT`, `BIGINT`       |
+| `<bits>`  | The number of bits to shift.  | `INT`                 |
+
+## Return Types
+
+The `BIT_SHIFT_LEFT` function returns a result of either type `INT` or `BIGINT`, depending on the type of the input `<expression>`.
+
+## Examples
+
+
+
+import SqlExamplesBitShiftLeftExecutable from '/snippets/sql_examples/bit_shift_left_executable.mdx';
+
+<SqlExamplesBitShiftLeftExecutable  />
+
+

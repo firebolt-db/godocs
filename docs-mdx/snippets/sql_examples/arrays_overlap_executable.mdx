@@ -1,0 +1,32 @@
+
+
+import {QueryWindow} from '/snippets/query-window.mdx';
+
+The following example returns `TRUE` because all input arrays contain the element `2`.
+
+
+
+<QueryWindow content={{"sql": "SELECT ARRAYS_OVERLAP(ARRAY[1, 2], ARRAY[2, 4], ARRAY[2, 6]) AS have_overlap", "result": {"errors": [{"description": "Line 1, Column 8: function 'arrays_overlap' not found"}], "query": {"query_id": "323e4398-0f22-48f1-bb80-2dd1144dd850", "query_label": null, "request_id": "0c8415e8-50c8-4824-9cfa-4da518fe5c7d"}, "statistics": {"elapsed": 0.0}}}} />
+
+
+The following example returns `FALSE` because no element appears in all input arrays.
+
+
+
+<QueryWindow content={{"sql": "SELECT ARRAYS_OVERLAP(ARRAY[1, 2], ARRAY[2, 4], ARRAY[1, 6]) AS have_overlap", "result": {"errors": [{"description": "Line 1, Column 8: function 'arrays_overlap' not found"}], "query": {"query_id": "669b32df-1e67-4dd6-911a-d3467886f40f", "query_label": null, "request_id": "d50834ae-cc8c-47ee-a3d8-5e347407bb0b"}, "statistics": {"elapsed": 0.0}}}} />
+
+
+The following example returns `FALSE` because no non-`NULL` element appears in all input arrays.
+
+
+
+<QueryWindow content={{"sql": "SELECT ARRAYS_OVERLAP(ARRAY[NULL], ARRAY[NULL]) AS have_overlap", "result": {"errors": [{"description": "Line 1, Column 8: function 'arrays_overlap' not found"}], "query": {"query_id": "a04ef397-cecf-441d-bbad-ba209bcaddf6", "query_label": null, "request_id": "16b9926f-1906-4007-b2d9-6134848a777e"}, "statistics": {"elapsed": 0.0}}}} />
+
+
+The following example returns `NULL` because one of the inputs is `NULL`.
+
+
+
+<QueryWindow content={{"sql": "SELECT ARRAYS_OVERLAP(NULL, ARRAY[1, 2]) AS have_overlap", "result": {"errors": [{"description": "Line 1, Column 8: function 'arrays_overlap' not found"}], "query": {"query_id": "6a989620-0e1a-49da-9529-9dda1b6677c0", "query_label": null, "request_id": "f12960df-e2ad-4015-bf77-ccdd1d9ba5eb"}, "statistics": {"elapsed": 0.0}}}} />
+
+

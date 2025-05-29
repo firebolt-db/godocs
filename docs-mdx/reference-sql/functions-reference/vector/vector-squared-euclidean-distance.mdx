@@ -1,0 +1,40 @@
+---
+description: Reference material for VECTOR_SQUARED_EUCLIDEAN_DISTANCE function
+sidebarTitle: VECTOR_SQUARED_EUCLIDEAN_DISTANCE
+title: VECTOR_SQUARED_EUCLIDEAN_DISTANCE
+---
+
+## VECTOR_SQUARED_EUCLIDEAN_DISTANCE
+
+Returns the squared [Euclidean distance](/reference-sql/functions-reference/vector/vector-euclidean-distance), or squared [L2 distance](/reference-sql/functions-reference/vector/vector-euclidean-distance) between two vectors. The squared Euclidean distance measures how far apart two vectors based on the size of their differences, without considering direction. By squaring the difference, it emphasizes larger differences, which can help in finding outliers or large deviations.
+
+## Syntax
+
+
+```sql
+VECTOR_SQUARED_EUCLIDEAN_DISTANCE(<array>, <array>)
+```
+## Parameters
+
+
+| Parameter | Description                                        | Supported input types                                           |
+|:----------|:---------------------------------------------------|:----------------------------------------------------------------|
+| `<array>` | The first array used in the distance calculation.  | Any array of [numeric data types](/reference-sql/data-types#numeric). |
+| `<array>` | The second array used in the distance calculation. | Any array of [numeric data types](/reference-sql/data-types#numeric). |
+
+## Notes
+Both input `array` arguments must have the same number of elements.
+
+## Return Type
+`DOUBLE`
+
+## Examples
+
+
+
+
+import SqlExamplesVectorSquaredEuclideanDistance from '/snippets/sql_examples/vector_squared_euclidean_distance.mdx';
+
+<SqlExamplesVectorSquaredEuclideanDistance  />
+
+

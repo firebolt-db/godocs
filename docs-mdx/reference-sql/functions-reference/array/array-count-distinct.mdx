@@ -1,0 +1,34 @@
+---
+description: Reference material for ARRAY_COUNT_DISTINCT function
+sidebarTitle: ARRAY_COUNT_DISTINCT
+title: ARRAY_COUNT_DISTINCT
+---
+
+
+Returns the number of distinct (unique) elements in the array. As with `COUNT` and `COUNT(DISTINCT ...)` aggregations, `NULL` is not counted as a value if it occurs.
+
+## Syntax
+
+
+```sql
+ARRAY_COUNT_DISTINCT(<array>)
+```
+## Parameters
+
+
+| Parameter | Description                                        | Supported input types
+| :-------- | :------------------------------------------------- | :-------|
+| `<array>` | The array of which to count the distinct elements. | Any `ARRAY` type |
+
+## Return Type
+`INTEGER`
+
+## Example
+
+
+```sql
+SELECT ARRAY_COUNT_DISTINCT([ 1, 2, 4, 5, 2, NULL, 5, 1 ]) AS res;
+```
+
+**Returns**: `4`
+

@@ -1,0 +1,34 @@
+## Firebolt Release Notes - Version 4.11
+
+### New Features
+
+
+**Introduced the `GEOGRAPHY` data type and functions for geospatial data handling [public preview]**
+
+Added a new [GEOGRAPHY](/reference-sql/geography-data-type) data type and functions for working with geospatial data. Firebolt supports the three industry standard formats [Well-Known Text (WKT)](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry), [Well-Known Binary (WKB)](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry#Well-known_binary), and [GeoJSON](https://datatracker.ietf.org/doc/html/rfc7946) for geospatial data.
+
+This public preview release includes the following functions:  
+* [ST_ASBINARY](/reference-sql/functions-reference/geospatial/st_asbinary) &ndash; Converts shapes of the `GEOGRAPHY` data type to the [Well-Known Binary (WKB)](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry#Well-known_binary) format for geographic objects.
+* [ST_ASEWKB](/reference-sql/functions-reference/geospatial/st_asewkb) &ndash; Converts shapes of the `GEOGRAPHY` data type to the [extended Well-Known Binary (EWKB)](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry#Format_variations) format using Spatial Reference Identifier (SRID) 4326, which corresponds to the [WGS84](https://en.wikipedia.org/wiki/World_Geodetic_System#WGS_84) coordinate system.
+* [ST_ASGEOJSON](/reference-sql/functions-reference/geospatial/st_asgeojson) &ndash; Converts shapes of the `GEOGRAPHY` data type to the [GeoJSON](https://datatracker.ietf.org/doc/html/rfc7946) format.
+* [ST_ASTEXT](/reference-sql/functions-reference/geospatial/st_astext) &ndash; Converts shapes of the `GEOGRAPHY` data type to the [Well-Known Text (WKT)](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) format.
+* [ST_CONTAINS](/reference-sql/functions-reference/geospatial/st_contains) &ndash; Determines if one `GEOGRAPHY` object fully contains another.
+* [ST_COVERS](/reference-sql/functions-reference/geospatial/st_covers) &ndash; Determines if one `GEOGRAPHY` object fully encompasses another.
+* [ST_DISTANCE](/reference-sql/functions-reference/geospatial/st_distance) &ndash; Calculates the shortest distance, measured as a geodesic arc between two `GEOGRAPHY` objects, measured in meters.
+* [ST_GEOGFROMGEOJSON](/reference-sql/functions-reference/geospatial/st_geogfromgeojson) &ndash; Constructs a `GEOGRAPHY` object from a [GeoJSON](https://datatracker.ietf.org/doc/html/rfc7946) string.
+* [ST_GEOGFROMTEXT](/reference-sql/functions-reference/geospatial/st_geogfromtext) &ndash; Constructs a `GEOGRAPHY` object from a [Well-Known Text (WKT)](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) string.
+* [ST_GEOGFROMWKB](/reference-sql/functions-reference/geospatial/st_geogfromwkb) &ndash; Constructs a `GEOGRAPHY` object from a [Well-Known Binary](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry#Well-known_binary) (WKB) byte string.
+* [ST_GEOGPOINT](/reference-sql/functions-reference/geospatial/st_geogpoint) &ndash; Constructs a Point in the `GEOGRAPHY` data type created from specified longitude and latitude coordinates.
+* [ST_INTERSECTS](/reference-sql/functions-reference/geospatial/st_intersects) &ndash; Determines whether two input `GEOGRAPHY` objects intersect each other.
+* [ST_X](/reference-sql/functions-reference/geospatial/st_x) &ndash; Extracts the longitude coordinate of a `GEOGRAPHY` Point.
+* [ST_Y](/reference-sql/functions-reference/geospatial/st_y) &ndash; Extracts the latitude coordinate of a `GEOGRAPHY` Point.
+
+**Added keyboard shortcuts to the Firebolt Develop Space**
+
+The user interface in the Firebolt **Develop Space** added the following [keyboard shortcuts](/guides/query-data/using-the-develop-workspace#keyboard-shortcuts-for-the-develop-space):
+* Cmd + Enter &ndash; Runs the current query.
+* Cmd+Shift+Enter &ndash; Runs all queries in a script.
+
+**Added the window function `FIRST_VALUE`**
+
+Added a new [FIRST_VALUE](/reference-sql/functions-reference/window/first-value) window function that returns the first value evaluated in a specified window frame.

@@ -1,0 +1,34 @@
+
+
+import {QueryWindow} from '/snippets/query-window.mdx';
+
+The following example returns the nearest whole number larger than `2.5549900`:
+
+
+
+<QueryWindow content={{"sql": "SELECT CEIL(2.5549900);", "result": {"query": {"query_id": "e5078603-eacc-4763-86d4-7ff246c2ffc0", "request_id": "92371f18-08a6-46a0-a8d1-d81d5fedd032", "query_label": null}, "meta": [{"name": "?column?", "type": "double"}], "data": [[3]], "rows": 1, "statistics": {"elapsed": 0.009512, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000293196, "time_to_execute": 0.000114594, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+
+
+The following example calculates the nearest whole number larger than `213.1549`, and returns a result of type `NUMERIC(20,4)`, which allows for a total of 20 digits, with 4 values allowed after the decimal point:
+
+
+
+<QueryWindow content={{"sql": "SELECT CEIL('213.1549'::NUMERIC(20,4));", "result": {"query": {"query_id": "9ce4f006-f4a2-4fe9-8bbd-be87fe1391ba", "request_id": "92bb46a6-3adc-44bd-9656-56c015004eab", "query_label": null}, "meta": [{"name": "?column?", "type": "Decimal(20, 4)"}], "data": [[214.0]], "rows": 1, "statistics": {"elapsed": 0.008153, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000322322, "time_to_execute": 9.2579e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+
+
+The following example rounds the number `2.5549900` up to the second decimal place.
+It returns `2.56` because the second parameter 2 specifies rounding to the second digit after the decimal, which corresponds to the hundredths place.
+
+
+
+<QueryWindow content={{"sql": "SELECT CEIL(2.5549900, 2);", "result": {"query": {"query_id": "3fdd3d30-6656-4d63-b0da-32a0a9c5f52b", "request_id": "d0e6114b-241f-4ebc-8afe-f3b39058a17a", "query_label": null}, "meta": [{"name": "?column?", "type": "double"}], "data": [[2.56]], "rows": 1, "statistics": {"elapsed": 0.009764, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000294104, "time_to_execute": 9.4642e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+
+
+The following example calculates the nearest whole number greater than `1998` that is a multiple of `1000`.
+It returns `2000` because the second parameter -3 specifies rounding to the third digit before the decimal point, which corresponds to the thousands place.
+
+
+
+<QueryWindow content={{"sql": "SELECT CEIL(1998, -3);", "result": {"query": {"query_id": "06f50c8f-ae45-49d9-9a0b-37cb668047dd", "request_id": "149b4efc-8b5f-4921-9b65-c3757f7fa99c", "query_label": null}, "meta": [{"name": "?column?", "type": "double"}], "data": [[2000]], "rows": 1, "statistics": {"elapsed": 0.009111, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000290483, "time_to_execute": 0.000135672, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+
+

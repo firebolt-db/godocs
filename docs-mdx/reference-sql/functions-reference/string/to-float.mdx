@@ -1,0 +1,39 @@
+---
+description: Reference material for TO_FLOAT function
+groups: []
+no_index: true
+sidebarTitle: TO_FLOAT
+title: TO_FLOAT
+---
+
+
+Converts a string to a numeric `REAL` data type.
+
+## Syntax
+
+
+```sql
+TO_FLOAT(<expression>)
+```
+## Parameters 
+
+
+| Parameter | Description                                                                                              | Supported input types |
+| :--------- | :-------------------------------------------------------------------------------------------------------- | :----------|
+| `<expression>`  | An expression to become a float | Any numeric data type or numeric characters that resolve to a `TEXT` data type. |
+
+## Return Type
+`REAL` 
+
+## Example
+
+
+The following example takes the input of `10.5` and returns the value as a `FLOAT`.
+
+```sql
+SELECT
+	TO_FLOAT('10.5');
+```
+
+**Returns**: `10.5`
+

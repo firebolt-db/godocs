@@ -1,0 +1,36 @@
+---
+description: Reference material for ST_Y function
+sidebarTitle: ST_Y
+title: ST_Y
+---
+
+
+Extracts the latitude coordinate of a `GEOGRAPHY` Point. Returns `NULL` for empty geography objects. Returns an error if the input is not a single Point (and not an empty `GEOGRAPHY` object).
+
+## Syntax
+
+
+```sql
+ST_Y(<object>)
+```
+
+## Parameters 
+
+
+| Parameter | Description                                                                                                         | Supported input types |
+| :--------- | :------------------------------------------------------------------------------------------------------------------- | :-------------------|
+| `<object>`   | The `GEOGRAPHY` Point to extract the latitude of. | `GEOGRAPHY` |
+
+## Return Type
+`ST_Y` returns a value of type `DOUBLE PRECISION`.
+
+## Example
+
+
+
+
+import SqlExamplesStY from '/snippets/sql_examples/st_y.mdx';
+
+<SqlExamplesStY  />
+
+

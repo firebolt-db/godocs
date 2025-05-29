@@ -1,0 +1,38 @@
+---
+description: Reference material for ARRAY_MAX function
+sidebarTitle: ARRAY_MAX
+title: ARRAY_MAX
+---
+
+
+Returns the maximum element in an array.
+
+## Syntax
+
+
+```sql
+ARRAY_MAX(<array>)
+```
+
+## Parameters
+
+
+| Parameter | Description                         |Supported input types |
+| :--------- | :----------------------------------- | :---------------------|
+| `<array>`   | The array or array-type column to be checked | `ARRAY` | 
+
+## Return Type
+
+Same as the element type of the array.
+
+## Example
+
+
+The following example calculates the maximum number in the `levels` array:
+```sql
+SELECT
+	ARRAY_MAX([ 1, 2, 3, 4 ]) AS levels;
+```
+
+**Returns**: `4`
+

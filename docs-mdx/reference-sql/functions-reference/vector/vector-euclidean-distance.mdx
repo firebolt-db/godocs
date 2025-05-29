@@ -1,0 +1,40 @@
+---
+description: Reference material for VECTOR_EUCLIDEAN_DISTANCE function
+sidebarTitle: VECTOR_EUCLIDEAN_DISTANCE
+title: VECTOR_EUCLIDEAN_DISTANCE
+---
+
+## VECTOR_EUCLIDEAN_DISTANCE
+
+Returns the Euclidean distance, or L2 distance, between two vectors. The Euclidean distance measures the shortest distance between two points in space along a straight line. It is calculated by summing the squared distances of a pair of vector elements, and then taking the square root.
+
+## Syntax
+
+
+```sql
+VECTOR_EUCLIDEAN_DISTANCE(<array>, <array>)
+```
+## Parameters 
+
+
+| Parameter | Description                                        | Supported input types                                           |
+|:----------|:---------------------------------------------------|:----------------------------------------------------------------|
+| `<array>` | The first array used in the distance calculation.  | Any array of [numeric data types](/reference-sql/data-types#numeric). |
+| `<array>` | The second array used in the distance calculation. | Any array of [numeric data types](/reference-sql/data-types#numeric). |
+
+## Notes
+Both input `array` arguments must have the same number of elements.
+
+## Return Type
+`DOUBLE`
+
+## Examples
+
+
+
+
+import SqlExamplesVectorEuclideanDistance from '/snippets/sql_examples/vector_euclidean_distance.mdx';
+
+<SqlExamplesVectorEuclideanDistance  />
+
+

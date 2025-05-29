@@ -1,0 +1,47 @@
+---
+description: Reference material for EXTRACT_ALL function
+groups: []
+no_index: true
+sidebarTitle: EXTRACT_ALL
+title: EXTRACT_ALL
+---
+
+
+Extracts fragments within a string that match a specified regex pattern. String fragments that match are returned as an array of `TEXT` types.
+
+## Syntax
+
+
+```sql
+EXTRACT_ALL( <expression>, <pattern> )
+```
+## Parameters 
+
+
+| Parameter         | Description                                      | Supported input types | 
+| :----------------- | :---------------------------------------------- |:---------|
+| `<expression>`          | The string to be extracted from. | `TEXT` |
+| `<pattern>` | Regex pattern that is applied to `<expression>` | An re2 regular expression used for matching.  | 
+
+## Return Type
+`ARRAY TEXT` 
+
+## Example
+
+
+In the example below, `EXTRACT_ALL` is used to match variants of a tournament name, "Hello World". The regular expression pattern `'Hello.[Ww]orld!?'` does not match any special characters except for `!`.
+
+```sql
+SELECT
+	EXTRACT_ALL (
+		'Hello world, ;-+ Hello World!',
+		'Hello.[Ww]orld!?'
+	);
+```
+
+**Returns**:
+
+```
+["Hello world","Hello World!"]
+```
+

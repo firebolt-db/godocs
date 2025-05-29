@@ -1,0 +1,46 @@
+---
+description: Reference material for ARRAY_LENGTH function
+sidebarTitle: ARRAY_LENGTH
+title: ARRAY_LENGTH
+---
+
+
+Returns the length of the given array, i.e., how many elements it contains. Produces `NULL` for `NULL` arrays.
+
+**Alias:** [LENGTH](/reference-sql/functions-reference/string/length) (when used with an array argument)
+
+## Syntax
+
+
+```sql
+ARRAY_LENGTH(<array>)
+```
+
+## Parameters
+
+
+| Parameter  | Description                                 | Supported input types |
+| :--------- | :------------------------------------------ | :----------|
+| `<array>`  | The array whose length should be calculated | `ARRAY` |
+
+## Return Type
+`INTEGER`
+
+## Example
+
+
+```sql
+SELECT
+	ARRAY_LENGTH([ 1, 2, 3, 4 ]) AS levels;
+```
+
+**Returns**: `4`
+
+
+```sql
+SELECT
+	ARRAY_LENGTH([ [ 1, 2, 3 ], [ 4, 5, 6, 7 ]) AS levels;
+```
+
+**Returns**: `2`
+

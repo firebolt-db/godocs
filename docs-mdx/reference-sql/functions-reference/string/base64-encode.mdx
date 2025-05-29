@@ -1,0 +1,39 @@
+---
+description: Reference material for BASE64_ENCODE function
+groups: []
+no_index: true
+sidebarTitle: BASE64_ENCODE
+title: BASE64_ENCODE
+---
+
+
+Encodes a string into Base64 notation.
+
+## Syntax
+
+
+```sql
+BASE64_ENCODE(<expression>)
+```
+## Parameters
+
+
+| Parameter | Description                                                                 | Supported input types| 
+| :--------- | :--------------------------------------------------------------------------|:----------|
+| `<expression>`  | Any expression to be encoded | `TEXT`  |
+
+### Return Type
+`TEXT`
+
+## Example
+
+
+The following examples encodes a user's nickname to Base64 notation: 
+
+```sql
+SELECT
+	BASE64_ENCODE('esimpson');
+```
+
+**Returns**: `SZXNpbXBzb24=`
+

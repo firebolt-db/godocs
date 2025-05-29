@@ -1,0 +1,46 @@
+---
+description: Reference material for SESSION_USER function
+sidebarTitle: SESSION_USER
+title: SESSION_USER
+---
+
+Returns the name of the user running the current query.
+
+## Syntax
+
+
+```sql
+SESSION_USER()
+```
+
+## Return Types
+`TEXT`
+
+## Examples
+
+
+
+
+import SqlExamplesCurrentUserExecutable from '/snippets/sql_examples/current_user_executable.mdx';
+
+<SqlExamplesCurrentUserExecutable  />
+
+
+**Example**
+
+Dynamic security through a view which uses `session_user()`.
+
+```sql
+-- user bob created view:
+create view my_employee_data as select * from employees where user_name = session_user();
+
+-- user alice queries it:
+select * from my_employee_data; -- session_user() will be evaluated to 'alice' for this query
+```
+
+**Returns** 
+
+| user_name   | ...   | 
+|:------------|:-------------------|
+| alice |... | 
+

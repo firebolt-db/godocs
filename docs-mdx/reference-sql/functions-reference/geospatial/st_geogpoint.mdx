@@ -1,0 +1,39 @@
+---
+description: Reference material for ST_GEOGPOINT function
+sidebarTitle: ST_GEOGPOINT
+title: ST_GEOGPOINT
+---
+
+
+Constructs a Point in the `GEOGRAPHY` data type created from specified longitude and latitude coordinates.
+
+Coordinate validation and wrapping is applied as explained in the [GEOGRAPHY type documentation](/reference-sql/geography-data-type#normalization).
+
+## Syntax
+
+
+```sql
+ST_GEOGPOINT(<longitude>, <latitude>)
+```
+
+## Parameters 
+
+
+| Parameter | Description                                                                                                         | Supported input types |
+| :--------- | :------------------------------------------------------------------------------------------------------------------- | :-------------------|
+| `<langitude>`   | The longitude coordinate of the `GEOGRAPHY` Point to construct. | `DOUBLE PRECISION` |
+| `<latitude>`   | The latitude of the `GEOGRAPHY` Point to construct. | `DOUBLE PRECISION` |
+
+## Return Type
+`ST_GEOGPOINT` returns a value of type `GEOGRAPHY`.
+
+## Example
+
+
+
+
+import SqlExamplesStGeogpoint from '/snippets/sql_examples/st_geogpoint.mdx';
+
+<SqlExamplesStGeogpoint  />
+
+

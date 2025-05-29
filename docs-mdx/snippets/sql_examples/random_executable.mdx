@@ -1,0 +1,20 @@
+
+
+import {QueryWindow} from '/snippets/query-window.mdx';
+
+The following code example demonstrates using `RANDOM` without any other numeric functions. This generates a `DOUBLE PRECISION` value less than 1:
+
+
+
+<QueryWindow content={{"sql": "SELECT RANDOM()", "result": {"query": {"query_id": "a24f3a89-3ca2-4dc3-afc4-e999d2bb1e23", "request_id": "a3ad788d-3e5c-4524-8af2-3157de5b4599", "query_label": null}, "meta": [{"name": "?column?", "type": "double"}], "data": [[0.5258747125554618]], "rows": 1, "statistics": {"elapsed": 0.00881, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000498647, "time_to_execute": 0.000110953, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+
+
+To create a random integer number between two values, you can use `RANDOM` with the `FLOOR` function. If `a` is the lesser value and `b` is the greater value,
+compute `FLOOR(RANDOM() * (b - a + 1)) + a`.
+The following code example generates a random integer between 50 and 100:
+
+
+
+<QueryWindow content={{"sql": "SELECT (RANDOM() * (100 - 50 + 1)) + 50", "result": {"query": {"query_id": "73518243-2ded-4903-a1f0-7eb1f0c49d3a", "request_id": "bf41f6f7-4709-4ad1-b850-74e1098685d9", "query_label": null}, "meta": [{"name": "?column?", "type": "double"}], "data": [[58.08969684114681]], "rows": 1, "statistics": {"elapsed": 0.013705, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000397855, "time_to_execute": 0.000108934, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+
+

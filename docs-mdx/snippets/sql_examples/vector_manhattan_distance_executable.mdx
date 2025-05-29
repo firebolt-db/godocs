@@ -1,0 +1,17 @@
+
+
+import {QueryWindow} from '/snippets/query-window.mdx';
+
+**Example**
+
+The following code returns the Manhattan distance between two vectors:
+The Manhattan distance is calculated as the sum of absolute differences: |3 - 1| + |2 - 4| = 4.
+
+
+
+
+<QueryWindow content={{"sql": "SELECT VECTOR_MANHATTAN_DISTANCE([1, 4], [3, 2]) AS distance;", "result": {"query": {"query_id": "ed5f8508-af1c-4b06-b9b8-c0e02a23d616", "request_id": "dbe3ba10-53cf-430d-8539-2d62467b35a1", "query_label": null}, "meta": [{"name": "distance", "type": "double"}], "data": [[4]], "rows": 1, "statistics": {"elapsed": 0.008016, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000278443, "time_to_execute": 0.000103115, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+
+
+**Returns**
+

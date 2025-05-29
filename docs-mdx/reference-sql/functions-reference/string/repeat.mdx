@@ -1,0 +1,41 @@
+---
+description: Reference material for REPEAT function
+groups: []
+no_index: true
+sidebarTitle: REPEAT
+title: REPEAT
+---
+
+
+Repeats the provided string a requested number of times.
+
+## Syntax
+
+
+```sql
+REPEAT(<expression>, <value>)
+```
+
+## Parameters 
+
+
+| Parameter            | Description                  | Supported input types | 
+| :-------------------- | :---------------------------|:----------------------|
+| `<expression>`           | The string to be repeated | `TEXT`           |
+| `<value>` | The number of needed repetitions | Any `INTEGER` greater than 0 |
+
+## Return Type
+`TEXT`
+
+## Example
+
+
+The following example returns the author of a game 5 times repeated. 
+
+```sql
+SELECT
+	REPEAT('UFG Inc.' , 5);
+```
+
+**Returns**: `UFG Inc. UFG Inc. UFG Inc. UFG Inc. UFG Inc.`
+

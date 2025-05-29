@@ -1,0 +1,109 @@
+---
+description: System engine documentation
+sidebarTitle: System Engine
+title: System Engine
+---
+
+
+
+Firebolt's system engine enables running various metadata-related queries without having to start an engine. The system engine is always available for you in all databases to select and use.
+
+The system engine supports running the following commands:
+* All [access control](/reference-sql/commands/access-control) commands
+* All [engine](/reference-sql/commands/engines) commands
+* Most [data definition](/reference-sql/commands/data-definition) commands. The following commands are not supported:
+  * [ALTER TABLE DROP PARTITION](/reference-sql/commands/data-definition/alter-table)
+  * [CREATE AGGREGATING INDEX](/reference-sql/commands/data-definition/create-aggregating-index)
+  * [CREATE EXTERNAL TABLE](/reference-sql/commands/data-definition/create-external-table)
+  * [CREATE TABLE AS SELECT](/reference-sql/commands/data-definition/create-fact-dimension-table-as-select)
+* Most [metadata](/reference-sql/commands/metadata) commands. The following commands are not supported:
+  * [SHOW CACHE](/reference-sql/commands/metadata/show-cache)
+* Non-data-accessing [SELECT](/reference-sql/commands/queries/select) queries like `SELECT CURRENT_TIMESTAMP()`
+* [SELECT](/reference-sql/commands/queries/select) queries on some [information_schema](/reference-sql/information-schema) views:
+    * [information_schema.accounts](/reference-sql/information-schema/accounts)
+    * [information_schema.applicable_roles](/reference-sql/information-schema/applicable-roles)
+    * [information_schema.transitive_applicable_roles](/reference-sql/information-schema/transitive-applicable-roles)
+    * [information_schema.columns](/reference-sql/information-schema/columns)
+    * [information_schema.catalogs](/reference-sql/information-schema/catalogs)
+    * [information_schema.enabled_roles](/reference-sql/information-schema/enabled-roles)
+    * [information_schema.engines](/reference-sql/information-schema/engines)
+    * [information_schema.indexes](/reference-sql/information-schema/indexes)
+    * [information_schema.logins](/reference-sql/information-schema/logins)
+    * [information_schema.network_policies](/reference-sql/information-schema/network_policies)
+    * [information_schema.service_accounts](/reference-sql/information-schema/service-accounts)
+    * [information_schema.tables](/reference-sql/information-schema/tables)
+    * [information_schema.users](/reference-sql/information-schema/users)
+    * [information_schema.views](/reference-sql/information-schema/views)
+
+## Using the system engine via the Firebolt manager
+1. In the Firebolt manager, choose the Databases icon in the navigation pane.
+2. Click on the SQL Workspace icon for the desired database. In case you have no database in your account - create one first.
+3. From the engine selector in the SQL Workspace, choose System Engine, then run one of the supported queries.
+
+## Using the system engine via SDKs
+### Python SDK
+Connect via the connector without specifying the engine_name. Database parameter is optional.
+
+System engine does not need a database defined. If you wish to connect to an existing database and run metadata queries with the system engine, just specify the name of your database.
+
+**Example**
+```python
+from firebolt.db import connect
+from firebolt.client import DEFAULT_API_URL
+from firebolt.client.auth import ClientCredentials
+
+client_id = "<service_account_id>"
+client_secret = "<service_account_secret>"
+account_name = "<your_account_name>"
+
+with connect(
+   database="<any_db_here>", # Omit this parameter if you don't need db-specific operations
+   auth=ClientCredentials(client_id, client_secret),
+   account_name=account_name,
+   api_endpoint=DEFAULT_API_URL,
+) as connection:
+
+   cursor = connection.cursor()
+
+   cursor.execute("SHOW CATALOGS")
+
+   print(cursor.fetchall())
+```
+
+Guidance on creating service accounts can be found in the [service account](/guides/managing-your-organization/service-accounts) section.
+
+### Other SDKs
+Any other Firebolt connector can also be used similarly, as long as the engine name is omitted.
+
+## System Engine Limitations
+
+### Supported queries for system engine
+
+System engine only supports running the metadata-related queries listed above. Additional queries will be supported in future versions.
+
+### Rate Limits for System Engines
+
+To ensure fair and consistent access to the System Engine for all users, we have introduced rate limits that govern resource usage per account. These limits are designed to prevent resource contention and ensure optimal performance for everyone.
+
+When the rate limits are exceeded on the system engine, the system will return the following error: `429: Account system engine resources usage limit exceeded`.
+This error typically occurs when an account submits an excessive number of queries or executes highly complex queries that surpass the allocated resource thresholds.
+
+**What to Do If You Encounter Rate Limits**
+
+If you receive the 429 error, consider these steps to resolve the issue:
+
+* Switch to a User Engine: Offload your workloads to a dedicated User Engine if possible. User Engines do not have the same rate limits, making them better suited for higher workloads or complex operations.
+* Review your query patterns and ensure they are not unnecessarily complex or resource-intensive. Use best practices to write efficient queries that minimize resource consumption.
+* Contact Support: If you believe your account has been rate-limited unfairly or you anticipate requiring higher limits, reach out to our support team to discuss adjusting your account's thresholds.
+
+**Best Practices to Avoid Rate Limits**
+
+* Avoid running multiple concurrent queries that heavily use system resources.
+* Leverage Firebolt's indexing and other optimization features to streamline your queries.
+* Regularly audit your workloads and usage patterns to align with the system's best practices.
+
+**Why This Matters**
+
+These rate limits are critical for maintaining a fair and robust environment where all users can achieve reliable performance without disruption from resource-heavy neighbors. This measure aligns with our commitment to delivering consistent and high-quality service across all accounts.
+
+For additional support or questions, please contact our support team or refer to our documentation on optimizing query performance.

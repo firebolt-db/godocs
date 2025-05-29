@@ -1,0 +1,42 @@
+---
+description: Reference material for VAR_POP
+sidebarTitle: VAR_POP
+title: VAR_POP
+---
+
+
+Computes the population variance of all non-`NULL` numeric values produced by an expression. The population variance measures the average of the squared differences from the population mean, indicating how spread out the values are within the entire population. For information about the sample variance, which measures how spread out the values are within a sample, see [VAR_SAMP](/reference-sql/functions-reference/aggregation/variance-samp).
+
+
+## Syntax
+
+
+```sql
+VAR_POP(<expression>)
+```
+## Parameters 
+
+
+| Parameter | Description               | Supported input types |
+| :--------- | :----------------------------------- | :--------|
+| `<expression>`  | An expression producing numeric values for which to calculate the population variance. | `REAL`, `DOUBLE PRECISION` |
+
+## Return Type
+`VAR_POP` returns a result of type `DOUBLE PRECISION`. 
+
+
+### Special cases
+- If there are no non-`NULL` input values, the result is `NULL`.
+- If the input contains an `Inf` or `NaN` value, the result will be `NaN`.
+
+## Example
+
+
+
+
+import SqlExamplesVarPop from '/snippets/sql_examples/var_pop.mdx';
+
+<SqlExamplesVarPop  />
+
+
+

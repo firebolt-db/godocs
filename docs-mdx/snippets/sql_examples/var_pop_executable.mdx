@@ -1,0 +1,16 @@
+
+
+import {QueryWindow} from '/snippets/query-window.mdx';
+
+
+
+<QueryWindow content={{"sql": "CREATE TABLE exams (grade double precision);\nINSERT INTO exams VALUES (4.0), (3.7), (3.3), (2.7), (2.7);", "result": {"errors": [{"description": "Multiple queries in a single request are not supported. Split the queries and send each one as an individual request."}], "query": {"query_id": "2129d27c-a930-46cd-8c81-104a10f38159", "request_id": "f20d27e5-9a70-4325-b1ac-c4fbd8cdc092"}, "statistics": {"elapsed": 0.0}}}} />
+
+
+Calculate the population variance of the grades and round to 3 decimal digits.
+
+
+
+<QueryWindow content={{"sql": "SELECT ROUND(VAR_POP(grade), 3) as variance from exams;", "result": {"errors": [{"description": "Line 1, Column 50: relation 'exams' does not exist or not authorized."}], "query": {"query_id": "81be4abb-9aea-4b01-b4f9-0cfef3923f44", "request_id": "c3a1aa0a-cd8f-4824-a89c-588c1ccdf150"}, "statistics": {"elapsed": 0.0}}}} />
+
+
