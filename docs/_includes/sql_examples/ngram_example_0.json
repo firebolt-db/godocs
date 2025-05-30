@@ -1,15 +1,39 @@
 {
-  "errors": [
+  "query": {
+    "query_id": "8809e287-2838-4cf3-b0b3-5d24bb594009",
+    "request_id": "0508fc5c-e973-4c94-9265-1decc60e10ef",
+    "query_label": null
+  },
+  "meta": [
     {
-      "description": "Line 1, Column 8: function 'ngram' not found. Did you mean: param?"
+      "name": "result",
+      "type": "array(text)"
     }
   ],
-  "query": {
-    "query_id": "83b237a6-2232-4a18-b33e-1143a09068c3",
-    "query_label": null,
-    "request_id": "c1b59df7-fc84-4ee6-9aaa-679b676251a0"
-  },
+  "data": [
+    [
+      [
+        "he",
+        "el",
+        "ll",
+        "lo",
+        "o ",
+        " w",
+        "wo",
+        "or",
+        "rl",
+        "ld"
+      ]
+    ]
+  ],
+  "rows": 1,
   "statistics": {
-    "elapsed": 0.0
+    "elapsed": 0.00686,
+    "rows_read": 1,
+    "bytes_read": 1,
+    "time_before_execution": 0.000288792,
+    "time_to_execute": 0.000100811,
+    "scanned_bytes_cache": 0,
+    "scanned_bytes_storage": 0
   }
 }

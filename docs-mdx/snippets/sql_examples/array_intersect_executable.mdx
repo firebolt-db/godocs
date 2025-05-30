@@ -6,41 +6,243 @@ In the following example, the only element shared between all three arrays is th
 
 
 
-<QueryWindow content={{"sql": "SELECT ARRAY_INTERSECT([ 1, 2, 3 ], [ 0, 1 ], [ 1, 5 ]) as result;", "result": {"errors": [{"description": "Line 1, Column 8: function 'array_intersect' not found"}], "query": {"query_id": "d6dee431-aa0e-4934-9f2c-d11b0e752d88", "query_label": null, "request_id": "75c6928d-3b38-4e53-9b07-c29305ddc587"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT ARRAY_INTERSECT([ 1, 2, 3 ], [ 0, 1 ], [ 1, 5 ]) as result;",
+  "result": {
+    "data": [
+      [
+        [
+          1
+        ]
+      ]
+    ],
+    "meta": [
+      {
+        "name": "result",
+        "type": "array(int)"
+      }
+    ],
+    "query": {
+      "query_id": "68c0ea51-1396-4faf-a86c-593e7946cccf",
+      "query_label": null,
+      "request_id": "73dce71c-bc10-4a47-a189-5cc4994312fb"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.008634,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000255963,
+      "time_to_execute": 9.9885e-05
+    }
+  }
+}} />
 
 
 Passing in one argument array is allowed:
 
 
 
-<QueryWindow content={{"sql": "SELECT ARRAY_INTERSECT([ 'red', 'maroon', 'crimson' ]) as colors;", "result": {"errors": [{"description": "Line 1, Column 8: function 'array_intersect' not found"}], "query": {"query_id": "c34c8351-ea48-4ed4-8296-ec2cad3d406b", "query_label": null, "request_id": "174527ec-6021-4928-badd-de8cd7fc2463"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT ARRAY_INTERSECT([ 'red', 'maroon', 'crimson' ]) as colors;",
+  "result": {
+    "data": [
+      [
+        [
+          "crimson",
+          "maroon",
+          "red"
+        ]
+      ]
+    ],
+    "meta": [
+      {
+        "name": "colors",
+        "type": "array(text)"
+      }
+    ],
+    "query": {
+      "query_id": "753eac1e-328e-42e3-ae2e-47500607c124",
+      "query_label": null,
+      "request_id": "020bd1dd-27f0-431f-8088-0312a2c6f8f1"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.00707,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000246556,
+      "time_to_execute": 8.6149e-05
+    }
+  }
+}} />
 
 
 In the following example, `ARRAY_SORT` is used to ensure the results are in ascending order:
 
 
 
-<QueryWindow content={{"sql": "SELECT ARRAY_SORT(\n        ARRAY_INTERSECT([ 5, 4, 3, 2, 1 ],[ 5, 3, 1 ])\n    ) as sorted;", "result": {"errors": [{"description": "Line 2, Column 9: function 'array_intersect' not found"}], "query": {"query_id": "fc401a52-8f30-4007-a5a2-96dd02e0a216", "query_label": null, "request_id": "a6b2fcf5-0c84-4113-9cc5-7fdca340756e"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT ARRAY_SORT(\n        ARRAY_INTERSECT([ 5, 4, 3, 2, 1 ],[ 5, 3, 1 ])\n    ) as sorted;",
+  "result": {
+    "data": [
+      [
+        [
+          1,
+          3,
+          5
+        ]
+      ]
+    ],
+    "meta": [
+      {
+        "name": "sorted",
+        "type": "array(int)"
+      }
+    ],
+    "query": {
+      "query_id": "113a9883-719c-4bf6-84c3-386cb3de8923",
+      "query_label": null,
+      "request_id": "90b065c4-9fa9-45bd-bbcf-bab42a5401ba"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.007119,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000288458,
+      "time_to_execute": 0.000103107
+    }
+  }
+}} />
 
 
 `NULL` can appear in the intersection, only if it appears in all the argument arrays:
 
 
 
-<QueryWindow content={{"sql": "SELECT ARRAY_INTERSECT([ 1, 9, NULL ],[ 8, 9, NULL ], [4, 9, NULL]) as contains_null;", "result": {"errors": [{"description": "Line 1, Column 8: function 'array_intersect' not found"}], "query": {"query_id": "a92954e5-b007-4ac4-ae2e-ab0607a078a0", "query_label": null, "request_id": "c274f7ac-294d-42c7-aa34-07ad28335520"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT ARRAY_INTERSECT([ 1, 9, NULL ],[ 8, 9, NULL ], [4, 9, NULL]) as contains_null;",
+  "result": {
+    "data": [
+      [
+        [
+          null,
+          9
+        ]
+      ]
+    ],
+    "meta": [
+      {
+        "name": "contains_null",
+        "type": "array(int null)"
+      }
+    ],
+    "query": {
+      "query_id": "c92af7ab-7dea-43be-a200-085e85ed8ff7",
+      "query_label": null,
+      "request_id": "5d158b9b-1f0f-4218-aad1-d382932b69c7"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.007384,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000264046,
+      "time_to_execute": 9.8471e-05
+    }
+  }
+}} />
 
 
 The result does not contain duplicates, even if the same value appears multiple times in all argument arrays:
 
 
 
-<QueryWindow content={{"sql": "SELECT ARRAY_INTERSECT([ 1, 2, 2, 8 ],[ 1, 2, 2, 2, 6 ]) as unique;", "result": {"errors": [{"description": "Line 1, Column 8: function 'array_intersect' not found"}], "query": {"query_id": "f9f10db9-7f93-46f8-a557-9dfcced8d5cd", "query_label": null, "request_id": "418ef345-43ba-43e4-aad8-1336270b56d2"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT ARRAY_INTERSECT([ 1, 2, 2, 8 ],[ 1, 2, 2, 2, 6 ]) as unique;",
+  "result": {
+    "data": [
+      [
+        [
+          2,
+          1
+        ]
+      ]
+    ],
+    "meta": [
+      {
+        "name": "unique",
+        "type": "array(int)"
+      }
+    ],
+    "query": {
+      "query_id": "b73aaf89-cbf0-4791-ba54-5baea0bbdfef",
+      "query_label": null,
+      "request_id": "61dbc08f-52dd-47ed-81f2-e7047e3ce122"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.006754,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000256829,
+      "time_to_execute": 9.1392e-05
+    }
+  }
+}} />
 
 
 Arbitrarily nested arrays are also supported:
 
 
 
-<QueryWindow content={{"sql": "SELECT ARRAY_INTERSECT([ [1], [2], NULL, [1,2] ], [ [1,2], NULL ]) as nested;", "result": {"errors": [{"description": "Line 1, Column 8: function 'array_intersect' not found"}], "query": {"query_id": "664aa27b-eec2-4edf-8841-9e1b8932fb31", "query_label": null, "request_id": "c93c373e-a42a-4804-b3c0-2d3b96e86c49"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT ARRAY_INTERSECT([ [1], [2], NULL, [1,2] ], [ [1,2], NULL ]) as nested;",
+  "result": {
+    "data": [
+      [
+        [
+          null,
+          [
+            1,
+            2
+          ]
+        ]
+      ]
+    ],
+    "meta": [
+      {
+        "name": "nested",
+        "type": "array(array(int null) null)"
+      }
+    ],
+    "query": {
+      "query_id": "d824cdbf-b372-48f1-9aec-109723accb85",
+      "query_label": null,
+      "request_id": "ec10302b-9a9a-4522-9d93-eca4d4ca49e8"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.007416,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000264947,
+      "time_to_execute": 9.5591e-05
+    }
+  }
+}} />
 
 

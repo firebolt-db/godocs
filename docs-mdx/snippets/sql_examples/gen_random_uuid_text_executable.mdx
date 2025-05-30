@@ -6,6 +6,36 @@ The following example generates a random UUID as TEXT
 
 
 
-<QueryWindow content={{"sql": "SELECT gen_random_uuid_text() as id_col", "result": {"query": {"query_id": "6215e626-f67a-414d-a96d-4deb13f0f327", "request_id": "ce013222-b29f-4663-ab5e-f096c318c2e8", "query_label": null}, "meta": [{"name": "id_col", "type": "text"}], "data": [["c2bded63-219e-4597-8c7f-8fead1c6d843"]], "rows": 1, "statistics": {"elapsed": 0.007417, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000395845, "time_to_execute": 0.000293021, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT gen_random_uuid_text() as id_col",
+  "result": {
+    "data": [
+      [
+        "db8c8d7a-6f30-45da-9678-60d8bde20417"
+      ]
+    ],
+    "meta": [
+      {
+        "name": "id_col",
+        "type": "text"
+      }
+    ],
+    "query": {
+      "query_id": "4d0edb74-9e39-4dba-8d03-ed4b3c57d1af",
+      "query_label": null,
+      "request_id": "58cab923-1354-4101-9694-18b9f8f066bc"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.006649,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.00037636,
+      "time_to_execute": 0.000311243
+    }
+  }
+}} />
 
 

@@ -7,7 +7,37 @@ The following query uses `ST_GEOGFROMTEXT` to create a `GEOGRAPHY` object from t
 
 
 
-<QueryWindow content={{"sql": "SELECT ST_ASBINARY(ST_GEOGFROMTEXT('POINT(-73.98551041593687 40.75793403395676)')) AS result", "result": {"query": {"query_id": "2d60efa3-0e7e-46e6-99de-89ddfc2a5200", "request_id": "3dde04cf-231b-4451-9638-c63e92dc640a", "query_label": null}, "meta": [{"name": "result", "type": "bytea"}], "data": [["\\x01010000003d94479a127f52c0502f80fb03614440"]], "rows": 1, "statistics": {"elapsed": 0.008609, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000489176, "time_to_execute": 0.000111785, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT ST_ASBINARY(ST_GEOGFROMTEXT('POINT(-73.98551041593687 40.75793403395676)')) AS result",
+  "result": {
+    "data": [
+      [
+        "\\x01010000003d94479a127f52c0502f80fb03614440"
+      ]
+    ],
+    "meta": [
+      {
+        "name": "result",
+        "type": "bytea"
+      }
+    ],
+    "query": {
+      "query_id": "b8eecdbb-02ad-4e32-86bf-d460782527bf",
+      "query_label": null,
+      "request_id": "aad864de-d1eb-4141-b466-91769b825a15"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.006562,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000354334,
+      "time_to_execute": 8.5645e-05
+    }
+  }
+}} />
 
 
 **Returns**

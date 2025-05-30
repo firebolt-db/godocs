@@ -6,6 +6,36 @@ The following example returns the square root of 64:
 
 
 
-<QueryWindow content={{"sql": "SELECT SQRT(64);", "result": {"query": {"query_id": "b15d86d2-0c9e-42e8-bbc6-40b9687d878e", "request_id": "efd972c2-c204-4496-8a73-d97b46b060d0", "query_label": null}, "meta": [{"name": "?column?", "type": "double"}], "data": [[8]], "rows": 1, "statistics": {"elapsed": 0.01075, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000275861, "time_to_execute": 9.3452e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT SQRT(64);",
+  "result": {
+    "data": [
+      [
+        8
+      ]
+    ],
+    "meta": [
+      {
+        "name": "?column?",
+        "type": "double"
+      }
+    ],
+    "query": {
+      "query_id": "4b313712-db15-4c81-9de8-c5a59ae45a5c",
+      "query_label": null,
+      "request_id": "d60d94be-60fd-4bdd-8d2c-e94660ccf420"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.007499,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000278222,
+      "time_to_execute": 9.6639e-05
+    }
+  }
+}} />
 
 

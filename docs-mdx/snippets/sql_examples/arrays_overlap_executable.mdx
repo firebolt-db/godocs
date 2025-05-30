@@ -6,27 +6,147 @@ The following example returns `TRUE` because all input arrays contain the elemen
 
 
 
-<QueryWindow content={{"sql": "SELECT ARRAYS_OVERLAP(ARRAY[1, 2], ARRAY[2, 4], ARRAY[2, 6]) AS have_overlap", "result": {"errors": [{"description": "Line 1, Column 8: function 'arrays_overlap' not found"}], "query": {"query_id": "323e4398-0f22-48f1-bb80-2dd1144dd850", "query_label": null, "request_id": "0c8415e8-50c8-4824-9cfa-4da518fe5c7d"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT ARRAYS_OVERLAP(ARRAY[1, 2], ARRAY[2, 4], ARRAY[2, 6]) AS have_overlap",
+  "result": {
+    "data": [
+      [
+        true
+      ]
+    ],
+    "meta": [
+      {
+        "name": "have_overlap",
+        "type": "boolean"
+      }
+    ],
+    "query": {
+      "query_id": "001c79e9-f112-4ffc-8df8-f2282e0676c7",
+      "query_label": null,
+      "request_id": "ebbc6a0a-18af-45f9-b2a0-48adf8d6992d"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.007248,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000254424,
+      "time_to_execute": 8.5428e-05
+    }
+  }
+}} />
 
 
 The following example returns `FALSE` because no element appears in all input arrays.
 
 
 
-<QueryWindow content={{"sql": "SELECT ARRAYS_OVERLAP(ARRAY[1, 2], ARRAY[2, 4], ARRAY[1, 6]) AS have_overlap", "result": {"errors": [{"description": "Line 1, Column 8: function 'arrays_overlap' not found"}], "query": {"query_id": "669b32df-1e67-4dd6-911a-d3467886f40f", "query_label": null, "request_id": "d50834ae-cc8c-47ee-a3d8-5e347407bb0b"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT ARRAYS_OVERLAP(ARRAY[1, 2], ARRAY[2, 4], ARRAY[1, 6]) AS have_overlap",
+  "result": {
+    "data": [
+      [
+        false
+      ]
+    ],
+    "meta": [
+      {
+        "name": "have_overlap",
+        "type": "boolean"
+      }
+    ],
+    "query": {
+      "query_id": "b2bd3a42-9466-4b52-882d-6daebc714344",
+      "query_label": null,
+      "request_id": "fd6df85b-8c3a-4b2e-835f-557c43511a12"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.006663,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000235425,
+      "time_to_execute": 8.366e-05
+    }
+  }
+}} />
 
 
 The following example returns `FALSE` because no non-`NULL` element appears in all input arrays.
 
 
 
-<QueryWindow content={{"sql": "SELECT ARRAYS_OVERLAP(ARRAY[NULL], ARRAY[NULL]) AS have_overlap", "result": {"errors": [{"description": "Line 1, Column 8: function 'arrays_overlap' not found"}], "query": {"query_id": "a04ef397-cecf-441d-bbad-ba209bcaddf6", "query_label": null, "request_id": "16b9926f-1906-4007-b2d9-6134848a777e"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT ARRAYS_OVERLAP(ARRAY[NULL], ARRAY[NULL]) AS have_overlap",
+  "result": {
+    "data": [
+      [
+        false
+      ]
+    ],
+    "meta": [
+      {
+        "name": "have_overlap",
+        "type": "boolean"
+      }
+    ],
+    "query": {
+      "query_id": "fee4419c-cf95-4d9f-8d69-b19d46fda346",
+      "query_label": null,
+      "request_id": "183d1668-bde8-46a0-b54b-30ca7ce8a44f"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.00697,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.0002443,
+      "time_to_execute": 8.859e-05
+    }
+  }
+}} />
 
 
 The following example returns `NULL` because one of the inputs is `NULL`.
 
 
 
-<QueryWindow content={{"sql": "SELECT ARRAYS_OVERLAP(NULL, ARRAY[1, 2]) AS have_overlap", "result": {"errors": [{"description": "Line 1, Column 8: function 'arrays_overlap' not found"}], "query": {"query_id": "6a989620-0e1a-49da-9529-9dda1b6677c0", "query_label": null, "request_id": "f12960df-e2ad-4015-bf77-ccdd1d9ba5eb"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT ARRAYS_OVERLAP(NULL, ARRAY[1, 2]) AS have_overlap",
+  "result": {
+    "data": [
+      [
+        null
+      ]
+    ],
+    "meta": [
+      {
+        "name": "have_overlap",
+        "type": "boolean null"
+      }
+    ],
+    "query": {
+      "query_id": "46fa0f76-e775-42cd-8368-c61912d191a0",
+      "query_label": null,
+      "request_id": "b65dce8b-7a6b-4a78-8818-f03e60adb9c8"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.007186,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000284869,
+      "time_to_execute": 9.7422e-05
+    }
+  }
+}} />
 
 

@@ -4,31 +4,133 @@ import {QueryWindow} from '/snippets/query-window.mdx';
 
 
 
-<QueryWindow content={{"sql": "CREATE TABLE data_to_count AS\nSELECT *\nFROM generate_series(0, 10000000, 3) a;", "result": {"errors": [{"description": "Could not create on the schema. You have insufficient permissions. Reach out to an admin to update your permissions, or adjust the statement and re-execute."}], "query": {"query_id": "f078212f-2bfa-4ee1-80a6-bb126ce4244d", "request_id": "3cd811f7-0e35-4c73-87f7-b7fe9e87bc5c"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "CREATE TABLE data_to_count AS\nSELECT *\nFROM generate_series(0, 10000000, 3) a;",
+  "result": {
+    "errors": [
+      {
+        "description": "Could not create on the schema. You have insufficient permissions. Reach out to an admin to update your permissions, or adjust the statement and re-execute."
+      }
+    ],
+    "query": {
+      "query_id": "f852ca1f-1076-4309-9db6-76a289a4d661",
+      "query_label": null,
+      "request_id": "a713a424-6923-4a1f-9527-ec31de4f4eb0"
+    },
+    "statistics": {
+      "elapsed": 0.0
+    }
+  }
+}} />
 
 
 
 
-<QueryWindow content={{"sql": "CREATE TABLE data_to_count2 AS\nSELECT *\nFROM generate_series(0, 10000000, 2) a;", "result": {"errors": [{"description": "Could not create on the schema. You have insufficient permissions. Reach out to an admin to update your permissions, or adjust the statement and re-execute."}], "query": {"query_id": "cb737f0f-c77c-447b-8f2c-6cef5f3478d3", "request_id": "112e1007-e9b4-4586-959f-c2de093bc991"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "CREATE TABLE data_to_count2 AS\nSELECT *\nFROM generate_series(0, 10000000, 2) a;",
+  "result": {
+    "errors": [
+      {
+        "description": "Could not create on the schema. You have insufficient permissions. Reach out to an admin to update your permissions, or adjust the statement and re-execute."
+      }
+    ],
+    "query": {
+      "query_id": "34dd7f9a-b87e-4bf5-a3dc-d5bb038c7d23",
+      "query_label": null,
+      "request_id": "f0fd866e-11f9-4294-bc86-504466c197c0"
+    },
+    "statistics": {
+      "elapsed": 0.0
+    }
+  }
+}} />
 
 
 
 
-<QueryWindow content={{"sql": "CREATE TABLE sketch_of_data_to_count AS\nSELECT hll_count_build(a) a\nFROM data_to_count;", "result": {"errors": [{"description": "Could not create on the schema. You have insufficient permissions. Reach out to an admin to update your permissions, or adjust the statement and re-execute."}], "query": {"query_id": "db364ec0-0fde-4851-ae1d-5a6068fea11d", "request_id": "604e6621-d072-4436-b7f7-92142cb574e4"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "CREATE TABLE sketch_of_data_to_count AS\nSELECT hll_count_build(a) a\nFROM data_to_count;",
+  "result": {
+    "errors": [
+      {
+        "description": "Could not create on the schema. You have insufficient permissions. Reach out to an admin to update your permissions, or adjust the statement and re-execute."
+      }
+    ],
+    "query": {
+      "query_id": "41af9aa9-333f-467a-a018-5590aa808928",
+      "query_label": null,
+      "request_id": "af8b9b3b-ebfa-4dfc-8372-bfff1182d3ce"
+    },
+    "statistics": {
+      "elapsed": 0.0
+    }
+  }
+}} />
 
 
 
 
-<QueryWindow content={{"sql": "INSERT INTO sketch_of_data_to_count\nSELECT hll_count_build(a)\nFROM data_to_count2;", "result": {"errors": [{"description": "relation 'sketch_of_data_to_count' does not exist or not authorized."}], "query": {"query_id": "71d63a66-a56d-45a3-9b62-7f6dd13aadd1", "request_id": "3c1efb7d-a48f-4301-9979-b63e4d587df7"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "INSERT INTO sketch_of_data_to_count\nSELECT hll_count_build(a)\nFROM data_to_count2;",
+  "result": {
+    "errors": [
+      {
+        "description": "relation 'sketch_of_data_to_count' does not exist or not authorized."
+      }
+    ],
+    "query": {
+      "query_id": "a898fd19-8ea7-4ec5-9001-201c5332caf9",
+      "query_label": null,
+      "request_id": "d2b30d27-eac5-41de-b5f5-d84eb3b57203"
+    },
+    "statistics": {
+      "elapsed": 0.0
+    }
+  }
+}} />
 
 
 
 
-<QueryWindow content={{"sql": "SELECT hll_count_estimate(a) AS hll_estimate\nFROM sketch_of_data_to_count\nORDER BY 1;", "result": {"errors": [{"description": "Line 2, Column 6: relation 'sketch_of_data_to_count' does not exist or not authorized."}], "query": {"query_id": "720fe9ab-aabb-4371-ae74-8f5f7c63a18f", "request_id": "fba54941-1784-47a3-8a16-78491ba8ace8"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT hll_count_estimate(a) AS hll_estimate\nFROM sketch_of_data_to_count\nORDER BY 1;",
+  "result": {
+    "errors": [
+      {
+        "description": "Line 2, Column 6: relation 'sketch_of_data_to_count' does not exist or not authorized."
+      }
+    ],
+    "query": {
+      "query_id": "73fa2402-d9a6-42ec-ba11-1541c99416cd",
+      "query_label": null,
+      "request_id": "992047f8-6f78-476d-9716-b8296e68ae7b"
+    },
+    "statistics": {
+      "elapsed": 0.0
+    }
+  }
+}} />
 
 
 
 
-<QueryWindow content={{"sql": "SELECT hll_count_estimate(hll_count_merge(a)) AS hll_estimate\nFROM sketch_of_data_to_count;", "result": {"errors": [{"description": "Line 2, Column 6: relation 'sketch_of_data_to_count' does not exist or not authorized."}], "query": {"query_id": "3963c3bd-8934-490f-84f7-bcc006578985", "request_id": "099eb13d-159c-4bb5-8d38-6ea71d54ddf3"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT hll_count_estimate(hll_count_merge(a)) AS hll_estimate\nFROM sketch_of_data_to_count;",
+  "result": {
+    "errors": [
+      {
+        "description": "Line 2, Column 6: relation 'sketch_of_data_to_count' does not exist or not authorized."
+      }
+    ],
+    "query": {
+      "query_id": "14c64baa-3fdc-4d0b-8109-86fc897fe9a5",
+      "query_label": null,
+      "request_id": "d3efa04a-e3cb-4f4b-a29e-a0418395271b"
+    },
+    "statistics": {
+      "elapsed": 0.0
+    }
+  }
+}} />
 
 

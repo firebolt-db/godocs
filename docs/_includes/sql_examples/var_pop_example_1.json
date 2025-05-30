@@ -5,8 +5,9 @@
     }
   ],
   "query": {
-    "query_id": "81be4abb-9aea-4b01-b4f9-0cfef3923f44",
-    "request_id": "c3a1aa0a-cd8f-4824-a89c-588c1ccdf150"
+    "query_id": "e440c605-29df-4e02-8b98-e7fb8cc2f7a8",
+    "query_label": null,
+    "request_id": "10eda44d-b83d-4a3a-9446-8a0ba5683fce"
   },
   "statistics": {
     "elapsed": 0.0

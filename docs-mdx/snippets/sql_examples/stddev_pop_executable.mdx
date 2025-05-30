@@ -4,13 +4,47 @@ import {QueryWindow} from '/snippets/query-window.mdx';
 
 
 
-<QueryWindow content={{"sql": "CREATE TABLE exams (grade DOUBLE PRECISION);\nINSERT INTO exams VALUES (4.0), (3.7), (3.3), (2.7), (2.7);", "result": {"errors": [{"description": "Multiple queries in a single request are not supported. Split the queries and send each one as an individual request."}], "query": {"query_id": "c7522b79-82e8-4d5d-8e62-d07616efc623", "request_id": "2747766f-0ff0-4cc6-b695-a9df0262b030"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "CREATE TABLE exams (grade DOUBLE PRECISION);\nINSERT INTO exams VALUES (4.0), (3.7), (3.3), (2.7), (2.7);",
+  "result": {
+    "errors": [
+      {
+        "description": "Multiple queries in a single request are not supported. Split the queries and send each one as an individual request."
+      }
+    ],
+    "query": {
+      "query_id": "3389477c-c02a-4315-9841-13c8830f5fa2",
+      "query_label": null,
+      "request_id": "903d2327-3236-4abc-9f2e-c8ca0c342d4a"
+    },
+    "statistics": {
+      "elapsed": 0.0
+    }
+  }
+}} />
 
 
 Calculate the population standard deviation of the grades and round to 3 decimal digits.
 
 
 
-<QueryWindow content={{"sql": "SELECT ROUND(STDDEV_POP(grade), 3) as stddev from exams;", "result": {"errors": [{"description": "Line 1, Column 51: relation 'exams' does not exist or not authorized."}], "query": {"query_id": "ae8f319b-6de7-4310-9719-de0a98fc642c", "request_id": "cc3ecebe-38e1-4e24-bcd8-f023422b3a80"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT ROUND(STDDEV_POP(grade), 3) as stddev from exams;",
+  "result": {
+    "errors": [
+      {
+        "description": "Line 1, Column 51: relation 'exams' does not exist or not authorized."
+      }
+    ],
+    "query": {
+      "query_id": "ef67002e-8070-40d2-b56a-4f6cfed3de56",
+      "query_label": null,
+      "request_id": "403a6833-24de-493c-8032-d59573d18142"
+    },
+    "statistics": {
+      "elapsed": 0.0
+    }
+  }
+}} />
 
 

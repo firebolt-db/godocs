@@ -9,7 +9,37 @@ The following code returns the cosine distance between two vectors:
 
 
 
-<QueryWindow content={{"sql": "SELECT VECTOR_COSINE_DISTANCE([1, 2], [3, 4]) AS distance;", "result": {"query": {"query_id": "0bb83c38-e6f7-4802-810a-aa72bffe27c6", "request_id": "d40e403c-dc07-4a6a-b7e7-126fca46a2d5", "query_label": null}, "meta": [{"name": "distance", "type": "double"}], "data": [[0.01613008990009257]], "rows": 1, "statistics": {"elapsed": 0.006591, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000285642, "time_to_execute": 9.372e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT VECTOR_COSINE_DISTANCE([1, 2], [3, 4]) AS distance;",
+  "result": {
+    "data": [
+      [
+        0.01613008990009257
+      ]
+    ],
+    "meta": [
+      {
+        "name": "distance",
+        "type": "double"
+      }
+    ],
+    "query": {
+      "query_id": "2a5f8c2d-b8d0-4666-953b-bc7b405328c7",
+      "query_label": null,
+      "request_id": "c99f89bd-6506-4618-8e55-eb95ba1835ec"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.009727,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000249568,
+      "time_to_execute": 8.4968e-05
+    }
+  }
+}} />
 
 
 **Returns**

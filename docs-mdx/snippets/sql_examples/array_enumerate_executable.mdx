@@ -6,27 +6,160 @@ The following example returns an array with values one to four:
 
 
 
-<QueryWindow content={{"sql": "SELECT ARRAY_ENUMERATE([7, 9, 3, 4]) AS one_to_four;", "result": {"query": {"query_id": "c76a80e7-d288-4829-9e12-941502e5ed65", "request_id": "24e52ac8-4457-492f-b94d-49a0aed05f7d", "query_label": null}, "meta": [{"name": "one_to_four", "type": "array(int)"}], "data": [[[1, 2, 3, 4]]], "rows": 1, "statistics": {"elapsed": 0.00873, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.00037792, "time_to_execute": 0.000106472, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT ARRAY_ENUMERATE([7, 9, 3, 4]) AS one_to_four;",
+  "result": {
+    "data": [
+      [
+        [
+          1,
+          2,
+          3,
+          4
+        ]
+      ]
+    ],
+    "meta": [
+      {
+        "name": "one_to_four",
+        "type": "array(int)"
+      }
+    ],
+    "query": {
+      "query_id": "31247b64-c8da-4188-9f07-d302ab6d3519",
+      "query_label": null,
+      "request_id": "6fd5e5d3-ed92-420b-85ec-1714ef7f2706"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.006495,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000253728,
+      "time_to_execute": 9.0131e-05
+    }
+  }
+}} />
 
 
 The array passed to the function can contain arbitrary types:
 
 
 
-<QueryWindow content={{"sql": "SELECT ARRAY_ENUMERATE(['hello', 'world']) AS one_to_two;", "result": {"query": {"query_id": "07be78fa-d03a-4cc2-a114-ff62e75b8ac3", "request_id": "56327cd2-f91d-4649-9e07-d7353e5478ee", "query_label": null}, "meta": [{"name": "one_to_two", "type": "array(int)"}], "data": [[[1, 2]]], "rows": 1, "statistics": {"elapsed": 0.012804, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000331469, "time_to_execute": 0.000102709, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT ARRAY_ENUMERATE(['hello', 'world']) AS one_to_two;",
+  "result": {
+    "data": [
+      [
+        [
+          1,
+          2
+        ]
+      ]
+    ],
+    "meta": [
+      {
+        "name": "one_to_two",
+        "type": "array(int)"
+      }
+    ],
+    "query": {
+      "query_id": "3e2bff34-b7b9-4a61-a010-f24c17462c48",
+      "query_label": null,
+      "request_id": "03079b47-53c2-48c7-a85d-2cf24a104086"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.007034,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000263834,
+      "time_to_execute": 9.9254e-05
+    }
+  }
+}} />
 
 
 NULL values are still reflected in the returned result:
 
 
 
-<QueryWindow content={{"sql": "SELECT ARRAY_ENUMERATE([7, NULL, 3, NULL]) AS one_to_four;", "result": {"query": {"query_id": "567dc79b-c9a0-4516-a76e-020599be6d9f", "request_id": "590c355e-6e67-4be1-a214-960e13ab8ee0", "query_label": null}, "meta": [{"name": "one_to_four", "type": "array(int)"}], "data": [[[1, 2, 3, 4]]], "rows": 1, "statistics": {"elapsed": 0.008283, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000312379, "time_to_execute": 9.371e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT ARRAY_ENUMERATE([7, NULL, 3, NULL]) AS one_to_four;",
+  "result": {
+    "data": [
+      [
+        [
+          1,
+          2,
+          3,
+          4
+        ]
+      ]
+    ],
+    "meta": [
+      {
+        "name": "one_to_four",
+        "type": "array(int)"
+      }
+    ],
+    "query": {
+      "query_id": "053a8607-aa25-4241-a4c6-7d822a9dc773",
+      "query_label": null,
+      "request_id": "85519ef2-9a4b-4cf3-af12-bf0376fe409e"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.00707,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000264469,
+      "time_to_execute": 0.000103436
+    }
+  }
+}} />
 
 
 If the array passed to the function is NULL, so is the result:
 
 
 
-<QueryWindow content={{"sql": "SELECT ARRAY_ENUMERATE(NULL) AS null_result;", "result": {"query": {"query_id": "a6463dff-82b3-4afc-8aef-c0023c66eb2c", "request_id": "c6861c41-4d1d-4218-b45b-1dde1eeadc1c", "query_label": null}, "meta": [{"name": "null_result", "type": "array(int) null"}], "data": [[null]], "rows": 1, "statistics": {"elapsed": 0.008619, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000340709, "time_to_execute": 0.000117672, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT ARRAY_ENUMERATE(NULL) AS null_result;",
+  "result": {
+    "data": [
+      [
+        null
+      ]
+    ],
+    "meta": [
+      {
+        "name": "null_result",
+        "type": "array(int) null"
+      }
+    ],
+    "query": {
+      "query_id": "da9d5cb0-41e7-421f-ad33-37c617e4dd3e",
+      "query_label": null,
+      "request_id": "d6b54ef2-5d12-41bf-8b7a-75df413b605e"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.006803,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000258874,
+      "time_to_execute": 9.9907e-05
+    }
+  }
+}} />
 
 

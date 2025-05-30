@@ -9,7 +9,37 @@ The following code returns the cosine similarity between two vectors that point 
 
 
 
-<QueryWindow content={{"sql": "SELECT VECTOR_COSINE_SIMILARITY([1, 2], [3, 4]) AS similarity;", "result": {"query": {"query_id": "0f650dde-15b2-454f-b2ed-33bbbb76a4de", "request_id": "5001f9a3-a780-457e-b898-0473d3d76742", "query_label": null}, "meta": [{"name": "similarity", "type": "double"}], "data": [[0.9838699100999074]], "rows": 1, "statistics": {"elapsed": 0.00716, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000279501, "time_to_execute": 9.7948e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT VECTOR_COSINE_SIMILARITY([1, 2], [3, 4]) AS similarity;",
+  "result": {
+    "data": [
+      [
+        0.9838699100999074
+      ]
+    ],
+    "meta": [
+      {
+        "name": "similarity",
+        "type": "double"
+      }
+    ],
+    "query": {
+      "query_id": "47911409-4de0-47b2-a5d8-71be004eff5c",
+      "query_label": null,
+      "request_id": "31ed29b2-17d4-4457-8064-64101764d1f1"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.007196,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000247914,
+      "time_to_execute": 8.9212e-05
+    }
+  }
+}} />
 
 
 **Returns**
@@ -21,7 +51,37 @@ The following code returns the cosine similarity between two vectors that point 
 
 
 
-<QueryWindow content={{"sql": "SELECT VECTOR_COSINE_SIMILARITY([1, 2], [-3, -4]) AS similarity;", "result": {"query": {"query_id": "dcb1c770-e835-47e3-bc0c-eec032b60737", "request_id": "496cad7e-5743-4dc7-9c52-9505ac38409e", "query_label": null}, "meta": [{"name": "similarity", "type": "double"}], "data": [[-0.9838699100999074]], "rows": 1, "statistics": {"elapsed": 0.007201, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000284658, "time_to_execute": 9.8386e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT VECTOR_COSINE_SIMILARITY([1, 2], [-3, -4]) AS similarity;",
+  "result": {
+    "data": [
+      [
+        -0.9838699100999074
+      ]
+    ],
+    "meta": [
+      {
+        "name": "similarity",
+        "type": "double"
+      }
+    ],
+    "query": {
+      "query_id": "0496efae-d422-4343-987e-f9a91270446a",
+      "query_label": null,
+      "request_id": "fb461adb-3b73-4cd9-904a-3f06b165ccb1"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.008682,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000245504,
+      "time_to_execute": 8.3237e-05
+    }
+  }
+}} />
 
 
 **Returns**
@@ -33,7 +93,37 @@ The following code returns the cosine similarity between two vectors that are or
 
 
 
-<QueryWindow content={{"sql": "SELECT VECTOR_COSINE_SIMILARITY([2, 0], [0, 2]) AS similarity;", "result": {"query": {"query_id": "a0c5771c-6a57-4f10-a8e3-02c27be464e9", "request_id": "90c6bbfe-df7d-4099-9760-4d515343fff0", "query_label": null}, "meta": [{"name": "similarity", "type": "double"}], "data": [[0]], "rows": 1, "statistics": {"elapsed": 0.011854, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000296424, "time_to_execute": 0.000107004, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT VECTOR_COSINE_SIMILARITY([2, 0], [0, 2]) AS similarity;",
+  "result": {
+    "data": [
+      [
+        0
+      ]
+    ],
+    "meta": [
+      {
+        "name": "similarity",
+        "type": "double"
+      }
+    ],
+    "query": {
+      "query_id": "2bcc7dae-65de-402b-9e65-2ffae2a14077",
+      "query_label": null,
+      "request_id": "84b170bd-ca24-47d3-8c9a-a56c597c8dea"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.006642,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.00024509,
+      "time_to_execute": 8.1204e-05
+    }
+  }
+}} />
 
 
 **Returns**

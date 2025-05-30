@@ -6,13 +6,73 @@ The following query choose the 20% percentile value that exists in the input set
 
 
 
-<QueryWindow content={{"sql": "SELECT PERCENTILE_CONT(0.2) WITHIN GROUP (ORDER BY x) as result FROM generate_series(0, 10) as x;", "result": {"query": {"query_id": "89320143-d78b-406d-9ce0-348158c9e2cc", "request_id": "18fab268-968a-4b7b-88c2-f78e41b560b5", "query_label": null}, "meta": [{"name": "result", "type": "double null"}], "data": [[2]], "rows": 1, "statistics": {"elapsed": 0.008076, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000294237, "time_to_execute": 9.5587e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT PERCENTILE_CONT(0.2) WITHIN GROUP (ORDER BY x) as result FROM generate_series(0, 10) as x;",
+  "result": {
+    "data": [
+      [
+        2
+      ]
+    ],
+    "meta": [
+      {
+        "name": "result",
+        "type": "double null"
+      }
+    ],
+    "query": {
+      "query_id": "a232b8b5-24dc-47b3-9637-d2e57021777c",
+      "query_label": null,
+      "request_id": "b89ecb8d-aeba-46f3-8ce3-f19441c97e4b"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.00724,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000261982,
+      "time_to_execute": 9.53e-05
+    }
+  }
+}} />
 
 
 The following query choose the 2 values near the 20% percentile value that exists in the input range which are 2, 3 and interpulate between them as described in the formula above
 
 
 
-<QueryWindow content={{"sql": "SELECT PERCENTILE_CONT(0.2) WITHIN GROUP (ORDER BY x) as result FROM generate_series(0, 11) as x;", "result": {"query": {"query_id": "f2ef1e83-88d8-451a-b143-78f9aa9bbceb", "request_id": "fe0b7128-dc37-4e60-8ea6-01bf1acf98ec", "query_label": null}, "meta": [{"name": "result", "type": "double null"}], "data": [[2.2]], "rows": 1, "statistics": {"elapsed": 0.008562, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000341629, "time_to_execute": 9.7758e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT PERCENTILE_CONT(0.2) WITHIN GROUP (ORDER BY x) as result FROM generate_series(0, 11) as x;",
+  "result": {
+    "data": [
+      [
+        2.2
+      ]
+    ],
+    "meta": [
+      {
+        "name": "result",
+        "type": "double null"
+      }
+    ],
+    "query": {
+      "query_id": "7b98b136-58ea-4b4b-8697-5a2435d6d056",
+      "query_label": null,
+      "request_id": "12904e22-af8c-4cf4-97df-885e188d99da"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.007696,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000257574,
+      "time_to_execute": 0.000103938
+    }
+  }
+}} />
 
 

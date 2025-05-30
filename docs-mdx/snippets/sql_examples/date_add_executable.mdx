@@ -4,6 +4,36 @@ import {QueryWindow} from '/snippets/query-window.mdx';
 
 
 
-<QueryWindow content={{"sql": "SELECT date_add('week', 4, '2024-04-15 12:13:14'::timestamp);", "result": {"query": {"query_id": "a42228eb-1121-4ea9-b2c6-1dad3620f596", "request_id": "61019fea-953e-4faa-9052-1c16a61b07b3", "query_label": null}, "meta": [{"name": "?column?", "type": "timestamp"}], "data": [["2024-05-13 12:13:14"]], "rows": 1, "statistics": {"elapsed": 0.008364, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000288825, "time_to_execute": 0.000109818, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT date_add('week', 4, '2024-04-15 12:13:14'::timestamp);",
+  "result": {
+    "data": [
+      [
+        "2024-05-13 12:13:14"
+      ]
+    ],
+    "meta": [
+      {
+        "name": "?column?",
+        "type": "timestamp"
+      }
+    ],
+    "query": {
+      "query_id": "2c942591-d3e9-4a9b-96b3-5af2e308b638",
+      "query_label": null,
+      "request_id": "ad5a5e9a-981a-4163-86e2-586a4a7b02ae"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.007117,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000267803,
+      "time_to_execute": 8.1447e-05
+    }
+  }
+}} />
 
 

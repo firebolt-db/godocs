@@ -6,55 +6,314 @@ The following example generates 2-grams (bigrams) from the string 'hello world':
 
 
 
-<QueryWindow content={{"sql": "SELECT NGRAM(2, 'hello world') AS result;", "result": {"errors": [{"description": "Line 1, Column 8: function 'ngram' not found. Did you mean: param?"}], "query": {"query_id": "83b237a6-2232-4a18-b33e-1143a09068c3", "query_label": null, "request_id": "c1b59df7-fc84-4ee6-9aaa-679b676251a0"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT NGRAM(2, 'hello world') AS result;",
+  "result": {
+    "data": [
+      [
+        [
+          "he",
+          "el",
+          "ll",
+          "lo",
+          "o ",
+          " w",
+          "wo",
+          "or",
+          "rl",
+          "ld"
+        ]
+      ]
+    ],
+    "meta": [
+      {
+        "name": "result",
+        "type": "array(text)"
+      }
+    ],
+    "query": {
+      "query_id": "8809e287-2838-4cf3-b0b3-5d24bb594009",
+      "query_label": null,
+      "request_id": "0508fc5c-e973-4c94-9265-1decc60e10ef"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.00686,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000288792,
+      "time_to_execute": 0.000100811
+    }
+  }
+}} />
 
 
 The following example generates 3-grams (trigrams) from the string 'hello world':
 
 
 
-<QueryWindow content={{"sql": "SELECT NGRAM(3, 'hello world') AS result;", "result": {"errors": [{"description": "Line 1, Column 8: function 'ngram' not found. Did you mean: param?"}], "query": {"query_id": "77b4d35e-3c18-4c35-9ecc-08c57ddf3a24", "query_label": null, "request_id": "bf548f25-1cf8-45b3-a4a9-b2f4488b272a"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT NGRAM(3, 'hello world') AS result;",
+  "result": {
+    "data": [
+      [
+        [
+          "hel",
+          "ell",
+          "llo",
+          "lo ",
+          "o w",
+          " wo",
+          "wor",
+          "orl",
+          "rld"
+        ]
+      ]
+    ],
+    "meta": [
+      {
+        "name": "result",
+        "type": "array(text)"
+      }
+    ],
+    "query": {
+      "query_id": "d53786b1-1aba-4843-8c03-9580c032a349",
+      "query_label": null,
+      "request_id": "3b82fdf6-b2d8-478c-892e-65b4a0c31ef8"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.006794,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.00025895,
+      "time_to_execute": 0.000121039
+    }
+  }
+}} />
 
 
 The following example generates 1-grams (unigrams) from the string 'hello':
 
 
 
-<QueryWindow content={{"sql": "SELECT NGRAM(1, 'hello') AS result;", "result": {"errors": [{"description": "Line 1, Column 8: function 'ngram' not found. Did you mean: param?"}], "query": {"query_id": "4ccb9184-a757-4d37-bf05-7d0e7f3978ac", "query_label": null, "request_id": "15c0273b-822a-4456-b2d5-24b1179ae0b4"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT NGRAM(1, 'hello') AS result;",
+  "result": {
+    "data": [
+      [
+        [
+          "h",
+          "e",
+          "l",
+          "l",
+          "o"
+        ]
+      ]
+    ],
+    "meta": [
+      {
+        "name": "result",
+        "type": "array(text)"
+      }
+    ],
+    "query": {
+      "query_id": "6311e8ac-dd0f-4fd1-8f55-fd087faa3bb5",
+      "query_label": null,
+      "request_id": "aead9d08-bbe3-4e90-bc1a-de53f4189e6c"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.007604,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000356147,
+      "time_to_execute": 0.000113094
+    }
+  }
+}} />
 
 
 The following example generates 10-grams from the string 'hi'. Since the string length matches the n-gram size, the result contains the entire string:
 
 
 
-<QueryWindow content={{"sql": "SELECT NGRAM(10, 'hi') AS result;", "result": {"errors": [{"description": "Line 1, Column 8: function 'ngram' not found. Did you mean: param?"}], "query": {"query_id": "32d86f84-d846-473f-8627-828d118465e0", "query_label": null, "request_id": "cf309e9e-7bc5-4b8f-9af0-e258c1f881b3"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT NGRAM(10, 'hi') AS result;",
+  "result": {
+    "data": [
+      [
+        [
+          "hi"
+        ]
+      ]
+    ],
+    "meta": [
+      {
+        "name": "result",
+        "type": "array(text)"
+      }
+    ],
+    "query": {
+      "query_id": "e5fbc360-9784-4217-8e5f-9f0b25ffe120",
+      "query_label": null,
+      "request_id": "876aa67b-5606-4f5a-a457-c5cd4dfe8787"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.006932,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000250986,
+      "time_to_execute": 9.3424e-05
+    }
+  }
+}} />
 
 
 The following example uses an n-gram size of 0, which is invalid and throws an error:
 
 
 
-<QueryWindow content={{"sql": "SELECT NGRAM(0, 'hi') AS result;", "result": {"errors": [{"description": "Line 1, Column 8: function 'ngram' not found. Did you mean: param?"}], "query": {"query_id": "fe09eacb-00ad-437e-b14a-99692ab38c20", "query_label": null, "request_id": "4665269e-a6ab-4e04-ae2c-cbd7f1506a81"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT NGRAM(0, 'hi') AS result;",
+  "result": {
+    "errors": [
+      {
+        "description": "Line 1, Column 8: Invalid n-gram size: 0. Must be greater than 0. Choose an n-gram size larger than 0 or NULL.\nSELECT NGRAM(0, 'hi') AS result;\n       ^",
+        "location": {
+          "failing_line": 1,
+          "start_offset": 8
+        }
+      }
+    ],
+    "query": {
+      "query_id": "9e79667d-07e6-4d5b-a702-bf4035dd89d6",
+      "query_label": null,
+      "request_id": "2d293472-9d54-46aa-9d7b-160a4358e718"
+    },
+    "statistics": {
+      "elapsed": 0.000720599
+    }
+  }
+}} />
 
 
 The following example uses a negative n-gram size, which is invalid and throws an error:
 
 
 
-<QueryWindow content={{"sql": "SELECT NGRAM(-1, 'hi') AS result;", "result": {"errors": [{"description": "Line 1, Column 8: function 'ngram' not found. Did you mean: param?"}], "query": {"query_id": "36fa3594-7eb2-403d-8a31-6d1ac01424ed", "query_label": null, "request_id": "32b92937-2060-4ca2-8807-9932c7590d9f"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT NGRAM(-1, 'hi') AS result;",
+  "result": {
+    "errors": [
+      {
+        "description": "Line 1, Column 8: Invalid n-gram size: -1. Must be greater than 0. Choose an n-gram size larger than 0 or NULL.\nSELECT NGRAM(-1, 'hi') AS result;\n       ^",
+        "location": {
+          "failing_line": 1,
+          "start_offset": 8
+        }
+      }
+    ],
+    "query": {
+      "query_id": "2f9d47ab-3db3-459a-8d2a-0c335de33b0c",
+      "query_label": null,
+      "request_id": "eccd3b5e-dcca-46ba-8221-5d7d6169d389"
+    },
+    "statistics": {
+      "elapsed": 0.000707907
+    }
+  }
+}} />
 
 
 The following example generates 2-grams (bigrams) from the Japanese string 'こんにちは':
 
 
 
-<QueryWindow content={{"sql": "SELECT NGRAM(2, '\u3053\u3093\u306b\u3061\u306f') AS result;", "result": {"errors": [{"description": "Line 1, Column 8: function 'ngram' not found. Did you mean: param?"}], "query": {"query_id": "6e637f01-b3a8-494b-965f-a819c73f235c", "query_label": null, "request_id": "33990233-2749-42b3-872b-cf1aada38aef"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT NGRAM(2, '\u3053\u3093\u306b\u3061\u306f') AS result;",
+  "result": {
+    "data": [
+      [
+        [
+          "\u3053\u3093",
+          "\u3093\u306b",
+          "\u306b\u3061",
+          "\u3061\u306f"
+        ]
+      ]
+    ],
+    "meta": [
+      {
+        "name": "result",
+        "type": "array(text)"
+      }
+    ],
+    "query": {
+      "query_id": "ceff2b6b-391a-4c0b-89c9-dab6a3e6fc3b",
+      "query_label": null,
+      "request_id": "dca80a97-4000-43e0-9ca0-1cf5308ee6dd"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.006182,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000260874,
+      "time_to_execute": 0.000107154
+    }
+  }
+}} />
 
 
 The following example generates 2-grams (bigrams) from the string of emojis '😊👍🎉':
 
 
 
-<QueryWindow content={{"sql": "SELECT NGRAM(2, '\ud83d\ude0a\ud83d\udc4d\ud83c\udf89') AS result;", "result": {"errors": [{"description": "Line 1, Column 8: function 'ngram' not found. Did you mean: param?"}], "query": {"query_id": "af2ffe08-f2a5-47b0-9f90-523f01113784", "query_label": null, "request_id": "f4603d44-21e7-4757-bb62-cf8542755d1f"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT NGRAM(2, '\ud83d\ude0a\ud83d\udc4d\ud83c\udf89') AS result;",
+  "result": {
+    "data": [
+      [
+        [
+          "\ud83d\ude0a\ud83d\udc4d",
+          "\ud83d\udc4d\ud83c\udf89"
+        ]
+      ]
+    ],
+    "meta": [
+      {
+        "name": "result",
+        "type": "array(text)"
+      }
+    ],
+    "query": {
+      "query_id": "1c58dd81-262c-4e31-860c-180360586c5b",
+      "query_label": null,
+      "request_id": "c3178039-9416-4be7-96a4-4fa6d84359de"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.008978,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000259762,
+      "time_to_execute": 9.5399e-05
+    }
+  }
+}} />
 
 

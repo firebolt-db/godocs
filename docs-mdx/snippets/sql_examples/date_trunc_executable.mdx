@@ -4,11 +4,71 @@ import {QueryWindow} from '/snippets/query-window.mdx';
 
 
 
-<QueryWindow content={{"sql": "SELECT DATE_TRUNC('century', DATE '1996-09-03');", "result": {"query": {"query_id": "9c037a9c-17b5-404f-aeba-f45feed844ed", "request_id": "09854ac5-ffae-4c09-b6cf-9471a4e3baa6", "query_label": null}, "meta": [{"name": "?column?", "type": "date"}], "data": [["1901-01-01"]], "rows": 1, "statistics": {"elapsed": 0.008065, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000277923, "time_to_execute": 8.7917e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT DATE_TRUNC('century', DATE '1996-09-03');",
+  "result": {
+    "data": [
+      [
+        "1901-01-01"
+      ]
+    ],
+    "meta": [
+      {
+        "name": "?column?",
+        "type": "date"
+      }
+    ],
+    "query": {
+      "query_id": "b778e20e-5e31-4d71-80d5-b39e067d3873",
+      "query_label": null,
+      "request_id": "1e53adcb-9024-4294-8005-1f3b5d168add"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.00648,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000245724,
+      "time_to_execute": 9.0714e-05
+    }
+  }
+}} />
 
 
 
 
-<QueryWindow content={{"sql": "SELECT DATE_TRUNC('hour', TIMESTAMP '1996-09-03 11:19:42.123');", "result": {"query": {"query_id": "0e843506-2d1e-4230-af96-9633903c37de", "request_id": "36a0e284-ebd5-4e71-8362-ef6835064d8d", "query_label": null}, "meta": [{"name": "?column?", "type": "timestamp"}], "data": [["1996-09-03 11:00:00"]], "rows": 1, "statistics": {"elapsed": 0.008734, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000277249, "time_to_execute": 0.000101848, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT DATE_TRUNC('hour', TIMESTAMP '1996-09-03 11:19:42.123');",
+  "result": {
+    "data": [
+      [
+        "1996-09-03 11:00:00"
+      ]
+    ],
+    "meta": [
+      {
+        "name": "?column?",
+        "type": "timestamp"
+      }
+    ],
+    "query": {
+      "query_id": "0384cc82-bc97-4d2d-8196-daec48499e9f",
+      "query_label": null,
+      "request_id": "ac8f6ad2-596f-4e70-8840-d371081bee52"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.006359,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000249389,
+      "time_to_execute": 9.8152e-05
+    }
+  }
+}} />
 
 

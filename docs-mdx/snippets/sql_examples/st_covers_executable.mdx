@@ -7,7 +7,37 @@ The following codes example creates a Polygon and a Point around Times Square in
 
 
 
-<QueryWindow content={{"sql": "SELECT ST_COVERS(\nST_GEOGFROMTEXT('POLYGON((-73.98519512134791 40.75939223091697, -73.98566488210841 40.75807135585606, -73.9856079414103 40.75804080469413, -73.98470163529633 40.75918017383259, -73.98519512134791 40.75939223091697))'),\nST_GEOGFROMTEXT('POINT(-73.98504378555772 40.75894662495352)')\n) AS result", "result": {"query": {"query_id": "11db2e2a-3f4f-4528-8778-b76604930aa5", "request_id": "f63cb1ec-d43a-42d1-b874-c048ffe90dbd", "query_label": null}, "meta": [{"name": "result", "type": "boolean"}], "data": [[true]], "rows": 1, "statistics": {"elapsed": 0.008974, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000289873, "time_to_execute": 9.2152e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT ST_COVERS(\nST_GEOGFROMTEXT('POLYGON((-73.98519512134791 40.75939223091697, -73.98566488210841 40.75807135585606, -73.9856079414103 40.75804080469413, -73.98470163529633 40.75918017383259, -73.98519512134791 40.75939223091697))'),\nST_GEOGFROMTEXT('POINT(-73.98504378555772 40.75894662495352)')\n) AS result",
+  "result": {
+    "data": [
+      [
+        true
+      ]
+    ],
+    "meta": [
+      {
+        "name": "result",
+        "type": "boolean"
+      }
+    ],
+    "query": {
+      "query_id": "725f0253-e523-404b-b5a7-9663b2ee5bdb",
+      "query_label": null,
+      "request_id": "2bd8cb05-683d-44d2-a8ec-ea9025242253"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.007707,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000249006,
+      "time_to_execute": 8.935e-05
+    }
+  }
+}} />
 
 
 **Returns**

@@ -1,15 +1,30 @@
 {
-  "errors": [
+  "query": {
+    "query_id": "68c0ea51-1396-4faf-a86c-593e7946cccf",
+    "request_id": "73dce71c-bc10-4a47-a189-5cc4994312fb",
+    "query_label": null
+  },
+  "meta": [
     {
-      "description": "Line 1, Column 8: function 'array_intersect' not found"
+      "name": "result",
+      "type": "array(int)"
     }
   ],
-  "query": {
-    "query_id": "d6dee431-aa0e-4934-9f2c-d11b0e752d88",
-    "query_label": null,
-    "request_id": "75c6928d-3b38-4e53-9b07-c29305ddc587"
-  },
+  "data": [
+    [
+      [
+        1
+      ]
+    ]
+  ],
+  "rows": 1,
   "statistics": {
-    "elapsed": 0.0
+    "elapsed": 0.008634,
+    "rows_read": 1,
+    "bytes_read": 1,
+    "time_before_execution": 0.000255963,
+    "time_to_execute": 9.9885e-05,
+    "scanned_bytes_cache": 0,
+    "scanned_bytes_storage": 0
   }
 }

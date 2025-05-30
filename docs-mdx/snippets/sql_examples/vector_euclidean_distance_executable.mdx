@@ -9,7 +9,37 @@ The following code returns the Euclidean distance between two vectors:
 
 
 
-<QueryWindow content={{"sql": "SELECT VECTOR_EUCLIDEAN_DISTANCE([1, 2], [3, 4]) AS distance;", "result": {"query": {"query_id": "09db9bc9-c82f-4f67-8fcf-f7c114453f4d", "request_id": "dfa03c50-ee01-4d45-a314-cf4af88ca6d1", "query_label": null}, "meta": [{"name": "distance", "type": "double"}], "data": [[2.8284271247461903]], "rows": 1, "statistics": {"elapsed": 0.007525, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.0002957, "time_to_execute": 9.6717e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT VECTOR_EUCLIDEAN_DISTANCE([1, 2], [3, 4]) AS distance;",
+  "result": {
+    "data": [
+      [
+        2.8284271247461903
+      ]
+    ],
+    "meta": [
+      {
+        "name": "distance",
+        "type": "double"
+      }
+    ],
+    "query": {
+      "query_id": "142b172f-83d2-4f65-b592-ac0e8d29c1bd",
+      "query_label": null,
+      "request_id": "50e9ef6e-6ba6-423d-92e9-7aceb89925a2"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.006807,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000240083,
+      "time_to_execute": 8.4393e-05
+    }
+  }
+}} />
 
 
 **Returns**

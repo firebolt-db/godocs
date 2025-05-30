@@ -6,20 +6,101 @@ The following example computes the natural logarithm of 1.0:
 
 
 
-<QueryWindow content={{"sql": "SELECT LN(1.0);", "result": {"query": {"query_id": "5d4bdc3e-0a57-49a4-b9e8-4d7ec7f1bf41", "request_id": "0e8995f2-4b46-4111-b95c-3c450fa29fe0", "query_label": null}, "meta": [{"name": "?column?", "type": "double"}], "data": [[0]], "rows": 1, "statistics": {"elapsed": 0.009513, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000276962, "time_to_execute": 8.968e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT LN(1.0);",
+  "result": {
+    "data": [
+      [
+        0
+      ]
+    ],
+    "meta": [
+      {
+        "name": "?column?",
+        "type": "double"
+      }
+    ],
+    "query": {
+      "query_id": "b045916c-e807-4750-b3fe-beca9fb59051",
+      "query_label": null,
+      "request_id": "5c7de074-9997-4870-b908-187d9b1c663a"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.006621,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000299106,
+      "time_to_execute": 8.5165e-05
+    }
+  }
+}} />
 
 
 The following example returns the natural logarithm close to e:
 
 
 
-<QueryWindow content={{"sql": "SELECT LN(2.7182818284590452353);", "result": {"query": {"query_id": "812276fc-a17c-410b-be8f-216381f3872d", "request_id": "1ea76ea0-73fc-4856-98c4-831ae9b845b5", "query_label": null}, "meta": [{"name": "?column?", "type": "double"}], "data": [[1]], "rows": 1, "statistics": {"elapsed": 0.009341, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000293315, "time_to_execute": 9.1913e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT LN(2.7182818284590452353);",
+  "result": {
+    "data": [
+      [
+        1
+      ]
+    ],
+    "meta": [
+      {
+        "name": "?column?",
+        "type": "double"
+      }
+    ],
+    "query": {
+      "query_id": "1a80df75-a500-4395-9fb4-28b2a9921add",
+      "query_label": null,
+      "request_id": "e863b67b-a702-4357-a3e0-b08fa3864f48"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.007145,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000252791,
+      "time_to_execute": 8.6742e-05
+    }
+  }
+}} />
 
 
 The natural logarithm can only be computed for values that are larger than 0. All the following functions return an error:
 
 
 
-<QueryWindow content={{"sql": "SELECT LN(0.0);\n-- SELECT LN(-1.0);\n-- SELECT LN('-Inf');", "result": {"errors": [{"description": "Line 1, Column 8: Cannot take the logarithm of 0. The argument needs to be larger than 0.", "location": {"failing_line": 1, "start_offset": 8}}], "query": {"query_id": "768ac3c0-1c0f-4afe-8a2a-9695abd044c9", "request_id": "f820a892-8656-4abf-9b38-8bb3bceca03c"}, "statistics": {"elapsed": 0.00046054}}}} />
+<QueryWindow content={{
+  "sql": "SELECT LN(0.0);\n-- SELECT LN(-1.0);\n-- SELECT LN('-Inf');",
+  "result": {
+    "errors": [
+      {
+        "description": "Line 1, Column 8: Cannot take the logarithm of 0. The argument needs to be larger than 0.\nSELECT LN(0.0);\n       ^",
+        "location": {
+          "failing_line": 1,
+          "start_offset": 8
+        }
+      }
+    ],
+    "query": {
+      "query_id": "438ae5d4-4cf2-4933-b5d4-bfd4d73de705",
+      "query_label": null,
+      "request_id": "fd1ea90a-0ee4-4f86-8853-8a7f63d312d9"
+    },
+    "statistics": {
+      "elapsed": 0.000656987
+    }
+  }
+}} />
 
 

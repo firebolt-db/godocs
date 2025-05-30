@@ -1,15 +1,28 @@
 {
-  "errors": [
+  "query": {
+    "query_id": "b2bd3a42-9466-4b52-882d-6daebc714344",
+    "request_id": "fd6df85b-8c3a-4b2e-835f-557c43511a12",
+    "query_label": null
+  },
+  "meta": [
     {
-      "description": "Line 1, Column 8: function 'arrays_overlap' not found"
+      "name": "have_overlap",
+      "type": "boolean"
     }
   ],
-  "query": {
-    "query_id": "669b32df-1e67-4dd6-911a-d3467886f40f",
-    "query_label": null,
-    "request_id": "d50834ae-cc8c-47ee-a3d8-5e347407bb0b"
-  },
+  "data": [
+    [
+      false
+    ]
+  ],
+  "rows": 1,
   "statistics": {
-    "elapsed": 0.0
+    "elapsed": 0.006663,
+    "rows_read": 1,
+    "bytes_read": 1,
+    "time_before_execution": 0.000235425,
+    "time_to_execute": 8.366e-05,
+    "scanned_bytes_cache": 0,
+    "scanned_bytes_storage": 0
   }
 }

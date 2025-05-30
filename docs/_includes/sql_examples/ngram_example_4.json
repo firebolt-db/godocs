@@ -1,15 +1,19 @@
 {
   "errors": [
     {
-      "description": "Line 1, Column 8: function 'ngram' not found. Did you mean: param?"
+      "description": "Line 1, Column 8: Invalid n-gram size: 0. Must be greater than 0. Choose an n-gram size larger than 0 or NULL.\nSELECT NGRAM(0, 'hi') AS result;\n       ^",
+      "location": {
+        "failing_line": 1,
+        "start_offset": 8
+      }
     }
   ],
   "query": {
-    "query_id": "fe09eacb-00ad-437e-b14a-99692ab38c20",
+    "query_id": "9e79667d-07e6-4d5b-a702-bf4035dd89d6",
     "query_label": null,
-    "request_id": "4665269e-a6ab-4e04-ae2c-cbd7f1506a81"
+    "request_id": "2d293472-9d54-46aa-9d7b-160a4358e718"
   },
   "statistics": {
-    "elapsed": 0.0
+    "elapsed": 0.000720599
   }
 }

@@ -9,7 +9,37 @@ The following code returns the inner product of two vectors that have similar di
 
 
 
-<QueryWindow content={{"sql": "SELECT VECTOR_INNER_PRODUCT([1, 2], [3, 4]) AS product;", "result": {"query": {"query_id": "f30b69e6-cd0b-44d3-890f-2c5f86d920f5", "request_id": "fb200961-7357-4381-b1d2-e32d3b4fbcf3", "query_label": null}, "meta": [{"name": "product", "type": "double"}], "data": [[11]], "rows": 1, "statistics": {"elapsed": 0.008822, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.00028862, "time_to_execute": 0.000100411, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT VECTOR_INNER_PRODUCT([1, 2], [3, 4]) AS product;",
+  "result": {
+    "data": [
+      [
+        11
+      ]
+    ],
+    "meta": [
+      {
+        "name": "product",
+        "type": "double"
+      }
+    ],
+    "query": {
+      "query_id": "c88adfc4-25be-440e-b7e3-73c43a308128",
+      "query_label": null,
+      "request_id": "bbf37063-43ee-408f-a77a-cb9e8219d76a"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.007584,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000246174,
+      "time_to_execute": 8.7665e-05
+    }
+  }
+}} />
 
 
 **Returns**
@@ -21,7 +51,37 @@ The following code returns the inner product of two vectors that are orthogonal 
 
 
 
-<QueryWindow content={{"sql": "SELECT VECTOR_INNER_PRODUCT([3, 4], [-4, 3]) AS product;", "result": {"query": {"query_id": "778aad31-07b6-4b05-92f8-0b94a5626910", "request_id": "645e6ea5-44a5-498d-a307-205c347eef7d", "query_label": null}, "meta": [{"name": "product", "type": "double"}], "data": [[0]], "rows": 1, "statistics": {"elapsed": 0.00893, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.00029089, "time_to_execute": 9.9263e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT VECTOR_INNER_PRODUCT([3, 4], [-4, 3]) AS product;",
+  "result": {
+    "data": [
+      [
+        0
+      ]
+    ],
+    "meta": [
+      {
+        "name": "product",
+        "type": "double"
+      }
+    ],
+    "query": {
+      "query_id": "ea0e300a-87a0-4f48-bee2-11da56886936",
+      "query_label": null,
+      "request_id": "2aaa3103-c33f-4234-aa90-40b92b96d5cc"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.042529,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000268327,
+      "time_to_execute": 0.00010073
+    }
+  }
+}} />
 
 
 **Returns**
@@ -33,7 +93,37 @@ The following code returns the inner product of two vectors that are pointing in
 
 
 
-<QueryWindow content={{"sql": "SELECT VECTOR_INNER_PRODUCT([3, 4], [4, -2]) AS product;", "result": {"query": {"query_id": "5bbee976-6005-4406-9866-3ed5f6ba6166", "request_id": "8f1960e9-acdb-4067-ac82-3d042389d09b", "query_label": null}, "meta": [{"name": "product", "type": "double"}], "data": [[4]], "rows": 1, "statistics": {"elapsed": 0.007279, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000303887, "time_to_execute": 0.000104153, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT VECTOR_INNER_PRODUCT([3, 4], [4, -2]) AS product;",
+  "result": {
+    "data": [
+      [
+        4
+      ]
+    ],
+    "meta": [
+      {
+        "name": "product",
+        "type": "double"
+      }
+    ],
+    "query": {
+      "query_id": "be8401e8-fb51-4b37-a570-4f90ec61e035",
+      "query_label": null,
+      "request_id": "9b848907-9827-4f0b-aaf3-b4c5d62141fd"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.007027,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.00024368,
+      "time_to_execute": 0.000117421
+    }
+  }
+}} />
 
 
 **Returns**

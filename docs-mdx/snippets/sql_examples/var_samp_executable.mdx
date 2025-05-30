@@ -4,13 +4,47 @@ import {QueryWindow} from '/snippets/query-window.mdx';
 
 
 
-<QueryWindow content={{"sql": "CREATE TABLE exams (grade double precision);\nINSERT INTO exams VALUES (4.0), (3.7), (3.3), (2.7), (2.7);", "result": {"errors": [{"description": "Multiple queries in a single request are not supported. Split the queries and send each one as an individual request."}], "query": {"query_id": "ea5787cb-4fed-4724-abbc-4430bf792dad", "request_id": "e4c6260e-8fbd-4bdf-a007-3469c26dacac"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "CREATE TABLE exams (grade double precision);\nINSERT INTO exams VALUES (4.0), (3.7), (3.3), (2.7), (2.7);",
+  "result": {
+    "errors": [
+      {
+        "description": "Multiple queries in a single request are not supported. Split the queries and send each one as an individual request."
+      }
+    ],
+    "query": {
+      "query_id": "61fe6294-02af-49bd-855f-a41c92252817",
+      "query_label": null,
+      "request_id": "854ac1d8-486b-4011-ab80-0b40377e7aea"
+    },
+    "statistics": {
+      "elapsed": 0.0
+    }
+  }
+}} />
 
 
 Calculate the sample variance of the grades and round to 3 decimal places.
 
 
 
-<QueryWindow content={{"sql": "SELECT ROUND(VAR_SAMP(grade), 3) as variance from exams;", "result": {"errors": [{"description": "Line 1, Column 51: relation 'exams' does not exist or not authorized."}], "query": {"query_id": "69f1c919-c16f-4306-8f65-3052473cfd1d", "request_id": "e9cf1d9c-65af-4274-9341-02a6b64d3fae"}, "statistics": {"elapsed": 0.0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT ROUND(VAR_SAMP(grade), 3) as variance from exams;",
+  "result": {
+    "errors": [
+      {
+        "description": "Line 1, Column 51: relation 'exams' does not exist or not authorized."
+      }
+    ],
+    "query": {
+      "query_id": "da1d7889-eef5-4cda-917d-f7b504ca0101",
+      "query_label": null,
+      "request_id": "f176b076-26e4-402e-bff3-2068a49a79a1"
+    },
+    "statistics": {
+      "elapsed": 0.0
+    }
+  }
+}} />
 
 

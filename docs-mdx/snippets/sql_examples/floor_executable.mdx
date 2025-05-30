@@ -6,14 +6,74 @@ The following example returns the nearest whole number smaller than `2.5549900`:
 
 
 
-<QueryWindow content={{"sql": "SELECT FLOOR(2.5549900);", "result": {"query": {"query_id": "e772c43d-eb35-4b8e-be9d-570f77437d27", "request_id": "f0a12740-d650-4eb2-af43-7d72cc147678", "query_label": null}, "meta": [{"name": "?column?", "type": "double"}], "data": [[2]], "rows": 1, "statistics": {"elapsed": 0.007961, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000321875, "time_to_execute": 9.1416e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT FLOOR(2.5549900);",
+  "result": {
+    "data": [
+      [
+        2
+      ]
+    ],
+    "meta": [
+      {
+        "name": "?column?",
+        "type": "double"
+      }
+    ],
+    "query": {
+      "query_id": "58eaa8f8-1725-4042-af96-176af6bd8fb5",
+      "query_label": null,
+      "request_id": "8cd3b04b-d046-44a5-97f7-3e2e6c13766c"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.006613,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000246446,
+      "time_to_execute": 9.5034e-05
+    }
+  }
+}} />
 
 
 The following example calculates the nearest whole number smaller than `213.1549`, and returns a result of type `NUMERIC(20,4)`, which allows for a total of 20 digits, with 4 values allowed after the decimal point:
 
 
 
-<QueryWindow content={{"sql": "SELECT FLOOR('213.1549'::NUMERIC(20,4));", "result": {"query": {"query_id": "8bd7247d-e5ef-48ae-b341-059aff9ff689", "request_id": "8d11b1b2-84da-4355-aae5-e7ff45fe39fa", "query_label": null}, "meta": [{"name": "?column?", "type": "Decimal(20, 4)"}], "data": [[213.0]], "rows": 1, "statistics": {"elapsed": 0.008095, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000305422, "time_to_execute": 9.7486e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT FLOOR('213.1549'::NUMERIC(20,4));",
+  "result": {
+    "data": [
+      [
+        213.0
+      ]
+    ],
+    "meta": [
+      {
+        "name": "?column?",
+        "type": "Decimal(20, 4)"
+      }
+    ],
+    "query": {
+      "query_id": "9a963275-0733-488e-b6f5-2b4e8620682a",
+      "query_label": null,
+      "request_id": "92d5bb16-1044-40c5-a6d3-a63f8298ee54"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.006548,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000249736,
+      "time_to_execute": 8.4897e-05
+    }
+  }
+}} />
 
 
 The following code example rounds the number `2.5549900` down to the second decimal place.
@@ -21,7 +81,37 @@ It returns `2.55` because the second parameter 2 specifies rounding to the secon
 
 
 
-<QueryWindow content={{"sql": "SELECT FLOOR(2.5549900, 2);", "result": {"query": {"query_id": "ebea3453-9d17-4586-849d-859c983a7c12", "request_id": "b623be97-436f-4c9f-9888-cbe12bcc68c8", "query_label": null}, "meta": [{"name": "?column?", "type": "double"}], "data": [[2.55]], "rows": 1, "statistics": {"elapsed": 0.01028, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000274356, "time_to_execute": 0.000125301, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT FLOOR(2.5549900, 2);",
+  "result": {
+    "data": [
+      [
+        2.55
+      ]
+    ],
+    "meta": [
+      {
+        "name": "?column?",
+        "type": "double"
+      }
+    ],
+    "query": {
+      "query_id": "64432b0d-dee0-47fc-8cd8-3b6c7eab657d",
+      "query_label": null,
+      "request_id": "0eccd91e-fa66-4d5b-b7b3-90d4f1f8bf32"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.008378,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000246263,
+      "time_to_execute": 8.6045e-05
+    }
+  }
+}} />
 
 
 The following example calculates the nearest whole number smaller than `1998` that is a multiple of `1000`.
@@ -29,6 +119,36 @@ It returns `1000` because the second parameter -3 specifies rounding to the thir
 
 
 
-<QueryWindow content={{"sql": "SELECT FLOOR(1998, -3);", "result": {"query": {"query_id": "92225fb0-1e7c-4f6e-9d63-3a5e48613c70", "request_id": "85a0ef34-40c0-4083-89c5-20b7b3d58230", "query_label": null}, "meta": [{"name": "?column?", "type": "double"}], "data": [[1000]], "rows": 1, "statistics": {"elapsed": 0.008435, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000283166, "time_to_execute": 9.2363e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT FLOOR(1998, -3);",
+  "result": {
+    "data": [
+      [
+        1000
+      ]
+    ],
+    "meta": [
+      {
+        "name": "?column?",
+        "type": "double"
+      }
+    ],
+    "query": {
+      "query_id": "fa73f8f3-8534-4806-ac90-5d71ae9877fd",
+      "query_label": null,
+      "request_id": "d1686c9f-7f01-4011-b0ac-3e288da51a52"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.007125,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000244076,
+      "time_to_execute": 9.1033e-05
+    }
+  }
+}} />
 
 

@@ -6,6 +6,36 @@ The following example calculates 2 to the power of 5:
 
 
 
-<QueryWindow content={{"sql": "select pow(2, 5) as result;", "result": {"query": {"query_id": "aa235103-c74b-42bb-ae66-2fe98dfb7892", "request_id": "9e2e67ab-8f28-4d66-a69a-3c03cacd2f34", "query_label": null}, "meta": [{"name": "result", "type": "double"}], "data": [[32]], "rows": 1, "statistics": {"elapsed": 0.008226, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000309751, "time_to_execute": 0.000116476, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "select pow(2, 5) as result;",
+  "result": {
+    "data": [
+      [
+        32
+      ]
+    ],
+    "meta": [
+      {
+        "name": "result",
+        "type": "double"
+      }
+    ],
+    "query": {
+      "query_id": "8cffb83d-0c70-48ae-a529-7848f627a559",
+      "query_label": null,
+      "request_id": "960e5549-6e04-4110-928f-9bb3176e98a6"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.009065,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.00028292,
+      "time_to_execute": 8.6648e-05
+    }
+  }
+}} />
 
 

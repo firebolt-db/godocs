@@ -7,7 +7,37 @@ The following code example creates a `GEOGRAPHY` object from the WKT representat
 
 
 
-<QueryWindow content={{"sql": "SELECT ST_ASEWKB(ST_GEOGFROMTEXT('POINT(-73.98551041593687 40.75793403395676)')) AS result", "result": {"query": {"query_id": "6e483816-7054-4f9e-b7df-355b6e287b75", "request_id": "2296e820-8a35-4b82-be87-e4901a422461", "query_label": null}, "meta": [{"name": "result", "type": "bytea"}], "data": [["\\x0101000020e61000003d94479a127f52c0502f80fb03614440"]], "rows": 1, "statistics": {"elapsed": 0.008482, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000518513, "time_to_execute": 0.000111748, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT ST_ASEWKB(ST_GEOGFROMTEXT('POINT(-73.98551041593687 40.75793403395676)')) AS result",
+  "result": {
+    "data": [
+      [
+        "\\x0101000020e61000003d94479a127f52c0502f80fb03614440"
+      ]
+    ],
+    "meta": [
+      {
+        "name": "result",
+        "type": "bytea"
+      }
+    ],
+    "query": {
+      "query_id": "59c07698-5fdf-43f4-b73d-44f66afd9876",
+      "query_label": null,
+      "request_id": "d1f8c6e8-a14b-4cde-ab90-7292ada7bb2c"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.007007,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000368854,
+      "time_to_execute": 8.8511e-05
+    }
+  }
+}} />
 
 
 **Returns**

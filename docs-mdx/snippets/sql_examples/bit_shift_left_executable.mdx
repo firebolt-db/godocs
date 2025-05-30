@@ -9,7 +9,37 @@ The following code example shifts `0001`, the binary representation of `1`, to t
 
 
 
-<QueryWindow content={{"sql": "SELECT bit_shift_left(1, 2) AS res;", "result": {"query": {"query_id": "cf4ea9d1-0216-4de3-ac37-897b7e0e1830", "request_id": "74103c1e-8a30-49db-b1ab-31bee4a08043", "query_label": null}, "meta": [{"name": "res", "type": "int"}], "data": [[4]], "rows": 1, "statistics": {"elapsed": 0.007984, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000277954, "time_to_execute": 0.000108939, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT bit_shift_left(1, 2) AS res;",
+  "result": {
+    "data": [
+      [
+        4
+      ]
+    ],
+    "meta": [
+      {
+        "name": "res",
+        "type": "int"
+      }
+    ],
+    "query": {
+      "query_id": "9f3fdcd0-6945-4bbf-8818-fdbbaf0c3561",
+      "query_label": null,
+      "request_id": "72d323c0-db9f-44d4-b7af-8c52f0aafdb3"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.006993,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000246771,
+      "time_to_execute": 8.6693e-05
+    }
+  }
+}} />
 
 
 **Example**
@@ -19,7 +49,37 @@ The following code example shifts `00101`, the binary representation of `5`, to 
 
 
 
-<QueryWindow content={{"sql": "SELECT bit_shift_left(5, 2) AS res;", "result": {"query": {"query_id": "b4214745-2d33-4096-a47f-644487213cde", "request_id": "1d17a941-604c-4812-827f-366667309fd1", "query_label": null}, "meta": [{"name": "res", "type": "int"}], "data": [[20]], "rows": 1, "statistics": {"elapsed": 0.009191, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000305782, "time_to_execute": 0.000107279, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT bit_shift_left(5, 2) AS res;",
+  "result": {
+    "data": [
+      [
+        20
+      ]
+    ],
+    "meta": [
+      {
+        "name": "res",
+        "type": "int"
+      }
+    ],
+    "query": {
+      "query_id": "423e0cd2-a115-4b28-bcfe-27ed139fd36d",
+      "query_label": null,
+      "request_id": "e6a02b0f-b207-4d64-b724-94721b209ca6"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.005985,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.00023814,
+      "time_to_execute": 9.0034e-05
+    }
+  }
+}} />
 
 
 **Example**
@@ -29,6 +89,36 @@ The following code example shifts the binary representation of `-3`, which is `1
 
 
 
-<QueryWindow content={{"sql": "SELECT bit_shift_left(-3, 1) AS res;", "result": {"query": {"query_id": "9e643af8-cb22-45a3-9601-e11568c9802b", "request_id": "f5d6cd49-e95e-4af3-b69c-cacb4b5d5979", "query_label": null}, "meta": [{"name": "res", "type": "int"}], "data": [[-6]], "rows": 1, "statistics": {"elapsed": 0.009528, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000274032, "time_to_execute": 9.4623e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT bit_shift_left(-3, 1) AS res;",
+  "result": {
+    "data": [
+      [
+        -6
+      ]
+    ],
+    "meta": [
+      {
+        "name": "res",
+        "type": "int"
+      }
+    ],
+    "query": {
+      "query_id": "4445cde0-011a-4a96-836d-b37b65f7d367",
+      "query_label": null,
+      "request_id": "876e9e34-ab78-4793-a390-f7d0950c15a2"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.007015,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000236362,
+      "time_to_execute": 8.672e-05
+    }
+  }
+}} />
 
 

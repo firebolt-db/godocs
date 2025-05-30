@@ -6,13 +6,73 @@ The following example checks whether the value inf, after being cast to a `DOUBL
 
 
 
-<QueryWindow content={{"sql": "SELECT IS_FINITE('inf'::DOUBLE PRECISION);", "result": {"query": {"query_id": "b79f9d4a-939d-4c66-9214-b240dceef2b8", "request_id": "83776f6e-f252-495e-8012-a40c188ef6c6", "query_label": null}, "meta": [{"name": "?column?", "type": "boolean"}], "data": [[false]], "rows": 1, "statistics": {"elapsed": 0.010007, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000265295, "time_to_execute": 9.4918e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT IS_FINITE('inf'::DOUBLE PRECISION);",
+  "result": {
+    "data": [
+      [
+        false
+      ]
+    ],
+    "meta": [
+      {
+        "name": "?column?",
+        "type": "boolean"
+      }
+    ],
+    "query": {
+      "query_id": "bf5703b6-542c-4ed1-a2e5-e3089c5b83bf",
+      "query_label": null,
+      "request_id": "8b70e4d8-79af-485c-a5c8-ff8fe4fe3388"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.008165,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.0002396,
+      "time_to_execute": 8.9233e-05
+    }
+  }
+}} />
 
 
 The following code example checks whether the value 10, after being cast to a `REAL` data type, is an infinite number:
 
 
 
-<QueryWindow content={{"sql": "SELECT IS_FINITE(10::REAL);", "result": {"query": {"query_id": "0233d8e6-c133-4793-9575-7d218f4dfcbc", "request_id": "5559c7a6-c51e-4b3b-8583-d56db626df6d", "query_label": null}, "meta": [{"name": "?column?", "type": "boolean"}], "data": [[true]], "rows": 1, "statistics": {"elapsed": 0.008694, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000278526, "time_to_execute": 9.0052e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT IS_FINITE(10::REAL);",
+  "result": {
+    "data": [
+      [
+        true
+      ]
+    ],
+    "meta": [
+      {
+        "name": "?column?",
+        "type": "boolean"
+      }
+    ],
+    "query": {
+      "query_id": "d955b43d-3d9e-4ac4-93ee-29f974e379df",
+      "query_label": null,
+      "request_id": "c635f802-878d-4cc4-afba-c300b820c1ca"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.006307,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000245009,
+      "time_to_execute": 8.7647e-05
+    }
+  }
+}} />
 
 

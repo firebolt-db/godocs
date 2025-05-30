@@ -6,7 +6,42 @@ The following example splits the text into an array at the `|` character.
 
 
 
-<QueryWindow content={{"sql": "SELECT STRING_TO_ARRAY('stephen70|esimpson|ruthgill|', '|') AS nicknames;", "result": {"query": {"query_id": "b5466e4a-2356-4996-a6d6-83e865f291d8", "request_id": "325c993b-8815-44a5-a19f-e44960ab3865", "query_label": null}, "meta": [{"name": "nicknames", "type": "array(text)"}], "data": [[["stephen70", "esimpson", "ruthgill", ""]]], "rows": 1, "statistics": {"elapsed": 0.008867, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000273081, "time_to_execute": 0.000105334, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT STRING_TO_ARRAY('stephen70|esimpson|ruthgill|', '|') AS nicknames;",
+  "result": {
+    "data": [
+      [
+        [
+          "stephen70",
+          "esimpson",
+          "ruthgill",
+          ""
+        ]
+      ]
+    ],
+    "meta": [
+      {
+        "name": "nicknames",
+        "type": "array(text)"
+      }
+    ],
+    "query": {
+      "query_id": "848e950a-c0aa-4e9c-8f0e-ef32824347af",
+      "query_label": null,
+      "request_id": "eea6a24b-4002-4d44-8525-b49611cfabac"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.007218,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000264244,
+      "time_to_execute": 9.698e-05
+    }
+  }
+}} />
 
 
 **Returns**
@@ -15,7 +50,39 @@ The following example calls `STRING_TO_ARRAY` with an empty delimiter, resulting
 
 
 
-<QueryWindow content={{"sql": "SELECT STRING_TO_ARRAY('firebolt', '') as size_one_array;", "result": {"query": {"query_id": "63040532-76ee-4d42-9982-0e6a83896e4f", "request_id": "bdd01f46-7062-49ce-b72f-3c0249fd1e78", "query_label": null}, "meta": [{"name": "size_one_array", "type": "array(text)"}], "data": [[["firebolt"]]], "rows": 1, "statistics": {"elapsed": 0.014335, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000283738, "time_to_execute": 0.000105597, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT STRING_TO_ARRAY('firebolt', '') as size_one_array;",
+  "result": {
+    "data": [
+      [
+        [
+          "firebolt"
+        ]
+      ]
+    ],
+    "meta": [
+      {
+        "name": "size_one_array",
+        "type": "array(text)"
+      }
+    ],
+    "query": {
+      "query_id": "715c7dce-dc66-4f06-a83f-19890df20a07",
+      "query_label": null,
+      "request_id": "3879b8d6-9ed1-4638-a793-0cccfd2a1290"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.006707,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.0002838,
+      "time_to_execute": 0.000109547
+    }
+  }
+}} />
 
 
 **Returns**
@@ -24,7 +91,46 @@ The following example calls `STRING_TO_ARRAY` with `NULL` as the delimiter, resu
 
 
 
-<QueryWindow content={{"sql": "SELECT STRING_TO_ARRAY('firebolt', NULL) AS single_characters;", "result": {"query": {"query_id": "bb5c5ce1-1db8-4688-9af6-43b6353f30ba", "request_id": "aa478042-410b-4fc5-9e89-ef4a83d1d3e4", "query_label": null}, "meta": [{"name": "single_characters", "type": "array(text)"}], "data": [[["f", "i", "r", "e", "b", "o", "l", "t"]]], "rows": 1, "statistics": {"elapsed": 0.008524, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000275236, "time_to_execute": 9.2812e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT STRING_TO_ARRAY('firebolt', NULL) AS single_characters;",
+  "result": {
+    "data": [
+      [
+        [
+          "f",
+          "i",
+          "r",
+          "e",
+          "b",
+          "o",
+          "l",
+          "t"
+        ]
+      ]
+    ],
+    "meta": [
+      {
+        "name": "single_characters",
+        "type": "array(text)"
+      }
+    ],
+    "query": {
+      "query_id": "2ce46b93-6c1f-42ba-9751-37d16acf34fe",
+      "query_label": null,
+      "request_id": "ee555915-c000-46ea-8a61-b5e03281d4aa"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.007143,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000264222,
+      "time_to_execute": 9.5794e-05
+    }
+  }
+}} />
 
 
 **Returns**

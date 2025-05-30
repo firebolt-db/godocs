@@ -7,7 +7,37 @@ The following code example checks if an array contains the value `esimpson` as t
 
 
 
-<QueryWindow content={{"sql": "SELECT ARRAY_ANY_MATCH(x -> x = 'esimpson', [ 'kennethpark', 'sabrina21', 'steven70']) AS is_he_playing;", "result": {"query": {"query_id": "00471831-7668-4a62-a52c-b44ae84950e3", "request_id": "9fe11bb5-0572-4e3f-a6f3-c5c25415c6db", "query_label": null}, "meta": [{"name": "is_he_playing", "type": "boolean"}], "data": [[false]], "rows": 1, "statistics": {"elapsed": 0.006486, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000279829, "time_to_execute": 8.8877e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT ARRAY_ANY_MATCH(x -> x = 'esimpson', [ 'kennethpark', 'sabrina21', 'steven70']) AS is_he_playing;",
+  "result": {
+    "data": [
+      [
+        false
+      ]
+    ],
+    "meta": [
+      {
+        "name": "is_he_playing",
+        "type": "boolean"
+      }
+    ],
+    "query": {
+      "query_id": "002bc561-743e-4142-b7b8-1279129a0a34",
+      "query_label": null,
+      "request_id": "15fdf397-f6d8-4f98-8b65-0918e1ba0971"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.006795,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.00027169,
+      "time_to_execute": 9.1056e-05
+    }
+  }
+}} />
 
 
 **Returns**
@@ -18,7 +48,37 @@ The following code example checks if each element in the first array is divisibl
 
 
 
-<QueryWindow content={{"sql": "SELECT ARRAY_ANY_MATCH(x, y -> (x % y) = 0, [ 10, 20, 30, 45 ], [ 12, 3, 42, 15]) AS divisible;", "result": {"query": {"query_id": "729c7d4b-0008-4ad5-a601-e7cc41bbd148", "request_id": "dc033273-7312-4060-b48e-42639615edde", "query_label": null}, "meta": [{"name": "divisible", "type": "boolean"}], "data": [[true]], "rows": 1, "statistics": {"elapsed": 0.00935, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000297332, "time_to_execute": 9.9534e-05, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT ARRAY_ANY_MATCH(x, y -> (x % y) = 0, [ 10, 20, 30, 45 ], [ 12, 3, 42, 15]) AS divisible;",
+  "result": {
+    "data": [
+      [
+        true
+      ]
+    ],
+    "meta": [
+      {
+        "name": "divisible",
+        "type": "boolean"
+      }
+    ],
+    "query": {
+      "query_id": "12aa49a7-b336-4920-8066-0455a9147e2f",
+      "query_label": null,
+      "request_id": "f2a06592-0e00-4e00-a33e-3ed37f548db6"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.007216,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000259431,
+      "time_to_execute": 0.000100369
+    }
+  }
+}} />
 
 
 **Returns**
@@ -29,7 +89,57 @@ The following code example evaluates multiple arrays using `ARRAY_ANY_MATCH`:
 
 
 
-<QueryWindow content={{"sql": "SELECT ARRAY_ANY_MATCH([])          as empty,\n    ARRAY_ANY_MATCH([true])         as single_true,\n    ARRAY_ANY_MATCH([false])        as single_false,\n    ARRAY_ANY_MATCH([NULL])         as single_null ,\n    ARRAY_ANY_MATCH([false, NULL])  as false_and_null;", "result": {"query": {"query_id": "fea62e9b-b983-4ee4-b90a-34404ed36dd9", "request_id": "4fe4c034-87f4-4607-a001-2db2e0c5142e", "query_label": null}, "meta": [{"name": "empty", "type": "boolean"}, {"name": "single_true", "type": "boolean"}, {"name": "single_false", "type": "boolean"}, {"name": "single_null", "type": "boolean null"}, {"name": "false_and_null", "type": "boolean null"}], "data": [[false, true, false, null, null]], "rows": 1, "statistics": {"elapsed": 0.012119, "rows_read": 1, "bytes_read": 1, "time_before_execution": 0.000387239, "time_to_execute": 0.000116609, "scanned_bytes_cache": 0, "scanned_bytes_storage": 0}}}} />
+<QueryWindow content={{
+  "sql": "SELECT ARRAY_ANY_MATCH([])          as empty,\n    ARRAY_ANY_MATCH([true])         as single_true,\n    ARRAY_ANY_MATCH([false])        as single_false,\n    ARRAY_ANY_MATCH([NULL])         as single_null ,\n    ARRAY_ANY_MATCH([false, NULL])  as false_and_null;",
+  "result": {
+    "data": [
+      [
+        false,
+        true,
+        false,
+        null,
+        null
+      ]
+    ],
+    "meta": [
+      {
+        "name": "empty",
+        "type": "boolean"
+      },
+      {
+        "name": "single_true",
+        "type": "boolean"
+      },
+      {
+        "name": "single_false",
+        "type": "boolean"
+      },
+      {
+        "name": "single_null",
+        "type": "boolean null"
+      },
+      {
+        "name": "false_and_null",
+        "type": "boolean null"
+      }
+    ],
+    "query": {
+      "query_id": "a53f7186-51ec-4f27-a4c2-b7413012f7e6",
+      "query_label": null,
+      "request_id": "9dafc3a8-9001-45cd-a930-1c719e10c3ab"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.006888,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000288745,
+      "time_to_execute": 0.000100912
+    }
+  }
+}} />
 
 
 **Returns**
