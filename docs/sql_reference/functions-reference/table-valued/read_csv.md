@@ -27,6 +27,7 @@ READ_CSV (
   [, ESCAPE => <escape_character>]
   [, SKIP_BLANK_LINES => { TRUE | FALSE }]
   [, EMPTY_FIELD_AS_NULL => { TRUE | FALSE }]
+  [, INFER_SCHEMA => { TRUE | FALSE }]
 )
 |
 -- Using static credentials
@@ -45,6 +46,7 @@ READ_CSV (
   [, ESCAPE => <escape_character>]
   [, SKIP_BLANK_LINES => { TRUE | FALSE }]
   [, EMPTY_FIELD_AS_NULL => { TRUE | FALSE }]
+  [, INFER_SCHEMA => { TRUE | FALSE }]
 )
 ```
 
@@ -67,6 +69,7 @@ READ_CSV (
 | `ESCAPE`                    | Specify the character used to escape special characters. The default character is the quote (`'`) character.                                                                                 | `TEXT`                |
 | `SKIP_BLANK_LINES`          | Set to `TRUE` to ignore blank lines in the file.                                                     | `BOOL`                |
 | `EMPTY_FIELD_AS_NULL`       | Specify whether empty fields should be interpreted as `NULL` values. The default is `TRUE`. If set to `FALSE`, empty fields are interpreted as empty strings.                                               | `BOOL`                |
+| `INFER_SCHEMA`              | Specify wheter column data types should be infered from the data, instead of using `TEXT`. | `BOOL` |
 
 
 ## Return Type
@@ -98,6 +101,19 @@ SELECT * FROM READ_CSV(
     HEADER => true
 );
 ```
+
+The `url` can represent a single file or a [glob](https://en.wikipedia.org/wiki/Glob_(programming)) pattern. If a glob pattern is used, all files matching the pattern will be read:
+```sql
+SELECT * FROM READ_CSV('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/*.csv')
+```
+
+When using glob patterns, the wildcard (`*`) can only be used at the end of the path. You can use it with any text before or after, such as `*.csv`, `date=2025*.csv`, or `data_*.csv`.
+
+The pattern will recursively match files in all subdirectories. For example:
+```sql
+SELECT * FROM READ_CSV('s3://firebolt-publishing-public/*.csv')
+```
+will read all CSV files in the bucket, including those in subdirectories like `help_center_assets/firebolt_sample_dataset/*.csv`.
 
 **Example**
 
@@ -170,3 +186,20 @@ SELECT * FROM READ_CSV(URL => 's3://firebolt-publishing-public/help_center_asset
 | 8       | 1      | Racing Ravine      | FastestLap          | 9               | ...        |
 | 9       | 1      | Drift District     | Drift               | 10              | ...       |
 | 10      | 1      | Acceleration Alley | FirstToComplete     |             | ...       |
+
+**Example**
+
+The following example accepts `URL` as a named parameter, reads a CSV file with column names in the first row, and infers types for all columns. In this example it allows filtering using numeric comparisons, since the `MaxPoints` and `MinPointsToPass` columns are properly typed as numbers rather than strings:
+
+```sql
+SELECT * FROM READ_CSV(URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/levels.csv', 
+        HEADER => true, INFER_SCHEMA => true) WHERE "MaxPoints" > 2 * "MinPointsToPass";
+```
+
+**Returns**
+
+| LevelID | GameID | Level              | Name                | LevelType       | NextLevel | MinPointsToPass | MaxPoints | NumberOfLaps | ... |
+|:------- |:------ |:------------------ |:------------------- |:--------------- |:--------- |:--------------- |:--------- |:------------ |:-- |
+| 1  | 1 | Thunderbolt Circuit | FastestLap       | 2 | 5  | 20 | 5  | 20 | ... |
+| 9  | 1 | Drift District     | Drift            | 10| 100| 250| 25 | 25 | ... |
+| 10 | 1 | Acceleration Alley | FirstToComplete  | null   | 200| 500| 50 | 50 | ... |
