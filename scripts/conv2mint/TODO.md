@@ -10,14 +10,16 @@
   * [x] fixed page layout being too narrow for examples
   * [x] old urls redirect to new urls
   * [x] all includes work
-* [x] Fix doc home page design
+  * [x] home page design is neat
 * [ ] Add /docs-mdx to firebolt-analytics/firebolt-docs-staging
-  * [ ] Add the mintlify application to the firebolt-analytics/firebolt-docs-staging repo.
+  * [x] Add the mintlify application to the firebolt-analytics/firebolt-docs-staging repo.
+  * [x] Switch the repo in the mintlify dashboard.
   * [ ] Set up a build check to ensure the /docs-mdx directory is always in sync with the /docs directory in gh-pages branch.
-  * [ ] Switch the repo in the mintlify dashboard.
-  * [ ] Announce a documentation migration to the team, publish .
+  * [ ] Write HowTo documentation for contributors.
+  * [ ] Announce the documentation migration to the team.
   * [ ] Rebase and migrate active branches.
-  * [ ] Write HowTo documentation for contributors
+  * [ ] Update the [release notes writer](https://github.com/firebolt-analytics/release-process/blob/main/release_notes_writer.py) to make the proper changes.
+  * [ ] Migrate the SQL example check.
   * [ ] Proclaim /docs-mdx as a new source of truth, drop /docs.
 * [ ] Shift the domain to mintlify
 * [ ] Replace the 307 redirectes for 301 
