@@ -239,7 +239,7 @@ Unnesting multiple arrays of structs together is supported, too. For more detail
 
 ### Aggregating structs into an array of struct
 
-Some aggregate functions support structs. In particular, [`ARRAY_AGG`](../sql_reference/functions-reference/aggregation/array-agg.html) can be useful when working on array of struct, together with [`UNNEST`](../Guides/loading-data/working-with-semi-structured-data/).
+Some aggregate functions support structs. In particular, [`ARRAY_AGG`](../sql_reference/functions-reference/aggregation/array-agg.html) can be useful when working on array of struct, together with [`UNNEST`](../Guides/loading-data/working-with-semi-structured-data/working-with-arrays.html#unnest).
 
 ```sql
 WITH unnested_structs AS (
