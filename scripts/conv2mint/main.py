@@ -160,6 +160,7 @@ def main():
     src_redirects = navigation.collect_src_redirects([pj for pj, pdm in pages])
     url_mapping = navigation.build_and_check_url_mapping(pages, src_redirects)
     navigatable: list[tuple[page.PageJekyll, page.PageMint]] = []
+    pprint.pprint(url_mapping)
 
     for src_page, dst_descr in pages:
         print(f"Processing {src_page.descr.rel_path} ...")

@@ -14,22 +14,24 @@
 * [ ] Add /docs-mdx to firebolt-analytics/firebolt-docs-staging
   * [x] Add the mintlify application to the firebolt-analytics/firebolt-docs-staging repo.
   * [x] Switch the repo in the mintlify dashboard.
-  * [ ] Set up a build check to ensure the /docs-mdx directory is always in sync with the /docs directory in gh-pages branch.
+  * [x] Set up a build check to ensure the /docs-mdx directory is always in sync with the /docs directory in gh-pages branch.
+  * [x] Migrate the SQL example check.
+  * [x] Announce the documentation migration to the team.
   * [ ] Write HowTo documentation for contributors.
-  * [ ] Announce the documentation migration to the team.
   * [ ] Rebase and migrate active branches.
   * [ ] Update the [release notes writer](https://github.com/firebolt-analytics/release-process/blob/main/release_notes_writer.py) to make the proper changes.
-  * [ ] Migrate the SQL example check.
   * [ ] Proclaim /docs-mdx as a new source of truth, drop /docs.
 * [ ] Shift the domain to mintlify
 * [ ] Replace the 307 redirectes for 301 
 
 Nice to have:
 * [x] Add preexisting redirects (through old urls is ok)
-* [ ] Fix syntax highlighting in query window widgets
 * [ ] Enable analytics
-* [ ] Output TOC for has_toc index pages (is it needed?)
-* [ ] Clean up assets (no unused image copies)
+* [ ] Fix syntax highlighting in query window widgets
 * [ ] Unhide pages hidden in navigation tree for no reason
 * [ ] Publish reference pages staying unpublished for no reason
 * [ ] Add data type reference page navigation group
+* [ ] Fix statistical examples
+* [ ] Add interactive examples where they work but not included
+* [ ] Output TOC for has_toc index pages (is it needed?)
+* [ ] Clean up assets (no unused image copies)

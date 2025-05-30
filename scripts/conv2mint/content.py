@@ -1,6 +1,7 @@
 import json
 import pathlib
 import re
+import textwrap
 import typing
 
 import markdown_it.parser_block as md_b
@@ -260,6 +261,10 @@ def _convert_html_style_attrs(content: str) -> str:
     return re.sub(r'(<[^>]+?\s)style="([^">]*)"([^>]*>)', convert_style, content, flags=re.DOTALL)
 
 
+def _format_query_window_content(content: dict) -> str:
+    return f'{{\n  "sql": {json.dumps(content["sql"])},\n  "result": {textwrap.indent(json.dumps(content["result"], indent=2, sort_keys=True), "  ").lstrip()}\n}}'
+
+
 def _convert_include_tags(content: str, src_root: pathlib.Path) -> str:
     """Strips Jekyll include tags from markdown content if present.
     >>> _convert_include_tags(' {% include path/to/my_file.md param1="value1" param2="value2" %} ', pathlib.Path(__file__).parent.parent.parent / 'docs')
@@ -282,8 +287,11 @@ def _convert_include_tags(content: str, src_root: pathlib.Path) -> str:
                 raise Exception(f"Invalid parameters for query-window include: {params_dict}")
             sql_file = params_dict['sql_file'].strip('"\'')
             sql = (src_root / '_includes' / sql_file).read_text()
-            result = (src_root / '_includes' / sql_file).with_suffix('.json').read_text()
-            return f"\n\n<QueryWindow content={{{json.dumps({"sql": sql, "result": json.loads(result)})}}} />\n\n"
+            result = json.loads((src_root / '_includes' / sql_file).with_suffix('.json').read_text())
+            return f"\n\n<QueryWindow content={{{_format_query_window_content({
+                "sql": sql,
+                "result": result
+            })}}} />\n\n"
         else:
             path = path.removesuffix(".md")
             tag_name = "".join([s.capitalize() for s in re.split(r'[\W_]+', path) if s])

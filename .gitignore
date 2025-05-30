@@ -2,3 +2,5 @@
 .idea/
 .venv/
 **/__pycache__/
+docs/_site/
+**/.DS_Store

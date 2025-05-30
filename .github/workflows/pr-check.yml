@@ -18,15 +18,69 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+
       - name: Check for merge conflict markers
-        run: scripts/check_merge_conflict_markers.sh .
+        run: make check-markers
+
+      - name: Check docs-mdx and docs are in sync
+        id: check-sync
+        run: |
+          set -xeuo pipefail
+          result_file=$(mktemp)
+          set +e
+          make check-md-mdx-in-sync > "$result_file"
+          rv=$?
+          set -e
+          if [[ "$rv" != 0 ]]; then
+            cat "$result_file"
+            {
+              # Abusing the unique name of the file as an EOF marker
+              echo "output<<$result_file"
+              cat "$result_file"
+              echo "$result_file"
+            } >> $GITHUB_OUTPUT
+          fi
+          exit "$rv"
+
+      - name: Find Comment
+        id: fc-sync
+        uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e  # v3.1.0
+        if: always()
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: "github-actions[bot]"
+          body-includes: "/docs and /docs-mdx Sync Check:"
+
+      - name: Post a comment on failure
+        uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043  # v4.0.0
+        if: failure()
+        with:
+          comment-id: ${{ steps.fc-sync.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            # $\color{red}{\text{❌ /docs and /docs-mdx Sync Check: Out Of Sync}}$
+            ```
+            ${{ steps.check-sync.outputs.output }}
+            ```
+          edit-mode: replace
+
+      - name: Post a comment on success
+        uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043  # v4.0.0
+        if: success()
+        with:
+          comment-id: ${{ steps.fc-sync.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            # $\color{green}{\text{✅ /docs and /docs-mdx Sync Check: In Sync}}$
+          edit-mode: replace
+
       - name: Check there are no 404 links
         id: check404
         run: |
           set -xeuo pipefail
           result_file=$(mktemp)
           set +e
-          scripts/check-links.sh > "$result_file"
+          make check-links check-links-mint > "$result_file"
           rv=$?
           set -e
           if [[ "$rv" != 0 ]]; then
@@ -56,7 +110,7 @@ jobs:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            # $\color{red}{\text{🧨 Link Check Status: FAILURE}}$
+            # $\color{red}{\text{❌ Link Check Status: FAILURE}}$
             ```
             ${{ steps.check404.outputs.output }}
             ```
@@ -69,5 +123,5 @@ jobs:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            # $\color{green}{\text{👍 Link Check Status: SUCCESS}}$
+            # $\color{green}{\text{✅ Link Check Status: SUCCESS}}$
           edit-mode: replace
