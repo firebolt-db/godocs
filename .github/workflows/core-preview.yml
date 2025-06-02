@@ -1,0 +1,30 @@
+name: Core Preview GH Pages
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+    - 'firebolt-core'
+
+jobs:
+  mirror:
+    name: Mirror only from staging repo
+    if: github.repository == 'firebolt-analytics/firebolt-docs-staging'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          ref: gh-pages
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ secrets.FB_DB_CI_WRITER_ID }}
+          private-key: ${{ secrets.FB_DB_CI_WRITER_PEM }}
+          owner: firebolt-db
+      - name: Push to preview main branch
+        run: |
+          git remote add preview https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/firebolt-db/firebolt-docs-preview-core.git
+          git push preview HEAD:main
