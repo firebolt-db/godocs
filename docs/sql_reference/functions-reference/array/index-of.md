@@ -9,7 +9,7 @@ parent: Array functions
 
 # INDEX\_OF
 
-Returns the index position of the first occurrence of the element in the array (or `0` if not found).
+Returns the index position of the first occurrence of the element in the array (or `NULL` if not found).
 
 ## Syntax
 {: .no_toc}
@@ -24,7 +24,7 @@ INDEX_OF(<array>, <value>)
 | Parameter | Description                                       | Supported input types | 
 | :--------- | :------------------------------------------------- | :----------|
 | `<array>`   | The array to be analyzed                         | `ARRAY` | 
-| `<value>`     | The element from the array that is to be matched | Any integer that corresponds to an element in the array | 
+| `<value>`     | The element from the array that is to be matched | Any type that corresponds to an element in the array | 
 
 ## Return Type
 `INTEGER` 
