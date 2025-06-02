@@ -32,6 +32,7 @@ sync-docs-md-to-mdx: setup-python
 check-md-mdx-in-sync: setup-python
 	tmpd=$(shell mktemp -d)
 	trap 'rm -rf "$$tmpd"' EXIT
+	cp -r docs-mdx/* $$tmpd
 	.venv/bin/python scripts/conv2mint/__main__.py docs $$tmpd
 	diff -r $$tmpd docs-mdx || (echo "docs-mdx is not in sync with docs, run 'make sync-docs-md-to-mdx' to fix" && exit 1)
 

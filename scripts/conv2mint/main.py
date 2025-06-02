@@ -62,6 +62,15 @@ def main():
 
     src_root, dst_root = pathlib.Path(sys.argv[1]).absolute().resolve(strict=True), pathlib.Path(sys.argv[2]).absolute().resolve(strict=True)
 
+    top_level_groups = {
+        "intro": {"pos": 0, "src": "md"},
+        "overview": {"pos": 1, "src": "md"},
+        "guides": {"pos": 3, "src": "md"},
+        "reference-sql": {"pos": 4, "src": "md"},
+        "reference": {"pos": 5, "src": "md"},
+        "reference-api": {"pos": 6, "src": "md"},
+    }
+
     # We need to rename all top-level directories because the default platform redirects for directory pages in Jekyll
     #   and Mint are mutually incompatible:
     #   - in Jekyll, it's `/dir` to `/dir/`
@@ -145,16 +154,16 @@ def main():
 
     print(f"Found {len(pages)} pages in source root {src_root}")
 
-    cleanup_assets(dst_root, [
-        "assets",
-        "snippets",
-        "_includes",
-    ])
-    cleanup_pages(dst_root, [descr for _, descr in pages])
+    # cleanup_assets(dst_root, [
+    #     "assets",
+    #     "snippets",
+    #     "_includes",
+    # ])
+    # cleanup_pages(dst_root, [descr for _, descr in pages])
     copy_assets(src_root, dst_root, [
         "assets/**/*",
         "snippets/**/*",
-        "docs.json",
+        # "docs.json",
     ])
 
     src_redirects = navigation.collect_src_redirects([pj for pj, pdm in pages])
@@ -170,8 +179,8 @@ def main():
         if not src_page.descr.is_fragment and src_page.fm.is_navigatable:
             navigatable.append((src_page, dst_page))
         p_raw = page.render_page_mint(dst_page)
-        if dst_path.exists():
-            raise Exception(f"destination path {dst_path} already exists.")
+        # if dst_path.exists():
+        #     raise Exception(f"destination path {dst_path} already exists.")
         dst_path.write_text(p_raw)
         print(f"... done as {dst_descr.rel_path}")
 
@@ -186,8 +195,14 @@ def main():
 
     docs = json.loads((dst_root / "docs.json").read_text())
 
-    nav_tree = navigation.build_navigation_tree(navigatable)
-    docs["navigation"]["groups"] = nav_tree.to_json()["pages"]
+    leaders2groups = {
+        "md": {g["pages"][0]: g for g in navigation.build_navigation_tree(navigatable).to_json()["pages"]},
+        "mdx": {g["pages"][0]: g for g in docs["navigation"]["groups"]}
+    }
+    nav_tree = []
+    for k, v in sorted(top_level_groups.items(), key=lambda x: x[1]["pos"]):
+        nav_tree.append(leaders2groups[v["src"]][k])
+    docs["navigation"]["groups"] = nav_tree
 
     # TODO: postprocess pages based on the navigation tree and rendered contents
 
