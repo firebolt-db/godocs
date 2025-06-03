@@ -484,6 +484,7 @@
                 "group": "Date and time functions",
                 "pages": [
                   "reference-sql/functions-reference/date-and-time",
+                  "reference-sql/functions-reference/date-and-time/ago",
                   "reference-sql/functions-reference/date-and-time/current-date",
                   "reference-sql/functions-reference/date-and-time/current-timestamptz",
                   "reference-sql/functions-reference/date-and-time/date-add",
@@ -594,6 +595,7 @@
                   "reference-sql/functions-reference/string/btrim",
                   "reference-sql/functions-reference/string/concat",
                   "reference-sql/functions-reference/string/gen-random-uuid-text",
+                  "reference-sql/functions-reference/string/icu_normalize",
                   "reference-sql/functions-reference/string/ilike",
                   "reference-sql/functions-reference/string/length",
                   "reference-sql/functions-reference/string/like",
@@ -1868,6 +1870,11 @@
       "permanent": false
     },
     {
+      "source": "/sql_reference/functions-reference/string/icu_normalize.html",
+      "destination": "/reference-sql/functions-reference/string/icu_normalize",
+      "permanent": false
+    },
+    {
       "source": "/sql_reference/functions-reference/string/base64-encode.html",
       "destination": "/reference-sql/functions-reference/string/base64-encode",
       "permanent": false
@@ -2378,6 +2385,11 @@
       "permanent": false
     },
     {
+      "source": "/sql_reference/functions-reference/date-and-time/ago.html",
+      "destination": "/reference-sql/functions-reference/date-and-time/ago",
+      "permanent": false
+    },
+    {
       "source": "/sql_reference/functions-reference/array/array-slice.html",
       "destination": "/reference-sql/functions-reference/array/array-slice",
       "permanent": false
@@ -2640,6 +2652,11 @@
     {
       "source": "/sql_reference/functions-reference/string/position.html",
       "destination": "/reference-sql/functions-reference/string/position",
+      "permanent": false
+    },
+    {
+      "source": "/sql_reference/functions-reference/string/icu_normalize",
+      "destination": "/reference-sql/functions-reference/string/icu_normalize",
       "permanent": false
     },
     {
@@ -3320,6 +3337,11 @@
     {
       "source": "/sql_reference/functions-reference/numeric/acos.html",
       "destination": "/reference-sql/functions-reference/numeric/acos",
+      "permanent": false
+    },
+    {
+      "source": "/sql_reference/functions-reference/date-and-time/ago",
+      "destination": "/reference-sql/functions-reference/date-and-time/ago",
       "permanent": false
     },
     {

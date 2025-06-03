@@ -1,0 +1,237 @@
+
+
+import {QueryWindow} from '/snippets/query-window.mdx';
+
+The following example normalizes the word 'München' using the Latin-ASCII transliterate ID:
+
+
+<QueryWindow content={{
+  "sql": "SELECT icu_normalize('M\u00fcnchen', 'Latin-ASCII');",
+  "result": {
+    "data": [
+      [
+        "Munchen"
+      ]
+    ],
+    "explain_analyze": {
+      "explain_type": "analyze",
+      "operators": [
+        {
+          "annotations": {
+            "execution_metrics": {
+              "cpu_time_ms": 0,
+              "max_single_work_call_thread_time_us": 23,
+              "output_cardinality": 1,
+              "thread_time_ms": 0
+            },
+            "label": "'Munchen'",
+            "output_types": [
+              "text"
+            ]
+          },
+          "input_ids": [
+            1
+          ],
+          "operator_id": 0,
+          "operator_type": "Projection"
+        },
+        {
+          "annotations": {
+            "execution_metrics": {
+              "cpu_time_ms": 0,
+              "max_single_work_call_thread_time_us": 5,
+              "output_cardinality": 1,
+              "thread_time_ms": 0
+            },
+            "label": "",
+            "output_types": [
+              "integer"
+            ]
+          },
+          "input_ids": [],
+          "operator_id": 1,
+          "operator_type": "SystemOneTable"
+        }
+      ],
+      "query_id": "3639e23c-7fe7-46da-a10f-3282835de439",
+      "root_description": "",
+      "root_operator_id": 0,
+      "version": 1
+    },
+    "meta": [
+      {
+        "name": "?column?",
+        "type": "text"
+      }
+    ],
+    "query": {
+      "query_id": "3639e23c-7fe7-46da-a10f-3282835de439",
+      "query_label": "query_statement.b2b5dac4-3c7c-43a8-87f7-8f4ef41cb2e9",
+      "request_id": "9e6f1e02-95d8-461c-9680-877cd2c45b06"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.009749,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000420553,
+      "time_to_execute": 0.000137518
+    }
+  }
+}} />
+
+
+The following example applies a similar operation to the [UPPER](/reference-sql/functions-reference/string/upper) function:
+
+
+<QueryWindow content={{
+  "sql": "select ICU_NORMALIZE('AabB','Any-Upper[^xyzXYZ]')",
+  "result": {
+    "data": [
+      [
+        "AABB"
+      ]
+    ],
+    "explain_analyze": {
+      "explain_type": "analyze",
+      "operators": [
+        {
+          "annotations": {
+            "execution_metrics": {
+              "cpu_time_ms": 0,
+              "max_single_work_call_thread_time_us": 5,
+              "output_cardinality": 1,
+              "thread_time_ms": 0
+            },
+            "label": "'AABB'",
+            "output_types": [
+              "text"
+            ]
+          },
+          "input_ids": [
+            1
+          ],
+          "operator_id": 0,
+          "operator_type": "Projection"
+        },
+        {
+          "annotations": {
+            "execution_metrics": {
+              "cpu_time_ms": 0,
+              "max_single_work_call_thread_time_us": 4,
+              "output_cardinality": 1,
+              "thread_time_ms": 0
+            },
+            "label": "",
+            "output_types": [
+              "integer"
+            ]
+          },
+          "input_ids": [],
+          "operator_id": 1,
+          "operator_type": "SystemOneTable"
+        }
+      ],
+      "query_id": "be52652b-bda4-4bed-9ca7-1bf79f5ceff7",
+      "root_description": "",
+      "root_operator_id": 0,
+      "version": 1
+    },
+    "meta": [
+      {
+        "name": "?column?",
+        "type": "text"
+      }
+    ],
+    "query": {
+      "query_id": "be52652b-bda4-4bed-9ca7-1bf79f5ceff7",
+      "query_label": "query_statement.839997fb-d93e-4a02-a0e1-a31d49e5db9b",
+      "request_id": "bec8194a-dc4d-4e4f-a4b8-1de101734e3f"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.010164,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000567702,
+      "time_to_execute": 0.000118537
+    }
+  }
+}} />
+
+
+The function only works for a valid ICU transliterate ID:
+
+
+<QueryWindow content={{
+  "sql": "select ICU_NORMALIZE('','X')",
+  "result": {
+    "errors": [
+      {
+        "description": "Line 1, Column 8: Unsupported locale: X\nselect ICU_NORMALIZE('','X')\n       ^",
+        "location": {
+          "failing_line": 1,
+          "start_offset": 8
+        }
+      }
+    ],
+    "explain_analyze": {
+      "explain_type": "analyze",
+      "operators": [
+        {
+          "annotations": {
+            "execution_metrics": {
+              "cpu_time_ms": 0,
+              "max_single_work_call_thread_time_us": 115,
+              "output_cardinality": 0,
+              "thread_time_ms": 0
+            },
+            "label": "icu_normalize('', 'X')",
+            "output_types": [
+              "text"
+            ]
+          },
+          "input_ids": [
+            1
+          ],
+          "operator_id": 0,
+          "operator_type": "Projection"
+        },
+        {
+          "annotations": {
+            "execution_metrics": {
+              "cpu_time_ms": 0,
+              "max_single_work_call_thread_time_us": 3,
+              "output_cardinality": 1,
+              "thread_time_ms": 0
+            },
+            "label": "",
+            "output_types": [
+              "integer"
+            ]
+          },
+          "input_ids": [],
+          "operator_id": 1,
+          "operator_type": "SystemOneTable"
+        }
+      ],
+      "query_id": "b80fb18b-d6e7-4370-8bf5-d7075c5289a9",
+      "root_description": "",
+      "root_operator_id": 0,
+      "version": 1
+    },
+    "query": {
+      "query_id": "b80fb18b-d6e7-4370-8bf5-d7075c5289a9",
+      "query_label": "query_statement.4c9a38f2-b277-463c-af1d-c2b5165329a4",
+      "request_id": "e7882e2e-bd03-4f6a-a442-25b8931cac49"
+    },
+    "statistics": {
+      "elapsed": 0.000785451
+    }
+  }
+}} />
+

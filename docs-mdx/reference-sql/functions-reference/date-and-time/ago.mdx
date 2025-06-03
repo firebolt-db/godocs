@@ -1,0 +1,39 @@
+---
+description: Reference material for AGO function
+sidebarTitle: AGO
+title: AGO
+---
+
+
+Subtracts the specified interval from the current timestamp, and returns it as a `TIMESTAMPTZ` value.
+For more information, see [Arithmetic with intervals](/reference/interval-arithmetic).
+
+
+## Syntax
+
+
+```sql
+AGO(<interval>)
+```
+## Parameters
+
+
+| Parameter           | Description                                                                                                                                                                                        |
+| :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `<interval>`            | An `interval` literal representing substracted a duration. |
+
+## Return Type
+
+`TIMESTAMPTZ`
+
+## Example
+
+
+The following example assumes that the current Unix timestamp is `2023-03-03 14:42:31.123456 UTC`.
+
+```sql
+SET time_zone = 'Europe/Berlin';
+SELECT CURRENT_TIMESTAMP;  --> 2023-03-03 15:42:31.123456+01
+SELECT AGO('1h');  --> 2023-03-03 14:42:31.123456+01
+```
+

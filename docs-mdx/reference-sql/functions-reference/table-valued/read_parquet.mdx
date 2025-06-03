@@ -106,3 +106,11 @@ SELECT * FROM READ_PARQUET(URL => 's3://firebolt-publishing-public/help_center_a
 SELECT * FROM READ_PARQUET('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/*.parquet')
 ```
 
+When using glob patterns, the wildcard (`*`) can only be used at the end of the path. You can use it with any text before or after, such as `*.parquet`, `date=2025*.parquet`, or `data_*.parquet`.
+
+The pattern will recursively match files in all subdirectories. For example:
+```sql
+SELECT * FROM READ_PARQUET('s3://firebolt-publishing-public/*.parquet')
+```
+will read all PARQUET files in the bucket, including those in subdirectories like `help_center_assets/firebolt_sample_dataset/playstats/*.parquet`.
+
