@@ -4,7 +4,9 @@ sidebarTitle: STRUCT data type
 title: STRUCT data type
 ---
 
+<Note>
 Firebolt's `STRUCT` data type is currently in public preview. We are gathering feedback and further refining this feature.
+</Note>
 
 
 
@@ -76,7 +78,9 @@ WITH TYPE=parquet SUPPORT_STRUCTS=TRUE;
 - When `SUPPORT_STRUCTS=TRUE`: Nested structures in the source data will be inferred as `STRUCT` data types.
 - When `SUPPORT_STRUCTS=FALSE`: Nested structures in the source data will be inferred as individual shredded columns.
 
+<Note>
 The `SUPPORT_STRUCTS` parameter only affects type inference during schema discovery. With predefined table schemas, the system maps incoming data to your schema regardless of this setting. For more details, see the [`COPY FROM` documentation](/reference-sql/commands/data-management/copy-from).
+</Note>
 
 The automatic schema discovery feature of the `COPY FROM` statement supports the `STRUCT` data type for Parquet files. Support of other file formats will be added in the near future.
 
@@ -212,7 +216,9 @@ At the moment, [array functions](/reference-sql/functions-reference/array) and [
 
 Firebolt supports using array subscription (`[]` syntax) to access an array element on an array of `STRUCT` values.
 
+<Note>
 When accessing an attribute of a struct in an array, the combined syntax `arr[1].a` does not work at the moment. Use the PostgreSQL syntax instead: `(arr[1]).a`. The issue will be fixed in the near future.
+</Note>
 
 ### Unnesting arrays of structs
 
