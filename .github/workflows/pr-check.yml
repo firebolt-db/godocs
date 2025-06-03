@@ -177,3 +177,55 @@ jobs:
           body: |
             # ✅ SQL Example Check Status: SUCCESS
           edit-mode: replace
+
+      - name: Check SQL examples
+        id: checkSQL
+        run: |
+          set -xeuo pipefail
+          result_file=$(mktemp)
+          set +e
+          make check-sql > "$result_file"
+          rv=$?
+          set -e
+          if [[ "$rv" != 0 ]]; then
+            echo "result=$rv" >> $GITHUB_OUTPUT
+            cat "$result_file"
+            {
+              # Abusing the unique name of the file as an EOF marker
+              echo "output<<$result_file"
+              cat "$result_file"
+              echo "$result_file"
+            } >> $GITHUB_OUTPUT
+          fi
+
+      - name: Find Comment
+        id: fc-sql
+        uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e  # v3.1.0
+        if: always()
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: "github-actions[bot]"
+          body-includes: "SQL Example Check Status:"
+
+      - name: Post a comment on failure
+        uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043  # v4.0.0
+        if: steps.checkSQL.outputs.result != 0
+        with:
+          comment-id: ${{ steps.fc-sql.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            # $\color{red}{\text{❌ SQL Example Check Status: FAILURE (informational check, doesn't block merge)}}$
+            ```
+            ${{ steps.checkSQL.outputs.output }}
+            ```
+          edit-mode: replace
+
+      - name: Post a comment on success
+        uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043  # v4.0.0
+        if: steps.checkSQL.outputs.result == 0
+        with:
+          comment-id: ${{ steps.fc-sql.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            # $\color{green}{\text{✅ SQL Example Check Status: SUCCESS}}$
+          edit-mode: replace
