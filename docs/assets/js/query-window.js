@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     block.dataset.originalQuery = block.textContent;
 
     // Highlight code on load
-    Prism.highlightElement(block);
+    Prism?.highlightElement(block);
 
     // Re-highlight code on input
     block.addEventListener('input', () => {
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
         block.textContent = ' ';
       }
       const pos = saveCaretPosition(block);
-      Prism.highlightElement(block);
+      Prism?.highlightElement(block);
       restoreCaretPosition(block, pos);
     });
 
@@ -152,7 +152,7 @@ async function runQuery(button, loadPrepackagedResults = false) {
       // Install the fallback result for further processing.
       queryResult = JSON.parse(fallbackResult);
       queryInput.textContent = originalQuery;
-      Prism.highlightElement(queryInput);
+      Prism?.highlightElement(queryInput);
     }
 
     // Show the result section

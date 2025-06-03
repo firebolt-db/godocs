@@ -11,8 +11,7 @@
   * [x] old urls redirect to new urls
   * [x] all includes work
   * [x] home page design is neat
-  * [ ] home page design is neat on small screens
-  * [ ] check that most of the pages are fit for small screens
+  * [x] home page design is neat on small screens
 * [ ] Add /docs-mdx to firebolt-analytics/firebolt-docs-staging
   * [x] Add the mintlify application to the firebolt-analytics/firebolt-docs-staging repo.
   * [x] Switch the repo in the mintlify dashboard.
@@ -33,6 +32,7 @@
   * [ ] Disable telemetry to not to be blocked by cookie consent
 * [ ] Replace the 307 redirectes for 301 
 * [ ] Write HowTo documentation for contributors.
+* [ ] Check that most of the pages are fit for small screens
 
 Nice to have:
 * [ ] Integrate with cookie consent platform
