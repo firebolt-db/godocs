@@ -6,7 +6,7 @@ MAKEFLAGS += --no-builtin-rules
 
 
 .PHONY: default
-default: check-all check-all-mdx
+default: check-markers check-links check-md-mdx-in-sync check-links-mint check-sql
 
 
 .PHONY: check-all
@@ -63,13 +63,13 @@ check-markers:
 
 
 .PHONY: check-sql
-check-sql:
-	.venv/bin/python scripts/check_sql_examples.py docs md
+check-sql: setup-python
+	.venv/bin/python scripts/check_sql_examples.py docs md quiet
 
 
 .PHONY: check-sql-mdx
 check-sql-mdx: setup-python
-	.venv/bin/python scripts/check_sql_examples.py docs-mdx mdx
+	.venv/bin/python scripts/check_sql_examples.py docs-mdx mdx quiet
 
 
 .PHONY: package-docs
