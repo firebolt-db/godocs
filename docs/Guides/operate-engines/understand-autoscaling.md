@@ -43,13 +43,6 @@ The current default stabilization window **is 1 minute**.
 
 For monitoring engine stats, please refer to [Monitoring Engine Usage]({% link Overview/engine-fundamentals.md %}#monitoring-engine-usage).
 
-This is **concurrency auto-scaling**: it creates extra clusters so that new queries can start promptly. 
-It does **not** re-plan or speed up queries that were already running. 
-Adding more clusters will not make a single large query finish faster. 
-If an individual query needs more processing power, consider scaling the engine **up or out** (larger `TYPE` or more `NODES`) instead. 
-For general sizing advice, see the [Sizing Engines guide]({% link Guides/operate-engines/sizing-engines.md %}).
-{: .note}
-
 ## Monitoring autoscaling
 
 You can check how many clusters an engine is using at any moment — and what its minimum and maximum limits are — 
@@ -57,3 +50,17 @@ via [information_schema.engines]({% link sql_reference/information-schema/engine
 
 You can see how an engine changed the number of clusters over time via 
 [information_schema.engine_history]({% link sql_reference/information-schema/engine-history.md %}) table.
+
+## Gotchas
+
+This is **concurrency auto-scaling**: it creates extra clusters so that new queries can start promptly.
+It does **not** re-plan or speed up queries that were already running.
+Adding more clusters will not make a single large query finish faster.
+If an individual query needs more processing power, consider scaling the engine **up or out** (larger `TYPE` or more `NODES`) instead.
+For general sizing advice, see the [Sizing Engines guide]({% link Guides/operate-engines/sizing-engines.md %}).
+
+During scale down, the engine will wait for all queries that run on a cluster that is shutting down to finish before removing it (i.e. graceful drain).
+
+During scale up, an added cluster will start "cold" (i.e. it will not have any data cached). 
+Because of this, Firebolt might route less traffic to the new cluster until it has warmed up to prevent overloading it.
+We are working on a feature that will make a new cluster proactively fetch data to be in sync with the cache of the other clusters.
