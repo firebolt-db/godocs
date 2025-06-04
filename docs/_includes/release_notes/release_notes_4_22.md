@@ -26,6 +26,12 @@ Added a named parameter `INFER_SCHEMA` to the `READ_CSV` function. When `INFER_S
 
 Introduced a new flow for creating and altering service accounts that enables user associations in any organization account. This improvement simplifies account management and enhances security through an improved process for rotating secrets.
 
+<!-- FIR-45090, FIR-45081 -->
+**Extended Parquet data type support**
+Added support for reading the following data types from Parquet files:
+- fixed_size_binary as BYTEA
+- uuid as BYTEA
+- time32 and time64 as TIMESTAMP with 1970-01-01 as the date component. Note that time64 with nanosecond precision is truncated to microsecond precision.
 
 ### Behavior Changes
 
