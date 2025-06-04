@@ -129,6 +129,7 @@
               "guides/operate-engines/rbac-for-engines",
               "guides/operate-engines/working-with-engines-using-ddl",
               "guides/operate-engines/sizing-engines",
+              "guides/operate-engines/understand-autoscaling",
               "guides/operate-engines/system-engine"
             ]
           },
@@ -3592,6 +3593,11 @@
       "permanent": false
     },
     {
+      "source": "/Guides/operate-engines/understand-autoscaling.html",
+      "destination": "/guides/operate-engines/understand-autoscaling",
+      "permanent": false
+    },
+    {
       "source": "/Guides/managing-your-organization/service-accounts",
       "destination": "/guides/managing-your-organization/service-accounts",
       "permanent": false
@@ -4364,6 +4370,11 @@
     {
       "source": "/Guides/query-data/using-the-develop-workspace",
       "destination": "/guides/query-data/using-the-develop-workspace",
+      "permanent": false
+    },
+    {
+      "source": "/Guides/operate-engines/understand-autoscaling",
+      "destination": "/guides/operate-engines/understand-autoscaling",
       "permanent": false
     },
     {

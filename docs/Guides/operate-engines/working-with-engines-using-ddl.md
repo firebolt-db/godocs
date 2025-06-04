@@ -136,6 +136,8 @@ The previous example updates the engine so that it uses three nodes.
 
 You can use the `MIN_CLUSTERS` and `MAX_CLUSTERS` parameters to enable auto-scaling and allow the engine to adjust the number of clusters based on workload. Firebolt scales the clusters between the defined minimum and maximum based on engine CPU usage, time in the queue, and other factors that vary with demand. Auto-scaling helps your engine adapt to fluctuating workloads, improving performance, minimizing delays during high demand, avoiding bottlenecks, ensuring consistent query response times, and optimizing resource utilization for a more cost-effective solution.
 
+For a technical guide on how concurrency auto-scaling works, see the [Understanding Autoscaling]({% link Guides/operate-engines/understand-autoscaling.md %}) page.
+
 To use auto-scale, do the following:
 1. Create an engine with `MIN_CLUSTERS` set to a value and `MAX_CLUSTERS` set to a value higher than `MIN_CLUSTERS` as shown in the following code example:
 
