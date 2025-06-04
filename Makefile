@@ -99,6 +99,7 @@ package-missing-docs-mdx: package-missing-docs sync-docs-md-to-mdx
 
 .PHONY: setup-python
 setup-python:
+	if [[ `python3 --version | cut -d '.' -f 2` == 10 ]]; then echo "Need at least python3.12, you have:"; python3 --version; exit 1; fi;
 	python3 -m venv .venv
 	.venv/bin/python -m pip install --upgrade pip
 	.venv/bin/python -m pip install -r scripts/requirements.txt
