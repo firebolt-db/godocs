@@ -47,6 +47,7 @@ The columns in `information_schema.accounts`, `information_schema.engines`, and 
 <!-- Auto Generated Markdown for FIR-44352 - Owned by Lorenz Hübschle -->
 **Rearchitected the Parquet reader for predictable memory usage and improved performance with external tables and `READ_PARQUET` function.**
 The Parquet reader was rearchitected to provide more predictable memory usage when reading from external tables or using the `READ_PARQUET` table-valued function. This change improves performance for many Parquet workloads. Users benefit from enhanced memory efficiency and faster query processing. More updates, like applying these changes to the `COPY FROM` command, are planned for future releases.
+This improvement is being rolled out gradually over multiple weeks.
 
 
 ### Bug Fixes
