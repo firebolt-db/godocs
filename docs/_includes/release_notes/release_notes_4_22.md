@@ -34,15 +34,6 @@ Added support for reading the following data types from Parquet files:
 - `uuid` as BYTEA
 - `time32` and `time64` as TIMESTAMP with 1970-01-01 as the date component. Note that `time64` with nanosecond precision is truncated to microsecond precision.
 
-### Behavior Changes
-
-<!-- Auto Generated Markdown for FIR-46028 - Owned by Pascal Schulze -->
-**Made columns in `information_schema.accounts`, `information_schema.engines`, and `information_schema.users` nullable**
-
-
-The columns in `information_schema.accounts`, `information_schema.engines`, and `information_schema.users` are now nullable. This change allows for more flexible handling of data across these schemas.
-
-
 ### Performance Improvements
 
 <!-- Auto Generated Markdown for FIR-44352 - Owned by Lorenz Hübschle -->
