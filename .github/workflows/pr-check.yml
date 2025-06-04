@@ -58,7 +58,7 @@ jobs:
           comment-id: ${{ steps.fc-sync.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            # $\color{red}{\text{❌ /docs and /docs-mdx Sync Check: Out Of Sync}}$
+            # ❌ /docs and /docs-mdx Sync Check: Out Of Sync
             ```
             ${{ steps.check-sync.outputs.output }}
             ```
@@ -71,7 +71,7 @@ jobs:
           comment-id: ${{ steps.fc-sync.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            # $\color{green}{\text{✅ /docs and /docs-mdx Sync Check: In Sync}}$
+            # ✅ /docs and /docs-mdx Sync Check: In Sync
           edit-mode: replace
 
       - name: Check there are no 404 links
@@ -110,7 +110,7 @@ jobs:
           comment-id: ${{ steps.fc-links.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            # $\color{red}{\text{❌ Link Check Status: FAILURE}}$
+            # ❌ Link Check Status: FAILURE
             ```
             ${{ steps.check404.outputs.output }}
             ```
@@ -123,7 +123,7 @@ jobs:
           comment-id: ${{ steps.fc-links.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            # $\color{green}{\text{✅ Link Check Status: SUCCESS}}$
+            # ✅ Link Check Status: SUCCESS
           edit-mode: replace
 
       - name: Check SQL examples
@@ -162,7 +162,7 @@ jobs:
           comment-id: ${{ steps.fc-sql.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            # $\color{red}{\text{❌ SQL Example Check Status: FAILURE (informational check, doesn't block merge)}}$
+            # ❌ SQL Example Check Status: FAILURE (informational check, doesn't block merge)
             ```
             ${{ steps.checkSQL.outputs.output }}
             ```
@@ -175,5 +175,5 @@ jobs:
           comment-id: ${{ steps.fc-sql.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            # $\color{green}{\text{✅ SQL Example Check Status: SUCCESS}}$
+            # ✅ SQL Example Check Status: SUCCESS
           edit-mode: replace
