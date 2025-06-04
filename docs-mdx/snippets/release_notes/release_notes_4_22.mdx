@@ -28,10 +28,11 @@ Introduced a new flow for creating and altering service accounts that enables us
 
 
 **Extended Parquet data type support**
+
 Added support for reading the following data types from Parquet files:
-- fixed_size_binary as BYTEA
-- uuid as BYTEA
-- time32 and time64 as TIMESTAMP with 1970-01-01 as the date component. Note that time64 with nanosecond precision is truncated to microsecond precision.
+- `fixed_size_binary` as BYTEA
+- `uuid` as BYTEA
+- `time32` and `time64` as TIMESTAMP with 1970-01-01 as the date component. Note that `time64` with nanosecond precision is truncated to microsecond precision.
 
 ### Behavior Changes
 
