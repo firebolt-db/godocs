@@ -29,12 +29,12 @@
   * [ ] Update the [release notes writer](https://github.com/firebolt-analytics/release-process/blob/main/release_notes_writer.py) to make the proper changes.
   * [ ] Proclaim /docs-mdx as a new source of truth, drop /docs.
 * [ ] Shift the domain to mintlify
-  * [ ] Disable telemetry to not to be blocked by cookie consent
-* [ ] Replace the 307 redirectes for 301 
-* [ ] Write HowTo documentation for contributors.
+  * [x] Disable telemetry to not to be blocked by cookie consent
+* [ ] Replace the 307 redirectes for 301
 * [ ] Check that most of the pages are fit for small screens
 
 Nice to have:
+* [ ] Write HowTo documentation for contributors.
 * [ ] Integrate with cookie consent platform
 * [x] Add preexisting redirects (through old urls is ok)
 * [ ] Enable analytics

@@ -11,6 +11,11 @@
   "background": {
     "decoration": "gradient"
   },
+  "integrations": {
+    "telemetry": {
+      "enabled": false
+    }
+  },
   "navigation": {
     "groups": [
       {
