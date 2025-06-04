@@ -22,11 +22,11 @@
   * [ ] Rebase and migrate active branches:
     * [x] release/packdb-4.22
     * [x] performance_and_observability
+    * [x] jingtao/iceberg_4_22
+    * [x] release_notes_4_22
     * [ ] firebolt-core
     * [ ] fix-billing-pages
-    * [ ] jingtao/iceberg_4_22
-    * [ ] release_notes_4_22
-  * [ ] Update the [release notes writer](https://github.com/firebolt-analytics/release-process/blob/main/release_notes_writer.py) to make the proper changes.
+  * [x] Update the [release notes writer](https://github.com/firebolt-analytics/release-process/blob/main/release_notes_writer.py) to make the proper changes.
   * [ ] Proclaim /docs-mdx as a new source of truth, drop /docs.
 * [ ] Shift the domain to mintlify
   * [x] Disable telemetry to not to be blocked by cookie consent
