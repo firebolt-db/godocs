@@ -16,7 +16,7 @@ Documentation for the function is available [here]({% link sql_reference/functio
 
 
 <!-- Auto Generated Markdown for FIR-45210 - Owned by Arsenii Krasikov -->
-**Added a named parameter `INFER_SCHEMA` to the `READ_CSV` function for improved data processing accuracy and efficiency**
+**Added a named parameter `INFER_SCHEMA` to the `READ_CSV` function**
 
 Added a named parameter `INFER_SCHEMA` to the `READ_CSV` function. When `INFER_SCHEMA` is true, the function determines column data types instead of using `TEXT`. This enhancement improves data processing accuracy and efficiency.
 
@@ -26,6 +26,7 @@ Added a named parameter `INFER_SCHEMA` to the `READ_CSV` function. When `INFER_S
 
 Introduced a new flow for creating and altering service accounts that enables user associations in any organization account. This improvement simplifies account management and enhances security through an improved process for rotating secrets.
 
+
 <!-- FIR-45090, FIR-45081 -->
 **Extended Parquet data type support**
 
@@ -33,6 +34,20 @@ Added support for reading the following data types from Parquet files:
 - `fixed_size_binary` as BYTEA
 - `uuid` as BYTEA
 - `time32` and `time64` as TIMESTAMP with 1970-01-01 as the date component. Note that `time64` with nanosecond precision is truncated to microsecond precision.
+
+
+<!-- FIR-45629 arsenii -->
+**Introduced new ingestion related settings**
+Introduced `insert_sharding` to [enforce partition locality]({% link Reference/system-settings.md %}#insert-sharding) during ingestion into partitioned tables.
+Introduced `tablet_min_size_bytes` and `tablet_max_size_bytes` to [control]({% link Reference/system-settings.md %}#target-tablet-size) min/max tablet sizes during ingestion.
+
+
+<!-- FIR-46179 arsenii -->
+**Added an ability to override public settings per query**
+You can now override settings by appending `WITH (<setting_1_name> = <setting_1_value>, ...)` to queries.
+This lets you apply settings directly to specific queries without affecting the entire session.
+Documentation is available [here]({% link Reference/system-settings.md %}#setting-via-with) overrides.
+
 
 ### Performance Improvements
 
