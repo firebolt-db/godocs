@@ -22,6 +22,7 @@ SELECT [ ALL | DISTINCT ] {<select_expr> [, ...]}
     [ ORDER BY <expression> [ ASC | DESC ] [ NULLS FIRST | NULLS LAST] [, ...] ]
     [ LIMIT <count> ]
     [ OFFSET <start> ]
+    [ WITH <settings> ]
 ```
 
 
@@ -896,5 +897,16 @@ Syntactically, `VALUES` can be used anywhere a `SELECT` is allowed.
 
 ```
 VALUES ( <expression> [, ...] ) [, ...]
+```
+
+## WITH settings
+
+List of [query-specific public settings](/reference/system-settings#setting-via-with) overrides.
+
+### Syntax
+
+
+```
+WITH (<setting_1_name> = <setting_1_value>, ...)
 ```
 

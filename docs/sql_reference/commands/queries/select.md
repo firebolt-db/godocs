@@ -30,6 +30,7 @@ SELECT [ ALL | DISTINCT ] {<select_expr> [, ...]}
     [ ORDER BY <expression> [ ASC | DESC ] [ NULLS FIRST | NULLS LAST] [, ...] ]
     [ LIMIT <count> ]
     [ OFFSET <start> ]
+    [ WITH <settings> ]
 ```
 
 
@@ -903,4 +904,15 @@ Syntactically, `VALUES` can be used anywhere a `SELECT` is allowed.
 
 ```
 VALUES ( <expression> [, ...] ) [, ...]
+```
+
+## WITH settings
+
+List of [query-specific public settings]({% link Reference/system-settings.md %}#setting-via-with) overrides.
+
+### Syntax
+{: .no_toc}
+
+```
+WITH (<setting_1_name> = <setting_1_value>, ...)
 ```

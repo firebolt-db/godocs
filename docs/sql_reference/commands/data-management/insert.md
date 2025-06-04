@@ -22,6 +22,7 @@ Inserts one or more values into a specified table. Specifying column names is op
 ```sql
 INSERT INTO <table> [(<column1>[, <column2>][, ...])]
 { <expression> | VALUES ([<value1>[, <value2>][, ...]) }
+[ WITH <public_settings> ]
 ```
 ## Parameters 
 {: .no_toc}
@@ -31,6 +32,7 @@ INSERT INTO <table> [(<column1>[, <column2>][, ...])]
 | `<table>`| The target table where values are to be inserted. |
 | `(<column1>[, <column2>][, ...])]`| A list of column names from `<table_name>` for the insertion. If not defined, the columns are deduced from the `<select_statement>`. |
 | `<expression>`<br>--OR--<br> `VALUES ([<value1>[, <value2>][, ...])]` | You can specify either a [`SELECT` query](../queries/select.md) that determines values to or an explicit list of `VALUES` to insert.|
+| `<public_settings>` | List of [query-specific public settings]({% link Reference/system-settings.md %}#setting-via-with) overrides. |
 
 ## Example
 
@@ -57,3 +59,8 @@ You can also add another row with only some of the columns populated. The missin
 ```sql
 INSERT INTO students (id, full_name, gender) VALUES (3, 'Ron Weasley', 'M')
 ```
+
+## Public settings to control behavior
+
+- `insert_sharding` to [enforce partition locality]({% link Reference/system-settings.md %}#insert-sharding) during ingestion into partitioned tables.
+- `tablet_min_size_bytes` and `tablet_max_size_bytes` to [control]({% link Reference/system-settings.md %}#target-tablet-size) min/max tablet sizes during ingestion.

@@ -69,6 +69,7 @@ FROM '<url>'
     [ CASE_SENSITIVE_COLUMN_MAPPING = { **FALSE** | TRUE } ]
     [ <csv_options> ]
     [ <parquet_options> ]
+    [ <public_settings> ]
 
 <credentials>:
     { AWS_ACCESS_KEY_ID = '<aws_access_key_id>' AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>' [ AWS_SESSION_TOKEN = '<aws_session_token>' ]
@@ -113,6 +114,7 @@ FROM '<url>'
 | `ERROR_FILE_CREDENTIALS`      | The Amazon S3 credentials required to write an error file to an Amazon S3 URL. For more information, see [CREDENTIALS](/reference-sql/commands/data-definition/create-external-table#credentials).                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `MAX_ERRORS_PER_FILE`         | Specify the maximum number of rows that can be rejected per file. `MAX_ERRORS_PER_FILE` can be an integer or percentage in the format "integer%", such as `100%`. The only valid percentage options are `0%` and `100%`. If you specify an integer value, the `COPY FROM` job will load the job until it encounters the number of errors specified, and then stop the loading job. For example, if you specify `3`, then `COPY FROM` will load data until it encounters `3` errors, and then end the job with an error. If the threshold is exceeded, `COPY FROM` job will stop and return an error. By default, no errors are allowed. If `MAX_ERRORS_PER_FILE` is set to `100%`, then all errors are allowed. |
 | `CASE_SENSITIVE_COLUMN_MAPPING` | Specify if column names should be case-sensitive when mapping from source to target tables. When set to `TRUE`, mapping between source and target columns is case-sensitive, and `COPY FROM` will fail or populate columns with `NULL` values when there is a case mismatch. You can use [QUOTED_IDENTIFERS](/reference/object-identifiers#quoted-identifiers) as an alternative when requiring case-sensitive behavior. When set to the default `FALSE` value, and if no target table exists, it is created with lowercase column identifiers if the source file's column identifiers have capital, lowercase, or a combination of the two. When set to the default `FALSE` value, and the table already exists, `CASE_SENSITIVE_COLUMN_MAPPING` is ignored, and data will load from source to target. |
+| `<public_settings>` | List of [query-specific public settings](/reference/system-settings#setting-via-with) overrides.  |
 
 ### Parameters for CSV files
 
@@ -148,6 +150,11 @@ Location objects provide a secure, centralized way to manage Amazon S3 credentia
 - Simplified maintenance and updates.
 
 For detailed information, see [CREATE LOCATION](/reference-sql/commands/data-definition/create-location).
+
+### Public settings to control behavior
+
+- `insert_sharding` to [enforce partition locality](/reference/system-settings#insert-sharding) during ingestion into partitioned tables.
+- `tablet_min_size_bytes` and `tablet_max_size_bytes` to [control](/reference/system-settings#target-tablet-size) min/max tablet sizes during ingestion.
 
 ## Examples
 

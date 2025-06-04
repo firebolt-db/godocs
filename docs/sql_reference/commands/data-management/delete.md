@@ -14,7 +14,7 @@ Deletes rows from the specified table.
 ## Syntax
 
 ```sql
-DELETE FROM <table> [[AS] <alias>] [USING <from_item>] WHERE <condition>
+DELETE FROM <table> [ [ AS ] <alias> ] [ USING <from_item>]  [ WHERE <condition> ] [ WITH <public_settings> ]
 ```
 ## Parameters 
 {: .no_toc} 
@@ -24,6 +24,7 @@ DELETE FROM <table> [[AS] <alias>] [USING <from_item>] WHERE <condition>
 | `<table>`| The table to delete rows from. |
 | `<from_item>` | A table expression allowing columns from other tables to appear in the `WHERE` condition. This uses the same syntax as the `FROM` clause of a `SELECT` statement; for example, an alias for the table name can be specified. Do not repeat the target table as a `from_item` unless you wish to set up a self-join (in which case it must appear with an alias in the `from_item`). |
 | `<condition>` | A Boolean expression. Only rows for which this expression returns `true` will be deleted. Condition can have subqueries doing semi-join with other table(s). |
+| `<public_settings>` | List of [query-specific public settings]({% link Reference/system-settings.md %}#setting-via-with) overrides.  |
 
 The `DELETE FROM <table>` without `<expression>` will delete *all* rows from the table. It is equivalent to a [TRUNCATE TABLE](./truncate-table.md) statement.
 {: .note}

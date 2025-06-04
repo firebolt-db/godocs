@@ -13,6 +13,44 @@ parent: General reference
 
 You can use a `SET` statement in a SQL script to configure aspects of Firebolt's system behavior. Each statement is a query in its own right and must be terminated with a semi-colon (;). The `SET` statement cannot be included in other queries. This topic provides a list of available settings by function.
 
+## Setting via `WITH`
+
+You can override settings by appending `WITH (<setting_1_name> = <setting_1_value>, ...)` to the query. This lets you apply settings directly to specific queries without affecting the entire session.
+
+### Example
+{: .no_toc}
+Instead of:
+```sql
+SET timezone = 'Israel';
+SELECT TIMESTAMPTZ '2023-1-29 12:21:49';  --> 2023-01-29 12:21:49+02
+```
+
+You can write:
+```sql
+SELECT TIMESTAMPTZ '2023-1-29 12:21:49' WITH (timezone = 'Israel');  --> 2023-01-29 12:21:49+02 
+```
+
+### Supported Commands
+{: .no_toc}
+The `WITH` clause is supported for the following commands:
+- [`SELECT`]({% link sql_reference/commands/queries/select.md %})
+- [`INSERT`]({% link sql_reference/commands/data-management/insert.md %})
+- [`COPY FROM`]({% link sql_reference/commands/data-management/copy-from.md %})
+- [`UPDATE`]({% link sql_reference/commands/data-management/update.md %})
+- [`DELETE`]({% link sql_reference/commands/data-management/delete.md %})
+
+### Supported Settings
+{: .no_toc}
+The following settings can be configured using the `WITH` clause:
+- [timezone](#setting-the-time-zone)
+- [max_result_rows](#limit-the-number-of-result-rows)
+- [statement_timeout](#statement-timeout)
+- [cancel_query_on_connection_drop](#query-cancellation-mode-on-connection-drop)
+- [enable_result_cache](#result-cache)
+- [enable_subresult_cache](#subresult-cache)
+- [insert_sharding](#insert-sharding)
+- [tablet_min_size_bytes and tablet_max_size_bytes](#target-tablet-size)
+
 ## Setting the time zone
 
 Use this setting to specify the session time zone. Time zone names are from the [Time Zone Database](http://www.iana.org/time-zones). You can see the list of tz database time zones [here](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones). For times in the future, the latest known rule for the given time zone is applied. Firebolt does not support time zone abbreviations, as they cannot account for daylight savings time transitions, and some time zone abbreviations have meant different UTC offsets at different times. The default value of the `timezone` setting is UTC. 

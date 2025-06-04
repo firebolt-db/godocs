@@ -16,7 +16,7 @@ Updates rows in the specified table.
 ## Syntax
 
 ```sql
-UPDATE <table> [ [ AS ] <alias> ] SET <column1> = <expression1> [, <column2> = <expression2> ...] [ FROM from_item [, ...] ] WHERE <condition>
+UPDATE <table> [ [ AS ] <alias> ] SET <column1> = <expression1> [ , <column2> = <expression2> ... ] [ FROM from_item [, ...] ] [ WHERE <condition> ] [ WITH <public_settings> ]
 ```
 
 ## Parameters 
@@ -29,6 +29,7 @@ UPDATE <table> [ [ AS ] <alias> ] SET <column1> = <expression1> [, <column2> = <
 | `<expression>`      | An expression which computes a new value to populate the column. The expression can reference any column from the row being updated.
 | `<from_item>` | A table expression allowing columns from other tables to appear in the `WHERE` condition and update expressions. This uses the same syntax as the `FROM` clause of a `SELECT` statement; for example, an alias for the table name can be specified. Do not repeat the target table as a `from_item` unless you intend a self-join (in which case it must appear with an alias in the `from_item`). |
 | `<condition>` | A Boolean expression. Only rows for which this expression returns `true` will be updated. Condition can have subqueries doing semi-join with other table(s). |
+| `<public_settings>` | List of [query-specific public settings]({% link Reference/system-settings.md %}#setting-via-with) overrides. |
 
 ## Remarks
 {: .no_toc}
