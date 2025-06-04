@@ -10,7 +10,7 @@ parent: Date and time functions
 # AGO
 
 Subtracts the specified interval from the current timestamp, and returns it as a `TIMESTAMPTZ` value.
-For more information, see [Arithmetic with intervals](../../../Reference/interval-arithmetic.md).
+For more information, see [Arithmetic with intervals]({% link Reference/interval-arithmetic.md %}).
 
 
 ## Syntax

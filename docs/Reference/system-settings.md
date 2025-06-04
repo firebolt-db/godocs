@@ -217,3 +217,103 @@ SELECT count(*) FROM fact_table INNER JOIN dim_table ON (a = b);
 ```
 
 Setting `enable_subresult_cache` to `FALSE` disables the use of all [cached subresults]({% link Overview/queries/understand-query-performance-subresult.md %}). In particular, it deactivates two caching mechanisms that normally speed up query runtimes: the use of the `MaybeCache` operator, which includes the full result cache, and the hash-table cache used by the `Join` operator.
+
+## Insert sharding
+
+When working with [partitioned tables]({% link sql_reference/commands/data-definition/create-fact-dimension-table.md %}#partition-by), Firebolt enforces separation of data between tablets: rows of different partitions cannot be stored together in the same tablet.
+
+Consider a scenario where you're ingesting historical data for the last 3 years with date-based partitioning: this could result in around 1000 tablets. For large datasets, a common practice is [to scale out]({% link sql_reference/commands/engines/alter-engine.md %}#scale-up-and-out-an-engine) for ingestion. However, this creates a challenge: each date might be processed from multiple nodes: for example, for 10 nodes it can result in up to 10,000 tablets, instead of 1,000. This not only slows down data persistence due to increased storage requests but can also degrade [query performance]({% link sql_reference/commands/data-management/vacuum.md %}#space-and-performance-considerations).
+
+To address this, Firebolt provides controls for partitioned tables ingestion:
+- `insert_sharding='shard_on_read'`: Use when the partition expression is based on [`$source_file_name`]({% link Guides/loading-data/loading-data-sql.md %}#load-source-file-metadata-into-a-table). This allows Firebolt to determine the target partition before reading data and group files of the same partition on the same nodes. This is most effective when your source files are already organized by partition (e.g., files named like `data_20240101.csv`, `data_20240102.csv`).
+
+- `insert_sharding='shuffle_on_write'`: Use when the partition expression is based on the data itself. In this case, data must be read first to determine partitioning. Just before insertion and after any transformations, the data is re-shuffled for partitions locality. Use this when your partition values come from the data content rather than file names.
+
+### Notes
+
+- This setting overrides default load-based sharding of input files. Be cautious as a single partition with heavy data could overload a single shard.
+- This setting is only available via the `WITH SETTINGS` syntax, not with `SET`.
+
+### Syntax
+
+```sql
+INSERT INTO ...
+WITH (insert_sharding = ['auto'|'no_sharding'|'shard_on_read'|'shuffle_on_write']);
+```
+
+### Example 
+The following examples demonstrate when to use each sharding option:
+
+```sql
+CREATE TABLE partitioned_table (
+  "date" TEXT,
+  f0 TEXT,
+  f1 TEXT,
+  f2 TEXT,
+  f3 TEXT,
+  f4 TEXT
+) PARTITION BY "date";
+
+-- Example 1: Using shard_on_read with files named like payments-incremental_20240101.csv
+-- This works because the partition value comes from the file name
+INSERT INTO
+  partitioned_table
+SELECT
+  REGEXP_EXTRACT($source_file_name, 'payments-incremental_(\d{8})', '', 1) AS "date",
+  *
+FROM
+  READ_CSV(url => 's3://firebolt-publishing-public/help_center_assets/ledgering_sample/payments-incremental_*')
+WITH (insert_sharding = 'shard_on_read');
+
+-- Example 2: Using shuffle_on_write when partition value comes from the data
+-- This is necessary because the partition value is only known after reading the data
+INSERT INTO
+  partitioned_table
+SELECT
+  f0,  -- date comes from the CSV data
+  *
+FROM
+  READ_CSV(url => 's3://firebolt-publishing-public/help_center_assets/ledgering_sample/payments-incremental_*')
+WITH (insert_sharding = 'shuffle_on_write');
+```
+
+Setting `insert_sharding` to `shard_on_read` changes the file distribution strategy across nodes: with this each date is processed by exactly one node, but only when the partition value can be determined from the source file name.
+
+## Target tablet size
+
+During ingestion, Firebolt attempts to create optimally sized tablets to balance ingestion speed and future scan performance. When all ingested data has been read, Firebolt prefers creating relatively smaller tablets to prioritize data persistence, leaving further optimization to [Auto Vacuum]({% link sql_reference/commands/data-management/vacuum.md %}). However, if this behavior isn't desirable, you can control it using the `tablet_min_size_bytes` and `tablet_max_size_bytes` settings:
+
+- `tablet_min_size_bytes`: Controls the minimum size of tablets. If there isn't enough data in the ingestion, smaller tablets are created nevertheless. When possible, data is compacted into tablets of at least this size. Default: `1.5 GiB`. Minmum: `1 GiB`.
+- `tablet_max_size_bytes`: Controls the maximum size of tablets. Default: `4 GiB`. Should be greated or equal than `tablet_min_size_bytes`.
+
+### Note 
+
+Larger target tablet sizes may require more memory during ingestion.
+
+### Example 
+The following example sets both minimum and maximum tablet sizes to `4 GiB`:
+
+```sql
+CREATE TABLE playstats (
+  "GameID" BIGINT NULL,
+  "PlayerID" BIGINT NULL,
+  "Timestamp" TEXT NULL,
+  "SelectedCar" TEXT NULL,
+  "CurrentLevel" BIGINT NULL,
+  "CurrentSpeed" BIGINT NULL,
+  "CurrentPlayTime" DOUBLE PRECISION NULL,
+  "CurrentScore" BIGINT NULL, 
+  "Event" TEXT NULL,
+  "ErrorCode" TEXT NULL
+);
+
+INSERT INTO
+  playstats
+SELECT
+  *
+FROM
+  READ_PARQUET(URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/*.parquet')
+WITH (tablet_min_size_bytes = 4294967296, tablet_max_size_bytes = 4294967296);
+```
+
+Changing both `tablet_min_size_bytes` and `tablet_max_size_bytes` to `4 GiB` ensures that larger tablets are created.
