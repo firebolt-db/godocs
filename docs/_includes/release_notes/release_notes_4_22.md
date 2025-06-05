@@ -21,12 +21,6 @@ Documentation for the function is available [here]({% link sql_reference/functio
 Added a named parameter `INFER_SCHEMA` to the `READ_CSV` function. When `INFER_SCHEMA` is true, the function determines column data types instead of using `TEXT`. This enhancement improves data processing accuracy and efficiency.
 
 
-<!-- Auto Generated Markdown for FIR-37504 - Owned by Cosmin Cosmin Pop -->
-**Introduced a new flow for managing service accounts with enhanced security via improved secret rotation and user associations in any organization account**
-
-Introduced a new flow for creating and altering service accounts that enables user associations in any organization account. This improvement simplifies account management and enhances security through an improved process for rotating secrets.
-
-
 <!-- FIR-45090, FIR-45081 -->
 **Extended Parquet data type support**
 
@@ -55,6 +49,13 @@ Documentation is available [here]({% link Reference/system-settings.md %}#settin
 **Rearchitected the Parquet reader for predictable memory usage and improved performance with external tables and `READ_PARQUET` function.**
 The Parquet reader was rearchitected to provide more predictable memory usage when reading from external tables or using the `READ_PARQUET` table-valued function. This change improves performance for many Parquet workloads. Users benefit from enhanced memory efficiency and faster query processing. More updates, like applying these changes to the `COPY FROM` command, are planned for future releases.
 This improvement is being rolled out gradually over multiple weeks.
+
+### UX changes
+
+<!-- Auto Generated Markdown for FIR-37504 - Owned by Cosmin Cosmin Pop -->
+**Introduced a new flow for managing service accounts with enhanced security via improved secret rotation and user associations in any organization account**
+
+Introduced a new flow for creating and altering service accounts that enables user associations in any organization account. This improvement simplifies account management and enhances security through an improved process for rotating secrets.
 
 
 ### Bug Fixes
