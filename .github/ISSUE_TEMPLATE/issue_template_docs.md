@@ -5,7 +5,7 @@ title: "[DOC ISSUE]"
 labels: 'Untriaged'
 assignees: 
 layout: default
-description: Documentation feedback or requst issue
+description: Documentation feedback or request issue
 ---
 
 # Documentation Issue Title

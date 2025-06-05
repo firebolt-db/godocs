@@ -3,7 +3,7 @@ Please include a summary of the change and which issue is fixed. Please also inc
 
 # When should this PR be released to the public?
 If the feature is live, the docs can be scheduled for **immediate release** by filing the PR to the gh-pages branch.
-If it's part of a **future release**, please file the PR against the correcsponding release/packdb-<version> branch. 
+If it's part of a **future release**, please file the PR against the corresponding release/packdb-<version> branch. 
 
 # Documentation Checklist
 - [ ] I've previewed my documentation locally running `make start-local` (or using [this](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll) tutorial) 
