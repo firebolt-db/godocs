@@ -1,0 +1,311 @@
+---
+redirect_from:
+  - /sql_reference/functions-reference/conditional-and-miscellaneous/read_iceberg.html
+layout: default
+title: READ_ICEBERG
+description: Reference material for READ_ICEBERG function
+parent: Table-valued functions
+grand_parent: SQL functions
+great_grand_parent: SQL reference
+---
+
+# READ_ICEBERG
+
+A table-valued function (TVF) that reads data from [Apache Iceberg](https://iceberg.apache.org/) tables. The function can use either a location object or individual TVF parameters to access the data, and can read from file-based catalogs as well as REST catalogs. `READ_ICEBERG` returns a table with data from the specified Iceberg table.
+
+ **Topics:**
+ * [Syntax](#syntax)
+ * [Parameters](#parameters)
+ * [Return Type](#return-type)
+ * [Best Practices](#best-practices)
+ * [Examples](#examples)
+ * [About Metadata Versions in File-Based Catalogs](#about-metadata-versions-in-file-based-catalogs)
+ * [Limitations](#limitations)
+
+## Syntax
+
+```sql
+-- Using a LOCATION object
+READ_ICEBERG (
+  LOCATION => <location_name>
+  [, MAX_STALENESS => <max_staleness_allowed> ]
+)
+
+-- Using individual TVF parameters
+READ_ICEBERG (
+  URL => '<s3_or_rest_api_url>'
+  -- Parameters for file-based (S3-hosted) Iceberg tables
+  [, AWS_ACCESS_KEY_ID = '<aws_access_key_id>' ]
+  [, AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>' ]
+  [, AWS_SESSION_TOKEN = '<aws_session_token>' ]
+  [, AWS_ROLE_ARN = '<aws_role_arn>' ]
+  [, AWS_ROLE_EXTERNAL_ID = '<aws_role_external_id>' ]
+  -- Parameters for Iceberg REST catalogs
+  [, WAREHOUSE => '<warehouse_name>' ]
+  [, NAMESPACE => '<namespace_name>' ]
+  [, TABLE => '<table_name>' ]
+  [, OAUTH_CLIENT_ID => '<oauth_client_id>' ]
+  [, OAUTH_CLIENT_SECRET = '<oauth_client_secret>' ]
+  [, OAUTH_SCOPE => '<oauth_scope>' ]
+  [, OAUTH_SERVER_URL => '<oauth_server_url>' ]
+  -- Other common parameters
+  [, MAX_STALENESS => <max_staleness_allowed> ]
+)
+```
+
+## Parameters
+
+### Using a LOCATION object
+
+| Parameter | Description | Supported input types |
+|:----------|:------------|:---------------------|
+| `LOCATION` | The name of a location object that contains the Iceberg parameters and credentials. Firebolt recommends using `LOCATION` to store credentials for authentication. | `IDENTIFIER` |
+| `MAX_STALENESS` | Specifies a maximum staleness for results returned by this function, e.g., `INTERVAL '30 seconds'`. The default value is 0 seconds, forcing Firebolt to fetch the latest version metadata from the catalog for every query. Values larger than zero instruct Firebolt to cache metadata and vended credentials in memory, and can typically reduce query latency by tens or hundreds of milliseconds. | `INTERVAL` |
+
+For more on `LOCATION`, see [CREATE LOCATION]({% link sql_reference/commands/data-definition/create-location.md %}) and [CREATE LOCATION (Iceberg)]({% link sql_reference/commands/data-definition/create-location-iceberg.md %}).
+
+### Using individual TVF parameters
+
+#### Common Parameters
+| Parameter | Description | Supported input types |
+|:----------|:------------|:---------------------|
+| `URL` | A url pointing to a table in an Iceberg file-based catalog, or a url pointing to an Iceberg REST catalog API endpoint. For file-based catalogs, the expected format is `s3://{bucket_name}/{path}/{to}/{table}` or `s3://{bucket_name}/{path}/{to}/{table}/metadata/{version.metadata.json}`. For REST catalogs, the expected format is `https://{path}/{to}/{rest}/{host}`. | `TEXT` |
+| `MAX_STALENESS` | Specifies a maximum staleness for results returned by this function, e.g., `INTERVAL '30 seconds'`. The default value is 0 seconds, forcing Firebolt to fetch the latest version metadata from the catalog for every query. Values larger than zero instruct Firebolt to cache metadata and vended credentials in memory, and can typically reduce query latency by tens or hundreds of milliseconds. | `INTERVAL` |
+
+#### Parameters for file-based Iceberg tables (Iceberg tables hosted in S3)
+| Parameter | Description | Supported input types |
+|:----------|:------------|:---------------------|
+| `AWS_ACCESS_KEY_ID` | The AWS access key ID. Used only for file-based catalogs. | `TEXT` |
+| `AWS_SECRET_ACCESS_KEY` | The AWS secret access key. Used only for file-based catalogs. | `TEXT` |
+| `AWS_SESSION_TOKEN` | The AWS session token. Used only for file-based catalogs. | `TEXT` |
+| `AWS_ROLE_ARN` | The AWS role ARN. Used only for file-based catalogs. | `TEXT` |
+| `AWS_ROLE_EXTERNAL_ID` | The AWS role external ID. Used only for file-based catalogs. | `TEXT` |
+
+#### Parameters for Iceberg REST catalogs
+| Parameter | Description | Supported input types |
+|:----------|:------------|:---------------------|
+| `WAREHOUSE` | The name of the warehouse an Iceberg table resides in. Used only for REST catalogs. | `TEXT` |
+| `NAMESPACE` | The namespace an Iceberg table resides in. Used only for REST catalogs. | `TEXT` |
+| `TABLE` | The name of the Iceberg table to read. Used only for REST catalogs. | `TEXT` |
+| `OAUTH_CLIENT_ID` | An OAuth client ID for authenticating to the REST catalog. Used only for REST catalogs. | `TEXT` |
+| `OAUTH_CLIENT_SECRET` | An OAuth client secret for authenticating to the REST catalog. Used only for REST catalogs. | `TEXT` |
+| `OAUTH_SCOPE` | An OAuth scope for authenticating to the REST catalog. Used only for REST catalogs. | `TEXT` |
+| `OAUTH_SERVER_URL` | The URL to use when requesting an access token for the REST catalog. If not specified, `{URL}/v1/oauth/tokens` will be used. Used only for REST catalogs. | `TEXT` |
+
+## Return Type
+
+The result is a table with data from the Iceberg files. Columns are read and parsed using their inferred data types.
+
+## Best practices
+
+- Firebolt recommends using a `LOCATION` object to store credentials for authentication. See [CREATE LOCATION]({% link sql_reference/commands/data-definition/create-location.md %}) and [CREATE LOCATION (Iceberg)]({% link sql_reference/commands/data-definition/create-location-iceberg.md %}).
+- Specifying a value for `MAX_STALENESS` can help improve performance in tight loops and infrequently-updated tables.
+- It is recommended to specify all parameters using the named-parameter syntax rather than relying on parameter positions. For example: use `URL => 'http://example.com'` rather than omitting the `URL =>` parameter name specifier.
+
+## Examples
+
+### Reading using a LOCATION
+
+The following code example reads the first 5 rows from an Iceberg table using a `LOCATION` object that stores credentials for authentication:
+
+```sql
+CREATE LOCATION my_location
+WITH 
+  SOURCE = 'ICEBERG'
+  CATALOG = 'FILE_BASED'
+  CATALOG_OPTIONS = (
+    URL = 's3://my-bucket/path/to/iceberg/table'
+  )
+  CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' );
+
+SELECT *
+FROM READ_ICEBERG(
+  LOCATION => my_location,
+  MAX_STALENESS => INTERVAL '30 seconds'
+)
+LIMIT 5;
+```
+
+`LOCATION` objects are supported for file-based (S3-hosted) catalogs as well as REST catalogs.
+For more examples of `LOCATION`, see [CREATE LOCATION]({% link sql_reference/commands/data-definition/create-location.md %}) and [CREATE LOCATION (Iceberg)]({% link sql_reference/commands/data-definition/create-location-iceberg.md %}).
+
+### Using TVF parameters, from a public location in S3
+
+The following code example reads the first 5 rows from an Iceberg table in a file-based catalog stored on S3:
+
+```sql
+SELECT * 
+FROM READ_ICEBERG(
+  URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_iceberg/tpch/iceberg/lineitem',
+  MAX_STALENESS => INTERVAL '30 seconds'
+) 
+LIMIT 5;
+```
+
+**Returns**
+
+| l_orderkey | l_partkey | l_suppkey | l_linenumber | l_quantity | l_extendedprice | l_discount | l_tax | l_returnflag | l_linestatus | l_shipdate | l_commitdate | l_receiptdate | l_shipinstruct | l_shipmode | l_comment |
+|:-----------|:----------|:----------|:-------------|:-----------|:----------------|:-----------|:------|:-------------|:-------------|:-----------|:-------------|:--------------|:---------------|:-----------|:----------|
+| 1 | 156 | 4 | 1 | 17 | 17954.55 | 0.04 | 0.02 | N | O | 1996-03-13 | 1996-02-12 | 1996-03-22 | DELIVER IN PERSON | TRUCK | egular courts above the |
+| 1 | 68 | 9 | 2 | 36 | 34850.16 | 0.09 | 0.06 | N | O | 1996-04-12 | 1996-02-28 | 1996-04-20 | TAKE BACK RETURN | MAIL | ly final dependencies: slyly bold |
+| 1 | 64 | 5 | 3 | 8 | 7712.48 | 0.1 | 0.02 | N | O | 1996-01-29 | 1996-03-05 | 1996-01-31 | TAKE BACK RETURN | REG AIR | riously. regular, express dep |
+| 1 | 3 | 6 | 4 | 28 | 25284 | 0.09 | 0.06 | N | O | 1996-04-21 | 1996-03-30 | 1996-05-16 | NONE | AIR | lites. fluffily even de |
+| 1 | 25 | 8 | 5 | 24 | 22200.48 | 0.1 | 0.04 | N | O | 1996-03-30 | 1996-03-14 | 1996-04-01 | NONE | FOB | pending foxes. slyly re |
+
+### Using a direct path to a metadata.json file
+
+A URL pointing to an Iceberg metadata.json file will also return the same result:
+
+```sql
+SELECT * 
+FROM READ_ICEBERG(
+  URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_iceberg/tpch/iceberg/lineitem/metadata/00001-0bafdf0e-7309-4464-aa20-5919cc4122db.metadata.json',
+  MAX_STALENESS => INTERVAL '30 seconds'
+) 
+LIMIT 5;
+```
+
+**Returns**
+
+| l_orderkey | l_partkey | l_suppkey | l_linenumber | l_quantity | l_extendedprice | l_discount | l_tax | l_returnflag | l_linestatus | l_shipdate | l_commitdate | l_receiptdate | l_shipinstruct | l_shipmode | l_comment |
+|:-----------|:----------|:----------|:-------------|:-----------|:----------------|:-----------|:------|:-------------|:-------------|:-----------|:-------------|:--------------|:---------------|:-----------|:----------|
+| 1 | 156 | 4 | 1 | 17 | 17954.55 | 0.04 | 0.02 | N | O | 1996-03-13 | 1996-02-12 | 1996-03-22 | DELIVER IN PERSON | TRUCK | egular courts above the |
+| 1 | 68 | 9 | 2 | 36 | 34850.16 | 0.09 | 0.06 | N | O | 1996-04-12 | 1996-02-28 | 1996-04-20 | TAKE BACK RETURN | MAIL | ly final dependencies: slyly bold |
+| 1 | 64 | 5 | 3 | 8 | 7712.48 | 0.1 | 0.02 | N | O | 1996-01-29 | 1996-03-05 | 1996-01-31 | TAKE BACK RETURN | REG AIR | riously. regular, express dep |
+| 1 | 3 | 6 | 4 | 28 | 25284 | 0.09 | 0.06 | N | O | 1996-04-21 | 1996-03-30 | 1996-05-16 | NONE | AIR | lites. fluffily even de |
+| 1 | 25 | 8 | 5 | 24 | 22200.48 | 0.1 | 0.04 | N | O | 1996-03-30 | 1996-03-14 | 1996-04-01 | NONE | FOB | pending foxes. slyly re |
+
+### Authenticated read from S3
+
+The following code examples use various valid combinations of AWS secrets to read from S3:
+
+**Using access key + secret:**
+```sql
+SELECT * 
+FROM READ_ICEBERG(
+  URL => 's3://my-bucket/path/to/iceberg/table',
+  AWS_ACCESS_KEY_ID => '1231',
+  AWS_SECRET_ACCESS_KEY => '567',
+  MAX_STALENESS => INTERVAL '30 seconds'
+) 
+LIMIT 5;
+```
+
+**Using access key, secret, and session token:**
+```sql
+SELECT * 
+FROM READ_ICEBERG(
+  URL => 's3://my-bucket/path/to/iceberg/table',
+  AWS_ACCESS_KEY_ID => '1231',
+  AWS_SECRET_ACCESS_KEY => '567',
+  SESSION_TOKEN => 'session-token',
+  MAX_STALENESS => INTERVAL '30 seconds'
+) 
+LIMIT 5;
+```
+
+**Using role:**
+```sql
+SELECT * 
+FROM READ_ICEBERG(
+  URL => 's3://my-bucket/path/to/iceberg/table',
+  AWS_ROLE_ARN => 'arn:aws:iam::123456789012:role/S3Access',
+  MAX_STALENESS => INTERVAL '30 seconds'
+) 
+LIMIT 5;
+```
+
+**Using role + external id:**
+```sql
+SELECT * 
+FROM READ_ICEBERG(
+  URL => 's3://my-bucket/path/to/iceberg/table',
+  AWS_ROLE_ARN => 'arn:aws:iam::123456789012:role/S3Access',
+  AWS_ROLE_EXTERNAL_ID => 'my-role-external-id',
+  MAX_STALENESS => INTERVAL '30 seconds'
+) 
+LIMIT 5;
+```
+
+### Reading from REST
+
+The following code example reads the first 5 rows from an Iceberg table in a REST catalog:
+```sql
+SELECT *
+FROM READ_ICEBERG(
+  URL => 'https://my-iceberg-rest-catalog/api',
+  WAREHOUSE  => 'my_warehouse',
+  NAMESPACE => 'my_namespace',
+  TABLE => 'my_table_name',
+  OAUTH_CLIENT_ID => '00000000-0000-0000-0000-000000000000',
+  OAUTH_CLIENT_SECRET => '1234',
+  OAUTH_SCOPE => 'example_permission:all',
+  MAX_STALENESS => INTERVAL '30 seconds'
+)
+LIMIT 5;
+```
+
+For more on Iceberg REST catalogs, see the [Iceberg REST API spec](https://github.com/apache/iceberg/blob/main/open-api/rest-catalog-open-api.yaml).
+
+### Reading from REST, with a custom OAuth token URL
+
+Some Iceberg REST catalogs do not support the `/v1/oauth/tokens` API, and serve OAuth tokens from a different API. For these catalogs, specify `OAUTH_SERVER_URL`.
+
+```sql
+SELECT *
+FROM READ_ICEBERG(
+  URL => 'https://my-iceberg-rest-catalog/api',
+  WAREHOUSE  => 'my_warehouse',
+  NAMESPACE => 'my_namespace',
+  TABLE => 'my_table_name',
+  OAUTH_CLIENT_ID => '00000000-0000-0000-0000-000000000000',
+  OAUTH_CLIENT_SECRET => '1234',
+  OAUTH_SCOPE => 'example_permission:all',
+  OAUTH_SERVER_URL => 'https://my-iceberg-rest-catalog/example/token',
+  MAX_STALENESS => INTERVAL '30 seconds'
+)
+LIMIT 5;
+```
+
+### Reading from Databricks Unity Catalog
+
+One example of an Iceberg REST catalog that requires a custom `OAUTH_SERVER_URL` is the [Databricks Unity Catalog](https://docs.databricks.com/aws/en/data-governance/unity-catalog/). The following code example reads the first 5 rows from a table in a Databricks Unity Catalog, showing how Databricks concepts map to `READ_ICEBERG` parameters:
+
+```sql
+SELECT *
+FROM READ_ICEBERG(
+  URL => 'https://000-0000000000000.cloud.databricks.com/api/2.1/unity-catalog/iceberg/v1'
+  WAREHOUSE  => 'my_uc_catalog_name',
+  NAMESPACE => 'my_uc_schema_name',
+  TABLE => 'my_table_name',
+  OAUTH_CLIENT_ID => '00000000-0000-0000-0000-000000000000',
+  OAUTH_CLIENT_SECRET => '1234',
+  OAUTH_SCOPE => 'all-apis',
+  OAUTH_SERVER_URL => 'https://000-0000000000000.cloud.databricks.com/oidc/v1/token',
+  MAX_STALENESS => INTERVAL '30 seconds'
+)
+LIMIT 5;
+```
+
+For configuring Unity Catalog in your Databricks workspace, see [Databricks - Set up and manage Unity Catalog](https://docs.databricks.com/aws/en/data-governance/unity-catalog/get-started). Note that you will need to enable credential vending in your Unity Catalog, see [Databricks - Unity Catalog credential vending for external system access](https://docs.databricks.com/aws/en/external-access/credential-vending).
+For general information about reading Databricks tables from Iceberg clients, see [Databricks - Read Databricks tables from Iceberg clients](https://docs.databricks.com/gcp/en/external-access/iceberg).
+
+## About Metadata Versions in File-Based Catalogs
+
+When reading from a file-based catalog, Firebolt first looks for a `version-hint.text` file to determine which metadata version to use. If one is not available, `READ_ICEBERG` also accepts a path to a specific `metadata.json` file.
+
+## Limitations
+- Iceberg tables with Parquet data files in S3 are currently supported.
+- Versions 1 and 2 of the Apache Iceberg specification are supported.
+- Tables with following Iceberg features are currently not supported:
+    - Row-level deletes (position deletes or equality deletes)
+    - Schema evolution
+    - Partition evolution
+- The following data types are currently not supported:
+    - `variant`
+    - `geometry`
+    - `geography`
+- Reading past snapshots with time travel is currently not supported.
+- Nested complex types such as `struct`, `list`, and `map` are currently read as nullable even if Iceberg defines the field to be non-nullable. This only applies to nested complex types (`struct`/`list`/`map` nested inside another `struct`/`list`/`map`).
+- [Returning partition values for Identity Transforms from partition metadata](https://iceberg.apache.org/spec/#column-projection) is currently not supported.
+- Cross-region costs may be incurred based on the storage location of underlying Iceberg files.

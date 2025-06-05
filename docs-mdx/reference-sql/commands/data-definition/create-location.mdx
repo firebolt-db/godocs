@@ -6,7 +6,7 @@ title: CREATE LOCATION
 
 
 
-Creates a new location object in your Firebolt account, which is a secure, reusable object that stores the connection details and credentials for external data sources, like Amazon S3. Instead of entering these details each time you run a query or create a table, you can use a location object.
+Creates a new location object in your Firebolt account, which is a secure, reusable object that stores the connection details and credentials for external data sources. Instead of entering these details each time you run a query or create a table, you can use a location object.
 
 The location object stores the following:
 * The source type specification
@@ -20,48 +20,147 @@ You can use `LOCATION` to centralize credential storage with managed access with
 
 After you create a `LOCATION`, you can use the `information_schema.locations` view to see [details about all the locations](/reference-sql/information-schema/locations) in your account including source type, URL, description, owner and creation time.
 
+ **Related:**
+
+This document covers `LOCATION` objects in general. For more information about specific types of `LOCATION` objects, including more in-depth examples, please see:
+ * [CREATE LOCATION (Amazon S3)](/reference-sql/commands/data-definition/create-location-s3)
+ * [CREATE LOCATION (Iceberg)](/reference-sql/commands/data-definition/create-location-iceberg)
+
  **Topics:**
  * [Syntax](#syntax)
  * [Parameters](#parameters)
- * [Specify credentials to access Amazon S3](#specify-credentials-to-access-amazon-s3)
  * [Permissions](#permissions)
  * [Examples](#examples)
  * [Notes](#notes)
- * [Error handling](#error-handling)
- * [Best practices](#best-practices)
+ * [Error Handling](#error-handling)
+ * [Best Practices](#best-practices)
  * [Limitations](#limitations)
 
 ## Syntax
 
 ```sql
-CREATE LOCATION [IF NOT EXISTS] <location_name> WITH
-  SOURCE = <source_type>
-  CREDENTIALS = ( AWS_ACCESS_KEY_ID = '<aws_access_key_id>' AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>' [ AWS_SESSION_TOKEN = '<aws_session_token>' ] | AWS_ROLE_ARN = '<aws_role_arn>' [ AWS_ROLE_EXTERNAL_ID = '<aws_role_external_id>' ] )
+CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
+  SOURCE = { 'AMAZON_S3' | 'ICEBERG' }
+  [ , ... ]
+
+-- Amazon S3 Location
+CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
+  SOURCE = 'AMAZON_S3'
+  CREDENTIALS = {
+    ( AWS_ACCESS_KEY_ID = '<aws_access_key_id>'
+      AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>'
+      [ AWS_SESSION_TOKEN = '<aws_session_token>' ] )
+    |
+    ( AWS_ROLE_ARN = '<aws_role_arn>'
+      [ AWS_ROLE_EXTERNAL_ID = '<aws_role_external_id>' ] )
+  }
   URL = '<url>'
+  [ DESCRIPTION = '<description>' ]
+
+-- Iceberg Location
+CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
+  SOURCE = 'ICEBERG'
+  CATALOG = { 'FILE_BASED' | 'REST' | 'DATABRICKS_UNITY' }
+  CATALOG_OPTIONS = {
+    -- FILE_BASED
+    ( URL = '<file_based_catalog_url>' )
+    |
+    -- REST
+    ( URL = '<rest_catalog_url>'
+      WAREHOUSE = '<warehouse>'
+      NAMESPACE = '<namespace>'
+      TABLE = '<table_name>' )
+    |
+    -- DATABRICKS_UNITY
+    ( WORKSPACE_INSTANCE = '<workspace_instance>'
+      CATALOG = '<uc_catalog_name>'
+      SCHEMA = '<uc_schema_name>'
+      TABLE = '<uc_table_name>' )
+  }
+  CREDENTIALS = {
+    -- AWS Authentication
+    ( AWS_ACCESS_KEY_ID = '<aws_access_key_id>'
+      AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>'
+      [ AWS_SESSION_TOKEN = '<aws_session_token>' ] )
+    |
+    ( AWS_ROLE_ARN = '<aws_role_arn>'
+      [ AWS_ROLE_EXTERNAL_ID = '<aws_role_external_id>' ] )
+    |
+    -- OAuth Authentication
+    ( OAUTH_CLIENT_ID = '<oauth_client_id>'
+      OAUTH_CLIENT_SECRET = '<oauth_client_secret>'
+      [ OAUTH_SCOPE = '<oauth_scope>' ]
+      [ OAUTH_SERVER_URL = '<oauth_server_url>' ] )
+  }
   [ DESCRIPTION = '<description>' ]
 ```
 
-## Parameters 
+## Parameters
+
+### Common Parameters
 
 | Parameter | Description |
 | :-------- | :---------- |
 | `<location_name>` | A unique identifier for the location within your account. |
-| `<source_type>` | The external data source type. Currently, Firebolt only supports `AMAZON_S3`. |
-| `<credentials_options>` | Authentication parameters specific to the source type. |
-| `<url>` | The data source URL. For Amazon S3, use the following format: `s3://{bucket_name}/{path}` |
-| `<description>` | Optional metadata describing the location's purpose. |
+| `SOURCE` | The external data source type. Currently, `AMAZON_S3` (See [CREATE LOCATION (Amazon S3)](/reference-sql/commands/data-definition/create-location-s3)) and `ICEBERG` (See [CREATE LOCATION (Iceberg)](/reference-sql/commands/data-definition/create-location-iceberg)) are supported. |
+| `DESCRIPTION` | Optional metadata describing the location's purpose. |
 
-## Specify credentials to access Amazon S3
+### Amazon S3 Parameters
 
-You can use either access key-based or role-based credentials to authenticate to AWS. The parameters for both methods follow:
+| Parameter | Description |
+| :-------- | :---------- |
+| `CREDENTIALS` | Authentication credentials for Amazon S3 access. |
+| `URL` | The data source URL in the format: `s3://{bucket_name}/{path}`. This must be a valid S3 URL. |
 
-| Parameter             | Description                                                | Authentication type |
-| :-------------------- | :--------------------------------------------------------- | ------------------- |
-| `AWS_ACCESS_KEY_ID`    | Your AWS access key ID                                      | key-based           |
-| `AWS_SECRET_ACCESS_KEY`| Your AWS secret access key                                  | key-based           |
-| `AWS_SESSION_TOKEN`    | Optional temporary session token for temporary credentials  | key-based           |
-| `AWS_ROLE_ARN`         | The ARN of the IAM role to assume                           | role-based          |
-| `AWS_ROLE_EXTERNAL_ID` | Optional external ID for role assumption                    | role-based          |
+### Iceberg Parameters
+
+| Parameter | Description |
+| :-------- | :---------- |
+| `CATALOG` | The type of Iceberg catalog. Supported values: `FILE_BASED`, `REST`, or `DATABRICKS_UNITY`. |
+| `CATALOG_OPTIONS` | Configuration options specific to the chosen catalog type. |
+| `CREDENTIALS` | Authentication credentials for accessing the Iceberg catalog. Depending on the type of catalog, either AWS or OAuth credentials are used. |
+
+#### AWS Authentication Parameters
+
+| Parameter | Description |
+| :-------- | :---------- |
+| `AWS_ACCESS_KEY_ID` | Your AWS access key ID for key-based authentication. |
+| `AWS_SECRET_ACCESS_KEY` | Your AWS secret access key for key-based authentication. |
+| `AWS_SESSION_TOKEN` | Optional temporary session token for temporary credentials. |
+| `AWS_ROLE_ARN` | The ARN of the IAM role to assume for role-based authentication. |
+| `AWS_ROLE_EXTERNAL_ID` | Optional external ID for role assumption. |
+
+#### OAuth Authentication Parameters
+
+| Parameter | Description |
+| :-------- | :---------- |
+| `OAUTH_CLIENT_ID` | The OAuth client ID for authentication. |
+| `OAUTH_CLIENT_SECRET` | The OAuth client secret for authentication. |
+| `OAUTH_SCOPE` | Optional OAuth scope for authentication. |
+| `OAUTH_SERVER_URL` | Optional OAuth server URL for authentication. |
+
+#### Iceberg Catalog-Specific Parameters
+
+##### FILE_BASED Catalog
+| Parameter | Description |
+| :-------- | :---------- |
+| `URL` | The URL for the file-based catalog. |
+
+##### REST Catalog
+| Parameter | Description |
+| :-------- | :---------- |
+| `URL` | The REST catalog URL. |
+| `WAREHOUSE` | The warehouse identifier. |
+| `NAMESPACE` | The namespace identifier. |
+| `TABLE` | The table name. |
+
+##### DATABRICKS_UNITY Catalog
+| Parameter | Description |
+| :-------- | :---------- |
+| `WORKSPACE_INSTANCE` | The Databricks workspace instance. |
+| `CATALOG` | The Unity Catalog name. |
+| `SCHEMA` | The Unity Catalog schema name. |
+| `TABLE` | The Unity Catalog table name. |
 
 ## Permissions
 
@@ -79,10 +178,8 @@ You can use either access key-based or role-based credentials to authenticate to
 
 ## Examples
 
-* [Authenticate using an access key](#authenticate-using-an-access-key)
-* [Authenticate using a role](#authenticate-using-a-role)
+* [Create a location](#create-a-location)
 * [Create a location with a description](#create-a-location-with-a-description)
-* [Create a location with an AWS session token](#create-a-location-with-an-aws-session-token)
 * [Create a location only if it doesn't exist](#create-a-location-only-if-it-doesnt-exist)
 * [Use a location to load data into an external table](#use-a-location-to-load-data-into-an-external-table)
 * [Use a location to load data using COPY statements](#use-a-location-to-load-data-using-copy-statements)
@@ -90,24 +187,14 @@ You can use either access key-based or role-based credentials to authenticate to
 * [Alter a location](#alter-a-location)
 * [Delete a location](#delete-a-location)
 
-### Authenticate using an access key
+### Create a location
 
-The following code example uses keys to authenticate to AWS:
+The following code example creates a location that uses keys to authenticate to AWS:
 
 ```sql
 CREATE LOCATION my_location WITH
   SOURCE = 'AMAZON_S3'
   CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' )
-  URL = 's3://my-bucket/path/to/data'
-```
-
-### Authenticate using a role
-The following code example use a role to authenticate to AWS:
-
-```sql
-CREATE LOCATION my_location WITH
-  SOURCE = 'AMAZON_S3'
-  CREDENTIALS = ( AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/S3Access' )
   URL = 's3://my-bucket/path/to/data'
 ```
 
@@ -121,17 +208,6 @@ CREATE LOCATION my_location WITH
   CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' )
   URL = 's3://my-bucket/path/to/data'
   DESCRIPTION = 'Main data storage location'
-```
-
-### Create a location with an AWS session token
-
-The following code example creates a location object named `my_location`, for an Amazon S3 data source with the specified URL and AWS session token:
-
-```sql
-CREATE LOCATION my_location WITH
-  SOURCE = 'AMAZON_S3'
-  CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' AWS_SESSION_TOKEN = 'session-token' )
-  URL = 's3://my-bucket/path/to/data'
 ```
 
 ### Create a location only if it doesn't exist
@@ -202,15 +278,11 @@ The following code example deletes a `LOCATION` from your Firbolt account:
 DROP LOCATION [IF EXISTS] <location_name> [WITH FORCE]
 ```
 
-<Note>
 Deleting a location will affect all objects that depend on the `LOCATION` that you are dropping.
-</Note>
 
 ## Notes
 
 - All identifiers are case-insensitive unless enclosed in double-quotes
-- The `SOURCE` parameter is required. Currently, the only supported source is 'AMAZON_S3'
-- The `URL` parameter is required and must be a valid S3 URL
 - Locations cannot be created on the system engine
 - For more information about object identifiers, see [Object identifiers](/reference/object-identifiers)
 
@@ -235,3 +307,4 @@ The system uses secure error handling for location objects:
 - The source type cannot be modified for existing location objects.
 - Location objects cannot be used alongside inline credentials in the same statement.
 - Historical versions of credentials are not maintained.
+

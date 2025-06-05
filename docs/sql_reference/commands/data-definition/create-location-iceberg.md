@@ -1,0 +1,247 @@
+---
+redirect_from:
+  - /sql-reference/commands/create-location-iceberg.html
+layout: default
+title: CREATE LOCATION (Iceberg)
+description: Reference and syntax for creating Iceberg locations.
+parent: Data definition
+---
+
+# CREATE LOCATION (Iceberg)
+{: .no_toc}
+
+Creates a new location object in your Firebolt account, which is a secure, reusable object that stores the connection details and credentials for Iceberg data sources. Instead of entering these details each time you run a query or create a table, you can use a location object.
+
+This document captures specific and examples for location objects for Iceberg. For more on location objects in general, see [CREATE LOCATION]({% link sql_reference/commands/data-definition/create-location.md %}).
+
+Iceberg locations currently support three catalog types: `REST`, `FILE_BASED`, and `DATABRICKS_UNITY` (as syntactic sugar top of `REST`). Each catalog accepts a different set of parameters and credentials.
+
+ **Topics:**
+ * [Syntax](#syntax)
+ * [Parameters](#parameters)
+ * [Examples](#examples)
+
+## Syntax
+
+```sql
+CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
+  SOURCE = 'ICEBERG'
+  CATALOG = { 'FILE_BASED' | 'REST' | 'DATABRICKS_UNITY' }
+  CATALOG_OPTIONS = {
+    -- FILE_BASED
+    ( URL = '<file_based_catalog_url>' )
+    |
+    -- REST
+    ( URL = '<rest_catalog_url>'
+      WAREHOUSE = '<warehouse>'
+      NAMESPACE = '<namespace>'
+      TABLE = '<table_name>' )
+    |
+    -- DATABRICKS_UNITY
+    ( WORKSPACE_INSTANCE = '<workspace_instance>'
+      CATALOG = '<uc_catalog_name>'
+      SCHEMA = '<uc_schema_name>'
+      TABLE = '<uc_table_name>' )
+  }
+  CREDENTIALS = {
+    -- AWS Authentication
+    ( AWS_ACCESS_KEY_ID = '<aws_access_key_id>'
+      AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>'
+      [ AWS_SESSION_TOKEN = '<aws_session_token>' ] )
+    |
+    ( AWS_ROLE_ARN = '<aws_role_arn>'
+      [ AWS_ROLE_EXTERNAL_ID = '<aws_role_external_id>' ] )
+    |
+    -- OAuth Authentication
+    ( OAUTH_CLIENT_ID = '<oauth_client_id>'
+      OAUTH_CLIENT_SECRET = '<oauth_client_secret>'
+      [ OAUTH_SCOPE = '<oauth_scope>' ]
+      [ OAUTH_SERVER_URL = '<oauth_server_url>' ] )
+  }
+  [ DESCRIPTION = '<description>' ]
+```
+
+## Parameters
+
+### Common Parameters
+
+| Parameter | Description |
+| :-------- | :---------- |
+| `<location_name>` | A unique identifier for the location within your account. |
+| `SOURCE` | The external data source type. Currently, `AMAZON_S3` and `ICEBERG` are supported. This should be `ICEBERG` for Iceberg locations. |
+| `DESCRIPTION` | Optional metadata describing the location's purpose. |
+
+### Iceberg Parameters
+
+| Parameter | Description |
+| :-------- | :---------- |
+| `CATALOG` | The type of Iceberg catalog. Supported values: `FILE_BASED`, `REST`, or `DATABRICKS_UNITY`. |
+| `CATALOG_OPTIONS` | Configuration options specific to the chosen catalog type. |
+| `CREDENTIALS` | Authentication credentials for accessing the Iceberg catalog. Depending on the type of catalog, either AWS or OAuth credentials are used. |
+
+#### AWS Authentication Parameters
+
+Use AWS authentication parameters for `FILE_BASED` catalogs.
+
+| Parameter | Description |
+| :-------- | :---------- |
+| `AWS_ACCESS_KEY_ID` | Your AWS access key ID for key-based authentication. |
+| `AWS_SECRET_ACCESS_KEY` | Your AWS secret access key for key-based authentication. |
+| `AWS_SESSION_TOKEN` | Optional temporary session token for temporary credentials. |
+| `AWS_ROLE_ARN` | The ARN of the IAM role to assume for role-based authentication. |
+| `AWS_ROLE_EXTERNAL_ID` | Optional external ID for role assumption. |
+
+#### OAuth Authentication Parameters
+
+Use OAuth authentication parameters for `REST` or `DATABRICKS_UNITY` catalogs.
+
+| Parameter | Description |
+| :-------- | :---------- |
+| `OAUTH_CLIENT_ID` | The OAuth client ID for authentication. |
+| `OAUTH_CLIENT_SECRET` | The OAuth client secret for authentication. |
+| `OAUTH_SCOPE` | Optional OAuth scope for authentication. |
+| `OAUTH_SERVER_URL` | Optional OAuth server URL for authentication. |
+
+#### Iceberg Catalog-Specific Parameters
+
+##### FILE_BASED Catalog
+| Parameter | Description |
+| :-------- | :---------- |
+| `URL` | The URL for the file-based catalog. This must be a valid S3 URL. |
+
+##### REST Catalog
+| Parameter | Description |
+| :-------- | :---------- |
+| `URL` | The REST catalog URL. |
+| `WAREHOUSE` | The warehouse identifier. |
+| `NAMESPACE` | The namespace identifier. |
+| `TABLE` | The table name. |
+
+##### DATABRICKS_UNITY Catalog
+| Parameter | Description |
+| :-------- | :---------- |
+| `WORKSPACE_INSTANCE` | The Databricks workspace instance. |
+| `CATALOG` | The Unity Catalog name. |
+| `SCHEMA` | The Unity Catalog schema name. |
+| `TABLE` | The Unity Catalog table name. |
+
+## Examples
+
+### File-based catalog
+
+Used to access Iceberg tables directly from S3.
+
+For file-based Iceberg catalogs, use AWS key-based or role-based authentication in `CREDENTIALS`.
+
+**With access key and secret:**
+```sql
+CREATE LOCATION my_location
+WITH 
+  SOURCE = 'ICEBERG'
+  CATALOG = 'FILE_BASED'
+  CATALOG_OPTIONS = (
+    URL = 's3://my-bucket/path/to/iceberg/table'
+  )
+  CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' );
+
+SELECT * FROM READ_ICEBERG(LOCATION => my_location) LIMIT 5;
+```
+
+**With access key, secret, and session token:**
+```sql
+CREATE LOCATION my_location
+WITH 
+  SOURCE = 'ICEBERG'
+  CATALOG = 'FILE_BASED'
+  CATALOG_OPTIONS = (
+    URL = 's3://my-bucket/path/to/iceberg/table'
+  )
+  CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' SESSION_TOKEN = 'session-token' );
+
+SELECT * FROM READ_ICEBERG(LOCATION => my_location) LIMIT 5;
+```
+
+**With role:**
+```sql
+CREATE LOCATION my_location
+WITH 
+  SOURCE = 'ICEBERG'
+  CATALOG = 'FILE_BASED'
+  CATALOG_OPTIONS = (
+    URL = 's3://my-bucket/path/to/iceberg/table'
+  )
+  CREDENTIALS = ( AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/S3Access' );
+
+SELECT * FROM READ_ICEBERG(LOCATION => my_location) LIMIT 5;
+```
+
+**With role and external id:**
+```sql
+CREATE LOCATION my_location
+WITH 
+  SOURCE = 'ICEBERG'
+  CATALOG = 'FILE_BASED'
+  CATALOG_OPTIONS = (
+    URL = 's3://my-bucket/path/to/iceberg/table'
+  )
+  CREDENTIALS = ( AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/S3Access' AWS_ROLE_EXTERNAL_ID = 'my-external-id' );
+
+SELECT * FROM READ_ICEBERG(LOCATION => my_location) LIMIT 5;
+```
+
+### REST catalog
+
+Used to access Iceberg in REST catalogs, that implement the [Iceberg REST API spec](https://github.com/apache/iceberg/blob/main/open-api/rest-catalog-open-api.yaml).
+
+For generic REST Iceberg catalogs, use OAuth parameters for `CREDENTIALS`.
+
+```sql
+CREATE LOCATION my_location
+WITH 
+  SOURCE = 'ICEBERG'
+  CATALOG = 'REST'
+  CATALOG_OPTIONS = (
+    URL = 'https://my-iceberg-rest-catalog/api'
+    WAREHOUSE  = 'my_warehouse'
+    NAMESPACE = 'my_namespace'
+    TABLE = 'my_table_name'
+  )
+  CREDENTIALS = (
+    OAUTH_CLIENT_ID = '00000000-0000-0000-0000-000000000000'
+    OAUTH_CLIENT_SECRET = '1234'
+    OAUTH_SCOPE = 'example_permission:all'
+    -- OAUTH_SERVER_URL is only needed for REST catalogs that don't support the /v1/oauth/tokens endpoint. If /v1/oauth/tokens is supported, it can be omitted.
+    OAUTH_SERVER_URL = 'https://my-iceberg-rest-catalog/example/token'
+  );
+
+SELECT * FROM READ_ICEBERG(LOCATION => my_location) LIMIT 5;
+```
+
+### Databricks Unity Catalog
+
+Used to access Iceberg tables in a Databricks Unity Catalog. Offered as syntactic sugar on top of `CATALOG = 'REST'`, for users who may be more familiar with Databricks Unity Catalog terminology.
+
+For configuring Unity Catalog in your Databricks workspace, see [Databricks - Set up and manage Unity Catalog](https://docs.databricks.com/aws/en/data-governance/unity-catalog/get-started). Note that you will need to enable credential vending in your Unity Catalog, see [Databricks - Unity Catalog credential vending for external system access](https://docs.databricks.com/aws/en/external-access/credential-vending).
+For general information about reading Databricks tables from Iceberg clients, see [Databricks - Read Databricks tables from Iceberg clients](https://docs.databricks.com/gcp/en/external-access/iceberg).
+
+For Databricks Unity Catalogs, use OAuth parameters for `CREDENTIALS`.
+
+```sql
+CREATE LOCATION my_location
+WITH 
+  SOURCE = 'ICEBERG'
+  CATALOG = 'DATABRICKS_UNITY'
+  CATALOG_OPTIONS = (
+    WORKSPACE_INSTANCE = '000-0000000000000.cloud.databricks.com'
+    CATALOG  = 'my_uc_catalog_name'
+    SCHEMA = 'my_uc_schema_name'
+    TABLE = 'my_uc_table_name'
+  )
+  CREDENTIALS = (
+    OAUTH_CLIENT_ID = '00000000-0000-0000-0000-000000000000'
+    OAUTH_CLIENT_SECRET = '1234'
+    -- OAUTH_SCOPE and OAUTH_SERVER_URL are not needed
+  );
+
+SELECT * FROM READ_ICEBERG(LOCATION => my_location) LIMIT 5;
+```

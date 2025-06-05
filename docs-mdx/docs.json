@@ -316,6 +316,8 @@
                   "reference-sql/commands/data-definition/create-external-table",
                   "reference-sql/commands/data-definition/create-fact-dimension-table-as-select",
                   "reference-sql/commands/data-definition/create-fact-dimension-table",
+                  "reference-sql/commands/data-definition/create-location-iceberg",
+                  "reference-sql/commands/data-definition/create-location-s3",
                   "reference-sql/commands/data-definition/create-location",
                   "reference-sql/commands/data-definition/create-table-clone",
                   "reference-sql/commands/data-definition/create-view",
@@ -630,6 +632,7 @@
                   "reference-sql/functions-reference/table-valued/generate-series",
                   "reference-sql/functions-reference/table-valued/list-objects",
                   "reference-sql/functions-reference/table-valued/read_csv",
+                  "reference-sql/functions-reference/table-valued/read_iceberg",
                   "reference-sql/functions-reference/table-valued/read_parquet"
                 ]
               },
@@ -1175,6 +1178,11 @@
       "permanent": false
     },
     {
+      "source": "/sql_reference/commands/data-definition/create-location-iceberg.html",
+      "destination": "/reference-sql/commands/data-definition/create-location-iceberg",
+      "permanent": false
+    },
+    {
       "source": "/Overview/Security/Role-Based Access Control/engine-permissions.html",
       "destination": "/overview/security/rbac/engine-permissions",
       "permanent": false
@@ -1337,6 +1345,11 @@
     {
       "source": "/sql_reference/functions-reference/table-valued/read_parquet.html",
       "destination": "/reference-sql/functions-reference/table-valued/read_parquet",
+      "permanent": false
+    },
+    {
+      "source": "/sql_reference/functions-reference/table-valued/read_iceberg.html",
+      "destination": "/reference-sql/functions-reference/table-valued/read_iceberg",
       "permanent": false
     },
     {
@@ -1572,6 +1585,16 @@
     {
       "source": "/sql_reference/commands/data-definition/create-table-clone.html",
       "destination": "/reference-sql/commands/data-definition/create-table-clone",
+      "permanent": false
+    },
+    {
+      "source": "/sql_reference/commands/data-definition/create-location-s3.html",
+      "destination": "/reference-sql/commands/data-definition/create-location-s3",
+      "permanent": false
+    },
+    {
+      "source": "/sql_reference/commands/data-definition/create-location-iceberg",
+      "destination": "/reference-sql/commands/data-definition/create-location-iceberg",
       "permanent": false
     },
     {
@@ -1847,6 +1870,11 @@
     {
       "source": "/sql_reference/functions-reference/table-valued/read_parquet",
       "destination": "/reference-sql/functions-reference/table-valued/read_parquet",
+      "permanent": false
+    },
+    {
+      "source": "/sql_reference/functions-reference/table-valued/read_iceberg",
+      "destination": "/reference-sql/functions-reference/table-valued/read_iceberg",
       "permanent": false
     },
     {
@@ -2257,6 +2285,11 @@
     {
       "source": "/sql_reference/commands/data-definition/create-table-clone",
       "destination": "/reference-sql/commands/data-definition/create-table-clone",
+      "permanent": false
+    },
+    {
+      "source": "/sql_reference/commands/data-definition/create-location-s3",
+      "destination": "/reference-sql/commands/data-definition/create-location-s3",
       "permanent": false
     },
     {

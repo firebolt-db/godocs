@@ -1,0 +1,103 @@
+---
+redirect_from:
+  - /sql-reference/commands/create-location-s3.html
+layout: default
+title: CREATE LOCATION (Amazon S3)
+description: Reference and syntax for creating Amazon S3 locations.
+parent: Data definition
+---
+
+# CREATE LOCATION (Amazon S3)
+{: .no_toc}
+
+Creates a new location object in your Firebolt account, which is a secure, reusable object that stores the connection details and credentials for Amazon S3 data sources. Instead of entering these details each time you run a query or create a table, you can use a location object.
+
+This document captures specifics and examples for location objects for Amazon S3. For more on location objects in general, see [CREATE LOCATION]({% link sql_reference/commands/data-definition/create-location.md %}).
+
+ **Topics:**
+ * [Syntax](#syntax)
+ * [Parameters](#parameters)
+ * [Examples](#examples)
+
+## Syntax
+
+```sql
+CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
+  SOURCE = 'AMAZON_S3'
+  CREDENTIALS = {
+    ( AWS_ACCESS_KEY_ID = '<aws_access_key_id>'
+      AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>'
+      [ AWS_SESSION_TOKEN = '<aws_session_token>' ] )
+    |
+    ( AWS_ROLE_ARN = '<aws_role_arn>'
+      [ AWS_ROLE_EXTERNAL_ID = '<aws_role_external_id>' ] )
+  }
+  URL = '<url>'
+  [ DESCRIPTION = '<description>' ]
+```
+
+## Parameters
+
+### Common Parameters
+
+| Parameter | Description |
+| :-------- | :---------- |
+| `<location_name>` | A unique identifier for the location within your account. |
+| `SOURCE` | The external data source type. Currently, `AMAZON_S3` and `ICEBERG` are supported. This should be `AMAZON_S3` for Amazon S3 locations. |
+| `DESCRIPTION` | Optional metadata describing the location's purpose. |
+
+### Amazon S3 Parameters
+
+| Parameter | Description |
+| :-------- | :---------- |
+| `SOURCE` | Must be set to 'AMAZON_S3' for Amazon S3 locations. |
+| `CREDENTIALS` | Authentication credentials for Amazon S3 access. |
+| `URL` | The data source URL in the format: `s3://{bucket_name}/{path}`. This must be a valid S3 URL. |
+
+#### AWS Authentication Parameters
+
+| Parameter | Description |
+| :-------- | :---------- |
+| `AWS_ACCESS_KEY_ID` | Your AWS access key ID for key-based authentication. |
+| `AWS_SECRET_ACCESS_KEY` | Your AWS secret access key for key-based authentication. |
+| `AWS_SESSION_TOKEN` | Optional temporary session token for temporary credentials. |
+| `AWS_ROLE_ARN` | The ARN of the IAM role to assume for role-based authentication. |
+| `AWS_ROLE_EXTERNAL_ID` | Optional external ID for role assumption. |
+
+## Examples
+
+* [Authenticate using an access key](#authenticate-using-an-access-key)
+* [Authenticate using a role](#authenticate-using-a-role)
+* [Create a location with an AWS session token](#create-a-location-with-an-aws-session-token)
+
+### Authenticate using an access key
+
+The following code example uses keys to authenticate to AWS:
+
+```sql
+CREATE LOCATION my_location WITH
+  SOURCE = 'AMAZON_S3'
+  CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' )
+  URL = 's3://my-bucket/path/to/data'
+```
+
+### Authenticate using a role
+The following code example use a role to authenticate to AWS:
+
+```sql
+CREATE LOCATION my_location WITH
+  SOURCE = 'AMAZON_S3'
+  CREDENTIALS = ( AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/S3Access' )
+  URL = 's3://my-bucket/path/to/data'
+```
+
+### Create a location with an AWS session token
+
+The following code example creates a location object named `my_location`, for an Amazon S3 data source with the specified URL and AWS session token:
+
+```sql
+CREATE LOCATION my_location WITH
+  SOURCE = 'AMAZON_S3'
+  CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' AWS_SESSION_TOKEN = 'session-token' )
+  URL = 's3://my-bucket/path/to/data'
+```
