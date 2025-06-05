@@ -22,12 +22,6 @@ Added a named parameter `INFER_SCHEMA` to the `READ_CSV` function. When `INFER_S
 
 
 
-**Introduced a new flow for managing service accounts with enhanced security via improved secret rotation and user associations in any organization account**
-
-Introduced a new flow for creating and altering service accounts that enables user associations in any organization account. This improvement simplifies account management and enhances security through an improved process for rotating secrets.
-
-
-
 **Extended Parquet data type support**
 
 Added support for reading the following data types from Parquet files:
@@ -55,6 +49,13 @@ Documentation is available [here](/reference/system-settings#setting-via-with) o
 **Rearchitected the Parquet reader for predictable memory usage and improved performance with external tables and `READ_PARQUET` function.**
 The Parquet reader was rearchitected to provide more predictable memory usage when reading from external tables or using the `READ_PARQUET` table-valued function. This change improves performance for many Parquet workloads. Users benefit from enhanced memory efficiency and faster query processing. More updates, like applying these changes to the `COPY FROM` command, are planned for future releases.
 This improvement is being rolled out gradually over multiple weeks.
+
+
+### UX changes
+
+**Introduced a new flow for managing service accounts with enhanced security via improved secret rotation and user associations in any organization account**
+
+Introduced a new flow for creating and altering service accounts that enables user associations in any organization account. This improvement simplifies account management and enhances security through an improved process for rotating secrets.
 
 
 ### Bug Fixes
