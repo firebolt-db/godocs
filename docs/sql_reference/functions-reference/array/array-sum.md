@@ -24,20 +24,20 @@ ARRAY_SUM(<array>)
 ## Parameters
 {: .no_toc} 
 
-| Parameter | Description | Supported input types | 
-| :--------- | :-------------------------------- |
-| `<array>`   | The array to be used to calculate the function.     | Any array of numeric types | 
+| Parameter  | Description                                     | Supported input types       | 
+|:-----------|:------------------------------------------------|:----------------------------|
+| `<array>`  | The array to be used to calculate the function. | Any array of numeric types  |
 
 ## Return Type 
 The return type depends on the input type:
 
-| Array element type | Return type | 
-| :--------- | :-------------------------------- |
-| `INTEGER`   | `BIGINT`  | 
-| `BIGINT`   | `NUMERIC(38, 0)`  | 
-| `NUMERIC(precision, scale)`   | `NUMERIC(precision, scale)`  | 
-| `REAL`   | `REAL`  | 
-| `DOUBLE`   | `DOUBLE`  | 
+| Array element type          | Return type                 | 
+|:----------------------------|:----------------------------|
+| `INTEGER`                   | `BIGINT`                    | 
+| `BIGINT`                    | `NUMERIC(38, 0)`            | 
+| `NUMERIC(precision, scale)` | `NUMERIC(precision, scale)` | 
+| `REAL`                      | `REAL`                      | 
+| `DOUBLE`                    | `DOUBLE`                    | 
 
 ## Example
 {: .no_toc}
