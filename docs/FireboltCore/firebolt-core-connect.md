@@ -1,0 +1,229 @@
+---
+layout: default
+title: Connect
+nav_order: 2
+parent: Firebolt Core
+---
+
+# Connect to a node
+
+Each node in a Firebolt Core cluster exposes a single HTTP endpoint for communication with clients. Clients interact with a cluster by submitting HTTP `POST` requests containing plain SQL queries to these endpoints. The cluster then executes the submitted SQL queries and returns query results to the client in the corresponding HTTP response.
+
+## Communication Protocol
+
+In principle, any HTTP client (library) can be used to connect to a Firebolt Core cluster. In the following examples we will use the `curl` command line utility and assume that a single-node Firebolt Core cluster is running on the local machine with its HTTP endpoint exposed at `localhost:3473`. You can refer to [Get Started](./firebolt-core-get-started.md) for instructions on how to start such a cluster.
+
+Each HTTP `POST` request submitted to the HTTP endpoint of Firebolt Core should contain exactly one valid SQL query, for example:
+
+```bash
+curl --silent "localhost:3473" --data-binary "SELECT 42"
+# 42
+```
+
+If necessary, [system settings](../Reference/system-settings.md) can be adjusted for individual queries by appending them as parameters to the HTTP query string. For example, the `timezone` setting can be adjusted as follows.
+
+```bash
+curl --silent "localhost:3473/?timezone=utc" --data-binary "SELECT TIMESTAMPTZ '1996-09-03 11:19:33.123456 Europe/Berlin' AS ts"
+# ts
+# timestamptz
+# 1996-09-03 09:19:33.123456+00
+curl --silent "localhost:3473/?timezone=America/Los_Angeles" --data-binary "SELECT TIMESTAMPTZ '1996-09-03 11:19:33.123456 Europe/Berlin' AS ts"
+# ts
+# timestamptz
+# 1996-09-03 02:19:33.123456+00
+```
+
+Multiple parameters can be specified by separating them with an ampersand (`&`).
+
+```bash
+curl --silent "localhost:3473/?max_result_rows=1&timezone=utc" --data-binary "SELECT TIMESTAMPTZ '1996-09-03 11:19:33.123456 Europe/Berlin' AS ts"
+# ts
+# timestamptz
+# 1996-09-03 09:19:33.123456+00
+```
+
+Query results are returned in the body of the corresponding HTTP response. By default, they are formatted as a human-readable tab-separated string. For example, the following request
+
+```bash
+curl --silent "localhost:3473" --data-binary "SELECT x, 42 * x AS multiplied FROM generate_series(1,4) g(x)"
+```
+
+will return the following response body.
+
+```
+x	multiplied
+int	int
+1	42
+2	84
+3	126
+4	168
+```
+
+### Output Format
+
+The `output_format` parameter can be specified in the HTTP query string to select a different output format. We recommend using the `JSON_Compact` output format whenever query results need to be processed by code instead of humans. The supported formats are:
+- `TabSeparatedWithNamesAndTypes` (default)
+- `JSON_Compact`
+- `JSON_CompactLimited` (same as _JSON_Compact_ but only returns 10,000 rows)
+- `JSONLines_Compact` (chunked version of _JSON_CompactLimited_)
+
+For example, the following request using `JSON_Compact`
+
+```bash
+curl --silent "localhost:3473/?output_format=JSON_Compact" --data-binary "SELECT x, 42 * x FROM generate_series(1,4) g(x)"
+```
+
+will return the following response body.
+
+```json
+{
+        "query":
+        {
+                "query_id": "7487991c-d84c-40a4-bdaf-3bc4507f250a",
+                "request_id": "a6a9f32d-8b3c-469e-a778-1ff27221781b",
+                "query_label": null
+        },
+        "meta":
+        [
+                {
+                        "name": "x",
+                        "type": "int"
+                },
+                {
+                        "name": "?column?",
+                        "type": "int"
+                }
+        ],
+        "data":
+        [
+                [1, 42],
+                [2, 84],
+                [3, 126],
+                [4, 168]
+        ],
+        "rows": 4,
+        "statistics":
+        {
+                "elapsed": 0.001598,
+                "rows_read": 1,
+                "bytes_read": 1,
+                "time_before_execution": 0.000324689,
+                "time_to_execute": 0.000205699,
+                "scanned_bytes_cache": 0,
+                "scanned_bytes_storage": 0
+        }
+}
+```
+
+For example, the following request using `JSONLines_Compact`
+
+```bash
+curl --silent "localhost:3473/?output_format=JSONLines_Compact" --data-binary "SELECT x, 42 * x FROM generate_series(1,4) g(x)"
+```
+
+will return the following response body.
+
+```json
+{"message_type":"START","query_id":"7487991c-d84c-40a4-bdaf-3bc4507f250a","query_label":null,"request_id":"a6a9f32d-8b3c-469e-a778-1ff27221781b","result_columns":[{"name":"x","type":"integer"},{"name":"?column?","type":"integer"}]}
+{"message_type":"DATA","data":[[1,42],[2,84],[3,126],[4,168]]}
+{"message_type":"FINISH_SUCCESSFULLY","statistics":{"bytes_read":1,"elapsed":0.001598,"result_rows":4,"rows_read":1,"scanned_bytes_cache":0,"scanned_bytes_storage":0}}
+```
+
+## Sessions
+
+Firebolt Core does not have any concept of server-side sessions, i.e. the communication protocol is stateless. This is irrelevant for most types of SQL statements clients might submit to a Firebolt Core cluster, but there are a few exceptions. Specifically, the following statement types require special handling on the client side.
+
+[USE DATABASE](../sql_reference/commands/data-definition/use-database.md). Running this statement only validates that the specified database exists. If this is successful, Firebolt Core returns the `Firebolt-Update-Parameters` response header containing the new parameters that should be appended to the HTTP query string for subsequent statements to use the changed database. Consider the following example running against a clean Firebolt Core cluster (see [Get Started](./firebolt-core-get-started.md) on how to start such a cluster).
+
+```bash
+curl --silent "localhost:3473" --data-binary "SELECT current_database()"
+# Statement returns "firebolt"
+curl --silent "localhost:3473" --data-binary "CREATE DATABASE example"
+# Statement succeeds with empty result
+curl --silent "localhost:3473" --data-binary "SELECT current_database()"
+# Statement returns "firebolt"
+curl --verbose "localhost:3473" --data-binary "USE DATABASE example"
+# Statement succeeds and `curl` prints details about HTTP request and response.
+# ...
+# < HTTP/1.1 200 OK
+# ...
+# < Firebolt-Update-Parameters: database=example
+# ...
+curl --silent "localhost:3473" --data-binary "SELECT current_database()"
+# Statement still returns "firebolt", there is no server-side state and we have not yet applied the HTTP query parameter returned from `USE DATABASE`.
+curl --silent "localhost:3473/?database=example" --data-binary "SELECT current_database()"
+# Statement returns "example".
+```
+
+## Transactions
+
+Firebolt Core is fully transactional (see also [Architecture](./firebolt-core-architecture.md)). All queries submitted to a Firebolt Core cluster run within their own transaction that is automatically committed when the statement finishes, and rolled back when the statement fails. There can be an arbitrary number of concurrent read transactions, but only one write transaction can be active at any point in time within the entire cluster. Attempting to submit a write transaction while another write transaction is already active will result in an error. This means that write transactions have to be serialized on the client side, for example through a suitable queuing mechanism that submits them one-by-one.
+
+## Load Balancing & Data Locality
+
+Firebolt Core contains the same distributed execution engine that also powers Firebolt's managed Cloud data warehouse. In general, this execution engine distributes most query processing work evenly across all nodes within a cluster. However, clients should nevertheless ensure that they submit queries to all nodes within a cluster in a balanced way for the following reasons.
+
+First, the node to which a query is submitted becomes the leader node for that query and usually has to do slightly more work than the follower nodes. Most importantly, all query planning is done on the leader node which may require substantial compute resources for complex queries. Furthermore, the final query result is gathered on the leader node and streamed back to the client from there. If the query result is large, this may also require substantial compute resources. Finally, some stages of the distribution execution plan may run only on the leader node. For example, this is the case for the final sorting step for queries with an `ORDER BY` clause, or for queries that do not access any tables at all.
+
+Second, this behavior also affects data placement when inserting into tables managed by the Firebolt Core cluster. Specifically, such tables are conceptually sharded across all nodes in a cluster but data is physically inserted in the final stage of the distributed query plan. If this stage runs only on a single node, all inserted data will also end up on this single node. In this case, balancing individual insert statements across nodes is crucial to ensure that data is distributed properly across nodes.
+
+Whether the above applies to a specific query can be determined by inspecting its physical query plan (see also [Troubleshooting](./firebolt-core-troubleshooting.md)). Consider the following example running against a two-node Firebolt Core cluster with node endpoints exposed at `localhost:3473` and `localhost:3474` (see [Get Started](./firebolt-core-get-started.md)). Note that running these queries against a single-node cluster would result in slightly different query plans.
+
+```bash
+# Create two managed tables.
+curl --silent "localhost:3473" --data-binary "CREATE TABLE foo (a INTEGER)"
+curl --silent "localhost:3473" --data-binary "CREATE TABLE bar (a INTEGER)"
+
+# Inspect some query plans.
+curl --silent "localhost:3473" --data-binary "EXPLAIN (PHYSICAL) INSERT INTO foo SELECT * FROM generate_series(1,10)"
+# The physical query plan of this statement shows `[Affinity]: single node` for the insert, since the `generate_series(1,10)` call will only be executed on a single node.
+#
+# DML LQP:
+# [0] [TableModify]
+# |   [RowType]: bigint not null
+#  \_[1] [Insert] target table: "foo"
+#    |   [RowType]: bigint not null
+#    |   [Affinity]: single node
+#     \_[2] [Projection] patch_nullability_for_insert(ref_0, type => integer null, column => 'a')
+#       |   [RowType]: integer null
+#        \_[3] [TableFuncScan] $0
+#          |   $0 = generate_series(ref_0, ref_1)
+#          |   [RowType]: integer not null
+#           \_[4] [Projection] 1, 10
+#             |   [RowType]: integer not null, integer not null
+#              \_[5] [SystemOneTable]
+#                    [RowType]: integer not null
+
+curl --silent "localhost:3473" --data-binary "EXPLAIN (PHYSICAL) INSERT INTO foo SELECT * FROM bar"
+# The physical query plan of this statement shows `[Affinity]: many nodes` for the insert since the scan of the `bar` table needs to run on all nodes.
+#
+# DML LQP:
+# [0] [TableModify]
+# |   [RowType]: bigint not null
+#  \_[1] [Insert] target table: "foo"
+#    |   [RowType]: bigint not null
+#    |   [Affinity]: many nodes
+#     \_[2] [TableFuncScan] $0.a
+#       |   $0 = read_tablets(table_name => bar, ref_0)
+#       |   [RowType]: integer null
+#        \_[3] [TableFuncScan] $0.tablet
+#          |   $0 = list_tablets(table_name => bar)
+#          |   [RowType]: tablet not null
+#           \_[4] [Projection]
+#             |   [RowType]: 
+#              \_[5] [SystemOneTable]
+#                    [RowType]: integer not null
+```
+
+## Security
+
+Firebolt Core does not have any built-in provisions to authenticate and secure communication with clients. In particular, the following caveats apply:
+
+* All communication with clients happens over unencrypted HTTP. If any actor is able to intercept communication between Firebolt Core and a client they will be able to read all information exchanged between the client and Firebolt Core. This includes potentially sensitive information such as secrets used to access external resources like S3 or GCS.
+* Firebolt Core does not authenticate any requests made to its HTTP endpoints, and there is no role-based access control. In other words, any actor that is able to send requests to a Firebolt Core HTTP endpoint has full access to the cluster and can read or modify any information stored on the cluster.
+
+## Client SDKs
+
+Firebolt offers a number of [client SDKs](../Guides/developing-with-firebolt/index.md) for its managed Cloud data warehouse. However, most of these SDKs cannot yet be used to connect to Firebolt Core. We will gradually extend SDK coverage as Firebolt Core moves beyond public preview (see also [Roadmap](./firebolt-core-roadmap.md)). The following client SDKs are currently supported.
+
+* The [Firebolt JDBC driver](https://github.com/firebolt-db/jdbc) from version 3.6.3. See [Connect with JDBC](./firebolt-core-connect-jdbc.md) for details.

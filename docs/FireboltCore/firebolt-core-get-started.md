@@ -1,0 +1,56 @@
+---
+layout: default
+title: Get Started
+nav_order: 1
+parent: Firebolt Core
+---
+
+# Get Started
+
+Running Firebolt Core locally is the recommended starting point for new users. Local deployment allows you to test queries and familiarize yourself with the system before proceeding to remote cluster configuration (see [Deployment and Operational Guide](./firebolt-core-operation.md)).
+
+## Requirements
+
+Software for your host OS:
+
+* **[Docker Engine](https://docs.docker.com/engine/install/)**, with the **[Docker Compose plugin](https://docs.docker.com/compose/install/linux/)** if you want to use `docker compose`; if you use the [get-core.sh](https://github.com/firebolt-db/firebolt-core/blob/main/get-core.sh) script Docker engine will be installed automatically.
+* **[curl](https://curl.se/) or any other HTTP client** in order to send SQL queries to Firebolt Core.
+
+Software for your Docker host:
+* **Linux kernel version >= 6.1**. Firebolt Core internally uses the `io_uring` kernel API for fast network and disk I/O, and some required features of this API have only been released in Linux 6.1.
+
+Resources for each node (either a local machine or a VM instance):
+
+* **An amd64 CPU supporting at least SSE 4.2, or an arm64 CPU** All published Firebolt Core Docker images are multi-arch images suitable for both `amd64` and `arm64`.
+* **At least 16 GB of RAM** are recommended in order to run basic queries.
+* **At least 25 GB of SSD space** are recommended in order to run basic queries.
+* **At least 10 GBit/s of inter-node network bandwidth** is recommended for multi-node deployments.
+* TCP port `3473` open when using a single node.
+* TCP ports `3473`, `1717`, `3434`, `5678`, `6500`, `8122`, `3473`, `16000` open when using multiple nodes; see [Network](./firebolt-core-operation.md#network) for more information.
+
+Note that there is no universally correct amount of RAM and disk space for running Firebolt Core, and the above are simply rough guidelines for running some simple queries as a way to get started. The ideal amount of RAM and disk space depends heavily on the specific workload that you are running against a Firebolt Core deployment (see [Deployment and Operational Guide](./firebolt-core-operation.md) for details).
+
+## Local Single-Node Deployment
+
+Run the following command to start a single-node Firebolt Core cluster on your local machine (see [Deployment and Operational Guide](./firebolt-core-operation.md) for details on the command-line arguments).
+
+```bash
+docker run --tty --rm --ulimit memlock=8589934592:8589934592 --security-opt seccomp=unconfined -v ./firebolt-core-data:/firebolt-core/volume --publish 127.0.0.1:3473:3473 ghcr.io/firebolt-db/firebolt-core:preview-rc
+```
+
+The above command will pull the `ghcr.io/firebolt-db/firebolt-core:preview-rc` Docker image from our container registry, start a single container running one Firebolt Core node, and expose its HTTP endpoint at `localhost:3473` on the host system. All persisted data will be stored on a `firebolt-core-data` directory mounted through a bind mount; note that this directory will be owned by `root` user.
+
+You can send SQL queries to this endpoint with `curl`:
+```bash
+curl --silent "localhost:3473" --data-binary "SELECT 'H3ll0, w0rld'"
+```
+
+See also:
+* additional [examples](https://github.com/firebolt-db/firebolt-core/tree/main/examples) for the different ways to ingest and export data in Firebolt Core.
+* [Connect](./firebolt-core-connect.md) for details on connecting to Firebolt Core.
+
+## Multi-Node deployment
+
+For multi-node deployments, see [Multi-node setups](./firebolt-core-operation.md#multi-node-setups)
+
+Continue reading: [Deployment and Operational Guide](./firebolt-core-operation.md)

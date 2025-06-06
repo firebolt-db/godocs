@@ -141,6 +141,10 @@ def main():
         # for consistency with sql-reference -> reference-sql
         "API-reference":
             "reference-api",
+        
+        # use consistent naming scheme for firebolt core docs
+        "FireboltCore":
+            "firebolt-core",
     }
 
     pages: list[tuple[page.PageJekyll, page.PageDescrMint]] = []

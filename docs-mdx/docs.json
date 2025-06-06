@@ -698,6 +698,25 @@
           "reference-api/using-sync-queries",
           "reference-api/using-async-queries"
         ]
+      },
+      {
+        "group": "Firebolt Core",
+        "pages": [
+          "firebolt-core",
+          "firebolt-core/firebolt-core-introduction",
+          "firebolt-core/firebolt-core-deployment-compose",
+          "firebolt-core/firebolt-core-get-started",
+          "firebolt-core/firebolt-core-connect-jdbc",
+          "firebolt-core/firebolt-core-connect",
+          "firebolt-core/firebolt-core-deployment-k8s",
+          "firebolt-core/firebolt-core-data-processing",
+          "firebolt-core/firebolt-core-architecture",
+          "firebolt-core/firebolt-core-differences",
+          "firebolt-core/firebolt-core-operation",
+          "firebolt-core/firebolt-core-roadmap",
+          "firebolt-core/firebolt-core-troubleshooting",
+          "firebolt-core/firebolt-core-faq"
+        ]
       }
     ],
     "global": {
@@ -3668,6 +3687,11 @@
       "permanent": false
     },
     {
+      "source": "/FireboltCore/firebolt-core-deployment-compose.html",
+      "destination": "/firebolt-core/firebolt-core-deployment-compose",
+      "permanent": false
+    },
+    {
       "source": "/sql_reference/information-schema/service-accounts",
       "destination": "/reference-sql/information-schema/service-accounts",
       "permanent": false
@@ -4108,6 +4132,16 @@
       "permanent": false
     },
     {
+      "source": "/FireboltCore/firebolt-core-troubleshooting.html",
+      "destination": "/firebolt-core/firebolt-core-troubleshooting",
+      "permanent": false
+    },
+    {
+      "source": "/FireboltCore/firebolt-core-data-processing.html",
+      "destination": "/firebolt-core/firebolt-core-data-processing",
+      "permanent": false
+    },
+    {
       "source": "/sql_reference/information-schema/schemata.html",
       "destination": "/reference-sql/information-schema/schemata",
       "permanent": false
@@ -4278,6 +4312,11 @@
       "permanent": false
     },
     {
+      "source": "/FireboltCore/firebolt-core-deployment-k8s.html",
+      "destination": "/firebolt-core/firebolt-core-deployment-k8s",
+      "permanent": false
+    },
+    {
       "source": "/sql_reference/information-schema/organization",
       "destination": "/reference-sql/information-schema/organization",
       "permanent": false
@@ -4443,6 +4482,11 @@
       "permanent": false
     },
     {
+      "source": "/FireboltCore/firebolt-core-deployment-compose",
+      "destination": "/firebolt-core/firebolt-core-deployment-compose",
+      "permanent": false
+    },
+    {
       "source": "/sql_reference/information-schema/tables.html",
       "destination": "/reference-sql/information-schema/tables",
       "permanent": false
@@ -4558,6 +4602,21 @@
       "permanent": false
     },
     {
+      "source": "/FireboltCore/firebolt-core-introduction.html",
+      "destination": "/firebolt-core/firebolt-core-introduction",
+      "permanent": false
+    },
+    {
+      "source": "/FireboltCore/firebolt-core-connect-jdbc.html",
+      "destination": "/firebolt-core/firebolt-core-connect-jdbc",
+      "permanent": false
+    },
+    {
+      "source": "/FireboltCore/firebolt-core-architecture.html",
+      "destination": "/firebolt-core/firebolt-core-architecture",
+      "permanent": false
+    },
+    {
       "source": "/sql_reference/information-schema/views.html",
       "destination": "/reference-sql/information-schema/views",
       "permanent": false
@@ -4615,6 +4674,16 @@
     {
       "source": "/Guides/getting-started/get-started-sql.html",
       "destination": "/guides/getting-started/get-started-sql",
+      "permanent": false
+    },
+    {
+      "source": "/FireboltCore/firebolt-core-get-started.html",
+      "destination": "/firebolt-core/firebolt-core-get-started",
+      "permanent": false
+    },
+    {
+      "source": "/FireboltCore/firebolt-core-differences.html",
+      "destination": "/firebolt-core/firebolt-core-differences",
       "permanent": false
     },
     {
@@ -4690,6 +4759,16 @@
     {
       "source": "/Guides/developing-with-firebolt/index.html",
       "destination": "/guides/developing-with-firebolt",
+      "permanent": false
+    },
+    {
+      "source": "/FireboltCore/firebolt-core-troubleshooting",
+      "destination": "/firebolt-core/firebolt-core-troubleshooting",
+      "permanent": false
+    },
+    {
+      "source": "/FireboltCore/firebolt-core-data-processing",
+      "destination": "/firebolt-core/firebolt-core-data-processing",
       "permanent": false
     },
     {
@@ -4780,6 +4859,16 @@
     {
       "source": "/Guides/loading-data/loading-data-sql.html",
       "destination": "/guides/loading-data/loading-data-sql",
+      "permanent": false
+    },
+    {
+      "source": "/FireboltCore/firebolt-core-operation.html",
+      "destination": "/firebolt-core/firebolt-core-operation",
+      "permanent": false
+    },
+    {
+      "source": "/FireboltCore/firebolt-core-deployment-k8s",
+      "destination": "/firebolt-core/firebolt-core-deployment-k8s",
       "permanent": false
     },
     {
@@ -4913,6 +5002,31 @@
       "permanent": false
     },
     {
+      "source": "/FireboltCore/firebolt-core-roadmap.html",
+      "destination": "/firebolt-core/firebolt-core-roadmap",
+      "permanent": false
+    },
+    {
+      "source": "/FireboltCore/firebolt-core-introduction",
+      "destination": "/firebolt-core/firebolt-core-introduction",
+      "permanent": false
+    },
+    {
+      "source": "/FireboltCore/firebolt-core-connect.html",
+      "destination": "/firebolt-core/firebolt-core-connect",
+      "permanent": false
+    },
+    {
+      "source": "/FireboltCore/firebolt-core-connect-jdbc",
+      "destination": "/firebolt-core/firebolt-core-connect-jdbc",
+      "permanent": false
+    },
+    {
+      "source": "/FireboltCore/firebolt-core-architecture",
+      "destination": "/firebolt-core/firebolt-core-architecture",
+      "permanent": false
+    },
+    {
       "source": "/sql_reference/information-schema/views",
       "destination": "/reference-sql/information-schema/views",
       "permanent": false
@@ -4970,6 +5084,16 @@
     {
       "source": "/Guides/getting-started/get-started-sql",
       "destination": "/guides/getting-started/get-started-sql",
+      "permanent": false
+    },
+    {
+      "source": "/FireboltCore/firebolt-core-get-started",
+      "destination": "/firebolt-core/firebolt-core-get-started",
+      "permanent": false
+    },
+    {
+      "source": "/FireboltCore/firebolt-core-differences",
+      "destination": "/firebolt-core/firebolt-core-differences",
       "permanent": false
     },
     {
@@ -5098,6 +5222,11 @@
       "permanent": false
     },
     {
+      "source": "/FireboltCore/firebolt-core-operation",
+      "destination": "/firebolt-core/firebolt-core-operation",
+      "permanent": false
+    },
+    {
       "source": "/sql_reference/timestamptz-data-type",
       "destination": "/reference-sql/timestamptz-data-type",
       "permanent": false
@@ -5138,6 +5267,11 @@
       "permanent": false
     },
     {
+      "source": "/FireboltCore/firebolt-core-faq.html",
+      "destination": "/firebolt-core/firebolt-core-faq",
+      "permanent": false
+    },
+    {
       "source": "/sql_reference/bytea-data-type.html",
       "destination": "/reference-sql/bytea-data-type",
       "permanent": false
@@ -5170,6 +5304,16 @@
     {
       "source": "/Guides/managing-your-organization/",
       "destination": "/guides/managing-your-organization",
+      "permanent": false
+    },
+    {
+      "source": "/FireboltCore/firebolt-core-roadmap",
+      "destination": "/firebolt-core/firebolt-core-roadmap",
+      "permanent": false
+    },
+    {
+      "source": "/FireboltCore/firebolt-core-connect",
+      "destination": "/firebolt-core/firebolt-core-connect",
       "permanent": false
     },
     {
@@ -5440,6 +5584,11 @@
     {
       "source": "/Guides/security/ownership.html",
       "destination": "/guides/security/ownership",
+      "permanent": false
+    },
+    {
+      "source": "/FireboltCore/firebolt-core-faq",
+      "destination": "/firebolt-core/firebolt-core-faq",
       "permanent": false
     },
     {
@@ -5728,6 +5877,11 @@
       "permanent": false
     },
     {
+      "source": "/FireboltCore/index.html",
+      "destination": "/firebolt-core",
+      "permanent": false
+    },
+    {
       "source": "/sql_reference/commands",
       "destination": "/reference-sql/commands",
       "permanent": false
@@ -5808,6 +5962,11 @@
       "permanent": false
     },
     {
+      "source": "/FireboltCore/index",
+      "destination": "/firebolt-core",
+      "permanent": false
+    },
+    {
       "source": "/Overview/queries/",
       "destination": "/overview/queries",
       "permanent": false
@@ -5883,6 +6042,11 @@
       "permanent": false
     },
     {
+      "source": "/FireboltCore/",
+      "destination": "/firebolt-core",
+      "permanent": false
+    },
+    {
       "source": "/API-reference",
       "destination": "/reference-api",
       "permanent": false
@@ -5890,6 +6054,11 @@
     {
       "source": "/Guides/index",
       "destination": "/guides",
+      "permanent": false
+    },
+    {
+      "source": "/FireboltCore",
+      "destination": "/firebolt-core",
       "permanent": false
     },
     {

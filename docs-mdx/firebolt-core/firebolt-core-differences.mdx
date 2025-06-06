@@ -1,0 +1,31 @@
+---
+sidebarTitle: Differences between Firebolt Core and Managed Firebolt
+title: Differences between Firebolt Core and Managed Firebolt
+---
+
+
+Firebolt Core contains almost all of the features available in [managed Firebolt](https://www.firebolt.io/), allowing many workloads to run interchangeably between the two editions. Nevertheless, some relevant differences exist and are outlined below.
+
+* There are **no built-in security features** in Firebolt Core. The features outlined in [Security](/overview/security) are only available in [managed Firebolt](https://www.firebolt.io/). In particular, the following restrictions apply.
+    * There is **no authentication** mechanism in Firebolt Core. Anyone that can access the HTTP query endpoint of a Firebolt Core node can submit queries to the cluster (see also [Connect](/firebolt-core/firebolt-core-connect)).
+    * There is **no role-based access control** in Firebolt Core, and attempting to use the respective SQL commands will result in an error.
+    * There is **no encryption** of network traffic within a Firebolt Core cluster. This applies both to inter-node traffic and to traffic to or from users.
+* There are only **limited features for automatic management and optimization** in Firebolt Core. In particular, the following restrictions apply.
+    * There is **no support for online upgrades** in Firebolt Core. Version upgrades must be done explicitly (see also [Deployment and Operational Guide](/firebolt-core/firebolt-core-operation)).
+    * There is **no support for auto-scaling** in Firebolt Core. Resizing a Firebolt Core cluster is usually not possible at all (see also [Architecture](/firebolt-core/firebolt-core-architecture)).
+    * There is **no support for auto-vacuum** in Firebolt Core. [VACUUM](/reference-sql/commands/data-management/vacuum) can still be run manually.
+    * There is **no admission controller** in Firebolt Core. Clients are responsible for load-balancing and ensuring that data is distributed evenly (see also [Connect](/firebolt-core/firebolt-core-connect)), as well as for retrying failed queries.
+* Some further limitations apply to database objects managed by Firebolt Core (e.g. tables or views).
+    * There is **no storage-compute isolation** in Firebolt Core (see also [Architecture](/firebolt-core/firebolt-core-architecture)). As a result, managed database objects are tied to one specific Firebolt Core cluster which cannot be resized.
+    * There is **no support for zero-copy cloning** in Firebolt Core.
+    * There is **no support for [DIMENSION](/reference-sql/commands/data-definition/create-fact-dimension-table) tables** in Firebolt Core. All tables are sharded across nodes.
+* **At most one write transaction** can be active at a time in Firebolt Core (see also [Connect](/firebolt-core/firebolt-core-connect)). Attempting to start concurrent write transactions will result in an error.
+* There is **no support for [asynchronous query execution](/reference-api/using-async-queries)** in Firebolt Core.
+
+As a result of the above limitations, only a subset of the [documented SQL dialect](/reference-sql) is available in Firebolt Core. Most importantly, the following statements are **unavailable** in Firebolt Core.
+
+* [Information Schema](/reference-sql/information-schema) tables pertaining to features not available in Firebolt Core (e.g. [Accounts](/reference-sql/information-schema/accounts)) will return placeholder results.
+* [Access Control](/reference-sql/commands/access-control) SQL commands are not available in Firebolt Core and attempting to use them will result in an error.
+* [Data Definition](/reference-sql/commands/data-definition) SQL commands pertaining to features not available in Firebolt Core (e.g. [CREATE ACCOUNT](/reference-sql/commands/data-definition/create-account)) are not available and attempting to use them will result in an error.
+* [Engine Commands](/reference-sql/commands/engines) are not available in Firebolt Core and attempting to use them will result in an error.
+* [RECOMMEND DDL](/reference-sql/commands/queries/recommend_ddl) is not available in Firebolt Core and attempting to use it will result in an error.

@@ -1,0 +1,33 @@
+---
+layout: default
+title: Architecture
+nav_order: 4
+parent: Firebolt Core
+---
+
+# Firebolt Core Architecture
+
+This page provides an overview of the high-level architecture of Firebolt Core, focusing primarily on the characteristics that are relevant for successfully operating a Firebolt Core cluster. Fundamentally, a Firebolt Core cluster is comprised of one or more Firebolt Core nodes that work together to process SQL queries submitted to the cluster. The individual nodes within a cluster are mostly indistinguishable, except for some minor edge cases outlined below. Each node runs a single Firebolt Core Docker container which implements all of the required internal database services and manages a shard of the persistent database state. Queries can be submitted to any node within a cluster, and will usually be processed jointly by all nodes.
+
+## State Management
+
+Firebolt Core supports DDL and DML commands like `CREATE TABLE` or `INSERT` which modify the persistent database state associated with a cluster. More specifically, this persistent database state consists of the following two complementary types of data that are managed by a Firebolt Core cluster.
+
+1. The database catalog containing information about schema objects like databases, namespaces, tables, views, indexes, etc.
+2. The contents of these schema objects such as the actual data inserted into a table.
+
+The entire database state is stored in files written to the local filesystem of the individual Firebolt Core nodes. There is no compute-storage isolation in Firebolt Core, and none of the database state is uploaded to any form of Cloud storage. This means that a Firebolt Core cluster has exclusive ownership of the database state it manages.
+
+The database catalog (1) is stored on node 0 of a Firebolt Core cluster. Other nodes send requests to node 0 through one of the inter-node communication channels if they need to query or update the database catalog. Internally, the database catalog is persisted as a [SQLite](https://www.sqlite.org/) database within the `/firebolt-core/volume/persistent_data/metadata_store` directory.
+
+The contents of schema objects (2) are sharded transparently across all nodes of a Firebolt Core cluster. When a query accesses such a schema object, the query execution engine automatically generates a distributed query plan which ensures that all of the corresponding shards are correctly read and processed. When writing to such a schema object, the query execution engine does not actively distribute data across nodes. For example, this means that a plain `INSERT` statement into a table will usually only insert data to the shard stored on the node to which the query was sent. Users should make sure to route such statements to different nodes in order to ensure an even data distribution (see also [Connect](./firebolt-core-connect.md)).
+
+Since the contents of schema objects are sharded across nodes, it is generally not possible to change the number of nodes within a Firebolt Core cluster. Attempting to remove a node would result in all shards of data stored on that node to be lost, leading to incorrect query results. Attempting to add a node would result in data skew since there will initially be no shards stored on the added node. Note that this restriction does not apply if the workload running on a Firebolt Core cluster does not involve any database objects that are stored locally on the Firebolt Core nodes. For example, a workload that only operates on external tables or Iceberg tables only persists the database catalog on node 0, but no sharded data on the remaining nodes.
+
+By default, all of the above database state would be written to the [writeable container layer](https://docs.docker.com/engine/storage/) of the Firebolt Core Docker containers, which means that it is tied to a specific Docker container that cannot easily be migrated between hosts. In the supported [Docker Compose](./firebolt-core-deployment-compose.md) and [Kubernetes deployments](./firebolt-core-deployment-k8s.md) volumes are mounted to ease preservation of the state; see [Deployment and Operational Guide](./firebolt-core-operation.md) for further details.
+
+## Transactions
+
+All statements submitted to a Firebolt Core cluster are executed in their own individual transaction that is automatically committed once the statement finishes. Firebolt Core supports an arbitrary number of concurrent read transactions, but at most one write transaction can be active on the cluster at any point in time. Attempting to start a concurrent write transaction while another write transaction is still active will result in an error.
+
+All transactions are coordinated by the metadata service running on node 0 of a Firebolt Core cluster. If queries are sent to other nodes, they will internally send requests to node 0 through one of the inter-node communication channels for transaction bookkeeping.
