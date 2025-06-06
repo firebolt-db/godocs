@@ -32,9 +32,10 @@ sync-docs-md-to-mdx: setup-python
 .PHONY: check-md-mdx-in-sync
 check-md-mdx-in-sync: setup-python
 	tmpd=$(shell mktemp -d)
-	trap 'rm -rf "$$tmpd"' EXIT
+	tmpf=$(shell mktemp)
+	trap 'rm -rf "$$tmpf" "$$tmpd"' EXIT
 	cp -r docs-mdx/* $$tmpd
-	.venv/bin/python scripts/conv2mint/__main__.py docs $$tmpd
+	.venv/bin/python scripts/conv2mint/__main__.py docs $$tmpd >$$tmpf 2>&1 || (cat $$tmpf && echo "Conversion failed, check the output above" && exit 1)
 	diff -r $$tmpd docs-mdx || (echo "docs-mdx is not in sync with docs, run 'make sync-docs-md-to-mdx' to fix" && exit 1)
 
 
