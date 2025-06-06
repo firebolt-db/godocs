@@ -23,6 +23,7 @@ Subsequently, a node waits for all of the following health checks to succeed.
 
 * The node must have connectivity to all remote nodes on all inter-node communication channels (see [Deployment and Operational Guide](/firebolt-core/firebolt-core-operation)). This is verified by attempting to establish a TCP connection to each inter-node communication port of each remote node. If this succeeds we assume that connectivity is good and immediately close the connection again.
 * All nodes must run the same Firebolt Core version. This is verified by sending a `SELECT version()` query to each remote node and validating that the result matches the version running on the local node.
+* All nodes must have the exact same list of hosts in their `config.json` file. This is verified by sending a query to each remote node that returns a hash of the hosts and validating that the result matches the hash on the local node.
 * All relevant filesystem paths within the Docker container must be readable & writeable (see [Deployment and Operational Guide](/firebolt-core/firebolt-core-operation)). This is intended to guard against some errors that could arise from storage mounts with incorrect permissions.
 
 Once all of the above checks have succeeded on a node, it will start accepting queries. Note that these health checks run locally on each node, and there is no guarantee that they will succeed at the same time on all nodes. Therefore, clients should usually explicitly wait until all nodes are ready to accept queries.
