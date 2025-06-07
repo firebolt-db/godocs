@@ -241,3 +241,33 @@ WITH
 
 SELECT * FROM READ_ICEBERG(LOCATION => my_location) LIMIT 5;
 ```
+
+### Snowflake Open catalog (as a generic REST catalog)
+
+Iceberg tables in Snowflake Open Catalog can currently be read by using a `LOCATION` with `CATALOG = 'REST'`.
+
+For setting up a Snowflake Open Catalog in your account, see [Snowflake - Snowflake Open Catalog overview](https://other-docs.snowflake.com/en/opencatalog/overview). Note that you will need to enable credential vending for your Iceberg tables, see [Snowflake - Use catalog-vended credentials for Apache Iceberg™ tables](https://docs.snowflake.com/en/user-guide/tables-iceberg-configure-catalog-integration-vended-credentials).
+For general information about reading Snowflake Open Catalog tables from Iceberg clients, see [Snowflake - Checking your REST catalog configuration](https://docs.snowflake.com/en/user-guide/tables-iceberg-configure-catalog-integration-rest-check-config).
+
+For Snowflake Open catalogs, use OAuth parameters for `CREDENTIALS`.
+
+```sql
+CREATE LOCATION my_location
+WITH 
+  SOURCE = 'ICEBERG'
+  CATALOG = 'REST'
+  CATALOG_OPTIONS = (
+    URL = 'https://abc123.us-west-2.aws.myapi.com/polaris/api/catalog'
+    WAREHOUSE  = 'my_warehouse'
+    NAMESPACE = 'my_catalog_name'
+    TABLE = 'my_table_name'
+  )
+  CREDENTIALS = (
+    OAUTH_CLIENT_ID = '00000000-0000-0000-0000-000000000000'
+    OAUTH_CLIENT_SECRET = '1234'
+    OAUTH_SCOPE = 'PRINCIPAL_ROLE:ALL'
+    -- OAUTH_SERVER_URL is not needed
+  );
+
+SELECT * FROM READ_ICEBERG(LOCATION => my_location) LIMIT 5;
+```
