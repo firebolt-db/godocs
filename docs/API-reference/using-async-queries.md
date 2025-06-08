@@ -98,7 +98,7 @@ with connect(
         print(row)
 ```
 
-### Check query statusy
+### Check query status
 
 The query status token is included in the initial response when the query is submitted. If needed, you can also retrieve the token from the [engine_running_queries]({% link sql_reference/information-schema/engine-running-queries.md %}) view.
 
