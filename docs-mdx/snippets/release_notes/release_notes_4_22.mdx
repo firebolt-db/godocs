@@ -3,6 +3,13 @@
 ### New Features
 
 
+**Support for Iceberg is now in public preview**
+
+Added the `READ_ICEBERG()` table-valued function, which allows reading from external Iceberg tables, and added Iceberg support to `LOCATION` with `SOURCE = 'ICEBERG'`.
+Documentation for the function is available [here](/reference-sql/functions-reference/table-valued/read_iceberg) and documentation for the new type of location [here](/reference-sql/commands/data-definition/create-location-iceberg).
+
+
+
 **Added the `ICU_NORMALIZE` function to standardize text formats across locales**
 
 Added the `ICU_NORMALIZE` function to process text based on a specific locale. This helps in standardizing text formats across different languages and regions, ensuring uniformity and compatibility in data outputs.

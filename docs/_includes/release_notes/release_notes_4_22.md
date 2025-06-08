@@ -2,6 +2,12 @@
 
 ### New Features
 
+**Support for Iceberg is now in public preview**
+
+Added the `READ_ICEBERG()` table-valued function, which allows reading from external Iceberg tables, and added Iceberg support to `LOCATION` with `SOURCE = 'ICEBERG'`.
+Documentation for the function is available [here]({% link sql_reference/functions-reference/table-valued/read_iceberg.md %}) and documentation for the new type of location [here]({% link sql_reference/commands/data-definition/create-location-iceberg.md %}).
+
+
 <!-- Auto Generated Markdown for FIR-46137 - Owned by Jonathan Doron -->
 **Added the `ICU_NORMALIZE` function to standardize text formats across locales**
 
