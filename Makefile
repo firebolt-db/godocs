@@ -6,7 +6,7 @@ MAKEFLAGS += --no-builtin-rules
 
 
 .PHONY: default
-default: check-markers check-links check-md-mdx-in-sync check-links-mint check-sql
+default: check-markers check-links check-md-mdx-in-sync check-links-mint check-sql-mdx
 
 
 .PHONY: check-all

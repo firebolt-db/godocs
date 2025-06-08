@@ -69,6 +69,7 @@ def main():
         "reference-sql": {"pos": 4, "src": "md"},
         "reference": {"pos": 5, "src": "md"},
         "reference-api": {"pos": 6, "src": "md"},
+        "firebolt-core": {"pos": 7, "src": "mdx"},
     }
 
     # We need to rename all top-level directories because the default platform redirects for directory pages in Jekyll
