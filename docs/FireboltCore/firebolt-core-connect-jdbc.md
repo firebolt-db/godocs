@@ -27,4 +27,4 @@ Recall that Firebolt Core [does not support authentication](./firebolt-core-conn
 
 ## Examples
 
-The Firebolt Core GitHub repository contains a sample [Java application](https://github.com/firebolt-db/firebolt-core/tree/main/examples) which demonstrates how to use the Firebolt JDBC driver to send queries to Firebolt Core.
+The Firebolt Core GitHub repository contains a sample [Java application](https://github.com/firebolt-db/firebolt-core/tree/main/examples/jdbc) which demonstrates how to use the Firebolt JDBC driver to send queries to Firebolt Core.
