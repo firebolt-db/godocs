@@ -45,19 +45,19 @@ TYPE = ( <type> )
 ## Parameters 
  
 
-| Parameter                  | Description |
-|: ------------------------- |: ---------- |
-| `<table>`    | An identifier that specifies the name of the external table. This name should be unique within the database. For identifier usage and syntax, see [Object identifiers](/reference/object-identifiers). |
-| `<column_name>`            | An identifier that specifies the name of the column. This name should be unique within the table.<br/><b>Note:</b> If column names are using mixed case, wrap your column name definitions in double quotes (`"`); otherwise they will be translated to lower case and will not match the mixed case Parquet schema. |
-| `<column_type>`            | Specifies the data type for the column. |
-| `PARTITION`                | An optional keyword. When specified, allows you to use a regular expression `<regex>` to extract a value from the file prefix to be stored as the column value. For more information, see [PARTITION](#partition). |
-| `LOCATION`                 | The name of a location object that contains the Amazon S3 URL and credentials. This is the recommended approach for specifying the source. See ([CREATE LOCATION](/reference-sql/commands/data-definition/create-location)) for details. The location must exist and you must have appropriate permissions to use it. |
-| `CREDENTIALS`              | Specifies the AWS credentials with permission to access the Amazon S3 location specified using `URL`. For more information, see [CREDENTIALS](#credentials). |
-| `URL`                      | The path to an Amazon S3 URL where the source files are located. For example, `s3://my_bucket/my_folder/`. |
-| `OBJECT_PATTERN`           | Specifies the file naming pattern that Firebolt ingests when using this table. For more information, see [OBJECT_PATTERN](#object_pattern). |
-| `TYPE`                     | Specifies the file type Firebolt expects to ingest given the `OBJECT_PATTERN`. If a file referenced using `OBJECT_PATTERN` does not conform to the specified `TYPE`, an error occurs. For more information, see [TYPE](#type). |
-| `<type_option>`            | Allows configuration for ingesting different CSV file formats. Type option can be set at this top level, or as an option in the `TYPE` parameter. |
-| `COMPRESSION`              | See [COMPRESSION](#compression). |
+| Parameter                 | Description                                                                                                                                                                                                                                                                                                                        |
+|:--------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<table>`    | An identifier that specifies the name of the external table. This name should be unique within the database. For identifier usage and syntax, see [Object identifiers](/reference/object-identifiers).                                                                                                                  |
+| `<column_name>`           | An identifier that specifies the name of the column. This name should be unique within the table.<br/><b>Note:</b> If column names are using mixed case, wrap your column name definitions in double quotes (`"`); otherwise they will be translated to lower case and will not match the mixed case Parquet schema.                |
+| `<column_type>`           | Specifies the data type for the column.                                                                                                                                                                                                                                                                                            |
+| `PARTITION`               | An optional keyword. When specified, allows you to use a regular expression `<regex>` to extract a value from the file prefix to be stored as the column value. For more information, see [PARTITION](#partition).                                                                                                                 |
+| `LOCATION`                | The name of a location object that contains the Amazon S3 URL and credentials. This is the recommended approach for specifying the source. See ([CREATE LOCATION](/reference-sql/commands/data-definition/create-location)) for details. The location must exist and you must have appropriate permissions to use it. |
+| `CREDENTIALS`             | Specifies the AWS credentials with permission to access the Amazon S3 location specified using `URL`. For more information, see [CREDENTIALS](#credentials).                                                                                                                                                                       |
+| `URL`                     | The path to an Amazon S3 URL where the source files are located. For example, `s3://my_bucket/my_folder/`.                                                                                                                                                                                                                         |
+| `OBJECT_PATTERN`          | Specifies the file naming pattern that Firebolt ingests when using this table. For more information, see [OBJECT_PATTERN](#object_pattern).                                                                                                                                                                                        |
+| `TYPE`                    | Specifies the file type Firebolt expects to ingest given the `OBJECT_PATTERN`. If a file referenced using `OBJECT_PATTERN` does not conform to the specified `TYPE`, an error occurs. For more information, see [TYPE](#type).                                                                                                     |
+| `<type_option>`           | Allows configuration for ingesting different CSV file formats. Type option can be set at this top level, or as an option in the `TYPE` parameter.                                                                                                                                                                                  |
+| `COMPRESSION`             | See [COMPRESSION](#compression).                                                                                                                                                                                                                                                                                                   |
 
 
 ### Using location objects
@@ -187,13 +187,13 @@ CREDENTIALS = (AWS_ACCESS_KEY_ID = '<aws_access_key_id>' AWS_SECRET_ACCESS_KEY =
 ## Parameters 
  
 
-| Parameters          | Description                                             | Data type |
-|: ------------------ |: ------------------------------------------------------- |: --------- |
-| `AWS_ACCESS_KEY_ID`     | The AWS access key ID. | `TEXT `     |
-| `AWS_SECRET_ACCESS_KEY` | The AWS secret access key.        | `TEXT`      |
-| `AWS_SESSION_TOKEN` | The AWS session token.        | `TEXT`      |
-| `AWS_ROLE_ARN` | The AWS role ARN (Amazon Resource Name).        | `TEXT`      |
-| `AWS_ROLE_EXTERNAL_ID` | The AWS role external id.        | `TEXT`      |
+| Parameters              | Description                                              | Data type |
+|:------------------------|:---------------------------------------------------------|:----------|
+| `AWS_ACCESS_KEY_ID`     | The AWS access key ID.                                   | `TEXT `   |
+| `AWS_SECRET_ACCESS_KEY` | The AWS secret access key.                               | `TEXT`    |
+| `AWS_SESSION_TOKEN`     | The AWS session token.                                   | `TEXT`    |
+| `AWS_ROLE_ARN`          | The AWS role ARN (Amazon Resource Name).                 | `TEXT`    |
+| `AWS_ROLE_EXTERNAL_ID`  | The AWS role external id.                                | `TEXT`    |
 
 <Note>
 In case you don't have the access key and secret to access your Amazon S3 bucket, read more [here](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) on how to obtain them.
@@ -217,8 +217,8 @@ OBJECT_PATTERN = '<object_pattern>'
  
 
 | Parameters       | Description                                                                                                                          | Data type |
-| :---------------- | :------------------------------------------------------------------------------------------------------------------------------------ | :--------- |
-| `OBJECT_PATTERN` | Specify the data pattern to be found in your data source. For example, \*.parquet indicates that all parquet files should be found. | `TEXT`      |
+|:-----------------|:-------------------------------------------------------------------------------------------------------------------------------------|:--------- |
+| `OBJECT_PATTERN` | Specify the data pattern to be found in your data source. For example, \*.parquet indicates that all parquet files should be found. | `TEXT`     |
 
 The following wildcards are supported:
 
@@ -252,11 +252,11 @@ s3://bucket/c_type=abc/year=2018/month=01/part-00002.parquet
 
 Following are some common use cases for URL and object pattern combinations:
 
-| Use cases  | Syntax  |
-| :--- | :--- |
-| Get all files for file type xyz     | *URL = 's3://bucket/c_type=xyz/'* <br/> *OBJECT_PATTERN = '\*'*  <br/> <br/>  *URL = 's3://bucket/'<br/>OBJECT_PATTERN = 'c_type=xyz/\*'*         |
-| Get one specific file: `c_type=xyz/year=2018/month=01/part-00001.parquet` | *URL = 's3://bucket/c_type=xyz/year=2018/month=01/'<br/> OBJECT_PATTERN = 'part-00001.parquet'|
-| Get all parquet files for type xyz  | *URL = 's3://bucket/c_type=xyz/'<br/> OBJECT_PATTERN = '\*.parquet'*  |
+| Use cases                                                                 | Syntax                                                                                                                                |
+|:--------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------|
+| Get all files for file type xyz                                           | *URL = 's3://bucket/c_type=xyz/'* <br/> *OBJECT_PATTERN = '\*'*  <br/> <br/>  *URL = 's3://bucket/'<br/>OBJECT_PATTERN = 'c_type=xyz/\*'* |
+| Get one specific file: `c_type=xyz/year=2018/month=01/part-00001.parquet` | *URL = 's3://bucket/c_type=xyz/year=2018/month=01/'<br/> OBJECT_PATTERN = 'part-00001.parquet'                                         |
+| Get all parquet files for type xyz                                        | *URL = 's3://bucket/c_type=xyz/'<br/> OBJECT_PATTERN = '\*.parquet'*                                                                   |
 
 ### TYPE
 
@@ -346,9 +346,9 @@ Specifies the compression type of the files matching the specified `OBJECT_PATTE
 #### Parameters 
  
 
-| Parameters            | Description                                                        |
-| :-------------------- |:------------------------------------------------------------------ |
-| `<compression_type>`  | Specifies the compression type of files. `GZIP` is supported. |
+| Parameters            | Description                                                    |
+|:----------------------|:---------------------------------------------------------------|
+| `<compression_type>`  | Specifies the compression type of files. `GZIP` is supported.  |
 
 #### Example
 
