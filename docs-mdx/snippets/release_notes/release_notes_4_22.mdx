@@ -2,7 +2,6 @@
 
 ### New Features
 
-
 **Support for Iceberg is now in public preview**
 
 Added the `READ_ICEBERG()` table-valued function, which allows reading from external Iceberg tables, and added Iceberg support to `LOCATION` with `SOURCE = 'ICEBERG'`.
@@ -58,8 +57,8 @@ Documentation is available [here](/reference/system-settings#setting-via-with) o
 The Parquet reader was rearchitected to provide more predictable memory usage when reading from external tables or using the `READ_PARQUET` table-valued function. This change improves performance for many Parquet workloads. Users benefit from enhanced memory efficiency and faster query processing. More updates, like applying these changes to the `COPY FROM` command, are planned for future releases.
 This improvement is being rolled out gradually over multiple weeks.
 
-
 ### UX changes
+
 
 **Introduced a new flow for managing service accounts with enhanced security via improved secret rotation and user associations in any organization account**
 
