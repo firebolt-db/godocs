@@ -12,6 +12,7 @@ Documentation for the function is available [here]({% link sql_reference/functio
 **Added the `ICU_NORMALIZE` function to standardize text formats across locales**
 
 Added the `ICU_NORMALIZE` function to process text based on a specific locale. This helps in standardizing text formats across different languages and regions, ensuring uniformity and compatibility in data outputs.
+Documentation for the function is available [here]({% link sql_reference/functions-reference/string/icu_normalize.md %})
 
 
 <!-- Auto Generated Markdown for FIR-27532 - Owned by Arsenii Krasikov -->
