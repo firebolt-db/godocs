@@ -3,6 +3,10 @@ div:has(#content-container) {
     max-width: 100%;
 }
 
+div#navbar > div {
+    max-width: 100%;
+}
+
 h2.header-home {
     padding-top: 20px;
     padding-bottom: 20px;

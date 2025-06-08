@@ -62,14 +62,16 @@ def main():
 
     src_root, dst_root = pathlib.Path(sys.argv[1]).absolute().resolve(strict=True), pathlib.Path(sys.argv[2]).absolute().resolve(strict=True)
 
-    top_level_groups = {
+    documentation_top_level_groups = {
         "intro": {"pos": 0, "src": "md"},
         "overview": {"pos": 1, "src": "md"},
         "guides": {"pos": 3, "src": "md"},
         "reference-sql": {"pos": 4, "src": "md"},
         "reference": {"pos": 5, "src": "md"},
         "reference-api": {"pos": 6, "src": "md"},
-        "firebolt-core": {"pos": 7, "src": "mdx"},
+    }
+    firebolt_core_top_level_groups = {
+        "firebolt-core": {"pos": 1, "src": "md"},
     }
 
     # We need to rename all top-level directories because the default platform redirects for directory pages in Jekyll
@@ -202,12 +204,22 @@ def main():
 
     leaders2groups = {
         "md": {g["pages"][0]: g for g in navigation.build_navigation_tree(navigatable).to_json()["pages"]},
-        "mdx": {g["pages"][0]: g for g in docs["navigation"]["groups"]}
+        "mdx": {g["pages"][0]: g for g in docs["navigation"]["tabs"][0]["pages"]}
     }
-    nav_tree = []
-    for k, v in sorted(top_level_groups.items(), key=lambda x: x[1]["pos"]):
-        nav_tree.append(leaders2groups[v["src"]][k])
-    docs["navigation"]["groups"] = nav_tree
+
+    docs_groups = []
+    for k, v in sorted(documentation_top_level_groups.items(), key=lambda x: x[1]["pos"]):
+        docs_groups.append(leaders2groups[v["src"]][k])
+
+    fbcore_groups = []
+    for k, v in sorted(firebolt_core_top_level_groups.items(), key=lambda x: x[1]["pos"]):
+        fbcore_groups.append(leaders2groups[v["src"]][k])
+
+    if len(fbcore_groups) > 1:
+        raise Exception("Firebolt Core documentation should have only one top-level group, but found multiple.")
+
+    docs["navigation"]["tabs"][0]["pages"] = docs_groups
+    docs["navigation"]["tabs"][1]["pages"] = fbcore_groups[0]["pages"]
 
     # TODO: postprocess pages based on the navigation tree and rendered contents
 

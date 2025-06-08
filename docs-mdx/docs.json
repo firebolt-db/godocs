@@ -17,690 +17,695 @@
     }
   },
   "navigation": {
-    "groups": [
+    "tabs": [
       {
-        "group": "What is Firebolt?",
+        "tab": "Documentation",
         "pages": [
-          "intro",
-          "intro/product-platform"
-        ]
-      },
-      {
-        "group": "Overview",
-        "pages": [
-          "overview",
-          "overview/architecture-overview",
           {
-            "group": "Pricing and billing",
+            "group": "What is Firebolt?",
             "pages": [
-              "overview/billing",
-              "overview/billing/compute-cost",
-              "overview/billing/storage-cost"
-            ]
-          },
-          "overview/organizations-accounts",
-          {
-            "group": "Engine Fundamentals",
-            "pages": [
-              "overview/engine-fundamentals",
-              "overview/engine-fundamentals/engine-consumption"
+              "intro",
+              "intro/product-platform"
             ]
           },
           {
-            "group": "Data modeling",
+            "group": "Overview",
             "pages": [
-              "overview/indexes",
-              "overview/indexes/aggregating-index",
-              "overview/indexes/primary-index"
-            ]
-          },
-          "overview/data-management",
-          {
-            "group": "Queries",
-            "pages": [
-              "overview/queries",
-              "overview/queries/understand-query-performance-hbs",
-              "overview/queries/understand-query-performance-subresult",
-              "overview/queries/understand-spilling"
-            ]
-          },
-          "overview/table-and-column-compression",
-          {
-            "group": "Security",
-            "pages": [
-              "overview/security",
+              "overview",
+              "overview/architecture-overview",
               {
-                "group": "Role-Based Access Control",
+                "group": "Pricing and billing",
                 "pages": [
-                  "overview/security/rbac",
+                  "overview/billing",
+                  "overview/billing/compute-cost",
+                  "overview/billing/storage-cost"
+                ]
+              },
+              "overview/organizations-accounts",
+              {
+                "group": "Engine Fundamentals",
+                "pages": [
+                  "overview/engine-fundamentals",
+                  "overview/engine-fundamentals/engine-consumption"
+                ]
+              },
+              {
+                "group": "Data modeling",
+                "pages": [
+                  "overview/indexes",
+                  "overview/indexes/aggregating-index",
+                  "overview/indexes/primary-index"
+                ]
+              },
+              "overview/data-management",
+              {
+                "group": "Queries",
+                "pages": [
+                  "overview/queries",
+                  "overview/queries/understand-query-performance-hbs",
+                  "overview/queries/understand-query-performance-subresult",
+                  "overview/queries/understand-spilling"
+                ]
+              },
+              "overview/table-and-column-compression",
+              {
+                "group": "Security",
+                "pages": [
+                  "overview/security",
                   {
-                    "group": "Database permissions",
+                    "group": "Role-Based Access Control",
                     "pages": [
-                      "overview/security/rbac/database-permissions",
-                      "overview/security/rbac/database-permissions/schema-permissions",
-                      "overview/security/rbac/database-permissions/table-permissions",
-                      "overview/security/rbac/database-permissions/view-permissions"
-                    ]
-                  },
-                  "overview/security/rbac/role-permissions",
-                  "overview/security/rbac/account-permissions",
-                  "overview/security/rbac/user-permissions",
-                  "overview/security/rbac/engine-permissions",
-                  "overview/security/rbac/ownership",
-                  "overview/security/rbac/check-privileges",
-                  {
-                    "group": "Role Management",
-                    "pages": [
-                      "overview/security/rbac/role-management",
-                      "overview/security/rbac/role-management/system-roles",
-                      "overview/security/rbac/role-management/custom-roles"
+                      "overview/security/rbac",
+                      {
+                        "group": "Database permissions",
+                        "pages": [
+                          "overview/security/rbac/database-permissions",
+                          "overview/security/rbac/database-permissions/schema-permissions",
+                          "overview/security/rbac/database-permissions/table-permissions",
+                          "overview/security/rbac/database-permissions/view-permissions"
+                        ]
+                      },
+                      "overview/security/rbac/role-permissions",
+                      "overview/security/rbac/account-permissions",
+                      "overview/security/rbac/user-permissions",
+                      "overview/security/rbac/engine-permissions",
+                      "overview/security/rbac/ownership",
+                      "overview/security/rbac/check-privileges",
+                      {
+                        "group": "Role Management",
+                        "pages": [
+                          "overview/security/rbac/role-management",
+                          "overview/security/rbac/role-management/system-roles",
+                          "overview/security/rbac/role-management/custom-roles"
+                        ]
+                      }
                     ]
                   }
                 ]
               }
             ]
-          }
-        ]
-      },
-      {
-        "group": "Guides",
-        "pages": [
-          "guides",
-          {
-            "group": "Manage organization",
-            "pages": [
-              "guides/managing-your-organization",
-              "guides/managing-your-organization/creating-an-organization",
-              "guides/managing-your-organization/managing-accounts",
-              "guides/managing-your-organization/managing-logins",
-              "guides/managing-your-organization/service-accounts",
-              "guides/managing-your-organization/managing-users",
-              "guides/managing-your-organization/billing"
-            ]
           },
           {
-            "group": "Get started",
+            "group": "Guides",
             "pages": [
-              "guides/getting-started",
-              "guides/getting-started/get-started-load-data-wizard",
-              "guides/getting-started/get-started-sql",
-              "guides/getting-started/get-started-next"
-            ]
-          },
-          {
-            "group": "Operate Engines",
-            "pages": [
-              "guides/operate-engines",
-              "guides/operate-engines/rbac-for-engines",
-              "guides/operate-engines/working-with-engines-using-ddl",
-              "guides/operate-engines/sizing-engines",
-              "guides/operate-engines/understand-autoscaling",
-              "guides/operate-engines/system-engine"
-            ]
-          },
-          {
-            "group": "Load data",
-            "pages": [
-              "guides/loading-data",
-              "guides/loading-data/loading-data-wizard",
-              "guides/loading-data/loading-data-sql",
-              "guides/loading-data/creating-access-keys-aws",
-              "guides/loading-data/configuring-aws-role-to-access-amazon-s3",
-              "guides/loading-data/working-with-external-tables",
+              "guides",
               {
-                "group": "Work with semi-structured data",
+                "group": "Manage organization",
                 "pages": [
-                  "guides/loading-data/working-with-semi-structured-data",
-                  "guides/loading-data/working-with-semi-structured-data/load-json-data",
-                  "guides/loading-data/working-with-semi-structured-data/load-parquet-data",
-                  "guides/loading-data/working-with-semi-structured-data/working-with-arrays"
+                  "guides/managing-your-organization",
+                  "guides/managing-your-organization/creating-an-organization",
+                  "guides/managing-your-organization/managing-accounts",
+                  "guides/managing-your-organization/managing-logins",
+                  "guides/managing-your-organization/service-accounts",
+                  "guides/managing-your-organization/managing-users",
+                  "guides/managing-your-organization/billing"
+                ]
+              },
+              {
+                "group": "Get started",
+                "pages": [
+                  "guides/getting-started",
+                  "guides/getting-started/get-started-load-data-wizard",
+                  "guides/getting-started/get-started-sql",
+                  "guides/getting-started/get-started-next"
+                ]
+              },
+              {
+                "group": "Operate Engines",
+                "pages": [
+                  "guides/operate-engines",
+                  "guides/operate-engines/rbac-for-engines",
+                  "guides/operate-engines/working-with-engines-using-ddl",
+                  "guides/operate-engines/sizing-engines",
+                  "guides/operate-engines/understand-autoscaling",
+                  "guides/operate-engines/system-engine"
+                ]
+              },
+              {
+                "group": "Load data",
+                "pages": [
+                  "guides/loading-data",
+                  "guides/loading-data/loading-data-wizard",
+                  "guides/loading-data/loading-data-sql",
+                  "guides/loading-data/creating-access-keys-aws",
+                  "guides/loading-data/configuring-aws-role-to-access-amazon-s3",
+                  "guides/loading-data/working-with-external-tables",
+                  {
+                    "group": "Work with semi-structured data",
+                    "pages": [
+                      "guides/loading-data/working-with-semi-structured-data",
+                      "guides/loading-data/working-with-semi-structured-data/load-json-data",
+                      "guides/loading-data/working-with-semi-structured-data/load-parquet-data",
+                      "guides/loading-data/working-with-semi-structured-data/working-with-arrays"
+                    ]
+                  }
+                ]
+              },
+              {
+                "group": "Query data",
+                "pages": [
+                  "guides/query-data",
+                  "guides/query-data/using-the-develop-workspace",
+                  "guides/query-data/using-the-api"
+                ]
+              },
+              {
+                "group": "Configure security",
+                "pages": [
+                  "guides/security",
+                  {
+                    "group": "Configure SSO",
+                    "pages": [
+                      "guides/security/sso",
+                      "guides/security/sso/auth0",
+                      "guides/security/sso/okta",
+                      "guides/security/sso/onelogin",
+                      "guides/security/sso/pingfederate",
+                      "guides/security/sso/salesforce",
+                      "guides/security/sso/custom-sso"
+                    ]
+                  },
+                  "guides/security/rbac",
+                  "guides/security/network-policies",
+                  "guides/security/enabling-mfa",
+                  "guides/security/ownership",
+                  "guides/security/privatelink"
+                ]
+              },
+              {
+                "group": "Develop with Firebolt",
+                "pages": [
+                  "guides/developing-with-firebolt",
+                  "guides/developing-with-firebolt/connecting-with-nodejs",
+                  "guides/developing-with-firebolt/connecting-with-python",
+                  "guides/developing-with-firebolt/connecting-with-jdbc",
+                  "guides/developing-with-firebolt/connecting-with-sqlalchemy",
+                  "guides/developing-with-firebolt/connecting-with-net-sdk",
+                  "guides/developing-with-firebolt/connecting-with-go"
+                ]
+              },
+              {
+                "group": "Integrate with Firebolt",
+                "pages": [
+                  "guides/integrations",
+                  "guides/integrations/airflow",
+                  "guides/integrations/connecting-with-dbt",
+                  "guides/integrations/connecting-to-apache-superset",
+                  "guides/integrations/connecting-to-preset",
+                  "guides/integrations/cube-js",
+                  "guides/integrations/airbyte",
+                  "guides/integrations/otel-exporter",
+                  "guides/integrations/tableau",
+                  "guides/integrations/connecting-to-paradime",
+                  "guides/integrations/metabase",
+                  "guides/integrations/debezium",
+                  "guides/integrations/estuary",
+                  "guides/integrations/dbeaver",
+                  "guides/integrations/mcp"
+                ]
+              },
+              "guides/exporting-data",
+              {
+                "group": "Migrate to Firebolt",
+                "pages": [
+                  "guides/migration-guides",
+                  "guides/migration-guides/redshift"
                 ]
               }
             ]
           },
           {
-            "group": "Query data",
+            "group": "SQL reference",
             "pages": [
-              "guides/query-data",
-              "guides/query-data/using-the-develop-workspace",
-              "guides/query-data/using-the-api"
-            ]
-          },
-          {
-            "group": "Configure security",
-            "pages": [
-              "guides/security",
+              "reference-sql",
+              "reference-sql/data-types",
               {
-                "group": "Configure SSO",
+                "group": "Information schema",
                 "pages": [
-                  "guides/security/sso",
-                  "guides/security/sso/auth0",
-                  "guides/security/sso/okta",
-                  "guides/security/sso/onelogin",
-                  "guides/security/sso/pingfederate",
-                  "guides/security/sso/salesforce",
-                  "guides/security/sso/custom-sso"
+                  "reference-sql/information-schema",
+                  "reference-sql/information-schema/accounts",
+                  "reference-sql/information-schema/applicable-roles",
+                  "reference-sql/information-schema/catalogs",
+                  "reference-sql/information-schema/columns",
+                  "reference-sql/information-schema/enabled-roles",
+                  "reference-sql/information-schema/engine-history",
+                  "reference-sql/information-schema/engine-metering-history",
+                  "reference-sql/information-schema/engine-metrics-history",
+                  "reference-sql/information-schema/engine-query-history",
+                  "reference-sql/information-schema/engine-running-queries",
+                  "reference-sql/information-schema/engine-user-query-history",
+                  "reference-sql/information-schema/engines-billing",
+                  "reference-sql/information-schema/engines",
+                  "reference-sql/information-schema/indexes",
+                  "reference-sql/information-schema/locations",
+                  "reference-sql/information-schema/logins",
+                  "reference-sql/information-schema/network_policies",
+                  "reference-sql/information-schema/object-privileges",
+                  "reference-sql/information-schema/organization",
+                  "reference-sql/information-schema/routines",
+                  "reference-sql/information-schema/schemata",
+                  "reference-sql/information-schema/service-accounts",
+                  "reference-sql/information-schema/storage-billing",
+                  "reference-sql/information-schema/storage-history",
+                  "reference-sql/information-schema/storage-metering-history",
+                  "reference-sql/information-schema/tables",
+                  "reference-sql/information-schema/transitive-applicable-roles",
+                  "reference-sql/information-schema/users",
+                  "reference-sql/information-schema/views"
                 ]
               },
-              "guides/security/rbac",
-              "guides/security/network-policies",
-              "guides/security/enabling-mfa",
-              "guides/security/ownership",
-              "guides/security/privatelink"
-            ]
-          },
-          {
-            "group": "Develop with Firebolt",
-            "pages": [
-              "guides/developing-with-firebolt",
-              "guides/developing-with-firebolt/connecting-with-nodejs",
-              "guides/developing-with-firebolt/connecting-with-python",
-              "guides/developing-with-firebolt/connecting-with-jdbc",
-              "guides/developing-with-firebolt/connecting-with-sqlalchemy",
-              "guides/developing-with-firebolt/connecting-with-net-sdk",
-              "guides/developing-with-firebolt/connecting-with-go"
-            ]
-          },
-          {
-            "group": "Integrate with Firebolt",
-            "pages": [
-              "guides/integrations",
-              "guides/integrations/airflow",
-              "guides/integrations/connecting-with-dbt",
-              "guides/integrations/connecting-to-apache-superset",
-              "guides/integrations/connecting-to-preset",
-              "guides/integrations/cube-js",
-              "guides/integrations/airbyte",
-              "guides/integrations/otel-exporter",
-              "guides/integrations/tableau",
-              "guides/integrations/connecting-to-paradime",
-              "guides/integrations/metabase",
-              "guides/integrations/debezium",
-              "guides/integrations/estuary",
-              "guides/integrations/dbeaver",
-              "guides/integrations/mcp"
-            ]
-          },
-          "guides/exporting-data",
-          {
-            "group": "Migrate to Firebolt",
-            "pages": [
-              "guides/migration-guides",
-              "guides/migration-guides/redshift"
-            ]
-          }
-        ]
-      },
-      {
-        "group": "SQL reference",
-        "pages": [
-          "reference-sql",
-          "reference-sql/data-types",
-          {
-            "group": "Information schema",
-            "pages": [
-              "reference-sql/information-schema",
-              "reference-sql/information-schema/accounts",
-              "reference-sql/information-schema/applicable-roles",
-              "reference-sql/information-schema/catalogs",
-              "reference-sql/information-schema/columns",
-              "reference-sql/information-schema/enabled-roles",
-              "reference-sql/information-schema/engine-history",
-              "reference-sql/information-schema/engine-metering-history",
-              "reference-sql/information-schema/engine-metrics-history",
-              "reference-sql/information-schema/engine-query-history",
-              "reference-sql/information-schema/engine-running-queries",
-              "reference-sql/information-schema/engine-user-query-history",
-              "reference-sql/information-schema/engines-billing",
-              "reference-sql/information-schema/engines",
-              "reference-sql/information-schema/indexes",
-              "reference-sql/information-schema/locations",
-              "reference-sql/information-schema/logins",
-              "reference-sql/information-schema/network_policies",
-              "reference-sql/information-schema/object-privileges",
-              "reference-sql/information-schema/organization",
-              "reference-sql/information-schema/routines",
-              "reference-sql/information-schema/schemata",
-              "reference-sql/information-schema/service-accounts",
-              "reference-sql/information-schema/storage-billing",
-              "reference-sql/information-schema/storage-history",
-              "reference-sql/information-schema/storage-metering-history",
-              "reference-sql/information-schema/tables",
-              "reference-sql/information-schema/transitive-applicable-roles",
-              "reference-sql/information-schema/users",
-              "reference-sql/information-schema/views"
-            ]
-          },
-          "reference-sql/operators",
-          {
-            "group": "SQL commands",
-            "pages": [
-              "reference-sql/commands",
+              "reference-sql/operators",
               {
-                "group": "Access control",
+                "group": "SQL commands",
                 "pages": [
-                  "reference-sql/commands/access-control",
-                  "reference-sql/commands/access-control/alter-login",
-                  "reference-sql/commands/access-control/alter-network-policy",
-                  "reference-sql/commands/access-control/alter-role",
-                  "reference-sql/commands/access-control/alter-service-account",
-                  "reference-sql/commands/access-control/alter-user",
-                  "reference-sql/commands/access-control/create-login",
-                  "reference-sql/commands/access-control/create-network-policy",
-                  "reference-sql/commands/access-control/create-role",
-                  "reference-sql/commands/access-control/create-service-account",
-                  "reference-sql/commands/access-control/create-user",
-                  "reference-sql/commands/access-control/drop-login",
-                  "reference-sql/commands/access-control/drop-network-policy",
-                  "reference-sql/commands/access-control/drop-role",
-                  "reference-sql/commands/access-control/drop-service-account",
-                  "reference-sql/commands/access-control/drop-user",
-                  "reference-sql/commands/access-control/grant",
-                  "reference-sql/commands/access-control/revoke"
-                ]
-              },
-              {
-                "group": "Data definition",
-                "pages": [
-                  "reference-sql/commands/data-definition",
-                  "reference-sql/commands/data-definition/alter-account",
-                  "reference-sql/commands/data-definition/alter-database",
-                  "reference-sql/commands/data-definition/alter-location",
-                  "reference-sql/commands/data-definition/alter-organization",
-                  "reference-sql/commands/data-definition/alter-schema",
-                  "reference-sql/commands/data-definition/alter-table",
-                  "reference-sql/commands/data-definition/alter-view",
-                  "reference-sql/commands/data-definition/create-account",
-                  "reference-sql/commands/data-definition/create-aggregating-index",
-                  "reference-sql/commands/data-definition/create-database",
-                  "reference-sql/commands/data-definition/create-external-table",
-                  "reference-sql/commands/data-definition/create-fact-dimension-table-as-select",
-                  "reference-sql/commands/data-definition/create-fact-dimension-table",
-                  "reference-sql/commands/data-definition/create-location-iceberg",
-                  "reference-sql/commands/data-definition/create-location-s3",
-                  "reference-sql/commands/data-definition/create-location",
-                  "reference-sql/commands/data-definition/create-table-clone",
-                  "reference-sql/commands/data-definition/create-view",
-                  "reference-sql/commands/data-definition/drop-account",
-                  "reference-sql/commands/data-definition/drop-database",
-                  "reference-sql/commands/data-definition/drop-index",
-                  "reference-sql/commands/data-definition/drop-location",
-                  "reference-sql/commands/data-definition/drop-table",
-                  "reference-sql/commands/data-definition/drop-view",
-                  "reference-sql/commands/data-definition/use-database"
+                  "reference-sql/commands",
+                  {
+                    "group": "Access control",
+                    "pages": [
+                      "reference-sql/commands/access-control",
+                      "reference-sql/commands/access-control/alter-login",
+                      "reference-sql/commands/access-control/alter-network-policy",
+                      "reference-sql/commands/access-control/alter-role",
+                      "reference-sql/commands/access-control/alter-service-account",
+                      "reference-sql/commands/access-control/alter-user",
+                      "reference-sql/commands/access-control/create-login",
+                      "reference-sql/commands/access-control/create-network-policy",
+                      "reference-sql/commands/access-control/create-role",
+                      "reference-sql/commands/access-control/create-service-account",
+                      "reference-sql/commands/access-control/create-user",
+                      "reference-sql/commands/access-control/drop-login",
+                      "reference-sql/commands/access-control/drop-network-policy",
+                      "reference-sql/commands/access-control/drop-role",
+                      "reference-sql/commands/access-control/drop-service-account",
+                      "reference-sql/commands/access-control/drop-user",
+                      "reference-sql/commands/access-control/grant",
+                      "reference-sql/commands/access-control/revoke"
+                    ]
+                  },
+                  {
+                    "group": "Data definition",
+                    "pages": [
+                      "reference-sql/commands/data-definition",
+                      "reference-sql/commands/data-definition/alter-account",
+                      "reference-sql/commands/data-definition/alter-database",
+                      "reference-sql/commands/data-definition/alter-location",
+                      "reference-sql/commands/data-definition/alter-organization",
+                      "reference-sql/commands/data-definition/alter-schema",
+                      "reference-sql/commands/data-definition/alter-table",
+                      "reference-sql/commands/data-definition/alter-view",
+                      "reference-sql/commands/data-definition/create-account",
+                      "reference-sql/commands/data-definition/create-aggregating-index",
+                      "reference-sql/commands/data-definition/create-database",
+                      "reference-sql/commands/data-definition/create-external-table",
+                      "reference-sql/commands/data-definition/create-fact-dimension-table-as-select",
+                      "reference-sql/commands/data-definition/create-fact-dimension-table",
+                      "reference-sql/commands/data-definition/create-location-iceberg",
+                      "reference-sql/commands/data-definition/create-location-s3",
+                      "reference-sql/commands/data-definition/create-location",
+                      "reference-sql/commands/data-definition/create-table-clone",
+                      "reference-sql/commands/data-definition/create-view",
+                      "reference-sql/commands/data-definition/drop-account",
+                      "reference-sql/commands/data-definition/drop-database",
+                      "reference-sql/commands/data-definition/drop-index",
+                      "reference-sql/commands/data-definition/drop-location",
+                      "reference-sql/commands/data-definition/drop-table",
+                      "reference-sql/commands/data-definition/drop-view",
+                      "reference-sql/commands/data-definition/use-database"
+                    ]
+                  },
+                  {
+                    "group": "Data management",
+                    "pages": [
+                      "reference-sql/commands/data-management",
+                      "reference-sql/commands/data-management/copy-from",
+                      "reference-sql/commands/data-management/copy-to",
+                      "reference-sql/commands/data-management/delete",
+                      "reference-sql/commands/data-management/insert",
+                      "reference-sql/commands/data-management/truncate-table",
+                      "reference-sql/commands/data-management/update",
+                      "reference-sql/commands/data-management/vacuum"
+                    ]
+                  },
+                  {
+                    "group": "Engine commands",
+                    "pages": [
+                      "reference-sql/commands/engines",
+                      "reference-sql/commands/engines/alter-engine",
+                      "reference-sql/commands/engines/create-engine",
+                      "reference-sql/commands/engines/drop-engine",
+                      "reference-sql/commands/engines/start-engine",
+                      "reference-sql/commands/engines/stop-engine",
+                      "reference-sql/commands/engines/use-engine"
+                    ]
+                  },
+                  {
+                    "group": "Querying and query optimization",
+                    "pages": [
+                      "reference-sql/commands/queries",
+                      "reference-sql/commands/queries/cancel",
+                      "reference-sql/commands/queries/explain",
+                      "reference-sql/commands/queries/pipe",
+                      "reference-sql/commands/queries/recommend_ddl",
+                      "reference-sql/commands/queries/select"
+                    ]
+                  },
+                  {
+                    "group": "Metadata commands",
+                    "pages": [
+                      "reference-sql/commands/metadata",
+                      "reference-sql/commands/metadata/describe",
+                      "reference-sql/commands/metadata/show-cache",
+                      "reference-sql/commands/metadata/show-catalogs",
+                      "reference-sql/commands/metadata/show-columns",
+                      "reference-sql/commands/metadata/show-engines",
+                      "reference-sql/commands/metadata/show-indexes",
+                      "reference-sql/commands/metadata/show-tables",
+                      "reference-sql/commands/metadata/show-views"
+                    ]
+                  }
                 ]
               },
               {
-                "group": "Data management",
+                "group": "SQL functions",
                 "pages": [
-                  "reference-sql/commands/data-management",
-                  "reference-sql/commands/data-management/copy-from",
-                  "reference-sql/commands/data-management/copy-to",
-                  "reference-sql/commands/data-management/delete",
-                  "reference-sql/commands/data-management/insert",
-                  "reference-sql/commands/data-management/truncate-table",
-                  "reference-sql/commands/data-management/update",
-                  "reference-sql/commands/data-management/vacuum"
-                ]
-              },
-              {
-                "group": "Engine commands",
-                "pages": [
-                  "reference-sql/commands/engines",
-                  "reference-sql/commands/engines/alter-engine",
-                  "reference-sql/commands/engines/create-engine",
-                  "reference-sql/commands/engines/drop-engine",
-                  "reference-sql/commands/engines/start-engine",
-                  "reference-sql/commands/engines/stop-engine",
-                  "reference-sql/commands/engines/use-engine"
-                ]
-              },
-              {
-                "group": "Querying and query optimization",
-                "pages": [
-                  "reference-sql/commands/queries",
-                  "reference-sql/commands/queries/cancel",
-                  "reference-sql/commands/queries/explain",
-                  "reference-sql/commands/queries/pipe",
-                  "reference-sql/commands/queries/recommend_ddl",
-                  "reference-sql/commands/queries/select"
-                ]
-              },
-              {
-                "group": "Metadata commands",
-                "pages": [
-                  "reference-sql/commands/metadata",
-                  "reference-sql/commands/metadata/describe",
-                  "reference-sql/commands/metadata/show-cache",
-                  "reference-sql/commands/metadata/show-catalogs",
-                  "reference-sql/commands/metadata/show-columns",
-                  "reference-sql/commands/metadata/show-engines",
-                  "reference-sql/commands/metadata/show-indexes",
-                  "reference-sql/commands/metadata/show-tables",
-                  "reference-sql/commands/metadata/show-views"
+                  "reference-sql/functions-reference",
+                  "reference-sql/functions-reference/functions-glossary",
+                  {
+                    "group": "Aggregation functions",
+                    "pages": [
+                      "reference-sql/functions-reference/aggregation",
+                      "reference-sql/functions-reference/aggregation/any_value",
+                      "reference-sql/functions-reference/aggregation/approx-count-distinct",
+                      "reference-sql/functions-reference/aggregation/array-agg",
+                      "reference-sql/functions-reference/aggregation/avg",
+                      "reference-sql/functions-reference/aggregation/bit_and",
+                      "reference-sql/functions-reference/aggregation/bit_or",
+                      "reference-sql/functions-reference/aggregation/bit_xor",
+                      "reference-sql/functions-reference/aggregation/bool_and",
+                      "reference-sql/functions-reference/aggregation/bool_or",
+                      "reference-sql/functions-reference/aggregation/corr",
+                      "reference-sql/functions-reference/aggregation/count",
+                      "reference-sql/functions-reference/aggregation/covar-pop",
+                      "reference-sql/functions-reference/aggregation/covar-samp",
+                      "reference-sql/functions-reference/aggregation/grouping",
+                      "reference-sql/functions-reference/aggregation/hash-agg",
+                      "reference-sql/functions-reference/aggregation/hll-count-build",
+                      "reference-sql/functions-reference/aggregation/hll-count-distinct",
+                      "reference-sql/functions-reference/aggregation/hll-count-merge",
+                      "reference-sql/functions-reference/aggregation/max-by",
+                      "reference-sql/functions-reference/aggregation/max",
+                      "reference-sql/functions-reference/aggregation/median",
+                      "reference-sql/functions-reference/aggregation/min-by",
+                      "reference-sql/functions-reference/aggregation/min",
+                      "reference-sql/functions-reference/aggregation/percentile-cont",
+                      "reference-sql/functions-reference/aggregation/stddev-pop",
+                      "reference-sql/functions-reference/aggregation/stddev-samp",
+                      "reference-sql/functions-reference/aggregation/sum",
+                      "reference-sql/functions-reference/aggregation/variance-pop",
+                      "reference-sql/functions-reference/aggregation/variance-samp"
+                    ]
+                  },
+                  {
+                    "group": "Array functions",
+                    "pages": [
+                      "reference-sql/functions-reference/array",
+                      "reference-sql/functions-reference/array/array-concat",
+                      "reference-sql/functions-reference/array/array-contains",
+                      "reference-sql/functions-reference/array/array-count-distinct",
+                      "reference-sql/functions-reference/array/array-count",
+                      "reference-sql/functions-reference/array/array-distinct",
+                      "reference-sql/functions-reference/array/array-intersect",
+                      "reference-sql/functions-reference/array/array-length",
+                      "reference-sql/functions-reference/array/array-max",
+                      "reference-sql/functions-reference/array/array-min",
+                      "reference-sql/functions-reference/array/array-reverse-sort",
+                      "reference-sql/functions-reference/array/array-reverse",
+                      "reference-sql/functions-reference/array/array-sort",
+                      "reference-sql/functions-reference/array/array-sum",
+                      "reference-sql/functions-reference/array/array-to-string",
+                      "reference-sql/functions-reference/array/arrays-overlap",
+                      "reference-sql/functions-reference/array/flatten",
+                      "reference-sql/functions-reference/array/index-of"
+                    ]
+                  },
+                  {
+                    "group": "Binary functions",
+                    "pages": [
+                      "reference-sql/functions-reference/bytea",
+                      "reference-sql/functions-reference/bytea/convert-from",
+                      "reference-sql/functions-reference/bytea/decode",
+                      "reference-sql/functions-reference/bytea/encode"
+                    ]
+                  },
+                  {
+                    "group": "Conditional and miscellaneous functions",
+                    "pages": [
+                      "reference-sql/functions-reference/conditional-and-miscellaneous",
+                      "reference-sql/functions-reference/conditional-and-miscellaneous/case",
+                      "reference-sql/functions-reference/conditional-and-miscellaneous/cast",
+                      "reference-sql/functions-reference/conditional-and-miscellaneous/city-hash",
+                      "reference-sql/functions-reference/conditional-and-miscellaneous/coalesce",
+                      "reference-sql/functions-reference/conditional-and-miscellaneous/greatest",
+                      "reference-sql/functions-reference/conditional-and-miscellaneous/hash",
+                      "reference-sql/functions-reference/conditional-and-miscellaneous/if",
+                      "reference-sql/functions-reference/conditional-and-miscellaneous/ifnull",
+                      "reference-sql/functions-reference/conditional-and-miscellaneous/least",
+                      "reference-sql/functions-reference/conditional-and-miscellaneous/nullif",
+                      "reference-sql/functions-reference/conditional-and-miscellaneous/try-cast",
+                      "reference-sql/functions-reference/conditional-and-miscellaneous/typeof",
+                      "reference-sql/functions-reference/conditional-and-miscellaneous/version"
+                    ]
+                  },
+                  {
+                    "group": "DataSketches functions",
+                    "pages": [
+                      "reference-sql/functions-reference/datasketches",
+                      "reference-sql/functions-reference/datasketches/apache-datasketches-hll-build",
+                      "reference-sql/functions-reference/datasketches/apache-datasketches-hll-estimate",
+                      "reference-sql/functions-reference/datasketches/apache-datasketches-hll-merge"
+                    ]
+                  },
+                  {
+                    "group": "Date and time functions",
+                    "pages": [
+                      "reference-sql/functions-reference/date-and-time",
+                      "reference-sql/functions-reference/date-and-time/ago",
+                      "reference-sql/functions-reference/date-and-time/current-date",
+                      "reference-sql/functions-reference/date-and-time/current-timestamptz",
+                      "reference-sql/functions-reference/date-and-time/date-add",
+                      "reference-sql/functions-reference/date-and-time/date-trunc",
+                      "reference-sql/functions-reference/date-and-time/date",
+                      "reference-sql/functions-reference/date-and-time/extract",
+                      "reference-sql/functions-reference/date-and-time/localtimestamp",
+                      "reference-sql/functions-reference/date-and-time/to-char",
+                      "reference-sql/functions-reference/date-and-time/to-date",
+                      "reference-sql/functions-reference/date-and-time/to-timestamp",
+                      "reference-sql/functions-reference/date-and-time/to-yyyymm",
+                      "reference-sql/functions-reference/date-and-time/to-yyyymmdd"
+                    ]
+                  },
+                  {
+                    "group": "Geospatial functions",
+                    "pages": [
+                      "reference-sql/functions-reference/geospatial",
+                      "reference-sql/functions-reference/geospatial/st_asbinary",
+                      "reference-sql/functions-reference/geospatial/st_asewkb",
+                      "reference-sql/functions-reference/geospatial/st_asgeojson",
+                      "reference-sql/functions-reference/geospatial/st_astext",
+                      "reference-sql/functions-reference/geospatial/st_contains",
+                      "reference-sql/functions-reference/geospatial/st_covers",
+                      "reference-sql/functions-reference/geospatial/st_distance",
+                      "reference-sql/functions-reference/geospatial/st_geogfromgeojson",
+                      "reference-sql/functions-reference/geospatial/st_geogfromtext",
+                      "reference-sql/functions-reference/geospatial/st_geogfromwkb",
+                      "reference-sql/functions-reference/geospatial/st_geogpoint",
+                      "reference-sql/functions-reference/geospatial/st_intersects",
+                      "reference-sql/functions-reference/geospatial/st_s2cellidfrompoint",
+                      "reference-sql/functions-reference/geospatial/st_x",
+                      "reference-sql/functions-reference/geospatial/st_y"
+                    ]
+                  },
+                  {
+                    "group": "JSON functions",
+                    "pages": [
+                      "reference-sql/functions-reference/json",
+                      "reference-sql/functions-reference/json/json-extract-array",
+                      "reference-sql/functions-reference/json/json-extract",
+                      "reference-sql/functions-reference/json/json-pointer-extract-keys",
+                      "reference-sql/functions-reference/json/json-pointer-extract-text",
+                      "reference-sql/functions-reference/json/json-pointer-extract-values",
+                      "reference-sql/functions-reference/json/json-value-array",
+                      "reference-sql/functions-reference/json/json-value"
+                    ]
+                  },
+                  {
+                    "group": "Lambda functions",
+                    "pages": [
+                      "reference-sql/functions-reference/lambda",
+                      "reference-sql/functions-reference/lambda/array-all-match",
+                      "reference-sql/functions-reference/lambda/array-any-match",
+                      "reference-sql/functions-reference/lambda/array-first",
+                      "reference-sql/functions-reference/lambda/filter",
+                      "reference-sql/functions-reference/lambda/transform"
+                    ]
+                  },
+                  {
+                    "group": "Numeric functions",
+                    "pages": [
+                      "reference-sql/functions-reference/numeric",
+                      "reference-sql/functions-reference/numeric/abs",
+                      "reference-sql/functions-reference/numeric/acos",
+                      "reference-sql/functions-reference/numeric/array-enumerate",
+                      "reference-sql/functions-reference/numeric/asin",
+                      "reference-sql/functions-reference/numeric/atan",
+                      "reference-sql/functions-reference/numeric/atan2",
+                      "reference-sql/functions-reference/numeric/bit_shift_left",
+                      "reference-sql/functions-reference/numeric/bit_shift_right",
+                      "reference-sql/functions-reference/numeric/ceil",
+                      "reference-sql/functions-reference/numeric/cos",
+                      "reference-sql/functions-reference/numeric/cot",
+                      "reference-sql/functions-reference/numeric/degrees",
+                      "reference-sql/functions-reference/numeric/floor",
+                      "reference-sql/functions-reference/numeric/hll-count-estimate",
+                      "reference-sql/functions-reference/numeric/is_finite",
+                      "reference-sql/functions-reference/numeric/is_infinite",
+                      "reference-sql/functions-reference/numeric/ln",
+                      "reference-sql/functions-reference/numeric/log",
+                      "reference-sql/functions-reference/numeric/mod",
+                      "reference-sql/functions-reference/numeric/param",
+                      "reference-sql/functions-reference/numeric/pi",
+                      "reference-sql/functions-reference/numeric/pow",
+                      "reference-sql/functions-reference/numeric/radians",
+                      "reference-sql/functions-reference/numeric/random",
+                      "reference-sql/functions-reference/numeric/round",
+                      "reference-sql/functions-reference/numeric/sin",
+                      "reference-sql/functions-reference/numeric/sqrt",
+                      "reference-sql/functions-reference/numeric/tan"
+                    ]
+                  },
+                  {
+                    "group": "Session functions",
+                    "pages": [
+                      "reference-sql/functions-reference/session",
+                      "reference-sql/functions-reference/session/current-account",
+                      "reference-sql/functions-reference/session/current-database",
+                      "reference-sql/functions-reference/session/current-engine",
+                      "reference-sql/functions-reference/session/session-user"
+                    ]
+                  },
+                  {
+                    "group": "String functions",
+                    "pages": [
+                      "reference-sql/functions-reference/string",
+                      "reference-sql/functions-reference/string/btrim",
+                      "reference-sql/functions-reference/string/concat",
+                      "reference-sql/functions-reference/string/gen-random-uuid-text",
+                      "reference-sql/functions-reference/string/icu_normalize",
+                      "reference-sql/functions-reference/string/ilike",
+                      "reference-sql/functions-reference/string/length",
+                      "reference-sql/functions-reference/string/like",
+                      "reference-sql/functions-reference/string/lower",
+                      "reference-sql/functions-reference/string/lpad",
+                      "reference-sql/functions-reference/string/ltrim",
+                      "reference-sql/functions-reference/string/ngram",
+                      "reference-sql/functions-reference/string/octet_length",
+                      "reference-sql/functions-reference/string/position",
+                      "reference-sql/functions-reference/string/regexp-extract-all",
+                      "reference-sql/functions-reference/string/regexp-extract",
+                      "reference-sql/functions-reference/string/regexp-like-any",
+                      "reference-sql/functions-reference/string/regexp-like",
+                      "reference-sql/functions-reference/string/regexp-replace",
+                      "reference-sql/functions-reference/string/replace",
+                      "reference-sql/functions-reference/string/rpad",
+                      "reference-sql/functions-reference/string/rtrim",
+                      "reference-sql/functions-reference/string/split-part",
+                      "reference-sql/functions-reference/string/string-to-array",
+                      "reference-sql/functions-reference/string/strpos",
+                      "reference-sql/functions-reference/string/substring",
+                      "reference-sql/functions-reference/string/trim",
+                      "reference-sql/functions-reference/string/upper",
+                      "reference-sql/functions-reference/string/url_decode",
+                      "reference-sql/functions-reference/string/url_encode"
+                    ]
+                  },
+                  {
+                    "group": "Table-valued functions",
+                    "pages": [
+                      "reference-sql/functions-reference/table-valued",
+                      "reference-sql/functions-reference/table-valued/generate-series",
+                      "reference-sql/functions-reference/table-valued/list-objects",
+                      "reference-sql/functions-reference/table-valued/read_csv",
+                      "reference-sql/functions-reference/table-valued/read_iceberg",
+                      "reference-sql/functions-reference/table-valued/read_parquet"
+                    ]
+                  },
+                  {
+                    "group": "Vector functions",
+                    "pages": [
+                      "reference-sql/functions-reference/vector",
+                      "reference-sql/functions-reference/vector/vector-add",
+                      "reference-sql/functions-reference/vector/vector-cosine-distance",
+                      "reference-sql/functions-reference/vector/vector-cosine-similarity",
+                      "reference-sql/functions-reference/vector/vector-euclidean-distance",
+                      "reference-sql/functions-reference/vector/vector-inner-product",
+                      "reference-sql/functions-reference/vector/vector-manhattan-distance",
+                      "reference-sql/functions-reference/vector/vector-squared-euclidean-distance",
+                      "reference-sql/functions-reference/vector/vector-subtract"
+                    ]
+                  },
+                  {
+                    "group": "Window functions",
+                    "pages": [
+                      "reference-sql/functions-reference/window",
+                      "reference-sql/functions-reference/window/avg-window",
+                      "reference-sql/functions-reference/window/count-window",
+                      "reference-sql/functions-reference/window/dense-rank",
+                      "reference-sql/functions-reference/window/first-value",
+                      "reference-sql/functions-reference/window/lag",
+                      "reference-sql/functions-reference/window/lead",
+                      "reference-sql/functions-reference/window/max-window",
+                      "reference-sql/functions-reference/window/min-window",
+                      "reference-sql/functions-reference/window/ntile",
+                      "reference-sql/functions-reference/window/percent-rank",
+                      "reference-sql/functions-reference/window/rank",
+                      "reference-sql/functions-reference/window/row-number",
+                      "reference-sql/functions-reference/window/sum-window"
+                    ]
+                  }
                 ]
               }
             ]
           },
           {
-            "group": "SQL functions",
+            "group": "General reference",
             "pages": [
-              "reference-sql/functions-reference",
-              "reference-sql/functions-reference/functions-glossary",
+              "reference",
               {
-                "group": "Aggregation functions",
+                "group": "Release notes",
                 "pages": [
-                  "reference-sql/functions-reference/aggregation",
-                  "reference-sql/functions-reference/aggregation/any_value",
-                  "reference-sql/functions-reference/aggregation/approx-count-distinct",
-                  "reference-sql/functions-reference/aggregation/array-agg",
-                  "reference-sql/functions-reference/aggregation/avg",
-                  "reference-sql/functions-reference/aggregation/bit_and",
-                  "reference-sql/functions-reference/aggregation/bit_or",
-                  "reference-sql/functions-reference/aggregation/bit_xor",
-                  "reference-sql/functions-reference/aggregation/bool_and",
-                  "reference-sql/functions-reference/aggregation/bool_or",
-                  "reference-sql/functions-reference/aggregation/corr",
-                  "reference-sql/functions-reference/aggregation/count",
-                  "reference-sql/functions-reference/aggregation/covar-pop",
-                  "reference-sql/functions-reference/aggregation/covar-samp",
-                  "reference-sql/functions-reference/aggregation/grouping",
-                  "reference-sql/functions-reference/aggregation/hash-agg",
-                  "reference-sql/functions-reference/aggregation/hll-count-build",
-                  "reference-sql/functions-reference/aggregation/hll-count-distinct",
-                  "reference-sql/functions-reference/aggregation/hll-count-merge",
-                  "reference-sql/functions-reference/aggregation/max-by",
-                  "reference-sql/functions-reference/aggregation/max",
-                  "reference-sql/functions-reference/aggregation/median",
-                  "reference-sql/functions-reference/aggregation/min-by",
-                  "reference-sql/functions-reference/aggregation/min",
-                  "reference-sql/functions-reference/aggregation/percentile-cont",
-                  "reference-sql/functions-reference/aggregation/stddev-pop",
-                  "reference-sql/functions-reference/aggregation/stddev-samp",
-                  "reference-sql/functions-reference/aggregation/sum",
-                  "reference-sql/functions-reference/aggregation/variance-pop",
-                  "reference-sql/functions-reference/aggregation/variance-samp"
+                  "reference/release-notes",
+                  "reference/release-notes/release-notes-archive"
                 ]
               },
-              {
-                "group": "Array functions",
-                "pages": [
-                  "reference-sql/functions-reference/array",
-                  "reference-sql/functions-reference/array/array-concat",
-                  "reference-sql/functions-reference/array/array-contains",
-                  "reference-sql/functions-reference/array/array-count-distinct",
-                  "reference-sql/functions-reference/array/array-count",
-                  "reference-sql/functions-reference/array/array-distinct",
-                  "reference-sql/functions-reference/array/array-intersect",
-                  "reference-sql/functions-reference/array/array-length",
-                  "reference-sql/functions-reference/array/array-max",
-                  "reference-sql/functions-reference/array/array-min",
-                  "reference-sql/functions-reference/array/array-reverse-sort",
-                  "reference-sql/functions-reference/array/array-reverse",
-                  "reference-sql/functions-reference/array/array-sort",
-                  "reference-sql/functions-reference/array/array-sum",
-                  "reference-sql/functions-reference/array/array-to-string",
-                  "reference-sql/functions-reference/array/arrays-overlap",
-                  "reference-sql/functions-reference/array/flatten",
-                  "reference-sql/functions-reference/array/index-of"
-                ]
-              },
-              {
-                "group": "Binary functions",
-                "pages": [
-                  "reference-sql/functions-reference/bytea",
-                  "reference-sql/functions-reference/bytea/convert-from",
-                  "reference-sql/functions-reference/bytea/decode",
-                  "reference-sql/functions-reference/bytea/encode"
-                ]
-              },
-              {
-                "group": "Conditional and miscellaneous functions",
-                "pages": [
-                  "reference-sql/functions-reference/conditional-and-miscellaneous",
-                  "reference-sql/functions-reference/conditional-and-miscellaneous/case",
-                  "reference-sql/functions-reference/conditional-and-miscellaneous/cast",
-                  "reference-sql/functions-reference/conditional-and-miscellaneous/city-hash",
-                  "reference-sql/functions-reference/conditional-and-miscellaneous/coalesce",
-                  "reference-sql/functions-reference/conditional-and-miscellaneous/greatest",
-                  "reference-sql/functions-reference/conditional-and-miscellaneous/hash",
-                  "reference-sql/functions-reference/conditional-and-miscellaneous/if",
-                  "reference-sql/functions-reference/conditional-and-miscellaneous/ifnull",
-                  "reference-sql/functions-reference/conditional-and-miscellaneous/least",
-                  "reference-sql/functions-reference/conditional-and-miscellaneous/nullif",
-                  "reference-sql/functions-reference/conditional-and-miscellaneous/try-cast",
-                  "reference-sql/functions-reference/conditional-and-miscellaneous/typeof",
-                  "reference-sql/functions-reference/conditional-and-miscellaneous/version"
-                ]
-              },
-              {
-                "group": "DataSketches functions",
-                "pages": [
-                  "reference-sql/functions-reference/datasketches",
-                  "reference-sql/functions-reference/datasketches/apache-datasketches-hll-build",
-                  "reference-sql/functions-reference/datasketches/apache-datasketches-hll-estimate",
-                  "reference-sql/functions-reference/datasketches/apache-datasketches-hll-merge"
-                ]
-              },
-              {
-                "group": "Date and time functions",
-                "pages": [
-                  "reference-sql/functions-reference/date-and-time",
-                  "reference-sql/functions-reference/date-and-time/ago",
-                  "reference-sql/functions-reference/date-and-time/current-date",
-                  "reference-sql/functions-reference/date-and-time/current-timestamptz",
-                  "reference-sql/functions-reference/date-and-time/date-add",
-                  "reference-sql/functions-reference/date-and-time/date-trunc",
-                  "reference-sql/functions-reference/date-and-time/date",
-                  "reference-sql/functions-reference/date-and-time/extract",
-                  "reference-sql/functions-reference/date-and-time/localtimestamp",
-                  "reference-sql/functions-reference/date-and-time/to-char",
-                  "reference-sql/functions-reference/date-and-time/to-date",
-                  "reference-sql/functions-reference/date-and-time/to-timestamp",
-                  "reference-sql/functions-reference/date-and-time/to-yyyymm",
-                  "reference-sql/functions-reference/date-and-time/to-yyyymmdd"
-                ]
-              },
-              {
-                "group": "Geospatial functions",
-                "pages": [
-                  "reference-sql/functions-reference/geospatial",
-                  "reference-sql/functions-reference/geospatial/st_asbinary",
-                  "reference-sql/functions-reference/geospatial/st_asewkb",
-                  "reference-sql/functions-reference/geospatial/st_asgeojson",
-                  "reference-sql/functions-reference/geospatial/st_astext",
-                  "reference-sql/functions-reference/geospatial/st_contains",
-                  "reference-sql/functions-reference/geospatial/st_covers",
-                  "reference-sql/functions-reference/geospatial/st_distance",
-                  "reference-sql/functions-reference/geospatial/st_geogfromgeojson",
-                  "reference-sql/functions-reference/geospatial/st_geogfromtext",
-                  "reference-sql/functions-reference/geospatial/st_geogfromwkb",
-                  "reference-sql/functions-reference/geospatial/st_geogpoint",
-                  "reference-sql/functions-reference/geospatial/st_intersects",
-                  "reference-sql/functions-reference/geospatial/st_s2cellidfrompoint",
-                  "reference-sql/functions-reference/geospatial/st_x",
-                  "reference-sql/functions-reference/geospatial/st_y"
-                ]
-              },
-              {
-                "group": "JSON functions",
-                "pages": [
-                  "reference-sql/functions-reference/json",
-                  "reference-sql/functions-reference/json/json-extract-array",
-                  "reference-sql/functions-reference/json/json-extract",
-                  "reference-sql/functions-reference/json/json-pointer-extract-keys",
-                  "reference-sql/functions-reference/json/json-pointer-extract-text",
-                  "reference-sql/functions-reference/json/json-pointer-extract-values",
-                  "reference-sql/functions-reference/json/json-value-array",
-                  "reference-sql/functions-reference/json/json-value"
-                ]
-              },
-              {
-                "group": "Lambda functions",
-                "pages": [
-                  "reference-sql/functions-reference/lambda",
-                  "reference-sql/functions-reference/lambda/array-all-match",
-                  "reference-sql/functions-reference/lambda/array-any-match",
-                  "reference-sql/functions-reference/lambda/array-first",
-                  "reference-sql/functions-reference/lambda/filter",
-                  "reference-sql/functions-reference/lambda/transform"
-                ]
-              },
-              {
-                "group": "Numeric functions",
-                "pages": [
-                  "reference-sql/functions-reference/numeric",
-                  "reference-sql/functions-reference/numeric/abs",
-                  "reference-sql/functions-reference/numeric/acos",
-                  "reference-sql/functions-reference/numeric/array-enumerate",
-                  "reference-sql/functions-reference/numeric/asin",
-                  "reference-sql/functions-reference/numeric/atan",
-                  "reference-sql/functions-reference/numeric/atan2",
-                  "reference-sql/functions-reference/numeric/bit_shift_left",
-                  "reference-sql/functions-reference/numeric/bit_shift_right",
-                  "reference-sql/functions-reference/numeric/ceil",
-                  "reference-sql/functions-reference/numeric/cos",
-                  "reference-sql/functions-reference/numeric/cot",
-                  "reference-sql/functions-reference/numeric/degrees",
-                  "reference-sql/functions-reference/numeric/floor",
-                  "reference-sql/functions-reference/numeric/hll-count-estimate",
-                  "reference-sql/functions-reference/numeric/is_finite",
-                  "reference-sql/functions-reference/numeric/is_infinite",
-                  "reference-sql/functions-reference/numeric/ln",
-                  "reference-sql/functions-reference/numeric/log",
-                  "reference-sql/functions-reference/numeric/mod",
-                  "reference-sql/functions-reference/numeric/param",
-                  "reference-sql/functions-reference/numeric/pi",
-                  "reference-sql/functions-reference/numeric/pow",
-                  "reference-sql/functions-reference/numeric/radians",
-                  "reference-sql/functions-reference/numeric/random",
-                  "reference-sql/functions-reference/numeric/round",
-                  "reference-sql/functions-reference/numeric/sin",
-                  "reference-sql/functions-reference/numeric/sqrt",
-                  "reference-sql/functions-reference/numeric/tan"
-                ]
-              },
-              {
-                "group": "Session functions",
-                "pages": [
-                  "reference-sql/functions-reference/session",
-                  "reference-sql/functions-reference/session/current-account",
-                  "reference-sql/functions-reference/session/current-database",
-                  "reference-sql/functions-reference/session/current-engine",
-                  "reference-sql/functions-reference/session/session-user"
-                ]
-              },
-              {
-                "group": "String functions",
-                "pages": [
-                  "reference-sql/functions-reference/string",
-                  "reference-sql/functions-reference/string/btrim",
-                  "reference-sql/functions-reference/string/concat",
-                  "reference-sql/functions-reference/string/gen-random-uuid-text",
-                  "reference-sql/functions-reference/string/icu_normalize",
-                  "reference-sql/functions-reference/string/ilike",
-                  "reference-sql/functions-reference/string/length",
-                  "reference-sql/functions-reference/string/like",
-                  "reference-sql/functions-reference/string/lower",
-                  "reference-sql/functions-reference/string/lpad",
-                  "reference-sql/functions-reference/string/ltrim",
-                  "reference-sql/functions-reference/string/ngram",
-                  "reference-sql/functions-reference/string/octet_length",
-                  "reference-sql/functions-reference/string/position",
-                  "reference-sql/functions-reference/string/regexp-extract-all",
-                  "reference-sql/functions-reference/string/regexp-extract",
-                  "reference-sql/functions-reference/string/regexp-like-any",
-                  "reference-sql/functions-reference/string/regexp-like",
-                  "reference-sql/functions-reference/string/regexp-replace",
-                  "reference-sql/functions-reference/string/replace",
-                  "reference-sql/functions-reference/string/rpad",
-                  "reference-sql/functions-reference/string/rtrim",
-                  "reference-sql/functions-reference/string/split-part",
-                  "reference-sql/functions-reference/string/string-to-array",
-                  "reference-sql/functions-reference/string/strpos",
-                  "reference-sql/functions-reference/string/substring",
-                  "reference-sql/functions-reference/string/trim",
-                  "reference-sql/functions-reference/string/upper",
-                  "reference-sql/functions-reference/string/url_decode",
-                  "reference-sql/functions-reference/string/url_encode"
-                ]
-              },
-              {
-                "group": "Table-valued functions",
-                "pages": [
-                  "reference-sql/functions-reference/table-valued",
-                  "reference-sql/functions-reference/table-valued/generate-series",
-                  "reference-sql/functions-reference/table-valued/list-objects",
-                  "reference-sql/functions-reference/table-valued/read_csv",
-                  "reference-sql/functions-reference/table-valued/read_iceberg",
-                  "reference-sql/functions-reference/table-valued/read_parquet"
-                ]
-              },
-              {
-                "group": "Vector functions",
-                "pages": [
-                  "reference-sql/functions-reference/vector",
-                  "reference-sql/functions-reference/vector/vector-add",
-                  "reference-sql/functions-reference/vector/vector-cosine-distance",
-                  "reference-sql/functions-reference/vector/vector-cosine-similarity",
-                  "reference-sql/functions-reference/vector/vector-euclidean-distance",
-                  "reference-sql/functions-reference/vector/vector-inner-product",
-                  "reference-sql/functions-reference/vector/vector-manhattan-distance",
-                  "reference-sql/functions-reference/vector/vector-squared-euclidean-distance",
-                  "reference-sql/functions-reference/vector/vector-subtract"
-                ]
-              },
-              {
-                "group": "Window functions",
-                "pages": [
-                  "reference-sql/functions-reference/window",
-                  "reference-sql/functions-reference/window/avg-window",
-                  "reference-sql/functions-reference/window/count-window",
-                  "reference-sql/functions-reference/window/dense-rank",
-                  "reference-sql/functions-reference/window/first-value",
-                  "reference-sql/functions-reference/window/lag",
-                  "reference-sql/functions-reference/window/lead",
-                  "reference-sql/functions-reference/window/max-window",
-                  "reference-sql/functions-reference/window/min-window",
-                  "reference-sql/functions-reference/window/ntile",
-                  "reference-sql/functions-reference/window/percent-rank",
-                  "reference-sql/functions-reference/window/rank",
-                  "reference-sql/functions-reference/window/row-number",
-                  "reference-sql/functions-reference/window/sum-window"
-                ]
-              }
+              "reference/available-regions",
+              "reference/system-settings",
+              "reference/object-identifiers",
+              "reference/reserved-words",
+              "reference/help-menu"
+            ]
+          },
+          {
+            "group": "API reference",
+            "pages": [
+              "reference-api",
+              "reference-api/using-sync-queries",
+              "reference-api/using-async-queries"
             ]
           }
         ]
       },
       {
-        "group": "General reference",
-        "pages": [
-          "reference",
-          {
-            "group": "Release notes",
-            "pages": [
-              "reference/release-notes",
-              "reference/release-notes/release-notes-archive"
-            ]
-          },
-          "reference/available-regions",
-          "reference/system-settings",
-          "reference/object-identifiers",
-          "reference/reserved-words",
-          "reference/help-menu"
-        ]
-      },
-      {
-        "group": "API reference",
-        "pages": [
-          "reference-api",
-          "reference-api/using-sync-queries",
-          "reference-api/using-async-queries"
-        ]
-      },
-      {
-        "group": "Firebolt Core",
+        "tab": "Firebolt Core",
         "pages": [
           "firebolt-core",
           "firebolt-core/firebolt-core-introduction",
@@ -717,17 +722,12 @@
           "firebolt-core/firebolt-core-troubleshooting",
           "firebolt-core/firebolt-core-faq"
         ]
+      },
+      {
+        "tab": "Blog",
+        "href": "https://www.firebolt.io/knowledge-center/blog"
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Blog",
-          "href": "https://www.firebolt.io/knowledge-center/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/assets/images/firebolt_logo_website.svg",
