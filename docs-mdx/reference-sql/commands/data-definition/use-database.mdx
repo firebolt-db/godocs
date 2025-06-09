@@ -43,25 +43,42 @@ SELECT * FROM campaigns; -- Accesses 'campaigns' tables in  'marketing' database
 SELECT * FROM sales.public.revenue; -- Accesses 'sales.public.revenue' using fully qualified name, despite current context being 'marketing'
 ```
 
+## Using `USE DATABASE` with an engine's URL
+
+When issuing a successful `USE DATABASE` statement using an engine's URL (see [information_schema.engines](/reference-sql/information-schema/engines)), Firebolt returns the `Firebolt-Update-Parameters` response header containing the new parameters that should be appended to the HTTP query string for subsequent statements to use the newly selected database.
+
+```bash
+curl --verbose "<engine_url>" --data-binary "USE DATABASE example"
+# Statement succeeds and `curl` prints details about HTTP request and response.
+# ...
+# < HTTP/1.1 200 OK
+# ...
+# < Firebolt-Update-Parameters: database=example
+# ...
+curl --silent "<engine_url>" --data-binary "SELECT current_database()"
+# Statement still returns previously selected database, there is no server-side state and we have not yet applied the HTTP query parameter returned from `USE DATABASE`.
+curl --silent "<engine_url>/?database=example" --data-binary "SELECT current_database()"
+# Statement returns "example".
+```
 
 ## FAQs
 
-1.	What is the purpose of the `USE DATABASE` command?
+1.	What is the purpose of the `USE DATABASE` command?<br/>
 The `USE DATABASE` command sets the current database context for the session, ensuring that all subsequent queries operate within the specified database unless another `USE` command changes the context.
 
-2.	How does the `USE DATABASE` command affect the resolution of unqualified object names in queries?
+2.	How does the `USE DATABASE` command affect the resolution of unqualified object names in queries?<br/>
 Once the `USE DATABASE` command is executed, all unqualified single-part names or two-part names, such as table or function names, in subsequent queries are resolved based on the set database context, simplifying queries by not requiring full names. 
 
-3.	Can I access objects in different databases without changing the session’s database context after using `USE DATABASE`?
+3.	Can I access objects in different databases without changing the session’s database context after using `USE DATABASE`?<br/>
 Yes, you can access objects in different databases by using fully qualified names (including the database name and schema name) in your queries, which allows you to bypass the current session’s database context.
 
-4.	What happens if I use another `USE DATABASE` command within the same session?
+4.	What happens if I use another `USE DATABASE` command within the same session?<br/>
 Executing another `USE DATABASE` command changes the session’s database context to the new database specified, affecting the resolution of unqualified object names in all subsequent queries.
 
-5.	How do I ensure my query targets the correct database and object if I have used the `USE DATABASE` command?
+5.	How do I ensure my query targets the correct database and object if I have used the `USE DATABASE` command?<br/>
 To target a specific database and object, you can use fully qualified names in your queries regardless of the current session’s database context, or ensure the `USE DATABASE` command has set the desired database before executing unqualified queries.
 
-6.	Can I use `USE DATABASE` within a transaction? 
+6.	Can I use `USE DATABASE` within a transaction?<br/>
 Yes, but it will only affect the database context for the duration of the transaction.
 
 

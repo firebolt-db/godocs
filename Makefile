@@ -19,13 +19,14 @@ check-all-mdx: check-markers check-md-mdx-in-sync check-links-mint # check-sql-m
 
 .PHONY: sync-docs-md-to-mdx
 sync-docs-md-to-mdx: setup-python
-	read -p "This will overwrite docs-mdx with the contents of docs. Are you sure? (y/n) " -n 1 -r; echo;
-	if [[ $$REPLY =~ ^[Yy]$$ ]]; then
-		.venv/bin/python scripts/conv2mint/__main__.py docs docs-mdx
-	else
-		echo "Aborting sync.";
-		exit 1;
-	fi
+	@bash -c '\
+		read -p "This will overwrite docs-mdx with the contents of docs. Are you sure? (y/n) " -n 1 -r; echo; \
+		if [[ $$REPLY =~ ^[Yy]$$ ]]; then \
+			.venv/bin/python scripts/conv2mint/__main__.py docs docs-mdx; \
+		else \
+			echo "Aborting sync."; \
+			exit 1; \
+		fi'
 
 
 .PHONY: check-md-mdx-in-sync
