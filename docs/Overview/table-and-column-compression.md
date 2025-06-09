@@ -170,4 +170,4 @@ These are typical results from a single-node engine, showing how different compr
 | 2558            | table_c_column_level_zstd      |
 | 763             | table_c_d_column_level_zstd    |
 
-Column-level compression significantly reduces storage for specific columns, as demonstrated in these examples, and ZSTD typically offers higher compression efficiency compared to the default LZ4.    
+Column-level compression significantly reduces storage for specific columns, as demonstrated in these examples, and ZSTD typically offers higher compression efficiency compared to the default LZ4.   
