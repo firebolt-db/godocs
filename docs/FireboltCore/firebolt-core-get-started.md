@@ -11,6 +11,7 @@ Running Firebolt Core locally is the recommended starting point for new users. L
 
 ## Requirements
 
+### Software
 Software for your host OS:
 
 * **[Docker Engine](https://docs.docker.com/engine/install/)**, with the **[Docker Compose plugin](https://docs.docker.com/compose/install/linux/)** if you want to use `docker compose`; if you use the [get-core.sh](https://github.com/firebolt-db/firebolt-core/blob/main/get-core.sh) script Docker engine will be installed automatically.
@@ -19,6 +20,12 @@ Software for your host OS:
 Software for your Docker host:
 * **Linux kernel version >= 6.1**. Firebolt Core internally uses the `io_uring` kernel API for fast network and disk I/O, and some required features of this API have only been released in Linux 6.1.
 
+In order to automatically install Docker Engine and run Firebolt Core you can use:
+```bash
+bash <(curl -s https://get-core.firebolt.io/)
+```
+
+### Resources
 Resources for each node (either a local machine or a VM instance):
 
 * **An amd64 CPU supporting at least SSE 4.2, or an arm64 CPU** All published Firebolt Core Docker images are multi-arch images suitable for both `amd64` and `arm64`.
