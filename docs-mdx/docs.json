@@ -707,25 +707,30 @@
       {
         "tab": "Firebolt Core",
         "pages": [
-          "firebolt-core",
-          "firebolt-core/firebolt-core-introduction",
-          "firebolt-core/firebolt-core-get-started",
-          "firebolt-core/firebolt-core-connect-jdbc",
-          "firebolt-core/firebolt-core-connect",
-          "firebolt-core/firebolt-core-data-processing",
-          "firebolt-core/firebolt-core-architecture",
-          "firebolt-core/firebolt-core-differences",
           {
-            "group": "Deployment and Operational Guide",
+            "group": "Firebolt Core",
             "pages": [
-              "firebolt-core/firebolt-core-operation",
-              "firebolt-core/firebolt-core-operation/firebolt-core-deployment-compose",
-              "firebolt-core/firebolt-core-operation/firebolt-core-deployment-k8s"
+              "firebolt-core",
+              "firebolt-core/firebolt-core-introduction",
+              "firebolt-core/firebolt-core-get-started",
+              "firebolt-core/firebolt-core-connect-jdbc",
+              "firebolt-core/firebolt-core-connect",
+              "firebolt-core/firebolt-core-data-processing",
+              "firebolt-core/firebolt-core-architecture",
+              "firebolt-core/firebolt-core-differences",
+              {
+                "group": "Deployment and Operational Guide",
+                "pages": [
+                  "firebolt-core/firebolt-core-operation",
+                  "firebolt-core/firebolt-core-operation/firebolt-core-deployment-compose",
+                  "firebolt-core/firebolt-core-operation/firebolt-core-deployment-k8s"
+                ]
+              },
+              "firebolt-core/firebolt-core-roadmap",
+              "firebolt-core/firebolt-core-troubleshooting",
+              "firebolt-core/firebolt-core-faq"
             ]
-          },
-          "firebolt-core/firebolt-core-roadmap",
-          "firebolt-core/firebolt-core-troubleshooting",
-          "firebolt-core/firebolt-core-faq"
+          }
         ]
       },
       {

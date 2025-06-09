@@ -221,11 +221,8 @@ def main():
     for k, v in sorted(firebolt_core_top_level_groups.items(), key=lambda x: x[1]["pos"]):
         fbcore_groups.append(leaders2groups[v["src"]][k])
 
-    if len(fbcore_groups) > 1:
-        raise Exception("Firebolt Core documentation should have only one top-level group, but found multiple.")
-
     docs["navigation"]["tabs"][0]["pages"] = docs_groups
-    docs["navigation"]["tabs"][1]["pages"] = fbcore_groups[0]["pages"]
+    docs["navigation"]["tabs"][1]["pages"] = fbcore_groups
 
     # TODO: postprocess pages based on the navigation tree and rendered contents
 
