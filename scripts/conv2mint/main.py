@@ -148,6 +148,12 @@ def main():
         # use consistent naming scheme for firebolt core docs
         "FireboltCore":
             "firebolt-core",
+        "FireboltCore/firebolt-core-operation.md":
+            "firebolt-core/firebolt-core-operation/index.mdx",
+        "FireboltCore/firebolt-core-deployment-compose.md":
+            "firebolt-core/firebolt-core-operation/firebolt-core-deployment-compose.mdx",
+        "FireboltCore/firebolt-core-deployment-k8s.md":
+            "firebolt-core/firebolt-core-operation/firebolt-core-deployment-k8s.mdx",
     }
 
     pages: list[tuple[page.PageJekyll, page.PageDescrMint]] = []

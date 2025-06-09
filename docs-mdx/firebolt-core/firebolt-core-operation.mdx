@@ -1,5 +1,5 @@
 ---
-sidebarTitle: Deployment and Operational Guide
+sidebarTitle: Overview
 title: Deployment and Operational Guide
 ---
 
@@ -18,7 +18,7 @@ Within the Docker container, Firebolt Core exclusively operates within the `/fir
 
 * `/firebolt-core/firebolt-core` -- The main Firebolt Core executable which is executed as the container entrypoint. The executable accepts a small number of command-line arguments which are documented [below](#command-line-arguments).
 * `/firebolt-core/config.json` -- The configuration file which is read by the Firebolt Core executable on startup. The Firebolt Core Docker image contains a default configuration file at this location which is suitable for starting a local single-node setup. You can inject your own configuration file by [mounting](https://docs.docker.com/engine/storage/) it at this location (see [below](#configuration-file)).
-* `/firebolt-core/volume` -- The parent directory for all state which Firebolt Core writes during operation; this is the standard volume mount point used in the [Docker Compose](/firebolt-core/firebolt-core-deployment-compose) and [Kubernetes setups](/firebolt-core/firebolt-core-deployment-k8s); users should either provide a [Docker storage mount](https://docs.docker.com/engine/storage/) for the entire `/firebolt-core/volume` directory, or exercise more fine-grained control by individually mounting the following subdirectories (see [below](#storage-mounts) for details).
+* `/firebolt-core/volume` -- The parent directory for all state which Firebolt Core writes during operation; this is the standard volume mount point used in the [Docker Compose](/firebolt-core/firebolt-core-operation/firebolt-core-deployment-compose) and [Kubernetes setups](/firebolt-core/firebolt-core-operation/firebolt-core-deployment-k8s); users should either provide a [Docker storage mount](https://docs.docker.com/engine/storage/) for the entire `/firebolt-core/volume` directory, or exercise more fine-grained control by individually mounting the following subdirectories (see [below](#storage-mounts) for details).
   * `/firebolt-core/volume/diagnostic_data` -- The directory to which Firebolt Core writes diagnostic information such as log files and crash dumps. Providing a storage mount for this directory makes it easier to inspect this diagnostic information on the host system (see also [Troubleshoot Issues](/firebolt-core/firebolt-core-troubleshooting)). None of the files in this directory capture any database state, so they don't necessarily have to be persisted.
   * `/firebolt-core/volume/persistent_data` -- The directory to which Firebolt Core writes all data that is required to persist the database state itself, i.e. the schema and contents of the database.
   * `/firebolt-core/volume/tmp` -- The directory to which Firebolt Core writes temporary data. This includes, for example, intermediate query results that operators might have to spill to disk under memory pressure. Even though this information is only temporary, providing a [Docker storage mount](https://docs.docker.com/engine/storage/) might still be beneficial (see [below](#storage-mounts) for details). None of the files in this directory capture any database state, so they don't necessarily have to be persisted.
@@ -54,7 +54,7 @@ There are three primary ways in which a Firebolt Core cluster can be configured.
 
 ### Configuration File
 
-As outlined above, the Firebolt Core executable reads a single configuration file on startup to determine the desired cluster topology. This configuration file needs to be made available as the `/firebolt-core/config.json` file within the Docker container, for example by using a [Docker storage mount](https://docs.docker.com/engine/storage/) to mount a configuration file from the host operating system into the Docker container (see also the [Docker Compose](/firebolt-core/firebolt-core-deployment-compose) and [Kubernetes](/firebolt-core/firebolt-core-deployment-k8s) deployment guides).
+As outlined above, the Firebolt Core executable reads a single configuration file on startup to determine the desired cluster topology. This configuration file needs to be made available as the `/firebolt-core/config.json` file within the Docker container, for example by using a [Docker storage mount](https://docs.docker.com/engine/storage/) to mount a configuration file from the host operating system into the Docker container (see also the [Docker Compose](/firebolt-core/firebolt-core-operation/firebolt-core-deployment-compose) and [Kubernetes](/firebolt-core/firebolt-core-operation/firebolt-core-deployment-k8s) deployment guides).
 
 The configuration file itself should be a JSON file with the following contents.
 
@@ -80,14 +80,14 @@ Ensure that any hostnames specified in the nodes array are resolvable to the cor
 
 ### Command-Line Arguments
 
-The Firebolt Core executable accepts the following command-line arguments. Since the Firebolt Core executable is configured as the default [entrypoint](https://docs.docker.com/reference/dockerfile/#entrypoint) of the Firebolt Core Docker image, you can simply pass these command-line arguments to the container and they will be forwarded to the executable (see also the [Docker Compose](/firebolt-core/firebolt-core-deployment-compose) and [Kubernetes](/firebolt-core/firebolt-core-deployment-k8s) deployment guides).
+The Firebolt Core executable accepts the following command-line arguments. Since the Firebolt Core executable is configured as the default [entrypoint](https://docs.docker.com/reference/dockerfile/#entrypoint) of the Firebolt Core Docker image, you can simply pass these command-line arguments to the container and they will be forwarded to the executable (see also the [Docker Compose](/firebolt-core/firebolt-core-operation/firebolt-core-deployment-compose) and [Kubernetes](/firebolt-core/firebolt-core-operation/firebolt-core-deployment-k8s) deployment guides).
 
 * `--node=NODE_INDEX` -- Specify the index of the current node within a multi-node cluster, defaults to zero. This index identifies the entry within the `nodes` array of the configuration file which corresponds to the current node. If the configuration file specifies `N` nodes, each of the node indexes from `0` to `N - 1` should be assigned to exactly one of the nodes within the cluster.
 * `--version` -- Print the Firebolt Core version number and exit.
 
 ### Storage Mounts
 
-As outlined above, [Docker storage mounts](https://docs.docker.com/engine/storage/) can be used to inject a configuration file into the Firebolt Core Docker containers, and to control where any persistent or temporary data is written by Firebolt Core. Some concrete examples of this are provided in the [Docker Compose](/firebolt-core/firebolt-core-deployment-compose) and [Kubernetes](/firebolt-core/firebolt-core-deployment-k8s) deployment guides; this section provides some general guidelines for such storage mounts.
+As outlined above, [Docker storage mounts](https://docs.docker.com/engine/storage/) can be used to inject a configuration file into the Firebolt Core Docker containers, and to control where any persistent or temporary data is written by Firebolt Core. Some concrete examples of this are provided in the [Docker Compose](/firebolt-core/firebolt-core-operation/firebolt-core-deployment-compose) and [Kubernetes](/firebolt-core/firebolt-core-operation/firebolt-core-deployment-k8s) deployment guides; this section provides some general guidelines for such storage mounts.
 
 A custom configuration file needs to be provided at `/firebolt-core/config.json` for each node of a multi-node Firebolt Core cluster. This file is read by the Firebolt Core executable exactly once during startup to determine the cluster topology. Therefore, the way in which this file is mounted is not performance-critial. 
 
@@ -158,5 +158,5 @@ Setting up a multi-node Firebolt Core cluster involves the following key conside
 5.  **System Resource Allocation:** The `io_uring` enablement (via `seccomp` profile) and `RLIMIT_MEMLOCK` increase (`--ulimit memlock`) must be applied to *each node* in the cluster.
 6.  **Port Publishing:** Typically, the main HTTP query endpoint (port `3473`) might be published externally for client access, potentially from one or more designated query nodes. Inter-node communication ports are generally not exposed externally but used within the cluster network.
 
-When deploying using [Docker compose](/firebolt-core/firebolt-core-deployment-compose) or [Kubernetes](/firebolt-core/firebolt-core-deployment-k8s), most of these considerations are already taken care of and you can focus on customising only specific aspects like resource allocation and topology.
+When deploying using [Docker compose](/firebolt-core/firebolt-core-operation/firebolt-core-deployment-compose) or [Kubernetes](/firebolt-core/firebolt-core-operation/firebolt-core-deployment-k8s), most of these considerations are already taken care of and you can focus on customising only specific aspects like resource allocation and topology.
 

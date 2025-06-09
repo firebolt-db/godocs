@@ -1,6 +1,5 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-
   "theme": "mint",
   "name": "Firebolt Documentation",
   "colors": {
@@ -710,15 +709,20 @@
         "pages": [
           "firebolt-core",
           "firebolt-core/firebolt-core-introduction",
-          "firebolt-core/firebolt-core-deployment-compose",
           "firebolt-core/firebolt-core-get-started",
           "firebolt-core/firebolt-core-connect-jdbc",
           "firebolt-core/firebolt-core-connect",
-          "firebolt-core/firebolt-core-deployment-k8s",
           "firebolt-core/firebolt-core-data-processing",
           "firebolt-core/firebolt-core-architecture",
           "firebolt-core/firebolt-core-differences",
-          "firebolt-core/firebolt-core-operation",
+          {
+            "group": "Deployment and Operational Guide",
+            "pages": [
+              "firebolt-core/firebolt-core-operation",
+              "firebolt-core/firebolt-core-operation/firebolt-core-deployment-compose",
+              "firebolt-core/firebolt-core-operation/firebolt-core-deployment-k8s"
+            ]
+          },
           "firebolt-core/firebolt-core-roadmap",
           "firebolt-core/firebolt-core-troubleshooting",
           "firebolt-core/firebolt-core-faq"
@@ -3689,7 +3693,7 @@
     },
     {
       "source": "/FireboltCore/firebolt-core-deployment-compose.html",
-      "destination": "/firebolt-core/firebolt-core-deployment-compose",
+      "destination": "/firebolt-core/firebolt-core-operation/firebolt-core-deployment-compose",
       "permanent": false
     },
     {
@@ -4314,7 +4318,7 @@
     },
     {
       "source": "/FireboltCore/firebolt-core-deployment-k8s.html",
-      "destination": "/firebolt-core/firebolt-core-deployment-k8s",
+      "destination": "/firebolt-core/firebolt-core-operation/firebolt-core-deployment-k8s",
       "permanent": false
     },
     {
@@ -4484,7 +4488,7 @@
     },
     {
       "source": "/FireboltCore/firebolt-core-deployment-compose",
-      "destination": "/firebolt-core/firebolt-core-deployment-compose",
+      "destination": "/firebolt-core/firebolt-core-operation/firebolt-core-deployment-compose",
       "permanent": false
     },
     {
@@ -4869,7 +4873,7 @@
     },
     {
       "source": "/FireboltCore/firebolt-core-deployment-k8s",
-      "destination": "/firebolt-core/firebolt-core-deployment-k8s",
+      "destination": "/firebolt-core/firebolt-core-operation/firebolt-core-deployment-k8s",
       "permanent": false
     },
     {

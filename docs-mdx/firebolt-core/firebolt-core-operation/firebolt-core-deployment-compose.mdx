@@ -5,7 +5,7 @@ title: Deployment using Docker Compose
 
 
 You can use Docker Compose to create a multi-node Firebolt Core deployment.
-This is useful if you have multiple hosts that are already on the same network (for example, your home or office LAN); if you have remote machines available on Kubernetes, see [Deploy using Kubernetes](/firebolt-core/firebolt-core-deployment-k8s) instead.
+This is useful if you have multiple hosts that are already on the same network (for example, your home or office LAN); if you have remote machines available on Kubernetes, see [Deploy using Kubernetes](/firebolt-core/firebolt-core-operation/firebolt-core-deployment-k8s) instead.
 
 For the purpose of this example, we will assume that the hostnames of these machines are `example-node-a` and `example-node-b`; you can use an arbitrary number of nodes, but beware that you cannot add them later after the cluster has been started.
 
@@ -60,4 +60,4 @@ curl -s "http://example-node-a:3473" --data-binary "select 42";
 curl -s "http://example-node-b:3473" --data-binary "select 42";
 ```
 
-Continue reading: [Deploy using Kubernetes](/firebolt-core/firebolt-core-deployment-k8s)
+Continue reading: [Deploy using Kubernetes](/firebolt-core/firebolt-core-operation/firebolt-core-deployment-k8s)
