@@ -25,7 +25,7 @@ Documentation for the function is available [here]({% link sql_reference/functio
 <!-- Auto Generated Markdown for FIR-45210 - Owned by Arsenii Krasikov -->
 **Added a named parameter `INFER_SCHEMA` to the `READ_CSV` function**
 
-Added a named parameter `INFER_SCHEMA` to the [READ_CSV function]({% link  sql_reference/functions-reference/table-valued/read_csv.md %}). When `INFER_SCHEMA` is true, the function determines column data types instead of using `TEXT`. This enhancement improves data processing accuracy and efficiency.
+Added a named parameter `INFER_SCHEMA` to the [READ_CSV function]({% link  sql_reference/functions-reference/table-valued/read_csv.md %}). When `INFER_SCHEMA` is true, the function determines column data types instead of using `TEXT`.
 
 
 <!-- FIR-45090, FIR-45081 -->
@@ -68,6 +68,6 @@ Introduced a new flow for creating and altering service accounts that enables us
 ### Bug Fixes
 
 <!-- Auto Generated Markdown for FIR-46431 - Owned by Lorenz Hübschle -->
-**Fixed incorrect results from multi-node engines when using `UNION ALL` with overlapping aggregation or join keys followed by further aggregation or joining**
+**Fixed incorrect results when using `UNION ALL` with overlapping aggregation or join keys followed by further aggregation or joining**
 
-Resolved an issue that caused incorrect results on multi-node engines. This occurred when performing a `UNION ALL` over subqueries with overlapping but separate aggregation or join keys, followed by further aggregation or joining on those keys. This fix enhances data accuracy in complex query operations.
+Resolved an issue that caused incorrect results when performing a `UNION ALL` over subqueries with overlapping but separate aggregation or join keys, followed by further aggregation or joining on those keys.
