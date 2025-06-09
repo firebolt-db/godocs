@@ -711,7 +711,6 @@
             "group": "Firebolt Core",
             "pages": [
               "firebolt-core",
-              "firebolt-core/firebolt-core-introduction",
               "firebolt-core/firebolt-core-get-started",
               {
                 "group": "Connect",
@@ -4617,11 +4616,6 @@
       "permanent": false
     },
     {
-      "source": "/FireboltCore/firebolt-core-introduction.html",
-      "destination": "/firebolt-core/firebolt-core-introduction",
-      "permanent": false
-    },
-    {
       "source": "/FireboltCore/firebolt-core-connect-jdbc.html",
       "destination": "/firebolt-core/firebolt-core-connect/firebolt-core-connect-jdbc",
       "permanent": false
@@ -5019,11 +5013,6 @@
     {
       "source": "/FireboltCore/firebolt-core-roadmap.html",
       "destination": "/firebolt-core/firebolt-core-roadmap",
-      "permanent": false
-    },
-    {
-      "source": "/FireboltCore/firebolt-core-introduction",
-      "destination": "/firebolt-core/firebolt-core-introduction",
       "permanent": false
     },
     {
