@@ -70,4 +70,4 @@ Introduced a new flow for creating and altering service accounts that enables us
 <!-- Auto Generated Markdown for FIR-46431 - Owned by Lorenz Hübschle -->
 **Fixed incorrect results when using `UNION ALL` with overlapping aggregation or join keys followed by further aggregation or joining**
 
-Resolved an issue that caused incorrect results when performing a `UNION ALL` over subqueries with overlapping but separate aggregation or join keys, followed by further aggregation or joining on those keys.
+Fixed a bug that could cause incorrect results on multi-node engines when doing a UNION ALL over subqueries that have overlapping but separate aggregation or join keys, and then later on aggregating by or joining on these keys.
