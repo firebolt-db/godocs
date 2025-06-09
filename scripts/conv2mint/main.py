@@ -148,6 +148,10 @@ def main():
         # use consistent naming scheme for firebolt core docs
         "FireboltCore":
             "firebolt-core",
+        "FireboltCore/firebolt-core-connect.md":
+            "firebolt-core/firebolt-core-connect/index.mdx",
+        "FireboltCore/firebolt-core-connect-jdbc.md":
+            "firebolt-core/firebolt-core-connect/firebolt-core-connect-jdbc.mdx",
         "FireboltCore/firebolt-core-operation.md":
             "firebolt-core/firebolt-core-operation/index.mdx",
         "FireboltCore/firebolt-core-deployment-compose.md":

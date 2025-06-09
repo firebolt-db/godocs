@@ -713,8 +713,13 @@
               "firebolt-core",
               "firebolt-core/firebolt-core-introduction",
               "firebolt-core/firebolt-core-get-started",
-              "firebolt-core/firebolt-core-connect-jdbc",
-              "firebolt-core/firebolt-core-connect",
+              {
+                "group": "Connect",
+                "pages": [
+                  "firebolt-core/firebolt-core-connect",
+                  "firebolt-core/firebolt-core-connect/firebolt-core-connect-jdbc"
+                ]
+              },
               "firebolt-core/firebolt-core-data-processing",
               "firebolt-core/firebolt-core-architecture",
               "firebolt-core/firebolt-core-differences",
@@ -4618,7 +4623,7 @@
     },
     {
       "source": "/FireboltCore/firebolt-core-connect-jdbc.html",
-      "destination": "/firebolt-core/firebolt-core-connect-jdbc",
+      "destination": "/firebolt-core/firebolt-core-connect/firebolt-core-connect-jdbc",
       "permanent": false
     },
     {
@@ -5028,7 +5033,7 @@
     },
     {
       "source": "/FireboltCore/firebolt-core-connect-jdbc",
-      "destination": "/firebolt-core/firebolt-core-connect-jdbc",
+      "destination": "/firebolt-core/firebolt-core-connect/firebolt-core-connect-jdbc",
       "permanent": false
     },
     {
