@@ -59,5 +59,5 @@ To connect to Firebolt, you must configure a new database connection in DBeaver 
 
 ## Additional Resources
 * Learn more about the [Firebolt JDBC driver]({% link Guides/developing-with-firebolt/connecting-with-jdbc.md %}).
-* Explore [DBeaver's documentation](https://dbeaver.io/documentation/) for details on its UI, integrations, tools, and features.
+* Explore [DBeaver's documentation](https://dbeaver.com/docs/dbeaver/) for details on its UI, integrations, tools, and features.
 * Discover other tools that [Firebolt integrates]({% link Guides/integrations/integrations.md %}) with.

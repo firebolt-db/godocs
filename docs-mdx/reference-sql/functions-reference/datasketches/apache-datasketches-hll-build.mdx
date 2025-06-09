@@ -5,8 +5,8 @@ title: APACHE_DATASKETCHES_HLL_BUILD
 ---
 
 
-An aggregate function that creates a new [HyperLogLog sketch](https://datasketches.apache.org/docs/HLL/HLL.html).
-This sketch is compatible **only** with the [HyperLogLog sketch](https://datasketches.apache.org/docs/HLL/HLL.html) of
+An aggregate function that creates a new [HyperLogLog sketch](https://datasketches.apache.org/docs/HLL/HllSketches.html).
+This sketch is compatible **only** with the [HyperLogLog sketch](https://datasketches.apache.org/docs/HLL/HllSketches.html) of
 the [Apache DataSketches](https://datasketches.apache.org/) library.
 HyperLogLog (HLL) sketches are a highly efficient probabilistic data structure used for cardinality estimation.
 
@@ -21,7 +21,7 @@ used.
 
 `APACHE_DATASKETCHES_HLL_BUILD` requires less memory than exact count distinct aggregation, but also introduces
 statistical error. For more information
-see [Apache HyperLogLog sketch docs](https://datasketches.apache.org/docs/HLL/HLL.html).
+see [Apache HyperLogLog sketch docs](https://datasketches.apache.org/docs/HLL/HllSketches.html).
 
 ## Syntax
 
@@ -35,8 +35,8 @@ APACHE_DATASKETCHES_HLL_BUILD
 | Parameter                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Supported input types                         |
 |:-----------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------|
 | `<expression>`               | Any column name or function that return a column name.                                                                                                                                                                                                                                                                                                                                                                                                                                             | `INTEGER`, `BIGINT`, `REAL`, `DOUBLE`, `TEXT` |
-| `<hll_precision>`            | Optional. Literal integer value for precision. If not set explicitly, a precision of 12 is used. Range: 12-20. This value represents the log (2 based) of the size of the sketch. For more information see [Apache HyperLogLog sketch](https://datasketches.apache.org/docs/HLL/HLL.html).                                                                                                                                                                                                         | `INTEGER`                                     |
-| `<hll_type>`                 | Optional. Literal text value to set [hll type](https://datasketches.apache.org/docs/HLL/HLL.html). If not included, the default is 'HLL_4'. Valid values are: 'HLL_4', 'HLL_6', 'HLL_8'. These values represent different levels of compression of the final HLL array where 4, 6 and 8 refer to the number of bits each bucket of the HLL array is compressed down to. HLL_4 is the most compressed variant but generally slightly slower than the other two, especially during merge operations. | `TEXT`                                        |
+| `<hll_precision>`            | Optional. Literal integer value for precision. If not set explicitly, a precision of 12 is used. Range: 12-20. This value represents the log (2 based) of the size of the sketch. For more information see [Apache HyperLogLog sketch](https://datasketches.apache.org/docs/HLL/HllSketches.html).                                                                                                                                                                                                         | `INTEGER`                                     |
+| `<hll_type>`                 | Optional. Literal text value to set [hll type](https://datasketches.apache.org/docs/HLL/HllSketches.html). If not included, the default is 'HLL_4'. Valid values are: 'HLL_4', 'HLL_6', 'HLL_8'. These values represent different levels of compression of the final HLL array where 4, 6 and 8 refer to the number of bits each bucket of the HLL array is compressed down to. HLL_4 is the most compressed variant but generally slightly slower than the other two, especially during merge operations. | `TEXT`                                        |
 | `<text_utf16_little_endian>` | Optional. Literal boolean value to specify encoding of text if the `<expression>` is of `TEXT` datatype. By default set to `false` means UTF-8 encoding, if set to `true` it means UTF-16 little endian encoding.                                              | `BOOLEAN`                                     |
 
 ## Return Type
@@ -52,7 +52,7 @@ see [Apache DataSketches HLL Performance](https://datasketches.apache.org/docs/H
 
 ## Compatibility With Other Systems
 
-The created sketch is compatible with all the other systems that support the [HyperLogLog sketch](https://datasketches.apache.org/docs/HLL/HLL.html) of the [Apache DataSketches](https://datasketches.apache.org/) library.
+The created sketch is compatible with all the other systems that support the [HyperLogLog sketch](https://datasketches.apache.org/docs/HLL/HllSketches.html) of the [Apache DataSketches](https://datasketches.apache.org/) library.
 Few systems applies different encoding before inserting data to the sketch and after creating the sketch, so the sketches created by this function may be incompatible with them as is, but with encoding modification it should be compatible.
 
 #### UTF-16 Little Endian Text Encoding

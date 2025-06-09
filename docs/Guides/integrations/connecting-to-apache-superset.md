@@ -18,7 +18,7 @@ Firebolt is also supported in [Preset](connecting-to-preset.md), a fully managed
 
 # Prerequisites
 
-Superset can be installed in several ways, including using a pre-built [Docker container](https://superset.apache.org/docs/installation/installing-superset-using-docker-compose), building it from [source](https://superset.apache.org/docs/installation/installing-superset-from-scratch) or deploying via [Kubernetes Helm chart](https://superset.apache.org/docs/installation/running-on-kubernetes).
+Superset can be installed in several ways, including using a pre-built [Docker container](https://superset.apache.org/docs/installation/docker-compose), building it from [source](https://superset.apache.org/docs/installation/pypi) or deploying via [Kubernetes Helm chart](https://superset.apache.org/docs/installation/kubernetes).
 
 The easiest way to get started is to run Superset via Docker.
 
@@ -59,7 +59,8 @@ You should see `firebolt-sqlalchemy` in the output.
 
 Once your Superset is booted up you should be able to access it in http://localhost:8088/
 
-> **Note:** For more installation details, refer to [Adding New Database Drivers in Docker](https://superset.apache.org/docs/databases/docker-add-drivers) in the Superset documentation.
+For more installation details, refer to [Adding New Database Drivers in Docker](https://superset.apache.org/docs/configuration/databases#installing-drivers-in-docker-images) in the Superset documentation.
+{: .note }
 
 ### Setup Firebolt connection
 
@@ -91,7 +92,8 @@ Now you're ready to start using Superset!
 
 ### Build your first chart
 
-> **Note:**  This section assumes you have followed Firebolt [tutorial](../getting-started/index.md) and loaded a sample data set into your database.
+This section assumes you have followed Firebolt [tutorial](../getting-started/index.md) and loaded a sample data set into your database.
+{: .note }
 
 Now that you’ve configured Firebolt as a data source, you can select specific tables (Datasets) that you want to see in Superset.
 

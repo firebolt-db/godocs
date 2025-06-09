@@ -123,7 +123,7 @@ You can also load data into an existing table using your own schema definition. 
 
 ## Load multiple files into a table
 
-You can use the `PATTERN` option in `COPY FROM` to load several files at the same time from an Amazon S3 bucket. The `PATTERN` option uses standard regular expressions. For more information about regular expressions, see the Wikipedia [glob programming](https://en.wikipedia.org/wiki/Glob_`(programming`)) article.
+You can use the `PATTERN` option in `COPY FROM` to load several files at the same time from an Amazon S3 bucket. The `PATTERN` option uses standard regular expressions. For more information about regular expressions, see the Wikipedia [glob programming](https://en.wikipedia.org/wiki/Glob_(programming)) article.
 
 ```sql
 COPY INTO nyc_restaurant_inspections FROM 

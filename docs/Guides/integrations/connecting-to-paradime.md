@@ -25,7 +25,7 @@ Topics:
 
 Before you can connect Paradime to Firebolt, you must have the following:
 
-1. **Firebolt Account**: Ensure that you have access to an active Firebolt account. If you don't have access, you can [sign up for an account](https://www.firebolt.io/sign-up). For more information about how to register with Firebolt, see [Get started with Firebolt]({% link Guides/getting-started/index.md %}).
+1. **Firebolt Account**: Ensure that you have access to an active Firebolt account. If you don't have access, you can [sign up for an account](https://go.firebolt.io/signup). For more information about how to register with Firebolt, see [Get started with Firebolt]({% link Guides/getting-started/index.md %}).
 2. **Service Account**: You must have access to an active Firebolt [service account]({% link Guides/managing-your-organization/service-accounts.md %}), which facilitates programmatic access to Firebolt.
 3. **Firebolt Database**: You must have access to a Firebolt database. If you don't have access, you can [create a database]({% link Guides/getting-started/get-started-sql.md %}#create-a-database).
 4. **Paradime Account**: You must have access to an active Paradime account. If you don't have access, you can [sign up](https://app.paradime.io) for one.
