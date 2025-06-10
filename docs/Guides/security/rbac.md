@@ -25,13 +25,13 @@ To view all roles using the **Firebolt Workspace**, do the following:
 2. Select the **Govern** icon (<img src="../../assets/images/govern-icon.png" alt="The Firebolt Govern Space icon." width="20" style="display: inline; margin-bottom: 0; margin-top: 0" />)from the left navigation bar to open the **Govern Space**.
 3. Choose **Roles** from the left panel under **Govern**.
 
-To view all roles using SQL, query the [information_schema.applicable_roles]({% link sql_reference/information-schema/applicable-roles.md %}) view as shown in the following code example:
+To view all roles using SQL, query the [information_schema.enabled_roles]({% link sql_reference/information-schema/enabled-roles.md %}) view as shown in the following code example:
 
 ```sql
 SELECT
   *
 FROM
-  information_schema.applicable_roles;
+  information_schema.enabled_roles;
 ```
 
 ## Create a role
