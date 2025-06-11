@@ -163,10 +163,10 @@ When loading data into tables, you can filter data using the following options:
 
   3. `WHERE`: Filters data based on source file metadata, as follows:
 
-      * $source_file_name - The full path of the source file in an Amazon S3 bucket, without the name of the bucket. For example, if your bucket is: `s3://my_bucket/xyz/year=2018/month=01/part-00001.parquet`, then `$source_file_name` is `xyz/year=2018/month=01/part-00001.parquet`.
-      * $source_file_timestamp - The timestamp in UTC, to the second when the source file was last modified in an Amazon S3 bucket.
-      * $source_file_size - The size in bytes of the source file.
-      * $source_file_etag - The [ETag](https://docs.aws.amazon.com/AmazonS3/latest/API/API_Object.html#API_Object_Contents) of the file, often used for version control.
+      * `$source_file_name` - The full path of the source file in an Amazon S3 bucket, without the name of the bucket. For example, if your bucket is: `s3://my_bucket/xyz/year=2018/month=01/part-00001.parquet`, then `$source_file_name` is `xyz/year=2018/month=01/part-00001.parquet`.
+      * `$source_file_timestamp` - The timestamp in UTC, to the second when the source file was last modified in an Amazon S3 bucket.
+      * `$source_file_size` - The size in bytes of the source file.
+      * `$source_file_etag` - The [ETag](https://docs.aws.amazon.com/AmazonS3/latest/API/API_Object.html#API_Object_Contents) of the file, often used for version control.
 
 In the following code example, `COPY FROM` first reads all the files in the specified directory that were modified in the last three years. Then, it applies the offset and limit clause. As long as all source files modified in the last three years have at least 100 rows combined, the result set will have exactly 50 rows.
 
