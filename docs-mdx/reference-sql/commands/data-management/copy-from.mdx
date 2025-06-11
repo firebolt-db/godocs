@@ -36,13 +36,13 @@ FROM '<url>'
 <options>:
     [ CREDENTIALS = ( <credentials> ) ] 
     [ PATTERN = <glob_pattern> ]
-    [ TYPE = { **AUTO** | CSV | TSV | PARQUET } ]
-    [ AUTO_CREATE = { **TRUE** | FALSE } ]
-    [ ALLOW_COLUMN_MISMATCH = { **TRUE** | FALSE } ]
+    [ TYPE = { AUTO | CSV | TSV | PARQUET } ]
+    [ AUTO_CREATE = { TRUE | FALSE } ]
+    [ ALLOW_COLUMN_MISMATCH = { TRUE | FALSE } ]
     [ ERROR_FILE = <directoryLocation> ]
     [ ERROR_FILE_CREDENTIALS = <credentials> ]
     [ MAX_ERRORS_PER_FILE = { integer | '<percentage>' } ]
-    [ CASE_SENSITIVE_COLUMN_MAPPING = { **FALSE** | TRUE } ]
+    [ CASE_SENSITIVE_COLUMN_MAPPING = { FALSE | TRUE } ]
     [ <csv_options> ]
     [ <parquet_options> ]
     [ <public_settings> ]
@@ -52,19 +52,19 @@ FROM '<url>'
     | AWS_ROLE_ARN = '<aws_role_arn>' [ AWS_ROLE_EXTERNAL_ID = '<aws_role_external_id>' ] }
 
 <csv_options>:
-    [ HEADER = { **FALSE** | TRUE  } ]
-    [ DELIMITER = 'character' ]
-    [ NEWLINE = 'string' ]
-    [ QUOTE = { **DOUBLE_QUOTE** | 'character' |  SINGLE_QUOTE } ]
-    [ ESCAPE = 'character' ]
-    [ NULL_STRING = 'string' ]
-    [ EMPTY_FIELD_AS_NULL = { **TRUE** | FALSE } ]
-    [ SKIP_BLANK_LINES = { **FALSE** | TRUE } ]
-    [ DATE_FORMAT = <date_format> ]
-    [ TIMESTAMP_FORMAT = <timestamp_format> ]
+    [ HEADER = { FALSE | TRUE  } ]
+    [ DELIMITER = '<character>' ]
+    [ NEWLINE = '<string>' ]
+    [ QUOTE = { DOUBLE_QUOTE | '<character>' |  SINGLE_QUOTE } ]
+    [ ESCAPE = '<character>' ]
+    [ NULL_STRING = '<string>' ]
+    [ EMPTY_FIELD_AS_NULL = { TRUE | FALSE } ]
+    [ SKIP_BLANK_LINES = { FALSE | TRUE } ]
+    [ DATE_FORMAT = '<date_format>' ]
+    [ TIMESTAMP_FORMAT = '<timestamp_format>' ]
 
 <parquet_options>:
-    [ SUPPORT_STRUCTS = { **FALSE** | TRUE } ]
+    [ SUPPORT_STRUCTS = { FALSE | TRUE } ]
 
 ```
 
@@ -271,10 +271,10 @@ In the previous example, there are two CSV files in the `firebolt_sample_dataset
 ### Load metadata into a table
 You can load metadata information about your source file into your table so that you can track the source name, timestamp, size, and etag information for each row. You can use the following metadata columns:
 
-* $source_file_name - The full path of the source file in an Amazon S3 bucket, without the name of the bucket. For example, if your bucket is: `s3://my_bucket/xyz/year=2018/month=01/part-00001.parquet`, then `$source_file_name` is `xyz/year=2018/month=01/part-00001.parquet`.
-* $source_file_timestamp - The timestamp in UTC, to the second when the source file was last modified in an Amazon S3 bucket.
-* $source_file_size - The size in bytes of the source file.
-* $source_file_etag - The [ETag](https://docs.aws.amazon.com/AmazonS3/latest/API/API_Object.html#API_Object_Contents) of the file, often used for version control.
+* `$source_file_name` - The full path of the source file in an Amazon S3 bucket, without the name of the bucket. For example, if your bucket is: `s3://my_bucket/xyz/year=2018/month=01/part-00001.parquet`, then `$source_file_name` is `xyz/year=2018/month=01/part-00001.parquet`.
+* `$source_file_timestamp` - The timestamp in UTC, to the second when the source file was last modified in an Amazon S3 bucket.
+* `$source_file_size` - The size in bytes of the source file.
+* `$source_file_etag` - The [ETag](https://docs.aws.amazon.com/AmazonS3/latest/API/API_Object.html#API_Object_Contents) of the file, often used for version control.
 
 The following code creates the `levels` table, and populates it with information from the `LevelID` column and the timestamp from the source data:
 
@@ -294,9 +294,9 @@ The first three rows of the sample output follow:
 
 | LevelID (TEXT) | date_of_creation (TIMESTAMP) |
 |----------------|------------------------------|
-| 1              | 2023-02-27 10:06:52          |
-| 2              | 2023-02-27 10:06:52          |
-| 3              | 2023-02-27 10:06:52          |
+| 1              | `2023-02-27 10:06:52`        |
+| 2              | `2023-02-27 10:06:52`        |
+| 3              | `2023-02-27 10:06:52`        |
 
 ### Column mapping
 When loading data into a target table, you can manually map source and target schemas by [column name](#mapping-by-column-name) or [index position](#mapping-by-index-position). Column mapping ensures that data from the source file is correctly inserted into the appropriate columns in the target table. 
@@ -448,6 +448,7 @@ In the previous code example, when `COPY FROM` does not see the same column name
 
 ##### Allow all row-based errors in CSV
 
+
 The previous code example uses `MAX_ERRORS_PER_FILE='0%'`, which causes the loading job to fail if there is a single error. You can change this behavior to allow errors. The following code example allows all errors, and the load job completes even if no data loads into the target table:
 
 ```sql
@@ -458,6 +459,7 @@ WITH HEADER=TRUE MAX_ERRORS_PER_FILE='100%';
 ```
 
 ##### Column data type mismatch in CSV
+
 
 If you try to load data into a column in an existing table that has a different data type than the source data, `COPY FROM` will attempt to cast the data into the specified data type. If the cast fails, `COPY FROM` generates an error. To demonstrate this error, the following example intentionally creates a table that defines the `LevelID` column incorrectly as an integer, instead of as text, and then attempts to copy data into it:
 
@@ -475,6 +477,7 @@ The previous code example generates the following error:
 In the previous code example, the query generates an error because the default value for `MAX_ERRORS_PER_FILE` is `0`. You can set `MAX_ERRORS_PER_FILE` to `100%` to allow all errors, as shown in the following section.
 
 #### Allow all errors, and write them to file
+
 
 You can also allow all errors, so that the loading job continues until it has attempted to load all rows in your dataset. Firebolt can write these errors to an Amazon S3 bucket as CSV files.  If your specified S3 bucket requires access credentials, you must specify them so that Firebolt can write the files on your behalf. Data rows that load without error are ingested in row order. A loading job that specifies writing error files will write files with the following syntax to your Amazon S3 bucket:
 
@@ -543,9 +546,9 @@ SELECT * FROM rejected_rows ORDER BY f0 LIMIT 1;
 
 The following output shows the contents of the `rejected_rows` table after running the previous `SELECT` statement:
 
-| f0 (TEXT) | f1 (TEXT)                | f2 (TEXT) | f3 (TEXT) | f4 (TEXT)           | f5 (TEXT)           | f6 (TEXT) |
-|-----------|--------------------------|-----------|-----------|---------------------|---------------------|-----------|
-| 1         | The Snow Park Grand Prix |1          |  20903    | 2021-05-28 20:40:54 | 2021-05-29 04:51:43 |   ...     |
+| f0 (TEXT) | f1 (TEXT)                | f2 (TEXT) | f3 (TEXT) | f4 (TEXT)             | f5 (TEXT)             | f6 (TEXT) |
+|-----------|--------------------------|-----------|-----------|-----------------------|-----------------------|-----------|
+| 1         | The Snow Park Grand Prix |1          |  20903    | `2021-05-28 20:40:54` | `2021-05-29 04:51:43` |   ...     |
 
 #### Column mapping and default values
 
@@ -593,9 +596,9 @@ WITH PATTERN='*error_reasons*' HEADER=TRUE;
 SELECT * FROM error_reasons;
 ```
 
-| file_name (TEXT)                                                                 | source_line_num (BIGINT) | error_message (TEXT)                                                                    |
-|----------------------------------------------------------------------------------|--------------------------|-----------------------------------------------------------------------------------------|
-| gaming/parquet/players/11afd184-d2d4-4471-b23c-a14f4c0945a2_1_0_0.snappy.parquet | 0                        | Can not assignment cast column playerid from type integer null to type date null        |
+| file_name (TEXT)                                                                   | source_line_num (BIGINT) | error_message (TEXT)                                                                    |
+|------------------------------------------------------------------------------------|--------------------------|-----------------------------------------------------------------------------------------|
+| `gaming/parquet/players/11afd184-d2d4-4471-b23c-a14f4c0945a2_1_0_0.snappy.parquet` | 0                        | Can not assignment cast column playerid from type integer null to type date null        |
 
 The type mismatch error in this example creates a file-based error, which is an error that affects the entire file during processing. This query only produces a file-based error and does not produce the `rejected_rows` error file.
 
