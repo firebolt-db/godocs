@@ -19,7 +19,7 @@ Firebolt offers flexible deployment models that provide scalability and cost eff
 Firebolt offers two deployment models: **fully-managed** and **self-managed**. Each model includes specific editions and pricing options. 
 
 * The [fully-managed](#fully-managed-editions-and-pricing) deployment option includes **Standard**, **Enterprise**, and **Dedicated** editions with Pay-As-You-Go or Committed-Use discount pricing
-* The [self-managed](#self-managed-editions-and-pricing) deployment model includes Firebolt's **Firebolt Core**, with pricing based on your infrastructure setup.
+* The [self-managed](#self-managed-edition-firebolt-core) deployment model includes Firebolt's **Firebolt Core**, with pricing based on your infrastructure setup.
 
 All fully-managed editions have associated [support plans and service-level agreements](#support-plans-and-service-level-agreements) that define a time to first response.
 

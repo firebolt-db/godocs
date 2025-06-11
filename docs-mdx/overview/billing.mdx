@@ -5,21 +5,21 @@ title: Pricing and billing
 ---
 
 
-Firebolt offers flexible deployment models that provide scalability and cost efficiency to meet diverse business needs. Choose between fully-managed and self-managed solutions tailored to your infrastructure and workload requirements.
+Firebolt offers flexible deployment models that provide scalability and cost efficiency to meet diverse business needs. Choose between fully-managed and self-managed solutions tailored to your infrastructure and workload requirements. 
 
-<img src="/assets/images/deployment-models.png" alt="Firebolt offers fully-managed and self-managed deployment models" width="750" />
+<img src="/assets/images/deployment-models.png" alt="Firebolt offers fully-managed and self-managed deployment models" width="750"/>
 
 ## Choose your deployment model
 Firebolt offers two deployment models: **fully-managed** and **self-managed**. Each model includes specific editions and pricing options. 
 
 * The [fully-managed](#fully-managed-editions-and-pricing) deployment option includes **Standard**, **Enterprise**, and **Dedicated** editions with Pay-As-You-Go or Committed-Use discount pricing
-* The [self-managed](#self-managed-editions-and-pricing) deployment model includes Firebolt's **Firebolt Core**, with pricing based on your infrastructure setup.
+* The [self-managed](#self-managed-edition-firebolt-core) deployment model includes Firebolt's **Firebolt Core**, with pricing based on your infrastructure setup.
 
 All fully-managed editions have associated [support plans and service-level agreements](#support-plans-and-service-level-agreements) that define a time to first response.
 
 The following sections outline the available deployment models, their editions, and associated pricing options.
 
-### Fully managed editions and pricing
+### Fully managed editions and pricing  
  Firebolt manages compute infrastructure, software maintenance, and upgrades across all fully-managed editions. Firebolt handles multi-dimensional elasticity, high performance, scaling, maintenance, and performance optimizations.
 
 * [Fully-managed editions](#fully-managed-editions) &ndash; Firebolt offers the **Standard**, **Enterprise** and **Dedicated** editions.
@@ -32,7 +32,7 @@ The following sections outline the available deployment models, their editions, 
     * [Sign up or change your fully-managed edition](#sign-up-or-change-your-fully-managed-edition) &ndash; How to set up or change your fully-managed edition type.
 
 ### Looking to generate billing reports with SQL?
-Jump to the [Billing Reports with SQL](#generate-billing-reports-with-sql) section for examples on how to query compute and storage costs.
+Jump to the [Billing Reports with SQL](#generate-billing-reports) section for examples on how to query compute and storage costs.
 
 #### Fully-managed editions
  There are three editions available: **Standard**, **Enterprise**, and **Dedicated**. 
@@ -155,15 +155,14 @@ If you want to sign up or upgrade your fully-managed edition type, you can choos
 Changing your plan is **not immediate** and may take **up to 24 hours** to process. You will receive updates about the status of your request through email. 
 </Note>
 
-
 ### Self-managed edition: Firebolt Core
 **Firebolt Core** is a free, downloadable edition of Firebolt designed for teams seeking complete control and flexibility. It can be deployed in the cloud, on-premises, or locally, making it ideal for customized environments requiring a lightweight yet powerful engine. With Firebolt Core, customers manage their own infrastructure, hosting, software upgrades, and maintenance.
 
 **Key features of Firebolt Core:**
-<br /> ✅ Deployable on-premises, in the cloud, or locally
-<br /> ✅ Full infrastructure control and management
-<br /> ✅ Free to use, forever
-<br /> ✅ Community-based support
+<br/> ✅ Deployable on-premises, in the cloud, or locally
+<br/> ✅ Full infrastructure control and management
+<br/> ✅ Free to use, forever
+<br/> ✅ Community-based support
 
 ## Support plans and service level agreements
 Firebolt offers support options based on your selected edition.
@@ -223,7 +222,7 @@ FROM engine_costs, storage_costs;
 
 This query provides a daily breakdown of engine compute costs and Firebolt Unit (FBU) consumption for the current month. It helps track usage patterns and cost trends over time, making it easier to analyze engine efficiency and spending.
 ```sql
-SELECT
+SELECT 
   usage_date,
   SUM(billed_cost) AS engines_cost,
   SUM(consumed_fbu) AS fbu
@@ -237,7 +236,7 @@ ORDER BY usage_date DESC;
 
 This query returns a daily summary of billed storage costs and average consumed storage (in GiB) for the current month. It helps monitor how storage usage evolves and contributes to overall costs.
 ```sql
-SELECT
+SELECT 
   usage_date,
   SUM(billed_cost) AS storage_cost,
   SUM(consumed_gib_per_month) AS consumed_gb
@@ -360,19 +359,19 @@ ORDER BY usage_date DESC;
 
 This query identifies the top 10 engines by total billed cost within a month. It helps you understand which engines contributed the most to compute expenses and their corresponding FBU consumption, enabling targeted optimization or accountability analysis.
 ```sql
-SELECT
+SELECT 
   engine_name,
   SUM(billed_cost) AS total_billed_cost_usd,
   SUM(consumed_fbu) AS total_consumed_fbus
-FROM
+FROM 
   information_schema.engines_billing
-WHERE
+WHERE 
   usage_date BETWEEN DATE '2025-05-01' AND DATE '2025-05-30'
-GROUP BY
+GROUP BY 
   engine_name
-ORDER BY
+ORDER BY 
   total_billed_cost_usd DESC
 LIMIT 10;
 ```
 
-Contact [support@firebolt.io](mailto:support@firebolt.io) to learn more about **Enterprise** edition Support offerings.
+Contact [support@firebolt.io](mailto:support@firebolt.io) to learn more about **Enterprise** edition Support offerings. 

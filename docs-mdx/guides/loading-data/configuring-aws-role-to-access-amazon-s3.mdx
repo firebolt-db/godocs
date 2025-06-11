@@ -162,8 +162,9 @@ If you see the error: "Ensure that the provided credentials have the necessary p
    ```
 
 ### Understanding the Prefix Requirement
-Firebolt's ingestion queries (`COPY FROM`, external tables, read TVFs) include both `URL` and `PATTERN` components. `COPY FROM` and external tables manage them through separate `URL` and `PATTERN` parameters. Read TVFs use `URLs` with optional glob patterns. For example, if passing `url = 's3://foo/bar/*.parquet'`, then `foo/bar/` becomes the `URL` and `*.parquet` becomes the pattern.
+Firebolt’s ingestion queries (`COPY FROM`, external tables, read TVFs) include both `URL` and `PATTERN` components. `COPY FROM` and external tables manage them through separate `URL` and `PATTERN` parameters. Read TVFs use `URL` parameters with optional glob patterns. For example, if passing `url = 's3://foo/bar/*parquet'`, then `foo/bar/` becomes the URL and `*parquet` becomes the pattern.
 
 When listing files from S3, only the `URL` portion is sent in the AWS request. The pattern is later applied by Firebolt to filter the results.
 
 So, if your IAM policy restricts access using a `s3:prefix` condition, ensure that your IAM policy's prefix condition matches the `URL` parameter of your `COPY FROM` query, external table definition, or read TVF. If you require broader access permissions, you may need to remove the condition entirely.
+

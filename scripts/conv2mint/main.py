@@ -99,6 +99,8 @@ def main():
 
         "Overview":
             "overview",
+        "Overview/billing/index.md":
+            "overview/billing.mdx",
         "Overview/engine-fundamentals.md":
             "overview/engine-fundamentals/index.mdx",
         "Overview/engine-consumption.md":
@@ -230,9 +232,15 @@ def main():
 
     # TODO: postprocess pages based on the navigation tree and rendered contents
 
-    redirects = [{"source": "/godocs/:slug*",
-                  "destination": "/:slug*",
-                  "permanent": False}]
+    redirects = [
+        {"source": "/godocs/:slug*", "destination": "/:slug*", "permanent": False},
+        {"source": "/Overview/billing/storage-cost.html", "destination": "/overview/billing/storage-cost", "permanent": False},
+        {"source": "/Overview/billing/compute-cost.html", "destination": "/overview/billing/compute-cost", "permanent": False},
+        {"source": "/Overview/billing/storage-cost", "destination": "/overview/billing/storage-cost", "permanent": False},
+        {"source": "/Overview/billing/compute-cost", "destination": "/overview/billing/compute-cost", "permanent": False},
+        {"source": "/overview/billing/storage-cost", "destination": "/overview/billing", "permanent": False},
+        {"source": "/overview/billing/compute-cost", "destination": "/overview/billing", "permanent": False},
+    ]
     for k, v in url_mapping.items():
         if k == v or k.endswith(".md") or k in ("/", "/index", "/index.html"):
             continue

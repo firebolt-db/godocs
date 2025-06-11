@@ -5604,6 +5604,16 @@
       "permanent": false
     },
     {
+      "source": "/overview/billing/storage-cost",
+      "destination": "/overview/billing",
+      "permanent": false
+    },
+    {
+      "source": "/overview/billing/compute-cost",
+      "destination": "/overview/billing",
+      "permanent": false
+    },
+    {
       "source": "/Reference/reserved-words.html",
       "destination": "/reference/reserved-words",
       "permanent": false
