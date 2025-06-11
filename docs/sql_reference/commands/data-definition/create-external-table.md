@@ -174,14 +174,14 @@ TYPE = (PARQUET)
 ```
 When Firebolt ingests the data from a Parquet file stored in that path, the `c_type` column for each row contains the extracted portion of the path. For the files listed above, the extraction results in the following values. `c_id` and `c_name ` are values stored within the respective Parquet files, while `c_type` are values extracted from the file path.
 
-| c_id       | c_name     | c_type |
-|: --------- |: --------- |: ----- |
-| 1ef4302294 | Njimba     | xyz    |
-| 8b98470659 | Yuang      | xyz    |
-| 98734hkk89 | Cole       | xyz    |
-| 38cjodjlo8 | Blanda     | xyz    |
-| 448dfgkl12 | Harris     | abc    |
-| j987rr3233 | Espinoza   | abc    |
+| `c_id`     | `c_name`   | `c_type` |
+|:-----------|:-----------|:---------|
+| 1ef4302294 | Njimba     | xyz      |
+| 8b98470659 | Yuang      | xyz      |
+| 98734hkk89 | Cole       | xyz      |
+| 38cjodjlo8 | Blanda     | xyz      |
+| 448dfgkl12 | Harris     | abc      |
+| j987rr3233 | Espinoza   | abc      |
 
 ### Credentials
 
@@ -259,11 +259,11 @@ s3://bucket/c_type=abc/year=2018/month=01/part-00002.parquet
 
 Following are some common use cases for URL and object pattern combinations:
 
-| Use cases                                                                 | Syntax                                                                                                                                |
-|:--------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------|
-| Get all files for file type xyz                                           | *URL = 's3://bucket/c_type=xyz/'* <br> *OBJECT_PATTERN = '\*'*  <br> <br>  *URL = 's3://bucket/'<br>OBJECT_PATTERN = 'c_type=xyz/\*'* |
-| Get one specific file: `c_type=xyz/year=2018/month=01/part-00001.parquet` | *URL = 's3://bucket/c_type=xyz/year=2018/month=01/'<br> OBJECT_PATTERN = 'part-00001.parquet'                                         |
-| Get all parquet files for type xyz                                        | *URL = 's3://bucket/c_type=xyz/'<br> OBJECT_PATTERN = '\*.parquet'*                                                                   |
+| Use cases                                                                 | Syntax                                                                                                                         |
+|:--------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------|
+| Get all files for file type xyz                                           | `URL = 's3://bucket/c_type=xyz/'` <br> `OBJECT_PATTERN = '\*'` <br> `URL = 's3://bucket/'<br>OBJECT_PATTERN = 'c_type=xyz/\*'` |
+| Get one specific file: `c_type=xyz/year=2018/month=01/part-00001.parquet` | `URL = 's3://bucket/c_type=xyz/year=2018/month=01/'` <br> `OBJECT_PATTERN = 'part-00001.parquet'`                              |
+| Get all parquet files for type xyz                                        | `URL = 's3://bucket/c_type=xyz/'` <br> `OBJECT_PATTERN = '\*.parquet'*`                                                        |
 
 ### TYPE
 
