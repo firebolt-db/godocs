@@ -33,14 +33,7 @@
             "pages": [
               "overview",
               "overview/architecture-overview",
-              {
-                "group": "Pricing and billing",
-                "pages": [
-                  "overview/billing",
-                  "overview/billing/compute-cost",
-                  "overview/billing/storage-cost"
-                ]
-              },
+              "overview/billing",
               "overview/organizations-accounts",
               {
                 "group": "Engine Fundamentals",
