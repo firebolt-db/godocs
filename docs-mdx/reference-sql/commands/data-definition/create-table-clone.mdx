@@ -13,6 +13,10 @@ The column names and data types of the cloned table are automatically inferred f
 
 Once the clone is created, the cloned table and the source table become independent. Any future changes to the data or schema of either table will not affect the other.
 
+<Note>
+If you want to know how this works under the hood, check out our [engineering blog on zero copy data cloning](https://www.firebolt.io/blog/firebolts-zero-copy-clone).
+</Note>
+
 ## Source Table Indexes
 The primary index and partition expressions are copied from the source table.
 
