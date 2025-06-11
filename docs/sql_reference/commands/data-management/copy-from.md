@@ -14,30 +14,6 @@ parent: Data management
 
 Loads data from an AWS S3 bucket into Firebolt. Use `COPY FROM` to load data from external sources, such as from Amazon S3, into Firebolt tables. `COPY FROM` supports various data loading workflows, including schema discovery, metadata filtering, and parallel processing, offering flexibility for different use cases. This page provides an overview of the `COPY FROM` syntax, parameters, and best practices.
 
-## Table of contents
-* [Syntax](#syntax)
-* [Parameters](#parameters)
-* [Best practice](#best-practice)
-* [Examples](#examples)
-
-  **Data loading and filtering examples:**
-    * [COPY FROM with LOCATION](#copy-from-with-location)
-    * [Filter by metadata during loading](#filter-by-metadata-during-loading)
-    * [Use LOCATION to copy data](#use-location-to-copy-data)
-    * [Load multiple directories with LOCATION](#load-multiple-directories-with-location)
-    * [Load multiple files and directories in parallel](#load-multiple-files-and-directories-in-parallel)
-
-  **Schema management examples:**
-    * [Automatic schema discovery](#automatic-schema-discovery)
-    * [Use PATTERN to insert data into an existing table](#use-pattern-to-insert-data-into-an-existing-table)
-    * [Load metadata into a table](#load-metadata-into-a-table)
-    * [Column mapping](#column-mapping)
-    * [Allow column name mismatch](#allow-column-name-mismatch)
-
-  **Troubleshooting:**
-   * [Error handling](#error-handling)
- 
-
 ## Syntax
 
 ```sql
