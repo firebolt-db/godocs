@@ -98,7 +98,7 @@ If the data requires credentials for access, you must provide them so that Fireb
 
 #### 3. Using Firebolt's Test Dataset (If You’re Not Ready with Your Own Data)
 
-If you don't have your own data ready, you can use Firebolt’s sample dataset from the fictional company "Ultra Fast Gaming Inc":
+If you don't have your own data ready, you can use Firebolt’s sample dataset from the fictional company "Ultra Fast Gaming Inc.":
 - Use the following Amazon S3 bucket URL:
 `s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/`.
 
