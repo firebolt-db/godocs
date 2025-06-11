@@ -68,18 +68,6 @@ This guide explains how to create an AWS IAM permissions policy and an IAM role 
    }
    ```
 
-   * If you encounter the following error: `Access Denied (Status Code: 403; Error Code: AccessDenied)`, one possible fix may be to remove the following condition from the IAM policy:
-
-   ```javascript
-              "Condition": {
-                  "StringLike": {
-                      "s3:prefix": [
-                          "<prefix>/*"
-                      ]
-                  }
-              }
-   ```
-
 8. Select **Next** in the bottom-right corner of the workspace.
 9. In the **Review and create** pane, under **Policy details**, enter the **Policy name**. For example, `_firebolt-s3-access_`.
 10. Enter an optional **Description**.
@@ -120,10 +108,6 @@ Once you've created your IAM policy and associated it with your IAM role, you're
 ## How to specify the IAM role
 
 Firebolt supports AWS IAM roles for secure access to Amazon S3 when loading data. You can specify an IAM role in different ways, including in the `COPY FROM` statement, the Firebolt **Load Data** wizard, or an external table definition. The following sections explain how to configure IAM roles for each method.
-
-### Specify the IAM role for data loading
-
-When loading data into Firebolt, specify the IAM role ARN from the previous step to grant the necessary permissions. If you configured an external ID, ensure it is included along with the role ARN. The following sections show you how to load data into Firebolt using AWS IAM roles to access your storage bucket.
 
 ### Specify the IAM role in `COPY FROM`
 
@@ -169,3 +153,24 @@ URL = 's3://my_bucket/'
 OBJECT_PATTERN= '*.parquet'
 TYPE = (PARQUET)
 ```
+
+## Troubleshooting Access Issues
+
+If you see the error: "Ensure that the provided credentials have the necessary permissions to access this resource", it may be due to the prefix condition in the IAM policy.
+
+   ```javascript
+              "Condition": {
+                  "StringLike": {
+                      "s3:prefix": [
+                          "<prefix>/*"
+                      ]
+                  }
+              }
+   ```
+
+### Understanding the Prefix Requirement
+Firebolt’s ingestion queries (`COPY FROM`, external tables, read TVFs) include both `URL` and `PATTERN` components. `COPY FROM` and external tables manage them through separate `URL` and `PATTERN` parameters. Read TVFs use `URL` parameters with optional glob patterns. For example, if passing `url = 's3://foo/bar/*parquet'`, then `foo/bar/` becomes the URL and `*parquet` becomes the pattern.
+
+When listing files from S3, only the `URL` portion is sent in the AWS request. The pattern is later applied by Firebolt to filter the results.
+
+So, if your IAM policy restricts access using a `s3:prefix` condition, ensure that your IAM policy's prefix condition matches the `URL` parameter of your `COPY FROM` query, external table definition, or read TVF. If you require broader access permissions, you may need to remove the condition entirely.
