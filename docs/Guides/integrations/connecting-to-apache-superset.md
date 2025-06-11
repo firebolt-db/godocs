@@ -57,7 +57,7 @@ pip freeze | grep firebolt
 ```
 You should see `firebolt-sqlalchemy` in the output.
 
-Once your Superset is booted up you should be able to access it in http://localhost:8088/
+Once your Superset is booted up you should be able to access it in `http://localhost:8088/`
 
 For more installation details, refer to [Adding New Database Drivers in Docker](https://superset.apache.org/docs/configuration/databases#installing-drivers-in-docker-images) in the Superset documentation.
 {: .note }

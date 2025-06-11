@@ -25,7 +25,7 @@ AWS PrivateLink for Firebolt is in public preview and available in all Firebolt 
 
 Before setting up AWS PrivateLink, ensure you have the following:
 
-* An **AWS account** with permissions to create a [VPC interface endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/create-interface-endpoint.html). If you don't have access, you can [sign up](https://signin.aws.amazon.com/signup) for an AWS account.
+* An **AWS account** with permissions to create a [VPC interface endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/create-interface-endpoint.html). If you don't have access, you can [sign up](https://signin.aws.amazon.com/signup?request_type=register) for an AWS account.
 * A **Firebolt Account**: Ensure that you have access to an active Firebolt account. If you don't have access, you can [sign up for an account](https://go.firebolt.io/signup). For more information about how to register with Firebolt, see [Get started with Firebolt]({% link Guides/getting-started/index.md %}).
 * **Service Account**: You must have access to an active Firebolt [service account]({% link Guides/managing-your-organization/service-accounts.md %}), which facilitates programmatic access to Firebolt. Your service account must be associated with a [user]({% link Overview/organizations-accounts.md %}#users) with privileges associated with an [account administrative role]({% link Overview/organizations-accounts.md %}#account-administrative-role) or an [organizational administrative role]({% link Overview/organizations-accounts.md %}#organizational-administrative-role) to request AWS PrivateLink access.
 

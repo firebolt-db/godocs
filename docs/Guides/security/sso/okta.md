@@ -30,7 +30,7 @@ To integrate Okta with Firebolt's platform, you need to [configure your Okta app
             3. Select **SSO** from the left navigation pane.
             4. Select **Copy organization SSO identifier**. 
 
-        **Example:** https://id.app.firebolt.io/login/callback?connection=vsko-okta&organization=org_82u3nzTNQPA8RyoM
+        **Example:** `https://id.app.firebolt.io/login/callback?connection=vsko-okta&organization=org_82u3nzTNQPA8RyoM`
     - **Audience URI (SP Entity ID).** 
     This URI has the following format: `urn:auth0:<tenant_name>:<org_name>-<provider>`, where `<tenant_name>` is app-firebolt-v2, `<org_name>` is the name of organization provider and `<provider>` is the provider value set in Firebolt configuration step. 
 
