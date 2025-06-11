@@ -119,7 +119,7 @@ You can also load data into an existing table using your own schema definition. 
     WITH TYPE = CSV
     HEADER = TRUE;
     ```
-    The previous code example reads data from a Firebolt test data set from the fictional [Ultra Fast Gaming Inc.](https://help.firebolt.io/t/ultra-fast-gaming-firebolt-sample-dataset/250) company. The `levels` data set is in CSV format, but you can also use `COPY FROM` to read files in `Parquet` format. If you are reading in a `CSV` file and specify `HEADER = TRUE`, then Firebolt expects the first line of your file to contain column names.
+    The previous code example reads data from a Firebolt test data set from the fictional "Ultra Fast Gaming Inc." company. The `levels` data set is in CSV format, but you can also use `COPY FROM` to read files in `Parquet` format. If you are reading in a `CSV` file and specify `HEADER = TRUE`, then Firebolt expects the first line of your file to contain column names.
 
 ## Load multiple files into a table
 

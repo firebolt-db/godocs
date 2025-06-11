@@ -112,7 +112,7 @@ If you used the **Load data** wizard, Firebolt has already created an engine for
 
 <img src="../../assets/images/get_started_sql_load.png" alt="After creating an engine, you can load your data." width="700"/>
 
-After creating an engine, you can load your data. This tutorial uses Firebolt's publicly available Firebolt’s sample dataset, from the fictional [“Ultra Fast Gaming Inc.”](https://help.firebolt.io/t/ultra-fast-gaming-firebolt-sample-dataset/250) company. This dataset does not require access credentials. If your personal dataset requires access credentials, you will need to provide them. For examples of how to provide access credentials and more complex loading workflows, see [Loading data](../loading-data/loading-data.md). For more information about AWS access credentials, see [Creating Access key and Secret ID](../loading-data/creating-access-keys-aws.md)
+After creating an engine, you can load your data. This tutorial uses Firebolt's publicly available Firebolt’s sample dataset, from the fictional “Ultra Fast Gaming Inc.” company. This dataset does not require access credentials. If your personal dataset requires access credentials, you will need to provide them. For examples of how to provide access credentials and more complex loading workflows, see [Loading data](../loading-data/loading-data.md). For more information about AWS access credentials, see [Creating Access key and Secret ID](../loading-data/creating-access-keys-aws.md)
 
 If you used the **Load data** wizard, skip ahead to the following **Run query** section.
 {: .note}
