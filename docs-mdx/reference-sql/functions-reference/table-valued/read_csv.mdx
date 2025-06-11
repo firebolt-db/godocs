@@ -96,9 +96,12 @@ SELECT * FROM READ_CSV(
 );
 ```
 
-The `url` can represent a single file or a [glob](https://en.wikipedia.org/wiki/Glob_(programming)) pattern. If a glob pattern is used, all files matching the pattern will be read:
+The `url` can represent a single file or a [glob](https://en.wikipedia.org/wiki/Glob_(programming)) pattern. If a glob pattern is used, all files matching the pattern will be read. A special column `$source_file_name` can be used to identify the source file of each row in the result set:
 ```sql
-SELECT * FROM READ_CSV('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/*.csv')
+SELECT *, $source_file_name FROM READ_CSV(
+    URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/*.csv',
+    HEADER => TRUE
+);
 ```
 
 When using glob patterns, the wildcard (`*`) can only be used at the end of the path. You can use it with any text before or after, such as `*.csv`, `date=2025*.csv`, or `data_*.csv`.
