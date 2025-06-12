@@ -1,1 +1,0 @@
-SELECT NGRAM(2, 'こんにちは') AS result;

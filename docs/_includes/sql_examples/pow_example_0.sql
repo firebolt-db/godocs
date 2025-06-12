@@ -1,1 +1,0 @@
-select pow(2, 5) as result;

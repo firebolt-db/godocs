@@ -1,1 +1,0 @@
-SELECT BTRIM('   The Acceleration Cup     ') as result;

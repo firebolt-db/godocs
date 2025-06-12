@@ -1,1 +1,0 @@
-SELECT ARRAY_ENUMERATE(NULL) AS null_result;

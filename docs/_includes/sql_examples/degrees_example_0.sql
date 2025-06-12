@@ -1,1 +1,0 @@
-SELECT degrees(3.14) as result;

@@ -1,4 +1,0 @@
-SELECT LOG(0.0, 10.0);
--- SELECT LOG(-1.0, 10.0);
--- SELECT LOG(1.0, 10.0);
--- SELECT LOG('-Inf', 10.0);

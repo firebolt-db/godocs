@@ -1,1 +1,0 @@
-SELECT SESSION_USER() as user;

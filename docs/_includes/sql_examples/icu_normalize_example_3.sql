@@ -1,1 +1,0 @@
-select ICU_NORMALIZE('','X')

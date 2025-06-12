@@ -1,1 +1,0 @@
-SELECT ACOS(1) as result;

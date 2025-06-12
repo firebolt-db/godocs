@@ -1,1 +1,0 @@
-SELECT ARRAY_INTERSECT([ 'red', 'maroon', 'crimson' ]) as colors;

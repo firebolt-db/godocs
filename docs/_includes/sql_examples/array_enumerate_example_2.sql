@@ -1,1 +1,0 @@
-SELECT ARRAY_ENUMERATE([7, NULL, 3, NULL]) AS one_to_four;

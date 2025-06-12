@@ -1,1 +1,0 @@
-SELECT SIN(0) as result;

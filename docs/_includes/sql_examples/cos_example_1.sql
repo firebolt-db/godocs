@@ -1,1 +1,0 @@
-SELECT ROUND(COS(PI()), 5) as result;

@@ -1,1 +1,0 @@
-SELECT FIRST_VALUE(a) OVER (ORDER BY a desc nulls first) as result FROM UNNEST(array[100,NULL,1]) as a;

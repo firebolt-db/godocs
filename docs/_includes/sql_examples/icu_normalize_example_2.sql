@@ -1,1 +1,0 @@
-select ICU_NORMALIZE('AabB','Any-Upper[^xyzXYZ]')

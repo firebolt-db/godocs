@@ -1,1 +1,0 @@
-SELECT ARRAY_INTERSECT([ 1, 9, NULL ],[ 8, 9, NULL ], [4, 9, NULL]) as contains_null;

@@ -1,1 +1,0 @@
-SELECT STRING_TO_ARRAY('firebolt', '') as size_one_array;

@@ -1,3 +1,0 @@
-SELECT LN(0.0);
--- SELECT LN(-1.0);
--- SELECT LN('-Inf');

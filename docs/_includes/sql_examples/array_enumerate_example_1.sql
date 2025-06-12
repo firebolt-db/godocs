@@ -1,1 +1,0 @@
-SELECT ARRAY_ENUMERATE(['hello', 'world']) AS one_to_two;

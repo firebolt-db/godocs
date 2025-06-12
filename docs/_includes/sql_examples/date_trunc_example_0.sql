@@ -1,1 +1,0 @@
-SELECT DATE_TRUNC('century', DATE '1996-09-03');

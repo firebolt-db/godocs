@@ -1,1 +1,0 @@
-SELECT TO_DATE('Year 180: August 4th', 'xx"..."yyy: month DDxx');

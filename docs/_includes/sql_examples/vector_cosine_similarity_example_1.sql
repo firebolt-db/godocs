@@ -1,1 +1,0 @@
-SELECT VECTOR_COSINE_SIMILARITY([1, 2], [-3, -4]) AS similarity;

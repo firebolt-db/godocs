@@ -1,1 +1,0 @@
-SELECT STRING_TO_ARRAY('firebolt', NULL) AS single_characters;

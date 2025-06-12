@@ -1,1 +1,0 @@
-SELECT BTRIM('xxThe Acceleration Cupxxx', 'x') as result

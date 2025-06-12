@@ -1,1 +1,0 @@
-SELECT ARRAY_ANY_MATCH(x -> x = 'esimpson', [ 'kennethpark', 'sabrina21', 'steven70']) AS is_he_playing;

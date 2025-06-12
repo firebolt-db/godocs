@@ -1,1 +1,0 @@
-SELECT ARRAY_INTERSECT([ [1], [2], NULL, [1,2] ], [ [1,2], NULL ]) as nested;

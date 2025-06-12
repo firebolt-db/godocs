@@ -1,1 +1,0 @@
-SELECT SQRT(64);

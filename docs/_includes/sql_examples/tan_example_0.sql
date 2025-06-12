@@ -1,1 +1,0 @@
-SELECT TAN(1.57) as result;

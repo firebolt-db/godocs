@@ -1,1 +1,0 @@
-SELECT gen_random_uuid_text() as id_col
