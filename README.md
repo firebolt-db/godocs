@@ -17,33 +17,47 @@ make check-links
 
 ## How to add an interactive example
 We have interactive examples in the documentation. These run against a Firebolt docs server.
-Just add your single query as a sql file in `docs/_includes/sql_examples`. You can then add the following to your main markdown page:
+1. Add `import {QueryWindow} import {QueryWindow} from '/snippets/query-window.mdx';` at the top of the page if its not yet there.
+2. Add `<QueryWindow content={{"sql": "..(your SQL here)..", "result": ..(your result here)..}} />` where you want an interactive example on the page. For example:
+
+```mdxjs
+import {QueryWindow} from '/snippets/query-window.mdx';
+
+<QueryWindow content={{
+  "sql": "SELECT ABS(-200.50) as result;",
+  "result": {
+    "data": [
+      [
+        200.5
+      ]
+    ],
+    "meta": [
+      {
+        "name": "result",
+        "type": "double"
+      }
+    ],
+    "query": {
+      "query_id": "7eab6ce7-0174-4e01-adee-2765f715d70a",
+      "query_label": null,
+      "request_id": "02476fa1-b9ae-4ece-9606-84cee56a595b"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.009298,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.00025336,
+      "time_to_execute": 9.5656e-05
+    }
+  }
+}} />
 
 ```
-{% include query-window.html sql_file="sql_examples/<your file>" %}
-```
 
-For example:
-
-```
-{% include query-window.html sql_file="sql_examples/median_example_1.sql" %}
-```
-
-You then need to pre-package results for that example or CI will fail.
-
-### How to package documentation examples
-If the Firebolt docs server is unavailable (or rate limited), we still want to keep the examples interactive, so we pre-package the results of the examples.
-These are also used on the initial page to show example results as quickly as possible.
-
-To package all examples, run:
-```bash
-make package-docs
-```
-
-To package only missing examples, run:
-```bash
-make package-missing-docs
-```
+You can leave the `result` part empty and generate it using `make package-missing-docs`.
 
 ## License summary
 

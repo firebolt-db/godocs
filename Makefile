@@ -1,62 +1,49 @@
 SHELL := bash
+
 .ONESHELL:
-.SHELLFLAGS := -eu -o pipefail -c
+.PHONY:
+
+.SHELLFLAGS := -euo pipefail -c
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
 
 .PHONY: default
-default: check-markers check-links check-md-mdx-in-sync check-links-mint check-sql-mdx
+default: check-all
 
 
 .PHONY: check-all
-check-all: check-markers check-links check-sql
-
-
-.PHONY: check-all-mdx
-check-all-mdx: check-markers check-md-mdx-in-sync check-links-mint # check-sql-mdx
-
-
-.PHONY: sync-docs-md-to-mdx
-sync-docs-md-to-mdx: setup-python
-	@bash -c '\
-		read -p "This will overwrite docs-mdx with the contents of docs. Are you sure? (y/n) " -n 1 -r; echo; \
-		if [[ $$REPLY =~ ^[Yy]$$ ]]; then \
-			.venv/bin/python scripts/conv2mint/__main__.py docs docs-mdx; \
-		else \
-			echo "Aborting sync."; \
-			exit 1; \
-		fi'
-
-
-.PHONY: check-md-mdx-in-sync
-check-md-mdx-in-sync: setup-python
-	tmpd=$(shell mktemp -d)
-	tmpf=$(shell mktemp)
-	trap 'rm -rf "$$tmpf" "$$tmpd"' EXIT
-	cp -r docs-mdx/* $$tmpd
-	.venv/bin/python scripts/conv2mint/__main__.py docs $$tmpd >$$tmpf 2>&1 || (cat $$tmpf && echo "Conversion failed, check the output above" && exit 1)
-	diff -r $$tmpd docs-mdx || (echo "docs-mdx is not in sync with docs, run 'make sync-docs-md-to-mdx' to fix" && exit 1)
+check-all: check-markers check-nav-structure check-links check-sql
 
 
 .PHONY: start-local
-start-local:
-	scripts/start-local.sh
-
-
-.PHONY: start-local-mint
-start-local-mint: maybe-setup-mint
+start-local: maybe-setup-mint
 	cd docs-mdx && mint dev
 
 
 .PHONY: check-links
-check-links:
-	scripts/check-links.sh
-
-
-.PHONY: check-links-mint
-check-links-mint: maybe-setup-mint
-	cd docs-mdx && mint broken-links
+check-links: maybe-setup-mint
+	set -euo pipefail
+	cd docs-mdx
+	mint broken-links
+	mint dev --no-open &
+	pid=$$!
+	tmpf=$$(mktemp)
+	trap "kill $$pid; rm $$tmpf" EXIT
+	while ! curl -s 'http://localhost:3000/' >/dev/null; do
+		echo 'Waiting the service to start on localhost:3000' 1>&2
+		sleep 1
+	done
+	(docker run --network host raviqqe/muffet \
+		"--exclude=https://twitter.com/.*|https://mintlify.mintlify.app/.*|https://regex101.com|https://signin.aws.amazon.com/.*" \
+		--color=auto \
+		--buffer-size=100000 \
+		--max-connections=5 \
+		--ignore-fragments \
+		--timeout=30 \
+		--max-response-body-size=100000000 \
+		--accepted-status-codes=200..300,403 \
+		http://localhost:3000 >> "$$tmpf" 2>&1) || (cat "$$tmpf" && exit 1)
 
 
 .PHONY: check-markers
@@ -64,38 +51,29 @@ check-markers:
 	scripts/check_merge_conflict_markers.sh .
 
 
+.PHONY: check-legacy-dir
+check-legacy-dir:
+	if [ -d "docs" ]; then echo "Legacy /docs directory found, please remove it."; exit 1; fi
+
+
+.PHONY: check-nav-structure
+check-nav-structure: setup-python
+	.venv/bin/python scripts/check_nav_structure.py
+
+
 .PHONY: check-sql
 check-sql: setup-python
-	.venv/bin/python scripts/check_sql_examples.py docs md quiet
-
-
-.PHONY: check-sql-mdx
-check-sql-mdx: setup-python
-	.venv/bin/python scripts/check_sql_examples.py docs-mdx mdx quiet
+	.venv/bin/python scripts/check_sql_examples.py quiet
 
 
 .PHONY: package-docs
 package-docs: setup-python
-	.venv/bin/python scripts/prepackage_query_results.py --doc-type md
+	.venv/bin/python scripts/prepackage_query_results.py
 
 
 .PHONY: package-missing-docs
 package-missing-docs: setup-python
-	.venv/bin/python scripts/prepackage_query_results.py --missing-only --doc-type md
-
-
-.PHONY: package-docs-mdx
-package-docs-mdx: package-docs sync-docs-md-to-mdx
-# commented out while we keep docs-mdx in sync with docs
-#package-docs-mdx: setup-python
-#	.venv/bin/python scripts/prepackage_query_results.py --doc-type mdx
-
-
-.PHONY: package-missing-docs-mdx
-package-missing-docs-mdx: package-missing-docs sync-docs-md-to-mdx
-# commented out while we keep docs-mdx in sync with docs
-#package-missing-docs-mdx: setup-python
-#	.venv/bin/python scripts/prepackage_query_results.py --missing-only --doc-type mdx
+	.venv/bin/python scripts/prepackage_query_results.py --missing-only
 
 
 .PHONY: setup-python
@@ -122,4 +100,4 @@ maybe-setup-mint:
 
 
 clean:
-	rm -rf .venv docs/_site
+	rm -rf .venv

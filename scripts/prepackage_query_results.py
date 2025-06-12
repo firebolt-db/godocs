@@ -36,37 +36,11 @@ def execute_query(query):
             return None
 
 
-def process_md_sql_examples(root: Path, missing_only: bool):
-    # Process SQL files
-    for sql_file in root.glob('docs/_includes/sql_examples/*.sql'):
-        json_file = sql_file.with_suffix('.json')
-
-        # Skip if JSON exists and we're in missing-only mode
-        if missing_only and json_file.exists():
-            print(f"Skipping {sql_file.name} (JSON exists)")
-            continue
-
-        print(f"Processing {sql_file.name}...")
-
-        # Read SQL query
-        query = sql_file.read_text().strip()
-
-        # Execute query
-        result = execute_query(query)
-
-        if result:
-            # Save result
-            json_file.write_text(json.dumps(result, indent=2))
-            print(f"Saved result to {json_file.name}")
-        else:
-            print(f"Failed to get result for {sql_file.name}")
-
-
 def format_query_window_content(content: dict) -> str:
     return f'{{\n  "sql": {json.dumps(content["sql"])},\n  "result": {textwrap.indent(json.dumps(content["result"], indent=2, sort_keys=True), "  ").lstrip()}\n}}'
 
 
-def process_mdx_sql_examples(root: Path, missing_only: bool):
+def process_mdx_sql_examples(docs_dir, missing_only: bool):
     def process_example(f: Path, match: re.Match):
         t = time.time()
         content = json.loads(match.group(2))
@@ -83,7 +57,7 @@ def process_mdx_sql_examples(root: Path, missing_only: bool):
         print("Updated result in example")
         return res
 
-    for mdx_file in root.glob('docs-mdx/**/*.mdx'):
+    for mdx_file in docs_dir.glob('**/*.mdx'):
         cont = mdx_file.read_text()
         cont_sub = re.sub(r'(<QueryWindow\s+content=\{)(\{.*?\})(\}\s+/>)', lambda x: process_example(mdx_file, x), mdx_file.read_text(), flags=re.DOTALL)
         if cont != cont_sub:
@@ -93,15 +67,11 @@ def process_mdx_sql_examples(root: Path, missing_only: bool):
 
 def main():
     parser = argparse.ArgumentParser()
+    docs_dir = Path(__file__).parent.parent / 'docs-mdx'
     parser.add_argument('--missing-only', action='store_true', 
                        help='Only process SQL files that don\'t have corresponding JSON files')
-    parser.add_argument('--doc-type', required=True, choices=['md', 'mdx'],
-                       help='Process SQL examples from Markdown (md) or MDX (mdx) files')
     args = parser.parse_args()
-    if args.doc_type == 'md':
-        process_md_sql_examples(Path('.'), args.missing_only)
-    elif args.doc_type == 'mdx':
-        process_mdx_sql_examples(Path('.'), args.missing_only)
+    process_mdx_sql_examples(docs_dir, args.missing_only)
     print("Done")
 
 

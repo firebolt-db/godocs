@@ -64,23 +64,6 @@ class ResultsDiffError(Exception):
         self.actual = actual
 
 
-def check_md_sql_examples(doc_dir: pathlib.Path, to_check: list[str], output) -> list[tuple[pathlib.Path, Exception]]:
-    res = []
-    for ex in sorted(doc_dir.glob("**/*.sql") if not to_check else map(pathlib.Path, to_check)):
-        try:
-            print(f"Checking {ex.relative_to(doc_dir.parent)} ...", file=output)
-            expected = json.loads(ex.with_suffix(".json").read_text())
-            sql = ex.read_text()
-            actual = fetch_real_sql(sql)
-            if compare_results(sql, expected, actual):
-                raise ResultsDiffError(ex, sql, expected, actual)
-            print("OK", file=output)
-        except Exception as e:
-            res.append((ex, e))
-            print(f"Error checking {ex}: {e}", file=output)
-    return res
-
-
 def check_mdx_sql_examples(doc_dir: pathlib.Path, to_check: list[str], output) -> list[tuple[pathlib.Path, Exception]]:
     res = []
     for ex in sorted(doc_dir.glob("**/*.mdx") if not to_check else map(pathlib.Path, to_check)):
@@ -102,19 +85,12 @@ def check_mdx_sql_examples(doc_dir: pathlib.Path, to_check: list[str], output) -
 
 def main():
     to_check = sys.stdin.read().strip().splitlines() if not sys.stdin.isatty() else []
-    doc_dir = pathlib.Path(sys.argv[1])
-    doc_type = sys.argv[2]
-    quiet = (sys.argv[3].lower() == 'quiet') if len(sys.argv) > 3 else False
+    doc_dir = pathlib.Path(__file__).parent.parent / 'docs-mdx'
+    quiet = (sys.argv[1].lower() == 'quiet') if len(sys.argv) > 1 else False
     output = open('/dev/null', 'w') if quiet else sys.stdout
-    if doc_type == "md":
-        res = check_md_sql_examples(doc_dir, to_check, output)
-    elif doc_type == "mdx":
-        res = check_mdx_sql_examples(doc_dir, to_check, output)
-    else:
-        print(f"Invalid argument: {doc_dir}")
-        sys.exit(1)
+    res = check_mdx_sql_examples(doc_dir, to_check, output)
     if not res:
-        print(f"SQL examples checks passed for .{doc_type} examples in {doc_dir}")
+        print(f"SQL examples checks passed for all examples")
     else:
         print(f"{len(res)} errors found:")
         for ex, e in res:
