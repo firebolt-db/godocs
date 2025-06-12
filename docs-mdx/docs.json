@@ -709,6 +709,7 @@
                 "group": "Connect",
                 "pages": [
                   "firebolt-core/firebolt-core-connect",
+                  "firebolt-core/firebolt-core-connect/firebolt-core-connect-go",
                   "firebolt-core/firebolt-core-connect/firebolt-core-connect-jdbc"
                 ]
               },
@@ -4774,6 +4775,11 @@
       "permanent": false
     },
     {
+      "source": "/FireboltCore/firebolt-core-connect-go.html",
+      "destination": "/firebolt-core/firebolt-core-connect/firebolt-core-connect-go",
+      "permanent": false
+    },
+    {
       "source": "/sql_reference/timestampntz-data-type.html",
       "destination": "/reference-sql/timestampntz-data-type",
       "permanent": false
@@ -5166,6 +5172,11 @@
     {
       "source": "/Guides/developing-with-firebolt/index",
       "destination": "/guides/developing-with-firebolt",
+      "permanent": false
+    },
+    {
+      "source": "/FireboltCore/firebolt-core-connect-go",
+      "destination": "/firebolt-core/firebolt-core-connect/firebolt-core-connect-go",
       "permanent": false
     },
     {

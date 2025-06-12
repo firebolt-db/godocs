@@ -1,0 +1,26 @@
+---
+layout: default
+title: Connect With Go
+nav_order: 2
+parent: Connect
+---
+
+# Go SDK
+
+The [official Firebolt Go SDK driver](https://github.com/firebolt-db/firebolt-go-sdk) supports Firebolt Core from version 1.10.0 and can be downloaded from the [GitHub Go SDK release page](https://github.com/firebolt-db/firebolt-go-sdk/releases). A detailed description can be found on the [Go SDK documentation page](../Guides/developing-with-firebolt/connecting-with-go). The remainder of this page provides some explanations and examples specific to Firebolt Core.
+
+## DSN Parameters
+
+In order to connect to a Firebolt Core cluster with Go SDK, you need to specify the address of the HTTP endpoint in the `url` connection parameter. For example, if you followed the [Get Started](./firebolt-core-get-started) guide to start a single-node Firebolt Core cluster on your local machine, its HTTP endpoint is exposed at `localhost:3473` and you can use the following connection string to connect to the default database.
+
+```
+firebolt:///?url=https://localhost:443
+```
+
+More generally, the form of the connection string should be as follows.
+
+```
+firebolt:///<database>?url=<http_endpoint_url>
+```
+
+Recall that Firebolt Core [does not support authentication](./firebolt-core-connect#security), so the respective instructions outlined in the dedicated [Go SDK documentation page](../Guides/developing-with-firebolt/connecting-with-go#connect-to-firebolt) do not apply.

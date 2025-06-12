@@ -50,6 +50,16 @@ The following is an example DSN string:
 firebolt://[/<database>]?account_name=<account_name>&client_id=<client_id>&client_secret=<client_secret>&engine=<engine>
 ```
 
+## Connecting to Firebolt Core
+
+The Firebolt Go SDK can be used to connect to Firebolt Core. The connection process is the same, but the DSN parameters differ. For more information on connecting to Firebolt Core, refer to the [Firebolt Core Go SDK documentation](../../FireboltCore/firebolt-core-connect-go).
+
+Just for a quick reference, the DSN for Firebolt Core should look like this:
+
+```text
+firebolt:///<database>?url=<http_endpoint_url>
+```
+
 ## Connect to Firebolt
 
 To establish a connection to a Firebolt database, construct a DSN string with your credentials and database details. The following example contains a script to connect to Firebolt that you can place in a file (e.g `main.go`) and run using `go run main.go` inside your Go module:
