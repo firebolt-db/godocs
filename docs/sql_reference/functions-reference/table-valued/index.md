@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Table-valued functions
-description: Reference for strvectoring functions
+description: Reference for table-valued functions
 nav_order: 15
 parent: SQL functions
 has_children: true
