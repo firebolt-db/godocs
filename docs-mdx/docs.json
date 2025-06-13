@@ -350,6 +350,7 @@
                       "reference-sql/commands/data-management/copy-to",
                       "reference-sql/commands/data-management/delete",
                       "reference-sql/commands/data-management/insert",
+                      "reference-sql/commands/data-management/merge",
                       "reference-sql/commands/data-management/truncate-table",
                       "reference-sql/commands/data-management/update",
                       "reference-sql/commands/data-management/vacuum"

@@ -1,0 +1,185 @@
+---
+description: Reference and syntax for the MERGE command.
+sidebarTitle: MERGE
+title: MERGE
+---
+
+`MERGE` allows users to perform multiple data modifications ([`INSERT`](https://docs.firebolt.io/reference-sql/commands/data-management/insert), [`UPDATE`](https://docs.firebolt.io/reference-sql/commands/data-management/update), [`DELETE`](https://docs.firebolt.io/reference-sql/commands/data-management/delete)) within a single transaction. `MERGE` is useful for common database tasks like removing duplicates, syncing data between tables (upsert), and cleaning out old records.
+
+`MERGE` internally performs a join between a target table and a data source, and then for each matching or non-matching row, you can decide whether to add it, update it, or delete it from the target table.
+
+All rows in the join result fall into one of three categories: `MATCHED`, `NOT MATCHED BY SOURCE`, or `NOT MATCHED [BY TARGET]`, meaning the row was either found in both target and source datasets, only in the target dataset, or only in the source dataset. In branches for the `MATCHED` category, columns from both target and source datasets will be available for use in expressions and conditions. Given a branch in one of the `NOT MATCHED` categories, only columns from the dataset where the row was found will be available.
+
+There can be multiple branches defined for rows within each category. However at most one branch's action will be executed per row, similar to a [`CASE`](https://docs.firebolt.io/reference-sql/functions-reference/conditional-and-miscellaneous/case) statement. `WHEN` clauses are evaluated in order within each category, and the chosen action for each row will come from whichever branch condition matches first (or from the first branch without any condition). If none of the conditions match, no action is performed for that row.
+
+When `DO NOTHING` is specified as the merge action, and the branch condition is met, the joined row is explicitly skipped. Since actions are evaluated in their specified order, `DO NOTHING` can be handy to skip non-interesting source or target rows before more fine-grained handling.
+
+Any aggregated indexes on the target table will be updated in the same transaction.
+
+
+## Permissions
+
+To have permission to run `MERGE`, you must have the respective `INSERT`, `UPDATE`, or `DELETE` [permissions](https://docs.firebolt.io/overview/security/rbac/database-permissions/table-permissions) on the target table. You must also have `SELECT` permissions on the data source.
+
+
+## Syntax
+
+```sql
+MERGE INTO <target_table_name> [ [AS] <target_alias> ]
+USING <data_source> [ [AS] <source_alias> ]
+ON <join_condition>
+<when_clause> [ , <when_clause> ... ]
+[ WITH <public_settings> ]
+
+<when_clause> ::= {
+  WHEN MATCHED [ AND <condition> ]
+    THEN {
+      UPDATE SET { <column_name> = <value> [ , ... ] } |
+      DELETE |
+      DO NOTHING
+    }
+| WHEN NOT MATCHED [ BY TARGET ] [ AND <condition> ]
+    THEN {
+      INSERT ( <column_list> ) VALUES ( <value_list> ) |
+      DO NOTHING
+    }
+| WHEN NOT MATCHED BY SOURCE [ AND <condition> ]
+    THEN {
+      UPDATE SET { <column_name> = <value> [ , ... ] } |
+      DELETE |
+      DO NOTHING
+    }
+}
+```
+
+## Parameters
+
+| Parameter             | Description                                                                  |
+| --------------------- | ---------------------------------------------------------------------------- |
+| `<target_table_name>` | The table to apply changes to.                                               |
+| `<target_alias>`      | Optional alias for the target table.                                         |
+| `<data_source>`       | A table, subquery, or table-valued function (e.g., `read_parquet`).          |
+| `<source_alias>`      | Optional alias for the data source. Table-valued functions will default to their own name as their alias. |
+| `<join_condition>`    | Condition to match source and target rows.                                   |
+| `<when_clause>`       | A branch to match rows against, with an optional condition and an action (UPDATE, DELETE, INSERT, DO NOTHING) to perform. Multiple clauses can repeat the same match category or same action. |
+| `MATCHED ... [AND <condition>]` | Extra conditions per `when_clause` are optional. To be considered met, they must evaluate to TRUE rather than FALSE or NULL. An unconditional `when_clause` must not precede a conditional one of the same category, as the latter would be unreachable. |
+| `<public_settings>` | List of [query-specific public settings](/reference/system-settings#setting-via-with) overrides. |
+
+## Examples
+
+### Example 1: ETL Synchronization
+
+When keeping a production table in sync with a staging table, it may be natural to `INSERT` brand new entries, `UPDATE` rows for which entries already existed, and `DELETE` stale entries that are no longer in the source.
+
+#### UPSERT (INSERT UPDATE)
+
+```sql
+MERGE INTO prod_table AS t
+USING staging_table AS s
+ON t.id = s.id
+WHEN NOT MATCHED THEN INSERT (id, val) VALUES (s.id, s.val)
+WHEN MATCHED THEN UPDATE SET t.val = s.val
+WHEN NOT MATCHED BY SOURCE THEN DELETE;
+```
+
+#### INSERT IGNORE
+
+If you would like to preserve pre-existing entries rather than overwriting them, replace the `UPDATE` clause with a `DO NOTHING` clause, or omit the `WHEN MATCHED` branch entirely for the same final effect. This would mean `INSERT` brand new entries and do nothing for rows for which entries already existed.
+
+```sql
+MERGE INTO prod_table AS t
+USING staging_table AS s
+ON t.id = s.id
+WHEN NOT MATCHED THEN INSERT (id, val) VALUES (s.id, s.val)
+WHEN MATCHED THEN DO NOTHING
+...
+```
+
+### Example 2: Data Deduplication
+
+The data source can be any subquery, not just a static table. In this example, the subquery is identifying `DISTINCT` rows from the table `raw_table`, in order to submit deduplicated results to the destination `deduped_table`.
+
+```sql
+MERGE INTO deduped_table AS target
+USING (SELECT DISTINCT id, val FROM raw_table) AS source
+ON target.id = source.id
+WHEN MATCHED THEN UPDATE SET val = source.val
+WHEN NOT MATCHED THEN INSERT (id, val) VALUES (source.id, source.val);
+```
+
+Further `USING` examples with subqueries:
+
+```sql
+USING (select * from unnest([10, 1000]) col1, unnest([20, 2000]) col2) as source
+```
+```sql
+USING (select * from unnest([10, 1000]), unnest([20, 2000])) as source (col1, col2)
+```
+```sql
+USING (VALUES (1, 11), (2, 22), (3, 33)) as source (col1, col2)
+```
+
+### Example 3: Conditional Data Migration
+
+You may want to define subsets of the source data to be treated differently during migration, depending on some subset of attributes.
+
+Use the attributes to define if-then-else conditions, and then define different insertion behavior for each subset. In this example, entries with `attr` in range (10, 100] should not be inserted. Using the `DO NOTHING` clause makes this contract clear, even though the conditions can be rewritten to omit the `DO NOTHING` branch by being more restrictive. Note also the 'catch-all' clause at the end which does not have a condition. This is generally not necessary - all clauses could have conditions, and not all rows must be caught by one of the branches.
+
+```sql
+MERGE INTO dest_table AS dest
+USING source_table AS src
+ON dest.id = src.id
+-- conditions for brand new rows
+WHEN NOT MATCHED and attr > 500 THEN INSERT (id, attr, last_modified) VALUES (src.id, src.attr * src.weight1, CURRENT_TIMESTAMP)
+WHEN NOT MATCHED and attr > 100 THEN INSERT (id, attr, last_modified) VALUES (src.id, src.attr * src.weight2, CURRENT_TIMESTAMP)
+WHEN NOT MATCHED and attr > 10 THEN DO NOTHING
+WHEN NOT MATCHED THEN INSERT (id, attr, last_modified) VALUES (src.id, src.attr, CURRENT_TIMESTAMP);
+```
+
+Conditions can also be used to define subsets of the source data that have already been migrated, and are being revisited to update certain attributes.
+
+```sql
+MERGE INTO dest_table AS dest
+USING source_table AS src
+ON dest.id = src.id
+-- conditions for already existing rows
+WHEN MATCHED and src.package_count > 100 THEN UPDATE SET category = 'A'
+WHEN MATCHED and src.country_of_origin in ('uk', 'australia') THEN UPDATE SET category = 'B'
+WHEN MATCHED and src.weight < 23.5 THEN UPDATE SET category = 'C';
+```
+
+Conditions for rows no longer found in the source may be useful for deleting entries only after they reach sufficient staleness. For example, marking rows older than 1 week as stale, but waiting for 30 days before actually deleting them.
+
+```sql
+MERGE INTO dest_table AS dest
+USING source_table AS src
+ON dest.id = src.id
+-- fully stale and ready for deletion
+WHEN NOT MATCHED BY SOURCE and dest.last_modified < CURRENT_TIMESTAMP - INTERVAL '30 days' THEN DELETE
+-- mark as stale to enter the holding period
+WHEN NOT MATCHED BY SOURCE and not dest.stale and dest.last_modified < CURRENT_TIMESTAMP - INTERVAL '7 days' THEN UPDATE SET stale = true;
+```
+
+### Example 4: Merge with External Files (or any TVF)
+
+The data source can be any Table Valued Function (TVF), not just a subquery or static table. This is particularly useful for merging with external files, though you can also reference an external table object as the source (e.g. `USING my_external_table`). Note that without defining an alias, the data source can be referenced later in the query by using the name of the TVF (e.g. `read_parquet`).
+
+```sql
+MERGE INTO main_table AS target
+USING read_parquet(
+  location => my_external_location
+)
+ON target.id = read_parquet.id
+WHEN NOT MATCHED THEN INSERT (id, col1, col2) VALUES (read_parquet.id, read_parquet.col1, regexp_extract(read_parquet.col2, '\d+')::INT);
+WHEN NOT MATCHED BY SOURCE THEN DELETE;
+```
+
+## Limitations
+- `WITH` clause is not supported, for specifying one or more subqueries ([CTE](https://docs.firebolt.io/reference-sql/commands/queries/select#materialized-common-table-expressions)) that can be referenced from inside the `MERGE` query.
+
+
+## Related Topics
+
+* [INSERT Statement](https://docs.firebolt.io/reference-sql/commands/data-management/insert)
+* [UPDATE Statement](https://docs.firebolt.io/reference-sql/commands/data-management/update)
+* [DELETE Statement](https://docs.firebolt.io/reference-sql/commands/data-management/delete)
