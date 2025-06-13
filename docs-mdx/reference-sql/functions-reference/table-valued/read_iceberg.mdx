@@ -322,5 +322,4 @@ When reading from a file-based catalog, Firebolt first looks for a `version-hint
 - Reading past snapshots with time travel is currently not supported.
 - Nested complex types such as `struct`, `list`, and `map` are currently read as nullable even if Iceberg defines the field to be non-nullable. This only applies to nested complex types (`struct`/`list`/`map` nested inside another `struct`/`list`/`map`).
 - [Returning partition values for Identity Transforms from partition metadata](https://iceberg.apache.org/spec/#column-projection) is currently not supported.
-- By default, cross-region reads for S3 are disabled for `read_iceberg`, as they may incur additional costs.
-
+- By default, cross-region reads for S3 are disabled for `read_iceberg`, as they may incur additional costs. They may be enabled on a per-query basis using the [cross_region_request_mode](/reference/system-settings#access-cross-region-data) setting.

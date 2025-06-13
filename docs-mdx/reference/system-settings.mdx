@@ -30,6 +30,7 @@ The `WITH` clause is supported for the following commands:
 - [`SELECT`](/reference-sql/commands/queries/select)
 - [`INSERT`](/reference-sql/commands/data-management/insert)
 - [`COPY FROM`](/reference-sql/commands/data-management/copy-from)
+- [`COPY TO`](/reference-sql/commands/data-management/copy-to)
 - [`UPDATE`](/reference-sql/commands/data-management/update)
 - [`DELETE`](/reference-sql/commands/data-management/delete)
 
@@ -48,6 +49,7 @@ The following settings can be configured using the `WITH` clause:
 - [enable_scan_cache](#scan-cache)
 - [insert_sharding](#insert-sharding)
 - [tablet_min_size_bytes and tablet_max_size_bytes](#target-tablet-size)
+- [cross_region_request_mode](#access-cross-region-data)
 
 ## Setting the time zone
 
@@ -338,7 +340,7 @@ Setting `insert_sharding` to `shard_on_read` changes the file distribution strat
 
 ## Target tablet size
 
-During ingestion, Firebolt attempts to create optimally sized tablets to balance ingestion speed and future scan performance. When all ingested data has been read, Firebolt prefers creating relatively smaller tablets to prioritize data persistence, leaving further optimization to [Auto Vacuum](/reference-sql/commands/data-management/vacuum). However, if this behavior isn't desirable, you can control it using the `tablet_min_size_bytes` and `tablet_max_size_bytes` settings:
+During ingestion, Firebolt attempts to create optimally sized tablets to balance ingestion speed and future scan performance. When all ingested data has been read, Firebolt prefers creating relatively small tablets to prioritize data persistence, leaving further optimization to [Auto Vacuum](/reference-sql/commands/data-management/vacuum). However, if this behavior isn't desirable, you can control it using the `tablet_min_size_bytes` and `tablet_max_size_bytes` settings:
 
 - `tablet_min_size_bytes`: Controls the minimum size of tablets. If there isn't enough data in the ingestion, smaller tablets are created nevertheless. When possible, data is compacted into tablets of at least this size. Default: `1.5 GiB`. Minmum: `1 GiB`.
 - `tablet_max_size_bytes`: Controls the maximum size of tablets. Default: `4 GiB`. Should be greated or equal than `tablet_min_size_bytes`.
@@ -374,4 +376,35 @@ WITH (tablet_min_size_bytes = 4294967296, tablet_max_size_bytes = 4294967296);
 ```
 
 Changing both `tablet_min_size_bytes` and `tablet_max_size_bytes` to `4 GiB` ensures that larger tablets are created.
+
+## Access Cross-Region Data
+By default, Firebolt restricts importing from and exporting to Amazon S3 buckets located outside your engine's default region to miminize latencies and network costs. For workloads requiring cross-region access, you can enable this functionality using the `cross_region_request_mode` setting. Firebolt offers three modes:
+
+- `disabled`: The default setting. Any attempt to access a bucket in another region will cause the query to fail.
+- `auto`: Recommended for most scenarios when you need to access a bucket in a different region. Firebolt will automatically infer each bucket's region using the Amazon HeadBucket API and route requests to the appropriate regional endpoint. The region information is cached on the node for one hour. If you're using a role to authenticate to Amazon S3, it must include ListBuckets permissions. Note that Iceberg queries using vended credentials may lack such permissions.
+- `enforced`: Use when you need to access a bucket in a different region and do not have the permissions for `auto` mode. Firebolt will use the pseudo-region "aws-global" for every request. This may lead to higher latencies since AWS needs to resolve the region internally for each request.
+
+### Notes
+- Firebolt currently offers limited cross-region data transfer and will throttle requests if the limit is exceeded. The current limit is 100 GB per hour per node.
+- This setting is only available via the `WITH SETTINGS` syntax, not with `SET`.
+
+### Syntax
+```sql
+-- Example 1: COPY FROM
+COPY INTO playstats
+FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/' 
+LIMIT 5
+WITH (TYPE = PARQUET, CROSS_REGION_REQUEST_MODE = 'auto');
+
+-- Example 2: COPY TO
+COPY (SELECT * FROM playstats)
+TO 's3://sink/'
+WITH (TYPE = PARQUET, SINGLE_FILE = TRUE, CROSS_REGION_REQUEST_MODE = 'auto');
+
+-- Example 3: Read TVFs
+SELECT * FROM read_parquet('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/')
+LIMIT 5
+WITH (CROSS_REGION_REQUEST_MODE = 'auto');
+```
+
 
