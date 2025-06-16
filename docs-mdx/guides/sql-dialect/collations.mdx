@@ -120,9 +120,32 @@ As expected, every row has one other row (and itself) that compares equal using 
 In the query above, we select the original text `ex1.t` while using the normalized version for the join condition. 
 This is a common pattern when working with `ICU_NORMALIZE` - you'll often want to use the normalized values for comparisons and joins, but return the original text in your results.
 
+## Collation-aware sorting
+You can also use `ICU_NORMALIZE` to perform collation-aware sorting.
+As with equality comparisons, sorting on text values happens by comparing the UTF-8 byte sequences.
+This means that for example `'B'` is considered less than `'a'`. 
+
+The following examples perform byte-based and case-insensitive sorting:
+```sql
+CREATE TABLE sort_test (val TEXT);
+INSERT INTO sort_test VALUES 
+    ('apple'), 
+    ('Banana'), 
+    ('Apricot'), 
+    ('bananas');
+
+-- Byte-based sort. Returns rows in the order:
+-- Apricot, Banana, apple, bananas
+SELECT val FROM sort_test ORDER BY val;
+
+-- Collation-aware sort using ICU_NORMALIZE. Returns rows in the order:
+-- apple, Apricot, Banana, bananas
+SELECT val FROM sort_test ORDER BY ICU_NORMALIZE(val, 'Any-Upper');
+```
+
 ## Making collations fast
 Computing `ICU_NORMALIZE` is expensive.
-The following computes the `Latin-ASCII` collation on ten million short strings.
+The following computes the `Latin-ASCII` collation on ten million short strings:
 ``` sql
 SELECT checksum(ICU_NORMALIZE(concat('München ', x), 'Latin-ASCII')) 
 FROM generate_series(1, 10000000) r(x);
