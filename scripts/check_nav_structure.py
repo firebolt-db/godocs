@@ -3,6 +3,7 @@ import json
 import pathlib
 import pprint
 import re
+import string
 from typing import Iterator
 
 
@@ -33,7 +34,6 @@ def check_lost_pages(docs_dir: pathlib.Path, tabs: list) -> None:
 
         # TODO: these are lost pages:
         'guides/operate-engines/working-with-engines-using-the-firebolt-manager.mdx',
-        'guides/query-data/keyboard-shortcuts-for-sql-editor.mdx',
         'overview/choosing-an-engine.mdx',
         'reference-sql/bytea-data-type.mdx',
         'reference-sql/date-data-type.mdx',
@@ -100,36 +100,38 @@ def check_lost_pages(docs_dir: pathlib.Path, tabs: list) -> None:
         )
 
 
-def check_group_structure(parent, pages) -> None:
+def check_group_structure(pages: list[str|dict], level: int) -> list[str]:
     if not isinstance(pages, list):
         raise ValueError(f"Expected a list of pages, got {type(pages)}: {pprint.pformat(pages)}")
     if not pages:
-        raise ValueError(f"Expected at least one page, got {len(pages)}")
-    if isinstance(pages[0], str):
-        dir_page = pages[0]
-        if parent:
-            if not re.match(f'^{parent}/[^/]+$', dir_page):
-                raise ValueError(f"Expected first page in the group to be under {parent}, got {dir_page}")
-        else:
-            if not re.match(r'^[^/]+$', dir_page):
-                raise ValueError(f"Expected the first page in the group to be a top-level page, got {dir_page}")
-    else:
-        dir_page = ""
+        raise ValueError(f"Expected at least one page in the group")
+
+    common_path = None
     for p in pages:
         if isinstance(p, str):
-            if not dir_page:
-                raise ValueError(f"Expected the first page in the group to be a top-level page, got {p}")
-            if not (p == dir_page or re.match(f'^{dir_page}/[^/]+$', p)):
-                raise Exception(f"Expected all pages in the group to be under {dir_page}, got {p}")
+            if p.startswith("/") or p.endswith("/") or set(p).intersection(set(" ." + string.ascii_uppercase)):
+                raise ValueError(f"Page address is not allowed: {p}")
+            p_parts = p.split("/")
+            if common_path is None:
+                common_path = p_parts[:level]
+            if p_parts[:level] != common_path:
+                raise ValueError(f"Expected all pages in the group to have the same path prefix, got {p} with prefix {p_parts[:level]} instead of {common_path}")
         elif isinstance(p, dict):
             if "pages" in p:
-                check_group_structure(dir_page or parent, p["pages"])
+                sub_common_path = check_group_structure(p["pages"], level + 1)
+                if common_path is None:
+                    common_path = sub_common_path[:level]
+                elif sub_common_path[:level] != common_path:
+                    raise ValueError(f"Expected all pages in the group to have the same path prefix, got {p} with prefix {sub_common_path} instead of {common_path}")
             elif "href" in p:
                 continue
             else:
                 raise ValueError(f"Unexpected entry: {p}")
         else:
             raise ValueError(f"Unexpected entry: {p}")
+    if common_path is None:
+        raise ValueError("Expected at least one page in the group")
+    return common_path
 
 
 def main():
@@ -137,7 +139,7 @@ def main():
     docs_json = json.loads((docs_dir / 'docs.json').read_text())
 
     check_lost_pages(docs_dir, docs_json["navigation"]["tabs"])
-    check_group_structure("", docs_json["navigation"]["tabs"])
+    check_group_structure(docs_json["navigation"]["tabs"], -1)
 
 
 if __name__ == "__main__":
