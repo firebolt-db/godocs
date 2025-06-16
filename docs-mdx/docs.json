@@ -792,7 +792,7 @@
     },
     {
       "source": "/guides/loading-data/working-with-semi-structured-data/working-with-arrays",
-      "destination": "/guides/sql-dialect/arrays"
+      "destination": "/guides/sql-dialect/arrays",
       "permanent": false
     },
     {
