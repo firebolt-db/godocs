@@ -106,8 +106,8 @@
                 "pages": [
                   "guides/run-queries",
                   "guides/run-queries/using-the-develop-workspace",
-                  "guides/run-queries/using-the-api",
-                  "guides/run-queries/keyboard-shortcuts-for-sql-editor"
+                  "guides/run-queries/keyboard-shortcuts-for-sql-editor",
+                  "guides/run-queries/using-the-api"
                 ]
               },
               {
