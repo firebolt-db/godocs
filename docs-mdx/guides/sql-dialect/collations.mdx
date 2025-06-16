@@ -4,9 +4,10 @@ sidebarTitle: Collations
 title: Collations
 ---
 
-Firebolt doesn't support an explicit `COLLATE` clause yet.
-However, it's still possible to work with collations using the [`ICU_NORMALIZE`](/reference-sql/functions-reference/string/icu_normalize) scalar function.
-This guide teaches you how to use this function to perform collation aware aggregations and joins.
+Firebolt supports using collations through the [`ICU_NORMALIZE`](/reference-sql/functions-reference/string/icu_normalize) function. 
+While we don’t support a native `COLLATE` clause yet, you can use `ICU_NORMALIZE` to get the same behaviour.
+This guide teaches you how to use this function to perform collation-aware aggregations, joins, and sorting.
+We also provide best practices around maximizing performance when working with collations.
 
 <Note>
 Throughout this guide we use the `Any-Upper` collation as it's easy to understand.
@@ -68,11 +69,11 @@ You can see that `collation_eq` is true in more cases than `byte_eq`.
 This is because we now compare the normalized text values, which is equivalent to case-insensitive
 comparison.
 
-`ICU_NORMALIZE` is your basic building block to perform collation aware processing.
+`ICU_NORMALIZE` is your basic building block to perform collation-aware processing.
 You can use it to perform more complex operations.
 
-## Collation aware aggregations
-You can use `ICU_NORMALIZE` as a `GROUP BY` key to perform collation aware aggregations.
+## Collation-aware aggregations
+You can use `ICU_NORMALIZE` as a `GROUP BY` key to perform collation-aware aggregations.
 In the above example, you might want to know the minimum and maximum id for every equivalence class.
 You can simply express this in SQL using:
 
@@ -90,12 +91,12 @@ HELLO WORLD	    1   	2
 HELLO WORLD.    3	    4
 ```
 
-You can see that you get one result row for every equlivalence class.
+You can see that you get one result row for every equivalence class.
 We can tell from the values in `min/max` that every result group contains the correct two input rows.
 
-## Collation aware joins 
-You can also use `ICU_NORMALIZE` to perform collation aware joins.
-For each row in `test_examples`, let's count how many rows in the table compare equal in a case insensitive way.
+## Collation-aware joins 
+You can also use `ICU_NORMALIZE` to perform collation-aware joins.
+For each row in `test_examples`, let's count how many rows in the table compare equal in a case-insensitive way.
 We can write the following query to compute this:
 
 ```sql
@@ -144,6 +145,7 @@ This means we only have about 300k rows/s of throughput for this function.
 **If you know that you mostly care about specific collations on your data, store a normalized version on ingest.**
 Depending on your use case, you might have to store the original data as well, as normalization cannot be reversed.
 If you use multiple collations, you can store multiple columns with different normalizations. 
+When updating your source data, make sure to update the normalized values as well.
 
 Let's look at this in an example:
 ```sql
@@ -155,14 +157,14 @@ INSERT INTO cities
     SELECT c, ICU_NORMALIZE(c, 'Latin-ASCII'), ICU_NORMALIZE(c, 'Any-Upper')
     FROM (SELECT 'München' as c FROM generate_series(1, 10000000));
 
--- Aggregation that normalizes at query time
--- Timing: ~30 seconds 
+-- Aggregation that normalizes at query time.
+-- Timing: ~30 seconds.
 SELECT ICU_NORMALIZE(city, 'Latin-ASCII') as normalized, any(city) as example
 FROM cities
 GROUP BY ALL;
 
--- Aggregatin that uses the pre-normalized column
--- Timing: 0.09 seconds
+-- Aggregation that uses the pre-normalized city_latin_ascii column.
+-- Timing: 0.09 seconds.
 SELECT city_latin_ascii as normalized, any(city) as example
 FROM cities
 GROUP BY ALL;
