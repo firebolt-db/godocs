@@ -106,7 +106,6 @@
                 "pages": [
                   "guides/run-queries",
                   "guides/run-queries/using-the-develop-workspace",
-                  "guides/run-queries/keyboard-shortcuts-for-sql-editor",
                   "guides/run-queries/using-the-api"
                 ]
               },
@@ -782,7 +781,7 @@
     },
     {
       "source": "/guides/query-data/keyboard-shortcuts-for-sql-editor",
-      "destination": "/guides/run-queries/keyboard-shortcuts-for-sql-editor",
+      "destination": "/guides/run-queries/using-the-develop-workspace#keyboard-shortcuts-for-the-develop-space",
       "permanent": false
     },
     {
@@ -2542,7 +2541,7 @@
     },
     {
       "source": "/Guides/query-data/keyboard-shortcuts-for-sql-editor.html",
-      "destination": "/guides/run-queries/keyboard-shortcuts-for-sql-editor",
+      "destination": "/guides/run-queries/using-the-develop-workspace#keyboard-shortcuts-for-the-develop-space",
       "permanent": false
     },
     {
@@ -3497,7 +3496,7 @@
     },
     {
       "source": "/Guides/query-data/keyboard-shortcuts-for-sql-editor",
-      "destination": "/guides/run-queries/keyboard-shortcuts-for-sql-editor",
+      "destination": "/guides/run-queries/using-the-develop-workspace#keyboard-shortcuts-for-the-develop-space",
       "permanent": false
     },
     {
