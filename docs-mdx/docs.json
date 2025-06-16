@@ -106,7 +106,8 @@
                 "pages": [
                   "guides/run-queries",
                   "guides/run-queries/using-the-develop-workspace",
-                  "guides/run-queries/using-the-api"
+                  "guides/run-queries/using-the-api",
+                  "guides/run-queries/keyboard-shortcuts-for-sql-editor"
                 ]
               },
               {
@@ -769,6 +770,31 @@
     }
   },
   "redirects": [
+    {
+      "source": "/guides/query-data",
+      "destination": "/guides/run-queries",
+      "permanent": false
+    },
+    {
+      "source": "/guides/query-data/using-the-develop-workspace",
+      "destination": "/guides/run-queries/using-the-develop-workspace",
+      "permanent": false
+    },
+    {
+      "source": "/guides/query-data/keyboard-shortcuts-for-sql-editor",
+      "destination": "/guides/run-queries/keyboard-shortcuts-for-sql-editor",
+      "permanent": false
+    },
+    {
+      "source": "/guides/query-data/using-the-api",
+      "destination": "/guides/run-queries/using-the-api",
+      "permanent": false
+    },
+    {
+      "source": "/guides/loading-data/working-with-semi-structured-data/working-with-arrays",
+      "destination": "/guides/sql-dialect/arrays"
+      "permanent": false
+    },
     {
       "source": "/Guides/loading-data/working-with-semi-structured-data/working-with-semi-structured-data.html",
       "destination": "/guides/loading-data/working-with-semi-structured-data",
