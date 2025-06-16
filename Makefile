@@ -22,10 +22,20 @@ start-local: maybe-setup-mint
 
 
 .PHONY: check-links
-check-links: maybe-setup-mint
+check-links: check-internal-links check-links-using-crawler
+
+
+.PHONY: check-internal-links
+check-internal-links: maybe-setup-mint
 	set -euo pipefail
 	cd docs-mdx
 	mint broken-links
+
+
+.PHONY: check-links-using-crawler
+check-links-using-crawler: maybe-setup-mint
+	set -euo pipefail
+	cd docs-mdx
 	mint dev --no-open &
 	pid=$$!
 	tmpf=$$(mktemp)
