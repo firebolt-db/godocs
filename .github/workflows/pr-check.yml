@@ -78,7 +78,7 @@ jobs:
           edit-mode: replace
 
 
-  check-internal-links:
+  check-broken-links:
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
