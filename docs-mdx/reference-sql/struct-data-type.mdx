@@ -233,11 +233,11 @@ id BIGINT, kv struct(s_key int null, value text null)
 
 The result of unnesting an array of structs column is a struct column. This behavior is consistent with unnesting an array of any other type.
 
-Unnesting multiple arrays of structs together is supported, too. For more details on the array unnesting syntax, see [`UNNEST`](/guides/loading-data/working-with-semi-structured-data/working-with-arrays#unnest).
+Unnesting multiple arrays of structs together is supported, too. For more details on the array unnesting syntax, see [`UNNEST`](/guides/sql-dialect/arrays#unnest).
 
 ### Aggregating structs into an array of struct
 
-Some aggregate functions support structs. In particular, [`ARRAY_AGG`](/reference-sql/functions-reference/aggregation/array-agg) can be useful when working on array of struct, together with [`UNNEST`](/guides/loading-data/working-with-semi-structured-data/working-with-arrays#unnest).
+Some aggregate functions support structs. In particular, [`ARRAY_AGG`](/reference-sql/functions-reference/aggregation/array-agg) can be useful when working on array of struct, together with [`UNNEST`](/guides/sql-dialect/arrays#unnest).
 
 ```sql
 WITH unnested_structs AS (
@@ -251,7 +251,7 @@ GROUP BY id;
 
 The example above shows a way of selecting all structs with `s_key > 10` from an array of struct column and preserves the array structure.
 
-Using [`UNNEST`](/guides/loading-data/working-with-semi-structured-data/working-with-arrays#unnest) and [`ARRAY_AGG`](/reference-sql/functions-reference/aggregation/array-agg) together provides a fundamental way of working with arrays of struct even if there is no array or lambda function available for the operation in need.
+Using [`UNNEST`](/guides/sql-dialect/arrays#unnest) and [`ARRAY_AGG`](/reference-sql/functions-reference/aggregation/array-agg) together provides a fundamental way of working with arrays of struct even if there is no array or lambda function available for the operation in need.
 
 ### Transforming arrays of structs
 

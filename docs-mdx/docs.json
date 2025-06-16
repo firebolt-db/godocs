@@ -101,7 +101,14 @@
           {
             "group": "Guides",
             "pages": [
-              "guides",
+              {
+                "group": "Run queries",
+                "pages": [
+                  "guides/run-queries",
+                  "guides/run-queries/using-the-develop-workspace",
+                  "guides/run-queries/using-the-api"
+                ]
+              },
               {
                 "group": "Manage organization",
                 "pages": [
@@ -135,6 +142,13 @@
                 ]
               },
               {
+                "group": "SQL Dialect",
+                "pages": [
+                  "guides/sql-dialect/arrays",
+                  "guides/sql-dialect/collations"
+                ]
+              },
+              {
                 "group": "Load data",
                 "pages": [
                   "guides/loading-data",
@@ -148,20 +162,12 @@
                     "pages": [
                       "guides/loading-data/working-with-semi-structured-data",
                       "guides/loading-data/working-with-semi-structured-data/load-json-data",
-                      "guides/loading-data/working-with-semi-structured-data/load-parquet-data",
-                      "guides/loading-data/working-with-semi-structured-data/working-with-arrays"
+                      "guides/loading-data/working-with-semi-structured-data/load-parquet-data"
                     ]
                   }
                 ]
               },
-              {
-                "group": "Query data",
-                "pages": [
-                  "guides/query-data",
-                  "guides/query-data/using-the-develop-workspace",
-                  "guides/query-data/using-the-api"
-                ]
-              },
+              "guides/exporting-data",
               {
                 "group": "Configure security",
                 "pages": [
@@ -217,7 +223,6 @@
                   "guides/integrations/mcp"
                 ]
               },
-              "guides/exporting-data",
               {
                 "group": "Migrate to Firebolt",
                 "pages": [
@@ -841,7 +846,7 @@
     },
     {
       "source": "/Guides/loading-data/working-with-semi-structured-data/working-with-arrays.html",
-      "destination": "/guides/loading-data/working-with-semi-structured-data/working-with-arrays",
+      "destination": "/guides/sql-dialect/arrays",
       "permanent": false
     },
     {
@@ -961,7 +966,7 @@
     },
     {
       "source": "/Guides/loading-data/working-with-semi-structured-data/working-with-arrays",
-      "destination": "/guides/loading-data/working-with-semi-structured-data/working-with-arrays",
+      "destination": "/guides/sql-dialect/arrays",
       "permanent": false
     },
     {
@@ -2511,7 +2516,7 @@
     },
     {
       "source": "/Guides/query-data/keyboard-shortcuts-for-sql-editor.html",
-      "destination": "/guides/query-data/keyboard-shortcuts-for-sql-editor",
+      "destination": "/guides/run-queries/keyboard-shortcuts-for-sql-editor",
       "permanent": false
     },
     {
@@ -3466,7 +3471,7 @@
     },
     {
       "source": "/Guides/query-data/keyboard-shortcuts-for-sql-editor",
-      "destination": "/guides/query-data/keyboard-shortcuts-for-sql-editor",
+      "destination": "/guides/run-queries/keyboard-shortcuts-for-sql-editor",
       "permanent": false
     },
     {
@@ -3676,7 +3681,7 @@
     },
     {
       "source": "/Guides/query-data/using-the-develop-workspace.html",
-      "destination": "/guides/query-data/using-the-develop-workspace",
+      "destination": "/guides/run-queries/using-the-develop-workspace",
       "permanent": false
     },
     {
@@ -4476,7 +4481,7 @@
     },
     {
       "source": "/Guides/query-data/using-the-develop-workspace",
-      "destination": "/guides/query-data/using-the-develop-workspace",
+      "destination": "/guides/run-queries/using-the-develop-workspace",
       "permanent": false
     },
     {
@@ -5216,7 +5221,7 @@
     },
     {
       "source": "/Guides/query-data/using-the-api.html",
-      "destination": "/guides/query-data/using-the-api",
+      "destination": "/guides/run-queries/using-the-api",
       "permanent": false
     },
     {
@@ -5526,7 +5531,7 @@
     },
     {
       "source": "/Guides/query-data/using-the-api",
-      "destination": "/guides/query-data/using-the-api",
+      "destination": "/guides/run-queries/using-the-api",
       "permanent": false
     },
     {
@@ -5696,7 +5701,7 @@
     },
     {
       "source": "/Guides/query-data/index.html",
-      "destination": "/guides/query-data",
+      "destination": "/guides/run-queries",
       "permanent": false
     },
     {
@@ -5876,7 +5881,7 @@
     },
     {
       "source": "/Guides/query-data/index",
-      "destination": "/guides/query-data",
+      "destination": "/guides/run-queries",
       "permanent": false
     },
     {
@@ -5976,7 +5981,7 @@
     },
     {
       "source": "/Guides/query-data/",
-      "destination": "/guides/query-data",
+      "destination": "/guides/run-queries",
       "permanent": false
     },
     {
@@ -5996,7 +6001,7 @@
     },
     {
       "source": "/Guides/query-data",
-      "destination": "/guides/query-data",
+      "destination": "/guides/run-queries",
       "permanent": false
     },
     {

@@ -91,7 +91,7 @@ INSERT INTO my_parquet_array_fact_tbl
 
 ### Step 4&ndash;query array values
 
-After you ingest array values into the fact table, you can query and manipulate the array using array functions and Lambda functions. For more information, see [Working with arrays](/guides/loading-data/working-with-semi-structured-data/working-with-arrays).
+After you ingest array values into the fact table, you can query and manipulate the array using array functions and Lambda functions. For more information, see [Working with arrays](/guides/sql-dialect/arrays).
 
 <Note>
 Use multipart Parquet column names to extract data from nested structures. For simple `ARRAY(TEXT)`, use a single top-level field name.
@@ -162,9 +162,9 @@ INSERT INTO my_parquet_map_fact_tbl
 
 ### Step 4&ndash;query map values
 
-After you ingest array values into the fact table, you can query and manipulate the array using array functions and Lambda functions. For more information, see [Working with arrays](/guides/loading-data/working-with-semi-structured-data/working-with-arrays).
+After you ingest array values into the fact table, you can query and manipulate the array using array functions and Lambda functions. For more information, see [Working with arrays](/guides/sql-dialect/arrays).
 
-A query that uses a Lambda function to return a specific value by specifying the corresponding key value is shown below. For more information, see [Manipulating arrays using Lambda functions](/guides/loading-data/working-with-semi-structured-data/working-with-arrays#manipulating-arrays-with-lambda-functions).
+A query that uses a Lambda function to return a specific value by specifying the corresponding key value is shown below. For more information, see [Manipulating arrays using Lambda functions](/guides/sql-dialect/arrays#manipulating-arrays-with-lambda-functions).
 
 ```sql
 SELECT
