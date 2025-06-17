@@ -1,0 +1,422 @@
+---
+description: Learn about LOCATION objects in Firebolt for secure, centralized credential
+  management.
+sidebarTitle: LOCATION objects
+title: LOCATION objects
+---
+
+
+
+LOCATION objects are secure, reusable objects that store connection details and credentials for external data sources. Instead of embedding credentials directly into every query or table definition, you can create a LOCATION object once and reference it wherever needed across your Firebolt account.
+
+
+## What are LOCATION objects?
+
+A LOCATION object is a foundational improvement to Firebolt's data access model that centralizes credential management and strengthens security. Each LOCATION object stores:
+
+- **Credentials** for external access (AWS keys, roles, OAuth tokens)
+- **Source-specific configuration** such as S3 URLs, REST endpoints
+- **Optional descriptive metadata** for documentation and organization
+
+LOCATION objects eliminate the need to repeatedly specify credentials across SQL scripts, making your data workflows more secure, maintainable, and scalable.
+
+## The problem LOCATION objects solve
+
+Before LOCATION objects, working with external data in Firebolt required manually embedding credentials into every external table, COPY statement, or table-valued function (TVF) query. This approach created several challenges:
+
+- **Credential duplication**: The same credentials had to be copied across multiple queries and projects
+- **Complex secret rotation**: Updating credentials required finding and modifying every occurrence
+- **Security exposure**: It was impossible to separate who can see credentials from who can use them
+- **Error-prone maintenance**: Manual credential management led to inconsistencies and mistakes
+
+## How LOCATION objects work
+
+LOCATION objects operate at the account level. This design provides several advantages:
+
+- **Cross-database sharing**: Use the same LOCATION across multiple databases and engines
+- **Centralized management**: Update credentials in one place to affect all dependent objects
+- **Team collaboration**: Share secure access to external data sources across your organization
+
+### Example
+
+```sql
+-- Database A: Create a LOCATION object (account-level)
+USE DATABASE data_warehouse;
+
+CREATE LOCATION shared_s3_data WITH
+  SOURCE = 'AMAZON_S3'
+  CREDENTIALS = (AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/S3Access')
+  URL = 's3://company-data-lake/';
+
+-- Database B: Reference the same LOCATION 
+USE DATABASE analytics;
+
+CREATE EXTERNAL TABLE customer_data (
+  customer_id INT,
+  email TEXT,
+  created_date DATE
+)
+LOCATION = shared_s3_data
+OBJECT_PATTERN = '*.parquet'
+TYPE = PARQUET;
+```
+
+For more information about working with external tables, see [Working with external tables](/guides/loading-data/working-with-external-tables).
+
+## Security and access control
+
+LOCATION objects solve a critical security challenge that wasn't possible with embedded credentials: protecting sensitive access information. Before locations, credentials had to be embedded directly in external tables, COPY statements, or TVF queries, making it impossible to control who could see or use them. With locations, you can:
+
+- **Protect credentials**: Store sensitive access information in a secure object that can be managed through RBAC
+- **Control access**: Grant USAGE permission to roles that need to access the data without exposing the credentials
+- **Separate concerns**: Allow administrators to manage credentials while data users can only use them
+
+For detailed information about location permissions, see [Location permissions](/overview/security/rbac/location-permissions).
+
+### Example: Secure credential management
+
+```sql
+-- Admin: Create a secure LOCATION with sensitive credentials
+CREATE LOCATION production_data WITH
+  SOURCE = 'AMAZON_S3'
+  CREDENTIALS = (AWS_ACCESS_KEY_ID = 'AKIAIOSFODNN7EXAMPLE' AWS_SECRET_ACCESS_KEY = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY')
+  URL = 's3://production-bucket/';
+
+-- Admin: Grant usage rights to data analysts
+GRANT USAGE ON LOCATION production_data TO ROLE data_analyst;
+
+-- Analyst: Can access data without seeing credentials
+COPY INTO sales_data
+FROM production_data
+WITH 
+  OBJECT_PATTERN = 'sales/*.csv'
+  TYPE = CSV;
+
+-- Analyst: Cannot modify the LOCATION
+ALTER LOCATION production_data SET URL = 's3://different-bucket/';
+-- ERROR: location 'production_data' does not exist or not authorized
+```
+
+For more information about setting up roles and granting permissions, see [Role-Based Access Control (RBAC)](/guides/security/rbac).
+
+## Using LOCATION objects
+
+LOCATION objects work seamlessly with all Firebolt features that access external data:
+
+### External tables
+
+Replace inline credentials with a LOCATION reference:
+
+```sql
+-- Create the LOCATION once
+CREATE LOCATION my_data_source WITH
+  SOURCE = 'AMAZON_S3'
+  CREDENTIALS = (AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/DataAccess')
+  URL = 's3://my-data-bucket/';
+
+-- Use in external table definition
+CREATE EXTERNAL TABLE orders (
+  order_id INT,
+  customer_id INT,
+  order_date DATE,
+  total_amount DECIMAL(10,2)
+)
+LOCATION = my_data_source
+OBJECT_PATTERN = 'orders/*.parquet'
+TYPE = PARQUET;
+```
+
+For more information about using locations in external tables, see [CREATE EXTERNAL TABLE](/reference-sql/commands/data-definition/create-external-table).
+
+### COPY operations
+
+Simplify data loading and exporting:
+
+```sql
+-- Load data using LOCATION
+COPY INTO target_table
+FROM my_data_source
+WITH 
+  PATTERN = 'daily_exports/*.csv'
+  HEADER = TRUE
+  TYPE = CSV;
+
+-- Export data using LOCATION  
+COPY (SELECT * FROM processed_data)
+TO my_data_source
+TYPE = PARQUET
+FILE_NAME_PREFIX = 'export_';
+```
+
+For more information, see [COPY FROM](/reference-sql/commands/data-management/copy-from) and [COPY TO](/reference-sql/commands/data-management/copy-to).
+
+### Table-valued functions (TVFs)
+
+Access external data directly in queries:
+
+```sql
+-- Read CSV files directly
+SELECT customer_id, email, signup_date
+FROM READ_CSV(
+  LOCATION => my_data_source,
+  HEADER => TRUE
+)
+WHERE signup_date >= '2024-01-01';
+
+-- Read Parquet files with filtering
+SELECT *
+FROM READ_PARQUET(LOCATION => my_data_source)
+WHERE order_date BETWEEN '2024-01-01' AND '2024-01-31';
+
+-- List objects in S3 bucket
+SELECT object_name, object_bytes, last_modified
+FROM LIST_OBJECTS(LOCATION => my_data_source)
+WHERE object_name LIKE '%.parquet';
+```
+
+For more information about table-valued functions, see [READ_CSV](/reference-sql/functions-reference/table-valued/read_csv), [READ_PARQUET](/reference-sql/functions-reference/table-valued/read_parquet), [READ_ICEBERG](/reference-sql/functions-reference/table-valued/read_iceberg), and [LIST_OBJECTS](/reference-sql/functions-reference/table-valued/list-objects).
+
+## Supported data sources
+
+LOCATION objects currently support multiple data source types:
+
+### Amazon S3
+
+For S3-based data storage with AWS authentication:
+
+```sql
+-- Using access keys
+CREATE LOCATION s3_with_keys WITH
+  SOURCE = 'AMAZON_S3'
+  CREDENTIALS = ( AWS_ACCESS_KEY_ID = 'AKIAIOSFODNN7EXAMPLE' AWS_SECRET_ACCESS_KEY = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY' )
+  URL = 's3://my-bucket/data/';
+
+-- Using IAM roles (recommended)
+CREATE LOCATION s3_with_role WITH
+  SOURCE = 'AMAZON_S3'
+  CREDENTIALS = (AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/S3Access')
+  URL = 's3://my-bucket/data/';
+```
+
+For more details about S3 LOCATION objects, see [CREATE LOCATION (Amazon S3)](/reference-sql/commands/data-definition/create-location-s3).
+
+### Apache Iceberg
+
+For data lake architectures with Iceberg tables:
+
+```sql
+-- File-based Iceberg catalog
+CREATE LOCATION iceberg_filebased WITH
+  SOURCE = 'ICEBERG'
+  CATALOG = 'FILE_BASED'
+  CATALOG_OPTIONS = (URL = 's3://iceberg-warehouse/db/table')
+  CREDENTIALS = (AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/IcebergAccess');
+
+-- REST catalog (e.g., Databricks, Snowflake)
+CREATE LOCATION iceberg_rest WITH
+  SOURCE = 'ICEBERG'
+  CATALOG = 'REST'
+  CATALOG_OPTIONS = (
+    URL = 'https://catalog.example.com/api'
+    WAREHOUSE = 'prod_warehouse'
+    NAMESPACE = 'analytics'
+    TABLE = 'customer_events'
+  )
+  CREDENTIALS = (
+    OAUTH_CLIENT_ID = '12345'
+    OAUTH_CLIENT_SECRET = 'secret'
+  );
+```
+
+For more details about Iceberg LOCATION objects, see [CREATE LOCATION (Iceberg)](/reference-sql/commands/data-definition/create-location-iceberg).
+
+## Best practices
+
+### 1. Use descriptive names and documentation
+
+```sql
+CREATE LOCATION customer_data_lake WITH
+  SOURCE = 'AMAZON_S3'
+  CREDENTIALS = (AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/CustomerDataAccess')
+  URL = 's3://company-customer-data/'
+  DESCRIPTION = 'Production customer data lake containing PII - requires data governance approval';
+```
+
+### 2. Follow the principle of least privilege
+
+Grant only the minimum required permissions:
+
+```sql
+-- Create role-specific LOCATION objects
+CREATE LOCATION analytics_readonly WITH
+  SOURCE = 'AMAZON_S3'
+  CREDENTIALS = (AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/AnalyticsReadOnly')
+  URL = 's3://analytics-data/';
+
+-- Grant usage to specific roles
+GRANT USAGE ON LOCATION analytics_readonly TO ROLE data_analyst;
+GRANT USAGE ON LOCATION analytics_readonly TO ROLE business_intelligence;
+```
+
+### 3. Organize by environment and purpose
+
+```sql
+-- Environment-based organization
+CREATE LOCATION prod_data_lake WITH SOURCE = 'AMAZON_S3' ...;
+CREATE LOCATION staging_data_lake WITH SOURCE = 'AMAZON_S3' ...;
+CREATE LOCATION dev_data_lake WITH SOURCE = 'AMAZON_S3' ...;
+
+-- Purpose-based organization
+CREATE LOCATION customer_analytics WITH SOURCE = 'AMAZON_S3' ...;
+CREATE LOCATION financial_reporting WITH SOURCE = 'AMAZON_S3' ...;
+CREATE LOCATION ml_training_data WITH SOURCE = 'AMAZON_S3' ...;
+```
+
+### 4. Regular credential rotation
+
+Establish a process for rotating credentials:
+
+```sql
+-- Update credentials without affecting dependent objects
+ALTER LOCATION production_data 
+SET CREDENTIALS = (AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/NewDataAccess');
+```
+
+### 5. Monitor and audit usage
+
+Use the information schema to track LOCATION usage:
+
+```sql
+-- View all LOCATION objects
+SELECT name, source, url, owner, created_time
+FROM information_schema.locations;
+
+-- Check LOCATION dependencies before dropping
+SELECT table_name, location_name
+FROM information_schema.tables
+WHERE location_name = 'my_location';
+```
+
+For more information about the locations information schema, see [information_schema.locations](/reference-sql/information-schema/locations).
+
+### Querying location metadata
+
+```sql
+-- View all LOCATION objects
+SELECT 
+  location_name,
+  source,
+  url,
+  description,
+  location_owner,
+  created
+FROM 
+  information_schema.locations;
+```
+
+### Checking location dependencies
+
+Before dropping a LOCATION object, you can check which objects depend on it:
+
+```sql
+-- Find external tables using a specific location
+SELECT 
+  table_name,
+  location_name,
+  table_type
+FROM 
+  information_schema.tables
+WHERE 
+  location_name = 'my_location_name';
+```
+
+## Permissions
+
+`LOCATION` objects are managed using [RBAC](/overview/security/rbac) with the following permission levels. For detailed information about location permissions, see [Location permissions](/overview/security/rbac/location-permissions).
+
+| Privilege | Applicable On | Description | GRANT Syntax | REVOKE Syntax |
+|-----------|---------------|-------------|--------------|---------------|
+| MODIFY | Location | Allows editing specific location objects. | `GRANT MODIFY ON LOCATION <location_name> TO <role>;` | `REVOKE MODIFY ON LOCATION <location_name> FROM <role>;` |
+| USAGE | Location | Allows using specific location objects without seeing credentials. | `GRANT USAGE ON LOCATION <location_name> TO <role>;` | `REVOKE USAGE ON LOCATION <location_name> FROM <role>;` |
+| CREATE LOCATION | Account | Allows creating new location objects in the account. | `GRANT CREATE LOCATION ON ACCOUNT <account_name> TO <role>;` | `REVOKE CREATE LOCATION ON ACCOUNT <account_name> FROM <role>;` |
+| MODIFY ANY LOCATION | Account | Allows editing all current and future locations in the account. | `GRANT MODIFY ANY LOCATION ON ACCOUNT <account_name> TO <role>;` | `REVOKE MODIFY ANY LOCATION ON ACCOUNT <account_name> FROM <role>;` |
+| USAGE ANY LOCATION | Account | Allows using all current and future locations in the account. | `GRANT USAGE ANY LOCATION ON ACCOUNT <account_name> TO <role>;` | `REVOKE USAGE ANY LOCATION ON ACCOUNT <account_name> FROM <role>;` |
+
+For more information about location permissions, see [Location permissions](/overview/security/rbac/location-permissions).
+
+### Required permissions
+
+To view location information, you must have one of the following privileges:
+- `MODIFY` - Modify locations you have access to
+- `USAGE` - Use locations you have access to
+
+For more details about the available columns and examples, see [information_schema.locations](/reference-sql/information-schema/locations).
+
+**Important**: External tables that reference a LOCATION object become invalid and inaccessible if the LOCATION is dropped. Check for dependent external tables before removing a LOCATION, or they will need to be manually dropped after the LOCATION removal. For complete dependency management guidance, see [DROP LOCATION](/reference-sql/commands/data-definition/drop-location).
+
+## Managing LOCATION objects
+
+### Creating LOCATION objects
+
+Use CREATE LOCATION to create new LOCATION objects:
+
+```sql
+CREATE LOCATION IF NOT EXISTS my_secure_data WITH
+  SOURCE = 'AMAZON_S3'
+  CREDENTIALS = (AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/SecureAccess')
+  URL = 's3://secure-data-bucket/'
+  DESCRIPTION = 'Secure data requiring elevated permissions';
+```
+
+For complete syntax and all options, see [CREATE LOCATION](/reference-sql/commands/data-definition/create-location).
+
+### Modifying LOCATION objects
+
+Use ALTER LOCATION to update existing objects:
+
+```sql
+-- Rename a LOCATION
+ALTER LOCATION old_name RENAME TO new_name;
+
+-- Update URL
+ALTER LOCATION my_location SET URL = 's3://new-bucket/path/';
+
+-- Update credentials
+ALTER LOCATION my_location 
+SET CREDENTIALS = (AWS_ACCESS_KEY_ID = 'new_key' AWS_SECRET_ACCESS_KEY = 'new_secret');
+```
+
+For complete syntax and options, see [ALTER LOCATION](/reference-sql/commands/data-definition/alter-location).
+
+### Dropping LOCATION objects
+
+Use DROP LOCATION to remove objects:
+
+```sql
+-- Safe drop (fails if dependencies exist)
+DROP LOCATION my_location;
+
+-- Force drop (removes regardless of dependencies)
+DROP LOCATION my_location WITH FORCE;
+```
+
+For complete syntax and safety considerations, see [DROP LOCATION](/reference-sql/commands/data-definition/drop-location).
+
+## Related documentation
+
+### Security and access control
+- [Role-Based Access Control (RBAC)](/guides/security/rbac) - Understanding RBAC permissions for LOCATION objects
+- [Location permissions](/overview/security/rbac/location-permissions) - Detailed information about location permissions
+- [information_schema.locations](/reference-sql/information-schema/locations) - Querying LOCATION metadata and dependencies
+
+### Commands and operations
+- [CREATE LOCATION](/reference-sql/commands/data-definition/create-location) - Complete syntax and examples
+- [ALTER LOCATION](/reference-sql/commands/data-definition/alter-location) - Modifying existing LOCATION objects  
+- [DROP LOCATION](/reference-sql/commands/data-definition/drop-location) - Safely removing LOCATION objects
+
+### Data access with LOCATION objects
+- [CREATE EXTERNAL TABLE](/reference-sql/commands/data-definition/create-external-table) - Using LOCATION with external tables
+- [COPY FROM](/reference-sql/commands/data-management/copy-from) - Loading data with LOCATION objects
+- [COPY TO](/reference-sql/commands/data-management/copy-to) - Exporting data with LOCATION objects
+- [Table-valued functions](/reference-sql/functions-reference/table-valued/read_csv) - Direct data access with LOCATION objects
+

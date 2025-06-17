@@ -78,6 +78,7 @@
                           "overview/security/rbac/database-permissions/view-permissions"
                         ]
                       },
+                      "overview/security/rbac/location-permissions",
                       "overview/security/rbac/role-permissions",
                       "overview/security/rbac/account-permissions",
                       "overview/security/rbac/user-permissions",
@@ -185,6 +186,7 @@
                     ]
                   },
                   "guides/security/rbac",
+                  "guides/security/location",
                   "guides/security/network-policies",
                   "guides/security/enabling-mfa",
                   "guides/security/ownership",
@@ -1150,6 +1152,11 @@
       "permanent": false
     },
     {
+      "source": "/Overview/Security/Role-Based Access Control/location-permissions.html",
+      "destination": "/overview/security/rbac/location-permissions",
+      "permanent": false
+    },
+    {
       "source": "/sql_reference/functions-reference/window/percentile-disc-window.html",
       "destination": "/reference-sql/functions-reference/window/percentile-disc-window",
       "permanent": false
@@ -1472,6 +1479,11 @@
     {
       "source": "/sql_reference/commands/access-control/alter-service-account.html",
       "destination": "/reference-sql/commands/access-control/alter-service-account",
+      "permanent": false
+    },
+    {
+      "source": "/Overview/Security/Role-Based Access Control/location-permissions",
+      "destination": "/overview/security/rbac/location-permissions",
       "permanent": false
     },
     {
@@ -5685,6 +5697,11 @@
       "permanent": false
     },
     {
+      "source": "/Guides/security/location.html",
+      "destination": "/guides/security/location",
+      "permanent": false
+    },
+    {
       "source": "/Guides/migration-guides/index",
       "destination": "/guides/migration-guides",
       "permanent": false
@@ -5882,6 +5899,11 @@
     {
       "source": "/Guides/security/sso/okta",
       "destination": "/guides/security/sso/okta",
+      "permanent": false
+    },
+    {
+      "source": "/Guides/security/location",
+      "destination": "/guides/security/location",
       "permanent": false
     },
     {

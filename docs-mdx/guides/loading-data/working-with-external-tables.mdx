@@ -8,7 +8,7 @@ title: Work with external tables
 
 Firebolt supports loading data using *external tables*, which are different from [fact and dimension tables](/overview/indexes#firebolt-managed-tables). External tables store metadata objects that reference files stored in an Amazon S3 bucket, rather than actual data.
 
-To create an external table, run the [CREATE EXTERNAL TABLE](/reference-sql/commands/data-definition/create-external-table) command. After you create an external table, use the [INSERT](/reference-sql/commands/data-management/insert) command to load the data from the external table into a fact or dimension table. Data that you ingest must be in the same AWS Region as the target Firebolt database.
+To create an external table, run the [CREATE EXTERNAL TABLE](/reference-sql/commands/data-definition/create-external-table) command. Firebolt recommends using [LOCATION objects](/guides/security/location) to securely manage credentials and connection details for external data sources. After you create an external table, use the [INSERT](/reference-sql/commands/data-management/insert) command to load the data from the external table into a fact or dimension table. Data that you ingest must be in the same AWS Region as the target Firebolt database.
 
 <Warning>
 Although you can run a query over an external table to return query results, we don't recommend it. Such a query will be significantly slower than the same query run over the same data in a fact or dimension table because of the data transfer between Firebolt and your data store. We strongly recommend that you use external tables only for ingestion, specifying the table and its columns only in the `FROM` clause of an `INSERT` statement.
@@ -40,7 +40,18 @@ The metadata virtual columns listed below are available in external tables.
 
 ### Example&ndash;querying metadata virtual column values
 
-The query example below creates an external table that references an AWS S3 bucket that contains Parquet files from which Firebolt will ingest values for `c_id` and `c_name`.
+The example below creates an external table that references an AWS S3 bucket that contains Parquet files from which Firebolt will ingest values for `c_id` and `c_name`. First, create a LOCATION object to securely store credentials:
+
+```sql
+CREATE LOCATION my_data_source WITH
+  SOURCE = 'AMAZON_S3'
+  CREDENTIALS = ( 
+    AWS_ACCESS_KEY_ID = 'AKIAIOSFODNN7EXAMPLE' AWS_SECRET_ACCESS_KEY = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
+  )
+  URL = 's3://my_bucket/';
+```
+
+Then create the external table using the LOCATION object:
 
 ```sql
 CREATE EXTERNAL TABLE my_external_table
@@ -48,10 +59,7 @@ CREATE EXTERNAL TABLE my_external_table
     c_id    INTEGER,
     c_name  TEXT
   )
-  CREDENTIALS = ( 
-    AWS_ACCESS_KEY_ID = 'AKIAIOSFODNN7EXAMPLE' AWS_SECRET_ACCESS_KEY = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
-  )
-  URL = 's3://my_bucket/'
+  LOCATION = my_data_source
   OBJECT_PATTERN= '*.parquet'
   TYPE = (PARQUET);
 ```

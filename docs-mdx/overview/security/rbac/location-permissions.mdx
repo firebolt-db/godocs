@@ -1,0 +1,78 @@
+---
+description: Learn about location-related permissions in Firebolt.
+sidebarTitle: Location Permissions
+title: Location Permissions
+---
+
+
+Location permissions in Firebolt control who can modify, and use [LOCATION objects](/guides/security/location). These permissions are managed through Firebolt's Role-Based Access Control (RBAC) system.
+
+For account-level location permissions, see [Account permissions](/overview/security/rbac/account-permissions).
+
+The following table outlines the privileges that can be granted for managing locations within a particular account:
+
+| Privilege             | Description                                                                 | GRANT Syntax                                                     | REVOKE Syntax                                                    |
+|---------------------------|---------------------------------------------------------------------------------|----------------------------------------------------------------------|----------------------------------------------------------------------|
+| MODIFY                 | Grants the ability to modify location objects owned by the role.      | `GRANT MODIFY ON LOCATION <location_name> TO <role>;`                | `REVOKE MODIFY ON LOCATION <location_name> FROM <role>;`             |
+| USAGE                  | Grants the ability to use location objects without seeing credentials.| `GRANT USAGE ON LOCATION <location_name> TO <role>;`                 | `REVOKE USAGE ON LOCATION <location_name> FROM <role>;`              |
+
+## Secret management
+
+Location permissions provide a secure way to manage access to sensitive credentials. When a role has USAGE permission on a location:
+
+- The role can use the location's credentials to access external data sources
+- The role cannot view or extract the actual credentials stored in the location
+- The credentials remain hidden in all system views and logs
+
+This separation between usage and visibility ensures that sensitive credentials are protected while still allowing authorized roles to access the data they need.
+
+## Examples of granting location permissions
+
+The following code examples show how to grant various location-related permissions:
+
+### MODIFY permission
+The following code example grants role `my_role` permission to modify the `loc` location:
+
+```sql
+-- Grant ability to create new locations
+GRANT MODIFY ON LOCATION loc TO my_role;
+```
+
+### USAGE permission
+The following code example grants role `my_role` permission to use the `loc` location:
+
+```sql
+-- Grant ability to create new locations
+GRANT USAGE ON LOCATION loc TO my_role;
+```
+
+### Additional location permissions example
+
+```sql
+-- Create a role for data engineers
+CREATE ROLE data_engineer;
+
+-- Grant ability to create and manage locations
+GRANT CREATE LOCATION ON ACCOUNT "my_account" TO data_engineer;
+GRANT MODIFY ANY LOCATION ON ACCOUNT "my_account" TO data_engineer;
+
+-- Grant ability to use locations
+GRANT USAGE ANY LOCATION ON ACCOUNT "my_account" TO data_engineer;
+
+-- Create and use a location
+CREATE LOCATION production_data WITH
+  SOURCE = 'AMAZON_S3'
+  CREDENTIALS = (AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/DataAccess')
+  URL = 's3://company-data/';
+
+-- Create an external table using the location
+CREATE EXTERNAL TABLE sales_data (
+  customer_id INT,
+  purchase_date DATE,
+  amount DECIMAL(10,2)
+)
+LOCATION = production_data
+OBJECT_PATTERN = 'sales/*.parquet'
+TYPE = PARQUET;
+```
+
