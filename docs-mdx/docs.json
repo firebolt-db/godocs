@@ -322,6 +322,7 @@
                       "reference-sql/commands/data-definition/alter-schema",
                       "reference-sql/commands/data-definition/alter-table",
                       "reference-sql/commands/data-definition/alter-view",
+                      "reference-sql/commands/data-definition/comment-on",
                       "reference-sql/commands/data-definition/create-account",
                       "reference-sql/commands/data-definition/create-aggregating-index",
                       "reference-sql/commands/data-definition/create-database",
@@ -2946,6 +2947,11 @@
       "permanent": false
     },
     {
+      "source": "/sql_reference/commands/data-definition/comment-on.html",
+      "destination": "/reference-sql/commands/data-definition/comment-on",
+      "permanent": false
+    },
+    {
       "source": "/sql_reference/commands/data-definition/alter-view.html",
       "destination": "/reference-sql/commands/data-definition/alter-view",
       "permanent": false
@@ -3948,6 +3954,11 @@
     {
       "source": "/sql_reference/commands/data-definition/drop-index",
       "destination": "/reference-sql/commands/data-definition/drop-index",
+      "permanent": false
+    },
+    {
+      "source": "/sql_reference/commands/data-definition/comment-on",
+      "destination": "/reference-sql/commands/data-definition/comment-on",
       "permanent": false
     },
     {

@@ -15,13 +15,13 @@ Creates a new table in the current database.
 ```sql
 CREATE [FACT|DIMENSION] TABLE [IF NOT EXISTS] <table_name>
 (
-    <column_name> <column_type> [constraints]
-    [, <column_name> <column_type> [constraints]
+    <column_name> <column_type> [constraints] [DESCRIPTION = <column_description>]
+    [, <column_name> <column_type> [constraints] [DESCRIPTION = <column_description>]
     [, ...n]]
 )
 [PRIMARY INDEX <column_name>[, <column_name>[, ...k]]]
 [PARTITION BY <column_name>[, <column_name>[, ...m]]]
-[WITH ( <storage_parameter> = <storage_parameter_value>[, <storage_parameter> = <storage_parameter_value>[, ...p]] ) ]
+[WITH ( <storage_parameter> = <storage_parameter_value>[, <storage_parameter> = <storage_parameter_value>[, ...p]], [DESCRIPTION = <table_description>] ) ]
 ```
 
 ## Parameters 
@@ -32,8 +32,10 @@ CREATE [FACT|DIMENSION] TABLE [IF NOT EXISTS] <table_name>
 | `<table_name>`              | An identifier that specifies the name of the table. This name should be unique within the database.              |
 | `<column_name>`             | An identifier that specifies the name of the column. This name should be unique within the table.                |
 | `<column_type>`             | Specifies the data type for the column.                                                                          |
+| `<column_description>`      | The optional description of the column.                                                                          |
 | `<storage_parameter>`       | The name of a [storage parameter](#storage-parameters) for controlling behaviors related to storage and indexes. |
 | `<storage_parameter_value>` | The value assigned to a `<storage_parameter>`.                                                                   |
+| `<table_description>`       | The optional description of the table.                                                                           |
 
 All identifiers are case-insensitive unless enclosed in double-quotes. For more information, see [Object identifiers](/reference/object-identifiers).
 
@@ -145,6 +147,20 @@ Storage parameters are specified in the optional `WITH (...)` clause as comma se
 | `<compression_level>` | The compression level to use  for the specidfied compression. This parameter cannot be set without `compression`. For more information, see [Custom Compression](/overview/table-and-column-compression). |
 
 All identifiers are case-insensitive unless enclosed in double-quotes. For more information, see [Object identifiers](/reference/object-identifiers).
+
+## DESCRIPTION
+
+It is possible to add a description to the table as well as to the columns during the table creation.
+
+```sql
+CREATE TABLE table_with_description
+(
+    col1 INTEGER NULL DESCRIPTION 'this is a column col1',
+    col2 INTEGER NOT NULL DEFAULT 1,
+    col3 TEXT DESCRIPTION 'this is a column col3'
+)
+WITH (DESCRIPTION = 'this is a table')
+```
 
 ## Related functions
 

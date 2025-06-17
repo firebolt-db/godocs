@@ -1,0 +1,93 @@
+---
+description: Reference and syntax for the COMMENT ON statement.
+sidebarTitle: COMMENT ON
+title: COMMENT ON
+---
+
+Adds or modifies a description (comment) for objects in your Firebolt account. Comments provide descriptive metadata to help document the purpose and usage of database objects, making it easier to understand and maintain your data structures.
+
+The COMMENT ON statement supports adding comments to the following object types:
+
+- LOCATION - External data source connection objects
+- DATABASE - Database objects
+- TABLE - Table objects
+- COLUMN - Individual table columns
+- ENGINE - Engine objects
+
+Comments are stored as metadata and can be queried through the information_schema views. You can set a comment to any string, update an existing comment, remove a comment by setting it to NULL, or set it to an empty string.
+
+## Syntax
+
+```sql
+-- Location comment
+COMMENT ON LOCATION <location_name> IS { '<comment_string>' | NULL }
+
+-- Database comment  
+COMMENT ON DATABASE <database_name> IS { '<comment_string>' | NULL }
+
+-- Table comment
+COMMENT ON TABLE [<database_name>.]<table_name> IS { '<comment_string>' | NULL }
+
+-- Column comment
+COMMENT ON COLUMN [<database_name>.[<schema_name>.]]<table_name>.<column_name> IS { '<comment_string>' | NULL }
+
+-- Engine comment
+COMMENT ON ENGINE <engine_name> IS { '<comment_string>' | NULL }
+```
+
+## Parameters
+ 
+
+| Parameter             | Description                                  |
+| :------------------   | :-------------------------------------------- |
+| `<location_name>`     | The name of the location object to comment on. |
+| `<database_name>`     | The name of the database to comment on, or the database containing the table/column.|
+| `<table_name>`        | The name of the table to comment on, or the table containing the column. |
+| `<schema_name>`       | Optional schema name. Defaults to public if not specified.|
+| `<column_name>`       | The name of the column to comment on.|
+| `<engine_name>`       | The name of the engine to comment on.|
+| `<comment_string>`    | A text string describing the object. Must be enclosed in single quotes.|
+| NULL                  |Removes an existing comment from the object.|
+
+
+
+## Examples
+
+The following example sets a description:
+
+```sql
+-- Location
+COMMENT ON LOCATION my_location IS 'my comment';
+
+-- Database
+COMMENT ON DATABASE my_database IS 'my comment';
+
+-- Table
+COMMENT ON TABLE my_table IS 'my comment';
+
+-- Column
+COMMENT ON COLUMN my_table.my_column IS 'my comment';
+
+-- Engine
+COMMENT ON ENGINE my_engine IS 'my comment';
+```
+
+The following example removes a description:
+```sql
+-- Location
+COMMENT ON LOCATION my_location IS NULL;
+
+-- Database
+COMMENT ON DATABASE my_database IS NULL;
+
+-- Table
+COMMENT ON TABLE my_table IS NULL;
+
+-- Column
+COMMENT ON COLUMN  my_table.my_column IS NULL;
+
+-- Engine
+COMMENT ON ENGINE my_engine IS NULL;
+```
+
+
