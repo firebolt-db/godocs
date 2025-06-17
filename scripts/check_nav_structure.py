@@ -28,75 +28,41 @@ def group_collect_pages(pages) -> Iterator[str]:
 
 def check_lost_pages(docs_dir: pathlib.Path, tabs: list) -> None:
     navigatable_pages = set(f"{p}.mdx" for p in group_collect_pages(tabs))
-    exceptions = {
-        "index.mdx",
-        "reference/proof-of-concept-guide.mdx",
+    hidden_pages = json.loads((pathlib.Path(docs_dir).parent / "hidden-pages.json").read_text())
+    exceptions = set()
+    for page in hidden_pages:
+        if not page.get("path"):
+            raise ValueError(f"Expected a page with 'path' key, got {page}")
+        if not page.get("reason"):
+            raise ValueError(f"Expected a page with 'reason' key, got {page}")
+        exceptions.add(page["path"])
 
-        # TODO: these are lost pages:
-        'guides/operate-engines/working-with-engines-using-the-firebolt-manager.mdx',
-        'overview/choosing-an-engine.mdx',
-        'reference-sql/bytea-data-type.mdx',
-        'reference-sql/date-data-type.mdx',
-        'reference-sql/functions-reference/aggregate-array.mdx',
-        'reference-sql/functions-reference/aggregate-array/array-count-global.mdx',
-        'reference-sql/functions-reference/aggregate-array/array-max-global.mdx',
-        'reference-sql/functions-reference/aggregate-array/array-min-global.mdx',
-        'reference-sql/functions-reference/aggregate-array/array-sum-global.mdx',
-        'reference-sql/functions-reference/aggregation/approx-percentile.mdx',
-        'reference-sql/functions-reference/aggregation/percentile-disc.mdx',
-        'reference-sql/functions-reference/array/array-cumulative-sum.mdx',
-        'reference-sql/functions-reference/array/array-fill.mdx',
-        'reference-sql/functions-reference/array/array-first-index.mdx',
-        'reference-sql/functions-reference/array/array-replace-backwards.mdx',
-        'reference-sql/functions-reference/array/array-slice.mdx',
-        'reference-sql/functions-reference/date-and-time/date-diff.mdx',
-        'reference-sql/functions-reference/numeric/cbrt.mdx',
-        'reference-sql/functions-reference/numeric/exp.mdx',
-        'reference-sql/functions-reference/numeric/sign.mdx',
-        'reference-sql/functions-reference/numeric/trunc.mdx',
-        'reference-sql/functions-reference/string/base64-encode.mdx',
-        'reference-sql/functions-reference/string/extract-all.mdx',
-        'reference-sql/functions-reference/string/match-any.mdx',
-        'reference-sql/functions-reference/string/match.mdx',
-        'reference-sql/functions-reference/string/md5-number-lower64.mdx',
-        'reference-sql/functions-reference/string/md5-number-upper64.mdx',
-        'reference-sql/functions-reference/string/md5.mdx',
-        'reference-sql/functions-reference/string/repeat.mdx',
-        'reference-sql/functions-reference/string/reverse.mdx',
-        'reference-sql/functions-reference/string/split.mdx',
-        'reference-sql/functions-reference/string/to-double.mdx',
-        'reference-sql/functions-reference/string/to-float.mdx',
-        'reference-sql/functions-reference/string/to-int.mdx',
-        'reference-sql/functions-reference/window/cume-dist.mdx',
-        'reference-sql/functions-reference/window/nth-value.mdx',
-        'reference-sql/functions-reference/window/percentile-cont-window.mdx',
-        'reference-sql/functions-reference/window/percentile-disc-window.mdx',
-        'reference-sql/geography-data-type.mdx',
-        'reference-sql/numeric-data-type.mdx',
-        'reference-sql/struct-data-type.mdx',
-        'reference-sql/timestampntz-data-type.mdx',
-        'reference-sql/timestamptz-data-type.mdx',
-        'reference/interval-arithmetic.mdx',
-    }
+    if stale_exceptions := exceptions & navigatable_pages:
+        raise Exception(
+            f"Found {len(stale_exceptions)} pages that are listed in hidden but are in the navigation:\n"
+            + "\n".join(sorted(stale_exceptions))
+        )
 
-    lost_pages = []
+    lost_pages = set()
     for p in docs_dir.glob("**/*.mdx"):
         rel_p = p.relative_to(docs_dir)
         if len(rel_p.parents) > 1 and rel_p.parents[-2].name == "snippets":
             continue
-        if str(rel_p) in exceptions:
-            continue
         if not str(p.relative_to(docs_dir)) in navigatable_pages:
-            lost_pages.append(str(rel_p))
+            lost_pages.add(str(rel_p))
 
-    lost_pages.sort()
+    if stale_exceptions := exceptions - lost_pages:
+        raise Exception(
+            f"Found {len(stale_exceptions)} pages that are listed in hidden but do not exist:\n"
+            + "\n".join(sorted(stale_exceptions))
+        )
+
+    lost_pages -= {"index.mdx"}
+    lost_pages -= exceptions
     if lost_pages:
-        print(f"Found {len(lost_pages)} hidden pages:")
-        for p in lost_pages:
-            print(f'{repr(p)},')
         raise Exception(
             f"Found {len(lost_pages)} pages that are not navigatable:\n"
-            + "\n".join(f"https://docs.firebolt.io/{p.removesuffix('.mdx')}" for p in sorted(lost_pages))
+            + "\n".join(sorted(lost_pages))
         )
 
 

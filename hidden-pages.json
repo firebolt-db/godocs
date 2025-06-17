@@ -1,0 +1,186 @@
+[
+  {
+    "path": "guides/integrations/debezium.mdx",
+    "reason": "in private preview, https://firebolt-analytics.slack.com/archives/C016HSVDP9U/p1750158214516229"
+  },
+  {
+    "path": "reference/proof-of-concept-guide.mdx",
+    "reason": "a non-public guide for private PoC"
+  },
+  {
+    "path": "guides/operate-engines/working-with-engines-using-the-firebolt-manager.mdx",
+    "reason": "obsolete, to be deleted"
+  },
+  {
+    "path": "overview/choosing-an-engine.mdx",
+    "reason": "obsolete, to be deleted"
+  },
+  {
+    "path": "reference-sql/bytea-data-type.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/date-data-type.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/functions-reference/aggregate-array.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/aggregate-array/array-count-global.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/aggregate-array/array-max-global.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/aggregate-array/array-min-global.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/aggregate-array/array-sum-global.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/aggregation/approx-percentile.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/aggregation/percentile-disc.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/array/array-cumulative-sum.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/array/array-fill.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/array/array-first-index.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/array/array-replace-backwards.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/array/array-slice.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/functions-reference/date-and-time/date-diff.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/functions-reference/numeric/cbrt.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/numeric/exp.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/functions-reference/numeric/sign.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/numeric/trunc.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/functions-reference/string/base64-encode.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/string/extract-all.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/string/match-any.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/string/match.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/string/md5-number-lower64.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/functions-reference/string/md5-number-upper64.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/functions-reference/string/md5.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/functions-reference/string/repeat.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/string/reverse.mdx",
+    "reason": "to be released in 4.23"
+  },
+  {
+    "path": "reference-sql/functions-reference/string/split.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/string/to-double.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/string/to-float.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/string/to-int.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/window/cume-dist.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/window/nth-value.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/window/percentile-cont-window.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/functions-reference/window/percentile-disc-window.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "reference-sql/geography-data-type.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/numeric-data-type.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/struct-data-type.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/timestampntz-data-type.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/timestamptz-data-type.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference/interval-arithmetic.mdx",
+    "reason": "to be readded"
+  }
+]

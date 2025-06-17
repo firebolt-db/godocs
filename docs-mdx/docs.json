@@ -219,7 +219,6 @@
                   "guides/integrations/tableau",
                   "guides/integrations/connecting-to-paradime",
                   "guides/integrations/metabase",
-                  "guides/integrations/debezium",
                   "guides/integrations/estuary",
                   "guides/integrations/dbeaver",
                   "guides/integrations/mcp"
