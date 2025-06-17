@@ -629,6 +629,7 @@
                       "reference-sql/functions-reference/string/regexp-like",
                       "reference-sql/functions-reference/string/regexp-replace",
                       "reference-sql/functions-reference/string/replace",
+                      "reference-sql/functions-reference/string/reverse",
                       "reference-sql/functions-reference/string/rpad",
                       "reference-sql/functions-reference/string/rtrim",
                       "reference-sql/functions-reference/string/split-part",
