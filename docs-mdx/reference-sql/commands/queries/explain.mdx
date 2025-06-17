@@ -162,44 +162,54 @@ The `MaybeCache` operator, at the top of the plan, caches its input in main memo
 ### `EXPLAIN (ANALYZE)` output
 
 ```
-[0] [MaybeCache]
-|   [RowType]: date not null, text not null, bigint not null, double precision null
-|   [Execution Metrics]: output cardinality = 270958684, thread time = 7ms, cpu time = 4ms
- \_[1] [Projection] ref_2, ref_1, ref_0, ref_3
-   |   [RowType]: date not null, text not null, bigint not null, double precision null
-   |   [Execution Metrics]: Optimized out
-    \_[2] [SortMerge] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last]
-      |   [RowType]: bigint not null, text not null, date not null, double precision null
-      |   [Execution Metrics]: output cardinality = 270958684, thread time = 27932ms, cpu time = 27692ms
-       \_[3] [Shuffle] Gather
-         |   [RowType]: bigint not null, text not null, date not null, double precision null
-         |   [Affinity]: many nodes
-         |   [Execution Metrics]: output cardinality = 270958684, thread time = 1846ms, cpu time = 1779ms
-          \_[4] [Sort] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last]
-            |   [RowType]: bigint not null, text not null, date not null, double precision null
-            |   [Execution Metrics]: output cardinality = 270958684, thread time = 286199ms, cpu time = 285590ms
-             \_[5] [AggregateMerge] GroupBy: [ref_0, ref_1, ref_2] Aggregates: [avg2merge(ref_3)]
-               |   [RowType]: bigint not null, text not null, date not null, double precision null
-               |   [Execution Metrics]: output cardinality = 270958684, thread time = 90694ms, cpu time = 77308ms
-                \_[6] [Shuffle] Hash by [ref_0, ref_1, ref_2]
-                  |   [RowType]: bigint not null, text not null, date not null, aggregatefunction(avg2ornull, double precision not null) not null
-                  |   [Affinity]: many nodes
-                  |   [Execution Metrics]: output cardinality = 270958691, thread time = 27649ms, cpu time = 24247ms
-                   \_[7] [AggregateState partial] GroupBy: [ref_0, ref_2, ref_3] Aggregates: [avg2(ref_1)]
-                     |   [RowType]: bigint not null, text not null, date not null, aggregatefunction(avg2ornull, double precision not null) not null
-                     |   [Execution Metrics]: output cardinality = 270958691, thread time = 191561ms, cpu time = 184761ms
-                      \_[8] [Projection] ref_0, ref_1, ref_3, ref_4
-                        |   [RowType]: bigint not null, double precision not null, text not null, date not null
-                        |   [Execution Metrics]: Optimized out
-                         \_[9] [Filter] (ref_2 = 'N'), (ref_4 > DATE '1996-01-01')
-                           |   [RowType]: bigint not null, double precision not null, text not null, text not null, date not null
-                           |   [Execution Metrics]: output cardinality = 275468571, thread time = 3578ms, cpu time = 3566ms
-                            \_[10] [StoredTable] Name: "lineitem", used 5/16 column(s) FACT, ref_0: "l_orderkey" ref_1: "l_discount" ref_2: "l_returnflag" ref_3: "l_linestatus" ref_4: "l_shipdate"
-                                  [RowType]: bigint not null, double precision not null, text not null, text not null, date not null
-                                  [Execution Metrics]: output cardinality = 334006486, thread time = 29642ms, cpu time = 29608ms
+[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, lineitem.l_orderkey, avg2_1
+|   [Execution Metrics]: Optimized out
+ \_[1] [SortMerge] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, lineitem.l_orderkey Ascending Last, avg2_1 Ascending Last]
+   |   [Execution Metrics]: output cardinality = 175272184, thread time = 15776ms, cpu time = 15773ms
+    \_[2] [Shuffle] Gather
+      |   [Affinity]: many nodes
+      |   [Execution Metrics]: output cardinality = 175272184, thread time = 1344ms, cpu time = 1339ms
+       \_[3] [Sort] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, lineitem.l_orderkey Ascending Last, avg2_1 Ascending Last]
+         |   [Execution Metrics]: output cardinality = 175272184, thread time = 161940ms, cpu time = 161370ms
+          \_[4] [AggregateMerge] GroupBy: [lineitem.l_orderkey, lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg2_1: avg2merge(avg2_0)]
+            |   [Types]: avg2_1: numeric(38, 9) null
+            |   [Execution Metrics]: output cardinality = 175272184, thread time = 102041ms, cpu time = 95573ms
+             \_[5] [Shuffle] Hash by [lineitem.l_orderkey, lineitem.l_linestatus, lineitem.l_shipdate]
+               |   [Affinity]: many nodes
+               |   [Execution Metrics]: output cardinality = 175272516, thread time = 21998ms, cpu time = 20321ms
+                \_[6] [AggregateState partial] GroupBy: [lineitem.l_orderkey, lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg2_0: avg2(lineitem.l_discount)]
+                  |   [Types]: avg2_0: aggregatefunction(avg2ornull, numeric(38, 9) null) not null
+                  |   [Execution Metrics]: output cardinality = 175272516, thread time = 153805ms, cpu time = 151232ms
+                   \_[7] [Projection] lineitem.l_orderkey, lineitem.l_discount, lineitem.l_linestatus, lineitem.l_shipdate
+                     |   [Execution Metrics]: Optimized out
+                      \_[8] [Filter] (lineitem.l_returnflag = 'N'), (lineitem.l_shipdate > DATE '1996-01-01')
+                        |   [Execution Metrics]: output cardinality = 178187768, thread time = 4065ms, cpu time = 4048ms
+                         \_[9] [TableFuncScan] lineitem.l_orderkey: $0.l_orderkey, lineitem.l_discount: $0.l_discount, lineitem.l_returnflag: $0.l_returnflag, lineitem.l_linestatus: $0.l_linestatus, lineitem.l_shipdate: $0.l_shipdate
+                           |   $0 = read_tablets(table_name => lineitem, tablet)
+                           |   [Types]: lineitem.l_orderkey: bigint null, lineitem.l_discount: numeric(38, 9) null, lineitem.l_returnflag: text null, lineitem.l_linestatus: text null, lineitem.l_shipdate: date null
+                           |   [Execution Metrics]: output cardinality = 216026836, thread time = 24315ms, cpu time = 24237ms, granules: 52257/52257
+                            \_[10] [Projection] tablet
+                              |   [Execution Metrics]: Optimized out
+                               \_[11] [Filter] (((min_l_returnflag > 'N') or (max_l_returnflag < 'N')) IS DISTINCT FROM TRUE), ((max_l_shipdate <= DATE '1996-01-01') IS DISTINCT FROM TRUE)
+                                 |   [Execution Metrics]: output cardinality = 14, thread time = 1ms, cpu time = 1ms
+                                  \_[12] [TableFuncScan] tablet: $0.tablet, min_l_returnflag: $0.min_l_returnflag, max_l_returnflag: $0.max_l_returnflag, max_l_shipdate: $0.max_l_shipdate
+                                    |   $0 = list_tablets(table_name => lineitem)
+                                    |   [Types]: tablet: tablet not null, min_l_returnflag: text null, max_l_returnflag: text null, max_l_shipdate: date null
+                                    |   [Execution Metrics]: output cardinality = 14, thread time = 1ms, cpu time = 0ms
+                                     \_[13] [Projection]
+                                       |   [Execution Metrics]: output cardinality = 0, thread time = 0ms, cpu time = 0ms
+                                        \_[14] [SystemOneTable]
+                                              [Types]: $0: integer not null
+                                              [Execution Metrics]: Nothing was executed
 ```
 
 The `explain_analyze` column contains the same query plan as the `explain_physical` column, but annotated with metrics collected during query execution. For each operator, it shows the number of rows it produced in `output_cardinality`, and how much time was spent on that operator in `thread_time` and `cpu_time`. The `thread_time` is the sum of the wall-clock time that threads spent working on the operator across all nodes, while `cpu_time` is the total time those threads were scheduled on a CPU core. A significantly smaller `cpu_time` compared to `thread_time` suggests that the operator is either waiting on input or output operations or that the engine is handling multiple queries simultaneously.
+
+For `TableFuncScan` operators that read from tables with primary indexes, additional metrics may be displayed:
+- `granules` shows the output granules (not pruned) out of the total number of granules that were considered.
+
+
+These metrics help you understand the effectiveness of primary index pruning in reducing the amount of data scanned during query execution. In the example above, `granules: 52257/52257` indicates that no granules were pruned by the primary index, meaning all 52,257 granules were scanned.
 
 #### Analyzing the Metrics
 
