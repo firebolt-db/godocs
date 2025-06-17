@@ -8,7 +8,7 @@ Each node in a Firebolt Core cluster exposes a single HTTP endpoint for communic
 
 ## Communication Protocol
 
-In principle, any HTTP client (library) can be used to connect to a Firebolt Core cluster. In the following examples we will use the `curl` command line utility and assume that a single-node Firebolt Core cluster is running on the local machine with its HTTP endpoint exposed at `localhost:3473`. You can refer to [Get Started](/firebolt-core/firebolt-core-get-started) for instructions on how to start such a cluster.
+In principle, any HTTP client (library) can be used to connect to a Firebolt Core cluster. In the following examples will be used the `curl` command line utility and it is assumed that a single-node Firebolt Core cluster is running on the local machine with its HTTP endpoint exposed at `localhost:3473`. You can refer to [Get Started](/firebolt-core/firebolt-core-get-started) for instructions on how to start such a cluster.
 
 Each HTTP `POST` request submitted to the HTTP endpoint of Firebolt Core should contain exactly one valid SQL query, for example:
 
@@ -125,6 +125,9 @@ will return the following response body.
 {"message_type":"DATA","data":[[1,42],[2,84],[3,126],[4,168]]}
 {"message_type":"FINISH_SUCCESSFULLY","statistics":{"bytes_read":1,"elapsed":0.001598,"result_rows":4,"rows_read":1,"scanned_bytes_cache":0,"scanned_bytes_storage":0}}
 ```
+
+See also:
+* [fb-cli](https://github.com/firebolt-db/fb-cli) - official command line utility for Firebolt and Firebolt Core
 
 ## Sessions
 

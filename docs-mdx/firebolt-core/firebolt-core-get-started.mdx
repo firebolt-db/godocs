@@ -39,12 +39,22 @@ Note that there is no universally correct amount of RAM and disk space for runni
 Run the following command to start a single-node Firebolt Core cluster on your local machine (see [Deployment and Operational Guide](/firebolt-core/firebolt-core-operation) for details on the command-line arguments).
 
 ```bash
-docker run --tty --rm --ulimit memlock=8589934592:8589934592 --security-opt seccomp=unconfined -v ./firebolt-core-data:/firebolt-core/volume --publish 127.0.0.1:3473:3473 ghcr.io/firebolt-db/firebolt-core:preview-rc
+docker run --name firebolt-core --rm --ulimit memlock=8589934592:8589934592 --security-opt seccomp=unconfined -v ./firebolt-core-data:/firebolt-core/volume --publish 127.0.0.1:3473:3473 ghcr.io/firebolt-db/firebolt-core:preview-rc
 ```
 
-The above command will pull the `ghcr.io/firebolt-db/firebolt-core:preview-rc` Docker image from our container registry, start a single container running one Firebolt Core node, and expose its HTTP endpoint at `localhost:3473` on the host system. All persisted data will be stored on a `firebolt-core-data` directory mounted through a bind mount; note that this directory will be owned by `root` user.
+The above command will pull the `ghcr.io/firebolt-db/firebolt-core:preview-rc` Docker image and start a single container running one Firebolt Core node, then expose its HTTP endpoint at `localhost:3473` on the host system. All persisted data will be stored on a `firebolt-core-data` directory mounted through a bind mount; note that this directory will be owned by `root` user.
 
-You can send SQL queries to this endpoint with `curl`:
+On a new shell you can start the interactive CLI to run queries:
+```bash
+$ docker exec -ti firebolt-core fbcli
+Press Ctrl+D to exit.
+=> SELECT 42;
+ ?column?
+---------
+       42
+```
+
+It is also possible to directly send SQL queries to the HTTP endpoint via `curl`:
 ```bash
 curl --silent "localhost:3473" --data-binary "SELECT 'H3ll0, w0rld'"
 ```
@@ -56,6 +66,3 @@ See also:
 ## Multi-Node deployment
 
 For multi-node deployments, see [Multi-node setups](/firebolt-core/firebolt-core-operation#multi-node-setups)
-
-Continue reading: [Deployment and Operational Guide](/firebolt-core/firebolt-core-operation)
-

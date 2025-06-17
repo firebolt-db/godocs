@@ -60,4 +60,8 @@ curl -s "http://example-node-a:3473" --data-binary "select 42";
 curl -s "http://example-node-b:3473" --data-binary "select 42";
 ```
 
-Continue reading: [Deploy using Kubernetes](/firebolt-core/firebolt-core-operation/firebolt-core-deployment-k8s)
+[fb-cli](https://github.com/firebolt-db/fb-cli) is also present within each of the Docker containers, you can invoke it with:
+
+```bash
+docker exec -ti firebolt-core-node-0 fbcli
+```

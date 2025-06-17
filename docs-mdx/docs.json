@@ -716,6 +716,7 @@
                 "group": "Connect",
                 "pages": [
                   "firebolt-core/firebolt-core-connect",
+                  "firebolt-core/firebolt-core-connect/firebolt-core-connect-cli",
                   "firebolt-core/firebolt-core-connect/firebolt-core-connect-go",
                   "firebolt-core/firebolt-core-connect/firebolt-core-connect-jdbc"
                 ]
@@ -4817,6 +4818,11 @@
       "permanent": false
     },
     {
+      "source": "/FireboltCore/firebolt-core-connect-cli.html",
+      "destination": "/firebolt-core/firebolt-core-connect/firebolt-core-connect-cli",
+      "permanent": false
+    },
+    {
       "source": "/FireboltCore/firebolt-core-connect-go.html",
       "destination": "/firebolt-core/firebolt-core-connect/firebolt-core-connect-go",
       "permanent": false
@@ -5214,6 +5220,11 @@
     {
       "source": "/Guides/developing-with-firebolt/index",
       "destination": "/guides/developing-with-firebolt",
+      "permanent": false
+    },
+    {
+      "source": "/FireboltCore/firebolt-core-connect-cli",
+      "destination": "/firebolt-core/firebolt-core-connect/firebolt-core-connect-cli",
       "permanent": false
     },
     {
