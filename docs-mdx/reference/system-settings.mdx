@@ -50,6 +50,8 @@ The following settings can be configured using the `WITH` clause:
 - [insert_sharding](#insert-sharding)
 - [tablet_min_size_bytes and tablet_max_size_bytes](#target-tablet-size)
 - [cross_region_request_mode](#access-cross-region-data)
+- [optimizer_mode](#changing-the-optimizer-mode)
+- [enable_storage_statistics](#using-storage-manager-statistics-in-the-optimizer)
 
 ## Setting the time zone
 
@@ -407,4 +409,143 @@ LIMIT 5
 WITH (CROSS_REGION_REQUEST_MODE = 'auto');
 ```
 
+## Changing the optimizer mode
 
+If set to `user_guided`, the optimizer will disalbe all cost-based optimization rules.
+This ensures that the relative order of joins and aggregations in the resulting execution plan will follow the sytnatic order defined in the `SELECT` blocks of your SQL query
+The default value is `automatic`.
+
+### Syntax
+
+You can use both the `SET`
+
+```sql
+SET optimizer_mode = 'user_guided';
+SELECT ... ;
+SET optimizer_mode = 'automatic';
+```
+
+and the `WITH` syntax.
+
+```sql
+SELECT ... WITH (optimizer_mode = 'user_guided');
+```
+
+If you want to limit the scope of this setting to a specific query, we recommend the latter.
+
+### Example
+
+The following examples demonstrate how to use the `optimizer_mode` setting to ensure that in the resulting execution plan, the join between `r` and `s` is executed before the join between `r` and `t`.
+
+```sql
+SELECT
+  *
+FROM
+  r JOIN s ON(r.x = s.x) JOIN t ON(r.y = t.y)
+WITH (optimizer_mode = 'user_guided');
+```
+
+## Using storage manager statistics in the optimizer
+
+You can control the use of storage manager statistics in the optimizer with the `enable_storage_statistics` session parameter.
+Per default, storage manager statistics are enabled (the default value is `true`).
+If you want to disable them, set the value to `false`.
+
+### Syntax
+
+```sql
+SET enable_storage_statistics = [true|false];
+```
+
+### Example
+
+Consider the following example.
+
+When `enable_storage_statistics` is set to `true`, the optimizer will use the storage manager statistics to estimate the number of rows in the fact table `ft` and the dimension tables `d1` and `d2`.
+The storage manager reports that `d2` is much smaller (50 rows) compared to `d1` (1000 rows).
+The optimizer estimates that even after applying the local predicates on these dimension tables, it will be more efficient to join `ft` with `d2` first and then with `d1`.
+The join order in this plan will adapt to the size of the underlying tables.
+For example, if the size of `d2` becomes 400 rows, the optimizer will first join `ft` with `d1` and then with `d2`.
+
+However, when `enable_storage_statistics` is set to `false`, the optimizer uses the hardcoded default estimates for the fact table `ft` (100,000,000 rows) and the dimension tables `d1` and `d2` (100,000 rows).
+Because the two dimension tables are estimated to be equally large, the join order in this case is fully determined by the number of local predicates.
+Applying two local predicates on `d1` is estimated to produce a smaller estimated row count (20000 rows) than applying one local predicate on `d2` (70000 rows).
+This join order will remain stable even if the underlying table sizes change.
+
+{/*
+drop table if exists fact_table;
+drop table if exists dim_table1;
+drop table if exists dim_table2;
+
+create fact table fact_table (
+  x INTEGER NOT NULL,
+  y INTEGER NOT NULL,
+  z INTEGER NULL DEFAULT 1
+);
+create dimension table dim_table1 (
+  x INTEGER NOT NULL,
+  a INTEGER
+);
+create dimension table dim_table2 (
+  y INTEGER NOT NULL,
+  b INTEGER
+);
+
+insert into fact_table select u as x, u as y, 1 as z from generate_series(1, 10000) as r(u);
+insert into dim_table1 select x, (x + 1) % 10 from generate_series(1, 1000) as r(x);
+insert into dim_table2 select y, (y + 1) % 10 from generate_series(1, 50) as r(y);
+*/}
+
+<CodeGroup>
+```sql SQL query
+EXPLAIN(LOGICAL, STATISTICS)
+SELECT
+  *
+FROM
+  fact_table ft JOIN dim_table1 d1 ON(ft.x = d1.x) JOIN dim_table2 d2 ON(ft.y = d2.y)
+WHERE
+  d1.a > 4 AND d1.a < 9 AND d2.b > 5;
+```
+
+```text EXPLAIN plan with enable_storage_statistics = true {9-10,13-14,17-18}
+[0] [Projection] fact_table.x, fact_table.y, fact_table.z, fact_table.x, dim_table1.a, fact_table.y, dim_table2.b
+|   [Logical Profile]: [est. #rows=16922, source: estimated]
+ \_[1] [Join] Mode: Inner [(fact_table.x = dim_table1.x)]
+   |   [Logical Profile]: [est. #rows=16922, source: estimated]
+    \_[2] [Projection] fact_table.x, fact_table.y, fact_table.z, dim_table2.b
+    | |   [Logical Profile]: [est. #rows=5677, source: estimated]
+    |  \_[3] [Join] Mode: Inner [(fact_table.y = dim_table2.y)]
+    |    |   [Logical Profile]: [est. #rows=5677, source: estimated]
+    |     \_[4] [StoredTable] Name: "fact_table"
+    |     |     [Logical Profile]: [est. #rows=10000, source: metadata]
+    |     \_[5] [Filter] (dim_table2.b > 5)
+    |       |   [Logical Profile]: [est. #rows=35, source: estimated]
+    |        \_[6] [StoredTable] Name: "dim_table2"
+    |              [Logical Profile]: [est. #rows=50, source: metadata]
+    \_[7] [Filter] (dim_table1.a > 4), (dim_table1.a < 9)
+      |   [Logical Profile]: [est. #rows=200, source: estimated]
+       \_[8] [StoredTable] Name: "dim_table1"
+             [Logical Profile]: [est. #rows=1000, source: metadata]
+```
+
+```text EXPLAIN plan with enable_storage_statistics = false {9-10,13-14,17-18}
+[0] [Projection] fact_table.x, fact_table.y, fact_table.z, fact_table.x, dim_table1.a, fact_table.y, dim_table2.b
+|   [Logical Profile]: [est. #rows=6.18316e+12, source: estimated]
+ \_[1] [Join] Mode: Inner [(fact_table.y = dim_table2.y)]
+   |   [Logical Profile]: [est. #rows=6.18316e+12, source: estimated]
+    \_[2] [Projection] fact_table.x, fact_table.y, fact_table.z, dim_table1.a
+    | |   [Logical Profile]: [est. #rows=1.46831e+10, source: estimated]
+    |  \_[3] [Join] Mode: Inner [(fact_table.x = dim_table1.x)]
+    |    |   [Logical Profile]: [est. #rows=1.46831e+10, source: estimated]
+    |     \_[4] [StoredTable] Name: "fact_table"
+    |     |     [Logical Profile]: [est. #rows=1e+08, source: hardcoded]
+    |     \_[5] [Filter] (dim_table1.a > 4), (dim_table1.a < 9)
+    |       |   [Logical Profile]: [est. #rows=20000, source: estimated]
+    |        \_[6] [StoredTable] Name: "dim_table1"
+    |              [Logical Profile]: [est. #rows=100000, source: hardcoded]
+    \_[7] [Filter] (dim_table2.b > 5)
+      |   [Logical Profile]: [est. #rows=70000, source: estimated]
+       \_[8] [StoredTable] Name: "dim_table2"
+             [Logical Profile]: [est. #rows=100000, source: hardcoded]
+```
+</CodeGroup>
