@@ -24,7 +24,7 @@ INSERT INTO <table> [(<column1>[, <column2>][, ...])]
 | `<table>`| The target table where values are to be inserted. |
 | `(<column1>[, <column2>][, ...])]`| A list of column names from `<table_name>` for the insertion. If not defined, the columns are deduced from the `<select_statement>`. |
 | `<expression>`<br/>--OR--<br/> `VALUES ([<value1>[, <value2>][, ...])]` | You can specify either a [`SELECT` query](/reference-sql/commands/queries/select) that determines values to or an explicit list of `VALUES` to insert.|
-| `<public_settings>` | List of [query-specific public settings](/reference/system-settings#setting-via-with) overrides. |
+| `<system_settings>` | List of [query-specific system settings](/reference/system-settings#setting-via-with) overrides. |
 
 ## Example
 
@@ -52,7 +52,7 @@ You can also add another row with only some of the columns populated. The missin
 INSERT INTO students (id, full_name, gender) VALUES (3, 'Ron Weasley', 'M')
 ```
 
-## Public settings to control behavior
+## System settings to control behavior
 
 - `insert_sharding` to [enforce partition locality](/reference/system-settings#insert-sharding) during ingestion into partitioned tables.
 - `tablet_min_size_bytes` and `tablet_max_size_bytes` to [control](/reference/system-settings#target-tablet-size) min/max tablet sizes during ingestion.
