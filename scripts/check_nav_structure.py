@@ -44,17 +44,26 @@ def check_lost_pages(docs_dir: pathlib.Path, tabs: list) -> None:
         )
 
     lost_pages = set()
+    unindexed_pages = set()
     for p in docs_dir.glob("**/*.mdx"):
         rel_p = p.relative_to(docs_dir)
         if len(rel_p.parents) > 1 and rel_p.parents[-2].name == "snippets":
             continue
         if not str(p.relative_to(docs_dir)) in navigatable_pages:
             lost_pages.add(str(rel_p))
+        if re.match("^---\n.*?(groups:\\s+\\[\\s*\\]|noindex:\\s+true)\\s*?\n.*?---\n", p.read_text(), re.DOTALL):
+            unindexed_pages.add(str(rel_p))
 
     if stale_exceptions := exceptions - lost_pages:
         raise Exception(
             f"Found {len(stale_exceptions)} pages that are listed in hidden but do not exist:\n"
             + "\n".join(sorted(stale_exceptions))
+        )
+
+    if stale_unindexed := unindexed_pages & navigatable_pages:
+        raise Exception(
+            f"Found {len(stale_unindexed)} pages that are marked as noindex but are in the navigation:\n"
+            + "\n".join(sorted(stale_unindexed))
         )
 
     lost_pages -= {"index.mdx"}
