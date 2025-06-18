@@ -236,7 +236,19 @@
             "group": "SQL reference",
             "pages": [
               "reference-sql",
-              "reference-sql/data-types",
+              {
+                "group": "Data types",
+                "pages": [
+                  "reference-sql/data-types",
+                  "reference-sql/data-types/bytea",
+                  "reference-sql/data-types/date",
+                  "reference-sql/data-types/geography",
+                  "reference-sql/data-types/numeric",
+                  "reference-sql/data-types/struct",
+                  "reference-sql/data-types/timestampntz",
+                  "reference-sql/data-types/timestamptz"
+                ]
+              },
               {
                 "group": "Information schema",
                 "pages": [
@@ -771,6 +783,41 @@
     }
   },
   "redirects": [
+    {
+      "source": "/reference-sql/bytea-data-type",
+      "destination": "/reference-sql/data-types/bytea",
+      "permanent": false
+    },
+    {
+      "source": "/reference-sql/date-data-type",
+      "destination": "/reference-sql/data-types/date",
+      "permanent": false
+    },
+    {
+      "source": "/reference-sql/geography-data-type",
+      "destination": "/reference-sql/data-types/geography",
+      "permanent": false
+    },
+    {
+      "source": "/reference-sql/numeric-data-type",
+      "destination": "/reference-sql/data-types/numeric",
+      "permanent": false
+    },
+    {
+      "source": "/reference-sql/struct-data-type",
+      "destination": "/reference-sql/data-types/struct",
+      "permanent": false
+    },
+    {
+      "source": "/reference-sql/timestampntz-data-type",
+      "destination": "/reference-sql/data-types/timestampntz",
+      "permanent": false
+    },
+    {
+      "source": "/reference-sql/timestamptz-data-type",
+      "destination": "/reference-sql/data-types/timestamptz",
+      "permanent": false
+    },
     {
       "source": "/guides/query-data",
       "destination": "/guides/run-queries",

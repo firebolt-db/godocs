@@ -19,7 +19,7 @@ Firebolt now supports casting text literals to interval literals using expressio
 
 
 **Added default value support for `GEOGRAPHY` columns**         
-Firebolt now supports default values for columns with the [GEOGRAPHY](/reference-sql/geography-data-type#geography-data-type) data type. For example, `CREATE TABLE geo_table (geo_column GEOGRAPHY DEFAULT 'GEOMETRYCOLLECTION EMPTY')` ensures consistency across database entries when no explicit value is provided.
+Firebolt now supports default values for columns with the [GEOGRAPHY](/reference-sql/data-types/geography#geography-data-type) data type. For example, `CREATE TABLE geo_table (geo_column GEOGRAPHY DEFAULT 'GEOMETRYCOLLECTION EMPTY')` ensures consistency across database entries when no explicit value is provided.
 
 
 **Added `MIN_CLUSTERS` and `MAX_CLUSTERS` columns to `INFORMATION_SCHEMA.ENGINES`**            
@@ -57,7 +57,7 @@ Enterprise and Dedicated customers also get **24/7 support** with **faster suppo
 
 
 **Introduced pruning for `GEOGRAPHY` columns at the tablet level to enhance query performance**           
-Firebolt now prunes [GEOGRAPHY](/reference-sql/geography-data-type#geography-data-type) data at the tablet level to enhance query performance. To activate spatial pruning on tables created before this release, run `VACUUM`. For additional details, see our [blog post](https://www.firebolt.io/blog/architecture-and-internal-representation-of-the-geography-data-type).
+Firebolt now prunes [GEOGRAPHY](/reference-sql/data-types/geography#geography-data-type) data at the tablet level to enhance query performance. To activate spatial pruning on tables created before this release, run `VACUUM`. For additional details, see our [blog post](https://www.firebolt.io/blog/architecture-and-internal-representation-of-the-geography-data-type).
 
 
 **Added `INDEX_GRANULARITY` storage parameter to optimize table storage**          

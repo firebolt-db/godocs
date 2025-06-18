@@ -16,34 +16,6 @@
     "reason": "a non-public guide for private PoC"
   },
   {
-    "path": "reference-sql/bytea-data-type.mdx",
-    "reason": "to be readded"
-  },
-  {
-    "path": "reference-sql/date-data-type.mdx",
-    "reason": "to be readded"
-  },
-  {
-    "path": "reference-sql/geography-data-type.mdx",
-    "reason": "to be readded"
-  },
-  {
-    "path": "reference-sql/numeric-data-type.mdx",
-    "reason": "to be readded"
-  },
-  {
-    "path": "reference-sql/struct-data-type.mdx",
-    "reason": "to be readded"
-  },
-  {
-    "path": "reference-sql/timestampntz-data-type.mdx",
-    "reason": "to be readded"
-  },
-  {
-    "path": "reference-sql/timestamptz-data-type.mdx",
-    "reason": "to be readded"
-  },
-  {
     "path": "reference/interval-arithmetic.mdx",
     "reason": "to be readded"
   },

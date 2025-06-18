@@ -9,7 +9,7 @@ The `ST_CONTAINS` function determines if one `GEOGRAPHY` object fully contains a
 
 If either `geo1` or `geo2` is empty, `ST_CONTAINS` will return `FALSE`.
 
-Before performing the containment check, `geo1` and `geo2` are aligned through a snapping process, ensuring precise calculation. For more details on snapping, refer to the [snapping documentation](/reference-sql/geography-data-type#snapping).
+Before performing the containment check, `geo1` and `geo2` are aligned through a snapping process, ensuring precise calculation. For more details on snapping, refer to the [snapping documentation](/reference-sql/data-types/geography#snapping).
 
 ## Interior definition
 A notable part of `ST_CONTAINS` is that the interiors of the inputs must intersect. The interior for the different `GEOGRAPHY` shape types is defined as follows:
