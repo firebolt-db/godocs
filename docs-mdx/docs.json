@@ -433,6 +433,7 @@
                       "reference-sql/functions-reference/array/array-min",
                       "reference-sql/functions-reference/array/array-reverse-sort",
                       "reference-sql/functions-reference/array/array-reverse",
+                      "reference-sql/functions-reference/array/array-slice",
                       "reference-sql/functions-reference/array/array-sort",
                       "reference-sql/functions-reference/array/array-sum",
                       "reference-sql/functions-reference/array/array-to-string",
@@ -486,6 +487,7 @@
                       "reference-sql/functions-reference/date-and-time/current-date",
                       "reference-sql/functions-reference/date-and-time/current-timestamptz",
                       "reference-sql/functions-reference/date-and-time/date-add",
+                      "reference-sql/functions-reference/date-and-time/date-diff",
                       "reference-sql/functions-reference/date-and-time/date-trunc",
                       "reference-sql/functions-reference/date-and-time/date",
                       "reference-sql/functions-reference/date-and-time/extract",
@@ -558,6 +560,7 @@
                       "reference-sql/functions-reference/numeric/cos",
                       "reference-sql/functions-reference/numeric/cot",
                       "reference-sql/functions-reference/numeric/degrees",
+                      "reference-sql/functions-reference/numeric/exp",
                       "reference-sql/functions-reference/numeric/floor",
                       "reference-sql/functions-reference/numeric/hll-count-estimate",
                       "reference-sql/functions-reference/numeric/is_finite",
@@ -573,7 +576,8 @@
                       "reference-sql/functions-reference/numeric/round",
                       "reference-sql/functions-reference/numeric/sin",
                       "reference-sql/functions-reference/numeric/sqrt",
-                      "reference-sql/functions-reference/numeric/tan"
+                      "reference-sql/functions-reference/numeric/tan",
+                      "reference-sql/functions-reference/numeric/trunc"
                     ]
                   },
                   {
@@ -599,6 +603,9 @@
                       "reference-sql/functions-reference/string/lower",
                       "reference-sql/functions-reference/string/lpad",
                       "reference-sql/functions-reference/string/ltrim",
+                      "reference-sql/functions-reference/string/md5",
+                      "reference-sql/functions-reference/string/md5-number-lower64",
+                      "reference-sql/functions-reference/string/md5-number-upper64",
                       "reference-sql/functions-reference/string/ngram",
                       "reference-sql/functions-reference/string/octet_length",
                       "reference-sql/functions-reference/string/position",
