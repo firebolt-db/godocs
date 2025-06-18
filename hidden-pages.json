@@ -12,19 +12,67 @@
     "reason": "a non-public guide for private PoC"
   },
   {
-    "path": "guides/operate-engines/working-with-engines-using-the-firebolt-manager.mdx",
-    "reason": "obsolete, to be deleted"
-  },
-  {
-    "path": "overview/choosing-an-engine.mdx",
-    "reason": "obsolete, to be deleted"
-  },
-  {
     "path": "reference-sql/bytea-data-type.mdx",
     "reason": "to be readded"
   },
   {
     "path": "reference-sql/date-data-type.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/functions-reference/array/array-slice.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/functions-reference/date-and-time/date-diff.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/functions-reference/numeric/exp.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/functions-reference/numeric/trunc.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/functions-reference/string/reverse.mdx",
+    "reason": "to be released in 4.23"
+  },
+  {
+    "path": "reference-sql/geography-data-type.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/numeric-data-type.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/struct-data-type.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/timestampntz-data-type.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/timestamptz-data-type.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference/interval-arithmetic.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/functions-reference/string/md5-number-lower64.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/functions-reference/string/md5-number-upper64.mdx",
+    "reason": "to be readded"
+  },
+  {
+    "path": "reference-sql/functions-reference/string/md5.mdx",
     "reason": "to be readded"
   },
   {
@@ -72,28 +120,12 @@
     "reason": "not yet implemented"
   },
   {
-    "path": "reference-sql/functions-reference/array/array-slice.mdx",
-    "reason": "to be readded"
-  },
-  {
-    "path": "reference-sql/functions-reference/date-and-time/date-diff.mdx",
-    "reason": "to be readded"
-  },
-  {
     "path": "reference-sql/functions-reference/numeric/cbrt.mdx",
     "reason": "not yet implemented"
   },
   {
-    "path": "reference-sql/functions-reference/numeric/exp.mdx",
-    "reason": "to be readded"
-  },
-  {
     "path": "reference-sql/functions-reference/numeric/sign.mdx",
     "reason": "not yet implemented"
-  },
-  {
-    "path": "reference-sql/functions-reference/numeric/trunc.mdx",
-    "reason": "to be readded"
   },
   {
     "path": "reference-sql/functions-reference/string/base64-encode.mdx",
@@ -112,24 +144,8 @@
     "reason": "not yet implemented"
   },
   {
-    "path": "reference-sql/functions-reference/string/md5-number-lower64.mdx",
-    "reason": "to be readded"
-  },
-  {
-    "path": "reference-sql/functions-reference/string/md5-number-upper64.mdx",
-    "reason": "to be readded"
-  },
-  {
-    "path": "reference-sql/functions-reference/string/md5.mdx",
-    "reason": "to be readded"
-  },
-  {
     "path": "reference-sql/functions-reference/string/repeat.mdx",
     "reason": "not yet implemented"
-  },
-  {
-    "path": "reference-sql/functions-reference/string/reverse.mdx",
-    "reason": "to be released in 4.23"
   },
   {
     "path": "reference-sql/functions-reference/string/split.mdx",
@@ -162,29 +178,5 @@
   {
     "path": "reference-sql/functions-reference/window/percentile-disc-window.mdx",
     "reason": "not yet implemented"
-  },
-  {
-    "path": "reference-sql/geography-data-type.mdx",
-    "reason": "to be readded"
-  },
-  {
-    "path": "reference-sql/numeric-data-type.mdx",
-    "reason": "to be readded"
-  },
-  {
-    "path": "reference-sql/struct-data-type.mdx",
-    "reason": "to be readded"
-  },
-  {
-    "path": "reference-sql/timestampntz-data-type.mdx",
-    "reason": "to be readded"
-  },
-  {
-    "path": "reference-sql/timestamptz-data-type.mdx",
-    "reason": "to be readded"
-  },
-  {
-    "path": "reference/interval-arithmetic.mdx",
-    "reason": "to be readded"
   }
 ]
