@@ -12,7 +12,7 @@
   * [x] all includes work
   * [x] home page design is neat
   * [x] home page design is neat on small screens
-* [ ] Add /docs-mdx to firebolt-analytics/firebolt-docs-staging
+* [x] Add /docs-mdx to firebolt-analytics/firebolt-docs-staging
   * [x] Add the mintlify application to the firebolt-analytics/firebolt-docs-staging repo.
   * [x] Switch the repo in the mintlify dashboard.
   * [x] Set up a build check to ensure the /docs-mdx directory is always in sync with the /docs directory in gh-pages branch.
@@ -36,16 +36,19 @@
 Nice to have:
 * [ ] Enable analytics
   * [ ] Integrate with cookie consent platform
-* [ ] Replace the 307 redirectes for 301
-* [ ] Check that most of the pages are fit for small screens
-* [ ] Check documentation for inconsistencies in formatting
-* [ ] Write HowTo documentation for contributors.
-* [ ] Fix syntax highlighting in query window widgets
-* [ ] Unhide pages hidden in navigation tree for no reason
 * [ ] Publish reference pages staying unpublished for no reason
-  * [ ] Add data type reference page navigation group and data type pages with "Details on " prefix
+  * [x] Unhide pages hidden in navigation tree for no reason
+  * [x] Add data type reference page navigation group and data type pages with "Details on " prefix
+  * [ ] Add section TOC in section index pages where it's needed.
+* [ ] Improve interactive playground
   * [ ] Add interactive examples where they work but not included
-  * [ ] Clean up assets (no unused image copies)
-* [ ] Fix statistical examples
-* [ ] Output TOC for has_toc index pages where needed
-* [ ] Fix screenshots for dark mode
+  * [ ] Fix statistical examples
+  * [ ] Fix syntax highlighting in query window widgets
+* [ ] Replace the 307 redirectes for 301
+* [ ] Write HowTo documentation for contributors.
+* [ ] Improve visuals
+  * [ ] Fix screenshots for dark mode
+  * [ ] Check that most of the pages are fit for small screens
+  * [ ] Check documentation for inconsistencies in formatting
+* [ ] Replace muffet in external link check or fix its handling of timeouts
+* [ ] Clean up assets (no unused image copies)
