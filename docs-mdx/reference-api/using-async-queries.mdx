@@ -113,7 +113,7 @@ The previous code example returns a single row with the following schema:
 | user_name                   | TEXT        | The name of the user who submitted the asynchronous query. |
 | request_id                  | TEXT        | Unique ID of the request which submitted the asynchronous query. |
 | query_id                    | TEXT        | Unique ID of the asynchronous query. |
-| status                      | TEXT        | Current status of the query: SUSPENDED, RUNNING, CANCELLED, FAILED, SUCCEEDED or IN_DOUBT. |
+| status                      | TEXT        | Current status of the query: SUSPENDED, RUNNING, CANCELED_EXECUTION, EXECUTION_ERROR, ENDED_SUCCESSFULLY or IN_DOUBT. |
 | submitted_time              | TIMESTAMPTZ | The time the asynchronous query was submitted. |
 | start_time                  | TIMESTAMPTZ | The time the async query was most recently started. |
 | end_time                    | TIMESTAMPTZ | If the asynchronous query is completed, the time it finished. |
