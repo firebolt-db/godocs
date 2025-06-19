@@ -1,0 +1,77 @@
+---
+title: Power BI
+sidebarTitle: Power BI
+description: Connecting Power BI and Firebolt.
+noindex: true
+---
+
+
+<img src="../../assets/images/power-bi.png" alt="Power BI icon" width="200"/>
+
+[Power BI](https://powerbi.microsoft.com/) is a business analytics platform by Microsoft that enables users to visualize data, create interactive reports, and share insights across their organization. By integrating Power BI with Firebolt, you can leverage Firebolt's high-performance analytics capabilities to visualize and analyze large datasets efficiently.
+
+This guide shows you how to set up your Firebolt account to integrate with Power BI Desktop using a custom ODBC driver.
+
+## Prerequisites
+
+Before connecting Power BI to Firebolt, ensure you have:
+
+* **Power BI Desktop** – Download and install from the [Power BI Desktop download page](https://powerbi.microsoft.com/desktop/).
+* **Firebolt account** – An active Firebolt account. If you don't have one, [sign up](https://go.firebolt.io/signup).
+* **Firebolt database and table** – A Firebolt database with data ready for visualization. If needed, [create a database](/guides/getting-started/get-started-sql#create-a-database) and [load data](/guides/loading-data) into it.
+* **Firebolt service account** – An active Firebolt [service account](/guides/managing-your-organization/service-accounts) with its ID and secret.
+* **Firebolt user** – A user [associated](/guides/managing-your-organization/service-accounts#create-a-user) with your service account, having [USAGE](/overview/security/rbac/database-permissions) permission to query your database and [OPERATE](/overview/security/rbac/engine-permissions) permission to start and stop an engine.
+
+## Install the Firebolt ODBC driver
+
+1. Reach out to your Firebolt representative to obtain a copy of the ODBC driver.
+2. Run the installer and follow the prompts to complete the installation.
+
+## Install the Firebolt Power BI Connector
+
+1. Download the latest Firebolt Power BI connector (`Firebolt.mez`) from the [Firebolt Power BI Connector GitHub repository](https://github.com/firebolt-db/power-bi-firebolt/releases).
+2. Place the downloaded `.mez` file into the `Documents\Power BI Desktop\Custom Connectors` directory in your Windows operating system. If the folder does not exist - create it.
+3. Restart Power BI Desktop to ensure the connector is loaded correctly.
+4. In Power BI Desktop, go to **File** > **Options and settings** > **Options** > **Security**, and under **Data Extensions**, select **Allow any extension to load without validation or warning**. Click **OK** to apply the changes.
+(This step is necessary because custom connectors are not signed by Microsoft and Power BI Desktop blocks unsigned connectors by default for security reasons.)
+
+## Configure the Firebolt connection in Power BI
+
+1. Open Power BI Desktop.
+2. Select **Get data** from the Home ribbon.
+3. Search for and select **Firebolt** from the list of available data sources.
+4. In the first stage of the connection setup, enter the following parameters:
+   - **Account**: The name of your Firebolt account.
+   - **Database**: The name of the Firebolt database you want to connect to.
+   - **Engine Name**: The name of the Firebolt engine to run queries.
+   - **Data Connectivity Mode**: Choose between **Import** or **DirectQuery** mode based on your use case:
+     - **Import Mode**: Data is imported into Power BI and stored in-memory for faster performance. This mode is ideal for smaller datasets or scenarios where real-time updates are not required.
+     - **DirectQuery Mode**: Queries are sent directly to Firebolt in real-time, ensuring that the latest data is always used. This mode is suitable for large datasets or when up-to-date data is critical.
+
+   Click **Next** to proceed.
+
+5. In the second stage, enter your Firebolt credentials:
+   - **Client ID**: The ID of your Firebolt service account.
+   - **Client Secret**: The secret for your Firebolt service account.
+
+   Click **Connect** to establish the connection.
+
+6. Once connected, you will see a list of available tables in the Navigator pane. Select the tables you want to visualize and click **Load** to import the data into Power BI.
+
+## Select and visualize data in Power BI
+
+After connecting successfully, you can select and visualize data from Firebolt:
+
+1. In the Navigator pane, select the tables you want to visualize.
+2. Click **Load** to import data into Power BI.
+3. Once loaded, use Power BI's visualization tools to create charts and dashboards. For more information, see Power BI's [Create reports](https://learn.microsoft.com/power-bi/create-reports/) documentation.
+
+## Limitations
+
+* The Firebolt ODBC driver currently supports Power BI Desktop only. Power BI Service (cloud) is not supported.
+* Changing the database or engine requires creating a new ODBC connection.
+
+## Additional resources
+
+* [Power BI documentation](https://learn.microsoft.com/power-bi/).
+* [Power BI Community](https://community.powerbi.com/) for support and best practices.
