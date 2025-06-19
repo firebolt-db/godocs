@@ -1,0 +1,50 @@
+---
+description: Reference material for SOUNDEX function
+sidebarTitle: SOUNDEX
+title: SOUNDEX
+---
+
+Returns the Soundex code for a string. Soundex is a phonetic algorithm that indexes names by sound, as pronounced in English. The algorithm produces a four-character code consisting of a letter followed by three digits.
+
+<Note>
+Non-alphabetic characters are ignored when generating the Soundex code. If the input string contains no alphabetic characters, SOUNDEX returns an empty string.
+</Note>
+
+## Syntax
+
+```sql
+SOUNDEX(<expression>)
+```
+
+## Parameters
+
+| Parameter | Description | Supported input types |
+| :--------- | :----------------------------------- | :---------------------|
+| `<expression>` | The string for which to generate the Soundex code. | `TEXT` |
+
+## Return Type
+`TEXT`
+
+## Example
+
+The following example generates Soundex codes for different variations of a name:
+
+```sql
+SELECT
+    SOUNDEX('Smith') as soundex_smith,
+    SOUNDEX('Smyth') as soundex_smyth,
+    SOUNDEX('SMITH') as soundex_upper
+```
+
+**Returns**: `S530`, `S530`, `S530`
+
+The following example shows the behavior with strings containing no alphabetic characters:
+
+```sql
+SELECT
+    SOUNDEX('123') as soundex_numbers,
+    SOUNDEX('!@#$') as soundex_symbols,
+    SOUNDEX('') as soundex_empty
+```
+
+**Returns**: ``, ``, ``

@@ -633,6 +633,7 @@
                       "reference-sql/functions-reference/string/rpad",
                       "reference-sql/functions-reference/string/rtrim",
                       "reference-sql/functions-reference/string/split-part",
+                      "reference-sql/functions-reference/string/soundex",
                       "reference-sql/functions-reference/string/string-to-array",
                       "reference-sql/functions-reference/string/strpos",
                       "reference-sql/functions-reference/string/substring",
