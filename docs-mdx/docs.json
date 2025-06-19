@@ -208,9 +208,8 @@
               {
                 "group": "Integrate with Firebolt",
                 "pages": [
-                  "guides/integrations",
-                  "guides/integrations/airflow",
                   "guides/integrations/connecting-with-dbt",
+                  "guides/integrations/airflow",
                   "guides/integrations/connecting-to-apache-superset",
                   "guides/integrations/connecting-to-preset",
                   "guides/integrations/cube-js",
@@ -281,7 +280,6 @@
                   {
                     "group": "Access control",
                     "pages": [
-                      "reference-sql/commands/access-control",
                       "reference-sql/commands/access-control/alter-login",
                       "reference-sql/commands/access-control/alter-network-policy",
                       "reference-sql/commands/access-control/alter-role",
@@ -304,7 +302,6 @@
                   {
                     "group": "Data definition",
                     "pages": [
-                      "reference-sql/commands/data-definition",
                       "reference-sql/commands/data-definition/alter-account",
                       "reference-sql/commands/data-definition/alter-database",
                       "reference-sql/commands/data-definition/alter-location",
@@ -360,7 +357,6 @@
                   {
                     "group": "Querying and query optimization",
                     "pages": [
-                      "reference-sql/commands/queries",
                       "reference-sql/commands/queries/cancel",
                       "reference-sql/commands/queries/explain",
                       "reference-sql/commands/queries/pipe",
@@ -371,7 +367,6 @@
                   {
                     "group": "Metadata commands",
                     "pages": [
-                      "reference-sql/commands/metadata",
                       "reference-sql/commands/metadata/describe",
                       "reference-sql/commands/metadata/show-cache",
                       "reference-sql/commands/metadata/show-catalogs",
@@ -392,7 +387,6 @@
                   {
                     "group": "Aggregation functions",
                     "pages": [
-                      "reference-sql/functions-reference/aggregation",
                       "reference-sql/functions-reference/aggregation/any_value",
                       "reference-sql/functions-reference/aggregation/approx-count-distinct",
                       "reference-sql/functions-reference/aggregation/array-agg",
@@ -595,7 +589,6 @@
                   {
                     "group": "String functions",
                     "pages": [
-                      "reference-sql/functions-reference/string",
                       "reference-sql/functions-reference/string/btrim",
                       "reference-sql/functions-reference/string/concat",
                       "reference-sql/functions-reference/string/gen-random-uuid-text",
