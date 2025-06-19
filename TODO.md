@@ -34,12 +34,14 @@
 * [x] Add preexisting redirects (through old urls is ok)
 
 Nice to have:
-* [ ] Enable analytics
-  * [ ] Integrate with cookie consent platform
-* [ ] Publish reference pages staying unpublished for no reason
+* [x] Improve documentation structure
+  * [x] Publish reference pages staying unpublished for no reason
   * [x] Unhide pages hidden in navigation tree for no reason
   * [x] Add data type reference page navigation group and data type pages with "Details on " prefix
-  * [ ] Add section TOC in section index pages where it's needed.
+  * [x] Add tests on navigation structure
+  * [x] Add tests on missing redirects when pages are moved
+* [ ] Enable analytics
+  * [ ] Integrate with cookie consent platform
 * [ ] Improve interactive playground
   * [ ] Add interactive examples where they work but not included
   * [ ] Fix statistical examples
