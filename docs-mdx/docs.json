@@ -702,6 +702,7 @@
               "reference/system-settings",
               "reference/object-identifiers",
               "reference/reserved-words",
+              "reference/interval-arithmetic",
               "reference/help-menu"
             ]
           },
