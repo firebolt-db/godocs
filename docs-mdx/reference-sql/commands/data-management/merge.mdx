@@ -16,6 +16,10 @@ When `DO NOTHING` is specified as the merge action, and the branch condition is 
 
 Any aggregated indexes on the target table will be updated in the same transaction.
 
+<Note>
+This feature is in public preview.
+</Note>
+
 
 ## Permissions
 
@@ -110,12 +114,15 @@ WHEN NOT MATCHED THEN INSERT (id, val) VALUES (source.id, source.val);
 Further `USING` examples with subqueries:
 
 ```sql
+-- defining source column names as you go
 USING (select * from unnest([10, 1000]) col1, unnest([20, 2000]) col2) as source
 ```
 ```sql
+-- defining source column names at the end
 USING (select * from unnest([10, 1000]), unnest([20, 2000])) as source (col1, col2)
 ```
 ```sql
+-- [Public Preview] VALUES subquery is not yet available on multi node engines
 USING (VALUES (1, 11), (2, 22), (3, 33)) as source (col1, col2)
 ```
 
@@ -176,6 +183,7 @@ WHEN NOT MATCHED BY SOURCE THEN DELETE;
 
 ## Limitations
 - `WITH` clause is not supported, for specifying one or more subqueries ([CTE](https://docs.firebolt.io/reference-sql/commands/queries/select#materialized-common-table-expressions)) that can be referenced from inside the `MERGE` query.
+- `VALUES` clauses or `DIMENSION` tables as `<data_source>` on multi node engines are not yet supported.
 
 
 ## Related Topics
