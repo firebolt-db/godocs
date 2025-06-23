@@ -45,6 +45,7 @@ The following settings can be configured using the `WITH` clause:
 - [warmup](#multi-cluster-engine-warmup)
 - [enable_result_cache](#result-cache)
 - [enable_subresult_cache](#subresult-cache)
+- [enable_scan_cache](#scan-cache)
 - [insert_sharding](#insert-sharding)
 - [tablet_min_size_bytes and tablet_max_size_bytes](#target-tablet-size)
 
@@ -252,6 +253,27 @@ SELECT count(*) FROM fact_table INNER JOIN dim_table ON (a = b);
 ```
 
 Setting `enable_subresult_cache` to `FALSE` disables the use of all [cached subresults](/overview/queries/understand-query-performance-subresult). In particular, it deactivates two caching mechanisms that normally speed up query runtimes: the use of the `MaybeCache` operator, which includes the full result cache, and the hash-table cache used by the `Join` operator.
+
+## Scan cache
+The scan cache is a feature that caches all columns accessed by a query right after they have been read by the scan of the underlying table. Note that no filters are applied, also any primary indexes will not be used. The cached columns simply represent the entire data for these fields in the table. Since they are in RAM once cached, certain queries / workloads may benefit from this. E.g., if there are many consecutive queries which access the exact same fields, but have changing filters.
+
+Set `enable_scan_cache` to `TRUE` to enable Firebolt’s scan caching, which is set to `FALSE` by default. Note that RAM usage may be high when enabling the scan cache and the impact depends a lot on the workload.
+
+### Syntax
+
+```sql
+SET enable_scan_cache = [true|false];
+```
+
+### Example
+The following code example enables the scan cache. Once enabled, we run several queries which access exactly the same columns, but change the filters. The first query will populate the cache, the following can use the cached columns.
+
+```sql
+SET enable_scan_cache = false;
+SELECT a, b, c FROM production_table WHERE c > 0 LIMIT 10;
+SELECT a, b, c FROM production_table WHERE c = 42 LIMIT 10;
+SELECT a, b, c FROM production_table WHERE a = 17 AND b LIKE '%string%' LIMIT 10;
+```
 
 ## Insert sharding
 
