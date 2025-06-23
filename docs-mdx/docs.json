@@ -146,7 +146,8 @@
                 "group": "SQL Dialect",
                 "pages": [
                   "guides/sql-dialect/arrays",
-                  "guides/sql-dialect/collations"
+                  "guides/sql-dialect/collations",
+                  "guides/sql-dialect/sql-pipe-syntax"
                 ]
               },
               {
@@ -371,7 +372,6 @@
                     "pages": [
                       "reference-sql/commands/queries/cancel",
                       "reference-sql/commands/queries/explain",
-                      "reference-sql/commands/queries/pipe",
                       "reference-sql/commands/queries/recommend_ddl",
                       "reference-sql/commands/queries/select"
                     ]
@@ -5026,7 +5026,7 @@
     },
     {
       "source": "/sql_reference/commands/queries/pipe.html",
-      "destination": "/reference-sql/commands/queries/pipe",
+      "destination": "/guides/sql-dialect/sql-pipe-syntax",
       "permanent": false
     },
     {
@@ -5346,7 +5346,17 @@
     },
     {
       "source": "/sql_reference/commands/queries/pipe",
-      "destination": "/reference-sql/commands/queries/pipe",
+      "destination": "/guides/sql-dialect/sql-pipe-syntax",
+      "permanent": false
+    },
+    {
+      "source": "/reference-sql/commands/queries/pipe",
+      "destination": "/guides/sql-dialect/sql-pipe-syntax",
+      "permanent": false
+    },
+    {
+      "source": "/reference-sql/commands/queries/pipe/",
+      "destination": "/guides/sql-dialect/sql-pipe-syntax",
       "permanent": false
     },
     {
