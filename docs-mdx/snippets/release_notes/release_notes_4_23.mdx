@@ -1,30 +1,37 @@
 ## Firebolt Release Notes - Version 4.23
 
 ### New Features
-*Added `MERGE` SQL Statement*
+**Added `MERGE` SQL Statement**
 
 Added support for `MERGE` SQL Statement, which allows users to perform multiple data modifications (`INSERT`, `UPDATE`, `DELETE`) within a single transaction. `MERGE` is useful for common database tasks like removing duplicates, syncing data between tables (upsert), or cleaning out old records. Documentation is available [here](/reference-sql/commands/data-management/merge).
 
 **Added `COMMENT ON` statement**
+
 Added support for the COMMENT ON statement, which allows users to add or update descriptions for objects such as engine, location, database, table, and column.
 
 **Added the `REVERSE(TEXT)` function**
+
 Added the `REVERSE(TEXT)` function which returns the input string with all characters in reverse order. Documentation for the function is available [here](/reference-sql/functions-reference/string/reverse).
 
 **Added the `SOUNDEX(TEXT)` function**
+
 Added the `SOUNDEX(TEXT)` function which returns the phonetic sound of an input string, allowing comparison of words that sound similar but are spelled differently. Documentation for the function is available [here](/reference-sql/functions-reference/string/soundex).
 
 **Added support for cross-region Amazon S3 access**
+
 Added the ability to ingest and export data to Amazon S3 buckets located in different regions from your Firebolt engines. This update enhances flexibility in data management for users with geographically distributed data. Cross-region access is disabled by default and can be enabled on a per-query basis using the `cross_region_request_mode` setting.
 
 **Added granule-level pruning information to `EXPLAIN ANALYZE` via `PRIMARY_INDEX_PRUNED_GRANULES` and `PRIMARY_INDEX_TOTAL_GRANULES` fields**
+
 Added pruning information at the granule level to `EXPLAIN ANALYZE` through the fields `PRIMARY_INDEX_PRUNED_GRANULES` and `PRIMARY_INDEX_TOTAL_GRANULES`. This provides insights into query optimization by displaying how effectively the primary index reduces data during query execution.
 
 **Added an `optimizer_mode` setting.**
+
 Added a new setting that allows users to control the amount of work that the optimizer attempts to do.
 Documentation for the setting is available [here](/reference/system-settings#changing-the-optimizer-mode).
 
 **Added an `enable_storage_statistics` setting.**
+
 Added a new setting that allows users to control whether statistics information obtained from storage metadata is used for cost-based decisions made by the query optimizer.
 Documentation for the setting is available [here](/reference/system-settings#using-storage-manager-statistics-in-the-optimizer).
 
