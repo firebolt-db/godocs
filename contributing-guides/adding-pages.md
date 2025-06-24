@@ -1,11 +1,6 @@
----
-title: Adding New Documentation Pages
-description: Step-by-step guide for adding new pages to Firebolt documentation
----
-
 # Adding New Documentation Pages
 
-This guide walks you through the process of adding new pages to the Firebolt documentation.
+Step-by-step guide for adding new pages to Firebolt documentation.
 
 ## Prerequisites
 

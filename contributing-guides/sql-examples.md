@@ -1,11 +1,6 @@
----
-title: Adding and Updating SQL Examples
-description: Guide for working with interactive SQL examples in Firebolt documentation
----
-
 # Adding and Updating SQL Examples
 
-This guide explains how to add and update interactive SQL examples using QueryWindow components.
+Guide for working with interactive SQL examples in Firebolt documentation.
 
 ## Overview
 

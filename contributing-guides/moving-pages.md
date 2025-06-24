@@ -1,11 +1,6 @@
----
-title: Moving and Reorganizing Documentation Pages
-description: Guide for safely moving pages and maintaining URL redirects
----
-
 # Moving and Reorganizing Documentation Pages
 
-This guide explains how to safely move documentation pages while maintaining SEO and preventing broken links.
+Guide for safely moving pages and maintaining URL redirects.
 
 ## Overview
 

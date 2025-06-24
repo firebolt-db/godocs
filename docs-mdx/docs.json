@@ -151,15 +151,6 @@
                 ]
               },
               {
-                "group": "Contributing to Documentation",
-                "pages": [
-                  "guides/contributing",
-                  "guides/contributing/adding-pages",
-                  "guides/contributing/sql-examples",
-                  "guides/contributing/moving-pages"
-                ]
-              },
-              {
                 "group": "Load data",
                 "pages": [
                   "guides/loading-data",

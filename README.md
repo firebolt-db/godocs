@@ -125,6 +125,16 @@ The file is automatically updated by running `make check-lost-redirects-regenera
 - **Python Environment**: `make setup-python` installs validation script dependencies
 - **Local Development**: `make start-local` runs Mintlify dev server with live validation
 
+## Contributing Guides
+
+For detailed guidance on contributing to the documentation, see the following guides:
+
+- **[Adding New Pages](contributing-guides/adding-pages.md)**: Step-by-step guide for creating new documentation pages
+- **[SQL Examples](contributing-guides/sql-examples.md)**: Working with interactive SQL examples and QueryWindow components  
+- **[Moving Pages](contributing-guides/moving-pages.md)**: Safely reorganizing content while maintaining redirects
+
+These guides provide comprehensive instructions for common documentation tasks, including validation requirements, best practices, and troubleshooting tips.
+
 ## License summary
 
 The documentation is made available under the Creative Commons Attribution-ShareAlike 4.0 International License.
