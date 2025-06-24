@@ -21,7 +21,10 @@ def main(regenerate: bool) -> None:
 
     existing_pages = set()
     for page_path in docs_dir.glob("**/*.mdx"):
-        page = f'/{str(page_path.relative_to(docs_dir)).removesuffix(".mdx").removeprefix("./")}'
+        rel_page_path = page_path.relative_to(docs_dir)
+        if str(rel_page_path).startswith("snippets/"):
+            continue
+        page = f'/{str(rel_page_path).removesuffix(".mdx").removeprefix("./")}'
         existing_pages.add(page)
         redirect_pages.add(f"{page}/")
 
