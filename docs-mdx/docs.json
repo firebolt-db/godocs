@@ -346,7 +346,6 @@
                   {
                     "group": "Data management",
                     "pages": [
-                      "reference-sql/commands/data-management",
                       "reference-sql/commands/data-management/copy-from",
                       "reference-sql/commands/data-management/copy-to",
                       "reference-sql/commands/data-management/delete",
