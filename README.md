@@ -59,6 +59,72 @@ import {QueryWindow} from '/snippets/query-window.mdx';
 
 You can leave the `result` part empty and generate it using `make package-missing-docs`.
 
+## Validation System
+
+This repository includes a comprehensive validation system that runs both locally and in CI/CD to ensure documentation quality and consistency.
+
+### Local Validation
+
+Run all validation checks locally with:
+```bash
+make check-all
+```
+
+This runs four main categories of checks:
+
+#### 1. Merge Conflict Markers (`make check-markers`)
+- Scans all files for Git merge conflict markers (`<<<<<<<`, `=======`, `>>>>>>>`)
+- Prevents accidental commits of unresolved conflicts
+
+#### 2. Navigation Structure (`make check-navigation`)
+- **Group Structure**: Validates that pages in docs.json follow proper hierarchical organization
+- **Lost Pages**: Identifies MDX files not referenced in navigation or hidden_pages.json
+- **Redirect Loops**: Detects circular redirects that would break navigation
+- **Lost Redirects**: Ensures all previously known URLs have proper redirects
+
+#### 3. Link Validation (`make check-links`)
+- **Internal Links**: Uses Mintlify's built-in broken link checker
+- **External Links**: Runs a Docker-based crawler (muffet) to validate external URLs
+
+#### 4. SQL Example Validation (`make check-sql`)
+- Validates QueryWindow components against live Firebolt staging API
+- Ensures SQL examples produce expected results
+- Normalizes results to handle dynamic values (UUIDs, timestamps, etc.)
+
+### GitHub Workflow Validation
+
+The `.github/workflows/pr-check.yml` workflow runs four parallel jobs on every pull request:
+
+1. **check-basic-errors**: Merge conflict markers, legacy directory checks, navigation validation
+2. **check-broken-links**: Internal link validation using Mintlify
+3. **check-links-using-crawler**: External link validation (informational, doesn't block merge)
+4. **check-sql-examples**: SQL example validation (informational, doesn't block merge)
+
+Each job posts status comments on the PR with detailed error information if validation fails.
+
+### Registry Files
+
+#### hidden_pages.json
+Tracks pages that exist in the repository but should be excluded from navigation. Each entry requires:
+- `path`: Relative path to the MDX file
+- `reason`: Explanation for why the page is hidden (e.g., "in private preview", "not yet implemented")
+
+Pages in this file are excluded from the "lost pages" validation check.
+
+#### known_pages.json
+Maintains a comprehensive list of all URLs that have ever existed in the documentation. This enables:
+- Detection of broken redirects when pages are moved or removed
+- Automatic redirect validation to prevent 404 errors
+- Historical URL tracking for SEO and bookmark preservation
+
+The file is automatically updated by running `make check-lost-redirects-regenerate`.
+
+### Additional Validation Tools
+
+- **SQL Result Generation**: `make package-missing-docs` automatically generates results for QueryWindow components
+- **Python Environment**: `make setup-python` installs validation script dependencies
+- **Local Development**: `make start-local` runs Mintlify dev server with live validation
+
 ## License summary
 
 The documentation is made available under the Creative Commons Attribution-ShareAlike 4.0 International License.
