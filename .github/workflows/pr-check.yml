@@ -31,7 +31,7 @@ jobs:
           set -xeuo pipefail
           result_file=$(mktemp)
           set +e
-          make check-navigation > "$result_file"
+          make check-navigation >"$result_file" 2>&1
           rv=$?
           set -e
           if [[ "$rv" != 0 ]]; then
