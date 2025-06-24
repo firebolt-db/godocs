@@ -27,15 +27,14 @@ docs-mdx/reference-api/your-page.mdx
 
 ### 2. Add Frontmatter
 
-Every MDX file must include frontmatter with at least a title:
+Every MDX file must include frontmatter with at least a title. You can also specify a custom sidebar title:
 
 ```mdx
 ---
 title: Your Page Title
 description: Brief description of the page content
+sidebarTitle: Custom Sidebar Title (optional)
 ---
-
-# Your Page Title
 
 Your content here...
 ```

@@ -54,3 +54,4 @@ Nice to have:
   * [ ] Check documentation for inconsistencies in formatting
 * [ ] Replace muffet in external link check or fix its handling of timeouts
 * [ ] Clean up assets (no unused image copies)
+* [ ] Add non-blocking validation check to identify and warn about non-permanent redirects that may need to be made permanent

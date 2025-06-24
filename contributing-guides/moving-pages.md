@@ -10,9 +10,8 @@ Moving pages requires careful coordination of file moves, navigation updates, an
 
 ### Check Current Usage
 
-1. **Review analytics**: Identify high-traffic pages that need special attention
-2. **Check external links**: Search for external sites linking to the page
-3. **Verify internal references**: Find all internal links that need updating
+1. **Check external links**: Search for external sites linking to the page
+2. **Verify internal references**: Find all internal links that need updating
 
 ### Plan Your Move
 
@@ -65,6 +64,8 @@ Add redirect entries to `docs-mdx/docs.json` in the `redirects` section:
 ```
 
 **Important**: Use `"permanent": true` for SEO-friendly 301 redirects.
+
+**⚠️ Warning about Permanent Redirects**: Setting `"permanent": true` creates a 301 redirect that tells search engines and browsers to permanently cache the redirect. Only use this when you're certain the page move is final. If you might need to change the redirect later, consider using `"permanent": false` initially and switching to `true` after confirming the move is working correctly. Premature permanent redirects can cause confusion and caching issues that are difficult to resolve.
 
 ### 4. Update Internal Links
 
