@@ -22,6 +22,8 @@ A table-valued function (TVF) that reads data from [Apache Iceberg](https://iceb
 -- Using a LOCATION object
 READ_ICEBERG (
   LOCATION => <location_name>
+  [, NAMESPACE => '<namespace_name>' ]
+  [, TABLE => '<table_name>' ]
   [, MAX_STALENESS => <max_staleness_allowed> ]
 )
 
@@ -54,6 +56,8 @@ READ_ICEBERG (
 | Parameter | Description | Supported input types |
 |:----------|:------------|:---------------------|
 | `LOCATION` | The name of a location object that contains the Iceberg parameters and credentials. Firebolt recommends using `LOCATION` to store credentials for authentication. For a comprehensive guide, see [LOCATION objects](/guides/security/location). | `IDENTIFIER` |
+| `NAMESPACE` | The namespace an Iceberg table resides in. Used only for REST catalogs. | `TEXT` |
+| `TABLE` | The name of the Iceberg table to read. Used only for REST catalogs. | `TEXT` |
 | `MAX_STALENESS` | Specifies a maximum staleness for results returned by this function, e.g., `INTERVAL '30 seconds'`. The default value is 0 seconds, forcing Firebolt to fetch the latest version metadata from the catalog for every query. Values larger than zero instruct Firebolt to cache metadata and vended credentials in memory, and can typically reduce query latency by tens or hundreds of milliseconds. | `INTERVAL` |
 
 For a comprehensive guide to LOCATION objects, see [LOCATION objects](/guides/security/location). For syntax details, see [CREATE LOCATION](/reference-sql/commands/data-definition/create-location) and [CREATE LOCATION (Iceberg)](/reference-sql/commands/data-definition/create-location-iceberg).
@@ -105,8 +109,8 @@ The following code example reads the first 5 rows from an Iceberg table using a 
 ```sql
 CREATE LOCATION my_location
 WITH 
-  SOURCE = 'ICEBERG'
-  CATALOG = 'FILE_BASED'
+  SOURCE = ICEBERG
+  CATALOG = FILE_BASED
   CATALOG_OPTIONS = (
     URL = 's3://my-bucket/path/to/iceberg/table'
   )

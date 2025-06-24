@@ -19,7 +19,7 @@ This document captures specifics and examples for location objects for Amazon S3
 
 ```sql
 CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
-  SOURCE = 'AMAZON_S3'
+  SOURCE = AMAZON_S3
   CREDENTIALS = {
     ( AWS_ACCESS_KEY_ID = '<aws_access_key_id>'
       AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>'
@@ -46,7 +46,7 @@ CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
 
 | Parameter | Description |
 | :-------- | :---------- |
-| `SOURCE` | Must be set to 'AMAZON_S3' for Amazon S3 locations. |
+| `SOURCE` | Must be set to AMAZON_S3 for Amazon S3 locations. |
 | `CREDENTIALS` | Authentication credentials for Amazon S3 access. |
 | `URL` | The data source URL in the format: `s3://{bucket_name}/{path}`. This must be a valid S3 URL. |
 
@@ -72,7 +72,7 @@ The following code example uses keys to authenticate to AWS:
 
 ```sql
 CREATE LOCATION my_location WITH
-  SOURCE = 'AMAZON_S3'
+  SOURCE = AMAZON_S3
   CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' )
   URL = 's3://my-bucket/path/to/data'
 ```
@@ -82,7 +82,7 @@ The following code example use a role to authenticate to AWS:
 
 ```sql
 CREATE LOCATION my_location WITH
-  SOURCE = 'AMAZON_S3'
+  SOURCE = AMAZON_S3
   CREDENTIALS = ( AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/S3Access' )
   URL = 's3://my-bucket/path/to/data'
 ```
@@ -93,7 +93,7 @@ The following code example creates a location object named `my_location`, for an
 
 ```sql
 CREATE LOCATION my_location WITH
-  SOURCE = 'AMAZON_S3'
+  SOURCE = AMAZON_S3
   CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' AWS_SESSION_TOKEN = 'session-token' )
   URL = 's3://my-bucket/path/to/data'
 ```

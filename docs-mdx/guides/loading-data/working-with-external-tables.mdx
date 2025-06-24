@@ -44,7 +44,7 @@ The example below creates an external table that references an AWS S3 bucket tha
 
 ```sql
 CREATE LOCATION my_data_source WITH
-  SOURCE = 'AMAZON_S3'
+  SOURCE = AMAZON_S3
   CREDENTIALS = ( 
     AWS_ACCESS_KEY_ID = 'AKIAIOSFODNN7EXAMPLE' AWS_SECRET_ACCESS_KEY = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
   )

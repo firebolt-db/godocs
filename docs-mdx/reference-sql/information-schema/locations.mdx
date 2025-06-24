@@ -64,12 +64,12 @@ You can filter locations by their source type:
 -- View only Amazon S3 locations
 SELECT location_name, url, description, created
 FROM information_schema.locations
-WHERE source = 'AMAZON_S3';
+WHERE source = AMAZON_S3;
 
 -- View only Iceberg locations  
 SELECT location_name, url, description, created
 FROM information_schema.locations
-WHERE source = 'ICEBERG';
+WHERE source = ICEBERG;
 ```
 
 ### View location DDL statements
@@ -90,8 +90,8 @@ WHERE location_name = 'my_location';
 ```
 location_name    | source    | ddl
 ----------------|-----------|----------------------------------------------------
-my_s3_location  | AMAZON_S3 | CREATE LOCATION "my_s3_location" WITH SOURCE='AMAZON_S3' URL='s3://my-bucket/data/' CREDENTIALS=(AWS_ROLE_ARN='****')
-my_iceberg_loc  | ICEBERG   | CREATE LOCATION "my_iceberg_loc" WITH SOURCE='ICEBERG' CATALOG='REST' CATALOG_OPTIONS=(URL='https://catalog.example.com/v1' WAREHOUSE='prod' NAMESPACE='analytics' TABLE='events') CREDENTIALS=(OAUTH_CLIENT_ID='****' OAUTH_CLIENT_SECRET='****')
+my_s3_location  | AMAZON_S3 | CREATE LOCATION "my_s3_location" WITH SOURCE=AMAZON_S3 URL='s3://my-bucket/data/' CREDENTIALS=(AWS_ROLE_ARN='****')
+my_iceberg_loc  | ICEBERG   | CREATE LOCATION "my_iceberg_loc" WITH SOURCE=ICEBERG CATALOG=REST CATALOG_OPTIONS=(URL='https://catalog.example.com/v1' WAREHOUSE='prod' NAMESPACE='analytics' TABLE='events') CREDENTIALS=(OAUTH_CLIENT_ID='****' OAUTH_CLIENT_SECRET='****')
 ```
 
 ### Find locations by owner
@@ -122,7 +122,7 @@ WHERE ddl ILIKE '%AWS_ROLE_ARN%';
 -- Find Iceberg locations using REST catalogs
 SELECT location_name, url, created
 FROM information_schema.locations
-WHERE source = 'ICEBERG' AND ddl ILIKE '%CATALOG=''REST''%';
+WHERE source = ICEBERG AND ddl ILIKE '%CATALOG='REST'%';
 
 -- Find locations with descriptions
 SELECT location_name, description, created

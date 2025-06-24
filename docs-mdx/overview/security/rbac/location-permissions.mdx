@@ -61,7 +61,7 @@ GRANT USAGE ANY LOCATION ON ACCOUNT "my_account" TO data_engineer;
 
 -- Create and use a location
 CREATE LOCATION production_data WITH
-  SOURCE = 'AMAZON_S3'
+  SOURCE = AMAZON_S3
   CREDENTIALS = (AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/DataAccess')
   URL = 's3://company-data/';
 
