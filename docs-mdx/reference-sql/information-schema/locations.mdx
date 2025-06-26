@@ -8,11 +8,17 @@ title: Locations
 
 You can use the `information_schema.locations` view to return information about each location in your Firebolt [account](/overview/organizations-accounts#accounts). The view contains one row for each location. Use a `SELECT` query to return information about each location as shown in the example below.
 
-To view location information, you must have `LIST LOCATION` or `LIST ANY LOCATION` privileges. For more information about location permissions, see [CREATE LOCATION](/reference-sql/commands/data-definition/create-location).
+For a comprehensive guide to LOCATION objects including concepts, usage patterns, and best practices, see [LOCATION objects](/guides/security/location).
 
 ```sql
 SELECT
-  *
+  location_name,
+  source,
+  url,
+  description,
+  location_owner,
+  created,
+  ddl
 FROM
   information_schema.locations;
 ```
@@ -24,13 +30,16 @@ Each row has the following columns with information about each location:
 | Column Name      | Data Type   | Description |
 | :---------------| :-----------| :-----------|
 | location_name   | TEXT        | The name of the location. |
-| source          | TEXT        | The type of the external data source. Firebolt currently supports only `AMAZON_S3`. |
-| url             | TEXT        | The data source URL. For Amazon S3, the format is `s3://{bucket_name}/{path}`. |
+| source          | TEXT        | The type of the external data source. Firebolt currently supports `AMAZON_S3` and `ICEBERG`. |
+| url             | TEXT        | The data source URL. For Amazon S3, the format is `s3://{bucket_name}/{path}`. For Iceberg, this may be an S3 URL for file-based catalogs or an API endpoint for REST catalogs. |
 | description     | TEXT        | Optional metadata describing the location's purpose. |
 | location_owner  | TEXT        | The owner of the location. |
 | created         | TIMESTAMPTZ | The timestamp when the location was created. |
+| ddl             | TEXT        | The CREATE LOCATION statement used to create this location, with credentials masked for security. |
 
-## Example
+## Examples
+
+### View all locations
 
 The following query returns information about all locations in your account:
 
@@ -41,13 +50,92 @@ SELECT
   url,
   description,
   location_owner,
-  created
+  created,
+  ddl
 FROM 
   information_schema.locations;
+```
+
+### View locations by source type
+
+You can filter locations by their source type:
+
+```sql
+-- View only Amazon S3 locations
+SELECT location_name, url, description, created
+FROM information_schema.locations
+WHERE source = AMAZON_S3;
+
+-- View only Iceberg locations  
+SELECT location_name, url, description, created
+FROM information_schema.locations
+WHERE source = ICEBERG;
+```
+
+### View location DDL statements
+
+The `ddl` column contains the original CREATE LOCATION statement with credentials masked for security:
+
+```sql
+SELECT 
+  location_name,
+  source,
+  ddl
+FROM 
+  information_schema.locations
+WHERE location_name = 'my_location';
+```
+
+**Example output:**
+```
+location_name    | source    | ddl
+----------------|-----------|----------------------------------------------------
+my_s3_location  | AMAZON_S3 | CREATE LOCATION "my_s3_location" WITH SOURCE=AMAZON_S3 URL='s3://my-bucket/data/' CREDENTIALS=(AWS_ROLE_ARN='****')
+my_iceberg_loc  | ICEBERG   | CREATE LOCATION "my_iceberg_loc" WITH SOURCE=ICEBERG CATALOG=REST CATALOG_OPTIONS=(URL='https://catalog.example.com/v1' WAREHOUSE='prod' NAMESPACE='analytics' TABLE='events') CREDENTIALS=(OAUTH_CLIENT_ID='****' OAUTH_CLIENT_SECRET='****')
+```
+
+### Find locations by owner
+
+```sql
+SELECT 
+  location_name,
+  source,
+  url,
+  created,
+  ddl
+FROM 
+  information_schema.locations
+WHERE location_owner = 'admin_user'
+ORDER BY created DESC;
+```
+
+### Audit and troubleshooting with DDL
+
+The `ddl` column is particularly useful for auditing and troubleshooting location configurations:
+
+```sql
+-- Find locations that use specific authentication methods
+SELECT location_name, source, created
+FROM information_schema.locations
+WHERE ddl ILIKE '%AWS_ROLE_ARN%';
+
+-- Find Iceberg locations using REST catalogs
+SELECT location_name, url, created
+FROM information_schema.locations
+WHERE source = ICEBERG AND ddl ILIKE '%CATALOG='REST'%';
+
+-- Find locations with descriptions
+SELECT location_name, description, created
+FROM information_schema.locations
+WHERE description IS NOT NULL
+ORDER BY created DESC;
 ```
 
 ## Notes
 
 - All identifiers are case-insensitive unless enclosed in double-quotes.
+- The `ddl` column contains the original CREATE LOCATION statement with all credential values replaced with `****` for security purposes.
+- For Iceberg locations using Databricks Unity catalogs, the `url` column may be NULL as the URL is specified within the catalog options.
+- The `ddl` column preserves the original parameter names and structure used when the location was created.
 - For more information about object identifiers, see [Object identifiers](/reference/object-identifiers).
 

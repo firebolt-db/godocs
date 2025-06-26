@@ -1,6 +1,6 @@
 ---
 description: Provides the SQL data types available in Firebolt.
-sidebarTitle: Data types
+sidebarTitle: All data types
 title: Data types
 ---
 
@@ -113,7 +113,7 @@ A whole number ranging from -9,223,372,036,854,775,808 to 9,223,372,036,854,775,
 Aliases: `LONG`, `INT8`.
 
 ### NUMERIC
-A fixed-point numeric data type defined by its precision (total number of digits) and scale (number of digits to the right of the decimal point). For more information, see [NUMERIC data type](/reference-sql/numeric-data-type). 
+A fixed-point numeric data type defined by its precision (total number of digits) and scale (number of digits to the right of the decimal point). For more information, see [NUMERIC data type](/reference-sql/data-types/numeric).
 Aliases: `DECIMAL`.
 
 ### REAL
@@ -202,7 +202,7 @@ INSERT INTO demo VALUES
 
 ### STRUCT
 
-The struct data type is a composite type that allows you to group multiple fields of varying data types into a single logical unit. For more information, see [STRUCT data type](/reference-sql/struct-data-type).
+The struct data type is a composite type that allows you to group multiple fields of varying data types into a single logical unit. For more information, see [STRUCT data type](/reference-sql/data-types/struct).
 
 ## Date and timestamp
 
@@ -217,15 +217,15 @@ Each year consists of 365 days, with leap days added to February in leap years.
 
 ### DATE
 
-A year, month, and day calendar date independent of a time zone. For more information, see [DATE data type](/reference-sql/date-data-type).
+A year, month, and day calendar date independent of a time zone. For more information, see [DATE data type](/reference-sql/data-types/date).
 
 ### TIMESTAMP
 
-A year, month, day, hour, minute, second, and microsecond timestamp independent of a time zone. For more information, see [TIMESTAMP data type](/reference-sql/timestampntz-data-type).
+A year, month, day, hour, minute, second, and microsecond timestamp independent of a time zone. For more information, see [TIMESTAMP data type](/reference-sql/data-types/timestampntz).
 
 ### TIMESTAMPTZ
 
-A year, month, day, hour, minute, second, and microsecond timestamp associated with a time zone. For more information, see [TIMESTAMPTZ data type](/reference-sql/timestamptz-data-type).
+A year, month, day, hour, minute, second, and microsecond timestamp associated with a time zone. For more information, see [TIMESTAMPTZ data type](/reference-sql/data-types/timestamptz).
 
 ## String
 
@@ -261,12 +261,12 @@ For historic reasons, if you set the setting `standard_conforming_strings` to `f
 
 ### BYTEA
 
-Represents variable size binary data. A binary string is a sequence of bytes - unlike TEXT, there is no character set. The BYTEA data type is nullable. For more information, see [BYTEA data type](/reference-sql/bytea-data-type).
+Represents variable size binary data. A binary string is a sequence of bytes - unlike TEXT, there is no character set. The BYTEA data type is nullable. For more information, see [BYTEA data type](/reference-sql/data-types/bytea).
 
 ## Spatial
 
 ## GEOGRAPHY
-Represents geographic objects like points, LineStrings, Polygons, or collections thereof. For more information, see [GEOGRAPHY data type](/reference-sql/geography-data-type).
+Represents geographic objects like points, LineStrings, Polygons, or collections thereof. For more information, see [GEOGRAPHY data type](/reference-sql/data-types/geography).
 
 ## Type Conversion
 

@@ -38,7 +38,30 @@ Organization cost details are captured in two information_schema tables. Query t
 1) [Engines billing](/reference-sql/information-schema/engines-billing)
 2) [Storage billing](/reference-sql/information-schema/storage-billing)
 
-<Note>
-Firebolt billing is reported to the AWS Marketplace at the beginning of the next day. By default, the **Accounts & Billing** page displays the engine usage breakdown based on billing time. If you prefer to see the engine usage by actual usage day, you can click the **Engines breakdown** selector under the **Usage cost by engine** table and click **Actual running time**.
-</Note>
+## Understanding Storage Billing
+
+### GiB/Month
+
+Firebolt uses **consumed_gib_per_month (GiB/Month)** metric. It is a time-based measurement, which represents the average amount of data stored over time. This is similar to how electricity billing uses kilowatt-hours - you're charged not just for the amount of storage, but for how long you use it. This is calculated by:
+
+1) Taking total GiB/hour of storage
+2) Aggregating over the course of a month
+3) Dividing by the number of hours in that month
+
+Example:
+- If you store 500GiB for 15 days, then 1000GiB for the remaining 15 days in 30-day month
+- Your monthly average would be 750GiB
+- You'd be billed for 750 GiB/Month
+
+### GiB vs GB
+
+GiB (Gibibyte) and GB (Gigabyte) represent different measurement systems for storage:
+
+- GB (Gigabyte): Uses decimal (base-10) system
+- GiB (Gibibyte): Uses binary (base-2) system
+
+| Unit    | Base         | Calculation          | Exact Value         |
+| :------ | :----------- | :------------------- | :------------------ |
+| **GB**  | Decimal (10) | 1 GB = 1,000³ bytes  | 1,000,000,000 bytes |
+| **GiB** | Binary (2)   | 1 GiB = 1,024³ bytes | 1,073,741,824 bytes |
 

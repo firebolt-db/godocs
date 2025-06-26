@@ -24,7 +24,34 @@ Each row has the following columns.
 | account_name           | TEXT      | Account for which the storage is billed              |
 | region                 | TEXT      | Region where the data is stored                      |
 | usage_date             | DATE      | Date for which the usage is reported                 |
-| consumed_gib_per_month | NUMERIC   | Amount of data billed for the given date in GiB      |
+| consumed_gib_per_month | NUMERIC   | Average amount of data stored over given date        |
 | billed_cost            | NUMERIC   | The cost for the storage consumed for the given date |
 | is_credit              | BOOLEAN   | Indicates whether costs were used as credit          |
 
+Each row represents billing data for a given single day.
+
+### Relationship Between consumed_gib_per_month and billed_cost
+
+The billed_cost is calculated using the formula:
+
+`billed_cost = consumed_gib_per_month × gib_per_month_regional_price`
+
+Where `gib_per_month_regional_price` is the storage price per GiB in the region where the data is stored, see [
+Data storage pricing](/overview/billing#data-storage-pricing).
+
+Example:
+
+Consider the following row from `information_schema.storage_billing`:
+
+| account_name | region    | usage_date | consumed_gib_per_month | billed_cost | is_credit |
+| :----------- | --------- | ---------- | ---------------------- | ----------- | --------- |
+| test         | us-east-1 | 2025-06-16 | 770.533035647          | 20.36946218 | false     |
+
+Then the customer is charged **$20.36946218** for consuming **770.533035647 GiB/Month** of data on **June 16th** in account `test`.
+
+`billed_cost = 770.533035647 × $27.07 / 1024 = $20.36946218`
+
+
+<Note>
+    For detailed information about `consumed_gib_per_month` usage and calculations, see [Understanding Storage Billing](/guides/managing-your-organization/billing#understanding-storage-billing).
+</Note>

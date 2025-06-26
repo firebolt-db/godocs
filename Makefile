@@ -13,7 +13,23 @@ default: check-all
 
 
 .PHONY: check-all
-check-all: check-markers check-nav-structure check-links check-sql
+check-all: check-markers check-navigation-regenerate check-links check-sql
+
+
+.PHONY: check-navigation
+check-navigation: \
+	check-group-structure \
+	check-lost-pages \
+	check-redirect-loops \
+	check-lost-redirects
+
+
+.PHONY: check-navigation-regenerate
+check-navigation-regenerate: \
+	check-group-structure \
+	check-lost-pages \
+	check-redirect-loops \
+	check-lost-redirects-regenerate
 
 
 .PHONY: start-local
@@ -22,10 +38,20 @@ start-local: maybe-setup-mint
 
 
 .PHONY: check-links
-check-links: maybe-setup-mint
+check-links: check-internal-links check-links-using-crawler
+
+
+.PHONY: check-internal-links
+check-internal-links: maybe-setup-mint
 	set -euo pipefail
 	cd docs-mdx
 	mint broken-links
+
+
+.PHONY: check-links-using-crawler
+check-links-using-crawler: maybe-setup-mint
+	set -euo pipefail
+	cd docs-mdx
 	mint dev --no-open &
 	pid=$$!
 	tmpf=$$(mktemp)
@@ -56,9 +82,29 @@ check-legacy-dir:
 	if [ -d "docs" ]; then echo "Legacy /docs directory found, please remove it."; exit 1; fi
 
 
-.PHONY: check-nav-structure
-check-nav-structure: setup-python
-	.venv/bin/python scripts/check_nav_structure.py
+.PHONY: check-group-structure
+check-group-structure: setup-python
+	.venv/bin/python scripts/check_group_structure.py
+
+
+.PHONY: check-lost-pages
+check-lost-pages: setup-python
+	.venv/bin/python scripts/check_lost_pages.py
+
+
+.PHONY: check-redirect-loops
+check-redirect-loops: setup-python
+	.venv/bin/python scripts/check_redirect_loops.py
+
+
+.PHONY: check-lost-redirects
+check-lost-redirects: setup-python
+	.venv/bin/python scripts/check_lost_redirects.py
+
+
+.PHONY: check-lost-redirects-regenerate
+check-lost-redirects-regenerate: setup-python
+	.venv/bin/python scripts/check_lost_redirects.py regenerate
 
 
 .PHONY: check-sql
@@ -78,7 +124,7 @@ package-missing-docs: setup-python
 
 .PHONY: setup-python
 setup-python:
-	if [[ `python3 --version | cut -d '.' -f 2` < 12 ]]; then echo "Need at least python3.12, you have:"; python3 --version; exit 1; fi;
+	if [[ `python3 --version | cut -d '.' -f 2` < 10 ]]; then echo "Need at least python3.10, you have:"; python3 --version; exit 1; fi;
 	python3 -m venv .venv
 	.venv/bin/python -m pip install --upgrade pip
 	.venv/bin/python -m pip install -r scripts/requirements.txt

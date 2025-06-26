@@ -60,14 +60,14 @@ The total cost for Firebolt’s fully-managed editions consists of a **cost for 
 #### Data storage pricing
 Data storage costs are based on the amount of compressed data stored, including indexes and raw data. Pricing is based on Amazon S3 costs in your selected AWS region. There are no additional storage charges beyond S3 costs.
 
-| Available AWS Regions    | Price per TB/month ($USD) |
-|--------------------------|---------------------------|
-| US East (N. Virginia)    | $27.07                    |
-| US West (Oregon)         | $27.07                    |
-| Europe (Frankfurt)       | $28.84                    |
-| Europe (Ireland)         | $27.07                    |
-| Asia Pacific (Singapore) | $29.43                    |
-| Asia Pacific (Mumbai)    | $29.43                    |
+| Available AWS Regions    | Region code    | Price per TiB/month ($USD) |
+| :----------------------- | :------------- | :------------------------ |
+| US East (N. Virginia)    | us-east-1      | $27.07                    |
+| US West (Oregon)         | us-west-2      | $27.07                    |
+| Europe (Frankfurt)       | eu-central-1   | $28.84                    |
+| Europe (Ireland)         | eu-west-1      | $27.07                    |
+| Asia Pacific (Singapore) | ap-southeast-1 | $29.43                    |
+| Asia Pacific (Mumbai)    | ap-south-1     | $29.43                    |
 
 #### Compute usage pricing
 Compute costs are measured in Firebolt Units (FBUs) and vary based on [engine](/overview/engine-fundamentals) node type, number of nodes or cluster size, the number of clusters and usage duration. Costs are only billed for the time Firebolt engines are running. Firebolt offers two compute family options:
@@ -188,6 +188,10 @@ Response Time Commitments (TFR = Time to First Response)
 
 You can use Firebolt’s `information_schema.compute_billing` and `information_schema.storage_billing` views to build detailed billing reports using SQL. These views provide granular data on compute and storage usage, costs, credit usage, and regional distribution, allowing teams to analyze and optimize their consumption.
 
+<Note>
+    For detailed information about `consumed_gib_per_month` usage and calculations, see [Understanding Storage Billing](/guides/managing-your-organization/billing#understanding-storage-billing), about `FBU` see [Engine Consumption](/overview/engine-fundamentals/engine-consumption).
+</Note>
+
 **Current Month Cost Overview**
 
 This query summarizes total spending for the current month-to-date, broken down by billing type (engines vs. storage) and cost type (credits vs. billed). It includes engine FBU usage and average storage volume for visibility into resource consumption trends.
@@ -204,7 +208,7 @@ storage_costs AS (
   SELECT
     SUM(IF(NOT is_credit, billed_cost, 0)) AS storage_cost,
     SUM(IF(is_credit, billed_cost, 0)) AS storage_credits,
-    SUM(consumed_gib_per_month) AS total_storage_gib
+    SUM(consumed_gib_per_month) AS total_storage_gibpm
   FROM information_schema.storage_billing
   WHERE DATE_TRUNC('month', usage_date) = DATE_TRUNC('month', CURRENT_DATE)
 ),
@@ -214,7 +218,7 @@ SELECT
   engines_cost AS engine_cost_usd,
   storage_cost AS storage_cost_usd,
   total_fbu AS total_engines_fbu,
-  (total_storage_gib / EXTRACT(DAY FROM DATE_ADD('day', -1, CURRENT_DATE))) AS avg_daily_storage_gib
+  (total_storage_gibpm / EXTRACT(DAY FROM DATE_ADD('day', -1, CURRENT_DATE))) AS avg_daily_storage_gibpm
 FROM engine_costs, storage_costs;
 ```
 
@@ -239,7 +243,7 @@ This query returns a daily summary of billed storage costs and average consumed 
 SELECT 
   usage_date,
   SUM(billed_cost) AS storage_cost,
-  SUM(consumed_gib_per_month) AS consumed_gb
+  SUM(consumed_gib_per_month) AS consumed_gibpm
 FROM information_schema.storage_billing
 WHERE DATE_TRUNC('month', usage_date) = DATE_TRUNC('month', CURRENT_DATE)
 GROUP BY usage_date
@@ -271,7 +275,7 @@ WITH
       usage_date,
       SUM(IF(is_credit = FALSE, billed_cost, 0)) AS storage_cost,
       SUM(IF(is_credit = TRUE, billed_cost, 0)) AS storage_cost_credit,
-      CAST(NULLIF(SUM(consumed_gib_per_month), 0) AS DOUBLE) AS consumed_gb
+      CAST(NULLIF(SUM(consumed_gib_per_month), 0) AS DOUBLE) AS consumed_gibpm
     FROM
       information_schema.storage_billing
     WHERE
@@ -287,7 +291,7 @@ SELECT
   eb.engines_cost,
   eb.engines_cost_credit,
   eb.fbu,
-  sb.consumed_gb
+  sb.consumed_gibpm
 FROM
   engines_base eb
   INNER JOIN storage_base sb ON eb.usage_date = sb.usage_date
@@ -316,7 +320,7 @@ WITH
       usage_date,
       SUM(IF(is_credit = FALSE, billed_cost, 0)) AS storage_cost,
       SUM(IF(is_credit = TRUE, billed_cost, 0))  AS storage_cost_credit,
-      NULLIF(SUM(consumed_gib_per_month), 0)     AS consumed_gb
+      NULLIF(SUM(consumed_gib_per_month), 0)     AS consumed_gibpm
     FROM information_schema.storage_billing
     WHERE usage_date BETWEEN '2025-01-01' AND '2025-05-31'
     GROUP BY usage_date
@@ -330,7 +334,7 @@ WITH
       eb.engines_cost,
       eb.engines_cost_credit,
       eb.fbu,
-      sb.consumed_gb
+      sb.consumed_gibpm
     FROM engines_base eb
     INNER JOIN storage_base sb ON eb.usage_date = sb.usage_date
   ),
@@ -344,8 +348,8 @@ WITH
       SUM(storage_cost_credit)                         AS storage_cost_credit,
       SUM(engines_cost)                                AS engines_cost,
       SUM(engines_cost_credit)                         AS engines_cost_credit,
-      SUM(fbu)                                          AS fbu,
-      AVG(consumed_gb)                                  AS consumed_gb
+      SUM(fbu)                                         AS fbu,
+      AVG(consumed_gibpm)                              AS consumed_gibpm
     FROM daily_combined
     GROUP BY TO_DATE(DATE_TRUNC('month', usage_date))
   )
