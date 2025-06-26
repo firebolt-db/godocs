@@ -28,7 +28,8 @@ def fetch_real_sql(sql: str) -> Any:
         return result
 
 
-def normalize_result(sql: str, result: Any):
+def normalize_result(sql: str, result: dict):
+    result.pop("explain_analyze", None)
     for key in ['query_id', 'request_id', 'query_label']:
         result['query'][key] = "<redacted>"
     for key in ['elapsed', 'time_before_execution', 'time_to_execute', 'bytes_read', 'scanned_bytes_cache', 'scanned_bytes_storage']:

@@ -1,8 +1,23 @@
 ---
-description: Reference for strvectoring functions
+description: Reference for vector functions
 sidebarTitle: Overview
 title: Vector functions
 ---
 
 ## Vector functions
+
+Vector functions operate on arrays of numeric data to perform mathematical calculations on numeric vectors. These functions calculate distances and similarities between vectors, as well as perform arithmetic operations.
+
+```sql
+SELECT VECTOR_EUCLIDEAN_DISTANCE([1.0, 2.0, 3.0], [4.0, 5.0, 6.0]) AS distance;
+```
+
+Vector functions require input arrays to have the same number of elements and contain numeric data types. Distance and similarity functions return `DOUBLE` precision values, while arithmetic operations return arrays with elements that follow Firebolt's type conversion rules.
+
+Vector distance functions measure the mathematical distance or similarity between two numeric arrays. Common applications include:
+
+- **Similarity analysis** - Finding similar items based on their feature vectors
+- **Machine learning** - Computing distances for clustering, classification, and recommendation algorithms  
+- **Spatial calculations** - Measuring distances between points in multi-dimensional space
+- **Data analysis** - Comparing numeric datasets and identifying patterns
 

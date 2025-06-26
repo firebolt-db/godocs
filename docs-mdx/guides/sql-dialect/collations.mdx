@@ -1,0 +1,197 @@
+---
+description: Learn how to work with collations in Firebolt.
+sidebarTitle: Collations
+title: Collations
+---
+
+Firebolt supports using collations through the [`ICU_NORMALIZE`](/reference-sql/functions-reference/string/icu_normalize) function. 
+While we don’t support a native `COLLATE` clause yet, you can use `ICU_NORMALIZE` to get the same behaviour.
+This guide teaches you how to use this function to perform collation-aware aggregations, joins, and sorting.
+We also provide best practices around maximizing performance when working with collations.
+
+<Note>
+Throughout this guide we use the `Any-Upper` collation as it's easy to understand.
+In real queries, use the [`UPPER(<x>)`](/reference-sql/functions-reference/string/upper) function instead of `ICU_NORMALIZE(<x>, 'Any-Upper')`.
+It does the same thing but is much more efficient.
+</Note>
+
+## Basics on collations and `ICU_NORMALIZE`
+
+When you calculate `<col_a> = <col_b>` on two text columns, Firebolt checks whether the underlying byte sequences are the same.
+For some workloads, you might want to perform more sophisticated string comparisons.
+You might want to perform a case-insensitive comparison, or treat special characters in a specific way (e.g. having `Ü` and `U` compare the same).
+
+This can be done using collations, which define more complex equivalence classes on `TEXT` values.
+When using a collation, there can be many strings with different byte sequences that compare equal.
+
+`ICU_NORMALIZE` takes any text value from a collation's equivalence class, and maps it to the same representative.
+After normalizing, you can perform regular byte-based text comparison.
+Doing byte-based comparison of the normalized text values now behaves the same as collation-based comparison of the original text values.
+
+Let's look at this in a simple example. We use a case-insensitive collation:
+```sql 
+CREATE TABLE text_examples (t TEXT, id INT);
+INSERT INTO text_examples VALUES 
+    ('Hello World', 1), 
+    ('HelLo WorLD', 2), 
+    ('Hello World.', 3), 
+    ('hello world.', 4);
+
+SELECT ex1.t t1, ex2.t t2, 
+       ICU_NORMALIZE(ex1.t, 'Any-Upper') t1_normalized, 
+       ICU_NORMALIZE(ex2.t, 'Any-Upper') t2_normalized, 
+       ex1.t = ex2.t as byte_eq, 
+       ICU_NORMALIZE(ex1.t, 'Any-Upper') = ICU_NORMALIZE(ex2.t, 'Any-Upper') as collation_eq
+FROM text_examples ex1, text_examples ex2;
+```
+
+The `SELECT` query above returns the following result set:
+```
+t1	            t2	            t1_normalized	t2_normalized	byte_eq	collation_eq
+Hello World     Hello World	    HELLO WORLD	    HELLO WORLD	    t   	t
+Hello World     HelLo WorLD	    HELLO WORLD	    HELLO WORLD	    f	    t
+Hello World	    Hello World.	HELLO WORLD	    HELLO WORLD.	f	    f
+Hello World	    hello world.	HELLO WORLD	    HELLO WORLD.	f	    f
+HelLo WorLD	    Hello World	    HELLO WORLD	    HELLO WORLD	    f	    t
+HelLo WorLD	    HelLo WorLD	    HELLO WORLD	    HELLO WORLD	    t	    t
+HelLo WorLD	    Hello World.	HELLO WORLD	    HELLO WORLD.	f	    f
+HelLo WorLD	    hello world.	HELLO WORLD	    HELLO WORLD.	f	    f
+Hello World.	Hello World	    HELLO WORLD.	HELLO WORLD	    f	    f
+Hello World.	HelLo WorLD	    HELLO WORLD.	HELLO WORLD	    f	    f
+Hello World.	Hello World.	HELLO WORLD.	HELLO WORLD.	t	    t
+Hello World.	hello world.	HELLO WORLD.	HELLO WORLD.	f	    t
+hello world.	Hello World	    HELLO WORLD.	HELLO WORLD	    f	    f
+hello world.	HelLo WorLD	    HELLO WORLD.	HELLO WORLD	    f	    f
+hello world.	Hello World.	HELLO WORLD.	HELLO WORLD.	f	    t
+hello world.	hello world.	HELLO WORLD.	HELLO WORLD.	t	    t
+```
+You can see that `collation_eq` is true in more cases than `byte_eq`.
+This is because we now compare the normalized text values, which is equivalent to case-insensitive
+comparison.
+
+`ICU_NORMALIZE` is your basic building block to perform collation-aware processing.
+You can use it to perform more complex operations.
+
+## Collation-aware aggregations
+You can use `ICU_NORMALIZE` as a `GROUP BY` key to perform collation-aware aggregations.
+In the above example, you might want to know the minimum and maximum id for every equivalence class.
+You can simply express this in SQL using:
+
+```sql
+SELECT ICU_NORMALIZE(t, 'Any-Upper') as normalized, min(id) as min, max(id) as max
+FROM text_examples
+GROUP BY ALL;
+```
+
+This SQL query returns the following result:
+
+```
+normalized      min	    max
+HELLO WORLD	    1   	2
+HELLO WORLD.    3	    4
+```
+
+You can see that you get one result row for every equivalence class.
+We can tell from the values in `min/max` that every result group contains the correct two input rows.
+
+## Collation-aware joins 
+You can also use `ICU_NORMALIZE` to perform collation-aware joins.
+For each row in `test_examples`, let's count how many rows in the table compare equal in a case-insensitive way.
+We can write the following query to compute this:
+
+```sql
+SELECT ex1.t, count(*) as eq_rows
+FROM text_examples ex1 INNER JOIN text_examples ex2 
+        ON (ICU_NORMALIZE(ex1.t, 'Any-Upper') = ICU_NORMALIZE(ex2.t, 'Any-Upper'))
+GROUP BY ALL;
+```
+
+This SQL query returns the following results:
+```
+t               eq_rows
+hello world.	2
+HelLo WorLD	    2
+Hello World	    2
+Hello World.	2
+```
+
+As expected, every row has one other row (and itself) that compares equal using the collation.
+
+In the query above, we select the original text `ex1.t` while using the normalized version for the join condition. 
+This is a common pattern when working with `ICU_NORMALIZE` - you'll often want to use the normalized values for comparisons and joins, but return the original text in your results.
+
+## Collation-aware sorting
+You can also use `ICU_NORMALIZE` to perform collation-aware sorting.
+As with equality comparisons, sorting on text values happens by comparing the UTF-8 byte sequences.
+This means that for example `'B'` is considered less than `'a'`. 
+
+The following examples perform byte-based and case-insensitive sorting:
+```sql
+CREATE TABLE sort_test (val TEXT);
+INSERT INTO sort_test VALUES 
+    ('apple'), 
+    ('Banana'), 
+    ('Apricot'), 
+    ('bananas');
+
+-- Byte-based sort. Returns rows in the order:
+-- Apricot, Banana, apple, bananas
+SELECT val FROM sort_test ORDER BY val;
+
+-- Collation-aware sort using ICU_NORMALIZE. Returns rows in the order:
+-- apple, Apricot, Banana, bananas
+SELECT val FROM sort_test ORDER BY ICU_NORMALIZE(val, 'Any-Upper');
+```
+
+## Making collations fast
+Computing `ICU_NORMALIZE` is expensive.
+The following computes the `Latin-ASCII` collation on ten million short strings:
+``` sql
+SELECT checksum(ICU_NORMALIZE(concat('München ', x), 'Latin-ASCII')) 
+FROM generate_series(1, 10000000) r(x);
+```
+Let's look at the telemetry when running [`EXPLAIN (ANALYZE)`](/reference-sql/commands/queries/explain) for the above query. 
+Note that results can vary on different hardware:
+```
+[0] [Projection] SUM
+[...]
+\\_[3] [Projection] HASH_0: HASH(icu_normalize(concat('München ', cast(x as text)), 'Latin-ASCII'))
+    |   [Types]: HASH_0: bigint not null
+    |   [Execution Metrics]: output cardinality = 10000000, thread time = 30820ms, cpu time = 30817ms
+    \\_[4] [TableFuncScan] x: $0 = generate_series(1, 10000000)
+[...]
+```
+We spend about 30 seconds of CPU time computing the scalar ICU normalization and hash.
+Hashing is cheap, so most time is spent in `ICU_NORMALIZE`.
+This means we only have about 300k rows/s of throughput for this function.
+
+**If you know that you mostly care about specific collations on your data, store a normalized version on ingest.**
+Depending on your use case, you might have to store the original data as well, as normalization cannot be reversed.
+If you use multiple collations, you can store multiple columns with different normalizations. 
+When updating your source data, make sure to update the normalized values as well.
+
+Let's look at this in an example:
+```sql
+-- Store the raw data, as well as commonly used collations.
+CREATE TABLE cities (city TEXT, city_latin_ascii TEXT, city_any_upper TEXT);
+
+-- Insert ten million rows, computing the normalizations during ingest.
+INSERT INTO cities
+    SELECT c, ICU_NORMALIZE(c, 'Latin-ASCII'), ICU_NORMALIZE(c, 'Any-Upper')
+    FROM (SELECT 'München' as c FROM generate_series(1, 10000000));
+
+-- Aggregation that normalizes at query time.
+-- Timing: ~30 seconds.
+SELECT ICU_NORMALIZE(city, 'Latin-ASCII') as normalized, any(city) as example
+FROM cities
+GROUP BY ALL;
+
+-- Aggregation that uses the pre-normalized city_latin_ascii column.
+-- Timing: 0.09 seconds.
+SELECT city_latin_ascii as normalized, any(city) as example
+FROM cities
+GROUP BY ALL;
+```
+
+By storing the normalized values in your base table, you move overhead from query time to ingest time.
+In the above example, querying the materialized collations is ~300 times faster than computing `ICU_NORMALIZE` on read.

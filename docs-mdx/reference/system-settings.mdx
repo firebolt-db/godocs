@@ -30,6 +30,7 @@ The `WITH` clause is supported for the following commands:
 - [`SELECT`](/reference-sql/commands/queries/select)
 - [`INSERT`](/reference-sql/commands/data-management/insert)
 - [`COPY FROM`](/reference-sql/commands/data-management/copy-from)
+- [`COPY TO`](/reference-sql/commands/data-management/copy-to)
 - [`UPDATE`](/reference-sql/commands/data-management/update)
 - [`DELETE`](/reference-sql/commands/data-management/delete)
 
@@ -37,13 +38,20 @@ The `WITH` clause is supported for the following commands:
 
 The following settings can be configured using the `WITH` clause:
 - [timezone](#setting-the-time-zone)
+- [standard_conforming_strings](#enable-parsing-for-literal-strings)
 - [max_result_rows](#limit-the-number-of-result-rows)
 - [statement_timeout](#statement-timeout)
 - [cancel_query_on_connection_drop](#query-cancellation-mode-on-connection-drop)
+- [query_label](#query-labelingtagging)
+- [warmup](#multi-cluster-engine-warmup)
 - [enable_result_cache](#result-cache)
 - [enable_subresult_cache](#subresult-cache)
+- [enable_scan_cache](#scan-cache)
 - [insert_sharding](#insert-sharding)
 - [tablet_min_size_bytes and tablet_max_size_bytes](#target-tablet-size)
+- [cross_region_request_mode](#access-cross-region-data)
+- [optimizer_mode](#changing-the-optimizer-mode)
+- [enable_storage_statistics](#using-storage-manager-statistics-in-the-optimizer)
 
 ## Setting the time zone
 
@@ -250,6 +258,27 @@ SELECT count(*) FROM fact_table INNER JOIN dim_table ON (a = b);
 
 Setting `enable_subresult_cache` to `FALSE` disables the use of all [cached subresults](/overview/queries/understand-query-performance-subresult). In particular, it deactivates two caching mechanisms that normally speed up query runtimes: the use of the `MaybeCache` operator, which includes the full result cache, and the hash-table cache used by the `Join` operator.
 
+## Scan cache
+The scan cache is a feature that caches all columns accessed by a query right after they have been read by the scan of the underlying table. Note that no filters are applied, also any primary indexes will not be used. The cached columns simply represent the entire data for these fields in the table. Since they are in RAM once cached, certain queries / workloads may benefit from this. E.g., if there are many consecutive queries which access the exact same fields, but have changing filters.
+
+Set `enable_scan_cache` to `TRUE` to enable Firebolt’s scan caching, which is set to `FALSE` by default. Note that RAM usage may be high when enabling the scan cache and the impact depends a lot on the workload.
+
+### Syntax
+
+```sql
+SET enable_scan_cache = [true|false];
+```
+
+### Example
+The following code example enables the scan cache. Once enabled, we run several queries which access exactly the same columns, but change the filters. The first query will populate the cache, the following can use the cached columns.
+
+```sql
+SET enable_scan_cache = false;
+SELECT a, b, c FROM production_table WHERE c > 0 LIMIT 10;
+SELECT a, b, c FROM production_table WHERE c = 42 LIMIT 10;
+SELECT a, b, c FROM production_table WHERE a = 17 AND b LIKE '%string%' LIMIT 10;
+```
+
 ## Insert sharding
 
 When working with [partitioned tables](/reference-sql/commands/data-definition/create-fact-dimension-table#partition-by), Firebolt enforces separation of data between tablets: rows of different partitions cannot be stored together in the same tablet.
@@ -313,7 +342,7 @@ Setting `insert_sharding` to `shard_on_read` changes the file distribution strat
 
 ## Target tablet size
 
-During ingestion, Firebolt attempts to create optimally sized tablets to balance ingestion speed and future scan performance. When all ingested data has been read, Firebolt prefers creating relatively smaller tablets to prioritize data persistence, leaving further optimization to [Auto Vacuum](/reference-sql/commands/data-management/vacuum). However, if this behavior isn't desirable, you can control it using the `tablet_min_size_bytes` and `tablet_max_size_bytes` settings:
+During ingestion, Firebolt attempts to create optimally sized tablets to balance ingestion speed and future scan performance. When all ingested data has been read, Firebolt prefers creating relatively small tablets to prioritize data persistence, leaving further optimization to [Auto Vacuum](/reference-sql/commands/data-management/vacuum). However, if this behavior isn't desirable, you can control it using the `tablet_min_size_bytes` and `tablet_max_size_bytes` settings:
 
 - `tablet_min_size_bytes`: Controls the minimum size of tablets. If there isn't enough data in the ingestion, smaller tablets are created nevertheless. When possible, data is compacted into tablets of at least this size. Default: `1.5 GiB`. Minmum: `1 GiB`.
 - `tablet_max_size_bytes`: Controls the maximum size of tablets. Default: `4 GiB`. Should be greated or equal than `tablet_min_size_bytes`.
@@ -350,3 +379,173 @@ WITH (tablet_min_size_bytes = 4294967296, tablet_max_size_bytes = 4294967296);
 
 Changing both `tablet_min_size_bytes` and `tablet_max_size_bytes` to `4 GiB` ensures that larger tablets are created.
 
+## Access Cross-Region Data
+By default, Firebolt restricts importing from and exporting to Amazon S3 buckets located outside your engine's default region to miminize latencies and network costs. For workloads requiring cross-region access, you can enable this functionality using the `cross_region_request_mode` setting. Firebolt offers three modes:
+
+- `disabled`: The default setting. Any attempt to access a bucket in another region will cause the query to fail.
+- `auto`: Recommended for most scenarios when you need to access a bucket in a different region. Firebolt will automatically infer each bucket's region using the Amazon HeadBucket API and route requests to the appropriate regional endpoint. The region information is cached on the node for one hour. If you're using a role to authenticate to Amazon S3, it must include ListBuckets permissions. Note that Iceberg queries using vended credentials may lack such permissions.
+- `enforced`: Use when you need to access a bucket in a different region and do not have the permissions for `auto` mode. Firebolt will use the pseudo-region "aws-global" for every request. This may lead to higher latencies since AWS needs to resolve the region internally for each request.
+
+### Notes
+- Firebolt currently offers limited cross-region data transfer and will throttle requests if the limit is exceeded. The current limit is 100 GB per hour per node.
+- This setting is only available via the `WITH SETTINGS` syntax, not with `SET`.
+
+### Syntax
+```sql
+-- Example 1: COPY FROM
+COPY INTO playstats
+FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/' 
+LIMIT 5
+WITH (TYPE = PARQUET, CROSS_REGION_REQUEST_MODE = 'auto');
+
+-- Example 2: COPY TO
+COPY (SELECT * FROM playstats)
+TO 's3://sink/'
+WITH (TYPE = PARQUET, SINGLE_FILE = TRUE, CROSS_REGION_REQUEST_MODE = 'auto');
+
+-- Example 3: Read TVFs
+SELECT * FROM read_parquet('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/')
+LIMIT 5
+WITH (CROSS_REGION_REQUEST_MODE = 'auto');
+```
+
+## Changing the optimizer mode
+
+If set to `user_guided`, the optimizer will disalbe all cost-based optimization rules.
+This ensures that the relative order of joins and aggregations in the resulting execution plan will follow the sytnatic order defined in the `SELECT` blocks of your SQL query
+The default value is `automatic`.
+
+### Syntax
+
+You can use both the `SET`
+
+```sql
+SET optimizer_mode = 'user_guided';
+SELECT ... ;
+SET optimizer_mode = 'automatic';
+```
+
+and the `WITH` syntax.
+
+```sql
+SELECT ... WITH (optimizer_mode = 'user_guided');
+```
+
+If you want to limit the scope of this setting to a specific query, we recommend the latter.
+
+### Example
+
+The following examples demonstrate how to use the `optimizer_mode` setting to ensure that in the resulting execution plan, the join between `r` and `s` is executed before the join between `r` and `t`.
+
+```sql
+SELECT
+  *
+FROM
+  r JOIN s ON(r.x = s.x) JOIN t ON(r.y = t.y)
+WITH (optimizer_mode = 'user_guided');
+```
+
+## Using storage manager statistics in the optimizer
+
+You can control the use of storage manager statistics in the optimizer with the `enable_storage_statistics` session parameter.
+Per default, storage manager statistics are enabled (the default value is `true`).
+If you want to disable them, set the value to `false`.
+
+### Syntax
+
+```sql
+SET enable_storage_statistics = [true|false];
+```
+
+### Example
+
+Consider the following example.
+
+When `enable_storage_statistics` is set to `true`, the optimizer will use the storage manager statistics to estimate the number of rows in the fact table `ft` and the dimension tables `d1` and `d2`.
+The storage manager reports that `d2` is much smaller (50 rows) compared to `d1` (1000 rows).
+The optimizer estimates that even after applying the local predicates on these dimension tables, it will be more efficient to join `ft` with `d2` first and then with `d1`.
+The join order in this plan will adapt to the size of the underlying tables.
+For example, if the size of `d2` becomes 400 rows, the optimizer will first join `ft` with `d1` and then with `d2`.
+
+However, when `enable_storage_statistics` is set to `false`, the optimizer uses the hardcoded default estimates for the fact table `ft` (100,000,000 rows) and the dimension tables `d1` and `d2` (100,000 rows).
+Because the two dimension tables are estimated to be equally large, the join order in this case is fully determined by the number of local predicates.
+Applying two local predicates on `d1` is estimated to produce a smaller estimated row count (20000 rows) than applying one local predicate on `d2` (70000 rows).
+This join order will remain stable even if the underlying table sizes change.
+
+{/*
+drop table if exists fact_table;
+drop table if exists dim_table1;
+drop table if exists dim_table2;
+
+create fact table fact_table (
+  x INTEGER NOT NULL,
+  y INTEGER NOT NULL,
+  z INTEGER NULL DEFAULT 1
+);
+create dimension table dim_table1 (
+  x INTEGER NOT NULL,
+  a INTEGER
+);
+create dimension table dim_table2 (
+  y INTEGER NOT NULL,
+  b INTEGER
+);
+
+insert into fact_table select u as x, u as y, 1 as z from generate_series(1, 10000) as r(u);
+insert into dim_table1 select x, (x + 1) % 10 from generate_series(1, 1000) as r(x);
+insert into dim_table2 select y, (y + 1) % 10 from generate_series(1, 50) as r(y);
+*/}
+
+<CodeGroup>
+```sql SQL query
+EXPLAIN(LOGICAL, STATISTICS)
+SELECT
+  *
+FROM
+  fact_table ft JOIN dim_table1 d1 ON(ft.x = d1.x) JOIN dim_table2 d2 ON(ft.y = d2.y)
+WHERE
+  d1.a > 4 AND d1.a < 9 AND d2.b > 5;
+```
+
+```text EXPLAIN plan with enable_storage_statistics = true {9-10,13-14,17-18}
+[0] [Projection] fact_table.x, fact_table.y, fact_table.z, fact_table.x, dim_table1.a, fact_table.y, dim_table2.b
+|   [Logical Profile]: [est. #rows=16922, source: estimated]
+ \_[1] [Join] Mode: Inner [(fact_table.x = dim_table1.x)]
+   |   [Logical Profile]: [est. #rows=16922, source: estimated]
+    \_[2] [Projection] fact_table.x, fact_table.y, fact_table.z, dim_table2.b
+    | |   [Logical Profile]: [est. #rows=5677, source: estimated]
+    |  \_[3] [Join] Mode: Inner [(fact_table.y = dim_table2.y)]
+    |    |   [Logical Profile]: [est. #rows=5677, source: estimated]
+    |     \_[4] [StoredTable] Name: "fact_table"
+    |     |     [Logical Profile]: [est. #rows=10000, source: metadata]
+    |     \_[5] [Filter] (dim_table2.b > 5)
+    |       |   [Logical Profile]: [est. #rows=35, source: estimated]
+    |        \_[6] [StoredTable] Name: "dim_table2"
+    |              [Logical Profile]: [est. #rows=50, source: metadata]
+    \_[7] [Filter] (dim_table1.a > 4), (dim_table1.a < 9)
+      |   [Logical Profile]: [est. #rows=200, source: estimated]
+       \_[8] [StoredTable] Name: "dim_table1"
+             [Logical Profile]: [est. #rows=1000, source: metadata]
+```
+
+```text EXPLAIN plan with enable_storage_statistics = false {9-10,13-14,17-18}
+[0] [Projection] fact_table.x, fact_table.y, fact_table.z, fact_table.x, dim_table1.a, fact_table.y, dim_table2.b
+|   [Logical Profile]: [est. #rows=6.18316e+12, source: estimated]
+ \_[1] [Join] Mode: Inner [(fact_table.y = dim_table2.y)]
+   |   [Logical Profile]: [est. #rows=6.18316e+12, source: estimated]
+    \_[2] [Projection] fact_table.x, fact_table.y, fact_table.z, dim_table1.a
+    | |   [Logical Profile]: [est. #rows=1.46831e+10, source: estimated]
+    |  \_[3] [Join] Mode: Inner [(fact_table.x = dim_table1.x)]
+    |    |   [Logical Profile]: [est. #rows=1.46831e+10, source: estimated]
+    |     \_[4] [StoredTable] Name: "fact_table"
+    |     |     [Logical Profile]: [est. #rows=1e+08, source: hardcoded]
+    |     \_[5] [Filter] (dim_table1.a > 4), (dim_table1.a < 9)
+    |       |   [Logical Profile]: [est. #rows=20000, source: estimated]
+    |        \_[6] [StoredTable] Name: "dim_table1"
+    |              [Logical Profile]: [est. #rows=100000, source: hardcoded]
+    \_[7] [Filter] (dim_table2.b > 5)
+      |   [Logical Profile]: [est. #rows=70000, source: estimated]
+       \_[8] [StoredTable] Name: "dim_table2"
+             [Logical Profile]: [est. #rows=100000, source: hardcoded]
+```
+</CodeGroup>

@@ -17,16 +17,21 @@ Accounts represent the physical instance of your data warehouse in Firebolt and 
 | USAGE ANY ENGINE       | Allows using all current and future engines in an account.                     | `GRANT USAGE ANY ENGINE ON ACCOUNT <account_name> TO <role>;`        | `REVOKE USAGE ANY ENGINE ON ACCOUNT <account_name> FROM <role>;`     |
 | OPERATE ANY ENGINE     | Allows starting and stopping all current and future engines in the account.    | `GRANT OPERATE ANY ENGINE ON ACCOUNT <account_name> TO <role>;`      | `REVOKE OPERATE ANY ENGINE ON ACCOUNT <account_name> FROM <role>;`   |
 | MODIFY ANY ENGINE      | Allows editing all current and future engines in the account.                  | `GRANT MODIFY ANY ENGINE ON ACCOUNT <account_name> TO <role>;`       | `REVOKE MODIFY ANY ENGINE ON ACCOUNT <account_name> FROM <role>;`    |
+| MONITOR [ANY USAGE] | Enables the tracking of engine queries through the `engine_running_queries` view for active queries and the `engine_query_history` view for past queries in `information_schema`. | `GRANT MONITOR ANY USAGE ON ACCOUNT <account_name> TO <role>;`         | `REVOKE MONITOR ANY USAGE ON ACCOUNT <account_name> FROM <role>;` |
 | [CREATE ROLE](/reference-sql/commands/access-control/create-role)            | Allows creating new roles in the account.                                      | `GRANT CREATE ROLE ON ACCOUNT <account_name> TO <role>;`             | `REVOKE CREATE ROLE ON ACCOUNT <account_name> FROM <role>;`          |
 | MODIFY ANY ROLE        | Allows editing all current and future roles in the account.                    | `GRANT MODIFY ANY ROLE ON ACCOUNT <account_name> TO <role>;`         | `REVOKE MODIFY ANY ROLE ON ACCOUNT <account_name> FROM <role>;`      |
 | [CREATE USER](/reference-sql/commands/access-control/create-user)           | Allows creating new users in the account.                                      | `GRANT CREATE USER ON ACCOUNT <account_name> TO <role>;`             | `REVOKE CREATE USER ON ACCOUNT <account_name> FROM <role>;`          |
 | MODIFY ANY USER        | Allows editing all current and future users in the account.                    | `GRANT MODIFY ANY USER ON ACCOUNT <account_name> TO <role>;`         | `REVOKE MODIFY ANY USER ON ACCOUNT <account_name> FROM <role>;`      |
-| MONITOR [ANY USAGE] | Enables the tracking of engine queries through the `engine_running_queries` view for active queries and the `engine_query_history` view for past queries in `information_schema`. | `GRANT MONITOR ANY USAGE ON ACCOUNT <account_name> TO <role>;`         | `REVOKE MONITOR ANY USAGE ON ACCOUNT <account_name> FROM <role>;` |
+| CREATE LOCATION        | Allows creating new location objects in the account.                          | `GRANT CREATE LOCATION ON ACCOUNT <account_name> TO <role>;`         | `REVOKE CREATE LOCATION ON ACCOUNT <account_name> FROM <role>;`      |
+| MODIFY ANY LOCATION    | Allows editing all current and future locations in the account.               | `GRANT MODIFY ANY LOCATION ON ACCOUNT <account_name> TO <role>;`     | `REVOKE MODIFY ANY LOCATION ON ACCOUNT <account_name> FROM <role>;`  |
+| USAGE ANY LOCATION     | Allows using all current and future locations in the account.                 | `GRANT USAGE ANY LOCATION ON ACCOUNT <account_name> TO <role>;`      | `REVOKE USAGE ANY LOCATION ON ACCOUNT <account_name> FROM <role>;`   |
 | ALL [PRIVILEGES] | Grants all direct privileges for a specified account to a specified role. | `GRANT ALL ON ACCOUNT <account_name> TO <role>;`         | `REVOKE ALL ON ACCOUNT <account_name> FROM <role>;` |
 
 <Note>
 Revoking a privilege removes it from a role but does not explicitly deny the privilege. If the privilege was not previously granted, revoking it has no effect.
 </Note>
+
+For more detailed information about location permissions and their usage, see [Location permissions](/overview/security/rbac/location-permissions).
 
 ## Examples of granting account-level permissions
 
@@ -113,4 +118,29 @@ The following code example grants the role `developer_role` permission to see th
 ```sql
 GRANT MONITOR ANY USAGE ON ACCOUNT "account-1" TO developer_role;
 ```
+
+### CREATE LOCATION permission
+The following code example grants role `my_role` permission to create locations:
+
+```sql
+-- Grant ability to create new locations
+GRANT CREATE LOCATION ON ACCOUNT "my_account" TO my_role;
+```
+
+### MODIFY ANY LOCATION permission
+The following code example grants role `my_role` permission to modify or delete all current and future locations within the `my_account`:
+
+```sql
+-- Grant ability to create new locations
+GRANT MODIFY ANY LOCATION ON ACCOUNT "my_account" TO my_role;
+```
+
+### USAGE ANY LOCATION permission
+The following code example grants role `my_role` permission to use all current and future locations within the `my_account`:
+
+```sql
+-- Grant ability to create new locations
+GRANT USAGE ANY LOCATION ON ACCOUNT "my_account" TO my_role;
+```
+
 

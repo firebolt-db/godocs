@@ -39,6 +39,7 @@ OBJECT_PATTERN = '<object_pattern>'
 TYPE = ( <type> )
 [ <type_option> ]
 [ COMPRESSION = <compression_type> ]
+[ DESCRITPION = <description> ]
 ```
 
 
@@ -58,6 +59,7 @@ TYPE = ( <type> )
 | `TYPE`                    | Specifies the file type Firebolt expects to ingest given the `OBJECT_PATTERN`. If a file referenced using `OBJECT_PATTERN` does not conform to the specified `TYPE`, an error occurs. For more information, see [TYPE](#type).                                                                                                     |
 | `<type_option>`           | Allows configuration for ingesting different CSV file formats. Type option can be set at this top level, or as an option in the `TYPE` parameter.                                                                                                                                                                                  |
 | `COMPRESSION`             | See [COMPRESSION](#compression).                                                                                                                                                                                                                                                                                                   |
+| `DESCRIPTION`             | The optional description of the table.    |
 
 
 ### Using location objects
@@ -70,6 +72,8 @@ Use location objects for:
 - Eliminating the exposure of credentials in queries.
 - Enabling role-based access control.
 - Simplified maintenance and updates.
+
+For a comprehensive guide to LOCATION objects, see [LOCATION objects](/guides/security/location).
 
 **Example**
 

@@ -7,7 +7,7 @@ title: COPY TO
 
 
 
-Copies exports or unloads the results of a `SELECT` query to an Amazon S3 source in the file format that you specify. You can specify the output file format, compression type, and other options to control how the data is written, such as file name conventions and whether to overwrite existing files. Use `COPY TO` for backing up query results or integrating Firebolt with other data processing tools.
+Exports the results of a `SELECT` query to Amazon S3 in your specified file format. You can specify the output file format, compression type, and other options to control how the data is written, such as file name conventions and whether to overwrite existing files. Use `COPY TO` for backing up query results or integrating Firebolt with other data processing tools.
 
 
 ## Syntax
@@ -15,26 +15,33 @@ Copies exports or unloads the results of a `SELECT` query to an Amazon S3 source
 ```sql
 COPY (<select_query>)
   TO <location_name>
-[ TYPE = CSV | TSV | JSON | PARQUET ]
-[ COMPRESSION = GZIP | SNAPPY | NONE ]
-[ INCLUDE_QUERY_ID_IN_FILE_NAME = TRUE | FALSE ]
-[ FILE_NAME_PREFIX = <file_string> ]
-[ SINGLE_FILE = FALSE | TRUE ]
-[ MAX_FILE_SIZE = <bytes> ]
-[ OVERWRITE_EXISTING_FILES = FALSE | TRUE ]
-[ HEADER = TRUE | FALSE ]
-|
+  [ WITH ( <option> [, ...] ) ]
+
 COPY (<select_query>)
   TO '<url>'
-  CREDENTIALS = { AWS_ACCESS_KEY_ID = '<aws_access_key_id>' AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>' [ AWS_SESSION_TOKEN = '<aws_session_token>' ] | AWS_ROLE_ARN = '<aws_role_arn>' [ AWS_ROLE_EXTERNAL_ID = '<aws_role_external_id>' ] }
-[ TYPE = CSV | TSV | JSON | PARQUET ]
-[ COMPRESSION = GZIP | SNAPPY | NONE ]
-[ INCLUDE_QUERY_ID_IN_FILE_NAME = TRUE | FALSE ]
-[ FILE_NAME_PREFIX = <file_string> ]
-[ SINGLE_FILE = FALSE | TRUE ]
-[ MAX_FILE_SIZE = <bytes> ]
-[ OVERWRITE_EXISTING_FILES = FALSE | TRUE ]
-[ HEADER = TRUE | FALSE ]
+  [ WITH ( <option> [, ...] ) ]
+
+<option>:
+    [ CREDENTIALS = ( <credentials> ) ] 
+    [ TYPE = CSV | TSV | JSON | PARQUET ]
+    [ COMPRESSION = GZIP | SNAPPY | NONE ]
+    [ INCLUDE_QUERY_ID_IN_FILE_NAME = TRUE | FALSE ]
+    [ FILE_NAME_PREFIX = <string> ]
+    [ SINGLE_FILE = TRUE | FALSE ]
+    [ MAX_FILE_SIZE = <bytes> ]
+    [ OVERWRITE_EXISTING_FILES = TRUE | FALSE ]
+    [ HEADER = TRUE | FALSE ]
+    [ <settings> ]
+
+
+<credentials>: (    -- Only applicable when using URL destination
+  AWS_ACCESS_KEY_ID = '<aws_access_key_id>',
+  AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>'
+  [, AWS_SESSION_TOKEN = '<aws_session_token>' ]
+  |
+  AWS_ROLE_ARN = '<aws_role_arn>'
+  [, AWS_ROLE_EXTERNAL_ID = '<aws_role_external_id>' ]
+)
 ```
 
 
@@ -54,7 +61,7 @@ COPY (<select_query>)
 | `MAX_FILE_SIZE`                  | Specifies the max file size in bytes. If omitted, the default value is 16,000,000 bytes (about 16 MB). The maximum file size that can be specified is 5,368,709,120 bytes (5 GB).                                                                                                                                                                                                                                                                                                                                     |
 | `OVERWRITE_EXISTING_FILES`       | Specifies whether exported files should overwrite existing files of the same name in the specified Amazon S3 URL. If omitted, defaults to `FALSE`, and files of the same name are not overwritten.                                                                                                                                                                                                                                                                                                  |
 | `HEADER`       | Specifies whether CSV files should contain a header line containing the column names. If omitted, defaults to `TRUE`. Must be omitted for TSV, JSON, or Parquet files. |
-
+| `<settings>` | List of [query-specific settings](/reference/system-settings#setting-via-with) overrides.  |
 
 ## Credentials
 
@@ -65,7 +72,7 @@ Firebolt needs permissions to write query results to the specified Amazon S3 URL
 Specify access key credentials using the syntax shown below.
 
 ```sql
-  CREDENTIALS = { AWS_ACCESS_KEY_ID = '<aws_access_key_id>' AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>' [ AWS_SESSION_TOKEN = '<aws_session_token>' ] | AWS_ROLE_ARN = '<aws_role_arn>' [ AWS_ROLE_EXTERNAL_ID = '<aws_role_external_id>' ] }
+  CREDENTIALS = ( AWS_ACCESS_KEY_ID = '<aws_access_key_id>', AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>' [, AWS_SESSION_TOKEN = '<aws_session_token>' ] | AWS_ROLE_ARN = '<aws_role_arn>' [, AWS_ROLE_EXTERNAL_ID = '<aws_role_external_id>' ] )
 ```
 
 For Amazon S3 locations, you can use either access key-based authentication or role-based authentication:
@@ -114,19 +121,23 @@ Location objects provide a secure and reusable way to specify Amazon S3 destinat
 - Provides better security through role-based access control
 - Simplifies maintenance and updates
 
-For more information about location objects, see [CREATE LOCATION](/reference-sql/commands/data-definition/create-location).
+For a comprehensive guide to LOCATION objects, see [LOCATION objects](/guides/security/location). For complete syntax reference, see [CREATE LOCATION](/reference-sql/commands/data-definition/create-location).
 
 ### Example with Location Object
 
 ```sql
-COPY (SELECT * FROM test_table)
-  TO my_export_location
-  TYPE = JSON
-  COMPRESSION = NONE
-  SINGLE_FILE = TRUE
-  FILE_NAME_PREFIX = 'latest-export'
-  MAX_FILE_SIZE = 5000000000
-  OVERWRITE_EXISTING_FILES = TRUE;
+COPY (
+  SELECT * FROM test_table
+)
+TO my_export_location
+WITH (
+  TYPE = JSON,
+  COMPRESSION = NONE,
+  SINGLE_FILE = TRUE,
+  FILE_NAME_PREFIX = 'latest-export',
+  MAX_FILE_SIZE = 5000000000,
+  OVERWRITE_EXISTING_FILES = TRUE
+);
 ```
 
 The location object `my_export_location` contains the Amazon S3 URL and credentials, making the statement cleaner and more secure.
@@ -144,14 +155,18 @@ The location object `my_export_location` contains the Amazon S3 URL and credenti
 This example demonstrates the recommended approach using a location object. The location object contains the Amazon S3 URL and credentials, making the statement more secure and maintainable.
 
 ```sql
-COPY (SELECT * FROM test_table)
-  TO my_export_location
-  TYPE = JSON
-  COMPRESSION = NONE
-  SINGLE_FILE = TRUE
-  FILE_NAME_PREFIX = 'latest-export'
-  MAX_FILE_SIZE = 5000000000
-  OVERWRITE_EXISTING_FILES = TRUE;
+COPY (
+  SELECT * FROM test_table
+)
+TO my_export_location
+WITH (
+  TYPE = JSON,
+  COMPRESSION = NONE,
+  SINGLE_FILE = TRUE,
+  FILE_NAME_PREFIX = 'latest-export',
+  MAX_FILE_SIZE = 5000000000,
+  OVERWRITE_EXISTING_FILES = TRUE
+);
 ```
 
 Firebolt writes a single file as shown below.
@@ -166,9 +181,13 @@ s3://my_bucket/exports/
 The example below shows a `COPY TO` statement with minimal parameters that specifies an `AWS_ROLE_ARN`. Because `TYPE` is omitted, the file or files will be written in CSV format, and because `COMPRESSION` is omitted, they are compressed using GZIP  (`*.csv.gz`).
 
 ```sql
-COPY (SELECT * FROM test_table)
-  TO 's3://my-bucket/path/to/data'
-  CREDENTIALS = (AWS_ROLE_ARN='arn:aws:iam::123456789012:role/my-firebolt-role');
+COPY (
+  SELECT * FROM test_table
+)
+TO 's3://my-bucket/path/to/data'
+WITH (
+  CREDENTIALS = (AWS_ROLE_ARN='arn:aws:iam::123456789012:role/my-firebolt-role')
+);
 ```
 
 Firebolt assigns the query ID `16B903C4206098FD` to the query at runtime. The compressed output is 40 MB, exceeding the default of 16 MB, so Firebolt writes 4 files as shown below.
@@ -186,14 +205,18 @@ s3://my_bucket/my_fb_queries/
 The example below exports a single, uncompressed JSON file with the same name as the query ID. If the file to be written exceeds the specified `MAX_FILE_SIZE` (5 GB), an error occurs. AWS access keys are specified for credentials.
 
 ```sql
-COPY (SELECT * FROM test_table)
-  TO 's3://my-bucket/path/to/data'
-  TYPE=JSON
-  COMPRESSION=NONE
-  CREDENTIALS=(AWS_ACCESS_KEY_ID='AKIAIOSFODNN7EXAMPLE' AWS_SECRET_ACCESS_KEY='wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY')
-  INCLUDE_QUERY_ID_IN_FILE_NAME=TRUE
-  SINGLE_FILE=TRUE
-  MAX_FILE_SIZE=5000000000;
+COPY (
+  SELECT * FROM test_table
+)
+TO 's3://my-bucket/path/to/data'
+WITH (
+  TYPE=JSON,
+  COMPRESSION=NONE,
+  CREDENTIALS=(AWS_ACCESS_KEY_ID='AKIAIOSFODNN7EXAMPLE', AWS_SECRET_ACCESS_KEY='wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'),
+  INCLUDE_QUERY_ID_IN_FILE_NAME=TRUE,
+  SINGLE_FILE=TRUE,
+  MAX_FILE_SIZE=5000000000
+);
 ```
 
 Firebolt writes a single file as shown below.
@@ -208,12 +231,16 @@ s3://my_bucket/my_fb_queries/
 In the example below, because `FILE_NAME_PREFIX` parameter is specified, Firebolt adds a string to the query ID to form file names. The IAM role specified for `CREDENTIALS` also has an external ID configured in AWS, so the ID is specified.
 
 ```sql
-COPY (SELECT * FROM test_table)
-  TO 's3://my-bucket/path/to/data'
-  TYPE=JSON
-  COMPRESSION=NONE
-  CREDENTIALS = (AWS_ROLE_ARN='arn:aws:iam::123456789012:role/my-firebolt-role' AWS_ROLE_EXTERNAL_ID='99291')
-  FILE_NAME_PREFIX='_query_result';
+COPY (
+  SELECT * FROM test_table
+)
+TO 's3://my-bucket/path/to/data'
+WITH (
+  TYPE=JSON,
+  COMPRESSION=NONE,
+  CREDENTIALS = (AWS_ROLE_ARN='arn:aws:iam::123456789012:role/my-firebolt-role', AWS_ROLE_EXTERNAL_ID='99291'),
+  FILE_NAME_PREFIX='_query_result'
+);
 ```
 
 Firebolt assigns the query an id of `16B90E96716236D6` at runtime and writes files as shown below.
@@ -232,16 +259,20 @@ s3://my_bucket/my_fb_queries/
 In the example below, `INCLUDE_QUERY_ID_IN_FILE_NAME` is set to `FALSE` and a `FILE_NAME_PREFIX` is specified. In this case, Firebolt writes files using only the specified `FILE_NAME_PREFIX` as the file name. In addition, `SINGLE_FILE` and `OVERWRITE_EXISTING_FILES` are set to `TRUE` so that the Amazon S3 URL always contains a single file with the latest query results.
 
 ```sql
-COPY (SELECT * FROM test_table)
-  TO 's3://my_bucket/my_fb_query'
-  TYPE=JSON
-  COMPRESSION=NONE
-  CREDENTIALS=(AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/my-firebolt-role')
-  INCLUDE_QUERY_ID_IN_FILE_NAME=FALSE
-  SINGLE_FILE=TRUE
-  FILE_NAME_PREFIX='latest-fb-query-result'
-  MAX_FILE_SIZE=5000000000
-  OVERWRITE_EXISTING_FILES=TRUE;
+COPY (
+  SELECT * FROM test_table
+)
+TO 's3://my_bucket/my_fb_query'
+WITH (
+  TYPE=JSON,
+  COMPRESSION=NONE,
+  CREDENTIALS=(AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/my-firebolt-role'),
+  INCLUDE_QUERY_ID_IN_FILE_NAME=FALSE,
+  SINGLE_FILE=TRUE,
+  FILE_NAME_PREFIX='latest-fb-query-result',
+  MAX_FILE_SIZE=5000000000,
+  OVERWRITE_EXISTING_FILES=TRUE
+);
 ```
 
 Firebolt writes a single file as shown below.

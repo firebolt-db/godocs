@@ -1,39 +1,40 @@
 ---
 description: Reference material for REVERSE function
-groups: []
-no_index: true
 sidebarTitle: REVERSE
 title: REVERSE
 ---
 
-
-Returns a string of the same size as the original string, with the elements in reverse order.
+Returns the input string with all characters in reverse order.
 
 ## Syntax
-
 
 ```sql
 REVERSE(<expression>)
 ```
 
-## Parameters 
-
+## Parameters
 
 | Parameter  | Description                |Supported Input Types |
 | :---------- | :--------------------------|:---------------------|
-| `<expression>` | The string to be reversed. | `TEXT` | 
+| `<expression>` | The string to be reversed. | `TEXT` |
 
 ## Return Type
 `TEXT`
 
-## Example
+## Examples
 
-The following example returns the player's username with the characters reversed: 
+Reverse a simple text string:
 
 ```sql
-SELECT
-	REVERSE('esimpson') AS username; 
+SELECT REVERSE('esimpson');
 ```
 
 **Returns**: `'nospmise'`
 
+Reverse a string containing emoji characters:
+
+```sql
+SELECT REVERSE('👋🌍');
+```
+
+**Returns**: `'🌍👋'`

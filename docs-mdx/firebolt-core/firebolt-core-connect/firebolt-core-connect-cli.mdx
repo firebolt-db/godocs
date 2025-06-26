@@ -1,0 +1,66 @@
+---
+sidebarTitle: Connect via CLI
+title: Connect via CLI
+---
+
+# Firebolt CLI
+
+The [official Firebolt CLI](https://github.com/firebolt-db/fb-cli) supports Firebolt Core and can be downloaded from the [releases page](https://github.com/firebolt-db/fb-cli/releases).
+
+## Command-line arguments
+
+```
+Usage: ./fb [OPTIONS]
+
+Positional arguments:
+  query                    Query command(s) to execute. If not specified, starts the REPL
+
+Optional arguments:
+  -c, --command COMMAND    Run a single command and exit
+  -C, --core               Preset of settings to connect to Firebolt Core
+  -h, --host HOSTNAME      Hostname to connect to
+  -d, --database DATABASE  Database name to use
+  -f, --format FORMAT      Output format (e.g., TabSeparatedWithNames, PSQL, JSONLines_Compact, Vertical, ...)
+  -e, --extra EXTRA        Extra settings in the form --extra <name>=<value>
+  -l, --label LABEL        Query label for tracking or identification
+  -j, --jwt JWT            JWT for authentication
+  --sa-id SA-ID            Service Account ID for OAuth authentication
+  --sa-secret SA-SECRET    Service Account Secret for OAuth authentication
+  --jwt-from-file          Load JWT from file (~/.firebolt/jwt)
+  --bearer BEARER          Firebolt bearer token for authentication
+  --oauth-env OAUTH-ENV    OAuth environment to use (e.g., 'app' or 'staging'). Used for Service Account authentication (default: staging)
+  -v, --verbose            Enable extra verbose output
+  --concise                Suppress time statistics in output
+  --hide-pii               Hide URLs that may contain PII in query parameters
+  --no-spinner             Disable the spinner in CLI output
+  --update-defaults        Update default configuration values
+  -V, --version            Print version
+  --help                   Show help message and exit
+```
+
+In order to connect to a Firebolt Core cluster you need to run:
+
+```bash
+$ fb --core
+Press Ctrl+D to exit.
+=> SELECT 42;
+ ?column?
+---------
+       42
+
+Time: 20.9ms
+Request Id: 82496e8f-bdac-4e6a-8c16-19efde18f79d
+```
+
+If the host is different than `localhost`, specify it via `--host example-node-host`.
+
+You can also directly provide the query as an argument:
+```bash
+$ fb --core 'SELECT 42'
+ ?column?
+---------
+       42
+
+Time: 14.5ms
+Request Id: 34c613b9-1d05-4744-a5d0-01dff0e7e8e3
+```

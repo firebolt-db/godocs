@@ -20,6 +20,8 @@ You can use `LOCATION` to centralize credential storage with managed access with
 
 After you create a `LOCATION`, you can use the `information_schema.locations` view to see [details about all the locations](/reference-sql/information-schema/locations) in your account including source type, URL, description, owner and creation time.
 
+For a comprehensive guide to understanding and using LOCATION objects, see [LOCATION objects](/guides/security/location).
+
  **Related:**
 
 This document covers `LOCATION` objects in general. For more information about specific types of `LOCATION` objects, including more in-depth examples, please see:
@@ -29,7 +31,6 @@ This document covers `LOCATION` objects in general. For more information about s
  **Topics:**
  * [Syntax](#syntax)
  * [Parameters](#parameters)
- * [Permissions](#permissions)
  * [Examples](#examples)
  * [Notes](#notes)
  * [Error Handling](#error-handling)
@@ -40,12 +41,12 @@ This document covers `LOCATION` objects in general. For more information about s
 
 ```sql
 CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
-  SOURCE = { 'AMAZON_S3' | 'ICEBERG' }
+  SOURCE = { AMAZON_S3 | ICEBERG }
   [ , ... ]
 
 -- Amazon S3 Location
 CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
-  SOURCE = 'AMAZON_S3'
+  SOURCE = AMAZON_S3
   CREDENTIALS = {
     ( AWS_ACCESS_KEY_ID = '<aws_access_key_id>'
       AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>'
@@ -59,8 +60,8 @@ CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
 
 -- Iceberg Location
 CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
-  SOURCE = 'ICEBERG'
-  CATALOG = { 'FILE_BASED' | 'REST' | 'DATABRICKS_UNITY' }
+  SOURCE = ICEBERG
+  CATALOG = { FILE_BASED | REST | DATABRICKS_UNITY }
   CATALOG_OPTIONS = {
     -- FILE_BASED
     ( URL = '<file_based_catalog_url>' )
@@ -162,20 +163,6 @@ CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
 | `SCHEMA` | The Unity Catalog schema name. |
 | `TABLE` | The Unity Catalog table name. |
 
-## Permissions
-
-`LOCATION` objects are managed using [RBAC](/overview/security/rbac) with the following permission levels:
-
-| Permission | Description |
-| :--------- | :---------- |
-| CREATE LOCATION | Create a new location object. |
-| MODIFY LOCATION | Modify existing location objects. |
-| MODIFY ANY LOCATION | Modify any location object in the account. |
-| LIST LOCATION | View location object details. |
-| LIST ANY LOCATION | View any location object in the account. |
-| USAGE LOCATION | Use a location object. |
-| USAGE ANY LOCATION | Use any location object in the account. |
-
 ## Examples
 
 * [Create a location](#create-a-location)
@@ -193,7 +180,7 @@ The following code example creates a location that uses keys to authenticate to 
 
 ```sql
 CREATE LOCATION my_location WITH
-  SOURCE = 'AMAZON_S3'
+  SOURCE = AMAZON_S3
   CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' )
   URL = 's3://my-bucket/path/to/data'
 ```
@@ -204,7 +191,7 @@ The following code example creates a location object named `my_location`, for an
 
 ```sql
 CREATE LOCATION my_location WITH
-  SOURCE = 'AMAZON_S3'
+  SOURCE = AMAZON_S3
   CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' )
   URL = 's3://my-bucket/path/to/data'
   DESCRIPTION = 'Main data storage location'
@@ -216,7 +203,7 @@ The following code example uses an access key to authenticate to AWS using a loc
 
 ```sql
 CREATE LOCATION IF NOT EXISTS my_location WITH
-  SOURCE = 'AMAZON_S3'
+  SOURCE = AMAZON_S3
   CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' )
   URL = 's3://my-bucket/path/to/data'
 ```

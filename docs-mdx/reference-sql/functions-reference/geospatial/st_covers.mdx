@@ -9,7 +9,7 @@ The `ST_COVERS` function determines if one `GEOGRAPHY` object fully encompasses 
 
 If either `geo1` or `geo2` is empty, `ST_COVERS` will return `FALSE`.
 
-Before performing the coverage check, `geo1` and `geo2` are aligned through a snapping process, ensuring precise calculation. For more details on snapping, refer to the [snapping documentation](/reference-sql/geography-data-type#snapping).
+Before performing the coverage check, `geo1` and `geo2` are aligned through a snapping process, ensuring precise calculation. For more details on snapping, refer to the [snapping documentation](/reference-sql/data-types/geography#snapping).
 
 ## Comparison with [ST_CONTAINS](/reference-sql/functions-reference/geospatial/st_contains)
 `ST_COVERS` is similar to `ST_CONTAINS`, but there is a key distinction: `ST_CONTAINS` returns `FALSE` if all points in `geo2` lie exactly on the boundary of `geo1`, while `ST_COVERS` will return `TRUE` in this case. If this distinction is not important, use `ST_COVERS`, which is more efficient to compute in Firebolt.

@@ -34,6 +34,7 @@ Each row has the following columns with information about each column.
 | is_in_partition_expr      | TEXT    | `YES` if the column is included in the table's `PARTITION BY` clause, `NO` otherwise. |
 | is_in_primary_index       | TEXT    | `YES` if the column is included in the table's `PRIMARY INDEX` clause, `NO` otherwise. |
 | numeric_precision         | BIGINT    | The numeric precision. For numeric columns only. |
+| description               | TEXT      | The description of the column. |
 | character_maximum_length  | NULL      | Not applicable for Firebolt. |
 | character_octet_length    | NULL      | Not applicable for Firebolt. |
 | numeric_precision_radix   | NULL      | Not applicable for Firebolt. |
