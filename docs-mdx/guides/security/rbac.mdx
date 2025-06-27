@@ -6,13 +6,19 @@ title: Role-based access control (RBAC)
 
 
 
-Role-Based Access Control (RBAC) allows you to manage user permissions by controlling who can access or perform operations on specific objects in Firebolt. This guide provides a step-by-step process for setting RBAC in Firebolt.
+Role-Based Access Control (RBAC) allows you to manage user permissions by controlling who can access or perform operations on specific objects in Firebolt.
+Firebolt supports RBAC at two different levels:
+- **Organization level** &ndash; for global objects like logins, service accounts or network policies.
+- **Account level** &ndash; for regional objects like databases, tables or engines.
+
+This guide includes both **account-level RBAC** and **organization-level RBAC**.
 
 ## Prerequisites
 The following material can help you understand key concepts related to organizations and RBAC in Firebolt:
 * [Organizations and accounts](/overview/organizations-accounts) &ndash; How Firebolt provides a structure for managing users, resources, and permissions.
 * [Role-Based Access Control](/overview/security/rbac) &ndash; How administrators manage user permissions and control access to resources based on predefined roles.
 
+## 🔐 Account-Level RBAC
 
 ## View all roles 
 
@@ -204,4 +210,166 @@ SELECT * FROM view_over_base_table; -- executed by user2 and fails because the v
 ```
 If the view owner's privileges are revoked, the query will fail even if the user has access to the view.
 
+## 🌐 Organization-Level RBAC
 
+### View all organization roles
+
+To view all organization roles using the **Firebolt Workspace**, do the following:
+
+1. Login to the [Firebolt Workspace](https://firebolt.go.firebolt.io/signup).
+2. Select the **Configure** icon (<img src="/assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." width="20" style={{"display": "inline", "margin-bottom": "0", "margin-top": "0"}}/>)from the left navigation bar to open the **Configure Space**.
+3. Choose **Organization roles** from the left panel under **Configure**.
+
+### Create Organization Role
+
+The following code example creates an organization role if it doesn't already exist:
+
+```sql
+CREATE ORGANIZATION ROLE [IF NOT EXISTS] my_role;
+```
+
+### Create Organization Role using the UI
+
+1. Select the **Configure** icon (<img src="/assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." width="20" style={{"display": "inline", "margin-bottom": "0", "margin-top": "0"}}/>) from the left navigation bar to open the **Configure Space**.
+2. Choose **Organization roles** from the left panel under **Configure**.
+3. Choose the **Create organization role** button in the upper-right corner of the page.
+4. Under **Define organization role**, enter a role name.
+5. Select **Next step**.
+6. Under **Configure permissions** for each category you can select objects that you want to grant permissions for. For each category you can have multiple groups of permissions. To add additional group use **Add another group** button.
+7. Configure permissions for each group:
+   * Grant permissions to **Create Account**, **Create Login**, **Modify**, etc group of objects, using the **Add permissions** button.
+8. Select **Next step**.
+9. Select the Logins, Service accounts and Organization roles for which you want to assign this role or create the role without any assignment.
+10. Select **Create role**
+
+---
+
+### Drop Organization Role
+
+The following code example drops an organization role if it exists:
+```sql
+DROP ORGANIZATION ROLE [IF EXISTS] my_role [RESTRICT | CASCADE];
+```
+
+### Drop organization role using the UI
+
+1. Select the **Configure** icon (<img src="/assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." width="20" style={{"display": "inline", "margin-bottom": "0", "margin-top": "0"}}/>) from the left navigation bar to open the **Configure Space**.
+2. Choose **Organization roles** from the left panel under **Configure**.
+2. Search for the relevant role using the top search filters or by scrolling through the list. Hover over the right-most column to make the role menu appear, then choose **Delete role**.
+3. Choose **Delete**.
+
+---
+
+### Alter Organization Role
+
+The following code example changes the owner of the organization role `my_role` to `new_owner` and then renames the role to `new_name`:
+
+```sql
+ALTER ORGANIZATION ROLE my_role OWNER TO new_owner;
+ALTER ORGANIZATION ROLE my_role RENAME TO new_name;
+```
+
+### Alter Organization Role using the UI
+
+1. Select the **Configure** icon (<img src="/assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." width="20" style={{"display": "inline", "margin-bottom": "0", "margin-top": "0"}}/>) from the left navigation bar to open the **Configure Space**.
+2. Choose **Organization roles** from the left panel under **Configure**.
+2. Search for the relevant role using the top search filters or by scrolling through the list. Hover over the right-most column to make the role menu appear, then choose **Edit role**.
+3. Navigate to the **Configure permissions** tab to add or remove permissions.
+4. Select **Assign role**.
+5. Select checkbox next to the Logins | Service accounts | Organization roles that you want to grant role to.
+6. Select **Save role**
+
+---
+
+### Grant Organization Role
+
+The following code example grants the organization role `my_role` to a login, a service account, and another organization role:
+
+```sql
+GRANT ORGANIZATION ROLE my_role TO LOGIN "john@acme.com";
+GRANT ORGANIZATION ROLE my_role TO SERVICE ACCOUNT svc_account;
+GRANT ORGANIZATION ROLE my_role TO ORGANIZATION ROLE another_org_role;
+```
+
+### Grant Organization Role using the UI
+
+1. Select the **Configure** icon (<img src="/assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." width="20" style={{"display": "inline", "margin-bottom": "0", "margin-top": "0"}}/>) from the left navigation bar to open the **Configure Space**.
+2. Choose **Organization roles** from the left panel under **Configure**.
+2. Search for the relevant role using the top search filters or by scrolling through the list. Hover over the right-most column to make the role menu appear, then choose **Grant to** login | service account |  role.
+3. Select the object you want to assign to.
+4. Select **Grant**.
+
+---
+
+### Revoke Organization Role
+The following code example revokes the organization role `my_role` from the login `john@acme.com`:
+
+```sql
+REVOKE ORGANIZATION ROLE my_role FROM LOGIN "john@acme.com";
+```
+
+### Revoke organization Role using the UI
+To revoke permissions, follow the same steps described in [Grant Organization Role using the UI](#grant-organization-role-using-the-ui).
+
+---
+
+### Grant Privileges
+
+The following code example grants the `MODIFY ANY LOGIN` privilege to the organization role `my_role`, allowing it to modify any login in the organization:
+
+```sql
+GRANT MODIFY ANY LOGIN TO ORGANIZATION ROLE my_role;
+```
+
+---
+
+### Revoke Privileges
+
+The following code example revokes the `MODIFY` privilege on the login `john@acme.com` from the organization role `my_role`:
+
+```sql
+REVOKE MODIFY ON LOGIN "john@acme.com" FROM ORGANIZATION ROLE my_role;
+```
+
+### Grant or Revoke privileges using the UI
+To grant or revoke privileges, follow the same steps described in [Alter Organization Role using the UI](#alter-organization-role-using-the-ui).
+
+---
+
+### Query Organization RBAC Metadata
+
+The following queries list information about organization roles and privileges: applicable roles, transitive applicable roles, enabled roles, and granted object privileges from `org_db.information_schema`:
+
+```sql
+-- List applicable organization roles
+SELECT * FROM org_db.information_schema.applicable_roles;
+
+-- List transitive organization roles
+SELECT * FROM org_db.information_schema.transitive_applicable_roles;
+
+-- List enabled organization roles
+SELECT * FROM org_db.information_schema.enabled_roles;
+
+-- List granted privileges
+SELECT * FROM org_db.information_schema.object_privileges;
+```
+
+---
+
+## 📊 RBAC Comparison Summary
+
+| Feature                   | Organization-Level RBAC                   | Account-Level RBAC     |
+|---------------------------|-------------------------------------------|------------------------|
+| Scope                     | Global                                    | Regional (per-account) |
+| Role Type                 | `ORGANIZATION ROLE`                       | `ROLE`                 |
+| Grantees                  | Login, Service Account, Organization Role | User, Role             |
+| Metadata Views            | `org_db.information_schema.*`             | `information_schema.*` |
+| UI Support                | Coming Soon                               | Available              |
+
+## 🧑‍💼 Ownership of Global Organization-Level Objects
+
+Ownership at the organization level functions similarly to account-level ownership. The **owner of an organization-level object** is implicitly granted **full control** over that object. This includes the ability to **modify, drop, grant, and revoke privileges** on it, regardless of any explicit privileges.
+
+This model ensures that the object's creator, or reassigned owner, retains administrative authority, providing a clear and secure access model.
+
+For more details, see the [Ownership documentation](/overview/security/rbac/ownership).

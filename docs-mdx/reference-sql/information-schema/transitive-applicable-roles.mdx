@@ -6,7 +6,7 @@ title: Transitive applicable roles
 ---
 
 
-The `information_schema.applicable_roles` view shows every role in the account and its grantees, who include other users or roles to whom the role is granted. 
+The `information_schema.applicable_roles` view shows every role in the **account** and its grantees, who include other users or roles to whom the role is granted.
 
 Unlike, `information_schema.applicable_roles` that shows only direct grantees, `information_schema.transitive_applicable_roles` also shows indirect grantees.
 For example, if role `engineer` is granted to role `manager` and role `manager` is granted to user `alice` then user `alice` is a direct grantee of `manager` and an indirect grantee of `engineer`.
@@ -17,6 +17,15 @@ SELECT
   *
 FROM
   information_schema.transitive_applicable_roles;
+```
+
+Similarly, you can use the `org_db.information_schema.transitive_applicable_roles` to view the roles in your **organization**:
+
+```sql
+SELECT
+  *
+FROM
+  org_db.information_schema.transitive_applicable_roles;
 ```
 
 See also `information_schema.applicable_roles` [here](/reference-sql/information-schema/applicable-roles).
@@ -35,4 +44,3 @@ Each row has the following columns with information about the role.
 | role_name       | TEXT        | Name of the role.                                                   |
 | is_grantable    | TEXT        | `YES` if the grantee has the admin option on the role, `NO` if not. |
 | created         | TIMESTAMPTZ | Creation time of the role.                                          |
-

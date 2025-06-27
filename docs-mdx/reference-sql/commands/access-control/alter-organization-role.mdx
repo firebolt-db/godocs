@@ -1,0 +1,59 @@
+---
+description: Reference and syntax for the ALTER ORGANIZATION ROLE command.
+sidebarTitle: ALTER ORGANIZATION ROLE
+title: ALTER ORGANIZATION ROLE
+---
+
+## ALTER ORGANIZATION ROLE OWNER TO
+
+Updates the specified organization role owner.
+
+### Syntax
+
+```sql
+ALTER ORGANIZATION ROLE <role_name> OWNER TO <owner_name>
+```
+
+### Parameters
+
+| Parameter         | Description                                                                            |
+|:------------------|:---------------------------------------------------------------------------------------|
+| `<role_name>`     | The name of the role to alter.                                                         |
+| `<owner_name>`    | The new owner of the role. The owner must be an existing login or service account.     |
+
+### Examples
+
+**Change owner of a role**
+
+The following command will change the owner of `account_manager` role to the login `alexs@acme.com`:
+
+```sql
+ALTER ORGANIZATION ROLE "account_manager" OWNER TO "alexs@acme.com"
+```
+
+## ALTER ORGANIZATION ROLE RENAME TO
+
+Renames the specified organization role.
+
+### Syntax
+
+```sql
+ALTER ORGANIZATION ROLE <role_name> RENAME TO <new_role_name>
+```
+
+### Parameters
+
+| Parameter         | Description                                                                            |
+|:------------------|:---------------------------------------------------------------------------------------|
+| `<role_name>`     | The name of the role to alter.                                                         |
+| `<new_role_name>` | The new name of the role. The name of the role must be unique within the organization. |
+
+### Examples
+
+**Rename a role**
+
+The following command will rename the `account_manager` role to `dev_account_manager`:
+
+```sql
+ALTER ORGANIZATION ROLE "account_manager" RENAME TO "dev_account_manager"
+```

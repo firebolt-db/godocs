@@ -1,0 +1,37 @@
+---
+description: Reference and syntax for the CREATE ORGANIZATION ROLE command.
+sidebarTitle: CREATE ORGANIZATION ROLE
+title: CREATE ORGANIZATION ROLE
+---
+
+Creates a new organization role.
+
+For more information, see [Role-based access control](/guides/security/rbac).
+
+## Syntax
+
+```sql
+CREATE ORGANIZATION ROLE [ IF NOT EXISTS ] <role_name>
+```
+
+## Parameters
+
+| Parameter     | Description                         |
+|:--------------|:------------------------------------|
+| `<role_name>` | The name of the role.               |
+
+## Examples
+
+The following command will create a role `account_manager`:
+
+```sql
+CREATE ORGANIZATION ROLE "account_manager"
+```
+
+The following command will create a role "account_manager_2":
+
+```sql
+CREATE ORGANIZATION ROLE IF NOT EXISTS "account_manager_2"
+```
+
+In the previous code example, if `account_manager_2` exists, no error message is returned.

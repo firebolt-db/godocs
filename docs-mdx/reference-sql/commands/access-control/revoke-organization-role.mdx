@@ -1,0 +1,93 @@
+---
+description: Reference and syntax for the REVOKE ORGANIZATION ROLE command.
+sidebarTitle: REVOKE ORGANIZATION ROLE
+title: REVOKE ORGANIZATION ROLE
+---
+
+Revokes permissions from an organization role. `REVOKE` can also be used to revoke an organization role from another organization role or an identity (login or service account).
+
+## REVOKE PRIVILEGE
+
+Revokes a permission from a role.
+
+<Note>
+Only `org_admin` or a role owner can revoke a permission to a role.
+</Note>
+
+### Syntax
+
+```sql
+REVOKE <permission> ON <object_type> <object_name> FROM ORGANIZATION ROLE <role_name>
+```
+
+### Parameters
+
+| Parameter       | Description                                                                                                                                                                                                                            |
+|:----------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<permission>`  | The name of the permission to revoke from a role. Permissions that can be revoked vary depending on the object that they apply to.                                                                                                     |
+| `<object_type>` | The type of the object to revoke permissions from.                                                                                                                                                                                     |
+| `<object_name>` | The name of the object to revoke permissions from.                                                                                                                                                                                     |
+| `<role_name>`   | The name of the role from which the permission will be revoked.                                                                                                                                                                        |
+
+### Examples
+
+**Revoke `MODIFY` permission on an account**
+
+The following command revokes the `MODIFY` permission on the `account-1` account from the role `account_manager`, preventing it from making changes to the account:
+
+```sql
+REVOKE MODIFY ON ACCOUNT "account-1" FROM ORGANIZATION ROLE "account_manager"
+```
+
+**Revoke `MODIFY` permissions on all accounts in the organization**
+
+The following command revokes `MODIFY` permissions on all accounts in your organization from the role `account_manager`, preventing it from making changes to the accounts:
+
+```sql
+REVOKE MODIFY ANY ACCOUNT ON ORGANIZATION "acme" FROM ORGANIZATION ROLE "account_manager"
+```
+
+## REVOKE ROLE
+
+Revokes an organization role from an identity (login or service account) or from another organization role.
+
+### Syntax
+
+```sql
+REVOKE ORGANIZATION ROLE <role_name> FROM { LOGIN <login_name> | SERVICE ACCOUNT <service_account_name> | ORGANIZATION ROLE <role_name_2> }
+```
+
+## Parameters
+
+| Parameter                | Description                                                           |
+|:-------------------------|:----------------------------------------------------------------------|
+| `<role_name>`            | The name of the role to revoke.                                       |
+| `<login_name>`           | The name of the login from which to revoke `<role_name>`.             |
+| `<service_account_name>` | The name of the service account from which to revoke `<role_name>`.   |
+| `<role_name_2>`          | The name of the role from which to revoke the role.                   |
+
+### Example
+
+**Revoke a role from another role**
+
+The following command removes the `role_name` role from `role_name_2`, revoking access to permissions granted to `role_name`:
+
+```sql
+REVOKE ORGANIZATION ROLE role_name FROM ORGANIZATION ROLE role_name_2
+```
+
+**Revoke a role from a login**
+
+The following command revokes role `role_name` from a login `"alexs@acme.com"`, removing the login's access to the permissions granted by `role_name`:
+
+```sql
+REVOKE ORGANIZATION ROLE role_name FROM LOGIN "alexs@acme.com"
+```
+
+**Revoke a role from a service account**
+
+The following command revokes role `role_name` from a service account `service_account_name`, removing the service account's access to the permissions granted by `role_name`:
+
+```sql
+REVOKE ORGANIZATION ROLE role_name FROM SERVICE ACCOUNT "service_account_name"
+```
