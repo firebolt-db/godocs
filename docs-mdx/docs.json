@@ -12,8 +12,8 @@
     "decoration": "gradient"
   },
   "integrations": {
-    "telemetry": {
-      "enabled": false
+    "gtm": {
+      "tagId": "GTM-WQS7M2G"
     }
   },
   "navigation": {
