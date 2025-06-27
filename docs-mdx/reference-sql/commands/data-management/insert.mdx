@@ -56,4 +56,4 @@ INSERT INTO students (id, full_name, gender) VALUES (3, 'Ron Weasley', 'M')
 
 - `insert_sharding` to [enforce partition locality](/reference/system-settings#insert-sharding) during ingestion into partitioned tables.
 - `tablet_min_size_bytes` and `tablet_max_size_bytes` to [control](/reference/system-settings#target-tablet-size) min/max tablet sizes during ingestion.
-
+- `max_insert_threads` to [control the maximum number of threads](/reference/system-settings#limiting-max-insert-threads) for `INSERT` statements, limiting the degree of parallelism for tablet writing operations. This can reduce memory footprint during ingestion.
