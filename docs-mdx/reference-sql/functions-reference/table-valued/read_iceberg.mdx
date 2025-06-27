@@ -19,7 +19,7 @@ A table-valued function (TVF) that reads data from [Apache Iceberg](https://iceb
 ## Syntax
 
 ```sql
--- Using a LOCATION object
+-- Using a LOCATION object (credentials stored in LOCATION)
 READ_ICEBERG (
   LOCATION => <location_name>
   [, NAMESPACE => '<namespace_name>' ]
@@ -55,7 +55,7 @@ READ_ICEBERG (
 
 | Parameter | Description | Supported input types |
 |:----------|:------------|:---------------------|
-| `LOCATION` | The name of a location object that contains the Iceberg parameters and credentials. Firebolt recommends using `LOCATION` to store credentials for authentication. For a comprehensive guide, see [LOCATION objects](/guides/security/location). | `IDENTIFIER` |
+| `LOCATION` | The name of a location object that contains Iceberg parameters and credentials. When specified, individual credential parameters are not required. For a comprehensive guide, see [LOCATION objects](/guides/security/location). | `IDENTIFIER` |
 | `NAMESPACE` | The namespace an Iceberg table resides in. Used only for REST catalogs. | `TEXT` |
 | `TABLE` | The name of the Iceberg table to read. Used only for REST catalogs. | `TEXT` |
 | `MAX_STALENESS` | Specifies a maximum staleness for results returned by this function, e.g., `INTERVAL '30 seconds'`. The default value is 0 seconds, forcing Firebolt to fetch the latest version metadata from the catalog for every query. Values larger than zero instruct Firebolt to cache metadata and vended credentials in memory, and can typically reduce query latency by tens or hundreds of milliseconds. | `INTERVAL` |
@@ -96,7 +96,7 @@ The result is a table with data from the Iceberg files. Columns are read and par
 
 ## Best practices
 
-- Firebolt recommends using a `LOCATION` object to store credentials for authentication. See [CREATE LOCATION](/reference-sql/commands/data-definition/create-location) and [CREATE LOCATION (Iceberg)](/reference-sql/commands/data-definition/create-location-iceberg).
+- Use a `LOCATION` object to store credentials for authentication. This approach centralizes credential management and eliminates the need to specify individual credential parameters in each query. See [CREATE LOCATION](/reference-sql/commands/data-definition/create-location) and [CREATE LOCATION (Iceberg)](/reference-sql/commands/data-definition/create-location-iceberg).
 - Specifying a value for `MAX_STALENESS` can help improve performance in tight loops and infrequently-updated tables.
 - It is recommended to specify all parameters using the named-parameter syntax rather than relying on parameter positions. For example: use `URL => 'http://example.com'` rather than omitting the `URL =>` parameter name specifier.
 
@@ -104,7 +104,7 @@ The result is a table with data from the Iceberg files. Columns are read and par
 
 ### Reading using a LOCATION
 
-The following code example reads the first 5 rows from an Iceberg table using a `LOCATION` object that stores credentials for authentication:
+The following code example reads the first 5 rows from an Iceberg table using a `LOCATION` object:
 
 ```sql
 CREATE LOCATION my_location
