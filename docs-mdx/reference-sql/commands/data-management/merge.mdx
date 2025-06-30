@@ -4,22 +4,25 @@ sidebarTitle: MERGE
 title: MERGE
 ---
 
-`MERGE` allows users to perform multiple data modifications ([`INSERT`](https://docs.firebolt.io/reference-sql/commands/data-management/insert), [`UPDATE`](https://docs.firebolt.io/reference-sql/commands/data-management/update), [`DELETE`](https://docs.firebolt.io/reference-sql/commands/data-management/delete)) within a single transaction. `MERGE` is useful for common database tasks like removing duplicates, syncing data between tables (upsert), and cleaning out old records.
+<Note>
+This feature is in public preview.
+</Note>
+
+`MERGE` allows users to perform multiple data modifications ([`INSERT`](/reference-sql/commands/data-management/insert), [`UPDATE`](/reference-sql/commands/data-management/update), [`DELETE`](/reference-sql/commands/data-management/delete)) within a single transaction. `MERGE` is useful for common database tasks like removing duplicates, syncing data between tables (upsert), and cleaning out old records.
 
 `MERGE` internally performs a join between a target table and a data source, and then for each matching or non-matching row, you can decide whether to add it, update it, or delete it from the target table.
 
 All rows in the join result fall into one of three categories: `MATCHED`, `NOT MATCHED BY SOURCE`, or `NOT MATCHED [BY TARGET]`, meaning the row was either found in both target and source datasets, only in the target dataset, or only in the source dataset. In branches for the `MATCHED` category, columns from both target and source datasets will be available for use in expressions and conditions. Given a branch in one of the `NOT MATCHED` categories, only columns from the dataset where the row was found will be available.
 
-There can be multiple branches defined for rows within each category. However at most one branch's action will be executed per row, similar to a [`CASE`](https://docs.firebolt.io/reference-sql/functions-reference/conditional-and-miscellaneous/case) statement. `WHEN` clauses are evaluated in order within each category, and the chosen action for each row will come from whichever branch condition matches first (or from the first branch without any condition). If none of the conditions match, no action is performed for that row.
+There can be multiple branches defined for rows within each category. However at most one branch's action will be executed per row, similar to a [`CASE`](/reference-sql/functions-reference/conditional-and-miscellaneous/case) statement. `WHEN` clauses are evaluated in order within each category, and the chosen action for each row will come from whichever branch condition matches first (or from the first branch without any condition). If none of the conditions match, no action is performed for that row.
 
 When `DO NOTHING` is specified as the merge action, and the branch condition is met, the joined row is explicitly skipped. Since actions are evaluated in their specified order, `DO NOTHING` can be handy to skip non-interesting source or target rows before more fine-grained handling.
 
 Any aggregated indexes on the target table will be updated in the same transaction.
 
-<Note>
-This feature is in public preview.
-</Note>
+## Insert On Conflict
 
+Upsert functionality is also available directly via the `INSERT` statement. The optional `ON CONFLICT` clause provides a way to reconcile or merge new data with existing records by either skipping or overwriting rows that already exist. However, it is available only for a narrow subset of `INSERT` statements. See limitations [here](/reference-sql/commands/data-management/insert#insert-on-conflict).
 
 ## Permissions
 
@@ -33,7 +36,7 @@ MERGE INTO <target_table_name> [ [AS] <target_alias> ]
 USING <data_source> [ [AS] <source_alias> ]
 ON <join_condition>
 <when_clause> [ , <when_clause> ... ]
-[ WITH <public_settings> ]
+[ WITH <settings> ]
 
 <when_clause> ::= {
   WHEN MATCHED [ AND <condition> ]
@@ -67,7 +70,7 @@ ON <join_condition>
 | `<join_condition>`    | Condition to match source and target rows.                                   |
 | `<when_clause>`       | A branch to match rows against, with an optional condition and an action (UPDATE, DELETE, INSERT, DO NOTHING) to perform. Multiple clauses can repeat the same match category or same action. |
 | `MATCHED ... [AND <condition>]` | Extra conditions per `when_clause` are optional. To be considered met, they must evaluate to TRUE rather than FALSE or NULL. An unconditional `when_clause` must not precede a conditional one of the same category, as the latter would be unreachable. |
-| `<public_settings>` | List of [query-specific public settings](/reference/system-settings#setting-via-with) overrides. |
+| `<settings>` | List of [query-specific settings](/reference/system-settings#setting-via-with) overrides. |
 
 ## Examples
 
@@ -122,7 +125,6 @@ USING (select * from unnest([10, 1000]) col1, unnest([20, 2000]) col2) as source
 USING (select * from unnest([10, 1000]), unnest([20, 2000])) as source (col1, col2)
 ```
 ```sql
--- [Public Preview] VALUES subquery is not yet available on multi node engines
 USING (VALUES (1, 11), (2, 22), (3, 33)) as source (col1, col2)
 ```
 
@@ -182,12 +184,11 @@ WHEN NOT MATCHED BY SOURCE THEN DELETE;
 ```
 
 ## Limitations
-- `WITH` clause is not supported, for specifying one or more subqueries ([CTE](https://docs.firebolt.io/reference-sql/commands/queries/select#materialized-common-table-expressions)) that can be referenced from inside the `MERGE` query.
-- `VALUES` clauses or `DIMENSION` tables as `<data_source>` on multi node engines are not yet supported.
+- `WITH` clause is not supported, for specifying one or more subqueries ([CTE](/reference-sql/commands/queries/select#materialized-common-table-expressions)) that can be referenced from inside the `MERGE` query.
 
 
 ## Related Topics
 
-* [INSERT Statement](https://docs.firebolt.io/reference-sql/commands/data-management/insert)
-* [UPDATE Statement](https://docs.firebolt.io/reference-sql/commands/data-management/update)
-* [DELETE Statement](https://docs.firebolt.io/reference-sql/commands/data-management/delete)
+* [INSERT Statement](/reference-sql/commands/data-management/insert)
+* [UPDATE Statement](/reference-sql/commands/data-management/update)
+* [DELETE Statement](/reference-sql/commands/data-management/delete)
