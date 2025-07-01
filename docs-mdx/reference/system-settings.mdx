@@ -380,11 +380,12 @@ WITH (tablet_min_size_bytes = 4294967296, tablet_max_size_bytes = 4294967296);
 Changing both `tablet_min_size_bytes` and `tablet_max_size_bytes` to `4 GiB` ensures that larger tablets are created.
 
 ## Access Cross-Region Data
-By default, Firebolt restricts importing from and exporting to Amazon S3 buckets located outside your engine's default region to miminize latencies and network costs. For workloads requiring cross-region access, you can enable this functionality using the `cross_region_request_mode` setting. Firebolt offers three modes:
+By default, Firebolt restricts importing from and exporting to Amazon S3 buckets located outside your engine's default region to minimize latencies and network costs. For workloads requiring cross-region access, you can enable this functionality using the `cross_region_request_mode` setting. Firebolt offers three modes:
 
 - `disabled`: The default setting. Any attempt to access a bucket in another region will cause the query to fail.
-- `auto`: Recommended for most scenarios when you need to access a bucket in a different region. Firebolt will automatically infer each bucket's region using the Amazon HeadBucket API and route requests to the appropriate regional endpoint. The region information is cached on the node for one hour. If you're using a role to authenticate to Amazon S3, it must include ListBuckets permissions. Note that Iceberg queries using vended credentials may lack such permissions.
-- `enforced`: Use when you need to access a bucket in a different region and do not have the permissions for `auto` mode. Firebolt will use the pseudo-region "aws-global" for every request. This may lead to higher latencies since AWS needs to resolve the region internally for each request.
+- `auto`: Recommended for most scenarios when you need to access a bucket in a different region. Firebolt will automatically infer each bucket's region using the Amazon `HeadBucket` API and route requests to the appropriate regional endpoint. The region information is cached on the node for one hour. If you're using a role to authenticate to Amazon S3, it must include ListBuckets permissions.
+    - For Iceberg queries using vended credentials, the approach is different because these credentials typically do not expose `HeadBucket` permissions. In this case, Firebolt will first attempt to resolve the region from the REST catalog; if not possible, it will use the pseudo-region `aws-global`.
+- `enforced`: Use when you need to access a bucket in a different region and do not have the permissions for `auto` mode. Firebolt will use the pseudo-region `aws-global` for every request. This may lead to higher latencies since AWS needs to resolve the region internally for each request.
 
 ### Notes
 - Firebolt currently offers limited cross-region data transfer and will throttle requests if the limit is exceeded. The current limit is 100 GB per hour per node.
