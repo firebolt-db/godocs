@@ -23,7 +23,6 @@ READ_PARQUET (
   [, AWS_SESSION_TOKEN => <aws_session_token>]
   [, AWS_ROLE_ARN => <aws_role_arn>]
   [, AWS_ROLE_EXTERNAL_ID => <aws_role_external_id>]
-  [, SUPPORT_STRUCTS => <support_structs>]
 )
 ```
 
@@ -38,7 +37,6 @@ READ_PARQUET (
 | `AWS_SESSION_TOKEN` | The AWS session token. | `TEXT` |
 | `AWS_ROLE_ARN` | The AWS role ARN. | `TEXT` |
 | `AWS_ROLE_EXTERNAL_ID` | The AWS role external ID. | `TEXT` |
-| `SUPPORT_STRUCTS` | A boolean which specifies whether structs in the source data are to be inferred as STRUCT data types. The default value is `FALSE`. For more information, see [Loading struct data](/reference-sql/data-types/struct#loading-struct-data). | `BOOL` |
 
 
 * When using static credentials:

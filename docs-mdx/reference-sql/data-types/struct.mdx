@@ -67,19 +67,14 @@ Creating struct literals is not yet supported. For information about how to inge
 
 Partitioning a table on struct columns or struct attributes is not yet supported, but will be released in the near future.
 
-## Loading struct data
+## Ingesting struct values
 
-Parquet files with `STRUCT` types can be handled using both [`COPY FROM`](/reference-sql/commands/data-management/copy-from) and [`READ_PARQUET`](/reference-sql/functions-reference/table-valued/read_parquet) statements. 
-
-[`COPY FROM`](/reference-sql/commands/data-management/copy-from) ingests data into a table, while [`READ_PARQUET`](/reference-sql/functions-reference/table-valued/read_parquet) allows querying external data directly — useful for filtering, transformations, or joining before ingesting.
-
-For example:
+Struct values can be ingested into a table by using the [`COPY FROM`](/reference-sql/commands/data-management/copy-from) statement. For example:
 ```sql
 COPY INTO t FROM 's3://path/to/file.parquet'
 WITH TYPE=parquet SUPPORT_STRUCTS=TRUE;
-
-SELECT * FROM read_parquet('s3://path/to/file.parquet, support_structs => true);
 ```
+
 - When `SUPPORT_STRUCTS=TRUE`: Nested structures in the source data will be inferred as `STRUCT` data types.
 - When `SUPPORT_STRUCTS=FALSE`: Nested structures in the source data will be inferred as individual shredded columns.
 
@@ -89,7 +84,7 @@ The `SUPPORT_STRUCTS` parameter only affects type inference during schema discov
 
 The automatic schema discovery feature of the `COPY FROM` statement supports the `STRUCT` data type for Parquet files. Support of other file formats will be added in the near future.
 
-[External tables](/reference-sql/commands/data-definition/create-external-table) do not support the `STRUCT` data type at the moment. We will extend the coverage in the following releases.
+Other utilities like [`READ_PARQUET`](/reference-sql/functions-reference/table-valued/read_parquet) and [external tables](/reference-sql/commands/data-definition/create-external-table) do not support the `STRUCT` data type at the moment. We will extend the coverage in the following releases.
 
 ## Querying structs
 
