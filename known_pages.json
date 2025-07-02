@@ -381,6 +381,8 @@
   "/guides/integrations/metabase/",
   "/guides/integrations/otel-exporter",
   "/guides/integrations/otel-exporter/",
+  "/guides/integrations/pandas",
+  "/guides/integrations/pandas/",
   "/guides/integrations/power-bi",
   "/guides/integrations/power-bi/",
   "/guides/integrations/tableau",
