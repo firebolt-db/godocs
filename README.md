@@ -4,6 +4,7 @@
 * Pages are hosted on [Mintlify](https://mintlify.com) platform. It offers [AI tooling](#ai-tools-in-mintlify), internal search and AI bot.
 * Main branch is `gh-pages`. It is automatically published to https://docs.firebolt.io/.
 * Main discussion channel is [#documentation](https://firebolt-analytics.slack.com/archives/C016HSVDP9U).
+* Important: To improve the search and AI bot, set great [keywords](https://mintlify.com/docs/pages#internal-search-optimization) and [description](https://mintlify.com/docs/pages#descriptions) as it influences search and AI bot functionality.
 
 ## Quick start
 * [Add a new page](#how-to-add-a-new-page).
@@ -45,8 +46,7 @@
 ### Devin
 [@Devin](https://devin.ai/) is an autonomous AI agent that can handle simple tasks such as documentation changes.
 1. Tag [@devin](https://firebolt-analytics.slack.com/team/U08PTG2ADD3) in the App section of Slack or in a channel where it's added and give it a task.
-2. It will create a PR with edits. See [example](https://firebolt-analytics.slack.com/archives/C016HSVDP9U/p1751392200679709).
-3. Ask [@devin](https://firebolt-analytics.slack.com/team/U08PTG2ADD3) for changes and improvements in PR comments or in the Slack thread.
+2. Ask [@devin](https://firebolt-analytics.slack.com/team/U08PTG2ADD3) for changes and improvements in PR comments or in the Slack thread.
 
 ### OpenAI Codex
 [OpenAI Codex](https://chatgpt.com/codex) is an autonomous AI agent that can handle simple tasks such as documentation changes.
