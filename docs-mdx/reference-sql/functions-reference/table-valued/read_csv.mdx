@@ -78,11 +78,13 @@ The result is a table with the data from the CSV file. Each cell is read as a `T
 
 Firebolt recommends using a `LOCATION` object to store credentials for authentication.
 
-The following code example reads a CSV file from the location specified by `my_location`, treating the first row as a header containing column names:
+When using `READ_CSV()`, the URL parameter in the location should contain only CSV files (see [location table-valued functions](https://docs.firebolt.io/guides/security/location#table-valued-functions-tvfs)). 
+
+The following code example reads a CSV file from the location specified by `my_csv_location`, treating the first row as a header containing column names:
 
 ```sql
 SELECT * FROM READ_CSV(
-    LOCATION => my_location,
+    LOCATION => my_csv_location,
     HEADER => true
 );
 ```
