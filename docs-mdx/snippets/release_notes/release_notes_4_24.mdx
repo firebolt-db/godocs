@@ -1,0 +1,116 @@
+## Firebolt Release Notes - Version 4.24
+
+### New Features
+**Introduced Organization-Level Role-Based Access Control (ORBAC)**
+
+Firebolt has introduced Organizational-Level Role-Based Access Control (ORBAC), extending traditional account-level RBAC
+to provide centralized control over identities and permissions across all accounts in an organization.
+ORBAC enables administrators to manage global resources such as accounts, logins, service accounts, network policies,
+and organization roles from a unified model.
+
+Key highlights include:
+
+* **Global Scope**: ORBAC operates across the entire organization rather than being limited to individual accounts.
+* **Strict Deny-by-Default**: No access is granted by default; all permissions must be explicitly assigned via Organization Roles.
+* **New System Role**: The built-in `org_admin` role is granted all organization-level privileges by default.
+* **New Information Schema Views**: Added views like `enabled_roles`, `applicable_roles`, `transitive_applicable_roles`,
+and `object_privileges` under `org_db.information_schema` for visibility into role assignments and access.
+
+Example usage:
+
+```sql
+-- Create a new organization role
+CREATE ORGANIZATION ROLE account_manager_role;
+
+-- Grant permission to manage all accounts
+GRANT MODIFY ANY ACCOUNT TO ORGANIZATION ROLE account_manager_role;
+
+-- Assign role to a login
+GRANT ORGANIZATION ROLE account_manager_role TO LOGIN "john@acme.com";
+```
+
+ORBAC provides enterprise-grade governance for managing organizational access, complementing existing account-level RBAC.
+It is ideal for administrators managing multiple Firebolt accounts and seeking consistent, scalable permission models.
+
+**Added support for PostgreSQL `INSERT ON CONFLICT` syntax**
+The optional `ON CONFLICT` extension to the [`INSERT`](/reference-sql/commands/data-management/insert) statement provides a way to reconcile or merge new data with existing records by either skipping or overwriting rows that already exist. It is available for a narrow subset of `INSERT` statements. For more generic UPSERT or deduplication functionality, use the [`MERGE`](/reference-sql/commands/data-management/merge) statement.
+
+Example usage:
+
+```sql
+-- Insert and update if conflict occurs on column 'did'
+INSERT INTO distributors (did, dname) VALUES (5, 'Gizmo Transglobal')
+    ON CONFLICT (did) DO UPDATE SET dname = EXCLUDED.dname;
+
+-- Insert and ignore if conflict occurs on column 'did'
+INSERT INTO distributors (did, dname) VALUES (7, 'Redline GmbH')
+    ON CONFLICT (did) DO NOTHING;
+```
+
+Documentation is available [here](/reference-sql/commands/data-management/insert#insert-on-conflict).
+
+**Added background warmup feature to engines**
+
+Added a feature that allows engines to proactively fetch recently used data at startup. While engines are running,
+they will now periodically record recently read files, and when engines start, they will proactively fetch these files
+from s3.
+
+This feature can be enabled / disabled in SQL. For example:
+```sql
+-- Enable auto_warmup on myengine
+ALTER ENGINE myengine SET AUTO_WARMUP = true;
+
+-- Disable auto_warmup on myengine
+ALTER ENGINE myengine SET AUTO_WARMUP = false;
+```
+
+**Added release channel configuration to engines**
+
+Added a feature that allows to configure per-engine release settings, in particular, to specify release a channel that controls whether the engine gets upgraded normally or can get an earlier preview version. Available values are: `DEFAULT` or `PREVIEW` to explicitly allow early upgrades.
+
+Examples: 
+1. Create a new engine and assign it to the preview channel:
+```sql
+CREATE ENGINE myengine WITH RELEASE = (CHANNEL = PREVIEW);
+```
+2. Update the engine to assign it back to the default channel:
+```sql
+ALTER ENGINE myengine SET RELEASE TO (CHANNEL = DEFAULT);
+```
+
+**Updated `ALTER ENGINE ... SET` syntax**
+
+Syntax of configuration parameters assignment is aligned with PostgreSQL and allows to assign values 
+using `TO` keyword as an equivalent of equal sign. 
+
+For example to change auto stop configuration:
+```sql
+ALTER ENGINE myengine SET AUTO_STOP TO 30;
+```
+
+**Introduced new ingestion related setting**
+
+Introduced `max_insert_threads` to [control the maximum number of threads](/reference/system-settings#limiting-max-insert-threads) for `INSERT` statements, limiting the degree of parallelism for tablet writing operations.
+This can reduce memory footprint during ingestion.
+
+**Output of EXPLAIN**
+* The output for accessing an aggregating index via `TABLESCAN` is now represented as "@{idx_name}" instead of "{idx_name}__AGG_IDX_TABLE".
+* Included `GRANULES` in `EXPLAIN ANALYZE` output. This provides users with deeper insights into query performance and helps optimize indexing strategies.
+
+**Added telemetry data to the `telemetry` column in `information_schema.engine_query_history`**
+The `telemetry` column in `information_schema.engine_query_history` now shows telemetry data about query execution. This enhancement helps users to better analyze the performance of their queries.
+
+**Added the `peak_memory_bytes` column to the `information_schema.engine_query_history` table to monitor query memory usage**
+The `information_schema.engine_query_history` table now contains the `peak_memory_bytes` column, which provides details on query memory usage. This addition helps users monitor and optimize query performance.
+
+
+### Performance Improvements
+**Enhanced the `VACUUM` statement to merge tablets from different nodes into a single tablet**
+
+The `VACUUM` statement now merges tablets from different nodes into a single tablet. This enhancement improves data management efficiency and optimizes storage space.
+
+**Enabled filter expressions to be pushed into `PREWHERE` above joins with configuration for primary index column usage in `PREWHERE`**
+Firebolt now allows filter expressions to be pushed down into `PREWHERE` above joins. By default, expressions on the first primary index column are not chosen for `PREWHERE`, as they are used for granule pruning.
+
+A new setting, `ALLOW_PREWHERE_ON_FIRST_PRIMARY_INDEX_COL`, lets the optimizer select predicates on the first primary index column for `PREWHERE`. This change can improve performance when the first primary index column has high cardinality and the query accesses additional wide columns.
+
