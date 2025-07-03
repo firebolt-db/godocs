@@ -969,6 +969,8 @@
   "/reference-sql/functions-reference/json/json-extract-array",
   "/reference-sql/functions-reference/json/json-extract-array/",
   "/reference-sql/functions-reference/json/json-extract/",
+  "/reference-sql/functions-reference/json/json-format",
+  "/reference-sql/functions-reference/json/json-format/",
   "/reference-sql/functions-reference/json/json-pointer-extract-keys",
   "/reference-sql/functions-reference/json/json-pointer-extract-keys/",
   "/reference-sql/functions-reference/json/json-pointer-extract-text",
