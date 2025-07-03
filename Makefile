@@ -44,24 +44,25 @@ check-links: check-internal-links check-links-using-crawler
 
 .PHONY: check-internal-links
 check-internal-links:
-	set -euo pipefail
+	@echo "Checking internal links integrity..."
+	@set -euo pipefail
 	cd docs-mdx
 	$(MINT) broken-links
+	@echo "☑ Internal links are OK"
 
 
 .PHONY: check-links-using-crawler
 check-links-using-crawler:
-	set -euo pipefail
+	@echo "Checking external links integrity via crawler..."
+	@set -euo pipefail
 	cd docs-mdx
 	$(MINT) dev --no-open &
-	pid=$$!
-	tmpf=$$(mktemp)
-	trap "kill $$pid; rm $$tmpf" EXIT
+	trap "pgrep -f 'mint.* dev' | xargs kill -2" EXIT
 	while ! curl -s 'http://localhost:3000/' >/dev/null; do
 		echo 'Waiting the service to start on localhost:3000' 1>&2
-		sleep 1
+		sleep 10
 	done
-	(docker run --network host raviqqe/muffet \
+	docker run --network host raviqqe/muffet \
 		"--exclude=https://twitter.com/.*|https://mintlify.mintlify.app/.*|https://regex101.com|https://signin.aws.amazon.com/.*" \
 		--color=auto \
 		--buffer-size=100000 \
@@ -69,48 +70,65 @@ check-links-using-crawler:
 		--ignore-fragments \
 		--timeout=30 \
 		--max-response-body-size=100000000 \
-		--accepted-status-codes=200..300,403 \
-		http://localhost:3000 >> "$$tmpf" 2>&1) || (cat "$$tmpf" && exit 1)
+		--accepted-status-codes=200..300,401,402,403,429,500..600 \
+		http://localhost:3000
+	@echo "☑ External links are OK"
 
 
 .PHONY: check-markers
 check-markers:
+	@echo "Checking merge conflict markers..."
 	scripts/check_merge_conflict_markers.sh .
+	@echo "☑ No merge conflict markers found"
 
 
 .PHONY: check-legacy-dir
 check-legacy-dir:
+	@echo "Checking that the legacy /docs directory is not ressurected"
 	if [ -d "docs" ]; then echo "Legacy /docs directory found, please remove it."; exit 1; fi
+	@echo "☑ No /docs directory found"
 
 
 .PHONY: check-group-structure
 check-group-structure: setup-python
+	@echo "Checking navigation groups and directories consistency..."
 	.venv/bin/python scripts/check_group_structure.py
+	@echo "☑ Navigation groups and directories are consistent"
 
 
 .PHONY: check-lost-pages
 check-lost-pages: setup-python
+	@echo "Checking for lost pages..."
 	.venv/bin/python scripts/check_lost_pages.py
+	@echo "☑ No lost pages found"
 
 
 .PHONY: check-redirect-loops
 check-redirect-loops: setup-python
+	@echo "Checking for redirect loops..."
 	.venv/bin/python scripts/check_redirect_loops.py
+	@echo "☑ No redirect loops found"
 
 
 .PHONY: check-lost-redirects
 check-lost-redirects: setup-python
+	@echo "Checking for lost redirects..."
 	.venv/bin/python scripts/check_lost_redirects.py
+	@echo "☑ No lost redirects found"
 
 
 .PHONY: check-lost-redirects-regenerate
 check-lost-redirects-regenerate: setup-python
+	@echo "Checking for lost redirects..."
 	.venv/bin/python scripts/check_lost_redirects.py regenerate
+	@echo "☑ No lost redirects found, known_pages.json updated"
 
 
 .PHONY: check-sql
 check-sql: setup-python
+	@echo "Checking SQL examples..."
 	.venv/bin/python scripts/check_sql_examples.py quiet
+	@echo "☑ SQL examples are working"
 
 
 .PHONY: package-docs

@@ -13,7 +13,8 @@ jobs:
       issues: read
       # permission needed to post a comment on the PR
       pull-requests: write
-
+    outputs:
+      output: ${{ steps.check-nav.outputs.output }}
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
@@ -28,55 +29,9 @@ jobs:
       - name: Check navigation sanity
         id: check-nav
         run: |
-          set -xeuo pipefail
-          result_file=$(mktemp)
-          set +e
-          make check-navigation >"$result_file" 2>&1
-          rv=$?
-          set -e
-          if [[ "$rv" != 0 ]]; then
-            cat "$result_file"
-            {
-              # Abusing the unique name of the file as an EOF marker
-              echo "output<<$result_file"
-              cat "$result_file"
-              echo "$result_file"
-            } >> $GITHUB_OUTPUT
-          fi
-          exit "$rv"
-
-      - name: Find Comment
-        id: fc-nav
-        uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e  # v3.1.0
-        if: always()
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          comment-author: "github-actions[bot]"
-          body-includes: "Navigation Sanity Checks Status:"
-
-      - name: Post a comment on failure
-        uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043  # v4.0.0
-        if: failure()
-        with:
-          comment-id: ${{ steps.fc-nav.outputs.comment-id }}
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            # ❌ Navigation Sanity Checks Status: FAILURE
-            ```
-            ${{ steps.check-nav.outputs.output }}
-            ```
-          edit-mode: replace
-
-      - name: Post a comment on success
-        uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043  # v4.0.0
-        if: success()
-        with:
-          comment-id: ${{ steps.fc-nav.outputs.comment-id }}
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            # ✅ Navigation Sanity Checks Status: SUCCESS
-          edit-mode: replace
-
+          scripts/run-check-gha.sh \
+            "Navigation Sanity Checks Status" "" \
+            make check-navigation >> $GITHUB_OUTPUT
 
   check-broken-links:
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
@@ -86,7 +41,8 @@ jobs:
       issues: read
       # permission needed to post a comment on the PR
       pull-requests: write
-
+    outputs:
+      output: ${{ steps.check-links-mint.outputs.output }}
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
@@ -95,55 +51,9 @@ jobs:
       - name: Check there are no 404 links
         id: check-links-mint
         run: |
-          set -xeuo pipefail
-          result_file=$(mktemp)
-          set +e
-          make check-internal-links > "$result_file"
-          rv=$?
-          set -e
-          if [[ "$rv" != 0 ]]; then
-            cat "$result_file"
-            {
-              # Abusing the unique name of the file as an EOF marker
-              echo "output<<$result_file"
-              cat "$result_file"
-              echo "$result_file"
-            } >> $GITHUB_OUTPUT
-          fi
-          exit "$rv"
-
-      - name: Find Comment
-        id: fc-links-mint
-        uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e  # v3.1.0
-        if: always()
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          comment-author: "github-actions[bot]"
-          body-includes: "Link Check Status (internal):"
-
-      - name: Post a comment on failure
-        uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043  # v4.0.0
-        if: failure()
-        with:
-          comment-id: ${{ steps.fc-links-mint.outputs.comment-id }}
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            # ❌ Link Check Status (internal): FAILURE
-            ```
-            ${{ steps.check-links-mint.outputs.output }}
-            ```
-          edit-mode: replace
-
-      - name: Post a comment on success
-        uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043  # v4.0.0
-        if: success()
-        with:
-          comment-id: ${{ steps.fc-links-mint.outputs.comment-id }}
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            # ✅ Link Check Status (internal): SUCCESS
-          edit-mode: replace
-
+          scripts/run-check-gha.sh \
+            "Link Check Status (internal)" "" \
+            make check-internal-links >> $GITHUB_OUTPUT
 
   check-links-using-crawler:
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
@@ -153,7 +63,8 @@ jobs:
       issues: read
       # permission needed to post a comment on the PR
       pull-requests: write
-
+    outputs:
+      output: ${{ steps.check-links-crawler.outputs.output }}
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
@@ -162,54 +73,10 @@ jobs:
       - name: Check there are no 404 links
         id: check-links-crawler
         run: |
-          set -xeuo pipefail
-          result_file=$(mktemp)
-          set +e
-          make check-links-using-crawler > "$result_file"
-          rv=$?
-          set -e
-          if [[ "$rv" != 0 ]]; then
-            cat "$result_file"
-            {
-              # Abusing the unique name of the file as an EOF marker
-              echo "output<<$result_file"
-              cat "$result_file"
-              echo "$result_file"
-            } >> $GITHUB_OUTPUT
-          fi
-          exit "$rv"
-
-      - name: Find Comment
-        id: fc-links-crawler
-        uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e  # v3.1.0
-        if: always()
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          comment-author: "github-actions[bot]"
-          body-includes: "Link Check Status (crawler):"
-
-      - name: Post a comment on failure
-        uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043  # v4.0.0
-        if: failure()
-        with:
-          comment-id: ${{ steps.fc-links-crawler.outputs.comment-id }}
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            # ❌ Link Check Status (crawler): FAILURE (informational check, does not block merge)
-            ```
-            ${{ steps.check-links-crawler.outputs.output }}
-            ```
-          edit-mode: replace
-
-      - name: Post a comment on success
-        uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043  # v4.0.0
-        if: success()
-        with:
-          comment-id: ${{ steps.fc-links-crawler.outputs.comment-id }}
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            # ✅ Link Check Status (crawler): SUCCESS
-          edit-mode: replace
+          scripts/run-check-gha.sh \
+            "Link Check Status (crawler)" \
+            "(informational check, does not block merge)" \
+            make check-links-using-crawler >> $GITHUB_OUTPUT
 
   check-sql-examples:
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
@@ -219,7 +86,8 @@ jobs:
       issues: read
       # permission needed to post a comment on the PR
       pull-requests: write
-
+    outputs:
+      output: ${{ steps.check-sql.outputs.output }}
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
@@ -228,51 +96,38 @@ jobs:
       - name: Check SQL examples
         id: check-sql
         run: |
-          set -xeuo pipefail
-          result_file=$(mktemp)
-          set +e
-          make check-sql > "$result_file"
-          rv=$?
-          set -e
-          if [[ "$rv" != 0 ]]; then
-            echo "result=$rv" >> $GITHUB_OUTPUT
-            cat "$result_file"
-            {
-              # Abusing the unique name of the file as an EOF marker
-              echo "output<<$result_file"
-              cat "$result_file"
-              echo "$result_file"
-            } >> $GITHUB_OUTPUT
-          fi
+          scripts/run-check-gha.sh \
+            "SQL Example Check Status" \
+            "(informational check, does not block merge)" \
+            make check-sql >> $GITHUB_OUTPUT
 
+  summarize_results:
+    needs:
+      - check-basic-errors
+      - check-broken-links
+      - check-links-using-crawler
+      - check-sql-examples
+    runs-on: ubuntu-24.04
+    if: always()
+    steps:
       - name: Find Comment
-        id: fc-sql
+        id: fc-summary
         uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e  # v3.1.0
-        if: always()
         with:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: "github-actions[bot]"
-          body-includes: "SQL Example Check Status:"
+          body-includes: "Check Summary"
 
-      - name: Post a comment on failure
+      - name: Post a comment
         uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043  # v4.0.0
-        if: steps.check-sql.outputs.result != 0
+        if: always()
         with:
-          comment-id: ${{ steps.fc-sql.outputs.comment-id }}
+          comment-id: ${{ steps.fc-summary.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            # ❌ SQL Example Check Status: FAILURE (informational check, does not block merge)
-            ```
-            ${{ steps.check-sql.outputs.output }}
-            ```
-          edit-mode: replace
-
-      - name: Post a comment on success
-        uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043  # v4.0.0
-        if: steps.check-sql.outputs.result == 0
-        with:
-          comment-id: ${{ steps.fc-sql.outputs.comment-id }}
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            # ✅ SQL Example Check Status: SUCCESS
+            #### Check Summary
+            ${{ needs.check-basic-errors.outputs.output }}
+            ${{ needs.check-broken-links.outputs.output }}
+            ${{ needs.check-links-using-crawler.outputs.output }}
+            ${{ needs.check-sql-examples.outputs.output }}
           edit-mode: replace
