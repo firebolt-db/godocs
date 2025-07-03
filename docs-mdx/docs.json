@@ -31,7 +31,6 @@
           {
             "group": "Overview",
             "pages": [
-              "overview",
               "overview/architecture-overview",
               "overview/billing",
               "overview/organizations-accounts",
@@ -134,7 +133,6 @@
               {
                 "group": "Operate Engines",
                 "pages": [
-                  "guides/operate-engines",
                   "guides/operate-engines/rbac-for-engines",
                   "guides/operate-engines/working-with-engines-using-ddl",
                   "guides/operate-engines/sizing-engines",
@@ -173,7 +171,6 @@
               {
                 "group": "Configure security",
                 "pages": [
-                  "guides/security",
                   {
                     "group": "Configure SSO",
                     "pages": [
@@ -238,7 +235,6 @@
           {
             "group": "SQL reference",
             "pages": [
-              "reference-sql",
               {
                 "group": "Data types",
                 "pages": [
@@ -441,7 +437,6 @@
                   {
                     "group": "Array functions",
                     "pages": [
-                      "reference-sql/functions-reference/array",
                       "reference-sql/functions-reference/array/array-concat",
                       "reference-sql/functions-reference/array/array-contains",
                       "reference-sql/functions-reference/array/array-count-distinct",
@@ -465,7 +460,6 @@
                   {
                     "group": "Binary functions",
                     "pages": [
-                      "reference-sql/functions-reference/bytea",
                       "reference-sql/functions-reference/bytea/convert-from",
                       "reference-sql/functions-reference/bytea/decode",
                       "reference-sql/functions-reference/bytea/encode"
@@ -474,7 +468,6 @@
                   {
                     "group": "Conditional and miscellaneous functions",
                     "pages": [
-                      "reference-sql/functions-reference/conditional-and-miscellaneous",
                       "reference-sql/functions-reference/conditional-and-miscellaneous/case",
                       "reference-sql/functions-reference/conditional-and-miscellaneous/cast",
                       "reference-sql/functions-reference/conditional-and-miscellaneous/city-hash",
@@ -502,7 +495,6 @@
                   {
                     "group": "Date and time functions",
                     "pages": [
-                      "reference-sql/functions-reference/date-and-time",
                       "reference-sql/functions-reference/date-and-time/ago",
                       "reference-sql/functions-reference/date-and-time/current-date",
                       "reference-sql/functions-reference/date-and-time/current-timestamptz",
@@ -522,7 +514,6 @@
                   {
                     "group": "Geospatial functions",
                     "pages": [
-                      "reference-sql/functions-reference/geospatial",
                       "reference-sql/functions-reference/geospatial/st_asbinary",
                       "reference-sql/functions-reference/geospatial/st_asewkb",
                       "reference-sql/functions-reference/geospatial/st_asgeojson",
@@ -568,7 +559,6 @@
                   {
                     "group": "Numeric functions",
                     "pages": [
-                      "reference-sql/functions-reference/numeric",
                       "reference-sql/functions-reference/numeric/abs",
                       "reference-sql/functions-reference/numeric/acos",
                       "reference-sql/functions-reference/numeric/array-enumerate",
@@ -604,7 +594,6 @@
                   {
                     "group": "Session functions",
                     "pages": [
-                      "reference-sql/functions-reference/session",
                       "reference-sql/functions-reference/session/current-account",
                       "reference-sql/functions-reference/session/current-database",
                       "reference-sql/functions-reference/session/current-engine",
@@ -701,7 +690,6 @@
           {
             "group": "General reference",
             "pages": [
-              "reference",
               {
                 "group": "Release notes",
                 "pages": [

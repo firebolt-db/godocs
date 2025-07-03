@@ -20,13 +20,16 @@ def main(regenerate: bool) -> None:
             redirect_pages.add(r["source"])
 
     existing_pages = set()
-    for page_path in docs_dir.glob("**/*.mdx"):
+    for page_path in sorted(docs_dir.glob("**/*.mdx")):
         rel_page_path = page_path.relative_to(docs_dir)
         if str(rel_page_path).startswith("snippets/"):
             continue
         page = f'/{str(rel_page_path).removesuffix(".mdx").removeprefix("./")}'
         existing_pages.add(page)
         redirect_pages.add(f"{page}/")
+        if page_path.parent != docs_dir and not page_path.parent.with_suffix(".mdx").exists():
+            redirect_pages.add(str(pathlib.Path(page).parent))
+            redirect_pages.add(f"{str(pathlib.Path(page).parent)}/")
 
     for page in sorted(known_pages):
         if page not in existing_pages and page not in redirect_pages and not any(re.match(src, page) for src in slugs):
@@ -44,4 +47,5 @@ def main(regenerate: bool) -> None:
 
 
 if __name__ == "__main__":
-    main(len(sys.argv) > 1 and sys.argv[1] == "regenerate")
+    regenerate = len(sys.argv) > 1 and sys.argv[1] == "regenerate"
+    main(regenerate)

@@ -7,6 +7,7 @@ SHELL := bash
 MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
+MINT := npx -y mint@latest
 
 .PHONY: default
 default: check-all
@@ -33,8 +34,8 @@ check-navigation-regenerate: \
 
 
 .PHONY: start-local
-start-local: maybe-setup-mint
-	cd docs-mdx && npx mint dev
+start-local:
+	cd docs-mdx && $(MINT) dev
 
 
 .PHONY: check-links
@@ -42,17 +43,17 @@ check-links: check-internal-links check-links-using-crawler
 
 
 .PHONY: check-internal-links
-check-internal-links: maybe-setup-mint
+check-internal-links:
 	set -euo pipefail
 	cd docs-mdx
-	npx mint broken-links
+	$(MINT) broken-links
 
 
 .PHONY: check-links-using-crawler
-check-links-using-crawler: maybe-setup-mint
+check-links-using-crawler:
 	set -euo pipefail
 	cd docs-mdx
-	npx mint dev --no-open &
+	$(MINT) dev --no-open &
 	pid=$$!
 	tmpf=$$(mktemp)
 	trap "kill $$pid; rm $$tmpf" EXIT
@@ -125,25 +126,9 @@ package-missing-docs: setup-python
 .PHONY: setup-python
 setup-python:
 	if [[ `python3 --version | cut -d '.' -f 2` < 10 ]]; then echo "Need at least python3.10, you have:"; python3 --version; exit 1; fi;
-	python3 -m venv .venv
+	if [ ! -d ".venv" ]; then python3 -m venv .venv; fi
 	.venv/bin/python -m pip install --upgrade pip
 	.venv/bin/python -m pip install -r scripts/requirements.txt
-
-
-.PHONY: use-python
-use-python:
-	/bin/bash --rcfile scripts/rcpy -i
-
-
-.PHONY: setup-mint
-setup-mint:
-	npm i mint
-
-
-.PHONY: maybe-setup-mint
-maybe-setup-mint:
-	npx mint version || npm i mint
-
 
 clean:
 	rm -rf .venv
