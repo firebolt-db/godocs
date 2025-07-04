@@ -30,8 +30,8 @@ jobs:
         id: check-nav
         run: |
           scripts/run-check-gha.sh \
-            "Navigation Sanity Checks Status" "" \
-            make check-navigation >> $GITHUB_OUTPUT
+            "Navigation Consistency Checks" required \
+            make check-navigation | tee -a $GITHUB_OUTPUT | tail -n +2 | head -n -1 >> "$GITHUB_STEP_SUMMARY" 
 
   check-broken-links:
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
@@ -52,8 +52,8 @@ jobs:
         id: check-links-mint
         run: |
           scripts/run-check-gha.sh \
-            "Link Check Status (internal)" "" \
-            make check-internal-links >> $GITHUB_OUTPUT
+            "Link Check (internal)" "" \
+            make check-internal-links | tee -a $GITHUB_OUTPUT | tail -n +2 | head -n -1 >> "$GITHUB_STEP_SUMMARY" 
 
   check-links-using-crawler:
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
@@ -74,9 +74,8 @@ jobs:
         id: check-links-crawler
         run: |
           scripts/run-check-gha.sh \
-            "Link Check Status (crawler)" \
-            "(informational check, does not block merge)" \
-            make check-links-using-crawler >> $GITHUB_OUTPUT
+            "Link Check (crawler)" informational \
+            make check-links-using-crawler | tee -a $GITHUB_OUTPUT | tail -n +2 | head -n -1 >> "$GITHUB_STEP_SUMMARY"
 
   check-sql-examples:
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
@@ -97,9 +96,8 @@ jobs:
         id: check-sql
         run: |
           scripts/run-check-gha.sh \
-            "SQL Example Check Status" \
-            "(informational check, does not block merge)" \
-            make check-sql >> $GITHUB_OUTPUT
+            "SQL Example Check" informational \
+            make check-sql | tee -a $GITHUB_OUTPUT | tail -n +2 | head -n -1 >> "$GITHUB_STEP_SUMMARY" 
 
   summarize_results:
     needs:

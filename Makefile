@@ -19,6 +19,7 @@ check-all: check-markers check-navigation-regenerate check-links check-sql
 
 .PHONY: check-navigation
 check-navigation: \
+	test-checks \
 	check-group-structure \
 	check-lost-pages \
 	check-redirect-loops \
@@ -27,6 +28,7 @@ check-navigation: \
 
 .PHONY: check-navigation-regenerate
 check-navigation-regenerate: \
+	test-checks \
 	check-group-structure \
 	check-lost-pages \
 	check-redirect-loops \
@@ -58,10 +60,11 @@ check-links-using-crawler:
 	cd docs-mdx
 	$(MINT) dev --no-open &
 	trap "pgrep -f 'mint.* dev' | xargs kill -2" EXIT
+	echo 'Waiting the service to start on localhost:3000...' 1>&2
 	while ! curl -s 'http://localhost:3000/' >/dev/null; do
-		echo 'Waiting the service to start on localhost:3000' 1>&2
-		sleep 10
+		sleep 1
 	done
+	echo "Service ready on localhost:3000" 1>&2
 	docker run --network host raviqqe/muffet \
 		"--exclude=https://twitter.com/.*|https://mintlify.mintlify.app/.*|https://regex101.com|https://signin.aws.amazon.com/.*" \
 		--color=auto \
@@ -129,6 +132,13 @@ check-sql: setup-python
 	@echo "Checking SQL examples..."
 	.venv/bin/python scripts/check_sql_examples.py quiet
 	@echo "☑ SQL examples are working"
+
+
+.PHONY: check-tests
+test-checks: setup-python
+	@echo "Testing check scripts..."
+	.venv/bin/python -m pytest -q scripts/*_test.py
+	@echo "☑ Check scripts working"
 
 
 .PHONY: package-docs
