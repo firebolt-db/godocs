@@ -11,6 +11,10 @@ from typing import Any
 import requests
 
 
+class SqlExamplesError(Exception):
+    pass
+
+
 @contextlib.contextmanager
 def ensure_delay(delay=0.1):
     start_time = time.time()
@@ -84,21 +88,20 @@ def check_mdx_sql_examples(doc_dir: pathlib.Path, to_check: list[str], output) -
     return res
 
 
-def main():
-    to_check = sys.stdin.read().strip().splitlines() if not sys.stdin.isatty() else []
-    doc_dir = pathlib.Path(__file__).parent.parent / 'docs-mdx'
+def main(root_dir: pathlib.Path, to_check: list[str]):
+    doc_dir = root_dir / 'docs-mdx'
     quiet = (sys.argv[1].lower() == 'quiet') if len(sys.argv) > 1 else False
     output = open('/dev/null', 'w') if quiet else sys.stdout
     res = check_mdx_sql_examples(doc_dir, to_check, output)
     if not res:
         print(f"SQL examples checks passed for all examples")
-    else:
-        print(f"{len(res)} errors found:")
-        for ex, e in res:
-            print(f"------------\n{ex.relative_to(doc_dir.parent)}\n{e}")
-    if res:
-        sys.exit(1)
+        return 0
+    resp = [f"{len(res)} errors found:"]
+    for ex, e in res:
+        resp.append(f"------------\n{ex.relative_to(doc_dir.parent)}\n{e}")
+    raise SqlExamplesError("\n".join(resp))
 
 
 if __name__ == "__main__":
-    main()
+    main(pathlib.Path(__file__).parent.parent,
+        sys.stdin.read().strip().splitlines() if not sys.stdin.isatty() else [])

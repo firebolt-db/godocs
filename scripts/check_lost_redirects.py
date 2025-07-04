@@ -4,11 +4,17 @@ import re
 import sys
 
 
-def main(regenerate: bool) -> None:
-    root_dir = pathlib.Path(__file__).parent.parent
-    docs_dir = root_dir / "docs-mdx"
-    docs_json = json.loads((docs_dir / 'docs.json').read_text())
-    known_pages = set(json.loads((root_dir / "known_pages.json").read_text()))
+class LostRedirectsError(Exception):
+    pass
+
+
+def check_lost_redirects(
+    docs_dir: pathlib.Path,
+    docs_json: dict,
+    known_pages_path: pathlib.Path,
+    regenerate: bool,
+) -> None:
+    known_pages = set(json.loads(known_pages_path.read_text()))
 
     slugs = set()
     redirect_pages = set()
@@ -28,24 +34,33 @@ def main(regenerate: bool) -> None:
         existing_pages.add(page)
         redirect_pages.add(f"{page}/")
         if page_path.parent != docs_dir and not page_path.parent.with_suffix(".mdx").exists():
+            # if the overview page doesn't exist, Mintlify automatically redirects to one of the group's pages.
+            # Marking the overview page as still present as a redirect.
             redirect_pages.add(str(pathlib.Path(page).parent))
             redirect_pages.add(f"{str(pathlib.Path(page).parent)}/")
 
     for page in sorted(known_pages):
         if page not in existing_pages and page not in redirect_pages and not any(re.match(src, page) for src in slugs):
-            raise ValueError(f"Page {page} is a previously known page but is no longer found in existing pages or redirects. Consider adding a redirect for it or removing it from known_pages.json")
+            raise LostRedirectsError(f"Page {page} is a previously known page but is no longer found in existing pages or redirects. Consider adding a redirect for it or removing it from known_pages.json")
 
     new_known_pages = known_pages | existing_pages | redirect_pages
     if new_known_pages != known_pages:
         if regenerate:
-            (root_dir / "known_pages.json").write_text(json.dumps(sorted(new_known_pages), indent=2))
+            known_pages_path.write_text(json.dumps(sorted(new_known_pages), indent=2))
         else:
-            raise ValueError(
+            raise LostRedirectsError(
                 "The known pages list is out of date. "
                 "Run the script with 'regenerate' argument to update it."
             )
 
 
+def main(root_dir: pathlib.Path, regenerate: bool) -> None:
+    docs_dir = root_dir / "docs-mdx"
+    docs_json = json.loads((docs_dir / 'docs.json').read_text())
+    known_pages_path = root_dir / "known_pages.json"
+    check_lost_redirects(docs_dir, docs_json, known_pages_path, regenerate)
+
+
 if __name__ == "__main__":
-    regenerate = len(sys.argv) > 1 and sys.argv[1] == "regenerate"
-    main(regenerate)
+    main(pathlib.Path(__file__).parent.parent,
+         len(sys.argv) > 1 and sys.argv[1] == "regenerate")

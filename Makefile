@@ -134,7 +134,7 @@ check-sql: setup-python
 	@echo "☑ SQL examples are working"
 
 
-.PHONY: check-tests
+.PHONY: test-checks
 test-checks: setup-python
 	@echo "Testing check scripts..."
 	.venv/bin/python -m pytest -q scripts/*_test.py
