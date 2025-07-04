@@ -65,6 +65,7 @@
 2. Open http://localhost:3000/ in your browser to preview the documentation.
 
 ### How to preview remotely in Mintlify
+NB: There's a know bug when Mintlify skips redeploying the PR preview even when new changes were pushed to [docs-mdx/](docs-mdx). This seemingly can be worked around by making dummy changes to a page by e.g. updating its `description` field. 
 1. Open a pull request in the repository.
 2. Wait for the CI/CD pipeline to run.
    * This will build the documentation and deploy it to a remote preview environment using `Mintlify` special workflow.
