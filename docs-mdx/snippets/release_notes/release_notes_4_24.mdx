@@ -33,6 +33,7 @@ ORBAC provides enterprise-grade governance for managing organizational access, c
 It is ideal for administrators managing multiple Firebolt accounts and seeking consistent, scalable permission models.
 
 **Added support for PostgreSQL `INSERT ON CONFLICT` syntax**
+
 The optional `ON CONFLICT` extension to the [`INSERT`](/reference-sql/commands/data-management/insert) statement provides a way to reconcile or merge new data with existing records by either skipping or overwriting rows that already exist. It is available for a narrow subset of `INSERT` statements. For more generic UPSERT or deduplication functionality, use the [`MERGE`](/reference-sql/commands/data-management/merge) statement.
 
 Example usage:
@@ -98,9 +99,11 @@ This can reduce memory footprint during ingestion.
 * Included `GRANULES` in `EXPLAIN ANALYZE` output. This provides users with deeper insights into query performance and helps optimize indexing strategies.
 
 **Added telemetry data to the `telemetry` column in `information_schema.engine_query_history`**
+
 The `telemetry` column in `information_schema.engine_query_history` now shows telemetry data about query execution. This enhancement helps users to better analyze the performance of their queries.
 
 **Added the `peak_memory_bytes` column to the `information_schema.engine_query_history` table to monitor query memory usage**
+
 The `information_schema.engine_query_history` table now contains the `peak_memory_bytes` column, which provides details on query memory usage. This addition helps users monitor and optimize query performance.
 
 
@@ -110,6 +113,7 @@ The `information_schema.engine_query_history` table now contains the `peak_memor
 The `VACUUM` statement now merges tablets from different nodes into a single tablet. This enhancement improves data management efficiency and optimizes storage space.
 
 **Enabled filter expressions to be pushed into `PREWHERE` above joins with configuration for primary index column usage in `PREWHERE`**
+
 Firebolt now allows filter expressions to be pushed down into `PREWHERE` above joins. By default, expressions on the first primary index column are not chosen for `PREWHERE`, as they are used for granule pruning.
 
 A new setting, `ALLOW_PREWHERE_ON_FIRST_PRIMARY_INDEX_COL`, lets the optimizer select predicates on the first primary index column for `PREWHERE`. This change can improve performance when the first primary index column has high cardinality and the query accesses additional wide columns.
