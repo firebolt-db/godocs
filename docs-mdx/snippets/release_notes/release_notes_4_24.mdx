@@ -114,3 +114,12 @@ Firebolt now allows filter expressions to be pushed down into `PREWHERE` above j
 
 A new setting, `ALLOW_PREWHERE_ON_FIRST_PRIMARY_INDEX_COL`, lets the optimizer select predicates on the first primary index column for `PREWHERE`. This change can improve performance when the first primary index column has high cardinality and the query accesses additional wide columns.
 
+
+### Connectors
+**Added support for Pandas**
+
+Firebolt now supports [Pandas](https://pandas.pydata.org), allowing to interact with Firebolt data using Pandas DataFrames. A guide on how to use Pandas with Firebolt is available [here](/guides/integrations/pandas).
+
+**Added support for Tableau Prep**
+
+Firebolt now supports [Tableau Prep](https://www.tableau.com/products/prep), allowing to prepare and clean data before analysis. A guide on how to use Tableau Prep with Firebolt is available [here](/guides/integrations/tableauq).
