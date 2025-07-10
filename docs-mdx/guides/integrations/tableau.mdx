@@ -7,7 +7,7 @@ title: Tableau
 
 <img src="/assets/images/Tableau.png" alt="Tableau icon" width="400"/>
 
-[Tableau](https://www.tableau.com/) is a visual analytics platform that empowers users to explore, analyze, and present data through interactive visualizations. It supports diverse use cases such as data exploration, reporting, and collaboration, and helps users gain insights and make informed decisions. This guide shows you how to set up your Firebolt account to integrate with [Tableau Desktop](https://www.tableau.com/products/desktop). 
+[Tableau](https://www.tableau.com/) is a visual analytics platform that empowers users to explore, analyze, and present data through interactive visualizations. It supports diverse use cases such as data exploration, reporting, and collaboration, and helps users gain insights and make informed decisions. This guide shows you how to set up your Firebolt account to integrate with [Tableau Desktop](https://www.tableau.com/products/desktop) or [Tableau Prep](https://www.tableau.com/products/prep). 
 
 <Note>
 The latest Firebolt version is not compatible with Tableau Online, and you will not be able to connect it to your Firebolt account.
@@ -23,19 +23,17 @@ You must have the following prerequisites before you can connect your Firebolt a
 * **Firebolt service account** &ndash; You must have access to an active Firebolt [service account](/guides/managing-your-organization/service-accounts), which facilitates programmatic access to Firebolt, its ID and secret.
 * **Firebolt user** &ndash; You must have a user that is [associated](/guides/managing-your-organization/service-accounts#create-a-user) with your service account. The user should have [USAGE](/overview/security/rbac/database-permissions) permission to query your database, and [OPERATE](/overview/security/rbac/engine-permissions) permission to start and stop an engine if it is not already started.
 
-## Connect to Tableau
-
-To connect to Tableau, you must download a Firebolt connector, a [JDBC driver](/guides/developing-with-firebolt/connecting-with-jdbc#jdbc-driver), connect to Firebolt, and select a database and schema to query.
-You can either install [Tableau Desktop](https://www.tableau.com/products/desktop) for individual use or [Tableau Server](https://www.tableau.com/products/server) for centralized access to dashboards on a shared server.
+## Connect to Tableau Desktop or Tableau Prep
+To connect to Tableau Desktop or Tableau Prep, you must download a Firebolt connector, a [JDBC driver](/guides/developing-with-firebolt/connecting-with-jdbc#jdbc-driver), connect to Firebolt, and select a database and schema to query.
 
 1. **Download and install Tableau**
-    
-    1. To download Tableau's Desktop, navigate to Tableau's Desktop [download page](https://www.tableau.com/en-gb/products/desktop/download), and follow the prompts to install the program. To use Tableau Server, follow Tableau's instructions for [installation and configuration](https://help.tableau.com/current/server/en-us/install_config_top.htm).
-    2. Follow the prompts to install Tableau.
+
+    1. Navigate to Tableau's [download page](https://www.tableau.com/products/desktop/download) for Desktop or [download page](https://www.tableau.com/products/prep/download) for Prep.
+    2. Follow the prompts to install Tableau Desktop or Tableau Prep.
 
 2. **Download the latest JDBC driver**
 
-    Download a JDBC driver, which will allow Tableau to interact with a Firebolt databases using Java, from Firebolt's GitHub [repository](https://github.com/firebolt-db/jdbc/releases). The name of the file has the following format: `firebolt-jdbc-<version>.jar`, and should be saved in a specific directory that depends on the operating system as follows:
+    Download a JDBC driver, which will allow Tableau to interact with Firebolt databases using Java, from Firebolt's GitHub [repository](https://github.com/firebolt-db/jdbc/releases). The name of the file has the following format: `firebolt-jdbc-<version>.jar`, and should be saved in a specific directory that depends on the operating system as follows:
 
     * Windows: `C:\Program Files\Tableau\Drivers`
     * Mac: `/Users/<username>/Library/Tableau/Drivers`
@@ -43,25 +41,31 @@ You can either install [Tableau Desktop](https://www.tableau.com/products/deskto
 
 3. **Download the latest Firebolt connector**
 
-    1. Open Tableau and on the home screen in the Connect section on the left find **To a Server** option.
-    2. Select **More...** to open a list of all the connectors available.
-    3. Find "Firebolt by Firebolt Analytics Inc" in the **Additional Connectors** section or use the search bar to quickly navigate to it.
-    4. Select this connector and in the following window select **Install and restart Tableau**.
+    a. **Tableau Desktop**
+        1. Open Tableau and on the home screen in the Connect section on the left find **To a Server** option.
+        2. Select **More...** to open a list of all the connectors available.
+        3. Find "Firebolt by Firebolt Analytics Inc" in the **Additional Connectors** section or use the search bar to quickly navigate to it.
+        4. Select this connector and in the following window select **Install and restart Tableau**.
+
+    b. **Tableau Prep**
+        1. Open Tableau and on the home screen in the top section press the **Connect to Data** button.
+        2. In the newly opened **Connect** section scroll down to find "Firebolt by Firebolt Analytics Inc" in the **Additional Connectors** section or use the search bar to quickly navigate to it.
+        3. Select this connector and in the following window select **Install and restart Tableau**.
 
 4. **Start Tableau and verify Firebolt connector availability**
 
-    1. Start your Tableau Desktop or Server. If you selected "Install and restart Tableau" in the previous step it should restart automatically.
-    2. In the left navigation panel, under **To a Server**, you should see "Firebolt Connector by Firebolt".
+    1. Start your Tableau Desktop or Tableau Prep. If you selected "Install and restart" in the previous step it should restart automatically.
+    2. Following the same steps as in **3a** or **3b** find the Firebolt Connector.
     3. Select it and Enter the following parameters in the **General** tab:
 
         | **Field**       | **Required** | **Description**                                                                 |
         |------------------|-------------|---------------------------------------------------------------------------------|
         | **Host**         | No          | Most users should not enter a value in the text box under `Host`.              |
-        | **Account**      | Yes         | The name of your Firebolt account within your organization.                    |
-        | **Engine Name**  | Yes         | The name of the [engine](/overview/engine-fundamentals) to run queries. |
         | **Database**     | Yes         | The name of the Firebolt [database](/overview/indexes#databases) to connect to. |
         | **Client ID**    | Yes         | The [ID of your service account](/guides/managing-your-organization/service-accounts#get-a-service-account-id). |
         | **Client Secret**| Yes         | The [secret](/guides/managing-your-organization/service-accounts#generate-a-secret) for your service account authentication. |
+        | **Engine Name**  | Yes         | The name of the [engine](/overview/engine-fundamentals) to run queries. |
+        | **Account**      | Yes         | The name of your Firebolt account within your organization.                    |
 
     4. Select **Sign in**.
 
@@ -75,17 +79,17 @@ You can either install [Tableau Desktop](https://www.tableau.com/products/deskto
 
     2. Drag and drop tables from the list of available tables in your schema to use them in Tableau.
 
-6. **Visualize your data**
+6. **Prepare or visualize your data**
 
-    Once your data source is selected you can begin visualizing the data by creating graphs and charts as follows:
+    Once your data source is selected you can begin preparing or visualizing the data as follows:
 
-    1. Select `Sheet 1` tab from the bottom-left corner of your Tableau window next to **Data Source**.
-    2. In the left navigation panel under **Sheets**, drag and drop any available columns or pre-defined aggregation from your table into the Tableau workspace to start building charts. See Tableau's [Build a view from scratch](https://help.tableau.com/current/pro/desktop/en-us/getstarted_buildmanual_ex1basic.htm) documentation for more information.
+    * **For Tableau Desktop**: Select `Sheet 1` tab from the bottom-left corner of your Tableau window next to **Data Source**. In the left navigation panel under **Sheets**, drag and drop any available columns or pre-defined aggregation from your table into the Tableau workspace to start building charts. See Tableau's [Build a view from scratch](https://help.tableau.com/current/pro/desktop/en-us/getstarted_buildmanual_ex1basic.htm) documentation for more information.
+    * **For Tableau Prep**: Use Tableau Prep's tools to clean and shape your data. See Tableau Prep's [Getting Started](https://help.tableau.com/current/prep/en-us/prep_get_started.htm) documentation for more information. Combine data from multiple sources if needed and save the prepared data for analysis in Tableau Desktop or Server.
 
 ## Limitations
 
 * Firebolt does not support [Tableau Cloud](https://www.tableau.com/products/cloud-bi).
-* Once you have set up a connection to Firebolt, you cannot change the database that you specified during setup. In order to change the database, you must repeat step 4 to **Start Tableau and verify Firebolt connector availability** in [Connect to Tableau](#connect-to-tableau) to set up a new connection.
+* Once you have set up a connection to Firebolt, you cannot change the database that you specified during setup. In order to change the database, you must repeat step 4 to **Start Tableau and verify Firebolt connector availability** in [Connect to Tableau](#connect-to-tableau-desktop-or-tableau-prep) to set up a new connection.
 
 ## Additional resources
 

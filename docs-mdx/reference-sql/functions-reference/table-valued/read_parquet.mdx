@@ -54,6 +54,8 @@ The result is a table with data from the Parquet files. Columns are read and par
 
 Firebolt recommends using a `LOCATION` object to store credentials for authentication.
 
+When using `READ_PARQUET()`, the URL parameter in the location should contain only parquet files (see [location table-valued functions](https://docs.firebolt.io/guides/security/location#table-valued-functions-tvfs)). 
+
 ## Examples
 
 **Example**
@@ -63,7 +65,7 @@ The following code example reads the first 5 rows from a Parquet file using a `L
 ```sql
 SELECT * 
 FROM READ_PARQUET(
-    LOCATION => my_location
+    LOCATION => my_parquet_location
 ) 
 LIMIT 5;
 ```

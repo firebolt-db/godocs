@@ -1,0 +1,70 @@
+---
+description: Use Pandas to analyze data in Firebolt.
+sidebarTitle: Pandas
+title: Pandas
+---
+
+![Pandas](/assets/images/pandas-logo.png)
+
+[Pandas](https://pandas.pydata.org) is a powerful open-source data analysis and manipulation library for Python. It provides data structures like DataFrames and Series, which make it easy to work with structured data. Pandas is widely used in data science, machine learning, and statistical analysis due to its flexibility and ease of use.
+
+This guide will show you how to connect Pandas to Firebolt, allowing you to perform data analysis and manipulation on your Firebolt data.
+
+## Prerequisites
+
+Before you begin, ensure you have the following prerequisites:
+1. **Python**: You need to have Python installed on your machine. You can download it from [python.org](https://www.python.org/downloads/).
+2. **Firebolt account**: You need an active Firebolt account. If you do not have one, you can [sign up](https://go.firebolt.io/signup) for free.
+3. **Firebolt Database and Table**: Make sure you have a Firebolt database and table with data ready for querying.
+4. **Firebolt Service Account**: Create a [service account](/guides/managing-your-organization/service-accounts) in Firebolt and note its id and secret.
+
+## Connecting Pandas to Firebolt
+
+1. Install the required libraries:
+   ```bash
+   pip install pandas firebolt-sqlalchemy
+   ```
+
+2. Connect to Firebolt using a SQLAlchemy engine:
+    - `client_id`: client ID of your [service account](/guides/managing-your-organization/service-accounts).
+    - `client_secret`: client secret of your [service account](/guides/managing-your-organization/service-accounts).
+    - `account_name`: The name of your Firebolt [account](/guides/managing-your-organization/managing-accounts).
+    - `database`: The name of the [database](/overview/security/rbac/database-permissions) to connect to.
+    - `engine`: The name of the [engine](/overview/security/rbac/engine-permissions) to run SQL queries on.
+
+   ```python
+    from sqlalchemy import create_engine
+
+    # Fill out your Firebolt credentials
+    client_id = "<client_id>"
+    client_secret = "<client_secret>"
+    account_name = "<account>"
+    database = "<db>"
+    engine_name = "<engine>"
+
+    # Create a SQLAlchemy engine for Firebolt
+    connection_url = f"firebolt://{client_id}:{client_secret}@{database}/{engine_name}?account_name={account_name}"
+
+    engine = create_engine(connection_url)
+   ```
+
+3. Load data into Pandas using a SQLAlchemy engine:
+   ```python
+    import pandas as pd
+
+    # Read table content into a DataFrame
+    table_name = "my_table_name"
+    df = pd.read_sql_table(table_name, engine)
+    print(df.head())
+
+    # Or, execute a custom SQL query
+    sql = "SELECT * FROM my_table_name WHERE some_column = 'some_value' LIMIT 10000"
+    df = pd.read_sql(sql, engine)
+    print(df.head())
+   ```
+
+Done! You can now use Pandas to analyze and manipulate data from Firebolt. You can perform various operations like filtering, aggregating, and visualizing data using Pandas' powerful features.
+
+## Further reading
+- Learn more about [Pandas](https://pandas.pydata.org/docs/) and its capabilities.
+- Explore the [Firebolt SQLAlchemy documentation](https://github.com/firebolt-db/firebolt-sqlalchemy/blob/main/README.md) for more details on using Firebolt with SQLAlchemy.

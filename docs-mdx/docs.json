@@ -221,7 +221,8 @@
                   "guides/integrations/metabase",
                   "guides/integrations/estuary",
                   "guides/integrations/dbeaver",
-                  "guides/integrations/mcp"
+                  "guides/integrations/mcp",
+                  "guides/integrations/pandas"
                 ]
               },
               {

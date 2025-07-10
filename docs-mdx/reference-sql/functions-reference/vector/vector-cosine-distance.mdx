@@ -8,6 +8,8 @@ title: VECTOR_COSINE_DISTANCE
 
 Returns the cosine distance between two vectors, calculated based on the angle (θ) between them. Vector cosine distance emphasizes the directional difference between the vectors, rather than magnitude. It is calculated as `1 - cos(θ)`, where `cos(θ)` is the [cosine similarity](/reference-sql/functions-reference/vector/vector-cosine-similarity) between the vectors. `VECTOR_COSINE_DISTANCE` returns a value in the range `[0, 2]`. A vector cosine distance of `0` means that the vectors are identical in direction. A distance of `1` means that they are orthogonal and have no correlation. A distance of `2` means that they point in opposite directions.
 
+**Alias:** `cosine_distance` (aligned with pgvector for compatibility)
+
 ## Syntax
 
 
