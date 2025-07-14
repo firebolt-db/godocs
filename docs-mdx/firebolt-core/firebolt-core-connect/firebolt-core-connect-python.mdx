@@ -1,0 +1,48 @@
+---
+sidebarTitle: Connect With Python
+title: Connect With Python
+---
+
+
+You can use the [Python SDK](https://github.com/firebolt-db/firebolt-python-sdk/) to work with Firebolt Core.
+
+## Prerequisites
+
+* Python 3.10 and up
+* Firebolt Core running locally
+
+## Installation
+
+```shell
+pip install "firebolt-sdk>=1.13.0"
+```
+
+## Connection
+
+```python
+from firebolt.db import connect
+from firebolt.client.auth import FireboltCore
+
+# Connect to Firebolt Core
+# The database parameter defaults to 'firebolt' if not specified
+with connect(
+        auth=FireboltCore(),
+        url="http://localhost:3473",
+        database="firebolt"
+) as connection:
+    # Create a cursor
+    cursor = connection.cursor()
+
+    # Execute a simple test query
+    cursor.execute("SELECT 1")
+```
+
+`url` and `database` parameters are optional and can be omitted. In such case they default to `http://localhost:3473` and `firebolt` respectively.
+
+`auth=FireboltCore()` is a required parameter and tells the SDK to connect to the Core instance.
+
+## Further reading
+
+* [Firebolt Python SDK documentation](https://python.docs.firebolt.io/sdk_documenation/latest/)
+* The [firebolt-python-sdk repository on GitHub](https://github.com/firebolt-db/firebolt-python-sdk/)
+* Code examples (in Jupyter notebooks) in the SDK repository that demonstrate common [data tasks](https://github.com/firebolt-db/firebolt-python-sdk/blob/main/examples/firebolt_core.ipynb) with Firebolt Core.
