@@ -5,11 +5,8 @@ title: JSON functions
 ---
 
 
-## JSON Functions Overview
-
-The JSON functions provide a way to extract specific values from JSON documents, particularly from those stored in a column.
-
-There are three types of JSON functions:
+The JSON functions provide means to process JSON documents.
+There are three types of JSON functions for extracting values:
 1. These functions extract part of the document, but preserve the original data in the result:
     * [JSON_EXTRACT](/reference-sql/functions-reference/json/json-extract)
     * [JSON_EXTRACT_ARRAY](/reference-sql/functions-reference/json/json-extract-array)
@@ -26,8 +23,9 @@ The following code uses `JSON_POINTER_EXTRACT` to extract a value from a JSON do
 ```sql
 SELECT JSON_VALUE(JSON_POINTER_EXTRACT('{"key1":{"key3":"val1" }, "key2":"val2", "key3":5}', '/key1/key3'));
 ```
-**Returns**
-Returns `val1` as a SQL `TEXT` value, rather than the original JSON value `"val1"` with the double quotes.
+This statement returns `val1` as a SQL `TEXT` value, rather than the original JSON value `"val1"` with the double quotes.
+
+The [`JSON_FORMAT`](/reference-sql/functions-reference/json/json-format) function can be used to format JSON documents, including pretty-printing and minifying documents.
 
 Currently, JSON functions support only JSON pointer expressions, which provide a method for accessing specific elements within a JSON document.
 For convenience, the following aliases are available for JSON functions that use JSON pointer expressions:

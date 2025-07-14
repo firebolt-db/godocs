@@ -34,7 +34,7 @@ check-navigation-regenerate: \
 
 .PHONY: start-local
 start-local: maybe-setup-mint
-	cd docs-mdx && mint dev
+	cd docs-mdx && npx mint dev
 
 
 .PHONY: check-links
@@ -45,14 +45,14 @@ check-links: check-internal-links check-links-using-crawler
 check-internal-links: maybe-setup-mint
 	set -euo pipefail
 	cd docs-mdx
-	mint broken-links
+	npx mint broken-links
 
 
 .PHONY: check-links-using-crawler
 check-links-using-crawler: maybe-setup-mint
 	set -euo pipefail
 	cd docs-mdx
-	mint dev --no-open &
+	npx mint dev --no-open &
 	pid=$$!
 	tmpf=$$(mktemp)
 	trap "kill $$pid; rm $$tmpf" EXIT
@@ -137,12 +137,12 @@ use-python:
 
 .PHONY: setup-mint
 setup-mint:
-	npm i -g mint
+	npm i mint
 
 
 .PHONY: maybe-setup-mint
 maybe-setup-mint:
-	mint version || npm i -g mint
+	npx mint version || npm i mint
 
 
 clean:

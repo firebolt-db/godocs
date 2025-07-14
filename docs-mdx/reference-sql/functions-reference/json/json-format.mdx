@@ -1,0 +1,226 @@
+---
+description: Reference for JSON_FORMAT function family
+sidebarTitle: JSON_FORMAT
+title: JSON_FORMAT
+---
+
+
+Formats a JSON document according to a specified indentation.
+
+## Syntax
+
+```sql
+JSON_FORMAT
+(<json> [, <indentation>])
+
+TRY_JSON_FORMAT
+(<json> [, <indentation>])
+```
+
+### Aliases
+
+```sql
+JSON_PRETTY(<json>)
+->
+JSON_FORMAT(<json>, 4)
+
+TRY_JSON_PRETTY(<json>)
+->
+TRY_JSON_FORMAT(<json>, 4)
+```
+
+## Parameters
+
+| Parameter                | Description                                                                                                                                                                                            | Supported input types |
+|:-------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
+| `<json>`                 | The JSON document.                                                                                                                                                                                     | `TEXT`                |
+| `<indentation>`          | The indentation to use for formatting. | `TEXT` or `INT` |
+
+`<indentation>` defaults to `4` if omitted.
+`<indentation>` must be a literal value and cannot be `NULL`.
+
+## Return Type
+
+`TEXT`
+
+- If `<json>` is `NULL`, the function will return `NULL`.
+- If `<json>` is malformed, the `TRY_` variants return `NULL` whereas the non-`TRY_` variants fail with an error message.
+
+## Behavior
+
+The function operates in the three modes *minify*, *newlines*, and *pretty-print*, depending on `<indentation>` as explained below:
+
+| **Value of `<indentation>`** | **Mode** | **Description** |
+| :--- | --- | --- |
+| `-1` or `'mini'` | minify | Produces the most compact representation, omitting any white spaces. |
+| `0` or `'newline'` | newlines | Only insert newlines but no spaces for indentation. |
+| one of `1`, `2`, `4,` `8`, or `'pretty'` | pretty-print | Pretty-print with newlines and specified indentation. |
+
+Specifying an `<indentation>` of `'pretty'` is identical to `4`.
+
+## Examples
+
+For the JSON document indicated by `<json_common_example>` below, see our [JSON common example](/reference-sql/functions-reference/json#json-common-example).
+The returned results are based on the following example.
+
+#### Example
+
+The following code *minifies* the JSON document, omitting any white spaces.
+
+```sql
+SELECT JSON_FORMAT(<json_common_example>, 'mini')
+```
+or
+```sql
+SELECT JSON_FORMAT(<json_common_example>, -1)
+```
+
+**Returns**
+
+```
+{"key":123,"value":{"dyid":987,"uid":"987654","keywords":["insanely","fast","analytics"],"tagIdToHits":{"map":{"1737729":32,"1775582":35}},"events":[{"EventId":547,"EventProperties":{"UserName":"John Doe","Successful":true}},{"EventId":548,"EventProperties":{"ProductID":"xy123","items":2}}]}}
+```
+
+---
+
+#### Example
+
+The following code formats the JSON document with only newlines and without indentation.
+
+```sql
+SELECT JSON_FORMAT(<json_common_example>, 'newline')
+```
+or
+```sql
+SELECT JSON_FORMAT(<json_common_example>, 0)
+```
+
+**Returns**
+
+```
+{
+"key":123,
+"value":{
+"dyid":987,
+"uid":"987654",
+"keywords":[
+"insanely",
+"fast",
+"analytics"
+],
+"tagIdToHits":{
+"map":{
+"1737729":32,
+"1775582":35
+}
+},
+"events":[
+{
+"EventId":547,
+"EventProperties":{
+"UserName":"John Doe",
+"Successful":true
+}
+},
+{
+"EventId":548,
+"EventProperties":{
+"ProductID":"xy123",
+"items":2
+}
+}
+]
+}
+}
+```
+
+---
+
+#### Example
+
+The following code *pretty-prints* the JSON document with a default indentation of 4 spaces.
+
+```sql
+SELECT JSON_PRETTY(<json_common_example>)
+```
+or
+```sql
+SELECT JSON_FORMAT(<json_common_example>, 'pretty')
+```
+or
+```sql
+SELECT JSON_FORMAT(<json_common_example>, 4)
+```
+
+**Returns**
+
+```
+{
+    "key": 123,
+    "value": {
+        "dyid": 987,
+        "uid": "987654",
+        "keywords": [
+            "insanely",
+            "fast",
+            "analytics"
+        ],
+        "tagIdToHits": {
+            "map": {
+                "1737729": 32,
+                "1775582": 35
+            }
+        },
+        "events": [
+            {
+                "EventId": 547,
+                "EventProperties": {
+                    "UserName": "John Doe",
+                    "Successful": true
+                }
+            },
+            {
+                "EventId": 548,
+                "EventProperties": {
+                    "ProductID": "xy123",
+                    "items": 2
+                }
+            }
+        ]
+    }
+}
+```
+
+---
+
+#### Example
+
+The following code attempts to format a malformed JSON document and fails with an error.
+
+```sql
+SELECT JSON_FORMAT('{')
+```
+
+**Returns**
+
+```
+ERROR: Line 1, Column 8: ERROR: Failed to parse JSON: TAPE_ERROR: The JSON document has an improper structure: missing or superfluous commas, braces, missing keys, etc.
+```
+
+The precise error message depends on the error detected in the JSON document.
+
+---
+
+#### Example
+
+The following code attempts to format a malformed JSON document and returns `NULL` for the malformed JSON document.
+
+```sql
+SELECT TRY_JSON_FORMAT('{', 4)
+```
+
+**Returns**
+
+```
+NULL
+```

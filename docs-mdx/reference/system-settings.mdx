@@ -52,6 +52,7 @@ The following settings can be configured using the `WITH` clause:
 - [cross_region_request_mode](#access-cross-region-data)
 - [optimizer_mode](#changing-the-optimizer-mode)
 - [enable_storage_statistics](#using-storage-manager-statistics-in-the-optimizer)
+- [max_insert_threads](#limiting-max-insert-threads)
 
 ## Setting the time zone
 
@@ -549,3 +550,24 @@ WHERE
              [Logical Profile]: [est. #rows=100000, source: hardcoded]
 ```
 </CodeGroup>
+
+## Limiting max insert threads
+
+Controls the maximum number of threads for `INSERT` statements, limiting the degree of parallelism for tablet writing operations.
+This can reduce memory footprint during ingestion.
+
+### Syntax
+
+```sql
+INSERT INTO ... WITH (max_insert_threads = <number_of_threads_per_node>);
+```
+
+### Example
+
+Limit insert write operations to a single thread so that only one tablet is written at a time, reducing memory usage by avoiding multiple concurrent buffers:
+
+```sql
+INSERT INTO t
+SELECT * FROM READ_PARQUET(URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/*.parquet')
+WITH (max_insert_threads = 1);
+```

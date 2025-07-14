@@ -6,7 +6,7 @@ title: Applicable roles
 ---
 
 
-The `information_schema.applicable_roles` view shows every role in the account and its grantees, who include other users or roles to whom the role is granted. 
+The `information_schema.applicable_roles` view shows every role in the **account** and its grantees, who include other users or roles to whom the role is granted.
 
 You can use a `SELECT` query to return information about each role as shown in the example below.
 ```sql
@@ -14,6 +14,15 @@ SELECT
   *
 FROM
   information_schema.applicable_roles;
+```
+
+Similarly, you can use the `org_db.information_schema.applicable_roles` to view the roles in your **organization**:
+
+```sql
+SELECT
+  *
+FROM
+  org_db.information_schema.applicable_roles;
 ```
 
 See also `information_schema.transitive_applicable_roles` [here](/reference-sql/information-schema/transitive-applicable-roles).

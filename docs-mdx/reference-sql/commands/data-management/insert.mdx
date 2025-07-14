@@ -5,28 +5,68 @@ title: INSERT
 ---
 
 
-
 Inserts one or more values into a specified table. Specifying column names is optional.
-
 
 ## Syntax
 
 ```sql
-INSERT INTO <table> [(<column1>[, <column2>][, ...])]
-{ <expression> | VALUES ([<value1>[, <value2>][, ...]) }
+INSERT INTO <table> [ ( <column_name> [ , ... ] ) ]
+{ <expression> | VALUES ( <value> [ , ... ] ) [ , ... ] }
 [ WITH <settings> ]
 ```
-## Parameters 
+
+## Parameters
 
 
 | Parameter | Description|
 | :---------| :----------|
-| `<table>`| The target table where values are to be inserted. |
-| `(<column1>[, <column2>][, ...])]`| A list of column names from `<table_name>` for the insertion. If not defined, the columns are deduced from the `<select_statement>`. |
-| `<expression>`<br/>--OR--<br/> `VALUES ([<value1>[, <value2>][, ...])]` | You can specify either a [`SELECT` query](/reference-sql/commands/queries/select) that determines values to or an explicit list of `VALUES` to insert.|
+| `<table>`| The table to insert into. |
+| `( <column_name> [ , ... ] )`| List of column names to be inserted into. If not defined, the columns will be deduced from the expression. |
+| `<expression>`<br/>--OR--<br/> `VALUES ( <value> [ , ... ] ) [, ... ]` | Either a [`SELECT` query](/reference-sql/commands/queries/select) or an explicit list of `VALUES` tuples to be inserted.|
 | `<settings>` | List of [query-specific settings](/reference/system-settings#setting-via-with) overrides. |
 
-## Example
+
+## INSERT ON CONFLICT
+
+<Note>
+This feature is in public preview.
+</Note>
+
+The optional `ON CONFLICT` clause provides a way to reconcile or merge new data with existing records by either skipping or overwriting rows that already exist. It is available for a narrow subset of `INSERT` statements. For more generic UPSERT or deduplication functionality, use the [`MERGE` statement](https://www.google.com/search?q=/reference-sql/commands/data-management/merge).
+
+Given this clause, for each row proposed for insertion, either the insertion proceeds, or, if there already exists a row in the table matching the tuple specified by the `CONFLICT` columns, an alternative action will be taken. There are two possible alternatives - take no action, or update the pre-existing matched row(s) in some way.
+
+  * `DO NOTHING` enables an `INSERT IGNORE` workload, whereby the newer row is simply discarded.
+  * `DO UPDATE` enables an UPSERT or `INSERT UPDATE` workload, whereby the pre-existing matched row(s) can be partially or fully overwritten. The overwrite expressions can (but do not have to) reference the fresh data using the `EXCLUDED` view name.
+
+```sql
+INSERT INTO <table> ( <column_name> [ , ... ] )
+VALUES ( <value> [ , ... ] )
+ON CONFLICT ( <conflict_column_name> [ , ... ] ) <conflict_action>
+[ WITH <settings> ]
+
+<conflict_action> ::= {
+  DO NOTHING |
+  DO UPDATE SET { <column_name> = <value> [ , ... ] }
+}
+```
+
+### Extra Parameters
+
+
+| Parameter | Description|
+| :---------| :----------|
+| `( <conflict_column_name> [ , ... ] )` | List of column names to determine `CONFLICT` duplicates |
+| `<conflict_action>` | Action to take when a conflict occurs: `DO NOTHING` to skip the conflicting row, or `DO UPDATE SET` to update the existing matched row(s). |
+
+
+### INSERT ON CONFLICT Limitations:
+
+  * `INSERT` expression must be a single `VALUES` tuple.
+  * At least one `CONFLICT` column must be specified. These are not automatically deduced from primary index, etc.
+  * `INSERT` column list must be specified. Their names and ordering cannot get deduced from `VALUES`.
+
+## Examples
 
 First, create a table populated with student information as follows:
 
@@ -52,8 +92,37 @@ You can also add another row with only some of the columns populated. The missin
 INSERT INTO students (id, full_name, gender) VALUES (3, 'Ron Weasley', 'M')
 ```
 
+Handle duplicate key conflicts by doing nothing:
+
+```sql
+INSERT INTO students (id, full_name, gender)
+VALUES (1, 'Harry Potter', 'M')
+ON CONFLICT (id) DO NOTHING;
+```
+
+Handle duplicate key conflicts by updating existing rows:
+
+```sql
+INSERT INTO students (id, full_name, gender)
+VALUES (1, 'Harry James Potter', 'M')
+ON CONFLICT (id) DO UPDATE SET
+    full_name = EXCLUDED.full_name,
+    gender = EXCLUDED.gender;
+```
+
+Apply arbitrary transformations while updating matching rows:
+
+```sql
+INSERT INTO hogsmeade_guest_log (guest_id, guest_name)
+VALUES (1, 'Harry James Potter')
+ON CONFLICT (guest_id) DO UPDATE SET
+    guest_name = EXCLUDED.guest_name,
+    last_visit_time = NOW(),  -- Update last_visit_time to current time
+    visit_count = hogsmeade_guest_log.visit_count + 1;  -- Increment visit_count
+```
+
 ## Settings to control behavior
 
 - `insert_sharding` to [enforce partition locality](/reference/system-settings#insert-sharding) during ingestion into partitioned tables.
 - `tablet_min_size_bytes` and `tablet_max_size_bytes` to [control](/reference/system-settings#target-tablet-size) min/max tablet sizes during ingestion.
-
+- `max_insert_threads` to [control the maximum number of threads](/reference/system-settings#limiting-max-insert-threads) for `INSERT` statements, limiting the degree of parallelism for tablet writing operations. This can reduce memory footprint during ingestion.
