@@ -283,7 +283,7 @@ When data is loaded into Firebolt, it is stored in units of data storage called 
 The following code example shows how to view information about the tablets that are used to store your table including the number of uncompressed and compressed bytes on disk:
 
 ```sql
-SELECT * FROM information_schema.engine_tablets  where table_name = 'levels';
+SELECT * FROM information_schema.tables WHERE table_name = 'levels';
 ```
 
 ## Clean up
