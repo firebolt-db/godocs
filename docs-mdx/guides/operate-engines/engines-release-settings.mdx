@@ -34,3 +34,8 @@ To bring an engine back to the default release cycle, the release channel should
 ```sql
 ALTER ENGINE myengine SET RELEASE=(CHANNEL=DEFAULT);
 ```
+
+<Note>
+    Changing the release channel does not change the version of an engine immediately. Instead, the version change
+    is applied during the next run of the managed upgrade process.
+</Note>
