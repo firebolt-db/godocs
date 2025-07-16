@@ -12,7 +12,7 @@ A table-valued function (TVF) that reads CSV files from Amazon S3. The function 
 ```sql
 -- Using LOCATION object (recommended)
 READ_CSV ( 
-  LOCATION => location_name
+  LOCATION => 'location_name'
   [, COMPRESSION => <file_compression>]
   [, HEADER => { TRUE | FALSE }]
   [, DELIMITER => <field_delimiter>]
@@ -48,7 +48,7 @@ READ_CSV (
 
 | Parameter               | Description                                                                                                                                                                                                                                                           | Supported input types |
 |:------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
-| LOCATION | The name of a location object that contains the Amazon S3 URL and credentials. Firebolt recommends using `LOCATION` to store credentials for authentication. For a comprehensive guide, see [LOCATION objects](/guides/security/location). For syntax details, see [CREATE LOCATION](/reference-sql/commands/data-definition/create-location). | `IDENTIFIER` |
+| LOCATION | The name of a location object that contains the Amazon S3 URL and credentials. Firebolt recommends using `LOCATION` to store credentials for authentication. For a comprehensive guide, see [LOCATION objects](/guides/security/location). For syntax details, see [CREATE LOCATION](/reference-sql/commands/data-definition/create-location). **Note:** `LOCATION` must be specified as a named parameter (e.g., `LOCATION => 'my_location'`). Unlike `URL`, it cannot be used as a positional parameter. | `TEXT` |
 | `URL`                   | The location containing your files in an Amazon S3 bucket. The expected format is `s3://{bucket_name}/{full_file_path_glob_pattern}`.                                                                                                                                 | `TEXT`                |
 | `COMPRESSION`           | The [compression type](/reference-sql/commands/data-definition/create-external-table#compression) of the input file. If `compression` is not set, `compression` is inferred from the file extension.                                                     | `TEXT`                |
 | `AWS_ACCESS_KEY_ID`     | The AWS access key ID.                                                                                                                                                                                                                                                | `TEXT`                |
@@ -82,7 +82,7 @@ The following code example reads a CSV file from the location specified by `my_l
 
 ```sql
 SELECT * FROM READ_CSV(
-    LOCATION => my_location,
+    LOCATION => 'my_location',
     HEADER => true
 );
 ```
