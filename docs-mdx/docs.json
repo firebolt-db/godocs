@@ -211,6 +211,7 @@
                 "pages": [
                   "guides/integrations/connecting-with-dbt",
                   "guides/integrations/airflow",
+                  "guides/integrations/aws-glue",
                   "guides/integrations/connecting-to-apache-superset",
                   "guides/integrations/connecting-to-preset",
                   "guides/integrations/cube-js",
