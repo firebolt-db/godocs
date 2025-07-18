@@ -1,0 +1,41 @@
+---
+description: Learn how to control the release upgrade cycle for engines.
+sidebarTitle: Release settings
+title: Release settings
+---
+
+By default, the engine upgrade process is fully managed to ensure that users get fully verified versions. 
+For those users who want to get early access to new features, or who need to run the new version through 
+an internal acceptance process, Firebolt introduces an engine release channel setting. 
+This setting allows you to choose between the default release process or to enroll an engine into the preview
+release channel and get the next version earlier.
+
+## Reference
+
+### Create an engine in the preview channel using the API
+
+To create an engine, use [CREATE ENGINE](/reference-sql/commands/engines/create-engine).
+
+The following code example creates an engine with two nodes of type `M` in the preview release channel:
+
+```sql
+CREATE ENGINE myengine WITH TYPE="M" NODES=2 RELEASE=(CHANNEL=PREVIEW);
+```
+
+### Enroll an existing engine into the preview release channel using the API
+Use the [ALTER ENGINE](/reference-sql/commands/engines/alter-engine) command to change the release channel:
+
+```sql
+ALTER ENGINE myengine SET RELEASE=(CHANNEL=PREVIEW);
+```
+
+To bring an engine back to the default release cycle, the release channel should be changed to DEFAULT.
+
+```sql
+ALTER ENGINE myengine SET RELEASE=(CHANNEL=DEFAULT);
+```
+
+<Note>
+    Changing the release channel does not change the version of an engine immediately. Instead, the version change
+    is applied during the next run of the managed upgrade process.
+</Note>

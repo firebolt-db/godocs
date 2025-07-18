@@ -21,7 +21,8 @@ CREATE ENGINE [IF NOT EXISTS] <engine_name>
     [MAX_CLUSTERS = <clusters>]
     [NODES = <nodes>]
     [TYPE = <type>]
-    [FAMILY = <family>]]
+    [FAMILY = <family>]
+    [RELEASE = (CHANNEL = <channel)]]
 ```
 ## Options
   
@@ -41,6 +42,7 @@ CREATE ENGINE [IF NOT EXISTS] <engine_name>
 | `NODES = <nodes>`                    | Indicates the number of nodes in each cluster within an engine. This number can range from `1` to `128`. <br/><br/>If not specified, `2` is used as default. |
 | `TYPE =<type>`                       | Defines the type of node used in the engine. Options include `S`, `M`, `L`, or `XL` <br/><br/>If not specified, `M` is used as default. |
 | `FAMILY =<family>`                   | Defines the family of node used in the engine. Options include `STORAGE_OPTIMIZED` (alias `SO`) or `COMPUTE_OPTIMIZED` (alias `CO`) <br/><br/>If not specified, `STORAGE_OPTIMIZED` is used as default. |
+| `CHANNEL = <channel>`                | Specifies the release channel to be used. Options are `DEFAULT` to use the default release process or `PREVIEW` to get upgrades earlier. |
 
 **Limitations:**  
 * The number of clusters per engine is limited to two. 
