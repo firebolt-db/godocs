@@ -135,7 +135,7 @@ def get_query(query_file):
     return open(query_file, "r").read()
 
 # Define a variable based on an Airflow DAG class.
-# For class parameters, see https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/models/dag/index.html#airflow.models.dag.DAG.
+# For class parameters, see https://airflow.apache.org/docs/task-sdk/stable/api.html#airflow.sdk.DAG.
 with DAG('firebolt_provider_startstop_trip_data',
           default_args=default_args,
           template_searchpath=tmpl_search_path,
@@ -445,5 +445,5 @@ For more information about connecting to Airflow, refer to the following resourc
 * [Managing Connections in Airflow](https://airflow.apache.org/docs/apache-airflow/stable/howto/connection.html)
 * [Firebolt Airflow provider on Pypi](https://pypi.org/project/airflow-provider-firebolt/)
 * [DAGs](https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/dags.html)
-* [airflow.models.dag](https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/models/dag/index.html#module-airflow.models.dag)
+* [airflow.models.dag](https://airflow.apache.org/docs/task-sdk/stable/api.html#airflow.sdk.DAG)
 
