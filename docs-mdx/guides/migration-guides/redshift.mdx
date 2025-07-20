@@ -1065,7 +1065,7 @@ You can also orchestrate your entire migration pipeline using a DAG (Directed Ac
 The following code example uses a DAG to automate migrating data, transforming schema and testing performance using Airflow:
 
 ```python
-from airflow.sdk import DAG
+from airflow import DAG
 from airflow.providers.common.sql.operators.sql import SQLExecuteQueryOperator
 from firebolt_provider.operators.firebolt import FireboltOperator
 from firebolt_provider.hooks.firebolt import FireboltHook
