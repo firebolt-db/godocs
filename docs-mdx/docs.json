@@ -238,6 +238,7 @@
             "group": "SQL reference",
             "pages": [
               "reference-sql",
+              "reference-sql/explicit-transactions",
               {
                 "group": "Data types",
                 "pages": [
@@ -281,6 +282,7 @@
                   "reference-sql/information-schema/storage-history",
                   "reference-sql/information-schema/storage-metering-history",
                   "reference-sql/information-schema/tables",
+                  "reference-sql/information-schema/transactions",
                   "reference-sql/information-schema/transitive-applicable-roles",
                   "reference-sql/information-schema/users",
                   "reference-sql/information-schema/views"
@@ -2601,6 +2603,12 @@
       "permanent": false
     },
     {
+      "source": "/sql_reference/commands/data-definition/explicit-transactions.html",
+      "destination": "/reference-sql/explicit-transactions",
+      "permanent": false
+    },
+
+    {
       "source": "/sql_reference/commands/data-definition/drop-account.html",
       "destination": "/reference-sql/commands/data-definition/drop-account",
       "permanent": false
@@ -3553,6 +3561,11 @@
     {
       "source": "/sql_reference/commands/data-definition/use-database",
       "destination": "/reference-sql/commands/data-definition/use-database",
+      "permanent": false
+    },
+    {
+      "source": "/sql_reference/commands/data-definition/explicit-transactions",
+      "destination": "/reference-sql/explicit-transactions",
       "permanent": false
     },
     {

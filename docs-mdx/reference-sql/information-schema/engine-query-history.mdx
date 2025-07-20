@@ -61,3 +61,5 @@ Each row has the following columns with information about each query in query hi
 | node_ordinal               | INTEGER     | Index of the node in the cluster that has received the query and manages the execution of it. (1-indexed) |
 | cluster_ordinal            | INTEGER     | Index of the cluster in the engine that has received the query and executes it. (1-indexed) |
 | number_of_clusters         | INTEGER     | Number of cluster in the engine at the point of query execution. |
+| transaction_begin_lsn      | TEXT        | Identifier for the query's transaction beginning (Log Sequence Number). |
+| transaction_commit_lsn     | TEXT        | Identifier for the query's transaction commit (Log Sequence Number). |
