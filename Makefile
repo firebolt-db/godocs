@@ -49,8 +49,13 @@ check-internal-links:
 	@echo "Checking internal links integrity..."
 	@set -euo pipefail
 	cd docs-mdx
-	$(MINT) broken-links
-	@echo "☑ Internal links are OK"
+	tmpf=$$(mktemp)
+	$(MINT) broken-links 2>&1 | tee "$$tmpf"
+	@if egrep -e "found [0-9]+ broken links" "$$tmpf"; then
+		@exit 1
+	else
+		@echo "☑ Internal links are OK"
+	fi
 
 
 .PHONY: check-links-using-crawler
