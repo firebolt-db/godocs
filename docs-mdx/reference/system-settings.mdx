@@ -36,14 +36,12 @@ The `WITH` clause is supported for the following commands:
 
 ### Supported Settings
 
-The following settings can be configured using the `WITH` clause:
+The following settings can be configured using the `WITH` clause and the `SET` command:
 - [timezone](#setting-the-time-zone)
 - [standard_conforming_strings](#enable-parsing-for-literal-strings)
 - [max_result_rows](#limit-the-number-of-result-rows)
 - [statement_timeout](#statement-timeout)
 - [cancel_query_on_connection_drop](#query-cancellation-mode-on-connection-drop)
-- [query_label](#query-labelingtagging)
-- [warmup](#multi-cluster-engine-warmup)
 - [enable_result_cache](#result-cache)
 - [enable_subresult_cache](#subresult-cache)
 - [enable_scan_cache](#scan-cache)
@@ -53,6 +51,10 @@ The following settings can be configured using the `WITH` clause:
 - [optimizer_mode](#changing-the-optimizer-mode)
 - [enable_storage_statistics](#using-storage-manager-statistics-in-the-optimizer)
 - [max_insert_threads](#limiting-max-insert-threads)
+
+The following settings can be configured only using the `SET` command:
+- [query_label](#query-labeling-and-tagging)
+- [warmup](#multi-cluster-engine-warmup)
 
 ## Setting the time zone
 
@@ -174,7 +176,7 @@ INSERT INTO X [...]
 SELECT * FROM X;  
 ```
 
-## Query labeling/tagging
+## Query labeling and tagging
 Use this option to label your query with a custom text. This simplifies query cancellation and retrieving the query status from system tables.
 
 ### Syntax
