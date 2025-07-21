@@ -219,6 +219,7 @@
                   "guides/integrations/metabase",
                   "guides/integrations/estuary",
                   "guides/integrations/dbeaver",
+                  "guides/integrations/langchain",
                   "guides/integrations/mcp",
                   "guides/integrations/pandas"
                 ]
