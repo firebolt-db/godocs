@@ -17,7 +17,7 @@ Before you begin, ensure you have the following prerequisites:
 1. **Python installation**: You need Python 3.8 or higher installed on your machine. You can download it from [python.org](https://www.python.org/downloads/).
 2. **Firebolt account**: You need an active Firebolt account with a configured database and engine. If you don't have one, you can [sign up](https://go.firebolt.io/signup) for free.
 3. **Firebolt credentials**: Create a [service account](/guides/managing-your-organization/service-accounts) in Firebolt and note its client ID and secret.
-4. **LLM API key**: You'll need an API key from a supported LLM provider to power the natural language processing. This guide uses OpenAI as an example, but LangChain supports [many other chat model providers](https://python.langchain.com/docs/integrations/chat/).
+4. **LLM API key**: You'll need an API key from a supported LLM provider to power the natural language processing. This guide uses OpenAI as an example, but LangChain supports [many other chat model providers](https://python.langchain.com/docs/integrations/chat/). You can obtain an OpenAI API key from the [OpenAI website](https://platform.openai.com/settings/organization/api-keys).
 
 ## Connecting to Firebolt with LangChain
 
@@ -57,6 +57,13 @@ export OPENAI_API_KEY="your_openai_api_key"
 
 ### 3. Configure the Connection
 
+Connect to Firebolt using a SQLAlchemy engine. You'll need to provide your Firebolt credentials and the database connection details:
+- `client_id`: client ID of your [service account](/guides/managing-your-organization/service-accounts).
+- `client_secret`: client secret of your [service account](/guides/managing-your-organization/service-accounts).
+- `account_name`: The name of your Firebolt [account](/guides/managing-your-organization/managing-accounts).
+- `database`: The name of the [database](/overview/security/rbac/database-permissions) to connect to.
+- `engine`: The name of the [engine](/overview/security/rbac/engine-permissions) to run SQL queries on.
+
 The SQLAlchemy connection string is the key component that enables LangChain integration with Firebolt. This example uses OpenAI, but you can substitute with [any LangChain-supported chat model](https://python.langchain.com/docs/integrations/chat/):
 
 ```python
@@ -66,12 +73,12 @@ from langchain_openai import ChatOpenAI  # Replace with your preferred provider
 from langchain_community.agent_toolkits import create_sql_agent
 
 # 🔐 Credentials - Make sure these are securely stored
-FIREBOLT_CLIENT_ID = os.getenv("FIREBOLT_CLIENT_ID")         # e.g. 'your_email@example.com'
-FIREBOLT_CLIENT_SECRET = os.getenv("FIREBOLT_CLIENT_SECRET")         # your Firebolt password
-FIREBOLT_ACCOUNT_NAME = os.getenv("FIREBOLT_ACCOUNT_NAME") # your Firebolt account (e.g. 'myaccount')
-FIREBOLT_DATABASE = os.getenv("FIREBOLT_DATABASE")         # e.g. 'retail_demo'
-FIREBOLT_ENGINE_NAME = os.getenv("FIREBOLT_ENGINE_NAME")   # e.g. 'my_engine'
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")               # Your OpenAI key
+FIREBOLT_CLIENT_ID = os.getenv("FIREBOLT_CLIENT_ID")
+FIREBOLT_CLIENT_SECRET = os.getenv("FIREBOLT_CLIENT_SECRET")
+FIREBOLT_ACCOUNT_NAME = os.getenv("FIREBOLT_ACCOUNT_NAME")
+FIREBOLT_DATABASE = os.getenv("FIREBOLT_DATABASE")
+FIREBOLT_ENGINE_NAME = os.getenv("FIREBOLT_ENGINE_NAME")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # 🔗 SQLAlchemy connection string for Firebolt
 connection_url = (f"firebolt://{FIREBOLT_CLIENT_ID}:{FIREBOLT_CLIENT_SECRET}@{FIREBOLT_DATABASE}/"
@@ -80,10 +87,10 @@ connection_url = (f"firebolt://{FIREBOLT_CLIENT_ID}:{FIREBOLT_CLIENT_SECRET}@{FI
 llm = ChatOpenAI(temperature=0, openai_api_key=OPENAI_API_KEY, model_name="gpt-4o")
 # For other providers, use the appropriate class:
 # from langchain_anthropic import ChatAnthropic
-# llm = ChatAnthropic(model="claude-3-sonnet-20240229", anthropic_api_key=ANTHROPIC_API_KEY)
+# llm = ChatAnthropic(model="claude-3-sonnet-20240229", anthropic_api_key=os.getenv("ANTHROPIC_API_KEY"))
 # 
 # from langchain_google_genai import ChatGoogleGenerativeAI
-# llm = ChatGoogleGenerativeAI(model="gemini-pro", google_api_key=GOOGLE_API_KEY)
+# llm = ChatGoogleGenerativeAI(model="gemini-pro", google_api_key=os.getenv("GOOGLE_API_KEY"))
 
 db = SQLDatabase.from_uri(connection_url, schema="public")
 
@@ -129,19 +136,9 @@ response = agent_executor.invoke(prompt)
 print(response["output"])
 ```
 
-## Security Best Practices
-
-When using LangChain with Firebolt, follow these security guidelines:
-
-- **Environment Variables**: Always store credentials in environment variables, never hardcode them in your source code.
-- **Service Accounts**: Use dedicated [service accounts](/guides/managing-your-organization/service-accounts) with minimal required permissions rather than personal credentials.
-- **Network Security**: Consider using [network policies](/guides/security/network-policies) to restrict database access to specific IP ranges.
-- **Query Validation**: In production environments, consider implementing query validation to prevent potentially harmful SQL operations.
-
 ## Compatibility and Limitations
 
 - **LangChain Versions**: This integration is compatible with LangChain 0.1.0 and later versions.
-- **SQL Dialect**: The agent understands Firebolt's SQL dialect and can leverage Firebolt-specific functions and features.
 - **Performance**: For large datasets, consider using appropriate filters and limits in your natural language prompts to optimize query performance.
 - **Token Limits**: Be aware of LLM token limits when working with large schema descriptions or query results.
 
