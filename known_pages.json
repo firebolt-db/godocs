@@ -385,6 +385,8 @@
   "/guides/integrations/debezium/",
   "/guides/integrations/estuary",
   "/guides/integrations/estuary/",
+  "/guides/integrations/langchain",
+  "/guides/integrations/langchain/",
   "/guides/integrations/mcp",
   "/guides/integrations/mcp/",
   "/guides/integrations/metabase",
