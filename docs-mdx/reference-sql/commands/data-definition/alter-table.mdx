@@ -34,9 +34,46 @@ ALTER TABLE <table> ADD COLUMN [IF NOT EXISTS] <column_name> <column_type> [NULL
 
 ### Limitations
 The query can only be executed under the following conditions:
-* Only for managed tables created on Firebolt version 4.10 or higher (external tables are not supported).
+* Only on managed tables, external tables are not supported.
 * The table must not have any dependent views.
 * The default expression must contain only literals or functions `CURRENT_DATE()`, `LOCALTIMESTAMP()`, `CURRENT_TIMESTAMP()`, and `NOW()`.
+
+## ALTER TABLE MODIFY COLUMN
+
+Changes the ordinal position of a column within a table's schema.
+
+### Syntax
+
+```sql
+ALTER TABLE <table> MODIFY COLUMN <column_name> [FIRST | AFTER <other_column>]
+```
+
+### Parameters
+
+| Parameter          | Description                                  |
+| :------------------ | :-------------------------------------------- |
+| `<table>`       | Name of the table containing the column to reposition. |
+| `<column_name>` | Name of the column whose position will be changed. This column must exist in the table. |
+| `<other_column>` | Name of the column after which `<column_name>` will be positioned. This column must exist in the table. |
+| `FIRST` | Keyword indicating that `<column_name>` will become the first column in the table. |
+| `AFTER` | Keyword indicating that `<column_name>` will be positioned after `<other_column>`. |
+
+### Limitations
+The query can only be executed under the following conditions:
+* Only on managed tables, external tables are not supported.
+* The table must not have any dependent views.
+
+### Examples
+
+Move a column to be the first column in the table:
+```sql
+ALTER TABLE my_table MODIFY COLUMN user_id FIRST;
+```
+
+Move a column to appear after another specific column:
+```sql
+ALTER TABLE my_table MODIFY COLUMN email AFTER user_name;
+```
 
 ## ALTER TABLE DROP PARTITION
 
