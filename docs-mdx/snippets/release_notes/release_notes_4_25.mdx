@@ -1,0 +1,43 @@
+## Firebolt Release Notes - Version 4.25
+
+### New Features
+**Improved type inference in the `READ_CSV()` function**
+
+`READ_CSV()` function enhances data handling by detecting and assigning specific data types such as `BIGINT`, `DOUBLE PRECISION`, and `BOOLEAN` to CSV columns. Previously, the function returned all columns as `TEXT`. The `INFER_SCHEMA` parameter manages this behavior and is true by default, ensuring better data type detection. Set it to false to treat all types as `TEXT`. This improvement allows users to manage and analyze data more effectively, aligning data types with their actual content.
+
+**Added release channel information to the engines table accessible via `SHOW ENGINES` or `information_schema.engines` view**
+
+The engines table now includes release channel information. Users can retrieve this data by using the `SHOW ENGINES` query or by querying `information_schema.engines`. This addition helps users easily access and manage engine release details.
+
+To display all engines with the release channel column included, use the following command:
+
+```sql
+SHOW ENGINES;
+```
+
+To find the release channel of a specific engine, use the following query:
+
+```sql
+SELECT release_channel FROM information_schema.engines WHERE engine_name = 'myengine';
+```
+
+**Added a `PARTITION_ID` field to `VACUUM_JOB` telemetry**
+
+The `VACUUM_JOB` telemetry now includes a `PARTITION_ID` field. This addition helps users better analyze and monitor partition-specific vacuum activities.
+Documentation is available [here](/reference-sql/commands/data-management/vacuum).
+
+This enhancement provides users with better visibility and control over their engine configurations, promoting efficient management and planning.
+
+### Performance Improvements
+
+**Improved predicate pushdown support**
+
+Added an optimizer rule that pushes Filter predicates down through Window operators when safe to do so.
+
+**Enhanced the `VACUUM` process by merging tablets from different nodes into a single tablet**
+
+The `VACUUM` process now merges tablets from different nodes into a single tablet. This improvement enhances storage efficiency and optimizes performance in managing data across nodes.
+
+**After the deployment of 4.25, we will migrate engines in the COMPUTE_OPTIMIZED (CO) family from AMD architecture to ARM**
+
+We expect this to provide a general performance improvement. Users can [temporarily opt out by changing their CO engine to use an AMD-specific engine type](/guides/operate-engines/arm-co-opt-out).
