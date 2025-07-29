@@ -137,6 +137,7 @@
                   "guides/operate-engines/working-with-engines-using-ddl",
                   "guides/operate-engines/sizing-engines",
                   "guides/operate-engines/understand-autoscaling",
+                  "guides/operate-engines/warming-up-engines",
                   "guides/operate-engines/system-engine"
                 ]
               },
