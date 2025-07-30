@@ -152,9 +152,23 @@ For more information, see [COPY FROM](/reference-sql/commands/data-management/co
 
 ### Table-valued functions (TVFs)
 
-Access external data directly in queries:
+Access external data directly in queries.
+
+`READ_CSV` and `READ_PARQUET` require that all files in the specified location match the expected format. If the URL defined in the location contains files of different types, you must create separate locations for each file type.
 
 ```sql
+
+-- List objects in S3 bucket
+SELECT object_name, object_bytes, last_modified
+FROM LIST_OBJECTS(LOCATION => shared_s3_data)
+WHERE object_name LIKE '%.parquet';
+
+-- Admin: Create a secure LOCATION for your path. This path contains only csv files so can be used in READ_CSV
+CREATE LOCATION my_data_source WITH
+  SOURCE = AMAZON_S3
+  CREDENTIALS = (AWS_ACCESS_KEY_ID = 'AKIAIOSFODNN7EXAMPLE' AWS_SECRET_ACCESS_KEY = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY')
+  URL = 's3://production-bucket/'; -- only contains csv files
+
 -- Read CSV files directly
 SELECT customer_id, email, signup_date
 FROM READ_CSV(
@@ -163,9 +177,15 @@ FROM READ_CSV(
 )
 WHERE signup_date >= '2024-01-01';
 
+-- Admin: Create a secure LOCATION for your path that contains multiple file types, targeting parquet only
+CREATE LOCATION my_parquet_data_source WITH
+  SOURCE = AMAZON_S3
+  CREDENTIALS = (AWS_ACCESS_KEY_ID = 'AKIAIOSFODNN7EXAMPLE' AWS_SECRET_ACCESS_KEY = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY')
+  URL = 's3://production-bucket/*.parquet';
+
 -- Read Parquet files with filtering
 SELECT *
-FROM READ_PARQUET(LOCATION => 'my_data_source')
+FROM READ_PARQUET(LOCATION => 'my_parquet_data_source')
 WHERE order_date BETWEEN '2024-01-01' AND '2024-01-31';
 
 -- List objects in S3 bucket

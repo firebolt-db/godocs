@@ -44,7 +44,7 @@ Each row has the following columns with information about each query in query hi
 | query_text                 | TEXT        | The text of the SQL statement.|
 | query_text_normalized      | TEXT        | The normalized text of the SQL statement.|
 | query_text_normalized_hash | TEXT        | The hash of the normalized text of the SQL statement.|
-| telemetry                  | TEXT        | Displays additional telemetry information about the query in JSON format. This data is currently only available for VACUUM queries and jobs.|
+| telemetry                  | TEXT        | Displays additional telemetry information about the query in JSON format. Currently, only `SELECT` queries and `VACUUM` jobs provide telemetry.|
 | error_message              | TEXT        | The returned error message.|
 | scanned_rows               | BIGINT      | The total number of rows scanned.|
 | scanned_bytes              | BIGINT      | The total number of uncompressed bytes scanned.|
@@ -53,6 +53,7 @@ Each row has the following columns with information about each query in query hi
 | inserted_rows              | BIGINT      | The total number of rows written.|
 | inserted_bytes             | BIGINT      | The total number of bytes written to both cache and storage.|
 | spilled_bytes              | BIGINT      | The total number of uncompressed bytes spilled.|
+| peak_memory_bytes          | BIGINT      | Peak memory usage by the query. For distributed queries represents the peak memory used by any node. |
 | returned_rows              | BIGINT      | The total number of rows returned from the query.|
 | returned_bytes             | BIGINT      | The total number of bytes returned from the query.|
 | time_in_queue_us           | BIGINT      | The number of microseconds the query spent in queue.|

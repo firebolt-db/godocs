@@ -1,0 +1,45 @@
+---
+description: Reference and syntax for the DROP ORGANIZATION ROLE command.
+sidebarTitle: DROP ORGANIZATION ROLE
+title: DROP ORGANIZATION ROLE
+---
+
+Deletes an organization role.
+
+By default, a role cannot be dropped if there are permissions granted to the role. In this case, an error message will be displayed, and you need to manually drop the permissions granted to the role and retry.
+
+You can also use the `CASCADE` option to delete the role and all the grants that depend on it.
+
+## Syntax
+
+```sql
+DROP ORGANIZATION ROLE [ IF EXISTS ] <role_name> [ CASCADE | RESTRICT ]
+```
+
+## Parameters
+
+| Parameter     | Description                       |
+|:--------------|:----------------------------------|
+| `<role_name>` | The name of the role.             |
+
+## Example
+
+The following command will delete the role `account_manager`:
+
+```sql
+DROP ORGANIZATION ROLE account_manager;
+```
+
+The following command will delete the role `account_manager_2`:
+
+```sql
+DROP ORGANIZATION ROLE IF EXISTS account_manager_2
+```
+
+In the previous code example, if `account_manager_2` does not exist, no error message is returned.
+
+The following command will delete the role `account_manager_3` and all the grants that depend on it:
+
+```sql
+DROP ORGANIZATION ROLE account_manager_3 CASCADE
+```

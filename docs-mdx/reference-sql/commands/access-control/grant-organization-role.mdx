@@ -1,0 +1,101 @@
+---
+description: Reference and syntax for the GRANT ORGANIZATION ROLE command.
+sidebarTitle: GRANT ORGANIZATION ROLE
+title: GRANT ORGANIZATION ROLE
+---
+
+Grants permission or assignment to an organization role. `GRANT` can also be used to assign an organization role to another organization role or an identity (login or service account).
+
+## GRANT PRIVILEGE
+
+Grants a permission to an organization role.
+
+<Note>
+Only an `org_admin` or a role owner can grant a permission to an organization role. To grant a permission, you must first have that permission granted to you.
+</Note>
+
+### Syntax
+
+```sql
+GRANT <permission> ON <object_type> <object_name> TO ORGANIZATION ROLE <role_name>
+```
+
+### Parameters
+
+| Parameter       | Description                                                                                                                                                                                                                              |
+|:----------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<permission>`  | The name of the permission to grant to a role. Available permissions vary depending on the object that they apply to.                                                                                                                    |
+| `<object_type>` | The type of object to grant permissions on.                                                                                                                                                                                              |
+| `<object_name>` | The name of the object to grant permissions on.                                                                                                                                                                                          |
+| `<role_name>`   | The name of the organization role to grant the permission to.                                                                                                                                                                            |
+
+### Example
+
+**Grant `MODIFY` on a single account**
+
+The following command grants the `MODIFY` privilege on the `account-1` account to the role `account_manager`, allowing it to modify the account:
+
+```sql
+GRANT MODIFY ON ACCOUNT "account-1" TO ORGANIZATION ROLE "account_manager"
+```
+
+**Grant `MODIFY` on all accounts within the organization**
+
+The following command grants the `MODIFY` privilege on all accounts in your organization to the role `account_manager`, allowing it to modify all the accounts:
+
+```sql
+GRANT MODIFY ANY ACCOUNT ON ORGANIZATION "acme" TO ORGANIZATION ROLE "account_manager"
+```
+
+**Grant `CREATE ACCOUNT` on the organization**
+
+The following command grants the `CREATE ACCOUNT` privilege on your organization to the role `account_manager`, allowing it to create new accounts:
+
+```sql
+GRANT CREATE ACCOUNT ON ORGANIZATION "acme" TO ORGANIZATION ROLE "account_manager"
+```
+
+## GRANT ROLE
+
+Grants an organization role to either an identity (login or service account) or another organization role, allowing the recipient to inherit the permissions associated with the granted role.
+
+### Syntax
+
+```sql
+GRANT ORGANIZATION ROLE <role_name> TO { LOGIN <login_name> | SERVICE ACCOUNT <service_account_name> | ORGANIZATION ROLE <role_name_2> }
+```
+
+### Parameters
+
+| Parameter                | Description                                                |
+|:-------------------------|:-----------------------------------------------------------|
+| `<role_name>`            | The name of the role to grant.                             |
+| `<login_name>`           | The name of the login to grant `<role_name>` to.           |
+| `<service_account_name>` | The name of the service account to grant `<role_name>` to. |
+| `<role_name_2>`          | The name of the role to assign the role to.                |
+
+### Example
+
+**Grant a role to another role**
+
+The following command assigns the `role_name` role to `role_name_2`, allowing `role_name_2` to inherit all the permissions granted to `role_name`:
+
+```sql
+GRANT ORGANIZATION ROLE role_name TO ORGANIZATION ROLE role_name_2
+```
+
+**Grant a role to a login**
+
+The following command assigns the `role_name` role to `alexs@acme.com` login, allowing it to inherit all the permissions granted to `role_name`:
+
+```sql
+GRANT ORGANIZATION ROLE role_name TO LOGIN "alexs@acme.com"
+```
+
+**Grant a role to a service account**
+
+The following command assigns the `role_name` role to `service_account_name` service account, allowing it to inherit all the permissions granted to `role_name`:
+
+```sql
+GRANT ORGANIZATION ROLE role_name TO SERVICE ACCOUNT "service_account_name"
+```

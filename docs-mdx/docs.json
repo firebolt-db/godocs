@@ -12,8 +12,8 @@
     "decoration": "gradient"
   },
   "integrations": {
-    "telemetry": {
-      "enabled": false
+    "gtm": {
+      "tagId": "GTM-WQS7M2G"
     }
   },
   "navigation": {
@@ -31,7 +31,6 @@
           {
             "group": "Overview",
             "pages": [
-              "overview",
               "overview/architecture-overview",
               "overview/billing",
               "overview/organizations-accounts",
@@ -134,11 +133,11 @@
               {
                 "group": "Operate Engines",
                 "pages": [
-                  "guides/operate-engines",
                   "guides/operate-engines/rbac-for-engines",
                   "guides/operate-engines/working-with-engines-using-ddl",
                   "guides/operate-engines/sizing-engines",
                   "guides/operate-engines/understand-autoscaling",
+                  "guides/operate-engines/warming-up-engines",
                   "guides/operate-engines/arm-co-opt-out",
                   "guides/operate-engines/engines-release-settings",
                   "guides/operate-engines/system-engine"
@@ -175,7 +174,6 @@
               {
                 "group": "Configure security",
                 "pages": [
-                  "guides/security",
                   {
                     "group": "Configure SSO",
                     "pages": [
@@ -213,6 +211,7 @@
                 "pages": [
                   "guides/integrations/connecting-with-dbt",
                   "guides/integrations/airflow",
+                  "guides/integrations/aws-glue",
                   "guides/integrations/connecting-to-apache-superset",
                   "guides/integrations/connecting-to-preset",
                   "guides/integrations/cube-js",
@@ -223,7 +222,9 @@
                   "guides/integrations/metabase",
                   "guides/integrations/estuary",
                   "guides/integrations/dbeaver",
-                  "guides/integrations/mcp"
+                  "guides/integrations/langchain",
+                  "guides/integrations/mcp",
+                  "guides/integrations/pandas"
                 ]
               },
               {
@@ -238,7 +239,6 @@
           {
             "group": "SQL reference",
             "pages": [
-              "reference-sql",
               {
                 "group": "Data types",
                 "pages": [
@@ -297,21 +297,26 @@
                     "pages": [
                       "reference-sql/commands/access-control/alter-login",
                       "reference-sql/commands/access-control/alter-network-policy",
+                      "reference-sql/commands/access-control/alter-organization-role",
                       "reference-sql/commands/access-control/alter-role",
                       "reference-sql/commands/access-control/alter-service-account",
                       "reference-sql/commands/access-control/alter-user",
                       "reference-sql/commands/access-control/create-login",
                       "reference-sql/commands/access-control/create-network-policy",
+                      "reference-sql/commands/access-control/create-organization-role",
                       "reference-sql/commands/access-control/create-role",
                       "reference-sql/commands/access-control/create-service-account",
                       "reference-sql/commands/access-control/create-user",
                       "reference-sql/commands/access-control/drop-login",
                       "reference-sql/commands/access-control/drop-network-policy",
+                      "reference-sql/commands/access-control/drop-organization-role",
                       "reference-sql/commands/access-control/drop-role",
                       "reference-sql/commands/access-control/drop-service-account",
                       "reference-sql/commands/access-control/drop-user",
                       "reference-sql/commands/access-control/grant",
-                      "reference-sql/commands/access-control/revoke"
+                      "reference-sql/commands/access-control/grant-organization-role",
+                      "reference-sql/commands/access-control/revoke",
+                      "reference-sql/commands/access-control/revoke-organization-role"
                     ]
                   },
                   {
@@ -436,7 +441,6 @@
                   {
                     "group": "Array functions",
                     "pages": [
-                      "reference-sql/functions-reference/array",
                       "reference-sql/functions-reference/array/array-concat",
                       "reference-sql/functions-reference/array/array-contains",
                       "reference-sql/functions-reference/array/array-count-distinct",
@@ -460,7 +464,6 @@
                   {
                     "group": "Binary functions",
                     "pages": [
-                      "reference-sql/functions-reference/bytea",
                       "reference-sql/functions-reference/bytea/convert-from",
                       "reference-sql/functions-reference/bytea/decode",
                       "reference-sql/functions-reference/bytea/encode"
@@ -469,7 +472,6 @@
                   {
                     "group": "Conditional and miscellaneous functions",
                     "pages": [
-                      "reference-sql/functions-reference/conditional-and-miscellaneous",
                       "reference-sql/functions-reference/conditional-and-miscellaneous/case",
                       "reference-sql/functions-reference/conditional-and-miscellaneous/cast",
                       "reference-sql/functions-reference/conditional-and-miscellaneous/city-hash",
@@ -497,7 +499,6 @@
                   {
                     "group": "Date and time functions",
                     "pages": [
-                      "reference-sql/functions-reference/date-and-time",
                       "reference-sql/functions-reference/date-and-time/ago",
                       "reference-sql/functions-reference/date-and-time/current-date",
                       "reference-sql/functions-reference/date-and-time/current-timestamptz",
@@ -517,7 +518,6 @@
                   {
                     "group": "Geospatial functions",
                     "pages": [
-                      "reference-sql/functions-reference/geospatial",
                       "reference-sql/functions-reference/geospatial/st_asbinary",
                       "reference-sql/functions-reference/geospatial/st_asewkb",
                       "reference-sql/functions-reference/geospatial/st_asgeojson",
@@ -545,7 +545,8 @@
                       "reference-sql/functions-reference/json/json-pointer-extract-text",
                       "reference-sql/functions-reference/json/json-pointer-extract-values",
                       "reference-sql/functions-reference/json/json-value-array",
-                      "reference-sql/functions-reference/json/json-value"
+                      "reference-sql/functions-reference/json/json-value",
+                      "reference-sql/functions-reference/json/json-format"
                     ]
                   },
                   {
@@ -562,7 +563,6 @@
                   {
                     "group": "Numeric functions",
                     "pages": [
-                      "reference-sql/functions-reference/numeric",
                       "reference-sql/functions-reference/numeric/abs",
                       "reference-sql/functions-reference/numeric/acos",
                       "reference-sql/functions-reference/numeric/array-enumerate",
@@ -598,7 +598,6 @@
                   {
                     "group": "Session functions",
                     "pages": [
-                      "reference-sql/functions-reference/session",
                       "reference-sql/functions-reference/session/current-account",
                       "reference-sql/functions-reference/session/current-database",
                       "reference-sql/functions-reference/session/current-engine",
@@ -695,7 +694,6 @@
           {
             "group": "General reference",
             "pages": [
-              "reference",
               {
                 "group": "Release notes",
                 "pages": [
@@ -735,7 +733,8 @@
                   "firebolt-core/firebolt-core-connect",
                   "firebolt-core/firebolt-core-connect/firebolt-core-connect-cli",
                   "firebolt-core/firebolt-core-connect/firebolt-core-connect-go",
-                  "firebolt-core/firebolt-core-connect/firebolt-core-connect-jdbc"
+                  "firebolt-core/firebolt-core-connect/firebolt-core-connect-jdbc",
+                  "firebolt-core/firebolt-core-connect/firebolt-core-connect-python"
                 ]
               },
               "firebolt-core/firebolt-core-data-processing",
@@ -4710,6 +4709,11 @@
       "permanent": false
     },
     {
+      "source": "/FireboltCore/firebolt-core-connect-python.html",
+      "destination": "/firebolt-core/firebolt-core-connect/firebolt-core-connect-python",
+      "permanent": false
+    },
+    {
       "source": "/FireboltCore/firebolt-core-architecture.html",
       "destination": "/firebolt-core/firebolt-core-architecture",
       "permanent": false
@@ -5127,6 +5131,11 @@
     {
       "source": "/FireboltCore/firebolt-core-connect-jdbc",
       "destination": "/firebolt-core/firebolt-core-connect/firebolt-core-connect-jdbc",
+      "permanent": false
+    },
+    {
+      "source": "/FireboltCore/firebolt-core-connect-python",
+      "destination": "/firebolt-core/firebolt-core-connect/firebolt-core-connect-python",
       "permanent": false
     },
     {

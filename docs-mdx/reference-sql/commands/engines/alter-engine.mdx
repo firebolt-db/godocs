@@ -16,12 +16,14 @@ Updates the configuration of the specified engine.
 ALTER ENGINE <engine_name> SET
     [AUTO_START = <true/false>]
     [AUTO_STOP = <minutes>]
+    [AUTO_VACUUM = <on/off>]
     [DEFAULT_DATABASE = <database_name>]
     [MIN_CLUSTERS = <clusters>]
     [MAX_CLUSTERS = <clusters>]
     [NODES = <nodes>]
     [TYPE = <type>]
     [FAMILY = <family>]
+    [AUTO_WARMUP = <true/false>]
     [RELEASE = (CHANNEL = <channel>)]
 ```
 
@@ -41,6 +43,7 @@ ALTER ENGINE <engine_name> SET
 | `NODES = <nodes>`                    | Specifies the number of nodes in each cluster within an engine. You can specify any integer between `1` to `128`, inclusive. |
 | `TYPE =<type>`                       | Specifies the node type for the engine. You can choose `S`, `M`, `L`, or `XL`. |
 | `FAMILY =<family>`                   | Defines the family of node used in the engine. Options include `STORAGE_OPTIMIZED` (alias `SO`) or `COMPUTE_OPTIMIZED` (alias `CO`). |
+| `AUTO_WARMUP = <true/false>`         | When set to `TRUE`, engine will proactively fetch recently used data at startup, recommended for engines that frequently touch the same subset of data.| 
 | `CHANNEL = <channel>`                | Specifies the release channel to be used. Options are `DEFAULT` to use the default release process or `PREVIEW` to get upgrades earlier. |
 
 **Limitations:**
@@ -54,7 +57,7 @@ If you would like to remove the following limitations, reach out to Firebolt sup
 
 *  Use a large or extra-large engine.
 *  Use more than ten nodes per cluster.
-*  Use more than 15 nodes across all clusters.
+*  Use more than 15 nodes across all clusters. 
 
 ## Examples
 
@@ -95,6 +98,13 @@ The following code example adjusts the maximum number of engine clusters to enab
 
 ```sql
 ALTER ENGINE my_engine SET MAX_CLUSTERS = 2;
+```
+
+### Enable auto-warmup of data     
+The following code example enables auto-warmup. When an engine starts, the most recently accessed data will be pulled into the tablet cache for fast access.
+
+```sql
+ALTER ENGINE my_engine SET AUTO_WARMUP = true;
 ```
 
 ## ALTER ENGINE RENAME TO 

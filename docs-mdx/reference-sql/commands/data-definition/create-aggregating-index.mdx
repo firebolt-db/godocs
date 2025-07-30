@@ -197,3 +197,4 @@ By following these guidelines, you can use aggregating indexes to significantly 
 * Aggregating indexes do not optimize queries that filter on columns that are not part of the grouping structure unless additional indexing strategies are applied.
 * Inserts and updates may be slower because of index maintenance, so avoid over-indexing to save storage space. Additionally, large updates can temporarily impact query performance.
 * Aggregating indexes are not beneficial for transactional workloads that require frequent row-level updates.
+* Aggregating index creation can conflict with other DML operations like INSERT, DELETE, UPDATE, DROP PARTITION, or TRUNCATE applied on its origin table. Make sure the origin table is not modified while creating the index.

@@ -82,19 +82,30 @@ FROM
 
 You can also use the ![database selector](/assets/images/current_database_dropdown.png) in the UI.
 
+### View object permissions in the organization
+
+To view all privileges directly under your **organization**, query the `information_schema` as follows:
+
+```sql
+SELECT
+  *
+FROM
+  org_db.information_schema.object_privileges;
+```
+
 ## Columns in `information_schema.object_privileges`
 
 Each row in `information_schema.object_privileges` contains the following columns:
 
-| Column Name    | Data Type   | Description                                                       |
-|:---------------|:------------|:------------------------------------------------------------------|
+| Column Name    | Data Type   | Description                                                           |
+|:---------------|:------------|:----------------------------------------------------------------------|
 | grantor        | TEXT        | The name of the user that granted the privilege.                      |
-| grantee        | TEXT        | The name of the role that the privilege was granted to.     |
+| grantee        | TEXT        | The name of the role that the privilege was granted to.               |
 | object_catalog | TEXT        | The database containing the object on which the privilege is granted. |
 | object_schema  | TEXT        | The schema containing the object on which the privilege is granted.   |
 | object_name    | TEXT        | The name of the object on which the privilege is granted.             |
 | object_type    | TEXT        | The type of the object on which the privilege is granted.             |
-| privilege_type | TEXT        | The type of the privilege granted on the object.                    |
-| is_grantable   | TEXT        | Specify `YES` if the privilege is grantable, and `NO` otherwise.                     |
+| privilege_type | TEXT        | The type of the privilege granted on the object.                      |
+| is_grantable   | TEXT        | Specify `YES` if the privilege is grantable, and `NO` otherwise.      |
 | created        | TIMESTAMPTZ | The creation time of the privilege.                                   |
 

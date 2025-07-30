@@ -6,7 +6,7 @@ title: Enabled roles
 ---
 
 
-The `information_schema.enabled_roles` view lists roles in a Firebolt account that is either owned by a user or comes with [role privileges](/overview/security/rbac/role-permissions#role-permissions) to access. 
+The `information_schema.enabled_roles` view lists roles in a Firebolt **account** that is either owned by a user or comes with [role privileges](/overview/security/rbac/role-permissions#role-permissions) to access.
 
 The following code example uses a `SELECT` query to return information about each role:
 
@@ -17,6 +17,15 @@ FROM
   information_schema.enabled_roles;
 ```
 
+Similarly, you can use the `org_db.information_schema.enabled_roles` to view enabled roles in your **organization**:
+
+```sql
+SELECT
+  *
+FROM
+  org_db.information_schema.enabled_roles;
+```
+
 <Note>
 For more information about permissions to access and perform operations on specific objects by role, see [Manage role-based access control](/guides/security/rbac). 
 </Note>
@@ -25,9 +34,9 @@ For more information about permissions to access and perform operations on speci
 
 Each row contains the following columns with information about the role:
 
-|  Column Name    | Data Type | Description                                                     |
-|:----------------|:----------|:----------------------------------------------------------------|
-| role_name       | TEXT        | The name of the role.                                         |
-| created         | TIMESTAMPTZ | The time that the role was created.                                    |
-| role_owner      | TEXT        | The name of the user who created the role.                        |
+| Column Name | Data Type   | Description                                |
+|:------------|:------------|:-------------------------------------------|
+| role_name   | TEXT        | The name of the role.                      |
+| created     | TIMESTAMPTZ | The time that the role was created.        |
+| role_owner  | TEXT        | The name of the user who created the role. |
 

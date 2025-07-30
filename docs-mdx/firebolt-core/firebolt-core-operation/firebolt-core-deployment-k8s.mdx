@@ -14,6 +14,13 @@ Before you begin, ensure that you have the following installed and configured:
 * `kubectl` command-line tool configured to access your cluster
 * `helm` (v3+) installed on your local machine
 
+Additionally, you will need one of these configurations:
+
+1. Kubernetes nodes with a memlock limit of at least 8GB (you can check with `cat /proc/self/limits | grep -F 'Max locked memory'`)
+2. possibility to run Core with the helper root container (`memlockSetup=true` in Helm values)
+
+The memlock setup helper root container is enabled by default, if you are using configuration (1) the container will be idle and do nothing, you can disable it using `memlockSetup=false` so that there are no root containers in your deployments.
+
 ## 1: Create a Dedicated Namespace
 
 To isolate Firebolt Core resources from other workloads in your cluster, create a dedicated Kubernetes namespace:
@@ -38,14 +45,10 @@ Refer to the [Helm Chart README](https://github.com/firebolt-db/firebolt-core/bl
 Once your values are configured, install the chart into the `firebolt-core` namespace:
 
 ```bash
-helm install helm/ --generate-name --namespace firebolt-core
+helm install helm/ core-demo --namespace firebolt-core
 ```
 
-The `--generate-name` flag lets Helm automatically generate a release name. If you prefer to specify one, you can use:
-
-```bash
-helm install firebolt-core helm/ --namespace firebolt-core
-```
+Instead of `core-demo` you can use any name you prefer, it will be used as a prefix for the generated Kubernetes resources; the `--generate-name` flag can also be specified and it will let Helm automatically generate a release name.
 
 ## 4: Verify the Deployment
 
@@ -105,10 +108,33 @@ Note that it is not possible to resize storage volumes this way.
 
 ### Updating Firebolt Core version
 
-After changing the `image.tag` value to a more recent pinned version you can run a `helm update` to roll out the change to your Firebolt Core cluster.
+After changing the `image.tag` value to a more recent pinned version you can run a `helm update` to roll out the change to your Firebolt Core cluster:
+
+```bash
+helm update helm/ core-demo --namespace firebolt-core
+```
+
+### Removing the deployment
+
+You can use:
+
+```bash
+helm uninstall core-demo --namespace firebolt-core
+```
+
+This will however leave behind the created PVCs which contain data/metadata; you can list them using:
+```bash
+$ helm get pvc --namespace firebolt-core
+NAME                                              STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+firebolt-core-data-nr-core-demo-firebolt-core-0   Bound    pvc-e234440a-e389-4470-85cc-b0069c397148   1Gi        RWO            gp3            <unset>                 19s
+firebolt-core-data-nr-core-demo-firebolt-core-1   Bound    pvc-f33d05ba-3788-44e9-be16-c5362b359221   1Gi        RWO            gp3            <unset>                 19s
+```
+
+Remove them using `kubectl delete` and make sure you are deleting only those whose name prefix matches your Helm deployment.
+
+**NOTE:** this is a non-reversible operation, you must not delete the PVCs if you need the data/metadata of your Core cluster.
 
 ### Additional Resources
 
 * Kubernetes [Namespaces documentation](https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/)
 * Helm [Quickstart Guide](https://helm.sh/docs/intro/quickstart/)
-

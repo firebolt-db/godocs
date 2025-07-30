@@ -140,3 +140,16 @@ Queries are per request. To run multiple statement queries, separate queries eac
 
 For a full definition of the query API, see the [OpenAPI spec](https://github.com/firebolt-db/openapi).
 
+## API limits
+
+### Request Size Limits
+By default, Firebolt enforces request size limits of 2 MiB for User Engines, and 32 KiB for the System Engine. If you exceed these limits, you will get an error like:
+```
+413: Request body is larger than configured limit of 20971520 bytes. Please contact support if you need to send larger queries to support your workload
+```
+These limits are configurable, so please contact our support team if they are insufficent for your usecase.
+
+### Ratelimiting
+For information about ratelimits on System Engines, see [here](/guides/operate-engines/system-engine#rate-limits-for-system-engines).
+
+There are no ratelimits on User Engines.
