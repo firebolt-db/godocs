@@ -6,45 +6,45 @@ title: CREATE EXTERNAL TABLE
 
 
 
-Creates an external table. External tables serve as connectors to your external data sources. External tables contain no data within Firebolt other than metadata virtual columns that are automatically populated with metadata. For more information, see [Working with external tables](/guides/loading-data/working-with-external-tables). Data that you ingest must be in an Amazon S3 bucket in the same AWS Region as the Firebolt database.
+Creates an external table. External tables serve as connectors to your external data sources. External tables store no source data within Firebolt -- only metadata that specifies the location of external data files and parameters for how they should be processed. For more information, see [Working with external tables](/guides/loading-data/working-with-external-tables).
 
 
 ## Syntax
 
 
 ```sql
--- Using location object (recommended)
-CREATE EXTERNAL TABLE [IF NOT EXISTS] <table>
-(
-    <column_name> <column_type>[ PARTITION('<regex>')]
-    [, <column_name2> <column_type2> [PARTITION('<regex>')]]
-    [,...<column_name2> <column_type2> [PARTITION('<regex>')]]
+CREATE EXTERNAL TABLE [ IF NOT EXISTS ] <table> (
+    <column_name> <column_type> [ PARTITION('<regex>') ]
+    [ , <column_name2> <column_type2> [ PARTITION('<regex>') ] ]
+    [ ,...<column_name3> <column_type3> [ PARTITION('<regex>') ] ]
 )
-LOCATION = <location_name>
+-- Data source (choose one):
+{
+    LOCATION = <location_name>                            -- (recommended)
+    |
+    URL = 's3://<bucket_name>[/<folder>][/...]/'
+}
+
+-- Required parameters:
 OBJECT_PATTERN = '<object_pattern>'
-TYPE = ( <type> )
-[ <type_option> ]
+TYPE = ( <type> ) [ <type_option> ]
+
+-- Optional parameters:
+[ CREDENTIALS = {
+    ( AWS_ACCESS_KEY_ID = '<aws_access_key_id>'
+      AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>'
+      [ AWS_SESSION_TOKEN = '<aws_session_token>' ] )
+    |
+    ( AWS_ROLE_ARN = '<aws_role_arn>'
+      [ AWS_ROLE_EXTERNAL_ID = '<aws_role_external_id>' ] )
+} ]
 [ COMPRESSION = <compression_type> ]
-|
--- Using static credentials
-CREATE EXTERNAL TABLE [IF NOT EXISTS] <table>
-(
-    <column_name> <column_type>[ PARTITION('<regex>')]
-    [, <column_name2> <column_type2> [PARTITION('<regex>')]]
-    [,...<column_name2> <column_type2> [PARTITION('<regex>')]]
-)
-[ CREDENTIALS = { AWS_ACCESS_KEY_ID = '<aws_access_key_id>' AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>' [ AWS_SESSION_TOKEN = '<aws_session_token>' ] | AWS_ROLE_ARN = '<aws_role_arn>' [ AWS_ROLE_EXTERNAL_ID = '<aws_role_external_id>' ] } ]
-URL = 's3://<bucket_name>[/<folder>][/...]/'
-OBJECT_PATTERN = '<object_pattern>'
-TYPE = ( <type> )
-[ <type_option> ]
-[ COMPRESSION = <compression_type> ]
-[ DESCRITPION = <description> ]
+[ CROSS_REGION_REQUEST_MODE = <mode> ]
+[ DESCRIPTION = '<description>' ]
 ```
 
+## Parameters
 
-## Parameters 
- 
 
 | Parameter                 | Description                                                                                                                                                                                                                                                                                                                        |
 |:--------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -59,8 +59,8 @@ TYPE = ( <type> )
 | `TYPE`                    | Specifies the file type Firebolt expects to ingest given the `OBJECT_PATTERN`. If a file referenced using `OBJECT_PATTERN` does not conform to the specified `TYPE`, an error occurs. For more information, see [TYPE](#type).                                                                                                     |
 | `<type_option>`           | Allows configuration for ingesting different CSV file formats. Type option can be set at this top level, or as an option in the `TYPE` parameter.                                                                                                                                                                                  |
 | `COMPRESSION`             | See [COMPRESSION](#compression).                                                                                                                                                                                                                                                                                                   |
-| `DESCRIPTION`             | The optional description of the table.    |
-
+| `CROSS_REGION_REQUEST_MODE` | Allows reading data from a bucket in a different Amazon S3 region than where your engine is running. For more information, see [CROSS_REGION_REQUEST_MODE](#cross-region-request-mode).
+| `DESCRIPTION`             | The optional description of the table.
 
 ### Using location objects
 
@@ -97,27 +97,27 @@ For detailed information, see [CREATE LOCATION](/reference-sql/commands/data-def
 * Providing the location name as a string literal instead of an identifier results in an error, as shown in the following code example:
 
   ```sql
-  CREATE EXTERNAL TABLE et_1 (x INT NOT NULL, y TEXT NOT NULL) 
+  CREATE EXTERNAL TABLE et_1 (x INT NOT NULL, y TEXT NOT NULL)
   LOCATION = 'location_1'  -- Error: Parameter LOCATION must be of type IDENTIFIER
-  OBJECT_PATTERN = 'simple.csv' 
+  OBJECT_PATTERN = 'simple.csv'
   TYPE = CSV;
   ```
 
 * If the specified location doesn't exist or you lack permission to use it, an error occurs, as shown in the following code example:
 
   ```sql
-  CREATE EXTERNAL TABLE et_2 (x INT NOT NULL, y TEXT NOT NULL) 
+  CREATE EXTERNAL TABLE et_2 (x INT NOT NULL, y TEXT NOT NULL)
   LOCATION = nonexistent_location  -- Error: location 'nonexistent_location' does not exist or not authorized
-  OBJECT_PATTERN = 'simple.csv' 
+  OBJECT_PATTERN = 'simple.csv'
   TYPE = CSV;
   ```
 
 ### PARTITION
 
-In some applications, such as Hive partitioning, files use a folder naming convention to identify which partition their data belongs to. 
+In some applications, such as Hive partitioning, files use a folder naming convention to identify which partition their data belongs to.
 The `PARTITION` keyword allows you to specify a regular expression, `<regex>`, to extract a portion of the file path and store it in the specified column when Firebolt uses the external table to ingest partitioned data.
 
-Using `PARTITION` in this way is one method of extracting partition data from file paths. Another method is to use 
+Using `PARTITION` in this way is one method of extracting partition data from file paths. Another method is to use
 the table metadata column, `$source_file_name`, during the `INSERT` operation.
 
 #### Guidelines for creating the regex
@@ -125,7 +125,7 @@ the table metadata column, `$source_file_name`, during the `INSERT` operation.
 
 * The regular expression is matched against the object prefix, not including the `s3://<bucket_name>/` portion of the prefix.
 * You can specify as many `PARTITION` columns as you need, each extracting a different portion of the object prefix.
-* For each `PARTITION` column, you must specify a [re2 regular expression](https://github.com/google/re2/wiki/Syntax) 
+* For each `PARTITION` column, you must specify a [re2 regular expression](https://github.com/google/re2/wiki/Syntax)
   that contains a capturing group, which determines the column value.
 * When `<column_type>` is `DATE`, Firebolt requires up to three capturing groups that must be in the order of year, month, and day.
 * When `<column_type>` is `TIMESTAMP`, Firebolt requires up to six capturing groups that must be in the order of year, month, day, hour, minute, second.
@@ -179,37 +179,49 @@ When Firebolt ingests the data from a Parquet file stored in that path, the `c_t
 | 448dfgkl12 | Harris     | abc      |
 | j987rr3233 | Espinoza   | abc      |
 
-### Credentials
+### CREDENTIALS
 
-The credentials for accessing your data on AWS Amazon S3 using access key & secret.
+Unless reading from a public bucket, credentials are required to access your data on AWS Amazon S3. Both access key and IAM role based permissions are supported.
 
-#### Syntax&ndash;authenticating using an access key and secret
+#### Syntax for Access Key & Secret
 
 ```sql
 CREDENTIALS = (AWS_ACCESS_KEY_ID = '<aws_access_key_id>' AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>' [ AWS_SESSION_TOKEN = '<aws_session_token>' ] )
 ```
-## Parameters 
- 
+#### Parameters
+
 
 | Parameters              | Description                                              | Data type |
 |:------------------------|:---------------------------------------------------------|:----------|
 | `AWS_ACCESS_KEY_ID`     | The AWS access key ID.                                   | `TEXT `   |
 | `AWS_SECRET_ACCESS_KEY` | The AWS secret access key.                               | `TEXT`    |
-| `AWS_SESSION_TOKEN`     | The AWS session token.                                   | `TEXT`    |
+| `AWS_SESSION_TOKEN`     | The optional AWS session token, used by temporary credentials. | `TEXT`    |
+
+
+#### Syntax for IAM role
+
+```sql
+CREDENTIALS = ( AWS_ROLE_ARN = '<aws_role_arn>' [ AWS_ROLE_EXTERNAL_ID = '<aws_role_external_id>' ] )
+```
+#### Parameters
+
+
+| Parameters              | Description                                              | Data type |
+|:------------------------|:---------------------------------------------------------|:----------|
 | `AWS_ROLE_ARN`          | The AWS role ARN (Amazon Resource Name).                 | `TEXT`    |
 | `AWS_ROLE_EXTERNAL_ID`  | The AWS role external id.                                | `TEXT`    |
 
 <Note>
-In case you don't have the access key and secret to access your Amazon S3 bucket, read more [here](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) on how to obtain them.
+In case you don't have the access key and secret to access your Amazon S3 bucket, read more [here](/guides/loading-data/creating-access-keys-aws) on how to obtain them. Or learn how to create an IAM Role on your bucket to enable access from Firebolt [here](/guides/loading-data/configuring-aws-role-to-access-amazon-s3).
 </Note>
 
 
 ### OBJECT_PATTERN
 
-An external table enables reading some (or all) files from an Amazon S3 bucket that you have read access to. 
+An external table enables reading some (or all) files from an Amazon S3 bucket that you have read access to.
 The Amazon S3 bucket that you reference must be in the same AWS Region as the Firebolt database.
 
-The`OBJECT_PATTERN` parameter identifies which files represent the data for the external table.`OBJECT_PATTERN` is a glob that selects files within the `URL` or `LOCATION`. 
+The`OBJECT_PATTERN` parameter identifies which files represent the data for the external table.`OBJECT_PATTERN` is a glob that selects files within the `URL` or `LOCATION`.
 
 #### Syntax
 
@@ -217,12 +229,12 @@ The`OBJECT_PATTERN` parameter identifies which files represent the data for the 
 ```sql
 OBJECT_PATTERN = '<object_pattern>'
 ```
-## Parameters 
- 
+#### Parameters
+
 
 | Parameters       | Description                                                                                                                          | Data type |
 |:-----------------|:-------------------------------------------------------------------------------------------------------------------------------------|:--------- |
-| `OBJECT_PATTERN` | Specify the data pattern to be found in your data source. For example, \*.parquet indicates that all parquet files should be found. | `TEXT`     |
+| `OBJECT_PATTERN` | Specify the data pattern to be found in your data source. For example, \*.parquet indicates that all Parquet files should be found. | `TEXT`     |
 
 The following wildcards are supported:
 
@@ -234,7 +246,7 @@ The following wildcards are supported:
 #### Example
 
 
-In the following layout of objects in a bucket, the data is partitioned according to client type, year, and month, with multiple parquet files in each partition. The examples demonstrate how choosing both URL and OBJECT\_PATTERN impacts the objects that are retrieved from Amazon S3.
+In the following layout of objects in a bucket, the data is partitioned according to client type, year, and month, with multiple Parquet files in each partition. The examples demonstrate how choosing both URL and OBJECT\_PATTERN impacts the objects that are retrieved from Amazon S3.
 
 ```
 s3://bucket/c_type=xyz/year=2018/month=01/part-00001.parquet
@@ -271,7 +283,7 @@ Specifies the type of the files in Amazon S3. The following types and type optio
 ```sql
 TYPE = (CSV [ <type_option> ])
 ```
-or 
+or
 ```sql
 TYPE = (CSV)
 [ <type_option> ]
@@ -280,37 +292,37 @@ TYPE = (CSV)
 
 The following type options allow configuration for ingesting different CSV file formats.
 
-* `[ALLOW_DOUBLE_QUOTES = {TRUE|FALSE}]`  
-  `[ALLOW_SINGLE_QUOTES = {TRUE|FALSE}]`  
+* `[ALLOW_DOUBLE_QUOTES = {TRUE|FALSE}]`
+  `[ALLOW_SINGLE_QUOTES = {TRUE|FALSE}]`
 With `ALLOW_DOUBLE_QUOTES = TRUE` or `ALLOW_SINGLE_QUOTES = TRUE` you define that unescaped double or single quotes in CSV input file will not cause an error to be generated on ingest. By default `ALLOW_DOUBLE_QUOTES` and `ALLOW_SINGLE_QUOTES` are set to `TRUE`.
 
-* `[ALLOW_COLUMN_MISMATCH = {TRUE|FALSE}]`  
+* `[ALLOW_COLUMN_MISMATCH = {TRUE|FALSE}]`
 With `ALLOW_COLUMN_MISMATCH = TRUE` the number of delimited columns in a CSV input file can be fewer than the number of columns in the corresponding table. By default, `ALLOW_COLUMN_MISMATCH` is set to `FALSE`, and an error is generated if the number of columns is fewer than the number of columns defined in the external table. If set to `TRUE`, and an input file record contains fewer columns than defined in the external table, the non-matching columns in the table are loaded with `NULL` values.
 
-* `[ALLOW_UNKNOWN_FIELDS = {TRUE|FALSE}]`  
+* `[ALLOW_UNKNOWN_FIELDS = {TRUE|FALSE}]`
 With `ALLOW_UNKNOWN_FIELDS = TRUE` the number of delimited columns in a CSV input file can be more than the number of columns in the corresponding table. By default, `ALLOW_UNKNOWN_FIELDS` is set to `FALSE`, and an error is generated if the number of columns is more than the number of columns defined in the external table. If set to `TRUE`, and an input file record contains more columns than defined in the external table, the non-matching columns in the table are ignored.
 
-* `[ESCAPE_CHARACTER = {‘<character>’|NONE}`  
+* `[ESCAPE_CHARACTER = {‘<character>’|NONE}`
 With `ESCAPE_CHARACTER = '<character>'` you can define which character is used to escape, to change interpretations from the original. By default, the `ESCAPE_CHARACTER` value is set to `\`. If, for example, you want to use `"` as a value and not as delimiter for string, you can escape like `\"`, with the default escape character.
 
-* `[FIELD_DELIMITER = '<field_delimeter>']`  
+* `[FIELD_DELIMITER = '<field_delimeter>']`
 With `FIELD_DELIMITER = '<field_delimeter>'`, you can define a custom field delimiter to separate fields for ingest. By default, the `FIELD_DELIMITER` is set as `,`.
 
-* `[NEW_LINE_CHARACTER = '<new_line_character>']`  
+* `[NEW_LINE_CHARACTER = '<new_line_character>']`
 With `NEW_LINE_CHARACTER = '<new_line_character>'`, you can define a custom new line delimiter to separate entries for ingest. By default, the `NEW_LINE_CHARACTER` is set as the end of line character `\n`, but also supports other end of line conventions, such as `\r\n`, `\n\r`, and `\r`, as well as multi-character delimiters, such as `#*~`.
 
-* `[NULL_STRING = '<null_string>']`  
-With `NULL_STRING = '<null_string>'` you can define which set of characters is interpreted as `NULL`. By default, the `NULL_STRING` value is set to `\\N`. 
+* `[NULL_STRING = '<null_string>']`
+With `NULL_STRING = '<null_string>'` you can define which set of characters is interpreted as `NULL`. By default, the `NULL_STRING` value is set to `\\N`.
 
-* `[SKIP_BLANK_LINES {TRUE|FALSE}]`  
+* `[SKIP_BLANK_LINES {TRUE|FALSE}]`
 With `SKIP_BLANK_LINES = TRUE` any blank lines encountered in the CSV input file will be skipped. By default, `SKIP_BLANK_LINES` is set to `FALSE`, and an error is generated if blank lines are enountered on ingest.
 
-* `[SKIP_HEADER_ROWS = {TRUE|FALSE}]`  
-With `SKIP_HEADER_ROWS = TRUE`, Firebolt assumes that the first row in each file read from Amazon S3 is a header row and skips it when ingesting data. When set to `FALSE`, which is the default if not specified, Firebolt ingests the first row as data.  
+* `[SKIP_HEADER_ROWS = {TRUE|FALSE}]`
+With `SKIP_HEADER_ROWS = TRUE`, Firebolt assumes that the first row in each file read from Amazon S3 is a header row and skips it when ingesting data. When set to `FALSE`, which is the default if not specified, Firebolt ingests the first row as data.
 
 #### JSON Types
-* `TYPE = (JSON [PARSE_AS_TEXT = {TRUE|FALSE}])`  
-With `TYPE = (JSON PARSE_AS_TEXT = TRUE)`, Firebolt ingests each JSON object literal in its entirety into a single column of type `TEXT`. With `TYPE = (JSON PARSE_AS_TEXT = FALSE)`, Firebolt expects each key in a JSON object literal to map to a column in the table definition. During ingestion, Firebolt inserts the key's value into the corresponding column.  
+* `TYPE = (JSON [PARSE_AS_TEXT = {TRUE|FALSE}])`
+With `TYPE = (JSON PARSE_AS_TEXT = TRUE)`, Firebolt ingests each JSON object literal in its entirety into a single column of type `TEXT`. With `TYPE = (JSON PARSE_AS_TEXT = FALSE)`, Firebolt expects each key in a JSON object literal to map to a column in the table definition. During ingestion, Firebolt inserts the key's value into the corresponding column.
 
 #### Other Types
 * `TYPE = (ORC)`
@@ -323,7 +335,7 @@ All type options for CSV above, except for `FIELD_DELIMITER`, are also supported
 #### Example
 
 
-Creating an external table that reads parquet files from Amazon S3 is being done with the following statement:
+Creating an external table that reads Parquet files from Amazon S3 is being done with the following statement:
 
 ```sql
 CREATE EXTERNAL TABLE my_external_table
@@ -347,8 +359,8 @@ Specifies the compression type of the files matching the specified `OBJECT_PATTE
 ```sql
 [COMPRESSION = <compression_type>]
 ```
-#### Parameters 
- 
+#### Parameters
+
 
 | Parameters            | Description                                                    |
 |:----------------------|:---------------------------------------------------------------|
@@ -372,3 +384,29 @@ TYPE = (CSV)
 COMPRESSION = GZIP
 ```
 
+### CROSS_REGION_REQUEST_MODE
+
+Use this parameter to read data from an Amazon S3 region different than where your engine is running.
+
+Unlike query-level settings, this parameter is specified only during external table creation and is automatically persisted for all subsequent SELECT queries on that table.
+
+Note that query-level settings cannot be applied to CREATE TABLE operations, as these settings are not enabled for table creation. The table-level parameter is required for file validation during table creation. If the system setting is specified during SELECT queries, the table-level parameter will override it, so it will have no effect.
+
+It has three modes: `disabled`, `auto`, and `enforced`, where `disabled` is the default mode. For detailed explanations of each mode, see the [cross-region data access documentation](/reference/system-settings#access-cross-region-data).
+
+#### Example
+
+The example below creates an external table with cross-region access enabled:
+
+```sql
+CREATE EXTERNAL TABLE e_playstats(
+  "GameID" BIGINT NULL,
+  "PlayerID" BIGINT NULL
+)
+URL = 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/'
+OBJECT_PATTERN = '*.parquet'
+TYPE = (PARQUET)
+CROSS_REGION_REQUEST_MODE = 'auto';
+
+SELECT * FROM e_playstats LIMIT 5;
+```

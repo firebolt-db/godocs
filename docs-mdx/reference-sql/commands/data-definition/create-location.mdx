@@ -246,7 +246,7 @@ The following code example uses `READ_CSV` to query data from a CSV file stored 
 
 ```sql
 SELECT * FROM READ_CSV(
-  location => my_location,
+  LOCATION => 'my_location',
   header => TRUE
 )
 ```
