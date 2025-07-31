@@ -185,6 +185,6 @@ When using glob patterns, the wildcard (`*`) can only be used at the end of the 
 
 The pattern will recursively match files in all subdirectories. For example:
 ```sql
-SELECT * FROM READ_AVRO('s3://firebolt-publishing-public/help_center_assets/*.avro')
+SELECT * FROM READ_AVRO('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_avro/*.avro')
 ```
-will read all Avro files in the bucket, including those in subdirectories like `firebolt_sample_avro/*.avro`. 
+will read all Avro files in the `firebolt_sample_avro` directory. 
