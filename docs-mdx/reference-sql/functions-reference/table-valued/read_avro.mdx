@@ -99,7 +99,7 @@ The following code example reads from a simple Avro file with basic data types:
 ```sql
 SELECT * 
 FROM READ_AVRO(
-    URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/avro/simple.avro'
+    URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_avro/simple.avro'
 ) 
 LIMIT 3;
 ```
@@ -121,7 +121,7 @@ SELECT
     user_id,
     preferences  -- map converted to array of key-value structs
 FROM READ_AVRO(
-    URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/avro/map_as_record.avro'
+    URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_avro/map_as_record.avro'
 ) 
 LIMIT 2;
 ```
@@ -142,7 +142,7 @@ SELECT
     id,
     contact_info  -- union converted to struct with nullable fields
 FROM READ_AVRO(
-    URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/avro/union_array_struct.avro'
+    URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_avro/union_array_struct.avro'
 ) 
 LIMIT 2;
 ```
@@ -171,20 +171,20 @@ LIMIT 5;
 * The `URL` can be passed as either the first positional parameter or a named parameter. For example, the following two queries will both read the same file:
 
 ```sql
-SELECT * FROM READ_AVRO('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/avro/simple.avro');
-SELECT * FROM READ_AVRO(URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/avro/simple.avro');
+SELECT * FROM READ_AVRO('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_avro/simple.avro');
+SELECT * FROM READ_AVRO(URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_avro/simple.avro');
 ```
 
 * The `url` can represent a single file or a [glob](https://en.wikipedia.org/wiki/Glob_(programming)) pattern. If a glob pattern is used, all files matching the pattern will be read. A special column `$source_file_name` can be used to identify the source file of each row in the result set:
 
 ```sql
-SELECT *, $source_file_name FROM READ_AVRO('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/avro/*.avro')
+SELECT *, $source_file_name FROM READ_AVRO('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_avro/*.avro')
 ```
 
 When using glob patterns, the wildcard (`*`) can only be used at the end of the path. You can use it with any text before or after, such as `*.avro`, `date=2025*.avro`, or `data_*.avro`.
 
 The pattern will recursively match files in all subdirectories. For example:
 ```sql
-SELECT * FROM READ_AVRO('s3://firebolt-publishing-public/help_center_assets/*/avro/*.avro')
+SELECT * FROM READ_AVRO('s3://firebolt-publishing-public/help_center_assets/*.avro')
 ```
-will read all Avro files in the bucket, including those in subdirectories like `firebolt_sample_dataset/avro/*.avro`. 
+will read all Avro files in the bucket, including those in subdirectories like `firebolt_sample_avro/*.avro`. 
