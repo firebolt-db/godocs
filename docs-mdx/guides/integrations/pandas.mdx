@@ -21,8 +21,9 @@ Before you begin, ensure you have the following prerequisites:
 ## Connecting Pandas to Firebolt
 
 1. Install the required libraries:
+<Warning>Pandas 2.2+ is only compatible with SQLAlchemy 2.0+. In case you're using different versions of those packages, please ensure their compatibility</Warning>
    ```bash
-   pip install pandas firebolt-sqlalchemy
+   pip install "pandas>=2.2" "SQLAlchemy>=2.0" firebolt-sqlalchemy
    ```
 
 2. Connect to Firebolt using a SQLAlchemy engine:
