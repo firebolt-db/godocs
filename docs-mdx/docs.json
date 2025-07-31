@@ -734,7 +734,8 @@
                   "firebolt-core/firebolt-core-connect/firebolt-core-connect-cli",
                   "firebolt-core/firebolt-core-connect/firebolt-core-connect-go",
                   "firebolt-core/firebolt-core-connect/firebolt-core-connect-jdbc",
-                  "firebolt-core/firebolt-core-connect/firebolt-core-connect-python"
+                  "firebolt-core/firebolt-core-connect/firebolt-core-connect-python",
+                  "firebolt-core/firebolt-core-connect/firebolt-core-connect-ui"
                 ]
               },
               "firebolt-core/firebolt-core-data-processing",
@@ -4714,6 +4715,11 @@
       "permanent": false
     },
     {
+      "source": "/FireboltCore/firebolt-core-connect-ui.html",
+      "destination": "/firebolt-core/firebolt-core-connect/firebolt-core-connect-ui",
+      "permanent": false
+    },
+    {
       "source": "/FireboltCore/firebolt-core-architecture.html",
       "destination": "/firebolt-core/firebolt-core-architecture",
       "permanent": false
@@ -5136,6 +5142,11 @@
     {
       "source": "/FireboltCore/firebolt-core-connect-python",
       "destination": "/firebolt-core/firebolt-core-connect/firebolt-core-connect-python",
+      "permanent": false
+    },
+    {
+      "source": "/FireboltCore/firebolt-core-connect-ui",
+      "destination": "/firebolt-core/firebolt-core-connect/firebolt-core-connect-ui",
       "permanent": false
     },
     {

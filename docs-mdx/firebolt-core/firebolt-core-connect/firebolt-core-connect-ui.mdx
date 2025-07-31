@@ -1,0 +1,36 @@
+---
+sidebarTitle: Connect via UI
+title: Connect via UI
+---
+
+
+You can use the web UI interface to work with Firebolt Core.
+
+## Prerequisites
+
+* Firebolt Core running locally
+
+## Installation
+
+Download the core UI docker image
+```shell
+docker pull ghcr.io/firebolt-db/firebolt-core-ui
+```
+
+NOTE: this image is currently available only for the `amd64` architecture.
+
+## Connection
+
+Run the UI container, linking it to your Firebolt Core instance:
+
+#### Macos and Windows
+```shell
+docker run --name firebolt-core-ui -p 9100:9100 -e FIREBOLT_CORE_URL=http://host.docker.internal:3473 ghcr.io/firebolt-db/firebolt-core-ui
+```
+
+#### Linux
+```shell
+docker run --network=host --name firebolt-core-ui -p 9100:9100 -e FIREBOLT_CORE_URL=http://localhost:3473 ghcr.io/firebolt-db/firebolt-core-ui
+```
+
+Open your browser and navigate to `http://localhost:9100`
