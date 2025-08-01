@@ -1155,6 +1155,8 @@
   "/reference-sql/functions-reference/string/to-float/",
   "/reference-sql/functions-reference/string/to-int",
   "/reference-sql/functions-reference/string/to-int/",
+  "/reference-sql/functions-reference/string/to_bin",
+  "/reference-sql/functions-reference/string/to_bin/",
   "/reference-sql/functions-reference/string/trim",
   "/reference-sql/functions-reference/string/trim/",
   "/reference-sql/functions-reference/string/upper",
