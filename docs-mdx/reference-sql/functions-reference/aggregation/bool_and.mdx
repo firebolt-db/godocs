@@ -42,7 +42,7 @@ We want to check if all tournaments have prize money
 
 ```sql
 SELECT
-	BOOL_ALL(totalprizeddollars IS NOT NULL AND totalprizeddollars > 0) as all_have_prizes 
+	BOOL_AND(totalprizeddollars IS NOT NULL AND totalprizeddollars > 0) as all_have_prizes 
 FROM
 	tournaments;
 ```
