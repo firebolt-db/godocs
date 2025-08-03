@@ -149,6 +149,23 @@ If any statement within the transaction fails (e.g., due to a syntax error or a 
 * All subsequent statements will fail and return an error indicating the transaction is aborted, for example: `current transaction is aborted, commands ignored until end of transaction block`.  
 * You must explicitly send a `ROLLBACK` command to end the aborted transaction before starting a new one.
 
+### Account Admin Explicit Rollback
+Firebolt provides a mechanism for account admins to explicitly roll back a running transaction by its transaction begin lsn, outside the context of the original session.
+This is intended for administrative control and is only allowed for the account admin role.
+
+```sql
+ROLLBACK [TRANSACTION] <transaction_begin_lsn>
+```
+* The `transaction_begin_lsn` identifies the explicit transaction to roll back.
+* The `TRANSACTION` keyword is optional.
+
+Example
+```sql
+ROLLBACK TRANSACTION '00000000000100cf00a2000';
+```
+
+Notes
+* This is intended for administrative use and is not part of standard SQL transaction flow.
 ---
 
 ## Observability
