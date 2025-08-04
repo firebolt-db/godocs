@@ -185,20 +185,22 @@ You can configure an engine to start automatically after creation and to stop af
 
 ### Configure automatic start/stop using the UI
 1. In the **Create new engine** menu, open **Advanced Settings**.
-2. Disable **Start engine immediately** to prevent the engine from starting upon creation.<br/>
-<img src="/assets/images/Engine_Initially_Stopped.png" alt="" width="600"/><br/>
-1. To configure automatic stopping, enable **Automatically stop engine** and set your idle timeout. The default is 20 minutes. Toggle the button off to disable auto-stop. <br/>
-<img src="/assets/images/Engine_Auto_Stop.png" alt="" width="600"/> <br/>
+2. Disable **Automatically start engine** to prevent the engine from starting upon query execution.<br/>
+3. Disable **Start engine immediately** to prevent the engine from starting upon creation.<br/>
+4. To configure automatic stopping, set your idle timeout in the **Automatically stop engine** dropdown. The default is 20 minutes. Choose the **Off** option to disable auto-stop. <br/>
 
 ### Configure automatic start/stop using the API
 Use the [CREATE ENGINE](/reference-sql/commands/engines/create-engine) command to set auto-start and auto-stop options:
 
  ```sql
 CREATE ENGINE my_prod_engine WITH
-INITIALLY_STOPPED = true AUTO_STOP = 10;
+START_IMMEDIATELY = false AUTO_START = false AUTO_STOP = 10;
 ```
 
-The previous example creates an engine that remains stopped after creation and auto-stops after 10 minutes of inactivity.
+The previous example creates an engine that
+- is stopped after creation
+- can only be started through the [start engine](#start-an-engine-using-the-ui) flow
+- auto-stops after 10 minutes of inactivity.
 
 To modify the auto-stop feature later, use the [ALTER ENGINE](/reference-sql/commands/engines/alter-engine) command:
 
@@ -207,7 +209,7 @@ ALTER ENGINE my_prod_engine SET AUTO_STOP = 30;
 ```
 
 <Note>
-The `INITIALLY_STOPPED` function can only be set during engine creation and cannot be modified afterward.
+The `START_IMMEDIATELY` function can only be set during engine creation and cannot be modified afterward.
 </Note>
 
 
