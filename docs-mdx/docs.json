@@ -646,6 +646,7 @@
                       "reference-sql/functions-reference/string/strpos",
                       "reference-sql/functions-reference/string/substring",
                       "reference-sql/functions-reference/string/to_bin",
+                      "reference-sql/functions-reference/string/to_oct",
                       "reference-sql/functions-reference/string/trim",
                       "reference-sql/functions-reference/string/upper",
                       "reference-sql/functions-reference/string/url_decode",

@@ -1,0 +1,39 @@
+---
+description: Reference material for the TO_OCT function
+sidebarTitle: TO_OCT
+title: TO_OCT
+---
+
+Converts a value (`<expression>`) of type `INTEGER` or `BIGINT` to its equivalent octal representation.
+
+## Syntax
+
+```sql
+TO_OCT(<expression>)
+```
+
+## Parameters
+
+| Parameter      | Description                                                                       | Supported input types |
+| :------------- | :-------------------------------------------------------------------------------- | :-------------------- |
+| `<expression>` | A value expression evaluating to `INTEGER` or `BIGINT` that should be converted.  | `INTEGER`, `BIGINT`   |
+
+## Return Type
+
+`TEXT`
+
+* Returns `NULL` if input is `NULL`
+
+## Remarks
+
+The function returns the octal representation of the input number as a text string.
+Negative numbers are displayed as the octal representation of their binary two's complement form.
+Leading zeros are omitted, but the output is at least one digit long.
+
+## Example
+
+The following examples convert integer values to their octal representations:
+
+import SqlExamplesToOctExecutable from '/snippets/sql_examples/to_oct_executable.mdx';
+
+<SqlExamplesToOctExecutable /> 
