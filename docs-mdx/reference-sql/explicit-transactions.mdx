@@ -61,7 +61,7 @@ To use an explicit transaction, you send the `BEGIN` statement, followed by one 
 * All statements within a single transaction **must be executed from the same connection**, or the same session object of your SDK.  
 * A single connection cannot have more than one active transaction at a time. Executing `BEGIN` while a transaction is already active will return an error.  
 * Executing `COMMIT` or `ROLLBACK` when no transaction is active will also result in an error.  
-* This functionality is supported through any Firebolt SDK that implements `Firebolt-Protocol-Version="2.3"` or the Firebolt UI.
+* This functionality is supported through any Firebolt SDK that implements `Firebolt-Protocol-Version="2.4"` or the Firebolt UI.
 
 ---
 
@@ -245,7 +245,7 @@ A script contains a syntax error, causing the transaction to abort automatically
 ```sql
 BEGIN;
 CREATE TABLE orders (user TEXT, amount INT);
-INSERT INTO orders VALUES ('gabby', '100'); -- > Fail wrong type
+INSERT INTO orders VALUES ('gabby', '100'); --> Fail wrong type
 INSERT INTO orders VALUES ('george, 100); --> Fail because transaction is in aborted state
 INSERT INTO orders VALUES ('allen', 200); --> Fail because transaction is in aborted state
 INSERT INTO orders VALUES ('ben', 300); --> Fail because transaction is in aborted state
