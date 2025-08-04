@@ -737,6 +737,12 @@
                   "firebolt-core/firebolt-core-connect/firebolt-core-connect-ui"
                 ]
               },
+              {
+                "group": "Integrate",
+                "pages": [
+                  "firebolt-core/firebolt-core-integrate/firebolt-core-connect-with-dbt"
+                ]
+              },
               "firebolt-core/firebolt-core-data-processing",
               "firebolt-core/firebolt-core-architecture",
               "firebolt-core/firebolt-core-differences",
