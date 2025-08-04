@@ -6,6 +6,10 @@ title: READ_AVRO
 
 A table-valued function (TVF) that reads data from Avro files stored in Amazon S3. The function can use either a location object (recommended) or direct credentials to access the data. `READ_AVRO` returns a table with data from the specified Avro file and supports all Avro data types.
 
+<Note>
+`READ_AVRO` supports only binary encoded Avro files (typically with the `.avro` extension). JSON-encoded Avro data is not supported.
+</Note>
+
 ## Syntax
 
 ```sql
@@ -45,7 +49,7 @@ READ_AVRO (
 
 ## Return Type
 
-The result is a table with data from the Avro files. Columns are read and parsed using their inferred data types based on the Avro schema.
+The result is a table with data from the Avro files. Columns are read and parsed using their inferred data types based on the Avro schema. All data types are inferred as nullable.
 
 ## Avro Data Type Mapping
 
@@ -65,7 +69,7 @@ The result is a table with data from the Avro files. Columns are read and parsed
 | `enum` | `TEXT` | Enum values are converted to their string representation |
 | `array` | `ARRAY` | |
 | `map` | `ARRAY<STRUCT<key TEXT, value TYPE>>` | Maps are converted to arrays of key-value structs |
-| `union` | `STRUCT` | Each union type becomes a nullable field in the struct |
+| `union` | `STRUCT` or single type | Single-type unions and dual-type unions with null are inferred as single nullable types; multi-type unions become structs |
 | `fixed` | `BYTEA` | Fixed-length byte arrays |
 
 ### Special Handling
@@ -74,7 +78,12 @@ The result is a table with data from the Avro files. Columns are read and parsed
 - `key`: The map key (always `TEXT`)
 - `value`: The map value (type depends on the Avro map value type)
 
-**Unions**: Avro unions are converted to structs with nullable fields for each possible type. Field naming follows this convention:
+**Unions**: Avro union handling depends on the number and types of union members:
+- **Single-type unions** (e.g., `["string"]`): Inferred as the single type directly
+- **Dual-type unions with null** (e.g., `["null", "string"]`): Inferred as a single nullable type (`TEXT` in this case)
+- **Multi-type unions** (e.g., `["string", "int", "record"]`): Converted to structs with nullable fields for each possible type
+
+For multi-type unions converted to structs, field naming follows this convention:
 - First occurrence: Uses the Avro type name without suffix (e.g., `string`, `int`, `record`)
 - Subsequent occurrences: Adds suffix `_<i>` starting from `_1` (e.g., `record_1`, `record_2`, etc.)
 
@@ -84,7 +93,7 @@ For example, a union with multiple record types would create fields named: `reco
 
 **Null types**: The `null` type is only supported within unions to specify nullability (e.g., `["null", "string"]` creates a nullable string field). Standalone `null` types outside of unions are not supported.
 
-## Best practice
+## Best practices
 
 Firebolt recommends using a `LOCATION` object to store credentials for authentication.
 
@@ -187,4 +196,4 @@ The pattern will recursively match files in all subdirectories. For example:
 ```sql
 SELECT * FROM READ_AVRO('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_avro/*.avro')
 ```
-will read all Avro files in the `firebolt_sample_avro` directory. 
+will read all Avro files in the `firebolt_sample_avro` directory and all of its subdirectories. 
