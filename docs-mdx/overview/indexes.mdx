@@ -316,7 +316,7 @@ The primary index should include columns that are often used in queries that fil
 To optimize query performance and maximize indexing efficiency, use the following best practices for designing composite primary indexes:
 
 * **Column selection** &ndash; Carefully select which columns to include in a composite primary index based on query patterns, cardinality, and the specific use cases for your table. Adding unnecessary columns can negatively impact performance.
-* **Column order** &ndash; The order of columns in a composite primary index is critical. Place the lowest cardinality columns first in a composite primary index. Firebolt will search based on the order of columns in the primary index. Placing low-cardinality columns first results in broader row ranges per indexed value, enabling more efficient pruning during query execution. Once relevant ranges are selected using the leading (low-cardinality) columns, higher-cardinality columns further narrow the scan.
+* **Column order** &ndash; The order of columns in a composite primary index is critical. Place the lowest cardinality columns first in a composite primary index. Firebolt will search based on the order of columns in the primary index. A Primary Index column can only be used for pruning if all values of previous primary Index columns within a granule are equal. Therefore, placing low-cardinality columns first enables more efficient pruning on following columns.
 
 #### Aggregating indexes in tables
 
