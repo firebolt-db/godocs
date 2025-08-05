@@ -57,7 +57,7 @@ The result is a table with data from the Avro files. Columns are read and parsed
 
 | Avro Type | Firebolt Type | Notes |
 |:----------|:--------------|:------|
-| `null` | `NULL` | Only supported within unions to specify nullability, not as a standalone type |
+| `null` | `TEXT` (nullable) | Standalone null columns are supported and handled as nullable string columns that are always null. Within unions, null specifies nullability for the resulting type |
 | `boolean` | `BOOLEAN` | |
 | `int` | `INT` | |
 | `long` | `BIGINT` | |
@@ -91,7 +91,7 @@ For example, a union with multiple record types would create fields named: `reco
 
 **Enums**: Avro enums are converted to their string representation.
 
-**Null types**: The `null` type is only supported within unions to specify nullability (e.g., `["null", "string"]` creates a nullable string field). Standalone `null` types outside of unions are not supported.
+**Null types**: The `null` type is supported both as a standalone column and within unions. Standalone `null` columns are handled as nullable string columns that are always null. Within unions, `null` specifies the nullability of the resulting type itself (e.g., `["null", "string"]` creates a nullable string field, and `["null", "string", "int"]` creates a nullable struct where the entire struct can be null).
 
 ## Best practices
 
