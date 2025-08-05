@@ -147,9 +147,13 @@ By default, Firebolt enforces request size limits of 2 MiB for User Engines, and
 ```
 413: Request body is larger than configured limit of 20971520 bytes. Please contact support if you need to send larger queries to support your workload
 ```
-These limits are configurable, so please contact our support team if they are insufficent for your usecase.
+These limits are configurable, so please contact our support team if they are insufficient for your use-case.
 
-### Ratelimiting
-For information about ratelimits on System Engines, see [here](/guides/operate-engines/system-engine#rate-limits-for-system-engines).
+**Note**: overriding these limits will disable the following features for large requests:
+- Requests above 2 MiB will not be retried internally after transient network errors.
+- Requests above 2 MiB will not be included in online upgrade verification.
 
-There are no ratelimits on User Engines.
+### Rate-limiting
+For information about rate-limits on System Engines, see [here](/guides/operate-engines/system-engine#rate-limits-for-system-engines).
+
+There are no rate-limits on User Engines.
