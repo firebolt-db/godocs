@@ -186,7 +186,7 @@ If the aggregating index is not used, ensure that the query filters on the first
 
 ## Best practices
 * **Always include query filter expressions** &ndash; Queries should filter on indexed columns to ensure the aggregating indexes are applied efficiently.
-* **Prioritize low-cardinality columns** &ndash; Place columns with fewer unique values first to improve pruning efficiency.
+* **Prioritize low-cardinality columns** &ndash; Generally, place columns with fewer unique values first to improve pruning efficiency, though high-cardinality columns can be beneficial when they have selective filters.
 * **Match aggregations to queries** &ndash; Ensure the index includes all measures used in `GROUP BY` queries for optimal performance.
 
 By following these guidelines, you can use aggregating indexes to significantly speed up queries.
