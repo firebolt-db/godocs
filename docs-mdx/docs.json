@@ -552,7 +552,8 @@
                       "reference-sql/functions-reference/json/json-pointer-extract-values",
                       "reference-sql/functions-reference/json/json-value-array",
                       "reference-sql/functions-reference/json/json-value",
-                      "reference-sql/functions-reference/json/json-format"
+                      "reference-sql/functions-reference/json/json-format",
+                      "reference-sql/functions-reference/json/json-operators"
                     ]
                   },
                   {

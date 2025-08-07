@@ -1,0 +1,89 @@
+---
+description: Reference material for JSON operators
+sidebarTitle: JSON operators
+title: JSON Operators
+---
+
+This page lists operators that can be used on text values storing JSON.
+
+## Operator `->>`
+
+Get value of a JSON field as text.
+
+### Syntax
+
+```sql
+<json>->>'<field_name>'
+```
+
+### Parameters
+
+| Parameter                | Description                                                                                                                                                                                            | Supported input types |
+|:-------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
+| `<json>`                 | The JSON document.                                                                                                                                                                                     | `TEXT`                |
+| `<field_name>`           | Name of the JSON field for which the value should be extracted.                                                                                                                                        | `TEXT`                |
+
+### Return Type
+
+`TEXT`
+
+* If any input values are `NULL`, the function will return `NULL`.
+* If the field name is not found in the JSON document, the function returns `NULL`.
+  - Note that operator `->>` never looks into nested JSON documents. Special characters like `/` in field names are escaped and do not mean a JSON path.
+
+### Examples
+
+For the JSON document indicated by `<json_common_example>` below,
+see [JSON common example](/reference-sql/functions-reference/json#json-common-example). The **returned result** is based on the following example.
+
+**Example**
+
+```sql
+SELECT <json_common_example>->>'key';
+```
+
+**Returns**
+
+The previous example returns `'123'`. The JSON field `key` is associated with the value `123`. The operator retrieves and returns this value as a string.
+
+**Example**
+
+```sql
+SELECT <json_common_example>->>'key~with~tilde';
+```
+
+**Returns**
+
+The previous example returns `'2'`. The JSON field `key~with~tilde` is associated with the value `2`. The operator retrieves and returns this value as a string.
+
+There is no need to escape `~` and `/` in the field name when using the `->>` operator.
+
+**Example**
+
+```sql
+SELECT <json_common_example>->>'value';
+```
+
+**Returns**
+
+The previous example returns the nested JSON document associated to the JSON field `value` in string form.
+
+**Example**
+
+```sql
+SELECT <json_common_example>->>'value'->>'dyid';
+```
+
+**Returns**
+
+The previous example returns `'987'`. The first `->>` operator retrieves the nested JSON document in text form. Applying the second `->>` operator on the nested JSON document returns the value associated with the JSON field `dyid`. The operator returns this value as a string.
+
+**Example**
+
+```sql
+SELECT <json_common_example>->>'value/dyid';
+```
+
+**Returns**
+
+The previous example returns `NULL`. The JSON document has no field called `value/dyid`. The `->>` operator never looks into nested JSON documents.
