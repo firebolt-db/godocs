@@ -34,67 +34,6 @@ It never looks into nested JSON documents. Special characters like `/` in field 
 
 ### Examples
 
-Consider the following JSON document and denote it as `<json_example>`:
-```json
-{
-    "key": 123,
-    "key~with~tilde": 2,
-    "key/with/slash": 3,
-    "value": {
-      "dyid": 987,
-      "keywords" : ["insanely","fast","analytics"]
-    }
-}
-```
+import SqlExamplesJsonOperators from '/snippets/sql_examples/json_operators.mdx';
 
-**Example**
-
-```sql
-SELECT <json_example>->>'key';
-```
-
-**Returns**
-
-The previous example returns `'123'`. The JSON field `key` is associated with the value `123`. The operator retrieves and returns this value as a string.
-
-**Example**
-
-```sql
-SELECT <json_example>->>'key/with/slash';
-```
-
-**Returns**
-
-The previous example returns `'3'`. The JSON field `key/with/slash` is associated with the value `3`. The operator retrieves and returns this value as a string.
-
-There is no need to escape `~` and `/` in the field name when using the `->>` operator.
-
-**Example**
-
-```sql
-SELECT <json_common_example>->>'value';
-```
-
-**Returns**
-
-The previous example returns the nested JSON document associated to the JSON field `value` as a `TEXT` value.
-
-**Example**
-
-```sql
-SELECT <json_common_example>->>'value'->>'dyid';
-```
-
-**Returns**
-
-The previous example returns `'987'`. The first `->>` operator retrieves the nested JSON document in text form. Applying the second `->>` operator on the nested JSON document returns the value associated with the JSON field `dyid`. The operator returns this value as a string.
-
-**Example**
-
-```sql
-SELECT <json_common_example>->>'value/dyid';
-```
-
-**Returns**
-
-The previous example returns `NULL`. The JSON document has no field called `value/dyid`. The `->>` operator never looks into nested JSON documents.
+<SqlExamplesJsonOperators  />
