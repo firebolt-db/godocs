@@ -14,7 +14,7 @@ Adds a column to an existing table.
 ### Syntax
 
 ```sql
-ALTER TABLE <table> ADD COLUMN [IF NOT EXISTS] <column_name> <column_type> [NULL | NOT NULL] [DEFAULT <expression>]
+ALTER TABLE <table> ADD COLUMN [IF NOT EXISTS] <column_name> <column_type> [NULL | NOT NULL] [DEFAULT <expression>] [UNIQUE]
 ```
 
 ### Parameters
@@ -29,8 +29,12 @@ ALTER TABLE <table> ADD COLUMN [IF NOT EXISTS] <column_name> <column_type> [NULL
 
 ### Column constraints & default expression
 
+| Constraint | Description |
+|:-----------|:------------|
 | `DEFAULT <expression>` | Determines the value that will be used for the column when this column is omitted in an `INSERT` statement. It also determines the value that is used for the rows that were inserted before the column was added. |
 | `NULL` \| `NOT NULL` | Determines if the column may or may not contain `NULL`s. |
+| `UNIQUE` | Provides metadata to the query optimizer about column uniqueness. Does not enforce uniqueness - ensuring unique values is the user's responsibility. |
+
 
 ### Limitations
 The query can only be executed under the following conditions:

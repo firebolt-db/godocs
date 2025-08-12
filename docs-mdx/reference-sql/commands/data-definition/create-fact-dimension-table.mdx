@@ -44,7 +44,7 @@ All identifiers are case-insensitive unless enclosed in double-quotes. For more 
 Firebolt supports the following column constraints:
 
 ```sql
-<column_name> <column_type> [NULL | NOT NULL] [DEFAULT <expression>]
+<column_name> <column_type> [NULL | NOT NULL] [DEFAULT <expression>] [UNIQUE]
 ```
 
 
@@ -52,9 +52,14 @@ Firebolt supports the following column constraints:
 |:-----------------------|:--------------------------------------------------------------------------------------------------|:------------- |
 | `DEFAULT <expression>` | Determines the default value used when no value is provided, instead of inserting a `NULL` value. |               |
 | `NULL \| NOT NULL`     | Determines if the column may or may not contain `NULL` values.                                    | `NULL`        |
+| `UNIQUE`               | Provides metadata to the query optimizer about column uniqueness. Does not enforce uniqueness - ensuring unique values is the user's responsibility. |               |
 
 <Note>
 Only literals and the following functions are supported in default expressions: [CURRENT_DATE](/reference-sql/functions-reference/date-and-time/current-date), [LOCALTIMESTAMP](/reference-sql/functions-reference/date-and-time/localtimestamp), [CURRENT_TIMESTAMP](/reference-sql/functions-reference/date-and-time/current-timestamptz), and NOW, which is an alias for CURRENT_TIMESTAMP.
+</Note>
+
+<Note>
+STRUCT fields within ARRAY columns cannot have UNIQUE constraints
 </Note>
 
 ### Example: Creating a table with `NULL` and `NOT NULL` values
@@ -91,6 +96,49 @@ After creating a table, you can manipulate the values using different `INSERT` s
 | `INSERT INTO t1 VALUES (1,1,1,NULL,1)`                                                                                            | This code example shows how another **null mismatch** error is generated. Because `col4` is defined as `NOT NULL DEFAULT 1`, the explicit insertion of a `NULL` value violates the `NOT NULL` constraint, and results in a null mismatch event.                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `INSERT INTO t1 (col1,col2,col3,col5) VALUES (1,1,1,1)`                                                                           | This code example shows how omitting a value in an implicit insert invokes the default value `1` for `col4`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `INSERT INTO t1 VALUES (1,1,1,1,NULL)`<br/><br/>`INSERT INTO t1 (col1,col2,col3,col4) VALUES (1,1,1,1)` | This code example shows how explicit and implicit inserts cause a **null mismatch** error. Because `col5` was neither defined with a default expression nor allowed to contain `NULL` values, Firebolt treats `col5` as `NOT NULL DEFAULT NULL`. Both `INSERT` statements attempt to insert a `NULL` value into a `NOT NULL TEXT` column, invoking in a null mismatch event.                                                                                                                                                                                                                        |
+
+### Example creating table with UNIQUE constraint over columns
+
+The following examples illustrates UNIQUE constraint over different column definitions :
+
+
+**Primitive types:**
+```sql
+CREATE FACT TABLE users (
+    id INTEGER UNIQUE,
+    email TEXT UNIQUE,
+    score DOUBLE UNIQUE,
+    active BOOLEAN UNIQUE,
+    created_date DATE UNIQUE
+);
+```
+
+**STRUCT fields and columns:**
+```sql
+CREATE FACT TABLE user_profiles (
+    user_data STRUCT (
+        id INTEGER UNIQUE,
+        email TEXT UNIQUE,
+        score DOUBLE UNIQUE
+    ),
+    profile STRUCT (
+        name TEXT,
+        age INTEGER
+    ) UNIQUE
+);
+```
+
+**ARRAY columns:**
+```sql
+CREATE FACT TABLE collections (
+    numbers ARRAY(INTEGER) UNIQUE,
+    names ARRAY(TEXT) UNIQUE,
+    complex_data ARRAY(STRUCT (
+        id INTEGER,
+        name TEXT
+    )) UNIQUE
+);
+```
 
 ### PRIMARY INDEX
 
