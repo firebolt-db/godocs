@@ -6293,6 +6293,11 @@
       "source": "/Guides",
       "destination": "/guides",
       "permanent": false
+    },
+    {
+      "source": "/",
+      "destination": "/intro",
+      "permanent": false
     }
   ]
 }
