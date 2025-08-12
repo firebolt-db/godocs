@@ -338,6 +338,8 @@
   "/firebolt-core/firebolt-core-integrate/",
   "/firebolt-core/firebolt-core-integrate/firebolt-core-connect-with-dbt",
   "/firebolt-core/firebolt-core-integrate/firebolt-core-connect-with-dbt/",
+  "/firebolt-core/firebolt-core-integrate/firebolt-core-connect-apache-superset",
+  "/firebolt-core/firebolt-core-integrate/firebolt-core-connect-apache-superset/",
   "/firebolt-core/firebolt-core-operation",
   "/firebolt-core/firebolt-core-operation/",
   "/firebolt-core/firebolt-core-operation/firebolt-core-deployment-compose",
