@@ -108,6 +108,7 @@
                   "performance-and-observability/query-planning",
                   "performance-and-observability/query-planning/inspecting-query-plans",
                   "performance-and-observability/query-planning/cardinality-estimation",
+                  "performance-and-observability/query-planning/unique-constraint",
                   "performance-and-observability/query-planning/user-guided-mode"
                 ]
               }
@@ -4995,6 +4996,11 @@
       "permanent": false
     },
     {
+      "source": "/Guides/operate-engines/warming-up-engines.html",
+      "destination": "/guides/operate-engines/warming-up-engines",
+      "permanent": false
+    },
+    {
       "source": "/Guides/managing-your-organization/billing",
       "destination": "/guides/managing-your-organization/billing",
       "permanent": false
@@ -5380,6 +5386,11 @@
       "permanent": false
     },
     {
+      "source": "/Guides/operate-engines/warming-up-engines",
+      "destination": "/guides/operate-engines/warming-up-engines",
+      "permanent": false
+    },
+    {
       "source": "/Guides/loading-data/loading-data-sql",
       "destination": "/guides/loading-data/loading-data-sql",
       "permanent": false
@@ -5451,7 +5462,7 @@
     },
     {
       "source": "/Reference/interval-arithmetic.html",
-      "destination": "/reference/interval-arithmetic",
+      "destination": "/reference-sql/operators#arithmetic-with-datetime-and-intervals",
       "permanent": false
     },
     {
@@ -5796,7 +5807,7 @@
     },
     {
       "source": "/Reference/interval-arithmetic",
-      "destination": "/reference/interval-arithmetic",
+      "destination": "/reference-sql/operators#arithmetic-with-datetime-and-intervals",
       "permanent": false
     },
     {
