@@ -99,6 +99,21 @@
             ]
           },
           {
+            "group": "Performance and Observability",
+            "pages": [
+              "performance-and-observability",
+              {
+                "group": "Query Planning",
+                "pages": [
+                  "performance-and-observability/query-planning",
+                  "performance-and-observability/query-planning/inspecting-query-plans",
+                  "performance-and-observability/query-planning/cardinality-estimation",
+                  "performance-and-observability/query-planning/user-guided-mode"
+                ]
+              }
+            ]
+          },
+          {
             "group": "Guides",
             "pages": [
               {

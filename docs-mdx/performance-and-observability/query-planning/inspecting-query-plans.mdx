@@ -1,0 +1,169 @@
+---
+description: Learn on how to inspect the execution plans for your queries.
+sidebarTitle: Inspecting query plans
+title: Inspecting query plans
+---
+
+In order to tune your query, you will often have to get the execution plan for that query, and interpret plan differences as you make modifications.
+[The `EXLAIN` command](/reference-sql/commands/queries/explain) allows you to inspect the query plan at various stages in the query lifecycle.
+
+1. The `EXPLAIN` output after the logical optimization phase: `EXPLAIN (logical) <query>`.
+1. The `EXPLAIN` output after the physical optimization phase: `EXPLAIN (physical) <query>`.
+1. The `EXPLAIN` output annotated with execution statistics: `EXPLAIN (analyze) <query>`.
+
+The following code snippet illustrates the different plans on a simple query.
+
+<CodeGroup>
+
+```sql SQL source
+select
+  ss_item_sk,
+  sum(ss_net_profit) as total_profit
+from
+  store_sales
+where
+  ss_sold_date_sk between 2451666 and 2451696
+group by
+  ss_item_sk
+having 
+  sum(ss_net_profit) > 0
+order by
+  total_profit desc;
+```
+
+```text explain(logical)
+[0] [Projection] store_sales.ss_item_sk, total_profit
+ \_[1] [Sort] OrderBy: [total_profit Descending First]
+    \_[2] [Filter] (total_profit > 0.00)
+       \_[3] [Aggregate] GroupBy: [store_sales.ss_item_sk] Aggregates: [total_profit: sum2(store_sales.ss_net_profit)]
+          \_[4] [Projection] store_sales.ss_item_sk, store_sales.ss_net_profit
+             \_[5] [Filter] (store_sales.ss_sold_date_sk >= 2451666), (store_sales.ss_sold_date_sk <= 2451696)
+                \_[6] [StoredTable] Name: "store_sales"
+```
+
+```text explain(physical)
+[0] [Projection] store_sales.ss_item_sk, total_profit
+ \_[1] [Sort] OrderBy: [total_profit Descending First]
+    \_[2] [Filter] (total_profit > 0.00)
+       \_[3] [Aggregate] GroupBy: [store_sales.ss_item_sk] Aggregates: [total_profit: sum2(store_sales.ss_net_profit)]
+          \_[4] [Projection] store_sales.ss_item_sk, store_sales.ss_net_profit
+             \_[5] [Filter] (store_sales.ss_sold_date_sk >= 2451666), (store_sales.ss_sold_date_sk <= 2451696)
+                \_[6] [TableFuncScan] store_sales.ss_sold_date_sk: $0.ss_sold_date_sk, store_sales.ss_item_sk: $0.ss_item_sk, store_sales.ss_net_profit: $0.ss_net_profit
+                  |   $0 = read_tablets(table_name => store_sales, tablet)
+                   \_[7] [Projection] tablet
+                      \_[8] [Filter] ((max_ss_sold_date_sk < 2451666) IS DISTINCT FROM TRUE), ((min_ss_sold_date_sk > 2451696) IS DISTINCT FROM TRUE)
+                         \_[9] [TableFuncScan] tablet: $0.tablet, min_ss_sold_date_sk: $0.min_ss_sold_date_sk, max_ss_sold_date_sk: $0.max_ss_sold_date_sk
+                           |   $0 = list_tablets(table_name => store_sales)
+                            \_[10] [Projection]
+                               \_[11] [SystemOneTable]
+```
+
+```text explain(analyze)
+[0] [Projection] store_sales.ss_item_sk, total_profit
+|   [Execution Metrics]: Optimized out
+ \_[1] [Sort] OrderBy: [total_profit Descending First]
+   |   [Execution Metrics]: output cardinality = 1527, thread time = 0ms, cpu time = 0ms
+    \_[2] [Filter] (total_profit > 0.00)
+      |   [Execution Metrics]: output cardinality = 1527, thread time = 0ms, cpu time = 0ms
+       \_[3] [Aggregate] GroupBy: [store_sales.ss_item_sk] Aggregates: [total_profit: sum2(store_sales.ss_net_profit)]
+         |   [Execution Metrics]: output cardinality = 8476, thread time = 2ms, cpu time = 2ms
+          \_[4] [Projection] store_sales.ss_item_sk, store_sales.ss_net_profit
+            |   [Execution Metrics]: Optimized out
+             \_[5] [Filter] (store_sales.ss_sold_date_sk >= 2451666), (store_sales.ss_sold_date_sk <= 2451696)
+               |   [Execution Metrics]: output cardinality = 27253, thread time = 0ms, cpu time = 0ms
+                \_[6] [TableFuncScan] store_sales.ss_sold_date_sk: $0.ss_sold_date_sk, store_sales.ss_item_sk: $0.ss_item_sk, store_sales.ss_net_profit: $0.ss_net_profit
+                  |   $0 = read_tablets(table_name => store_sales, tablet)
+                  |   [Execution Metrics]: output cardinality = 27253, thread time = 67ms, cpu time = 67ms
+                   \_[7] [Projection] tablet
+                     |   [Execution Metrics]: Optimized out
+                      \_[8] [Filter] ((max_ss_sold_date_sk < 2451666) IS DISTINCT FROM TRUE), ((min_ss_sold_date_sk > 2451696) IS DISTINCT FROM TRUE)
+                        |   [Execution Metrics]: output cardinality = 1, thread time = 0ms, cpu time = 0ms
+                         \_[9] [TableFuncScan] tablet: $0.tablet, min_ss_sold_date_sk: $0.min_ss_sold_date_sk, max_ss_sold_date_sk: $0.max_ss_sold_date_sk
+                           |   $0 = list_tablets(table_name => store_sales)
+                           |   [Execution Metrics]: output cardinality = 1, thread time = 0ms, cpu time = 0ms
+                            \_[10] [Projection]
+                              |   [Execution Metrics]: output cardinality = 0, thread time = 0ms, cpu time = 0ms
+                               \_[11] [SystemOneTable]
+                                     [Execution Metrics]: Nothing was executed
+
+```
+
+</CodeGroup>
+
+The query plans are printed as a tree structure, with the root node at the top left and the leaves at the bottom right.
+For binary operators (such as joins) the left child of a node is the first input side of the operator, and the right child is the second input side.
+If no other per-operator information is requested in the `EXPLAIN` command, each line represents a single operator.
+
+An operator is printed as a line that starts with `[node_id] [OperatorType]`.
+
+The `[OperatorType]` is followed by node expressions specific to the operator type.
+For example, in
+```
+[0] [Projection] store_sales.ss_item_sk, total_profit
+```
+the `store_sales.ss_item_sk, total_profit` expressions represent the expression retained after the projection.
+
+Similarly, in
+```
+[5] [Filter] (store_sales.ss_sold_date_sk >= 2451666), (store_sales.ss_sold_date_sk <= 2451696)
+```
+the two comma-seprated expressions represent the filter conditions that need to hold simultaneously in order to retain the row in the filter output.
+
+The `node_id` is unique within a single query plan, including subqueries.
+However, the `node_id` is not necessarily retained across the logical and physical plans for the same query.
+Moreover, operations that are represented as a single node in the logical plan may be transformed into multiple nodes in the physical plan.
+For example, the
+```
+[6] [StoredTable] Name: "store_sales"
+```
+operator in the logical plan represents the logical operation of reading the `store_sales` table. 
+The corresponding physical plan starts at
+```
+[6] [TableFuncScan] store_sales.ss_sold_date_sk: ...
+```
+and represents the sequence of physical operations that the runtime will perform when reading the `store_sales` table.
+These include listing all tables, filtering out tables that don't contain any relevant data, and reading the data from the remaining tablets.
+You can learn more about tablet-level pruning in the [Data Pruning and Storage](/performance-and-observability/data-pruning-and-storage) section.
+
+Note that despite the tree-shaped `EXPLAIN` output, the query plan is not necessarily a tree.
+For example, the plan of the following query references the `target_items` CTE twice.
+
+<CodeGroup>
+
+```sql SQL source
+with target_items as (
+  select * from item where i_category_id = 'Music'
+)
+select
+  *
+from
+  target_items l, target_items r
+where
+  l.i_brand_id = r.i_brand_id and l.i_wholesale_cost < r.i_wholesale_cost;
+```
+
+```text explain(logical)
+[0] [Projection] item.i_item_sk, item.i_item_id, item.i_rec_start_date, item.i_rec_end_date, item.i_item_desc, item.i_current_price, item.i_wholesale_cost, item.i_brand_id, item.i_brand, item.i_class_id, item.i_class, fb_cast_0: cast('Music' as bigint), item.i_category, item.i_manufact_id, item.i_manufact, item.i_size, item.i_formulation, item.i_color, item.i_units, item.i_container, item.i_manager_id, item.i_product_name, item.i_item_sk, item.i_item_id, item.i_rec_start_date, item.i_rec_end_date, item.i_item_desc, item.i_current_price, item.i_wholesale_cost, item.i_brand_id, item.i_brand, item.i_class_id, item.i_class, fb_cast_1: cast('Music' as bigint), item.i_category, item.i_manufact_id, item.i_manufact, item.i_size, item.i_formulation, item.i_color, item.i_units, item.i_container, item.i_manager_id, item.i_product_name
+ \_[1] [Filter] (item.i_wholesale_cost < item.i_wholesale_cost)
+    \_[2] [Projection] item.i_item_sk, item.i_item_id, item.i_rec_start_date, item.i_rec_end_date, item.i_item_desc, item.i_current_price, item.i_wholesale_cost, item.i_brand_id, item.i_brand, item.i_class_id, item.i_class, item.i_category, item.i_manufact_id, item.i_manufact, item.i_size, item.i_formulation, item.i_color, item.i_units, item.i_container, item.i_manager_id, item.i_product_name, item.i_item_sk, item.i_item_id, item.i_rec_start_date, item.i_rec_end_date, item.i_item_desc, item.i_current_price, item.i_wholesale_cost, item.i_brand, item.i_class_id, item.i_class, item.i_category, item.i_manufact_id, item.i_manufact, item.i_size, item.i_formulation, item.i_color, item.i_units, item.i_container, item.i_manager_id, item.i_product_name
+       \_[3] [Join] Mode: Inner [(item.i_brand_id = item.i_brand_id)]
+          \_[4] [Projection] item.i_item_sk, item.i_item_id, item.i_rec_start_date, item.i_rec_end_date, item.i_item_desc, item.i_current_price, item.i_wholesale_cost, item.i_brand_id, item.i_brand, item.i_class_id, item.i_class, item.i_category, item.i_manufact_id, item.i_manufact, item.i_size, item.i_formulation, item.i_color, item.i_units, item.i_container, item.i_manager_id, item.i_product_name
+          |  \_[5] [Filter] (item.i_category_id = cast('Music' as bigint))
+          |     \_[6] [StoredTable] Name: "item"
+          \_[7] [Projection] item.i_item_sk, item.i_item_id, item.i_rec_start_date, item.i_rec_end_date, item.i_item_desc, item.i_current_price, item.i_wholesale_cost, item.i_brand_id, item.i_brand, item.i_class_id, item.i_class, item.i_category, item.i_manufact_id, item.i_manufact, item.i_size, item.i_formulation, item.i_color, item.i_units, item.i_container, item.i_manager_id, item.i_product_name
+             \_Recurring Node --> [5]
+```
+</CodeGroup>
+
+The `[5] [Filter]` node in the logical plan is referenced twice under the `[3] [Join]` node.
+The second reference is marked as a `_Recurring Node --> [5]` line.
+
+{/* 
+* In the logical plan, the filter is pushed down to the `Aggregate` node.
+* In the physical plan, the filter is replicated and pushed down further to do additional [tablet-level pruning](/performance-and-observability/data-pruning-and-storage).
+  The `[8] [Filter]` node will only select `store_sales` tablets that contain data matching the original filter and will skip non-matching tables.
+* In the analyze output, we can see that the actual output cardinality of the filtered `store_sales` tablets is 4, which is the same as all tablets.
+  This indicates that the tablet-level pruning optimization is not having the desired effect in this case.
+  The reason here is that the TPC-H data generator assignes `o_orderdate` values uniformly distributed in the `[1992-01-01, 1998-08-02]` range, so all of the 4 tablets contain relevant data.
+  In reality order dates most likely strongly correlate to the insertion order, so selecting a specific date range from a real-world orders table will most likely result in an effective tablet-level pruning. 
+*/}

@@ -1,0 +1,39 @@
+---
+description: Guides to understanding and tuning the query planning process.
+sidebarTitle: Overview
+title: Query Planning
+---
+
+`SELECT` queries are declarative—they don't prescribe the exact sequence of operations that the database will execute in order to answer them.
+It is the job of the query planner to figure out this sequence in the form of an execution plan.
+
+Query planning in Firebolt consists of a _logical_ and a _physical_ optimization phase.
+Both phases follow a modular design by instantiating a set of rules and an optimization driver.
+The driver instance receives an input query plan and transforms it by running through a sequence of pre-configured transformation passes.
+Each rewrite pass contains a set of rewrite rules that are executed during the traversal of the query plan.
+The rewrite pass keeps traversing the plan until the query plan reaches a fixed point, ie. when a full traversal ends without performing any modification to the query plan.
+
+Rules are generally split into several categories:
+
+- **Desugaring rules** remove aspects of the original query that are not directly supported by the Firebolt runtime.
+  Examples in this category are rules that de-correlate correlated sub-plans, as well the rule that [lowers `GROUPING SETS` aggregations](https://www.firebolt.io/blog/grouping-sets-as-a-pure-planner-rewrite-yep---its-possible).
+- **Normalization rules** perform transformations that produce plans in canonical form that are easier to reason about.
+  Examples in this category are rules that merge adjacent query plan operators (such as a stack of `Filter` operators sitting on top of each other).
+- **Heuristic-based rules** perform rewrites that in general always result in a more efficient execution plan.
+  Examples in this category are rules that push down filters and and rules that push down projections.
+- **Cost-based rules** apply different transformations depending on a cost model which estimates the number of rows that will be processed by each operator.
+  Examples in this category are rules that perform join reordering, as well as rules that push down aggregate operators through joins.
+
+Firebolt's query optimizer exposes different levels of control over the query planning process.
+The following guides will help you understand better how to inspect and interpret the outcome of the query optimization process in various stages, what levers exist to control it, and when and how to use them.
+
+* [**Inspecting query plans**.](/performance-and-observability/query-planning/inspecting-query-plans)
+  Learn ho to use the `EXPLAIN` command in order to inspect query plans at various stages of the query lifecycle.
+* [**Cardinality estimation**.](/performance-and-observability/query-planning/cardinality-estimation)
+  Firebolt's cost-based rules use a notion of cost based on the estimated number of output rows (that is, the output cardinality) of each sub-plan.
+  Learn how these estimates are computed and how you can control them.
+* [**User-guided mode**.](/performance-and-observability/query-planning/user-guided-mode)
+  Per default, Firebolt's optimizer makes all decisions for you.
+  This mode of operation should be sufficient for most use cases.
+  However, in mission-critical applications you might want to fine-tune and fix the execution plans of your queries.
+  For such situations, Firebolt's user-guided mode gives you fine-grained control over the order of operators such as joins and aggregations.

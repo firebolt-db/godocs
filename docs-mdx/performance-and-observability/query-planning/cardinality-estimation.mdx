@@ -1,0 +1,82 @@
+---
+description: Understand and control how statistics affect the cost model used by Firebolt's cost-based optimziation rules.
+sidebarTitle: Cardinality estimation
+title: Cardinality estimation
+---
+
+Firebolt's cost-based rules rely on a notion of cost based on the estimated number of output rows (that is, the output cardinality) of each sub-plan.
+Among all alternatives, these rules apply the transformation that results in the sub-plan with the lowest cost.
+To establish the cost of each sub-plan, the optimizer derives meta-information known at this point in the form of a **logical profile** in a bottom-up manner.
+
+## Logical profiles
+
+The logical profile of a sub-plan consists of an estimate for the number of produced rows, and optional column-level estimates (such as number of distinct values).
+In addition to that, the profile has a source that reflects how this information was computed.
+
+- The **default statistics source** serves hard-coded values for the number of rows in a table.
+  These values depend only on [the table type](/overview/indexes#firebolt-managed-tables), and not on the actual data contained in the table.
+- The **storage manager statistics source** serves row counts based on metadata maintained by the storage manager.
+  These statistics are always up-to-date.
+- The **estimated** source is assigned to profiles that were computed using Firebolt's estimation model.
+  These profiles are computed by the optimizer based on the logical profiles of the sub-plan inputs.
+
+You can inspect the logical profiles of a query plan by using the `EXPLAIN` command with the `statistics` option.
+The following code snippet shows the logical profiles of a simple query:
+
+<CodeGroup>
+```sql SQL source
+explain(logical, statistics)
+select
+  ss_quantity, ss_list_price, ss_net_profit
+from
+  store_sales
+where
+  ss_item_sk = 42
+order by
+  ss_net_profit desc
+limit
+  10
+```
+
+```text EXPLAIN output
+[0] [Projection] store_sales.ss_quantity, store_sales.ss_list_price, store_sales.ss_net_profit
+|   [Logical Profile]: [est. #rows=10, source: estimated]
+ \_[1] [Sort] OrderBy: [store_sales.ss_net_profit Descending First] Limit: [10]
+   |   [Logical Profile]: [est. #rows=10, source: estimated]
+    \_[2] [Projection] store_sales.ss_quantity, store_sales.ss_list_price, store_sales.ss_net_profit
+      |   [Logical Profile]: [est. #rows=1698, source: estimated]
+       \_[3] [Filter] (store_sales.ss_item_sk = 42)
+         |   [Logical Profile]: [est. #rows=1698, column profiles={[store_sales.ss_item_sk: #distinct=1]}, source: estimated]
+          \_[4] [StoredTable] Name: "store_sales"
+                [Logical Profile]: [est. #rows=2.8804e+06, source: metadata]
+```
+</CodeGroup>
+
+Here are some key observations:
+
+- The profile of the `StoredTable` node has `metadata` source, reflecting the fact that the row count estimate was obtained the metadata served by the storage manager.
+  The value (2880400) accurately reflects the current number of records in the `store_sales` table.
+- All other profiles have `estimated` source.
+- The profile of the `Filter` node reflects the fact that after applying the `ss_item_sk = 42` filter, the number distinct `ss_item_sk` will be 1.
+- The profile of the `Sort` node (which also applies the `limit 10` clause) reflects the fact that the number of output rows will be 10.
+- The profiles of the two `Projection` nodes inherit the profiles of their inputs.
+
+## Controlling statistics sources
+
+Firebolt gives you the ability to turn storage manager statistics on and off using the `enable_storage_statistics` session parameter.
+
+Here is an example that uses the same query as above in a session context where `enable_storage_statistics` is set to `false`.
+Observe that the logical profile of the `StoredTable` node now has source `hardcoded`, and the estimated number of rows is 100 million.
+
+```text enable_storage_statistics = false {10}
+[0] [Projection] store_sales.ss_quantity, store_sales.ss_list_price, store_sales.ss_net_profit
+|   [Logical Profile]: [est. #rows=10, source: estimated]
+ \_[1] [Sort] OrderBy: [store_sales.ss_net_profit Descending First] Limit: [10]
+   |   [Logical Profile]: [est. #rows=10, source: estimated]
+    \_[2] [Projection] store_sales.ss_quantity, store_sales.ss_list_price, store_sales.ss_net_profit
+      |   [Logical Profile]: [est. #rows=10000, source: estimated]
+       \_[3] [Filter] (store_sales.ss_item_sk = 42)
+         |   [Logical Profile]: [est. #rows=10000, column profiles={[store_sales.ss_item_sk: #distinct=1]}, source: estimated]
+          \_[4] [StoredTable] Name: "store_sales"
+                [Logical Profile]: [est. #rows=1e+08, source: hardcoded]
+```

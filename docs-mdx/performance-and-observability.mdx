@@ -1,0 +1,185 @@
+---
+description: Guides to optimizing performance in Firebolt.
+sidebarTitle: Overview
+title: Overview
+---
+
+Firebolt is built to be the most efficient cloud data warehouse for data-intensive applications.
+The workloads that run on Firebolt come in many shapes and sizes, and we've built a system that can support a wide variety of them.
+
+The documentation on these pages will teach you how to get the most out of Firebolt for your workload.
+We explain system internals so you understand what Firebolt can do out of the box. 
+More importantly, we teach you about how you can control Firebolt's behaviour.
+We explain the levers that Firebolt provides to optimize your workload, and how you can use
+Firebolt's telemetry to understand whether your changes make things faster.
+
+## How we think about performance 
+We're building Firebolt for engineers that run mission-critical analytics workloads.
+This shapes how we build the system.
+
+- **Fast by default**. We want Firebolt to work well for you out of the box.
+Getting good performance for a complex workload should be easier than on your current platform.
+Even without tuning your workload, you should see great price/performance.
+- **Control when you need it**. Firebolt can power your mission-critical, low-latency analytics workloads.
+If you take a workload to production, you need a system that gives you control and predictability.
+Because of this, we give you as much control as possible.
+You can control data layout, caching, query plans, and more.
+We provide extensive observability so you can properly tune your workload.
+- **Airbags included**. Having control over a system is only great if you can test changes in a safe way.
+We have a modern architecture where metadata, storage, and compute are fully decoupled.
+This allows you to test changes to your workload in a fully isolated environment.
+When we expose levers, we give you a way to test them without impacting your production workloads.
+
+## The query lifecycle 
+This section describes the lifecycle of a SQL query in Firebolt.
+<Accordion title="Query lifecycle flowchart">
+<Frame>
+<img className="block dark:hidden" src="/assets/images/performance/query_lifecycle_light.svg" />
+<img className="hidden dark:block" src="/assets/images/performance/query_lifecycle_dark.svg" />
+</Frame>
+</Accordion>
+<Steps>
+<Step title="Query Routing">
+When you send a query, it enters the Firebolt gateway.
+The gateway decides how to route the query within your [Firebolt engine](/overview/engine-fundamentals#key-engine-concepts).
+If you use multiple clusters to scale for concurrency, the gateway chooses the cluster with the least load.
+It also decides which node in the cluster should be the coordinator for the query.
+</Step>
+<Step title="Query Parsing">
+Once the coordinator receives the query, it parses it. During parsing, we extract the databases that are
+required to execute the query.
+</Step>
+<Step title="Metadata Lookup">
+After resolving the database names, the coordinator contacts Firebolt's metadata service to get the current metadata state.
+Using this lookup, Firebolt implements ACID transactions and strong consistency. 
+There are a variety of caches on the coordinator to make this fast.
+We only retrieve the metadata delta since the last query.
+</Step>
+<Step title="Query Planning">
+Query planning converts the unoptimized SQL query into an optimized query plan that can be executed.
+- **Validation**. Once the metadata is retrieved, Firebolt validates the query.
+We check that it references valid objects, and that the user has the correct [RBAC permissions](/overview/security/rbac).
+- **Logical Planning**. We then optimize the query plan.
+For this, we first apply 150+ rule-based optimizations to normalize the query.
+These apply optimizations such as pushing down filters and eliminating redundant joins.
+We then apply cost-based optimizations for things like aggregate placement and join ordering.
+Statistics for cost-based optimizations come from  metadata and historical query telemetry.
+- **Physical Planning**. We then convert the logical plan into a physical plan.
+We insert the minimal number of shuffles to ensure that the query can scale out to all nodes in the cluster.
+We also select indices for data pruning, and apply advanced optimizations such as pruning across joins.
+Finally, the query is broken into independent stages.
+These stages are serialized and sent to the nodes in the cluster for execution.
+</Step>
+<Step title="Query Execution">
+The nodes in the cluster receive the stages of the query plan.
+They set up the computation primitives for Firebolt's multi-threaded, vectorized execution engine.
+Data is passed between stages using an optimized shuffle primitive.
+</Step>
+<Step title="Storage Access">
+During query execution, we perform table scans.
+The query planner chose matching indices in step 4.
+These are now leveraged to improve scan performance.
+Scans use multi-tiered caching.
+Cold data is read from S3 and cached in SSD and main-memory.
+</Step>
+</Steps>
+
+{/*
+<Tip>
+These documentation pages first teach you how to control data pruning and storage. 
+This is the foundation of fast queries in Firebolt.
+You need to understand this to fully leverage control over runtime, planner, and everything else.
+</Tip>
+*/}
+
+## How you can control Firebolt
+There are different ways to control Firebolt.
+By knowing what types of levers we support, you get full control of Firebolt.
+Levers can be tied to the storage format, give you workload-level control, or control the behaviour of a specific query. 
+
+### Schema-level control
+Some levers are tied to your schema objects.
+These levers give you control over your physical data layout.
+Any engine and query that uses these schema objects will be affected.
+
+For example, you get fine-grained control over [managed tables](/reference-sql/commands/data-definition/create-fact-dimension-table) in Firebolt.
+
+```sql
+CREATE FACT TABLE lineitem (
+  l_orderkey BIGINT NOT NULL, 
+  l_shipdate DATE NOT NULL,
+  [...]
+  l_comment TEXT NOT NULL) 
+PARTITION BY EXTRACT(MONTH FROM l_shipdate)
+PRIMARY INDEX l_orderkey;
+```
+
+You can control whether a table is sharded or replicated across the nodes in your cluster by declaring it as a `FACT` or `DIMENSION` table.
+In addition, you can define a `PARTITION BY` clause. 
+Rows with different partition values go into different data files (tablets).
+The `PRIMARY INDEX` defines the sort order within each tablet.
+Firebolt can prune data using sparse indices on your partitioning and sorting keys.
+{/* Read more in our performance section on [data pruning and storage](/performance-and-observability/data-pruning-and-storage). */}
+
+### Engine-level control
+Some levers are tied to the engine object.
+These levers usually allow you to control workload-level optimizations.
+
+An example is the control we give you over [AUTO VACUUM](/reference-sql/commands/data-management/vacuum).
+When auto vacuum is turned on, an engine compacts data files (tablets) in the background.
+This leads to larger tablets which in turn leads to more efficient reads.
+```sql 
+ALTER ENGINE <engine_name> SET AUTO_VACUUM = OFF;
+```
+By turning auto vacuum on and off at the engine level, you can control how compute resources are allocated on that engine. 
+You can either devote some resources to storage optimization, or make sure all resources go to user-sent queries.
+{/* Read more in our performance section on [data pruning and storage](/performance-and-observability/data-pruning-and-storage). */}
+
+### Query-level control
+Some levers give you control at a per-query basis.
+Look at our [system settings](/reference/system-settings) for an exhaustive list of all settings in Firebolt.
+Compared to engine-level control, settings allow you to change the behaviour of a single query.
+Different queries running on the same engine can have different settings.
+
+For example, you can control the [target tablet size](/reference/system-settings#target-tablet-size) for an `INSERT` query.
+This gives you fine-grained control over whether you want fast inserts that produce smaller tablets, or longer-running inserts that give you very large tablets.
+```sql
+-- Option 1: Use an explicit SET command before running the query.
+SET tablet_min_size_bytes = 4294967296;
+SET tablet_max_size_bytes = 4294967296;
+INSERT INTO playstats 
+  SELECT * FROM READ_PARQUET(URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/*.parquet')
+
+-- Option 2: Attach the settings directly to the query using WITH.
+-- This is especially useful when you want to enumerate different setting combinations for benchmarking.
+INSERT INTO playstats 
+  SELECT * FROM READ_PARQUET(URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/*.parquet')
+WITH (tablet_min_size_bytes = 4294967296, tablet_max_size_bytes = 4294967296);
+```
+
+### Syntax-level control
+Sometimes, you want to control individual fragments of your query.
+In these cases, Firebolt gives you syntax-level control.
+This is the most fine-grained way to control Firebolt's behaviour.
+
+An example are [`MATERIALIZED` CTEs](/reference-sql/commands/queries/select#materialized-common-table-expressions).
+These give you control over how exactly a CTE is treated by our optimizer and runtime.
+```sql
+-- By default CTEs are not materialized. This means they are not an optimization
+-- boundary. 
+-- This is useful if e.g. different predicates can be pushed into different
+-- occurrences of the same CTE in the main query.
+WITH regular_cte AS (
+  <regular_cte_definition>
+),
+-- A materialized CTE is an optimization barrier. It's computed once and the result
+-- is re-used within the query.
+-- This is useful if e.g. the CTE performs a very expensive computation with a small
+-- result set that's reused multiple times within the main query.
+WITH materialized_cte AS MATERIALIZED (
+  <materialized_cte_definition>
+)
+<main_query>
+```
+
+
