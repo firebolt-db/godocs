@@ -11,14 +11,14 @@ If you specify the `ANALYZE` option for `EXPLAIN`, Firebolt also collects detail
 ## Syntax
 
 ```sql
-EXPLAIN [( <option_name> [<option_value>] [, ...] )] <select_statement>
+EXPLAIN [( <option_name> [<option_value>] [, ...] )] <statement>
 ```
 
 | Parameter            | Description                                                                 |
 | :------------------- | :-------------------------------------------------------------------------- |
 | `option_name`        | The name of an option. See below for a list of all available options.       |
 | `option_value`       | The value of the option. If no value is specified, the default is `TRUE`. |
-| `<select_statement>` | Any select statement.                                                       |
+| `<statement>`        | Any statement.                                                       |
 
 ## Explain Options
 
@@ -31,19 +31,23 @@ You can augment the output of `EXPLAIN` by specifying options. The following tab
 | `ANALYZE`    | `TRUE`, `FALSE` | Returns an optimized physical query plan annotated with metrics from query execution. For more information about these metrics, see [Example with ANALYZE](#example-with-analyze). |
 | `ALL`        | `TRUE`, `FALSE` | Returns all of the previous `LOGICAL`, `PHYSICAL`, and `ANALYZE` plans. Use the following sample syntax: `EXPLAIN (ALL) <select statement>`.                                                                                      |
 | `STATISTICS` | `TRUE`, `FALSE` | Returns an annotated query plan that includes estimates from Firebolt's query optimizer. This option works with `LOGICAL`, `PHYSICAL`, `ANALYZE`, and `ALL`. Use the following sample syntax: `EXPLAIN (STATISTICS) <select statement>`.          |
+| `FORMAT`     | `TEXT`, `JSON`  | Changes the result format of the `EXPLAIN` command. `TEXT` is optimized for humans and LLMs. `JSON` makes it easy to work with the plans programmatically. |
 
 You may specify only one of the following options: `LOGICAL`, `PHYSICAL`, `ANALYZE`, and `ALL`. If you need to view several plans at once, use the `ALL` option.
 
-## Example
+<Note>
+All examples in this section were run on Firebolt version `4.26.0`, on a two-node `M` storage-optimized engine.
+The underlying dataset is TPC-H at scale factor 100. The `lineitem` table contains 77GiB of uncompressed data.
+</Note>
 
+## Basic Example
 The following example shows how to generate an `EXPLAIN` statement for a `SELECT` query on a table named `lineitem`.
 
-```sql
-EXPLAIN
+<CodeGroup>
+```sql SQL query
 SELECT
 	l_shipdate,
 	l_linestatus,
-	l_orderkey,
 	AVG(l_discount)
 FROM
 	lineitem
@@ -53,19 +57,27 @@ WHERE
 GROUP BY
 	ALL
 ORDER BY
-	1,2,3,4;
+	1,2,3;
 ```
 
-**Returns:**
+```text EXPLAIN result
+[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, avg2_0
+ \_[1] [Sort] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg2_0 Ascending Last]
+    \_[2] [Aggregate] GroupBy: [lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg2_0: avg2(lineitem.l_discount)]
+      |   [Types]: avg2_0: double precision not null
+       \_[3] [Projection] lineitem.l_discount, lineitem.l_linestatus, lineitem.l_shipdate
+          \_[4] [Filter] (lineitem.l_returnflag = 'N'), (lineitem.l_shipdate > DATE '1996-01-01')
+             \_[5] [StoredTable] Name: "lineitem"
+                   [Types]: lineitem.l_discount: double precision not null, lineitem.l_returnflag: text not null, lineitem.l_linestatus: text not null, lineitem.l_shipdate: date not null
+```
+</CodeGroup>
 
-```
-[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, lineitem.l_orderkey, avgOrNull(lineitem.l_discount)
- \_[1] [Sort] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, lineitem.l_orderkey Ascending Last, avgOrNull(lineitem.l_discount) Ascending Last]
-    \_[2] [Aggregate] GroupBy: [lineitem.l_orderkey, lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avgOrNull(lineitem.l_discount)]
-       \_[3] [Projection] lineitem.l_orderkey, lineitem.l_discount, lineitem.l_linestatus, lineitem.l_shipdate
-          \_[4] [Predicate] equals(lineitem.l_returnflag, 'N'), greater(lineitem.l_shipdate, toPGDate('1996-01-01'))
-             \_[5] [StoredTable] Name: 'lineitem', used 5/16 column(s) FACT
-```
+<Warning>
+Many examples in this section use the `TEXT` format. 
+We constantly optimize how easy the `TEXT` format is to understand for humans and LLMs.
+When writing code against `EXPLAIN` results, use the much more stable `JSON` format.
+</Warning>
+
 
 The `EXPLAIN` output shows the sequence of operations that Firebolt's engine will use to run the query:
 
@@ -76,16 +88,21 @@ The `EXPLAIN` output shows the sequence of operations that Firebolt's engine wil
 5. Sort resulting rows in ascending order by all columns from the `ORDER BY` clause.
 6. Bring the columns into the order specified in the `SELECT` clause.
 
-## Example with ANALYZE
+## Example with ALL 
 
 The following code example runs the same query as the previous example on a multi-node engine using the `(ALL)` option, which is the same as specifying `(ALL TRUE)` or `(LOGICAL, PHYSICAL, ANALYZE)`.
+The query returns three columns `explain_logical`, `explain_physical`, and `explain_analyze`.
+Each column can be toggled on or off using the corresponding options. 
+For example, to display only `explain_logical` and `explain_analyze`, you can specify either `(LOGICAL, ANALYZE)` or `(ALL, PHYSICAL FALSE)`. 
+With the `ANALYZE` option enabled, this query took 2.5 seconds to run. 
+Without the `ANALYZE` option, the query is only planned and should return the result almost immediately.
 
-```sql
+<CodeGroup>
+```sql SQL query
 EXPLAIN (ALL)
 SELECT
 	l_shipdate,
 	l_linestatus,
-	l_orderkey,
 	AVG(l_discount)
 FROM
 	lineitem
@@ -95,193 +112,156 @@ WHERE
 GROUP BY
 	ALL
 ORDER BY
-	1,2,3,4;
+	1,2,3;
 ```
 
-**Returns:**
-
-Disclaimer
-: The format of this result is subject to change.
-
-The query in the previous example returns three columns `explain_logical`, `explain_physical`, and `explain_analyze`, as shown in the following sections.
-
-Each column can be toggled on or off using the corresponding options. For example, to display only `explain_logical` and `explain_analyze`, you can specify either `(LOGICAL, ANALYZE)` or `(ALL, PHYSICAL FALSE)`. With the `ANALYZE` option enabled, this query took 4.7 seconds to run. Without the `ANALYZE` option, the query does not run and should return the result almost immediately.
-
-### `EXPLAIN (LOGICAL)` output
-
-```
-[0] [Projection] ref_2, ref_1, ref_0, ref_3
-|   [RowType]: date not null, text not null, bigint not null, double precision null
- \_[1] [Sort] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last]
-   |   [RowType]: bigint not null, text not null, date not null, double precision null
-    \_[2] [Aggregate] GroupBy: [ref_0, ref_2, ref_3] Aggregates: [avg2(ref_1)]
-      |   [RowType]: bigint not null, text not null, date not null, double precision null
-       \_[3] [Projection] ref_0, ref_1, ref_3, ref_4
-         |   [RowType]: bigint not null, double precision not null, text not null, date not null
-          \_[4] [Filter] (ref_2 = 'N'), (ref_4 > DATE '1996-01-01')
-            |   [RowType]: bigint not null, double precision not null, text not null, text not null, date not null
-             \_[5] [StoredTable] Name: "lineitem", used 5/16 column(s) FACT, ref_0: "l_orderkey" ref_1: "l_discount" ref_2: "l_returnflag" ref_3: "l_linestatus" ref_4: "l_shipdate"
-                   [RowType]: bigint not null, double precision not null, text not null, text not null, date not null
+```text EXPLAIN (LOGICAL)
+[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, avg2_0
+ \_[1] [Sort] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg2_0 Ascending Last]
+    \_[2] [Aggregate] GroupBy: [lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg2_0: avg2(lineitem.l_discount)]
+      |   [Types]: avg2_0: double precision not null
+       \_[3] [Projection] lineitem.l_discount, lineitem.l_linestatus, lineitem.l_shipdate
+          \_[4] [Filter] (lineitem.l_returnflag = 'N'), (lineitem.l_shipdate > DATE '1996-01-01')
+             \_[5] [StoredTable] Name: "lineitem"
+                   [Types]: lineitem.l_discount: double precision not null, lineitem.l_returnflag: text not null, lineitem.l_linestatus: text not null, lineitem.l_shipdate: date not null
 ```
 
-The `explain_logical` column shows the optimized logical query plan of the `SELECT` statement, identical to the plan in [Example](#example). Additionally, it shows the output row type for each operator. The variable `ref_2` refers to the second input column from the operator below. For operators with multiple input operators such as the `Join` operator, input columns are concatenated. For example, if the first input produces three columns, and the second input produces four columns, the first input's columns are labeled `ref_0` to `ref_2`, while the second input's columns are labeled `ref_3` to `ref-6`.
-
-### `EXPLAIN (PHYSICAL)` output
-
-```
-[0] [MaybeCache]
-|   [RowType]: date not null, text not null, bigint not null, double precision null
- \_[1] [Projection] ref_2, ref_1, ref_0, ref_3
-   |   [RowType]: date not null, text not null, bigint not null, double precision null
-    \_[2] [SortMerge] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last]
-      |   [RowType]: bigint not null, text not null, date not null, double precision null
+```text EXPLAIN (PHYSICAL) 
+[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, avg2_1
+ \_[1] [MaybeCache]
+    \_[2] [SortMerge] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg2_1 Ascending Last]
        \_[3] [Shuffle] Gather
-         |   [RowType]: bigint not null, text not null, date not null, double precision null
          |   [Affinity]: many nodes
-          \_[4] [Sort] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last]
-            |   [RowType]: bigint not null, text not null, date not null, double precision null
-             \_[5] [AggregateMerge] GroupBy: [ref_0, ref_1, ref_2] Aggregates: [avg2merge(ref_3)]
-               |   [RowType]: bigint not null, text not null, date not null, double precision null
-                \_[6] [Shuffle] Hash by [ref_0, ref_1, ref_2]
-                  |   [RowType]: bigint not null, text not null, date not null, aggregatefunction(avg2ornull, double precision not null) not null
+          \_[4] [Sort] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg2_1 Ascending Last]
+             \_[5] [AggregateMerge] GroupBy: [lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg2_1: avg2merge(avg2_0)]
+               |   [Types]: avg2_1: double precision not null
+                \_[6] [Shuffle] Hash by [lineitem.l_linestatus, lineitem.l_shipdate]
                   |   [Affinity]: many nodes
-                   \_[7] [AggregateState partial] GroupBy: [ref_0, ref_2, ref_3] Aggregates: [avg2(ref_1)]
-                     |   [RowType]: bigint not null, text not null, date not null, aggregatefunction(avg2ornull, double precision not null) not null
-                      \_[8] [Projection] ref_0, ref_1, ref_3, ref_4
-                        |   [RowType]: bigint not null, double precision not null, text not null, date not null
-                         \_[9] [Filter] (ref_2 = 'N'), (ref_4 > DATE '1996-01-01')
-                           |   [RowType]: bigint not null, double precision not null, text not null, text not null, date not null
-                            \_[10] [StoredTable] Name: "lineitem", used 5/16 column(s) FACT, ref_0: "l_orderkey" ref_1: "l_discount" ref_2: "l_returnflag" ref_3: "l_linestatus" ref_4: "l_shipdate"
-                                  [RowType]: bigint not null, double precision not null, text not null, text not null, date not null
+                   \_[7] [AggregateState partial] GroupBy: [lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg2_0: avg2(lineitem.l_discount)]
+                     |   [Types]: avg2_0: aggregatefunction(avg2, double precision not null) not null
+                      \_[8] [Projection] lineitem.l_discount, lineitem.l_linestatus, lineitem.l_shipdate
+                         \_[9] [Filter] (lineitem.l_returnflag = 'N'), (lineitem.l_shipdate > DATE '1996-01-01')
+                            \_[10] [TableFuncScan] lineitem.l_discount: $0.l_discount, lineitem.l_returnflag: $0.l_returnflag, lineitem.l_linestatus: $0.l_linestatus, lineitem.l_shipdate: $0.l_shipdate
+                              |   $0 = read_tablets(table_name => lineitem, tablet)
+                              |   [Types]: lineitem.l_discount: double precision not null, lineitem.l_returnflag: text not null, lineitem.l_linestatus: text not null, lineitem.l_shipdate: date not null
+                               \_[11] [Projection] tablet
+                                  \_[12] [Filter] (((min_l_returnflag > 'N') or (max_l_returnflag < 'N')) IS DISTINCT FROM TRUE), ((max_l_shipdate <= DATE '1996-01-01') IS DISTINCT FROM TRUE)
+                                     \_[13] [TableFuncScan] tablet: $0.tablet, min_l_returnflag: $0.min_l_returnflag, max_l_returnflag: $0.max_l_returnflag, max_l_shipdate: $0.max_l_shipdate
+                                           $0 = list_tablets(table_name => lineitem)
+                                           [Types]: tablet: tablet not null, min_l_returnflag: text null, max_l_returnflag: text null, max_l_shipdate: date null
 ```
 
-The `explain_physical` column displays a detailed, optimized physical plan that includes Shuffle operators for distributed query execution, offering insights into how tasks are distributed across the engine's nodes. A `Shuffle` operator redistributes data across engine nodes. For example, scans of `FACT` tables, like operator `[9] [StoredTable]` in the previous example, and the operators following it are automatically distributed across all nodes of an engine. A `Shuffle` operator of type `Hash` indicates that the workload of the following operators is distributed across all nodes, while a `Shuffle` operator of type `Gather` consolidates data onto a single node of the engine. In the previous example, only the operator `[1] [SortMerge]` runs on a single node, merging the sorted partial query results from all other nodes.
-
-The `MaybeCache` operator, at the top of the plan, caches its input in main memory on a best-effort basis for future runs of the same (sub-) query. It considers the entire plan leading to its input, as well as the state of the scanned tables. If the data in a table changes, the `MaybeCache` operator will know not to read an outdated cached entry. It may also skip caching large results or prioritize caching results that offer greater time savings. The `MaybeCache` operator may appear in different places of a plan, but in this query it caches the full query result. For more information about the `MaybeCache` operator, see [Subresult Reuse in Firebolt](/overview/queries/understand-query-performance-subresult).
-
-### `EXPLAIN (ANALYZE)` output
-
-```
-[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, lineitem.l_orderkey, avg2_1
+```text EXPLAIN (ANALYZE)
+[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, avg2_1
 |   [Execution Metrics]: Optimized out
- \_[1] [SortMerge] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, lineitem.l_orderkey Ascending Last, avg2_1 Ascending Last]
-   |   [Execution Metrics]: output cardinality = 175272184, thread time = 15776ms, cpu time = 15773ms
-    \_[2] [Shuffle] Gather
-      |   [Affinity]: many nodes
-      |   [Execution Metrics]: output cardinality = 175272184, thread time = 1344ms, cpu time = 1339ms
-       \_[3] [Sort] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, lineitem.l_orderkey Ascending Last, avg2_1 Ascending Last]
-         |   [Execution Metrics]: output cardinality = 175272184, thread time = 161940ms, cpu time = 161370ms
-          \_[4] [AggregateMerge] GroupBy: [lineitem.l_orderkey, lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg2_1: avg2merge(avg2_0)]
-            |   [Types]: avg2_1: numeric(38, 9) null
-            |   [Execution Metrics]: output cardinality = 175272184, thread time = 102041ms, cpu time = 95573ms
-             \_[5] [Shuffle] Hash by [lineitem.l_orderkey, lineitem.l_linestatus, lineitem.l_shipdate]
-               |   [Affinity]: many nodes
-               |   [Execution Metrics]: output cardinality = 175272516, thread time = 21998ms, cpu time = 20321ms
-                \_[6] [AggregateState partial] GroupBy: [lineitem.l_orderkey, lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg2_0: avg2(lineitem.l_discount)]
-                  |   [Types]: avg2_0: aggregatefunction(avg2ornull, numeric(38, 9) null) not null
-                  |   [Execution Metrics]: output cardinality = 175272516, thread time = 153805ms, cpu time = 151232ms
-                   \_[7] [Projection] lineitem.l_orderkey, lineitem.l_discount, lineitem.l_linestatus, lineitem.l_shipdate
-                     |   [Execution Metrics]: Optimized out
-                      \_[8] [Filter] (lineitem.l_returnflag = 'N'), (lineitem.l_shipdate > DATE '1996-01-01')
-                        |   [Execution Metrics]: output cardinality = 178187768, thread time = 4065ms, cpu time = 4048ms
-                         \_[9] [TableFuncScan] lineitem.l_orderkey: $0.l_orderkey, lineitem.l_discount: $0.l_discount, lineitem.l_returnflag: $0.l_returnflag, lineitem.l_linestatus: $0.l_linestatus, lineitem.l_shipdate: $0.l_shipdate
-                           |   $0 = read_tablets(table_name => lineitem, tablet)
-                           |   [Types]: lineitem.l_orderkey: bigint null, lineitem.l_discount: numeric(38, 9) null, lineitem.l_returnflag: text null, lineitem.l_linestatus: text null, lineitem.l_shipdate: date null
-                           |   [Execution Metrics]: output cardinality = 216026836, thread time = 24315ms, cpu time = 24237ms, granules: 52257/52257
-                            \_[10] [Projection] tablet
-                              |   [Execution Metrics]: Optimized out
-                               \_[11] [Filter] (((min_l_returnflag > 'N') or (max_l_returnflag < 'N')) IS DISTINCT FROM TRUE), ((max_l_shipdate <= DATE '1996-01-01') IS DISTINCT FROM TRUE)
-                                 |   [Execution Metrics]: output cardinality = 14, thread time = 1ms, cpu time = 1ms
-                                  \_[12] [TableFuncScan] tablet: $0.tablet, min_l_returnflag: $0.min_l_returnflag, max_l_returnflag: $0.max_l_returnflag, max_l_shipdate: $0.max_l_shipdate
-                                    |   $0 = list_tablets(table_name => lineitem)
-                                    |   [Types]: tablet: tablet not null, min_l_returnflag: text null, max_l_returnflag: text null, max_l_shipdate: date null
-                                    |   [Execution Metrics]: output cardinality = 14, thread time = 1ms, cpu time = 0ms
-                                     \_[13] [Projection]
-                                       |   [Execution Metrics]: output cardinality = 0, thread time = 0ms, cpu time = 0ms
-                                        \_[14] [SystemOneTable]
-                                              [Types]: $0: integer not null
-                                              [Execution Metrics]: Nothing was executed
+ \_[1] [MaybeCache]
+   |   [Execution Metrics]: output cardinality = 1065, thread time = 0ms, cpu time = 0ms
+    \_[2] [SortMerge] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg2_1 Ascending Last]
+      |   [Execution Metrics]: output cardinality = 1065, thread time = 0ms, cpu time = 0ms
+       \_[3] [Shuffle] Gather
+         |   [Affinity]: many nodes
+         |   [Execution Metrics]: output cardinality = 1065, thread time = 0ms, cpu time = 0ms
+          \_[4] [Sort] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg2_1 Ascending Last]
+            |   [Execution Metrics]: output cardinality = 1065, thread time = 4ms, cpu time = 3ms
+             \_[5] [AggregateMerge] GroupBy: [lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg2_1: avg2merge(avg2_0)]
+               |   [Types]: avg2_1: double precision not null
+               |   [Execution Metrics]: output cardinality = 1065, thread time = 27ms, cpu time = 26ms
+                \_[6] [Shuffle] Hash by [lineitem.l_linestatus, lineitem.l_shipdate]
+                  |   [Affinity]: many nodes
+                  |   [Execution Metrics]: output cardinality = 2130, thread time = 137ms, cpu time = 69ms
+                   \_[7] [AggregateState partial] GroupBy: [lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg2_0: avg2(lineitem.l_discount)]
+                     |   [Types]: avg2_0: aggregatefunction(avg2, double precision not null) not null
+                     |   [Execution Metrics]: output cardinality = 2130, thread time = 9921ms, cpu time = 9686ms
+                      \_[8] [Projection] lineitem.l_discount, lineitem.l_linestatus, lineitem.l_shipdate
+                        |   [Execution Metrics]: Optimized out
+                         \_[9] [Filter] (lineitem.l_returnflag = 'N'), (lineitem.l_shipdate > DATE '1996-01-01')
+                           |   [Execution Metrics]: output cardinality = 275468571, thread time = 3518ms, cpu time = 3446ms
+                            \_[10] [TableFuncScan] lineitem.l_discount: $0.l_discount, lineitem.l_returnflag: $0.l_returnflag, lineitem.l_linestatus: $0.l_linestatus, lineitem.l_shipdate: $0.l_shipdate
+                              |   $0 = read_tablets(table_name => lineitem, tablet)
+                              |   [Types]: lineitem.l_discount: double precision not null, lineitem.l_returnflag: text not null, lineitem.l_linestatus: text not null, lineitem.l_shipdate: date not null
+                              |   [Execution Metrics]: output cardinality = 334006486, thread time = 32432ms, cpu time = 26592ms, cardinality_before_prewhere = 659431284, granules: 80577/80577
+                               \_[11] [Projection] tablet
+                                 |   [Execution Metrics]: Optimized out
+                                  \_[12] [Filter] (((min_l_returnflag > 'N') or (max_l_returnflag < 'N')) IS DISTINCT FROM TRUE), ((max_l_shipdate <= DATE '1996-01-01') IS DISTINCT FROM TRUE)
+                                    |   [Execution Metrics]: output cardinality = 18, thread time = 2ms, cpu time = 2ms
+                                     \_[13] [TableFuncScan] tablet: $0.tablet, min_l_returnflag: $0.min_l_returnflag, max_l_returnflag: $0.max_l_returnflag, max_l_shipdate: $0.max_l_shipdate
+                                           $0 = list_tablets(table_name => lineitem)
+                                           [Types]: tablet: tablet not null, min_l_returnflag: text null, max_l_returnflag: text null, max_l_shipdate: date null
+                                           [Execution Metrics]: output cardinality = 18, thread time = 1ms, cpu time = 1ms
 ```
+</CodeGroup>
 
-The `explain_analyze` column contains the same query plan as the `explain_physical` column, but annotated with metrics collected during query execution. For each operator, it shows the number of rows it produced in `output_cardinality`, and how much time was spent on that operator in `thread_time` and `cpu_time`. The `thread_time` is the sum of the wall-clock time that threads spent working on the operator across all nodes, while `cpu_time` is the total time those threads were scheduled on a CPU core. A significantly smaller `cpu_time` compared to `thread_time` suggests that the operator is either waiting on input or output operations or that the engine is handling multiple queries simultaneously.
+- The `LOGICAL` plan shows the optimized logical query plan of the `SELECT` statement.
+Additionally, it shows the output row type for each operator. 
+For operators with multiple input operators such as the `Join` operator, input columns are concatenated. 
+For example, if the first input produces three columns, and the second input produces four columns,
+the join produces seven columns.
+- The `PHYSICAL` plan shows a detailed, optimized physical plan that includes Shuffle operators for distributed query execution, offering insights into how tasks are distributed across the engine's nodes. 
+A `Shuffle` operator redistributes data across engine nodes. 
+For example, scans of `FACT` tables, like operator `[10] [TableFuncScan]`, and the operators following it are automatically distributed across all nodes of an engine.
+A `Shuffle` operator of type `Hash` indicates that the workload of the following operators is distributed across all nodes, while a `Shuffle` operator of type `Gather` consolidates data onto a single node of the engine. 
+In the previous example, only the operator `[2] [SortMerge]` runs on a single node, merging the sorted partial query results from all other nodes.
+The `MaybeCache` operator, at the top of the plan, caches its input in main memory on a best-effort basis for future runs of the same (sub-) query. 
+It considers the entire plan leading to its input, as well as the state of the scanned tables. 
+If the data in a table changes, the `MaybeCache` operator will know not to read an outdated cached entry. 
+It may also skip caching large results or prioritize caching results that offer greater time savings. 
+The `MaybeCache` operator may appear in different places of a plan, but in this query it caches the full query result. 
+For more information about the `MaybeCache` operator, see [Subresult Reuse in Firebolt](/overview/queries/understand-query-performance-subresult).
+- The `ANALYZE` plan contains the same plan shape as the `PHYSICAL` explain, but annotated with metrics collected during query execution. 
+For each operator, it shows the number of rows it produced in `output_cardinality`, and how much time was spent on that operator in `thread_time` and `cpu_time`. 
+The `thread_time` is the sum of the wall-clock time that threads spent working on the operator across all nodes, while `cpu_time` is the total time those threads were scheduled on a CPU core. 
+A significantly smaller `cpu_time` compared to `thread_time` suggests that the operator is either waiting on input or output operations or that the engine is handling multiple queries simultaneously.
+For `TableFuncScan` operators that read from managed tables, additional metrics may be displayed:
+  - `granules` shows the output granules (not pruned) out of the total number of granules that were considered. 
+  This helps you understand the effectiveness of primary index pruning in reducing the amount of data scanned during query execution. 
+  In the example above, `granules: 80577/80577` indicates that no granules were pruned by the primary index, meaning all 80,577 granules were scanned.
+  -  `cardinality_before_prewhere` measures the number of rows selected for scanning after tablet and granule pruning.
+  After this static pruning step, prewhere optimizes scanning by reading columns with the most selective predicates first. 
+  By evaluating these predicates early, the scan can perform a second pruning pass, excluding additional granules from being read for the remaining columns.
+  If the ratio `cardinality_before_prewhere / output_cardinality` is large, it indicates that prewhere was effective in eliminating additional rows before the main scan.
 
-For `TableFuncScan` operators that read from tables with primary indexes, additional metrics may be displayed:
-- `granules` shows the output granules (not pruned) out of the total number of granules that were considered.
+### Analyzing the Metrics
 
-
-These metrics help you understand the effectiveness of primary index pruning in reducing the amount of data scanned during query execution. In the example above, `granules: 52257/52257` indicates that no granules were pruned by the primary index, meaning all 52,257 granules were scanned.
-
-#### Analyzing the Metrics
-
-In the previous example, the `cpu_time` is almost as high as the `thread_time` on the `StoredTable` node. This indicates that the data of the `lineitem` table was in the SSD cache. On a cold query run, where data must be retrieved from an Amazon S3 bucket, `thread_time` is considerably higher than `cpu_time` for the same operator:
-
-```
-[10] [StoredTable] Name: "lineitem", used 5/16 column(s) FACT, ref_0: "l_orderkey" ref_1: "l_discount" ref_2: "l_returnflag" ref_3: "l_linestatus" ref_4: "l_shipdate"
-    [RowType]: bigint not null, double precision not null, text not null, text not null, date not null
-    [Execution Metrics]: output cardinality = 334006486, thread time = 29642ms, cpu time = 29608ms
-```
-
-Additionally, a significant amount of time is devoted to sorting the query results:
-
-```
-[2] [SortMerge] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last]
-|   [RowType]: bigint not null, text not null, date not null, double precision null
-|   [Execution Metrics]: output cardinality = 270958684, thread time = 27932ms, cpu time = 27692ms
- \_[3] [Shuffle] Gather
-   |   [RowType]: bigint not null, text not null, date not null, double precision null
-   |   [Affinity]: many nodes
-   |   [Execution Metrics]: output cardinality = 270958684, thread time = 1846ms, cpu time = 1779ms
-    \_[4] [Sort] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last]
-      |   [RowType]: bigint not null, text not null, date not null, double precision null
-      |   [Execution Metrics]: output cardinality = 270958684, thread time = 286199ms, cpu time = 285590ms
-```
-
-Removing the `ORDER BY` can considerably speed up query runtimes. In this case, the total query time is nearly halved, dropping from 1 minute and 19 seconds to 47.3 seconds. If only the initial results in the specified sorting order are needed, introducing a `LIMIT` operator can further enhance performance. Adding `LIMIT 10000` to the query produces the following output:
+In the previous example, the `cpu_time` is almost as high as the `thread_time` on the `TableFuncScan` node. This indicates that the data of the `lineitem` table was in the SSD cache. 
+On a cold query run, where data must be retrieved from an Amazon S3 bucket, `thread_time` is considerably higher than `cpu_time` for the same operator:
 
 ```
-[2] [SortMerge] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last] Limit: [10000]
-|   [RowType]: bigint not null, text not null, date not null, double precision null
-|   [Execution Metrics]: output cardinality = 10000, thread time = 1ms, cpu time = 1ms
- \_[3] [Shuffle] Gather
-   |   [RowType]: bigint not null, text not null, date not null, double precision null
-   |   [Affinity]: many nodes
-   |   [Execution Metrics]: output cardinality = 20000, thread time = 0ms, cpu time = 0ms
-    \_[4] [Sort] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last] Limit: [10000]
-      |   [RowType]: bigint not null, text not null, date not null, double precision null
-      |   [Execution Metrics]: output cardinality = 20000, thread time = 6403ms, cpu time = 6372ms
-       \_[5] [AggregateMerge] GroupBy: [ref_0, ref_1, ref_2] Aggregates: [avg2merge(ref_3)]
-         |   [RowType]: bigint not null, text not null, date not null, double precision null
-         |   [Execution Metrics]: output cardinality = 270958684, thread time = 83213ms, cpu time = 74525ms
+\_[10] [TableFuncScan] lineitem.l_discount: $0.l_discount, lineitem.l_returnflag: $0.l_returnflag, lineitem.l_linestatus: $0.l_linestatus, lineitem.l_shipdate: $0.l_shipdate
+  |   $0 = read_tablets(table_name => lineitem, tablet)
+  |   [Types]: lineitem.l_discount: double precision not null, lineitem.l_returnflag: text not null, lineitem.l_linestatus: text not null, lineitem.l_shipdate: date not null
+  |   [Execution Metrics]: output cardinality = 334006486, thread time = 32432ms, cpu time = 26592ms, cardinality_before_prewhere = 659431284, granules: 80577/80577
 ```
 
-The time spent in the `Sort` operator is significantly reduced, nearly by an order of magnitude. The `Sort` operator takes the `LIMIT` clause directly into account and emits only the required minimum number of rows. This reduces the overall query time from 1 minute and 19 seconds to 40.3 seconds, which is an even greater improvement than removing the `ORDER BY` clause, as less result data needs to be serialized for client return.
-
-A secondary benefit is that the result is now small enough to be cached by the `MaybeCache` operator. Running the query with `LIMIT 10000` again produces the following output:
+Additionally, a significant amount of time is devoted to performing the distributed pre-aggregation:
 
 ```
-[0] [MaybeCache]
-|   [RowType]: date not null, text not null, bigint not null, double precision null
-|   [Execution Metrics]: output cardinality = 10000, thread time = 0ms, cpu time = 0ms
- \_[1] [Projection] ref_2, ref_1, ref_0, ref_3
-   |   [RowType]: date not null, text not null, bigint not null, double precision null
-   |   [Execution Metrics]: Optimized out
-    \_[2] [SortMerge] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last] Limit: [10000]
-      |   [RowType]: bigint not null, text not null, date not null, double precision null
+\_[7] [AggregateState partial] GroupBy: [lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg2_0: avg2(lineitem.l_discount)]
+  |   [Types]: avg2_0: aggregatefunction(avg2, double precision not null) not null
+  |   [Execution Metrics]: output cardinality = 2130, thread time = 9921ms, cpu time = 9686ms
+```
+
+When running the query a second time, we can see that the result cache is used to return the results immediately:
+
+```text
+[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, avg2_1
+|   [Execution Metrics]: Optimized out
+ \_[1] [MaybeCache]
+   |   [Execution Metrics]: output cardinality = 1065, thread time = 0ms, cpu time = 0ms
+    \_[2] [SortMerge] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg2_1 Ascending Last]
       |   [Execution Metrics]: Nothing was executed
 ```
-
 
 ## Example with STATISTICS
 
 The following code example uses the `STATISTICS` option to display the logical and physical query plan for the `SELECT` statement, annotated with estimated statistics from Firebolt's query optimizer:
+Each plan node is annotated with a `[Logical Profile]`, indicating the `source` of the estimation for that node as well as the row count estimate.
 
-
-```sql
+<CodeGroup>
+```sql SQL query
 EXPLAIN (STATISTICS)
 SELECT
 	l_shipdate,
 	l_linestatus,
-	l_orderkey,
 	AVG(l_discount)
 FROM
 	lineitem
@@ -291,32 +271,26 @@ WHERE
 GROUP BY
 	ALL
 ORDER BY
-	1,2,3,4;
+	1,2,3;
 ```
 
-In the following output, each plan node is annotated with a `[Logical Profile]`, indicating the `source` of the estimation for that node.
-
-```
-explain TEXT
-[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, lineitem.l_orderkey, avg2(lineitem.l_discount)
-|   [RowType]: date not null, text not null, bigint not null, numeric(12, 2) null
-|   [Logical Profile]: [source: estimated]
- \_[1] [Sort] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, lineitem.l_orderkey Ascending Last, avg2(lineitem.l_discount) Ascending Last]
-   |   [RowType]: bigint not null, text not null, date not null, numeric(12, 2) null
-   |   [Logical Profile]: [source: estimated]
-    \_[2] [Aggregate] GroupBy: [lineitem.l_orderkey, lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg2(lineitem.l_discount)]
-      |   [RowType]: bigint not null, text not null, date not null, numeric(12, 2) null
-      |   [Logical Profile]: [source: estimated]
-       \_[3] [Projection] lineitem.l_orderkey, lineitem.l_discount, lineitem.l_linestatus, lineitem.l_shipdate
-         |   [RowType]: bigint not null, numeric(12, 2) not null, text not null, date not null
-         |   [Logical Profile]: [source: estimated]
+```text EXPLAIN (STATISTICS)
+[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, avg2_0
+|   [Logical Profile]: [est. #rows=1898, source: estimated]
+ \_[1] [Sort] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg2_0 Ascending Last]
+   |   [Logical Profile]: [est. #rows=1898, source: estimated]
+    \_[2] [Aggregate] GroupBy: [lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg2_0: avg2(lineitem.l_discount)]
+      |   [Types]: avg2_0: double precision not null
+      |   [Logical Profile]: [est. #rows=1898, source: estimated]
+       \_[3] [Projection] lineitem.l_discount, lineitem.l_linestatus, lineitem.l_shipdate
+         |   [Logical Profile]: [est. #rows=23489, source: estimated]
           \_[4] [Filter] (lineitem.l_returnflag = 'N'), (lineitem.l_shipdate > DATE '1996-01-01')
-            |   [RowType]: bigint not null, numeric(12, 2) not null, text not null, text not null, date not null
-            |   [Logical Profile]: [source: estimated]
-             \_[5] [StoredTable] Name: "lineitem", used 5/16 column(s) FACT
-                   [RowType]: bigint not null, numeric(12, 2) not null, text not null, text not null, date not null
-                   [Logical Profile]: [source: metadata]
+            |   [Logical Profile]: [est. #rows=23489, column profiles={[lineitem.l_returnflag: #distinct=1]}, source: estimated]
+             \_[5] [StoredTable] Name: "lineitem"
+                   [Types]: lineitem.l_discount: double precision not null, lineitem.l_returnflag: text not null, lineitem.l_linestatus: text not null, lineitem.l_shipdate: date not null
+                   [Logical Profile]: [est. #rows=6.59431e+08, source: metadata]
 ```
+</CodeGroup>
 
 The possible sources are as follows:
 
@@ -328,3 +302,312 @@ The possible sources are as follows:
 | `history` | This node's profile was obtained from a previously recorded run, and is accurate unless data has changed since the recording. |
 | `learned` | This node's profile was predicted using machine learning. |
 
+## Example with FORMAT
+The following example uses the `FORMAT` option to query telemetry in different ways.
+The `TEXT` format makes it easy to understand telemetry for humans and LLMs.
+As options are fully composable, it can be combined with other options such as `ANALYZE`.
+
+<CodeGroup>
+```sql SQL query
+EXPLAIN (ANALYZE, FORMAT TEXT)
+WITH mat_cte(name, id) AS MATERIALIZED (
+  SELECT concat('Hello, World', x) , x FROM generate_series(1, 10000000) r(x)
+)
+SELECT m1.name, m2.name 
+FROM mat_cte m1 INNER JOIN mat_cte m2 ON (m1.id + 1 = m2.id) 
+LIMIT 10;
+```
+
+```text EXPLAIN (FORMAT TEXT)
+[0] [Projection] mat_cte.name, mat_cte.name
+|   [Execution Metrics]: Optimized out
+ \_[1] [MaybeCache]
+   |   [Execution Metrics]: output cardinality = 10, thread time = 0ms, cpu time = 0ms
+    \_[2] [Limit] Limit: [10]
+      |   [Execution Metrics]: output cardinality = 10, thread time = 0ms, cpu time = 0ms
+       \_[3] [Projection] mat_cte.name, mat_cte.name
+         |   [Execution Metrics]: Optimized out
+          \_[4] [Join] Mode: Inner [(mat_cte.id = add_checked_0)]
+            |   [Execution Metrics]: output cardinality = 65505, thread time = 776ms, cpu time = 742ms, join_processor_metrics.build_side.input_cardinality = 10000000, join_processor_metrics.is_fire_hash_join = 1, join_processor_metrics.is_hash_join = 0, join_processor_metrics.is_nested_loop_join = 0, join_processor_metrics.probe_side.input_cardinality = 589545
+             \_[5] [Projection] mat_cte.name, add_checked_0: (mat_cte.id + 1)
+             | |   [Types]: add_checked_0: integer not null
+             | |   [Execution Metrics]: output cardinality = 589545, thread time = 1ms, cpu time = 1ms
+             |  \_[6] [Shuffle] Loopback
+             |    |   [Affinity]: single node
+             |    |   [Execution Metrics]: output cardinality = 10589545, thread time = 2ms, cpu time = 1ms
+             |     \_[7] [Projection] mat_cte.name: concat('Hello, World', cast(x as text)), mat_cte.id: x
+             |       |   [Types]: mat_cte.name: text not null, mat_cte.id: integer not null
+             |       |   [Execution Metrics]: output cardinality = 10000000, thread time = 286ms, cpu time = 286ms
+             |        \_[8] [TableFuncScan] x: $0
+             |          |   $0 = generate_series(c_0, c_1)
+             |          |   [Types]: x: integer not null
+             |          |   [Execution Metrics]: output cardinality = 10000000, thread time = 3ms, cpu time = 3ms
+             |           \_[9] [Projection] c_0: 1, c_1: 10000000
+             |             |   [Types]: c_0: integer not null, c_1: integer not null
+             |             |   [Execution Metrics]: output cardinality = 1, thread time = 0ms, cpu time = 0ms
+             |              \_[10] [SystemOneTable]
+             |                    [Types]: $0: integer not null
+             |                    [Execution Metrics]: output cardinality = 1, thread time = 0ms, cpu time = 0ms
+             \_Recurring Node --> [6]
+```
+</CodeGroup>
+
+The text-based format makes it easy to spot things such as:
+1. Most time is spent in the `INNER JOIN` (776ms thread time). After that, the `concat` projection is the second most expensive operation (286ms thread time). 
+2. The `MATERIALIZED` CTE led to the planner adding the `Loopback` shuffle. 
+This way, the result of Node `[6]` can be consumed multiple times. 
+The `Recurring Node` at the bottom of the plan shows the second time `mat_cte` gets consumed.
+3. The probe side of the join terminates early due to the `LIMIT` on top. 
+Only around 590k rows make it out of the projection in Node `[5]`.
+
+If you want to programmatically access and work with Firebolt telemetry, you can retrieve it as a JSON document.
+
+<CodeGroup>
+```sql SQL query
+EXPLAIN (ANALYZE, FORMAT JSON)
+WITH mat_cte(name, id) AS MATERIALIZED (
+  SELECT concat('Hello, World', x) , x FROM generate_series(1, 10000000) r(x)
+)
+SELECT m1.name, m2.name 
+FROM mat_cte m1 INNER JOIN mat_cte m2 ON (m1.id + 1 = m2.id) 
+LIMIT 10;
+```
+
+```json EXPLAIN (FORMAT JSON)
+{
+    "version": 1,
+    "root_description": "",
+    "explain_type": "analyze",
+    "query_id": "99a919c6-bc2f-4efd-9eb9-4b106d43313f",
+    "operators": [
+        {
+            "operator_id": 0,
+            "operator_type": "Projection",
+            "annotations": {
+                "label": "mat_cte.name, mat_cte.name",
+                "execution_metrics": {
+                    "cpu_time_ms": 0,
+                    "max_single_work_call_thread_time_us": 0,
+                    "thread_time_ms": 0,
+                    "output_cardinality": 10,
+                    "optimized_out": true
+                }
+            },
+            "input_ids": [
+                1
+            ]
+        },
+        {
+            "operator_id": 1,
+            "operator_type": "MaybeCache",
+            "annotations": {
+                "label": "",
+                "execution_metrics": {
+                    "cpu_time_ms": 0,
+                    "max_single_work_call_thread_time_us": 2,
+                    "thread_time_ms": 0,
+                    "output_cardinality": 10
+                }
+            },
+            "input_ids": [
+                2
+            ]
+        },
+        {
+            "operator_id": 2,
+            "operator_type": "Limit",
+            "annotations": {
+                "label": "Limit: [10]",
+                "execution_metrics": {
+                    "cpu_time_ms": 0,
+                    "max_single_work_call_thread_time_us": 0,
+                    "thread_time_ms": 0,
+                    "output_cardinality": 10
+                }
+            },
+            "input_ids": [
+                3
+            ]
+        },
+        {
+            "operator_id": 3,
+            "operator_type": "Projection",
+            "annotations": {
+                "label": "mat_cte.name, mat_cte.name",
+                "execution_metrics": {
+                    "cpu_time_ms": 0,
+                    "max_single_work_call_thread_time_us": 0,
+                    "thread_time_ms": 0,
+                    "output_cardinality": 65505,
+                    "optimized_out": true
+                }
+            },
+            "input_ids": [
+                4
+            ]
+        },
+        {
+            "operator_id": 4,
+            "operator_type": "Join",
+            "annotations": {
+                "label": "Mode: Inner [(mat_cte.id = add_checked_0)]",
+                "execution_metrics": {
+                    "join_processor_metrics.probe_side.input_cardinality": 589545,
+                    "join_processor_metrics.is_hash_join": 0,
+                    "join_processor_metrics.is_fire_hash_join": 1,
+                    "join_processor_metrics.is_nested_loop_join": 0,
+                    "join_processor_metrics.build_side.input_cardinality": 10000000,
+                    "cpu_time_ms": 821,
+                    "max_single_work_call_thread_time_us": 96244,
+                    "thread_time_ms": 833,
+                    "output_cardinality": 65505
+                }
+            },
+            "input_ids": [
+                5,
+                6
+            ]
+        },
+        {
+            "operator_id": 5,
+            "operator_type": "Projection",
+            "annotations": {
+                "label": "mat_cte.name, add_checked_0: (mat_cte.id + 1)",
+                "variables": [
+                    "add_checked_0"
+                ],
+                "variable_types": [
+                    "integer not null"
+                ],
+                "execution_metrics": {
+                    "cpu_time_ms": 1,
+                    "max_single_work_call_thread_time_us": 116,
+                    "thread_time_ms": 1,
+                    "output_cardinality": 589545
+                }
+            },
+            "input_ids": [
+                6
+            ]
+        },
+        {
+            "operator_id": 6,
+            "operator_type": "Shuffle",
+            "annotations": {
+                "label": "Loopback",
+                "affinity": {
+                    "": "single node"
+                },
+                "execution_metrics": {
+                    "cpu_time_ms": 1,
+                    "max_single_work_call_thread_time_us": 16,
+                    "thread_time_ms": 2,
+                    "output_cardinality": 10589545
+                }
+            },
+            "input_ids": [
+                7
+            ]
+        },
+        {
+            "operator_id": 7,
+            "operator_type": "Projection",
+            "annotations": {
+                "label": "mat_cte.name: concat('Hello, World', cast(x as text)), mat_cte.id: x",
+                "variables": [
+                    "mat_cte.name",
+                    "mat_cte.id"
+                ],
+                "variable_types": [
+                    "text not null",
+                    "integer not null"
+                ],
+                "execution_metrics": {
+                    "cpu_time_ms": 281,
+                    "max_single_work_call_thread_time_us": 2101,
+                    "thread_time_ms": 282,
+                    "output_cardinality": 10000000
+                }
+            },
+            "input_ids": [
+                8
+            ]
+        },
+        {
+            "operator_id": 8,
+            "operator_type": "TableFuncScan",
+            "annotations": {
+                "label": "x: $0\n$0 = generate_series(c_0, c_1)",
+                "variables": [
+                    "x"
+                ],
+                "variable_types": [
+                    "integer not null"
+                ],
+                "execution_metrics": {
+                    "cpu_time_ms": 3,
+                    "max_single_work_call_thread_time_us": 165,
+                    "thread_time_ms": 3,
+                    "output_cardinality": 10000000
+                }
+            },
+            "input_ids": [
+                9
+            ]
+        },
+        {
+            "operator_id": 9,
+            "operator_type": "Projection",
+            "annotations": {
+                "label": "c_0: 1, c_1: 10000000",
+                "variables": [
+                    "c_0",
+                    "c_1"
+                ],
+                "variable_types": [
+                    "integer not null",
+                    "integer not null"
+                ],
+                "execution_metrics": {
+                    "cpu_time_ms": 0,
+                    "max_single_work_call_thread_time_us": 10,
+                    "thread_time_ms": 0,
+                    "output_cardinality": 1
+                }
+            },
+            "input_ids": [
+                10
+            ]
+        },
+        {
+            "operator_id": 10,
+            "operator_type": "SystemOneTable",
+            "annotations": {
+                "label": "",
+                "variables": [
+                    "$0"
+                ],
+                "variable_types": [
+                    "integer not null"
+                ],
+                "execution_metrics": {
+                    "cpu_time_ms": 0,
+                    "max_single_work_call_thread_time_us": 4,
+                    "thread_time_ms": 0,
+                    "output_cardinality": 1
+                }
+            },
+            "input_ids": []
+        }
+    ],
+    "root_operator_id": 0
+}
+```
+</CodeGroup>
+
+Building programs that work with `JSON` telemetry is easy:
+- The `JSON` format contains telemetry for all operators under the `operators` array.
+- Every operator has a unique `operator_id`.
+- Navigating the operator DAG can be done through the `input_ids` attached to each node. 
+The DAG's root operator id is stored in the top-level `root_operator_id`.
+- Every operator can have `annotations`. When `ANALYZE` is selected as an option, these contain `execution_metrics`.

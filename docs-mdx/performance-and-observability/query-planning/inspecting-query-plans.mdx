@@ -5,11 +5,17 @@ title: Inspecting query plans
 ---
 
 In order to tune your query, you will often have to get the execution plan for that query, and interpret plan differences as you make modifications.
-[The `EXLAIN` command](/reference-sql/commands/queries/explain) allows you to inspect the query plan at various stages in the query lifecycle.
+[The `EXPLAIN` command](/reference-sql/commands/queries/explain) allows you to inspect the query plan at various stages in the query lifecycle.
 
 1. The `EXPLAIN` output after the logical optimization phase: `EXPLAIN (logical) <query>`.
-1. The `EXPLAIN` output after the physical optimization phase: `EXPLAIN (physical) <query>`.
-1. The `EXPLAIN` output annotated with execution statistics: `EXPLAIN (analyze) <query>`.
+2. The `EXPLAIN` output after the physical optimization phase: `EXPLAIN (physical) <query>`.
+3. The `EXPLAIN` output annotated with execution statistics: `EXPLAIN (analyze) <query>`.
+
+<Tip>
+You can retrieve the query plans as a JSON document. 
+This makes it easy to work with plans programmatically.
+Just run `EXPLAIN (<options>, FORMAT JSON) <query>`.
+</Tip>
 
 The following code snippet illustrates the different plans on a simple query.
 
