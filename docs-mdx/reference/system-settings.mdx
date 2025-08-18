@@ -50,6 +50,7 @@ The following settings can be configured using the `WITH` clause and the `SET` c
 - [cross_region_request_mode](#access-cross-region-data)
 - [optimizer_mode](#changing-the-optimizer-mode)
 - [enable_storage_statistics](#using-storage-manager-statistics-in-the-optimizer)
+- [max_threads](#limiting-max-threads)
 - [max_insert_threads](#limiting-max-insert-threads)
 
 The following settings can be configured only using the `SET` command:
@@ -553,6 +554,35 @@ WHERE
              [Logical Profile]: [est. #rows=100000, source: hardcoded]
 ```
 </CodeGroup>
+
+## Limiting max threads
+
+Controls the maximum number of threads per query, limiting the degree of parallelism for query processing.
+This setting can affect query performance and memory usage and applies per stage, meaning distributed queries may use more threads.
+
+By default, `max_threads` equals the number of physical CPU cores on each node.
+The default number of threads will also be used if `max_threads=0`.
+
+
+### Syntax
+
+```sql
+SET max_threads = <number_of_threads_per_node>;
+```
+
+```sql
+SELECT ... WITH (max_threads = <number_of_threads_per_node>);
+```
+
+### Example
+
+Limit per-node parallelism to eight threads per stage for a single query:
+
+```sql
+SELECT *
+FROM READ_PARQUET(URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/*.parquet')
+WITH (max_threads = 8);
+```
 
 ## Limiting max insert threads
 
