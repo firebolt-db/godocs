@@ -29,6 +29,7 @@ jobs:
       - name: Check navigation sanity
         id: check-nav
         run: |
+          set -euo pipefail
           scripts/run-check-gha.sh \
             "Navigation Consistency Checks" required \
             make check-navigation | tee -a $GITHUB_OUTPUT | tail -n +2 | head -n -1 >> "$GITHUB_STEP_SUMMARY" 
@@ -51,6 +52,7 @@ jobs:
       - name: Check there are no 404 links
         id: check-links-mint
         run: |
+          set -euo pipefail
           scripts/run-check-gha.sh \
             "Link Check (internal)" "" \
             make check-internal-links | tee -a $GITHUB_OUTPUT | tail -n +2 | head -n -1 >> "$GITHUB_STEP_SUMMARY" 
@@ -73,9 +75,10 @@ jobs:
       - name: Check there are no 404 links
         id: check-links-crawler
         run: |
-          scripts/run-check-gha.sh \
+          set -euo pipefail
+          (scripts/run-check-gha.sh \
             "Link Check (crawler)" informational \
-            make check-links-using-crawler | tee -a $GITHUB_OUTPUT | tail -n +2 | head -n -1 >> "$GITHUB_STEP_SUMMARY"
+            make check-links-using-crawler || true) | tee -a $GITHUB_OUTPUT | tail -n +2 | head -n -1 >> "$GITHUB_STEP_SUMMARY"
 
   check-sql-examples:
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
@@ -95,9 +98,10 @@ jobs:
       - name: Check SQL examples
         id: check-sql
         run: |
-          scripts/run-check-gha.sh \
+          set -euo pipefail
+          (scripts/run-check-gha.sh \
             "SQL Example Check" informational \
-            make check-sql | tee -a $GITHUB_OUTPUT | tail -n +2 | head -n -1 >> "$GITHUB_STEP_SUMMARY" 
+            make check-sql || true) | tee -a $GITHUB_OUTPUT | tail -n +2 | head -n -1 >> "$GITHUB_STEP_SUMMARY" 
 
   summarize_results:
     needs:
