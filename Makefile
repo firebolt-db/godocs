@@ -70,13 +70,14 @@ check-links-using-crawler:
 		sleep 1
 	done
 	echo "Service ready on localhost:3000" 1>&2
-	docker run --network host raviqqe/muffet \
+	docker run --network host raviqqe/muffet:2.11.0 \
 		"--exclude=https://twitter.com/.*|https://mintlify.mintlify.app/.*|https://regex101.com|https://signin.aws.amazon.com/.*" \
 		--color=auto \
 		--buffer-size=100000 \
 		--max-connections=5 \
 		--ignore-fragments \
 		--timeout=30 \
+		--max-retries=3 \
 		--max-response-body-size=100000000 \
 		--accepted-status-codes=200..300,401,402,403,429,500..600 \
 		http://localhost:3000

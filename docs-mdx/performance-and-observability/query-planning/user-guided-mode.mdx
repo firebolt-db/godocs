@@ -1,0 +1,79 @@
+---
+description: Learn how to take full control over the query planning process.
+sidebarTitle: User-guided mode
+title: User-guided mode
+---
+
+Sometimes you need full control over the planning process for a specific query.
+You can achieve that by setting the `optimizer_mode` session parameter to `user_guided`.
+In this mode, the optimizer will exclude all cost-based optimization rules.
+This ensures that the relative order of joins and aggregations in the resulting execution plan will follow the sytnatic order defined in the `SELECT` blocks of your SQL query.
+
+Consider the following example which executes a three-way join between a fact table (`store_sales`) and two dimension tables (`item` and `date_dim`).
+Both dimension tables have local predicates (`item.i_manufact_id = 128` and `date_dim.d_year`).
+
+When the `optimizer_mode` is `automatic`, the join order depends on the estimated number of rows in the two dimension tables:
+since the `Filter` on top `item` produces a smaller intermediate result, the optimzier decides to join it with `store_sales` first,
+and then join this intermediate result is then joined with `date_dim`.
+
+However, if you believe that the better join order is to first join with `date_dim` and then with `item`, you can:
+(1) set `optimizer_mode = user_guided`, and
+(2) ensure that the `join date_dim on (...)` happens without `join item on (...)`.
+
+<CodeGroup>
+```sql SQL source
+explain(logical)
+select
+  date_dim.d_year,
+  item.i_brand_id brand_id,
+  item.i_brand brand,
+  sum(ss_ext_sales_price) sum_agg
+from
+  store_sales
+  join date_dim on (store_sales.ss_sold_date_sk = date_dim.d_date_sk)
+  join item on (store_sales.ss_item_sk = item.i_item_sk)
+where
+  item.i_manufact_id = 128 and
+  date_dim.d_year = 2000
+group by
+  date_dim.d_year, item.i_brand, item.i_brand_id
+order by
+  date_dim.d_year, sum_agg desc, brand_id
+limit
+  10
+```
+
+```text optimizer_mode = automatic  {5,7}
+[0] [Projection] c_0: 2000, brand_id: item.i_brand_id, brand: item.i_brand, sum_agg: sum2_0
+ \_[1] [Sort] OrderBy: [sum2_0 Descending First, item.i_brand_id Ascending Last] Limit: [10]
+    \_[2] [Aggregate] GroupBy: [item.i_brand_id, item.i_brand] Aggregates: [sum2_0: sum2(store_sales.ss_ext_sales_price)]
+       \_[3] [Projection] store_sales.ss_ext_sales_price, item.i_brand_id, item.i_brand
+          \_[4] [Join] Mode: Inner [(store_sales.ss_sold_date_sk = date_dim.d_date_sk)]
+             \_[5] [Projection] store_sales.ss_sold_date_sk, store_sales.ss_ext_sales_price, item.i_brand_id, item.i_brand
+             |  \_[6] [Join] Mode: Inner [(store_sales.ss_item_sk = item.i_item_sk)]
+             |     \_[7] [StoredTable] Name: "store_sales"
+             |     \_[8] [Projection] item.i_item_sk, item.i_brand_id, item.i_brand
+             |        \_[9] [Filter] (item.i_manufact_id = 128)
+             |           \_[10] [StoredTable] Name: "item"
+             \_[11] [Projection] date_dim.d_date_sk
+                \_[12] [Filter] (date_dim.d_year = 2000)
+                   \_[13] [StoredTable] Name: "date_dim"
+```
+
+```text optimizer_mode = user_guided {5,7}
+[0] [Projection] c_0: 2000, brand_id: item.i_brand_id, brand: item.i_brand, sum_agg: sum2_0
+ \_[1] [Sort] OrderBy: [sum2_0 Descending First, item.i_brand_id Ascending Last] Limit: [10]
+    \_[2] [Aggregate] GroupBy: [item.i_brand_id, item.i_brand] Aggregates: [sum2_0: sum2(store_sales.ss_ext_sales_price)]
+       \_[3] [Projection] store_sales.ss_ext_sales_price, item.i_brand_id, item.i_brand
+          \_[4] [Join] Mode: Inner [(store_sales.ss_item_sk = item.i_item_sk)]
+             \_[5] [Projection] store_sales.ss_item_sk, store_sales.ss_ext_sales_price
+             |  \_[6] [Join] Mode: Inner [(store_sales.ss_sold_date_sk = date_dim.d_date_sk)]
+             |     \_[7] [StoredTable] Name: "store_sales"
+             |     \_[8] [Projection] date_dim.d_date_sk
+             |        \_[9] [Filter] (date_dim.d_year = 2000)
+             |           \_[10] [StoredTable] Name: "date_dim"
+             \_[11] [Projection] item.i_item_sk, item.i_brand_id, item.i_brand
+                \_[12] [Filter] (item.i_manufact_id = 128)
+                   \_[13] [StoredTable] Name: "item"
+```
+</CodeGroup>

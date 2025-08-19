@@ -99,6 +99,22 @@
             ]
           },
           {
+            "group": "Performance and Observability",
+            "pages": [
+              "performance-and-observability",
+              {
+                "group": "Query Planning",
+                "pages": [
+                  "performance-and-observability/query-planning",
+                  "performance-and-observability/query-planning/inspecting-query-plans",
+                  "performance-and-observability/query-planning/cardinality-estimation",
+                  "performance-and-observability/query-planning/unique-constraint",
+                  "performance-and-observability/query-planning/user-guided-mode"
+                ]
+              }
+            ]
+          },
+          {
             "group": "Guides",
             "pages": [
               {
@@ -740,7 +756,8 @@
               {
                 "group": "Integrate",
                 "pages": [
-                  "firebolt-core/firebolt-core-integrate/firebolt-core-connect-with-dbt"
+                  "firebolt-core/firebolt-core-integrate/firebolt-core-connect-with-dbt",
+                  "firebolt-core/firebolt-core-integrate/firebolt-core-connect-apache-superset"
                 ]
               },
               "firebolt-core/firebolt-core-data-processing",
@@ -4980,6 +4997,11 @@
       "permanent": false
     },
     {
+      "source": "/Guides/operate-engines/warming-up-engines.html",
+      "destination": "/guides/operate-engines/warming-up-engines",
+      "permanent": false
+    },
+    {
       "source": "/Guides/managing-your-organization/billing",
       "destination": "/guides/managing-your-organization/billing",
       "permanent": false
@@ -5365,6 +5387,11 @@
       "permanent": false
     },
     {
+      "source": "/Guides/operate-engines/warming-up-engines",
+      "destination": "/guides/operate-engines/warming-up-engines",
+      "permanent": false
+    },
+    {
       "source": "/Guides/loading-data/loading-data-sql",
       "destination": "/guides/loading-data/loading-data-sql",
       "permanent": false
@@ -5436,7 +5463,7 @@
     },
     {
       "source": "/Reference/interval-arithmetic.html",
-      "destination": "/reference/interval-arithmetic",
+      "destination": "/reference-sql/operators#arithmetic-with-datetime-and-intervals",
       "permanent": false
     },
     {
@@ -5781,7 +5808,7 @@
     },
     {
       "source": "/Reference/interval-arithmetic",
-      "destination": "/reference/interval-arithmetic",
+      "destination": "/reference-sql/operators#arithmetic-with-datetime-and-intervals",
       "permanent": false
     },
     {
@@ -6277,6 +6304,11 @@
     {
       "source": "/Guides",
       "destination": "/guides",
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "destination": "/intro",
       "permanent": false
     }
   ]

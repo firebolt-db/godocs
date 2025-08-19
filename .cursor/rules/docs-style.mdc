@@ -1,0 +1,61 @@
+---
+description: Firebolt Documentation Writing Style
+globs: *.mdx
+---
+# Adopt Google Style Guide
+
+- Follow the Google style guide when writing documentation
+- Follow the Mintlify style guide when writing documentation
+
+# Google Style Guide
+
+## Tone and content
+
+- Be conversational and friendly without being frivolous.
+- Don't pre-announce anything in documentation.
+- Use descriptive link text.
+- Write accessibly.
+- Write for a global audience.
+
+## Language and grammar
+
+- Use second person: "you" rather than "we."
+- Use active voice: make clear who's performing the action.
+- Use standard American spelling and punctuation.
+- Put conditions before instructions, not after.
+- For usage and spelling of specific words, see the word list.
+
+## Formatting, punctuation, and organization
+
+- Use sentence case for document titles and section headings.
+- Use numbered lists for sequences.
+- Use bulleted lists for most other lists.
+- Use description lists for pairs of related pieces of data.
+- Use serial commas.
+- Put code-related text in code font.
+- Put UI elements in bold.
+- Use unambiguous date formatting.
+
+## Images
+
+- Provide alt text.
+- Provide high-resolution or vector images when practical.
+
+# Mintlify Style Guide
+
+## Writing principles
+
+- Be concise. People aren’t reading docs for fun; they want to achieve a goal. Cut all unnecessary words.
+- Clarity over cleverness. Be simple, direct, and avoid jargon or complex sentence structure.
+- Use active voice. Instead of saying “A configuration file should be created,” use “Create a configuration file.”
+- Be skimmable. Use headlines to orient structure. Break up text-heavy paragraphs.
+- Write in second person. Referring to your reader makes it feel like the documentation is written for them.
+
+## Common writing mistakes
+- Don’t have spelling & grammar mistakes. “Grammatical errors may seem small, but they’re a key indicator of quality. They can degrade trust in your product as well.” —Brody Klapko, Technical Writer at Stash
+- Avoid inconsistency in terminology. Calling something an “API key” in one paragraph then “API token” in the next makes it much more difficult for users.
+- Consistency is key! You may not be complimented on your consistency, but people will absolutely notice and be frustrated by a lack thereof.
+- Don’t use product-centric terminology. Your users don’t have the full context of your product (see “Know Your Audience”). Always orient language around the user’s familiarity with your product and what they’re trying to achieve.
+- Avoid “Duh” documentation. Don’t tell users “Click Save to save.” Documentation should add value, not outline obvious steps.
+- No colloquialisms. Especially for localization, colloquialisms hurt clarity.
+
