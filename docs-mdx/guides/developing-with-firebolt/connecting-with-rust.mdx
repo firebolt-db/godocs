@@ -24,7 +24,7 @@ Add the Firebolt SDK to your `Cargo.toml` dependencies:
 
 ```toml
 [dependencies]
-firebolt = ">=0.1.0"
+firebolt-sdk = ">=0.1.0"
 tokio = { version = "1.0", features = ["full"] }
 ```
 
@@ -43,7 +43,7 @@ The Rust SDK uses a builder pattern to configure connections to Firebolt. The SD
 To establish a connection to a Firebolt database, use the builder pattern with your credentials and database details. The following example shows how to connect to Firebolt:
 
 ```rust
-use firebolt::FireboltClient;
+use firebolt_sdk::FireboltClient;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -72,7 +72,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 Once connected, you can execute SQL queries using the `query` method. The SDK returns results with type-safe parsing for all Firebolt data types. The following examples show you how to create a table, insert data, and retrieve data:
 
 ```rust
-use firebolt::FireboltClient;
+use firebolt_sdk::FireboltClient;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -112,7 +112,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 The SDK provides comprehensive type conversion for all Firebolt data types. You can access column values by name or index with automatic type conversion:
 
 ```rust
-use firebolt::FireboltClient;
+use firebolt_sdk::FireboltClient;
 use num_bigint::BigInt;
 use rust_decimal::Decimal;
 
@@ -188,7 +188,7 @@ The Rust SDK does not currently support streaming queries for processing large r
 The SDK provides comprehensive error handling through the `FireboltError` enum:
 
 ```rust
-use firebolt::{FireboltClient, FireboltError};
+use firebolt_sdk::{FireboltClient, FireboltError};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
