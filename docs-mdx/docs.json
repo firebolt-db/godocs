@@ -109,6 +109,13 @@
                   "performance-and-observability/query-planning/inspecting-query-plans",
                   "performance-and-observability/query-planning/cardinality-estimation",
                   "performance-and-observability/query-planning/unique-constraint",
+                  {
+                    "group": "Query Hints",
+                    "pages": [
+                      "performance-and-observability/query-planning/query-hints",
+                      "performance-and-observability/query-planning/query-hints/no-partial-aggregation"
+                    ]
+                  },
                   "performance-and-observability/query-planning/user-guided-mode"
                 ]
               }
