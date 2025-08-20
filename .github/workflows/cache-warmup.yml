@@ -1,0 +1,28 @@
+# An attempt to mitigate long page loads by forcefully warming up all pages in CDN cache.
+# IDK if it would actually help a lot (depends on how the caches are organized on mintlify side).
+name: CDN-cache-warmup
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/3 * * * *"   # every 3 minutes (UTC)
+concurrency:
+  group: cache-warmer
+  cancel-in-progress: false  # queue one; do not overlap or cancel
+jobs:
+  cache-warmer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Warm up CDN cache
+        uses: ruzickap/action-my-broken-link-checker@f5a3296e86117675ab07b9fbf1a92027e5c340ef # v2.8.1
+        with:
+          url: "https://docs.firebolt.io/"
+          cmd_params: >-
+            --buffer-size=8192
+            --max-connections-per-host=2
+            --header="accept-encoding: gzip, deflate, br, zstd"
+            --include="https://docs.firebolt.io/.*"
+            --max-retries=3
+            --color=never
+            --ignore-fragments
+            --timeout=10
+            --follow-robots-txt
