@@ -6311,11 +6311,6 @@
       "source": "/",
       "destination": "/intro",
       "permanent": false
-    },
-    {
-      "source": "/dummy-timeout-repro",
-      "destination": "/",
-      "permanent": false
     }
   ]
 }
