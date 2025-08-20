@@ -1,0 +1,99 @@
+---
+description: Reference and syntax for creating Amazon Bedrock locations.
+sidebarTitle: CREATE LOCATION (Amazon Bedrock)
+title: CREATE LOCATION (Amazon Bedrock)
+---
+
+
+
+Creates a new location object in your Firebolt account for Amazon Bedrock. A Bedrock `LOCATION` securely stores AWS credentials that you can reuse when invoking Bedrock models with [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai/aws-bedrock-ai-query).
+
+ **Topics:**
+ * [Syntax](#syntax)
+ * [Parameters](#parameters)
+ * [Examples](#examples)
+
+## Syntax
+
+```sql
+CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
+  SOURCE = AMAZON_BEDROCK
+  CREDENTIALS = {
+    ( AWS_ACCESS_KEY_ID = '<aws_access_key_id>'
+      AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>'
+      [ AWS_SESSION_TOKEN = '<aws_session_token>' ] )
+    |
+    ( AWS_ROLE_ARN = '<aws_role_arn>'
+      [ AWS_ROLE_EXTERNAL_ID = '<aws_role_external_id>' ] )
+  }
+  [ DESCRIPTION = '<description>' ]
+```
+
+## Parameters
+
+### Common parameters
+
+| Parameter | Description |
+| :-------- | :---------- |
+| `<location_name>` | A unique identifier for the location within your account. |
+| `SOURCE` | The external source type. For Bedrock, set to `AMAZON_BEDROCK`. |
+| `DESCRIPTION` | Optional metadata describing the location's purpose. |
+
+### Amazon Bedrock parameters
+
+| Parameter | Description |
+| :-------- | :---------- |
+| `CREDENTIALS` | AWS authentication credentials used when invoking Bedrock models. |
+
+#### AWS authentication parameters
+
+| Parameter | Description |
+| :-------- | :---------- |
+| `AWS_ACCESS_KEY_ID` | Your AWS access key ID for key-based authentication. |
+| `AWS_SECRET_ACCESS_KEY` | Your AWS secret access key for key-based authentication. |
+| `AWS_SESSION_TOKEN` | Optional temporary session token for temporary credentials. |
+| `AWS_ROLE_ARN` | The ARN of the IAM role to assume for role-based authentication. |
+| `AWS_ROLE_EXTERNAL_ID` | Optional external ID for role assumption. |
+
+## Examples
+
+### Authenticate using an access key
+
+```sql
+CREATE LOCATION my_bedrock_location WITH
+  SOURCE = AMAZON_BEDROCK
+  CREDENTIALS = (
+    AWS_ACCESS_KEY_ID = '<aws_access_key_id>'
+    AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>'
+  );
+```
+
+### Authenticate using a role
+
+```sql
+CREATE LOCATION my_bedrock_location WITH
+  SOURCE = AMAZON_BEDROCK
+  CREDENTIALS = (
+    AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/BedrockAccess'
+    -- Optional: AWS_ROLE_EXTERNAL_ID = '<external_id>'
+  );
+```
+
+### Create a Bedrock location with a description
+
+```sql
+CREATE LOCATION my_bedrock_location WITH
+  SOURCE = AMAZON_BEDROCK
+  CREDENTIALS = (
+    AWS_ACCESS_KEY_ID = '<aws_access_key_id>'
+    AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>'
+  )
+  DESCRIPTION = 'Credentials for invoking Bedrock models';
+```
+
+<Note>
+To use this location, pass its name as the `<location>` argument to [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai/aws-bedrock-ai-query).
+</Note>
+
+
+

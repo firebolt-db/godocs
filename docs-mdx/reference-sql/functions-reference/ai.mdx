@@ -1,0 +1,23 @@
+---
+description: Reference for AI functions
+sidebarTitle: Overview
+title: AI functions
+---
+
+## AI functions
+
+AI functions invoke large language models (LLMs) and return their responses. Use a `LOCATION` to supply provider credentials and pass model-specific request payloads as JSON.
+
+```sql
+SELECT AWS_BEDROCK_AI_QUERY(
+  'amazon.nova-micro-v1:0',
+  '{"schemaVersion":"messages-v1","messages":[{"role":"user","content":[{"text":"Hello"}]}]}',
+  'my_bedrock_location'
+) AS result;
+```
+
+### Available functions
+
+- [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai/aws-bedrock-ai-query)
+
+

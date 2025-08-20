@@ -298,6 +298,7 @@
                   "reference-sql/information-schema/network_policies",
                   "reference-sql/information-schema/object-privileges",
                   "reference-sql/information-schema/organization",
+                  "reference-sql/information-schema/quotas",
                   "reference-sql/information-schema/routines",
                   "reference-sql/information-schema/schemata",
                   "reference-sql/information-schema/service-accounts",
@@ -359,6 +360,7 @@
                       "reference-sql/commands/data-definition/create-external-table",
                       "reference-sql/commands/data-definition/create-fact-dimension-table-as-select",
                       "reference-sql/commands/data-definition/create-fact-dimension-table",
+                      "reference-sql/commands/data-definition/create-location-bedrock",
                       "reference-sql/commands/data-definition/create-location-iceberg",
                       "reference-sql/commands/data-definition/create-location-s3",
                       "reference-sql/commands/data-definition/create-location",
@@ -459,6 +461,13 @@
                       "reference-sql/functions-reference/aggregation/sum",
                       "reference-sql/functions-reference/aggregation/variance-pop",
                       "reference-sql/functions-reference/aggregation/variance-samp"
+                    ]
+                  },
+                  {
+                    "group": "AI functions",
+                    "pages": [
+                      "reference-sql/functions-reference/ai",
+                      "reference-sql/functions-reference/ai/aws-bedrock-ai-query"
                     ]
                   },
                   {
@@ -1749,6 +1758,11 @@
       "permanent": false
     },
     {
+      "source": "/sql_reference/commands/data-definition/create-location-bedrock.html",
+      "destination": "/reference-sql/commands/data-definition/create-location-bedrock",
+      "permanent": false
+    },
+    {
       "source": "/sql_reference/commands/data-definition/alter-organization.html",
       "destination": "/reference-sql/commands/data-definition/alter-organization",
       "permanent": false
@@ -2441,6 +2455,11 @@
     {
       "source": "/sql_reference/commands/data-definition/create-location-s3",
       "destination": "/reference-sql/commands/data-definition/create-location-s3",
+      "permanent": false
+    },
+    {
+      "source": "/sql_reference/commands/data-definition/create-location-bedrock",
+      "destination": "/reference-sql/commands/data-definition/create-location-bedrock",
       "permanent": false
     },
     {

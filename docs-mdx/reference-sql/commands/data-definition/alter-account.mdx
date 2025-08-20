@@ -16,7 +16,7 @@ Renames an account.
 ### Syntax
 
 ```sql
-ALTER ACCOUNT <account_name> RENAME TO <new_account_name>;
+ALTER ACCOUNT [IF EXISTS] <account_name> RENAME TO <new_account_name>;
 ```
 
 ### Parameters 
@@ -25,8 +25,11 @@ ALTER ACCOUNT <account_name> RENAME TO <new_account_name>;
 | :--- |:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `<account_name>` | The name of the account to be altered.                                                                                                                                 |
 | `<new_account_name>` | The new name for the account. The account name must start and end with an alphabetic character and cannot contain spaces or special characters except for hyphens (-). |
+| `<new_budget>` | The new token budget for the account. |
 
-## Example
+## Examples
+
+### Rename an account
 
 The following command will rename the "dev" account to "staging".
 
@@ -45,7 +48,7 @@ For more information, see [ownership](/guides/security/ownership).
 ### Syntax
 
 ```sql
-ALTER ACCOUNT <account_name> OWNER TO <identity>
+ALTER ACCOUNT [IF EXISTS] <account_name> OWNER TO <identity>
 ```
 
 ### Parameters
@@ -63,3 +66,29 @@ The following command will set account "dev" owner to "alice@acme.com".
 ALTER ACCOUNT "dev" OWNER TO "alice@acme.com";
 ```
 
+## ALTER ACCOUNT SET LLM_TOKEN_BUDGET
+
+Sets the LLM token budget for the account. By default, accounts are created with a zero token budget.
+
+You can view the current budget and usage in the `information_schema.quotas` view.
+
+### Syntax
+
+```sql
+ALTER ACCOUNT [IF EXISTS] <account_name> SET LLM_TOKEN_BUDGET { = | TO } <new_budget>
+```
+
+### Parameters 
+
+| Parameter | Description                                                                                                                                                            |
+| :--- |:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<account_name>` | The name of the account to be altered.                                                                                                                                 |
+| `<new_budget>` | The new token budget for the account. |
+
+### Example
+
+The following command will set the token budget for account "dev" to 10000 tokens.
+
+```sql
+ALTER ACCOUNT "dev" SET LLM_TOKEN_BUDGET = 10000;
+```
