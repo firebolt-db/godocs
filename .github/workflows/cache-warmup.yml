@@ -1,28 +1,33 @@
-# An attempt to mitigate long page loads by forcefully warming up all pages in CDN cache.
-# IDK if it would actually help a lot (depends on how the caches are organized on mintlify side).
-name: CDN-cache-warmup
+# An attempt to mitigate long page loads by forcefully keeping all pages warm in Mintlify caches.
+# IDK if it would actually help a lot (depends on how the caches are organized, e.g.
+# whether executing this network route would help other routes in US / EMEA).
+name: "[CRON] Mintlify-cache-warmup"
 on:
-  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/cache-warmup.yml'
   schedule:
-    - cron: "*/3 * * * *"   # every 3 minutes (UTC)
+    - cron: "*/5 * * * *"   # every 5 minutes (UTC)
 concurrency:
   group: cache-warmer
   cancel-in-progress: false  # queue one; do not overlap or cancel
 jobs:
   cache-warmer:
-    runs-on: ubuntu-latest
+    # IMPORTANT: every job run downloads about 1Gb of data.
+    # NEVER RUN IT ON OUR SELF-HOSTED RUNNERS, only on github-hosted ones!
+    runs-on: ubuntu-latest  # ubuntu-latest is a github-hosted runner
     steps:
       - name: Warm up CDN cache
-        uses: ruzickap/action-my-broken-link-checker@f5a3296e86117675ab07b9fbf1a92027e5c340ef # v2.8.1
-        with:
-          url: "https://docs.firebolt.io/"
-          cmd_params: >-
-            --buffer-size=8192
-            --max-connections-per-host=2
-            --header="accept-encoding: gzip, deflate, br, zstd"
-            --include="https://docs.firebolt.io/.*"
-            --max-retries=3
-            --color=never
-            --ignore-fragments
-            --timeout=10
-            --follow-robots-txt
+        run: |
+          host -t A docs.firebolt.io
+          docker run --network host raviqqe/muffet \
+            --verbose \
+            --buffer-size=8192 \
+            --max-connections-per-host=2 \
+            --ignore-fragments \
+            --follow-robots-txt \
+            --timeout=1 \
+            --max-retries=5 \
+            --header 'accept-encoding: gzip, deflate, br, zstd' \
+            --include "https://docs.firebolt.io/.*" \
+            https://docs.firebolt.io/ | egrep -v '[[:space:]]200[[:space:]]'
