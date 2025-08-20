@@ -105,19 +105,21 @@ SELECT * FROM READ_PARQUET(URL => 's3://firebolt-publishing-public/help_center_a
 * The `url` can represent a single file or a [glob](https://en.wikipedia.org/wiki/Glob_(programming)) pattern. If a glob pattern is used, all files matching the pattern will be read. A special column `$source_file_name` can be used to identify the source file of each row in the result set:
 
 ```sql
-SELECT *, $source_file_name FROM READ_PARQUET('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/*.parquet')
+SELECT *, $source_file_name FROM READ_PARQUET('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/*.parquet') LIMIT 5;
 ```
 
 When using glob patterns, the wildcard (`*`) can only be used at the end of the path. You can use it with any text before or after, such as `*.parquet`, `date=2025*.parquet`, or `data_*.parquet`.
 
 The pattern will recursively match files in all subdirectories. For example:
 ```sql
-SELECT * FROM READ_PARQUET('s3://firebolt-publishing-public/*.parquet')
+SELECT count(*) FROM READ_PARQUET('s3://firebolt-publishing-public/*.parquet');
 ```
-will read all PARQUET files in the bucket, including those in subdirectories like `help_center_assets/firebolt_sample_dataset/playstats/*.parquet`.
+counts rows of all Parquet files in the bucket, including those in subdirectories like `help_center_assets/firebolt_sample_dataset/playstats/*.parquet`.
 
 The column `$source_file_name` can be used in combination with [REGEXP_EXTRACT](https://docs.firebolt.io/reference-sql/functions-reference/string/regexp-extract) to extract data from the source file path. The following code returns the `TournamentID` for each record it reads based on its file path:
 ```sql
-SELECT REGEXP_EXTRACT($source_file_name, 'TournamentID=(\d+)','',1) as TournamentID, * FROM READ_PARQUET(URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/*.parquet');
+SELECT REGEXP_EXTRACT($source_file_name, 'TournamentID=(\d+)','',1) as TournamentID, *
+FROM READ_PARQUET(URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/*.parquet')
+LIMIT 5;
 ```
 For example, it returns `92` for records in file `s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/TournamentID=92/cc2a2a0b4e8b4fb39abf20a956e7cc3e-0.parquet`.
