@@ -44,7 +44,7 @@ ALTER ENGINE <engine_name> SET
 | `TYPE =<type>`                       | Specifies the node type for the engine. You can choose `S`, `M`, `L`, or `XL`. |
 | `FAMILY =<family>`                   | Defines the family of node used in the engine. Options include `STORAGE_OPTIMIZED` (alias `SO`) or `COMPUTE_OPTIMIZED` (alias `CO`). |
 | `AUTO_WARMUP = <true/false>`         | When set to `TRUE`, engine will proactively fetch recently used data at startup, recommended for engines that frequently touch the same subset of data.| 
-| `CHANNEL = <channel>`                | Specifies the release channel to be used. Options are `DEFAULT` to use the default release process or `PREVIEW` to get upgrades earlier. |
+| `RELEASE = (CHANNEL = <channel>)`    | Specifies the release channel to be used. Options are `DEFAULT` to use the default release process or `PREVIEW` to get upgrades earlier. |
 
 **Limitations:**
 * Each engine is limited to a maximum of two clusters.
@@ -105,6 +105,13 @@ The following code example enables auto-warmup. When an engine starts, the most 
 
 ```sql
 ALTER ENGINE my_engine SET AUTO_WARMUP = true;
+```
+
+### Enroll into the preview release channel
+The following code example enrolls an engine into the preview release channel. For more information, see [release settings](/guides/operate-engines/engines-release-settings).
+
+```sql
+ALTER ENGINE myengine SET RELEASE=(CHANNEL=PREVIEW);
 ```
 
 ## ALTER ENGINE RENAME TO 
