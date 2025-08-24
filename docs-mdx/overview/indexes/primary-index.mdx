@@ -14,6 +14,7 @@ Topics:
 * [Example](#example)
 * [Considerations](#considerations)
 * [Advanced option: index granularity](#advanced-option-index-granularity)
+* [Altering primary indexes](#altering-primary-indexes)
 
 ## Key features
 
@@ -132,4 +133,71 @@ Use the default value of `index_granularity`, which should translate to good per
 
 If you want to adjust `index_granularity`, start with the default value, then create duplicate tables with different settings to compare both the query latency and memory usage.
 
+## Altering primary indexes
 
+You can modify or remove the primary index of an existing table using `ALTER TABLE` statements. These operations only change the table metadata definition without modifying existing tablets. New ingested data will use the updated primary index definition, while existing tablets retain their original structure until a `VACUUM` operation is performed.
+
+### Syntax
+
+To change the primary index columns:
+
+```sql
+ALTER TABLE <table_name> SET PRIMARY INDEX ( <column_name1>[, <column_name2>, ...] );
+```
+
+To remove the primary index entirely:
+
+```sql
+ALTER TABLE <table_name> DROP PRIMARY INDEX;
+```
+
+### Parameters
+
+| Parameter           | Description                                                                                              |
+|---------------------|----------------------------------------------------------------------------------------------------------|
+| `table_name`        | The name of the table to modify.                                                                        |
+| `column_name1, ...` | The columns to include in the new primary index. All columns must exist in the table.                  |
+
+### Examples
+
+Change to a single column primary index:
+```sql
+ALTER TABLE sales_data SET PRIMARY INDEX (customer_id);
+```
+
+Change to a multi-column primary index:
+```sql
+ALTER TABLE sales_data SET PRIMARY INDEX (customer_id, order_date);
+```
+
+Remove the primary index:
+```sql
+ALTER TABLE sales_data DROP PRIMARY INDEX;
+```
+
+### Restrictions and considerations
+
+* **Table compatibility**: Only supported on FACT and DIMENSION tables. External tables are not supported.
+
+* **Tablet metadata compatibility**: If your table contains older tablets that don't have the primary index information in their metadata headers, you must run `VACUUM` on the table before altering the primary index.
+
+* **Text Index compatibility**: Tables with Text Indexes cannot have their primary index altered. You must drop all Text Indexes before modifying the primary index.
+
+* **Column validation**: All specified columns must exist in the table. You'll receive an error if any column doesn't exist.
+
+* **Metadata-only operation**: The ALTER TABLE operation only updates the table's metadata definition. Existing data in tablets retains the original primary index structure until `VACUUM` is run.
+
+* **Future data impact**: New data inserted after the ALTER TABLE operation will use the updated primary index definition for optimal query performance.
+
+### Working with existing data
+
+After altering a table's primary index, existing tablets will continue to use their original primary index structure. To ensure all data uses the new primary index definition:
+
+1. Run the ALTER TABLE statement to update the metadata
+2. Execute `VACUUM <table_name>` to reorganize existing tablets with the new primary index structure
+
+The `VACUUM` operation will reorganize and merge tablets to align with the new primary index definition, ensuring optimal query performance across all data.
+
+### Useful Links
+
+For additional information, see [ALTER TABLE SET PRIMARY INDEX](/reference-sql/commands/data-definition/alter-table#alter-table-set-primary-index) reference page.
