@@ -161,7 +161,7 @@ The interactive examples run against a dedicated Firebolt documentation server. 
 1. Open a pull request with the changes:
    * Use `gh-pages` branch if the changes should be published right away.
    * Use `release/packdb-X.YZ` branch (e.g. `release/packdb-4.24`) if the changes should be released with the next PackDB release.
-2. Wait for the CI/CD pipleline to run and the Mintlify [preview deployment](#how-to-preview-remotely-in-mintlify) to complete.
+2. Wait for the CI/CD pipeline to run and the Mintlify [preview deployment](#how-to-preview-remotely-in-mintlify) to complete.
 3. The PR will appear in the [#documentation-prs](https://firebolt-analytics.slack.com/archives/C07H86T5R6U). Ask the owner team to review it.
 4. Merge the PR when it's approved. The changes will be automatically published either to https://docs.firebolt.io (for `gh-pages` branch) or to https://firebolt-release-packdb-X-YZ.mintlify.app (for `release/packdb-X.YZ` branch).
 

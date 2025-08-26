@@ -41,7 +41,7 @@ Reading data will pull it into the tablet cache. This can be used to explicitly 
 
 ### Example: point reads from a large table.
 
-Imagine that you just created a new engine for a production scenario. This scenario will involve many point reads to a table large enough to have many tablets, but small enough to fit on the disk of your engine. If you naively enable the production queries on the engine initial performance might be worse than expected because most reads will result in network calls to cloud storage to fetch at least one tablet. This is true even if the table is perfectly partitioned and indexed. This can be remedied by explictly pulling in your table after starting the engine:
+Imagine that you just created a new engine for a production scenario. This scenario will involve many point reads to a table large enough to have many tablets, but small enough to fit on the disk of your engine. If you naively enable the production queries on the engine initial performance might be worse than expected because most reads will result in network calls to cloud storage to fetch at least one tablet. This is true even if the table is perfectly partitioned and indexed. This can be remedied by explicitly pulling in your table after starting the engine:
 
 ```sql
 SELECT checksum(*) FROM my_table;

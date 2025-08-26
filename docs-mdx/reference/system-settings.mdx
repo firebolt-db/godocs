@@ -347,8 +347,8 @@ Setting `insert_sharding` to `shard_on_read` changes the file distribution strat
 
 During ingestion, Firebolt attempts to create optimally sized tablets to balance ingestion speed and future scan performance. When all ingested data has been read, Firebolt prefers creating relatively small tablets to prioritize data persistence, leaving further optimization to [Auto Vacuum](/reference-sql/commands/data-management/vacuum). However, if this behavior isn't desirable, you can control it using the `tablet_min_size_bytes` and `tablet_max_size_bytes` settings:
 
-- `tablet_min_size_bytes`: Controls the minimum size of tablets. If there isn't enough data in the ingestion, smaller tablets are created nevertheless. When possible, data is compacted into tablets of at least this size. Default: `1.5 GiB`. Minmum: `1 GiB`.
-- `tablet_max_size_bytes`: Controls the maximum size of tablets. Default: `4 GiB`. Should be greated or equal than `tablet_min_size_bytes`.
+- `tablet_min_size_bytes`: Controls the minimum size of tablets. If there isn't enough data in the ingestion, smaller tablets are created nevertheless. When possible, data is compacted into tablets of at least this size. Default: `1.5 GiB`. Minimum: `1 GiB`.
+- `tablet_max_size_bytes`: Controls the maximum size of tablets. Default: `4 GiB`. Should be greater or equal than `tablet_min_size_bytes`.
 
 ### Note 
 
@@ -415,7 +415,7 @@ WITH (CROSS_REGION_REQUEST_MODE = 'auto');
 
 ## Changing the optimizer mode
 
-If set to `user_guided`, the optimizer will disalbe all cost-based optimization rules.
+If set to `user_guided`, the optimizer will disable all cost-based optimization rules.
 This ensures that the relative order of joins and aggregations in the resulting execution plan will follow the sytnatic order defined in the `SELECT` blocks of your SQL query
 The default value is `automatic`.
 

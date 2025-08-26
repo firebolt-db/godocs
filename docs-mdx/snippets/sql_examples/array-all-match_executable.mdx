@@ -44,7 +44,7 @@ Check if all elements in the first array can be divided by the elements in the s
 
 
 <QueryWindow content={{
-  "sql": "SELECT ARRAY_ALL_MATCH(x, y -> (x % y) = 0, [ 10, 20, 30, 45 ], [ 5, 10, 2, 15]) AS divisable;",
+  "sql": "SELECT ARRAY_ALL_MATCH(x, y -> (x % y) = 0, [ 10, 20, 30, 45 ], [ 5, 10, 2, 15]) AS divisible;",
   "result": {
     "data": [
       [
@@ -53,7 +53,7 @@ Check if all elements in the first array can be divided by the elements in the s
     ],
     "meta": [
       {
-        "name": "divisable",
+        "name": "divisible",
         "type": "boolean"
       }
     ],

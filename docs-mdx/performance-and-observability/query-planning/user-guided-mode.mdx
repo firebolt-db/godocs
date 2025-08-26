@@ -21,7 +21,7 @@ Consider the following example which executes a three-way join between a fact ta
 Both dimension tables have local predicates (`item.i_manufact_id = 128` and `date_dim.d_year`).
 
 When the `optimizer_mode` is `automatic`, the join order depends on the estimated number of rows in the two dimension tables:
-since the `Filter` on top `item` produces a smaller intermediate result, the optimzier decides to join it with `store_sales` first,
+since the `Filter` on top `item` produces a smaller intermediate result, the optimizer decides to join it with `store_sales` first,
 and then join this intermediate result is then joined with `date_dim`.
 
 However, if you believe that the better join order is to first join with `date_dim` and then with `item`, you can:

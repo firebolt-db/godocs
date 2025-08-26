@@ -32,7 +32,7 @@ Once all of the above checks have succeeded on a node, it will start accepting q
 
 Firebolt Core nodes expose a dedicated HTTP endpoint for health checks on port `8122` (see also [Deployment and Operational Guide](/firebolt-core/firebolt-core-operation)). This endpoint responds on the following two routes.
 
-* `/health/live` -- Accepts GET or HEAD requests and always returns an empty HTTP 200 response. This endpoint can be queried to determine whether a Firebolt Core node has sucessfully been started. 
+* `/health/live` -- Accepts GET or HEAD requests and always returns an empty HTTP 200 response. This endpoint can be queried to determine whether a Firebolt Core node has successfully been started.
 * `/health/ready` -- Accepts GET or HEAD requests. Returns an empty HTTP 500 response if and only if the above [health checks](#health-checks) have not yet completed successfully. Returns an empty HTTP 200 response if and only if the above health checks have succeeded. This endpoint can be queried to determine whether a Firebolt Core node is healthy and ready to accept queries.
 
 ## Query Plans
