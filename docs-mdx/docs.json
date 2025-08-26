@@ -218,6 +218,13 @@
                 ]
               },
               {
+                "group": "AI and Machine Learning",
+                "pages": [
+                  "guides/ai/getting-started-with-ai",
+                  "guides/ai/use-aws-roles-to-access-bedrock"
+                ]
+              },
+              {
                 "group": "Develop with Firebolt",
                 "pages": [
                   "guides/developing-with-firebolt",
@@ -5328,6 +5335,24 @@
       "permanent": false
     },
     {
+      "source": "/Guides/ai/getting-started-with-ai",
+      "destination": "/guides/ai/getting-started-with-ai",
+      "permanent": false
+    },{
+      "source": "/Guides/ai/use-aws-roles-to-access-bedrock",
+      "destination": "/guides/ai/use-aws-roles-to-access-bedrock",
+      "permanent": false
+    },
+    {
+      "source": "/Guides/ai/getting-started-with-ai.html",
+      "destination": "/guides/ai/getting-started-with-ai",
+      "permanent": false
+    },{
+      "source": "/Guides/ai/use-aws-roles-to-access-bedrock.html",
+      "destination": "/guides/ai/use-aws-roles-to-access-bedrock",
+      "permanent": false
+    },
+    {
       "source": "/Guides/operate-engines/sizing-engines",
       "destination": "/guides/operate-engines/sizing-engines",
       "permanent": false
@@ -6240,6 +6265,16 @@
     {
       "source": "/Guides/security",
       "destination": "/guides/security",
+      "permanent": false
+    },
+    {
+      "source": "/Guides/ai",
+      "destination": "/guides/ai",
+      "permanent": false
+    },
+    {
+      "source": "/Guides/ai/",
+      "destination": "/guides/ai",
       "permanent": false
     },
     {

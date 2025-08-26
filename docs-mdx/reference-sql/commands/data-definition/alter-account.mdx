@@ -25,11 +25,8 @@ ALTER ACCOUNT [IF EXISTS] <account_name> RENAME TO <new_account_name>;
 | :--- |:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `<account_name>` | The name of the account to be altered.                                                                                                                                 |
 | `<new_account_name>` | The new name for the account. The account name must start and end with an alphabetic character and cannot contain spaces or special characters except for hyphens (-). |
-| `<new_budget>` | The new token budget for the account. |
 
-## Examples
-
-### Rename an account
+## Example
 
 The following command will rename the "dev" account to "staging".
 
@@ -68,17 +65,17 @@ ALTER ACCOUNT "dev" OWNER TO "alice@acme.com";
 
 ## ALTER ACCOUNT SET LLM_TOKEN_BUDGET
 
-Sets the LLM token budget for the account. By default, accounts are created with a zero token budget.
+Sets the LLM token budget for the account, which limits the total number of tokens that can be processed daily by AI functions such as [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai). By default, accounts are created with a zero token budget.
 
 You can view the current budget and usage in the `information_schema.quotas` view.
 
 ### Syntax
 
 ```sql
-ALTER ACCOUNT [IF EXISTS] <account_name> SET LLM_TOKEN_BUDGET { = | TO } <new_budget>
+ALTER ACCOUNT [IF EXISTS] <account_name> SET (LLM_TOKEN_BUDGET = <new_budget>)
 ```
 
-### Parameters 
+### Parameters
 
 | Parameter | Description                                                                                                                                                            |
 | :--- |:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -90,5 +87,5 @@ ALTER ACCOUNT [IF EXISTS] <account_name> SET LLM_TOKEN_BUDGET { = | TO } <new_bu
 The following command will set the token budget for account "dev" to 10000 tokens.
 
 ```sql
-ALTER ACCOUNT "dev" SET LLM_TOKEN_BUDGET = 10000;
+ALTER ACCOUNT "dev" SET (LLM_TOKEN_BUDGET = 10000);
 ```

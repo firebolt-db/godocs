@@ -8,6 +8,11 @@ title: AWS_BEDROCK_AI_QUERY
 Invokes an Amazon AWS Bedrock model and returns the raw response payload as a JSON string (`TEXT`).
 To use the function, provide the model identifier, the request body as serialized JSON, and a `LOCATION` that holds AWS credentials.
 
+For setup guidance and end-to-end examples, see:
+
+- [Connecting with AWS Bedrock](/guides/ai/use-aws-roles-to-access-bedrock)
+- [Getting started with AI](/guides/ai/getting-started-with-ai)
+
 <Note>
 This function passes the model identifier to Amazon Bedrock as-is and does not validate it. Make sure the `request` JSON matches the syntax required by the model you select.
 </Note>
