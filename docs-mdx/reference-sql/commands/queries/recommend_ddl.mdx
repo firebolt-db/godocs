@@ -55,7 +55,7 @@ COPY INTO workload_table FROM 's3://bucket/workload/' with ...
 Now you can use the `CALL recommend_ddl` command to find primary index and parition key configurations.
 
 ```sql
-CALL recommend_ddl(<table_name>, (select * from workload_table));
+CALL recommend_ddl(<table_name>, (select query_text from workload_table));
 ```
 
 Finally, recreate the table with the recommended primary index and parition key configurations and ingest the data into this table.
