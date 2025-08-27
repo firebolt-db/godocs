@@ -593,6 +593,8 @@
   "/performance-and-observability/",
   "/performance-and-observability/data-pruning-and-storage",
   "/performance-and-observability/data-pruning-and-storage/",
+  "/performance-and-observability/iceberg-and-external-data",
+  "/performance-and-observability/iceberg-and-external-data/",
   "/performance-and-observability/metadata-and-compute",
   "/performance-and-observability/metadata-and-compute/",
   "/performance-and-observability/query-planning",

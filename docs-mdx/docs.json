@@ -111,7 +111,8 @@
                   "performance-and-observability/query-planning/unique-constraint",
                   "performance-and-observability/query-planning/user-guided-mode"
                 ]
-              }
+              },
+              "performance-and-observability/iceberg-and-external-data"
             ]
           },
           {
