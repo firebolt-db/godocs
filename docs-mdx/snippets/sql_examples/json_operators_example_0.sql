@@ -1,0 +1,1 @@
+create table json_operators (s text);

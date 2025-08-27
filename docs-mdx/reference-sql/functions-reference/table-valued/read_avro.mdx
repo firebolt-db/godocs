@@ -1,0 +1,199 @@
+---
+description: Reference material for READ_AVRO function
+sidebarTitle: READ_AVRO
+title: READ_AVRO
+---
+
+A table-valued function (TVF) that reads data from Avro files stored in Amazon S3. The function can use either a location object (recommended) or direct credentials to access the data. `READ_AVRO` returns a table with data from the specified Avro file and supports all Avro data types.
+
+<Note>
+`READ_AVRO` supports only binary encoded Avro files (typically with the `.avro` extension). JSON-encoded Avro data is not supported.
+</Note>
+
+## Syntax
+
+```sql
+-- Using location object (recommended)
+READ_AVRO (
+  LOCATION => 'location_name'
+)
+|
+-- Using static credentials
+READ_AVRO (
+  URL => <file_url>
+  [, AWS_ACCESS_KEY_ID => <aws_access_key_id>]
+  [, AWS_SECRET_ACCESS_KEY => <aws_secret_access_key>]
+  [, AWS_SESSION_TOKEN => <aws_session_token>]
+  [, AWS_ROLE_ARN => <aws_role_arn>]
+  [, AWS_ROLE_EXTERNAL_ID => <aws_role_external_id>]
+)
+```
+
+## Parameters
+
+| Parameter | Description | Supported input types |
+|:----------|:------------|:---------------------|
+| `LOCATION` | The name of a location object that contains the Amazon S3 URL and credentials. Firebolt recommends using `LOCATION` to store credentials for authentication. `LOCATION` must be specified as a string literal (e.g., `LOCATION => 'my_location'`). Unlike `URL`, it cannot be used as a positional parameter. For a comprehensive guide, see [LOCATION objects](/guides/security/location). | `TEXT` |
+| `URL` | The location of the Amazon S3 bucket containing your files. The expected format is `s3://{bucket_name}/{full_file_path_glob_pattern}`. | `TEXT` |
+| `AWS_ACCESS_KEY_ID` | The AWS access key ID. | `TEXT` |
+| `AWS_SECRET_ACCESS_KEY` | The AWS secret access key. | `TEXT` |
+| `AWS_SESSION_TOKEN` | The AWS session token. | `TEXT` |
+| `AWS_ROLE_ARN` | The AWS role ARN. | `TEXT` |
+| `AWS_ROLE_EXTERNAL_ID` | The AWS role external ID. | `TEXT` |
+
+* When using static credentials:
+  * The `URL` can be passed as either the first positional parameter or a named parameter
+  * If you provide either `AWS_ACCESS_KEY_ID` or `AWS_SECRET_ACCESS_KEY`, you must provide both
+  * Providing an AWS session token is optional
+  * Credentials are not required for accessing public buckets
+
+## Return Type
+
+The result is a table with data from the Avro files. Columns are read and parsed using their inferred data types based on the Avro schema. All data types are inferred as nullable.
+
+## Avro Data Type Mapping
+
+`READ_AVRO` supports all Avro data types with the following mappings:
+
+| Avro Type | Firebolt Type | Notes |
+|:----------|:--------------|:------|
+| `null` | `TEXT` (nullable) | Standalone null columns are supported and handled as nullable text columns that are always null. Within unions, null specifies nullability for the resulting type |
+| `boolean` | `BOOLEAN` | |
+| `int` | `INT` | |
+| `long` | `BIGINT` | |
+| `float` | `REAL` | |
+| `double` | `DOUBLE` | |
+| `bytes` | `BYTEA` | |
+| `string` | `TEXT` | |
+| `record` | `STRUCT` | Nested structure with named fields |
+| `enum` | `TEXT` | Enum values are converted to their string representation |
+| `array` | `ARRAY` | |
+| `map` | `ARRAY<STRUCT<key TEXT, value TYPE>>` | Maps are converted to arrays of key-value structs |
+| `union` | `STRUCT` or single type | Single-type unions and dual-type unions with null are inferred as single nullable types; multi-type unions become structs |
+| `fixed` | `BYTEA` | Fixed-length byte arrays |
+
+### Special Handling
+
+**Maps**: Avro maps are converted to arrays of structs with two fields:
+- `key`: The map key (always `TEXT`)
+- `value`: The map value (type depends on the Avro map value type)
+
+**Unions**: Avro union handling depends on the number and types of union members:
+- **Single-type unions** (e.g., `["string"]`): Inferred as the single type directly
+- **Dual-type unions with null** (e.g., `["null", "string"]`): Inferred as a single nullable type (`TEXT` in this case)
+- **Multi-type unions** (e.g., `["string", "int", "record"]`): Converted to structs with nullable fields for each possible type
+
+For multi-type unions converted to structs, field naming follows this convention:
+- First occurrence: Uses the Avro type name without suffix (e.g., `string`, `int`, `record`)
+- Subsequent occurrences: Adds suffix `_<i>` starting from `_1` (e.g., `record_1`, `record_2`, etc.)
+
+For example, a union with multiple record types would create fields named: `record`, `record_1`, `record_2`.
+
+**Enums**: Avro enums are converted to their string representation.
+
+**Null types**: The `null` type is supported both as a standalone column and within unions. Standalone `null` columns are handled as nullable text columns that are always null. Within unions, `null` specifies the nullability of the resulting type itself (e.g., `["null", "string"]` creates a nullable text field, and `["null", "string", "int"]` creates a nullable struct where the entire struct can be null).
+
+## Best practices
+
+Firebolt recommends using a `LOCATION` object to store credentials for authentication.
+
+When using `READ_AVRO()`, the URL parameter in the location should contain only Avro files (see [location table-valued functions](/guides/security/location#table-valued-functions-tvfs)).
+
+## Examples
+
+**Example 1: Simple Avro file**
+
+The following code example reads from a simple Avro file with basic data types:
+
+```sql
+SELECT * 
+FROM READ_AVRO(
+    URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_avro/simple.avro'
+) 
+LIMIT 3;
+```
+
+**Returns**
+
+| id | name | score | active |
+|:---|:-----|:------|:-------|
+| 1 | Alice | 95.5 | true |
+| 2 | Bob | 87.2 | false |
+| 3 | Charlie | 92.8 | true |
+
+**Example 2: Avro file with maps**
+
+This example shows how Avro maps are converted to arrays of key-value structs:
+
+```sql
+SELECT 
+    user_id,
+    preferences  -- map converted to array of key-value structs
+FROM READ_AVRO(
+    URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_avro/map_as_record.avro'
+) 
+LIMIT 2;
+```
+
+**Returns**
+
+| user_id | preferences |
+|:--------|:------------|
+| 101 | `[{"key": "theme", "value": "dark"}, {"key": "language", "value": "en"}]` |
+| 102 | `[{"key": "theme", "value": "light"}, {"key": "notifications", "value": "enabled"}]` |
+
+**Example 3: Avro file with unions**
+
+This example demonstrates how Avro unions are converted to structs with nullable fields:
+
+```sql
+SELECT 
+    id,
+    contact_info  -- union converted to struct with nullable fields
+FROM READ_AVRO(
+    URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_avro/union_array_struct.avro'
+) 
+LIMIT 2;
+```
+
+**Returns**
+
+| id | contact_info |
+|:---|:-------------|
+| 1 | `{"string": "email@example.com", "record": null}` |
+| 2 | `{"string": null, "record": {"phone": "555-1234", "address": "123 Main St"}}` |
+
+**Example 4: Using location object**
+
+The following code example uses a `LOCATION` object to store credentials for authentication:
+
+```sql
+SELECT * 
+FROM READ_AVRO(
+    LOCATION => 'my_avro_location'
+) 
+LIMIT 5;
+```
+
+### Using URL
+
+* The `URL` can be passed as either the first positional parameter or a named parameter. For example, the following two queries will both read the same file:
+
+```sql
+SELECT * FROM READ_AVRO('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_avro/simple.avro');
+SELECT * FROM READ_AVRO(URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_avro/simple.avro');
+```
+
+* The `url` can represent a single file or a [glob](https://en.wikipedia.org/wiki/Glob_(programming)) pattern. If a glob pattern is used, all files matching the pattern will be read. A special column `$source_file_name` can be used to identify the source file of each row in the result set:
+
+```sql
+SELECT *, $source_file_name FROM READ_AVRO('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_avro/*.avro')
+```
+
+When using glob patterns, the wildcard (`*`) can only be used at the end of the path. You can use it with any text before or after, such as `*.avro`, `date=2025*.avro`, or `data_*.avro`.
+
+The pattern will recursively match files in all subdirectories. For example:
+```sql
+SELECT * FROM READ_AVRO('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_avro/*.avro')
+```
+will read all Avro files in the `firebolt_sample_avro` directory and all of its subdirectories. 

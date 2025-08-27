@@ -12,9 +12,10 @@ A table-valued function (TVF) that reads data from Parquet files stored in Amazo
 ```sql
 -- Using location object (recommended)
 READ_PARQUET (
-  LOCATION => 'location_name'
+  LOCATION => location_name
+  [, ESTIMATED_ROWS => <estimated_rows>]
 )
-|
+
 -- Using static credentials
 READ_PARQUET (
   URL => <file_url>
@@ -23,6 +24,7 @@ READ_PARQUET (
   [, AWS_SESSION_TOKEN => <aws_session_token>]
   [, AWS_ROLE_ARN => <aws_role_arn>]
   [, AWS_ROLE_EXTERNAL_ID => <aws_role_external_id>]
+  [, ESTIMATED_ROWS => <estimated_rows>]
 )
 ```
 
@@ -37,6 +39,7 @@ READ_PARQUET (
 | `AWS_SESSION_TOKEN` | The AWS session token. | `TEXT` |
 | `AWS_ROLE_ARN` | The AWS role ARN. | `TEXT` |
 | `AWS_ROLE_EXTERNAL_ID` | The AWS role external ID. | `TEXT` |
+| `ESTIMATED_ROWS` | Hints the estimated number of rows returned by `READ_PARQUET` to query planning for improved join ordering. | `INT`, `BIGINT` |
 
 
 * When using static credentials:

@@ -1,0 +1,1 @@
+SELECT s->>'value'->>'dyid' FROM json_operators;

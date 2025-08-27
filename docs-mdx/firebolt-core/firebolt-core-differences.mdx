@@ -19,7 +19,7 @@ While Firebolt Core provides powerful data warehousing capabilities, some releva
     * There is **no storage-compute isolation** in Firebolt Core (see also [Architecture](/firebolt-core/firebolt-core-architecture)). As a result, managed database objects are tied to one specific Firebolt Core cluster which cannot be resized.
     * There is **no support for zero-copy cloning** in Firebolt Core.
     * There is **no support for [DIMENSION](/reference-sql/commands/data-definition/create-fact-dimension-table) tables** in Firebolt Core. All tables are sharded across nodes.
-* **At most one write transaction** can be active at a time in Firebolt Core (see also [Connect](/firebolt-core/firebolt-core-connect)). Attempting to start concurrent write transactions will result in an error.
+* **At most one write transaction** can be active at a time in Firebolt Core (see also [Connect](/firebolt-core/firebolt-core-connect)). Attempting to start concurrent write transactions, or starting any write while an explicit transaction is active (i.e. transaction started with BEGIN TRANSACTION statement), will result in an error.
 * There is **no support for [asynchronous query execution](/reference-api/using-async-queries)** in Firebolt Core.
 
 As a result of the above limitations, only a subset of the [documented SQL dialect](/reference-sql) is available in Firebolt Core. Most importantly, the following statements are **unavailable** in Firebolt Core.

@@ -1,0 +1,39 @@
+---
+description: Reference material for JSON operators
+sidebarTitle: JSON operators
+title: JSON Operators
+---
+
+This page lists operators that can be used on text values storing JSON.
+
+## Operator `->>`
+
+Get value of a JSON field as text.
+
+It never looks into nested JSON documents. Special characters like `/` in field names are escaped and not interpreted as JSON path separators.
+
+### Syntax
+
+```sql
+<json>->>'<field_name>'
+```
+
+### Parameters
+
+| Parameter                | Description                                                                                                                                                                                            | Supported input types |
+|:-------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
+| `<json>`                 | The JSON document.                                                                                                                                                                                     | `TEXT`                |
+| `<field_name>`           | Name of the JSON field for which the value should be extracted.                                                                                                                                        | `TEXT`                |
+
+### Return Type
+
+`TEXT`
+
+* If any input values are `NULL`, the function will return `NULL`.
+* If the field name is not found in the JSON document, the function returns `NULL`.
+
+### Examples
+
+import SqlExamplesJsonOperators from '/snippets/sql_examples/json_operators.mdx';
+
+<SqlExamplesJsonOperators  />

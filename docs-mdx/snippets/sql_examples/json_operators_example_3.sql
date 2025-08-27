@@ -1,0 +1,1 @@
+SELECT s->>'key/with/slash' FROM json_operators;

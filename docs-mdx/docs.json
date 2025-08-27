@@ -258,6 +258,8 @@
           {
             "group": "SQL reference",
             "pages": [
+              "reference-sql",
+              "reference-sql/explicit-transactions",
               {
                 "group": "Data types",
                 "pages": [
@@ -301,6 +303,7 @@
                   "reference-sql/information-schema/storage-history",
                   "reference-sql/information-schema/storage-metering-history",
                   "reference-sql/information-schema/tables",
+                  "reference-sql/information-schema/transactions",
                   "reference-sql/information-schema/transitive-applicable-roles",
                   "reference-sql/information-schema/users",
                   "reference-sql/information-schema/views"
@@ -565,7 +568,8 @@
                       "reference-sql/functions-reference/json/json-pointer-extract-values",
                       "reference-sql/functions-reference/json/json-value-array",
                       "reference-sql/functions-reference/json/json-value",
-                      "reference-sql/functions-reference/json/json-format"
+                      "reference-sql/functions-reference/json/json-format",
+                      "reference-sql/functions-reference/json/json-operators"
                     ]
                   },
                   {
@@ -656,6 +660,8 @@
                       "reference-sql/functions-reference/string/string-to-array",
                       "reference-sql/functions-reference/string/strpos",
                       "reference-sql/functions-reference/string/substring",
+                      "reference-sql/functions-reference/string/to_bin",
+                      "reference-sql/functions-reference/string/to_oct",
                       "reference-sql/functions-reference/string/trim",
                       "reference-sql/functions-reference/string/upper",
                       "reference-sql/functions-reference/string/url_decode",
@@ -668,6 +674,7 @@
                       "reference-sql/functions-reference/table-valued",
                       "reference-sql/functions-reference/table-valued/generate-series",
                       "reference-sql/functions-reference/table-valued/list-objects",
+                      "reference-sql/functions-reference/table-valued/read_avro",
                       "reference-sql/functions-reference/table-valued/read_csv",
                       "reference-sql/functions-reference/table-valued/read_iceberg",
                       "reference-sql/functions-reference/table-valued/read_parquet"
@@ -2620,6 +2627,12 @@
       "permanent": false
     },
     {
+      "source": "/sql_reference/commands/data-definition/explicit-transactions.html",
+      "destination": "/reference-sql/explicit-transactions",
+      "permanent": false
+    },
+
+    {
       "source": "/sql_reference/commands/data-definition/drop-account.html",
       "destination": "/reference-sql/commands/data-definition/drop-account",
       "permanent": false
@@ -3572,6 +3585,11 @@
     {
       "source": "/sql_reference/commands/data-definition/use-database",
       "destination": "/reference-sql/commands/data-definition/use-database",
+      "permanent": false
+    },
+    {
+      "source": "/sql_reference/commands/data-definition/explicit-transactions",
+      "destination": "/reference-sql/explicit-transactions",
       "permanent": false
     },
     {
