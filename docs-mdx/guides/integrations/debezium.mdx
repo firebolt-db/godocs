@@ -166,7 +166,7 @@ We'll be using debezium's [docker images](https://hub.docker.com/u/debezium) in 
         driver: bridge
       
     ```
-2. Replace palceholders `/path/to/your/jdbc/directory/` with the directory where you have placed the JDBC driver and `firebolt-jdbc-<version>.jar` with the name of the driver in that directory.
+2. Replace placeholders `/path/to/your/jdbc/directory/` with the directory where you have placed the JDBC driver and `firebolt-jdbc-<version>.jar` with the name of the driver in that directory.
 3. Replace placeholders `<pg_user>` and `<pg_password>` with the credentials of your choice. Note them down for later.
 4. Run `docker compose up` in the directory containing `docker-compose.yml` file.
 
@@ -205,7 +205,7 @@ We'll be using debezium's [docker images](https://hub.docker.com/u/debezium) in 
     | `table.include.list`                 | A list of Postgres tables to monitor for changes.                                                                                         |
 
 
-### Use the Conect API to add source and sink connectors
+### Use the Connect API to add source and sink connectors
 
 1. Make a POST request to set up a source connector with the config file `source-connector.json` set up earlier:
 
@@ -226,11 +226,11 @@ We'll be using debezium's [docker images](https://hub.docker.com/u/debezium) in 
     curl -X GET http://localhost:8083/connectors/firebolt-sink-connector/status
     ```
 
-To get more information if something went wrong fetch Kafka Conenct logs via `docker logs kafka-connect-1`.
+To get more information if something went wrong fetch Kafka Connect logs via `docker logs kafka-connect-1`.
 
 ### Write data and see it propagated
 
-If everything succeeded you're now ready to send CDC data throught the Kafka pipeline.
+If everything succeeded you're now ready to send CDC data through the Kafka pipeline.
 1. Connect to Postgres or use the connection established before `docker compose exec postgres psql -U <pg_user> -d postgres`. Use `pg_user` and `pg_password` specified earlier in `docker-compose.yml`
 2. Create a demo table:
 
@@ -311,7 +311,7 @@ Kafka Connect is a framework that helps integrate Kafka with systems that are ex
       1. Copy the JDBC driver into `libs` folder within your kafka installation.
 
    3. **Configure a sink connector**    
-    Use the sink-connector-config.json configuration file for the sink connector [created earlier](#firebolt-connector-configuration). Copy it into `config` directory of your Kafka installtion or note its path for the next step.
+    Use the sink-connector-config.json configuration file for the sink connector [created earlier](#firebolt-connector-configuration). Copy it into `config` directory of your Kafka installation or note its path for the next step.
 
    4. **Start Kafka Connect**
     Start Kafka Connect in standalone mode by running the following command from your kafka installation folder:

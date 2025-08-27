@@ -36,14 +36,12 @@ The `WITH` clause is supported for the following commands:
 
 ### Supported Settings
 
-The following settings can be configured using the `WITH` clause:
+The following settings can be configured using the `WITH` clause and the `SET` command:
 - [timezone](#setting-the-time-zone)
 - [standard_conforming_strings](#enable-parsing-for-literal-strings)
 - [max_result_rows](#limit-the-number-of-result-rows)
 - [statement_timeout](#statement-timeout)
 - [cancel_query_on_connection_drop](#query-cancellation-mode-on-connection-drop)
-- [query_label](#query-labelingtagging)
-- [warmup](#multi-cluster-engine-warmup)
 - [enable_result_cache](#result-cache)
 - [enable_subresult_cache](#subresult-cache)
 - [enable_scan_cache](#scan-cache)
@@ -53,6 +51,10 @@ The following settings can be configured using the `WITH` clause:
 - [optimizer_mode](#changing-the-optimizer-mode)
 - [enable_storage_statistics](#using-storage-manager-statistics-in-the-optimizer)
 - [max_insert_threads](#limiting-max-insert-threads)
+
+The following settings can be configured only using the `SET` command:
+- [query_label](#query-labeling-and-tagging)
+- [warmup](#multi-cluster-engine-warmup)
 
 ## Setting the time zone
 
@@ -174,7 +176,7 @@ INSERT INTO X [...]
 SELECT * FROM X;  
 ```
 
-## Query labeling/tagging
+## Query labeling and tagging
 Use this option to label your query with a custom text. This simplifies query cancellation and retrieving the query status from system tables.
 
 ### Syntax
@@ -345,8 +347,8 @@ Setting `insert_sharding` to `shard_on_read` changes the file distribution strat
 
 During ingestion, Firebolt attempts to create optimally sized tablets to balance ingestion speed and future scan performance. When all ingested data has been read, Firebolt prefers creating relatively small tablets to prioritize data persistence, leaving further optimization to [Auto Vacuum](/reference-sql/commands/data-management/vacuum). However, if this behavior isn't desirable, you can control it using the `tablet_min_size_bytes` and `tablet_max_size_bytes` settings:
 
-- `tablet_min_size_bytes`: Controls the minimum size of tablets. If there isn't enough data in the ingestion, smaller tablets are created nevertheless. When possible, data is compacted into tablets of at least this size. Default: `1.5 GiB`. Minmum: `1 GiB`.
-- `tablet_max_size_bytes`: Controls the maximum size of tablets. Default: `4 GiB`. Should be greated or equal than `tablet_min_size_bytes`.
+- `tablet_min_size_bytes`: Controls the minimum size of tablets. If there isn't enough data in the ingestion, smaller tablets are created nevertheless. When possible, data is compacted into tablets of at least this size. Default: `1.5 GiB`. Minimum: `1 GiB`.
+- `tablet_max_size_bytes`: Controls the maximum size of tablets. Default: `4 GiB`. Should be greater or equal than `tablet_min_size_bytes`.
 
 ### Note 
 
@@ -381,11 +383,12 @@ WITH (tablet_min_size_bytes = 4294967296, tablet_max_size_bytes = 4294967296);
 Changing both `tablet_min_size_bytes` and `tablet_max_size_bytes` to `4 GiB` ensures that larger tablets are created.
 
 ## Access Cross-Region Data
-By default, Firebolt restricts importing from and exporting to Amazon S3 buckets located outside your engine's default region to miminize latencies and network costs. For workloads requiring cross-region access, you can enable this functionality using the `cross_region_request_mode` setting. Firebolt offers three modes:
+By default, Firebolt restricts importing from and exporting to Amazon S3 buckets located outside your engine's default region to minimize latencies and network costs. For workloads requiring cross-region access, you can enable this functionality using the `cross_region_request_mode` setting. Firebolt offers three modes:
 
 - `disabled`: The default setting. Any attempt to access a bucket in another region will cause the query to fail.
-- `auto`: Recommended for most scenarios when you need to access a bucket in a different region. Firebolt will automatically infer each bucket's region using the Amazon HeadBucket API and route requests to the appropriate regional endpoint. The region information is cached on the node for one hour. If you're using a role to authenticate to Amazon S3, it must include ListBuckets permissions. Note that Iceberg queries using vended credentials may lack such permissions.
-- `enforced`: Use when you need to access a bucket in a different region and do not have the permissions for `auto` mode. Firebolt will use the pseudo-region "aws-global" for every request. This may lead to higher latencies since AWS needs to resolve the region internally for each request.
+- `auto`: Recommended for most scenarios when you need to access a bucket in a different region. Firebolt will automatically infer each bucket's region using the Amazon `HeadBucket` API and route requests to the appropriate regional endpoint. The region information is cached on the node for one hour. If you're using a role to authenticate to Amazon S3, it must include ListBuckets permissions.
+    - For Iceberg queries using vended credentials, the approach is different because these credentials typically do not expose `HeadBucket` permissions. In this case, Firebolt will first attempt to resolve the region from the REST catalog; if not possible, it will use the pseudo-region `aws-global`.
+- `enforced`: Use when you need to access a bucket in a different region and do not have the permissions for `auto` mode. Firebolt will use the pseudo-region `aws-global` for every request. This may lead to higher latencies since AWS needs to resolve the region internally for each request.
 
 ### Notes
 - Firebolt currently offers limited cross-region data transfer and will throttle requests if the limit is exceeded. The current limit is 100 GB per hour per node.
@@ -412,7 +415,7 @@ WITH (CROSS_REGION_REQUEST_MODE = 'auto');
 
 ## Changing the optimizer mode
 
-If set to `user_guided`, the optimizer will disalbe all cost-based optimization rules.
+If set to `user_guided`, the optimizer will disable all cost-based optimization rules.
 This ensures that the relative order of joins and aggregations in the resulting execution plan will follow the sytnatic order defined in the `SELECT` blocks of your SQL query
 The default value is `automatic`.
 

@@ -1,0 +1,49 @@
+---
+sidebarTitle: dbt
+title: dbt
+---
+
+
+![DBT](/assets/images/dbt-logo.png)
+
+[DBT](https://www.getdbt.com), or Data Build Tool, is a framework designed for managing and executing data transformations within modern data warehousing architectures. It facilitates the development and deployment of SQL-based transformations in a version-controlled environment, enabling collaboration and ensuring reproducibility of data pipelines. DBT streamlines the process of transforming raw data into analytics-ready datasets, accelerating the delivery of insights.
+
+A detailed walkthrough can be found in Firebolt's DBT documentation.
+
+## Prerequisites
+
+You will need the following:
+
+* Python 3.9+.
+* `dbt-core` and `dbt-firebolt>=1.10.0` Python packages installed.
+* Firebolt Core running locally.
+
+## Connection
+
+DBT uses a `profiles.yml` file to store the connection information.
+The usual place to create this file on Mac and Linux is `~/.dbt/profiles.yml`.
+
+Here's a minimal `profiles.yml` configuration needed to connect to Fireoblt Core:
+    ```yaml
+    jaffle-shop:
+    target: core
+    outputs:
+        core:
+          type: firebolt
+          url: "<core-url>"
+          database: "<database-name>"
+          schema: "<table-prefix>"
+    ```
+Replace the placeholders with your account's information:
+
+    `<core-url>` The url where Firebolt Core is running. If using a default local dockerised deployment then set this parameter to `http://localhost::3473`.
+
+    `<database-name>` With your database in Firebolt Core. If you want to connect to the default database use `firebolt` here.
+
+    `<table-prefix>` is a prefix prepended to your table names. Since Firebolt does not support custom schemas, this prefix serves as a [workaround](https://docs.getdbt.com/docs/core/connect-data-platform/firebolt-setup#supporting-concurrent-development) to prevent table name conflicts during concurrent development.
+
+## Further reading
+
+* [Firebolt DBT documentation](/guides/integrations/connecting-with-dbt)
+* [GitHub repository](https://github.com/firebolt-db/dbt-firebolt)
+* [Configuring Firebolt-specific features](https://docs.getdbt.com/reference/resource-configs/firebolt-configs).

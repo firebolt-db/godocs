@@ -1,0 +1,145 @@
+---
+description: Understand how the UNIQUE constraint affects query performance.
+sidebarTitle: UNIQUE constraints as query hints
+title: UNIQUE constraints as query hints
+---
+
+In Firebolt, `UNIQUE` constraints can be declared in `CREATE TABLE` statements. However, the system does not enforce data uniqueness. The query optimizer uses these hints to make better decisions during query planning and optimization.
+
+Data uniqueness is a crucial piece of information for the query optimizer. In Firebolt, it mainly affects query plan quality through two aspects:
+
+1. **Plan transformation** -- Enables more effective plan rewrites when unique keys are present.
+2. **Cardinality estimation** -- Provides more reasonable selectivity and cardinality estimates for better query planning.
+
+Whenever data is known to be unique, it is recommended to declare the unique constraints accordingly. Our benchmark result on TPC-H (SF100) shows that having the unique constraints declared on the primary key columns improves the total execution time on all TPC-H queries by 19% on average.
+
+<Warning>
+Since unique constraints are not enforced, ensure your data actually satisfies the uniqueness assumption. **Incorrect hints can lead to incorrect query results.**
+</Warning>
+
+In the following sections, we firstly explain the concept of unique keys, and then show how they help in the two aspects with examples.
+
+## Unique Keys
+
+A unique key implies all values in a specified column or set of columns are unique across all rows in a table. This means that no two rows in the table can have the same combination of values in the column(s) designated as a unique key.
+
+A unique key can have one or multiple columns. A relation can have no unique key, one unique key, or multiple unique keys.
+
+Consider the following example:
+```sql
+CREATE TABLE test_table (
+    a     BIGINT UNIQUE,
+    b     INT,
+    c     DATE NOT NULL,
+    UNIQUE(b, c)
+);
+```
+
+`test_table` has two unique keys: `{a}` and `{b, c}`.
+
+The query optimizer tracks unique keys for every plan fragment in optimizing a query. Unique constraints defined on tables are known to the optimizer directly.
+
+In addition, the query optimizer also derives unique keys from query semantics. For example, if a query groups by columns `c, d, e`, the optimizer knows the result of this aggregation has columns `{c, d, e}` as a unique key.
+
+## Plan Transformation Based On Unique Keys
+
+One goal of the query optimizer is to rewrite the query to its semantically equivalent form that executes efficiently. Knowing the unique keys of a sub-plan allows the optimizer to employ plan rewrites that cannot be used otherwise as they are not safe in general.
+
+Consider the following query running on the TPC-H schema:
+
+```sql
+-- Query: For each customer, find the orders above the customer's average order price
+SELECT c_custkey, c_name
+FROM customer c,
+     orders o
+WHERE o.o_custkey = c.c_custkey 
+    AND o.o_totalprice > (
+      SELECT avg(o2.o_totalprice) 
+      FROM orders o2 
+      WHERE o2.o_custkey = c.c_custkey
+    )
+;
+```
+
+Logically speaking, the subquery in the `WHERE` clause is executed for each row of the join result between `customer` and `orders` in the `FROM` clause.
+
+This approach may compute the subquery more than necessary. A customer can have many orders. The result of joining `customer` and `orders` can therefore produce many rows per customer. However, the average order price for a customer is the same for all these rows. Computing the average for every row is not a good idea.
+
+To avoid the redundant computation, one idea is to join `customer` with `orders o2` first and compute the average price grouping by `c_custkey`. This rewrite is only safe if `c_custkey` is unique. If there are duplicate entries in `c_custkey`, the join effectively put all joined rows for all duplicate entries on the same value as one group to compute the aggregate function. For example, assume a customer `123` has 10 orders and `c_custkey` has two entries of `123`. The first execution strategy runs the subquery on each row in `c_custkey`. A single `123` row is joined with 10 rows and the aggregate function is computed on these 10 rows. This process is repeated twice. Using the join execution strategy, each `123` row is joined with 10 rows. Grouping by `c_custkey`, all 20 rows for customer `123` are in the same group to compute the aggregate function. Depending on the semantic of the aggregate function, this may lead to wrong result.
+
+What if `c_custkey` is not declared as unique? The query optimizer can only play safe. The general solution introduces an extra step:
+- Explicitly grouping `customer` by `c_custkey` so the result is unique.
+- Rewrite the correlated subquery as a join.
+- We have the result per distinct value in `c_custkey`. Now joining this result with the original `customer` table to restore the original duplications.
+
+If the data in `c_custkey` is actually unique, the safe execution strategy above can lead to significant overhead. The first aggregation on `c_custkey` and the final restoring join are both a waste of time.
+
+For this specific query though, another execution strategy exists. The query optimizer understands that the average order price is computed per customer. We can simply compute the average on `orders` table per `o_custkey` alone. Using this strategy, the optimizer does not care about whether `c_custkey` is unique anymore. However, this does not mean the optimizer produces the same plan with and without the unique constraint. There is more to consider.
+
+
+## Cardinality Estimation Based On Unique Keys
+
+Unique constraints also helps the query optimizer make better cardinality and selectivity estimations.
+
+Continue on the example in the previous section. Using the last execution strategy that is valid despite of the uniqueness of `c_custkey`, the optimizer produces the following plan if `c_custkey` is not declared as unique:
+
+```text c_custkey is not declared as unique {7,8,11,14,20}
+[0] [Projection] customer.c_custkey, customer.c_name, orders.o_totalprice
+|   [Logical Profile]: [est. #rows=9.67374e+14, source: estimated]
+ \_[1] [Join] Mode: Inner [(customer.c_custkey = orders.o_custkey), (avg2_0 < orders.o_totalprice)]
+   |   [Logical Profile]: [est. #rows=9.67374e+14, source: estimated]
+    \_[2] [Projection] customer.c_custkey, customer.c_name, avg2_0
+    | |   [Logical Profile]: [est. #rows=1.47294e+09, source: estimated]
+    |  \_[3] [Join] Mode: Inner [(customer.c_custkey = orders.o_custkey)]
+    |    |   [Logical Profile]: [est. #rows=1.47294e+09, source: estimated]
+    |     \_[4] [StoredTable] Name: "customer"
+    |     |     [Types]: customer.c_custkey: bigint not null, customer.c_name: text not null
+    |     |     [Logical Profile]: [est. #rows=1.5e+07, source: metadata]
+    |     \_[5] [Aggregate] GroupBy: [orders.o_custkey] Aggregates: [avg2_0: avg2(orders.o_totalprice)]
+    |       |   [Types]: avg2_0: double precision not null
+    |       |   [Logical Profile]: [est. #rows=12248, source: estimated]
+    |        \_[6] [StoredTable] Name: "orders"
+    |              [Types]: orders.o_custkey: bigint not null, orders.o_totalprice: double precision not null
+    |              [Logical Profile]: [est. #rows=1.5e+08, source: metadata]
+    \_[7] [StoredTable] Name: "orders"
+          [Types]: orders.o_custkey: bigint not null, orders.o_totalprice: double precision not null
+          [Logical Profile]: [est. #rows=1.5e+08, source: metadata]
+```
+
+Focus on the estimated row count of node [3]. The optimizer does not know anything other than the input row counts. It plays safe by assuming every row gets some join partners and some rows get duplicated by the join. This means the join is estimated to be "explosive". As a result, the join is estimated to produce more rows than the `orders` table. In the next join at node [1], the optimizer follows the numbers and puts the smaller input as the build side of join.
+
+We know this is a bad join order on TPC-H schema. The first join between `customer` and `orders` cannot produce more rows than `orders`. After all, the query selects some orders from all orders. But without knowing that `c_custkey` is unique, the optimizer cannot figure this out.
+
+By declaring `c_custkey` unique, the query optimizer fixes the join order immediately:
+
+```text c_custkey is declared as unique {10,11,14,17}
+[0] [Projection] orders.o_custkey, customer.c_name
+|   [Logical Profile]: [est. #rows=1.26134e+08, source: estimated]
+ \_[1] [Join] Mode: Inner [(orders.o_custkey = customer.c_custkey), (orders.o_totalprice > avg2_0)]
+   |   [Logical Profile]: [est. #rows=1.26134e+08, column profiles={[customer.c_custkey: #distinct=12248]}, source: estimated]
+    \_[2] [StoredTable] Name: "orders"
+    |     [Types]: orders.o_custkey: bigint not null, orders.o_totalprice: double precision not null
+    |     [Logical Profile]: [est. #rows=1.5e+08, source: metadata]
+    \_[3] [Projection] customer.c_custkey, customer.c_name, avg2_0
+      |   [Logical Profile]: [est. #rows=12248, column profiles={[customer.c_custkey: #distinct=12248]}, source: estimated]
+       \_[4] [Join] Mode: Inner [(customer.c_custkey = orders.o_custkey)]
+         |   [Logical Profile]: [est. #rows=12248, column profiles={[customer.c_custkey: #distinct=12248]}, source: estimated]
+          \_[5] [StoredTable] Name: "customer"
+          |     [Types]: customer.c_custkey: bigint not null, customer.c_name: text not null
+          |     [Logical Profile]: [est. #rows=1.5e+07, column profiles={[customer.c_custkey: #distinct=1.5e+07]}, source: metadata]
+          \_[6] [Aggregate] GroupBy: [orders.o_custkey] Aggregates: [avg2_0: avg2(orders.o_totalprice)]
+            |   [Types]: avg2_0: double precision not null
+            |   [Logical Profile]: [est. #rows=12248, source: estimated]
+             \_[7] [StoredTable] Name: "orders"
+                   [Types]: orders.o_custkey: bigint not null, orders.o_totalprice: double precision not null
+                   [Logical Profile]: [est. #rows=1.5e+08, source: metadata]
+```
+
+Check the first join (now node [4]) again. The optimizer knows its input [5] has `c_custkey` column fully distinct. With that, it knows for the 12248 rows on the other side of the join (node [6]), each will join at most 1 row. The join output row count is then estimated to be around 12248, a lot smaller than before.
+
+## Best practices
+
+- Whenever data is known to be unique, declare the unique constraints accordingly.
+- Only declare unique constraints for columns that are actually unique in your data. Having falsely declared unique constraint can lead to incorrect results.
+- Verify if unique constraints actually help your query performance by using the explain tools.
+- Make sure the unique constraints hold over time. They are not enforced by the system.

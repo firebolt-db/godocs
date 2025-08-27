@@ -26,7 +26,7 @@ The `HEX` format represents each 4 bits of data as one hexadecimal digit, 0 thro
 
 The `ESCAPE` format converts zero bytes and bytes with the high bit set into octal escape sequences (\nnn) and doubles backslashes. Other byte values are represented literally. The `DECODE` function will raise an error if a backslash is not followed by either a second backslash or three octal digits; it accepts other byte values unchanged.
 
-THE `BASE64` format, per [RFC 2045 Secion 6.8](https://www.rfc-editor.org/rfc/rfc2045#section-6.8), breaks encoded lines at 76 characters using a newline for end of line. The `DECODE` function ignores carriage-return, newline, space, and tab characters. Otherwise, an error is raised when `DECODE`is supplied invalid base64 data — including when trailing padding is incorrect.
+THE `BASE64` format, per [RFC 2045 Section 6.8](https://www.rfc-editor.org/rfc/rfc2045#section-6.8), breaks encoded lines at 76 characters using a newline for end of line. The `DECODE` function ignores carriage-return, newline, space, and tab characters. Otherwise, an error is raised when `DECODE`is supplied invalid base64 data — including when trailing padding is incorrect.
 
 ## Return type
 `BYTEA`

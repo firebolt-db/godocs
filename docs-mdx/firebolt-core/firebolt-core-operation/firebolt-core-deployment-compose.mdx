@@ -30,7 +30,16 @@ And then create the following `config.json` file.
 }
 ```
 
-Persistence is already enabled by default on each of the nodes through the mounted local directory `firebolt-core-data`.
+Persistence is already enabled by default on each of the nodes through the mounted local directory `firebolt-core-data`, which you will need to create and assign correct permissions:
+```bash
+mkdir -p ./firebolt-core-data
+sudo chown -R 1111:1111 ./firebolt-core-data
+```
+
+If your hosts are running macOS, use before each `docker compose` command:
+```bash
+CORE_USER=root docker compose ...
+```
 
 ## Node 0 start
 
@@ -44,7 +53,7 @@ On the cloned repository directory on `example-node-a`; this will start the firs
 
 Run:
 ```bash
-NODE=1 docker compose -f compose.yaml -f compose.nodeN.yaml up
+NODE=1 docker compose -f compose.yaml up
 ```
 On the cloned repository directory on `example-node-b`; this will start the second Firebolt Core node.
 
@@ -65,3 +74,7 @@ curl -s "http://example-node-b:3473" --data-binary "select 42";
 ```bash
 docker exec -ti firebolt-core-node-0 fbcli
 ```
+
+## Web UI
+
+Each of the hosts will also have a web UI available on port `9100`.

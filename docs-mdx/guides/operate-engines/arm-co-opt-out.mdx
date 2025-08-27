@@ -1,0 +1,20 @@
+---
+sidebarTitle: Opt out of ARM for CO
+title: Opt out of ARM architecture for engines in the COMPUTE_OPTIMIZED family
+---
+
+To opt out of the ARM architecture for engines in the COMPUTE_OPTIMIZED (CO) family, use one of the AMD-specific engine types (e.g., S_AMD, M_AMD). This engine type is only supported for engines with the family set to CO.
+
+We will remove the AMD-specific types and migrate all CO engines to the ARM architecture in the 4.27 release.
+
+## Examples
+
+### Create new CO engine with AMD-specific type
+```
+CREATE ENGINE my_engine WITH TYPE=S_AMD FAMILY=CO;
+```
+
+### Alter existing CO engine to AMD-specific type
+```
+ALTER ENGINE my_engine SET TYPE=S_AMD;
+```

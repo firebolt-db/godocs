@@ -316,7 +316,7 @@ The primary index should include columns that are often used in queries that fil
 To optimize query performance and maximize indexing efficiency, use the following best practices for designing composite primary indexes:
 
 * **Column selection** &ndash; Carefully select which columns to include in a composite primary index based on query patterns, cardinality, and the specific use cases for your table. Adding unnecessary columns can negatively impact performance.
-* **Column order** &ndash; The order of columns in a composite primary index is critical. Place the most selective, or highest cardinality columns first in a composite primary index. Firebolt will search based on the order of columns in the primary index. High-cardinality columns, which have many distinct values, improve index efficiency by reducing the number of rows that need to be scanned during queries.
+* **Column order** &ndash; The order of columns in a composite primary index is critical. Generally, place the lowest cardinality columns first in a composite primary index. Firebolt will search based on the order of columns in the primary index. A Primary Index column can only be used for pruning if all values of previous primary Index columns within a granule are equal. Therefore, placing low-cardinality columns first enables more efficient pruning on following columns. However, high-cardinality columns can be beneficial when placed at the end of the primary index definition, or even first if they always have selective filters in your query patterns.
 
 #### Aggregating indexes in tables
 
@@ -416,7 +416,7 @@ This removes the physical partition corresponding to data from that month.
 
 #### Suggested indexes and partitions
 
-If you understand your data and query patterns, you should select high-cardinality columns frequently used in `WHERE`, `JOIN`, or `GROUP BY` clauses to minimize the amount of data scanned and improve query efficiency.
+If you understand your data and query patterns, you should select columns with high selectivity that are frequently used in `WHERE`, `JOIN`, or `GROUP BY` clauses to minimize the amount of data scanned and improve query efficiency. Generally, low-cardinality columns are preferred for the leading positions in composite primary indexes, but high-cardinality columns can be beneficial when they have selective filters.
 
 If you don’t know how to effectively select a primary index or partition your data, you can use Firebolt's [RECOMMEND_DDL](/reference-sql/commands/queries/recommend_ddl) tool to provide automated insights. `RECOMMEND_DDL` will make recommendations to optimize database performance by analyzing your query patterns and suggesting the most efficient configurations for primary indexes and partitioning. By examining historical query data, the tool identifies columns frequently used in filtering, grouping, or aggregating operations and recommends appropriate primary indexes and partition keys. These suggestions help reduce the amount of data scanned during queries, enabling faster execution and improved resource utilization.
 

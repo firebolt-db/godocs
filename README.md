@@ -6,6 +6,10 @@
 * Main discussion channel is [#documentation](https://firebolt-analytics.slack.com/archives/C016HSVDP9U).
 * Important: To improve the search and AI bot, set great [keywords](https://mintlify.com/docs/pages#internal-search-optimization) and [description](https://mintlify.com/docs/pages#descriptions) as it influences search and AI bot functionality.
 
+## Known problems
+* Mintlify sometimes doesn't generate previews for PRs. Check [here](#how-to-preview-remotely-in-mintlify) for workaround.
+* The crawler link checker sometimes would fail on a fetch timeout.
+
 ## Quick start
 * [Add a new page](#how-to-add-a-new-page).
 * [Run local checks](#how-to-check-locally) using `make check-all`.
@@ -65,7 +69,14 @@
 2. Open http://localhost:3000/ in your browser to preview the documentation.
 
 ### How to preview remotely in Mintlify
-1. Open a pull request in the repository.
+NB: There's a know bug when Mintlify skips redeploying the PR preview even when new changes were pushed to [docs-mdx/](docs-mdx). Here's what their support says about it:
+> We've been able to investigate deeper and determined a few potential causes:
+> 1. The PR you added pictures for is pointing at branch release/packdb-4.24. We only trigger preview deployments for PRs pointing at a deployBranch, which in their case is gh-pages
+> 2. If the PR is opened with no changes to any docs content or docs.json, we won't create a preview deployment for it, which means any subsequent pushes to that PR won't update the preview deployment (because it doesn't exist)
+
+1. Open a PR in the repository. Make sure to:
+   * Have at lease some change in [/docs-mdx](/docs-mdx) directory. E.g. an insignificant change in a description of a page.
+   * Temporarily set the `gh-pages` branch as the destination branch of the PR. This is just to trigger a preview generation, and can be changed once the preview build job in the CI/CD pipeline starts.
 2. Wait for the CI/CD pipeline to run.
    * This will build the documentation and deploy it to a remote preview environment using `Mintlify` special workflow.
    * See the status of the deployment in the `Mintlify -> Mintlify Deployment` check in the pull request. There will be a link to the remote preview. ![Example](images/mintlify-deployment-check.png)
@@ -150,7 +161,7 @@ The interactive examples run against a dedicated Firebolt documentation server. 
 1. Open a pull request with the changes:
    * Use `gh-pages` branch if the changes should be published right away.
    * Use `release/packdb-X.YZ` branch (e.g. `release/packdb-4.24`) if the changes should be released with the next PackDB release.
-2. Wait for the CI/CD pipleline to run and the Mintlify [preview deployment](#how-to-preview-remotely-in-mintlify) to complete.
+2. Wait for the CI/CD pipeline to run and the Mintlify [preview deployment](#how-to-preview-remotely-in-mintlify) to complete.
 3. The PR will appear in the [#documentation-prs](https://firebolt-analytics.slack.com/archives/C07H86T5R6U). Ask the owner team to review it.
 4. Merge the PR when it's approved. The changes will be automatically published either to https://docs.firebolt.io (for `gh-pages` branch) or to https://firebolt-release-packdb-X-YZ.mintlify.app (for `release/packdb-X.YZ` branch).
 

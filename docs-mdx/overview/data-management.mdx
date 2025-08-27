@@ -26,7 +26,7 @@ Firebolt supports two isolation levels:
 - DDL (CREATE, ALTER, DROP) and DCL (GRANT, REVOKE) work at *serializable isolation* level.
 - DQL (SELECT) and DML (INSERT, UPDATE, DELETE) work at *snapshot isolation* level.
 
-Serializable isolation means that the result of running concurrent statments is equivalent to as if they were run serially in some order.
+Serializable isolation means that the result of running concurrent statements is equivalent to as if they were run serially in some order.
 
 Snapshot isolation is weaker and guarantees that a transaction sees a consistent version of the database. Transactions fail if any written rows are being written concurrently by another transaction. It is a weaker isolation than serializable, because a transaction does not fail if read data is being changed concurrently. This makes it subject to so called write skew anomalies. As a user, you need to make sure that the write skew anomaly is harmless for your application or does not occur - for example by avoiding concurrent read-write operations. In exchange, Firebolt can deliver the performance, scale and throughput that data intensive applications need.
 

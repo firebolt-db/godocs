@@ -32,7 +32,7 @@ READ_PARQUET (
 
 | Parameter | Description | Supported input types |
 |:----------|:------------|:---------------------|
-| `LOCATION` | The name of a location object that contains the Amazon S3 URL and credentials. Firebolt recommends using `LOCATION` to store credentials for authentication. For a comprehensive guide, see [LOCATION objects](/guides/security/location). For syntax details, see [CREATE LOCATION](/reference-sql/commands/data-definition/create-location). | `IDENTIFIER` |
+| `LOCATION` | The name of a location object that contains the Amazon S3 URL and credentials. Firebolt recommends using `LOCATION` to store credentials for authentication. `LOCATION` must be specified as a string literal (e.g., `LOCATION => 'my_location'`). Unlike `URL`, it cannot be used as a positional parameter. For a comprehensive guide, see [LOCATION objects](/guides/security/location). | `TEXT` |
 | `URL` | The location of the Amazon S3 bucket containing your files. The expected format is `s3://{bucket_name}/{full_file_path_glob_pattern}`. | `TEXT` |
 | `AWS_ACCESS_KEY_ID` | The AWS access key ID. | `TEXT` |
 | `AWS_SECRET_ACCESS_KEY` | The AWS secret access key. | `TEXT` |
@@ -68,7 +68,7 @@ The following code example reads the first 5 rows from a Parquet file using a `L
 ```sql
 SELECT * 
 FROM READ_PARQUET(
-    LOCATION => my_parquet_location
+    LOCATION => 'my_parquet_location'
 ) 
 LIMIT 5;
 ```
@@ -108,14 +108,21 @@ SELECT * FROM READ_PARQUET(URL => 's3://firebolt-publishing-public/help_center_a
 * The `url` can represent a single file or a [glob](https://en.wikipedia.org/wiki/Glob_(programming)) pattern. If a glob pattern is used, all files matching the pattern will be read. A special column `$source_file_name` can be used to identify the source file of each row in the result set:
 
 ```sql
-SELECT *, $source_file_name FROM READ_PARQUET('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/*.parquet')
+SELECT *, $source_file_name FROM READ_PARQUET('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/*.parquet') LIMIT 5;
 ```
 
 When using glob patterns, the wildcard (`*`) can only be used at the end of the path. You can use it with any text before or after, such as `*.parquet`, `date=2025*.parquet`, or `data_*.parquet`.
 
 The pattern will recursively match files in all subdirectories. For example:
 ```sql
-SELECT * FROM READ_PARQUET('s3://firebolt-publishing-public/*.parquet')
+SELECT count(*) FROM READ_PARQUET('s3://firebolt-publishing-public/*.parquet');
 ```
-will read all PARQUET files in the bucket, including those in subdirectories like `help_center_assets/firebolt_sample_dataset/playstats/*.parquet`.
+counts rows of all Parquet files in the bucket, including those in subdirectories like `help_center_assets/firebolt_sample_dataset/playstats/*.parquet`.
 
+The column `$source_file_name` can be used in combination with [REGEXP_EXTRACT](https://docs.firebolt.io/reference-sql/functions-reference/string/regexp-extract) to extract data from the source file path. The following code returns the `TournamentID` for each record it reads based on its file path:
+```sql
+SELECT REGEXP_EXTRACT($source_file_name, 'TournamentID=(\d+)','',1) as TournamentID, *
+FROM READ_PARQUET(URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/*.parquet')
+LIMIT 5;
+```
+For example, it returns `92` for records in file `s3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/TournamentID=92/cc2a2a0b4e8b4fb39abf20a956e7cc3e-0.parquet`.

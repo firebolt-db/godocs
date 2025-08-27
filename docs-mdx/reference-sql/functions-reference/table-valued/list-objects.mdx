@@ -12,7 +12,7 @@ A table-valued function (TVF) that lists objects and their metadata from Amazon 
 ```sql
 -- Using location object (recommended)
 LIST_OBJECTS (
-  LOCATION => location_name
+  LOCATION => 'location_name'
 )
 |
 -- Using static credentials
@@ -30,7 +30,7 @@ LIST_OBJECTS (
 
 | Parameter | Description | Supported input types |
 |:----------|:------------|:---------------------|
-| `LOCATION` | The name of a location object that contains the S3 URL and credentials. This is the recommended approach. For a comprehensive guide, see [LOCATION objects](/guides/security/location). For syntax details, see [CREATE LOCATION](/reference-sql/commands/data-definition/create-location). | `IDENTIFIER` |
+| `LOCATION` | The name of a location object that contains the S3 URL and credentials. This is the recommended approach. For a comprehensive guide, see [LOCATION objects](/guides/security/location). For syntax details, see [CREATE LOCATION](/reference-sql/commands/data-definition/create-location). **Note:** `LOCATION` must be specified as a named parameter (e.g., `LOCATION => 'my_location'`). Unlike `URL`, it cannot be used as a positional parameter. | `TEXT` |
 | `URL` | The location of the Amazon S3 bucket containing your files. The expected format is `s3://{bucket_name}/{full_file_path}`. | `TEXT` |
 | `AWS_ACCESS_KEY_ID` | The AWS access key ID. | `TEXT` |
 | `AWS_SECRET_ACCESS_KEY` | The AWS secret access key. | `TEXT` |
@@ -72,7 +72,7 @@ The following code example retrieves all objects from the specified `LOCATION` u
 
 ```sql
 SELECT * FROM LIST_OBJECTS(
-    LOCATION => my_location
+    LOCATION => 'my_location'
 );
 ```
 

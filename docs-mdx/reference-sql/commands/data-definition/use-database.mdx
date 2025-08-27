@@ -27,14 +27,14 @@ While `USE DATABASE` is designed to set the context at a session level, it plays
 
 ## Example
 
-The following demonstrates setting the current database context to 'sales' database. 
+Set the current database context to the 'sales' database:
 
 ```sql
 USE sales; -- Sets the current database context to 'sales'
 SELECT * FROM public.revenue; -- Executes against 'sales.public.revenue'
 ```
 
-The following example demonstrat switching between databases within a single session
+Switch between databases within a single session:
 
 ```sql
 USE database sales; -- Context set to 'sales'

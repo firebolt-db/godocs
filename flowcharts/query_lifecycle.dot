@@ -1,0 +1,24 @@
+digraph G {
+    rankdir=TD;
+
+    Query [label="SQL Query", shape=ellipse];
+    Gateway [label="Gateway", shape=box];
+    Coordinator [label="Coordinator Node", shape=box];
+    Executor1 [label="Executor Node", shape=box];
+    Executor2 [label="Executor Node", shape=box];
+    Executor3 [label="Executor Node", shape=box];
+    S3 [label="S3", shape=ellipse];
+
+    Query -> Gateway [label="  Send to Firebolt API"];
+    Gateway -> Coordinator [label="  Choose Coordinator"];
+    
+
+    Coordinator -> Coordinator [label="  Send Stages"];
+    Coordinator -> Executor1 [label="                   "];
+    Coordinator -> Executor2 [label="  Send Stages"];
+    Coordinator -> Executor3 [label="                   "];
+
+    Executor1 -> S3 [label="                  "];
+    Executor2 -> S3 [label="  Fetch Data"];
+    Executor3 -> S3 [label="                  "];
+}

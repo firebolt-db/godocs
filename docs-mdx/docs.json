@@ -12,8 +12,8 @@
     "decoration": "gradient"
   },
   "integrations": {
-    "telemetry": {
-      "enabled": false
+    "gtm": {
+      "tagId": "GTM-WQS7M2G"
     }
   },
   "navigation": {
@@ -31,7 +31,6 @@
           {
             "group": "Overview",
             "pages": [
-              "overview",
               "overview/architecture-overview",
               "overview/billing",
               "overview/organizations-accounts",
@@ -100,6 +99,22 @@
             ]
           },
           {
+            "group": "Performance and Observability",
+            "pages": [
+              "performance-and-observability",
+              {
+                "group": "Query Planning",
+                "pages": [
+                  "performance-and-observability/query-planning",
+                  "performance-and-observability/query-planning/inspecting-query-plans",
+                  "performance-and-observability/query-planning/cardinality-estimation",
+                  "performance-and-observability/query-planning/unique-constraint",
+                  "performance-and-observability/query-planning/user-guided-mode"
+                ]
+              }
+            ]
+          },
+          {
             "group": "Guides",
             "pages": [
               {
@@ -134,12 +149,15 @@
               {
                 "group": "Operate Engines",
                 "pages": [
-                  "guides/operate-engines",
                   "guides/operate-engines/rbac-for-engines",
                   "guides/operate-engines/working-with-engines-using-ddl",
                   "guides/operate-engines/sizing-engines",
                   "guides/operate-engines/understand-autoscaling",
-                  "guides/operate-engines/system-engine"
+                  "guides/operate-engines/warming-up-engines",
+                  "guides/operate-engines/arm-co-opt-out",
+                  "guides/operate-engines/engines-release-settings",
+                  "guides/operate-engines/system-engine",
+                  "guides/operate-engines/engine-warmpools"
                 ]
               },
               {
@@ -173,7 +191,6 @@
               {
                 "group": "Configure security",
                 "pages": [
-                  "guides/security",
                   {
                     "group": "Configure SSO",
                     "pages": [
@@ -203,7 +220,8 @@
                   "guides/developing-with-firebolt/connecting-with-jdbc",
                   "guides/developing-with-firebolt/connecting-with-sqlalchemy",
                   "guides/developing-with-firebolt/connecting-with-net-sdk",
-                  "guides/developing-with-firebolt/connecting-with-go"
+                  "guides/developing-with-firebolt/connecting-with-go",
+                  "guides/developing-with-firebolt/connecting-with-rust"
                 ]
               },
               {
@@ -211,6 +229,7 @@
                 "pages": [
                   "guides/integrations/connecting-with-dbt",
                   "guides/integrations/airflow",
+                  "guides/integrations/aws-glue",
                   "guides/integrations/connecting-to-apache-superset",
                   "guides/integrations/connecting-to-preset",
                   "guides/integrations/cube-js",
@@ -221,6 +240,7 @@
                   "guides/integrations/metabase",
                   "guides/integrations/estuary",
                   "guides/integrations/dbeaver",
+                  "guides/integrations/langchain",
                   "guides/integrations/mcp",
                   "guides/integrations/pandas"
                 ]
@@ -442,7 +462,6 @@
                   {
                     "group": "Array functions",
                     "pages": [
-                      "reference-sql/functions-reference/array",
                       "reference-sql/functions-reference/array/array-concat",
                       "reference-sql/functions-reference/array/array-contains",
                       "reference-sql/functions-reference/array/array-count-distinct",
@@ -466,7 +485,6 @@
                   {
                     "group": "Binary functions",
                     "pages": [
-                      "reference-sql/functions-reference/bytea",
                       "reference-sql/functions-reference/bytea/convert-from",
                       "reference-sql/functions-reference/bytea/decode",
                       "reference-sql/functions-reference/bytea/encode"
@@ -475,7 +493,6 @@
                   {
                     "group": "Conditional and miscellaneous functions",
                     "pages": [
-                      "reference-sql/functions-reference/conditional-and-miscellaneous",
                       "reference-sql/functions-reference/conditional-and-miscellaneous/case",
                       "reference-sql/functions-reference/conditional-and-miscellaneous/cast",
                       "reference-sql/functions-reference/conditional-and-miscellaneous/city-hash",
@@ -503,7 +520,6 @@
                   {
                     "group": "Date and time functions",
                     "pages": [
-                      "reference-sql/functions-reference/date-and-time",
                       "reference-sql/functions-reference/date-and-time/ago",
                       "reference-sql/functions-reference/date-and-time/current-date",
                       "reference-sql/functions-reference/date-and-time/current-timestamptz",
@@ -523,7 +539,6 @@
                   {
                     "group": "Geospatial functions",
                     "pages": [
-                      "reference-sql/functions-reference/geospatial",
                       "reference-sql/functions-reference/geospatial/st_asbinary",
                       "reference-sql/functions-reference/geospatial/st_asewkb",
                       "reference-sql/functions-reference/geospatial/st_asgeojson",
@@ -570,7 +585,6 @@
                   {
                     "group": "Numeric functions",
                     "pages": [
-                      "reference-sql/functions-reference/numeric",
                       "reference-sql/functions-reference/numeric/abs",
                       "reference-sql/functions-reference/numeric/acos",
                       "reference-sql/functions-reference/numeric/array-enumerate",
@@ -606,7 +620,6 @@
                   {
                     "group": "Session functions",
                     "pages": [
-                      "reference-sql/functions-reference/session",
                       "reference-sql/functions-reference/session/current-account",
                       "reference-sql/functions-reference/session/current-database",
                       "reference-sql/functions-reference/session/current-engine",
@@ -706,7 +719,6 @@
           {
             "group": "General reference",
             "pages": [
-              "reference",
               {
                 "group": "Release notes",
                 "pages": [
@@ -718,7 +730,6 @@
               "reference/system-settings",
               "reference/object-identifiers",
               "reference/reserved-words",
-              "reference/interval-arithmetic",
               "reference/help-menu"
             ]
           },
@@ -747,7 +758,15 @@
                   "firebolt-core/firebolt-core-connect/firebolt-core-connect-cli",
                   "firebolt-core/firebolt-core-connect/firebolt-core-connect-go",
                   "firebolt-core/firebolt-core-connect/firebolt-core-connect-jdbc",
-                  "firebolt-core/firebolt-core-connect/firebolt-core-connect-python"
+                  "firebolt-core/firebolt-core-connect/firebolt-core-connect-python",
+                  "firebolt-core/firebolt-core-connect/firebolt-core-connect-ui"
+                ]
+              },
+              {
+                "group": "Integrate",
+                "pages": [
+                  "firebolt-core/firebolt-core-integrate/firebolt-core-connect-with-dbt",
+                  "firebolt-core/firebolt-core-integrate/firebolt-core-connect-apache-superset"
                 ]
               },
               "firebolt-core/firebolt-core-data-processing",
@@ -4738,6 +4757,11 @@
       "permanent": false
     },
     {
+      "source": "/FireboltCore/firebolt-core-connect-ui.html",
+      "destination": "/firebolt-core/firebolt-core-connect/firebolt-core-connect-ui",
+      "permanent": false
+    },
+    {
       "source": "/FireboltCore/firebolt-core-architecture.html",
       "destination": "/firebolt-core/firebolt-core-architecture",
       "permanent": false
@@ -4878,6 +4902,16 @@
       "permanent": false
     },
     {
+      "source": "/Guides/operate-engines/arm-co-opt-out.html",
+      "destination": "/guides/operate-engines/arm-co-opt-out",
+      "permanent": false
+    },
+    {
+      "source": "/Guides/operate-engines/engine-warmpools.html",
+      "destination": "/guides/operate-engines/engine-warmpools",
+      "permanent": false
+    },
+    {
       "source": "/Guides/integrations/connecting-to-paradime",
       "destination": "/guides/integrations/connecting-to-paradime",
       "permanent": false
@@ -4985,6 +5019,11 @@
     {
       "source": "/Guides/operate-engines/system-engine.html",
       "destination": "/guides/operate-engines/system-engine",
+      "permanent": false
+    },
+    {
+      "source": "/Guides/operate-engines/warming-up-engines.html",
+      "destination": "/guides/operate-engines/warming-up-engines",
       "permanent": false
     },
     {
@@ -5158,6 +5197,11 @@
       "permanent": false
     },
     {
+      "source": "/FireboltCore/firebolt-core-connect-ui",
+      "destination": "/firebolt-core/firebolt-core-connect/firebolt-core-connect-ui",
+      "permanent": false
+    },
+    {
       "source": "/FireboltCore/firebolt-core-architecture",
       "destination": "/firebolt-core/firebolt-core-architecture",
       "permanent": false
@@ -5288,6 +5332,16 @@
       "permanent": false
     },
     {
+      "source": "/Guides/operate-engines/arm-co-opt-out",
+      "destination": "/guides/operate-engines/arm-co-opt-out",
+      "permanent": false
+    },
+    {
+      "source": "/Guides/operate-engines/engine-warmpools",
+      "destination": "/guides/operate-engines/engine-warmpools",
+      "permanent": false
+    },
+    {
       "source": "/Guides/migration-guides/redshift.html",
       "destination": "/guides/migration-guides/redshift",
       "permanent": false
@@ -5363,6 +5417,11 @@
       "permanent": false
     },
     {
+      "source": "/Guides/operate-engines/warming-up-engines",
+      "destination": "/guides/operate-engines/warming-up-engines",
+      "permanent": false
+    },
+    {
       "source": "/Guides/loading-data/loading-data-sql",
       "destination": "/guides/loading-data/loading-data-sql",
       "permanent": false
@@ -5434,7 +5493,7 @@
     },
     {
       "source": "/Reference/interval-arithmetic.html",
-      "destination": "/reference/interval-arithmetic",
+      "destination": "/reference-sql/operators#arithmetic-with-datetime-and-intervals",
       "permanent": false
     },
     {
@@ -5779,7 +5838,7 @@
     },
     {
       "source": "/Reference/interval-arithmetic",
-      "destination": "/reference/interval-arithmetic",
+      "destination": "/reference-sql/operators#arithmetic-with-datetime-and-intervals",
       "permanent": false
     },
     {
@@ -6275,6 +6334,11 @@
     {
       "source": "/Guides",
       "destination": "/guides",
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "destination": "/intro",
       "permanent": false
     }
   ]

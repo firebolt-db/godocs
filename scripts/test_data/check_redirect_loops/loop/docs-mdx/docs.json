@@ -1,0 +1,9 @@
+{
+  "navigation": {"tabs": [{"tab": "A Tab", "pages": [
+  ]}]},
+  "redirects": [
+    {"source": "/a", "destination": "/b"},
+    {"source": "/b", "destination": "/c"},
+    {"source": "/c", "destination": "/a"}
+  ]
+}

@@ -172,7 +172,7 @@ CREATE LOCATION my_data_source WITH
 -- Read CSV files directly
 SELECT customer_id, email, signup_date
 FROM READ_CSV(
-  LOCATION => my_data_source,
+  LOCATION => 'my_data_source',
   HEADER => TRUE
 )
 WHERE signup_date >= '2024-01-01';
@@ -185,9 +185,13 @@ CREATE LOCATION my_parquet_data_source WITH
 
 -- Read Parquet files with filtering
 SELECT *
-FROM READ_PARQUET(LOCATION => my_parquet_data_source)
+FROM READ_PARQUET(LOCATION => 'my_parquet_data_source')
 WHERE order_date BETWEEN '2024-01-01' AND '2024-01-31';
 
+-- List objects in S3 bucket
+SELECT object_name, object_bytes, last_modified
+FROM LIST_OBJECTS(LOCATION => 'my_data_source')
+WHERE object_name LIKE '%.parquet';
 ```
 
 For more information about table-valued functions, see [READ_CSV](/reference-sql/functions-reference/table-valued/read_csv), [READ_PARQUET](/reference-sql/functions-reference/table-valued/read_parquet), [READ_ICEBERG](/reference-sql/functions-reference/table-valued/read_iceberg), and [LIST_OBJECTS](/reference-sql/functions-reference/table-valued/list-objects).

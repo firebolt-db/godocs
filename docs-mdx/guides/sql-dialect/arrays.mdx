@@ -13,16 +13,17 @@ Array types are declared using `ARRAY(<type>)` where `<type>` can be any data ty
 
 If you load an array from a CSV file, the arrays in the CSV file must be enclosed in double quotes (```""```).
 
-For example, if a CSV file contains a row containing ```value1 , value2 , "[array_value3 , array_value4]"``` , you can create a table using the following code to read `array_value3` and `array_value4` into `array_values`.
+For example, if a CSV file contains a row containing ```value1 , value2 , "[array_value3 , array_value4]"```, you can create a table using the following code to read `array_value3` and `array_value4` into `array_values`.
 
 ```sql
-CREATE TABLE IF NOT EXISTS array_example
-    (  
-      value1 STRING,  
-      value2 STRING,  
+CREATE EXTERNAL TABLE IF NOT EXISTS array_example
+    (
+      value1 STRING,
+      value2 STRING,
       array_values ARRAY(TEXT)
     )
     URL = 's3://path_to_your_data/'
+    OBJECT_PATTERN = '*'
     TYPE = (csv);
 ```
 
@@ -49,7 +50,7 @@ There are several fundamental functions that you can use to work with arrays, in
 `LENGTH` returns the number of elements in an array.
 
 ```sql
-SELECT 
+SELECT
   id,
   LENGTH(agent_props_keys) as key_array_length
 FROM visits;
@@ -73,8 +74,8 @@ FROM visits;
 `ARRAY_CONCAT` combines multiple arrays into a single array.
 
 ```sql
-SELECT 
-  id, 
+SELECT
+  id,
   ARRAY_CONCAT(agent_props_keys, agent_props_vals) as concat_keys_and_vals
 FROM visits;
 ```
@@ -100,7 +101,7 @@ FROM visits;
 SELECT ARRAY_FLATTEN([ [[1,2,3],[4,5]], [[2]] ]) as flattened_array;
 ```
 
-**Returns**: 
+**Returns**:
 
 ```
 +---------------------+
@@ -116,7 +117,7 @@ Firebolt *Lambda functions* are a powerful tool that you can use on arrays to ex
 
 ### Lambda function general syntax
 
-The general syntax pattern of a Lambda function is shown below. For detailed syntax and examples see the reference topics for [Lambda functions](/reference-sql/functions-reference/lambda).
+The general syntax pattern of a Lambda function is shown below. For detailed syntax and examples, see the reference topics for [Lambda functions](/reference-sql/functions-reference/lambda).
 
 ```
 <LAMBDA_FUNC>(<arr1_var>[, <arr2_var>][, ...<arrN_var>]) -> <operation>, <array1>[, <array2>][, ...<arrayN>])
@@ -136,8 +137,8 @@ Consider the following [TRANSFORM](/reference-sql/functions-reference/lambda/tra
 
 
 ```sql
-SELECT 
-  id, 
+SELECT
+  id,
   TRANSFORM(t -> UPPER(t), tags) AS up_tags
 FROM visits;
 ```
@@ -163,8 +164,8 @@ FROM visits;
 The example below returns the first value in the `agent_props_vals` array where the corresponding position in the `agent_props_keys` array contains the key `platform`.
 
 ```sql
-SELECT 
-  id, 
+SELECT
+  id,
   ARRAY_FIRST(v, k -> k = 'platform', agent_props_vals, agent_props_keys) AS platform
 FROM visits;
 ```
@@ -182,10 +183,10 @@ FROM visits;
 ```
 [ARRAY_SORT](/reference-sql/functions-reference/array/array-sort) sorts one array by another. One array represents the values and the other represents the sort order.
 
-The example below sorts the first array by the positions defined in the second array
+The example below sorts the first array by the positions defined in the second array.
 
 ```sql
-SELECT 
+SELECT
   ARRAY_SORT(x,y -> y, [ 'A','B','C'],[3,2,1]) AS res;
 ```
 **Returns**:
@@ -216,10 +217,10 @@ Multiple `UNNEST` statements in a single `FROM` clause result in a Cartesian pro
 The following example unnests the `tags` column from the `visits` table.
 
 ```sql
-SELECT 
-    id, 
+SELECT
+    id,
     tag
-FROM 
+FROM
     visits,
     UNNEST(tags) as r(tag);
 ```
@@ -330,7 +331,7 @@ SELECT
     CAST([1,2,3,4,NULL] AS TEXT)
 ```
 
-returns the `TEXT` value `'{1,2,3,4,NULL}'`. 
+returns the `TEXT` value `'{1,2,3,4,NULL}'`.
 
 When converting `ARRAY` values containing `TEXT` elements to `TEXT`, some additional rules apply. Specifically, array elements are enclosed by double quotes (`"`) in the following cases:
 
@@ -345,7 +346,7 @@ SELECT
     CAST(['1','2','3','4',NULL,'','{impostor,array}','["impostor","array","back\slash"]',' padded and spaced ', 'only spaced', 'null'] AS TEXT)
 ```
 
-returns the `TEXT` value `'{1,2,3,4,NULL,"","{impostor,array}","[\"impostor\",\"array\",\"back\\slash\"]"," padded and spaced ","only spaced","null"}'`. 
+returns the `TEXT` value `'{1,2,3,4,NULL,"","{impostor,array}","[\"impostor\",\"array\",\"back\\slash\"]"," padded and spaced ","only spaced","null"}'`.
 
 ### Converting TEXT to ARRAY
 
@@ -370,7 +371,7 @@ returns the `ARRAY(INTEGER)` value `[1,2,3,4,NULL]`.
 
 ### Nested ARRAYs
 
-Finally, the same prodedure applies when converting nested `ARRAY` values from and to `TEXT`. For example, the query
+Finally, the same procedure applies when converting nested `ARRAY` values from and to `TEXT`. For example, the query
 
 ```sql
 SELECT
@@ -385,4 +386,3 @@ SELECT
 ```
 
 returns the `ARRAY(ARRAY(INTEGER))` value `[NULL,[],[NULL],[1,2],[3,4]]`.
-

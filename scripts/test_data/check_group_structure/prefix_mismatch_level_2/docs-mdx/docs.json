@@ -1,0 +1,4 @@
+{"navigation": {"tabs": [{"tab": "A Tab", "pages": [{"group": "A group", "pages": [
+    "group-a/group-b/page",
+    "group-a"
+]}]}]}}

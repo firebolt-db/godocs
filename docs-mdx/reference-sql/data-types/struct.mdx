@@ -84,7 +84,7 @@ The `SUPPORT_STRUCTS` parameter only affects type inference during schema discov
 
 The automatic schema discovery feature of the `COPY FROM` statement supports the `STRUCT` data type for Parquet files. Support of other file formats will be added in the near future.
 
-Other utilities like [`READ_PARQUET`](/reference-sql/functions-reference/table-valued/read_parquet) and [external tables](/reference-sql/commands/data-definition/create-external-table) do not support the `STRUCT` data type at the moment. We will extend the coverage in the following releases.
+[External tables](/reference-sql/commands/data-definition/create-external-table) do not support the `STRUCT` data type at the moment. We will extend the coverage in the following releases.
 
 ## Querying structs
 
@@ -150,7 +150,7 @@ SELECT * FROM t ORDER BY kv;
     \_[2] [StoredTable] Name: "t", used 5/5 column(s) FACT
 ```
 
-Firstly, note that the `StoredTable` node [2] shows "5/5 column(s)". Recall that struct values are decomposed into individual attribute columns. So table `t` is actaully decomposed into the following schema:
+Firstly, note that the `StoredTable` node [2] shows "5/5 column(s)". Recall that struct values are decomposed into individual attribute columns. So table `t` is actually decomposed into the following schema:
 ```sql
 TABLE t (
     id            BIGINT,
@@ -210,7 +210,7 @@ CREATE TABLE t3 (
 );
 ```
 
-Firebolt does not support defining a nullability contraint for an array element when the array element is a `STRUCT` or an array of `STRUCT`. As a result, for an array of struct column, only the top-level array can be `NOT NULL`. All nested element types are nullable by default.
+Firebolt does not support defining a nullability constraint for an array element when the array element is a `STRUCT` or an array of `STRUCT`. As a result, for an array of struct column, only the top-level array can be `NOT NULL`. All nested element types are nullable by default.
 
 At the moment, [array functions](/reference-sql/functions-reference/array) and [lambda functions](/reference-sql/functions-reference/lambda) generally do not support array of struct. The support will be extended in the near future.
 

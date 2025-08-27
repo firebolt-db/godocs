@@ -124,6 +124,7 @@ For the `VACUUM` job, the fields in `vacuum_stats` are:
 |:------------------|:------------|
 |`type`             |Always set to `vacuum_job` |
 |`parent_query_id`  |The unique identifier of the `VACUUM` command this sub-job is part of |
+|`partition_id`     |The partition sub-job's tablets belong to|
 |`node-ordinal`     |The ordinal number of the node the sub-job is running on |
 |`tablets`     |Number of tablets that the sub-job is optimizing |
 |`rows`     |Total number of rows (included deleted rows) in those `tablets` |

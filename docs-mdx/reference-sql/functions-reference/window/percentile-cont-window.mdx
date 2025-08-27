@@ -37,7 +37,7 @@ The example below calculates the max percentile value based on continuous distri
 ```sql
 SELECT
 	nickname,
-	PERCENTILE_CONT(1.0) WITHIN GROUP (ORDER BY current_score) OVER (PARTITION BY leve;) AS percentile
+	PERCENTILE_CONT(1.0) WITHIN GROUP (ORDER BY current_score) OVER (PARTITION BY level;) AS percentile
 FROM
 	players;
 ```

@@ -1,3 +1,17 @@
+Not done:
+* [ ] Improve interactive playground
+  * [ ] Add interactive examples where they work but not included
+  * [ ] Fix statistical examples
+  * [ ] Fix syntax highlighting in query window widgets
+* [ ] Replace the 307 redirectes for 301
+  * [ ] Add non-blocking validation check to identify and warn about non-permanent redirects that may need to be made permanent
+* [ ] Improve visuals
+  * [ ] Fix screenshots for dark mode
+  * [ ] Check that most of the pages are fit for small screens
+  * [ ] Check documentation for inconsistencies in formatting
+* [ ] Clean up assets (no unused image copies)
+
+Done:
 * [x] Existing content works
   * [x] own tests pass (same md, no markup left)
   * [x] urls are beautiful - also prevent old redirects from causing infinite loops
@@ -32,26 +46,13 @@
   * [x] Test domain shift on auxiliary domain
   * [x] Disable telemetry to not to be blocked by cookie consent
 * [x] Add preexisting redirects (through old urls is ok)
-
-Nice to have:
 * [x] Improve documentation structure
   * [x] Publish reference pages staying unpublished for no reason
   * [x] Unhide pages hidden in navigation tree for no reason
   * [x] Add data type reference page navigation group and data type pages with "Details on " prefix
   * [x] Add tests on navigation structure
   * [x] Add tests on missing redirects when pages are moved
-* [ ] Enable analytics
-  * [ ] Integrate with cookie consent platform
-* [ ] Improve interactive playground
-  * [ ] Add interactive examples where they work but not included
-  * [ ] Fix statistical examples
-  * [ ] Fix syntax highlighting in query window widgets
-* [ ] Replace the 307 redirectes for 301
-* [ ] Write HowTo documentation for contributors.
-* [ ] Improve visuals
-  * [ ] Fix screenshots for dark mode
-  * [ ] Check that most of the pages are fit for small screens
-  * [ ] Check documentation for inconsistencies in formatting
-* [ ] Replace muffet in external link check or fix its handling of timeouts
-* [ ] Clean up assets (no unused image copies)
-* [ ] Add non-blocking validation check to identify and warn about non-permanent redirects that may need to be made permanent
+* [x] Enable analytics
+  * [x] Integrate with cookie consent platform
+* [x] Write HowTo documentation for contributors.
+* [x] Fix flaky external link check in muffet

@@ -114,5 +114,17 @@
   {
     "path": "reference-sql/functions-reference/window/percentile-disc-window.mdx",
     "reason": "not yet implemented"
+  },
+  {
+    "path": "performance-and-observability/data-pruning-and-storage.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "performance-and-observability/metadata-and-compute.mdx",
+    "reason": "not yet implemented"
+  },
+  {
+    "path": "performance-and-observability/runtime.mdx",
+    "reason": "not yet implemented"
   }
 ]

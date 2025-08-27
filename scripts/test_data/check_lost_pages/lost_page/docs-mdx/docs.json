@@ -1,0 +1,10 @@
+{
+  "navigation": {
+    "tabs": [
+      {
+        "group": "G",
+        "pages": ["existing"]
+      }
+    ]
+  }
+}

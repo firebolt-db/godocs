@@ -1,0 +1,149 @@
+---
+sidebarTitle: LangChain
+title: LangChain
+---
+
+![LangChain](https://python.langchain.com/img/brand/wordmark.png)
+
+[LangChain](https://python.langchain.com/) is a framework for developing applications powered by language models. It enables developers to build context-aware applications that can reason about data and take actions. LangChain provides tools for connecting LLMs to various data sources, including databases, making it possible to query and analyze data using natural language.
+
+This guide shows you how to connect LangChain to Firebolt using the SQLAlchemy connector, enabling natural language interactions with your Firebolt database.
+
+## Prerequisites
+
+Before you begin, ensure you have the following prerequisites:
+
+1. **Python installation**: You need Python 3.8 or higher installed on your machine. You can download it from [python.org](https://www.python.org/downloads/).
+2. **Firebolt account**: You need an active Firebolt account with a configured database and engine. If you don't have one, you can [sign up](https://go.firebolt.io/signup) for free.
+3. **Firebolt credentials**: Create a [service account](/guides/managing-your-organization/service-accounts) in Firebolt and note its client ID and secret.
+4. **LLM API key**: You'll need an API key from a supported LLM provider to power the natural language processing. This guide uses OpenAI as an example, but LangChain supports [many other chat model providers](https://python.langchain.com/docs/integrations/chat/). You can obtain an OpenAI API key from the [OpenAI website](https://platform.openai.com/settings/organization/api-keys).
+
+## Connecting to Firebolt with LangChain
+
+### 1. Install Required Packages
+
+Install the necessary Python packages. This example uses OpenAI, but you can install packages for [any LangChain-supported chat model](https://python.langchain.com/docs/integrations/chat/):
+
+```bash
+# For OpenAI (example used in this guide)
+pip install langchain langchain-openai firebolt-sqlalchemy
+
+# For other providers, install the appropriate package:
+# pip install langchain langchain-anthropic firebolt-sqlalchemy  # For Anthropic Claude
+# pip install langchain langchain-google-genai firebolt-sqlalchemy  # For Google Gemini
+# pip install langchain langchain-cohere firebolt-sqlalchemy  # For Cohere
+```
+
+### 2. Set Up Environment Variables
+
+For security best practices, store your credentials as environment variables. This example uses OpenAI, but you can use [any LangChain-supported model](https://python.langchain.com/docs/integrations/chat/):
+
+```bash
+export FIREBOLT_CLIENT_ID="your_client_id"
+export FIREBOLT_CLIENT_SECRET="your_client_secret"
+export FIREBOLT_ACCOUNT_NAME="your_account_name"
+export FIREBOLT_DATABASE="your_database_name"
+export FIREBOLT_ENGINE_NAME="your_engine_name"
+
+# For OpenAI (example used in this guide)
+export OPENAI_API_KEY="your_openai_api_key"
+
+# For other providers, set the appropriate environment variable:
+# export ANTHROPIC_API_KEY="your_anthropic_api_key"  # For Anthropic Claude
+# export GOOGLE_API_KEY="your_google_api_key"  # For Google Gemini
+# export COHERE_API_KEY="your_cohere_api_key"  # For Cohere
+```
+
+### 3. Configure the Connection
+
+Connect to Firebolt using a SQLAlchemy engine. You'll need to provide your Firebolt credentials and the database connection details:
+- `client_id`: client ID of your [service account](/guides/managing-your-organization/service-accounts).
+- `client_secret`: client secret of your [service account](/guides/managing-your-organization/service-accounts).
+- `account_name`: The name of your Firebolt [account](/guides/managing-your-organization/managing-accounts).
+- `database`: The name of the [database](/overview/security/rbac/database-permissions) to connect to.
+- `engine`: The name of the [engine](/overview/security/rbac/engine-permissions) to run SQL queries on.
+
+The SQLAlchemy connection string is the key component that enables LangChain integration with Firebolt. This example uses OpenAI, but you can substitute with [any LangChain-supported chat model](https://python.langchain.com/docs/integrations/chat/):
+
+```python
+import os
+from langchain_community.utilities import SQLDatabase
+from langchain_openai import ChatOpenAI  # Replace with your preferred provider
+from langchain_community.agent_toolkits import create_sql_agent
+
+# 🔐 Credentials - Make sure these are securely stored
+FIREBOLT_CLIENT_ID = os.getenv("FIREBOLT_CLIENT_ID")
+FIREBOLT_CLIENT_SECRET = os.getenv("FIREBOLT_CLIENT_SECRET")
+FIREBOLT_ACCOUNT_NAME = os.getenv("FIREBOLT_ACCOUNT_NAME")
+FIREBOLT_DATABASE = os.getenv("FIREBOLT_DATABASE")
+FIREBOLT_ENGINE_NAME = os.getenv("FIREBOLT_ENGINE_NAME")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+# 🔗 SQLAlchemy connection string for Firebolt
+connection_url = (f"firebolt://{FIREBOLT_CLIENT_ID}:{FIREBOLT_CLIENT_SECRET}@{FIREBOLT_DATABASE}/"
+                  f"{FIREBOLT_ENGINE_NAME}?account_name={FIREBOLT_ACCOUNT_NAME}")
+
+llm = ChatOpenAI(temperature=0, openai_api_key=OPENAI_API_KEY, model_name="gpt-4o")
+# For other providers, use the appropriate class:
+# from langchain_anthropic import ChatAnthropic
+# llm = ChatAnthropic(model="claude-3-sonnet-20240229", anthropic_api_key=os.getenv("ANTHROPIC_API_KEY"))
+# 
+# from langchain_google_genai import ChatGoogleGenerativeAI
+# llm = ChatGoogleGenerativeAI(model="gemini-pro", google_api_key=os.getenv("GOOGLE_API_KEY"))
+
+db = SQLDatabase.from_uri(connection_url, schema="public")
+
+agent_executor = create_sql_agent(llm, db=db, agent_type="openai-tools", verbose=True)
+```
+
+## Usage Examples
+
+### Basic Database Analysis
+
+```python
+# Analyze your dataset structure
+prompt = "Analyze the dataset I have in the database. What tables do I have and what data do they contain?"
+response = agent_executor.invoke(prompt)
+print(response["output"])
+```
+
+### Natural Language Queries
+
+```python
+# Query data using natural language
+prompt = "What are the top 5 countries by ad revenue?"
+response = agent_executor.invoke(prompt)
+print(response["output"])
+
+# More complex analytical queries
+prompt = "Show me the monthly trend of sales for the last 6 months, grouped by product category"
+response = agent_executor.invoke(prompt)
+print(response["output"])
+```
+
+### Advanced Analytics
+
+```python
+# Statistical analysis
+prompt = "Calculate the correlation between marketing spend and revenue by region"
+response = agent_executor.invoke(prompt)
+print(response["output"])
+
+# Data quality checks
+prompt = "Identify any data quality issues in the customer table, such as missing values or duplicates"
+response = agent_executor.invoke(prompt)
+print(response["output"])
+```
+
+## Compatibility and Limitations
+
+- **LangChain Versions**: This integration is compatible with LangChain 0.1.0 and later versions.
+- **Performance**: For large datasets, consider using appropriate filters and limits in your natural language prompts to optimize query performance.
+- **Token Limits**: Be aware of LLM token limits when working with large schema descriptions or query results.
+
+## Further Reading
+
+- Learn more about [LangChain SQL agents](https://python.langchain.com/docs/integrations/tools/sql_database/) and their capabilities
+- Explore [LangChain chat model integrations](https://python.langchain.com/docs/integrations/chat/) to see all supported LLM providers
+- Review the [Firebolt SQLAlchemy documentation](https://github.com/firebolt-db/firebolt-sqlalchemy/blob/main/README.md) for advanced connection options
+- Visit [LangChain's documentation](https://python.langchain.com/) for more advanced use cases and integrations

@@ -1,0 +1,76 @@
+---
+description: Learn how to warm up engines for optimal performance 
+sidebarTitle: Warming Up Engines
+title: Warming Up Engines
+---
+
+Performance of DQLs on engines can be driven by many factors, but for performant and predictable query runtimes the most important factor is often if the input data is already present on disk. If it is not, the data will first have to be pulled from cloud storage before it can be processed. Once tablets are cached on the disk, they are kept there until they need to be evicted for tablets which are being more heavily used. This on disk cache has some automatic capabilities and can be explicitly controlled. There are also other considerations like: how long will reading the data take and what should be done if the engine is composed of multiple clusters.  
+
+<Note>
+**Note:** This guide only applies to user engines.
+</Note>
+
+## Why does the on disk tablet cache impact performance?
+
+When a query requires reading a tablet, that tablet is read from cloud storage and written onto the disk. It is then kept there until the tablet cache is full or the engine is shut down. Once the tablet cache is full, a modified least recently used (LRU) algorithm is used to free up space. If a tablet is used in another query, and it hasn't been evicted from the disk, it can simply be read from disk instead of requiring calls to cloud storage. This makes reads over the same input data more performant and more predictable. This mechanism is always at work and does not require any explicit user input.
+
+## Use AUTO_WARMUP to warm engines in the background
+This feature works by taking note of what data has been recently accessed on an engine every few minutes and persisting that information.
+When an engine starts up, or a new cluster is added (via auto-scaling or manual alter), the engine look up what data has been recently accessed
+and proactively pulls the set of tablets backing it in the background. This process increases engine CPU usage slightly while these tablets are loading,
+but can cut down substantially on cold-reads.
+
+This features is recommended for engines that frequently touch the same subset of data (i.e. the same few columns, or the same few days of logs) and either stop often or use engine autoscaling. It is less useful for engines with unpredictable / inconsistent workloads or engines expected to run all the time.
+
+This feature can be enabled / disabled in SQL. For example:
+```sql
+-- Enable auto_warmup on myengine
+ALTER ENGINE myengine SET AUTO_WARMUP = true;
+
+-- Disable auto_warmup on myengine
+ALTER ENGINE myengine SET AUTO_WARMUP = false;
+```
+
+<Note>
+**Note:** AUTO_WARMUP is off by default.
+</Note>
+
+## Explicit data management
+
+Reading data will pull it into the tablet cache. This can be used to explicitly pull data in for subsequent fast access.
+
+### Example: point reads from a large table.
+
+Imagine that you just created a new engine for a production scenario. This scenario will involve many point reads to a table large enough to have many tablets, but small enough to fit on the disk of your engine. If you naively enable the production queries on the engine initial performance might be worse than expected because most reads will result in network calls to cloud storage to fetch at least one tablet. This is true even if the table is perfectly partitioned and indexed. This can be remedied by explicitly pulling in your table after starting the engine:
+
+```sql
+SELECT checksum(*) FROM my_table;
+```
+
+This query will force all rows and columns of the tables to be downloaded to the engine's disk. Assuming no data is evicted from the cache and no new data is added to the table, no reads from the table should require accessing cloud storage. At this point, queries should be faster and more predictable.
+
+### Example: new partitions are added, and are expected to see heavy use
+
+Imagine that every day a new partition is added to your table. After it is added, new queries will begin reading some of that partition. These reads will be slow initially, but once the whole partition has been read they will be fast. This process can be expedited by reading the partition as soon as it is ingested. 
+
+```sql
+-- Right after yesterday's data is inserted, read that partition fully:
+SELECT checksum(*) FROM my_table WHERE date_of_event = AGO('1 day');
+```
+
+### Explicitly warming up a multi-cluster engine. 
+
+A query submitted to a multi-cluster engine is only sent to one cluster. If you want to explicitly warm up a multi-cluster engine you should use the [Multi-Cluster Engine Warmup](/reference/system-settings#multi-cluster-engine-warmup) setting to send that query to all clusters of the engine.
+
+### Async warmup
+
+Warmup queries expected to run for a long time can be submitted using the async query api. While SELECT queries cannot be submitted using async, inserts can:
+
+```sql
+CREATE TABLE IF NOT EXISTS checksums (checksum text);
+
+-- This query can be submitted async
+INSERT INTO checksums("checksum") select checksum(*) from table_to_warm_up;
+```
+
+This will allow the query to run in the background and will not require keeping a long lived connection alive for the duration of the query.  
