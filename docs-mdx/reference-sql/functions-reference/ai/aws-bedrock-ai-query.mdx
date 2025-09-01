@@ -8,14 +8,7 @@ title: AWS_BEDROCK_AI_QUERY
 Invokes an Amazon AWS Bedrock model and returns the raw response payload as a JSON string (`TEXT`).
 To use the function, provide the model identifier, the request body as serialized JSON, and a `LOCATION` that holds AWS credentials.
 
-For setup guidance and end-to-end examples, see:
-
-- [Connecting with AWS Bedrock](/guides/ai/use-aws-roles-to-access-bedrock)
-- [Getting started with AI](/guides/ai/getting-started-with-ai)
-
-<Note>
-This function passes the model identifier to Amazon Bedrock as-is and does not validate it. Make sure the `request` JSON matches the syntax required by the model you select.
-</Note>
+For setup guidance and end-to-end examples, see [Getting started with AI](/guides/ai/getting-started-with-ai).
 
 ## Syntax
 
@@ -31,6 +24,10 @@ AWS_BEDROCK_AI_QUERY(<model>, <request>, <location> [, <null_on_error>])
 | `<request>`       | The request body as a serialized JSON string. The structure and fields must follow the syntax for the selected model.    | `TEXT` |
 | `<location>`      | The name of the `LOCATION` to use for AWS credentials. Must be a literal constant. See [CREATE LOCATION (Amazon Bedrock)](/reference-sql/commands/data-definition/create-location-bedrock).                                                                 | `TEXT` |
 | `<null_on_error>` | Optional. Whether to return `NULL` instead of raising an error when a Bedrock invocation error occurs. Default `FALSE`. Must be a literal constant. | `BOOL` |
+
+<Note>
+Make sure the `request` JSON matches the syntax required by the model you select. See the [Amazon Bedrock model parameters documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters.html) for details.
+</Note>
 
 ## Return Type
 
@@ -54,6 +51,10 @@ Counting tokens is done in a "best effort" manner. Some models provide the token
 | `deepseek`         | Estimated          |
 | `meta.llama`       | Accurate           |
 | `mistral`          | Estimated          |
+
+<Note>
+LLM token budget accounting is not available in Firebolt Core.
+</Note>
 
 ## Examples
 

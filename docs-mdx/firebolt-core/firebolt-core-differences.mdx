@@ -21,6 +21,7 @@ While Firebolt Core provides powerful data warehousing capabilities, some releva
     * There is **no support for [DIMENSION](/reference-sql/commands/data-definition/create-fact-dimension-table) tables** in Firebolt Core. All tables are sharded across nodes.
 * **At most one write transaction** can be active at a time in Firebolt Core (see also [Connect](/firebolt-core/firebolt-core-connect)). Attempting to start concurrent write transactions will result in an error.
 * There is **no support for [asynchronous query execution](/reference-api/using-async-queries)** in Firebolt Core.
+* There is **no support for LLM token budget accounting** in Firebolt Core. You can use AI functions as described in the [Getting started with AI guide](/guides/ai/getting-started-with-ai), but token usage will not be tracked and token limits are not enforced.
 
 As a result of the above limitations, only a subset of the [documented SQL dialect](/reference-sql) is available in Firebolt Core. Most importantly, the following statements are **unavailable** in Firebolt Core.
 

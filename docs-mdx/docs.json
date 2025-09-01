@@ -474,6 +474,7 @@
                     "group": "AI functions",
                     "pages": [
                       "reference-sql/functions-reference/ai",
+                      "reference-sql/functions-reference/ai/ai-query",
                       "reference-sql/functions-reference/ai/aws-bedrock-ai-query"
                     ]
                   },
