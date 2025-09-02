@@ -24,7 +24,6 @@ Subresults are placed in an in-memory FireCache, which can use up to 20% of the 
 Currently, the optimizer places a `MaybeCache` operator in the following places:
   - At the top of the query plan to cache the full result.
   - At nodes where “sideways information passing” occurs, optimizing joins where the probe-side has an indexed key.
-  - When a common table expression (CTE) is marked as [`MATERIALIZED REUSABLE`](/reference-sql/commands/queries/select#reusable-common-table-expressions).
 
   The `MaybeCache` operator is versatile, and it can be placed anywhere in the plan. 
 - Firebolt stores subresult hash-tables created for `Join` operators in the FireCache, provided they are not too large. These hash tables are costly to compute, so reusing them when similar consecutive queries run offers significant performance advantages.
