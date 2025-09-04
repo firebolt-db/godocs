@@ -1,6 +1,21 @@
 ## Firebolt Release Notes - Version 4.26
 
 ### New Features
+
+**Introduced Explicit Transaction support.**
+
+You can now explicitly `BEGIN`, `COMMIT` or `ROLLBACK` transactions using standard SQL syntax. This feature ensures atomicity and snapshot isolation across multiple statements, including DML, DDL, and SELECT.
+Particularly useful for customers who require guaranteed consistency across complex transactional operations.
+
+Syntax:
+```sql
+BEGIN [TRANSACTION];
+-- multiple SQL statements (e.g. CREATE/DROP/INSERT/UPDATE ...)
+COMMIT [TRANSACTION];
+```
+
+- For more details on transactions, see the documentation [here](/reference-sql/explicit-transactions).
+
 **Added the `READ_AVRO` table-valued function with full support for all Avro data types**
 
 - Introduced the `READ_AVRO` table-valued function (TVF). This function allows users to efficiently read Avro files.
