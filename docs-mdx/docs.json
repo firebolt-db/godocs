@@ -235,6 +235,8 @@
                   "guides/integrations/connecting-to-preset",
                   "guides/integrations/cube-js",
                   "guides/integrations/airbyte",
+                  "guides/integrations/looker-cloud",
+                  "guides/integrations/looker-on-prem",
                   "guides/integrations/otel-exporter",
                   "guides/integrations/tableau",
                   "guides/integrations/connecting-to-paradime",
@@ -5693,6 +5695,16 @@
       "permanent": false
     },
     {
+      "source": "/Guides/integrations/looker-cloud.html",
+      "destination": "/guides/integrations/looker-cloud",
+      "permanent": false
+    },
+    {
+      "source": "/Guides/integrations/looker-on-prem.html",
+      "destination": "/guides/integrations/looker-on-prem",
+      "permanent": false
+    },
+    {
       "source": "/Guides/developing-with-firebolt/",
       "destination": "/guides/developing-with-firebolt",
       "permanent": false
@@ -5990,6 +6002,16 @@
     {
       "source": "/Guides/integrations/airbyte",
       "destination": "/guides/integrations/airbyte",
+      "permanent": false
+    },
+    {
+      "source": "/Guides/integrations/looker-cloud",
+      "destination": "/guides/integrations/looker-cloud",
+      "permanent": false
+    },
+    {
+      "source": "/Guides/integrations/looker-on-prem",
+      "destination": "/guides/integrations/looker-on-prem",
       "permanent": false
     },
     {
