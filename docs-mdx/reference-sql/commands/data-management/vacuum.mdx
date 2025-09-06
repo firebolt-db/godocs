@@ -14,6 +14,13 @@ By default, any engine that processes a DML operation automatically assesses the
 ALTER ENGINE <name> SET AUTO_VACUUM = OFF;
 ```
 
+By default, auto-VACUUM tasks affect stopping behavior. Specifically, the [AUTO_STOP](/reference-sql/commands/engines/create-engine#create-an-engine-with-auto-stop) timer is reset after auto-VACUUM tasks complete. Similarly, [STOP ENGINE](/reference-sql/commands/engines/stop-engine) will block until auto-VACUUM tasks completes. You can disable waiting for auto-VACUUM using the `ALTER ENGINE` statement:
+
+```text
+ALTER ENGINE <name> SET AUTO_VACUUM_WAIT_ON_STOP = OFF;
+```
+
+
 Firebolt recommends keeping the default setting to maintain optimal layout of your tables' underlying data.
 
 You can also run `VACUUM` manually using the syntax and options described below.
