@@ -187,7 +187,7 @@ CREATE LOCATION firebolt_sample_avro WITH
   URL = 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_avro/';
 
 SELECT 
-    *
+    $source_file_name, *
 FROM READ_AVRO(
     location => 'firebolt_sample_avro', pattern	=>  'sample_directory_*/*.avro'
 );
@@ -195,11 +195,11 @@ FROM READ_AVRO(
 
 **Returns**
 
-| name | age | email |
-|:-----|:----|:------|
-| Alice | 30 | alice@example.com |
-| Bob | 25 | bob@example.com |
-| Charlie | 35 | charlie@example.com |
+| $source_file_name | name | age | email |
+|:------------------|:-----|:----|:------|
+| help_center_assets/firebolt_sample_avro/sample_directory_1/simple.avro | Alice | 30 | alice@example.com |
+| help_center_assets/firebolt_sample_avro/sample_directory_1/simple.avro | Bob | 25 | bob@example.com |
+| help_center_assets/firebolt_sample_avro/sample_directory_1/simple.avro | Charlie | 35 | charlie@example.com |
 
 This reads only the Avro files matching the pattern `sample_directory_*/*.avro` within the location's base path.
 
