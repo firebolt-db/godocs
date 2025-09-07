@@ -16,6 +16,7 @@ A table-valued function (TVF) that reads data from Avro files stored in Amazon S
 -- Using location object (recommended)
 READ_AVRO (
   LOCATION => 'location_name'
+  [, PATTERN => <pattern>]
 )
 |
 -- Using static credentials
@@ -34,6 +35,7 @@ READ_AVRO (
 | Parameter | Description | Supported input types |
 |:----------|:------------|:---------------------|
 | `LOCATION` | The name of a location object that contains the Amazon S3 URL and credentials. Firebolt recommends using `LOCATION` to store credentials for authentication. `LOCATION` must be specified as a string literal (e.g., `LOCATION => 'my_location'`). Unlike `URL`, it cannot be used as a positional parameter. For a comprehensive guide, see [LOCATION objects](/guides/security/location). | `TEXT` |
+| `PATTERN` | When using `LOCATION`, an optional glob pattern to filter files within the location's URL path. The pattern is applied relative to the location's base path. For example, `PATTERN => 'week_1/*.avro'` will match all `.avro` files in the `week_1` subdirectory. | `TEXT` |
 | `URL` | The location of the Amazon S3 bucket containing your files. The expected format is `s3://{bucket_name}/{full_file_path_glob_pattern}`. | `TEXT` |
 | `AWS_ACCESS_KEY_ID` | The AWS access key ID. | `TEXT` |
 | `AWS_SECRET_ACCESS_KEY` | The AWS secret access key. | `TEXT` |
@@ -174,6 +176,21 @@ FROM READ_AVRO(
 ) 
 LIMIT 5;
 ```
+
+**Example 5: Using location object with pattern**
+
+This example shows how to use the `PATTERN` parameter with a location object to filter specific files:
+
+```sql
+SELECT * 
+FROM READ_AVRO(
+    LOCATION => 'my_avro_location',
+    PATTERN => 'week_1/*.avro'
+) 
+LIMIT 5;
+```
+
+This will read only the Avro files in the `week_1` subdirectory within the location's base path.
 
 ### Using URL
 
