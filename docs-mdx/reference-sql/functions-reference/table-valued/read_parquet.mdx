@@ -13,6 +13,7 @@ A table-valued function (TVF) that reads data from Parquet files stored in Amazo
 -- Using location object (recommended)
 READ_PARQUET (
   LOCATION => location_name
+  [, PATTERN => <pattern>]
   [, ESTIMATED_ROWS => <estimated_rows>]
 )
 
@@ -33,6 +34,7 @@ READ_PARQUET (
 | Parameter | Description | Supported input types |
 |:----------|:------------|:---------------------|
 | `LOCATION` | The name of a location object that contains the Amazon S3 URL and credentials. Firebolt recommends using `LOCATION` to store credentials for authentication. `LOCATION` must be specified as a string literal (e.g., `LOCATION => 'my_location'`). Unlike `URL`, it cannot be used as a positional parameter. For a comprehensive guide, see [LOCATION objects](/guides/security/location). | `TEXT` |
+| `PATTERN` | When using `LOCATION`, an optional glob pattern to filter files within the location's URL path. The pattern is applied relative to the location's base path. For example, `PATTERN => 'week_1/*.parquet'` will match all `.parquet` files in the `week_1` subdirectory. | `TEXT` |
 | `URL` | The location of the Amazon S3 bucket containing your files. The expected format is `s3://{bucket_name}/{full_file_path_glob_pattern}`. | `TEXT` |
 | `AWS_ACCESS_KEY_ID` | The AWS access key ID. | `TEXT` |
 | `AWS_SECRET_ACCESS_KEY` | The AWS secret access key. | `TEXT` |
@@ -72,6 +74,34 @@ FROM READ_PARQUET(
 ) 
 LIMIT 5;
 ```
+
+**Example: Using location object with pattern**
+
+This example shows how to use the `PATTERN` parameter with a location object to filter specific files:
+
+```sql
+CREATE LOCATION firebolt_sample_dataset WITH
+  SOURCE = AMAZON_S3
+  URL = 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/';
+
+
+SELECT $source_file_name, "CurrentSpeed", "CurrentPlayTime"
+FROM READ_PARQUET(
+    LOCATION => 'firebolt_sample_dataset', PATTERN => 'playstats/TournamentID=92/*.parquet'
+) limit 5;
+```
+
+**Returns**
+
+| $source_file_name | CurrentSpeed | CurrentPlayTime |
+|:------------------|:-------------|:----------------|
+| help_center_assets/firebolt_sample_dataset/playstats/TournamentID=92/cc2a2a0b4e8b4fb39abf20a956e7cc3e-0.parquet | 10 | 8,060.488 |
+| help_center_assets/firebolt_sample_dataset/playstats/TournamentID=92/cc2a2a0b4e8b4fb39abf20a956e7cc3e-0.parquet | 45 | 8,061.4752 |
+| help_center_assets/firebolt_sample_dataset/playstats/TournamentID=92/cc2a2a0b4e8b4fb39abf20a956e7cc3e-0.parquet | 280 | 8,062.4624 |
+| help_center_assets/firebolt_sample_dataset/playstats/TournamentID=92/cc2a2a0b4e8b4fb39abf20a956e7cc3e-0.parquet | 230 | 8,063.4496 |
+| help_center_assets/firebolt_sample_dataset/playstats/TournamentID=92/cc2a2a0b4e8b4fb39abf20a956e7cc3e-0.parquet | 333 | 8,064.4368 |
+
+This reads only the Parquet files matching the pattern `playstats/TournamentID=92/*.parquet` within the location's base path, showing specific columns and the source file for verification.
 
 **Example**
 
