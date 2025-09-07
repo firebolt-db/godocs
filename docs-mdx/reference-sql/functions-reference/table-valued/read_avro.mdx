@@ -182,15 +182,26 @@ LIMIT 5;
 This example shows how to use the `PATTERN` parameter with a location object to filter specific files:
 
 ```sql
-SELECT * 
+CREATE LOCATION firebolt_sample_avro WITH
+  SOURCE = AMAZON_S3
+  URL = 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_avro/';
+
+SELECT 
+    *
 FROM READ_AVRO(
-    LOCATION => 'my_avro_location',
-    PATTERN => 'week_1/*.avro'
-) 
-LIMIT 5;
+    location => 'firebolt_sample_avro', pattern	=>  'sample_directory_*/*.avro'
+);
 ```
 
-This will read only the Avro files in the `week_1` subdirectory within the location's base path.
+**Returns**
+
+| name | age | email |
+|:-----|:----|:------|
+| Alice | 30 | alice@example.com |
+| Bob | 25 | bob@example.com |
+| Charlie | 35 | charlie@example.com |
+
+This reads only the Avro files matching the pattern `sample_directory_*/*.avro` within the location's base path.
 
 ### Using URL
 
