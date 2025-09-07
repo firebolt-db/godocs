@@ -13,6 +13,7 @@ A table-valued function (TVF) that reads CSV files from Amazon S3. The function 
 -- Using LOCATION object (recommended)
 READ_CSV ( 
   LOCATION => 'location_name'
+  [, PATTERN => <pattern>]
   [, COMPRESSION => <file_compression>]
   [, HEADER => { TRUE | FALSE }]
   [, DELIMITER => <field_delimiter>]
@@ -49,6 +50,7 @@ READ_CSV (
 | Parameter               | Description                                                                                                                                                                                                                                                           | Supported input types |
 |:------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
 | LOCATION | The name of a location object that contains the Amazon S3 URL and credentials. Firebolt recommends using `LOCATION` to store credentials for authentication . `LOCATION` must be specified as a string literal (e.g., `LOCATION => 'my_location'`). Unlike `URL`, it cannot be used as a positional parameter. For a comprehensive guide, see [LOCATION objects](/guides/security/location).| `TEXT` |
+| `PATTERN` | When using `LOCATION`, an optional glob pattern to filter files within the location's URL path. The pattern is applied relative to the location's base path. For example, `PATTERN => 'week_1/*.csv'` will match all `.csv` files in the `week_1` subdirectory. | `TEXT` |
 | `URL`                   | The location containing your files in an Amazon S3 bucket. The expected format is `s3://{bucket_name}/{full_file_path_glob_pattern}`.                                                                                                                                 | `TEXT`                |
 | `COMPRESSION`           | The [compression type](/reference-sql/commands/data-definition/create-external-table#compression) of the input file. If `compression` is not set, `compression` is inferred from the file extension.                                                     | `TEXT`                |
 | `AWS_ACCESS_KEY_ID`     | The AWS access key ID.                                                                                                                                                                                                                                                | `TEXT`                |
@@ -88,6 +90,34 @@ SELECT * FROM READ_CSV(
     HEADER => true
 );
 ```
+
+**Example: Using location object with pattern**
+
+This example shows how to use the `PATTERN` parameter with a location object to filter specific files:
+
+```sql
+CREATE LOCATION firebolt_sample_dataset WITH
+  SOURCE = AMAZON_S3
+  URL = 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/';
+
+
+SELECT $source_file_name, "Name", "LevelType" FROM READ_CSV(
+    LOCATION =>  'firebolt_sample_dataset', PATTERN => 'l*vels.csv',
+    HEADER => true
+) limit 5;
+```
+
+**Returns**
+
+| $source_file_name | Name | LevelType |
+|:------------------|:-----|:----------|
+| help_center_assets/firebolt_sample_dataset/levels.csv | Thunderbolt Circuit | FastestLap |
+| help_center_assets/firebolt_sample_dataset/levels.csv | Velocity Vale | FirstToComplete |
+| help_center_assets/firebolt_sample_dataset/levels.csv | Raceway Ridge | FastestLap |
+| help_center_assets/firebolt_sample_dataset/levels.csv | Nitro Narrows | FirstToComplete |
+| help_center_assets/firebolt_sample_dataset/levels.csv | Thunder Road | FirstToComplete |
+
+This reads only the CSV files matching the pattern `l*vels.csv` within the location's base path, showing specific columns and the source file for verification.
 
 ### Using static credentials
 
