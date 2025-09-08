@@ -17,7 +17,6 @@ ALTER ENGINE <engine_name> SET
     [AUTO_START = <true/false>]
     [AUTO_STOP = <minutes>]
     [AUTO_VACUUM = <on/off>]
-    [AUTO_VACUUM_WAIT_ON_STOP = <true/false>]
     [DEFAULT_DATABASE = <database_name>]
     [MIN_CLUSTERS = <clusters>]
     [MAX_CLUSTERS = <clusters>]
@@ -31,22 +30,21 @@ ALTER ENGINE <engine_name> SET
 ### Options 
   
 
-| Parameter                                 | Description                                  |
-| :-----------------------------------------| :------------------------------------------- |
-| `<engine_name>`                           | The name of the engine to be altered.        |
-| `AUTO_START = <true/false>`               | When set to `TRUE`, sending a query to a stopped engine will automatically start the engine before processing the query. |
-| `AUTO_STOP = <minutes>`                   | Specifies the number of minutes after which an engine automatically stops. Setting `minutes` to `0` disables `AUTO_STOP`. |
-| `AUTO_VACUUM = <on/off>`                  | When `on`, the engine will automatically assess the health of tables’ data layout after processing a DML operation, and will run the `VACUUM` command when necessary to maintain the underlying table health. |
-| `AUTO_VACUUM_WAIT_ON_STOP = <true/false>` | When `false`, stopping the engine (explicitly or via auto-stop) does not wait for auto-vacuum tasks to complete. Default: `true`. |
-| `DEFAULT_DATABASE = <database_name>`      | Specifies the default database that an engine will attempt to use when processing queries that require a database. To remove the default database, set `DEFAULT_DATABASE=default`. |
-| `CLUSTERS = <clusters>` (deprecated)      | Specifies the number of clusters in an engine. Each cluster is a group of nodes, and all clusters within an engine are identical in terms of node type and number of nodes. |
-| `MIN_CLUSTERS = <clusters>`               | Specifies a minimum number of clusters in an engine. If `MIN_CLUSTERS` is different from `MAX_CLUSTERS`, the engine will automatically change the number of clusters depending on load. If not specified, `1` is used as default. |
-| `MAX_CLUSTERS = <clusters>`               | Specifies a maximum number of clusters in an engine. If `MIN_CLUSTERS` is different from `MAX_CLUSTERS`, the engine will automatically change the number of clusters depending on load. If not specified, `1` is used as default. |
-| `NODES = <nodes>`                         | Specifies the number of nodes in each cluster within an engine. You can specify any integer between `1` to `128`, inclusive. |
-| `TYPE =<type>`                            | Specifies the node type for the engine. You can choose `S`, `M`, `L`, or `XL`. |
-| `FAMILY =<family>`                        | Defines the family of node used in the engine. Options include `STORAGE_OPTIMIZED` (alias `SO`) or `COMPUTE_OPTIMIZED` (alias `CO`). |
-| `AUTO_WARMUP = <true/false>`              | When set to `TRUE`, engine will proactively fetch recently used data at startup, recommended for engines that frequently touch the same subset of data.| 
-| `CHANNEL = <channel>`                     | Specifies the release channel to be used. Options are `DEFAULT` to use the default release process or `PREVIEW` to get upgrades earlier. |
+| Parameter                            | Description                                  |
+| :----------------------------------- | :------------------------------------------- |
+| `<engine_name>`                      | The name of the engine to be altered.        |
+| `AUTO_START = <true/false>`          | When set to `TRUE`, sending a query to a stopped engine will automatically start the engine before processing the query. |
+| `AUTO_STOP = <minutes>`              | Specifies the number of minutes after which an engine automatically stops. Setting `minutes` to `0` disables `AUTO_STOP`. |
+| `AUTO_VACUUM = <on/off>`             | When `on`, the engine will automatically assess the health of tables’ data layout after processing a DML operation, and will run the `VACUUM` command when necessary to maintain the underlying table health. |
+| `DEFAULT_DATABASE = <database_name>` | Specifies the default database that an engine will attempt to use when processing queries that require a database. To remove the default database, set `DEFAULT_DATABASE=default`. |
+| `CLUSTERS = <clusters>` (deprecated) | Specifies the number of clusters in an engine. Each cluster is a group of nodes, and all clusters within an engine are identical in terms of node type and number of nodes. |
+| `MIN_CLUSTERS = <clusters>`          | Specifies a minimum number of clusters in an engine. If `MIN_CLUSTERS` is different from `MAX_CLUSTERS`, the engine will automatically change the number of clusters depending on load. If not specified, `1` is used as default. |
+| `MAX_CLUSTERS = <clusters>`          | Specifies a maximum number of clusters in an engine. If `MIN_CLUSTERS` is different from `MAX_CLUSTERS`, the engine will automatically change the number of clusters depending on load. If not specified, `1` is used as default. |
+| `NODES = <nodes>`                    | Specifies the number of nodes in each cluster within an engine. You can specify any integer between `1` to `128`, inclusive. |
+| `TYPE =<type>`                       | Specifies the node type for the engine. You can choose `S`, `M`, `L`, or `XL`. |
+| `FAMILY =<family>`                   | Defines the family of node used in the engine. Options include `STORAGE_OPTIMIZED` (alias `SO`) or `COMPUTE_OPTIMIZED` (alias `CO`). |
+| `AUTO_WARMUP = <true/false>`         | When set to `TRUE`, engine will proactively fetch recently used data at startup, recommended for engines that frequently touch the same subset of data.| 
+| `RELEASE = (CHANNEL = <channel>)`    | Specifies the release channel to be used. Options are `DEFAULT` to use the default release process or `PREVIEW` to get upgrades earlier. |
 
 **Limitations:**
 * Each engine is limited to a maximum of two clusters.

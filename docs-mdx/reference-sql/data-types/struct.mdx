@@ -39,8 +39,6 @@ CREATE TABLE t (
 );
 ```
 
-You cannot explicitly define a struct type with no field names.
-
 ### Nullability constraint
 
 A nullability constraint can be specified to a struct column but not any struct attribute. This means struct attributes are always nullable, even if the enclosing struct is `NOT NULL`.
@@ -61,72 +59,17 @@ In this example, column `kv` cannot store `NULL` values for the whole struct. Bu
 
 Although specifying the `NOT NULL` constraint to a struct attribute yields an error, declaring a struct attribute as `NULL` explicitly is accepted. It is redundant but may be used to improve readability.
 
+### Struct literals
+
+Creating struct literals is not yet supported. For information about how to ingest data of struct types, see [Ingesting struct values](#ingesting-struct-values).
+
 ### Partition on struct or struct attributes
 
 Partitioning a table on struct columns or struct attributes is not yet supported, but will be released in the near future.
 
-## Creating struct values
-
-You can create struct values with either unnamed fields or named fields.
-
-### Struct values with unnamed fields
-
-Use the `STRUCT(...)` syntax to create struct values with unnamed fields. For example:
-```sql
-SELECT STRUCT(1, 2);
-```
-
-Unnamed struct values have data types with no field names. Although you cannot create such struct types explicitly, the system can create them internally.
-
-Since the fields do not have names, you cannot refer to an unnamed field. To make unnamed structs more useful, you can cast them to struct types with field names. For example:
-```sql
-SELECT STRUCT(a, 2)::STRUCT(a INT, b INT);
-```
-
-### Struct values with named fields
-
-To create struct values with named fields, use the following syntax:
-```sql
-SELECT {'a': 1, 'b': 2};
-```
-
-The field names must be string literals. The following examples are invalid:
-```sql
-SELECT {a: 1, b: 2};     -- field names are identifiers
-SELECT {"a": 1, "b": 2}  -- field names are quoted identifiers
-```
-
-The syntax supports arbitrary nesting. A more complex example is shown below.
-```sql
-SELECT {
-  'id': 1,
-  'name': { 'first': 'John', 'last': 'Doe' },
-  'addresses': [
-    {
-      'street_name': 'Jane St.',
-      'street_no': 42,
-      'city': 'New York'
-    },
-    {
-      'street_name': 'King St.',
-      'street_no': 17,
-      'city': 'Los Angeles'
-    }
-  ]
-};
-```
-
 ## Ingesting struct values
 
-You can use the [`INSERT`](/reference-sql/commands/data-management/insert) statement to insert struct values into a table. For example:
-```sql
--- t: (id BIGINT, kv STRUCT(s_key INT, value TEXT), ts TIMESTAMP)
-INSERT INTO t VALUES (1, STRUCT(3, 'test'), TIMESTAMP '2020-01-01 00:01:01');
-```
-
-You can only insert source struct values into the target table if the source struct type is assignable to the target struct type. For details about struct type assignment, see [Type conversion](#type-conversion).
-
-You can ingest struct values in Parquet files into a table by using the [`COPY FROM`](/reference-sql/commands/data-management/copy-from) statement. For example:
+Struct values can be ingested into a table by using the [`COPY FROM`](/reference-sql/commands/data-management/copy-from) statement. For example:
 ```sql
 COPY INTO t FROM 's3://path/to/file.parquet'
 WITH TYPE=parquet SUPPORT_STRUCTS=TRUE;
@@ -177,21 +120,9 @@ When there is no such ambiguity, both syntaxes resolve to the same object and th
 
 At the moment, a `STRUCT` value cannot be converted to or from any other non-struct data type.
 
-Struct types consider both field names and field positions. To determine a common type of two struct types or whether one struct type can be converted to another struct type, the two struct types must have exactly the same structure. 
-
-#### Common type of two struct types
-
-- A common type of struct types is derived as a struct type whose field types are common types of each input field type at the same position. If at any position the struct field types do not have a common type, the struct types do not have a common type.
-- The common type of unnamed struct types is still unnamed.
-- The common type of an unnamed struct and a named struct is named, following the struct field names of the named struct type.
-- Two named struct types only have a common type if their field names are equal at each position.
-
-#### Assigning struct values to another struct type
-
-- A struct value can be assigned to another struct type if each source field type can be assigned to the target field type at the same position.
-- Unnamed struct types can be assigned to both unnamed and named struct types.
-- Named struct types can only be assigned to other named struct types if each struct field name matches the target struct field name at the same position, unless the conversion is forced by an explicit cast to override field names.
-
+A value of a struct type `S1` can be converted into another struct type `S2` only if both of the following hold:
+- `S1` and `S2` have exactly the same structure. Attributes can have different names in `S1` and `S2`, but they must form a bijection.
+- For each attribute `p` in `S1` and its image attribute `q` in `S2`, there exists a type conversion from `p`'s data type to `q`'s data type.
 
 ### Grouping and ordering
 

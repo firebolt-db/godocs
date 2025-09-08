@@ -30,8 +30,7 @@ Each row has the following columns with information about each engine.
 | clusters                    | INT         | The number of clusters used in the engine. |
 | auto_start                  | BOOLEAN     | If `TRUE`, automatically start the engine if it is in a stopped state when a query comes in. |
 | auto_stop                   | INT         | Automatically stop the engine after specified number of minutes. |
-| auto_vacuum                 | BOOLEAN     | Indicates whether [AUTO_VACUUM](/reference-sql/commands/data-management/vacuum) is enabled or disabled by the user. Could also be `NULL` to indicate that `VACUUM` is automatically enabled by default. |
-| auto_vacuum_wait_on_stop    | BOOLEAN     | Indicates whether [AUTO_VACUUM_WAIT_ON_STOP](/reference-sql/commands/data-management/vacuum) is enabled or disabled by the user. Could also be `NULL` to indicate that `AUTO_VACUUM_WAIT_ON_STOP` is automatically enabled by default. |
+| auto_vacuum                 | BOOLEAN     | Indicates whether [VACUUM](/reference-sql/commands/data-management/vacuum) is enabled or disabled by the user. Could also be `NULL` to indicate that `VACUUM` is automatically enabled by default. |
 | initially_stopped           | BOOLEAN     | If `TRUE`, the engine will not be automatically started after creation. |
 | url                         | TEXT        | The engine URL used by the users to issue queries to the engine. |
 | default_database            | TEXT        | Default database for the engine as specified by the user. |

@@ -14,13 +14,6 @@ By default, any engine that processes a DML operation automatically assesses the
 ALTER ENGINE <name> SET AUTO_VACUUM = OFF;
 ```
 
-By default, auto-VACUUM tasks affect stopping behavior. Specifically, the [AUTO_STOP](/reference-sql/commands/engines/create-engine#create-an-engine-with-auto-stop) timer is reset after auto-VACUUM tasks complete. Similarly, [STOP ENGINE](/reference-sql/commands/engines/stop-engine) will block until auto-VACUUM tasks completes. You can disable waiting for auto-VACUUM using the `ALTER ENGINE` statement:
-
-```text
-ALTER ENGINE <name> SET AUTO_VACUUM_WAIT_ON_STOP = OFF;
-```
-
-
 Firebolt recommends keeping the default setting to maintain optimal layout of your tables' underlying data.
 
 You can also run `VACUUM` manually using the syntax and options described below.
@@ -130,7 +123,6 @@ For the `VACUUM` job, the fields in `vacuum_stats` are:
 |Field              |Description |
 |:------------------|:------------|
 |`type`             |Always set to `vacuum_job` |
-|`job_type`         |The type of vacuum job. One of `MERGE`, `COMPACTION` or `RECREATE` |
 |`parent_query_id`  |The unique identifier of the `VACUUM` command this sub-job is part of |
 |`partition_id`     |The partition sub-job's tablets belong to|
 |`node-ordinal`     |The ordinal number of the node the sub-job is running on |
@@ -154,8 +146,8 @@ AND STATUS = 'ENDED_SUCCESSFULLY';
 
 | telemetry                                                                                                                                                                         |
 |:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `{"vacuum_stats":{"type":"vacuum_job", "job_type": "COMPACTION", version":"v0.0.0", "parent_query_id":"c1bf80a4-005b-4063-a271-696de6906471", "node_ordinal":1, "tablets":1, "rows":2, "deleted_rows":1}}` |
-| `{"vacuum_stats":{"type":"vacuum_job", "job_type": "MERGE", "version":"v0.0.0", "parent_query_id":"c1bf80a4-005b-4063-a271-696de6906471", "node_ordinal":1, "tablets":2, "rows":2, "deleted_rows":0}}` |
+| `{"vacuum_stats":{"type":"vacuum_job", "version":"v0.0.0", "parent_query_id":"c1bf80a4-005b-4063-a271-696de6906471", "node_ordinal":1, "tablets":1, "rows":2, "deleted_rows":1}}` |
+| `{"vacuum_stats":{"type":"vacuum_job", "version":"v0.0.0", "parent_query_id":"c1bf80a4-005b-4063-a271-696de6906471", "node_ordinal":1, "tablets":2, "rows":2, "deleted_rows":0}}` |
 | `{"vacuum_stats":{"type":"vacuum", "version":"v0.0.0", "objects":1, "processed_objects":1, "success_jobs":2, "failed_jobs":0}}`                                                   |
 
 ### Example with measuring the performance impact of VACUUM

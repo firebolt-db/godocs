@@ -14,7 +14,6 @@ Topics:
 * [Example](#example)
 * [Considerations](#considerations)
 * [Advanced option: index granularity](#advanced-option%3A-index-granularity)
-* [Altering primary indexes](#altering-primary-indexes)
 
 ## Key features
 
@@ -132,3 +131,5 @@ Use the default value of `index_granularity`, which should translate to good per
 * If most of your queries scan large portions of the table, such as a large bounded range of primary index columns, a **higher** `index_granularity` value is more efficient, as it reduces index memory usage and overhead introduced by each granule boundary.
 
 If you want to adjust `index_granularity`, start with the default value, then create duplicate tables with different settings to compare both the query latency and memory usage.
+
+

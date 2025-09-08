@@ -155,7 +155,7 @@ ORDER BY
 [0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, avg2_1
 |   [Execution Metrics]: Optimized out
  \_[1] [MaybeCache]
-   |   [Execution Metrics]: output cardinality = 1065, thread time = 0ms, cpu time = 0ms, 0/2 nodes read from subresult cache, 2/2 nodes wrote to subresult cache
+   |   [Execution Metrics]: output cardinality = 1065, thread time = 0ms, cpu time = 0ms
     \_[2] [SortMerge] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg2_1 Ascending Last]
       |   [Execution Metrics]: output cardinality = 1065, thread time = 0ms, cpu time = 0ms
        \_[3] [Shuffle] Gather
@@ -240,13 +240,13 @@ Additionally, a significant amount of time is devoted to performing the distribu
   |   [Execution Metrics]: output cardinality = 2130, thread time = 9921ms, cpu time = 9686ms
 ```
 
-When running the query a second time, we can see that the [result cache](/overview/queries/understand-query-performance-subresult) is used to return the results immediately:
+When running the query a second time, we can see that the result cache is used to return the results immediately:
 
-```text {4}
+```text
 [0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, avg2_1
 |   [Execution Metrics]: Optimized out
  \_[1] [MaybeCache]
-   |   [Execution Metrics]: output cardinality = 1065, thread time = 0ms, cpu time = 0ms, 2/2 nodes read from subresult cache, 0/2 nodes wrote to subresult cache
+   |   [Execution Metrics]: output cardinality = 1065, thread time = 0ms, cpu time = 0ms
     \_[2] [SortMerge] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg2_1 Ascending Last]
       |   [Execution Metrics]: Nothing was executed
 ```
@@ -322,7 +322,7 @@ LIMIT 10;
 [0] [Projection] mat_cte.name, mat_cte.name
 |   [Execution Metrics]: Optimized out
  \_[1] [MaybeCache]
-   |   [Execution Metrics]: output cardinality = 10, thread time = 0ms, cpu time = 0ms, 0/2 nodes read from subresult cache, 2/2 nodes wrote to subresult cache
+   |   [Execution Metrics]: output cardinality = 10, thread time = 0ms, cpu time = 0ms
     \_[2] [Limit] Limit: [10]
       |   [Execution Metrics]: output cardinality = 10, thread time = 0ms, cpu time = 0ms
        \_[3] [Projection] mat_cte.name, mat_cte.name

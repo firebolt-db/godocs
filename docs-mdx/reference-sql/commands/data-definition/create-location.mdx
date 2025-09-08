@@ -26,7 +26,6 @@ For a comprehensive guide to understanding and using LOCATION objects, see [LOCA
 
 This document covers `LOCATION` objects in general. For more information about specific types of `LOCATION` objects, including more in-depth examples, please see:
  * [CREATE LOCATION (Amazon S3)](/reference-sql/commands/data-definition/create-location-s3)
- * [CREATE LOCATION (Amazon Bedrock)](/reference-sql/commands/data-definition/create-location-bedrock)
  * [CREATE LOCATION (Iceberg)](/reference-sql/commands/data-definition/create-location-iceberg)
 
  **Topics:**
@@ -42,7 +41,7 @@ This document covers `LOCATION` objects in general. For more information about s
 
 ```sql
 CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
-  SOURCE = { AMAZON_S3 | AMAZON_BEDROCK | ICEBERG }
+  SOURCE = { AMAZON_S3 | ICEBERG }
   [ , ... ]
 
 -- Amazon S3 Location
@@ -57,19 +56,6 @@ CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
       [ AWS_ROLE_EXTERNAL_ID = '<aws_role_external_id>' ] )
   }
   URL = '<url>'
-  [ DESCRIPTION = '<description>' ]
-
--- Amazon Bedrock Location
-CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
-  SOURCE = AMAZON_BEDROCK
-  CREDENTIALS = {
-    ( AWS_ACCESS_KEY_ID = '<aws_access_key_id>'
-      AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>'
-      [ AWS_SESSION_TOKEN = '<aws_session_token>' ] )
-    |
-    ( AWS_ROLE_ARN = '<aws_role_arn>'
-      [ AWS_ROLE_EXTERNAL_ID = '<aws_role_external_id>' ] )
-  }
   [ DESCRIPTION = '<description>' ]
 
 -- Iceberg Location
@@ -117,7 +103,7 @@ CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
 | Parameter | Description |
 | :-------- | :---------- |
 | `<location_name>` | A unique identifier for the location within your account. |
-| `SOURCE` | The external data source type. Currently, `AMAZON_S3` (see [CREATE LOCATION (Amazon S3)](/reference-sql/commands/data-definition/create-location-s3)), `AMAZON_BEDROCK` (see [CREATE LOCATION (Amazon Bedrock)](/reference-sql/commands/data-definition/create-location-bedrock)), and `ICEBERG` (see [CREATE LOCATION (Iceberg)](/reference-sql/commands/data-definition/create-location-iceberg)) are supported. |
+| `SOURCE` | The external data source type. Currently, `AMAZON_S3` (See [CREATE LOCATION (Amazon S3)](/reference-sql/commands/data-definition/create-location-s3)) and `ICEBERG` (See [CREATE LOCATION (Iceberg)](/reference-sql/commands/data-definition/create-location-iceberg)) are supported. |
 | `DESCRIPTION` | Optional metadata describing the location's purpose. |
 
 ### Amazon S3 Parameters
@@ -126,12 +112,6 @@ CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
 | :-------- | :---------- |
 | `CREDENTIALS` | Authentication credentials for Amazon S3 access. |
 | `URL` | The data source URL in the format: `s3://{bucket_name}/{path}`. This must be a valid S3 URL. |
-
-### Amazon Bedrock Parameters
-
-| Parameter | Description |
-| :-------- | :---------- |
-| `CREDENTIALS` | Authentication credentials for Amazon Bedrock access. |
 
 ### Iceberg Parameters
 

@@ -103,7 +103,7 @@ Materialized results can be accessed more quickly in some circumstances. By usin
 
 
 ```sql
-WITH <subquery_table_name> AS [ MATERIALIZED| NOT MATERIALIZED | MATERIALIZED REUSABLE ] <subquery>
+WITH <subquery_table_name> AS [ MATERIALIZED| NOT MATERIALIZED ] <subquery>
 ```
 
 | Component               | Description                                                                          |
@@ -135,20 +135,6 @@ FROM
 ORDER BY
 	nickname
 ```
-
-### Reusable common table expressions
-
-Even stronger than `MATERIALIZED`, you can mark a CTE as reusable.
-This means that the results of the CTE stay cached in engine RAM and can be reused across different queries.
-For `MATERIALIZED REUSABLE` CTEs, Firebolt materializes the full CTE results of the query, possibly even including unused columns that could otherwise be pruned.
-This ensures that different queries specifying the same CTE can use the same cache entry, even if they need different columns.
-Refer to [Understand query performance and subresults](/overview/queries/understand-query-performance-subresult) for more details on the subresult cache.
-
-<Note>
-`REUSABLE` can only be applied if the result of the CTE can be cached, which can be subtle in some cases.
-Refer to [Limitations](/overview/queries/understand-query-performance-subresult#limitations) for more details.
-Query execution of a CTE that is explicitly marked as `REUSABLE` fails if it contains statements that cannot be cached.
-</Note>
 
 ## FROM
 

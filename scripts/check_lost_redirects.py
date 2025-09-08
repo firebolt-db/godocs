@@ -50,9 +50,7 @@ def check_lost_redirects(
         else:
             raise LostRedirectsError(
                 "The known pages list is out of date. "
-                "Run the script with 'regenerate' argument to update it. "
-                "You can run it by calling 'make' with default target or "
-                "specifically 'make check-lost-redirects-regenerate'."
+                "Run the script with 'regenerate' argument to update it."
             )
 
 
