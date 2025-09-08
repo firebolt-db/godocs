@@ -1,0 +1,57 @@
+---
+description: You can disable join order optimization using a query hint comment.
+sidebarTitle: No join ordering
+title: No join ordering
+---
+
+## Background: What is join order optimization?
+
+Join order optimization improves the performance of join queries.
+Usually, we want the smaller table to be on the build side of the join.
+For this, Firebolt estimates the row counts of the inputs and orders the joins accordingly.
+For queries joining more than two tables, join order optimization also determines which of the tables should be joined first.
+You can view the join order in the `explain` output, with the second input of a join operator being its build side.
+
+## Controlling join orders in Firebolt
+
+By default, Firebolt's query planner optimizes the join order based on estimating the row counts of different subresults.
+However, there are scenarios where you may want to overwrite this because you have better manual estimates.
+The `no_join_ordering` hint gives you explicit control over the planner's behavior.
+If you specify this hint, the planner will not optimize the join order and instead use the order that is given in the query.
+The hint provides more granular control than [`optimizer_mode = 'user_guided'`](/reference/system-settings#changing-the-optimizer-mode).
+
+## Example
+As an example, assume that we have tables `t1` with 100 rows and `t2` with 10000 rows.
+By default, Firebolt uses `t1` as the build side (listed second in the `explain` output), even if the query specifies `t1` first.
+With the `no_join_ordering` hint, Firebolt uses the order as specified in the query.
+
+<CodeGroup>
+```sql SQL source (default, with join order optimization)
+explain(logical)
+select * from t1 join t2 on t1.a = t2.a;
+```
+
+```text Plan (default, with join order optimization) {3, 5}
+[0] [Projection] t2.a, t1.b, t2.a, t2.b
+ \_[1] [Join] Mode: Inner [(t2.a = t1.a)]
+    \_[2] [StoredTable] Name: "t2"
+    |     [Types]: t2.a: integer null, t2.b: integer null
+    \_[3] [StoredTable] Name: "t1"
+          [Types]: t1.a: integer null, t1.b: integer null
+```
+
+```sql SQL source (with hint, no join order optimization) {1}
+/*! no_join_ordering */
+explain(logical)
+select * from t1 join t2 on t1.a = t2.a;
+```
+
+```text Plan (with hint, no join order optimization) {3, 5}
+[0] [Projection] t1.a, t1.b, t1.a, t2.b
+ \_[1] [Join] Mode: Inner [(t1.a = t2.a)]
+    \_[2] [StoredTable] Name: "t1"
+    |     [Types]: t1.a: integer null, t1.b: integer null
+    \_[3] [StoredTable] Name: "t2"
+          [Types]: t2.a: integer null, t2.b: integer null
+```
+</CodeGroup>
