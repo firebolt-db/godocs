@@ -419,6 +419,7 @@ WITH (CROSS_REGION_REQUEST_MODE = 'auto');
 If set to `user_guided`, the optimizer will disalbe all cost-based optimization rules.
 This ensures that the relative order of joins and aggregations in the resulting execution plan will follow the sytnatic order defined in the `SELECT` blocks of your SQL query
 The default value is `automatic`.
+For more details, see [User-guided mode](/performance-and-observability/query-planning/user-guided-mode).
 
 ### Syntax
 

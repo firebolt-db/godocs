@@ -23,8 +23,7 @@ group by
 
 ## Supported hints in Firebolt
 
-As of now, Firebolt only supports the following hint.
-We will release more query hints in the future.
-
 * [**No partial aggregation**.](/performance-and-observability/query-planning/query-hints/no-partial-aggregation)
   Disable partial aggregation for `group by` queries.
+* [**No join ordering**.](/performance-and-observability/query-planning/query-hints/no-join-ordering)
+  Disable join order optimization and instead use the order of the tables in the query.

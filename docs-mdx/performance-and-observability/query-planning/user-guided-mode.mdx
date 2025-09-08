@@ -8,6 +8,7 @@ Sometimes you need full control over the planning process for a specific query.
 You can achieve that by setting the `optimizer_mode` session parameter to `user_guided`.
 In this mode, the optimizer will exclude all cost-based optimization rules.
 This ensures that the relative order of joins and aggregations in the resulting execution plan will follow the sytnatic order defined in the `SELECT` blocks of your SQL query.
+As a more granular setting, you can also use the [`no_join_ordering`](/performance-and-observability/query-planning/query-hints/no-join-ordering) query hint.
 
 Consider the following example which executes a three-way join between a fact table (`store_sales`) and two dimension tables (`item` and `date_dim`).
 Both dimension tables have local predicates (`item.i_manufact_id = 128` and `date_dim.d_year`).
