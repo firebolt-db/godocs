@@ -173,7 +173,7 @@ WITH regular_cte AS (
   <regular_cte_definition>
 ),
 -- A materialized CTE is an optimization barrier. It's computed once and the result
--- is re-used within the query.
+-- is reused within the query.
 -- This is useful if e.g. the CTE performs a very expensive computation with a small
 -- result set that's reused multiple times within the main query.
 WITH materialized_cte AS MATERIALIZED (

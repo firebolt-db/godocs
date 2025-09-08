@@ -1,0 +1,118 @@
+---
+description: Guide to understanding and tuning Iceberg tables and external data scans
+sidebarTitle: Iceberg and External Data
+title: Iceberg and External Data
+---
+
+Firebolt supports several ways to query externally hosted data:
+
+- using a table-valued function such as [`read_iceberg`](/reference-sql/functions-reference/table-valued/read_iceberg) to read a specific open table format,
+- using a table-valued function such as [`read_parquet`](/reference-sql/functions-reference/table-valued/read_parquet) to read a specific file format, and
+- using [external tables](/guides/loading-data/working-with-external-tables).
+
+Additionally, you can ingest data into Firebolt-managed storage using any of these options or the [COPY FROM statement](/reference-sql/commands/data-management/copy-from).
+This guide helps you choose the right option and get the most out of it.
+
+## Reasons to choose Apache Iceberg over a plain collection of files
+
+[Apache Iceberg](https://iceberg.apache.org/) is a popular open table format for analytics and supported in Firebolt using the [`read_iceberg`](/reference-sql/functions-reference/table-valued/read_iceberg) table-valued function.
+Iceberg has surged in popularity in recent years because it provides ACID transactions on data lakes and allows interoperability between query engines.
+The transactionality eliminates "data swamps" when a job fails halfway through, while the interoperability prevents vendor lock-in, enabling users to mix and match query engines according to their strengths.
+
+While these properties alone make Iceberg an excellent choice for many workloads, choosing Iceberg over a plain collection of data files on object storage unlocks a host of further optimizations in Firebolt's query engine.
+Iceberg's table metadata provides detailed information about the table and the files containing its data that Firebolt can leverage to optimize queries, which is not available when querying plain collections of data files.
+
+- Firebolt's optimizer applies its state-of-the-art join ordering algorithm on Iceberg tables.
+  The optimizer gets Iceberg table row counts from the metadata in manifest files.
+  The join ordering works for all scenarios, whether between Iceberg tables or between Iceberg and Firebolt-managed tables.
+- Iceberg table metadata like table row counts are also used in smart query rewrites.
+  For example, a `COUNT(*)` query on an Iceberg table is answered purely using the metadata.
+  No actual data files are scanned in this case.
+- Because Iceberg gives ACID guarantees, Iceberg queries can leverage Firebolt’s [subresult and result caches (FireCache)](/overview/queries/understand-query-performance-subresult) just like managed tables can.
+  If a portion of a query, for example a complex join build side, has been computed before and the underlying data (considering [Iceberg caching](#iceberg-caching) and [`MAX_STALENESS`](#configurable-data-freshness-with-max-staleness)) has not changed, Firebolt can reuse this cached subresult.
+  This is incredibly effective for dashboarding workloads or iterative query refinement, where queries often share common substructures.
+- File-level statistics in Iceberg metadata can be used for pruning.
+  Refer to the [pruning section below](#understanding-pruning) for more details.
+- Iceberg tables do not require directory listings on object storage, which can be slow for large tables and adds cost.
+- Due to the transactional nature of Iceberg, both metadata and data files can be cached.
+  See [Iceberg caching](#iceberg-caching) for more details.
+
+## When to choose managed tables over Iceberg
+
+With the optimizations described in the previous section, Firebolt can achieve impressive low-latency performance against Iceberg tables: when data is cached and `MAX_STALENESS` is used, many queries do not require any access to the Iceberg catalog or object storage.
+(Sub-)result caches apply exactly the same way as when querying managed tables.
+However, the backing file format of Iceberg tables, Apache Parquet, has design decisions that make it less suitable for ultra-low-latency queries than Firebolt's managed table format, which has been extensively tuned to provide the lowest latency possible.
+Parquet uses complex encodings and compression schemes to achieve the smallest file sizes, with many writers tuned to produce files that are ideal for batch processing.
+Large row group sizes, non-aligned page boundaries, and heavy page compression make such Parquet files slow to read{/* and offer little opportunity for pruning */}.
+To achieve low-latency reads on Iceberg tables, a heavily tuned writer is essential.
+Data should ideally be distributed in a way that mimics Firebolt's primary indexes, sorted by frequently filtered columns.
+{/*
+Row groups should be fairly small to allow effective pruning, but note that Firebolt-managed storage can use primary index pruning on the level of granules, which contain [up to 8192 rows](/overview/indexes/primary-index#advanced-option%3A-index-granularity), far more granular than what Parquet offers.
+Note that while Parquet optionally supports page indexes, Firebolt cannot currently use these for pruning.
+*/}
+
+Use Iceberg tables when:
+- You benchmarked the performance on Iceberg tables and are happy with it.
+- You want to avoid the operational complexity and cost of setting up an ingest pipeline into Firebolt.
+- You want to avoid having a second copy of the data in Firebolt-managed tables.
+
+Use Firebolt-managed tables when:
+- You care about the best possible query latencies and throughput, or the queries on native Iceberg tables were not fast enough.
+- You are fine with setting up an ingest pipeline into Firebolt.
+- You are fine with the cost of having data duplicated into Firebolt.
+
+## Iceberg caching
+
+Firebolt supports caching of both metadata and data of Iceberg tables on local SSDs as well as in-memory snapshot caching of metadata to dramatically reduce access latency for Iceberg tables.
+This relies on the transactional nature of Iceberg tables and the immutability of the referenced files and is therefore not possible for non-Iceberg external data (e.g., [`read_parquet`](/reference-sql/functions-reference/table-valued/read_parquet)).
+
+Iceberg table metadata has multiple layers, requiring a number of hops to object storage: the catalog provides the URL to the metadata file, which points to a number of manifest lists, each of which points to one or more manifest files, which finally point to the data files.
+As object storage latencies are often above 50ms, uncached Iceberg reads typically have at least 200ms of pure metadata overhead.
+All of this overhead can be eliminated with caching and [`MAX_STALENESS`](#configurable-data-freshness-with-max-staleness).
+
+The complete metadata hierarchy is automatically cached on local disk (SSD) and in memory, and data files are cached on local disk (SSD).
+This means metadata and frequently accessed data from Iceberg tables can be served from much faster local tiers, just like with Firebolt-managed storage.
+For security reasons, cached data is tied to the credentials used for access: when using different credentials to access the same table, cached data cannot be used as the validity of the credentials is unknown.
+
+Cached data is not tied to a particular snapshot, and caches typically become only partially invalidated after a new transaction is committed: a transaction that inserts additional rows will result in a new metadata file pointing to a new manifest list, which references a new manifest file pointing to the exact same data files along with one or more new data files.
+Cache entries for all of the old files remain valid, and only the new files have to be fetched for the next query, while the rest can be served from cache.
+
+### Configurable data freshness with `MAX_STALENESS`
+
+For many interactive use cases, having data that is a few seconds or minutes out of date is acceptable if it enables dramatically faster queries.
+The `MAX_STALENESS` parameter of [`read_iceberg`](/reference-sql/functions-reference/table-valued/read_iceberg) lets you define this tolerance (for example, `INTERVAL '30 seconds'`).
+When specified, Firebolt can use a cached metadata file and vended credentials if they are within the allowed staleness, avoiding costly round trips to the Iceberg catalog.
+The default is 0 seconds, ensuring queries always see the latest snapshot if no staleness is specified.
+Setting `MAX_STALENESS` will typically reduce query latency by tens to hundreds of milliseconds and is highly recommended for scans that are allowed to read slightly stale data.
+Note that stale reads still maintains the transactionality of Iceberg tables—they might simply read a slightly older snapshot if the table was modified during the `MAX_STALENESS` interval.
+
+## Understanding pruning
+
+Firebolt prunes Iceberg table scans based on the file-level metadata in Iceberg manifest files.
+These contain minima and maxima for each column of each data file, which can be used to eliminate files that provably cannot match the predicates in a query.
+In this case, Firebolt never requests the data file at all.
+This pruning applies the ideas described in ["Big Metadata: When Metadata is Big Data"](https://research.google/pubs/big-metadata-when-metadata-is-big-data/), published at VLDB 2021.
+After pruning, only the byte ranges corresponding to the scanned columns are fetched from disk (if cached) or object storage, up to some padding to avoid overly small requests.
+
+{/*
+Firebolt supports pruning of Iceberg table scans on two levels, the second of which is also applicable for [`read_parquet`](/reference-sql/functions-reference/table-valued/read_parquet) and external tables over Parquet files:
+
+1. File-level metadata in Iceberg manifest files contain minima and maxima for each column of each data file.
+   These can be used to eliminate files that provably cannot match the predicates in a query.
+   In this case, Firebolt never requests the contents of the file at all.
+2. Row-group level pruning of Parquet files.
+   The metadata of Parquet files can contain similar statistics about each *row group* of the file.
+   Firebolt will use the per-column minima and maxima to further eliminate row groups that do not contribute to the query.
+
+Both levels of pruning apply the ideas described in ["Big Metadata: When Metadata is Big Data"](https://research.google/pubs/big-metadata-when-metadata-is-big-data/), published at VLDB 2021.
+After pruning, only the byte ranges corresponding to the scanned columns in the row groups that could not be eliminated are fetched from disk (if cached) or object storage, up to some padding to avoid overly small requests.
+*/}
+
+## Co-located joins and aggregations on Iceberg tables
+
+When Iceberg tables share compatible partitioning schemes, Firebolt can leverage this information to perform co-located joins, eliminating data shuffling and dramatically speeding up join operations.
+For example, for an inner join between tables that are both bucketed on the join key, Firebolt can distribute entire partitions to nodes and run the join fully locally.
+
+Similar to joins, if an aggregation key matches the Iceberg table's partitioning key, Firebolt can optimize the aggregation process, potentially making local aggregations more efficient and even eliminating entire global aggregation stages.
+
+Use the [`enable_iceberg_partitioned_scan` setting](/reference/system-settings#using-iceberg-partitioned-scans-for-co-located-joins-and-aggregations) to enable these optimizations when the number of partitions is high enough and their size is sufficiently balanced to make this worthwhile.

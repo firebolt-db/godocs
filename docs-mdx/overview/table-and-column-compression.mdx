@@ -29,7 +29,7 @@ You can specify compression settings for a table, columns, or a combination of b
 
 ### Table-level compression
 
-You specify table-level compression using the `WITH` clause in the `CREATE TABLE` statement. This compression applies to all columns unless explicitly overriden at the column level.
+You specify table-level compression using the `WITH` clause in the `CREATE TABLE` statement. This compression applies to all columns unless explicitly overridden at the column level.
 
 ##### Syntax:
 
@@ -95,7 +95,7 @@ CREATE TABLE table_name (
 
 
 * If you do not specify compression explicitly, Firebolt applies the default `lz4` compression algorithm.
-* When you define table-level compression, all columns inherit this setting unless overriden with column-level compression.
+* When you define table-level compression, all columns inherit this setting unless overridden with column-level compression.
 
 ## Step-by-step examples of compression
 The following examples show how to use table-level and column-level compression in Firebolt.

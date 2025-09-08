@@ -1,0 +1,33 @@
+# An attempt to mitigate long page loads by forcefully keeping all pages warm in Mintlify caches.
+# IDK if it would actually help a lot (depends on how the caches are organized, e.g.
+# whether executing this network route would help other routes in US / EMEA).
+name: "[CRON] Mintlify-cache-warmup"
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/cache-warmup.yml'
+  schedule:
+    - cron: "*/5 * * * *"   # every 5 minutes (UTC)
+concurrency:
+  group: cache-warmer
+  cancel-in-progress: false  # queue one; do not overlap or cancel
+jobs:
+  cache-warmer:
+    # IMPORTANT: every job run downloads about 1Gb of data.
+    # NEVER RUN IT ON OUR SELF-HOSTED RUNNERS, only on github-hosted ones!
+    runs-on: ubuntu-latest  # ubuntu-latest is a github-hosted runner
+    steps:
+      - name: Warm up CDN cache
+        run: |
+          host -t A docs.firebolt.io
+          docker run --network host raviqqe/muffet \
+            --verbose \
+            --buffer-size=8192 \
+            --max-connections-per-host=2 \
+            --ignore-fragments \
+            --follow-robots-txt \
+            --timeout=10 \
+            --max-retries=5 \
+            --header 'accept-encoding: gzip, deflate, br, zstd' \
+            --include "https://docs.firebolt.io/.*" \
+            https://docs.firebolt.io/ | egrep -v '[[:space:]]200[[:space:]]'

@@ -93,7 +93,7 @@ check-markers:
 
 .PHONY: check-legacy-dir
 check-legacy-dir:
-	@echo "Checking that the legacy /docs directory is not ressurected"
+	@echo "Checking that the legacy /docs directory is not resurrected"
 	if [ -d "docs" ]; then echo "Legacy /docs directory found, please remove it."; exit 1; fi
 	@echo "☑ No /docs directory found"
 

@@ -1,3 +1,8 @@
+PR title should follow [Firebolt PR convention](https://packboard.atlassian.net/wiki/spaces/PACB/pages/3854237702/Firebolt+PR+Convention).
+Allowed types: build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test.
+
+Choose from one of the types above and set PR title to match `type[(scope)]: what changed (FIR-XXX)` format.
+
 # Description
 Please include a summary of the change and which issue is fixed. Please also include relevant motivation and context.
 

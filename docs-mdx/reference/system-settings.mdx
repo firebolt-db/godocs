@@ -52,6 +52,7 @@ The following settings can be configured using the `WITH` clause and the `SET` c
 - [enable_storage_statistics](#using-storage-manager-statistics-in-the-optimizer)
 - [max_threads](#limiting-max-threads)
 - [max_insert_threads](#limiting-max-insert-threads)
+- [enable_iceberg_partitioned_scan](#using-iceberg-partitioned-scans-for-co-located-joins-and-aggregations)
 
 The following settings can be configured only using the `SET` command:
 - [query_label](#query-labeling-and-tagging)
@@ -348,8 +349,8 @@ Setting `insert_sharding` to `shard_on_read` changes the file distribution strat
 
 During ingestion, Firebolt attempts to create optimally sized tablets to balance ingestion speed and future scan performance. When all ingested data has been read, Firebolt prefers creating relatively small tablets to prioritize data persistence, leaving further optimization to [Auto Vacuum](/reference-sql/commands/data-management/vacuum). However, if this behavior isn't desirable, you can control it using the `tablet_min_size_bytes` and `tablet_max_size_bytes` settings:
 
-- `tablet_min_size_bytes`: Controls the minimum size of tablets. If there isn't enough data in the ingestion, smaller tablets are created nevertheless. When possible, data is compacted into tablets of at least this size. Default: `1.5 GiB`. Minmum: `1 GiB`.
-- `tablet_max_size_bytes`: Controls the maximum size of tablets. Default: `4 GiB`. Should be greated or equal than `tablet_min_size_bytes`.
+- `tablet_min_size_bytes`: Controls the minimum size of tablets. If there isn't enough data in the ingestion, smaller tablets are created nevertheless. When possible, data is compacted into tablets of at least this size. Default: `1.5 GiB`. Minimum: `1 GiB`.
+- `tablet_max_size_bytes`: Controls the maximum size of tablets. Default: `4 GiB`. Should be greater or equal than `tablet_min_size_bytes`.
 
 ### Note 
 
@@ -416,7 +417,7 @@ WITH (CROSS_REGION_REQUEST_MODE = 'auto');
 
 ## Changing the optimizer mode
 
-If set to `user_guided`, the optimizer will disalbe all cost-based optimization rules.
+If set to `user_guided`, the optimizer will disable all cost-based optimization rules.
 This ensures that the relative order of joins and aggregations in the resulting execution plan will follow the sytnatic order defined in the `SELECT` blocks of your SQL query
 The default value is `automatic`.
 For more details, see [User-guided mode](/performance-and-observability/query-planning/user-guided-mode).
@@ -605,3 +606,152 @@ INSERT INTO t
 SELECT * FROM READ_PARQUET(URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/*.parquet')
 WITH (max_insert_threads = 1);
 ```
+
+## Using Iceberg partitioned scans for co-located joins and aggregations
+
+The `enable_iceberg_partitioned_scan` setting controls whether to scan partitioned Iceberg tables in a partitioned manner on multi-node engines. When enabled, Firebolt assigns entire partitions of the tables to nodes, allowing joins and aggregations on the tables' partition keys to be run fully locally.  For joins, this requires compatible partitioning schemes on both sides of the join.  Note that enabling this setting cause all partinioned Iceberg tables to be scanned in a partitioned manner, even if no joins or aggregations eligible for co-located execution are present in the query.
+
+**Caution:** when partition sizes are imbalanced or the number of partitions is smaller than the number of nodes, enabling this setting can cause significant load imbalance between the nodes, degrading query performance.
+
+### Example
+
+In the following example, we join two Iceberg tables partitioned by `month("timestamp")`.  The join is eligible for co-located execution because both tables are partitioned by the same key.  Note how with `enable_iceberg_partitioned_scan` set to `true`, the *iceberg file listing* is shuffled by the tables' partition values, but no further shuffling is performed before the join.  With the setting disabled, the iceberg file listing is shuffled by a weighted partitioning of the file sizes to make sure that each node is assigned approximately the same amount of data to scan, ignoring the partition values.  This requires an additional hash shuffle of both tables before the join, which can be expensive for very large tables.  Enabling partitioned scans allows this shuffle to be avoided.
+
+<CodeGroup>
+```sql Join query
+EXPLAIN (PHYSICAL)
+SELECT
+  *
+FROM 
+  read_iceberg(location => 'table1') table1  -- partitioned by `month("timestamp")`
+JOIN
+  read_iceberg(location => 'table2') table2  -- partitioned by `month("timestamp")`
+USING ("timestamp");
+```
+
+```text Join plan with enable_iceberg_partitioned_scan = true {9-10,18-19}
+[0] [MaybeCache]
+ \_[1] [Shuffle] Gather
+   |   [Affinity]: many nodes
+    \_[2] [Projection] timestamp, description, user
+       \_[3] [Join] Mode: Inner [(timestamp = timestamp)]
+          \_[4] [TableFuncScan] timestamp: $0.timestamp, description: $0.description
+          | |   $0 = read_from_s3(url='s3://.../table1', format='PARQUET', object_pattern='*', type=Iceberg, file_format, file_size, partition_columns, partition_transforms, partition_values, file_name, file_bucket, file_storage_api, file_etag, min_timestamp, max_timestamp, min_description, max_description, partition_value_timestamp_1000)
+          | |   [Types]: timestamp: timestamp not null, description: text not null
+          |  \_[5] [Shuffle] Hash by [partition_values]
+          |    |   [Affinity]: many nodes
+          |     \_[6] [MaybeCache]
+          |        \_[7] [TableFuncScan] file_format: $0.file_format, file_size: $0.file_size, partition_columns: $0.partition_columns, partition_transforms: $0.partition_transforms, partition_values: $0.partition_values, file_name: $0.file_name, file_bucket: $0.file_bucket, file_storage_api: $0.file_storage_api, file_etag: $0.file_etag, min_timestamp: $0.min_timestamp, max_timestamp: $0.max_timestamp, min_description: $0.min_description, max_description: $0.max_description, partition_value_timestamp_1000: $0.partition_value_timestamp_1000
+          |              $0 = list_iceberg_files(url => 's3://.../table1/metadata/v1.metadata.json', metadata_json_content => '****', snapshot_id => '1888593444364154112', snapshot_timestamp => NULL)
+          |              [Types]: file_format: text not null, file_size: bigint not null, partition_columns: array(text not null) not null, partition_transforms: array(text not null) not null, partition_values: array(text not null) not null, file_name: text not null, file_bucket: text not null, file_storage_api: text not null, file_etag: text not null, min_timestamp: timestamp null, max_timestamp: timestamp null, min_description: text null, max_description: text null, partition_value_timestamp_1000: integer not null
+          \_[8] [TableFuncScan] timestamp: $0.timestamp, user: $0.user
+            |   $0 = read_from_s3(url='s3://.../table2', format='PARQUET', object_pattern='*', type=Iceberg, file_format, file_size, partition_columns, partition_transforms, partition_values, file_name, file_bucket, file_storage_api, file_etag, min_timestamp, max_timestamp, min_user, max_user, partition_value_timestamp_1000)
+            |   [Types]: timestamp: timestamp not null, user: text not null
+             \_[9] [Shuffle] Hash by [partition_values]
+               |   [Affinity]: many nodes
+                \_[10] [MaybeCache]
+                   \_[11] [TableFuncScan] file_format: $0.file_format, file_size: $0.file_size, partition_columns: $0.partition_columns, partition_transforms: $0.partition_transforms, partition_values: $0.partition_values, file_name: $0.file_name, file_bucket: $0.file_bucket, file_storage_api: $0.file_storage_api, file_etag: $0.file_etag, min_timestamp: $0.min_timestamp, max_timestamp: $0.max_timestamp, min_user: $0.min_user, max_user: $0.max_user, partition_value_timestamp_1000: $0.partition_value_timestamp_1000
+                         $0 = list_iceberg_files(url => 's3://.../table2/metadata/v1.metadata.json', metadata_json_content => '****', snapshot_id => '2306990001985110276', snapshot_timestamp => NULL)
+                         [Types]: file_format: text not null, file_size: bigint not null, partition_columns: array(text not null) not null, partition_transforms: array(text not null) not null, partition_values: array(text not null) not null, file_name: text not null, file_bucket: text not null, file_storage_api: text not null, file_etag: text not null, min_timestamp: timestamp null, max_timestamp: timestamp null, min_user: text null, max_user: text null, partition_value_timestamp_1000: integer not null
+```
+
+```text Join plan with enable_iceberg_partitioned_scan = false {6-7,12-15,22-23,28-31}
+[0] [MaybeCache]
+ \_[1] [Shuffle] Gather
+   |   [Affinity]: many nodes
+    \_[2] [Projection] timestamp, description, user
+       \_[3] [Join] Mode: Inner [(timestamp = timestamp)]
+          \_[4] [Shuffle] Hash by [timestamp]
+          | |   [Affinity]: many nodes
+          |  \_[5] [TableFuncScan] timestamp: $0.timestamp, description: $0.description
+          |    |   $0 = read_from_s3(url='s3://.../table1', format='PARQUET', object_pattern='*', type=Iceberg, file_format, file_size, partition_columns, partition_transforms, partition_values, file_name, file_bucket, file_storage_api, file_etag, min_timestamp, max_timestamp, min_description, max_description, partition_value_timestamp_1000)
+          |    |   [Types]: timestamp: timestamp not null, description: text not null
+          |     \_[6] [Projection] file_format, file_size, partition_columns, partition_transforms, partition_values, file_name, file_bucket, file_storage_api, file_etag, min_timestamp, max_timestamp, min_description, max_description, partition_value_timestamp_1000
+          |        \_[7] [Shuffle] KeyIdentity by [weighted_partition_0]
+          |          |   [Affinity]: many nodes
+          |           \_[8] [Window] weighted_partition_0: weighted_partition(file_size, c_0) OVER (ORDER BY file_size Descending Last, file_name StrictlyAscending Last, file_format StrictlyAscending Last, partition_columns StrictlyAscending Last, partition_transforms StrictlyAscending Last, partition_values StrictlyAscending Last, file_bucket StrictlyAscending Last, file_storage_api StrictlyAscending Last, file_etag StrictlyAscending Last, min_timestamp StrictlyAscending Last, max_timestamp StrictlyAscending Last, min_description StrictlyAscending Last, max_description StrictlyAscending Last, partition_value_timestamp_1000 StrictlyAscending Last, c_0 StrictlyAscending Last, c_0 StrictlyAscending Last)
+          |             |   [Types]: weighted_partition_0: bigint not null
+          |              \_[9] [Projection] file_format, file_size, partition_columns, partition_transforms, partition_values, file_name, file_bucket, file_storage_api, file_etag, min_timestamp, max_timestamp, min_description, max_description, partition_value_timestamp_1000, c_0: 1
+          |                |   [Types]: c_0: bigint not null
+          |                 \_[10] [MaybeCache]
+          |                    \_[11] [TableFuncScan] file_format: $0.file_format, file_size: $0.file_size, partition_columns: $0.partition_columns, partition_transforms: $0.partition_transforms, partition_values: $0.partition_values, file_name: $0.file_name, file_bucket: $0.file_bucket, file_storage_api: $0.file_storage_api, file_etag: $0.file_etag, min_timestamp: $0.min_timestamp, max_timestamp: $0.max_timestamp, min_description: $0.min_description, max_description: $0.max_description, partition_value_timestamp_1000: $0.partition_value_timestamp_1000
+          |                          $0 = list_iceberg_files(url => 's3://.../table1/metadata/v1.metadata.json', metadata_json_content => '****', snapshot_id => '1888593444364154112', snapshot_timestamp => NULL)
+          |                          [Types]: file_format: text not null, file_size: bigint not null, partition_columns: array(text not null) not null, partition_transforms: array(text not null) not null, partition_values: array(text not null) not null, file_name: text not null, file_bucket: text not null, file_storage_api: text not null, file_etag: text not null, min_timestamp: timestamp null, max_timestamp: timestamp null, min_description: text null, max_description: text null, partition_value_timestamp_1000: integer not null
+          \_[12] [Shuffle] Hash by [timestamp]
+            |   [Affinity]: many nodes
+             \_[13] [TableFuncScan] timestamp: $0.timestamp, user: $0.user
+               |   $0 = read_from_s3(url='s3://.../table2', format='PARQUET', object_pattern='*', type=Iceberg, file_format, file_size, partition_columns, partition_transforms, partition_values, file_name, file_bucket, file_storage_api, file_etag, min_timestamp, max_timestamp, min_user, max_user, partition_value_timestamp_1000)
+               |   [Types]: timestamp: timestamp not null, user: text not null
+                \_[14] [Projection] file_format, file_size, partition_columns, partition_transforms, partition_values, file_name, file_bucket, file_storage_api, file_etag, min_timestamp, max_timestamp, min_user, max_user, partition_value_timestamp_1000
+                   \_[15] [Shuffle] KeyIdentity by [weighted_partition_1]
+                     |   [Affinity]: many nodes
+                      \_[16] [Window] weighted_partition_1: weighted_partition(file_size, c_1) OVER (ORDER BY file_size Descending Last, file_name StrictlyAscending Last, file_format StrictlyAscending Last, partition_columns StrictlyAscending Last, partition_transforms StrictlyAscending Last, partition_values StrictlyAscending Last, file_bucket StrictlyAscending Last, file_storage_api StrictlyAscending Last, file_etag StrictlyAscending Last, min_timestamp StrictlyAscending Last, max_timestamp StrictlyAscending Last, min_user StrictlyAscending Last, max_user StrictlyAscending Last, partition_value_timestamp_1000 StrictlyAscending Last, c_1 StrictlyAscending Last, c_1 StrictlyAscending Last)
+                        |   [Types]: weighted_partition_1: bigint not null
+                         \_[17] [Projection] file_format, file_size, partition_columns, partition_transforms, partition_values, file_name, file_bucket, file_storage_api, file_etag, min_timestamp, max_timestamp, min_user, max_user, partition_value_timestamp_1000, c_1: 1
+                           |   [Types]: c_1: bigint not null
+                            \_[18] [MaybeCache]
+                               \_[19] [TableFuncScan] file_format: $0.file_format, file_size: $0.file_size, partition_columns: $0.partition_columns, partition_transforms: $0.partition_transforms, partition_values: $0.partition_values, file_name: $0.file_name, file_bucket: $0.file_bucket, file_storage_api: $0.file_storage_api, file_etag: $0.file_etag, min_timestamp: $0.min_timestamp, max_timestamp: $0.max_timestamp, min_user: $0.min_user, max_user: $0.max_user, partition_value_timestamp_1000: $0.partition_value_timestamp_1000
+                                     $0 = list_iceberg_files(url => 's3://.../table2/metadata/v1.metadata.json', metadata_json_content => '****', snapshot_id => '2306990001985110276', snapshot_timestamp => NULL)
+                                     [Types]: file_format: text not null, file_size: bigint not null, partition_columns: array(text not null) not null, partition_transforms: array(text not null) not null, partition_values: array(text not null) not null, file_name: text not null, file_bucket: text not null, file_storage_api: text not null, file_etag: text not null, min_timestamp: timestamp null, max_timestamp: timestamp null, min_user: text null, max_user: text null, partition_value_timestamp_1000: integer not null
+```
+</CodeGroup>
+
+Below, we show the effect of partitioned scans on aggregations.  We use the another table that is value-partitioned by `type`.  We aggregate on `type` and see that the optimizer uses partitioned scans to avoid shuffling the data.
+<CodeGroup>
+```sql Aggregation query
+EXPLAIN (PHYSICAL)
+SELECT
+  type,
+  count(*) as count
+FROM 
+  read_iceberg(location => 'table3')  -- partitioned by `type`
+GROUP BY type;
+```
+
+```text Aggregation plan with enable_iceberg_partitioned_scan = true {11-12}
+[0] [MaybeCache]
+ \_[1] [Shuffle] Gather
+   |   [Affinity]: many nodes
+    \_[2] [Projection] type, max2_0
+       \_[3] [Aggregate] GroupBy: [type] Aggregates: [max2_0: max2(name)]
+         |   [Types]: max2_0: text null
+          \_[4] [Projection] type, name
+             \_[5] [TableFuncScan] name: $0.name, type: $0.type
+               |   $0 = read_from_s3(url='s3://.../table3', format='PARQUET', object_pattern='*', type=Iceberg, file_format, file_size, partition_columns, partition_transforms, partition_values, file_name, file_bucket, file_storage_api, file_etag, min_name, max_name, min_type, max_type, partition_value_type_1000)
+               |   [Types]: name: text null, type: bigint null
+                \_[6] [Shuffle] Hash by [partition_values]
+                  |   [Affinity]: many nodes
+                   \_[7] [MaybeCache]
+                      \_[8] [TableFuncScan] file_format: $0.file_format, file_size: $0.file_size, partition_columns: $0.partition_columns, partition_transforms: $0.partition_transforms, partition_values: $0.partition_values, file_name: $0.file_name, file_bucket: $0.file_bucket, file_storage_api: $0.file_storage_api, file_etag: $0.file_etag, min_name: $0.min_name, max_name: $0.max_name, min_type: $0.min_type, max_type: $0.max_type, partition_value_type_1000: $0.partition_value_type_1000
+                            $0 = list_iceberg_files(url => 's3://.../table3/metadata/v1.metadata.json', metadata_json_content => '****', snapshot_id => '7056553103719432372', snapshot_timestamp => NULL)
+                            [Types]: file_format: text not null, file_size: bigint not null, partition_columns: array(text not null) not null, partition_transforms: array(text not null) not null, partition_values: array(text not null) not null, file_name: text not null, file_bucket: text not null, file_storage_api: text not null, file_etag: text not null, min_name: text null, max_name: text null, min_type: bigint null, max_type: bigint null, partition_value_type_1000: bigint null
+```
+
+```text Aggregation plan with enable_iceberg_partitioned_scan = false {7-8,15-18}
+[0] [MaybeCache]
+ \_[1] [Shuffle] Gather
+   |   [Affinity]: many nodes
+    \_[2] [Projection] type, max2_1
+       \_[3] [AggregateMerge] GroupBy: [type] Aggregates: [max2_1: max2merge(max2_0)]
+         |   [Types]: max2_1: text null
+          \_[4] [Shuffle] Hash by [type]
+            |   [Affinity]: many nodes
+             \_[5] [AggregateState partial] GroupBy: [type] Aggregates: [max2_0: max2(name)]
+               |   [Types]: max2_0: aggregatefunction(max2ornull, text null) not null
+                \_[6] [TableFuncScan] name: $0.name, type: $0.type
+                  |   $0 = read_from_s3(url='s3://.../table3', format='PARQUET', object_pattern='*', type=Iceberg, file_format, file_size, partition_columns, partition_transforms, partition_values, file_name, file_bucket, file_storage_api, file_etag, min_name, max_name, min_type, max_type, partition_value_type_1000)
+                  |   [Types]: name: text null, type: bigint null
+                   \_[7] [Projection] file_format, file_size, partition_columns, partition_transforms, partition_values, file_name, file_bucket, file_storage_api, file_etag, min_name, max_name, min_type, max_type, partition_value_type_1000
+                      \_[8] [Shuffle] KeyIdentity by [weighted_partition_0]
+                        |   [Affinity]: many nodes
+                         \_[9] [Window] weighted_partition_0: weighted_partition(file_size, c_0) OVER (ORDER BY file_size Descending Last, file_name StrictlyAscending Last, file_format StrictlyAscending Last, partition_columns StrictlyAscending Last, partition_transforms StrictlyAscending Last, partition_values StrictlyAscending Last, file_bucket StrictlyAscending Last, file_storage_api StrictlyAscending Last, file_etag StrictlyAscending Last, min_name StrictlyAscending Last, max_name StrictlyAscending Last, min_type StrictlyAscending Last, max_type StrictlyAscending Last, partition_value_type_1000 StrictlyAscending Last, c_0 StrictlyAscending Last, c_0 StrictlyAscending Last)
+                           |   [Types]: weighted_partition_0: bigint not null
+                            \_[10] [Projection] file_format, file_size, partition_columns, partition_transforms, partition_values, file_name, file_bucket, file_storage_api, file_etag, min_name, max_name, min_type, max_type, partition_value_type_1000, c_0: 1
+                              |   [Types]: c_0: bigint not null
+                               \_[11] [MaybeCache]
+                                  \_[12] [TableFuncScan] file_format: $0.file_format, file_size: $0.file_size, partition_columns: $0.partition_columns, partition_transforms: $0.partition_transforms, partition_values: $0.partition_values, file_name: $0.file_name, file_bucket: $0.file_bucket, file_storage_api: $0.file_storage_api, file_etag: $0.file_etag, min_name: $0.min_name, max_name: $0.max_name, min_type: $0.min_type, max_type: $0.max_type, partition_value_type_1000: $0.partition_value_type_1000
+                                        $0 = list_iceberg_files(url => 's3://.../table3/metadata/v1.metadata.json', metadata_json_content => '****', snapshot_id => '7056553103719432372', snapshot_timestamp => NULL)
+                                        [Types]: file_format: text not null, file_size: bigint not null, partition_columns: array(text not null) not null, partition_transforms: array(text not null) not null, partition_values: array(text not null) not null, file_name: text not null, file_bucket: text not null, file_storage_api: text not null, file_etag: text not null, min_name: text null, max_name: text null, min_type: bigint null, max_type: bigint null, partition_value_type_1000: bigint null
+```
+
+</CodeGroup>

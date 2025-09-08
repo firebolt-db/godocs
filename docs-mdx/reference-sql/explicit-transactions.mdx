@@ -1,0 +1,264 @@
+---
+description: Reference for Explicit Transactions and syntax for the BEGIN/COMMIT/ROLLBACK statements.
+sidebarTitle: Explicit Transactions
+title: Explicit Transactions
+keywords: ['transaction', 'begin', 'commit', 'rollback']
+---
+Explicit transactions group multiple SQL statements into a single, atomic operation. This ensures that all statements within the transaction are successfully executed as a single unit. If any statement fails, the entire transaction is rolled back, guaranteeing data consistency and integrity.
+
+This is particularly useful for complex operations that involve multiple dependent steps, such as updating related tables or atomically swapping database versions.
+
+**Related:**
+
+* [information\_schema.transactions](/reference-sql/information-schema/transactions)
+
+**Topics:**
+
+* [Syntax](#syntax)
+* [How to Use Explicit Transactions](#how-to-use-explicit-transactions)
+* [Transaction identifiers](#transaction-identifiers)
+* [Statements Allowed in Explicit Transaction](#statements-allowed-in-explicit-transaction)
+* [Statements Not Allowed in Explicit Transaction](#statements-not-allowed-in-explicit-transaction)
+* [Transaction Guarantees (ACID)](#transaction-guarantees-acid)
+* [Error Handling and Rollback](#error-handling-and-rollback)
+* [Observability](#observability)
+* [Security Considerations](#security-considerations)
+* [Best Practices](#best-practices)
+* [Examples](#examples)
+* [Limitations](#limitations)
+
+---
+
+## Syntax
+
+The following commands are used to control explicit transactions:
+
+
+```sql
+BEGIN [ TRANSACTION ];
+
+-- one or more SQL statements
+
+COMMIT [ TRANSACTION ];
+-- or
+ROLLBACK [ TRANSACTION ];
+```
+
+`BEGIN` starts a new transaction.
+
+`COMMIT` saves all changes made within the transaction, making them permanent.
+
+`ROLLBACK` discards all changes.
+
+---
+
+## How to Use Explicit Transactions
+
+To use an explicit transaction, you send the `BEGIN` statement, followed by one or more SQL statements, and finally a `COMMIT` or `ROLLBACK` statement. Each statement must be sent sequentially in separate requests.
+
+### Key Points
+
+* All statements within a single transaction **must be executed from the same connection**, or the same session object of your SDK.  
+* A single connection cannot have more than one active transaction at a time. Executing `BEGIN` while a transaction is already active will return an error.  
+* Executing `COMMIT` or `ROLLBACK` when no transaction is active will also result in an error.  
+* This functionality is supported through any Firebolt SDK that implements `Firebolt-Protocol-Version="2.4"` or the Firebolt UI.
+
+---
+
+## Transaction identifiers
+
+Each transaction is uniquely identified by a **`begin_lsn`** at its start and marked for successful completion with a **`commit_lsn`**.
+These identifiers are **Log Sequence Numbers (LSN)**, which are 20-byte hexadecimal string representations that are part of a single, lexicographically increasing sequence. This structure ensures a chronological order of all transaction starts and commits in the system.
+The **`begin_lsn`** and **`commit_lsn`** can be monitored through the information\_schema.transactions views
+
+---
+
+## Statements Allowed in explicit transaction
+
+The main purpose of a transaction is to group multiple write operations (especially DML and DDL) into a single atomic unit. However, you can also use read operations (`SELECT`) within the transaction. This is useful for performing calculations or checks as part of your logic, ensuring the data you read is consistent with the state at the beginning of the transaction.
+
+| Statement Type | Examples |
+| :---- | :---- |
+| **DML** | `INSERT`, `INSERT AS SELECT`, `UPDATE`, `DELETE`, `MERGE`, `TRUNCATE`, `DROP PARTITION` |
+| **DDL** | `CREATE`/`ALTER`/`DROP` tables/view/indexes and databases `CREATE TABLE AS SELECT`, `CREATE TABLE CLONE` |
+| **DQL** | `SELECT` |
+| **DCL** | Database level rbac permissions,e.g. `GRANT SELECT ON my_table TO my_role;`  |
+
+## Statements **Not** Allowed in explicit Transaction
+
+The following operations are not transactional and cannot be included within a `BEGIN...COMMIT` block:
+
+* **Account-level DCL**: `CREATE`/`DROP USER`, `CREATE`/`DROP ROLE`, `ASSIGN`/`REVOKE ROLE`.  
+* **Location:** `CREATE`/`DROP`/`ALTER LOCATION.`  
+* **External Operations**: `COPY TO` an external resource, as it cannot be rolled back.  
+* **Engine Management**: `START ENGINE`, `STOP ENGINE`.
+
+---
+
+## Transaction Guarantees (ACID)
+
+Firebolt transactions provide ACID guarantees to ensure data integrity:
+
+### Atomicity
+
+All statements within the transaction block are treated as a single operation. They are executed sequentially, but their outcome only becomes permanent upon a successful `COMMIT`. If the transaction is rolled back or fails, all intermediate changes are discarded.
+
+
+### Consistency
+
+Firebolt ensures transactional consistency by enforcing that every transaction transitions the database from one valid state to another, preserving all schema constraints, data integrity rules, and invariants.
+
+* A transaction will only commit if all its operations succeed and leave the database in a valid state.
+
+* On every statement, the system checks that the intermediate state remains consistent with the currently committed state of the system. If any operation would violate constraints or become invalid due to concurrent changes, the transaction is aborted.
+
+* This guarantees that the database never reaches a partially valid or inconsistent state, even in the presence of concurrent workloads.
+
+
+### Isolation
+
+Firebolt applies different isolation levels depending on the type of object a transaction interacts with:
+
+* **Metadata objects** (e.g., tables, schemas) are governed by strict serializability, the strongest isolation level. Structural changes are ordered globally to ensure consistency and correctness. For example, an INSERT will fail if the target table is concurrently dropped by another transaction. However, concurrent INSERTs into the same table do not interfere with each other, as they do not modify the table’s metadata.
+
+* **Data operations** (e.g., SELECT, INSERT, UPDATE, DELETE) use snapshot isolation. A transaction sees a consistent snapshot of the data as it existed at the time the transaction began, regardless of concurrent changes. If the transaction attempts to modify data that has been changed by another transaction that committed after it began, it will be aborted to avoid anomalies.
+
+* **Permission checks** are evaluated using READ COMMITTED isolation. For more details, see [Security Considerations](#security-considerations)
+
+This model guarantees structural integrity while providing a high-concurrency model for data access. For more details, see the documentation on [Transactions and concurrency](/overview/data-management#transactions-and-concurrency).
+
+For background on isolation levels, see: https://jepsen.io/consistency/models/snapshot-isolation
+
+
+### Durability
+
+Durability is guaranteed. Once a transaction is successfully committed with the `COMMIT` command, all of its changes are permanently saved and will survive any subsequent system failures. Any system or user failure that occurs *before* a `COMMIT` will result in the automatic rollback of the transaction, ensuring the database is not left in an inconsistent state.
+
+---
+
+## Error Handling and Rollback
+
+### Explicit Rollback
+
+You can manually discard all of a transaction's changes by executing the `ROLLBACK` command. This safely terminates the transaction session.
+
+### Implicit Rollback on Error
+
+If any statement within the transaction fails (e.g., due to a syntax error or a write conflict), the transaction immediately enters an **aborted state**.
+
+* All subsequent statements will fail and return an error indicating the transaction is aborted, for example: `current transaction is aborted, commands ignored until end of transaction block`.  
+* You must explicitly send a `ROLLBACK` command to end the aborted transaction before starting a new one.
+
+### Account Admin Explicit Rollback
+Firebolt provides a mechanism for account admins to explicitly roll back a running transaction by its transaction begin lsn, outside the context of the original session.
+This is intended for administrative control and is only allowed for the account admin role.
+
+```sql
+ROLLBACK [TRANSACTION] <transaction_begin_lsn>
+```
+* The `transaction_begin_lsn` identifies the explicit transaction to roll back.
+* The `TRANSACTION` keyword is optional.
+
+Example
+```sql
+ROLLBACK TRANSACTION '00000000000100cf00a2000';
+```
+
+Notes
+* This is intended for administrative use and is not part of standard SQL transaction flow.
+---
+
+## Observability
+
+You can monitor and analyze transactions using the following tools:
+
+| Tool | Description |
+| :---- | :---- |
+| **`CURRENT_TRANSACTION()`** | A function that returns the unique identifier (`begin_lsn`) for the currently active transaction. Returns empty string if no transaction is active. |
+| **`information_schema.transactions`** | A view that provides historical information about transactions, including their begin\_lsn/commit\_lsn, status (`IN-PROGRESS`, `COMMITTED`, `ROLLBACKED`), start/end times, and the name of the user that initiated it. |
+| **`information_schema.engine_query_history`** | This view exposes the `transaction_begin_lsn` for each query, allowing you to group statements from the same transaction for performance or order analysis. |
+
+
+## Security Considerations
+
+The ability to run a transaction is determined by the user's privileges on the objects being manipulated. For example, to `UPDATE` a table within a transaction, your role must have the `UPDATE` privilege on that table.
+
+### Permission Handling in Transactions
+
+Permission checks behave differently from data-related statements. They are handled with READ COMMITTED isolation level, thus **not** subject to the transaction's snapshot isolation.
+
+* When any statement is executed, permissions are always validated against the **most recent committed state** of the security system.  
+* This means that if another user revokes your permissions in a separate, committed transaction, a statement in your currently active transaction could fail, even if you had the necessary permissions when your transaction began.
+
+---
+
+## Examples
+
+### Example 1: Atomic Funds Transfer
+
+This example ensures that a fund transfer between two accounts is an all-or-nothing operation.
+
+
+```sql
+BEGIN;
+UPDATE source_accounts SET balance = balance - 100.00 WHERE account_id = 'A123';
+UPDATE target_accounts SET balance = balance + 100.00 WHERE account_id = 'B456';
+COMMIT;
+```
+
+**Expected Behavior**: Both account balances are updated atomically. If either `UPDATE` fails, both changes are reversed.
+
+### Example 2: Atomic Database Replacement
+
+A common maintenance task is to swap a production database with a new version atomically to avoid downtime.
+
+
+```sql
+BEGIN;
+ALTER DATABASE production_clone RENAME TO staging;
+ALTER DATABASE production RENAME TO production_old;
+ALTER DATABASE staging RENAME TO production;
+COMMIT;
+```
+
+**Expected Behavior**: The three `ALTER DATABASE` statements are executed as a single, instantaneous change.
+
+### Example 3: Explicit Rollback
+
+A script to create a new table and populate it encounters a logical error and needs to be safely undone.
+
+
+```sql
+BEGIN;
+CREATE TABLE orders (user TEXT, amount INT);
+INSERT INTO orders VALUES ('gabby', 300);
+-- A logical error is discovered here by the application
+ROLLBACK;
+```
+
+**Expected Behavior**: The `ROLLBACK` command discards the creation of `orders` and the `INSERT` statement. The table `orders` will not exist.
+
+### Example 4: Implicit Rollback on Error
+
+A script contains a syntax error, causing the transaction to abort automatically.
+
+```sql
+BEGIN;
+CREATE TABLE orders (user TEXT, amount INT);
+INSERT INTO orders VALUES ('gabby', '100'); --> Fail wrong type
+INSERT INTO orders VALUES ('george, 100); --> Fail because transaction is in aborted state
+INSERT INTO orders VALUES ('allen', 200); --> Fail because transaction is in aborted state
+INSERT INTO orders VALUES ('ben', 300); --> Fail because transaction is in aborted state
+ROLLBACK; --> explicit rollback unblocks the aborted state
+```
+
+**Expected Behavior**: The error causes an implicit rollback. The transaction enters an aborted state, and all previous statements are discarded. must execute explicit ROLLBACK to unblock the aborted state.
+
+---
+
+## Limitations
+
+* **No Nested Transactions**: Starting a new transaction within an existing one will cause an error.  
+* **Transaction Lifetime**: An idle or active transaction will be automatically aborted after **24 hours**.  
+* **Number of Statement:** the number of statements which can be executed in a single explicit transaction is limited to 100.
+

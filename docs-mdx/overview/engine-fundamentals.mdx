@@ -133,12 +133,11 @@ You can use the information in the previous [information_schema views](/referenc
 
 The [engine_metrics_history](/reference-sql/information-schema/engine-metrics-history) view gathers engine resource utilization metrics such as CPU and RAM consumption at a given time snapshot. Utilization snapshots are captured every 30 seconds and retained for 30 days, allowing users to understand engine utilization and consumption trends. 
 
-The following code example retrieves CPU and RAM usage for `MyEngine`:
+The following code example retrieves CPU and RAM usage for the current engine:
 
 ```sql
 SELECT * 
 FROM information_schema.engine_metrics_history 
-WHERE engine_name = 'MyEngine' 
 ORDER BY event_time DESC;
 ```
 

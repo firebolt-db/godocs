@@ -9,10 +9,10 @@ SELECT ARRAY_ALL_MATCH(name -> name like '%2024', [ 'kennethpark2024', 'sabrina2
 
 Check if all elements in the first array can be divided by the elements in the second array:
 ``` sql
-SELECT ARRAY_ALL_MATCH(x, y -> (x % y) = 0, [ 10, 20, 30, 45 ], [ 5, 10, 2, 15]) AS divisable;
+SELECT ARRAY_ALL_MATCH(x, y -> (x % y) = 0, [ 10, 20, 30, 45 ], [ 5, 10, 2, 15]) AS divisible;
 ```
 
-| divisable (BOOLEAN) |
+| divisible (BOOLEAN) |
 | :--- |
 | t |
 

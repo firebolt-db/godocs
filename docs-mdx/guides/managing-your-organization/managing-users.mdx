@@ -304,13 +304,13 @@ You can assign a new role to the user or change the role assigned to the user fr
 Use the syntax in the following example code and the [GRANT](/reference-sql/commands/access-control/grant) statement to assign a role in the **SQL Script Editor** in the **Develop Space**:
 
 ```sql
-GRANT <my_role> TO USER <my_user>;
+GRANT ROLE <my_role> TO USER <my_user>;
 ```
 
 You can use `GRANT` to assign a role to another role as follows:
 
 ```sql
-GRANT <some_role> TO ROLE <another_role>
+GRANT ROLE <some_role> TO ROLE <another_role>
 ```
 
 ## Edit an existing user

@@ -119,7 +119,8 @@
                   },
                   "performance-and-observability/query-planning/user-guided-mode"
                 ]
-              }
+              },
+              "performance-and-observability/iceberg-and-external-data"
             ]
           },
           {
@@ -164,7 +165,8 @@
                   "guides/operate-engines/warming-up-engines",
                   "guides/operate-engines/arm-co-opt-out",
                   "guides/operate-engines/engines-release-settings",
-                  "guides/operate-engines/system-engine"
+                  "guides/operate-engines/system-engine",
+                  "guides/operate-engines/engine-warmpools"
                 ]
               },
               {
@@ -234,7 +236,8 @@
                   "guides/developing-with-firebolt/connecting-with-jdbc",
                   "guides/developing-with-firebolt/connecting-with-sqlalchemy",
                   "guides/developing-with-firebolt/connecting-with-net-sdk",
-                  "guides/developing-with-firebolt/connecting-with-go"
+                  "guides/developing-with-firebolt/connecting-with-go",
+                  "guides/developing-with-firebolt/connecting-with-rust"
                 ]
               },
               {
@@ -247,6 +250,8 @@
                   "guides/integrations/connecting-to-preset",
                   "guides/integrations/cube-js",
                   "guides/integrations/airbyte",
+                  "guides/integrations/looker-cloud",
+                  "guides/integrations/looker-on-prem",
                   "guides/integrations/otel-exporter",
                   "guides/integrations/tableau",
                   "guides/integrations/connecting-to-paradime",
@@ -270,6 +275,8 @@
           {
             "group": "SQL reference",
             "pages": [
+              "reference-sql",
+              "reference-sql/explicit-transactions",
               {
                 "group": "Data types",
                 "pages": [
@@ -314,6 +321,7 @@
                   "reference-sql/information-schema/storage-history",
                   "reference-sql/information-schema/storage-metering-history",
                   "reference-sql/information-schema/tables",
+                  "reference-sql/information-schema/transactions",
                   "reference-sql/information-schema/transitive-applicable-roles",
                   "reference-sql/information-schema/users",
                   "reference-sql/information-schema/views"
@@ -587,7 +595,8 @@
                       "reference-sql/functions-reference/json/json-pointer-extract-values",
                       "reference-sql/functions-reference/json/json-value-array",
                       "reference-sql/functions-reference/json/json-value",
-                      "reference-sql/functions-reference/json/json-format"
+                      "reference-sql/functions-reference/json/json-format",
+                      "reference-sql/functions-reference/json/json-operators"
                     ]
                   },
                   {
@@ -678,6 +687,8 @@
                       "reference-sql/functions-reference/string/string-to-array",
                       "reference-sql/functions-reference/string/strpos",
                       "reference-sql/functions-reference/string/substring",
+                      "reference-sql/functions-reference/string/to_bin",
+                      "reference-sql/functions-reference/string/to_oct",
                       "reference-sql/functions-reference/string/trim",
                       "reference-sql/functions-reference/string/upper",
                       "reference-sql/functions-reference/string/url_decode",
@@ -690,6 +701,7 @@
                       "reference-sql/functions-reference/table-valued",
                       "reference-sql/functions-reference/table-valued/generate-series",
                       "reference-sql/functions-reference/table-valued/list-objects",
+                      "reference-sql/functions-reference/table-valued/read_avro",
                       "reference-sql/functions-reference/table-valued/read_csv",
                       "reference-sql/functions-reference/table-valued/read_iceberg",
                       "reference-sql/functions-reference/table-valued/read_parquet"
@@ -2652,6 +2664,12 @@
       "permanent": false
     },
     {
+      "source": "/sql_reference/commands/data-definition/explicit-transactions.html",
+      "destination": "/reference-sql/explicit-transactions",
+      "permanent": false
+    },
+
+    {
       "source": "/sql_reference/commands/data-definition/drop-account.html",
       "destination": "/reference-sql/commands/data-definition/drop-account",
       "permanent": false
@@ -3604,6 +3622,11 @@
     {
       "source": "/sql_reference/commands/data-definition/use-database",
       "destination": "/reference-sql/commands/data-definition/use-database",
+      "permanent": false
+    },
+    {
+      "source": "/sql_reference/commands/data-definition/explicit-transactions",
+      "destination": "/reference-sql/explicit-transactions",
       "permanent": false
     },
     {
@@ -4922,6 +4945,11 @@
       "permanent": false
     },
     {
+      "source": "/Guides/operate-engines/engine-warmpools.html",
+      "destination": "/guides/operate-engines/engine-warmpools",
+      "permanent": false
+    },
+    {
       "source": "/Guides/integrations/connecting-to-paradime",
       "destination": "/guides/integrations/connecting-to-paradime",
       "permanent": false
@@ -5365,6 +5393,11 @@
       "permanent": false
     },
     {
+      "source": "/Guides/operate-engines/engine-warmpools",
+      "destination": "/guides/operate-engines/engine-warmpools",
+      "permanent": false
+    },
+    {
       "source": "/Guides/migration-guides/redshift.html",
       "destination": "/guides/migration-guides/redshift",
       "permanent": false
@@ -5715,6 +5748,16 @@
       "permanent": false
     },
     {
+      "source": "/Guides/integrations/looker-cloud.html",
+      "destination": "/guides/integrations/looker-cloud",
+      "permanent": false
+    },
+    {
+      "source": "/Guides/integrations/looker-on-prem.html",
+      "destination": "/guides/integrations/looker-on-prem",
+      "permanent": false
+    },
+    {
       "source": "/Guides/developing-with-firebolt/",
       "destination": "/guides/developing-with-firebolt",
       "permanent": false
@@ -6012,6 +6055,16 @@
     {
       "source": "/Guides/integrations/airbyte",
       "destination": "/guides/integrations/airbyte",
+      "permanent": false
+    },
+    {
+      "source": "/Guides/integrations/looker-cloud",
+      "destination": "/guides/integrations/looker-cloud",
+      "permanent": false
+    },
+    {
+      "source": "/Guides/integrations/looker-on-prem",
+      "destination": "/guides/integrations/looker-on-prem",
       "permanent": false
     },
     {

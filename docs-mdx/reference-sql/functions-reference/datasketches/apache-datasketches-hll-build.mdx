@@ -63,7 +63,7 @@ This transition to UTF-16 little endian encoding is done before hashing (sending
 #### Sketch Blob Encoding
 
 Few vendors ([Imply](https://imply.io/)/[Druid](https://druid.apache.org/)) apply different encoding to the sketch blob after creating the sketch.
-In the Druid Database they apply base64 encoding to the sketch blob, in order to make this function sketch compatible with theirs, you can use the following querys:
+In the Druid Database they apply base64 encoding to the sketch blob, in order to make this function sketch compatible with theirs, you can use the following queries:
 
 In order to export a sketch that is compatible with Druid, you can use the following query:
 ```sql

@@ -170,6 +170,6 @@ The second reference is marked as a `_Recurring Node --> [5]` line.
   The `[8] [Filter]` node will only select `store_sales` tablets that contain data matching the original filter and will skip non-matching tables.
 * In the analyze output, we can see that the actual output cardinality of the filtered `store_sales` tablets is 4, which is the same as all tablets.
   This indicates that the tablet-level pruning optimization is not having the desired effect in this case.
-  The reason here is that the TPC-H data generator assignes `o_orderdate` values uniformly distributed in the `[1992-01-01, 1998-08-02]` range, so all of the 4 tablets contain relevant data.
+  The reason here is that the TPC-H data generator assigns `o_orderdate` values uniformly distributed in the `[1992-01-01, 1998-08-02]` range, so all of the 4 tablets contain relevant data.
   In reality order dates most likely strongly correlate to the insertion order, so selecting a specific date range from a real-world orders table will most likely result in an effective tablet-level pruning. 
 */}
