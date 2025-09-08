@@ -1,0 +1,72 @@
+---
+description: Learn about engine warmpools and what to expect when starting engines
+sidebarTitle: Engine Warmpools
+title: Engine Warmpools
+---
+
+Engine warmpools are a core infrastructure feature that Firebolt maintains to provide fast engine startup times. By pre-provisioning and maintaining a buffer of machines, Firebolt can significantly reduce the time it takes to start engines.
+
+## How engine warmpools work
+
+Firebolt maintains a pool of pre-provisioned machines on AWS that are ready to be allocated to engines when they start. When you start an engine, instead of waiting for AWS to provision new instances from scratch, Firebolt:
+
+- **Allocates a machine** from an existing warmpool
+- **Replenishes the warmpool** by requesting new machines from AWS to maintain the buffer
+
+This process typically results in much faster engine startup times compared to waiting for on-demand instance provisioning from AWS.
+
+## Warmpool availability and performance expectations
+
+### Fast starts (typical scenario)
+
+Most of the time, Firebolt can provide fast engine starts by leveraging the warmpool. The platform continuously tracks user activity patterns and usage trends to ensure adequate machine availability in the warmpool.
+
+### Slower starts (peak demand scenarios)
+
+In certain situations, engine starts may take longer than usual:
+
+- **Concurrent engine starts**: When multiple users start engines simultaneously, the warmpool may be temporarily depleted
+- **AWS capacity constraints**: When AWS cannot provide sufficient capacity to replenish the warmpool quickly
+- **High demand periods**: During peak usage times when warmpool demand exceeds the available buffer
+
+In these cases, Firebolt falls back to requesting on-demand instances directly from AWS, which results in longer startup times.
+
+### Engine start failures
+
+In rare circumstances, an engine start may fail entirely, when AWS has no available capacity in the region for the requested instance type.
+
+When this occurs, you should retry starting the engine after a brief delay, as AWS capacity typically becomes available again.
+
+## Warmpool coverage
+
+### Supported configurations
+
+Firebolt maintains warmpools for the following engine configurations:
+
+- **Node sizes**: S and M sized engines
+- **Node family**: Storage Optimized family only
+- **Account editions**: Enterprise edition only
+
+All other configurations, such as L and XL sized engines or Compute Optimized family engines, do not have warmpool support. This means that starting these engines may take longer, as they rely on AWS to provision instances from scratch.
+
+## Recommendations for configurations not covered by warmpools
+
+For engine configurations that don't benefit from warmpools:
+
+### Use case considerations
+
+- **24/7 engines**: These configurations are recommended primarily for engines that run continuously (24/7)
+- **Tolerance for slow starts**: Applications using these configurations should be designed to tolerate longer startup times
+- **Retry logic**: Implement retry mechanisms in your applications to handle potential start failures due to AWS capacity constraints
+- **Consider alternative sizing**: Evaluate whether your workload could be satisfied with S or M sized Storage Optimized engines to benefit from warmpool fast starts
+
+## Monitoring and troubleshooting
+
+If you experience consistently slow engine starts or frequent start failures:
+
+1. **Check your engine configuration**: Verify if your engine type is covered by warmpools
+2. **Review timing patterns**: Consider if you're starting engines during peak usage periods
+3. **Implement retry logic**: Ensure your applications can handle temporary start delays
+4. **Contact support**: If issues persist, reach out to Firebolt support for assistance
+
+Understanding engine warmpools helps you set appropriate expectations for engine startup performance and design your applications accordingly.

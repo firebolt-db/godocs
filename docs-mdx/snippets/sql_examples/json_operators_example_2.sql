@@ -1,0 +1,1 @@
+SELECT s->>'key' FROM json_operators;

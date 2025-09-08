@@ -1,0 +1,75 @@
+The following `CREATE TABLE` and `INSERT` statements set up the examples.
+``` sql
+create table json_operators (s text);
+
+insert into json_operators
+values ('
+{
+    "key": 123,
+    "key~with~tilde": 2,
+    "key/with/slash": 3,
+    "value": {
+      "dyid": 987,
+      "keywords" : ["insanely","fast","analytics"]
+    }
+}
+');
+```
+
+**Example**
+``` sql
+SELECT s->>'key' FROM json_operators;
+```
+
+**Returns**
+| ?column? (TEXT) |
+| :--- |
+| '123' |
+
+**Example**
+``` sql
+SELECT s->>'key/with/slash' FROM json_operators;
+```
+
+**Returns**
+| ?column? (TEXT) |
+| :--- |
+| '3' |
+
+There is no need to escape `~` and `/` in the field name when using the `->>` operator.
+
+**Example**
+``` sql
+SELECT s->>'value' FROM json_operators;
+```
+
+**Returns**
+| ?column? (TEXT) |
+| :--- |
+| `'{\n      "dyid": 987,\n      "keywords" : ["insanely","fast","analytics"]\n    }\n'` |
+
+This example returns the nested JSON document associated to the JSON field `value` as a `TEXT` value.
+
+**Example**
+``` sql
+SELECT s->>'value'->>'dyid' FROM json_operators;
+```
+
+**Returns**
+| ?column? (TEXT) |
+| :--- |
+| '987' |
+
+The first `->>` operator retrieves the nested JSON document in text form. Applying the second `->>` operator on the nested JSON document returns the value associated with the JSON field `dyid`. The operator returns this value as a string.
+
+**Example**
+``` sql
+SELECT s->>'value/dyid' FROM json_operators;
+```
+
+**Returns**
+| ?column? (TEXT) |
+| :--- |
+| NULL |
+
+The JSON document has no field called `value/dyid`. The `->>` operator never looks into nested JSON documents.

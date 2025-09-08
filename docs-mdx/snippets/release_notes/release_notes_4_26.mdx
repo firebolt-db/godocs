@@ -1,0 +1,89 @@
+## Firebolt Release Notes - Version 4.26
+
+### New Features
+
+**Introduced Explicit Transaction support.**
+
+You can now explicitly `BEGIN`, `COMMIT` or `ROLLBACK` transactions using standard SQL syntax. This feature ensures atomicity and snapshot isolation across multiple statements, including DML, DDL, and SELECT.
+Particularly useful for customers who require guaranteed consistency across complex transactional operations.
+
+Syntax:
+```sql
+BEGIN [TRANSACTION];
+-- multiple SQL statements (e.g. CREATE/DROP/INSERT/UPDATE ...)
+COMMIT [TRANSACTION];
+```
+
+- For more details on transactions, see the documentation [here](/reference-sql/explicit-transactions).
+
+**Added the `READ_AVRO` table-valued function with full support for all Avro data types**
+
+- Introduced the `READ_AVRO` table-valued function (TVF). This function allows users to efficiently read Avro files.
+- Added full support for all Avro data types in the `READ_AVRO` function.
+
+**Added support for `ALTER TABLE ... MODIFY COLUMN ... FIRST|AFTER ...` which enables column reordering in existing table.**
+
+Support was added for the `ALTER TABLE ... MODIFY COLUMN ... FIRST|AFTER ...` DDL statement. This allows users to change the position of columns within a table's schema.
+
+Syntax:
+```sql
+ALTER TABLE table_name MODIFY COLUMN column_name FIRST;
+ALTER TABLE table_name MODIFY COLUMN column_name AFTER other_col;
+```
+
+- The `FIRST` keyword moves the specified column to be the first column in the table.
+- The `AFTER` keyword moves the specified column to appear after another specified column.
+- This statement is supported only on managed tables.
+
+**Added support for `FILTER` clause in aggregation functions**
+
+The `FILTER` clause enables conditional aggregation - only values for which the condition evaluate to `true` are considered by the aggregation function.
+
+Syntax:
+```sql
+SELECT agg_func(args) FILTER(WHERE condition) FROM ...
+```
+
+**Added support for UNIQUE column constraint**
+
+Support was added in CREATE TABLE and ALTER TABLE ADD COLUMN to mark columns as unique, i.e. all values are distinct.
+This constraint is **not enforced** by the system, it is the user's responsibility to ensure that all values are unique.
+Marking a column as unique allows the optimizer to make transformations that produce incorrect results when the contract is violated.
+
+Syntax Examples:
+```sql
+CREATE TABLE t(
+    id INTEGER NOT NULL UNIQUE
+);
+
+ALTER TABLE t ADD COLUMN name TEXT UNIQUE;
+```
+
+**Added support for `->>` JSON field extraction operator**
+
+The `->>` operator is used to extract a value from a JSON field.
+
+Syntax:
+```sql
+json_text_column->>'field_name'
+```
+
+
+**Improved the format of `EXPLAIN` output**
+
+The format of `EXPLAIN` output was changed to use meaningful variable names instead of index-based column references, making it easier to read and understand query plans.
+
+Example of explaining TPC-H Q6:
+
+```
+[0] [Projection] revenue: (CASE WHEN any_0 THEN sum2_0 ELSE NULL END)
+|   [Types]: revenue: double precision null
+ \_[1] [Aggregate] GroupBy: [] Aggregates: [any_0: any(c_0), sum2_0: sum2(multiply_checked_0)]
+   |   [Types]: any_0: boolean not null, sum2_0: double precision not null
+    \_[2] [Projection] multiply_checked_0: (lineitem.l_extendedprice * lineitem.l_discount), c_0: TRUE
+      |   [Types]: multiply_checked_0: double precision not null, c_0: boolean not null
+       \_[3] [Filter] (lineitem.l_shipdate >= DATE '1994-01-01'), (cast(lineitem.l_shipdate as timestamp) < TIMESTAMP '1995-01-01 00:00:00'), (lineitem.l_discount >= 0.05), (lineitem.l_discount <= 0.07), (lineitem.l_quantity < 24)
+          \_[4] [StoredTable] Name: "lineitem"
+                [Types]: lineitem.l_quantity: double precision not null, lineitem.l_extendedprice: double precision not null, lineitem.l_discount: double precision not null, lineitem.l_shipdate: date not null
+```
+

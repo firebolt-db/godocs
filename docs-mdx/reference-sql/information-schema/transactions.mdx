@@ -1,0 +1,51 @@
+---
+description: Use this reference to learn about the fireblt currnetly running or recently finished transaction using the information schema.
+sidebarTitle: Transactions
+title: Transactions
+---
+
+
+You can use the `information_schema.transactions` view to return information about currently running and recently finished transactions. The view contains one row for each transaction. You can use a `SELECT` query to return this information as shown in the example below.
+
+To view transaction information, you must have the necessary privileges on the database to access monitoring views.
+**Users can only monitor transactions that they initiated.**
+
+
+```sql
+SELECT
+  *
+FROM
+  information_schema.transactions;
+```
+
+---
+
+## **Usage Notes**
+⚠️  The view scans a maximum of the latest 1000 transactions. To ensure a precise and efficient query, it's highly recommended to use an explicit predicate in a `WHERE` clause to filter the results. For example, to find only transaction started after a given `begin_lsn`:
+
+
+```sql
+SELECT
+  *
+FROM
+  information_schema.transactions
+WHERE
+  begin_lsn > '0000136dc7bacf130000';
+```
+
+---
+
+## **Columns in information_schema.transactions**
+
+Each row has the following columns with information about each transaction.
+
+| Column Name                 | Data Type     | Description |
+| :---- | :---- | :---- |
+| `begin_lsn`                   | `TEXT`           | The identifier for the transaction's beginning (Log Sequence Number). |
+| `commit_lsn`                  | `TEXT`           | The identifier for the transaction's commit. This is `NULL` if the transaction has not been committed. |
+| `rollback_lsn`               | `TEXT`           | The identifier for the transaction's rollback. This is `NULL` if the transaction has not been rollbacked. |
+| `status`                     | `TEXT`           | The current status of the transaction. Possible values are `IN-PROGRESS`, `COMMITTED`, or `ROLLED BACK`. |
+| `user_name`                    | `TEXT`           | The name of the user who initiated the transaction. |
+| `start_time`                  | `TIMESTAMPTZ` | The approximate time when the transaction began. |
+| `end_time`                    | `TIMESTAMPTZ` | The approximate time when the transaction ended (either committed or rolled back). `NULL` for `IN-PROGRESS` transactions. |
+

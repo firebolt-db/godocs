@@ -1,0 +1,197 @@
+---
+description: Connect Looker On-Prem to Firebolt using the PostgreSQL dialect.
+sidebarTitle: Looker On-Prem
+title: Looker On-Prem
+---
+
+![Looker On-Prem](/assets/images/looker.png)
+# Connect Looker On‑Prem to Firebolt with mTLS (PostgreSQL Wire)
+
+This guide covers **mutual TLS (mTLS)** setup for **Looker On‑Prem** connecting to **Firebolt** over the PostgreSQL‑compatible interface.
+
+---
+
+## Prerequisites
+
+1. **Looker On-Prem** – With admin access to configure database connections.
+2. **Firebolt account** &ndash; You need an active Firebolt account. If you do not have one, you can [sign up](https://go.firebolt.io/signup) for one.
+3. **Firebolt database and table** &ndash; You must have access to a Firebolt database that contains a table with data ready for visualization. If you don't have access, you can [create a database](/guides/getting-started/get-started-sql#create-a-database) and then [load data](/guides/loading-data) into it.
+4. **Firebolt service account** &ndash; You must have access to an active Firebolt [service account](/guides/managing-your-organization/service-accounts), which facilitates programmatic access to Firebolt, its ID and secret.
+5. **Firebolt user** &ndash; You must have a user that is [associated](/guides/managing-your-organization/service-accounts#create-a-user) with your service account. The user should have [USAGE](/overview/security/rbac/database-permissions) permission to query your database, and [OPERATE](/overview/security/rbac/engine-permissions) permission to start and stop an engine if it is not already started.
+
+---
+
+## Step 1: Prepare SSL Certificate Files (mTLS)
+
+You need a **client certificate** and a **client private key in PKCS#8 DER** format. You will also generate a **public key** from the private key and attach it to the Firebolt service account.
+
+### If you need to generate certificates
+
+The script below creates a local CA (Certificate Authority), generates a PKCS#8 private key, a public key for Firebolt, and a signed client certificate.
+
+```bash
+#!/bin/bash
+set -e
+
+CLIENT_CN="firebolt.looker"
+DAYS_VALID=730
+CA_DIR="./fb-ca"
+
+# Create CA (optional if using company CA)
+mkdir -p "$CA_DIR"
+openssl genrsa -out "$CA_DIR/ca.key" 4096
+openssl req -x509 -new -nodes -key "$CA_DIR/ca.key" -sha256 -days "$DAYS_VALID" \
+  -out "$CA_DIR/ca.crt" -subj "/CN=$CLIENT_CN"
+
+# Create RSA key and convert to PKCS#8 DER
+openssl genrsa -out fb-rsa.key 2048
+openssl pkcs8 -topk8 -inform PEM -outform DER -nocrypt -in fb-rsa.key -out fb.pk8
+
+# Public key for Firebolt service account
+openssl pkey -in fb.pk8 -inform DER -pubout -out fb-public.pem
+
+# CSR and client certificate signed by the CA
+openssl req -new -key fb-rsa.key -out fb.csr -subj "/CN=$CLIENT_CN"
+openssl x509 -req -in fb.csr -CA "$CA_DIR/ca.crt" -CAkey "$CA_DIR/ca.key" -CAcreateserial \
+  -out fb.crt -days "$DAYS_VALID" -sha256
+
+# Cleanup
+rm -rf fb.csr fb-rsa.key $CA_DIR
+```
+
+Generated files:
+
+* `fb.pk8` – private key (PKCS#8 DER)
+* `fb.crt` – client certificate
+* `fb-public.pem` – public key to attach to your Firebolt service account
+
+### If you already have the certificates
+
+Expected files:
+
+* `client-cert.pem` — client certificate
+* `client-key.pk8` — client private key (**PKCS#8 DER**)
+
+**Convert a PEM key to PKCS#8 DER (if needed):**
+
+```bash
+openssl pkcs8 -topk8 -inform PEM -outform DER \
+  -in client-key.pem -out client-key.pk8 -nocrypt
+```
+
+**Generate a public key from the PKCS#8 key (attach to Firebolt):**
+
+```bash
+openssl pkey -inform DER -in client-key.pk8 -pubout -out client-public.pem
+```
+
+
+## Step 2: Place the certificate files on the Looker host
+
+> Upload **only the public key** to Firebolt. Do not share the private key.
+
+**Place files on the Looker server and set permissions:**
+
+```bash
+# Paths
+/path/to/client-cert.pem
+/path/to/client-key.pk8
+
+# Permissions
+chmod 600 /path/to/client-key.pk8
+chmod 644 /path/to/client-cert.pem
+
+# Optional ownership if Looker runs as user "looker"
+chown looker:looker /path/to/client-cert.pem /path/to/client-key.pk8
+```
+
+
+---
+
+## Step 3: Attach the Public Key to the Firebolt Service Account
+
+Attach the generated public key to the Firebolt service account you will use from Looker.
+
+```sql
+ALTER SERVICE ACCOUNT "your_account" SET PUBLIC_KEY = '-----BEGIN PUBLIC KEY-----
+<contents of client-public.pem or fb-public.pem>
+-----END PUBLIC KEY-----';
+```
+
+> Ensure the service account is attached to a user in the Firebolt account and has privileges to access the target database/engine.
+
+---
+
+## Step 4: Create the Looker On‑Prem Connection (mTLS)
+
+In Looker: **Admin → Connections → New Connection**
+
+| Key                        | Value                                                                                                             |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Name                       | `firebolt_connection` (or preferred name)                                                                         |
+| Dialect                    | PostgreSQL 9.5+                                                                                                   |
+| Host                       | `pg.<region_name>.app.firebolt.io`                                                                                |
+| Port                       | `5432`                                                                                                            |
+| Database                   | `<account_name>@<database_name>@<engine_name>`                                                                    |
+| Username                   | Firebolt service account **ID**                                                                                   |
+| Password                   | Firebolt service account **secret**                                                                               |
+| SSL                        | Enabled                                                                                                           |
+| Verify SSL                 | Disabled                                                                                                          |
+| Additional JDBC parameters | `sslmode=require&sslfactory=org.postgresql.ssl.jdbc4.LibPQFactory&sslcert=/path/to/fb.crt&sslkey=/path/to/fb.pk8` |
+
+### Determine the correct Firebolt host (region)
+
+Example: `pg.us-east-1.app.firebolt.io`.
+
+Find your region:
+
+```sql
+SELECT region FROM information_schema.accounts WHERE account_name = '<your_account>';
+```
+
+### Database field format
+
+```
+<account_name>@<database_name>@<engine_name>
+```
+
+---
+
+## Final Steps & Troubleshooting
+
+1. Click **Test**; if successful, click **Connect**.
+2. If the test fails, verify:
+
+* Absolute paths to `sslcert` and `sslkey` exist and are readable by the Looker process.
+* The private key is **PKCS#8 DER** (`*.pk8`).
+* The service account’s **public key** is attached in Firebolt.
+* The host region, account, database, and engine are correct.
+* The service account has the necessary permissions and the ID/secret are correct.
+
+---
+
+## Performance and Limits
+
+Firebolt enforces soft rate limits to ensure fair usage:
+
+| Limit type      | Threshold      | Scope                    |
+| :-------------- | :------------- | :----------------------- |
+| New connections | 600 per minute | Per IP address           |
+| Queries         | 600 per minute | Per organization/account |
+
+These limits are not hard blocks. Contact Support if you need them raised (provide org name, workload, and requested threshold).
+
+## Compatibility Notes
+
+Some Looker SQL and LookML features are not fully supported through Firebolt’s PostgreSQL adapter.
+
+* **Unsupported functions**: `diff_days()`, `diff_hours()`, `contains()`, `exp()`.
+* **Partially supported functions**: `extract_minutes()`, `trunc_months()` (only work with TIMESTAMP/TIMESTAMPTZ, not DATE).
+* **Unsupported metrics**: Median, list of unique values.
+* **Unsupported dimension types**: Any `date_...` or `duration_...` types. Use custom SQL dimensions in `.view.lkml` instead like:
+
+```sql
+dimension: diff_days_now {
+  sql: CAST(DATE_DIFF('day', DATE_TRUNC('day', table."column"), CURRENT_TIMESTAMP) AS BIGINT);;
+}
+```

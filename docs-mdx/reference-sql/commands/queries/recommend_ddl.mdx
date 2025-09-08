@@ -38,7 +38,7 @@ The statement analyzed 393 queries that scanned the `lineitem` table and applied
 
 ## Quick Setup
 The following steps will guide you to achieve great query performance within the first few minutes after joining Firebolt.
-First, create a table without any primary index and parition key configurations.
+First, create a table without any primary index and partition key configurations.
 
 ```sql
 CREATE TABLE <table_name>(
@@ -52,13 +52,13 @@ Next, load a workload that you want to run on this table from S3 into Firebolt u
 COPY INTO workload_table FROM 's3://bucket/workload/' with ... 
 ```
 
-Now you can use the `CALL recommend_ddl` command to find primary index and parition key configurations.
+Now you can use the `CALL recommend_ddl` command to find primary index and partition key configurations.
 
 ```sql
-CALL recommend_ddl(<table_name>, (select * from workload_table));
+CALL recommend_ddl(<table_name>, (select query_text from workload_table));
 ```
 
-Finally, recreate the table with the recommended primary index and parition key configurations and ingest the data into this table.
+Finally, recreate the table with the recommended primary index and partition key configurations and ingest the data into this table.
 
 ```sql
 DROP TABLE <table_name>;

@@ -109,4 +109,11 @@ CREATE ENGINE my_engine
 WITH MIN_CLUSTERS=1 MAX_CLUSTERS=2;
 ```
 
+### Create an engine in the preview release channel
+The following example creates an engine and assigns it to the preview release channel. For more information, see [release settings](/guides/operate-engines/engines-release-settings).
+
+```sql
+CREATE ENGINE myengine
+WITH TYPE="S" RELEASE=(CHANNEL=PREVIEW);
+```
 

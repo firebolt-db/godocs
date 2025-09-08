@@ -315,7 +315,7 @@ With `NEW_LINE_CHARACTER = '<new_line_character>'`, you can define a custom new 
 With `NULL_STRING = '<null_string>'` you can define which set of characters is interpreted as `NULL`. By default, the `NULL_STRING` value is set to `\\N`.
 
 * `[SKIP_BLANK_LINES {TRUE|FALSE}]`
-With `SKIP_BLANK_LINES = TRUE` any blank lines encountered in the CSV input file will be skipped. By default, `SKIP_BLANK_LINES` is set to `FALSE`, and an error is generated if blank lines are enountered on ingest.
+With `SKIP_BLANK_LINES = TRUE` any blank lines encountered in the CSV input file will be skipped. By default, `SKIP_BLANK_LINES` is set to `FALSE`, and an error is generated if blank lines are encountered on ingest.
 
 * `[SKIP_HEADER_ROWS = {TRUE|FALSE}]`
 With `SKIP_HEADER_ROWS = TRUE`, Firebolt assumes that the first row in each file read from Amazon S3 is a header row and skips it when ingesting data. When set to `FALSE`, which is the default if not specified, Firebolt ingests the first row as data.
