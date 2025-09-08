@@ -102,7 +102,7 @@ CREATE LOCATION firebolt_sample_dataset WITH
 
 
 SELECT $source_file_name, "Name", "LevelType" FROM READ_CSV(
-    LOCATION =>  'firebolt_sample_dataset', PATTERN => 'l*vels.csv',
+    LOCATION =>  'firebolt_sample_dataset', PATTERN => 'levels*',
     HEADER => true
 ) limit 5;
 ```
@@ -117,7 +117,7 @@ SELECT $source_file_name, "Name", "LevelType" FROM READ_CSV(
 | help_center_assets/firebolt_sample_dataset/levels.csv | Nitro Narrows | FirstToComplete |
 | help_center_assets/firebolt_sample_dataset/levels.csv | Thunder Road | FirstToComplete |
 
-This reads only the CSV files matching the pattern `l*vels.csv` within the location's base path, showing specific columns and the source file for verification.
+This reads only the CSV files matching the pattern `levels*` within the location's base path, showing specific columns and the source file for verification.
 
 ### Using static credentials
 
