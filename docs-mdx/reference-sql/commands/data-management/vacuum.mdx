@@ -130,7 +130,7 @@ For the `VACUUM` job, the fields in `vacuum_stats` are:
 |Field              |Description |
 |:------------------|:------------|
 |`type`             |Always set to `vacuum_job` |
-|`job_type`         |The type of vacuum job. One of `MERGE`, `COMPACTION` or `RECREATE` |
+|`job_type`         |The type of vacuum job. One of `MERGE` or `COMPACTION` |
 |`parent_query_id`  |The unique identifier of the `VACUUM` command this sub-job is part of |
 |`partition_id`     |The partition sub-job's tablets belong to|
 |`node-ordinal`     |The ordinal number of the node the sub-job is running on |
