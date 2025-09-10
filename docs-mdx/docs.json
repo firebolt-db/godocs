@@ -245,7 +245,8 @@
                   "guides/integrations/dbeaver",
                   "guides/integrations/langchain",
                   "guides/integrations/mcp",
-                  "guides/integrations/pandas"
+                  "guides/integrations/pandas",
+                  "guides/integrations/power-bi"
                 ]
               },
               {

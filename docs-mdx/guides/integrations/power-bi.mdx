@@ -2,7 +2,6 @@
 title: Power BI
 sidebarTitle: Power BI
 description: Connecting Power BI and Firebolt.
-noindex: true
 ---
 
 
@@ -24,10 +23,30 @@ Before connecting Power BI to Firebolt, ensure you have:
 
 ## Install the Firebolt ODBC driver
 
-1. Reach out to your Firebolt representative to obtain a copy of the ODBC driver.
+1. Download the ODBC driver for your system architecture [Windows **x64**](https://firebolt-publishing-public.s3.us-east-1.amazonaws.com/repo/odbc/releases/latest/firebolt-odbc-latest-win64.msi) or [Windows **x32/x86**](https://firebolt-publishing-public.s3.us-east-1.amazonaws.com/repo/odbc/releases/latest/firebolt-odbc-latest-win32.msi). 
 2. Run the installer and follow the prompts to complete the installation.
 
 ## Install the Firebolt Power BI Connector
+
+
+### Option 1: Using the signed connector (Recommended)
+
+Follow these instructions if you have administrator access to your computer or are able to modify the registry. This is the most secure way. Otherwise, follow the unsigned guide below.
+
+1. Download the latest Firebolt Power BI connector (`Firebolt.pqx`) from the [Firebolt Power BI Connector GitHub repository](https://github.com/firebolt-db/power-bi-firebolt/releases).
+2. Place the downloaded `.pqx` file into the `Documents\Power BI Desktop\Custom Connectors` directory in your Windows operating system. If the folder does not exist - create it.
+3. Open the registry editor from the Start menu or by pressing Windows + R, typing `regedit` and pressing enter.
+4. Navigate to `HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Power BI Desktop`, creating the path if it does not exist.
+5. Add a new value under this path. The type should be `Multi-String Value: REG_MULTI_SZ`. It should be called `TrustedCertificateThumbprints`.
+6. Right-click the key, then select Modify and add the following value - `C838876B92BB2C62AB228A6DFDEF24F72CA46193`.
+7. Save the value.
+
+You can now proceed to Firebolt connection configuration step.
+
+
+### Option 2: Using the unsigned connector
+
+Suitable if you don't have access to the Windows registry. Requires Power BI security settings modification. Only use if following the steps above is not possible.
 
 1. Download the latest Firebolt Power BI connector (`Firebolt.mez`) from the [Firebolt Power BI Connector GitHub repository](https://github.com/firebolt-db/power-bi-firebolt/releases).
 2. Place the downloaded `.mez` file into the `Documents\Power BI Desktop\Custom Connectors` directory in your Windows operating system. If the folder does not exist - create it.
