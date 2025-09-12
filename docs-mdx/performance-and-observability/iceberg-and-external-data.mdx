@@ -46,10 +46,8 @@ Parquet uses complex encodings and compression schemes to achieve the smallest f
 Large row group sizes, non-aligned page boundaries, and heavy page compression make such Parquet files slow to read{/* and offer little opportunity for pruning */}.
 To achieve low-latency reads on Iceberg tables, a heavily tuned writer is essential.
 Data should ideally be distributed in a way that mimics Firebolt's primary indexes, sorted by frequently filtered columns.
-{/*
 Row groups should be fairly small to allow effective pruning, but note that Firebolt-managed storage can use primary index pruning on the level of granules, which contain [up to 8192 rows](/overview/indexes/primary-index#advanced-option%3A-index-granularity), far more granular than what Parquet offers.
 Note that while Parquet optionally supports page indexes, Firebolt cannot currently use these for pruning.
-*/}
 
 Use Iceberg tables when:
 - You benchmarked the performance on Iceberg tables and are happy with it.
@@ -88,13 +86,6 @@ Note that stale reads still maintains the transactionality of Iceberg tables—t
 
 ## Understanding pruning
 
-Firebolt prunes Iceberg table scans based on the file-level metadata in Iceberg manifest files.
-These contain minima and maxima for each column of each data file, which can be used to eliminate files that provably cannot match the predicates in a query.
-In this case, Firebolt never requests the data file at all.
-This pruning applies the ideas described in ["Big Metadata: When Metadata is Big Data"](https://research.google/pubs/big-metadata-when-metadata-is-big-data/), published at VLDB 2021.
-After pruning, only the byte ranges corresponding to the scanned columns are fetched from disk (if cached) or object storage, up to some padding to avoid overly small requests.
-
-{/*
 Firebolt supports pruning of Iceberg table scans on two levels, the second of which is also applicable for [`read_parquet`](/reference-sql/functions-reference/table-valued/read_parquet) and external tables over Parquet files:
 
 1. File-level metadata in Iceberg manifest files contain minima and maxima for each column of each data file.
@@ -103,10 +94,10 @@ Firebolt supports pruning of Iceberg table scans on two levels, the second of wh
 2. Row-group level pruning of Parquet files.
    The metadata of Parquet files can contain similar statistics about each *row group* of the file.
    Firebolt will use the per-column minima and maxima to further eliminate row groups that do not contribute to the query.
+   In Iceberg scans, this is only applicable if the Parquet files have multiple row groups: for files with a single row group, row group pruning would be redundant.
 
 Both levels of pruning apply the ideas described in ["Big Metadata: When Metadata is Big Data"](https://research.google/pubs/big-metadata-when-metadata-is-big-data/), published at VLDB 2021.
 After pruning, only the byte ranges corresponding to the scanned columns in the row groups that could not be eliminated are fetched from disk (if cached) or object storage, up to some padding to avoid overly small requests.
-*/}
 
 ## Co-located joins and aggregations on Iceberg tables
 
@@ -116,3 +107,14 @@ For example, for an inner join between tables that are both bucketed on the join
 Similar to joins, if an aggregation key matches the Iceberg table's partitioning key, Firebolt can optimize the aggregation process, potentially making local aggregations more efficient and even eliminating entire global aggregation stages.
 
 Use the [`enable_iceberg_partitioned_scan` setting](/reference/system-settings#using-iceberg-partitioned-scans-for-co-located-joins-and-aggregations) to enable these optimizations when the number of partitions is high enough and their size is sufficiently balanced to make this worthwhile.
+
+## Configuring Iceberg writers for best performance
+
+How the Parquet files are written has a significant impact on the performance of Iceberg scans.
+Which configuration is optimal depends on the use case: for batch processing, large files with fairly large row groups minimize overhead.
+For interactive use cases, smaller files with many row groups and sorted data allow for [better pruning](#understanding-pruning).
+Sorting the data within each partition by fields that are often used for filtering is highly recommended to allow for effective pruning.
+This mirrors how primary indexes work on managed tables.
+
+As a rough guideline, a row group size between 100,000 and 1,000,000 rows generally allows both for effective compression and good pruning.
+Include enough row groups per file to achieve file sizes of at least 50MB, with bigger files preferred for very large tables.
