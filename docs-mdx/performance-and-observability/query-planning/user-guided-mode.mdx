@@ -7,7 +7,7 @@ title: User-guided mode
 Sometimes you need full control over the planning process for a specific query.
 You can achieve that by setting the `optimizer_mode` session parameter to `user_guided`.
 In this mode, the optimizer will exclude all cost-based optimization rules.
-This ensures that the relative order of joins and aggregations in the resulting execution plan will follow the sytnatic order defined in the `SELECT` blocks of your SQL query.
+This ensures that the relative order of joins and aggregations in the resulting execution plan will follow the syntactic order defined in the `SELECT` blocks of your SQL query.
 
 Specifically, the following optimizations are disabled in user-guided mode:
 - Join ordering
@@ -85,3 +85,51 @@ limit
                    \_[13] [StoredTable] Name: "item"
 ```
 </CodeGroup>
+
+## Understanding join ordering in user-guided mode
+
+When using `user_guided` mode, the syntactic order of joins in your SQL query directly determines how Firebolt executes them. Understanding this behavior is crucial for optimal performance.
+
+### Build side and probe side semantics
+
+In user-guided mode, Firebolt implements joins using hash join algorithms where:
+- The **right side** of each join becomes the **build side** - Firebolt creates a hash table from this data
+- The **left side** of each join becomes the **probe side** - Firebolt scans this data and probes the hash table
+
+For example, in this join:
+```sql
+FROM large_table
+JOIN small_table ON large_table.id = small_table.id
+```
+
+Firebolt will:
+1. Build a hash table from `small_table` (right side)
+2. Scan `large_table` (left side) and probe the hash table for matches
+
+By default, Firebolt processes chains of joins as left-deep trees. To force bushy join trees, use parentheses around sub-joins.
+
+### Performance optimization
+
+For optimal performance, **place smaller tables on the right side** of joins. This minimizes memory usage and reduces the overhead of building hash tables, leading to faster query execution.
+
+Consider this example with a large fact table and smaller dimension tables:
+
+```sql
+-- Optimal: smaller tables on the right
+SELECT *
+FROM large_fact_table
+JOIN small_dimension1 ON large_fact_table.dim1_id = small_dimension1.id
+JOIN small_dimension2 ON large_fact_table.dim2_id = small_dimension2.id
+
+-- Suboptimal: larger table on the right
+SELECT *
+FROM small_dimension1
+JOIN large_fact_table ON small_dimension1.id = large_fact_table.dim1_id
+JOIN small_dimension2 ON large_fact_table.dim2_id = small_dimension2.id
+```
+
+The benefits of proper join ordering include:
+- **Reduced memory usage** - Smaller hash tables require less RAM.
+- **Faster hash table construction** - Less time spent building the hash table.
+- **Improved probe performance** - Smaller hash tables fit better in CPU caches, causing fewer cache misses when probing.
+- **More subresult reuse potential** - Firebolt can reuse hash tables across queries. Smaller hash tables allow more subresults to be cached. Learn more in our [subresult reuse documentation](/overview/queries/understand-query-performance-subresult) and our blog post [Caching & Reuse of Subresults across Queries](https://www.firebolt.io/blog/caching-reuse-of-subresults-across-queries).
