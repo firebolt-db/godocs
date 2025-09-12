@@ -261,7 +261,6 @@
           {
             "group": "SQL reference",
             "pages": [
-              "reference-sql",
               "reference-sql/explicit-transactions",
               {
                 "group": "Data types",
