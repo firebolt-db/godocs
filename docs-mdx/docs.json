@@ -413,7 +413,8 @@
                       "reference-sql/commands/engines/drop-engine",
                       "reference-sql/commands/engines/start-engine",
                       "reference-sql/commands/engines/stop-engine",
-                      "reference-sql/commands/engines/use-engine"
+                      "reference-sql/commands/engines/use-engine",
+                      "reference-sql/commands/engines/clear-cache"
                     ]
                   },
                   {

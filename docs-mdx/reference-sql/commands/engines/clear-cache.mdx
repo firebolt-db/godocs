@@ -1,0 +1,53 @@
+---
+description: Reference and syntax for the CLEAR CACHE command.
+sidebarTitle: CLEAR CACHE
+title: CLEAR CACHE
+---
+
+Clears the content of various caches on the engine the command is executed on. 
+
+This command is useful for performance testing. There is no need to call this during normal operation. Firebolt automatically evicts entries from caches that haven't been accessed for some time.
+
+## Syntax
+
+```sql
+CLEAR [<cache_name>] CACHE
+```
+
+If a cache name is specified, clears this cache. Otherwise, clears all caches, including the caches for all tables and indexes.
+
+```sql
+CLEAR CACHE FOR [<table_or_index_name>]
+```
+
+Clears the cache for a specific table or index. With this, all data of the table or index needs to be fetched from object storage again. The performance will be similar to the performance on an engine that was just started.
+
+## Parameters 
+   
+
+| Parameter                | Description                                                                |
+| :----------------------- | :------------------------------------------------------------------------- |
+| `<cache_name>`           | The name of the cache to clear.                                            |
+| `<table_or_index_name>`  | The name of a table or index to clear all cached data from.                |
+
+## Available Caches
+
+| Cache Name      | Description                                                                                                                                   |
+| :-------------- | :-------------------------------------------------------------------------------------------------------------------------------------------- |
+| `EXTERNAL DATA` | Clears the cache for [external data](/performance-and-observability/iceberg-and-external-data) like metadata or data files of Iceberg tables. |
+| `QUERY`         | Clears the [subresult and result cache](/overview/queries/understand-query-performance-subresult).                                            |
+
+
+## Example 1
+The following example clears all caches on the engine the command is executed on:
+
+```sql
+CLEAR CACHE
+```
+
+## Example 2
+The following example clears the query cache on the engine the command is executed on:
+
+```sql
+CLEAR QUERY CACHE
+```
