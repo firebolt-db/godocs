@@ -6295,6 +6295,11 @@
       "permanent": false
     },
     {
+      "source": "/godocs",
+      "destination": "/",
+      "permanent": false
+    },
+    {
       "source": "/godocs/:slug*",
       "destination": "/:slug*",
       "permanent": false
