@@ -1,0 +1,32 @@
+---
+description: Use this reference to learn about account-level quotas exposed via the account_db information schema.
+sidebarTitle: Quotas
+title: Quotas
+---
+
+You can use the `account_db.information_schema.quotas` view to return account-level quota limits and usage. The view is available in the special `account_db` database and contains one row per quota.
+
+```sql
+SELECT
+  *
+FROM
+  account_db.information_schema.quotas;
+```
+
+## Columns in account_db.information_schema.quotas
+
+Each row has the following columns with information about each quota.
+
+| Column Name | Data Type | Description |
+| :---------- | :-------- | :---------- |
+| name        | TEXT      | The name of the quota. |
+| units       | TEXT      | The measurement units for the quota values. |
+| limit       | BIGINT    | The configured maximum allowed for the quota. |
+| usage       | BIGINT    | The current usage that counts toward the quota. |
+
+### Sample result
+
+```text
+name,units,limit,usage
+'LLM_TOKEN_BUDGET',tokens,10000,3500
+```

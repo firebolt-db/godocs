@@ -1,0 +1,58 @@
+---
+description: Invoke an LLM endpoint and return the generated text.
+sidebarTitle: AI_QUERY
+title: AI_QUERY
+---
+
+Invokes a large language model (LLM) endpoint and returns the generated text as a `TEXT` value. Provide the endpoint identifier, a plain‑text prompt in `request`, and a `LOCATION` that holds AWS Bedrock credentials.
+
+For setup guidance and end‑to‑end examples, see [Getting started with AI](/guides/ai/getting-started-with-ai).
+
+<Note>
+Initially, this function uses Amazon Bedrock as its backend. The `location` must reference a Bedrock `LOCATION`. For now, the only supported model is Meta Llama 3.3 70B Instruct: the `endpoint` must contain the substring `'meta.llama3-3-70b-instruct-v1:0'`.
+</Note>
+
+## Syntax
+
+```sql
+AI_QUERY(<endpoint>, <request>, <location> [, <null_on_error>])
+```
+
+## Parameters
+
+| Parameter         | Description                                                                                                              | Supported input types |
+|:------------------|:-------------------------------------------------------------------------------------------------------------------------|:----------------------|
+| `<endpoint>`      | The LLM endpoint to invoke. Provide a Bedrock model endpoint identifier. Must contain `'meta.llama3-3-70b-instruct-v1:0'`. The value is forwarded to Bedrock without further validation. | `TEXT` |
+| `<request>`       | The plain‑text prompt to send to the model.                                                                              | `TEXT` |
+| `<location>`      | The name of the `LOCATION` to use for AWS credentials. Must be a literal constant. See [CREATE LOCATION (Amazon Bedrock)](/reference-sql/commands/data-definition/create-location-bedrock). | `TEXT` |
+| `<null_on_error>` | Optional. Whether to return `NULL` instead of raising an error when a Bedrock invocation error occurs. Default `FALSE`. Must be a literal constant. | `BOOL` |
+
+## Return Type
+
+`TEXT`
+
+- Returns the model’s generated text.
+- If `<request>` is `NULL`, the function returns `NULL`.
+
+## LLM Token Budget
+
+Queries executed with `AI_QUERY` count towards your account’s daily LLM token budget. If your account exceeds its allotted token budget, invocations of `AI_QUERY` will fail until the budget is increased or the daily limit resets. For details on setting and monitoring your token budget, see [Set your LLM token budget](/guides/ai/getting-started-with-ai#set-your-llm-token-budget) and [Check your LLM token quota usage](/guides/ai/getting-started-with-ai#check-your-llm-token-quota-usage).
+
+<Note>
+LLM token budget accounting is not available in Firebolt Core.
+</Note>
+
+## Example
+
+```sql
+SELECT AI_QUERY(
+    'us.meta.llama3-3-70b-instruct-v1:0',
+    'What is AWS?',
+    'my_bedrock_location') AS result;
+```
+
+**Returns (example):**
+
+```text
+'AWS (Amazon Web Services) is a cloud computing platform by Amazon.'
+```

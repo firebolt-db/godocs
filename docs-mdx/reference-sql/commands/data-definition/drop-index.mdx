@@ -9,13 +9,30 @@ Deletes an index.
 ## Syntax
 
 ```sql
+-- Drop a regular index
+DROP INDEX [IF EXISTS] <index_name>
+
+-- Drop an aggregating index  
 DROP AGGREGATING INDEX [IF EXISTS] <index_name>
 ```
 
 ## Parameters
 
-
 | Parameter      | Description                          |
 | :-------------- | :------------------------------------ |
 | `<index_name>` | The name of the index to be deleted. |
+
+## Examples
+
+### Drop a regular index
+
+```sql
+DROP INDEX my_index;
+```
+
+### Drop an aggregating index
+
+```sql
+DROP AGGREGATING INDEX my_agg_index;
+```
 
