@@ -49,6 +49,10 @@ ALTER DATABASE <database_name> RENAME TO <new_database_name>
 | `<database_name>` | The name of the database to rename. |
 | `<new_database_name>` | The new name of the database. |
 
+<Note>
+If the renamed database is set as `DEFAULT_DATABASE` for any engine, queries on that engine will fail unless a different database is specified or selected. You can change the default database for an engine using the [`ALTER ENGINE`](/reference-sql/commands/engines/alter-engine) command.
+</Note>
+
 ## ALTER DATABASE OWNER TO
 
 Change the owner of a database. The current owner of a database can be viewed in the [information_schema.catalogs](/reference-sql/information-schema/catalogs) view on `catalog_owner` column.
