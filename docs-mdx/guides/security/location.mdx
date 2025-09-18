@@ -220,6 +220,37 @@ CREATE LOCATION s3_with_role WITH
 
 For more details about S3 LOCATION objects, see [CREATE LOCATION (Amazon S3)](/reference-sql/commands/data-definition/create-location-s3).
 
+### Amazon Bedrock
+
+For invoking Bedrock models with AWS authentication:
+
+```sql
+-- Using access keys
+CREATE LOCATION bedrock_with_keys WITH
+  SOURCE = AMAZON_BEDROCK
+  CREDENTIALS = (
+    AWS_ACCESS_KEY_ID = 'AKIAIOSFODNN7EXAMPLE'
+    AWS_SECRET_ACCESS_KEY = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
+  );
+
+-- Using IAM roles (recommended)
+CREATE LOCATION bedrock_with_role WITH
+  SOURCE = AMAZON_BEDROCK
+  CREDENTIALS = (AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/BedrockAccess');
+```
+
+Use the Bedrock location when calling the AI function:
+
+```sql
+SELECT AWS_BEDROCK_AI_QUERY(
+  'amazon.nova-micro-v1:0',
+  $${"schemaVersion":"messages-v1","messages":[{"role":"user","content":[{"text":"Hello"}]}]}$$,
+  'bedrock_with_role'
+) AS result;
+```
+
+For more details about Bedrock LOCATION objects, see [CREATE LOCATION (Amazon Bedrock)](/reference-sql/commands/data-definition/create-location-bedrock). To learn about the function, see [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai/aws-bedrock-ai-query).
+
 ### Apache Iceberg
 
 For data lake architectures with Iceberg tables:

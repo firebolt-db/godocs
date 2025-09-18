@@ -5,7 +5,7 @@ title: READ_ICEBERG
 ---
 
 
-A table-valued function (TVF) that reads data from [Apache Iceberg](https://iceberg.apache.org/) tables. The function can use either a [location object](/reference-sql/commands/data-definition/create-location) or individual TVF parameters to access the data, and can read from file-based catalogs as well as REST catalogs. `READ_ICEBERG` returns a table with data from the specified Iceberg table.
+A table-valued function (TVF) that reads data from [Apache Iceberg](https://iceberg.apache.org/) tables. The function can use either a [location object](/reference-sql/commands/data-definition/create-location-iceberg) or individual TVF parameters to access the data, and can read from file-based catalogs as well as REST catalogs. `READ_ICEBERG` returns a table with data from the specified Iceberg table.
 
  **Topics:**
  * [Syntax](#syntax)
@@ -30,16 +30,17 @@ READ_ICEBERG (
 -- Using individual TVF parameters
 READ_ICEBERG (
   URL => '<s3_or_rest_api_url>'
-  -- Parameters for file-based (S3-hosted) Iceberg tables
+  -- Parameters for Iceberg REST catalogs
+  [, WAREHOUSE => '<warehouse_name>' ]
+  [, NAMESPACE => '<namespace_name>' ]
+  [, TABLE => '<table_name>' ]
+  -- Parameters for Amazon S3
   [, AWS_ACCESS_KEY_ID = '<aws_access_key_id>' ]
   [, AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>' ]
   [, AWS_SESSION_TOKEN = '<aws_session_token>' ]
   [, AWS_ROLE_ARN = '<aws_role_arn>' ]
   [, AWS_ROLE_EXTERNAL_ID = '<aws_role_external_id>' ]
-  -- Parameters for Iceberg REST catalogs
-  [, WAREHOUSE => '<warehouse_name>' ]
-  [, NAMESPACE => '<namespace_name>' ]
-  [, TABLE => '<table_name>' ]
+  -- Parameters for OAuth authentication
   [, OAUTH_CLIENT_ID => '<oauth_client_id>' ]
   [, OAUTH_CLIENT_SECRET = '<oauth_client_secret>' ]
   [, OAUTH_SCOPE => '<oauth_scope>' ]
@@ -55,12 +56,12 @@ READ_ICEBERG (
 
 | Parameter | Description | Supported input types |
 |:----------|:------------|:---------------------|
-| `LOCATION` | The name of a location object that contains the Iceberg parameters and credentials. Firebolt recommends using `LOCATION` to store credentials for authentication. `LOCATION` must be specified as a string literal (e.g., `LOCATION => 'my_location'`). Unlike `URL`, it cannot be used as a positional parameter. For a comprehensive guide, see [LOCATION objects](/guides/security/location).| `TEXT` |
+| `LOCATION` | The name of a location object that contains the Iceberg parameters and credentials. Firebolt recommends using `LOCATION` to store credentials for authentication. `LOCATION` must be specified as a string literal (e.g., `LOCATION => 'my_location'`). Unlike `URL`, it cannot be used as a positional parameter. | `TEXT` |
 | `NAMESPACE` | The namespace an Iceberg table resides in. Used only for REST catalogs. | `TEXT` |
 | `TABLE` | The name of the Iceberg table to read. Used only for REST catalogs. | `TEXT` |
 | `MAX_STALENESS` | Specifies a maximum staleness for results returned by this function, e.g., `INTERVAL '30 seconds'`. The default value is 0 seconds, forcing Firebolt to fetch the latest version metadata from the catalog for every query. Values larger than zero instruct Firebolt to cache metadata and vended credentials in memory, and can typically reduce query latency by tens or hundreds of milliseconds. | `INTERVAL` |
 
-For a comprehensive guide to LOCATION objects, see [LOCATION objects](/guides/security/location). For syntax details, see [CREATE LOCATION](/reference-sql/commands/data-definition/create-location) and [CREATE LOCATION (Iceberg)](/reference-sql/commands/data-definition/create-location-iceberg).
+For a comprehensive guide to LOCATION objects, see [LOCATION objects](/guides/security/location). For syntax details, see [CREATE LOCATION (Iceberg)](/reference-sql/commands/data-definition/create-location-iceberg).
 
 ### Using individual TVF parameters
 
@@ -70,25 +71,39 @@ For a comprehensive guide to LOCATION objects, see [LOCATION objects](/guides/se
 | `URL` | A url pointing to a table in an Iceberg file-based catalog, or a url pointing to an Iceberg REST catalog API endpoint. For file-based catalogs, the expected format is `s3://{bucket_name}/{path}/{to}/{table}` or `s3://{bucket_name}/{path}/{to}/{table}/metadata/{version.metadata.json}`. For REST catalogs, the expected format is `https://{path}/{to}/{rest}/{host}`. | `TEXT` |
 | `MAX_STALENESS` | Specifies a maximum staleness for results returned by this function, e.g., `INTERVAL '30 seconds'`. The default value is 0 seconds, forcing Firebolt to fetch the latest version metadata from the catalog for every query. Values larger than zero instruct Firebolt to cache metadata and vended credentials in memory, and can typically reduce query latency by tens or hundreds of milliseconds. | `INTERVAL` |
 
-#### Parameters for file-based Iceberg tables (Iceberg tables hosted in S3)
-| Parameter | Description | Supported input types |
-|:----------|:------------|:---------------------|
-| `AWS_ACCESS_KEY_ID` | The AWS access key ID. Used only for file-based catalogs. | `TEXT` |
-| `AWS_SECRET_ACCESS_KEY` | The AWS secret access key. Used only for file-based catalogs. | `TEXT` |
-| `AWS_SESSION_TOKEN` | The AWS session token. Used only for file-based catalogs. | `TEXT` |
-| `AWS_ROLE_ARN` | The AWS role ARN. Used only for file-based catalogs. | `TEXT` |
-| `AWS_ROLE_EXTERNAL_ID` | The AWS role external ID. Used only for file-based catalogs. | `TEXT` |
+#### Common Parameters for Iceberg REST catalogs
 
-#### Parameters for Iceberg REST catalogs
+The following parameters are used for all REST catalogs, including AWS Glue catalogs accessed via REST endpoint.
+
 | Parameter | Description | Supported input types |
 |:----------|:------------|:---------------------|
-| `WAREHOUSE` | The name of the warehouse an Iceberg table resides in. Used only for REST catalogs. | `TEXT` |
-| `NAMESPACE` | The namespace an Iceberg table resides in. Used only for REST catalogs. | `TEXT` |
-| `TABLE` | The name of the Iceberg table to read. Used only for REST catalogs. | `TEXT` |
-| `OAUTH_CLIENT_ID` | An OAuth client ID for authenticating to the REST catalog. Used only for REST catalogs. | `TEXT` |
-| `OAUTH_CLIENT_SECRET` | An OAuth client secret for authenticating to the REST catalog. Used only for REST catalogs. | `TEXT` |
-| `OAUTH_SCOPE` | An OAuth scope for authenticating to the REST catalog. Used only for REST catalogs. | `TEXT` |
-| `OAUTH_SERVER_URL` | The URL to use when requesting an access token for the REST catalog. If not specified, `{URL}/v1/oauth/tokens` will be used. Used only for REST catalogs. | `TEXT` |
+| `WAREHOUSE` | The name of the warehouse an Iceberg table resides in.| `TEXT` |
+| `NAMESPACE` | The namespace an Iceberg table resides in. | `TEXT` |
+| `TABLE` | The name of the Iceberg table to read. | `TEXT` |
+
+
+#### Amazon S3 Parameters
+
+The following parameters are used for authentication to both file-based catalogs and AWS Glue catalogs.
+
+| Parameter | Description | Supported input types |
+|:----------|:------------|:---------------------|
+| `AWS_ACCESS_KEY_ID` | The AWS access key ID. | `TEXT` |
+| `AWS_SECRET_ACCESS_KEY` | The AWS secret access key. | `TEXT` |
+| `AWS_SESSION_TOKEN` | The AWS session token. | `TEXT` |
+| `AWS_ROLE_ARN` | The AWS role ARN. | `TEXT` |
+| `AWS_ROLE_EXTERNAL_ID` | The AWS role external ID. | `TEXT` |
+
+#### Parameters for OAuth authentication
+
+The following parameters apply to REST catalogs that use OAuth for authentication.
+
+| Parameter | Description | Supported input types |
+|:----------|:------------|:---------------------|
+| `OAUTH_CLIENT_ID` | An OAuth client ID for authenticating to the REST catalog. . | `TEXT` |
+| `OAUTH_CLIENT_SECRET` | An OAuth client secret for authenticating to the REST catalog. | `TEXT` |
+| `OAUTH_SCOPE` | An OAuth scope for authenticating to the REST catalog. | `TEXT` |
+| `OAUTH_SERVER_URL` | The URL to use when requesting an access token for the REST catalog. If not specified, `{URL}/v1/oauth/tokens` will be used. | `TEXT` |
 
 ## Return Type
 
@@ -96,7 +111,7 @@ The result is a table with data from the Iceberg files. Columns are read and par
 
 ## Best practices
 
-- Use a `LOCATION` object to store credentials for authentication. This approach centralizes credential management and eliminates the need to specify individual credential parameters in each query. See [CREATE LOCATION](/reference-sql/commands/data-definition/create-location) and [CREATE LOCATION (Iceberg)](/reference-sql/commands/data-definition/create-location-iceberg).
+- Use a `LOCATION` object to store credentials for authentication. This approach centralizes credential management and eliminates the need to specify individual credential parameters in each query. See [CREATE LOCATION (Iceberg)](/reference-sql/commands/data-definition/create-location-iceberg).
 - Specifying a value for `MAX_STALENESS` can help improve performance in tight loops and infrequently-updated tables.
 - It is recommended to specify all parameters using the named-parameter syntax rather than relying on parameter positions. For example: use `URL => 'http://example.com'` rather than omitting the `URL =>` parameter name specifier.
 
@@ -125,7 +140,7 @@ LIMIT 5;
 ```
 
 `LOCATION` objects are supported for file-based (S3-hosted) catalogs as well as REST catalogs.
-For more examples of `LOCATION`, see [CREATE LOCATION](/reference-sql/commands/data-definition/create-location) and [CREATE LOCATION (Iceberg)](/reference-sql/commands/data-definition/create-location-iceberg).
+For more examples of `LOCATION`, see [CREATE LOCATION (Iceberg)](/reference-sql/commands/data-definition/create-location-iceberg).
 
 ### Using TVF parameters, from a public location in S3
 
@@ -307,6 +322,26 @@ LIMIT 5;
 
 For setting up a Snowflake Open Catalog in your account, see [Snowflake - Snowflake Open Catalog overview](https://other-docs.snowflake.com/en/opencatalog/overview). Note that you will need to enable credential vending for your Iceberg tables, see [Snowflake - Use catalog-vended credentials for Apache Iceberg™ tables](https://docs.snowflake.com/en/user-guide/tables-iceberg-configure-catalog-integration-vended-credentials).
 For general information about reading Snowflake Open Catalog tables from Iceberg clients, see [Snowflake - Checking your REST catalog configuration](https://docs.snowflake.com/en/user-guide/tables-iceberg-configure-catalog-integration-rest-check-config).
+
+### Reading from AWS Glue catalog
+
+The following code example reads the first 5 rows from an Iceberg table in an AWS Glue catalog. Note that for AWS Glue catalogs, the `warehouse` parameter maps to `catalog_id` and the `namespace` parameter maps to `database`:
+
+```sql
+SELECT *
+FROM READ_ICEBERG(
+  URL => 'https://glue.us-west-2.amazonaws.com/iceberg',
+  WAREHOUSE  => '123456789123',
+  NAMESPACE => 'my_database',
+  TABLE => 'my_table',
+  AWS_ACCESS_KEY_ID => '1231',
+  AWS_SECRET_ACCESS_KEY => '567',
+  AWS_SESSION_TOKEN => 'session-token'
+)
+LIMIT 5;
+```
+
+Firebolt supports authentication using either Lake Formation or direct access to underlying storage. For authentication details, refer to the AWS Glue Catalog section in [CREATE LOCATION (Iceberg)](/reference-sql/commands/data-definition/create-location-iceberg#aws-glue-catalog).
 
 ## About Metadata Versions in File-Based Catalogs
 

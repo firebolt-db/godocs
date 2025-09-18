@@ -1,0 +1,130 @@
+## Firebolt Release Notes - Version 4.27
+
+### New Features
+**Enabled copying of results to the clipboard from the export results menu**
+
+Users can now copy results to the clipboard directly from the export results menu. This feature provides a quick and convenient way to transfer data for use in other applications.
+
+**Added support for pattern when using read TVFs with location objects**
+
+The [`READ_PARQUET`](/reference-sql/functions-reference/table-valued/read_parquet), [`READ_CSV`](/reference-sql/functions-reference/table-valued/read_csv) and [`READ_AVRO`](/reference-sql/functions-reference/table-valued/read_avro) functions now additionally accept a pattern when using a location object. Users can refine which files in a specific location are read. For example, use `SELECT * FROM READ_PARQUET(location => 'my_location', pattern => 'testdata/*')` to scan only the files under `testdata/` in location `my_location`.
+
+**Cross-query subresult reuse**  
+
+You can now mark a common table expression (CTE) as [`materialized reusable`](/reference-sql/commands/queries/select#reusable-common-table-expressions).
+This means that Firebolt keeps the result of the CTE in memory, and using the same reusable CTE in a different query can reuse the cached result for blazing fast performance.
+Of course, the caches are fully transactional and get invalidated when the underlying data changes.
+
+**Granular control over the query optimizer**
+
+In addition to the [user-guided optimizer mode](/performance-and-observability/query-planning/user-guided-mode), you can now control the behavior of the query optimizer in a more granular way using hints encoded as special comments in your SQL statements.
+By adding the [`/*! no_join_ordering */`](/performance-and-observability/query-planning/query-hints/no-join-ordering) hint, you can instruct the optimizer to always follow the join order specified in the SQL statement.
+This can be useful if you have better estimates than the optimizer about the cardinalities of the join inputs.
+By adding the [`/*! no_partial_agg */`](/performance-and-observability/query-planning/query-hints/no-partial-aggregation) hint, you can instruct the optimizer to disable partial aggregation for the query.
+This can be useful if you already know that the aggregation is unlikely to reduce the cardinality by much.
+
+**Added support for `ALTER COLUMN ... SET UNIQUE` and `DROP UNIQUE` statements for managing column unique constraints**
+
+Support was added for the `ALTER TABLE ... ALTER COLUMN ... SET UNIQUE` and `ALTER TABLE ... ALTER COLUMN ... DROP UNIQUE` statements.  
+These commands allow users to modify a column's [unique constraint](/performance-and-observability/query-planning/unique-constraint).
+
+Syntax:
+```sql
+ALTER TABLE table_name ALTER COLUMN column_name SET UNIQUE;  -- add unique constraint to a column
+ALTER TABLE table_name ALTER COLUMN column_name DROP UNIQUE; -- remove unique constraint from a column
+```
+
+This feature does not support modifying fields within inner structure types. Full Documentation is available [here](/reference-sql/commands/data-definition/alter-table#alter-table-alter-column-set-unique).
+
+**Added support for `ALTER TABLE SET ([table_param=<param_value>] ...)`**
+
+You can now change the `COMPRESSION`, `COMPRESSION_LEVEL` and `DESCRIPTION` table parameters.
+
+Syntax:
+```sql
+ALTER TABLE table_name SET (COMPRESSION=LZ4);
+ALTER TABLE table_name SET (COMPRESSION=ZSTD, COMPRESSION_LEVEL=3);
+ALTER TABLE table_name SET (COMPRESSION=ZSTD, COMPRESSION_LEVEL=3, DESCRIPTION='a table with zstd compression');
+```
+
+Changed compression settings affect newly ingested data. Full Documentation is available [here](/reference-sql/commands/data-definition/alter-table#alter-table-set).
+
+**Added AWS Glue support to the `READ_ICEBERG` function for querying Iceberg tables with optional Lake Formation integration**
+
+AWS Glue support was added to the [`READ_ICEBERG`](/reference-sql/functions-reference/table-valued/read_iceberg) table-valued function. This allows querying Iceberg tables with AWS Glue as the metadata catalog. Additionally, it offers optional Lake Formation integration. This enhances flexibility and expands integration options for users. To use Glue, set `CATALOG=AWS_GLUE` when creating a location object or simply pass the Glue endpoint as URL.
+
+**Added support for creating struct values using the `STRUCT(...)` function and named fields syntax.**
+
+Added support for creating struct values in SQL statements. Users can use the `STRUCT(...)` function to create struct values with unnamed fields. The syntax `{'field_name_1': value_1, 'field_name_2': value_2}` creates struct values with named fields.
+
+**First release of AI features powered by Amazon Bedrock: call LLMs directly from SQL**
+
+Firebolt now lets you invoke large language models (LLMs) straight from your SQL queries using two new functions:
+
+- [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai/aws-bedrock-ai-query) invokes an Amazon Bedrock model and returns the raw response payload as a JSON string (`TEXT`). Provide a Bedrock model ID, a serialized JSON request body, and a `LOCATION` with AWS credentials.
+- [`AI_QUERY`](/reference-sql/functions-reference/ai/ai-query) sends a simple text prompt to an Amazon Bedrock endpoint and returns the generated text (`TEXT`). Initially, this uses Bedrock as the backend and supports Meta Llama 3.3 70B Instruct; the endpoint must contain `'meta.llama3-3-70b-instruct-v1:0'`.
+
+Examples:
+
+```sql
+SELECT AWS_BEDROCK_AI_QUERY(
+  'amazon.nova-micro-v1:0',
+  $${"schemaVersion":"messages-v1","messages":[{"role":"user","content":[{"text":"What is AWS?"}]}],"inferenceConfig":{}}$$,
+  'my_bedrock_location'
+) AS result;
+```
+
+```sql
+SELECT AI_QUERY(
+  'us.meta.llama3-3-70b-instruct-v1:0',
+  'What is AWS?',
+  'my_bedrock_location'
+) AS result;
+```
+
+LLM invocations count toward your account’s daily LLM token budget. You can set the budget and check current usage:
+
+```sql
+ALTER ACCOUNT "<account_name>" SET (LLM_TOKEN_BUDGET = 10000);
+```
+
+```sql
+SELECT * FROM account_db.information_schema.quotas;
+```
+
+```text
+name,units,limit,usage
+'LLM_TOKEN_BUDGET',tokens,10000,3500
+```
+
+See the [`LLM_TOKEN_BUDGET` quota](/reference-sql/information-schema/quotas) for details on current limits and usage.
+
+For a step-by-step introduction, see the [Getting started with AI guide](/guides/ai/getting-started-with-ai).
+
+
+### Performance Improvements
+**Added Parquet row group pruning**
+
+Filtered Parquet scans now utilize embedded column minimum and maximum metadata to remove row groups that do not meet filter conditions. This can significantly reduce the amount of data scanned and is available for all Parquet scans ([`READ_ICEBERG`](/reference-sql/functions-reference/table-valued/read_iceberg), [`READ_PARQUET`](/reference-sql/functions-reference/table-valued/read_parquet), and external tables). To see whether Parquet pruning is used, consult `EXPLAIN (PHYSICAL)` or `EXPLAIN (ANALYZE)` and look for a `pruning_predicate` in the `read_from_s3` TVF's arguments.
+
+**Added support for join pruning with `UNNEST` on the probe side**
+
+Join pruning can now be applied when data from the probe side is being unnested before the join. This can improve query performance by reducing the amount of data scanned.
+
+**Optimized semi joins with static values to be evaluated as filters**
+
+Semi joins on a single column with static values are now evaluated as filters instead of joins. For instance, the query `SELECT * FROM your_table WHERE some_column IN (SELECT 'filter value 1' UNION ALL SELECT 'filter value 2')` is now processed as a filter. This change can enhance pruning performance.
+
+**Increased the size limit for cached Iceberg metadata**
+
+Increased the size limit for subresults cached by the `MaybeCache` operator, used above `list_iceberg_files` operators. This change allows processing larger Iceberg tables more quickly, as metadata retrieval is skipped for previously processed snapshots.
+
+
+### Bug Fixes
+**Fixed an issue where joins and `IS NOT DISTINCT FROM` on floating-point columns with negative and positive zero values could produce incorrect results when using arrays.**
+
+A rare issue was fixed where a join on arrays of floating-point columns or using `IS NOT DISTINCT FROM` on floating-point columns could produce incorrect results when both negative and positive zero values were present. Previously, a query like `SELECT * FROM lhs, rhs WHERE lhs.a = rhs.a;` would return no rows if `lhs.a` contained `[-0.0]` and `rhs.a` contained `[0.0]`. Now, it correctly returns `{-0}, {0}`.
+
+**Fixed an issue with using AWS role ARNs in LOCATION object for Iceberg queries**
+
+Fixed an issue where Iceberg queries were not using AWS role ARN credentials to access S3 when specified in LOCATION objects.

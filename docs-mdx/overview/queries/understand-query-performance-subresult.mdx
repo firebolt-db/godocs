@@ -24,6 +24,7 @@ Subresults are placed in an in-memory FireCache, which can use up to 20% of the 
 Currently, the optimizer places a `MaybeCache` operator in the following places:
   - At the top of the query plan to cache the full result.
   - At nodes where “sideways information passing” occurs, optimizing joins where the probe-side has an indexed key.
+  - When a common table expression (CTE) is marked as [`MATERIALIZED REUSABLE`](/reference-sql/commands/queries/select#reusable-common-table-expressions).
 
   The `MaybeCache` operator is versatile, and it can be placed anywhere in the plan. 
 - Firebolt stores subresult hash-tables created for `Join` operators in the FireCache, provided they are not too large. These hash tables are costly to compute, so reusing them when similar consecutive queries run offers significant performance advantages.
@@ -53,18 +54,23 @@ This results in more than 5x speed improvement on subsequent queries, even when 
 
 ### Recognizing subresult reuse in query telemetry
 
-Firebolt transparently leverages subresult reuse. If you want to see whether subresult reuse helped to speed up your query, look for `Nothing was executed` in the [EXPLAIN (ANALYZE)](/reference-sql/commands/queries/explain) output. This shows that an operator was skipped because a higher level operator retrieved the subresult from the FireCache. For example, in the following `EXPLAIN (ANALYZE)` output, the `MaybeCache` operator retrieved the result from the cache, bypassing the need to run the entire query:
+Firebolt transparently leverages subresult reuse.
+If you want to see whether subresult reuse helped to speed up your query, look at the [EXPLAIN (ANALYZE)](/reference-sql/commands/queries/explain) output.
+For every operator that can cache subresults (currently `MaybeCache` and `Join`), the `Execution Metrics` section shows a line like `2/2 nodes read from subresult cache, 0/2 nodes wrote to subresult cache`.
+You can also see the metrics `Nothing was executed` for operators that were skipped because a higher level operator retrieved the subresult from the FireCache.
+For example, in the following `EXPLAIN (ANALYZE)` output, the `Join` operator retrieved the result from the cache, bypassing the need to construct the build side:
 
-```
-[0] [MaybeCache]
-|   [RowType]: date not null, text not null, bigint not null, double precision null
-|   [Execution Metrics]: output cardinality = 10000, thread time = 0ms, cpu time = 0ms
- \_[1] [Projection] ref_2, ref_1, ref_0, ref_3
-   |   [RowType]: date not null, text not null, bigint not null, double precision null
-   |   [Execution Metrics]: Optimized out
-    \_[2] [SortMerge] OrderBy: [ref_2 Ascending Last, ref_1 Ascending Last, ref_0 Ascending Last, ref_3 Ascending Last] Limit: [10000]
-      |   [RowType]: bigint not null, text not null, date not null, double precision null
-      |   [Execution Metrics]: Nothing was executed
+```text {4, 8}
+[0] [Projection] t.a, t.b
+|   [Execution Metrics]: [...]
+ \_[1] [MaybeCache]
+   |   [Execution Metrics]: [...], 0/2 nodes read from subresult cache, 2/2 nodes wrote to subresult cache
+    \_[2] [Filter] (t.a < t2.a)
+      |   [Execution Metrics]: [...]
+       \_[3] [Join] Mode: Inner [(t.a = t2.a)]
+         |   [Execution Metrics]: [...], 2/2 nodes read from subresult cache, 0/2 nodes wrote to subresult cache
+          \_[4] [TableFuncScan] t.a: $0.a, t.b: $0.b
+            |   [Execution Metrics]: Nothing was executed
 [...]
 ```
 
@@ -73,6 +79,8 @@ Firebolt supports subresult caching for as many queries as possible. The followi
 
 * **Result cache size** &ndash; The result cache is limited 1 MB per result to ensure that large results do not evict smaller cached subresults needed for other queries.
 * **Nondeterministic functions** &ndash; Queries that use nondeterministic functions such as `RANDOM` cannot cache subresults. If an operator in the query plan depends directly or indirectly on the output of a nondeterministic function, caching is disabled.
+* **Mutable functions** &ndash; Queries that use deterministic but mutable functions such as `NOW()` cannot cache subresults.
+* **Order dependent results** &ndash; For some queries, the order in which Firebolt computes a result can impact the result. Examples include floating point arithmetic (such as the `SUM` aggregation) or using `LIMIT` on a result that is not fully sorted. Note that whether a query is order dependent can also depend on whether you are using a single-node or multi-node engine.
 * **External table scans** &ndash; Results from external table scans cannot be cached. These tables rely on external data sources, which may change independently of Firebolt's caching mechanism.
 * **Non-equality joins** &ndash; Cross joins and joins that use a join condition that's not an equality (for example, joining on `left_side.colum1 < right_side.column2`) cannot use subresult caching directly. The result cache can still be used for queries using such joins.
 
