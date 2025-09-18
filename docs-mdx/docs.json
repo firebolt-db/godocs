@@ -260,7 +260,8 @@
                   "guides/integrations/dbeaver",
                   "guides/integrations/langchain",
                   "guides/integrations/mcp",
-                  "guides/integrations/pandas"
+                  "guides/integrations/pandas",
+                  "guides/integrations/power-bi"
                 ]
               },
               {
@@ -275,7 +276,6 @@
           {
             "group": "SQL reference",
             "pages": [
-              "reference-sql",
               "reference-sql/explicit-transactions",
               {
                 "group": "Data types",
@@ -6356,6 +6356,11 @@
     {
       "source": "/product/index",
       "destination": "/intro",
+      "permanent": false
+    },
+    {
+      "source": "/godocs",
+      "destination": "/",
       "permanent": false
     },
     {

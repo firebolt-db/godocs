@@ -5,7 +5,7 @@ title: User-guided mode
 ---
 
 Sometimes you need full control over the planning process for a specific query.
-You can achieve that by setting the `optimizer_mode` session parameter to `user_guided`.
+You can achieve that by [setting the `optimizer_mode` session parameter to `'user_guided'`](/reference/system-settings#changing-the-optimizer-mode).
 In this mode, the optimizer will exclude all cost-based optimization rules.
 This ensures that the relative order of joins and aggregations in the resulting execution plan will follow the sytnatic order defined in the `SELECT` blocks of your SQL query.
 As a more granular setting, you can also use the [`no_join_ordering`](/performance-and-observability/query-planning/query-hints/no-join-ordering) query hint.
@@ -21,13 +21,13 @@ Specifically, the following optimizations are disabled in user-guided mode:
 Consider the following example which executes a three-way join between a fact table (`store_sales`) and two dimension tables (`item` and `date_dim`).
 Both dimension tables have local predicates (`item.i_manufact_id = 128` and `date_dim.d_year`).
 
-When the `optimizer_mode` is `automatic`, the join order depends on the estimated number of rows in the two dimension tables:
+When the `optimizer_mode` is `'automatic'`, the join order depends on the estimated number of rows in the two dimension tables:
 since the `Filter` on top `item` produces a smaller intermediate result, the optimizer decides to join it with `store_sales` first,
-and then join this intermediate result is then joined with `date_dim`.
+and then join this intermediate result with `date_dim`.
 
 However, if you believe that the better join order is to first join with `date_dim` and then with `item`, you can:
-(1) set `optimizer_mode = user_guided`, and
-(2) ensure that the `join date_dim on (...)` happens without `join item on (...)`.
+(1) set `optimizer_mode = 'user_guided'`, and
+(2) put the `join date_dim on (...)` before `join item on (...)`.
 
 <CodeGroup>
 ```sql SQL source
@@ -50,9 +50,12 @@ order by
   date_dim.d_year, sum_agg desc, brand_id
 limit
   10
+with (
+  optimizer_mode = 'user_guided' -- or (the default) 'automatic'
+);
 ```
 
-```text optimizer_mode = automatic  {5,7}
+```text plan in automatic mode  {5,7}
 [0] [Projection] c_0: 2000, brand_id: item.i_brand_id, brand: item.i_brand, sum_agg: sum2_0
  \_[1] [Sort] OrderBy: [sum2_0 Descending First, item.i_brand_id Ascending Last] Limit: [10]
     \_[2] [Aggregate] GroupBy: [item.i_brand_id, item.i_brand] Aggregates: [sum2_0: sum2(store_sales.ss_ext_sales_price)]
@@ -69,7 +72,7 @@ limit
                    \_[13] [StoredTable] Name: "date_dim"
 ```
 
-```text optimizer_mode = user_guided {5,7}
+```text plan in user-guided mode {5,7}
 [0] [Projection] c_0: 2000, brand_id: item.i_brand_id, brand: item.i_brand, sum_agg: sum2_0
  \_[1] [Sort] OrderBy: [sum2_0 Descending First, item.i_brand_id Ascending Last] Limit: [10]
     \_[2] [Aggregate] GroupBy: [item.i_brand_id, item.i_brand] Aggregates: [sum2_0: sum2(store_sales.ss_ext_sales_price)]
@@ -86,3 +89,66 @@ limit
                    \_[13] [StoredTable] Name: "item"
 ```
 </CodeGroup>
+
+## Understanding join ordering in user-guided mode
+
+When using `user_guided` mode, the syntactic order of joins in your SQL query directly determines how Firebolt executes them.
+Understanding this behavior is crucial for optimal performance.
+
+### Build and probe side semantics
+
+In user-guided mode, Firebolt implements joins using hash join algorithms where:
+- The **right input** of each join becomes the **build side** - Firebolt creates a hash table from this data.
+- The **left input** of each join becomes the **probe side** - Firebolt scans this data and probes the hash table.
+
+For example, if you are in user-cuided mode and write this SQL
+```sql
+FROM large_table
+JOIN small_table USING (id)
+```
+
+Firebolt will:
+1. Build a hash table from `small_table` (the left input).
+2. Scan `large_table` (the right input) and probe the hash table for matches.
+
+Note that if the join is directed, when swapping the join inputs you also need to change the join direction.
+```sql
+-- Optimal: LEFT JOIN with the small table on the right
+FROM large_table
+LEFT JOIN small_table USING (id)
+
+-- Equivalent, but suboptimal: RIGHT JOIN with the large table on the right
+FROM small_table
+RIGHT JOIN large_table USING (id)
+```
+
+### Ordering joins for optimal performance
+
+For optimal performance, **place smaller tables on the right side** of joins.
+This minimizes memory usage and reduces the overhead of building hash tables, leading to faster query execution.
+
+Consider this example with a large fact table and smaller dimension tables:
+
+```sql
+-- Optimal: smaller tables on the right
+SELECT *
+FROM large_fact_table
+JOIN small_dimension1 ON large_fact_table.dim1_id = small_dimension1.id
+JOIN small_dimension2 ON large_fact_table.dim2_id = small_dimension2.id
+
+-- Suboptimal: larger table on the right
+SELECT *
+FROM small_dimension1
+JOIN large_fact_table ON small_dimension1.id = large_fact_table.dim1_id
+JOIN small_dimension2 ON large_fact_table.dim2_id = small_dimension2.id
+```
+
+By default, Firebolt plans chains of joins as left-deep trees.
+To force bushy join trees, use parentheses around sub-joins.
+
+The benefits of proper join ordering include:
+- **Reduced memory usage** - Smaller hash tables require less RAM.
+- **Faster hash table construction** - Less time spent building the hash table.
+- **Improved probe performance** - Smaller hash tables fit better in CPU caches, causing fewer cache misses when probing.
+- **More subresult reuse potential** - Firebolt can reuse hash tables across queries.
+  Smaller hash tables allow more subresults to be cached. Learn more in our [subresult reuse documentation](/overview/queries/understand-query-performance-subresult) and our blog post [Caching & Reuse of Subresults across Queries](https://www.firebolt.io/blog/caching-reuse-of-subresults-across-queries).

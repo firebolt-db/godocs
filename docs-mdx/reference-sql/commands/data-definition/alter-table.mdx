@@ -79,6 +79,49 @@ Move a column to appear after another specific column:
 ALTER TABLE my_table MODIFY COLUMN email AFTER user_name;
 ```
 
+## ALTER TABLE SET
+
+Updates table-level parameters for an existing managed table.
+
+### Syntax
+
+```sql
+ALTER TABLE <table> SET (<param1>=<value1>[, <param2>=<value2> ...])
+```
+
+### Parameters
+
+| Parameter              | Description |
+| :--------------------- | :---------- |
+| `<table>`              | Name of the managed table to update. |
+| `COMPRESSION`          | Compression algorithm for new data: `ZSTD`, `LZ4`, or `DEFAULT`. |
+| `COMPRESSION_LEVEL`    | Integer compression level; applies only when `COMPRESSION` is specified. |
+| `DESCRIPTION`          | Description text for the table. |
+
+### Notes
+
+- This statement applies to managed tables; external tables are not supported.
+- Changing `COMPRESSION` affects data written after the change; existing data isn't retroactively recompressed.
+- `COMPRESSION_LEVEL` is accepted only if `COMPRESSION` is also set.
+- Required privileges: you must be the table owner or have the permission to modify the table.
+
+### Examples
+
+Set compression to LZ4:
+```sql
+ALTER TABLE compression_table SET (COMPRESSION=lz4);
+```
+
+Set compression to ZSTD with level 3:
+```sql
+ALTER TABLE compression_table SET (COMPRESSION=zstd, COMPRESSION_LEVEL=3);
+```
+
+Reset to default compression and set a description:
+```sql
+ALTER TABLE compression_table SET (COMPRESSION=DEFAULT, DESCRIPTION='a table with default compression');
+```
+
 ## ALTER TABLE DROP PARTITION
 
 Use to delete a partition from a fact or dimension table.

@@ -417,7 +417,7 @@ WITH (CROSS_REGION_REQUEST_MODE = 'auto');
 
 ## Changing the optimizer mode
 
-If set to `user_guided`, the optimizer will disable all cost-based optimization rules.
+If set to `'user_guided'`, the optimizer will disable all cost-based optimization rules.
 This ensures that the relative order of joins and aggregations in the resulting execution plan will follow the sytnatic order defined in the `SELECT` blocks of your SQL query
 The default value is `automatic`.
 For more details, see [User-guided mode](/performance-and-observability/query-planning/user-guided-mode).
@@ -439,6 +439,8 @@ SELECT ... WITH (optimizer_mode = 'user_guided');
 ```
 
 If you want to limit the scope of this setting to a specific query, we recommend the latter.
+
+To learn more, read [the dedicated "User-guided mode" guide](/performance-and-observability/query-planning/user-guided-mode).
 
 ### Example
 
