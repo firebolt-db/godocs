@@ -20,8 +20,8 @@ You must have the following prerequisites before you can connect your Firebolt a
 * **Firebolt service account** &ndash; You must have access to an active Firebolt [service account](/guides/managing-your-organization/service-accounts), which facilitates programmatic access to Firebolt, its ID and secret.
 * **Firebolt user** &ndash; You must have a user that is [associated](/guides/managing-your-organization/service-accounts#create-a-user) with your service account. The user should have [USAGE](/overview/security/rbac/database-permissions) permission to query your database, and [OPERATE](/overview/security/rbac/engine-permissions) permission to start and stop an engine if it is not already started.
 
-## Set up Tableau Online
-1. Navigate to Tableau Online's [login page](https://online.tableau.com/) and log in to your account.
+## Set up Tableau Cloud
+1. Navigate to Tableau Cloud's [login page](https://online.tableau.com/) and log in to your account.
 
 2. On the home screen select **New** and from the drop-down menu select **Workbook**.
 
@@ -49,13 +49,15 @@ To connect Tableau Desktop or Tableau Prep to Firebolt, you must install a Fireb
 
 3. **Download the latest Firebolt connector**
 
-    a. **Tableau Desktop**
+    1. **Tableau Desktop**
+    
         1. Open Tableau and on the home screen in the Connect section on the left find **To a Server** option.
         2. Select **More...** to open a list of all the connectors available.
         3. Find "Firebolt by Firebolt Analytics Inc" in the **Additional Connectors** section or use the search bar to quickly navigate to it.
         4. Select this connector and in the following window select **Install and restart Tableau**.
 
-    b. **Tableau Prep**
+    2. **Tableau Prep**
+    
         1. Open Tableau and on the home screen in the top section press the **Connect to Data** button.
         2. In the newly opened **Connect** section scroll down to find "Firebolt by Firebolt Analytics Inc" in the **Additional Connectors** section or use the search bar to quickly navigate to it.
         3. Select this connector and in the following window select **Install and restart Tableau**.
@@ -95,7 +97,7 @@ To connect Tableau Desktop or Tableau Prep to Firebolt, you must install a Fireb
 5. **Prepare or visualize your data**
     Once your data source is selected you can begin preparing or visualizing the data as follows:
 
-    * **For Tableau Desktop/Online**: Select `Sheet 1` tab from the bottom-left corner of your Tableau window next to **Data Source**. In the left navigation panel under **Sheets**, drag and drop any available columns or pre-defined aggregation from your table into the Tableau workspace to start building charts. See Tableau's [Build a view from scratch](https://help.tableau.com/current/pro/desktop/en-us/getstarted_buildmanual_ex1basic.htm) documentation for more information.
+    * **For Tableau Desktop/Cloud**: Select `Sheet 1` tab from the bottom-left corner of your Tableau window next to **Data Source**. In the left navigation panel under **Sheets**, drag and drop any available columns or pre-defined aggregation from your table into the Tableau workspace to start building charts. See Tableau's [Build a view from scratch](https://help.tableau.com/current/pro/desktop/en-us/getstarted_buildmanual_ex1basic.htm) documentation for more information.
     * **For Tableau Prep**: Use Tableau Prep's tools to clean and shape your data. See Tableau Prep's [Getting Started](https://help.tableau.com/current/prep/en-us/prep_get_started.htm) documentation for more information. Combine data from multiple sources if needed and save the prepared data for analysis in Tableau Desktop or Server.
 
 ## Limitations
