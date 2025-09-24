@@ -4,10 +4,6 @@ sidebarTitle: MERGE
 title: MERGE
 ---
 
-<Note>
-This feature is in public preview.
-</Note>
-
 `MERGE` allows users to perform multiple data modifications ([`INSERT`](/reference-sql/commands/data-management/insert), [`UPDATE`](/reference-sql/commands/data-management/update), [`DELETE`](/reference-sql/commands/data-management/delete)) within a single transaction. `MERGE` is useful for common database tasks like removing duplicates, syncing data between tables (upsert), and cleaning out old records.
 
 `MERGE` internally performs a join between a target table and a data source, and then for each matching or non-matching row, you can decide whether to add it, update it, or delete it from the target table.
@@ -41,18 +37,18 @@ ON <join_condition>
 <when_clause> ::= {
   WHEN MATCHED [ AND <condition> ]
     THEN {
-      UPDATE SET { <column_name> = <value> [ , ... ] } |
+      UPDATE SET { * | { <column_name> = <value> [ , ... ] } } |
       DELETE |
       DO NOTHING
     }
 | WHEN NOT MATCHED [ BY TARGET ] [ AND <condition> ]
     THEN {
-      INSERT ( <column_list> ) VALUES ( <value_list> ) |
+      INSERT { * | ( <column_list> ) VALUES ( <value_list> ) } |
       DO NOTHING
     }
 | WHEN NOT MATCHED BY SOURCE [ AND <condition> ]
     THEN {
-      UPDATE SET { <column_name> = <value> [ , ... ] } |
+      UPDATE SET { * | { <column_name> = <value> [ , ... ] } } |
       DELETE |
       DO NOTHING
     }
@@ -179,8 +175,29 @@ USING read_parquet(
   location => my_external_location
 )
 ON target.id = read_parquet.id
-WHEN NOT MATCHED THEN INSERT (id, col1, col2) VALUES (read_parquet.id, read_parquet.col1, regexp_extract(read_parquet.col2, '\d+')::INT);
+WHEN NOT MATCHED THEN INSERT (id, col1, col2) VALUES (read_parquet.id, read_parquet.col1, regexp_extract(read_parquet.col2, '\d+')::INT)
 WHEN NOT MATCHED BY SOURCE THEN DELETE;
+```
+
+### Example 5: Wildcard Syntax
+
+The clauses `INSERT *` and `UPDATE SET *` can be used to ingest or overwrite rows without any data transformation. Note that these replacements are allowed _only_ when the source and target tables have precisely matching column names.
+
+This example also shows the strategy to avoid redundant `UPDATE`'s. Since comparisons between source and target columns are only evaluated on explicitly listed join or action clause conditionals, a full row re-write will still occur even if the other unnamed values haven’t changed. Utilize `target.col <> source.col` conditionals to catch these cases.
+
+```sql
+MERGE INTO dest_table AS dest
+USING (VALUES (1, 'abc', 10), (2, 'xyz', 20)) AS src (id, col1, col2)
+ON dest.id = src.id
+WHEN NOT MATCHED THEN INSERT *
+WHEN MATCHED and dest.col1 <> src.col1 and dest.col2 <> src.col2 THEN UPDATE SET *;
+
+-- Is equivalent to:
+MERGE INTO dest_table AS dest
+USING (VALUES (1, 'abc', 10), (2, 'xyz', 20)) AS src (id, col1, col2)
+ON dest.id = src.id
+WHEN NOT MATCHED THEN INSERT (id, col1, col2) src.id, src.col1, src.col2
+WHEN MATCHED and dest.col1 <> src.col1 and dest.col2 <> src.col2 THEN UPDATE SET id = src.id, col1 = src.col1, col2 = src.col2;
 ```
 
 ## Limitations

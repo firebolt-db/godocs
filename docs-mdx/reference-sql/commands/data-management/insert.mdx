@@ -38,6 +38,7 @@ Given this clause, for each row proposed for insertion, either the insertion pro
 
   * `DO NOTHING` enables an `INSERT IGNORE` workload, whereby the newer row is simply discarded.
   * `DO UPDATE` enables an UPSERT or `INSERT UPDATE` workload, whereby the pre-existing matched row(s) can be partially or fully overwritten. The overwrite expressions can (but do not have to) reference the fresh data using the `EXCLUDED` view name.
+    * `DO UPDATE SET *` can replace the exhaustive `SET colA = EXCLUDED.colA, colB = EXCLUDED.colB, ... , colN = EXCLUDED.colN` if no data transformation is required.
 
 ```sql
 INSERT INTO <table> ( <column_name> [ , ... ] )
@@ -47,7 +48,7 @@ ON CONFLICT ( <conflict_column_name> [ , ... ] ) <conflict_action>
 
 <conflict_action> ::= {
   DO NOTHING |
-  DO UPDATE SET { <column_name> = <value> [ , ... ] }
+  DO UPDATE SET { * | { <column_name> = <value> [ , ... ] } }
 }
 ```
 
@@ -64,7 +65,7 @@ ON CONFLICT ( <conflict_column_name> [ , ... ] ) <conflict_action>
 
   * `INSERT` expression must be a single `VALUES` tuple.
   * At least one `CONFLICT` column must be specified. These are not automatically deduced from primary index, etc.
-  * `INSERT` column list must be specified. Their names and ordering cannot get deduced from `VALUES`.
+  * Unless using `INSERT *`, the `INSERT` column list must be specified. Their names and ordering cannot get deduced from `VALUES`.
 
 ## Examples
 
