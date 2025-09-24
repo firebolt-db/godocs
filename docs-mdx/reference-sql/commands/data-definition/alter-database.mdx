@@ -12,8 +12,7 @@ Updates the configuration of the specified database.
 ### Syntax
 
 ```sql
-ALTER DATABASE <database_name> WITH
-    [DESCRIPTION = <description>]
+ALTER DATABASE <database_name> SET DESCRIPTION = <description>
 ```
 
 ### Parameters 
@@ -28,7 +27,7 @@ ALTER DATABASE <database_name> WITH
 The following example alters a description of the database: 
 
 ```sql
-ALTER DATABASE my_database WITH DESCRIPTION = 'Database for query management';
+ALTER DATABASE my_database SET DESCRIPTION = 'Database for query management';
 ```
 
 ## ALTER DATABASE RENAME TO
