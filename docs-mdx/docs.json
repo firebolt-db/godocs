@@ -506,6 +506,7 @@
                       "reference-sql/functions-reference/array/array-sort",
                       "reference-sql/functions-reference/array/array-sum",
                       "reference-sql/functions-reference/array/array-to-string",
+                      "reference-sql/functions-reference/array/array-upper",
                       "reference-sql/functions-reference/array/arrays-overlap",
                       "reference-sql/functions-reference/array/flatten",
                       "reference-sql/functions-reference/array/index-of"
@@ -2412,6 +2413,11 @@
     {
       "source": "/sql_reference/functions-reference/array/array-length.html",
       "destination": "/reference-sql/functions-reference/array/array-length",
+      "permanent": false
+    },
+    {
+      "source": "/sql_reference/functions-reference/array/array-upper.html",
+      "destination": "/reference-sql/functions-reference/array/array-upper",
       "permanent": false
     },
     {
