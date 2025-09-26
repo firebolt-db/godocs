@@ -302,6 +302,7 @@
                   "reference-sql/information-schema/engine-history",
                   "reference-sql/information-schema/engine-metering-history",
                   "reference-sql/information-schema/engine-metrics-history",
+                  "reference-sql/information-schema/engine-caches",
                   "reference-sql/information-schema/engine-query-history",
                   "reference-sql/information-schema/engine-running-queries",
                   "reference-sql/information-schema/engine-user-query-history",
@@ -1916,6 +1917,11 @@
       "permanent": false
     },
     {
+      "source": "/sql_reference/information-schema/engine-caches.html",
+      "destination": "/reference-sql/information-schema/engine-caches",
+      "permanent": false
+    },
+    {
       "source": "/sql_reference/functions-reference/table-valued/read_csv.html",
       "destination": "/reference-sql/functions-reference/table-valued/read_csv",
       "permanent": false
@@ -2714,6 +2720,11 @@
     {
       "source": "/sql_reference/information-schema/engine-metrics-history",
       "destination": "/reference-sql/information-schema/engine-metrics-history",
+      "permanent": false
+    },
+    {
+      "source": "/sql_reference/information-schema/engine-caches",
+      "destination": "/reference-sql/information-schema/engine-caches",
       "permanent": false
     },
     {

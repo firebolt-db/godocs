@@ -74,6 +74,16 @@ For example, in the following `EXPLAIN (ANALYZE)` output, the `Join` operator re
 [...]
 ```
 
+### Observing cache state
+
+You can view the current state of the cache using the [`information_schema.engine_caches` view](/reference-sql/information-schema/engine-caches).
+Subresult reuse caches are available with the `pool` column being `query`.
+For example, the following query shows information (number of entries, size, etc.) about cached hash tables from the `Join` operator:
+
+```sql
+SELECT * FROM information_schema.engine_caches WHERE type = 'join_hash_table';
+```
+
 ### Limitations
 Firebolt supports subresult caching for as many queries as possible. The following are specific limitations where subresult caching cannot be applied:
 
