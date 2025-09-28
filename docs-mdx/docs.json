@@ -312,6 +312,7 @@
                   "reference-sql/information-schema/locations",
                   "reference-sql/information-schema/logins",
                   "reference-sql/information-schema/network_policies",
+                  "reference-sql/information-schema/object-default-privileges",
                   "reference-sql/information-schema/object-privileges",
                   "reference-sql/information-schema/organization",
                   "reference-sql/information-schema/quotas",
@@ -336,6 +337,7 @@
                   {
                     "group": "Access control",
                     "pages": [
+                      "reference-sql/commands/access-control/alter-default-privileges",
                       "reference-sql/commands/access-control/alter-login",
                       "reference-sql/commands/access-control/alter-network-policy",
                       "reference-sql/commands/access-control/alter-organization-role",

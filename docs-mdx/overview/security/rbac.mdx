@@ -52,5 +52,17 @@ Firebolt divides objects into **global** and **regional** types, depending on th
 Firebolt provides the [organization_admin](/overview/organizations-accounts#organizational-administrative-role) role to manage organizational resources. While granular RBAC is currently only available at the account level, Firebolt plans to include making RBAC available at the organizational level in a future release.
 </Note>
 
-For more information about Firebolt’s RBAC model & how to administer your Firebolt cluster, see the next sections:
+## Default privileges
+
+Firebolt supports setting default privileges that automatically apply to future objects created by specific roles. This feature allows administrators to establish consistent permission patterns without manually granting privileges on each new object.
+
+Default privileges work by:
+* Setting privileges that automatically apply when new objects are created
+* Targeting specific roles that will receive these privileges
+* Supporting only account-level scope
+* Applying to schemas with granular permission control
+
+Use the [ALTER DEFAULT PRIVILEGES](/reference-sql/commands/access-control/alter-default-privileges) command to configure default privileges for your organization's access control needs.
+
+For more information about Firebolt's RBAC model & how to administer your Firebolt cluster, see the next sections:s:
 
