@@ -12,6 +12,8 @@ Data uniqueness is a crucial piece of information for the query optimizer. In Fi
 2. **Cardinality estimation** -- Provides more reasonable selectivity and cardinality estimates for better query planning.
 
 Whenever data is known to be unique, it is recommended to declare the unique constraints accordingly. Our benchmark result on TPC-H (SF100) shows that having the unique constraints declared on the primary key columns improves the total execution time on all TPC-H queries by 19% on average.
+You can also use the [`/*! unique(column) */`](/performance-and-observability/query-planning/query-hints/unique-columns) query hint comment for a single query, without modifying the table definition.
+This enables testing the performance impact of unique constraints before adding them to your table schema.
 
 <Warning>
 Since unique constraints are not enforced, ensure your data actually satisfies the uniqueness assumption. **Incorrect hints can lead to incorrect query results.**

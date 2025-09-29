@@ -114,7 +114,8 @@
                     "pages": [
                       "performance-and-observability/query-planning/query-hints",
                       "performance-and-observability/query-planning/query-hints/no-partial-aggregation",
-                      "performance-and-observability/query-planning/query-hints/no-join-ordering"
+                      "performance-and-observability/query-planning/query-hints/no-join-ordering",
+                      "performance-and-observability/query-planning/query-hints/unique-columns"
                     ]
                   },
                   "performance-and-observability/query-planning/user-guided-mode"
@@ -2683,7 +2684,6 @@
       "destination": "/reference-sql/explicit-transactions",
       "permanent": false
     },
-
     {
       "source": "/sql_reference/commands/data-definition/drop-account.html",
       "destination": "/reference-sql/commands/data-definition/drop-account",
@@ -5388,7 +5388,8 @@
       "source": "/Guides/ai/getting-started-with-ai",
       "destination": "/guides/ai/getting-started-with-ai",
       "permanent": false
-    },{
+    },
+    {
       "source": "/Guides/ai/use-aws-roles-to-access-bedrock",
       "destination": "/guides/ai/use-aws-roles-to-access-bedrock",
       "permanent": false
@@ -5397,7 +5398,8 @@
       "source": "/Guides/ai/getting-started-with-ai.html",
       "destination": "/guides/ai/getting-started-with-ai",
       "permanent": false
-    },{
+    },
+    {
       "source": "/Guides/ai/use-aws-roles-to-access-bedrock.html",
       "destination": "/guides/ai/use-aws-roles-to-access-bedrock",
       "permanent": false
