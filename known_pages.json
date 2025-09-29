@@ -421,6 +421,8 @@
   "/guides/integrations/debezium/",
   "/guides/integrations/estuary",
   "/guides/integrations/estuary/",
+  "/guides/integrations/kafka-sink-connector",
+  "/guides/integrations/kafka-sink-connector/",
   "/guides/integrations/langchain",
   "/guides/integrations/langchain/",
   "/guides/integrations/looker-cloud",
