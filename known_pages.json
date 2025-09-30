@@ -635,6 +635,8 @@
   "/performance-and-observability/query-planning/unique-constraint/",
   "/performance-and-observability/query-planning/user-guided-mode",
   "/performance-and-observability/query-planning/user-guided-mode/",
+  "/performance-and-observability/query-planning/late-materialization",
+  "/performance-and-observability/query-planning/late-materialization/",
   "/performance-and-observability/runtime",
   "/performance-and-observability/runtime/",
   "/product",

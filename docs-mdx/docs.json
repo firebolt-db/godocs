@@ -118,7 +118,8 @@
                       "performance-and-observability/query-planning/query-hints/unique-columns"
                     ]
                   },
-                  "performance-and-observability/query-planning/user-guided-mode"
+                  "performance-and-observability/query-planning/user-guided-mode",
+                  "performance-and-observability/query-planning/late-materialization"
                 ]
               },
               "performance-and-observability/iceberg-and-external-data"

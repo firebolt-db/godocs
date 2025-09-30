@@ -53,6 +53,7 @@ The following settings can be configured using the `WITH` clause and the `SET` c
 - [max_threads](#limiting-max-threads)
 - [max_insert_threads](#limiting-max-insert-threads)
 - [enable_iceberg_partitioned_scan](#using-iceberg-partitioned-scans-for-co-located-joins-and-aggregations)
+- [late_materialization_max_rows](#control-late-materialization)
 
 The following settings can be configured only using the `SET` command:
 - [query_label](#query-labeling-and-tagging)
@@ -755,3 +756,33 @@ GROUP BY type;
 ```
 
 </CodeGroup>
+
+## Control late materialization
+
+You can control the late materialization optimization using `late_materialization_max_rows`.
+By default `late_materialization_max_rows` is set to 10.
+This means that late materialization will only be applied for top-k queries with a limit of 10 or smaller.
+If you want to use late materialization for a query with a larger limit you can increase this value.
+If you want to disable late materialization, just set it to zero.
+
+See [late materialization](/performance-and-observability/query-planning/late-materialization) for more details.
+
+
+### Syntax
+
+```sql
+SET late_materialization_max_rows = <integer>;
+```
+
+```sql
+SELECT ... WITH (late_materialization_max_rows = <integer>);
+```
+### Example
+
+The following example demonstrates how to use the `late_materialization_max_rows` setting to apply late materialization to a top-k query with a limit larger than 10.
+
+```sql
+SELECT * FROM table ORDER BY a LIMIT 100
+WITH (late_materialization_max_rows = 100);
+```
+
