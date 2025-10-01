@@ -6,8 +6,8 @@ title: Table and Column Compression
 
 ## Overview
 
-Firebolt allows users to specify custom compression algorithms at both the table level and column level when creating tables. 
-Compression helps you reduce storage costs and improve query performance by decreasing disk usage and I/O operations.
+You can specify custom compression algorithms at both the table level and column level when creating tables. 
+Compression helps reduce storage costs and improve query performance by decreasing disk usage and I/O operations.
 
 Firebolt compression supports:
 - Specialized codecs optimized for specific data types
@@ -31,9 +31,9 @@ These codecs can compress any data type and work independently:
 - `default` – Uses the system default compression (equivalent to `lz4`)
 
 ### Specialized codecs
-These preprocessing codecs optimize specific data patterns:
+These preprocessing codecs do not compress data themselves, but allow you to achieve better compression ratios in combination with general-purpose codecs:
 
-- `delta` – Stores differences between consecutive values; excellent for sequential numeric data (requires NOT NULL)
+- `delta` – Stores differences between consecutive values; excellent for monotonic numeric data
 
 ## Compression syntax
 
@@ -42,19 +42,19 @@ Firebolt uses a flexible parentheses-based syntax that supports both simple code
 ### Basic syntax
 
 ```sql
--- Single codec without parameters
-COMPRESSION (lz4)
+-- Single codec without parameters:
+COMPRESSION lz4
 
--- Single codec with parameters  
-COMPRESSION (zstd(5))
-COMPRESSION (lz4hc)
+-- Single codec with parameters:
+COMPRESSION zstd(5)
 
--- Specialized codecs require chaining with general-purpose codecs
+-- Chain two codecs:
 COMPRESSION (delta, zstd(3))
 ```
 
 ### Compression chaining
 
+You can apply multiple compression codecs in sequence using chaining.
 You can chain up to three codecs, where specialized codecs preprocess data before general-purpose codecs compress it:
 
 ```sql
@@ -64,8 +64,8 @@ COMPRESSION (delta, zstd(5))
 ```
 
 **Chaining rules:**
-- You can chain up to three codecs maximum
-- Only one general-purpose codec is allowed per chain
+- You can chain up to three codecs
+- Only one general-purpose codec is allowed in each chain
 - The general-purpose codec must be last in the chain
 - All codecs must be compatible with the column's data type
 
@@ -82,7 +82,7 @@ For detailed technical specifications, parameter ranges, and performance benchma
 | `lz4` | High-throughput ingestion, frequently accessed data | Very fast | Very fast | Good |
 | `lz4hc` | Balanced performance, storage-sensitive applications | Moderate | Very fast | Better |
 | `zstd(3)` | General analytics, best overall balance | Fast | Fast | Better |
-| `zstd(15+)` | Archival data, maximum compression | Slow | Fast | Excellent |
+| `zstd(15)` | Archival data, maximum compression | Slow | Fast | Excellent |
 
 ### When to use specialized codecs
 
@@ -101,7 +101,7 @@ CREATE TABLE metrics (
     value DOUBLE,
     timestamp TIMESTAMPTZ
 ) 
-WITH (COMPRESSION (zstd(5)));
+WITH (COMPRESSION zstd(5));
 
 -- Using advanced codecs
 CREATE TABLE time_series (
@@ -109,7 +109,7 @@ CREATE TABLE time_series (
     reading DOUBLE, 
     recorded_at TIMESTAMPTZ
 )
-WITH (COMPRESSION (lz4hc));
+WITH (COMPRESSION lz4hc);
 ```
 
 ## Column-level compression  
@@ -125,8 +125,7 @@ CREATE TABLE sensor_data (
     sensor_id INTEGER NOT NULL COMPRESSION (delta, lz4),
     
     -- Use high compression for text data
-    description TEXT COMPRESSION (zstd(15)),
-
+    description TEXT COMPRESSION zstd(15)
 )
 WITH (COMPRESSION (lz4));
 ```
@@ -146,7 +145,7 @@ CREATE TABLE analytics_events (
     -- High compression for JSON data
     event_data TEXT COMPRESSION (zstd(15))
 )
-WITH (COMPRESSION (lz4));
+WITH (COMPRESSION lz4);
 ```
 
 ## Data type compatibility
@@ -159,7 +158,7 @@ WITH (COMPRESSION (lz4));
 | `delta` | ✅ | ❌ | ✅ | ❌ | ❌ |
 
 <Note>
-Delta codec requires `NOT NULL` columns since null values break its compression algorithms.
+The `delta` codec supports only `NOT NULL` columns.
 </Note>
 
 ## Monitoring compression effectiveness
@@ -230,8 +229,7 @@ For backward compatibility, Firebolt continues to support the older compression 
 ```sql
 -- Legacy syntax (still supported for lz4 and zstd only)
 CREATE TABLE legacy_table (
-    id INTEGER COMPRESSION zstd COMPRESSION_LEVEL 5,
-    name TEXT COMPRESSION lz4
+    id INTEGER COMPRESSION zstd COMPRESSION_LEVEL 5
 );
 ```
 
@@ -245,8 +243,7 @@ CREATE TABLE legacy_table (
 ```sql
 -- Migrate to new syntax for full feature support
 CREATE TABLE modern_table (
-    id INTEGER COMPRESSION (zstd(5)),
-    name TEXT COMPRESSION (lz4)
+    id INTEGER COMPRESSION zstd(5)
 );
 ```
 

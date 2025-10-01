@@ -64,10 +64,10 @@ For practical examples, getting started guidance, and compression best practices
 **Examples:**
 ```sql
 -- Balanced performance
-column_name TYPE COMPRESSION (lz4hc(6))
+column_name TYPE COMPRESSION lz4hc(6)
 
 -- Maximum LZ4HC compression  
-column_name TYPE COMPRESSION (lz4hc(12))
+column_name TYPE COMPRESSION lz4hc(12)
 ```
 
 ---
@@ -105,10 +105,10 @@ column_name TYPE COMPRESSION (lz4hc(12))
 **Examples:**
 ```sql
 -- Fast ZSTD for hot data
-log_data TEXT COMPRESSION (zstd(3))
+log_data TEXT COMPRESSION zstd(3)
 
 -- High compression for cold data
-archived_events TEXT COMPRESSION (zstd(15))
+archived_events TEXT COMPRESSION zstd(15)
 ```
 
 ---
@@ -167,7 +167,7 @@ archived_events TEXT COMPRESSION (zstd(15))
 - Compression ratio: Highly variable, excellent for sequential data
 - CPU usage: Very low
 
-**Data type compatibility:** Integers, dates, timestamps (NOT NULL only)
+**Data type compatibility:** Integers, dates, timestamps (`NOT NULL` only)
 
 **Best for:**
 - Sequential IDs (user_id, order_id, event_id)
