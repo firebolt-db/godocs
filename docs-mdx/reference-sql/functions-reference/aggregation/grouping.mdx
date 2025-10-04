@@ -23,7 +23,7 @@ Key points about the `GROUPING` function:
 
 
 ```sql
-GROUPING(<expression> [, ...n])
+GROUPING(<expression> [, ...n]) [FILTER ([WHERE] <condition>)]
 ```
 
 ## Parameters
@@ -32,6 +32,7 @@ GROUPING(<expression> [, ...n])
 | Parameter      | Description                                                                                                                                       | Supported input types  |
 |:-------------- |:------------------------------------------------------------------------------------------------------------------------------------------------- |:---------------------- |
 | `<expression>` | An expression that also appears as a `<grouping_element>` in a `GROUPING SETS`, `ROLLUP`, or `CUBE` clause. The maximum number of arguments is 31.| Any                    |
+| `<condition>` | An optional boolean expression to filter rows used in aggregation | `BOOL` |
 
 ## Return Type
 `GROUPING` returns a value of type `INT`. 

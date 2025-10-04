@@ -448,7 +448,7 @@
                   "reference-sql/functions-reference",
                   "reference-sql/functions-reference/functions-glossary",
                   {
-                    "group": "Aggregation functions",
+                    "group": "Aggregate functions",
                     "pages": [
                       "reference-sql/functions-reference/aggregation/any_value",
                       "reference-sql/functions-reference/aggregation/approx-count-distinct",

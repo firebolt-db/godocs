@@ -15,8 +15,7 @@ Numbers are represented in two's complement, a binary method for signed integers
 ## Syntax
 
 ```sql
-BIT_AND
-([ DISTINCT ] <expression>)
+BIT_AND([ DISTINCT ] <expression>) [FILTER ([WHERE] <condition>)]
 ```
 Note: `DISTINCT` has no effect on the function's result.
 
@@ -25,6 +24,7 @@ Note: `DISTINCT` has no effect on the function's result.
 | Parameter      | Description                                  | Supported input types |
 |:---------------|:---------------------------------------------|:----------------------|
 | `<expression>` | The expression used to compute the result. | `INT`, `BIGINT`       |
+| `<condition>` | An optional boolean expression to filter rows used in aggregation | `BOOL` |
 
 ## Return Types
 

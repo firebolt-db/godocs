@@ -8,7 +8,7 @@ title: HLL_COUNT_DISTINCT
 
 Counts the approximate number of unique or not NULL values, to the precision specified. `HLL_COUNT_DISTINCT` uses the HLL++ algorithm and allows you to control the sketch size set precision. 
 
-`HLL_COUNT_DISTINCT` requires less memory than exact aggregation functions, but also introduces statistical uncertainty. The default precision is 12, with a maximum of 20.
+`HLL_COUNT_DISTINCT` requires less memory than exact aggregate functions, but also introduces statistical uncertainty. The default precision is 12, with a maximum of 20.
 
 <Note>
 Higher precision comes at a memory and performance cost.
@@ -64,5 +64,5 @@ Assuming 8,388,608 unique pk values, the previous code example returns the follo
 ' +----------------+--------------+-------------+-------------+
 ```
 
-In the previous result, `approx_count` is using precision 17, `hll12_count` is using precision 12, and `hll20_count` is using precision 20, which is the most precise value. 
+In the previous result, `approx_count` is using precision 17, `hll12_count` is using precision 12, and `hll20_count` is using precision 20, which is the most precise value.  
 

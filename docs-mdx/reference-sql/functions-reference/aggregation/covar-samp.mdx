@@ -27,15 +27,16 @@ For information on correlation see [CORR](/reference-sql/functions-reference/agg
 
 
 ```sql
-COVAR_SAMP(<expr1>, <expr2>)
+COVAR_SAMP(<expr1>, <expr2>) [FILTER ([WHERE] <condition>)]
 ```
-## Parameters 
+## Parameters
 
 
 | Parameter | Description               | Supported input types |
 | :--------- | :----------------------------------- | :--------|
 | `<expr1>`  | First numeric expression to use for covariance computation. | `DOUBLE PRECISION`
 | `<expr2>`  | Second numeric expression to use for covariance computation. | `DOUBLE PRECISION`
+| `<condition>` | An optional boolean expression to filter rows used in aggregation | `BOOL` |
 
 ## Return Type
 `COVAR_SAMP` returns a result of type `DOUBLE PRECISION`.
