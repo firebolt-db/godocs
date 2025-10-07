@@ -256,7 +256,7 @@
                   "guides/integrations/looker-cloud",
                   "guides/integrations/looker-on-prem",
                   "guides/integrations/mcp",
-                  "guides/integrations/metabase",
+                  "guides/integrations/metabase-on-prem",
                   "guides/integrations/otel-exporter",
                   "guides/integrations/pandas",
                   "guides/integrations/connecting-to-paradime",
@@ -5641,7 +5641,7 @@
     },
     {
       "source": "/Guides/integrations/metabase.html",
-      "destination": "/guides/integrations/metabase",
+      "destination": "/guides/integrations/metabase-on-prem",
       "permanent": false
     },
     {
@@ -5981,7 +5981,7 @@
     },
     {
       "source": "/Guides/integrations/metabase",
-      "destination": "/guides/integrations/metabase",
+      "destination": "/guides/integrations/metabase-on-prem",
       "permanent": false
     },
     {
