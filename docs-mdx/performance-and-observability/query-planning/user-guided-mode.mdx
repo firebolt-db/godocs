@@ -7,7 +7,7 @@ title: User-guided mode
 Sometimes you need full control over the planning process for a specific query.
 You can achieve that by [setting the `optimizer_mode` session parameter to `'user_guided'`](/reference/system-settings#changing-the-optimizer-mode).
 In this mode, the optimizer will exclude all cost-based optimization rules.
-This ensures that the relative order of joins and aggregations in the resulting execution plan will follow the sytnatic order defined in the `SELECT` blocks of your SQL query.
+This ensures that the relative order of joins and aggregations in the resulting execution plan will follow the syntactic order defined in the `SELECT` blocks of your SQL query.
 As a more granular setting, you can also use the [`no_join_ordering`](/performance-and-observability/query-planning/query-hints/no-join-ordering) query hint.
 
 Specifically, the following optimizations are disabled in user-guided mode:
