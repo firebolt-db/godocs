@@ -12,6 +12,10 @@ For setup guidance and end‑to‑end examples, see [Getting started with AI](/g
 Initially, this function uses Amazon Bedrock as its backend. The `location` must reference a Bedrock `LOCATION`. For now, the only supported model is Meta Llama 3.3 70B Instruct: the `endpoint` must contain the substring `'meta.llama3-3-70b-instruct-v1:0'`.
 </Note>
 
+<Note>
+Your account must explicitly allow Amazon Bedrock. An administrator needs to enable `ALLOW_AMAZON_BEDROCK`. See [ALTER ACCOUNT SET ALLOW_AMAZON_BEDROCK](/reference-sql/commands/data-definition/alter-account/#alter-account-set-allow-amazon-bedrock).
+</Note>
+
 ## Syntax
 
 ```sql

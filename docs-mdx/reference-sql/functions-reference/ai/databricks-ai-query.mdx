@@ -1,0 +1,83 @@
+---
+description: Invoke a Databricks serving endpoint and return the raw response as JSON text.
+sidebarTitle: DATABRICKS_AI_QUERY
+title: DATABRICKS_AI_QUERY
+---
+
+
+Invokes a Databricks serving endpoint and returns the raw response payload as a JSON string (`TEXT`).
+To use the function, provide the serving endpoint name, the request body as serialized JSON, and a `LOCATION` that holds Databricks credentials.
+
+## Syntax
+
+```sql
+DATABRICKS_AI_QUERY(<serving_endpoint_name>, <request_body>, <location> [, <null_on_error>])
+```
+
+## Parameters
+
+| Parameter                | Description                                                                                           | Supported input types |
+|:-------------------------|:------------------------------------------------------------------------------------------------------|:----------------------|
+| `<serving_endpoint_name>`| The name of the Databricks serving endpoint to invoke. The value is forwarded to Databricks as-is.   | `TEXT` |
+| `<request_body>`         | The request body as a serialized JSON string. Firebolt does not validate the structure.              | `TEXT` |
+| `<location>`             | The name of the `LOCATION` to use for Databricks credentials. Must be a literal constant.            | `TEXT` |
+| `<null_on_error>`        | Optional. Whether to return `NULL` instead of raising an error when an invocation error occurs. Default `FALSE`. Must be a literal constant. | `BOOL` |
+
+<Note>
+Make sure the `request_body` JSON matches the syntax required by your Databricks serving endpoint. See the Databricks documentation for your specific model's request format.
+</Note>
+
+## Return Type
+
+`TEXT`
+
+- Returns the raw Databricks response payload as a JSON string.
+- If `<request_body>` is `NULL`, the function returns `NULL`.
+
+## LLM Token Budget
+
+The daily LLM token budget for each account is governed by the [`ALTER ACCOUNT SET LLM_TOKEN_BUDGET`](/reference-sql/commands/data-definition/alter-account/#alter-account-set-llm-token-budget) command. If your account exceeds its allotted token budget, invocations of `DATABRICKS_AI_QUERY` will fail until the budget is increased or the daily limit resets. The current limit and daily usage of the LLM token budget can be viewed in [information_schema.quotas](/reference-sql/information-schema/quotas).
+
+<Note>
+LLM token budget accounting is not available in Firebolt Core.
+</Note>
+
+## Examples
+
+For setup guidance and end-to-end examples, see [Getting started with AI](/guides/ai/getting-started-with-ai).
+
+### Invoke a serving endpoint using a LOCATION
+
+```sql
+SELECT n AS number,
+       JSON_POINTER_EXTRACT_TEXT(
+         DATABRICKS_AI_QUERY(
+           'databricks-gpt-oss-20b',
+           $${"max_tokens": 100,"messages": [{"role": "system", "content": "Write in english the capitalized name of the number that the user writes. Respond with a single word."}, {"role": "user", "content": "$$ || n::TEXT || $$"}], "temperature": 0.1}$$,
+           '${UNIQUE_IDENTIFIER}_databricks_location'
+         ),
+         '/choices/0/message/content/1/text'
+       ) AS processed
+FROM generate_series(1,3) s(n);
+```
+
+For details on creating a Databricks LOCATION, see [CREATE LOCATION (Databricks)](/reference-sql/commands/data-definition/create-location-databricks).
+
+**Returns**
+
+| number | processed |
+|:-------|:----------|
+| 1      | 'ONE'     |
+| 2      | 'TWO'     |
+| 3      | 'THREE'   |
+
+### Check your LLM token quota usage
+
+```sql
+SELECT * FROM account_db.information_schema.quotas;
+```
+
+Look for the `LLM_TOKEN_BUDGET` row to view current usage and limits.
+
+
+

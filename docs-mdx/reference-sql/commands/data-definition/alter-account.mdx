@@ -65,9 +65,13 @@ ALTER ACCOUNT "dev" OWNER TO "alice@acme.com";
 
 ## ALTER ACCOUNT SET LLM_TOKEN_BUDGET
 
-Sets the LLM token budget for the account, which limits the total number of tokens that can be processed daily by AI functions such as [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai). By default, accounts are created with a zero token budget.
+Sets the LLM token budget for the account, which limits the total number of tokens that can be processed daily by AI functions such as [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai) and [`DATABRICKS_AI_QUERY`](/reference-sql/functions-reference/ai/databricks-ai-query). By default, accounts are created with a zero token budget.
 
 You can view the current budget and usage in the `information_schema.quotas` view.
+
+<Note>
+Setting a token budget is not sufficient by itself. You must also explicitly allow usage of specific AI services (for example, Databricks AI or Amazon Bedrock) using the account settings documented below.
+</Note>
 
 ### Syntax
 
@@ -88,4 +92,54 @@ The following command will set the token budget for account "dev" to 10000 token
 
 ```sql
 ALTER ACCOUNT "dev" SET (LLM_TOKEN_BUDGET = 10000);
+```
+
+## ALTER ACCOUNT SET ALLOW_DATABRICKS_AI
+
+Enables the use of Databricks AI from this account. An account administrator must explicitly allow Databricks AI before invoking Databricks serving endpoints (for example, with [`DATABRICKS_AI_QUERY`](/reference-sql/functions-reference/ai/databricks-ai-query)).
+
+### Syntax
+
+```sql
+ALTER ACCOUNT [IF EXISTS] <account_name> SET (ALLOW_DATABRICKS_AI = <bool>)
+```
+
+### Parameters
+
+| Parameter        | Description                                                        |
+|:-----------------|:-------------------------------------------------------------------|
+| `<account_name>` | The name of the account to be altered.                             |
+| `<bool>`         | `TRUE` to allow Databricks AI; `FALSE` to disallow.                |
+
+### Example
+
+An administrator enables Databricks AI for account "dev":
+
+```sql
+ALTER ACCOUNT dev SET (ALLOW_DATABRICKS_AI = TRUE);
+```
+
+## ALTER ACCOUNT SET ALLOW_AMAZON_BEDROCK
+
+Enables the use of Amazon Bedrock from this account. An account administrator must explicitly allow Amazon Bedrock before invoking Bedrock models (for example, with [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai/aws-bedrock-ai-query)).
+
+### Syntax
+
+```sql
+ALTER ACCOUNT [IF EXISTS] <account_name> SET (ALLOW_AMAZON_BEDROCK = <bool>)
+```
+
+### Parameters
+
+| Parameter        | Description                                                        |
+|:-----------------|:-------------------------------------------------------------------|
+| `<account_name>` | The name of the account to be altered.                             |
+| `<bool>`         | `TRUE` to allow Amazon Bedrock; `FALSE` to disallow.               |
+
+### Example
+
+An administrator enables Amazon Bedrock for account "dev":
+
+```sql
+ALTER ACCOUNT dev SET (ALLOW_AMAZON_BEDROCK = TRUE);
 ```

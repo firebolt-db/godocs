@@ -251,6 +251,32 @@ SELECT AWS_BEDROCK_AI_QUERY(
 
 For more details about Bedrock LOCATION objects, see [CREATE LOCATION (Amazon Bedrock)](/reference-sql/commands/data-definition/create-location-bedrock). To learn about the function, see [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai/aws-bedrock-ai-query).
 
+### Databricks
+
+For invoking Databricks serving endpoints with OAuth authentication:
+
+```sql
+CREATE LOCATION databricks_serving WITH
+  SOURCE = DATABRICKS
+  WORKSPACE_INSTANCE = '000-0000000000000.cloud.databricks.com'
+  CREDENTIALS = (
+    OAUTH_CLIENT_ID = '00000000-0000-0000-0000-000000000000'
+    OAUTH_CLIENT_SECRET = '********'
+  );
+```
+
+Use the Databricks location when calling the AI function:
+
+```sql
+SELECT DATABRICKS_AI_QUERY(
+  'databricks-gpt-oss-20b',
+  $${"messages":[{"role":"user","content":"Hello"}]}$$,
+  'databricks_serving'
+) AS result;
+```
+
+For more details about Databricks LOCATION objects, see [CREATE LOCATION (Databricks)](/reference-sql/commands/data-definition/create-location-databricks). To learn about the function, see [`DATABRICKS_AI_QUERY`](/reference-sql/functions-reference/ai/databricks-ai-query).
+
 ### Apache Iceberg
 
 For data lake architectures with Iceberg tables:
