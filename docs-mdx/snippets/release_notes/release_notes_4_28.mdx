@@ -1,0 +1,155 @@
+## Firebolt Release Notes - Version 4.28
+
+### New Features
+
+**Enabled support for Tableau Cloud access to Firebolt**
+
+Firebolt now supports Tableau Cloud. See [documentation](https://docs.firebolt.io/guides/integrations/tableau) for detailed instructions.
+
+**Extended ownership transfer to support roles as owners**
+
+You can now transfer ownership of objects to roles in addition to users. The existing `ALTER <object_type> <object_name> OWNER TO <owner>` syntax now accepts both user names and role names as the owner.
+
+Supported objects that can be owned by roles: location, database, engine, schema, table, view, role, user.
+
+Examples:
+```sql
+ALTER DATABASE my_db OWNER TO my_role;
+ALTER TABLE my_table OWNER TO admin_role;
+ALTER ENGINE my_engine OWNER TO ops_role;
+ALTER ROLE user_role OWNER TO admin_role;
+```
+
+This enhancement provides more flexible ownership management by allowing roles to own objects, enabling better delegation of administrative responsibilities within teams.
+
+**ALTER DEFAULT PRIVILEGES**
+
+Firebolt now introduces ALTER DEFAULT PRIVILEGES to manage permissions for future schemas. This RBAC feature simplifies access control by setting default privilege, such as `USAGE`, `CREATE`, or `ALL` privileges.
+
+Applies only to newly created schemas on the account wide scope, using the following syntax:
+
+```sql
+ALTER DEFAULT PRIVILEGES { GRANT | REVOKE } <privilege> ON SCHEMAS { TO | FROM } <role_name>
+```
+
+For example, executing the following will grant the `USAGE` privilege over every future schema created in the account.
+```
+ALTER DEFAULT PRIVILEGES GRANT USAGE ON SCHEMAS TO role_name;
+```
+
+Users can view current assigned default privileges by querying `information_schema.object_default_privileges`.
+
+**Enhanced Compression Support**
+
+This release introduces new compression capabilities to optimize storage and query performance:
+
+- Support for chaining multiple compression codecs for optimal results.
+- Supported Codecs
+    - **LZ4**: Fast compression (default).
+    - **LZ4HC**: High-compression variant with configurable levels (1-12).
+    - **ZSTD**: Modern high-compression algorithm with configurable compression levels (1-22).
+    - **Delta**: Preprocessing codec for sequential numeric data, timestamps, and IDs.
+
+Syntax Examples:
+
+```sql
+-- Column-level compression with chaining
+CREATE TABLE events (
+    event_id INTEGER NOT NULL COMPRESSION (delta, lz4),
+    data TEXT COMPRESSION (zstd(5))
+);
+```
+
+**Added support for reading non-UTF-8 values in string columns from Parquet**
+
+When reading Parquet string columns, you can now choose to have invalid UTF-8 bytes replaced with the unicode replacement character � (U+FFFD) instead of raising an error. This is available across [`read_parquet`](/reference-sql/functions-reference/table-valued/read_parquet), [COPY FROM](/reference-sql/commands/data-management/copy-from), and [external table definitions](/reference-sql/commands/data-definition/create-external-table). In all cases, set `replace_non_utf_bytes` to `true`, for example:
+```sql
+select * from read_parquet(location => 'orders', replace_non_utf_bytes => true);
+create external table customers (...) type = (parquet) replace_non_utf_bytes = true;
+copy into invoices from ... with (type = parquet, replace_non_utf_bytes = true);
+```
+
+**Extended `MERGE` and `INSERT ON CONFLICT` syntax to support `INSERT *` and `UPDATE SET *`**
+
+`MERGE` and `INSERT ON CONFLICT` now support `INSERT *` and `UPDATE SET *` (see full [syntax](/reference-sql/commands/data-management/merge.mdx)). This is syntactic sugar for previously existing functionality, that can be used to ingest or overwrite rows without any data transformation. Note that these substitutions are allowed _only_ when the source and target tables have precisely matching column names. 
+
+**Information schema to inspect engine caches**
+
+Added the [`information_schema.engine_caches`](/reference-sql/information-schema/engine-caches) view to inspect the contents of
+various caches like [result cache](/overview/queries/understand-query-performance-subresult)
+and [reusable common table expressions](/reference-sql/commands/queries/select#reusable-common-table-expressions).
+
+### Performance Improvements
+
+
+**Introduced late materialization optimization for top-k queries**
+
+The [late materialization](/performance-and-observability/query-planning/late-materialization) optimization was introduced for top-k queries.
+This enhancement speeds up eligible top-k queries tremendously, improving query processing efficiency and performance.
+
+**Larger reusable CTEs**
+
+Increased the maximum entry size for common table expressions (CTEs) that are marked as [materialized reusable](/reference-sql/commands/queries/select#reusable-common-table-expressions).
+Because reusable is specified explicitly in queries, it has a higher priority than the default query cache size limit.
+
+**Functional dependencies detection**
+
+Our query planner now tracks functional dependencies between columns to produce more efficient execution plans. For example, when an ORDER BY clause contains columns that functionally depend on earlier keys, the optimizer can safely remove redundant sort keys.
+
+```sql
+SELECT name, surname, name || ' ' || surname as full_name FROM employees ORDER BY name, surname, full_name;
+```
+
+In this case, sorting by `name` and `surname` already guarantees the correct order, since `full_name` functionally depends on them, so the optimizer eliminates the redundancy.
+
+Our optimizer also uses uniqueness information for collecting these functional dependencies. In the following example, if `emp_id` is declared as `UNIQUE`, all other columns in `employees` table will functionally depend on `emp_id`, allowing the optimizer eliminate the unnecessary `dept_id` key.
+
+```sql
+SELECT * FROM employees ORDER BY emp_id, dept_id;
+```
+
+Functional dependencies are also leveraged during planning to detect when an intermediate result is already fully sorted. This allows the optimizer to make smarter decisions about plan distribution.
+
+**Hint comments**
+
+Added an additional [hint comment](/performance-and-observability/query-planning/query-hints) that can indicate [unique columns](/performance-and-observability/query-planning/query-hints/unique-constraint).
+This enables evaluating performance improvements that the planner is able to achieve without having to declare unique constraints [in the ddl](/performance-and-observability/query-planning/unique-constraint).
+Enabled using the [`no_partial_agg`](/performance-and-observability/query-planning/query-hints/no-partial-aggregation) hint at the `GROUP BY` level.
+
+**Optimized the processing of right and full outer joins between fact and dimension tables**
+
+Right and full outer joins between fact tables and dimension tables can now be executed in a fully scale-out manner on multi-node engines, resulting in improved performance and more balanced memory usage across the cluster.
+
+**Replaced patterns without wildcards in `LIKE` expressions with string comparisons for improved execution time and pruning efficiency**
+
+Patterns without wildcards in `LIKE` expressions are now replaced by string comparisons. For example, `SELECT TEXT_COL LIKE 'abc' FROM T1` is replaced by `SELECT TEXT_COL = 'abc' FROM T1`. This change improves evaluation efficiency and enables better pruning for these expressions.
+
+**Integrated filter predicates into table scans of managed tables for enhanced data retrieval efficiency.**
+
+Filter predicates on scans of managed tables are now fully integrated into table scans. The scan process loads columns, evaluates predicates, and checks for qualified rows. Only when rows qualify does it continue to load and check additional predicates. Previously, only a subset of filters that were expected to be selective where pushed into the scan. This integration reduces the amount of data loaded in scans with selective filter predicates, making data retrieval more efficient.
+
+**Redundant filter removal**
+
+Our query planner now uses range analysis to remove redundant filter statements, such as in the filter `x > 3 and x > 2`.
+It also detects contradictions like `x < 2 and x > 2`, which can achieve significant performance improvements for some queries.
+
+**Evaluate `NOT IN` expressions as an anti-join when compared with the `TRUE` constant using an equality predicate**
+
+`NOT IN` expressions are now being evaluated as an anti-join when compared with the `TRUE` constant using an equality predicate.
+
+### Bug Fixes
+
+**Fix potential incorrect results with order-dependent operations in non-materialized common table expressions**
+
+Operations that depend on the order they are executed in (such as the sum of floating point numbers) should be guaranteed to give the same result when used multiple times in the same query.
+Firebolt now automatically materializes these results to ensure that they are always consistent.
+Previously, different executions of such CTEs could have resulted in different results, all of which were correct in isolation, but violated the expectation that they all be exactly equal.
+
+**Fixed AWS role ARN credentials being ignored in `LOCATION` objects for Iceberg table queries**
+
+Resolved an issue where AWS role ARN credentials were ignored in `LOCATION` objects for Iceberg table queries. This fix ensures proper authentication when accessing data in Iceberg tables.
+
+**Fixed a bug in handling escaped non-wildcard characters in `LIKE` patterns with trailing wildcards**
+
+A bug was fixed in the handling of escaped non-wildcard characters in LIKE patterns with trailing wildcards. Previously, any backslash in a LIKE pattern was incorrectly assumed to refer to the next wildcard character. This caused issues when the pattern contained only `%` wildcards, and these wildcards were positioned at the end of the pattern. For example, when a column `t1.t` contains the string `'abbcd'`, the query `SELECT t LIKE 'a\\b%c%' FROM t1` would incorrectly return `FALSE`. This fix ensures accurate pattern matching, improving query reliability.
+
