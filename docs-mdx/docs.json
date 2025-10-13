@@ -108,6 +108,7 @@
                   "performance-and-observability/query-planning",
                   "performance-and-observability/query-planning/inspecting-query-plans",
                   "performance-and-observability/query-planning/cardinality-estimation",
+                  "performance-and-observability/query-planning/automated-column-statistics",
                   "performance-and-observability/query-planning/unique-constraint",
                   {
                     "group": "Query Hints",
