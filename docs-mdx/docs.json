@@ -591,6 +591,7 @@
                     "group": "JSON functions",
                     "pages": [
                       "reference-sql/functions-reference/json",
+                      "reference-sql/functions-reference/json/check-json",
                       "reference-sql/functions-reference/json/json-extract-array",
                       "reference-sql/functions-reference/json/json-extract",
                       "reference-sql/functions-reference/json/json-pointer-extract-keys",
@@ -599,6 +600,7 @@
                       "reference-sql/functions-reference/json/json-value-array",
                       "reference-sql/functions-reference/json/json-value",
                       "reference-sql/functions-reference/json/json-format",
+                      "reference-sql/functions-reference/json/json-is-valid",
                       "reference-sql/functions-reference/json/json-operators"
                     ]
                   },
