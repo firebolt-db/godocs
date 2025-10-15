@@ -11,7 +11,7 @@ Returns the value of the first argument for the row that contains the maximum of
 
 
 ```sql
-MAX_BY(<result>, <value>)
+MAX_BY(<result>, <value>) [FILTER ([WHERE] <condition>)]
 ```
 
 ## Parameters
@@ -21,6 +21,7 @@ MAX_BY(<result>, <value>)
 |:-----------|:--------------------------------------------|:----------------------|
 | `<result>` | The column from which the value is returned | Any type              |
 | `<value>`  | The column that is maximized                | Any type              |
+| `<condition>` | An optional boolean expression to filter rows used in aggregation | `BOOL` |
 
 ## Return Types
 

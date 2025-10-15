@@ -6,7 +6,7 @@ title: Transitive applicable roles
 ---
 
 
-The `information_schema.applicable_roles` view shows every role in the **account** and its grantees, who include other users or roles to whom the role is granted.
+The `information_schema.transitive_applicable_roles` view lists the roles that are granted to the current user, as well as those the user either owns or has the [necessary privilege to manage](/overview/security/rbac/role-permissions#role-permissions).
 
 Unlike, `information_schema.applicable_roles` that shows only direct grantees, `information_schema.transitive_applicable_roles` also shows indirect grantees.
 For example, if role `engineer` is granted to role `manager` and role `manager` is granted to user `alice` then user `alice` is a direct grantee of `manager` and an indirect grantee of `engineer`.

@@ -1,0 +1,186 @@
+---
+description: Connecting Metabase Cloud and Firebolt.
+sidebarTitle: Metabase Cloud
+title: Metabase Cloud
+---
+
+![Metabase](/assets/images/metabase.png)
+
+
+
+[Metabase](https://www.metabase.com/) is an open-source business intelligence platform. You can use Metabase's user interface to explore, analyze, and visualize data, query databases, generate reports, and create dashboards. 
+
+This guide shows you how to [set up a Firebolt connector](#set-up-a-connector-to-metabase) for a the managed or a cloud-hosted version of [**Metabase Cloud**](https://www.metabase.com/docs/latest/cloud/start). If you are using a self-hosted Metabase instance, you can refer to the [Metabase On-Prem guide](/guides/integrations/metabase-on-prem) for setup instructions.
+
+## Step 1: Prepare SSL Certificate Files
+
+In order to connect Metabase Cloud to Firebolt you need certificate-based authentication, which requires SSL certificate files. You can either use existing certificates or generate new ones.
+
+### If You Already Have the Certificates
+If you already have the following files:
+- `client-cert.pem` — your client certificate
+- `client-key.pk8` — your private key (must be in PKCS#8 DER format)
+
+Follow these steps:
+
+#### Ensure your private key is in PKCS#8 DER format (if needed)
+If your private key is in traditional PEM format, you must convert it to PKCS#8 DER (required by PostgreSQL JDBC and Firebolt):
+
+```bash
+openssl pkcs8 -topk8 -inform PEM -outform DER -in client-key.pem -out client-key.pk8 -nocrypt
+```
+
+#### Generate a public key from the PKCS#8 private key
+To access Firebolt using certificate-based auth, you must attach the public key to the Firebolt service account. Generate the public key as follows:
+
+```bash
+openssl pkey -in client-key.pk8 -pubout -out client-public.pem
+```
+
+🔐 This public key must be uploaded to the Firebolt UI or API and linked to the appropriate service account to enable access in [step 2](#step-2-set-up-the-firebolt-service-account--attach-the-public-key).
+
+⚠️ **Never share the private key. Only the public key (client-public.pem) should be attached to Firebolt.**
+
+### If You Need to Generate the Certificates
+If you don’t have an existing certificate and key pair, you can generate them using the Bash script below. This will:
+Create a local Certificate Authority (CA)
+Generate a private key in PKCS#8 DER format (fb.pk8)
+Generate a public key required by Firebolt
+Sign a client certificate (fb.crt) using the CA
+⚠️ If you already have a company CA, you can skip the CA generation step and use your organization’s ca.crt and ca.key files instead. Just update the CA_DIR variable in the script accordingly and make sure the filenames are exactly:
+ca.crt
+ca.key
+
+Certificate Generation Script
+```bash
+#!/bin/bash
+
+set -e  # Exit on error
+
+# === CONFIG ===
+CLIENT_CN="jdbc.firebolt.pg-fire"
+DAYS_VALID=730
+CA_DIR="./fb-ca"
+
+# === Create CA (optional) ===
+echo "📜 Creating Certificate Authority (CA)..."
+mkdir -p "$CA_DIR"
+openssl genrsa -out "$CA_DIR/ca.key" 4096
+openssl req -x509 -new -nodes -key "$CA_DIR/ca.key" -sha256 -days "$DAYS_VALID" -out "$CA_DIR/ca.crt" -subj "/CN=$CLIENT_CN"
+
+# === Create RSA Key ===
+echo "🔐 Generating raw RSA key..."
+openssl genrsa -out fb-rsa.key 2048
+
+# === Convert to PKCS#8 DER (.pk8) ===
+echo "📦 Converting to PKCS#8 DER format..."
+openssl pkcs8 -topk8 -inform PEM -outform DER -nocrypt -in fb-rsa.key -out fb.pk8
+
+# === Create public Key ===
+echo "🔐 Generating public key..."
+openssl pkey -in fb.pk8 -inform DER -pubout -out fb-public.pem
+
+# === Create CSR using original RSA key (matches .pk8) ===
+openssl req -new -key fb-rsa.key -out fb.csr -subj "/CN=$CLIENT_CN"
+
+# === Sign Client Certificate ===
+openssl x509 -req -in fb.csr -CA "$CA_DIR/ca.crt" -CAkey "$CA_DIR/ca.key" -CAcreateserial -out fb.crt -days "$DAYS_VALID" -sha256
+
+# === Cleanup ===
+rm -rf fb.csr fb-rsa.key $CA_DIR
+
+echo "✅ Done."
+```
+#### Files Generated
+
+- `fb.pk8` – Private key (PKCS#8 format)
+- `fb.crt` – Client certificate
+- `fb-public.pem` – Public key to attach to your Firebolt service account
+
+
+## Step 2: Set Up the Firebolt Service Account & Attach the Public Key
+For Metabase to connect to Firebolt using certificate authentication, the public key generated in Step 1 must be attached to a Firebolt service account. You can either use an existing service account or create a new one.
+
+### Optional: Create a New Service Account
+
+If you prefer to create a dedicated service account for Metabase access, follow the steps from the official documentation: [Create a Service Account](https://docs.firebolt.io/Guides/managing-your-organization/service-accounts.html#create-a-service-account)
+
+⚠️ **NOTE:** Ensure the service account is attached to a user to access the Firebolt account.
+
+### Associate the public key with the Firebolt service account
+
+1. Copy the contents of your public key file (`client-public.pem` or `fb-public.pem`).
+
+2. In Firebolt, run the following SQL to attach the public key:
+
+```sql
+ALTER SERVICE ACCOUNT "your_service_account_name" SET public_key='-----BEGIN PUBLIC KEY-----
+<contents of client-public.pem>
+-----END PUBLIC KEY-----';
+```
+
+
+
+## Step 3: Create a Connection to Metabase
+
+After setting up the Firebolt connector, use the following steps to create a connection between Metabase and your Firebolt database:
+
+1. Open your Metabase instance's home page in a web browser.
+
+2. Select **Settings** from the top-right menu of the Metabase interface.
+
+3. Select **Admin** from the dropdown menu.
+
+4. On the **Admin** page, select **Databases** in the top navigation bar.
+
+5. Select the **Add Database** button.
+
+6. From the **Database Type** dropdown list, select **PostgreSQL**.
+
+7. Fill out the required connection details using the descriptions provided in the following table:
+
+   | Field                       | Description                                                                                                                                                                                                                                          |
+   |-----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+   | **Display Name**            | A name to identify your database in Metabase. Use the same name as your Firebolt database for simplicity.                                                                                                                                            |
+   | **Host**                    | `pg.<region_name>.app.firebolt.io`                                                                                                                                                                                                                   |
+   | **Port**                    | `5432`                                                                                                                                                                                                                                               |
+   | **Database name**           | `<account_name>@<database_name>@<engine_name>`                                                                                                                                                                                    |
+   | **Username**                | The [service account ID](/guides/managing-your-organization/service-accounts#get-a-service-account-id) associated with your Firebolt database.                                                                                                       |
+   | **Password**                | The [secret for the service account](/guides/managing-your-organization/service-accounts#generate-a-secret) associated with your Firebolt database.                                                                                                  |
+
+    #### Host details
+
+    The host is based on your Firebolt region. Example:
+
+    ```
+    pg.us-east-1.app.firebolt.io
+    ```
+
+    Confirm your region with:
+
+    ```sql
+    SELECT region
+    FROM information_schema.accounts
+    WHERE account_name = '<your_account>';
+    ```
+
+8. Enable SSL by checking the **Use a secure connection (SSL)** option and make sure SSL mode is set to **Require**.
+
+9. Enable **Authenticate client certificate?** and select the following files from Step 1:
+
+   - **SSL Client Certificate (PEM)**: `fb.crt` you generated or a certificate you already had
+   - **SSL Client Key (PKCS-8/DER)**: `client-key.pem` you generated or a key you already had
+
+8. Select **Save** to store your database configuration.
+
+9. Verify the connection by confirming that Metabase displays a success message indicating that your Firebolt database has been added successfully. If the connection fails, double-check your settings and ensure all required fields are correct.
+
+## Additional Resources
+For more information about Metabase configuration and troubleshooting, refer to the following resources:
+
+* [**Adding and Managing Databases**](https://www.metabase.com/docs/latest/databases/connecting) — Official Metabase documentation on connecting to data sources and managing database connections. 
+
+* [**Troubleshooting Database Connections**](https://www.metabase.com/docs/latest/troubleshooting-guide/db-connection) — Guidance on resolving issues when connecting [Metabase](https://www.metabase.com/docs/latest/databases/connecting) to your databases. 
+
+* [**Troubleshooting Database Performance**](https://www.metabase.com/docs/latest/troubleshooting-guide/db-performance) — Tips for identifying and addressing performance issues with connected databases. 
+

@@ -16,16 +16,17 @@ The number returned is not necessarily in the original range of numbers.
 
 
 ```sql
-APPROX_PERCENTILE(<expression>,<value>)
+APPROX_PERCENTILE(<expression>,<value>) [FILTER ([WHERE] <condition>)]
 ```
 
-## Parameters 
+## Parameters
 
 
 | Parameter   | Description                                   | Supported input types | 
 | :----------- | :---------------------------------------------------- | :-----------| 
 | `<expression>`    | A valid expression, such as a column name, that evaluates to numeric values | `<column>` name that evaluates to numeric values | 
-| `<value>` | The percentage value for the function | A constant real number greater than or equal to 0.0 and less than 1 | 
+| `<value>` | The percentage value for the function | A constant real number greater than or equal to 0.0 and less than 1 |
+| `<condition>` | An optional boolean expression to filter rows used in aggregation | `BOOL` |
 
 ## Return Type
 `DOUBLE PRECISION`

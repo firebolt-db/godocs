@@ -15,14 +15,15 @@ The sample standard deviation measures how spread out values are in a sample by 
 
 
 ```sql
-{ STDDEV | STDDEV_SAMP }(<expression>)
+{ STDDEV | STDDEV_SAMP }(<expression>) [FILTER ([WHERE] <condition>)]
 ```
-## Parameters 
+## Parameters
 
 
 | Parameter | Description               | Supported input types |
 | :--------- | :----------------------------------- | :--------|
 | `<expression>`  | An expression producing numeric values for which to calculate the sample standard deviation. | `REAL`, `DOUBLE PRECISION` |
+| `<condition>` | An optional boolean expression to filter rows used in aggregation | `BOOL` |
 
 ## Return Type
 `STDDEV_SAMP` returns a result of type `DOUBLE PRECISION`. 

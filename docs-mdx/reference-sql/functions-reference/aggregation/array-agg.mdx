@@ -12,15 +12,16 @@ Concatenates input values, including `NULL` values, into an array.
 
 
 ```sql
-ARRAY_AGG(<expression>)
+ARRAY_AGG(<expression>) [FILTER ([WHERE] <condition>)]
 ```
 
-## Parameters 
+## Parameters
 
 
 | Parameter | Description                                         | Supported input type |
 | :--------- | :--------------------------------------------------|:-----|
 | `<expression>`   | Expression of any type to be accumulated into an array. | Any |
+| `<condition>` | An optional boolean expression to filter rows used in aggregation | `BOOL` |
 
 ## Return Type
 

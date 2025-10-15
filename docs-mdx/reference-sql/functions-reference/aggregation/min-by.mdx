@@ -11,7 +11,7 @@ Returns the value of the first argument for the row that contains the minimum of
 
 
 ```sql
-MIN_BY(<result>, <value>)
+MIN_BY(<result>, <value>) [FILTER ([WHERE] <condition>)]
 ```
 
 ## Parameters
@@ -21,6 +21,7 @@ MIN_BY(<result>, <value>)
 |:-----------|:--------------------------------------------|:----------------------|
 | `<result>` | The column from which the value is returned | Any type              |
 | `<value>`  | The column that is minimized                | Any type              |
+| `<condition>` | An optional boolean expression to filter rows used in aggregation | `BOOL` |
 
 ## Return Types
 

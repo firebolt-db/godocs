@@ -156,7 +156,7 @@ For more information about `OFFSET` and `LIMIT`, see [SELECT Query Syntax](/refe
 
 ## Aggregating data during data load
 
-If you frequently use [aggregation functions](/reference-sql/functions-reference/aggregation) such as `COUNT`, `MAX`, or `SUM`, you can perform these aggregations on top of  an external table without loading the raw data into Firebolt. This approach allows you to avoid costs associated with importing and storing the dataset, particularly if you don’t need to store the originating data set.
+If you frequently use [aggregate functions](/reference-sql/functions-reference/aggregation) such as `COUNT`, `MAX`, or `SUM`, you can perform these aggregations on top of  an external table without loading the raw data into Firebolt. This approach allows you to avoid costs associated with importing and storing the dataset, particularly if you don't need to store the originating data set.t.
 
 The following example shows how to aggregate data using an [external table](/guides/loading-data/working-with-external-tables). Then, define a table in the Firebolt database with the desired aggregations. Finally, insert data from the external table into the internal table. This example contains the following three steps:
     

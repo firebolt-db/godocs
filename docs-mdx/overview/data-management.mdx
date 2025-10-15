@@ -30,6 +30,8 @@ Serializable isolation means that the result of running concurrent statements is
 
 Snapshot isolation is weaker and guarantees that a transaction sees a consistent version of the database. Transactions fail if any written rows are being written concurrently by another transaction. It is a weaker isolation than serializable, because a transaction does not fail if read data is being changed concurrently. This makes it subject to so called write skew anomalies. As a user, you need to make sure that the write skew anomaly is harmless for your application or does not occur - for example by avoiding concurrent read-write operations. In exchange, Firebolt can deliver the performance, scale and throughput that data intensive applications need.
 
+Firebolt is optimized for high read transaction rates and a low write transaction rates - each write transaction can be huge though. Design processes to **commit transactions at most once per second** for optimal performance. Each DML and DDL statement runs in an isolated transaction by default. `BEGIN` and `COMMIT` explicitly define transaction boundaries to achieve large or complex write operations in a single atomic step.
+
 ## Creating tables
 Let’s look at an example of how to [create a simple table](/reference-sql/commands/data-definition/create-fact-dimension-table) called rankings.
 ```sql
@@ -89,9 +91,11 @@ COPY INTO rankings FROM 's3://Bucket/directory/';
 //The statement above copies all the files from a directory in an S3 bucket into the rankings table.
 ```
 
+To achieve the best throughput, **insert data in large to medium sized transactions**. Firebolt supports long-running transactions, and can combine DDL and DML statements in a single transaction.
+
 ### Singleton insert
 
-While singleton insert is a supported pattern in Firebolt, using bulk insert utilities is recommended to optimize performance of large data ingestion. 
+While singleton insert is a supported pattern in Firebolt, using bulk insert utilities is recommended to optimize performance of large data ingestion.
 
 Data inserted by a singleton insert statement gets stored within a single tablet. From the tablet quality perspective, this creates a suboptimal situation, and can lead to table fragmentation in cases where many singleton inserts are executed. This in turn can lead to suboptimal query performance. One way to mitigate this situation is to use a mini batch pattern (a collection of `INSERT INTO VALUES` statements separated by a comma) whenever possible. When a batch of `INSERT INTO VALUES` statements are executed, Firebolt tries to create a single tablet, which will improve tablet quality and reduce table fragmentation.
 
@@ -102,6 +106,7 @@ Singleton insert statement example
 INSERT INTO rankings (GameID, PlayerID, MaxLevel, TotalScore, PlaceWon, TournamentID) VALUES (10, 231, 10, 1000020, 1, 5);
 ```
 
+Apart from tablet fragmentation, a singleton insert statement by default commits a write transaction. Design insertion processes to **commit at most one transaction per second** to avoid throttling. It is possible to batch many singleton insert statements into one transaction using `BEGIN` and `COMMIT`, but this does not prevent the tablet fragmentation issue described above.
 
 ## Deleting data
 Firebolt supports storing as much data as needed for as long as needed. However, there are situations where data does need to be deleted. Situations like data corrections that occur in the systems of records, or GDPR compliance where a single (or multiple) customer record(s) must be deleted to preserve privacy, have led to support for [DELETE](/reference-sql/commands/data-management/delete) statements in Firebolt.
@@ -109,6 +114,10 @@ Firebolt supports storing as much data as needed for as long as needed. However,
 Firebolt supports deleting a single record in a table or deleting data in bulk. In addition to the tablet level metadata, each tablet comes with a delete log. As the records get deleted, the delete log is maintained. Given rich tablet-level metadata, only tablets that are affected by the delete operation are touched. In cases where `DELETE` query uses a primary key(s) as a predicate, Firebolt leverages primary key information to quickly find tablets and records that are affected by the DELETE operation, leading to performant deletes. Similarly, deleting all data that belongs to one or more partitions is almost instantaneous, as deleting data in these cases is only a metadata operation in Firebolt. 
 
 Having frequent deletes in the system could lead to tablet fragmentation, so there's a background process that continuously and automatically optimizes tablets behind the scenes. For more information, refer to [optimizing storage](#optimizing-storage) below.
+
+By default, a `DELETE` statement runs isolated in its own transaction. Design processes to commit at most one transaction per second to avoid throttling. `BEGIN` and `COMMIT` can be used to batch multiple statements into one transaction.
+
+Deletion may conflict with other operations, notably with `UPDATE`s and other `DELETE`s, if the same tablets are affected, even if working on distinct rows. Design processes to avoid high rates of conflicting writes for optimal performance.
 
 <Note>
 For optimal performance, leverage primary key(s) for deleting the data whenever possible.
@@ -128,6 +137,11 @@ DELETE FROM rankings WHERE GameID = 10 AND TournamentID = 5 AND PlayerID = 231;
 In real life, data updates happen often. Individuals regularly update their contact information as their residency changes, prospects change their contact preference for marketing campaigns, an order changes its status as it goes through the fulfillment process, all causing data stored in the data warehouses to be updated. 
 
 An [UPDATE](/reference-sql/commands/data-management/update) can be represented as a composite operation of `DELETE` followed by an `INSERT` operation. This holds true for both singleton as well as bulk update statements. Firebolt supports both simple as well as complex update functionality, including complex predicates and multi-table joins. Similarly, any column defined in a Firebolt table can be updated, including partitioning columns. While updating values for a partitioning column may lead to a longer execution time (depending on the number of records that exist in the partition, as updated data may need to be moved to newly assigned partitions), this functionality simplifies usage and avoids the need for manual workarounds to be done by our users.
+
+By default, an `UPDATE` statement runs isolated in its own transaction. Design processes to commit at most one transaction per second to avoid throttling. `BEGIN` and `COMMIT` can be used to batch multiple statements into one transaction.
+
+Updates may conflict with other operations, notably with `DELETE`s and other `UPDATE`s, if the same tablets are affected, even if working on distinct rows. Design processes to avoid high rates of conflicting writes for optimal performance.
+
 
 Update statement example
 ```sql

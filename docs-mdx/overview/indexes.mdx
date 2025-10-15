@@ -320,7 +320,7 @@ To optimize query performance and maximize indexing efficiency, use the followin
 
 #### Aggregating indexes in tables
 
-Aggregating indexes precompute and store aggregation results from aggregation functions like `SUM`, `COUNT`, and `AVG`, as well as more complex calculations. When the underlying data is changed, Firebolt recalculates aggregate indexes automatically, so that they are always updated when you query them. Firebolt handles the following scenarios:
+Aggregating indexes precompute and store aggregation results from aggregate functions like `SUM`, `COUNT`, and `AVG`, as well as more complex calculations. When the underlying data is changed, Firebolt recalculates aggregate indexes automatically, so that they are always updated when you query them. Firebolt handles the following scenarios:
 
 * Inserts &ndash; When new rows are added to a table included in an aggregating index, Firebolt recalculates the value to include the new data.
 * Updates &ndash; If existing rows are updated, Firebolt adjusts the aggregation values to reflect the changes.
@@ -364,7 +364,7 @@ Additionally, aggregating indexes integrate seamlessly with Firebolt’s partiti
 To optimize query performance and manage resources effectively, follow these best practices for creating and maintaining aggregating indexes:
 
 * **Focus on frequently run queries** &ndash; Create aggregating indexes for queries that use frequent aggregations including `SUM`, `COUNT`, and `AVG` that are run repeatedly.
-* **Choose columns used in aggregations** &ndash; Select columns commonly used in GROUP BY and aggregation functions such as `borrower_id` or `book_id` from the examples in this section.
+* **Choose columns used in aggregations** &ndash; Select columns commonly used in GROUP BY and aggregate functions such as `borrower_id` or `book_id` from the examples in this section.
 * **Choose columns strategically** &ndash; Build indexes on columns that are frequently queried for aggregations such as `customer_id` or `order_id` from the examples in this section. Avoid creating multiple indexes with overlapping aggregations on the same columns to minimize unnecessary overhead and costs.
 * **Consider Data Freshness** &ndash; Ensure the performance gains of precomputed values outweigh the index maintenance costs for frequently changing data.
 
