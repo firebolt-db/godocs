@@ -1,0 +1,58 @@
+---
+description: Reference for the information_schema.object_default_privileges view
+title: information_schema.object_default_privileges
+---
+
+The `information_schema.object_default_privileges` view provides information about default privileges that are automatically applied to future objects created by specific roles.
+
+To access this information, you must have one of the following:
+* `MANAGE GRANTS` privilege
+* Be assigned with the default privileges shown in the view
+* Be an account administrator
+
+## Columns
+
+| Column name    | Data type | Description |
+| :------------- | :-------- | :---------- |
+| grantor        | TEXT      | The role that granted the default privilege |
+| grantee        | TEXT      | The role that is assigned with the default privilege |
+| object_name    | TEXT      | Name of the schema where the default privilege applies. May be NULL for account-wide defaults |
+| object_type    | TEXT      | The type of object: `ACCOUNT` |
+| privilege_type | TEXT      | The privilege granted: `USAGE`, `CREATE`, or `ALL` |
+| granted_on     | TEXT      | The type of objects the default privilege is granted on: `SCHEMAS` |
+| created        | TIMESTAMP | When the default privilege was created |
+
+## Example
+
+The following example shows how to query default privileges for a specific role:
+
+```sql
+SELECT 
+  grantor,
+  grantee,
+  object_name,
+  object_type,
+  privilege_type,
+  created
+FROM information_schema.object_default_privileges
+WHERE grantee = 'reader_role'
+ORDER BY created DESC;
+```
+
+**Returns**:
+
+| grantor       | grantee     | object_name | object_type | privilege_type | created             |
+| :------------ | :---------- | :---------- | :---------- | :------------- | :------------------ |
+| account_admin | reader_role | NULL        | SCHEMA      | USAGE          | 2023-11-15 10:30:00 |
+| account_admin | reader_role | analytics   | SCHEMA      | CREATE         | 2023-11-15 10:31:00 |
+
+## Usage notes
+
+* Default privileges apply to objects created after the `ALTER DEFAULT PRIVILEGES` command is executed. Existing objects are not affected.
+* Defaults are account-wide and apply to future schemas when databases (and their schemas) are created.
+
+## Related commands
+
+* [ALTER DEFAULT PRIVILEGES](/reference-sql/commands/access-control/alter-default-privileges) - Modify default privileges for future objects
+* [GRANT](/reference-sql/commands/access-control/grant) - Grant privileges on existing objects
+* [REVOKE](/reference-sql/commands/access-control/revoke) - Revoke privileges from objects

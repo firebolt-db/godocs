@@ -32,6 +32,7 @@ Each row has the following columns with information about the database.
 | index_name                    | TEXT    | The name defined for the index. |
 | index_type                    | TEXT    | One of either `primary` or `aggregating`. |
 | index_owner                   | TEXT    | The owner of the table, which is the owner of the index. |
+| index_origin                  | TEXT    | The origin where this index is from.  `USER` if explicitly created by the user, `SYSTEM` if implicitly created by the system as a byproduct of another statement, or `NULL` if not applicable. |
 | index_definition              | TEXT    | The part of the index statement that specifies the columns and any aggregations included in the index. |
 | compressed_bytes              | BIGINT    | The compressed size of the index, in bytes. |
 | uncompressed_bytes            | BIGINT    | The uncompressed size of the index, in bytes. |

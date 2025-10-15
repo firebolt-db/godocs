@@ -30,3 +30,58 @@ The [organization_admin](/overview/organizations-accounts#organizational-adminis
 By default, every newly created user is granted the [public](/overview/organizations-accounts#public-role) role. You can also revoke this role from a user.
 </Note>
 
+## Default privileges for system roles
+
+System roles come with predefined default privileges that are automatically applied when objects are created. These default privileges are built into the system and **cannot be revoked** from system roles.
+
+### account_admin privileges
+
+The `account_admin` role has comprehensive default privileges across the entire account:
+
+- **Account-level**: Full administrative access including user and role management
+- **Database-level**: `CREATE`, `MODIFY`, `USAGE`, and `DROP` on all databases
+- **Schema-level**: Default privileges include `CREATE`, `MODIFY`, `USAGE`, and `DROP` on all schemas
+- **Table-level**: Default privileges include `SELECT`, `INSERT`, `UPDATE`, `DELETE`, `TRUNCATE`, and `DROP` on all tables
+- **Engine-level**: Full engine management and monitoring capabilities
+- **Location-level**: Full location management and configuration capabilities  
+- **User-level**: Full user management and administration capabilities
+- **Role-level**: Full role management and administration capabilities
+
+### system_admin privileges
+
+The `system_admin` role has operational privileges for database and engine management:
+
+- **Database-level**: `CREATE`, `MODIFY`, `USAGE`, and `DROP` on all databases
+- **Schema-level**: Default privileges include `CREATE`, `MODIFY`, `USAGE`, and `DROP` on all schemas  
+- **Table-level**: Default privileges include `SELECT`, `INSERT`, `UPDATE`, `DELETE`, `TRUNCATE`, and `DROP` on all tables
+- **Engine-level**: Engine management and monitoring capabilities
+- **Limitation**: Cannot manage users, roles, or account-level settings
+
+### public privileges
+
+The `public` role provides basic access for all users:
+
+- **Database-level**: `USAGE` on all databases
+- **Schema-level**: Default privileges include `USAGE` and `CREATE` on public schemas only
+- **Table-level**: No default table privileges (must be explicitly granted)
+
+### Important notes about system role privileges
+
+- **Immutable privileges**: Default privileges for system roles are hardcoded and cannot be modified using `ALTER DEFAULT PRIVILEGES` or `REVOKE` commands
+- **Automatic application**: These default privileges apply immediately when objects are created, without requiring explicit grants
+- **Additional privileges**: You can grant additional privileges to system roles, but you cannot revoke their built-in default privileges
+
+To view the current default privileges for system roles, query the [object_default_privileges](/reference-sql/information-schema/object-default-privileges) information schema view:
+
+```sql
+SELECT 
+  grantor,
+  grantee,
+  object_name,
+  object_type,
+  privilege_type
+FROM information_schema.object_default_privileges
+WHERE grantee IN ('account_admin', 'system_admin', 'public')
+ORDER BY grantee, object_type;
+```
+

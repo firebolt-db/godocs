@@ -41,6 +41,7 @@ TYPE = ( <type> ) [ <type_option> ]
 [ COMPRESSION = <compression_type> ]
 [ CROSS_REGION_REQUEST_MODE = <mode> ]
 [ DESCRIPTION = '<description>' ]
+[ REPLACE_NON_UTF8_BYTES => { TRUE | FALSE }]
 ```
 
 ## Parameters
@@ -61,6 +62,7 @@ TYPE = ( <type> ) [ <type_option> ]
 | `COMPRESSION`             | See [COMPRESSION](#compression).                                                                                                                                                                                                                                                                                                   |
 | `CROSS_REGION_REQUEST_MODE` | Allows reading data from a bucket in a different Amazon S3 region than where your engine is running. For more information, see [CROSS_REGION_REQUEST_MODE](#cross-region-request-mode).
 | `DESCRIPTION`             | The optional description of the table.
+| `REPLACE_NON_UTF8_BYTES`  | Whether to replace non-UTF8 bytes in string columns with the Unicode replacement character. Since Firebolt's [TEXT data type](/reference-sql/data-types#text) requires all values to be valid UTF8, non-UTF8 bytes in string columns in the external table are replaced with the Unicode replacement character (�, U+FFFD) when using this option. Otherwise, an error is raised. Currently only supported for the Parquet format. Default: false. |
 
 ### Using location objects
 

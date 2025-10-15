@@ -42,6 +42,7 @@ The following settings can be configured using the `WITH` clause and the `SET` c
 - [max_result_rows](#limit-the-number-of-result-rows)
 - [statement_timeout](#statement-timeout)
 - [cancel_query_on_connection_drop](#query-cancellation-mode-on-connection-drop)
+- [enable_automated_column_statistics](#using-automated-column-statistics-in-the-optimizer)
 - [enable_result_cache](#result-cache)
 - [enable_subresult_cache](#subresult-cache)
 - [enable_scan_cache](#scan-cache)
@@ -53,6 +54,7 @@ The following settings can be configured using the `WITH` clause and the `SET` c
 - [max_threads](#limiting-max-threads)
 - [max_insert_threads](#limiting-max-insert-threads)
 - [enable_iceberg_partitioned_scan](#using-iceberg-partitioned-scans-for-co-located-joins-and-aggregations)
+- [late_materialization_max_rows](#control-late-materialization)
 
 The following settings can be configured only using the `SET` command:
 - [query_label](#query-labeling-and-tagging)
@@ -559,6 +561,68 @@ WHERE
 ```
 </CodeGroup>
 
+## Using automated column statistics in the optimizer
+
+The `enable_automated_column_statistics` setting controls the [Automated Column Statistics (ACS)](/performance-and-observability/query-planning/automated-column-statistics) feature.
+ACS enables the query optimizer to leverage existing aggregating indexes to obtain statistical information about columns during query planning.
+When enabled, this feature provides statistical information that helps the planner to make better optimization decisions.
+
+**Default value:** `false` (opt-in feature)
+
+### Prerequisites
+
+To use automated column statistics, you must:
+
+1. **Create aggregating indexes** to collect needed column statistics
+2. **Enable the feature** by setting the query-level setting
+
+### Syntax
+
+```sql
+SET enable_automated_column_statistics = [true|false];
+```
+
+### Example
+
+Consider two tables `employees` and `departments` with columns frequently used for grouping and filtering.
+Create an aggregating index for each table to enable statistics collection:
+
+```sql
+CREATE AGGREGATING INDEX employees_statistics
+ON employees
+(
+    APPROX_COUNT_DISTINCT(gender),      -- for filtering by gender
+    APPROX_COUNT_DISTINCT(title),       -- for filtering by title
+    APPROX_COUNT_DISTINCT(dept_id)      -- for joining on department
+)
+
+CREATE AGGREGATING INDEX departments_statistics
+ON departments
+(
+    APPROX_COUNT_DISTINCT(dept_name),   -- for grouping by department name
+    APPROX_COUNT_DISTINCT(location)     -- for filtering by location
+);
+```
+
+Enable and use automated column statistics:
+
+```sql
+-- Enable the feature
+SET enable_automated_column_statistics = true;
+
+SELECT
+    d.dept_name,
+    e.gender,
+    COUNT(*) as employee_count,
+    AVG(e.salary) as avg_salary
+FROM employees e
+JOIN departments d ON e.dept_id = d.dept_id
+WHERE d.location = 'New York'
+  AND e.title = 'Senior Developer'
+GROUP BY d.dept_name, e.gender
+ORDER BY employee_count DESC;
+```
+
 ## Limiting max threads
 
 Controls the maximum number of threads per query, limiting the degree of parallelism for query processing.
@@ -757,3 +821,33 @@ GROUP BY type;
 ```
 
 </CodeGroup>
+
+## Control late materialization
+
+You can control the late materialization optimization using `late_materialization_max_rows`.
+By default `late_materialization_max_rows` is set to 10.
+This means that late materialization will only be applied for top-k queries with a limit of 10 or smaller.
+If you want to use late materialization for a query with a larger limit you can increase this value.
+If you want to disable late materialization, just set it to zero.
+
+See [late materialization](/performance-and-observability/query-planning/late-materialization) for more details.
+
+
+### Syntax
+
+```sql
+SET late_materialization_max_rows = <integer>;
+```
+
+```sql
+SELECT ... WITH (late_materialization_max_rows = <integer>);
+```
+### Example
+
+The following example demonstrates how to use the `late_materialization_max_rows` setting to apply late materialization to a top-k query with a limit larger than 10.
+
+```sql
+SELECT * FROM table ORDER BY a LIMIT 100
+WITH (late_materialization_max_rows = 100);
+```
+
