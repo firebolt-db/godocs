@@ -5,6 +5,7 @@ title: JSON_IS_VALID
 ---
 
 Returns whether the input string is a valid JSON document.
+Returns `NULL` if the input is `NULL`.
 
 ## Syntax
 
@@ -56,4 +57,4 @@ SELECT JSON_IS_VALID('{"name": "John"}{"name": "John"}');
 
 **Returns**: `FALSE`
 
-The previous code example returns `FALSE` because the input string is invalid JSON.
+The previous code example returns `FALSE` because the input string is invalid JSON as it contains two JSON objects next to each other.

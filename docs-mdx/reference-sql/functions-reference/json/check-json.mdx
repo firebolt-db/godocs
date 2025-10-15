@@ -51,4 +51,4 @@ SELECT CHECK_JSON('{"name": "John"}{"name": "John"}');
 
 **Returns**: `TAPE_ERROR: The JSON document has an improper structure: missing or superfluous commas, braces, missing keys, etc.`
 
-The previous code example returns an error message because the input string is invalid JSON.
+The previous code example returns an error message because the input string is invalid JSON as it contains two JSON objects next to each other.
