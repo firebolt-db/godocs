@@ -1,0 +1,59 @@
+---
+description: Reference material for JSON_IS_VALID function
+sidebarTitle: JSON_IS_VALID
+title: JSON_IS_VALID
+---
+
+Returns whether the input string is a valid JSON document.
+
+## Syntax
+
+```sql
+JSON_IS_VALID(<json_string>)
+```
+
+### Aliases
+
+```sql
+JSON_VALID(<json_string>)
+```
+
+## Parameters
+
+| Parameter       | Description                     | Supported input types |
+| :-------------- | :------------------------------ | :-------------------- |
+| `<json_string>` | The string to validate as JSON. | `TEXT`                |
+
+## Return Type
+
+The `JSON_IS_VALID` function returns a result of type `BOOL`.
+
+## Remarks
+
+If you want to know why the input string is invalid JSON, you can also use the [`CHECK_JSON`](/reference-sql/functions-reference/json/check-json) function.
+
+## Examples
+
+**Example**
+
+The following code example validates a simple JSON string:
+
+```sql
+SELECT JSON_IS_VALID('{"name": "John"}');
+```
+
+**Returns**: `TRUE`
+
+The previous code example returns `TRUE` because the input string is valid JSON.
+
+**Example**
+
+The following code example validates a simple JSON string:
+
+```sql
+SELECT JSON_IS_VALID('{"name": "John"}{"name": "John"}');
+```
+
+**Returns**: `FALSE`
+
+The previous code example returns `FALSE` because the input string is invalid JSON.
