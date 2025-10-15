@@ -1,0 +1,138 @@
+---
+description: Learn about moving data from Apache Kafka to Firebolt using Kafka Connect framework.
+sidebarTitle: Kafka Sink Connector
+title: Kafka Sink Connector
+---
+
+Firebolt Kafka Connect Sink is a Kafka Connect connector that delivers data from Kafka topics to Firebolt tables.
+
+## Prerequisites
+- Apache Kafka 3.2 or later installed in your environment
+- (Optional) Confluent Cloud account if deploying on Confluent Cloud
+
+## Features
+- Append-only writes with at-least-once delivery semantics
+- Schema Registry support for Kafka message values
+- Developed and maintained by Firebolt; verified by Confluent
+- Supports all Firebolt data types except STRUCT and GEOGRAPHY
+
+## Quickstart
+
+Follow this guide to set up Firebolt Kafka Connect Sink on Confluent Cloud.
+
+### Firebolt details
+To connect to Firebolt you need the following information:
+- Service account client ID and client secret
+- Database name — the database that will contain the tables populated from Kafka topics
+- Engine name — the engine that will run INSERT queries
+- Account name — the Firebolt account that has access to the database
+
+### Kafka details
+- Topic names — the topics that will be synced to Firebolt tables
+- Kafka API key and secret — when deployed on Confluent Cloud, used to authenticate to Kafka
+- Schema Registry API key and secret — if using Schema Registry on Confluent Cloud, used to authenticate to Schema Registry
+
+### Firebolt connector configuration
+1. **Mandatory attributes**
+- `firebolt.clientId` — client ID used to authenticate to Firebolt
+- `firebolt.clientSecret` — client secret corresponding to the client ID
+- `jdbc.connection.url` — JDBC connection URL used to connect to Firebolt. It must include the database name, account name, and engine name.
+<Note>Do not put the client ID and client secret in the JDBC connection URL; this attribute is not obfuscated when the connector definition is displayed.</Note>
+- `topics` — comma-delimited list of topics the connector listens to (for example: `mytopic1,mytopic2,mytopic3`)
+- `value.converter` — set to `io.confluent.connect.json.JsonSchemaConverter`
+- `key.converter` — set to `org.apache.kafka.connect.storage.StringConverter`
+
+2. **Optional attributes**
+- `topic.to.table.mapping` — if your topic names do not match your table names, use this property to map topics to tables. It is a comma-separated list of `topic_name:table_name` pairs (for example: `mytopic1:mytable1,mytopic2:mytable2`).
+- `value.converter.schema.registry.url` — URL of your Schema Registry if used for the value schema
+- `value.converter.basic.auth.credentials.source` — set to `USER_INFO` if using API key/secret to communicate with Schema Registry
+- `value.converter.schema.registry.basic.auth.user.info` — credentials in the format `api_key:api_secret`
+- `errors.deadletterqueue.topic.name` — dead-letter queue topic for messages that cannot be processed
+- `errors.deadletterqueue.context.headers.enable` — set to `true` to include failure context headers in the dead-letter queue
+- `errors.tolerance` — set to `all` so that Kafka messages that cannot be processed are sent to the dead-letter queue
+
+### Install Firebolt connector on Confluent Cloud
+1. In Confluent Cloud, navigate to the target cluster. Select **Connectors** in the left navigation and search for "Firebolt".
+<img src="/assets/images/kafka-sink-connector/add-firebolt-connector-step1.png"/>
+
+2. The connector is verified by Confluent but is not managed by Confluent, so you need to download the archive.
+<img src="/assets/images/kafka-sink-connector/add-firebolt-connector-step2.png"/>
+
+3. Create a new Custom Connector using the downloaded artifact.
+<img src="/assets/images/kafka-sink-connector/add-firebolt-connector-step2-5.png"/>
+
+4. Configure the Firebolt connector.
+<img src="/assets/images/kafka-sink-connector/add-firebolt-connector-step3.png"/>
+
+- Connector plugin name — choose a name for your connector
+- Connector class — `com.firebolt.kafka.connect.FireboltSinkConnector` (the custom connector class for Firebolt)
+- Type — select `Sink` (Firebolt implements the Sink functionality)
+- Connector archive — select the JAR file you downloaded in step 2
+- Sensitive properties — Firebolt Connect Sink has two sensitive properties (they are not shown in the UI or via REST):
+    - `firebolt.clientId` — client ID used to authenticate to Firebolt
+    - `firebolt.clientSecret` — client secret corresponding to the client ID
+
+
+4.1 Set up the credentials used to connect to the Kafka cluster
+<img src="/assets/images/kafka-sink-connector/add-firebolt-connector-step4.png"/>
+
+4.2 Configure the Firebolt connector definition
+<img src="/assets/images/kafka-sink-connector/add-firebolt-connector-step5.png"/>
+
+Here is sample definition:
+```bash
+{
+  "firebolt.clientId": "****************",
+  "firebolt.clientSecret": "****************",
+  "jdbc.connection.url": "jdbc:firebolt:<your_db_name>?account=<your_account>&engine=<your_engine>",
+  "topic.to.table.mapping": "mytopic:mytable",
+  "topics": "mytopic",
+  "value.converter": "io.confluent.connect.json.JsonSchemaConverter",
+  "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+  "value.converter.basic.auth.credentials.source": "USER_INFO",
+  "value.converter.schema.registry.basic.auth.user.info": "<your api key>",
+  "value.converter.schema.registry.url": "<your_schema_registry_url>",
+  "errors.deadletterqueue.context.headers.enable": "true",
+  "errors.deadletterqueue.topic.name": "<your_deadletterqueue_name>",
+  "errors.tolerance": "all",
+  "consumer.override.fetch.max.bytes": "20971520",
+  "consumer.override.max.partition.fetch.bytes": "10485760",
+  "consumer.override.max.poll.records": "6000",
+  "fetch.max.bytes": "15000000",
+  "max.partition.fetch.bytes": "10000000",
+  "poll.interval.ms": "1000",
+  "producer.override.max.request.size": "10485760"
+}
+```
+
+4.3 Configure the outgoing networking endpoints
+<img src="/assets/images/kafka-sink-connector/add-firebolt-connector-step6.png"/>
+
+4.4 Size your connector workers
+<img src="/assets/images/kafka-sink-connector/add-firebolt-connector-step7.png"/>
+
+4.5 On the last page of the wizard, review all details from the previous steps and complete the workflow.
+
+5. You should now see the connector running on the Connectors page.
+<img src="/assets/images/kafka-sink-connector/add-firebolt-connector-step8.png"/>
+
+### Troubleshoot installing Firebolt connector on Confluent Cloud
+1. Networking endpoints troubleshooting — The Kafka connector needs to know in advance the egress endpoints it will call so it can allowlist those IP addresses.
+Set endpoints for Firebolt authentication (`id.app.firebolt.io`) and Firebolt backend API calls (`api.app.firebolt.io`). Some endpoints are dynamic (the account URL is specific to the account in your JDBC URL).
+Each endpoint may be served by multiple IPs because a reverse proxy is used in front of the services.
+
+In case you see the status of the connector as failed, then check the Settings page
+<img src="/assets/images/kafka-sink-connector/add-firebolt-connector-troubleshoot1.png"/>
+
+Go to the networking section, and you should see an error message. Click on Fix.
+<img src="/assets/images/kafka-sink-connector/add-firebolt-connector-troubleshoot1-1.png"/>
+
+Then click on the Add to allow-list
+<img src="/assets/images/kafka-sink-connector/add-firebolt-connector-troubleshoot1-2.png"/>
+
+Make sure you click then Save Changes on the Networking section and then Apply Changes on the bottom of the Settings page so the changes to be applied.
+
+## Kafka Sink connector is under development so we will be adding new features in the following versions:
+- Change data capture (CDC): not currently supported
+- Schema evolution: not currently supported
+- Avro format and Kafka message keys with Schema Registry: not currently supported

@@ -632,9 +632,9 @@ PRIMARY INDEX (gameid, playerid);
 
 <img src="/assets/images/redshift-migrate-translate-aggregation.png" alt="The third step to migrate to Firebolt includes translating aggregate queries into Firebolt." width="700"/>
 
-Aggregation queries in Firebolt are similar to those in Redshift, but Firebolt offers better performance, especially for large datasets, by utilizing aggregating indexes. Both platforms support common aggregation functions like `SUM`, `COUNT`, and `AVG`, and the `GROUP BY` clause. Firebolt, however, enhances performance by precomputing and storing aggregated results through aggregating indexes, which reduce the need for runtime calculations.
+Aggregation queries in Firebolt are similar to those in Redshift, but Firebolt offers better performance, especially for large datasets, by utilizing aggregating indexes. Both platforms support common aggregate functions like `SUM`, `COUNT`, and `AVG`, and the `GROUP BY` clause. Firebolt, however, enhances performance by precomputing and storing aggregated results through aggregating indexes, which reduce the need for runtime calculations.
 
-The following example shows how to calculate the total playtime by game in both Redshift and Firebolt using the `SUM` aggregation function.
+The following example shows how to calculate the total playtime by game in both Redshift and Firebolt using the `SUM` aggregate function.
 
 In Redshift, the following code calculates the total `currentplaytime` for each `gameid` in the `PlayStats` table by grouping the data by `gameid` and summing the `currentplaytime` for each group:
 
@@ -645,7 +645,7 @@ FROM PlayStats
 GROUP BY gameid;
 ```
 
-The same query can be run in Firebolt with no changes, as Firebolt supports standard SQL aggregation functions. To optimize performance, create an aggregating index in Firebolt that precomputes the total playtime for each `gameid`, avoiding runtime aggregation.
+The same query can be run in Firebolt with no changes, as Firebolt supports standard SQL aggregate functions. To optimize performance, create an aggregating index in Firebolt that precomputes the total playtime for each `gameid`, avoiding runtime aggregation.
 
 The following code example creates an aggregating index on the `PlayStats` table, precomputing the sum of `currentplaytime` for each `gameid`, which optimizes query performance by storing the aggregated results for faster retrieval:
 

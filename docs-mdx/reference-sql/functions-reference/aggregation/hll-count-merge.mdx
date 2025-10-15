@@ -16,7 +16,7 @@ or a sketch built with precision 13 and a sketch built with precision 14.
 ## Syntax
 
 ```sql
-HLL_COUNT_MERGE(<expression>)
+HLL_COUNT_MERGE(<expression>) [FILTER ([WHERE] <condition>)]
 ```
 
 ## Parameters
@@ -24,6 +24,7 @@ HLL_COUNT_MERGE(<expression>)
 | Parameter      | Description                                                                                            | Supported input types |
 |:---------------|:-------------------------------------------------------------------------------------------------------|:----------------------|
 | `<expression>` | HLL++ sketch in a valid format, e.g. the output of the [HLL_COUNT_BUILD](/reference-sql/functions-reference/aggregation/hll-count-build) function. | `BYTEA`               |
+| `<condition>` | An optional boolean expression to filter rows used in aggregation | `BOOL` |
 
 ## Return Type
 

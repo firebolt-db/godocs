@@ -12,8 +12,7 @@ Updates the configuration of the specified database.
 ### Syntax
 
 ```sql
-ALTER DATABASE <database_name> WITH
-    [DESCRIPTION = <description>]
+ALTER DATABASE <database_name> SET DESCRIPTION = <description>
 ```
 
 ### Parameters 
@@ -28,7 +27,7 @@ ALTER DATABASE <database_name> WITH
 The following example alters a description of the database: 
 
 ```sql
-ALTER DATABASE my_database WITH DESCRIPTION = 'Database for query management';
+ALTER DATABASE my_database SET DESCRIPTION = 'Database for query management';
 ```
 
 ## ALTER DATABASE RENAME TO
@@ -48,6 +47,10 @@ ALTER DATABASE <database_name> RENAME TO <new_database_name>
 | :--- | :--- |
 | `<database_name>` | The name of the database to rename. |
 | `<new_database_name>` | The new name of the database. |
+
+<Note>
+If the renamed database is set as `DEFAULT_DATABASE` for any engine, queries on that engine will fail unless a different database is specified or selected. You can change the default database for an engine using the [`ALTER ENGINE`](/reference-sql/commands/engines/alter-engine) command.
+</Note>
 
 ## ALTER DATABASE OWNER TO
 

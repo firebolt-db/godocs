@@ -12,7 +12,7 @@ Returns the minimum value in its argument. `NULL` values are ignored. If all inp
 
 
 ```sql
-MIN(<expression>)
+MIN(<expression>) [FILTER ([WHERE] <condition>)]
 ```
 
 ## Parameters
@@ -21,6 +21,7 @@ MIN(<expression>)
 | Parameter | Description                         |Supported input types |
 | :--------- | :----------------------------------- | :---------------------|
 | `<expression>`  | The expression whose minimum to determine | Any type |
+| `<condition>` | An optional boolean expression to filter rows used in aggregation | `BOOL` |
 
 ## Return Types
 

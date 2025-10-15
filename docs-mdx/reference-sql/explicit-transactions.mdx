@@ -246,7 +246,7 @@ A script contains a syntax error, causing the transaction to abort automatically
 BEGIN;
 CREATE TABLE orders (user TEXT, amount INT);
 INSERT INTO orders VALUES ('gabby', '100'); --> Fail wrong type
-INSERT INTO orders VALUES ('george, 100); --> Fail because transaction is in aborted state
+INSERT INTO orders VALUES ('george', 100); --> Fail because transaction is in aborted state
 INSERT INTO orders VALUES ('allen', 200); --> Fail because transaction is in aborted state
 INSERT INTO orders VALUES ('ben', 300); --> Fail because transaction is in aborted state
 ROLLBACK; --> explicit rollback unblocks the aborted state

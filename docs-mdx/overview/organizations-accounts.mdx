@@ -55,7 +55,7 @@ In the Firebolt object model, an organization has the following levels:
 
 When you [register for the first time](/guides/managing-your-organization/creating-an-organization), Firebolt sets up an organization for you. During registration, you’ll set up your first account, with one user. The first user that is added is the account administrator, as shown in the following diagram:
 
- <img src="/assets/images/manage-organization-first-registration.png" alt="When you first register, Firebolt sets up an organization with one account and user that has account administrator privileges." width="400" style={{"display": "block", "margin": "0 auto"}}/>
+ <img src="/assets/images/manage-organization-first-registration.png" alt="When you first register, Firebolt sets up an organization with one account and user that has account administrator privileges." style={{"display": "block", "margin": "0 auto", "width": "400px"}}/>
 
 Then, you can add resources and users to this account. The following apply:
 
@@ -70,7 +70,7 @@ Then, you can add resources and users to this account. The following apply:
 
 In the following example structure, an organization has an account set up for their marketing department and for managers in two different AWS regions:
 
-<img src="/assets/images/manage-organization-accounts-regions.png" alt="An account can span only one AWS region." width="400"/>
+<img src="/assets/images/manage-organization-accounts-regions.png" alt="An account can span only one AWS region." style={{"width": "400px"}}/>
 
 In the previous diagram, the organization has three separate accounts:
 
@@ -91,13 +91,13 @@ An account in Firebolt is an object within an organization that encapsulates res
 
 Each account in Firebolt exists in a single AWS region, and can have engines and databases associated with it. Initially after registration, an account contains no resources, and only one user that has an account administrator role. An account can contain many users, as shown in the following diagram: 
 
-<img src="/assets/images/manage-organization-accounts-contents.png" alt="In Firebolt, an account can contain many users, an engine and database." width="400"/>
+<img src="/assets/images/manage-organization-accounts-contents.png" alt="In Firebolt, an account can contain many users, an engine and database." style={{"width": "400px"}}/>
 
 ### Users
 
 A user must be associated with a role, which grants them permission to access resources. These users can be associated with different roles within a single account. Each user must be associated with either a login for personal access or a service account for programmatic access, as shown in the following diagram:
 
-<img src="/assets/images/user_login_service-account.png" alt="A user must be associated with either a login or a service account." width="400"/>
+<img src="/assets/images/user_login_service-account.png" alt="A user must be associated with either a login or a service account." style={{"width": "400px"}}/>
 
 A login consists of an **email address**. This login uniquely identifies the user.
 
@@ -105,13 +105,13 @@ A login consists of an **email address**. This login uniquely identifies the use
 
 In the following example account structure, `user_1` has a manager role that grants access to engines and databases associated with human resources tasks, as well as a marketing role that grants them access to everything that their employee has access to. A marketing employee, `user_2`, has read-only access to the tables in the database in `marketing_account`, but they cannot insert new entries or delete entries from a table.
 
-<img src="/assets/images/manage-organization-marketing-accounts-example.png" alt="A user can have multiple roles in an account." width="400"/>
+<img src="/assets/images/manage-organization-marketing-accounts-example.png" alt="A user can have multiple roles in an account." style={{"width": "400px"}}/>
 
 ### Roles
 
 In Firebolt, each user is associated with either a **login**, which is an email address, or a **service account**. Each user must also have a role, as shown in the following diagram:
 
-<img src="/assets/images/user_login_service-account.png" alt="A user must be associated with either a login or a service account." width="400"/>
+<img src="/assets/images/user_login_service-account.png" alt="A user must be associated with either a login or a service account." style={{"width": "400px"}}/>
 
 The role grants the user permission to access resources inside the account that they are associated with. A user can have several roles associated with them at the same time. Firebolt has built-in roles with defined permissions. You can also define a [custom role](/overview/security/rbac/role-management/custom-roles) that grants permissions specific to your use case.
 

@@ -12,7 +12,7 @@ Returns true if all non NULL input value are true, otherwise false. If all input
 
 
 ```sql
-BOOL_AND(<expression>)
+BOOL_AND(<expression>) [FILTER ([WHERE] <condition>)]
 ```
 
 ## Parameters
@@ -21,6 +21,7 @@ BOOL_AND(<expression>)
 | Parameter | Description                                         | Supported input types |
 | :--------- |:----------------------------------------------------|:----------------------|
 | `<expression>`  | The boolean expression used to calculate the result | `BOOLEAN`              |
+| `<condition>` | An optional boolean expression to filter rows used in aggregation | `BOOL` |
 
 ## Return Types
 

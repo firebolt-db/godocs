@@ -25,7 +25,7 @@ The following material can help you understand key concepts related to organizat
 To view all roles using the **Firebolt Workspace**, do the following:
 
 1. Login to the [Firebolt Workspace](https://firebolt.go.firebolt.io/signup).
-2. Select the **Govern** icon (<img src="/assets/images/govern-icon.png" alt="The Firebolt Govern Space icon." width="20" style={{"display": "inline", "margin-bottom": "0", "margin-top": "0"}}/>)from the left navigation bar to open the **Govern Space**.
+2. Select the **Govern** icon (<img src="/assets/images/govern-icon.png" alt="The Firebolt Govern Space icon." style={{"display": "inline", "margin-bottom": "0", "margin-top": "0", "width": "20px"}}/>)from the left navigation bar to open the **Govern Space**.
 3. Choose **Roles** from the left panel under **Govern**.
 
 To view all roles using SQL, query the [information_schema.enabled_roles](/reference-sql/information-schema/enabled-roles) view as shown in the following code example:
@@ -52,7 +52,7 @@ CREATE ROLE user_role;
 To create a custom role using the UI:
 
 
-1. Select the **Govern** icon (<img src="/assets/images/govern-icon.png" alt="The Firebolt Govern Space icon." width="20" style={{"display": "inline", "margin-bottom": "0", "margin-top": "0"}}/>) from the left navigation bar to open the **Govern Space**.
+1. Select the **Govern** icon (<img src="/assets/images/govern-icon.png" alt="The Firebolt Govern Space icon." style={{"display": "inline", "margin-bottom": "0", "margin-top": "0", "width": "20px"}}/>) from the left navigation bar to open the **Govern Space**.
 2. Choose **Roles** from the left panel under **Govern**.
 3. Choose the **+ New Role** button in the upper-right corner of the page.
 4. Under **Define role**, enter a role name.
@@ -79,7 +79,7 @@ DROP ROLE user_role;
 ### Delete a role using the UI
 To delete a role via the UI:
 
-1. Select the **Govern** icon (<img src="/assets/images/govern-icon.png" alt="The Firebolt Govern Space icon." width="20" style={{"display": "inline", "margin-bottom": "0", "margin-top": "0"}}/>) from the left navigation bar to open the **Govern Space**.
+1. Select the **Govern** icon (<img src="/assets/images/govern-icon.png" alt="The Firebolt Govern Space icon." style={{"display": "inline", "margin-bottom": "0", "margin-top": "0", "width": "20px"}}/>) from the left navigation bar to open the **Govern Space**.
 2. Choose **Roles** from the left panel under **Govern**.
 2. Search for the relevant role using the top search filters or by scrolling through the list. Hover over the right-most column to make the role menu appear, then choose **Delete role**. 
 3. Choose **Confirm**.
@@ -255,7 +255,7 @@ WHERE grantee = 'role_name';
 To view all organization roles using the **Firebolt Workspace**, do the following:
 
 1. Login to the [Firebolt Workspace](https://firebolt.go.firebolt.io/signup).
-2. Select the **Configure** icon (<img src="/assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." width="20" style={{"display": "inline", "margin-bottom": "0", "margin-top": "0"}}/>)from the left navigation bar to open the **Configure Space**.
+2. Select the **Configure** icon (<img src="/assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." style={{"display": "inline", "margin-bottom": "0", "margin-top": "0", "width": "20px"}}/>)from the left navigation bar to open the **Configure Space**.
 3. Choose **Organization roles** from the left panel under **Configure**.
 
 ### Create Organization Role
@@ -268,7 +268,7 @@ CREATE ORGANIZATION ROLE [IF NOT EXISTS] my_role;
 
 ### Create Organization Role using the UI
 
-1. Select the **Configure** icon (<img src="/assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." width="20" style={{"display": "inline", "margin-bottom": "0", "margin-top": "0"}}/>) from the left navigation bar to open the **Configure Space**.
+1. Select the **Configure** icon (<img src="/assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." style={{"display": "inline", "margin-bottom": "0", "margin-top": "0", "width": "20px"}}/>) from the left navigation bar to open the **Configure Space**.
 2. Choose **Organization roles** from the left panel under **Configure**.
 3. Choose the **Create organization role** button in the upper-right corner of the page.
 4. Under **Define organization role**, enter a role name.
@@ -291,7 +291,7 @@ DROP ORGANIZATION ROLE [IF EXISTS] my_role [RESTRICT | CASCADE];
 
 ### Drop organization role using the UI
 
-1. Select the **Configure** icon (<img src="/assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." width="20" style={{"display": "inline", "margin-bottom": "0", "margin-top": "0"}}/>) from the left navigation bar to open the **Configure Space**.
+1. Select the **Configure** icon (<img src="/assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." style={{"display": "inline", "margin-bottom": "0", "margin-top": "0", "width": "20px"}}/>) from the left navigation bar to open the **Configure Space**.
 2. Choose **Organization roles** from the left panel under **Configure**.
 2. Search for the relevant role using the top search filters or by scrolling through the list. Hover over the right-most column to make the role menu appear, then choose **Delete role**.
 3. Choose **Delete**.
@@ -309,7 +309,7 @@ ALTER ORGANIZATION ROLE my_role RENAME TO new_name;
 
 ### Alter Organization Role using the UI
 
-1. Select the **Configure** icon (<img src="/assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." width="20" style={{"display": "inline", "margin-bottom": "0", "margin-top": "0"}}/>) from the left navigation bar to open the **Configure Space**.
+1. Select the **Configure** icon (<img src="/assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." style={{"display": "inline", "margin-bottom": "0", "margin-top": "0", "width": "20px"}}/>) from the left navigation bar to open the **Configure Space**.
 2. Choose **Organization roles** from the left panel under **Configure**.
 2. Search for the relevant role using the top search filters or by scrolling through the list. Hover over the right-most column to make the role menu appear, then choose **Edit role**.
 3. Navigate to the **Configure permissions** tab to add or remove permissions.
@@ -331,7 +331,7 @@ GRANT ORGANIZATION ROLE my_role TO ORGANIZATION ROLE another_org_role;
 
 ### Grant Organization Role using the UI
 
-1. Select the **Configure** icon (<img src="/assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." width="20" style={{"display": "inline", "margin-bottom": "0", "margin-top": "0"}}/>) from the left navigation bar to open the **Configure Space**.
+1. Select the **Configure** icon (<img src="/assets/images/configure-icon.png" alt="The Firebolt Configure Space icon." style={{"display": "inline", "margin-bottom": "0", "margin-top": "0", "width": "20px"}}/>) from the left navigation bar to open the **Configure Space**.
 2. Choose **Organization roles** from the left panel under **Configure**.
 2. Search for the relevant role using the top search filters or by scrolling through the list. Hover over the right-most column to make the role menu appear, then choose **Grant to** login | service account |  role.
 3. Select the object you want to assign to.

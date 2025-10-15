@@ -24,6 +24,15 @@ ROUND(<value> [, <decimal>])
 ## Return Types
 `DOUBLE PRECISION`
 
+## Rounding behavior
+
+When rounding values that are exactly halfway between two possible results (for example, 1.5 or 2.5 when rounding to the nearest integer), `ROUND` uses different strategies depending on the data type:
+
+- **DOUBLE PRECISION**: Uses banker's rounding (also called round half to even). Ties are rounded to the nearest even number. For example, both `1.5` and `2.5` round to `2` (the nearest even number).
+- **NUMERIC**: Uses standard rounding (round half up). Ties are always rounded up. For example, `1.5` rounds to `2` and `2.5` rounds to `3`.
+
+This behavior ensures that when working with floating point numbers, rounding errors don't accumulate in a particular direction over many operations.
+
 ## Example
 
 

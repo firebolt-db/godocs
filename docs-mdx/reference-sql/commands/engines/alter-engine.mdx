@@ -54,6 +54,7 @@ ALTER ENGINE <engine_name> SET
 * The total number of nodes across all clusters cannot exceed 15.
 * When scaling a running engine either vertically or horizontally, new queries will be directed to the new cluster. Queries running on the original clusters will continue until completion. The clusters will wait up to 24 hours for these queries to finish, after which any unfinished queries may be stopped.
 * Only small and medium engines are available for use right away.
+* If `DEFAULT_DATABASE` is set to a database that has been dropped or renamed, queries run with this engine without selecting or specifying a different database will fail.
 
 If you would like to remove the following limitations, reach out to Firebolt support at [support@firebolt.io](mailto:support@firebolt.io) to do the following:
 
