@@ -4,19 +4,12 @@ sidebarTitle: Getting started with AI
 title: Getting started with AI
 ---
 
-Firebolt lets you call large language models (LLMs) directly from SQL using Amazon Bedrock and Databricks.
-
-- Use [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai/aws-bedrock-ai-query) to invoke a Bedrock model by providing a Bedrock model ID, a JSON request body, and a Bedrock `LOCATION` containing your AWS credentials. Alternatively, use [`AI_QUERY`](/reference-sql/functions-reference/ai/ai-query) to send a simple text prompt to a Bedrock endpoint.
-- Use [`DATABRICKS_AI_QUERY`](/reference-sql/functions-reference/ai/databricks-ai-query) to invoke a Databricks serving endpoint by providing the serving endpoint name, a JSON request body, and a Databricks `LOCATION` with OAuth credentials.
+Firebolt lets you call large language models (LLMs) directly from SQL through Amazon Bedrock. To invoke a model, use [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai/aws-bedrock-ai-query) by providing a Bedrock model ID, a JSON request body, and a `LOCATION` containing your AWS credentials. Alternatively, you can use [`AI_QUERY`](/reference-sql/functions-reference/ai/ai-query) to invoke a model with a simple text prompt, a Bedrock endpoint and a location.
 
 LLM invocations in Firebolt count towards your account’s daily token budget. For details on how to set your token budget and check your current usage, see the sections below: [Set your LLM token budget](#set-or-change-your-llm-token-budget) and [Check your LLM token quota usage](#check-your-llm-token-quota-and-daily-usage).
 
 <Note>
 LLM token budget accounting is not available in Firebolt Core.
-</Note>
-
-<Note>
-Before calling AI functions, an administrator must explicitly allow the corresponding AI services for your account: enable [`ALLOW_AMAZON_BEDROCK`](/reference-sql/commands/data-definition/alter-account/#alter-account-set-allow-amazon-bedrock) for Bedrock, and [`ALLOW_DATABRICKS_AI`](/reference-sql/commands/data-definition/alter-account/#alter-account-set-allow-databricks-ai) for Databricks.
 </Note>
 
 ## Create a Bedrock LOCATION
@@ -73,28 +66,9 @@ To create a `LOCATION` using an IAM role (with or without an external ID), see [
 
 For all options and parameters, see [CREATE LOCATION (Amazon Bedrock)](/reference-sql/commands/data-definition/create-location-bedrock).
 
-## Create a Databricks LOCATION
-
-Create a `LOCATION` once and reuse it wherever you need to call Databricks serving endpoints.
-
-```sql
-CREATE LOCATION databricks_serving WITH
-  SOURCE = DATABRICKS
-  WORKSPACE_INSTANCE = '000-0000000000000.cloud.databricks.com'
-  CREDENTIALS = (
-    OAUTH_CLIENT_ID = '<client_id>'
-    OAUTH_CLIENT_SECRET = '<client_secret>'
-    -- Optional:
-    -- OAUTH_SCOPE = '<oauth_scope>'
-    -- OAUTH_SERVER_URL = '<oauth_server_url>'
-  );
-```
-
-For all options and parameters, see [CREATE LOCATION (Databricks)](/reference-sql/commands/data-definition/create-location-databricks).
-
 ## Quick examples
 
-Use these examples to try AI in Firebolt. For the full function reference and more details, see [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai/aws-bedrock-ai-query), [`AI_QUERY`](/reference-sql/functions-reference/ai/ai-query), and [`DATABRICKS_AI_QUERY`](/reference-sql/functions-reference/ai/databricks-ai-query).
+Use these examples to try AI in Firebolt. For the full function reference and more details, see [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai/aws-bedrock-ai-query) and [`AI_QUERY`](/reference-sql/functions-reference/ai/ai-query).
 
 ### Invoke a model
 
@@ -113,18 +87,7 @@ SELECT AWS_BEDROCK_AI_QUERY(
 select AI_QUERY(
     'us.meta.llama3-3-70b-instruct-v1:0',
     'What is AWS?',
-    'my_bedrock_location') as result;
-```
-
-<Note>
-In the Databricks examples below, <code>databricks_serving</code> refers to a Databricks <code>LOCATION</code> object that you create in the section above. Your account must have [`ALLOW_DATABRICKS_AI`](/reference-sql/commands/data-definition/alter-account/#alter-account-set-allow-databricks-ai) enabled.
-</Note>
-
-```sql
-SELECT DATABRICKS_AI_QUERY(
-  'databricks-gpt-oss-20b',
-  $${"messages":[{"role":"user","content":"What is AWS?"}],"max_tokens":128}$$,
-  'databricks_serving') AS result;
+    'my_bedrock_location') as result
 ```
 
 ### Invoke the LLM on multiple rows
@@ -150,19 +113,6 @@ select n as number, AI_QUERY(
 from generate_series(1,3) s(n);
 ```
 
-```sql
-SELECT n AS number,
-       JSON_POINTER_EXTRACT_TEXT(
-         DATABRICKS_AI_QUERY(
-           'databricks-gpt-oss-20b',
-           $${"messages":[{"role":"system","content":"Write in english the capitalized name of the number that the user writes. Respond with a single word."},{"role":"user","content":"$$ || n::TEXT || $$"}],"temperature":0.1}$$,
-           'databricks_serving'
-         ),
-         '/choices/0/message/content/1/text'
-       ) AS processed
-FROM generate_series(1,3) s(n);
-```
-
 ### Sentiment analysis
 
 ```sql
@@ -176,20 +126,9 @@ SELECT JSON_POINTER_EXTRACT_TEXT(
 );
 ```
 
-```sql
-SELECT JSON_POINTER_EXTRACT_TEXT(
-  DATABRICKS_AI_QUERY(
-    'databricks-gpt-oss-20b',
-    $${"messages":[{"role":"system","content":"Identify the sentiment in the user's sentence as a single uppercase word: POSITIVE or NEGATIVE. Respond with a single word."},{"role":"user","content":"I love Firebolt."}],"temperature":0.0}$$,
-    'databricks_serving'
-  ),
-  '/choices/0/message/content/1/text'
-);
-```
-
 ### Set or change your LLM token budget
 
-Set your account's daily LLM token budget to control how many tokens AI functions such as [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai/aws-bedrock-ai-query), [`AI_QUERY`](/reference-sql/functions-reference/ai/ai-query), and [`DATABRICKS_AI_QUERY`](/reference-sql/functions-reference/ai/databricks-ai-query) can process each day. By default, new accounts have a zero token budget.
+Set your account's daily LLM token budget to control how many tokens AI functions such as [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai/aws-bedrock-ai-query) and [`AI_QUERY`](/reference-sql/functions-reference/ai/ai-query) can process each day. By default, new accounts have a zero token budget.
 
 ```sql
 ALTER ACCOUNT "<account_name>" SET (LLM_TOKEN_BUDGET = 10000);
@@ -197,17 +136,13 @@ ALTER ACCOUNT "<account_name>" SET (LLM_TOKEN_BUDGET = 10000);
 
 For full syntax and details, see [`ALTER ACCOUNT`](/reference-sql/commands/data-definition/alter-account).
 
-<Note>
-Setting a token budget is not sufficient by itself. You must also explicitly allow usage of the relevant AI services for your account: enable [`ALLOW_AMAZON_BEDROCK`](/reference-sql/commands/data-definition/alter-account/#alter-account-set-allow-amazon-bedrock) for Bedrock and [`ALLOW_DATABRICKS_AI`](/reference-sql/commands/data-definition/alter-account/#alter-account-set-allow-databricks-ai) for Databricks.
-</Note>
-
 ### Check your LLM token quota and daily usage
 
 ```sql
 SELECT * FROM account_db.information_schema.quotas WHERE name='LLM_TOKEN_BUDGET';
 ```
 
-If you exceed the daily budget, invocations of AI functions will fail until the limit resets or you increase the budget.
+If you exceed the daily budget, invocations of `AWS_BEDROCK_AI_QUERY` will fail until the limit resets or you increase the budget.
 
 <Warning>
 Using LLM functions such as <code>AWS_BEDROCK_AI_QUERY</code> on large tables or with many rows can quickly exhaust your daily LLM token budget and may result in significant costs in your AWS account. Always review your expected token usage and budget before running large-scale AI queries.

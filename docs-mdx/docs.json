@@ -377,7 +377,6 @@
                       "reference-sql/commands/data-definition/create-fact-dimension-table-as-select",
                       "reference-sql/commands/data-definition/create-fact-dimension-table",
                       "reference-sql/commands/data-definition/create-location-bedrock",
-                      "reference-sql/commands/data-definition/create-location-databricks",
                       "reference-sql/commands/data-definition/create-location-iceberg",
                       "reference-sql/commands/data-definition/create-location-s3",
                       "reference-sql/commands/data-definition/create-location",
@@ -487,8 +486,7 @@
                     "pages": [
                       "reference-sql/functions-reference/ai",
                       "reference-sql/functions-reference/ai/ai-query",
-                      "reference-sql/functions-reference/ai/aws-bedrock-ai-query",
-                      "reference-sql/functions-reference/ai/databricks-ai-query"
+                      "reference-sql/functions-reference/ai/aws-bedrock-ai-query"
                     ]
                   },
                   {
@@ -1790,11 +1788,6 @@
       "permanent": false
     },
     {
-      "source": "/sql_reference/commands/data-definition/create-location-databricks.html",
-      "destination": "/reference-sql/commands/data-definition/create-location-databricks",
-      "permanent": false
-    },
-    {
       "source": "/sql_reference/commands/data-definition/alter-organization.html",
       "destination": "/reference-sql/commands/data-definition/alter-organization",
       "permanent": false
@@ -2492,11 +2485,6 @@
     {
       "source": "/sql_reference/commands/data-definition/create-location-bedrock",
       "destination": "/reference-sql/commands/data-definition/create-location-bedrock",
-      "permanent": false
-    },
-    {
-      "source": "/sql_reference/commands/data-definition/create-location-databricks",
-      "destination": "/reference-sql/commands/data-definition/create-location-databricks",
       "permanent": false
     },
     {
