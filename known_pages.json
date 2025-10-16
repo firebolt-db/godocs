@@ -814,6 +814,8 @@
   "/reference-sql/commands/queries/",
   "/reference-sql/commands/queries/cancel",
   "/reference-sql/commands/queries/cancel/",
+  "/reference-sql/commands/queries/cross-database-queries",
+  "/reference-sql/commands/queries/cross-database-queries/",
   "/reference-sql/commands/queries/explain",
   "/reference-sql/commands/queries/explain/",
   "/reference-sql/commands/queries/pipe",
