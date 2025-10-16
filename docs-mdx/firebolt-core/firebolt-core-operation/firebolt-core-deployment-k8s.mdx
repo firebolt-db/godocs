@@ -102,7 +102,11 @@ If you need to perform writes and change cluster size, it will also be necessary
 
 ### Changing resources
 
-You can run `helm update` to apply changes to your cluster after changing resources like memory or CPU allocation; pods will be recreated as necessary.
+You can run `helm update` to apply changes to your cluster after changing resources like memory or CPU allocation; you will need to manually delete all pods in such case:
+
+```bash
+kubectl delete pods -l app.kubernetes.io/name=firebolt-core
+```
 
 Note that it is not possible to resize storage volumes this way.
 
@@ -113,6 +117,13 @@ After changing the `image.tag` value to a more recent pinned version you can run
 ```bash
 helm update helm/ core-demo --namespace firebolt-core
 ```
+
+Followed by the deletion of all pods:
+```bash
+kubectl delete pods -l app.kubernetes.io/name=firebolt-core
+```
+
+This will trigger a cluster-wide update.
 
 ### Removing the deployment
 
