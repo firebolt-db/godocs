@@ -117,7 +117,7 @@ Here is sample definition:
 <img src="/assets/images/kafka-sink-connector/add-firebolt-connector-step8.png"/>
 
 ### Troubleshoot installing Firebolt connector on Confluent Cloud
-1. Networking endpoints troubleshooting — The Kafka connector needs to know in advance the egress endpoints it will call so it can allowlist those IP addresses.
+1. **Networking endpoints troubleshooting** — The Kafka connector needs to know in advance the egress endpoints it will call so it can allowlist those IP addresses.
 Set endpoints for Firebolt authentication (`id.app.firebolt.io`) and Firebolt backend API calls (`api.app.firebolt.io`). Some endpoints are dynamic (the account URL is specific to the account in your JDBC URL).
 Each endpoint may be served by multiple IPs because a reverse proxy is used in front of the services.
 
@@ -131,6 +131,15 @@ Then click on the Add to allow-list
 <img src="/assets/images/kafka-sink-connector/add-firebolt-connector-troubleshoot1-2.png"/>
 
 Make sure you click then Save Changes on the Networking section and then Apply Changes on the bottom of the Settings page so the changes to be applied.
+
+2. **Log messages with request being too large**
+    ```text
+    Cannot process the firebolt record from partition xxx at offset yyy, as it is too large and exceeds the Firebolt request entity size
+    ```
+  Firebolt has a maximum payload size that can be set on an http request. If your Kafka message is, let's say 20KB, and you are ingesting 1000 messages from the same topic, then your payload size would be 20MB.
+  You have few options to fix this:
+  - reduce the number of messages that you ingest in a kafka batch by setting this property `consumer.override.max.poll.records` to a smaller value
+  - contact support@firebolt.io to request an increase in maximum payload request size
 
 ## Kafka Sink connector is under development so we will be adding new features in the following versions:
 - Change data capture (CDC): not currently supported
