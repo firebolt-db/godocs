@@ -69,6 +69,8 @@ Data storage costs are based on the amount of compressed data stored, including 
 | Asia Pacific (Singapore) | ap-southeast-1 | $29.43                    |
 | Asia Pacific (Mumbai)    | ap-south-1     | $29.43                    |
 
+In line with widely recognized practices in cloud data warehousing, Firebolt retains data in Amazon S3 for 7 days after deletion to enable recovery from accidental errors or malicious activity. This recovery window provides a balance between data durability, cost efficiency, and privacy. The retention period is fixed at 7 days and is not configurable. Storage costs continue to accrue for retained data until permanent deletion occurs after the recovery window.
+
 #### Compute usage pricing
 Compute costs are measured in Firebolt Units (FBUs) and vary based on [engine](/overview/engine-fundamentals) node type, number of nodes or cluster size, the number of clusters and usage duration. Costs are only billed for the time Firebolt engines are running. Firebolt offers two compute family options:
 
