@@ -1,0 +1,121 @@
+---
+description: Learn about connecting DataBrain to Firebolt.
+sidebarTitle: DataBrain
+title: DataBrain
+---
+
+
+[DataBrain](https://www.usedatabrain.com/) is a modern embedded analytics platform that enables you to build and embed interactive dashboards, visualizations, and self-service business intelligence directly into your applications. It provides a comprehensive suite of tools for data visualization, AI-powered analytics, and customer-facing analytics, empowering teams to deliver data-driven insights to their end users.
+
+With its exceptional speed and scalability, Firebolt allows you to handle vast amounts of data with minimal query latency, ensuring that DataBrain dashboards and visualizations load quickly, even when dealing with massive datasets. This integration creates a powerful combination for product teams and developers, offering a streamlined and efficient workflow for building embedded analytics solutions.
+
+## Benefits of using Firebolt with DataBrain
+
+Firebolt's ultra-fast query performance and scalable architecture make it an ideal data source for DataBrain's embedded analytics platform:
+
+* **Ultra-fast query performance:** Firebolt's proprietary indexing technology and in-memory capabilities enable lightning-quick queries, ensuring sub-second dashboard load times.
+* **Scalable architecture:** Pay-as-you-go model with independent scaling of storage and compute for cost-effective resource management.
+* **Developer-friendly:** Firebolt offers ANSI SQL support, making it easy for data teams and analysts to adopt and integrate with existing workflows.
+* **Optimized for analytics:** Ideal for complex analytical workloads, BI dashboards, and real-time reporting.
+* **Cost efficiency:** Right-size your compute clusters and enable auto-scaling to manage costs effectively.
+
+## Prerequisites
+
+Before connecting DataBrain to Firebolt, ensure you have:
+
+* An active [DataBrain account](https://www.usedatabrain.com/).
+* A Firebolt account with a configured database and engine.
+* Service account [credentials](/guides/managing-your-organization/service-accounts) (Client ID and Client Secret).
+* Your Firebolt account name, database name, engine name, and schema name.
+* [Data loaded](/guides/loading-data) into your Firebolt database that you want to visualize.
+
+## Setup guide
+
+Follow these steps to connect Firebolt to DataBrain and start building your analytics dashboards.
+
+### Create a Firebolt service account
+
+To authenticate DataBrain with Firebolt, you need to create a service account with the appropriate permissions.
+
+1. Log in to your Firebolt account.
+2. Navigate to the **Configure** tab and select the **Service Accounts** section.
+3. Click **CREATE** to establish a new service account.
+4. Copy the **Client ID** and **Client Secret** for later use.
+
+For detailed instructions on creating and managing service accounts, see [Service accounts](/guides/managing-your-organization/service-accounts).
+
+### Assign roles and permissions
+
+Create a role with the necessary permissions and assign it to your service account.
+
+1. Navigate to the **Govern** tab in your Firebolt account.
+2. Create a new role with permissions to **use any database** and **use any engine**.
+3. Create a user within Firebolt and assign the newly created role to the user.
+
+For more information on role-based access control, see [RBAC](/overview/security/rbac).
+
+### Configure the connection in DataBrain
+
+Now that you have your Firebolt credentials, you can configure the connection in DataBrain.
+
+1. Log in to your DataBrain account.
+2. Navigate to **Data Studio** → **Data Sources**.
+3. Click **Add New Source** and select **Firebolt** from the list of available connectors.
+4. Enter the following connection details:
+   * **Integration Name**: Choose a descriptive name to identify this data source in DataBrain.
+   * **Client ID**: Paste the Client ID from your Firebolt service account.
+   * **Client Secret**: Paste the Client Secret from your Firebolt service account.
+   * **Account Name**: Enter your Firebolt account name.
+   * **Database Name**: Specify the name of your Firebolt database.
+   * **Engine Name**: Provide the name of your Firebolt engine (e.g., `my_engine`).
+   * **Schema**: Enter the schema name you want to use.
+5. Click **Test Connection** to verify that DataBrain can successfully connect to Firebolt.
+6. Once the connection test succeeds, click **Save** to complete the setup.
+
+<Note>
+Make sure your service account has the appropriate permissions to access the specified database, engine, and schema. If the connection test fails, verify your credentials and permissions.
+</Note>
+
+### Build your first dashboard
+
+Once your Firebolt data source is connected, you can start building interactive dashboards in DataBrain.
+
+1. Navigate to **Workspaces** in DataBrain and create a new workspace or select an existing one.
+2. Click **Create Dashboard** to start building your first dashboard.
+3. Add visualizations by selecting your Firebolt data source and choosing the tables or views you want to analyze.
+4. Use DataBrain's drag-and-drop interface to create charts, graphs, and other visualizations.
+5. Apply filters, aggregations, and transformations to your data as needed.
+6. Customize the dashboard layout and appearance using DataBrain's theming and customization options.
+7. Share your dashboard with team members or embed it directly into your application.
+
+<Note>
+DataBrain supports automated data refreshes to keep your dashboards up to date. Configure refresh schedules in the **Data Sources** settings.
+</Note>
+
+## Real-world use cases
+
+DataBrain and Firebolt integration is ideal for a variety of analytics scenarios:
+
+* **E-commerce analytics:** Track millions of transactions in near real-time to spot trends and optimize pricing strategies. Build customer-facing dashboards that display order history, inventory levels, and sales performance.
+* **IoT data monitoring:** Ingest high-volume sensor data and gain instant insights to drive rapid decision-making. Visualize device metrics, anomaly detection, and predictive maintenance indicators.
+* **SaaS product analytics:** Embed usage analytics, feature adoption metrics, and user behavior dashboards directly into your SaaS application, empowering your customers with self-service analytics.
+* **Financial reporting:** Deliver real-time financial dashboards with sub-second query performance, enabling stakeholders to make informed decisions based on the latest data.
+
+## Best practices
+
+To get the most out of your DataBrain and Firebolt integration, follow these best practices:
+
+* **Leverage indexing strategies:** Use Firebolt's unique primary and aggregating indexes to reduce query times and improve dashboard performance.
+* **Optimize data models:** Create efficient data models in DataBrain that align with your Firebolt table structures and indexes.
+* **Cost optimization:** Right-size your Firebolt compute clusters and enable auto-scaling to manage costs effectively while maintaining performance.
+* **Performance monitoring:** Regularly check Firebolt's usage metrics and query performance to identify bottlenecks or potential improvements.
+* **Schedule data refreshes:** Configure automated data refresh schedules in DataBrain to ensure your dashboards always display the latest information.
+
+## Further reading
+
+* [DataBrain documentation](https://docs.usedatabrain.com/) - comprehensive guides for using DataBrain.
+* [DataBrain blog: Firebolt integration announcement](https://www.usedatabrain.com/blog/databrain-firebolt-integration) - learn more about the integration and its benefits.
+* [Firebolt service accounts](/guides/managing-your-organization/service-accounts) - detailed guide on creating and managing service accounts.
+* [Loading data into Firebolt](/guides/loading-data) - learn how to ingest data into Firebolt.
+* [Firebolt indexing strategies](/overview/indexes) - optimize query performance with primary and aggregating indexes.
+

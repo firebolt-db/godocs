@@ -233,6 +233,7 @@
                   "guides/integrations/aws-glue",
                   "guides/integrations/connecting-to-apache-superset",
                   "guides/integrations/connecting-to-preset",
+                  "guides/integrations/connecting-to-databrain",
                   "guides/integrations/cube-js",
                   "guides/integrations/airbyte",
                   "guides/integrations/otel-exporter",
@@ -2631,7 +2632,6 @@
       "destination": "/reference-sql/explicit-transactions",
       "permanent": false
     },
-
     {
       "source": "/sql_reference/commands/data-definition/drop-account.html",
       "destination": "/reference-sql/commands/data-definition/drop-account",
