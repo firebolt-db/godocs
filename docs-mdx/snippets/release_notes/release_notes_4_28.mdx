@@ -124,9 +124,9 @@ Right and full outer joins between fact tables and dimension tables can now be e
 
 Patterns without wildcards in `LIKE` expressions are now replaced by string comparisons. For example, `SELECT TEXT_COL LIKE 'abc' FROM T1` is replaced by `SELECT TEXT_COL = 'abc' FROM T1`. This change improves evaluation efficiency and enables better pruning for these expressions.
 
-**Integrated filter predicates into table scans of managed tables for enhanced data retrieval efficiency.**
+{/* **Integrated filter predicates into table scans of managed tables for enhanced data retrieval efficiency.**
 
-Filter predicates on scans of managed tables are now fully integrated into table scans. The scan process loads columns, evaluates predicates, and checks for qualified rows. Only when rows qualify does it continue to load and check additional predicates. Previously, only a subset of filters that were expected to be selective where pushed into the scan. This integration reduces the amount of data loaded in scans with selective filter predicates, making data retrieval more efficient.
+Filter predicates on scans of managed tables are now fully integrated into table scans. The scan process loads columns, evaluates predicates, and checks for qualified rows. Only when rows qualify does it continue to load and check additional predicates. Previously, only a subset of filters that were expected to be selective where pushed into the scan. This integration reduces the amount of data loaded in scans with selective filter predicates, making data retrieval more efficient. */}
 
 **Redundant filter removal**
 
