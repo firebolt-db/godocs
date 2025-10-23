@@ -31,13 +31,12 @@ Consider the following example:
 ```sql
 CREATE TABLE test_table (
     a     BIGINT UNIQUE,
-    b     INT,
-    c     DATE NOT NULL,
-    UNIQUE(b, c)
+    b     INT UNIQUE,
+    c     DATE NOT NULL
 );
 ```
 
-`test_table` has two unique keys: `{a}` and `{b, c}`.
+`test_table` has two unique keys: `{a}` and `{b}`. Any set of columns including column `a` or column `b` are of course also unique, but we do not have to consider them in query planning.
 
 The query optimizer tracks unique keys for every plan fragment in optimizing a query. Unique constraints defined on tables are known to the optimizer directly.
 
