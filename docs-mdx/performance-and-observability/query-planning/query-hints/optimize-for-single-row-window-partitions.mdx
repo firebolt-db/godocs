@@ -1,17 +1,16 @@
 ---
 description: Avoid expensive window operations for partitions with a single row
-sidebarTitle: Optimizer for single row window partitions
+sidebarTitle: Optimize for single row window partitions
 title: Optimize for single row window partitions
 ---
 
-The `optimize_for_single_row_window_partitions` hint enables specialized query optimizations for window functions when the partition column(s) have high cardinality (i.e., most partitions contain only a single row).
-This optimization can significantly improve query performance by avoiding expensive window computations for rows that belong to single-row partitions.
-Currently, only `ROW_NUMBER` window function is optimized by using this hint.
+## Background: How window functions process partitions
 
-The runtime operator that computes the result of window functions may need to process all rows belonging to the same partition for producing the result of a window expression.
-This may result in all input rows of the operator being accumulated in memory before the operator is able to produce its first output row.
+When executing window functions, Firebolt must process all rows in a partition to compute results for that partition.
+This often requires accumulating all rows from the same partition in memory before producing any output.
+For large tables, this can lead to high memory consumption and slower query performance.
 
-Let's consider the following example:
+Consider this example:
 
 ```sql
 select
@@ -21,10 +20,19 @@ from
   events
 ```
 
-For computing the result of the `ROW_NUMBER` window expressions for a given input row, all the rows belonging to the same partition must have been accumulated in memory and sorted, which may result in a high memory consumption of the query when having big input relations.
+To compute `ROW_NUMBER` for any row, all rows with the same `event_id` must be accumulated in memory and sorted.
+When most partitions contain only a single row, this approach is inefficient.
 
-This memory consumption can be improved drastically when the partition column, `event_id` in this example, is known to have a hight cardinality, i.e. most input rows have a unique `event_id` and, hence, a single `event_ts` value associated with them.
-In that case, a better memory consumption and overall query performance can be achieved if the query is rewritten as follows:
+## How the hint works
+
+The `optimize_for_single_row_window_partitions` hint automatically rewrites your query to optimize for high-cardinality partitions where most partitions contain only a single row.
+Currently, this hint optimizes only the `ROW_NUMBER` window function.
+
+When you use this hint, Firebolt automatically rewrites your query to separate single-row partitions from multi-row partitions.
+Instead of accumulating all rows in memory, Firebolt only processes multi-row partitions while quickly assigning a value of `1` to single-row partitions.
+This significantly reduces memory consumption and improves query performance.
+
+Here's the equivalent manual rewrite that shows what Firebolt does automatically when you use the hint:
 
 ```sql
 with non_unique_events as materialized (
@@ -54,9 +62,12 @@ where
   event_id not in (select event_id from non_unique_events)
 ```
 
-For the rewritten query above the query engine no longer needs to accumulate all events in memory, but only the rows from the partitions with more than one input row belonging to them, plus the `event_id` for those partitions.
+For the rewritten query, Firebolt no longer needs to accumulate all events in memory.
+It only accumulates rows from partitions with more than one row, plus the `event_id` for those partitions.
 
-This rewrite can be automatically performed by our query planner by using `optimize_for_single_row_window_partitions` query-level hint, that can be used as shown below.
+## Using the hint
+
+Use the `optimize_for_single_row_window_partitions` hint by adding it as a query-level comment at the start of your SQL statement, as shown below.
 
 <CodeGroup>
 ```sql SQL query with optimize_for_single_row_window_partitions hint {2}
@@ -101,4 +112,7 @@ from
 ```
 </CodeGroup>
 
-The plan above when using this hint shows a `Materialize` operator that corresponds to the `MATERIALIZED` CTE in the manually rewritten version of the query, which is used in both branches of the resulting `UNION ALL` query.
+## Understanding the query plan
+
+The plan with the hint shows a `Materialize` operator that corresponds to the `MATERIALIZED` CTE in the manually rewritten version of the query.
+This materialized CTE is used in both branches of the resulting `UNION ALL` query to identify which partitions have more than one row.
