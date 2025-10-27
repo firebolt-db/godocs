@@ -32,11 +32,11 @@ ALTER DEFAULT PRIVILEGES
 
 Only schema privileges can be granted using `ALTER DEFAULT PRIVILEGES`. The following privileges are supported:
 
-- `USAGE` - Allows access to schemas and their contents
-- `CREATE` - Allows creating objects within schemas  
-- `ALL` - Grants all available schema privileges
+import RbacSchemaPrivilegesTable from '/snippets/rbac_schema_privileges_table.mdx';
 
-For more information about schema privileges, see [Role-based access control](/overview/security/rbac).
+<RbacSchemaPrivilegesTable  />
+
+For more information about schema privileges, see [Schema permissions](/overview/security/rbac/database-permissions/schema-permissions).
 
 ## Limitations
 

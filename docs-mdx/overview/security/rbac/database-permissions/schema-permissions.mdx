@@ -15,19 +15,9 @@ To perform actions on a schema or its objects, the role must also have the **USA
 
 ## Schema-level privileges 
 
-| Privilege | Description                                                              | GRANT Syntax                                                                  | REVOKE Syntax                                                                 |
-|---|---|---|---|
-| USAGE      | Allows access to the schema and its objects                                                   | `GRANT USAGE ON SCHEMA public IN <database_name> TO <role_name>;`                     | `REVOKE USAGE ON SCHEMA public IN <database_name> FROM <role_name>;`                |
-| MODIFY     | Allows altering the schema properties, including renaming or dropping the schema them.                                                 | `GRANT MODIFY ON SCHEMA public IN <database_name> TO <role_name>;`                    | `REVOKE MODIFY ON SCHEMA public IN <database_name> FROM <role_name>;`               |
-| CREATE     | Allows creating new objects, such as tables and views, within the schema.                                        | `GRANT CREATE ON SCHEMA public IN <database_name> TO <role_name>;`                   | `REVOKE CREATE ON SCHEMA public IN <database_name> FROM <role_name>;`              |
-| [DELETE](/reference-sql/commands/data-management/delete) ANY | Allows deleting rows and partitions from all current and future tables.               | `GRANT DELETE ANY ON SCHEMA public IN <database_name> TO <role_name>;`              | `REVOKE DELETE ANY ON SCHEMA public IN <database_name> FROM <role_name>;`         |
-| [INSERT](/reference-sql/commands/data-management/insert) ANY | Allows inserting rows into all current and future tables within the schema.                | `GRANT INSERT ANY ON SCHEMA public IN <database_name> TO <role_name>;`              | `REVOKE INSERT ANY ON SCHEMA public IN <database_name> FROM <role_name>;`         |
-| [UPDATE](/reference-sql/commands/data-management/update) ANY | Allows updating rows in all current and future tables within the schema.                | `GRANT UPDATE ANY ON SCHEMA public IN <database_name> TO <role_name>;`              | `REVOKE UPDATE ANY ON SCHEMA public IN <database_name> FROM <role_name>;`         |
-| [TRUNCATE](/reference-sql/commands/data-management/truncate-table) ANY | Allows truncating all current and future tables within the schema.              | `GRANT TRUNCATE ANY ON SCHEMA public IN <database_name> TO <role_name>;`            | `REVOKE TRUNCATE ANY ON SCHEMA public IN <database_name> FROM <role_name>;`       |
-| [VACUUM](/reference-sql/commands/data-management/vacuum) ANY | Allows running the `VACUUM` operation on all current and future tables.                | `GRANT VACUUM ANY ON SCHEMA public IN <database_name> TO <role_name>;`            | `REVOKE VACUUM ANY ON SCHEMA public IN <database_name> FROM <role_name>;`       |
-| MODIFY ANY | Allows modifying or dropping all current and future objects in the schema.        | `GRANT MODIFY ANY ON SCHEMA public IN <database_name> TO <role_name>;`            | `REVOKE MODIFY ANY ON SCHEMA public IN <database_name> FROM <role_name>;`       |
-| SELECT ANY | Allows reading data from all current and future objects within the schema.                | `GRANT SELECT ANY ON SCHEMA public IN <database_name> TO <role_name>;`             | `REVOKE SELECT ANY ON SCHEMA public IN <database_name> FROM <role_name>;`        |
-| ALL [PRIVILEGES] | Grants all direct privileges over the schema to a role.	                | `GRANT ALL ON SCHEMA public IN <database_name> TO <role_name>;`             | `REVOKE ALL ON SCHEMA public IN <database_name> FROM <role_name>;`        |
+import RbacSchemaPrivilegesTable from '/snippets/rbac_schema_privileges_table.mdx';
+
+<RbacSchemaPrivilegesTable  />
 
 ## Examples of granting schema permissions
 
