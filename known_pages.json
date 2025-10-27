@@ -630,6 +630,8 @@
   "/performance-and-observability/query-planning/query-hints/no-join-ordering/",
   "/performance-and-observability/query-planning/query-hints/no-partial-aggregation",
   "/performance-and-observability/query-planning/query-hints/no-partial-aggregation/",
+  "/performance-and-observability/query-planning/query-hints/optimize-for-single-row-window-partitions",
+  "/performance-and-observability/query-planning/query-hints/optimize-for-single-row-window-partitions/",
   "/performance-and-observability/query-planning/unique-constraint",
   "/performance-and-observability/query-planning/unique-constraint/",
   "/performance-and-observability/query-planning/user-guided-mode",

@@ -1,0 +1,104 @@
+---
+description: Avoid expensive window operations for partitions with a single row
+sidebarTitle: Optimizer for single row window partitions
+title: Optimize for single row window partitions
+---
+
+The `optimize_for_single_row_window_partitions` hint enables specialized query optimizations for window functions when the partition column(s) have high cardinality (i.e., most partitions contain only a single row).
+This optimization can significantly improve query performance by avoiding expensive window computations for rows that belong to single-row partitions.
+Currently, only `ROW_NUMBER` window function is optimized by using this hint.
+
+The runtime operator that computes the result of window functions may need to process all rows belonging to the same partition for producing the result of a window expression.
+This may result in all input rows of the operator being accumulated in memory before the operator is able to produce its first output row.
+
+Let's consider the following example:
+
+```sql
+select
+  *,
+  row_number() over (partition by event_id order by event_ts) as row_num
+from
+  events
+```
+
+For computing the result of the `ROW_NUMBER` window expressions for a given input row, all the rows belonging to the same partition must have been accumulated in memory and sorted, which may result in a high memory consumption of the query when having big input relations.
+
+This memory consumption can be improved drastically when the partition column, `event_id` in this example, is known to have a hight cardinality, i.e. most input rows have a unique `event_id` and, hence, a single `event_ts` value associated with them.
+In that case, a better memory consumption and overall query performance can be achieved if the query is rewritten as follows:
+
+```sql
+with non_unique_events as materialized (
+  select
+    event_id
+  from
+    events
+  group by
+    event_id
+  having
+    count(*) > 1
+)
+select
+  *,
+  row_number() over (partition by event_id order by event_ts) as row_num
+from
+  events
+where
+  event_id in (select event_id from non_unique_events)
+union all
+select
+  *,
+  1 as row_num
+from
+  events
+where
+  event_id not in (select event_id from non_unique_events)
+```
+
+For the rewritten query above the query engine no longer needs to accumulate all events in memory, but only the rows from the partitions with more than one input row belonging to them, plus the `event_id` for those partitions.
+
+This rewrite can be automatically performed by our query planner by using `optimize_for_single_row_window_partitions` query-level hint, that can be used as shown below.
+
+<CodeGroup>
+```sql SQL query with optimize_for_single_row_window_partitions hint {2}
+/*!
+  optimize_for_single_row_window_partitions
+ */
+select
+  *,
+  row_number() over (partition by event_id order by event_ts) as row_num
+from
+  events
+```
+
+```text Plan without optimize_for_single_row_window_partitions hint
+[0] [Projection] events.event_id, events.event_ts, events.data, row_num
+ \_[1] [Window] row_num: row_number() OVER (PARTITION BY events.event_id ORDER BY events.event_ts Ascending Last)
+   |   [Types]: row_num: bigint not null
+    \_[2] [StoredTable] Name: "events"
+          [Types]: events.event_id: bigint null, events.event_ts: timestamp null, events.data: text null
+```
+
+```text Plan with optimize_for_single_row_window_partitions hint {8, 19}
+[0] [Projection] events.event_id, events.event_ts, events.data, row_num
+ \_[1] [Union]
+    \_[2] [Window] row_num: row_number() OVER (PARTITION BY events.event_id ORDER BY events.event_ts Ascending Last)
+    | |   [Types]: row_num: bigint not null
+    |  \_[3] [Join] Mode: Semi [(events.event_id = events.event_id)]
+    |     \_[4] [StoredTable] Name: "events"
+    |     |     [Types]: events.event_id: bigint null, events.event_ts: timestamp null, events.data: text null
+    |     \_[5] [Materialize]
+    |        \_[6] [Projection] events.event_id
+    |           \_[7] [Filter] (count_0 > 1)
+    |              \_[8] [Aggregate] GroupBy: [events.event_id] Aggregates: [count_0: count(*)]
+    |                |   [Types]: count_0: bigint not null
+    |                 \_[9] [StoredTable] Name: "events"
+    |                       [Types]: events.event_id: bigint null
+    \_[10] [Projection] events.event_id, events.event_ts, events.data, c_0: 1
+      |   [Types]: c_0: bigint not null
+       \_[11] [Join] Mode: AntiNullAsFalse [(events.event_id = events.event_id)]
+          \_Recurring Node --> [4]
+          \_Recurring Node --> [5]
+```
+</CodeGroup>
+
+The plan above when using this hint shows a `Materialize` operator that corresponds to the `MATERIALIZED` CTE in the manually rewritten version of the query, which is used in both branches of the resulting `UNION ALL` query.
