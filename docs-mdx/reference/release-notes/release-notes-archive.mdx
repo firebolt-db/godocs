@@ -8,6 +8,10 @@ title: Release notes archive
 
 We provide an archive of release notes for your historical reference.
 
+import ReleaseNotesReleaseNotes427 from '/snippets/release_notes/release_notes_4_27.mdx';
+
+<ReleaseNotesReleaseNotes427  />
+
 import ReleaseNotesReleaseNotes426 from '/snippets/release_notes/release_notes_4_26.mdx';
 
 <ReleaseNotesReleaseNotes426  />
@@ -535,9 +539,9 @@ Example queries:
 
 * `SELECT` (a + b) * c -> this might throw runtime errors if there are large values in the column, but this is highly data dependent.
 
-**Implement bool_or/bool_and aggregation functions**
+**Implement bool_or/bool_and aggregate functions**
 
-New aggregate functions bool_or and bool_and have been added. 
+New aggregate functions bool_or and bool_and have been added.
 
 **Remove old deprecate REGENERATE AGGREGATING INDEX**
 
@@ -720,5 +724,5 @@ A new alias [ARRAY_TO_STRING](/reference-sql/functions-reference/array/array-to-
 
 *  information_schema.running_queries returns ID of a user that issued the running query, not the current user.
 
-*  Update error message to explain upper case behavior   
+*  Update error message to explain upper case behavior      
 

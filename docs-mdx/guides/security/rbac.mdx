@@ -210,6 +210,44 @@ SELECT * FROM view_over_base_table; -- executed by user2 and fails because the v
 ```
 If the view owner's privileges are revoked, the query will fail even if the user has access to the view.
 
+
+## Grant default permissions to a role
+
+Default privileges allow you to automatically grant permissions on future objects upon their creation to roles .
+
+### Grant default privileges on schemas
+
+To grant default privileges that apply to all future schemas in the account using [ALTER DEFAULT PRIVILEGES](/reference-sql/commands/access-control/alter-default-privileges):
+
+```sql
+ALTER DEFAULT PRIVILEGES GRANT USAGE ON SCHEMAS TO reader_role;
+ALTER DEFAULT PRIVILEGES GRANT CREATE ON SCHEMAS TO writer_role;
+```
+
+### Revoke default privileges
+
+You can revoke default privileges using the same syntax:
+
+```sql
+ALTER DEFAULT PRIVILEGES REVOKE USAGE ON SCHEMAS FROM reader_role;
+```
+
+### View default privileges
+
+Query the [object_default_privileges](/reference-sql/information-schema/object-default-privileges) view to see current default privilege settings:
+
+```sql
+SELECT 
+  grantor,
+  grantee,
+  object_name,
+  object_type,
+  privilege_type
+FROM information_schema.object_default_privileges
+WHERE grantee = 'role_name';
+```
+
+
 ## 🌐 Organization-Level RBAC
 
 ### View all organization roles

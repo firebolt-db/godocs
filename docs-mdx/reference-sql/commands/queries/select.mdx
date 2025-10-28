@@ -150,6 +150,11 @@ Refer to [Limitations](/overview/queries/understand-query-performance-subresult#
 Query execution of a CTE that is explicitly marked as `REUSABLE` fails if it contains statements that cannot be cached.
 </Note>
 
+You can view information about the currently cached materialized CTEs using the [`information_schema.engine_caches` view](/reference-sql/information-schema/engine-caches):
+```sql
+SELECT * FROM information_schema.engine_caches WHERE type = 'materialized_reusable';
+```
+
 ## FROM
 
 Use the `FROM` clause to list the tables and any relevant join information and functions necessary for running the query.

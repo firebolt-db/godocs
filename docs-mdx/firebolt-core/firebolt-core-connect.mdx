@@ -131,7 +131,21 @@ See also:
 
 ## Sessions
 
-Firebolt Core does not have any concept of server-side sessions, i.e. the communication protocol is stateless. This is irrelevant for most types of SQL statements clients might submit to a Firebolt Core cluster, but there are a few exceptions. Specifically, the following statement types require special handling on the client side.
+Firebolt Core does not have any concept of server-side sessions, i.e. the communication protocol is stateless. While this design is suitable for most SQL statements, certain operations, like those related to transactions or database context, require a specific client-side implementation to maintain state across queries.
+To support these session-dependent operations, the client must implement the following general protocol involving response headers and URL parameters.
+
+### Protocol handling
+
+Adding Parameters: When a response header returns `Firebolt-Update-Parameters: key=value`, the client must include this `key` and `value` in the URL of all subsequent queries on the same connection.
+
+Example:
+```bash
+curl --silent "localhost:3473/?key=value" --data-binary "SELECT 1"
+```
+
+Removing Parameters: When a response header returns `Firebolt-Remove-Parameters: key`, the specified key should be removed from the URL for all subsequent queries.
+
+### Session Dependent Operations
 
 [USE DATABASE](/reference-sql/commands/data-definition/use-database). Running this statement only validates that the specified database exists. If this is successful, Firebolt Core returns the `Firebolt-Update-Parameters` response header containing the new parameters that should be appended to the HTTP query string for subsequent statements to use the changed database. Consider the following example running against a clean Firebolt Core cluster (see [Get Started](/firebolt-core/firebolt-core-get-started) on how to start such a cluster).
 
@@ -153,6 +167,31 @@ curl --silent "localhost:3473" --data-binary "SELECT current_database()"
 # Statement still returns "firebolt", there is no server-side state and we have not yet applied the HTTP query parameter returned from `USE DATABASE`.
 curl --silent "localhost:3473/?database=example" --data-binary "SELECT current_database()"
 # Statement returns "example".
+```
+
+[Explicit Transactions](/reference-sql/explicit-transactions). Running a `BEGIN` statement initializes a transaction. To ensure subsequent queries operate within this transaction, the server sends a `Firebolt-Update-Parameters` header containing a `transaction_id`. The client must then include this parameter in all subsequent HTTP requests.
+
+Upon a `COMMIT` or `ROLLBACK`, the server returns a `Firebolt-Remove-Parameters` header, signaling that the transaction has ended and the `transaction_id` should be removed from all future requests.
+
+```bash
+curl --silent "localhost:3473" --data-binary "BEGIN TRANSACTION"
+# Statement succeeds and `curl` prints details about HTTP request and response.
+# ...
+# < HTTP/1.1 200 OK
+# ...
+# < Firebolt-Update-Parameters: transaction_id=0000000000000c04ba100
+# ...
+curl --silent "localhost:3473/?transaction_id=0000000000000c04ba100" --data-binary "INSERT INTO t1 VALUES(1)"
+# Mutliple DML/DDL can be executed
+curl --silent "localhost:3473" --data-binary "SELECT current_transaction()"
+# Statement returns "0000000000000c04ba100"
+curl --verbose "localhost:3473/?transaction_id=0000000000000c04ba100" --data-binary "COMMIT TRANSACTION"
+# Statement succeeds and `curl` prints details about HTTP request and response.
+# ...
+# < HTTP/1.1 200 OK
+# ...
+# < Firebolt-Remove-Parameters: transaction_id
+# ...
 ```
 
 ## Transactions

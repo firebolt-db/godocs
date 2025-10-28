@@ -14,6 +14,7 @@ A table-valued function (TVF) that reads data from Parquet files stored in Amazo
 READ_PARQUET (
   LOCATION => location_name
   [, PATTERN => <pattern>]
+  [, REPLACE_NON_UTF8_BYTES => { TRUE | FALSE }]
   [, ESTIMATED_ROWS => <estimated_rows>]
 )
 
@@ -25,6 +26,7 @@ READ_PARQUET (
   [, AWS_SESSION_TOKEN => <aws_session_token>]
   [, AWS_ROLE_ARN => <aws_role_arn>]
   [, AWS_ROLE_EXTERNAL_ID => <aws_role_external_id>]
+  [, REPLACE_NON_UTF8_BYTES => { TRUE | FALSE }]
   [, ESTIMATED_ROWS => <estimated_rows>]
 )
 ```
@@ -41,6 +43,7 @@ READ_PARQUET (
 | `AWS_SESSION_TOKEN` | The AWS session token. | `TEXT` |
 | `AWS_ROLE_ARN` | The AWS role ARN. | `TEXT` |
 | `AWS_ROLE_EXTERNAL_ID` | The AWS role external ID. | `TEXT` |
+| `REPLACE_NON_UTF8_BYTES` | Whether to replace non-UTF8 bytes in string columns with the Unicode replacement character. Since Firebolt's [TEXT data type](/reference-sql/data-types#text) requires all values to be valid UTF8, non-UTF8 bytes in Parquet string columns are replaced with the Unicode replacement character (�, U+FFFD) when using this option. Otherwise, an error is raised. Default: false. | `BOOLEAN` |
 | `ESTIMATED_ROWS` | Hints the estimated number of rows returned by `READ_PARQUET` to query planning for improved join ordering. | `INT`, `BIGINT` |
 
 

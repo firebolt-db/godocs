@@ -1,0 +1,48 @@
+---
+description: Reference material for ARRAY_UPPER function
+sidebarTitle: ARRAY_UPPER
+title: ARRAY_UPPER
+---
+
+
+Returns the maximum index that can be used for an array. Produces `NULL` for `NULL` arrays.
+
+Because Firebolt currently does not support array slices, the maximum index is always the length of the array.
+This function is currently only implemented for the second parameter being `1`.
+
+## Syntax
+
+
+```sql
+ARRAY_UPPER(<array>, <int>)
+```
+
+## Parameters
+
+
+| Parameter  | Description                                 | Supported input types |
+| :--------- | :------------------------------------------ | :----------|
+| `<array>`  | The array whose upper bound should be calculated | `ARRAY` |
+| `<int>`    | The dimension to look at, for multi-dimensional arrays | `INTEGER` |
+
+## Return Type
+`INTEGER`
+
+## Example
+
+
+```sql
+SELECT
+  ARRAY_UPPER([1, 2, 3], 1);
+```
+
+**Returns**: `3`
+
+
+```sql
+SELECT
+  ARRAY_UPPER([[1], 2, [3, 4]], 1);
+```
+
+**Returns**: `3`
+

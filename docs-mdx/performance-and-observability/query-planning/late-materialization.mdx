@@ -1,0 +1,152 @@
+---
+description: Speed up your top-k queries with late materialization.
+sidebarTitle: Late materialization
+title: Late materialization
+---
+
+Firebolt's optimizer can apply late materialization to speed up top-k queries.
+Late materialization is a column store optimization that delays reading data from eligible columns until after most rows have been filtered out.
+This approach allows you to avoid reading most of the data in delayed columns.
+In cases where you can skip large amounts of data, late materialization can provide significant performance improvements.
+
+## What late materialization does
+
+Let's look at the following example query:
+
+```sql
+SELECT *
+FROM table
+WHERE x > 5
+ORDER BY a LIMIT 10;
+-- 800 ms without and 80 ms with late materialization
+```
+
+In this query, we select all columns from the table, but only the columns `a` and `x` are used to compute the qualifying rows.
+Without late materialization we have to read all columns from the table to output them in the final result.
+In contrast, with late materialization, an engine only reads the columns `a` and `x` to find the 10 rows that should be in the result.
+Then it only reads the required rows from the other columns.
+
+If there are large columns in the table, like long strings or large arrays, reading such unnecessary data can be very expensive.
+Say you have a column `description` that contains a string for every row that is 500 characters long on average.
+If you have a table with 10 million rows, you will read 5GB of data just for the `description` column.
+Almost all of this data will be disregarded when evaluating `ORDER BY a LIMIT 10` without using it for anything.
+We only need the `description` column for the 10 rows in the result.
+These 10 rows from the `description` column amount to only 5 KB in size.
+Thanks to late materialization, we can avoid reading almost all 5GB of data and only the data we actually need for the result.
+
+Note that Firebolt's scan does something very similar when possible.
+If you have filter predicates like `x = 42` they will be pushed down to the scan.
+The scan will only load this column first and prune the data scanned from the other columns.
+Queries with very selective filter predicates will already benefit a lot from pruning.
+But if a sort (limit) operator filters the rows, late materialization can be very beneficial.
+
+## When Firebolt's optimizer applies late materialization
+
+Firebolt's optimizer applies late materialization using a straightforward rule:
+
+1. Find a sort (limit) operator in the query plan that has a limit of at most 10 rows.
+2. Find all *delayable* columns that are not used to compute which rows need to be in the result.
+3. Group the delayable columns by the table they originate from.
+4. Only delay columns from tables where there is at least one delayable column that likely needs much space (`TEXT`, `ARRAY`, or `BYTEA`).
+
+By default Firebolt's optimizer only applies late materialization for queries with a limit of 10 or smaller because there can be a small performance penalty if very little data can be skipped.
+(See [how you can control late materialization](#how-you-can-control-late-materialization) below for more details).
+
+For now, the operator types that can be between the sort operator and the table scan in the query plan are limited to: `Scan`, `Projection`, `Filter`, `Sort`, and `Join`.
+If there is an operator of a different type between the sort operator and the table scan, late materialization will not be applied.
+You can see the node types in the query plan using the `EXPLAIN` command (see [EXPLAIN](/reference-sql/commands/queries/explain) for more details).
+
+## When to use late materialization
+
+Late materialization is most useful when it allows you to avoid reading a lot of data.
+The more data you can skip, the bigger the speedup can be.
+There are two important factors here:
+
+- **Size of delayed columns:** If you have a top-k query that outputs columns with very large entries, late materialization can significantly reduce the amount of scanned data.
+- **Difference of row counts:** If the difference in rows between the output of the scan and the limit of your query is large, late materialization can skip a lot of data.
+  If you have a limit of 10 rows, but the scan outputs 100 million rows, late materialization can skip a lot of data.
+
+```sql Example: Query that benefits from late materialization
+SELECT * FROM table ORDER BY a LIMIT 10;
+-- 800 ms without and 80 ms with late materialization
+```
+
+Conversely, if your query does not meet both conditions above, late materialization will not improve performance.
+Even though it should not have a noticeable negative impact, you can turn off late materialization for such queries with `late_materialization_max_rows=0` (see [how you can control late materialization](#how-you-can-control-late-materialization) below).
+
+```sql Example: Queries that do not benefit from late materialization
+-- A very small string column like country_code with values like 'US', 'DE', 'GB' might not be worth delaying
+SELECT a, country_code FROM table ORDER BY a LIMIT 10;
+-- 70 ms without and 70 ms with late materialization
+
+-- A very selective filter that prunes the amount of data that needs to be read already
+SELECT * FROM table WHERE x = 42 ORDER BY a LIMIT 10;
+-- 40 ms without and 40 ms with late materialization
+```
+
+## How you can observe whether late materialization was applied
+
+Late materialization in Firebolt is implemented as a join between the original subquery that ends with a sort operator and a new pruned scan.
+This means you can see whether late materialization was applied to your query by looking at the `EXPLAIN` output.
+
+
+<CodeGroup>
+```sql EXPLAIN query
+EXPLAIN
+SELECT * FROM table ORDER BY a LIMIT 10;
+```
+
+```text EXPLAIN output without late materialization
+[0] [Projection] table.id, table.a, table.x, table.description, table.country_code
+ \_[1] [Sort] OrderBy: [table.a Ascending Last] Limit: [10]
+    \_[2] [StoredTable] Name: "table"
+          [Types]: table.id: integer null, table.a: integer null, table.x: integer null, table.description: text null, table.country_code: text null
+```
+
+```text EXPLAIN output with late materialization
+[0] [Projection] table.id, table.a, table.x, table.description, table.country_code
+ \_[1] [Sort] OrderBy: [table.a Ascending Last] Limit: [10]
+    \_[2] [Projection] table.id, table.a, table.x, table.description, table.country_code
+       \_[3] [Join] Mode: Inner [(tuple(table.$tablet_id, table.$tablet_row_number) = tuple(table.$tablet_id, table.$tablet_row_number)), (table.$tablet_id = table.$tablet_id), (table.$tablet_row_number = table.$tablet_row_number)]
+          \_[4] [StoredTable] Name: "table"
+          |     [Types]: table.id: integer null, table.x: integer null, table.description: text null, table.country_code: text null, table.$tablet_id: text not null, table.$tablet_row_number: bigint not null
+          \_[5] [Sort] OrderBy: [table.a Ascending Last] Limit: [10] Relaxed Limit
+             \_[6] [StoredTable] Name: "table"
+                   [Types]: table.a: integer null, table.$tablet_id: text not null, table.$tablet_row_number: bigint not null
+```
+</CodeGroup>
+
+In the plans above you can see that the late materialization plan introduces a new scan with all the delayed columns `id`, `x`, `description`, `country_code`.
+You can also see that it joins both scans on the columns `$tablet_id` and `$tablet_row_number`.
+These columns are used to uniquely identify a row in the table.
+
+## How you can control late materialization
+
+If you want to enable late materialization for a query with a limit larger than 10, you can use the `WITH` clause to set the `late_materialization_max_rows` setting.
+Note that very high values above 10000 might cause performance degradation.
+
+<CodeGroup>
+```sql Enable using WITH clause {2}
+SELECT * FROM table ORDER BY a LIMIT 100
+WITH (late_materialization_max_rows = 100);
+```
+
+```sql Enable using SET command {1}
+SET late_materialization_max_rows = 100;
+SELECT * FROM table ORDER BY a LIMIT 100;
+```
+</CodeGroup>
+
+If you want to disable late materialization for a query, you can set the `late_materialization_max_rows` setting to 0.
+
+<CodeGroup>
+```sql Disable using WITH clause {2}
+SELECT * FROM table ORDER BY a LIMIT 100
+WITH (late_materialization_max_rows = 0);
+```
+
+```sql Disable using SET command {1}
+SET late_materialization_max_rows = 0;
+SELECT * FROM table ORDER BY a LIMIT 100;
+```
+</CodeGroup>

@@ -12,14 +12,15 @@ For information about the sample standard deviation, which estimates the spread 
 
 
 ```sql
-STDDEV_POP(<expression>)
+STDDEV_POP(<expression>) [FILTER ([WHERE] <condition>)]
 ```
-## Parameters 
+## Parameters
 
 
 | Parameter | Description               | Supported input types |
 | :--------- | :----------------------------------- | :--------|
 | `<expression>`  | An expression producing numeric values for which to calculate the population standard deviation. | `REAL`, `DOUBLE PRECISION` |
+| `<condition>` | An optional boolean expression to filter rows used in aggregation | `BOOL` |
 
 ## Return Type
 `STDDEV_POP` returns a result of type `DOUBLE PRECISION`. 

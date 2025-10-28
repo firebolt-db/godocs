@@ -26,15 +26,16 @@ For information on covariance see [COVAR_POP](/reference-sql/functions-reference
 
 
 ```sql
-CORR(<expr1>, <expr2>)
+CORR(<expr1>, <expr2>) [FILTER ([WHERE] <condition>)]
 ```
-## Parameters 
+## Parameters
 
 
 | Parameter | Description               | Supported input types |
 | :--------- | :----------------------------------- | :--------|
 | `<expr1>`  | First numeric expression to use for correlation computation. | `DOUBLE PRECISION`
 | `<expr2>`  | Second numeric expression to use for correlation computation. | `DOUBLE PRECISION`
+| `<condition>` | An optional boolean expression to filter rows used in aggregation | `BOOL` |
 
 ## Return Type
 `CORR` returns a result of type `DOUBLE PRECISION`.

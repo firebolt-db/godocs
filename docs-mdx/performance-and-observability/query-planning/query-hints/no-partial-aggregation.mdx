@@ -96,3 +96,17 @@ group by
 
 ```
 </CodeGroup>
+
+You can also specify the hint after the `group by` keyword.
+
+```sql SQL source {8}
+explain(physical)
+select
+  AVG(quantity),
+  location_id
+from
+  fact_sales
+group by
+  /*! no_partial_agg */
+  location_id;
+```

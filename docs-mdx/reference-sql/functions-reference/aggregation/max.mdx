@@ -12,7 +12,7 @@ Returns the maximum value in its argument. NULL values are ignored. If all input
 
 
 ```sql
-MAX(<expression>)
+MAX(<expression>) [FILTER ([WHERE] <condition>)]
 ```
 
 ## Parameters
@@ -21,6 +21,7 @@ MAX(<expression>)
 | Parameter | Description                                               |Supported input types                                        |
 | :--------- | :--------------------------------------------------------|:------------------------------------------------------------|
 | `<expression>`  | The expression whose maximum to determine | Any type |
+| `<condition>` | An optional boolean expression to filter rows used in aggregation | `BOOL` |
 
 ## Return Types
 Same as input type

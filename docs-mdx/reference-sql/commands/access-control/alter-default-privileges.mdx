@@ -1,0 +1,86 @@
+---
+description: Reference and syntax for the ALTER DEFAULT PRIVILEGES command.
+sidebarTitle: ALTER DEFAULT PRIVILEGES
+title: ALTER DEFAULT PRIVILEGES
+---
+
+Modifies the default privileges that apply to objects created in the future. Use `ALTER DEFAULT PRIVILEGES` to grant or revoke permissions that automatically apply to new schemas.
+
+<Note>
+Only schemas are supported at this time. Default privileges for databases and tables are not currently available.
+</Note>
+
+For more information, see [Role-based access control](/overview/security/rbac#default-privileges).
+
+## Syntax
+
+```sql
+ALTER DEFAULT PRIVILEGES
+    { GRANT | REVOKE } <privilege>
+    ON SCHEMAS
+    { TO | FROM } <role_name>
+```
+
+## Parameters
+
+| Parameter | Description |
+| :--- | :--- |
+| `<privilege>` | The privilege to grant or revoke. Can be `USAGE`, `CREATE`, `ALL`, or other schema-level privileges. |
+| `<role_name>` | The role to grant the privilege to or revoke the privilege from. |
+
+## Supported privileges
+
+Only schema privileges can be granted using `ALTER DEFAULT PRIVILEGES`. The following privileges are supported:
+
+import RbacSchemaPrivilegesTable from '/snippets/rbac_schema_privileges_table.mdx';
+
+<RbacSchemaPrivilegesTable  />
+
+For more information about schema privileges, see [Schema permissions](/overview/security/rbac/database-permissions/schema-permissions).
+
+## Limitations
+
+- **Scope**: Default privileges are granted at the account scope only.
+- **Object types**: Only schemas are supported.
+
+## Notes
+
+- Default privileges only apply to objects created after the `ALTER DEFAULT PRIVILEGES` command is executed. Existing objects are not affected.
+- You must have the privilege you are granting in order to set it as a default privilege.
+- Only account administrators and role owners can modify default privileges.
+- Default privileges are stored in the `information_schema.object_default_privileges` view.
+
+## Examples
+
+**Grant default USAGE privilege on future schemas**
+
+The following example grants the `USAGE` privilege on all future schemas created by the current role to `user_role`:
+
+```sql
+ALTER DEFAULT PRIVILEGES GRANT USAGE ON SCHEMAS TO user_role;
+```
+
+
+**Revoke default privileges**
+
+The following example revokes the `USAGE` privilege on future schemas from `user_role`:
+
+```sql
+ALTER DEFAULT PRIVILEGES REVOKE USAGE ON SCHEMAS FROM user_role;
+```
+
+**Grant all default privileges**
+
+The following example grants all available privileges on future schemas to `power_user_role`:
+
+```sql
+ALTER DEFAULT PRIVILEGES GRANT ALL ON SCHEMAS TO power_user_role;
+```
+
+
+## Related commands
+
+- [RBAC guide](/guides/security/rbac) - Provides overview of the system capabilities
+- [GRANT](/reference-sql/commands/access-control/grant) - Grant privileges on existing objects
+- [REVOKE](/reference-sql/commands/access-control/revoke) - Revoke privileges from existing objects
+- [CREATE ROLE](/reference-sql/commands/access-control/create-role) - Create a new role

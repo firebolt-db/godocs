@@ -15,7 +15,7 @@ See also [PERCENTILE_CONT](/reference-sql/functions-reference/aggregation/percen
 
 
 ```sql
-PERCENTILE_DISC( <value> ) WITHIN GROUP ( ORDER BY <expression> [ { ASC | DESC } ] )
+PERCENTILE_DISC(<value>) [FILTER ([WHERE] <condition>)] WITHIN GROUP (ORDER BY <expression> [{ASC | DESC}])
 ```
 
 ## Parameters
@@ -25,6 +25,7 @@ PERCENTILE_DISC( <value> ) WITHIN GROUP ( ORDER BY <expression> [ { ASC | DESC }
 |:---------------|:--------------------------------------------------|:------------------------------------------------------|
 | `<value>`      | Percentile value for the function                 | `DOUBLE PRECISION`/`REAL` literal between 0.0 and 1.0 |
 | `<expression>` | Expression used for the `ORDER BY` clause         | `NUMERIC` or `TIMESTAMP`                              |
+| `<condition>` | An optional boolean expression to filter rows used in aggregation | `BOOL` |
 
 ## Return Types
 The return type of the function will be the same as the order by expression type.

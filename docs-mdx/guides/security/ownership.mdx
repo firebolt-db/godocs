@@ -46,7 +46,7 @@ The current owner of an object can be viewed in the corresponding information_sc
 
 | Object   | View                                                                                                                                                                   |
 |:---------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Role     | N/A                                                                                                                                                                    |
+| Role     | [information_schema.enabled_roles](/reference-sql/information-schema/enabled-roles)                                                                   |
 | User     | [information_schema.users](/reference-sql/information-schema/users)                                                                                       |
 | Database | [information_schema.catalogs](/reference-sql/information-schema/catalogs)                                                                                 |
 | Engine   | [information_schema.engines](/reference-sql/information-schema/engines)                                                                                   |
@@ -74,8 +74,10 @@ Index ownership, shown in [information_schema.indexes](/reference-sql/informatio
 
 The owner of an account-level object may alter its ownership using the following syntax:
 ```sql
-ALTER <object type> <object name> OWNER TO <user>
+ALTER <object type> <object name> OWNER TO <user_or_role>
 ```
+
+Where `<user_or_role>` can be either a user name or a role name.
 
 Examples:
 ```sql

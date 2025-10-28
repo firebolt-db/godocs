@@ -102,13 +102,13 @@ If you need to perform writes and change cluster size, it will also be necessary
 
 ### Changing resources
 
-You can run `helm update` to apply changes to your cluster after changing resources like memory or CPU allocation; pods will be recreated as necessary.
+You can run `helm update` to apply changes to your cluster after changing resources like memory or CPU allocation; if you are using the default `RollingUpdate` strategy you will not need to do anything else.
 
 Note that it is not possible to resize storage volumes this way.
 
 ### Updating Firebolt Core version
 
-After changing the `image.tag` value to a more recent pinned version you can run a `helm update` to roll out the change to your Firebolt Core cluster:
+After changing the `image.tag` value to a more recent pinned version you can run a `helm update` to automatically roll out the change to your Firebolt Core cluster; if you are using the default `RollingUpdate` strategy you will not need to do anything else.
 
 ```bash
 helm update helm/ core-demo --namespace firebolt-core

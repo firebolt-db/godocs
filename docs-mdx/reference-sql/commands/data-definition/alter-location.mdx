@@ -97,6 +97,25 @@ SET CREDENTIALS TO (
 );
 ```
 
+## ALTER LOCATION OWNER TO
+
+Change the owner of a location. The current owner of a location can be viewed in the [information_schema.locations](/reference-sql/information-schema/locations) view on `location_owner` column.
+
+For more information, see [ownership](/guides/security/ownership).
+
+### Syntax
+
+```sql
+ALTER LOCATION <location_name> OWNER TO <user>
+```
+
+### Parameters 
+
+| Parameter | Description |
+| :--- | :--- |
+| `<location_name>` | The name of the location to change the owner of. |
+| `<user>` | The new owner of the location. Can be either a user name or a role name. |
+
 ## Error handling
 
 The following table lists common errors and their resolutions:
