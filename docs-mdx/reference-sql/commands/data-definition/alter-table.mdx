@@ -194,7 +194,7 @@ The query can only be executed under the following conditions:
 
 ## ALTER TABLE ALTER COLUMN SET UNIQUE
 
-Adds a unique constraint to an existing column. This operation validates that the column contains only unique values and updates the table metadata to enforce uniqueness for future data.
+Adds a UNIQUE constraint to an existing column to indicate your intent for the column's values to be unique. Firebolt does not validate existing data or enforce uniqueness for future writes.
 
 ### Syntax
 
@@ -225,7 +225,7 @@ The query can only be executed under the following conditions:
 
 ## ALTER TABLE ALTER COLUMN DROP UNIQUE
 
-Removes a unique constraint from an existing column. This operation updates the table metadata to allow duplicate values in the column for future data.
+Removes the UNIQUE constraint from an existing column. This updates the table metadata to remove the uniqueness declaration.
 
 ### Syntax
 
