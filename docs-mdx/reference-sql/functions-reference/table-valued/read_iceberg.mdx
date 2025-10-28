@@ -45,6 +45,7 @@ READ_ICEBERG (
   [, OAUTH_CLIENT_SECRET = '<oauth_client_secret>' ]
   [, OAUTH_SCOPE => '<oauth_scope>' ]
   [, OAUTH_SERVER_URL => '<oauth_server_url>' ]
+  [, BEARER_TOKEN => '<bearer_token>' ]
   -- Other common parameters
   [, MAX_STALENESS => <max_staleness_allowed> ]
 )
@@ -104,6 +105,7 @@ The following parameters apply to REST catalogs that use OAuth for authenticatio
 | `OAUTH_CLIENT_SECRET` | An OAuth client secret for authenticating to the REST catalog. | `TEXT` |
 | `OAUTH_SCOPE` | An OAuth scope for authenticating to the REST catalog. | `TEXT` |
 | `OAUTH_SERVER_URL` | The URL to use when requesting an access token for the REST catalog. If not specified, `{URL}/v1/oauth/tokens` will be used. | `TEXT` |
+| `BEARER_TOKEN` | An OAuth bearer token to use as an access token for the REST catalog. | `TEXT` |
 
 ## Return Type
 
@@ -295,6 +297,21 @@ FROM READ_ICEBERG(
   OAUTH_CLIENT_SECRET => '1234',
   OAUTH_SCOPE => 'all-apis',
   OAUTH_SERVER_URL => 'https://000-0000000000000.cloud.databricks.com/oidc/v1/token',
+  MAX_STALENESS => INTERVAL '30 seconds'
+)
+LIMIT 5;
+```
+
+If you're using a PAT [Databricks - Authenticate with Databricks personal access tokens (legacy)](https://docs.databricks.com/aws/en/dev-tools/auth/pat), you can pass it via the `BEARER_TOKEN` parameter.
+
+```sql
+SELECT *
+FROM READ_ICEBERG(
+  URL => 'https://000-0000000000000.cloud.databricks.com/api/2.1/unity-catalog/iceberg/v1'
+  WAREHOUSE  => 'my_uc_catalog_name',
+  NAMESPACE => 'my_uc_schema_name',
+  TABLE => 'my_table_name',
+  BEARER_TOKEN => '00000000-0000-0000-0000-000000000000',
   MAX_STALENESS => INTERVAL '30 seconds'
 )
 LIMIT 5;
