@@ -383,6 +383,7 @@
                       "reference-sql/commands/data-definition/create-external-table",
                       "reference-sql/commands/data-definition/create-fact-dimension-table-as-select",
                       "reference-sql/commands/data-definition/create-fact-dimension-table",
+                      "reference-sql/commands/data-definition/create-iceberg-table-as-select",
                       "reference-sql/commands/data-definition/create-location-bedrock",
                       "reference-sql/commands/data-definition/create-location-iceberg",
                       "reference-sql/commands/data-definition/create-location-s3",

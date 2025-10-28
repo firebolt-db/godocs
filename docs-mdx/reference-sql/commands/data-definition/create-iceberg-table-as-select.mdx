@@ -1,0 +1,62 @@
+---
+description: Reference and syntax for the CREATE ICEBERG TABLE AS SELECT SQL command.
+sidebarTitle: CREATE ICEBERG TABLE AS SELECT
+title: CREATE ICEBERG TABLE AS SELECT
+keywords: ['iceberg', 'create iceberg table', 'ddl']
+---
+
+<Note>
+Firebolt's Apache Iceberg write capabilities are currently in public preview. We are gathering feedback and expanding support for this feature.
+</Note>
+
+Creates an Apache Iceberg table in object storage, and exports data into it based on the [SELECT](/reference-sql/commands/queries/select) query. The table column names and types are automatically inferred based on the output columns of the [SELECT](/reference-sql/commands/queries/select). 
+
+## Syntax
+
+```sql
+CREATE ICEBERG TABLE <table_name>
+AS <select_query>
+WITH LOCATION = <location_name> [<setting_name> = <setting_value> ...]
+```
+
+## Parameters
+
+| Parameter         | Description                                                   |
+| :---------------- | :------------------------------------------------------------ |
+| `<table_name>`    | Table name. Currently not used, but a value must be provided. |
+| `<select_query`>  | Any valid select query.                                       |
+| `<location_name>` | The name of an [Iceberg `LOCATION`](/reference-sql/commands/data-definition/create-location-iceberg) object with `CATALOG = FILE_BASED`. |
+| `<setting_name>`  | The name of a [system setting](/reference/system-settings).   |
+| `<setting_value>` | The value to assign to system setting `<setting_name>`.       |
+
+## Example
+
+The following example writes the results of a `SELECT` query into a new Iceberg table at `s3://my-bucket/path/to/iceberg/output`.
+
+```sql
+CREATE LOCATION my_location
+WITH 
+  SOURCE = ICEBERG
+  CATALOG = FILE_BASED
+  CATALOG_OPTIONS = (
+    URL = 's3://my-bucket/path/to/iceberg/output'
+  )
+  CREDENTIALS = ( ... );
+
+CREATE ICEBERG TABLE my_iceberg_table
+  AS SELECT * FROM my_firebolt_table
+    WHERE timestamp_col >= TIMESTAMP '2025-10-01'
+WITH LOCATION = my_location;
+```
+
+## Limitations:
+
+* Catalogs: only supports a FILE_BASED catalog in AWS S3 object storage. I.e. the data and metadata files will be written to the specified location in S3.
+
+* Data types: supports the Iceberg equivelents of [Firebolt's data types](/reference-sql/data-types), except `GEOGRAPHY`.
+
+* Partitions: currently does not support writing partitioned tables.
+
+* Metadata: only writes limited metadata that is optional per the Iceberg spec. Does not write column statistics, etc.
+
+* DML operations on Iceberg tables are not supported. Only the `CREATE ICEBERG TABLE AS SELECT` and `SELECT` from [`READ_ICEBERG(...)`](/reference-sql/functions-reference/table-valued/read_iceberg) operations are supported for Iceberg tables. 
