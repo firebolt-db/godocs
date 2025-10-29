@@ -14,7 +14,7 @@ Calling `APPROX_COUNT_DISTINCT` returns the same value as calling `HLL_COUNT_DIS
 
 
 ```sql
-APPROX_COUNT_DISTINCT(<expression>)
+APPROX_COUNT_DISTINCT(<expression>) [FILTER ([WHERE] <condition>)]
 ```
 
 ## Parameters
@@ -23,6 +23,7 @@ APPROX_COUNT_DISTINCT(<expression>)
 | Parameter | Description  | Supported input types | 
 | :--------- | :-----------|:----------|
 | `<expression>`  | Expression on which to approximate the distinct count  | Any type |
+| `<condition>` | An optional boolean expression to filter rows used in aggregation | `BOOL` |
 
 ## Return Type
 `BIGINT`
@@ -95,5 +96,5 @@ FROM
 
 | approximate | exact | 
 |:----------------|:--------------|
-|4 | 4 | 
+|4 | 4 |  
 

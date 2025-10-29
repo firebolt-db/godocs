@@ -1,169 +1,254 @@
 ---
-description: Learn about custom compression for managed tables
+description: How to use compression in Firebolt to save storage space and improve query performance with practical examples
 sidebarTitle: Table and Column Compression
 title: Table and Column Compression
 ---
 
-
-
 ## Overview
 
-Firebolt allows users to specify a custom compression algorithm at both the table level and the column level when creating a table. Compression helps you reduce storage costs and improve query performance by decreasing disk usage and I/O.
+You can specify custom compression algorithms at both the table level and column level when creating tables. 
+Compression helps reduce storage costs and improve query performance by decreasing disk usage and I/O operations.
 
-## Supported compression algorithms
-
-Firebolt supports the following compression algorithms:
-
-- `lz4`&ndash; Default option; fast compression and decompression, ideal for general workloads.
-- `zstd`&ndash; Higher compression ratios at the cost of increased CPU usage; useful for large datasets.
+Firebolt compression supports:
+- Specialized codecs optimized for specific data types
+- Chaining multiple compression algorithms for optimal results
+- Fine-tuned compression parameters for your workload
 
 <Note>
-Disabling compression with `NONE` is not supported. Firebolt always compresses data using one of the supported algorithms.
+For complete technical specifications, parameter details, and advanced configuration examples, see the [Compression Codec Reference](/reference/compression-codecs).
 </Note>
 
-## Specify compression settings
+## Supported compression codecs
 
-You can specify compression settings for a table, columns, or a combination of both when creating tables:
-* [Table-level compression](#table-level-compression) sets a default compression method for all columns.
-* [Column-level compression](#column-level-compression) overrides the table-level default for individual columns.
+Firebolt supports two categories of compression codecs:
 
-### Table-level compression
+### General-purpose codecs
+These codecs can compress any data type and work independently:
 
-You specify table-level compression using the `WITH` clause in the `CREATE TABLE` statement. This compression applies to all columns unless explicitly overridden at the column level.
+- `lz4` – Default option; extremely fast compression and decompression, ideal for high-throughput workloads
+- `lz4hc` – High-compression variant of LZ4; better compression ratios with slower compression but fast decompression
+- `zstd(level)` – Modern algorithm with excellent compression ratios; configurable compression (levels 1-22, default 1)
+- `default` – Uses the system default compression (equivalent to `lz4`)
 
-##### Syntax:
+### Specialized codecs
+These preprocessing codecs do not compress data themselves, but allow you to achieve better compression ratios in combination with general-purpose codecs:
 
+- `delta` – Stores differences between consecutive values; excellent for monotonic numeric data
 
-Use the following syntax to set table-level and/or column-level compression.
+## Compression syntax
+
+Firebolt uses a flexible parentheses-based syntax that supports both simple codec specification and advanced chaining:
+
+### Basic syntax
 
 ```sql
-CREATE TABLE table_name (
-    column1 data_type COMPRESSION algorithm COMPRESSION_LEVEL level,
-    column2 data_type COMPRESSION algorithm,
-    column3 data_type
+-- Single codec without parameters:
+COMPRESSION lz4
+
+-- Single codec with parameters:
+COMPRESSION zstd(5)
+
+-- Chain two codecs:
+COMPRESSION (delta, zstd(3))
+```
+
+### Compression chaining
+
+You can apply multiple compression codecs in sequence using chaining.
+You can chain up to three codecs, where specialized codecs preprocess data before general-purpose codecs compress it:
+
+```sql
+-- Two-stage chain: preprocessing + compression
+COMPRESSION (delta, lz4)
+COMPRESSION (delta, zstd(5))
+```
+
+**Chaining rules:**
+- You can chain up to three codecs
+- Only one general-purpose codec is allowed in each chain
+- The general-purpose codec must be last in the chain
+- All codecs must be compatible with the column's data type
+
+## Codec selection guide
+
+<Note>
+For detailed technical specifications, parameter ranges, and performance benchmarks, see the [Compression Codec Reference](/reference/compression-codecs).
+</Note>
+
+### When to use general-purpose codecs
+
+| Codec | Best for | Compression speed | Decompression speed | Typical ratio |
+|-------|----------|------------------|-------------------|---------------|
+| `lz4` | High-throughput ingestion, frequently accessed data | Very fast | Very fast | Good |
+| `lz4hc` | Balanced performance, storage-sensitive applications | Moderate | Very fast | Better |
+| `zstd(3)` | General analytics, best overall balance | Fast | Fast | Better |
+| `zstd(15)` | Archival data, maximum compression | Slow | Fast | Excellent |
+
+### When to use specialized codecs
+
+| Codec | Ideal data patterns | Compatible types |
+|-------|-------------------|------------------|
+| `delta` | Sequential IDs, timestamps, monotonic counters | Integers, dates, timestamps |
+
+## Table-level compression
+
+Set default compression for all columns using the `WITH` clause:
+
+```sql
+-- Simple table-level compression
+CREATE TABLE metrics (
+    id INTEGER,
+    value DOUBLE,
+    timestamp TIMESTAMPTZ
+) 
+WITH (COMPRESSION zstd(5));
+
+-- Using advanced codecs
+CREATE TABLE time_series (
+    sensor_id INTEGER,
+    reading DOUBLE, 
+    recorded_at TIMESTAMPTZ
 )
-WITH (COMPRESSION = algorithm, COMPRESSION_LEVEL =level);
-```
-##### Compression level
-
-
-* The optional `COMPRESSION_LEVEL` parameter lets you fine-tune the balance between compression efficiency and CPU usage.
-* Higher values provide greater comparison but increase CPU overhead.
-* Firebolt uses algorithm-specific default levels if no level is specified.
-
-##### Default behavior
-
-
-* If you don't specify column-level compression. Firebolt applies the table-level setting.
-* If no table-level setting is provided, Firebolt defaults to `lz4` .
-
-
-##### Example:
-
-
-The following code creates a table with ZTSD compression:
-
-```sql
-CREATE TABLE sales (
-    a INT
-) WITH (compression=zstd, compression_level=15);
+WITH (COMPRESSION lz4hc);
 ```
 
-### Column-level compression
+## Column-level compression  
 
-Column-level compression allows you to override table-level compression settings for specific columns. This approach is useful for columns that have different compression requirements, such as large text fields or numerical columns.
-
-##### Syntax:
-
+Override table defaults with column-specific compression:
 
 ```sql
-CREATE TABLE table_name (
-    column1 data_type COMPRESSION algorithm COMPRESSION_LEVEL level,
-    column2 data_type COMPRESSION algorithm,
-    column3 data_type
+CREATE TABLE sensor_data (
+    -- Use table default compression
+    id INTEGER,
+    
+    -- Optimize sequential sensor IDs with delta preprocessing
+    sensor_id INTEGER NOT NULL COMPRESSION (delta, lz4),
+    
+    -- Use high compression for text data
+    description TEXT COMPRESSION zstd(15)
+)
+WITH (COMPRESSION (lz4));
+```
+
+## Advanced compression examples
+
+### Mixed workload optimization
+
+```sql
+CREATE TABLE analytics_events (
+    -- Fast access primary key
+    event_id BIGINT COMPRESSION (lz4),
+    
+    -- Sequential user IDs with delta preprocessing
+    user_id INTEGER NOT NULL COMPRESSION (delta, lz4),
+
+    -- High compression for JSON data
+    event_data TEXT COMPRESSION (zstd(15))
+)
+WITH (COMPRESSION lz4);
+```
+
+## Data type compatibility
+
+### Compatible data types by codec
+
+| Codec | Integers | Floats | Dates/Timestamps | Strings | Other |
+|-------|----------|--------|------------------|---------|--------|
+| `lz4`, `lz4hc`, `zstd` | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `delta` | ✅ | ❌ | ✅ | ❌ | ❌ |
+
+<Note>
+The `delta` codec supports only `NOT NULL` columns.
+</Note>
+
+## Monitoring compression effectiveness
+
+Use the information schema to monitor compression results:
+
+```sql
+-- View compression settings by column
+SELECT 
+    column_name,
+    compression
+FROM information_schema.columns 
+WHERE table_name = 'sensor_data'
+ORDER BY ordinal_position;
+```
+
+Example output:
+```
+column_name    | compression
+---------------|---------------------------  
+id             | lz4
+sensor_id      | delta, lz4
+temperature    | zstd(3)
+description    | zstd(15)
+recorded_at    | lz4
+```
+
+```sql
+-- Compare compression ratios across tables
+SELECT 
+    table_name,
+    compressed_bytes,
+    uncompressed_bytes,
+    ROUND((uncompressed_bytes::FLOAT / compressed_bytes), 2) as compression_ratio
+FROM information_schema.tables 
+WHERE table_schema = 'public'
+ORDER BY compression_ratio DESC;
+```
+
+## Performance considerations
+
+### Compression vs. query performance trade-offs
+
+- **High-throughput ingestion**: Use `lz4` for fastest writes
+- **Balanced workloads**: Use `lz4hc` for good compression with reasonable speed
+- **Time series data**: Chain specialized codecs like `delta` with general-purpose codecs
+
+### Codec parameter guidelines
+
+| Codec | Parameter | Recommended range | Notes |
+|-------|-----------|-------------------|-------|
+| `zstd` | level | 1-5 for hot data, 10-15 for cold data | Levels above 15 are rarely beneficial |
+
+## Best practices
+
+1. **Start simple**: Begin with `lz4` and measure performance
+2. **Profile your data**: Use specialized codecs for time series and sequential data
+3. **Test compression ratios**: Compare storage savings with sample data before production
+4. **Consider query patterns**: Balance compression ratio against decompression speed for frequently accessed data
+5. **Monitor resource usage**: Higher compression levels increase CPU usage during ingestion
+
+## Backward compatibility
+
+### Legacy syntax support
+
+For backward compatibility, Firebolt continues to support the older compression syntax for `lz4` and `zstd` codecs only:
+
+```sql
+-- Legacy syntax (still supported for lz4 and zstd only)
+CREATE TABLE legacy_table (
+    id INTEGER COMPRESSION zstd COMPRESSION_LEVEL 5
 );
 ```
 
-##### Compression level
+**Limitations of legacy syntax:**
+- Only supports `lz4` and `zstd` codecs
+- Cannot use specialized codecs (`delta`)
+- Cannot chain multiple codecs
+- No access to new codec parameters
 
-
-* The `compression_level` parameter fine-tunes compression efficiency versus CPU usage.
-* Higher compresson levels reduce storage but consume more CPU resources during compression and decompression.
-* If not specified, Firebolt applies a default compression level appropriate for the selected algorithm.
-
-##### Default behavior
-
-
-* If you do not specify compression explicitly, Firebolt applies the default `lz4` compression algorithm.
-* When you define table-level compression, all columns inherit this setting unless overridden with column-level compression.
-
-## Step-by-step examples of compression
-The following examples show how to use table-level and column-level compression in Firebolt.
-
-**Step 1: Create and populate an uncompressed table**
-Create a base table without custom compression and populate it with data using `GENERATE_SERIES`
-
+**Recommended migration:**
 ```sql
--- create the target table
-CREATE TABLE origin_no_compression (a int, b int, c string, d string);
--- insert 10000 rows
-INSERT INTO origin_no_compression SELECT 1, 2, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'In dapibus metus quis velit mattis dignissim.' FROM GENERATE_SERIES(1,10000) ;
-```
-
-**Step 2: Apply table-level compression**
-Create a new table using ZTSD compression and compression level 15, applying the setting to all columns:
-
-```sql
-CREATE TABLE table_a_column_level_zstd(a int COMPRESSION zstd COMPRESSION_LEVEL 15, b int, c string, d string);
-CREATE TABLE table_a_b_column_level_zstd(a int COMPRESSION zstd COMPRESSION_LEVEL 15, b int COMPRESSION zstd COMPRESSION_LEVEL 15, c string, d string);
-CREATE TABLE table_c_column_level_zstd(a int , b int, c string COMPRESSION zstd COMPRESSION_LEVEL 15, d string);
-CREATE TABLE table_c_d_column_level_zstd(a int , b int, c string COMPRESSION zstd COMPRESSION_LEVEL 15, d string COMPRESSION zstd COMPRESSION_LEVEL 15);
-```
-
-Insert data into these tables from the `origin_no_compression` table:
-
-```sql
-INSERT INTO table_a_column_level_zstd SELECT * FROM origin_no_compression;
-INSERT INTO table_a_b_column_level_zstd SELECT * FROM origin_no_compression;
-INSERT INTO table_c_column_level_zstd SELECT * FROM origin_no_compression;
-INSERT INTO table_c_d_column_level_zstd SELECT * FROM origin_no_compression;
-```
-
-**Step 3: Apply column-level compression**
-Next, create tables demonstrating column-level compression configuration:
-
-```sql
-CREATE TABLE table_a_b_column_level_zstd (
-    a INT COMPRESSION zstd COMPRESSION_LEVEL 15,
-    b INT COMPRESSION zstd COMPRESSION_LEVEL 15,
-    c STRING,
-    d STRING
+-- Migrate to new syntax for full feature support
+CREATE TABLE modern_table (
+    id INTEGER COMPRESSION zstd(5)
 );
 ```
 
-**Step 4: Compare compression results**
-Check the `compressed_byte` value of the tables to evaluate the effectiveness of compression settings:
+---
 
-```sql
-SELECT compressed_bytes,table_name
-FROM information_schema.tables
-WHERE table_name = 'origin_no_compression'
-   OR table_name = 'table_a_column_level_zstd'
-   OR table_name = 'table_a_b_column_level_zstd'
-   OR table_name = 'table_c_column_level_zstd'
-   OR table_name = 'table_c_d_column_level_zstd'
-ORDER BY table_name;
-```
+## See also
 
-### Example results
-These are typical results from a single-node engine, showing how different compression methods and column-level settings affect table sizes:
-
-| compressed_bytes | table_name                      |
-|-----------------|---------------------------------|
-| 4772            | origin_no_compression          |
-| 4396            | table_a_b_column_level_zstd    |
-| 4584            | table_a_column_level_zstd      |
-| 2558            | table_c_column_level_zstd      |
-| 763             | table_c_d_column_level_zstd    |
-
-Column-level compression significantly reduces storage for specific columns, as demonstrated in these examples, and ZSTD typically offers higher compression efficiency compared to the default LZ4.
+For detailed technical documentation on all compression codecs, including parameters, performance characteristics, and troubleshooting guidance, see the [Compression Codec Reference](/reference/compression-codecs).

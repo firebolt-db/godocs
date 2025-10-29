@@ -11,7 +11,7 @@ Returns the middle value in a given column. If number of values are even, `MEDIA
 ## Syntax
 
 ```sql
-MEDIAN(<value>)
+MEDIAN(<value>) [FILTER ([WHERE] <condition>)]
 ```
 
 ## Parameters
@@ -19,6 +19,7 @@ MEDIAN(<value>)
 | Parameter | Description                                       | Supported input types                       |
 |:----------|:--------------------------------------------------|:--------------------------------------------|
 | `<value>` | The expression used to calculate the median value. | `DOUBLE PRECISION`, `REAL`, `BIGINT`, `INT` |
+| `<condition>` | An optional boolean expression to filter rows used in aggregation | `BOOL` |
 
 
 ## Return Type

@@ -42,8 +42,7 @@ In the previous example, the set `[10,20,30]` is in ascending order. If the set 
 ## Syntax
 
 ```sql
-PERCENTILE_CONT
-( <percentile> ) WITHIN GROUP ( ORDER BY <expression> [ { ASC | DESC } ] )
+PERCENTILE_CONT(<percentile>) [FILTER ([WHERE] <condition>)] WITHIN GROUP (ORDER BY <expression> [{ASC | DESC}])
 ```
 
 ## Parameters
@@ -51,7 +50,8 @@ PERCENTILE_CONT
 | Parameter      | Description                                                                              | Supported input types                                  | 
 |:---------------|:-----------------------------------------------------------------------------------------|:-------------------------------------------------------|
 | `<percentile>` | The desired percentile position within the ordered dataset.                                                        | `DOUBLE PRECISION`, `REAL` literal between 0.0 and 1.0 |
-| `<sorted_expression>` | The expression used to calculate the percentile, which is sorted in ascending or descending order prior to calculation. | `DOUBLE PRECISION`, `REAL`, `BIGINT`, `INT`            | 
+| `<sorted_expression>` | The expression used to calculate the percentile, which is sorted in ascending or descending order prior to calculation. | `DOUBLE PRECISION`, `REAL`, `BIGINT`, `INT`            |
+| `<condition>` | An optional boolean expression to filter rows used in aggregation | `BOOL` |
 
 ## Return Types
 

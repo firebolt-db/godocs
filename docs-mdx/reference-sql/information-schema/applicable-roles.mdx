@@ -6,7 +6,7 @@ title: Applicable roles
 ---
 
 
-The `information_schema.applicable_roles` view shows every role in the **account** and its grantees, who include other users or roles to whom the role is granted.
+The `information_schema.applicable_roles` view lists the roles that are granted to the current user, as well as those the user either owns or has the [necessary privilege to manage](/overview/security/rbac/role-permissions#role-permissions).
 
 You can use a `SELECT` query to return information about each role as shown in the example below.
 ```sql

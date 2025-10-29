@@ -14,16 +14,17 @@ Calculates a hash value over all rows on a list of arguments. When `*` is specif
 
 
 ```sql
-HASH_AGG( <expression1> [, <expression2>] [, <expression3>] [, ...<expressionN>] )
-HASH_AGG(*)
+HASH_AGG( <expression1> [, <expression2>] [, <expression3>] [, ...<expressionN>] ) [FILTER ([WHERE] <condition>)]
+HASH_AGG(*) [FILTER ([WHERE] <condition>)]
 ```
 
-## Parameters 
+## Parameters
 
 
 | Parameter   | Description                                   | Supported input types | 
 | :----------- | :---------------------------------------------------- | :-----------| 
-| `<expression>`    | A column name for specific results for the `HASH_AGG` function to be applied to | Any `<column>` name | 
+| `<expression>`    | A column name for specific results for the `HASH_AGG` function to be applied to | Any `<column>` name |
+| `<condition>` | An optional boolean expression to filter rows used in aggregation | `BOOL` |
 
 ## Return Type
 `BIGINT`

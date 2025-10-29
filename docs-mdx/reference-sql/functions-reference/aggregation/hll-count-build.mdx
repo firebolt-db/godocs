@@ -23,7 +23,7 @@ Higher precision comes at a memory and performance cost.
 ## Syntax
 
 ```sql
-HLL_COUNT_BUILD(<expression> [, <precision> ])
+HLL_COUNT_BUILD(<expression> [, <precision> ]) [FILTER ([WHERE] <condition>)]
 ```
 
 ## Parameters
@@ -32,6 +32,7 @@ HLL_COUNT_BUILD(<expression> [, <precision> ])
 |:---------------|:-----------------------------------------------------------------------------------------------------------------------|:----------------------|
 | `<expression>` | Any column name or function that return a column name.                                                                 | Any type              |
 | `<precision>`  | Optional literal integer value to set precision. If not included, the default precision is 12. Precision range: 12-20. | `INTEGER`, `BIGINT `  |
+| `<condition>` | An optional boolean expression to filter rows used in aggregation | `BOOL` |
 
 ## Return Type
 

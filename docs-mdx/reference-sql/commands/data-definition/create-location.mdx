@@ -106,6 +106,8 @@ CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
       OAUTH_CLIENT_SECRET = '<oauth_client_secret>'
       [ OAUTH_SCOPE = '<oauth_scope>' ]
       [ OAUTH_SERVER_URL = '<oauth_server_url>' ] )
+    |
+    ( BEARER_TOKEN = '<bearer_token>' )
   }
   [ DESCRIPTION = '<description>' ]
 ```
@@ -159,6 +161,7 @@ CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
 | `OAUTH_CLIENT_SECRET` | The OAuth client secret for authentication. |
 | `OAUTH_SCOPE` | Optional OAuth scope for authentication. |
 | `OAUTH_SERVER_URL` | Optional OAuth server URL for authentication. |
+| `BEARER_TOKEN` | OAuth bearer token for authentication. Only supported for `DATABRICKS_UNITY` catalog. | `TEXT` |
 
 #### Iceberg Catalog-Specific Parameters
 

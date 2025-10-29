@@ -1,0 +1,54 @@
+---
+sidebarTitle: Engine caches
+title: Engine caches
+---
+
+
+You can use the `information_schema.engine_caches` view to return information about the caches of each node in the engine.
+
+
+```sql
+SELECT
+  *
+FROM
+  information_schema.engine_caches
+```
+
+## Columns in information_schema.engine_caches
+
+Each row has the following columns with information about each node in the engine.
+
+| Column Name                 | Data Type   | Description |
+| :---------------------------| :-----------| :-----------|
+| cluster_ordinal             | BIGINT      | The ordinal number of the cluster. |
+| node_ordinal                | BIGINT      | The ordinal number of the node. |
+| type                        | TEXT        | The type of the cache, see below for possible values. |
+| num_entries                 | BIGINT      | The number of entries in the cache. |
+| size_bytes                  | BIGINT      | The size of the cache in bytes. |
+| entry_size_limit_bytes      | BIGINT      | The size limit of an entry in the cache in bytes. |
+| storage                     | TEXT        | The storage type of the cache, currently either `ram` or `ssd`. |
+| pool                        | TEXT        | The pool of the cache. Entries in the same pool are evicted together. |
+| pool_size_limit_bytes       | BIGINT      | The size limit of the pool in bytes. |
+
+## Currently reported cache types
+
+| Type | Description |
+| :--- | :----------|
+| `external_scan_files` | Stores the content of external scan files on the SSD. |
+| `external_scan_buffered_files` | In-memory cache for external scan files. |
+| `external_scan_files_metadata` | In-memory metadata for the files reported through `external_scan_files`. |
+| `history_based_statistics` | In-memory cache for history based statistics about queries. |
+| `iceberg_catalog` | In-memory cache for the [Iceberg](/performance-and-observability/iceberg-and-external-data) catalog. |
+| `join_hash_table` | In-memory cache for the hash table used by the `Join` operator. Part of the [query cache](/overview/queries/understand-query-performance-subresult). |
+| `join_pruning` | In-memory cache for join pruning. Part of the [query cache](/overview/queries/understand-query-performance-subresult). |
+| `list_iceberg` | In-memory cache for file lists of [Iceberg](/performance-and-observability/iceberg-and-external-data) tables. Part of the [query cache](/overview/queries/understand-query-performance-subresult). |
+| `materialized_reusable` | In-memory cache for CTEs marked as [`materialized reusable`](/reference-sql/commands/queries/select#reusable-common-table-expressions). Part of the [query cache](/overview/queries/understand-query-performance-subresult). |
+| `parquet_statistics` | In-memory cache for column-level statistics of parquet files that are used for pruning. |
+| `result` | In-memory result cache. Part of the [query cache](/overview/queries/understand-query-performance-subresult). |
+| `scan` | In-memory cache for table scans. Part of the [query cache](/overview/queries/understand-query-performance-subresult). |
+| `unclassified` | Additional in-memory [query cache](/overview/queries/understand-query-performance-subresult) entries. |
+| `vector_index` | In-memory cache for vector indexes. |
+| `tablet` | Caches the tablet files of Firebolt's managed file format on the SSD. |
+| `tablet_metadata` | In-memory metadata for the files reported through `tablet`. |
+| `tablet_marks` | In-memory cache for tablet marks enabling faster table scan pruning. |
+| `tablet_recovery` | Partially written tablets. |

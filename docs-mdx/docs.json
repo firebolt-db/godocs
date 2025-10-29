@@ -108,6 +108,7 @@
                   "performance-and-observability/query-planning",
                   "performance-and-observability/query-planning/inspecting-query-plans",
                   "performance-and-observability/query-planning/cardinality-estimation",
+                  "performance-and-observability/query-planning/automated-column-statistics",
                   "performance-and-observability/query-planning/unique-constraint",
                   {
                     "group": "Query Hints",
@@ -115,10 +116,12 @@
                       "performance-and-observability/query-planning/query-hints",
                       "performance-and-observability/query-planning/query-hints/no-partial-aggregation",
                       "performance-and-observability/query-planning/query-hints/no-join-ordering",
-                      "performance-and-observability/query-planning/query-hints/optimize-for-single-row-window-partitions"
+                      "performance-and-observability/query-planning/query-hints/optimize-for-single-row-window-partitions",
+                      "performance-and-observability/query-planning/query-hints/unique-columns"
                     ]
                   },
-                  "performance-and-observability/query-planning/user-guided-mode"
+                  "performance-and-observability/query-planning/user-guided-mode",
+                  "performance-and-observability/query-planning/late-materialization"
                 ]
               },
               "performance-and-observability/iceberg-and-external-data"
@@ -252,11 +255,12 @@
                   "guides/integrations/dbeaver",
                   "guides/integrations/connecting-with-dbt",
                   "guides/integrations/estuary",
+                  "guides/integrations/kafka-sink-connector",
                   "guides/integrations/langchain",
                   "guides/integrations/looker-cloud",
                   "guides/integrations/looker-on-prem",
                   "guides/integrations/mcp",
-                  "guides/integrations/metabase",
+                  "guides/integrations/metabase-on-prem",
                   "guides/integrations/otel-exporter",
                   "guides/integrations/pandas",
                   "guides/integrations/connecting-to-paradime",
@@ -303,6 +307,7 @@
                   "reference-sql/information-schema/engine-history",
                   "reference-sql/information-schema/engine-metering-history",
                   "reference-sql/information-schema/engine-metrics-history",
+                  "reference-sql/information-schema/engine-caches",
                   "reference-sql/information-schema/engine-query-history",
                   "reference-sql/information-schema/engine-running-queries",
                   "reference-sql/information-schema/engine-user-query-history",
@@ -312,6 +317,7 @@
                   "reference-sql/information-schema/locations",
                   "reference-sql/information-schema/logins",
                   "reference-sql/information-schema/network_policies",
+                  "reference-sql/information-schema/object-default-privileges",
                   "reference-sql/information-schema/object-privileges",
                   "reference-sql/information-schema/organization",
                   "reference-sql/information-schema/quotas",
@@ -336,6 +342,7 @@
                   {
                     "group": "Access control",
                     "pages": [
+                      "reference-sql/commands/access-control/alter-default-privileges",
                       "reference-sql/commands/access-control/alter-login",
                       "reference-sql/commands/access-control/alter-network-policy",
                       "reference-sql/commands/access-control/alter-organization-role",
@@ -377,6 +384,7 @@
                       "reference-sql/commands/data-definition/create-external-table",
                       "reference-sql/commands/data-definition/create-fact-dimension-table-as-select",
                       "reference-sql/commands/data-definition/create-fact-dimension-table",
+                      "reference-sql/commands/data-definition/create-iceberg-table-as-select",
                       "reference-sql/commands/data-definition/create-location-bedrock",
                       "reference-sql/commands/data-definition/create-location-iceberg",
                       "reference-sql/commands/data-definition/create-location-s3",
@@ -449,7 +457,7 @@
                   "reference-sql/functions-reference",
                   "reference-sql/functions-reference/functions-glossary",
                   {
-                    "group": "Aggregation functions",
+                    "group": "Aggregate functions",
                     "pages": [
                       "reference-sql/functions-reference/aggregation/any_value",
                       "reference-sql/functions-reference/aggregation/approx-count-distinct",
@@ -508,6 +516,7 @@
                       "reference-sql/functions-reference/array/array-sort",
                       "reference-sql/functions-reference/array/array-sum",
                       "reference-sql/functions-reference/array/array-to-string",
+                      "reference-sql/functions-reference/array/array-upper",
                       "reference-sql/functions-reference/array/arrays-overlap",
                       "reference-sql/functions-reference/array/flatten",
                       "reference-sql/functions-reference/array/index-of"
@@ -760,6 +769,7 @@
                 ]
               },
               "reference/available-regions",
+              "reference/compression-codecs",
               "reference/system-settings",
               "reference/object-identifiers",
               "reference/reserved-words",
@@ -1919,6 +1929,11 @@
       "permanent": false
     },
     {
+      "source": "/sql_reference/information-schema/engine-caches.html",
+      "destination": "/reference-sql/information-schema/engine-caches",
+      "permanent": false
+    },
+    {
       "source": "/sql_reference/functions-reference/table-valued/read_csv.html",
       "destination": "/reference-sql/functions-reference/table-valued/read_csv",
       "permanent": false
@@ -2419,6 +2434,11 @@
       "permanent": false
     },
     {
+      "source": "/sql_reference/functions-reference/array/array-upper.html",
+      "destination": "/reference-sql/functions-reference/array/array-upper",
+      "permanent": false
+    },
+    {
       "source": "/sql_reference/functions-reference/array/array-first-index",
       "destination": "/reference-sql/functions-reference/array/array-first-index",
       "permanent": false
@@ -2673,7 +2693,6 @@
       "destination": "/reference-sql/explicit-transactions",
       "permanent": false
     },
-
     {
       "source": "/sql_reference/commands/data-definition/drop-account.html",
       "destination": "/reference-sql/commands/data-definition/drop-account",
@@ -2712,6 +2731,11 @@
     {
       "source": "/sql_reference/information-schema/engine-metrics-history",
       "destination": "/reference-sql/information-schema/engine-metrics-history",
+      "permanent": false
+    },
+    {
+      "source": "/sql_reference/information-schema/engine-caches",
+      "destination": "/reference-sql/information-schema/engine-caches",
       "permanent": false
     },
     {
@@ -5373,7 +5397,8 @@
       "source": "/Guides/ai/getting-started-with-ai",
       "destination": "/guides/ai/getting-started-with-ai",
       "permanent": false
-    },{
+    },
+    {
       "source": "/Guides/ai/use-aws-roles-to-access-bedrock",
       "destination": "/guides/ai/use-aws-roles-to-access-bedrock",
       "permanent": false
@@ -5382,7 +5407,8 @@
       "source": "/Guides/ai/getting-started-with-ai.html",
       "destination": "/guides/ai/getting-started-with-ai",
       "permanent": false
-    },{
+    },
+    {
       "source": "/Guides/ai/use-aws-roles-to-access-bedrock.html",
       "destination": "/guides/ai/use-aws-roles-to-access-bedrock",
       "permanent": false
@@ -5644,7 +5670,7 @@
     },
     {
       "source": "/Guides/integrations/metabase.html",
-      "destination": "/guides/integrations/metabase",
+      "destination": "/guides/integrations/metabase-on-prem",
       "permanent": false
     },
     {
@@ -5984,7 +6010,7 @@
     },
     {
       "source": "/Guides/integrations/metabase",
-      "destination": "/guides/integrations/metabase",
+      "destination": "/guides/integrations/metabase-on-prem",
       "permanent": false
     },
     {

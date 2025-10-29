@@ -23,8 +23,12 @@ Each row has the following columns with information about each running query.
 
 | Column Name     | Data Type   | Description                                                                                                                                               |
 |:----------------|:------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| account_name    | TEXT        | The name of the account in which the query was executed.                                                                                                  |
-| user_name       | TEXT        | The user that executed the query                                                                                                                          |
+| account_name    | TEXT        | The name of the account that ran the query.                                                                                                               |
+| user_name       | TEXT        | The user name that was used to run the query. The `user_name` is present for account-level operations, and `NULL` for organization-level operations.      |
+| login_name      | TEXT        | The login name that was used to run the query. The `login_name` is present for organization-level statements, and otherwise `NULL`.                       |
+| service_account_name | TEXT   | The service account name that was used to run the query. The `service_account_name` is present for organization-level statements, and otherwise `NULL`.   |
+| cluster_ordinal | BIGINT      | Index of the cluster in the engine that has received the query and executes it. (1-indexed)                                                               |
+| node_ordinal    | BIGINT      | Index of the node in the cluster that has received the query and manages the execution of it. (1-indexed)                                                 |
 | submitted_time  | TIMESTAMPTZ | The time when the query was submitted by a user (UTC)                                                                                                     |
 | start_time      | TIMESTAMPTZ | The query execution start time (UTC).                                                                                                                     |
 | duration_us     | BIGINT      | The time elapsed in microseconds from `<START_TIME>` to when the query on `information_schema.engine_running_queries` returns results.                    |

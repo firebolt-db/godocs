@@ -31,6 +31,7 @@ Each row has the following columns with information about each column.
 | column_default            | TEXT    | The default expression for the column, if it exists. |
 | is_nullable               | TEXT    | `YES` if the column may contain NULL, `NO` otherwise. |
 | data_type                 | TEXT    | The data type of the column. |
+| compression               | TEXT    | The compression codec(s) applied to the column. Shows the full compression chain if multiple codecs are used (e.g., `delta, zstd(3)`). |
 | is_in_partition_expr      | TEXT    | `YES` if the column is included in the table's `PARTITION BY` clause, `NO` otherwise. |
 | is_in_primary_index       | TEXT    | `YES` if the column is included in the table's `PRIMARY INDEX` clause, `NO` otherwise. |
 | numeric_precision         | BIGINT    | The numeric precision. For numeric columns only. |
@@ -69,3 +70,28 @@ Each row has the following columns with information about each column.
 | generation_expression     | NULL      | Not applicable for Firebolt. |
 | is_updatable              | NULL      | Not applicable for Firebolt. |
 
+### Example: Viewing compression settings
+
+To view compression settings for columns in a specific table:
+
+```sql
+SELECT 
+    column_name,
+    data_type,
+    compression,
+    is_nullable
+FROM information_schema.columns 
+WHERE table_name = 'my_table'
+ORDER BY ordinal_position;
+```
+
+Example output:
+```
+column_name    | data_type         | compression        | is_nullable
+---------------|-------------------|--------------------|-----------
+id             | INTEGER           | lz4                | NO
+sensor_id      | INTEGER           | delta, lz4         | NO  
+temperature    | DOUBLE PRECISION  | gorilla, zstd(3)   | YES
+timestamp      | TIMESTAMPTZ       | doubledelta, lz4   | NO
+metadata       | TEXT              | zstd(15)           | YES
+```
