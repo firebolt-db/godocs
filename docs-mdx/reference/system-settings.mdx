@@ -48,6 +48,7 @@ The following settings can be configured using the `WITH` clause and the `SET` c
 - [enable_scan_cache](#scan-cache)
 - [insert_sharding](#insert-sharding)
 - [tablet_min_size_bytes and tablet_max_size_bytes](#target-tablet-size)
+- [max_table_partitions_on_insert](#partition-limits)
 - [cross_region_request_mode](#access-cross-region-data)
 - [optimizer_mode](#changing-the-optimizer-mode)
 - [enable_storage_statistics](#using-storage-manager-statistics-in-the-optimizer)
@@ -386,6 +387,27 @@ WITH (tablet_min_size_bytes = 4294967296, tablet_max_size_bytes = 4294967296);
 ```
 
 Changing both `tablet_min_size_bytes` and `tablet_max_size_bytes` to `4 GiB` ensures that larger tablets are created.
+
+## Partition limits
+
+Excessive partitioning can degrade table health and query performance. To prevent tables from having too many partitions, Firebolt enforces a limit on the number of partitions per table. This limit is checked during data ingestion operations and will cause the operation to fail if the resulting partition count would exceed the configured threshold.
+
+For accounts created after November 1, 2025, the default limit is `10000` partitions. (Accounts created before this date do not have a limit applied.) You can adjust this limit using the `max_table_partitions_on_insert` setting.
+
+### Example
+```sql
+SET max_table_partitions_on_insert = 20000;
+INSERT INTO my_table VALUES ...;
+```
+
+```sql
+COPY INTO my_table FROM my_location WITH max_table_partitions_on_insert = 20000;
+```
+
+### Notes
+- Setting `max_table_partitions_on_insert` to `0` disables the partition limit entirely.
+- On multi-node engines, the limit enforcement may not be strictly guaranteed.
+
 
 ## Access Cross-Region Data
 By default, Firebolt restricts importing from and exporting to Amazon S3 buckets located outside your engine's default region to minimize latencies and network costs. For workloads requiring cross-region access, you can enable this functionality using the `cross_region_request_mode` setting. Firebolt offers three modes:
