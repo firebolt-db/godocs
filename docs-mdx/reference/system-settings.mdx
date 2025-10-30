@@ -53,6 +53,7 @@ The following settings can be configured using the `WITH` clause and the `SET` c
 - [enable_storage_statistics](#using-storage-manager-statistics-in-the-optimizer)
 - [max_threads](#limiting-max-threads)
 - [max_insert_threads](#limiting-max-insert-threads)
+- [iceberg_unsafe_version_guessing_mode](#guessing-iceberg-metadata-version)
 - [enable_iceberg_partitioned_scan](#using-iceberg-partitioned-scans-for-co-located-joins-and-aggregations)
 - [late_materialization_max_rows](#control-late-materialization)
 
@@ -671,6 +672,35 @@ Limit insert write operations to a single thread so that only one tablet is writ
 INSERT INTO t
 SELECT * FROM READ_PARQUET(URL => 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/*.parquet')
 WITH (max_insert_threads = 1);
+```
+
+## Guessing Iceberg metadata version
+
+In Apache Iceberg, REST catalogs provide metadata file locations through their REST API, while file-based catalogs provide a `version-hint.text` file. If a file-based catalog lacks a `version-hint.text` file, Firebolt can attempt to guess the correct metadata file.
+
+This behavior is disabled by default because it may violate atomicity guarantees. To enable, set `iceberg_unsafe_version_guessing_mode`.
+
+### Accepted values
+
+- `disabled` (default): Disables version guessing.
+- `version_num`: Selects metadata files based on the numeric portion of filenames such as `v1.metadata.json` or `00002-abcdabcd-abcd-abcd-abcd-abcdabcdabcd.metadata.json`. If multiple files share the same version number, the behavior is non-deterministic.
+
+### Syntax
+
+```sql
+SET iceberg_unsafe_version_guessing_mode = <mode>;
+```
+
+```sql
+SELECT * FROM read_iceberg( ... ) ... WITH iceberg_unsafe_version_guessing_mode = <mode>;
+```
+
+### Example
+
+```sql
+SELECT * FROM read_iceberg('s3://my-bucket/path/to/iceberg/table')
+LIMIT 1
+WITH iceberg_unsafe_version_guessing_mode = 'version_num';
 ```
 
 ## Using Iceberg partitioned scans for co-located joins and aggregations

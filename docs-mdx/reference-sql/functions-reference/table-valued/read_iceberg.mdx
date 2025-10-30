@@ -362,7 +362,18 @@ Firebolt supports authentication using either Lake Formation or direct access to
 
 ## About Metadata Versions in File-Based Catalogs
 
-When reading from a file-based catalog, Firebolt first looks for a `version-hint.text` file to determine which metadata version to use. If one is not available, `READ_ICEBERG` also accepts a path to a specific `metadata.json` file.
+When reading from a file-based catalog, Firebolt first looks for a `version-hint.text` file to determine the metadata version. If this file is unavailable, you can instead specify a direct path to a specific `metadata.json` file.
+
+```sql
+SELECT *
+FROM READ_ICEBERG(
+  URL => 's3://my-bucket/path/to/iceberg/table/metadata/v1.metadata.json',
+  ...
+)
+LIMIT 5;
+```
+
+Alternatively, Firebolt can also attempt to 'guess' the correct metadata file. Because this approach may violate atomicity guarantees, it is disabled by default. For details, see [Guessing Iceberg metadata version](/reference/system-settings#guessing-iceberg-metadata-version).
 
 ## Limitations
 - Iceberg tables with Parquet data files in S3 are currently supported.
