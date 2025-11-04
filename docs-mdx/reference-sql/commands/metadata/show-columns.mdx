@@ -4,39 +4,50 @@ sidebarTitle: SHOW COLUMNS
 title: SHOW COLUMNS
 ---
 
-
-Lists columns and their properties for a specified table. Returns `<table_name>`, `<column_name>`, `<data_type>`, 
+Lists columns and their properties for a specified table. Returns `<table_name>`, `<column_name>`, `<data_type>`,
 and `nullable` (`TRUE` if nullable, `FALSE` if not) for each column.
+
+For more information regarding columns, see [information_schema.columns](/reference-sql/information-schema/columns).
 
 ## Syntax
 
 ```sql
-SHOW COLUMNS <table>;
+SHOW COLUMNS [<table>];
 ```
-## Parameters  
- 
 
-| Parameter      | Description                           |
-| :-------------- | :------------------------------------- |
-| `<table>` | The name of the table to be analyzed. |
+## Parameters
+
+| Parameter            | Description                                                  |
+| :------------------- | :----------------------------------------------------------- |
+| `<table>` (optional) | The name of the table for which the columns should be shown. |
+
+## Returns
+
+The returned table has the following columns.
+
+| Column name | Data Type | Description                               |
+| :---------- | :-------- | :---------------------------------------- |
+| table_name  | TEXT      | Name of the table containing the column.  |
+| column_name | TEXT      | Name of the column.                       |
+| data_type   | TEXT      | The data type of the column.              |
+| nullable    | BOOLEAN   | Indicates if the column may contain NULL. |
 
 ## Example
-The following example highlights all of the columns from the `tournaments` table: 
+
+The following example highlights all of the columns from the `tournaments` table:
 
 ```sql
 SHOW COLUMNS tournaments;
 ```
 
-| table_name | 	column_name           | 	data_type	| nullable | 
-|:-------|:-----------------------|:--------|:--------|
-| tournaments | 	enddatetime           | TIMESTAMP | FALSE |
-| tournaments | 	gameid                | INTEGER | FALSE |
-| tournaments	| name	                  | TEXT	| FALSE |
-| tournaments	| rulesdefinition	       | TEXT |	FALSE |
-| tournaments	| SOURCE_FILE_NAME	      | TEXT	| FALSE |
-| tournaments	| SOURCE_FILE_TIMESTAMP	 | TIMESTAMP	| FALSE |
-| tournaments	| startdatetime	         | TIMESTAMP	| FALSE |
-| tournaments | 	totalprizedollars     |	INTEGER	| FALSE |
-| tournaments	| tournamentid           |	INTEGER	| FALSE |
-
-
+| table_name  | column_name           | data_type | nullable |
+| :---------- | :-------------------- | :-------- | :------- |
+| tournaments | enddatetime           | TIMESTAMP | FALSE    |
+| tournaments | gameid                | INTEGER   | FALSE    |
+| tournaments | name                  | TEXT      | FALSE    |
+| tournaments | rulesdefinition       | TEXT      | FALSE    |
+| tournaments | SOURCE_FILE_NAME      | TEXT      | FALSE    |
+| tournaments | SOURCE_FILE_TIMESTAMP | TIMESTAMP | FALSE    |
+| tournaments | startdatetime         | TIMESTAMP | FALSE    |
+| tournaments | totalprizedollars     | INTEGER   | FALSE    |
+| tournaments | tournamentid          | INTEGER   | FALSE    |
