@@ -929,6 +929,8 @@
   "/reference-sql/functions-reference/aggregation/variance-samp/",
   "/reference-sql/functions-reference/ai",
   "/reference-sql/functions-reference/ai/",
+  "/reference-sql/functions-reference/ai/ai-embed-text",
+  "/reference-sql/functions-reference/ai/ai-embed-text/",
   "/reference-sql/functions-reference/ai/ai-query",
   "/reference-sql/functions-reference/ai/ai-query/",
   "/reference-sql/functions-reference/ai/aws-bedrock-ai-query",
