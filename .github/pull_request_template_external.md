@@ -6,7 +6,7 @@ If the feature is live, the docs can be scheduled for **immediate release** by f
 If it's part of a **future release**, please file the PR against the corresponding release/packdb-<version> branch. 
 
 # Documentation Checklist
-- [ ] I've previewed my documentation locally running `make start-local` (or using [this](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll) tutorial) 
+- [ ] I've previewed my documentation locally running `make start-local` 
 - [ ] I've validated that indexing works and that I'm able to navigate to the documentation page from the table of contents
 - [ ] If I added SQL examples, I have validated that they run correctly and as described. 
 
