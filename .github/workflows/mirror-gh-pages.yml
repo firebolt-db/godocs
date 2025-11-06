@@ -31,6 +31,11 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
           git commit -m "chore: replace README with external version for public repository"
+      - name: Replace PR template with external version
+        run: |
+          cp .github/pull_request_template_external.md .github/pull_request_template.md
+          git add .github/pull_request_template.md
+          git commit -m "chore: replace PR template with external version for public repository"
       - name: Mirror
         run: |
           git remote add public https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/firebolt-db/godocs.git
