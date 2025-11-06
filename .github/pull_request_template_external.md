@@ -1,10 +1,6 @@
 # Description
 Please include a summary of the change and which issue is fixed. Please also include relevant motivation and context.
 
-# When should this PR be released to the public?
-If the feature is live, the docs can be scheduled for **immediate release** by filing the PR to the gh-pages branch.
-If it's part of a **future release**, please file the PR against the corresponding release/packdb-<version> branch. 
-
 # Documentation Checklist
 - [ ] I've previewed my documentation locally running `make start-local` 
 - [ ] I've validated that indexing works and that I'm able to navigate to the documentation page from the table of contents
