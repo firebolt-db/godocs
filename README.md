@@ -1,5 +1,5 @@
 ## About this repo
-* This repository contains the source code for the Firebolt documentation (https://docs.firebolt.io/).
+* This repository is a public mirror which contains the source code for the Firebolt documentation (https://docs.firebolt.io/) to allow external contributors to submit their PRs.
 * Pages are in [MDX format](#about-mdx-format-and-mintlify-platform).
 * Pages are hosted on [Mintlify](https://mintlify.com) platform. It offers [AI tooling](#ai-tools-in-mintlify), internal search and AI bot.
 * Main branch is `gh-pages`. It is automatically published to https://docs.firebolt.io/.
