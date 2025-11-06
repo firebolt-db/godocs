@@ -24,18 +24,19 @@ jobs:
           app-id: ${{ secrets.FB_DB_CI_WRITER_ID }}
           private-key: ${{ secrets.FB_DB_CI_WRITER_PEM }}
           owner: firebolt-db
-      - name: Replace README with external version
+      - name: Prepare external mirror (README + PR template; remove dependabot)
         run: |
           cp README_external.md README.md
+          cp .github/pull_request_template_external.md .github/pull_request_template.md
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md
-          git commit -m "chore: replace README with external version for public repository"
-      - name: Replace PR template with external version
-        run: |
-          cp .github/pull_request_template_external.md .github/pull_request_template.md
-          git add .github/pull_request_template.md
-          git commit -m "chore: replace PR template with external version for public repository"
+          if [ -f .github/dependabot.yml ]; then git rm -f .github/dependabot.yml; fi
+          git add README.md .github/pull_request_template.md
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: prepare external mirror (README + PR template; remove dependabot)"
+          fi
       - name: Mirror
         run: |
           git remote add public https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/firebolt-db/godocs.git
