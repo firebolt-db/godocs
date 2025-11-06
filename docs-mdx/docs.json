@@ -298,6 +298,7 @@
                 "group": "Information schema",
                 "pages": [
                   "reference-sql/information-schema",
+                  "reference-sql/information-schema/account_info",
                   "reference-sql/information-schema/accounts",
                   "reference-sql/information-schema/applicable-roles",
                   "reference-sql/information-schema/catalogs",
@@ -4369,6 +4370,11 @@
       "permanent": false
     },
     {
+      "source": "/sql_reference/information-schema/account_info.html",
+      "destination": "/reference-sql/information-schema/account_info",
+      "permanent": false
+    },
+    {
       "source": "/sql_reference/information-schema/accounts.html",
       "destination": "/reference-sql/information-schema/accounts",
       "permanent": false
@@ -5021,6 +5027,11 @@
     {
       "source": "/sql_reference/information-schema/catalogs",
       "destination": "/reference-sql/information-schema/catalogs",
+      "permanent": false
+    },
+    {
+      "source": "/sql_reference/information-schema/account_info",
+      "destination": "/reference-sql/information-schema/account_info",
       "permanent": false
     },
     {

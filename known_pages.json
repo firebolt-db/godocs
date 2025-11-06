@@ -1360,6 +1360,8 @@
   "/reference-sql/geography-data-type",
   "/reference-sql/information-schema",
   "/reference-sql/information-schema/",
+  "/reference-sql/information-schema/account_info",
+  "/reference-sql/information-schema/account_info/",
   "/reference-sql/information-schema/accounts",
   "/reference-sql/information-schema/accounts/",
   "/reference-sql/information-schema/applicable-roles",

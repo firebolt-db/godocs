@@ -1,0 +1,42 @@
+---
+description: Use this reference to learn about account-level settings and flags available through the information schema.
+sidebarTitle: Account info
+title: Account info
+---
+
+You can use the `information_schema.account_info` view to return information about
+account-level settings and flags (for example, `ALLOW_AMAZON_BEDROCK`).
+
+You can use a `SELECT` query to return all settings, as shown below.
+
+```sql
+SELECT
+  *
+FROM
+  information_schema.account_info
+ORDER BY
+  name;
+```
+
+<Note>
+For general account metadata (such as account name, region, and owner), see [information_schema.accounts](/reference-sql/information-schema/accounts).
+</Note>
+
+## Columns in information_schema.account_info
+
+Each row has the following columns with information about an account setting.
+
+| Column Name | Data Type | Description |
+|:------------|:----------|:------------|
+| name        | TEXT      | The setting name. |
+| value       | TEXT      | The current value serialized as text. |
+| data_type   | TEXT      | The data type of the setting value (for example, `BOOLEAN`). |
+
+### Sample results
+
+```text
+name TEXT,value TEXT,data_type TEXT
+
+'ALLOW_AMAZON_BEDROCK','true','BOOLEAN'
+'ALLOW_DATABRICKS_AI','true','BOOLEAN'
+```
