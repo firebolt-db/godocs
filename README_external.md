@@ -12,7 +12,7 @@
 * [Add a new page](#how-to-add-a-new-page).
 * [Run local checks](#how-to-check-locally) using `make check-all`.
 * [Preview the documentation locally](#how-to-preview-locally) using `make start-local`.
-* [Release changes](#how-to-release-changes).
+* [Contribute changes](#how-to-contribute-changes).
 
 ## Table of contents
 <!-- TOC -->
@@ -27,7 +27,7 @@
     * [How to add a new page](#how-to-add-a-new-page)
     * [How to move an existing page](#how-to-move-an-existing-page)
     * [How to add an interactive SQL example](#how-to-add-an-interactive-sql-example)
-    * [How to release changes](#how-to-release-changes)
+    * [How to contribute changes](#how-to-contribute-changes)
   * [Repository structure](#repository-structure)
   * [GitHub PR Workflow](#github-pr-workflow)
   * [About MDX format and Mintlify platform](#about-mdx-format-and-mintlify-platform)
@@ -81,7 +81,7 @@ This checks that all `<QueryWindow/>` components in the documentation have pre-g
 4. Add the file to the navigation structure in [docs-mdx/docs.json](docs-mdx/docs.json). **The navigation structure must reflect the directory structure.**
 5. Run the checks (`make check-all` or `make`) to ensure everything is correct and automatically update the [known_pages.json](known_pages.json) file with the new URL.
 6. Preview the page locally using `make start-local`.
-7. Push the changes to the repository and open the PR. See [here](#how-to-release-changes) for how to release the changes.
+7. Push the changes to the repository and open the PR. See [here](#how-to-contribute-changes) for how to contribute changes.
 
 ### How to move an existing page
 NB: `mint rename` does a terrible job, do not use it.
@@ -117,11 +117,13 @@ The interactive examples run against a dedicated Firebolt documentation server. 
 4. Preview the page locally using `make start-local` to ensure the example works as expected.
 5. Further steps as similar to [adding a new page](#how-to-add-a-new-page).
 
-### How to release changes
-1. Open a pull request with the changes to the `gh-pages` branch.
-2. Wait for the CI/CD pipeline to run.
-3. Request a review from the repository maintainers.
-4. Merge the PR when it's approved. The changes will be automatically published to https://docs.firebolt.io.
+### How to contribute changes
+1. Fork the repository to your GitHub account.
+2. Create a branch with your changes.
+3. Open a pull request with your changes to the `gh-pages` branch.
+4. Wait for the CI/CD pipeline to run and address any issues.
+5. The repository maintainers will review your PR and provide feedback.
+6. Once approved, the maintainers will merge your changes.
 
 ## Repository structure
 * [docs-mdx/](docs-mdx) contains all the MDX files for the documentation:
