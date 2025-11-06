@@ -6,21 +6,18 @@
 * Important: To improve the search and AI bot, set great [keywords](https://mintlify.com/docs/pages#internal-search-optimization) and [description](https://mintlify.com/docs/pages#descriptions) as it influences search and AI bot functionality.
 
 ## Known problems
-* Mintlify sometimes doesn't generate previews for PRs. Check [here](#how-to-preview-remotely-in-mintlify) for workaround.
 * The crawler link checker sometimes would fail on a fetch timeout.
 
 ## Quick start
 * [Add a new page](#how-to-add-a-new-page).
 * [Run local checks](#how-to-check-locally) using `make check-all`.
 * [Preview the documentation locally](#how-to-preview-locally) using `make start-local`.
-* [Preview the documentation remotely on Mintlify](#how-to-preview-remotely-in-mintlify).
 * [Release changes](#how-to-release-changes).
 
 ## Table of contents
 <!-- TOC -->
   * [Guides for tooling](#guides-for-tooling)
     * [How to preview locally](#how-to-preview-locally)
-    * [How to preview remotely in Mintlify](#how-to-preview-remotely-in-mintlify)
     * [How to check locally](#how-to-check-locally)
       * [Merge conflict markers check](#merge-conflict-markers-check)
       * [Navigation structure check](#navigation-structure-check)
@@ -45,20 +42,6 @@
 ### How to preview locally
 1. Run `make start-local`.
 2. Open http://localhost:3000/ in your browser to preview the documentation.
-
-### How to preview remotely in Mintlify
-NB: There's a known bug when Mintlify skips redeploying the PR preview even when new changes were pushed to [docs-mdx/](docs-mdx). Here's what their support says about it:
-> We've been able to investigate deeper and determined a few potential causes:
-> 1. The PR you added pictures for is pointing at branch release/packdb-4.24. We only trigger preview deployments for PRs pointing at a deployBranch, which in their case is gh-pages
-> 2. If the PR is opened with no changes to any docs content or docs.json, we won't create a preview deployment for it, which means any subsequent pushes to that PR won't update the preview deployment (because it doesn't exist)
-
-1. Open a PR in the repository. Make sure to:
-   * Have at least some change in [/docs-mdx](/docs-mdx) directory. E.g. an insignificant change in a description of a page.
-   * Temporarily set the `gh-pages` branch as the destination branch of the PR. This is just to trigger a preview generation, and can be changed once the preview build job in the CI/CD pipeline starts.
-2. Wait for the CI/CD pipeline to run.
-   * This will build the documentation and deploy it to a remote preview environment using `Mintlify` special workflow.
-   * See the status of the deployment in the `Mintlify -> Mintlify Deployment` check in the pull request. There will be a link to the remote preview.
-3. Go to the preview by the link found in the build. The preview links are formed the following way: `https://firebolt-[your-branch-name-with-dashes].mintlify.app/` (e.g. `my_feature/new-page` has preview at `https://firebolt-my_feature-new-page.mintlify.app/`).
 
 ### How to check locally
 Use `make check-all` or just `make` to run all checks.
@@ -99,7 +82,6 @@ This checks that all `<QueryWindow/>` components in the documentation have pre-g
 5. Run the checks (`make check-all` or `make`) to ensure everything is correct and automatically update the [known_pages.json](known_pages.json) file with the new URL.
 6. Preview the page locally using `make start-local`.
 7. Push the changes to the repository and open the PR. See [here](#how-to-release-changes) for how to release the changes.
-8. Preview the results remotely (see how [here](#how-to-preview-remotely-in-mintlify)).
 
 ### How to move an existing page
 NB: `mint rename` does a terrible job, do not use it.
@@ -137,7 +119,7 @@ The interactive examples run against a dedicated Firebolt documentation server. 
 
 ### How to release changes
 1. Open a pull request with the changes to the `gh-pages` branch.
-2. Wait for the CI/CD pipeline to run and the Mintlify [preview deployment](#how-to-preview-remotely-in-mintlify) to complete.
+2. Wait for the CI/CD pipeline to run.
 3. Request a review from the repository maintainers.
 4. Merge the PR when it's approved. The changes will be automatically published to https://docs.firebolt.io.
 
@@ -165,7 +147,6 @@ The [.github/workflows/pr-check.yml](.github/workflows/pr-check.yml) workflow ru
 * **check-broken-links**: Internal link validation using Mintlify
 * **check-links-using-crawler**: External link validation (informational, doesn't block merge)
 * **check-sql-examples**: SQL example validation (informational, doesn't block merge)
-* **Mintlify**: This job runs the Mintlify deployment workflow to build and deploy the documentation to a [remote preview](#how-to-preview-remotely-in-mintlify).
 
 ## About MDX format and Mintlify platform
 ### Key differences between MDX and MD formats
