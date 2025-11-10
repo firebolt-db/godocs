@@ -15,8 +15,8 @@ Creates a new table in the current database.
 ```sql
 CREATE [FACT|DIMENSION] TABLE [IF NOT EXISTS] <table_name>
 (
-    <column_name> <column_type> [constraints] [COMPRESSION (<codec_chain>)] [DESCRIPTION = <column_description>]
-    [, <column_name> <column_type> [constraints] [COMPRESSION (<codec_chain>)] [DESCRIPTION = <column_description>]
+    <column_name> <column_type> [constraints] [DESCRIPTION = <column_description>]
+    [, <column_name> <column_type> [constraints] [DESCRIPTION = <column_description>]
     [, ...n]]
 )
 [PRIMARY INDEX <column_name>[, <column_name>[, ...k]]]
@@ -32,7 +32,6 @@ CREATE [FACT|DIMENSION] TABLE [IF NOT EXISTS] <table_name>
 | `<table_name>`              | An identifier that specifies the name of the table. This name should be unique within the database.              |
 | `<column_name>`             | An identifier that specifies the name of the column. This name should be unique within the table.                |
 | `<column_type>`             | Specifies the data type for the column.                                                                          |
-| `<codec_chain>`             | Specifies the compression codec(s) for the column. Can be a single codec or chained codecs. See [Column compression](#column-compression) for details. |
 | `<column_description>`      | The optional description of the column.                                                                          |
 | `<storage_parameter>`       | The name of a [storage parameter](#storage-parameters) for controlling behaviors related to storage and indexes. |
 | `<storage_parameter_value>` | The value assigned to a `<storage_parameter>`.                                                                   |
@@ -79,8 +78,7 @@ CREATE FACT TABLE t1
     col2 INTEGER  NOT NULL,
     col3 INTEGER  NULL DEFAULT 1,
     col4 INTEGER  NOT NULL DEFAULT 1,
-    col5 TEXT COMPRESSION (zstd(5)),
-    col6 TEXT
+    col5 TEXT
 )
 PRIMARY INDEX col2;
 ```
@@ -92,7 +90,7 @@ After creating a table, you can manipulate the values using different `INSERT` s
 | `INSERT INTO t1 VALUES (1,1,1,1,1)`                                                                                               | This code example inserts `1` into each column.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | `INSERT INTO t1 VALUES (NULL,1,1,1,1)`                                                                                            | This code example explicitly inserts a `NULL` value into `col1`. Because `col1` can contain `NULL` values, this operation is successful.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | `INSERT INTO t1 (col2,col3,col4,col5) VALUES (1,1,1,1)`                                                                           | This code example shows both explicit and implicit `INSERT` statements. Because `col1` has no value specified, and lacks a default expression, it is implicitly set to `NULL`.                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `INSERT INTO t1 VALUES (1,NULL,1,1,1)`<br/> <br/>`INSERT INTO t1 (col1,col3,col4,col5) VALUES (1,1,1,1)` | This code example shows how a **null mismatch** error is generated. Because `col2` is defined as `NOT NULL` with no default expression, both `INSERT` statements implicitly try to insert `NULL` values into `col2`, and generate “null mismatch” events. |
+| `INSERT INTO t1 VALUES (1,NULL,1,1,1)`<br/> <br/>`INSERT INTO t1 (col1,col3,col4,col5) VALUES (1,1,1,1)` | This code example shows how a **null mismatch** error is generated. Because `col2` is defined as `NOT NULL` with no default expression, both `INSERT` statements implicitly try to insert `NULL` values into `col2`, and generate "null mismatch" events. |
 | `INSERT INTO t1 VALUES (1,1,NULL,1,1)`                                                                                            | This code example explicitly inserts a `NULL` value into `col3`. Because `col3` is defined as `NULL DEFAULT 1`, the operation is successful.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `INSERT INTO t1 (col1,col2,col4,col5) VALUES (1,1,1,1)`                                                                           | By not specifying a value for `col3`, this code example implicitly inserts the default value `1` into `col3`, which is defined as `NULL DEFAULT 1`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | `INSERT INTO t1 VALUES (1,1,1,NULL,1)`                                                                                            | This code example shows how another **null mismatch** error is generated. Because `col4` is defined as `NOT NULL DEFAULT 1`, the explicit insertion of a `NULL` value violates the `NOT NULL` constraint, and results in a null mismatch event.                                                                                                                                                                                                                                                                                                                                                                                                    |
@@ -176,46 +174,6 @@ The following subset of SQL functions can be used in `PARTITION BY` expressions:
 
 For more information, see [Working with partitions](/overview/indexes#partitions-in-tables).
 
-## Column compression
-
-The optional `COMPRESSION` clause allows you to specify compression settings for individual columns. This overrides any table-level compression settings for that specific column.
-
-### Syntax
-
-```sql
-COMPRESSION (<codec_name>[(parameters)][, <codec_name>[(parameters)]])
-```
-
-### Supported compression codecs
-
-| Codec type | Codecs | Description |
-|-----------|---------|-------------|
-| General-purpose | `lz4`, `lz4hc(level)`, `zstd(level)`, `none`, `default` | Can compress any data type and work independently |
-| Specialized | `delta`, `doubledelta`, `gorilla` | Optimize specific data patterns; must be chained with general-purpose codecs (require NOT NULL columns) |
-
-For detailed information about each codec, performance characteristics, and usage recommendations, see [Understanding Compression Codecs](/reference/compression-codecs).
-
-### Examples
-
-```sql
--- Single codec compression
-CREATE TABLE metrics (
-    id INTEGER COMPRESSION (lz4),
-    name TEXT COMPRESSION (zstd(5))
-);
-
--- Chained compression for time series data
-CREATE TABLE sensor_data (
-    sensor_id INTEGER NOT NULL COMPRESSION (delta, lz4),
-    temperature DOUBLE NOT NULL COMPRESSION (gorilla, zstd(3)),
-    timestamp TIMESTAMPTZ NOT NULL COMPRESSION (doubledelta, lz4hc(6))
-);
-```
-
-For detailed information about codec selection and performance characteristics, see:
-- [Table and Column Compression](/overview/table-and-column-compression)
-- [Compression Codec Reference](/reference/compression-codecs)
-
 ### Table type
 
 Firebolt supports two types of [tables](/overview/indexes#tables):
@@ -233,56 +191,10 @@ Storage parameters are specified in the optional `WITH (...)` clause as comma se
 | Storage Parameter     | Description                                                                                                                                                                                                                                                                          |
 | :-------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `<index_granularity>` | The maximum number of rows in each granule. `<storage_parameter_value>` must be a power of 2 between 128 and 8192. The default value is 8192. For more information, see [Index granularity](/overview/indexes/primary-index#advanced-option%3A-index-granularity). |
-| `COMPRESSION` | Specifies table-level compression using the new syntax: `COMPRESSION (codec_name(parameters))`. Applies to all columns unless overridden at column level. For more information, see [Table and Column Compression](/overview/table-and-column-compression). |
-
-### Legacy compression parameters (deprecated)
-
-The following compression parameters are still supported for backward compatibility with `lz4` and `zstd` codecs only:
-
-| Storage Parameter     | Description                                                                                                                                                                                                                                                                          |
-| :-------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `COMPRESSION_LEVEL` | **Deprecated**: Use `COMPRESSION (codec_name(level))` instead. Legacy compression level parameter. Cannot be set without `COMPRESSION`. |
+| `<compression>` | The compression to use at the table level. The default value is `LZ4`. For more information, see [Custom Compression](/overview/table-and-column-compression). |
+| `<compression_level>` | The compression level to use  for the specidfied compression. This parameter cannot be set without `compression`. For more information, see [Custom Compression](/overview/table-and-column-compression). |
 
 All identifiers are case-insensitive unless enclosed in double-quotes. For more information, see [Object identifiers](/reference/object-identifiers).
-
-## Table-level compression examples
-
-### Using new compression syntax
-
-```sql
--- Table with ZSTD compression level 5 for all columns
-CREATE FACT TABLE analytics_events (
-    event_id INTEGER,
-    user_id INTEGER,
-    event_data TEXT,
-    created_at TIMESTAMPTZ
-)
-WITH (COMPRESSION (zstd(5)));
-
--- Mixed compression: table default with column overrides  
-CREATE DIMENSION TABLE user_profiles (
-    user_id INTEGER,
-    profile_data TEXT COMPRESSION (zstd(15)),      -- High compression for large text
-    last_login TIMESTAMPTZ NOT NULL COMPRESSION (delta, lz4),  -- Optimized for sequential timestamps
-    metadata TEXT
-)
-WITH (COMPRESSION (lz4hc(6)));                     -- Table default
-```
-
-### Using legacy compression syntax (deprecated)
-
-```sql
--- Legacy syntax - still supported for lz4 and zstd only
-CREATE FACT TABLE legacy_table (
-    id INTEGER,
-    data TEXT
-) 
-WITH (COMPRESSION = zstd, COMPRESSION_LEVEL = 3);
-```
-
-<Note>
-The legacy `COMPRESSION` and `COMPRESSION_LEVEL` parameters are deprecated. Use the new `COMPRESSION (codec_name(parameters))` syntax for access to all compression features including specialized codecs and compression chaining.
-</Note>
 
 ## DESCRIPTION
 
@@ -292,10 +204,10 @@ It is possible to add a description to the table as well as to the columns durin
 CREATE TABLE table_with_description
 (
     col1 INTEGER NULL DESCRIPTION 'this is a column col1',
-    col2 INTEGER NOT NULL DEFAULT 1 COMPRESSION (delta, lz4),
-    col3 TEXT COMPRESSION (zstd(8)) DESCRIPTION 'this is a column col3'
+    col2 INTEGER NOT NULL DEFAULT 1,
+    col3 TEXT DESCRIPTION 'this is a column col3'
 )
-WITH (COMPRESSION (lz4hc(6)), DESCRIPTION = 'this is a table')
+WITH (DESCRIPTION = 'this is a table')
 ```
 
 ## Related functions
