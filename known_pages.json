@@ -2154,6 +2154,8 @@
   "/sql_reference/index.html",
   "/sql_reference/information-schema",
   "/sql_reference/information-schema/",
+  "/sql_reference/information-schema/account_info",
+  "/sql_reference/information-schema/account_info.html",
   "/sql_reference/information-schema/accounts",
   "/sql_reference/information-schema/accounts.html",
   "/sql_reference/information-schema/applicable-roles",
