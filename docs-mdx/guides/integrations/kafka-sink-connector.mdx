@@ -118,7 +118,7 @@ Here is sample definition:
 
 ### Troubleshoot installing Firebolt connector on Confluent Cloud
 1. **Networking endpoints troubleshooting** — The Kafka connector needs to know in advance the egress endpoints it will call so it can allowlist those IP addresses.
-Set endpoints for Firebolt authentication (`id.app.firebolt.io`) and Firebolt backend API calls (`api.app.firebolt.io`). Some endpoints are dynamic (the account URL is specific to the account in your JDBC URL).
+Set endpoints for Firebolt authentication (`idp.app.firebolt.io`) and Firebolt backend API calls (`api.app.firebolt.io`). Some endpoints are dynamic (the account URL is specific to the account in your JDBC URL).
 Each endpoint may be served by multiple IPs because a reverse proxy is used in front of the services.
 
 In case you see the status of the connector as failed, then check the Settings page
