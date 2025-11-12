@@ -30,7 +30,7 @@ In order to set up a SAML 2.0 compliant service or application as your Identity 
    `urn:auth0:app-firebolt-v2:<org_name>-<provider_name>`.
    
    The **ACS URL** is where the IdP sends authentication responses after login, and has the following format:<br/>
-   `https://id.app.firebolt.io/login/callback?connection=<org_name>-<provider_name>&organization=<organization_identifier>`.
+   `https://idp.app.firebolt.io/login/callback?connection=<org_name>-<provider_name>&organization=<organization_identifier>`.
 
    In the previous example formats, the following apply:
     * `<org_name>` : The organizational name used to create your Firebolt account, as seen in your vanity URL.
@@ -39,7 +39,7 @@ In order to set up a SAML 2.0 compliant service or application as your Identity 
 
    For example, if your organization name is **acmeorg** and the provider name is **custom**, the values for Audience URI and ACS URL should be as follows:
    * **Audience URI**: `urn:auth0:app-firebolt-v2:acmeorg-custom`
-   * **ACS URL**: `https://id.app.firebolt.io/login/callback?connection=acmeorg-custom&organization=<organization_identifier>`
+   * **ACS URL**: `https://idp.app.firebolt.io/login/callback?connection=acmeorg-custom&organization=<organization_identifier>`
 
     <Note>
     The **Audience URI** (also known as Audience Restriction) defines the intended recipient of the SAML (Security Assertion Markup Language) Assertion. Depending on the vendor, this might also be referred to as the **Entity ID**.

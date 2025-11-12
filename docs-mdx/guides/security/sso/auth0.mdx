@@ -22,7 +22,7 @@ To integrate Auth0 with Firebolt's platform, you need to configure both an [Auth
 8. Once your application is created, it will appear under **Applications**. Select the three horizontal dots (...) next to your application's name, and select **Settings** from the dropdown list.
 9. Navigate to the **Application URIs** section. 
 10. In the textbox under **Application Login URI**, enter your Firebolt organization URL address, followed by ```/login?```. For example, ```https://staging-go.firebolt.io/login?```.
-11. In the textbox under **Allowed Callback URLs** field, provide a callback URL with the following format: `https://id.app.firebolt.io/login/callback?connection=<org_name>-<provider>&organization=<organization_identifier>`. For example, `https://id.app.firebolt.io/login/callback?connection=firebolt-staging-auth0&organization=org_UJhpsQ5ypXVU8JVB`. The following apply:
+11. In the textbox under **Allowed Callback URLs** field, provide a callback URL with the following format: `https://idp.app.firebolt.io/login/callback?connection=<org_name>-<provider>&organization=<organization_identifier>`. For example, `https://idp.app.firebolt.io/login/callback?connection=firebolt-staging-auth0&organization=org_UJhpsQ5ypXVU8JVB`. The following apply:
     * **`<org_name>`** - the organizational name used to create your Firebolt account referenced in your vanity URL.  
     * **`<provider>`** - the provider, `Auth0`.  
     * **`<organization_identifier>`** - the unique identifier for your organization in Firebolt. To retrieve your **`<organization_identifier>`**, do the following:
@@ -95,5 +95,5 @@ In the previous code example, the following apply:
 * `provider` - The provider's name, `Auth0`. 
 * `label` - The label to use for the SSO login button. You can use any label name. If the label is not provided, Firebolt uses the value in the **Provider** field. 
 * `certificate` - A digital certificate used to verify the authenticity of a signature used to communication between Auth0 and Firebolt. The certificate must be in Privacy Enhanced Mail (PEM) or CER format.
-* `field mapping` - A mapping used to match user attributes between Auth0 and Firebolt. Enter the first name and surname in your Auth0 profile.  Mapping is only required the first time a user logs in using SSO. 
+* `field mapping` - A mapping used to match user attributes between Auth0 and Firebolt. Enter the first name and surname in your Auth0 profile.  Mapping is only required the first time a user logs in using SSO.  
 
