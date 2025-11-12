@@ -194,7 +194,7 @@ Firebolt assigns two built-in system databases: `account_db` and `org_db`. These
 To retrieve all roles defined at the account level:
 
 ```sql
-SELECT * FROM account_db.information_schema.roles;
+SELECT * FROM account_db.information_schema.enabled_roles;
 ```
 
 To see a list of all accounts within your organization:
@@ -213,7 +213,7 @@ If the request does not specify a database and no default database is configured
 
 The views within `account_db.information_schema` expose details about resources and configurations that are managed at the account level, such as:
 
-* **Databases** – All databases within the account
+* **Catalogs** – All databases within the account
 * **Users** – User accounts and permissions
 * **Transactions** – Transaction history and details
 * **Engine metrics views** – Engine performance data (for example, `engine_history`)
