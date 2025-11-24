@@ -118,12 +118,6 @@ It also detects contradictions like `x < 2 and x > 2`, which can achieve signifi
 
 ### Bug Fixes
 
-**Fix potential incorrect results with order-dependent operations in non-materialized common table expressions**
-
-Operations that depend on the order they are executed in (such as the sum of floating point numbers) should be guaranteed to give the same result when used multiple times in the same query.
-Firebolt now automatically materializes these results to ensure that they are always consistent.
-Previously, different executions of such CTEs could have resulted in different results, all of which were correct in isolation, but violated the expectation that they all be exactly equal.
-
 **Fixed AWS role ARN credentials being ignored in `LOCATION` objects for Iceberg table queries**
 
 Resolved an issue where AWS role ARN credentials were ignored in `LOCATION` objects for Iceberg table queries. This fix ensures proper authentication when accessing data in Iceberg tables.
