@@ -53,7 +53,9 @@ READ_AVRO (
 
 The result is a table with data from the Avro files. Columns are read and parsed using their inferred data types based on the Avro schema. All data types are inferred as nullable.
 
-When reading multiple files, the schema is inferred from the most recently modified file.
+<Note>
+**When loading multiple files, Firebolt infers the schema from the most recently modified file.** The remaining files must have compatible data types. If types vary between files (e.g., a column contains integers in one file but doubles in another, or is numeric in one file but text in another), the inferred schema may not match all files and thus cause data type errors or query failures. In such cases, we recommend defining an explicit schema using either [external tables](/reference-sql/commands/data-definition/create-external-table) or [`COPY FROM`](/reference-sql/commands/data-management/copy-from) into existing tables.
+</Note>
 
 ## Avro Data Type Mapping
 
@@ -226,4 +228,4 @@ The pattern will recursively match files in all subdirectories. For example:
 ```sql
 SELECT * FROM READ_AVRO('s3://firebolt-publishing-public/help_center_assets/firebolt_sample_avro/*.avro')
 ```
-will read all Avro files in the `firebolt_sample_avro` directory and all of its subdirectories. 
+will read all Avro files in the `firebolt_sample_avro` directory and all of its subdirectories.      
