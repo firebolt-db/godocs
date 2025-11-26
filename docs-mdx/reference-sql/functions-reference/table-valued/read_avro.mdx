@@ -53,6 +53,8 @@ READ_AVRO (
 
 The result is a table with data from the Avro files. Columns are read and parsed using their inferred data types based on the Avro schema. All data types are inferred as nullable.
 
+When reading multiple files, the schema is inferred from the most recently modified file.
+
 ## Avro Data Type Mapping
 
 `READ_AVRO` supports all Avro data types with the following mappings:

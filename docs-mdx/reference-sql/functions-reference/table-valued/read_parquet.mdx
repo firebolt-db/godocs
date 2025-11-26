@@ -58,6 +58,8 @@ READ_PARQUET (
 
 The result is a table with data from the Parquet files. Columns are read and parsed using their inferred data types.
 
+When reading multiple files, the schema is inferred from the most recently modified file.
+
 ## Best practice
 
 Firebolt recommends using a `LOCATION` object to store credentials for authentication.
