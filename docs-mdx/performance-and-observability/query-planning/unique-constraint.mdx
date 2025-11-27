@@ -6,6 +6,13 @@ title: UNIQUE constraints as query hints
 
 In Firebolt, `UNIQUE` constraints can be declared in `CREATE TABLE` statements. However, the system does not enforce data uniqueness. The query optimizer uses these hints to make better decisions during query planning and optimization.
 
+<Note>
+Using UNIQUE constraints as query hints is an opt-in feature. To enable it, run the following command:
+```sql
+SET lqp2_derive_ndv_from_unique_keys = true;
+```
+</Note>
+
 Data uniqueness is a crucial piece of information for the query optimizer. In Firebolt, it mainly affects query plan quality through two aspects:
 
 1. **Plan transformation** -- Enables more effective plan rewrites when unique keys are present.
