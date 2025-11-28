@@ -1,0 +1,79 @@
+---
+description: How to configure automated column statistics to read existing user created aggregating indexes.
+sidebarTitle: Infer from user created indexes
+title: Infer from user created indexes
+---
+
+[Automated Column Statistics](/performance-and-observability/query-planning/automated-column-statistics)
+is a feature that enables Firebolt's query planner to leverage aggregating indexes to obtain statistical information about columns.
+This enables the planner to make more informed decisions, potentially leading to better query plans and improved performance.
+On this page, we explain how to create tables that automatically collect statistics.
+
+## Syntax
+
+To enable inferring column statistics from existing aggregating indexes, use the query-level setting `automated_column_statistics_read_user_created_indexes`.
+The default value is `false`, so this is an opt-in feature.
+
+```sql
+SET automated_column_statistics_read_user_created_indexes = true;
+SELECT ...;
+```
+
+## Alternatives
+
+You can also let Firebolt manage the aggregating indexes for you.
+This has the advantage that you do not have to manually change the query settings and always profit when using a table that has the feature enabled.
+See [Create tables with statistics](/performance-and-observability/query-planning/automated-column-statistics/table-with-statistics).
+
+## Example
+
+Consider two tables with columns that are frequently used for grouping, filtering, or joining.
+
+```sql
+CREATE TABLE employees
+(
+    name TEXT,
+    date_of_birth DATE,
+    gender TEXT,
+    title TEXT,
+    salary REAL,
+    dept_id INT
+);
+
+CREATE TABLE departments
+(
+    dept_id INT,
+    dept_name TEXT,
+    location TEXT,
+    budget REAL,
+    manager_id INT
+);
+```
+
+To enable automated column statistics collection for relevant columns, create an aggregating index:
+
+```sql
+CREATE AGGREGATING INDEX employees_statistics
+ON employees
+(
+    APPROX_COUNT_DISTINCT(gender),      -- for filtering by gender
+    APPROX_COUNT_DISTINCT(title),       -- for filtering by title
+    APPROX_COUNT_DISTINCT(dept_id)      -- for joining on department id
+);
+
+CREATE AGGREGATING INDEX departments_statistics
+ON departments
+(
+    APPROX_COUNT_DISTINCT(dept_id),     -- for joining on department id
+    APPROX_COUNT_DISTINCT(dept_name),   -- for grouping by department name
+    APPROX_COUNT_DISTINCT(location)     -- for filtering by location
+);
+```
+
+Finally, before running a query, enable the feature by calling `SET automated_column_statistics_read_user_created_indexes = true;`.
+Then you can see the following effect on the query plan:
+
+import SqlExamplesAutomatedColumnStatisticsExampleQuery from '/snippets/sql_examples/automated-column-statistics-example-query.mdx';
+
+<SqlExamplesAutomatedColumnStatisticsExampleQuery />
+

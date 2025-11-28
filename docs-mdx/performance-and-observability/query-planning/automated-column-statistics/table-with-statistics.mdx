@@ -1,0 +1,68 @@
+---
+description: How to create a table that automatically collects and updates column statistics.
+sidebarTitle: Create tables with column statistics
+title: Create tables with column statistics
+---
+
+[Automated Column Statistics](/performance-and-observability/query-planning/automated-column-statistics)
+is a feature that enables Firebolt's query planner to leverage aggregating indexes to obtain statistical information about columns.
+This enables the planner to make more informed decisions, potentially leading to better query plans and improved performance.
+On this page, we explain how to create a table that automatically collects and updates statistics for the columns you specify.
+
+## Syntax
+
+In the [create table](/reference-sql/commands/data-definition/create-fact-dimension-table) statement,
+you can specify the columns you want to collect statistics for by adding the `STATISTICS` keyword to the column definition.
+
+```sql
+CREATE TABLE employees (name TEXT, dept_id INT STATISTICS);
+```
+
+Alternatively, as a short-hand, you can use `STATISTICS ALL` to collect statistics for all columns.
+
+```sql
+CREATE TABLE employees (name TEXT, dept_id INT, STATISTICS ALL);
+```
+
+If any query references a column that has statistics collected, the query planner will leverage these statistics during planning.
+This can potentially lead to a better plans and therefore improved performance.
+
+## Alternatives
+
+You can also allow Firebolt to infer column statistics from existing aggregating indexes.
+To do this, you have to manually create the aggregating indexes, and modify the queries to use the statistics.
+This has the advantage of giving you more control over which queries use the statistics.
+See [Using existing aggregating indexes](/performance-and-observability/query-planning/automated-column-statistics/user-created-indexes).
+
+## Example
+
+Consider two tables with columns that are frequently used for grouping, filtering, or joining.
+Because of this, we configure the columns to collect statistics.
+
+```sql
+CREATE TABLE employees
+(
+    name TEXT,
+    date_of_birth DATE,
+    gender TEXT STATISTICS,
+    title TEXT STATISTICS,
+    salary REAL,
+    dept_id INT STATISTICS
+);
+
+CREATE TABLE departments
+(
+    dept_id INT STATISTICS,
+    dept_name TEXT STATISTICS,
+    location TEXT STATISTICS,
+    budget REAL,
+    manager_id INT
+);
+```
+
+Because these columns are now configured to collect statistics, the query planner can leverage the statistics, in this case improving the query plan.
+The following example shows how the statistics are used.
+
+import SqlExamplesAutomatedColumnStatisticsExampleQuery from '/snippets/sql_examples/automated-column-statistics-example-query.mdx';
+
+<SqlExamplesAutomatedColumnStatisticsExampleQuery />

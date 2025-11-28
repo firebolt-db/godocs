@@ -108,7 +108,14 @@
                   "performance-and-observability/query-planning",
                   "performance-and-observability/query-planning/inspecting-query-plans",
                   "performance-and-observability/query-planning/cardinality-estimation",
-                  "performance-and-observability/query-planning/automated-column-statistics",
+                  {
+                    "group": "Automated Column Statistics",
+                    "pages": [
+                      "performance-and-observability/query-planning/automated-column-statistics",
+                      "performance-and-observability/query-planning/automated-column-statistics/table-with-statistics",
+                      "performance-and-observability/query-planning/automated-column-statistics/user-created-indexes"
+                    ]
+                  },
                   "performance-and-observability/query-planning/unique-constraint",
                   {
                     "group": "Query Hints",
