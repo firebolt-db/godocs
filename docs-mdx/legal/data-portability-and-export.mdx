@@ -1,0 +1,352 @@
+---
+description: Information for customers under the EU Data Act
+sidebarTitle: Firebolt data portability and export
+title: Firebolt data portability and export
+---
+
+<Note>
+**Non binding overview**.
+This document describes how customers can export data from Firebolt and switch to another provider or their own infrastructure, based on public product documentation.
+It is not legal advice and does not replace the contract or data processing terms.
+</Note>
+
+## 1. Service scope and data categories
+
+Firebolt is a cloud data warehouse and analytics platform that stores and processes customer data on decoupled compute and storage, using compressed columnar storage and indexing for performance.
+{/* ✅ [docs.firebolt.io+1](https://docs.firebolt.io/overview/architecture-overview) */}
+
+For the purpose of the EU Data Act, we group data handled by Firebolt into:
+
+1. **Customer data in managed tables**:
+    Structured and Semi-structured data that you ingest into Firebolt managed tables from data lakes, relational databases and other sources.
+    {/* ✅ [docs.firebolt.io+2docs.firebolt.io+2](https://docs.firebolt.io/) */}
+
+2. **External data referenced by Firebolt**:
+    Data that remains in your own storage (typically Amazon S3 or lake formats) and is only referenced via **external tables**.
+    Firebolt stores metadata only, not the source files.
+    {/* ✅ [docs.firebolt.io+1](https://docs.firebolt.io/reference-sql/commands/data-definition/create-external-table) */}
+
+3. **Metadata and configuration**:
+
+   * Databases, schemas, tables, indexes, engines
+
+   * Roles and permissions
+
+   * System views [in `information_schema`](/reference-sql/information-schema) that describe objects and usage
+     {/* ✅ [docs.firebolt.io+2docs.firebolt.io+2](https://docs.firebolt.io/reference-sql/information-schema) */}
+
+4. **Query results**:
+    Results of SQL queries run against managed or external data.
+    These can be exported directly to Amazon S3 in common formats.
+    {/* ✅ [docs.firebolt.io+2docs.firebolt.io+2](https://docs.firebolt.io/reference-sql/commands/data-management/copy-to) */}
+
+5. **Observability and operational data**:
+
+   * Query history and audit style information
+
+   * Metrics about engine resource usage, cache and spilling
+
+   * Consumption and metering history
+
+   * Telemetry exposed through OpenTelemetry integration
+     {/* ❓ [docs.firebolt.io+5docs.firebolt.io+5docs.firebolt.io+5](https://docs.firebolt.io/sql_reference/information-schema/engine-metrics-history.html) */}
+
+6. **Firebolt internal assets**:
+    Internal algorithms, optimizers, cache contents, storage layout and other proprietary system internals.
+    These are not part of exportable customer data.
+
+## 2. Data ingestion — sources and formats
+
+### 2.1 Managed table ingestion
+
+Customers can ingest data into Firebolt managed tables using:
+
+* **Load data wizard in the workspace**
+
+  * Source: Amazon S3
+
+  * Formats: **CSV** and **Parquet**
+
+  * Options: custom delimiter, quote and escape characters, error handling, primary index selection and more
+    {/* ❓ [docs.firebolt.io](https://docs.firebolt.io/guides/loading-data) */}
+
+* **SQL `COPY INTO` (often shown as `COPY FROM`)**
+
+  * Source: Amazon S3
+
+  * Examples in docs show CSV and Parquet; getting started material mentions support for TSV, Avro, JSON Lines and ORC when using SQL based loading
+    {/* ❓ [docs.firebolt.io+2docs.firebolt.io+2](https://docs.firebolt.io/guides/loading-data/loading-data-sql) */}
+
+These options cover the most common lake formats for analytical workloads.
+
+### 2.2 External tables and lake access
+
+* **External tables** act as connectors to external data sources, usually files in S3.
+
+  * Firebolt stores only metadata, not the source data itself.
+    {/* ✅ [docs.firebolt.io](https://docs.firebolt.io/reference-sql/commands/data-definition/create-external-table) */}
+
+  * External tables are used to query formats such as Parquet and other lake formats without loading into managed storage.
+    {/* ✅ [docs.firebolt.io+2docs.firebolt.io+2](https://docs.firebolt.io/guides/loading-data/working-with-semi-structured-data/load-parquet-data) */}
+
+* Additional table-valued functions (such as `READ_CSV`, `READ_AVRO`, `READ_PARQUET`, and `READ_ICEBERG`) extend this to open file and table formats.
+  {/* ❓ [docs.firebolt.io+1](https://docs.firebolt.io/Reference/release-notes/release-notes-archive.html) */}
+
+## 3. Data export — mechanisms and formats
+
+### 3.1 Export via `COPY TO`
+
+Firebolt provides the `COPY TO` SQL command which exports the results of any `SELECT` query to Amazon S3 in a specified file format.
+{/* ❓ [docs.firebolt.io+2docs.firebolt.io+2](https://docs.firebolt.io/reference-sql/commands/data-management/copy-to) */}
+
+Supported file formats include:
+
+* **CSV**
+
+* **Parquet**
+
+* **JSON**
+
+* **TSV**
+  {/* ✅ [docs.firebolt.io](https://docs.firebolt.io/guides/exporting-data) */}
+
+`COPY TO` lets you control:
+
+* Output file format and compression
+
+* File naming and overwrite behavior
+
+* Destination S3 bucket and credentials
+  {/* ✅ [docs.firebolt.io+1](https://docs.firebolt.io/reference-sql/commands/data-management/copy-to) */}
+
+Examples from docs show exporting full tables or filtered subsets to S3 in CSV, Parquet, JSON and TSV.
+{/* ❓ [docs.firebolt.io](https://docs.firebolt.io/guides/exporting-data) */}
+
+### 3.2 Export from the Workspace UI
+
+Release notes indicate:
+
+* Export of query results from the UI, including copying results to the clipboard from an export menu.
+  {/* ❓ [docs.firebolt.io+1](https://docs.firebolt.io/reference/release-notes/release-notes-archive) */}
+
+This supports ad hoc export of smaller query results, for example to downstream tools or spreadsheets. For full scale data export and vendor switching, customers should use `COPY TO` to S3.
+
+## 4. What can be exported, by data category
+
+### 4.1 Managed table data
+
+**Exportable**
+
+* All rows and columns in managed tables can be retrieved with `SELECT` and exported using `COPY TO` in CSV, Parquet, JSON or TSV.
+  {/* ❓ [docs.firebolt.io+2docs.firebolt.io+2](https://docs.firebolt.io/guides/exporting-data) */}
+
+**Typical migration pattern**
+
+```sql
+COPY (SELECT * FROM db.schema.table_name)
+TO 's3://your-bucket/firebolt-exports/table_name/'
+WITH (FORMAT = 'PARQUET');
+```
+
+This produces standard files in S3 that can be loaded into other data warehouses or lake engines.
+
+### 4.2 External table data
+
+**Exportable, but stored outside Firebolt**
+
+* External tables do not store data in Firebolt.
+  They store pointers and processing parameters for files in your own S3 buckets.
+  {/* ❓ [docs.firebolt.io](https://docs.firebolt.io/reference-sql/commands/data-definition/create-external-table) */}
+
+Customers already control those source files and can:
+
+* Continue using them directly outside Firebolt, or
+
+* Use Firebolt to export query results over external data via `COPY TO` if they want a transformed or filtered snapshot.
+
+### 4.3 Semi-structured and nested data
+
+Semi-structured data in Parquet, Avro, JSON Lines, etc can be loaded to Firebolt or queried through external tables.
+{/* ❓ [docs.firebolt.io+2docs.firebolt.io+2](https://docs.firebolt.io/guides/loading-data/working-with-semi-structured-data/load-parquet-data) */}
+
+It remains **exportable** in either:
+
+* Relational form (flattened through SQL `SELECT`), or
+
+* Semi-structured form using `COPY TO` with JSON or Parquet format.
+  {/* ❓ [docs.firebolt.io+1](https://docs.firebolt.io/guides/exporting-data) */}
+
+### 4.4 Metadata and configuration
+
+The Firebolt `information_schema` provides system views containing:
+
+* Tables, indexes, columns and constraints
+
+* Engines and their state
+
+* Roles, grants and other account level metadata
+  {/* ❓ [docs.firebolt.io+2docs.firebolt.io+2](https://docs.firebolt.io/reference-sql/information-schema) */}
+
+These views are queryable with SQL and so are **exportable** through:
+
+```sql
+COPY (
+  SELECT * FROM information_schema.tables
+)
+TO 's3://your-bucket/firebolt-exports/metadata/tables/'
+WITH (FORMAT = 'CSV', HEADER = TRUE);
+```
+
+This lets customers reconstruct schemas and configurations in another system or in their own environment.
+
+{/*Note: Firebolt also provides helper functionality such as `RECOMMEND DDL` to suggest schema and index definitions based on workload, which can assist in re creating optimized schemas elsewhere. */}
+{/* ❌ (irrelevant) [docs.firebolt.io](https://docs.firebolt.io/reference-sql/commands/queries/recommend_ddl) */}
+
+### 4.5 Observability and operational data
+
+Firebolt exposes several information schema views for observability:
+
+* **`information_schema.engine_query_history`**
+
+  * Contains metadata about executed queries
+
+  * Retains only the most recent **10,000 queries** per engine cluster
+    {/* ❓ [docs.firebolt.io+1](https://docs.firebolt.io/reference-sql/information-schema/engine-query-history) */}
+
+* **`information_schema.engine_user_query_history`**
+
+  * Filters `information_schema.engine_query_history` to queries initiated by human users
+
+  * Machine-generated queries remain in `engine_query_history` and form a complete audit log
+    {/* ✅ [docs.firebolt.io](https://docs.firebolt.io/reference-sql/information-schema/engine-user-query-history) */}
+
+* **`information_schema.engine_running_queries`**
+
+  * Shows information about queries currently running in a database
+    {/* ✅ [docs.firebolt.io+1](https://docs.firebolt.io/reference-sql/information-schema/engine-running-queries) */}
+
+* **`information_schema.engine_metrics_history`**
+
+  * Resource usage metrics such as CPU, RAM, disk, cache and spilling
+
+  * Per default, snapshots are collected roughly every 30 seconds and retained for 30 days.
+    {/* ✅ [docs.firebolt.io+2docs.firebolt.io+2](https://docs.firebolt.io/sql_reference/information-schema/engine-metrics-history.html) */}
+
+* **`information_schema.engine_metering_history`**
+
+  * Records engine consumption in FBUs over time, which can be used for cost and capacity analysis.
+    {/* ✅ [docs.firebolt.io](https://docs.firebolt.io/reference-sql/information-schema/engine-metering-history) */}
+
+All of these views can be queried and exported via `COPY TO`, so observability data that is still within its retention window is **exportable**.
+
+Additionally:
+
+* Firebolt integrates with **OpenTelemetry** and provides an OpenTelemetry exporter so that customers can stream telemetry data into their own monitoring stack, independent of Firebolt.
+{/* ✅ [docs.firebolt.io+1](https://docs.firebolt.io/Guides/integrations/otel-exporter.html) */}
+
+### 4.6 Firebolt internal assets and non-exportable items
+
+The following are **not** considered exportable customer data:
+
+* Internal algorithms, query optimizer logic, cost models and execution engine internals
+
+* Details of internal storage layout and cache content beyond what is surfaced in metrics and explain plans
+
+* Ephemeral runtime state that is not exposed through documented views or APIs
+
+Where internal telemetry is exposed (for example via the `telemetry` JSON column in `information_schema.engine_query_history`), that portion is exportable in the same way as other observability data.
+{/* ✅ [docs.firebolt.io+1](https://docs.firebolt.io/sql_reference/commands/data-management/vacuum.html) */}
+
+## 5. Limitations and retention characteristics
+
+In line with the EU Data Act requirement to disclose limitations, Firebolt has the following relevant technical limits in the public documentation:
+
+* **Query history**
+
+  * `engine_query_history` retains only the last **10,000 queries** per engine cluster.
+    Older entries are dropped.
+    {/* ❓ [docs.firebolt.io+1](https://docs.firebolt.io/reference-sql/information-schema/engine-query-history) */}
+
+* **Engine metrics**
+
+  * `engine_metrics_history` collects roughly 2 snapshots per minute and keeps data for **30 days**.
+    Metrics older than this are not available for export.
+    {/* ❓ [docs.firebolt.io+2docs.firebolt.io+2](https://docs.firebolt.io/sql_reference/information-schema/engine-metrics-history.html) */}
+
+* **Running queries view**
+
+  * `engine_running_queries` shows active queries only, up to 10,000 entries per engine cluster.
+    {/* ❓ [docs.firebolt.io](https://docs.firebolt.io/reference-sql/information-schema/engine-running-queries) */}
+
+* **External data**
+
+  * For data accessed via external tables, Firebolt holds only metadata.
+    The customer remains responsible for lifecycle and retention of the underlying files in S3 or other storage.
+    {/* ❓ [docs.firebolt.io+1](https://docs.firebolt.io/reference-sql/commands/data-definition/create-external-table) */}
+
+Customers who need longer retention for observability data can:
+
+* Periodically export system views using `COPY TO`, or
+
+* Use the OpenTelemetry exporter to store telemetry in their own observability platforms.
+  {/* ❓ [docs.firebolt.io+2docs.firebolt.io+2](https://docs.firebolt.io/Guides/integrations/otel-exporter.html) */}
+
+## 6. Switching to another provider or on premises environment
+
+The EU Data Act requires that customers can switch providers without undue technical or commercial obstacles.
+
+### 6.1 Data export for switching
+
+Customers can:
+
+1. Export all required data and derived datasets via `COPY TO` using open formats (CSV, Parquet, JSON, TSV) to their own S3 buckets.
+   {/* ❓ [docs.firebolt.io+2docs.firebolt.io+2](https://docs.firebolt.io/guides/exporting-data) */}
+
+2. Export metadata and schema information from `information_schema` views to reconstruct table and index structures in the target system.
+   {/* ❓ [docs.firebolt.io+1](https://docs.firebolt.io/reference-sql/information-schema) */}
+
+3. Export observability and consumption data to understand usage patterns and size target capacity.
+   {/* ❓ [docs.firebolt.io+2docs.firebolt.io+2](https://docs.firebolt.io/sql_reference/information-schema/engine-metrics-history.html) */}
+
+4. Use existing lake files that were already in S3 and referenced through external tables, which remain under customer control outside of Firebolt.
+   {/* ❓ [docs.firebolt.io+1](https://docs.firebolt.io/reference-sql/commands/data-definition/create-external-table) */}
+
+### 6.2 Import into target systems
+
+Firebolt export formats are broadly compatible with common data warehouses and lakes.
+{/* ❓ [docs.firebolt.io](https://docs.firebolt.io/guides/migration-guides/redshift) */}
+
+Migration to another system typically involves:
+
+* Creating equivalent schemas in the target
+
+* Loading exported CSV or Parquet files into the target’s tables
+
+* Optionally replaying business logic using preserved SQL and query history
+
+### 6.3 Permissions and controls
+
+Export operations and access to observability data are governed by Firebolt role based access control:
+
+* Engine and data access are controlled through engine permissions and roles.
+  {/* ❓ [docs.firebolt.io+1](https://docs.firebolt.io/overview/security/rbac/engine-permissions) */}
+
+* Only users with the appropriate privileges can run `COPY TO` or query system views.
+
+Customers can limit who is allowed to initiate large scale export or migration.
+
+{/*
+## 7. Alignment with EU Data Act data portability requirements
+
+Below is a simplified mapping between key EU Data Act expectations for data processing services and what is available according to docs.firebolt.io.
+This is not a legal assessment:
+
+| Data Act expectation (simplified) | Firebolt capability from docs |
+| ----- | ----- |
+| Clear description of exportable data and digital assets | Managed tables, external data, metadata, observability metrics and query history are documented and queryable through SQL and information schema views. [docs.firebolt.io+3docs.firebolt.io+3docs.firebolt.io+3](https://docs.firebolt.io/overview/data-management) |
+| Export in structured, commonly used machine-readable format | `COPY TO` exports any query result in CSV, Parquet, JSON or TSV to S3. [docs.firebolt.io+2docs.firebolt.io+2](https://docs.firebolt.io/reference-sql/commands/data-management/copy-to) |
+| Support to switch to another provider or self hosted environment | Docs show how to export data to S3 and how to load from S3 in common formats, which enables round trip portability into other systems. [docs.firebolt.io+3docs.firebolt.io+3docs.firebolt.io+3](https://docs.firebolt.io/guides/exporting-data) |
+| Transparency on limitations and retention of usage data | Query history and metrics retention windows and limits are explicitly documented. [docs.firebolt.io+3docs.firebolt.io+3docs.firebolt.io+3](https://docs.firebolt.io/sql_reference/information-schema/engine-query-history.html) |
+| Access to observability and usage data for the customer | System views and OpenTelemetry exporter provide access to query, metrics and metering data that the customer can export. [docs.firebolt.io+4docs.firebolt.io+4docs.firebolt.io+4](https://docs.firebolt.io/sql_reference/information-schema/engine-metrics-history.html) |
+| Respect for provider trade secrets and security | Internal algorithms and storage internals are not exposed in documentation or information schema, while customer facing data and metrics are exportable. [docs.firebolt.io+2docs.firebolt.io+2](https://docs.firebolt.io/reference-sql/information-schema) |
+*/}

@@ -12,6 +12,10 @@
     "reason": "a non-public guide for private PoC"
   },
   {
+    "path": "legal/data-portability-and-export.mdx",
+    "reason": "no yet finalized"
+  },
+  {
     "path": "reference-sql/functions-reference/aggregate-array.mdx",
     "reason": "not yet implemented"
   },
