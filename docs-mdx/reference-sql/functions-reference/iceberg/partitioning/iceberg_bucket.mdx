@@ -4,7 +4,7 @@ sidebarTitle: ICEBERG_BUCKET
 title: ICEBERG_BUCKET
 ---
 
-Hashes a value using MurmurHash3 and assigns it to a bucket number, according to the [Iceberg partition transforms specification](https://iceberg.apache.org/spec/#partition-transforms). This function is useful for distributing data evenly across partitions.
+Hashes a value using MurmurHash3 and assigns it to a bucket number, according to the [Iceberg partition transforms specification](https://iceberg.apache.org/spec/#partition-transforms).
 
 ## Syntax
 
@@ -75,8 +75,8 @@ SELECT iceberg_bucket('\x00010203'::BYTEA, 1024) AS bucket_bytea;
 
 ```sql
 SELECT 
-  iceberg_bucket('2017-11-16'::DATE, 1024) AS bucket_date,
-  iceberg_bucket('2017-11-16T22:31:08'::TIMESTAMP, 1024) AS bucket_ts;
+  iceberg_bucket('2025-12-15'::DATE, 1024) AS bucket_date,
+  iceberg_bucket('2025-12-15T22:31:08'::TIMESTAMP, 1024) AS bucket_ts;
 ```
 
 **Returns:**

@@ -23,13 +23,13 @@ LIMIT 5;
 
 ### Partition transform functions
 
-Iceberg partition transform functions compute partition values according to the [Iceberg specification](https://iceberg.apache.org/spec/#partition-transforms). These functions are useful when you need to compute partition values that match how Iceberg partitions data.
+Iceberg partition transform functions compute partition values according to the [Iceberg specification](https://iceberg.apache.org/spec/#partition-transforms).
 
 ```sql
 SELECT 
-  iceberg_year('2024-03-15'::DATE) AS year_partition,
-  iceberg_month('2024-03-15'::DATE) AS month_partition,
-  iceberg_day('2024-03-15'::DATE) AS day_partition;
+  iceberg_year('2025-12-15'::DATE) AS year_partition,
+  iceberg_month('2025-12-15'::DATE) AS month_partition,
+  iceberg_day('2025-12-15'::DATE) AS day_partition;
 ```
 
 **Returns:**

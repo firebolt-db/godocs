@@ -30,7 +30,7 @@ Returns the number of hours since 1970-01-01 00:00:00 UTC. For timestamps before
 
 ```sql
 SELECT 
-  iceberg_hour('2024-03-15 14:30:00'::TIMESTAMP) AS hour_2024,
+  iceberg_hour('2025-12-15 14:30:00'::TIMESTAMP) AS hour_2024,
   iceberg_hour('1970-01-01 00:00:00'::TIMESTAMP) AS hour_epoch,
   iceberg_hour('1969-12-31 23:59:59'::TIMESTAMP) AS hour_before_epoch;
 ```
@@ -47,8 +47,8 @@ When used with a `DATE` value, the function treats it as midnight (00:00:00) of 
 
 ```sql
 SELECT 
-  iceberg_day('2024-03-15'::DATE) AS day_value,
-  iceberg_hour('2024-03-15'::DATE) AS hour_value;
+  iceberg_day('2025-12-15'::DATE) AS day_value,
+  iceberg_hour('2025-12-15'::DATE) AS hour_value;
 ```
 
 **Returns:**
@@ -61,7 +61,7 @@ SELECT
 
 ```sql
 SELECT 
-  iceberg_hour('2024-03-15 14:30:00+00:00'::TIMESTAMPTZ) AS tstz_hour;
+  iceberg_hour('2025-12-15 14:30:00+00:00'::TIMESTAMPTZ) AS tstz_hour;
 ```
 
 **Returns:**

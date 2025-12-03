@@ -30,7 +30,7 @@ Returns the number of months since 1970-01-01. For dates before 1970-01-01, retu
 
 ```sql
 SELECT 
-  iceberg_month('2024-03-15'::DATE) AS month_2024_03,
+  iceberg_month('2025-12-15'::DATE) AS month_2024_03,
   iceberg_month('1970-01-01'::DATE) AS month_1970_01,
   iceberg_month('1969-12-31'::DATE) AS month_1969_12;
 ```
@@ -45,8 +45,8 @@ SELECT
 
 ```sql
 SELECT 
-  iceberg_month('2024-03-15 14:30:00'::TIMESTAMP) AS ts_month,
-  iceberg_month('2024-03-15 14:30:00+00:00'::TIMESTAMPTZ) AS tstz_month;
+  iceberg_month('2025-12-15 14:30:00'::TIMESTAMP) AS ts_month,
+  iceberg_month('2025-12-15 14:30:00+00:00'::TIMESTAMPTZ) AS tstz_month;
 ```
 
 **Returns:**

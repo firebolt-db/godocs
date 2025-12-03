@@ -507,25 +507,6 @@
                     ]
                   },
                   {
-                    "group": "Iceberg functions",
-                    "pages": [
-                      "reference-sql/functions-reference/iceberg",
-                      "reference-sql/functions-reference/iceberg/read_iceberg",
-                      {
-                        "group": "Partition transform functions",
-                        "pages": [
-                          "reference-sql/functions-reference/iceberg/partitioning",
-                          "reference-sql/functions-reference/iceberg/partitioning/iceberg_year",
-                          "reference-sql/functions-reference/iceberg/partitioning/iceberg_month",
-                          "reference-sql/functions-reference/iceberg/partitioning/iceberg_day",
-                          "reference-sql/functions-reference/iceberg/partitioning/iceberg_hour",
-                          "reference-sql/functions-reference/iceberg/partitioning/iceberg_bucket",
-                          "reference-sql/functions-reference/iceberg/partitioning/iceberg_truncate"
-                        ]
-                      }
-                    ]
-                  },
-                  {
                     "group": "Array functions",
                     "pages": [
                       "reference-sql/functions-reference/array/array-concat",
@@ -621,6 +602,24 @@
                       "reference-sql/functions-reference/geospatial/st_s2cellidfrompoint",
                       "reference-sql/functions-reference/geospatial/st_x",
                       "reference-sql/functions-reference/geospatial/st_y"
+                    ]
+                  },
+                  {
+                    "group": "Iceberg functions",
+                    "pages": [
+                      "reference-sql/functions-reference/iceberg",
+                      "reference-sql/functions-reference/iceberg/read_iceberg",
+                      {
+                        "group": "Partition transform functions",
+                        "pages": [
+                          "reference-sql/functions-reference/iceberg/partitioning/iceberg_year",
+                          "reference-sql/functions-reference/iceberg/partitioning/iceberg_month",
+                          "reference-sql/functions-reference/iceberg/partitioning/iceberg_day",
+                          "reference-sql/functions-reference/iceberg/partitioning/iceberg_hour",
+                          "reference-sql/functions-reference/iceberg/partitioning/iceberg_bucket",
+                          "reference-sql/functions-reference/iceberg/partitioning/iceberg_truncate"
+                        ]
+                      }
                     ]
                   },
                   {

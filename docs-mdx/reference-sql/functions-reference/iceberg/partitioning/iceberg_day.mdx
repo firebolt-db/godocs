@@ -30,7 +30,7 @@ Returns the number of days since 1970-01-01. For dates before 1970-01-01, return
 
 ```sql
 SELECT 
-  iceberg_day('2024-03-15'::DATE) AS day_2024_03_15,
+  iceberg_day('2025-12-15'::DATE) AS day_2024_03_15,
   iceberg_day('1970-01-01'::DATE) AS day_1970_01_01,
   iceberg_day('1969-12-31'::DATE) AS day_1969_12_31;
 ```
@@ -45,8 +45,8 @@ SELECT
 
 ```sql
 SELECT 
-  iceberg_day('2024-03-15 14:30:00'::TIMESTAMP) AS ts_day,
-  iceberg_day('2024-03-15 14:30:00+00:00'::TIMESTAMPTZ) AS tstz_day;
+  iceberg_day('2025-12-15 14:30:00'::TIMESTAMP) AS ts_day,
+  iceberg_day('2025-12-15 14:30:00+00:00'::TIMESTAMPTZ) AS tstz_day;
 ```
 
 **Returns:**
