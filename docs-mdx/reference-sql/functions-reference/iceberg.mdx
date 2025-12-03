@@ -1,0 +1,52 @@
+---
+description: Reference for Iceberg functions
+sidebarTitle: Overview
+title: Iceberg functions
+---
+
+## Iceberg functions
+
+Iceberg functions provide utilities for working with [Apache Iceberg](https://iceberg.apache.org/) tables. These functions include table-valued functions for reading Iceberg data and partition transform functions that implement the [Iceberg partition transforms specification](https://iceberg.apache.org/spec/#partition-transforms).
+
+### Reading Iceberg data
+
+Use the [`READ_ICEBERG`](/reference-sql/functions-reference/iceberg/read_iceberg) table-valued function to query data from Iceberg tables stored in file-based catalogs or REST catalogs.
+
+```sql
+SELECT * 
+FROM READ_ICEBERG(
+  LOCATION => 'my_iceberg_location',
+  MAX_STALENESS => INTERVAL '30 seconds'
+) 
+LIMIT 5;
+```
+
+### Partition transform functions
+
+Iceberg partition transform functions compute partition values according to the [Iceberg specification](https://iceberg.apache.org/spec/#partition-transforms). These functions are useful when you need to compute partition values that match how Iceberg partitions data.
+
+```sql
+SELECT 
+  iceberg_year('2024-03-15'::DATE) AS year_partition,
+  iceberg_month('2024-03-15'::DATE) AS month_partition,
+  iceberg_day('2024-03-15'::DATE) AS day_partition;
+```
+
+**Returns:**
+
+| year_partition | month_partition | day_partition |
+|:---------------|:----------------|:--------------|
+| 54 | 650 | 19797 |
+
+### Available functions
+
+**Table-valued functions:**
+- [`READ_ICEBERG`](/reference-sql/functions-reference/iceberg/read_iceberg) - Read data from Iceberg tables
+
+**Partition transform functions:**
+- [`ICEBERG_YEAR`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_year) - Extract year as years from 1970
+- [`ICEBERG_MONTH`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_month) - Extract month as months from 1970-01-01
+- [`ICEBERG_DAY`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_day) - Extract day as days from 1970-01-01
+- [`ICEBERG_HOUR`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_hour) - Extract hour as hours from 1970-01-01 00:00:00
+- [`ICEBERG_BUCKET`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_bucket) - Hash value into a bucket
+- [`ICEBERG_TRUNCATE`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_truncate) - Truncate value to a width

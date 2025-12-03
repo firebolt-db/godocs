@@ -1,0 +1,112 @@
+---
+description: Hash value into a bucket according to Iceberg partition transforms
+sidebarTitle: ICEBERG_BUCKET
+title: ICEBERG_BUCKET
+---
+
+Hashes a value using MurmurHash3 and assigns it to a bucket number, according to the [Iceberg partition transforms specification](https://iceberg.apache.org/spec/#partition-transforms). This function is useful for distributing data evenly across partitions.
+
+## Syntax
+
+```sql
+ICEBERG_BUCKET(<value>, <num_buckets>)
+```
+
+## Parameters
+
+| Parameter | Description | Supported input types |
+|:----------|:------------|:----------------------|
+| `<value>` | The value to hash into a bucket. | `INTEGER`, `BIGINT`, `TEXT`, `BYTEA`, `DATE`, `TIMESTAMP`, `TIMESTAMPTZ` |
+| `<num_buckets>` | The number of buckets. Must be a positive constant. | `BIGINT` |
+
+## Return type
+
+`INTEGER`
+
+Returns a bucket number from 0 to `num_buckets - 1`.
+
+## Remarks
+
+The bucket number is calculated by applying MurmurHash3 to the value, then taking the modulo with the number of buckets. The hash calculation follows the [Iceberg 32-bit hash requirements](https://iceberg.apache.org/spec/#appendix-b-32-bit-hash-requirements).
+
+The `<num_buckets>` parameter must be a positive constant value. Using zero, negative values, or non-constant expressions results in an error.
+
+## Examples
+
+### Basic usage with integers
+
+```sql
+SELECT 
+  iceberg_bucket(34, 1024) AS bucket_int,
+  iceberg_bucket(34::BIGINT, 1024) AS bucket_bigint;
+```
+
+**Returns:**
+
+| bucket_int | bucket_bigint |
+|:-----------|:--------------|
+| 339 | 339 |
+
+### Usage with text
+
+```sql
+SELECT iceberg_bucket('iceberg', 1024) AS bucket_text;
+```
+
+**Returns:**
+
+| bucket_text |
+|:------------|
+| 729 |
+
+### Usage with bytea
+
+```sql
+SELECT iceberg_bucket('\x00010203'::BYTEA, 1024) AS bucket_bytea;
+```
+
+**Returns:**
+
+| bucket_bytea |
+|:-------------|
+| 57 |
+
+### Usage with dates and timestamps
+
+```sql
+SELECT 
+  iceberg_bucket('2017-11-16'::DATE, 1024) AS bucket_date,
+  iceberg_bucket('2017-11-16T22:31:08'::TIMESTAMP, 1024) AS bucket_ts;
+```
+
+**Returns:**
+
+| bucket_date | bucket_ts |
+|:------------|:----------|
+| 10 | 263 |
+
+### Handling NULL values
+
+```sql
+SELECT iceberg_bucket(NULL::INTEGER, 1024) AS null_result;
+```
+
+**Returns:**
+
+| null_result |
+|:------------|
+| NULL |
+
+### Error cases
+
+Using zero or negative bucket counts results in an error:
+
+```sql
+-- This will fail
+SELECT iceberg_bucket(34, 0);
+-- Error: iceberg_bucket(): bucket count must be positive
+
+-- This will also fail
+SELECT iceberg_bucket(34, -1);
+-- Error: iceberg_bucket(): bucket count must be positive
+```
