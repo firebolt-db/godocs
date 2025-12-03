@@ -44,6 +44,7 @@ Each row has the following columns with information about each node in the engin
 | `join_pruning` | In-memory cache for join pruning. Part of the [query cache](/overview/queries/understand-query-performance-subresult). |
 | `list_iceberg` | In-memory cache for file lists of [Iceberg](/performance-and-observability/iceberg-and-external-data) tables. Part of the [query cache](/overview/queries/understand-query-performance-subresult). |
 | `materialized_reusable` | In-memory cache for CTEs marked as [`materialized reusable`](/reference-sql/commands/queries/select#reusable-common-table-expressions). Part of the [query cache](/overview/queries/understand-query-performance-subresult). |
+| `parquet_statistics` | In-memory cache for column-level statistics of parquet files that are used for pruning. |
 | `result` | In-memory result cache. Part of the [query cache](/overview/queries/understand-query-performance-subresult). |
 | `scan` | In-memory cache for table scans. Part of the [query cache](/overview/queries/understand-query-performance-subresult). |
 | `unclassified` | Additional in-memory [query cache](/overview/queries/understand-query-performance-subresult) entries. |

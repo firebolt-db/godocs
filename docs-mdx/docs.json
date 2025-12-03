@@ -123,6 +123,7 @@
                       "performance-and-observability/query-planning/query-hints",
                       "performance-and-observability/query-planning/query-hints/no-partial-aggregation",
                       "performance-and-observability/query-planning/query-hints/no-join-ordering",
+                      "performance-and-observability/query-planning/query-hints/optimize-for-single-row-window-partitions",
                       "performance-and-observability/query-planning/query-hints/unique-columns"
                     ]
                   },
@@ -391,6 +392,7 @@
                       "reference-sql/commands/data-definition/create-external-table",
                       "reference-sql/commands/data-definition/create-fact-dimension-table-as-select",
                       "reference-sql/commands/data-definition/create-fact-dimension-table",
+                      "reference-sql/commands/data-definition/create-iceberg-table-as-select",
                       "reference-sql/commands/data-definition/create-location-bedrock",
                       "reference-sql/commands/data-definition/create-location-iceberg",
                       "reference-sql/commands/data-definition/create-location-s3",
@@ -438,7 +440,8 @@
                       "reference-sql/commands/queries/cancel",
                       "reference-sql/commands/queries/explain",
                       "reference-sql/commands/queries/recommend_ddl",
-                      "reference-sql/commands/queries/select"
+                      "reference-sql/commands/queries/select",
+                      "reference-sql/commands/queries/cross-database-queries"
                     ]
                   },
                   {
@@ -605,6 +608,7 @@
                     "group": "JSON functions",
                     "pages": [
                       "reference-sql/functions-reference/json",
+                      "reference-sql/functions-reference/json/check-json",
                       "reference-sql/functions-reference/json/json-extract-array",
                       "reference-sql/functions-reference/json/json-extract",
                       "reference-sql/functions-reference/json/json-pointer-extract-keys",
@@ -613,6 +617,7 @@
                       "reference-sql/functions-reference/json/json-value-array",
                       "reference-sql/functions-reference/json/json-value",
                       "reference-sql/functions-reference/json/json-format",
+                      "reference-sql/functions-reference/json/json-is-valid",
                       "reference-sql/functions-reference/json/json-operators"
                     ]
                   },

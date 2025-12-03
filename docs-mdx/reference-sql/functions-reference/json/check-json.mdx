@@ -1,0 +1,54 @@
+---
+description: Reference material for CHECK_JSON function
+sidebarTitle: CHECK_JSON
+title: CHECK_JSON
+---
+
+Returns `NULL` if the input string is a valid JSON document or `NULL`.
+Otherwise, returns an error message.
+
+## Syntax
+
+```sql
+CHECK_JSON(<json_string>)
+```
+
+## Parameters
+
+| Parameter       | Description                     | Supported input types |
+| :-------------- | :------------------------------ | :-------------------- |
+| `<json_string>` | The string to validate as JSON. | `TEXT`                |
+
+## Return Type
+
+The `CHECK_JSON` function returns a result of type `TEXT`.
+
+## Remarks
+
+If you don't care about the error message, you can also use the [`JSON_IS_VALID`](/reference-sql/functions-reference/json/json-is-valid) function.
+
+## Examples
+
+**Example**
+
+The following code example validates a simple JSON string:
+
+```sql
+SELECT CHECK_JSON('{"name": "John"}');
+```
+
+**Returns**: `NULL`
+
+The previous code example returns `NULL` because the input string is valid JSON.
+
+**Example**
+
+The following code example validates a simple JSON string:
+
+```sql
+SELECT CHECK_JSON('{"name": "John"}{"name": "John"}');
+```
+
+**Returns**: `TAPE_ERROR: The JSON document has an improper structure: missing or superfluous commas, braces, missing keys, etc.`
+
+The previous code example returns an error message because the input string is invalid JSON as it contains two JSON objects next to each other.

@@ -192,6 +192,81 @@ The query can only be executed under the following conditions:
 * The table must not have any dependent views.
 * Renaming tables across schemas and databases is not supported. Consider using [CREATE TABLE CLONE](/reference-sql/commands/data-definition/create-table-clone)
 
+## ALTER TABLE SET PRIMARY INDEX
+
+Changes the primary index columns of an existing table. This operation only updates the table metadata definition without modifying existing tablets. New ingested data will use the updated primary index definition, while existing tablets retain their original structure until a `VACUUM (UPGRADE=true)` operation is performed, thus affecting query performance.
+
+### Syntax
+
+```sql
+ALTER TABLE <table_name> SET PRIMARY INDEX ( <column_name1>[, <column_name2>, ...] );
+```
+
+### Parameters
+
+| Parameter           | Description                                                                                              |
+| :------------------ | :------------------------------------------------------------------------------------------------------- |
+| `<table_name>`      | The name of the table to modify.                                                                        |
+| `<column_name1, ...>` | The columns to include in the new primary index. All columns must exist in the table.                |
+
+### Examples
+
+Change to a single column primary index:
+```sql
+ALTER TABLE sales_data SET PRIMARY INDEX (customer_id);
+```
+
+Change to a multi-column primary index:
+```sql
+ALTER TABLE sales_data SET PRIMARY INDEX (customer_id, order_date);
+```
+
+### Limitations
+
+The query can only be executed under the following conditions:
+* Only supported on FACT and DIMENSION tables. External tables are not supported.
+* If your table contains older tablets that don't have the primary index information in their metadata headers, you must run `VACUUM (UPGRADE=true)` on the table before altering the primary index.
+* Tables with Text Indexes cannot have their primary index altered. You must drop all Text Indexes before modifying the primary index.
+* All specified columns must exist in the table.
+
+<Note>
+The ALTER TABLE operation only updates the table's metadata definition. Existing data in tablets retains the original primary index structure until `VACUUM (UPGRADE=TRUE)` is run.
+</Note>
+
+## ALTER TABLE DROP PRIMARY INDEX
+
+Removes the primary index from an existing table. This operation only updates the table metadata definition without modifying existing tablets. New ingested data will not use a primary index, while existing tablets retain their original structure until a `VACUUM (UPGRADE=true)` operation is performed.
+
+### Syntax
+
+```sql
+ALTER TABLE <table_name> DROP PRIMARY INDEX;
+```
+
+### Parameters
+
+| Parameter           | Description                                                                                              |
+| :------------------ | :------------------------------------------------------------------------------------------------------- |
+| `<table_name>`      | The name of the table to modify.                                                                        |
+
+### Examples
+
+Remove the primary index:
+```sql
+ALTER TABLE sales_data DROP PRIMARY INDEX;
+```
+
+### Limitations
+
+The query can only be executed under the following conditions:
+* Only supported on FACT and DIMENSION tables. External tables are not supported.
+* If your table contains older tablets that don't have the primary index information in their metadata headers, you must run `VACUUM (UPGRADE=true)` on the table before dropping the primary index.
+* Tables with Text Indexes cannot have their primary index altered. You must drop all Text Indexes before dropping the primary index.
+
+<Note>
+The ALTER TABLE operation only updates the table's metadata definition. Existing data in tablets retains the original primary index structure until `VACUUM (UPGRADE=TRUE)` is run.
+</Note>
+
 ## ALTER TABLE ALTER COLUMN SET UNIQUE
 
 Adds a UNIQUE constraint to an existing column to indicate your intent for the column's values to be unique. Firebolt does not validate existing data or enforce uniqueness for future writes.

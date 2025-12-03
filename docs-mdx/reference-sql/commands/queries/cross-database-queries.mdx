@@ -1,0 +1,108 @@
+---
+description: Query across multiple databases within a single Firebolt account using three-part identifiers.
+sidebarTitle: Cross-database queries
+title: Cross-database queries
+---
+
+Using an explicit three-part identifier, you can seamlessly query across multiple databases within a single Firebolt account. This capabilty allows you to combine data from different databases using standard SQL joins and unions, providing flexibility while maintaining the organizational benefits of database separation.
+
+## Supported operations
+
+A wide range of operations are supported across databases, including:
+
+* **Joins and Unions**: Combine data from different databases using `JOIN`, `UNION`, and other set operations.
+* **DML**: Perform operations like `INSERT INTO ... SELECT` and `MERGE` where the source and target tables are in different databases.
+* **CTAS (CREATE TABLE AS SELECT)**: Create a new table in one database based on a query that selects data from a different database.
+* **CREATE TABLE CLONE**: Create an instant, zero-copy clone of a table from one database into another.
+
+## Syntax
+
+The three-part identifier syntax is `database_name.schema_name.table_name`. In Firebolt, the default schema is `public`.
+
+## Limitations
+
+* Views: A view cannot contain tables from a different database. All tables referenced in a view definition must reside within the same database as the view itself.
+* Indexes: An index can only be defined in the same database as its origin table.
+
+## Examples
+
+### Cross-database JOIN
+
+Imagine you have customer data in a `sales` database and website analytics data in a `marketing` database. You can join them to see which marketing campaigns are driving sales.
+
+```sql
+SELECT
+    s.customer_id,
+    s.sale_amount,
+    m.campaign_name
+FROM
+    sales.public.customer_sales AS s
+JOIN
+    marketing.public.website_visits AS m
+ON
+    s.customer_id = m.customer_id;
+```
+
+### Cross-database UNION
+
+If you have separate databases for different years of sales data, you can union them together to analyze data across all years.
+
+```sql
+SELECT * FROM sales_2024.public.orders
+UNION ALL
+SELECT * FROM sales_2025.public.orders;
+```
+
+### Cross-database INSERT AS SELECT
+
+You can archive old data from a `production` database into a separate `archive` database.
+
+```sql
+INSERT INTO archive.public.old_transactions
+SELECT *
+FROM production.public.transactions
+WHERE transaction_date < '2024-01-01';
+```
+
+### Cross-database CREATE TABLE AS SELECT
+
+Create a new summary table in your `reporting` database by aggregating data from the `production` database.
+
+```sql
+CREATE TABLE reporting.public.monthly_summary AS
+SELECT
+    product_id,
+    EXTRACT(MONTH FROM sale_date) AS sale_month,
+    SUM(sale_amount) AS total_sales
+FROM
+    production.public.sales_data
+GROUP BY
+    product_id,
+    sale_month;
+```
+
+### Cross-database MERGE
+
+You can update a target table in one database with new or updated records from a source table in another database.
+
+```sql
+MERGE INTO production.public.transactions AS target
+USING staging.public.daily_updates AS source
+ON target.transaction_id = source.transaction_id
+WHEN MATCHED THEN
+    UPDATE SET
+        target.status = source.status,
+        target.update_date = source.update_date
+WHEN NOT MATCHED THEN
+    INSERT (transaction_id, status, update_date)
+    VALUES (source.transaction_id, source.status, source.update_date);
+```
+
+### Cross-database CREATE TABLE CLONE
+
+Quickly create a clone of a production table in a staging database for testing without duplicating the data.
+
+```sql
+CREATE TABLE staging.public.playstats_test CLONE production.public.playstats;
+```
+
