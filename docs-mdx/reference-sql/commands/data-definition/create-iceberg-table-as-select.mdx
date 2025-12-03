@@ -25,11 +25,27 @@ WITH LOCATION = <location_name> [<setting_name> = <setting_value> ...]
 | Parameter         | Description                                                   |
 | :---------------- | :------------------------------------------------------------ |
 | `<table_name>`    | Table name. Currently not used, but a value must be provided. |
-| `<partition_expression>` | An expression using [Iceberg partition transform functions](/reference-sql/functions-reference/iceberg) to define how data is partitioned. |
 | `<select_query`>  | Any valid select query.                                       |
 | `<location_name>` | The name of an [Iceberg `LOCATION`](/reference-sql/commands/data-definition/create-location-iceberg) object with `CATALOG = FILE_BASED`. |
 | `<setting_name>`  | The name of a [system setting](/reference/system-settings).   |
 | `<setting_value>` | The value to assign to system setting `<setting_name>`.       |
+
+### PARTITION BY
+
+The `PARTITION BY` clause defines how the Iceberg table is partitioned. You can partition by column names directly or use [Iceberg partition transform functions](/reference-sql/functions-reference/iceberg) to compute partition values.
+
+```sql
+PARTITION BY (<column_name> | <partition_transform_expression>[, ...])
+```
+
+The following Iceberg partition transform functions can be used in `PARTITION BY` expressions:
+
+* [`ICEBERG_YEAR`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_year) - Partition by year
+* [`ICEBERG_MONTH`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_month) - Partition by month
+* [`ICEBERG_DAY`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_day) - Partition by day
+* [`ICEBERG_HOUR`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_hour) - Partition by hour
+* [`ICEBERG_BUCKET`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_bucket) - Partition by hash bucket
+* [`ICEBERG_TRUNCATE`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_truncate) - Partition by truncated value
 
 ## Examples
 
@@ -51,21 +67,30 @@ CREATE ICEBERG TABLE my_iceberg_table
 WITH LOCATION = my_location;
 ```
 
-The following example creates a partitioned Iceberg table using [partition transform functions](/reference-sql/functions-reference/iceberg):
+The following example creates a partitioned Iceberg table using a column name directly:
 
 ```sql
 CREATE ICEBERG TABLE my_partitioned_table
+  PARTITION BY (region)
+  AS SELECT event_id, event_date, region, event_data FROM my_events_table
+WITH LOCATION = my_location;
+```
+
+The following example uses [partition transform functions](/reference-sql/functions-reference/iceberg) to partition by month:
+
+```sql
+CREATE ICEBERG TABLE my_monthly_table
   PARTITION BY (iceberg_month(event_date))
   AS SELECT event_id, event_date, event_data FROM my_events_table
 WITH LOCATION = my_location;
 ```
 
-You can also use multiple partition columns:
+You can combine column names and partition transform functions:
 
 ```sql
 CREATE ICEBERG TABLE my_multi_partitioned_table
-  PARTITION BY (iceberg_year(event_date), iceberg_bucket(user_id, 16))
-  AS SELECT event_id, event_date, user_id, event_data FROM my_events_table
+  PARTITION BY (region, iceberg_year(event_date), iceberg_bucket(user_id, 16))
+  AS SELECT event_id, event_date, region, user_id, event_data FROM my_events_table
 WITH LOCATION = my_location;
 ```
 
@@ -77,4 +102,4 @@ WITH LOCATION = my_location;
 
 * Metadata: only writes limited metadata that is optional per the Iceberg spec. Does not write column statistics, etc.
 
-* DML operations on Iceberg tables are not supported. Only the `CREATE ICEBERG TABLE AS SELECT` and `SELECT` from [`READ_ICEBERG(...)`](/reference-sql/functions-reference/iceberg/read_iceberg) operations are supported for Iceberg tables.         
+* DML operations on Iceberg tables are not supported. Only the `CREATE ICEBERG TABLE AS SELECT` and `SELECT` from [`READ_ICEBERG(...)`](/reference-sql/functions-reference/iceberg/read_iceberg) operations are supported for Iceberg tables.             
