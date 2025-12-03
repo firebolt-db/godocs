@@ -4,7 +4,7 @@ sidebarTitle: ICEBERG_BUCKET
 title: ICEBERG_BUCKET
 ---
 
-Hashes a value using MurmurHash3 and assigns it to a bucket number, according to the [Iceberg partition transforms specification](https://iceberg.apache.org/spec/#partition-transforms).
+Hashes a value using MurmurHash3 and assigns it to a bucket number, according to the [Iceberg partition transforms specification](https://iceberg.apache.org/spec/#partition-transforms). This function can be used in the `PARTITION BY` clause of [`CREATE ICEBERG TABLE`](/reference-sql/commands/data-definition/create-iceberg-table-as-select) commands.
 
 ## Syntax
 
@@ -33,80 +33,21 @@ The `<num_buckets>` parameter must be a positive constant value. Using zero, neg
 
 ## Examples
 
-### Basic usage with integers
-
 ```sql
 SELECT 
   iceberg_bucket(34, 1024) AS bucket_int,
-  iceberg_bucket(34::BIGINT, 1024) AS bucket_bigint;
+  iceberg_bucket('iceberg', 1024) AS bucket_text;
 ```
 
 **Returns:**
 
-| bucket_int | bucket_bigint |
-|:-----------|:--------------|
-| 339 | 339 |
-
-### Usage with text
-
-```sql
-SELECT iceberg_bucket('iceberg', 1024) AS bucket_text;
-```
-
-**Returns:**
-
-| bucket_text |
-|:------------|
-| 729 |
-
-### Usage with bytea
-
-```sql
-SELECT iceberg_bucket('\x00010203'::BYTEA, 1024) AS bucket_bytea;
-```
-
-**Returns:**
-
-| bucket_bytea |
-|:-------------|
-| 57 |
-
-### Usage with dates and timestamps
-
-```sql
-SELECT 
-  iceberg_bucket('2025-12-15'::DATE, 1024) AS bucket_date,
-  iceberg_bucket('2025-12-15T22:31:08'::TIMESTAMP, 1024) AS bucket_ts;
-```
-
-**Returns:**
-
-| bucket_date | bucket_ts |
-|:------------|:----------|
-| 10 | 263 |
-
-### Handling NULL values
-
-```sql
-SELECT iceberg_bucket(NULL::INTEGER, 1024) AS null_result;
-```
-
-**Returns:**
-
-| null_result |
-|:------------|
-| NULL |
-
-### Error cases
+| bucket_int | bucket_text |
+|:-----------|:------------|
+| 339 | 729 |
 
 Using zero or negative bucket counts results in an error:
 
 ```sql
--- This will fail
 SELECT iceberg_bucket(34, 0);
--- Error: iceberg_bucket(): bucket count must be positive
-
--- This will also fail
-SELECT iceberg_bucket(34, -1);
 -- Error: iceberg_bucket(): bucket count must be positive
 ```

@@ -4,7 +4,7 @@ sidebarTitle: ICEBERG_TRUNCATE
 title: ICEBERG_TRUNCATE
 ---
 
-Truncates a value to a specified width, according to the [Iceberg partition transforms specification](https://iceberg.apache.org/spec/#partition-transforms).
+Truncates a value to a specified width, according to the [Iceberg partition transforms specification](https://iceberg.apache.org/spec/#partition-transforms). This function can be used in the `PARTITION BY` clause of [`CREATE ICEBERG TABLE`](/reference-sql/commands/data-definition/create-iceberg-table-as-select) commands.
 
 ## Syntax
 
@@ -41,106 +41,21 @@ The `<width>` parameter must be a positive constant value. Using zero, negative 
 
 ## Examples
 
-### Truncating integers
-
 ```sql
 SELECT 
-  iceberg_truncate(12345, 100) AS truncated_positive,
-  iceberg_truncate(-12345, 100) AS truncated_negative,
-  iceberg_truncate(1, 10) AS truncated_small;
+  iceberg_truncate(12345, 100) AS truncated_int,
+  iceberg_truncate('iceberg', 3) AS truncated_text;
 ```
 
 **Returns:**
 
-| truncated_positive | truncated_negative | truncated_small |
-|:-------------------|:-------------------|:----------------|
-| 12300 | -12400 | 0 |
-
-### Truncating bigint
-
-```sql
-SELECT 
-  iceberg_truncate(1234567890123::BIGINT, 1000) AS truncated_bigint;
-```
-
-**Returns:**
-
-| truncated_bigint |
-|:-----------------|
-| 1234567890000 |
-
-### Truncating text
-
-```sql
-SELECT 
-  iceberg_truncate('iceberg', 3) AS truncated_text,
-  iceberg_truncate('if', 3) AS short_text;
-```
-
-**Returns:**
-
-| truncated_text | short_text |
-|:---------------|:-----------|
-| ice | if |
-
-### Truncating Unicode text
-
-The function correctly handles multi-byte Unicode characters by counting code points, not bytes:
-
-```sql
-SELECT iceberg_truncate('hello', 3) AS truncated_unicode;
-```
-
-**Returns:**
-
-| truncated_unicode |
-|:------------------|
-| hel |
-
-### Truncating bytea
-
-```sql
-SELECT 
-  iceberg_truncate('\x0102030405'::BYTEA, 3) AS truncated_bytea,
-  iceberg_truncate('\x0102'::BYTEA, 3) AS short_bytea;
-```
-
-**Returns:**
-
-| truncated_bytea | short_bytea |
-|:----------------|:------------|
-| \x010203 | \x0102 |
-
-### Handling NULL values
-
-```sql
-SELECT iceberg_truncate(NULL::INTEGER, 10) AS null_result;
-```
-
-**Returns:**
-
-| null_result |
-|:------------|
-| NULL |
-
-### Error cases
+| truncated_int | truncated_text |
+|:--------------|:---------------|
+| 12300 | ice |
 
 Using zero or negative width values results in an error:
 
 ```sql
--- This will fail
 SELECT iceberg_truncate(12345, 0);
 -- Error: iceberg_truncate(): truncate config value must be positive
-
--- This will also fail
-SELECT iceberg_truncate(12345, -1);
--- Error: iceberg_truncate(): truncate config value must be positive
-```
-
-Integer overflow is detected and reported:
-
-```sql
--- This will fail for values too close to the minimum integer
-SELECT iceberg_truncate(-2147483647, 100);
--- Error: iceberg_truncate got an integer overflow, value is too low to be truncated
 ```
