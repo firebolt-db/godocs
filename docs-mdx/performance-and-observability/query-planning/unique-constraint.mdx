@@ -9,8 +9,9 @@ In Firebolt, `UNIQUE` constraints can be declared in `CREATE TABLE` statements. 
 <Note>
 Using UNIQUE constraints as query hints is an opt-in feature. To enable it, run the following command:
 ```sql
-SET lqp2_derive_ndv_from_unique_keys = true;
+SET derive_ndv_from_unique_keys = true;
 ```
+For more information about this setting, see [derive_ndv_from_unique_keys](/reference/system-settings#derive-ndv-from-unique-keys).
 </Note>
 
 Data uniqueness is a crucial piece of information for the query optimizer. In Firebolt, it mainly affects query plan quality through two aspects:

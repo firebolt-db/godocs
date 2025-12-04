@@ -55,6 +55,7 @@ The following settings can be configured using the `WITH` clause and the `SET` c
 - [max_insert_threads](#limiting-max-insert-threads)
 - [enable_iceberg_partitioned_scan](#using-iceberg-partitioned-scans-for-co-located-joins-and-aggregations)
 - [late_materialization_max_rows](#control-late-materialization)
+- [derive_ndv_from_unique_keys](#derive-ndv-from-unique-keys)
 
 The following settings can be configured only using the `SET` command:
 - [query_label](#query-labeling-and-tagging)
@@ -850,4 +851,80 @@ The following example demonstrates how to use the `late_materialization_max_rows
 SELECT * FROM table ORDER BY a LIMIT 100
 WITH (late_materialization_max_rows = 100);
 ```
+
+## Derive NDV from unique keys
+
+The `derive_ndv_from_unique_keys` setting enables the query optimizer to derive the number of distinct values (NDV) for columns from a unique key. For example, if the optimizer sees that a column `a` is unique at some point and the row count is estimated to be 100, with the feature enabled, the optimizer assumes the NDV of column `a` is 100 because `a` is unique. When the feature is disabled, the optimizer does not make this assumption.
+
+When enabled, it can help the optimizer make better cardinality estimates and plan transformations, potentially leading to improved query performance.
+
+This is an opt-in feature. For more details on how unique constraints affect query planning, see [UNIQUE constraints as query hints](/performance-and-observability/query-planning/unique-constraint).
+
+**Default value:** `false`
+
+### Syntax
+
+```sql
+SET derive_ndv_from_unique_keys = [true|false];
+```
+
+```sql
+SELECT ... WITH (derive_ndv_from_unique_keys = [true|false]);
+```
+
+### Example
+
+The following example shows the difference in the join output cardinality estimation the optimizer produces with the feature turn on and off.
+
+- With the feature turned on, the optimizer understands that the join outputs at most the same number of rows as the `orders` table.
+- With the feature turned off, the optimizer over estimates by assuming the join is explosive.
+
+<CodeGroup>
+```sql Example case
+-- 1500000 rows
+CREATE FACT TABLE orders (
+   id INT NOT NULL,
+   price DOUBLE,
+   city TEXT
+);
+
+-- 10000 rows
+CREATE DIMENSION TABLE accounts (
+   id INT NOT NULL,
+   city TEXT UNIQUE  -- this column is unique
+)
+
+EXPLAIN (STATISTICS)
+SELECT *
+FROM orders o, accounts a
+WHERE o.city = a.city;
+```
+
+```text Plan with derive_ndv_from_unique_keys = true {4,10}
+[0] [Projection] orders.id, orders.price, orders.city, accounts.id, orders.city
+|   [Logical Profile]: [est. #rows=1.5e+06, column profiles={[orders.city: #distinct=10000]}, source: estimated]
+ \_[1] [Join] Mode: Inner [equals(orders.city, accounts.city)]
+   |   [Logical Profile]: [est. #rows=1.5e+06, column profiles={[orders.city: #distinct=10000], [accounts.city: #distinct=10000]}, source: estimated]
+    \_[2] [StoredTable] Name: "orders"
+    |     [Types]: orders.id: integer not null, orders.price: double precision not null, orders.city: text not null
+    |     [Logical Profile]: [est. #rows=1.5e+06, source: hinted]
+    \_[3] [StoredTable] Name: "accounts"
+          [Types]: accounts.id: integer not null, accounts.city: text not null
+          [Logical Profile]: [est. #rows=10000, column profiles={[accounts.city: #distinct=10000]}, source: hinted]
+```
+
+```text Plan with derive_ndv_from_unique_keys = false {4,10}
+[0] [Projection] orders.id, orders.price, orders.city, accounts.id, orders.city
+|   [Logical Profile]: [est. #rows=1.33118e+08, source: estimated]
+ \_[1] [Join] Mode: Inner [equals(orders.city, accounts.city)]
+   |   [Logical Profile]: [est. #rows=1.33118e+08, source: estimated]
+    \_[2] [StoredTable] Name: "orders"
+    |     [Types]: orders.id: integer not null, orders.price: double precision not null, orders.city: text not null
+    |     [Logical Profile]: [est. #rows=1.5e+06, source: hinted]
+    \_[3] [StoredTable] Name: "accounts"
+          [Types]: accounts.id: integer not null, accounts.city: text not null
+          [Logical Profile]: [est. #rows=10000, source: hinted]
+```
+
+</CodeGroup>
 
