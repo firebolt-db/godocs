@@ -47,6 +47,7 @@ ALTER ENGINE <engine_name> SET
 | `FAMILY =<family>`                        | Defines the family of node used in the engine. Options include `STORAGE_OPTIMIZED` (alias `SO`) or `COMPUTE_OPTIMIZED` (alias `CO`). |
 | `AUTO_WARMUP = <true/false>`              | When set to `TRUE`, engine will proactively fetch recently used data at startup, recommended for engines that frequently touch the same subset of data.| 
 | `CHANNEL = <channel>`                     | Specifies the release channel to be used. Options are `DEFAULT` to use the default release process or `PREVIEW` to get upgrades earlier. |
+| `QUERY_CACHE_MEMORY_FRACTION = <ratio>`   | Specifies the max size used by the query cache pool relative to the total available memory. |
 
 **Limitations:**
 * Each engine is limited to a maximum of two clusters.
@@ -107,6 +108,13 @@ The following code example enables auto-warmup. When an engine starts, the most 
 
 ```sql
 ALTER ENGINE my_engine SET AUTO_WARMUP = true;
+```
+
+### Configure the maximum size of the query cache     
+The following code example changes the maximum size of the [query cache](/overview/queries/understand-query-performance-subresult) to 30% of the engine's total available memory.
+
+```sql
+ALTER ENGINE my_engine SET QUERY_CACHE_MEMORY_FRACTION = 0.3;
 ```
 
 ### Enroll into the preview release channel

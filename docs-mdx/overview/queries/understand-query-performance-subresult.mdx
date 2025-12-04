@@ -16,6 +16,7 @@ Workloads using repetitive query patterns can benefit tremendously from reuse an
 * [Recognizing subresult reuse in query telemetry](#recognizing-subresult-reuse-in-query-telemetry) &ndash; How to view results from `EXPLAIN (ANALYZE)` to check for subresult reuse.
 * [Limitations](#limitations) &ndash; Understand the situations where subresults cannot be cached or used.
 * [Disabling subresult reuse](#disabling-subresult-reuse) &ndash; How to turn off subresult caching for benchmarking or other tests.
+* [Configure cache sizes](#configure-cache-sizes) &ndash; How to change the size (i.e., used memory) of different cache pools.
 
 ## How Firebolt caches subresults
 
@@ -105,3 +106,10 @@ For most benchmarking scenarios, disable the result cache.
 This approach affects only the final result caching while preserving the benefits of cross-query subresult optimizations.
 </Note>
 
+## Configure cache sizes
+Firebolt automatically manages a query cache for different subresults to improve the performance of subsequent queries by reusing already computed parts of shared query plans. By default, engines use up to 20% of their main memory for this cache. You can configure the size of the query cache at the engine level using the `QUERY_CACHE_MEMORY_FRACTION` parameter in [`CREATE ENGINE`](/reference-sql/commands/engines/create-engine) or [`ALTER ENGINE`](/reference-sql/commands/engines/alter-engine) commands. For example, to allocate 30% of engine memory to the query cache:
+
+```sql
+-- Configure the query cache to use up to 30% of the engine's memory
+ALTER ENGINE my_engine SET QUERY_CACHE_MEMORY_FRACTION = 0.3;
+```
