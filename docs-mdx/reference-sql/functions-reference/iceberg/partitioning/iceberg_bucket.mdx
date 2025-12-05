@@ -40,10 +40,8 @@ The bucket number is calculated by applying MurmurHash3 to the value, then takin
 
 The `<num_buckets>` parameter must be a positive constant value. Using zero, negative values, or non-constant expressions results in an error.
 
-## Example
+## Examples
 
-```sql
-SELECT iceberg_bucket(34, 1024) AS bucket_partition;
-```
+import SqlExamplesIcebergBucketExecutable from '/snippets/sql_examples/iceberg_bucket_executable.mdx';
 
-**Returns:** `339`
+<SqlExamplesIcebergBucketExecutable />

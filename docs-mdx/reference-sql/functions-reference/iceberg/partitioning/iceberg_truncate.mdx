@@ -48,10 +48,8 @@ The truncation behavior depends on the input type:
 
 The `<width>` parameter must be a positive constant value. Using zero, negative values, or non-constant expressions results in an error.
 
-## Example
+## Examples
 
-```sql
-SELECT iceberg_truncate('iceberg', 3) AS truncated_value;
-```
+import SqlExamplesIcebergTruncateExecutable from '/snippets/sql_examples/iceberg_truncate_executable.mdx';
 
-**Returns:** `'ice'`
+<SqlExamplesIcebergTruncateExecutable />
