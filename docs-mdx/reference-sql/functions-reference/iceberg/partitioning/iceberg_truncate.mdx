@@ -51,11 +51,7 @@ The `<width>` parameter must be a positive constant value. Using zero, negative 
 ## Example
 
 ```sql
-SELECT iceberg_truncate(12345, 100) AS truncated_partition;
+SELECT iceberg_truncate('iceberg', 3) AS truncated_value;
 ```
 
-**Returns:**
-
-| truncated_partition |
-|:--------------------|
-| 12300 |
+**Returns:** `'ice'`

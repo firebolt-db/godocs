@@ -37,12 +37,6 @@ WITH LOCATION = my_iceberg_location;
 
 ## Example
 
-```sql
-SELECT iceberg_hour('2025-12-15 14:30:00'::TIMESTAMP) AS hour_partition;
-```
+import SqlExamplesIcebergHourExecutable from '/snippets/sql_examples/iceberg_hour_executable.mdx';
 
-**Returns:**
-
-| hour_partition |
-|:---------------|
-| 490502 |
+<SqlExamplesIcebergHourExecutable />

@@ -37,12 +37,6 @@ WITH LOCATION = my_iceberg_location;
 
 ## Example
 
-```sql
-SELECT iceberg_year('2025-12-15'::DATE) AS year_partition;
-```
+import SqlExamplesIcebergYearExecutable from '/snippets/sql_examples/iceberg_year_executable.mdx';
 
-**Returns:**
-
-| year_partition |
-|:---------------|
-| 55 |
+<SqlExamplesIcebergYearExecutable />
