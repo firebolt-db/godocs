@@ -4,7 +4,7 @@ sidebarTitle: ICEBERG_TRUNCATE
 title: ICEBERG_TRUNCATE
 ---
 
-Truncates a value to a specified width, according to the [Iceberg partition transforms specification](https://iceberg.apache.org/spec/#partition-transforms). This function can be used in the `PARTITION BY` clause of [`CREATE ICEBERG TABLE`](/reference-sql/commands/data-definition/create-iceberg-table-as-select) commands.
+Truncates a value to a specified width, according to the [Iceberg partition transforms specification](https://iceberg.apache.org/spec/#partition-transforms).
 
 ## Syntax
 
@@ -29,6 +29,15 @@ Returns the same type as the input `<value>`:
 
 ## Remarks
 
+The `ICEBERG_TRUNCATE` function can be used in the `PARTITION BY` clause of [`CREATE ICEBERG TABLE`](/reference-sql/commands/data-definition/create-iceberg-table-as-select) commands.
+
+```sql
+CREATE ICEBERG TABLE events
+  PARTITION BY (iceberg_truncate(category, 3))
+  AS SELECT * FROM source_events
+WITH LOCATION = my_iceberg_location;
+```
+
 The truncation behavior depends on the input type:
 
 **For integers (`INTEGER`, `BIGINT`):** Returns the largest multiple of `width` that is less than or equal to the value. For negative values, this rounds toward negative infinity.
@@ -39,23 +48,14 @@ The truncation behavior depends on the input type:
 
 The `<width>` parameter must be a positive constant value. Using zero, negative values, or non-constant expressions results in an error.
 
-## Examples
+## Example
 
 ```sql
-SELECT 
-  iceberg_truncate(12345, 100) AS truncated_int,
-  iceberg_truncate('iceberg', 3) AS truncated_text;
+SELECT iceberg_truncate(12345, 100) AS truncated_partition;
 ```
 
 **Returns:**
 
-| truncated_int | truncated_text |
-|:--------------|:---------------|
-| 12300 | ice |
-
-Using zero or negative width values results in an error:
-
-```sql
-SELECT iceberg_truncate(12345, 0);
--- Error: iceberg_truncate(): truncate config value must be positive
-```
+| truncated_partition |
+|:--------------------|
+| 12300 |

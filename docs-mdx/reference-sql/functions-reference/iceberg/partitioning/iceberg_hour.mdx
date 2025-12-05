@@ -4,7 +4,7 @@ sidebarTitle: ICEBERG_HOUR
 title: ICEBERG_HOUR
 ---
 
-Extracts the hour from a date or timestamp value and returns it as the number of hours since 1970-01-01 00:00:00 UTC, according to the [Iceberg partition transforms specification](https://iceberg.apache.org/spec/#partition-transforms). This function can be used in the `PARTITION BY` clause of [`CREATE ICEBERG TABLE`](/reference-sql/commands/data-definition/create-iceberg-table-as-select) commands.
+Extracts the hour from a date or timestamp value and returns it as the number of hours since 1970-01-01 00:00:00 UTC, according to the [Iceberg partition transforms specification](https://iceberg.apache.org/spec/#partition-transforms).
 
 ## Syntax
 
@@ -24,17 +24,25 @@ ICEBERG_HOUR(<value>)
 
 Returns the number of hours since 1970-01-01 00:00:00 UTC. For timestamps before this epoch, returns a negative value.
 
+## Remarks
+
+The `ICEBERG_HOUR` function can be used in the `PARTITION BY` clause of [`CREATE ICEBERG TABLE`](/reference-sql/commands/data-definition/create-iceberg-table-as-select) commands.
+
+```sql
+CREATE ICEBERG TABLE events
+  PARTITION BY (iceberg_hour(event_timestamp))
+  AS SELECT * FROM source_events
+WITH LOCATION = my_iceberg_location;
+```
+
 ## Example
 
 ```sql
-SELECT 
-  iceberg_hour('2025-12-15 14:30:00'::TIMESTAMP) AS hour_2025,
-  iceberg_hour('1970-01-01 00:00:00'::TIMESTAMP) AS hour_epoch,
-  iceberg_hour('1969-12-31 23:59:59'::TIMESTAMP) AS hour_before_epoch;
+SELECT iceberg_hour('2025-12-15 14:30:00'::TIMESTAMP) AS hour_partition;
 ```
 
 **Returns:**
 
-| hour_2025 | hour_epoch | hour_before_epoch |
-|:----------|:-----------|:------------------|
-| 490502 | 0 | -1 |
+| hour_partition |
+|:---------------|
+| 490502 |

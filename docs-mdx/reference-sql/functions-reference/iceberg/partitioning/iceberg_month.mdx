@@ -4,7 +4,7 @@ sidebarTitle: ICEBERG_MONTH
 title: ICEBERG_MONTH
 ---
 
-Extracts the month from a date or timestamp value and returns it as the number of months since 1970-01-01, according to the [Iceberg partition transforms specification](https://iceberg.apache.org/spec/#partition-transforms). This function can be used in the `PARTITION BY` clause of [`CREATE ICEBERG TABLE`](/reference-sql/commands/data-definition/create-iceberg-table-as-select) commands.
+Extracts the month from a date or timestamp value and returns it as the number of months since 1970-01-01, according to the [Iceberg partition transforms specification](https://iceberg.apache.org/spec/#partition-transforms).
 
 ## Syntax
 
@@ -24,17 +24,25 @@ ICEBERG_MONTH(<value>)
 
 Returns the number of months since 1970-01-01. For dates before 1970-01-01, returns a negative value.
 
+## Remarks
+
+The `ICEBERG_MONTH` function can be used in the `PARTITION BY` clause of [`CREATE ICEBERG TABLE`](/reference-sql/commands/data-definition/create-iceberg-table-as-select) commands.
+
+```sql
+CREATE ICEBERG TABLE events
+  PARTITION BY (iceberg_month(event_date))
+  AS SELECT * FROM source_events
+WITH LOCATION = my_iceberg_location;
+```
+
 ## Example
 
 ```sql
-SELECT 
-  iceberg_month('2025-12-15'::DATE) AS month_2025_12,
-  iceberg_month('1970-01-01'::DATE) AS month_1970_01,
-  iceberg_month('1969-12-31'::DATE) AS month_1969_12;
+SELECT iceberg_month('2025-12-15'::DATE) AS month_partition;
 ```
 
 **Returns:**
 
-| month_2025_12 | month_1970_01 | month_1969_12 |
-|:--------------|:--------------|:--------------|
-| 671 | 0 | -1 |
+| month_partition |
+|:----------------|
+| 671 |
