@@ -3,31 +3,5 @@
 import {QueryWindow} from '/snippets/query-window.mdx';
 
 <QueryWindow content={{
-  "sql": "SELECT iceberg_truncate('iceberg'::TEXT, 3) AS truncated_value;",
-  "result": {
-    "data": [
-      ["ice"]
-    ],
-    "meta": [
-      {
-        "name": "truncated_value",
-        "type": "text"
-      }
-    ],
-    "query": {
-      "query_id": "placeholder",
-      "query_label": null,
-      "request_id": "placeholder"
-    },
-    "rows": 1,
-    "statistics": {
-      "bytes_read": 1,
-      "elapsed": 0.01,
-      "rows_read": 1,
-      "scanned_bytes_cache": 0,
-      "scanned_bytes_storage": 0,
-      "time_before_execution": 0.001,
-      "time_to_execute": 0.0001
-    }
-  }
+  "sql": "SELECT iceberg_truncate('iceberg'::TEXT, 3) AS truncated_value;"
 }} />
