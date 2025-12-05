@@ -3,5 +3,33 @@
 import {QueryWindow} from '/snippets/query-window.mdx';
 
 <QueryWindow content={{
-  "sql": "SELECT iceberg_day('2025-12-15'::DATE) AS day_partition;"
+  "sql": "SELECT iceberg_day('2025-12-15'::DATE) AS day_partition;",
+  "result": {
+    "data": [
+      [
+        20437
+      ]
+    ],
+    "meta": [
+      {
+        "name": "day_partition",
+        "type": "int"
+      }
+    ],
+    "query": {
+      "query_id": "052cda68-b97e-45a6-b0ea-96b4a2f7e374",
+      "query_label": null,
+      "request_id": "58472e1d-e501-476a-9a4b-9e2249447364"
+    },
+    "rows": 1,
+    "statistics": {
+      "bytes_read": 1,
+      "elapsed": 0.013327,
+      "rows_read": 1,
+      "scanned_bytes_cache": 0,
+      "scanned_bytes_storage": 0,
+      "time_before_execution": 0.000274296,
+      "time_to_execute": 0.000123833
+    }
+  }
 }} />
