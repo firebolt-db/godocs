@@ -57,6 +57,7 @@ The following settings can be configured using the `WITH` clause and the `SET` c
 - [iceberg_unsafe_version_guessing_mode](#guessing-iceberg-metadata-version)
 - [enable_iceberg_partitioned_scan](#using-iceberg-partitioned-scans-for-co-located-joins-and-aggregations)
 - [late_materialization_max_rows](#control-late-materialization)
+- [enable_type_based_ndv_heuristic](#enable-type-based-ndv-heuristic)
 
 The following settings can be configured only using the `SET` command:
 - [query_label](#query-labeling-and-tagging)
@@ -903,3 +904,70 @@ SELECT * FROM table ORDER BY a LIMIT 100
 WITH (late_materialization_max_rows = 100);
 ```
 
+## Enable type based NDV heuristic
+
+The `enable_type_based_ndv_heuristic` setting enables the query optimizer to assume the number of distinct values (NDV) for columns based on their data types.
+
+When enabled:
+- Boolean columns are assumed to have 2 distinct values.
+- Date columns are assumed to have 3650 distinct values (10 years of dates) if the row count is more than 13,322,500.
+
+<Note>
+The heuristic makes the optimizer estimate selectivity towards common cases ranther than edge cases. It does not guarantee the estimated values are strictly better. For example, it might seem that the feature strictly improves the filter selectivity on boolean columns. However, the actual data in a boolean column might be extremely skewed that the default wild guess is actually closer to reality. In that case, use [automated column statistics](/performance-and-observability/query-planning/automated-column-statistics) instead.
+</Note>
+
+This is an opt-out feature. If regression is observed due to the type-based NDV heuristic, turn the feature off.
+
+**Default value:** `true`
+
+### Syntax
+
+```sql
+SET enable_type_based_ndv_heuristic = [true|false];
+```
+
+```sql
+SELECT ... WITH (enable_type_based_ndv_heuristic = [true|false]);
+```
+
+### Example
+
+The following example shows how the heuristic works. The `orders` table has more than 13,322,500 rows.
+- When the feature is enabled, the optimizer assumes `cancelled` column has 2 distinct values and `order_date` column has 3650 distinct values. The filter is then estimated to select half of the rows.
+- When the feature is disabled, the optimizer does not assume any column NDVs. The selectivity of the filter is a wild guess.
+
+<CodeGroup>
+```sql Example case
+-- 15000000 rows
+CREATE FACT TABLE orders (
+   id INT NOT NULL,
+   price DOUBLE,
+   cancelled BOOL,
+   order_date DATE
+);
+
+EXPLAIN (STATISTICS)
+SELECT id FROM orders WHERE NOT cancelled;
+```
+
+```text Plan with enable_type_based_ndv_heuristic = true {4,7}
+[0] [Projection] orders.id, orders.order_date
+|   [Logical Profile]: [est. #rows=7.5e+06, column profiles={[orders.order_date: #distinct=3650]}, source: estimated]
+ \_[1] [Filter] equals(orders.cancelled, FALSE)
+   |   [Logical Profile]: [est. #rows=7.5e+06, column profiles={[orders.cancelled: #distinct=1], [orders.order_date: #distinct=3650]}, source: estimated]
+    \_[2] [StoredTable] Name: "orders"
+          [Types]: orders.id: integer not null, orders.cancelled: boolean not null, orders.order_date: date not null
+          [Logical Profile]: [est. #rows=1.5e+07, column profiles={[orders.cancelled: #distinct=2], [orders.order_date: #distinct=3650]}, source: hinted]
+```
+
+```text Plan with enable_type_based_ndv_heuristic = false {4,7}
+[0] [Projection] orders.id, orders.order_date
+|   [Logical Profile]: [est. #rows=3873, source: estimated]
+ \_[1] [Filter] equals(orders.cancelled, FALSE)
+   |   [Logical Profile]: [est. #rows=3873, column profiles={[orders.cancelled: #distinct=1]}, source: estimated]
+    \_[2] [StoredTable] Name: "orders"
+          [Types]: orders.id: integer not null, orders.cancelled: boolean not null, orders.order_date: date not null
+          [Logical Profile]: [est. #rows=1.5e+07, source: hinted]
+```
+
+</CodeGroup>
