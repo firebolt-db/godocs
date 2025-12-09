@@ -58,6 +58,8 @@ The following settings can be configured using the `WITH` clause and the `SET` c
 - [enable_iceberg_partitioned_scan](#using-iceberg-partitioned-scans-for-co-located-joins-and-aggregations)
 - [late_materialization_max_rows](#control-late-materialization)
 - [enable_type_based_ndv_heuristic](#enable-type-based-ndv-heuristic)
+- [enable_date_time_func_ndv_heuristic](#enable-datetime-function-ndv-heuristic)
+
 
 The following settings can be configured only using the `SET` command:
 - [query_label](#query-labeling-and-tagging)
@@ -916,9 +918,9 @@ When enabled:
 The heuristic makes the optimizer estimate selectivity towards common cases ranther than edge cases. It does not guarantee the estimated values are strictly better. For example, it might seem that the feature strictly improves the filter selectivity on boolean columns. However, the actual data in a boolean column might be extremely skewed that the default wild guess is actually closer to reality. In that case, use [automated column statistics](/performance-and-observability/query-planning/automated-column-statistics) instead.
 </Note>
 
-This is an opt-out feature. If regression is observed due to the type-based NDV heuristic, turn the feature off.
-
 **Default value:** `true`
+
+This is an opt-out feature. If a regression is observed due to the type-based NDV heuristic, turn the feature off.
 
 ### Syntax
 
@@ -968,6 +970,81 @@ SELECT id FROM orders WHERE NOT cancelled;
     \_[2] [StoredTable] Name: "orders"
           [Types]: orders.id: integer not null, orders.cancelled: boolean not null, orders.order_date: date not null
           [Logical Profile]: [est. #rows=1.5e+07, source: hinted]
+```
+
+</CodeGroup>
+
+## Enable datetime function NDV heuristic
+
+The `enable_date_time_func_ndv_heuristic` setting enables the query optimizer to infer the number of distinct values (NDV) for the output of some datetime functions.
+
+When enabled, the heuristic is applied to the result of the following functions:
+- [`to_yyyymm`](/reference-sql/functions-reference/date-and-time/to-yyyymm)
+- [`to_yyyymmdd`](/reference-sql/functions-reference/date-and-time/to-yyyymmdd)
+- [`date_trunc`](/reference-sql/functions-reference/date-and-time/date-trunc)
+- [`extract`](/reference-sql/functions-reference/date-and-time/extract)
+
+The general heuristic is that a big data set contains about 10 years of data. Based on that, the NDV of the result of `to_yyyymm` is assumed to be 120, for example.
+
+Some NDV inferences are independent from the above heuristic. For example, the NDV of the result of `extract(quarter from some_column)` is assumed to be 4. This is purely based on the semantics of the function, not the data size.
+
+<Note>
+The heuristic makes the optimizer estimate selectivity towards common cases ranther than edge cases. It does not guarantee the estimated values are strictly better.
+</Note>
+
+**Default value:** `true`
+
+This is an opt-out feature. If a regression is observed due to the NDV heuristic for datetime functions, turn the feature off.
+
+### Syntax
+
+```sql
+SET enable_date_time_func_ndv_heuristic = [true|false];
+```
+
+```sql
+SELECT ... WITH (enable_date_time_func_ndv_heuristic = [true|false]);
+```
+
+### Example
+
+The following example shows how the heuristic works.
+- When the feature is enabled, the optimizer assumes
+  - `to_yyyymm(order_date)` produces 120 distinct values (10 years with 12 months each).
+  - `date_trunc('year', order_date)` produces 10 distinct values (10 years).
+  - `extract(dow FROM order_date)` produces 7 distinct values (a week has 7 days).
+- When the feature is disabled, the optimizer does not assume any NDVs.
+
+<CodeGroup>
+```sql Example case
+-- 15000000 rows
+CREATE FACT TABLE orders (
+   id INT NOT NULL,
+   price DOUBLE,
+   cancelled BOOL,
+   order_date DATE
+);
+
+EXPLAIN (STATISTICS)
+SELECT id, to_yyyymm(order_date), date_trunc('year', order_date), extract(dow FROM order_date) FROM orders;
+```
+
+```text Plan with enable_date_time_func_ndv_heuristic = true {3}
+[0] [Projection] orders.id, to_yyyymm_0: to_yearmonth(orders.order_date), date_trunc_0: timestampTrunc('year', orders.order_date), extractDow_0: extractDow(orders.order_date)
+|   [Types]: to_yyyymm_0: integer not null, date_trunc_0: date not null, extractDow_0: integer not null
+|   [Logical Profile]: [est. #rows=1.5e+07, column profiles={[to_yyyymm_0: #distinct=120], [date_trunc_0: #distinct=10], [extractDow_0: #distinct=7]}, source: estimated]
+ \_[1] [StoredTable] Name: "orders"
+       [Types]: orders.id: integer not null, orders.order_date: date not null
+       [Logical Profile]: [est. #rows=1.5e+07, source: hinted]
+```
+
+```text Plan with enable_date_time_func_ndv_heuristic = false {3}
+[0] [Projection] orders.id, to_yyyymm_0: to_yearmonth(orders.order_date), date_trunc_0: timestampTrunc('year', orders.order_date), extractDow_0: extractDow(orders.order_date)
+|   [Types]: to_yyyymm_0: integer not null, date_trunc_0: date not null, extractDow_0: integer not null
+|   [Logical Profile]: [est. #rows=1.5e+07, source: hinted]
+ \_[1] [StoredTable] Name: "orders"
+       [Types]: orders.id: integer not null, orders.order_date: date not null
+       [Logical Profile]: [est. #rows=1.5e+07, source: hinted]
 ```
 
 </CodeGroup>
