@@ -174,6 +174,7 @@
                   "guides/operate-engines/sizing-engines",
                   "guides/operate-engines/understand-autoscaling",
                   "guides/operate-engines/warming-up-engines",
+                  "guides/operate-engines/arm-co-opt-out",
                   "guides/operate-engines/engines-release-settings",
                   "guides/operate-engines/system-engine",
                   "guides/operate-engines/engine-warmpools"
@@ -4981,6 +4982,11 @@
       "permanent": false
     },
     {
+      "source": "/Guides/operate-engines/arm-co-opt-out.html",
+      "destination": "/guides/operate-engines/arm-co-opt-out",
+      "permanent": false
+    },
+    {
       "source": "/Guides/operate-engines/engine-warmpools.html",
       "destination": "/guides/operate-engines/engine-warmpools",
       "permanent": false
@@ -5428,6 +5434,11 @@
     {
       "source": "/Guides/operate-engines/sizing-engines",
       "destination": "/guides/operate-engines/sizing-engines",
+      "permanent": false
+    },
+    {
+      "source": "/Guides/operate-engines/arm-co-opt-out",
+      "destination": "/guides/operate-engines/arm-co-opt-out",
       "permanent": false
     },
     {
