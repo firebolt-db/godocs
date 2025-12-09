@@ -60,7 +60,8 @@ def compare_results(sql: str, expected: Any, actual: Any) -> list[str]:
 
 class ResultsDiffError(Exception):
     def __init__(self, path: pathlib.Path, sql: str, expected: Any, actual: Any):
-        super().__init__(f"Differences found in {path}:\n{sql}\n{"\n".join(compare_results(sql, expected, actual))}"
+        diff_lines = "\n".join(compare_results(sql, expected, actual))
+        super().__init__(f"Differences found in {path}:\n{sql}\n{diff_lines}"
                          f"\nExpected result:\n{json.dumps(expected, indent=2)}"
                          f"\nActual result:\n{json.dumps(actual, indent=2)}")
         self.path = path

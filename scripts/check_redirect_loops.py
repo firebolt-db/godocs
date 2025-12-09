@@ -53,13 +53,17 @@ def check_redirect_loops(all_pages: list, redirects: list) -> None:
             v = edges.get(u)
             if v:
                 if v in visited:
-                    raise RedirectLoopsError(f"Loop detected in redirects for {n}: {" -> ".join(path)} -> {v}")
+                    path_str = " -> ".join(path)
+                    raise RedirectLoopsError(
+                        f"Loop detected in redirects for {n}: {path_str} -> {v}")
                 q.append(v)
             for src, dst in slug_edges.items():
                 if re.match(src, u):
                     v = re.sub(src, dst, u)
                     if v in visited:
-                        raise RedirectLoopsError(f"Loop detected in slug redirects for {n}: {" -> ".join(path)} -> {v}")
+                        path_str = " -> ".join(path)
+                        raise RedirectLoopsError(
+                            f"Loop detected in slug redirects for {n}: {path_str} -> {v}")
                     q.append(v)
 
 

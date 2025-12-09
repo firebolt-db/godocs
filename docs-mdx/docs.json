@@ -46,7 +46,8 @@
                 "pages": [
                   "overview/indexes",
                   "overview/indexes/aggregating-index",
-                  "overview/indexes/primary-index"
+                  "overview/indexes/primary-index",
+                  "overview/indexes/table-and-column-compression"
                 ]
               },
               "overview/data-management",
@@ -59,7 +60,6 @@
                   "overview/queries/understand-spilling"
                 ]
               },
-              "overview/table-and-column-compression",
               {
                 "group": "Security",
                 "pages": [
@@ -4954,8 +4954,8 @@
       "permanent": false
     },
     {
-      "source": "/Overview/table-and-column-compression.html",
-      "destination": "/overview/table-and-column-compression",
+      "source": "/Overview/indexes/table-and-column-compression.html",
+      "destination": "/overview/indexes/table-and-column-compression",
       "permanent": false
     },
     {
@@ -5374,8 +5374,8 @@
       "permanent": false
     },
     {
-      "source": "/Overview/table-and-column-compression",
-      "destination": "/overview/table-and-column-compression",
+      "source": "/Overview/indexes/table-and-column-compression",
+      "destination": "/overview/indexes/table-and-column-compression",
       "permanent": false
     },
     {
