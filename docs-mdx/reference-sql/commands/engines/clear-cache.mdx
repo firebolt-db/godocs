@@ -33,11 +33,12 @@ Clears the cache for a specific table or index. With this, all data of the table
 
 ## Available Caches
 
-| Cache Name      | Description                                                                                                                                   |
-| :-------------- | :-------------------------------------------------------------------------------------------------------------------------------------------- |
-| `EXTERNAL DATA` | Clears the cache for [external data](/performance-and-observability/iceberg-and-external-data) like metadata or data files of Iceberg tables. |
-| `QUERY`         | Clears the [subresult and result cache](/overview/queries/understand-query-performance-subresult).                                            |
-
+| Cache Name                    | Description                                                                                                                        |
+| :---------------------------- | :--------------------------------------------------------------------------------------------------------------------------------- |
+| `EXTERNAL DATA`               | Cache for [external data](/performance-and-observability/iceberg-and-external-data) like metadata or data files of Iceberg tables. |
+| `QUERY`                       | [Subresult and result cache](/overview/queries/understand-query-performance-subresult).                                            |
+| `PARQUET STATISTICS`          | Cache for parsed column statistics from [parquet](/guides/loading-data/working-with-semi-structured-data/load-parquet-data) footers. |
+| `AUTOMATED COLUMN STATISTICS` | Cache for [automated column statistics](/performance-and-observability/query-planning/automated-column-statistics).                |
 
 ## Example 1
 The following example clears all caches on the engine the command is executed on:
