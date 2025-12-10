@@ -8,12 +8,44 @@ class LostRedirectsError(Exception):
     pass
 
 
+def check_unmovable_pages(
+    docs_dir: pathlib.Path,
+    unmovable_pages: list,
+) -> None:
+    """Check that unmovable pages still exist at their original locations."""
+    existing_pages = set()
+    for page_path in sorted(docs_dir.glob("**/*.mdx")):
+        rel_page_path = page_path.relative_to(docs_dir)
+        if str(rel_page_path).startswith("snippets/"):
+            continue
+        page = f'{str(rel_page_path).removesuffix(".mdx").removeprefix("./")}'
+        existing_pages.add(page)
+
+    for page_entry in unmovable_pages:
+        if not page_entry.get("path"):
+            raise LostRedirectsError(f"Expected an unmovable page with 'path' key, got {page_entry}")
+        if not page_entry.get("reason"):
+            raise LostRedirectsError(f"Expected an unmovable page with 'reason' key, got {page_entry}")
+        
+        page_path = page_entry["path"]
+        if page_path not in existing_pages:
+            raise LostRedirectsError(
+                f"Unmovable page '{page_path}' is missing or has been moved. "
+                f"Reason: {page_entry['reason']}. "
+                f"This page must remain at its original location. "
+                f"If you need to move it, first remove it from unmovable_pages.json."
+            )
+
+
 def check_lost_redirects(
     docs_dir: pathlib.Path,
     docs_json: dict,
     known_pages_path: pathlib.Path,
+    unmovable_pages: list,
     regenerate: bool,
 ) -> None:
+    check_unmovable_pages(docs_dir, unmovable_pages)
+    
     known_pages = set(json.loads(known_pages_path.read_text()))
 
     slugs = set()
@@ -60,7 +92,9 @@ def main(root_dir: pathlib.Path, regenerate: bool) -> None:
     docs_dir = root_dir / "docs-mdx"
     docs_json = json.loads((docs_dir / 'docs.json').read_text())
     known_pages_path = root_dir / "known_pages.json"
-    check_lost_redirects(docs_dir, docs_json, known_pages_path, regenerate)
+    unmovable_pages_path = root_dir / "unmovable_pages.json"
+    unmovable_pages = json.loads(unmovable_pages_path.read_text()) if unmovable_pages_path.exists() else []
+    check_lost_redirects(docs_dir, docs_json, known_pages_path, unmovable_pages, regenerate)
 
 
 if __name__ == "__main__":

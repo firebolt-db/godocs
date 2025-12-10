@@ -4,7 +4,7 @@ sidebarTitle: Getting started with AI
 title: Getting started with AI
 ---
 
-Firebolt lets you call large language models (LLMs) directly from SQL through Amazon Bedrock. To invoke a model, use [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai/aws-bedrock-ai-query) by providing a Bedrock model ID, a JSON request body, and a `LOCATION` containing your AWS credentials. Alternatively, you can use [`AI_QUERY`](/reference-sql/functions-reference/ai/ai-query) to invoke a model with a simple text prompt, a Bedrock endpoint and a location.
+Firebolt lets you call large language models (LLMs) directly from SQL through Amazon Bedrock. To invoke a model, use [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai/aws-bedrock-ai-query) by providing a Bedrock model ID, a JSON request body, and a `LOCATION` containing your AWS credentials. Alternatively, you can use [`AI_QUERY`](/reference-sql/functions-reference/ai/ai-query) to invoke a model with a simple text prompt, a Bedrock endpoint and a location. For text embeddings, use [`AI_EMBED_TEXT`](/reference-sql/functions-reference/ai/ai-embed-text) to generate vectors from input text.
 
 LLM invocations in Firebolt count towards your account’s daily token budget. For details on how to set your token budget and check your current usage, see the sections below: [Set your LLM token budget](#set-or-change-your-llm-token-budget) and [Check your LLM token quota usage](#check-your-llm-token-quota-and-daily-usage).
 
@@ -68,7 +68,7 @@ For all options and parameters, see [CREATE LOCATION (Amazon Bedrock)](/referenc
 
 ## Quick examples
 
-Use these examples to try AI in Firebolt. For the full function reference and more details, see [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai/aws-bedrock-ai-query) and [`AI_QUERY`](/reference-sql/functions-reference/ai/ai-query).
+Use these examples to try AI in Firebolt. For the full function reference and more details, see [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai/aws-bedrock-ai-query), [`AI_QUERY`](/reference-sql/functions-reference/ai/ai-query), and [`AI_EMBED_TEXT`](/reference-sql/functions-reference/ai/ai-embed-text).
 
 ### Invoke a model
 
@@ -113,6 +113,15 @@ select n as number, AI_QUERY(
 from generate_series(1,3) s(n);
 ```
 
+```sql
+SELECT AI_EMBED_TEXT(
+  MODEL => 'amazon.titan-embed-text-v2:0',
+  INPUT_TEXT => 'lightning fast analytics',
+  DIMENSIONS => 256,
+  LOCATION => 'my_bedrock_location'
+);
+```
+
 ### Sentiment analysis
 
 ```sql
@@ -128,7 +137,7 @@ SELECT JSON_POINTER_EXTRACT_TEXT(
 
 ### Set or change your LLM token budget
 
-Set your account's daily LLM token budget to control how many tokens AI functions such as [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai/aws-bedrock-ai-query) and [`AI_QUERY`](/reference-sql/functions-reference/ai/ai-query) can process each day. By default, new accounts have a zero token budget.
+Set your account's daily LLM token budget to control how many tokens AI functions such as [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai/aws-bedrock-ai-query), [`AI_QUERY`](/reference-sql/functions-reference/ai/ai-query), and [`AI_EMBED_TEXT`](/reference-sql/functions-reference/ai/ai-embed-text) can process each day. By default, new accounts have a zero token budget.
 
 ```sql
 ALTER ACCOUNT "<account_name>" SET (LLM_TOKEN_BUDGET = 10000);
@@ -142,8 +151,8 @@ For full syntax and details, see [`ALTER ACCOUNT`](/reference-sql/commands/data-
 SELECT * FROM account_db.information_schema.quotas WHERE name='LLM_TOKEN_BUDGET';
 ```
 
-If you exceed the daily budget, invocations of `AWS_BEDROCK_AI_QUERY` will fail until the limit resets or you increase the budget.
+If you exceed the daily budget, invocations of AI functions (`AWS_BEDROCK_AI_QUERY`, `AI_QUERY`, `AI_EMBED_TEXT`) will fail until the limit resets or you increase the budget.
 
 <Warning>
-Using LLM functions such as <code>AWS_BEDROCK_AI_QUERY</code> on large tables or with many rows can quickly exhaust your daily LLM token budget and may result in significant costs in your AWS account. Always review your expected token usage and budget before running large-scale AI queries.
+Using LLM functions such as <code>AWS_BEDROCK_AI_QUERY</code>, <code>AI_QUERY</code>, and <code>AI_EMBED_TEXT</code> on large tables or with many rows can quickly exhaust your daily LLM token budget and may result in significant costs in your AWS account. Always review your expected token usage and budget before running large-scale AI queries.
 </Warning>
