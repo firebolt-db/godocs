@@ -32,7 +32,7 @@ WITH LOCATION = <location_name> [<setting_name> = <setting_value> ...]
 
 ### PARTITION BY
 
-The `PARTITION BY` clause defines how the Iceberg table is partitioned. You can partition by column names directly or use [Iceberg partition transform functions](/reference-sql/functions-reference/iceberg) to compute partition values.
+The `PARTITION BY` clause defines how the Iceberg table is partitioned. You can partition by column names or by [Iceberg partition transform functions](/reference-sql/functions-reference/iceberg#partition-transform-functions).
 
 ```sql
 PARTITION BY (<column_name> | <partition_transform_expression>[, ...])
@@ -40,12 +40,12 @@ PARTITION BY (<column_name> | <partition_transform_expression>[, ...])
 
 The following Iceberg partition transform functions can be used in `PARTITION BY` expressions:
 
-* [`ICEBERG_YEAR`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_year) - Partition by year
-* [`ICEBERG_MONTH`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_month) - Partition by month
-* [`ICEBERG_DAY`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_day) - Partition by day
-* [`ICEBERG_HOUR`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_hour) - Partition by hour
-* [`ICEBERG_BUCKET`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_bucket) - Partition by hash bucket
-* [`ICEBERG_TRUNCATE`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_truncate) - Partition by truncated value
+* [`ICEBERG_YEAR`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_year)
+* [`ICEBERG_MONTH`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_month)
+* [`ICEBERG_DAY`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_day)
+* [`ICEBERG_HOUR`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_hour)
+* [`ICEBERG_BUCKET`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_bucket)
+* [`ICEBERG_TRUNCATE`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_truncate)
 
 ## Examples
 
@@ -67,21 +67,21 @@ CREATE ICEBERG TABLE my_iceberg_table
 WITH LOCATION = my_location;
 ```
 
-The following example creates a partitioned Iceberg table using a column name directly:
+The following example creates an Iceberg table partitioned by the column `region`:
 
 ```sql
 CREATE ICEBERG TABLE my_partitioned_table
-  PARTITION BY (region)
-  AS SELECT event_id, event_date, region, event_data FROM my_events_table
+  PARTITION BY region
+  AS SELECT * FROM my_firebolt_table
 WITH LOCATION = my_location;
 ```
 
-The following example uses [partition transform functions](/reference-sql/functions-reference/iceberg) to partition by month:
+The following example uses a [partition transform function](/reference-sql/functions-reference/iceberg#partition-transform-functions) to partition by month:
 
 ```sql
 CREATE ICEBERG TABLE my_monthly_table
-  PARTITION BY (iceberg_month(event_date))
-  AS SELECT event_id, event_date, event_data FROM my_events_table
+  PARTITION BY iceberg_month(timestamp_col)
+  AS SELECT * FROM my_firebolt_table
 WITH LOCATION = my_location;
 ```
 
@@ -89,8 +89,8 @@ You can combine column names and partition transform functions:
 
 ```sql
 CREATE ICEBERG TABLE my_multi_partitioned_table
-  PARTITION BY (region, iceberg_year(event_date), iceberg_bucket(user_id, 16))
-  AS SELECT event_id, event_date, region, user_id, event_data FROM my_events_table
+  PARTITION BY region, iceberg_year(timestamp_col), iceberg_bucket(user_id, 16)
+  AS SELECT * FROM my_firebolt_table
 WITH LOCATION = my_location;
 ```
 
@@ -98,7 +98,7 @@ WITH LOCATION = my_location;
 
 * Catalogs: only supports a FILE_BASED catalog in AWS S3 object storage. I.e. the data and metadata files will be written to the specified location in S3.
 
-* Data types: supports the Iceberg equivelents of [Firebolt's data types](/reference-sql/data-types), except `GEOGRAPHY`.
+* Data types: supports the Iceberg equivalents of [Firebolt's data types](/reference-sql/data-types), except `GEOGRAPHY`.
 
 * Metadata: only writes limited metadata that is optional per the Iceberg spec. Does not write column statistics, etc.
 
