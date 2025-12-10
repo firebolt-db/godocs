@@ -6,7 +6,7 @@ title: CREATE LOCATION (Amazon Bedrock)
 
 
 
-Creates a new location object in your Firebolt account for Amazon Bedrock. A Bedrock `LOCATION` securely stores AWS credentials that you can reuse when invoking Bedrock models with [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai/aws-bedrock-ai-query) or [`AI_QUERY`](/reference-sql/functions-reference/ai/ai-query).
+Creates a new location object in your Firebolt account for Amazon Bedrock. A Bedrock `LOCATION` securely stores AWS credentials that you can reuse when invoking Bedrock models with [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai/aws-bedrock-ai-query), [`AI_QUERY`](/reference-sql/functions-reference/ai/ai-query), or [`AI_EMBED_TEXT`](/reference-sql/functions-reference/ai/ai-embed-text).
 
  **Topics:**
  * [Syntax](#syntax)
@@ -92,7 +92,7 @@ CREATE LOCATION my_bedrock_location WITH
 ```
 
 <Note>
-To use this location, pass its name as the `<location>` argument to [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai/aws-bedrock-ai-query) or [`AI_QUERY`](/reference-sql/functions-reference/ai/ai-query).
+To use this location, pass its name as the `<location>` argument to [`AWS_BEDROCK_AI_QUERY`](/reference-sql/functions-reference/ai/aws-bedrock-ai-query), [`AI_QUERY`](/reference-sql/functions-reference/ai/ai-query), or [`AI_EMBED_TEXT`](/reference-sql/functions-reference/ai/ai-embed-text).
 </Note>
 
 

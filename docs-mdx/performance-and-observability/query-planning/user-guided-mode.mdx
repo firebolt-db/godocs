@@ -97,7 +97,7 @@ Understanding this behavior is crucial for optimal performance.
 
 ### Build and probe side semantics
 
-In user-guided mode, Firebolt implements joins using hash join algorithms where:
+Firebolt implements joins using hash join algorithms where:
 - The **right input** of each join becomes the **build side** - Firebolt creates a hash table from this data.
 - The **left input** of each join becomes the **probe side** - Firebolt scans this data and probes the hash table.
 
@@ -108,8 +108,8 @@ JOIN small_table USING (id)
 ```
 
 Firebolt will:
-1. Build a hash table from `small_table` (the left input).
-2. Scan `large_table` (the right input) and probe the hash table for matches.
+1. Build a hash table from `small_table` (the right input).
+2. Scan `large_table` (the left input) and probe the hash table for matches.
 
 Note that if the join is directed, when swapping the join inputs you also need to change the join direction.
 ```sql

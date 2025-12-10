@@ -46,7 +46,8 @@
                 "pages": [
                   "overview/indexes",
                   "overview/indexes/aggregating-index",
-                  "overview/indexes/primary-index"
+                  "overview/indexes/primary-index",
+                  "overview/indexes/table-and-column-compression"
                 ]
               },
               "overview/data-management",
@@ -59,7 +60,6 @@
                   "overview/queries/understand-spilling"
                 ]
               },
-              "overview/table-and-column-compression",
               {
                 "group": "Security",
                 "pages": [
@@ -493,6 +493,7 @@
                     "group": "AI functions",
                     "pages": [
                       "reference-sql/functions-reference/ai",
+                      "reference-sql/functions-reference/ai/ai-embed-text",
                       "reference-sql/functions-reference/ai/ai-query",
                       "reference-sql/functions-reference/ai/aws-bedrock-ai-query"
                     ]
@@ -768,7 +769,6 @@
                 ]
               },
               "reference/available-regions",
-              "reference/compression-codecs",
               "reference/system-settings",
               "reference/object-identifiers",
               "reference/reserved-words",
@@ -4958,8 +4958,8 @@
       "permanent": false
     },
     {
-      "source": "/Overview/table-and-column-compression.html",
-      "destination": "/overview/table-and-column-compression",
+      "source": "/Overview/indexes/table-and-column-compression.html",
+      "destination": "/overview/indexes/table-and-column-compression",
       "permanent": false
     },
     {
@@ -5373,8 +5373,8 @@
       "permanent": false
     },
     {
-      "source": "/Overview/table-and-column-compression",
-      "destination": "/overview/table-and-column-compression",
+      "source": "/Overview/indexes/table-and-column-compression",
+      "destination": "/overview/indexes/table-and-column-compression",
       "permanent": false
     },
     {

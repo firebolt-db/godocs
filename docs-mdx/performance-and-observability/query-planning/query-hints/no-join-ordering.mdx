@@ -26,20 +26,6 @@ By default, Firebolt uses `t1` as the build side (listed second in the `explain`
 With the `no_join_ordering` hint, Firebolt uses the order as specified in the query.
 
 <CodeGroup>
-```sql SQL source (default, with join order optimization)
-explain(logical)
-select * from t1 join t2 on t1.a = t2.a;
-```
-
-```text Plan (default, with join order optimization) {3, 5}
-[0] [Projection] t2.a, t1.b, t2.a, t2.b
- \_[1] [Join] Mode: Inner [(t2.a = t1.a)]
-    \_[2] [StoredTable] Name: "t2"
-    |     [Types]: t2.a: integer null, t2.b: integer null
-    \_[3] [StoredTable] Name: "t1"
-          [Types]: t1.a: integer null, t1.b: integer null
-```
-
 ```sql SQL source (with hint, no join order optimization) {1}
 /*! no_join_ordering */
 explain(logical)
@@ -53,5 +39,19 @@ select * from t1 join t2 on t1.a = t2.a;
     |     [Types]: t1.a: integer null, t1.b: integer null
     \_[3] [StoredTable] Name: "t2"
           [Types]: t2.a: integer null, t2.b: integer null
+```
+
+```sql SQL source (default, with join order optimization)
+explain(logical)
+select * from t1 join t2 on t1.a = t2.a;
+```
+
+```text Plan (default, with join order optimization) {3, 5}
+[0] [Projection] t2.a, t1.b, t2.a, t2.b
+ \_[1] [Join] Mode: Inner [(t2.a = t1.a)]
+    \_[2] [StoredTable] Name: "t2"
+    |     [Types]: t2.a: integer null, t2.b: integer null
+    \_[3] [StoredTable] Name: "t1"
+          [Types]: t1.a: integer null, t1.b: integer null
 ```
 </CodeGroup>

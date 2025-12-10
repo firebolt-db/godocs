@@ -13,25 +13,26 @@ For a more detailed view, refer to the [`information_schema.engine_caches` view]
 SHOW CACHE;
 ```
 
-The results of `SHOW CACHE` are formatted as follows:
+## Returns
 
-`<ssd_used>/<ssd_available> GB (<percent_utilization>%)`
+The returned table has the following columns.
 
-## Components 
-  
+| Column name | Data Type | Description                                                                                   |
+| :---------- | :-------- | :-------------------------------------------------------------------------------------------- |
+| ssd_usage   | TEXT      | The SSD utilization is formatted as: `<ssd_used>/<ssd_available> GB (<percent_utilization>%)` |
+
+## Components
 
 | Component               | Description                                                                                                                |
-| :----------------------- | :-------------------------------------------------------------------------------------------------------------------------- |
+| :---------------------- | :------------------------------------------------------------------------------------------------------------------------- |
 | `<ssd_used>`            | The amount of storage currently used on your engine. This data includes storage that Firebolt reserves for internal usage. |
-| `<ssd_available>`    | The amount of available storage on your engine.                                                                            |
+| `<ssd_available>`       | The amount of available storage on your engine.                                                                            |
 | `<percent_utilization>` | The percent of used storage as compared to available storage.                                                              |
 
 ## Example
 
-When the `SHOW CACHE` command is run, the usage displays as a result: 
+When the `SHOW CACHE` command is run, the usage displays as a result:
 
-| ssd_usage             |
-|:----------------------|
-| 3.82/73.28 GB (5.22%) |
-
-
+| ssd_usage               |
+| :---------------------- |
+| '3.82/73.28 GB (5.22%)' |
