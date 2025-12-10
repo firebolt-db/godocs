@@ -37,6 +37,12 @@ WITH LOCATION = my_iceberg_location;
 
 ## Example
 
-import SqlExamplesIcebergDayExecutable from '/snippets/sql_examples/iceberg_day_executable.mdx';
+```sql
+SELECT iceberg_day('2025-12-15'::DATE) AS day_partition;
+```
 
-<SqlExamplesIcebergDayExecutable />
+**Returns:**
+
+| day_partition |
+|:--------------|
+| 20437 |

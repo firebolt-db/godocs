@@ -48,8 +48,14 @@ The truncation behavior depends on the input type:
 
 The `<width>` parameter must be a positive constant value. Using zero, negative values, or non-constant expressions results in an error.
 
-## Examples
+## Example
 
-import SqlExamplesIcebergTruncateExecutable from '/snippets/sql_examples/iceberg_truncate_executable.mdx';
+```sql
+SELECT iceberg_truncate(12345, 100) AS truncated_partition;
+```
 
-<SqlExamplesIcebergTruncateExecutable />
+**Returns:**
+
+| truncated_partition |
+|:--------------------|
+| 12300 |
