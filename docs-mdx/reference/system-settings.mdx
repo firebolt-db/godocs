@@ -395,7 +395,7 @@ Changing both `tablet_min_size_bytes` and `tablet_max_size_bytes` to `4 GiB` ens
 
 Excessive partitioning can degrade table health and query performance. To prevent tables from having too many partitions, Firebolt enforces a limit on the number of partitions per table. This limit is checked during data ingestion operations and will cause the operation to fail if the resulting partition count would exceed the configured threshold.
 
-For accounts created after November 1, 2025, the default limit is `10000` partitions. (Accounts created before this date do not have a limit applied.) You can adjust this limit using the `max_table_partitions_on_insert` setting.
+For accounts created after December 1, 2025, the default limit is `10000` partitions. (Accounts created before this date do not have a limit applied.) You can adjust this limit using the `max_table_partitions_on_insert` setting.
 
 ### Example
 ```sql
