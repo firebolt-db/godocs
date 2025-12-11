@@ -56,6 +56,7 @@ The following settings can be configured using the `WITH` clause and the `SET` c
 - [max_insert_threads](#limiting-max-insert-threads)
 - [iceberg_unsafe_version_guessing_mode](#guessing-iceberg-metadata-version)
 - [enable_iceberg_partitioned_scan](#using-iceberg-partitioned-scans-for-co-located-joins-and-aggregations)
+- [iceberg_insert_sharding](#iceberg-insert-sharding)
 - [late_materialization_max_rows](#control-late-materialization)
 - [enable_type_based_ndv_heuristic](#enable-type-based-ndv-heuristic)
 - [enable_date_time_func_ndv_heuristic](#enable-datetime-function-ndv-heuristic)
@@ -876,6 +877,44 @@ GROUP BY type;
 ```
 
 </CodeGroup>
+
+## Iceberg insert sharding
+
+Firebolt provides controls for how data is distributed across nodes when [writing to partitioned Apache Iceberg tables](/reference-sql/commands/data-definition/create-iceberg-table-as-select). This is similar to [`insert_sharding`](#insert-sharding) but applies specifically to Iceberg table writes.
+
+Use `iceberg_insert_sharding` to control the trade-off between parallelism and the number of output files per partition. By default, Firebolt shuffles data so that each partition is written by fewer nodes, which reduces per-file overhead and produces fewer, larger output files. Having fewer files lowers I/O overhead and generally improves Firebolt's query performance. This works best when you have enough partitions to distribute evenly across nodes.
+
+### Accepted values
+
+- `shuffle_on_write` (default): Data is shuffled by partition values before writing. This groups files of the same partition on the same nodes, resulting in fewer output files per partition. This is optimal for most use cases as it produces fewer, larger files that are more efficient to read. However, this may be inefficient if there are single partitions with heavy data - which would not be distributed across multiple nodes.
+
+- `no_sharding`: No shuffling is performed before writing. On multi-node engines, this can result in multiple files per partition since different nodes may write data for the same partition independently. This can also increase the load per node when there are many partitions. Use this when you want to maximize write parallelism and are less concerned about the number of output files or load per node.
+
+### Notes
+
+- This setting only affects partitioned Iceberg table writes. Non-partitioned tables are not affected.
+
+### Syntax
+
+```sql
+CREATE ICEBERG TABLE <table_name>
+  PARTITION BY (...)
+  AS <select_query>
+WITH LOCATION = <location_name>
+     iceberg_insert_sharding = '<mode>';
+```
+
+### Example
+
+The following example uses `no_sharding` to maximize write parallelism at the cost of producing more output files:
+
+```sql
+CREATE ICEBERG TABLE my_partitioned_iceberg
+  PARTITION BY iceberg_bucket(user_id, 16)
+  AS SELECT * FROM my_source_table
+WITH LOCATION = my_iceberg_location
+     iceberg_insert_sharding = 'no_sharding';
+```
 
 ## Control late materialization
 

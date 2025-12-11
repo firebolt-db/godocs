@@ -94,6 +94,10 @@ CREATE ICEBERG TABLE my_multi_partitioned_table
 WITH LOCATION = my_location;
 ```
 
+## Remarks
+
+You can use the [`iceberg_insert_sharding`](/reference/system-settings#iceberg-insert-sharding) setting to control the trade-off between parallelism and the number of output files per partition. By default, Firebolt tries to group files of the same partition on the same nodes, resulting in less load per node and fewer output files, which is usually preferred for query performance.
+
 ## Limitations:
 
 * Catalogs: only supports a FILE_BASED catalog in AWS S3 object storage. I.e. the data and metadata files will be written to the specified location in S3.
