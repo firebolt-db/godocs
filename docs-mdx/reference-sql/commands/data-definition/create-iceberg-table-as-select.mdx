@@ -15,6 +15,7 @@ Creates an Apache Iceberg table in object storage, and exports data into it base
 
 ```sql
 CREATE ICEBERG TABLE <table_name>
+[PARTITION BY (<partition_expression> [, ...])]
 AS <select_query>
 WITH LOCATION = <location_name> [<setting_name> = <setting_value> ...]
 ```
@@ -29,7 +30,24 @@ WITH LOCATION = <location_name> [<setting_name> = <setting_value> ...]
 | `<setting_name>`  | The name of a [system setting](/reference/system-settings).   |
 | `<setting_value>` | The value to assign to system setting `<setting_name>`.       |
 
-## Example
+### PARTITION BY
+
+The `PARTITION BY` clause defines how the Iceberg table is partitioned. You can partition by column names or by [Iceberg partition transform functions](/reference-sql/functions-reference/iceberg#partition-transform-functions).
+
+```sql
+PARTITION BY (<column_name> | <partition_transform_expression>[, ...])
+```
+
+The following Iceberg partition transform functions can be used in `PARTITION BY` expressions:
+
+* [`ICEBERG_YEAR`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_year)
+* [`ICEBERG_MONTH`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_month)
+* [`ICEBERG_DAY`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_day)
+* [`ICEBERG_HOUR`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_hour)
+* [`ICEBERG_BUCKET`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_bucket)
+* [`ICEBERG_TRUNCATE`](/reference-sql/functions-reference/iceberg/partitioning/iceberg_truncate)
+
+## Examples
 
 The following example writes the results of a `SELECT` query into a new Iceberg table at `s3://my-bucket/path/to/iceberg/output`.
 
@@ -49,14 +67,39 @@ CREATE ICEBERG TABLE my_iceberg_table
 WITH LOCATION = my_location;
 ```
 
+The following example creates an Iceberg table partitioned by the column `region`:
+
+```sql
+CREATE ICEBERG TABLE my_partitioned_table
+  PARTITION BY region
+  AS SELECT * FROM my_firebolt_table
+WITH LOCATION = my_location;
+```
+
+The following example uses a [partition transform function](/reference-sql/functions-reference/iceberg#partition-transform-functions) to partition by month:
+
+```sql
+CREATE ICEBERG TABLE my_monthly_table
+  PARTITION BY iceberg_month(timestamp_col)
+  AS SELECT * FROM my_firebolt_table
+WITH LOCATION = my_location;
+```
+
+You can combine column names and partition transform functions:
+
+```sql
+CREATE ICEBERG TABLE my_multi_partitioned_table
+  PARTITION BY region, iceberg_year(timestamp_col), iceberg_bucket(user_id, 16)
+  AS SELECT * FROM my_firebolt_table
+WITH LOCATION = my_location;
+```
+
 ## Limitations:
 
 * Catalogs: only supports a FILE_BASED catalog in AWS S3 object storage. I.e. the data and metadata files will be written to the specified location in S3.
 
-* Data types: supports the Iceberg equivelents of [Firebolt's data types](/reference-sql/data-types), except `GEOGRAPHY`.
-
-* Partitions: currently does not support writing partitioned tables.
+* Data types: supports the Iceberg equivalents of [Firebolt's data types](/reference-sql/data-types), except `GEOGRAPHY`.
 
 * Metadata: only writes limited metadata that is optional per the Iceberg spec. Does not write column statistics, etc.
 
-* DML operations on Iceberg tables are not supported. Only the `CREATE ICEBERG TABLE AS SELECT` and `SELECT` from [`READ_ICEBERG(...)`](/reference-sql/functions-reference/table-valued/read_iceberg) operations are supported for Iceberg tables. 
+* DML operations on Iceberg tables are not supported. Only the `CREATE ICEBERG TABLE AS SELECT` and `SELECT` from [`READ_ICEBERG(...)`](/reference-sql/functions-reference/iceberg/read_iceberg) operations are supported for Iceberg tables.  

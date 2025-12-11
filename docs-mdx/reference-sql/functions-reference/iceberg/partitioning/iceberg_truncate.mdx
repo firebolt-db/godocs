@@ -1,0 +1,61 @@
+---
+description: Truncate value to a width according to Iceberg partition transforms
+sidebarTitle: ICEBERG_TRUNCATE
+title: ICEBERG_TRUNCATE
+---
+
+Truncates a value to a specified width, according to the [Iceberg partition transforms specification](https://iceberg.apache.org/spec/#partition-transforms).
+
+## Syntax
+
+```sql
+ICEBERG_TRUNCATE(<value>, <width>)
+```
+
+## Parameters
+
+| Parameter | Description | Supported input types |
+|:----------|:------------|:----------------------|
+| `<value>` | The value to truncate. | `INTEGER`, `BIGINT`, `TEXT`, `BYTEA` |
+| `<width>` | The truncation width. Must be a positive constant. | `BIGINT` |
+
+## Return type
+
+Returns the same type as the input `<value>`:
+- `INTEGER` for `INTEGER` input
+- `BIGINT` for `BIGINT` input
+- `TEXT` for `TEXT` input
+- `BYTEA` for `BYTEA` input
+
+## Remarks
+
+The `ICEBERG_TRUNCATE` function can be used in the `PARTITION BY` clause of [`CREATE ICEBERG TABLE`](/reference-sql/commands/data-definition/create-iceberg-table-as-select) commands.
+
+```sql
+CREATE ICEBERG TABLE events
+  PARTITION BY (iceberg_truncate(category, 3))
+  AS SELECT * FROM source_events
+WITH LOCATION = my_iceberg_location;
+```
+
+The truncation behavior depends on the input type:
+
+**For integers (`INTEGER`, `BIGINT`):** Returns the largest multiple of `width` that is less than or equal to the value. For negative values, this rounds toward negative infinity.
+
+**For strings (`TEXT`):** Returns the first `width` Unicode code points of the string. If the string is shorter than `width`, returns the original string unchanged.
+
+**For binary (`BYTEA`):** Returns the first `width` bytes of the binary data. If the data is shorter than `width`, returns the original data unchanged.
+
+The `<width>` parameter must be a positive constant value. Using zero, negative values, or non-constant expressions results in an error.
+
+## Example
+
+```sql
+SELECT iceberg_truncate(12345, 100) AS truncated_partition;
+```
+
+**Returns:**
+
+| truncated_partition |
+|:--------------------|
+| 12300 |
