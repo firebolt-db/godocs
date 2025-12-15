@@ -20,6 +20,20 @@ Deletes the database and all of its objects including tables, views and aggregat
 | :----------------- | :-------------------------------------- |
 | `<database_name>` | The name of the database to be deleted |
 
-<Note>
-If the dropped database is set as `DEFAULT_DATABASE` for any engine, queries on that engine will fail unless a different database is specified or selected. You can change the default database for an engine using the [`ALTER ENGINE`](/reference-sql/commands/engines/alter-engine) command.
-</Note>
+## Restrictions
+
+A database cannot be dropped if it is used as a default database for any engine. To check which engines are using a specific database as their default, run the following query:
+
+```sql
+SELECT engine_name 
+FROM information_schema.engines 
+WHERE default_database = 'db_name';
+```
+
+If the query returns no results and you expect engines to be using this database, you may not have the necessary permissions to view engine information. Contact your account administrator for assistance.
+
+Before dropping the database, you must change the default database for all affected engines using the [`ALTER ENGINE`](/reference-sql/commands/engines/alter-engine) command.
+
+For more information, see:
+- [`information_schema.engines`](/reference-sql/information-schema/engines) - View engine configuration details
+- [`ALTER ENGINE`](/reference-sql/commands/engines/alter-engine) - Change engine settings including the default database
