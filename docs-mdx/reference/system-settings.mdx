@@ -57,7 +57,6 @@ The following settings can be configured using the `WITH` clause and the `SET` c
 - [enable_iceberg_partitioned_scan](#using-iceberg-partitioned-scans-for-co-located-joins-and-aggregations)
 - [late_materialization_max_rows](#control-late-materialization)
 - [derive_ndv_from_unique_keys](#derive-ndv-from-unique-keys)
-- [force_shuffle_hash_join](#forcing-hash-shuffled-joins)
 
 The following settings can be configured only using the `SET` command:
 - [query_label](#query-labeling-and-tagging)
@@ -65,7 +64,7 @@ The following settings can be configured only using the `SET` command:
 
 ## Setting the time zone
 
-Use this setting to specify the session time zone. Time zone names are from the [Time Zone Database](http://www.iana.org/time-zones). You can see the list of tz database time zones [here](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones). For times in the future, the latest known rule for the given time zone is applied. Firebolt does not support time zone abbreviations, as they cannot account for daylight savings time transitions, and some time zone abbreviations have meant different UTC offsets at different times. The default value of the `timezone` setting is UTC.
+Use this setting to specify the session time zone. Time zone names are from the [Time Zone Database](http://www.iana.org/time-zones). You can see the list of tz database time zones [here](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones). For times in the future, the latest known rule for the given time zone is applied. Firebolt does not support time zone abbreviations, as they cannot account for daylight savings time transitions, and some time zone abbreviations have meant different UTC offsets at different times. The default value of the `timezone` setting is UTC. 
 
 ### Syntax
 
@@ -90,7 +89,7 @@ SELECT TIMESTAMPTZ '2023-1-29Z';  --> 2023-01-28 18:00:00-06
 
 ## Enable parsing for literal strings
 
-If set to `true`, strings are parsed without escaping, treating backslashes literally. By default, this setting is enabled.
+If set to `true`, strings are parsed without escaping, treating backslashes literally. By default, this setting is enabled. 
 
 ### Syntax
 
@@ -157,7 +156,7 @@ SELECT * FROM table LIMIT 20000;
 Specify how the query should behave when the HTTP connection to Firebolt is dropped, such as when the UI window is closed. For this, you can choose between 3 different modes:
 - `NONE`: The query will not be canceled on connection drop
 - `ALL` : The query will be canceled on connection drop
-- `TYPE_DEPENDENT`: Only queries without side effects will be canceled, such as `SELECT`.
+- `TYPE_DEPENDENT`: Only queries without side effects will be canceled, such as `SELECT`. 
 
 The default is `TYPE_DEPENDENT`.
 
@@ -172,15 +171,15 @@ The following code example demonstrates how to control query cancellation behavi
 ```sql
 SET cancel_query_on_connection_drop = none;
 INSERT INTO X [...]
-SELECT * FROM X;
+SELECT * FROM X; 
 
 SET cancel_query_on_connection_drop = all;
 INSERT INTO X [...]
-SELECT * FROM X;
+SELECT * FROM X;  
 
 SET cancel_query_on_connection_drop = type_dependent;
-INSERT INTO X [...]
-SELECT * FROM X;
+INSERT INTO X [...] 
+SELECT * FROM X;  
 ```
 
 ## Query labeling and tagging
@@ -196,7 +195,7 @@ The following code example assigns a query label to a query using `SET query_lab
 
 ```sql
 SET query_label = 'Hello Firebolt';
-SELECT * FROM X;
+SELECT * FROM X;  
 
 SET query_label = '';
 
@@ -209,7 +208,7 @@ CANCEL QUERY WHERE query_id = '<retrieved query_id>'
 ## Multi-cluster engine warmup
 Use this option to distribute queries across all clusters of an engine, simplifying the process of initializing cached data to a consistent state across all clusters after a `START ENGINE` or `ALTER ENGINE` operation.
 
-Warmup queries complete after they have run on all clusters of the engine. The queries return an empty result if they succeed on all clusters. If the query fails on any cluster, it returns an error. If multiple errors occur, only one error is returned.
+Warmup queries complete after they have run on all clusters of the engine. The queries return an empty result if they succeed on all clusters. If the query fails on any cluster, it returns an error. If multiple errors occur, only one error is returned. 
 
 ### Syntax
 
@@ -217,7 +216,7 @@ Warmup queries complete after they have run on all clusters of the engine. The q
 SET warmup = true;
 ```
 
-### Example
+### Example 
 The following code example activates the warmup mode so that the query runs on `production_table` using all clusters of an engine, and returns an empty result upon success:
 
 ```sql
@@ -228,7 +227,7 @@ SET warmup = false;
 ```
 
 ## Result cache
-Set `enable_result_cache` to `FALSE` to disable the use of Firebolt's [result cache](/overview/queries/understand-query-performance-subresult), which is set to `TRUE` by default. Disabling result cashing can be useful for benchmarking query performance. When `enable_result_cache` is disabled, resubmitting the same query will recompute the results rather than retrieving them from cache.
+Set `enable_result_cache` to `FALSE` to disable the use of Firebolt's [result cache](/overview/queries/understand-query-performance-subresult), which is set to `TRUE` by default. Disabling result cashing can be useful for benchmarking query performance. When `enable_result_cache` is disabled, resubmitting the same query will recompute the results rather than retrieving them from cache. 
 
 ### Syntax
 
@@ -258,7 +257,7 @@ Disabling subresult caching is generally **not recommended**, as it can negative
 SET enable_subresult_cache = [true|false];
 ```
 
-### Example
+### Example 
 The following code example disables the subresult cache so no previously cached subresult is used and no new cache entries are written by this query:
 
 ```sql
@@ -312,7 +311,7 @@ INSERT INTO ...
 WITH (insert_sharding = ['auto'|'no_sharding'|'shard_on_read'|'shuffle_on_write']);
 ```
 
-### Example
+### Example 
 The following examples demonstrate when to use each sharding option:
 
 ```sql
@@ -357,11 +356,11 @@ During ingestion, Firebolt attempts to create optimally sized tablets to balance
 - `tablet_min_size_bytes`: Controls the minimum size of tablets. If there isn't enough data in the ingestion, smaller tablets are created nevertheless. When possible, data is compacted into tablets of at least this size. Default: `1.5 GiB`. Minimum: `1 GiB`.
 - `tablet_max_size_bytes`: Controls the maximum size of tablets. Default: `4 GiB`. Should be greater or equal than `tablet_min_size_bytes`.
 
-### Note
+### Note 
 
 Larger target tablet sizes may require more memory during ingestion.
 
-### Example
+### Example 
 The following example sets both minimum and maximum tablet sizes to `4 GiB`:
 
 ```sql
@@ -373,7 +372,7 @@ CREATE TABLE playstats (
   "CurrentLevel" BIGINT NULL,
   "CurrentSpeed" BIGINT NULL,
   "CurrentPlayTime" DOUBLE PRECISION NULL,
-  "CurrentScore" BIGINT NULL,
+  "CurrentScore" BIGINT NULL, 
   "Event" TEXT NULL,
   "ErrorCode" TEXT NULL
 );
@@ -405,7 +404,7 @@ By default, Firebolt restricts importing from and exporting to Amazon S3 buckets
 ```sql
 -- Example 1: COPY FROM
 COPY INTO playstats
-FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/'
+FROM 's3://firebolt-publishing-public/help_center_assets/firebolt_sample_dataset/playstats/' 
 LIMIT 5
 WITH (TYPE = PARQUET, CROSS_REGION_REQUEST_MODE = 'auto');
 
@@ -720,7 +719,7 @@ In the following example, we join two Iceberg tables partitioned by `month("time
 EXPLAIN (PHYSICAL)
 SELECT
   *
-FROM
+FROM 
   read_iceberg(location => 'table1') table1  -- partitioned by `month("timestamp")`
 JOIN
   read_iceberg(location => 'table2') table2  -- partitioned by `month("timestamp")`
@@ -801,7 +800,7 @@ EXPLAIN (PHYSICAL)
 SELECT
   type,
   count(*) as count
-FROM
+FROM 
   read_iceberg(location => 'table3')  -- partitioned by `type`
 GROUP BY type;
 ```
@@ -959,18 +958,3 @@ WHERE o.city = a.city;
 
 </CodeGroup>
 
-## Forcing hash-shuffled joins
-
-On multi-node engines, Firebolt automatically picks a suitable execution strategy for joins. Fundamentally, the choice is between broadcast joins and hash-shuffled joins.
-- Broadcast joins replicate the build side on every node, which avoids having to reshuffle the probe side. This can improve the speed of query execution substantially if the probe side is much larger than the build side.
-- Hash-shuffled joins reshuffle both inputs of the join by the join key. These plans are the most scalable and work well even when both inputs are very large.
-
-Firebolt chooses broadcast joins when it knows that the build side is below 5 million rows or the probe side is at least 100 times larger than the build side, as well as for semi joins (`WHERE col IN (SELECT ...)`).
-By setting `force_shuffle_hash_join=true`, users can override this decision-making and force the query engine to use a hash-shuffled join.
-This setting is only applicable on multi-node engines.
-
-```sql
-SELECT * FROM orders
-WHERE user_id IN (SELECT user_id FROM users WHERE email IS NOT NULL)
-WITH (force_shuffle_hash_join=true);
-```
