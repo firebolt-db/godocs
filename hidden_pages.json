@@ -126,5 +126,9 @@
   {
     "path": "performance-and-observability/runtime.mdx",
     "reason": "not yet implemented"
+  },
+  {
+    "path": "support/severity-guidelines.mdx",
+    "reason": "access only via direct link"
   }
 ]
