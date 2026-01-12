@@ -173,6 +173,12 @@ SELECT
   id,
   ARRAY_FIRST(v, k -> k = 'platform', agent_props_vals, agent_props_keys) AS platform
 FROM visits;
+
+-- Alternatively, you can enclose the variables in parentheses:
+SELECT
+  id,
+  ARRAY_FIRST((v, k) -> k = 'platform', agent_props_vals, agent_props_keys) AS platform
+FROM visits;
 ```
 
 **Returns**:
@@ -193,6 +199,10 @@ The example below sorts the first array by the positions defined in the second a
 ```sql
 SELECT
   ARRAY_SORT(x,y -> y, [ 'A','B','C'],[3,2,1]) AS res;
+
+-- Alternatively, you can enclose the variables in parentheses:
+SELECT
+  ARRAY_SORT((x,y) -> y, [ 'A','B','C'],[3,2,1]) AS res;
 ```
 **Returns**:
 
