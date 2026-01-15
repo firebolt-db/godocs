@@ -68,11 +68,15 @@ The configuration file itself should be a JSON file with the following contents.
             "host": "node-1-hostname-or-ip-address"
         }
         // Further nodes ...
-    ]
+    ],
+    // Additional configuration options (optional)
+    "default_s3_endpoint_override": "http://minio:9000"
 }
 ```
 
 Each entry in the `nodes` array corresponds to one node in the desired Firebolt Core cluster and specifies the hostname or IP address under which it is reachable from the other nodes. Usually, it is preferable to specify hostnames and rely on DNS (e.g. provided by [Docker](https://docs.docker.com/engine/network/)) to resolve them to IP addresses.
+
+The optional `default_s3_endpoint_override` field allows Firebolt Core to work with any S3-compatible object storage provider like [MinIO](https://www.min.io/) or [Cloudflare R2](https://www.cloudflare.com/developer-platform/products/r2/). Setting the `default_s3_endpoint_override` config property to the request endpoint of your S3-compatible object store will transparently reroute all requests to `s3://` URIs to the configured endpoint. Please ensure that hostnames in the endpoint are resolvable from the Firebolt Core container.
 
 The same configuration file should be passed to each Firebolt Core node within a cluster. The `--node` command-line argument (see [below](#command-line-arguments)) is used to specify which of the entries in the `nodes` array corresponds to the "current" node, and which ones are remote nodes.
 
