@@ -26,6 +26,8 @@ ALTER ENGINE <engine_name> SET
     [FAMILY = <family>]
     [AUTO_WARMUP = <true/false>]
     [RELEASE = (CHANNEL = <channel>)]
+    [QUERY_CACHE_MEMORY_FRACTION = <fraction>]
+    [VECTOR_INDEX_CACHE_MEMORY_FRACTION = <fraction>]
 ```
 
 ### Options 
@@ -47,7 +49,8 @@ ALTER ENGINE <engine_name> SET
 | `FAMILY =<family>`                        | Defines the family of node used in the engine. Options include `STORAGE_OPTIMIZED` (alias `SO`) or `COMPUTE_OPTIMIZED` (alias `CO`). |
 | `AUTO_WARMUP = <true/false>`              | When set to `TRUE`, engine will proactively fetch recently used data at startup, recommended for engines that frequently touch the same subset of data.| 
 | `CHANNEL = <channel>`                     | Specifies the release channel to be used. Options are `DEFAULT` to use the default release process or `PREVIEW` to get upgrades earlier. |
-| `QUERY_CACHE_MEMORY_FRACTION = <ratio>`   | Specifies the max size used by the query cache pool relative to the total available memory. |
+| `QUERY_CACHE_MEMORY_FRACTION = <fraction>` | Sets the fraction of the engines memory that can be used to cache query (sub)results. `VECTOR_INDEX_CACHE_MEMORY_FRACTION` + `QUERY_CACHE_MEMORY_FRACTION` can be at most 0.8. |
+| `VECTOR_INDEX_CACHE_MEMORY_FRACTION = <fraction>` | Sets the fraction of the engines memory that can be used to cache vector indexes. See [Vector Search Indexes](/overview/indexes/vector-search-index) for details. `VECTOR_INDEX_CACHE_MEMORY_FRACTION` + `QUERY_CACHE_MEMORY_FRACTION` can be at most 0.8. |
 
 **Limitations:**
 * Each engine is limited to a maximum of two clusters.

@@ -1,0 +1,126 @@
+---
+description:
+  Learn how to create and optimize vector search indexes in Firebolt for
+  faster query performance.
+sidebarTitle: CREATE VECTOR SEARCH INDEX
+title: CREATE VECTOR SEARCH INDEX
+---
+## Overview
+
+Create a vector search index on an embedding column to enable low‑latency approximate nearest neighbor (ANN) search using the HNSW algorithm. You can create multiple vector search indexes per table and column. Each index must have a unique name. Indexes can reference the same column with identical or different configurations.
+Read more about [Vector Search Indexes](/overview/indexes/vector-search-index) in general and [how to search using vector search indexes](/reference-sql/functions-reference/vector/vector-search).
+
+## Syntax
+
+```sql
+CREATE INDEX <index_name> ON <table_name> USING HNSW (
+  <column_name> <distance_metric>
+) WITH (
+  dimension = <dimension>
+  -- Optional parameters for index optimization
+  [, m = 16]
+  [, ef_construction = 128]
+  [, quantization = 'bf16']
+);
+```
+
+## Parameters
+
+| Parameter                    | Description                                                                                                                                                                                                            |
+| :--------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `<index_name>`               | Unique name for the vector search index.                                                                                                                                                                               |
+| `<table_name>`               | Target table name.                                                                                                                                                                                                      |
+| `<column_name>`              | Column with embeddings. Supported types: `ARRAY(REAL NOT NULL) NOT NULL` or `ARRAY(DOUBLE NOT NULL) NOT NULL`.                                                                                                         |
+| `<distance_metric>`          | Distance operator: `vector_cosine_ops`, `vector_ip_ops`, `vector_l2sq_ops`. See [Distance metric](#distance-metric).                                                                                                   |
+| `<dimension>`                | Embedding dimensionality. Enforced at ingest.                                                                                                                                                                           |
+| `m` (optional)               | HNSW connectivity (max edges per node). Default `16`. See [M (connectivity)](#m-connectivity).                                                                                                                          |
+| `ef_construction` (optional) | Insert‑time candidate list size. Default `128`. See [EF_CONSTRUCTION](#ef-construction).                                                                                                                                |
+| `quantization` (optional)    | Vector storage precision. Default `'bf16'`. Supported: `'bf16'`, `'f16'`, `'f32'`, `'f64'`, `'i8'`. See [Quantization](#quantization).                                                              |
+
+### Distance Metric
+
+Three different distance metrics are available for use in vector search indexes to determine the distance between vectors:
+
+- `vector_cosine_ops` [cosine distance](/reference-sql/functions-reference/vector/vector-cosine-distance)
+- `vector_ip_ops` [inner product](/reference-sql/functions-reference/vector/vector-inner-product)
+- `vector_l2sq_ops` [squared L2 (euclidean) distance](/reference-sql/functions-reference/vector/vector-squared-euclidean-distance)
+
+### M (Connectivity)
+
+The `M` parameter during vector search index creation defines the number of edges each vertex in the graph structure has - that is, the number of nearest neighbors that each inserted vector will connect to.
+Higher `M` values improve search quality but increase memory usage and index build time. The impact on index search time is minimal.
+
+- Higher `M` generally improves recall and can reduce search hops.
+- Memory usage and index size increase roughly linearly with `M`; build time also increases.
+- Typical range: `16`–`64`; recommended starting point: `16`–`32`.
+- Large, complex, or high‑dimensional datasets may benefit from higher `M` (with higher memory costs).
+
+### EF_CONSTRUCTION
+
+The `ef_construction` parameter defines the quality of inserts into the index. The higher the value, the more nodes will be explored during the insert to find the nearest neighbors, which leads to a higher-quality graph and better recall.
+
+- Higher values improve index quality and recall, at the cost of longer builds and higher transient build memory.
+- Typical range: `100`–`200`; recommended starting value: `128`.
+- With higher `ef_construction`, you may be able to use smaller `M` and `ef_search` for similar recall.
+
+### Quantization
+
+Quantization is the process of converting high-precision data into a lower-precision, discrete representation.
+The quantization setting defines which internal, lower-precision, discrete representation the high-precision input data is converted to (e.g., which data type is used in the index to store the vectors).
+A smaller data type requires less memory but may impact the quality of the index and thus recall performance.
+This is particularly relevant when vector clusters are very dense, as precision loss in the floating-point representation will decrease recall.
+
+Supported types are:
+
+- `bf16`: [16-bit (brain) floating point](https://en.wikipedia.org/wiki/Bfloat16_floating-point_format) developed by Google Brain. It is optimized for fast, large-scale numeric tasks where preserving the range is more important than fine-grained precision.
+- `f16`: 16-bit floating point
+- `f32`: 32-bit floating point, equal to the SQL type [real](/reference-sql/data-types#real)
+- `f64`: 64-bit floating point, equal to the SQL type [double precision](/reference-sql/data-types#double-precision)
+- `i8` : 8-bit integer (this quantization is only support with the vector_cosine_ops metric)
+
+## Index creation on populated tables
+
+Vector search indexes can be created on both empty and populated tables as a pure metadata operation. All data inserted after index creation is automatically indexed as part of the transaction.
+
+When you create an index on a populated table, existing data is not automatically indexed. However, this existing data is still considered when using the index in the `vector_search()` TVF. During query execution, a hybrid search is performed that accounts for both indexed and non‑indexed tablets. This can impact performance, as non‑indexed data must be fully scanned.
+
+To ensure all existing data is indexed after creating an index on a populated table, run `VACUUM ( REINDEX = TRUE)`.
+
+## Examples
+
+Create a table to store document embeddings:
+
+```sql
+CREATE TABLE documents (
+  id INT,
+  title TEXT,
+  content TEXT,
+  embedding ARRAY(FLOAT NOT NULL) NOT NULL
+);
+```
+
+Create a vector search index on the `embedding` column for cosine distance over 256‑dimensional vectors:
+
+```sql
+CREATE INDEX doc_embeddings_idx ON documents USING HNSW (
+  embedding vector_cosine_ops
+) WITH (
+  dimension = 256, -- the dimension of the embedding
+  m = 16,
+  ef_construction = 128,
+  quantization = 'bf16'
+);
+```
+
+If the table already contains data, reindex existing tablets:
+
+```sql
+VACUUM ( REINDEX = TRUE) documents;
+```
+
+## See also
+
+- [Vector search index overview](/overview/indexes/vector-search-index)
+- [`vector_search()` TVF](/reference-sql/functions-reference/vector/vector-search)
+- [Index metadata](/reference-sql/information-schema/indexes)
+- [`VACUUM` data management command](/reference-sql/commands/data-management/vacuum)

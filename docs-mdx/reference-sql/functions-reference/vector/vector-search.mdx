@@ -1,0 +1,101 @@
+---
+description: Reference material for VECTOR_SEARCH table-valued function
+sidebarTitle: VECTOR_SEARCH
+title: VECTOR_SEARCH
+---
+
+Performs an approximate nearest neighbor (ANN) search using a vector search index created with `CREATE INDEX ... USING HNSW`. `VECTOR_SEARCH` is a table‑valued function that returns up to `top_k` rows from the indexed table that are closest to a target vector according to the distance metric configured on the index.
+
+Read more about [Vector Search Indexes](/overview/indexes/vector-search-index) in general and [how to create vector indexes](/reference-sql/commands/data-definition/create-vector-search-index).
+
+## Syntax
+
+```sql
+VECTOR_SEARCH (
+  INDEX <index_name>,
+  target_vector => <target_vector>,
+  top_k => <top_k>
+  [, ef_search => 64]
+  [, load_strategy => 'in_memory']
+)
+```
+
+## Parameters
+
+| Parameter       | Description                                                                                                                                                                               | Supported input types              |
+| :-------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------- |
+| `<index_name>`  | The vector search index to use. The index must exist on the target table.                                                                                                                 | Index name (identifier)            |
+| `target_vector` | The target vector to search for. Must be provided as a scalar (literal array or scalar subquery). Must not be `NULL` and must not contain `NULL` elements.                                | `ARRAY(DOUBLE)`                    |
+| `top_k`         | The maximum number of nearest rows to return.                                                                                                                                             | `INTEGER`                          |
+| `ef_search`     | Optional. Search‑time candidate list size. Higher values improve recall with higher latency. Default `64`. Set `ef_search >= top_k`.                                                      | `INTEGER`                          |
+| `load_strategy` | Optional. Index serving mode: `'in_memory'` (default) loads and caches the index in RAM; `'disk'` uses memory‑mapped, on‑demand loading which may increase latency under memory pressure. | `TEXT` (`'in_memory'` or `'disk'`) |
+
+### EF_SEARCH
+
+The `ef_search` parameter defines the breadth of exploration during query‑time search.
+
+- Higher values improve recall; latency increases approximately with `ef_search`.
+- Set `ef_search >= top_k`. While this is not strictly required, it is generally recommended to achieve good recall.
+- Typical range: `50`–`200`; recommended starting range: `64`–`100`.
+- Tune per workload; you can override per query without rebuilding the index.
+
+## Return type
+
+A rowset with the same columns as the indexed base table. Returns up to `top_k` rows.
+
+## Notes
+
+- When using `load_strategy => 'in_memory'` (the default), you might want to adjust your [engine configuraton](/reference-sql/commands/engines/alter-engine) to allow the in-memory vector index cache to use more memory using `VECTOR_INDEX_CACHE_MEMORY_FRACTION`. Otherwise, vector indexes need to be loaded into memory in every query leading to slow perfomance. See [Performance & observability](/overview/indexes/vector-search-index#performance-and-observability) for more information.
+- You must [create and populate](/reference-sql/commands/data-definition/create-vector-search-index) a vector search index before using `VECTOR_SEARCH`.
+- `VECTOR_SEARCH` uses the distance metric defined on the index (for example, `vector_cosine_ops`).
+- If the index was created on a populated table without reindexing, Firebolt combines results from indexed tablets with full scans of unindexed tablets. For best performance, run `VACUUM ( REINDEX = TRUE )` on the table after creating the index.
+- To tune recall at query time, increase `ef_search`.
+
+## Examples
+
+Create a table with embeddings, create a vector search index, then run `VECTOR_SEARCH()` .
+
+```sql
+-- (1) Create a table to store embeddings
+CREATE TABLE documents (
+  id INT,
+  title TEXT,
+  content TEXT,
+  embedding ARRAY(DOUBLE NOT NULL) NOT NULL
+);
+
+-- (2) Create a vector search index on the column "embedding" using the distance metric "cosine distance"
+CREATE INDEX doc_embeddings_idx ON documents USING HNSW (
+  embedding vector_cosine_ops
+) WITH (
+  dimension = 256,
+  m = 16,
+  ef_construction = 128,
+  quantization = 'bf16'
+);
+
+-- Insert some data. For this example, we assume that the embedding column was populated with embeddings of the content column using the AWS Bedrock embedding model "amazon.titan-embed-text-v2:0"
+
+-- (3) Query the index to find the top 3 closest documents to a target vector that represents the text "low latency analytics"
+SELECT id, title
+FROM VECTOR_SEARCH(
+  INDEX doc_embeddings_idx,
+  target_vector => (
+    SELECT AI_EMBED_TEXT(
+      MODEL => 'amazon.titan-embed-text-v2:0',
+      INPUT_TEXT => 'low latency analytics',
+      LOCATION => 'bedrock_location_object',
+      DIMENSION => 256
+    )
+  ),
+  top_k => 3
+);
+```
+
+**Returns**:
+
+| id  | title                                        |
+| :-- | :------------------------------------------- |
+| 42  | Firebolt flames through sub‑second analytics |
+| 73  | Firebolt sparks low‑latency BI dashboards    |
+| 105 | Firebolt ignites real‑time recommendations   |

@@ -46,7 +46,8 @@
                 "pages": [
                   "overview/indexes",
                   "overview/indexes/aggregating-index",
-                  "overview/indexes/primary-index"
+                  "overview/indexes/primary-index",
+                  "overview/indexes/vector-search-index"
                 ]
               },
               "overview/data-management",
@@ -388,6 +389,7 @@
                       "reference-sql/commands/data-definition/comment-on",
                       "reference-sql/commands/data-definition/create-account",
                       "reference-sql/commands/data-definition/create-aggregating-index",
+                      "reference-sql/commands/data-definition/create-vector-search-index",
                       "reference-sql/commands/data-definition/create-database",
                       "reference-sql/commands/data-definition/create-external-table",
                       "reference-sql/commands/data-definition/create-fact-dimension-table-as-select",
@@ -757,6 +759,7 @@
                       "reference-sql/functions-reference/vector/vector-euclidean-distance",
                       "reference-sql/functions-reference/vector/vector-inner-product",
                       "reference-sql/functions-reference/vector/vector-manhattan-distance",
+                      "reference-sql/functions-reference/vector/vector-search",
                       "reference-sql/functions-reference/vector/vector-squared-euclidean-distance",
                       "reference-sql/functions-reference/vector/vector-subtract"
                     ]
@@ -1365,6 +1368,11 @@
       "permanent": false
     },
     {
+      "source": "/sql_reference/commands/data-definition/create-vector-search-index.html",
+      "destination": "/reference-sql/commands/data-definition/create-vector-search-index",
+      "permanent": false
+    },
+    {
       "source": "/Overview/Security/Role-Based Access Control/account-permissions.html",
       "destination": "/overview/security/rbac/account-permissions",
       "permanent": false
@@ -1712,6 +1720,11 @@
     {
       "source": "/sql_reference/commands/data-definition/create-aggregating-index",
       "destination": "/reference-sql/commands/data-definition/create-aggregating-index",
+      "permanent": false
+    },
+    {
+      "source": "/sql_reference/commands/data-definition/create-vector-search-index",
+      "destination": "/reference-sql/commands/data-definition/create-vector-search-index",
       "permanent": false
     },
     {
@@ -5252,6 +5265,11 @@
     {
       "source": "/Overview/indexes/aggregating-index.html",
       "destination": "/overview/indexes/aggregating-index",
+      "permanent": false
+    },
+    {
+      "source": "/Overview/indexes/vector-search-index.html",
+      "destination": "/overview/indexes/vector-search-index",
       "permanent": false
     },
     {
