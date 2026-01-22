@@ -47,27 +47,6 @@ ALTER TABLE table_name DROP PRIMARY INDEX
 These operations update only the table's metadata. The existing data retains the original primary index structure until `VACUUM (UPGRADE=TRUE) table_name` is run.
 For more information see [ALTER TABLE SET PRIMARY INDEX](/reference-sql/commands/data-definition/alter-table#alter-table-set-primary-index) reference page.
 
-**Enhanced Compression**
-
-This release introduces new compression capabilities to optimize storage and query performance:
-
- Support for chaining multiple compression codecs, e.g., first applying delta-encoding and then LZ4.
-- Support for additional compression codecs. The following codecs are now supported: 
-    - **LZ4** (default): [LZ4](https://en.wikipedia.org/wiki/LZ4_(compression_algorithm)) is a fast compression algorithm that provides good compression and excellent decompression speeds.
-    - **LZ4HC**: High-compression variant of LZ4 with configurable compression levels (1-12), trades compression speed for better compression ratios while keeping the excellent decompression speeds of LZ4.
-    - **ZSTD**: [Zstandard](https://en.wikipedia.org/wiki/Zstd) is a modern compression algorithm with high compression ratios and configurable compression levels (1-22).
-    - **Delta**: [Delta encoding](https://en.wikipedia.org/wiki/Delta_encoding) is a *preprocessing codec* for sequential numeric data, timestamps, and IDs. For best results, it should be used in conjunction with one of the above compression codecs.
-Syntax Examples:
-
-```sql
--- Column-level compression with chaining
-CREATE TABLE events (
-    event_id INTEGER NOT NULL COMPRESSION (delta, lz4),
-    data TEXT COMPRESSION (zstd(5))
-);
-```
-For more information refer to the [Understanding Compression Codecs](/reference/compression-codecs) reference page
-
 **Add preliminary support for writing Iceberg tables**
 
 Added preliminary support for writing file-based Iceberg tables. This feature is in public preview. We are gathering feedback and further refining this feature.
