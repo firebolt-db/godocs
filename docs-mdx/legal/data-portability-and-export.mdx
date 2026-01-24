@@ -107,10 +107,10 @@ For full scale data export and vendor switching, customers should use the [`COPY
 
 **Exportable**
 
-* All rows and columns in managed tables can be retrieved with [`SELECT`] and exported using [`COPY TO`] in **CSV**, **TSV**, **JSON**, or **Parquet** formats.
-  {/* ✅ [docs.firebolt.io+2docs.firebolt.io+2](https://docs.firebolt.io/guides/exporting-data) */}
+All rows and columns in managed tables can be retrieved with [`SELECT`] and exported using [`COPY TO`] in **CSV**, **TSV**, **JSON**, or **Parquet** formats.
+{/* ✅ [docs.firebolt.io+2docs.firebolt.io+2](https://docs.firebolt.io/guides/exporting-data) */}
 
-**Typical migration pattern**
+Example:
 
 ```sql
 COPY (SELECT * FROM db.schema.table_name)
