@@ -1,0 +1,278 @@
+---
+description: Reference and syntax for the CREATE FUNCTION command to create user-defined functions (UDFs).
+sidebarTitle: CREATE FUNCTION
+title: CREATE FUNCTION
+---
+
+<Warning>
+**Private Preview Feature**
+
+User-defined function functionality is currently available as a **private preview feature**. To enable UDF functionality for your account, please contact Firebolt Support.
+</Warning>
+
+Creates a user-defined function (UDF) that extends Firebolt's SQL capabilities with custom Python logic. UDFs allow you to encapsulate complex business logic, data transformations, or calculations that can be reused across queries.
+
+User-defined functions execute Python code within a secure, isolated environment. Each function invocation processes data row-by-row by default, or in batches when using vectorized execution with Pandas or PyArrow.
+
+## Syntax
+
+```sql
+CREATE FUNCTION <function_name>([<parameter_name> <data_type>, ...])
+RETURNS <return_type>
+LANGUAGE PYTHON
+[PACKAGES ['<package>==<version>', ...]]
+[SET <option>=<value>, ...]
+AS '<python_code>'
+```
+
+You can also use dollar-quoted strings for the Python code to avoid escaping single quotes:
+
+```sql
+CREATE FUNCTION <function_name>([<parameter_name> <data_type>, ...])
+RETURNS <return_type>
+LANGUAGE PYTHON
+[PACKAGES ['<package>[==<version>]', ...]]
+[SET <option>=<value>, ...]
+AS $$
+<python_code>
+$$;
+```
+
+## Parameters
+
+| Parameter | Description |
+|:----------|:------------|
+| `<function_name>` | A unique identifier for the function. Function names are case-insensitive and cannot match existing built-in function names. |
+| `<parameter_name>` | The name of a function parameter. Parameters are passed to the Python function by name. |
+| `<data_type>` | The SQL data type of the parameter. See [Supported data types](#supported-data-types) for the list of supported types. |
+| `<return_type>` | The SQL data type returned by the function. Must be one of the [supported data types](#supported-data-types). |
+| `LANGUAGE PYTHON` | Specifies Python as the implementation language. Currently, only Python is supported. |
+| `PACKAGES` | An optional array of pip packages to install, specified as `'<package>[==<version>]'`. For example: `PACKAGES ['numpy', 'pandas==2.2.3']`. |
+| `SET <option>=<value>` | Optional configuration settings. See [Configuration options](#configuration-options) for available options. |
+| `<python_code>` | The Python code implementing the function. Must contain either a single function or a function named `process`. |
+
+### Configuration options
+
+| Option | Description |
+|:-------|:------------|
+| `memory_limit_mb` | Maximum memory in megabytes allocated to the UDF worker. Default is 1024 MB (1 GB). |
+| `memory_limit` | Maximum memory in bytes allocated to the UDF worker. Cannot be used together with `memory_limit_mb`. |
+| `description` | A text description of the function, visible in `information_schema.routines`. |
+
+### Supported data types
+
+The following SQL data types are supported for UDF parameters and return values:
+
+| SQL Type | Python Type | Notes |
+|:---------|:------------|:------|
+| `INT` / `INTEGER` | `int` | 32-bit signed integer |
+| `BIGINT` | `int` | 64-bit signed integer |
+| `REAL` | `float` | 32-bit floating point |
+| `DOUBLE` / `DOUBLE PRECISION` | `float` | 64-bit floating point |
+| `DECIMAL(p, s)` | `decimal.Decimal` | Fixed-point decimal |
+| `BOOLEAN` | `bool` | True or False |
+| `TEXT` | `str` | Variable-length string |
+| `BYTEA` | `bytes` | Binary data |
+| `DATE` | `datetime.date` | Calendar date |
+| `TIMESTAMP` | `datetime.datetime` | Date and time without timezone |
+| `TIMESTAMPTZ` | `datetime.datetime` | Date and time with timezone |
+| `ARRAY(<type>)` | `list` | Array of any supported type, including nested arrays |
+
+The following types are not supported in UDFs: `GEOGRAPHY`, `STRUCT`.
+
+## Python code requirements
+
+The Python code must contain either a single function definition or a function named `process`. This function receives the SQL parameters as Python arguments and returns the result.
+
+```python
+def process(param1, param2):
+    # Your logic here
+    return result
+```
+
+Key requirements:
+
+- **Function naming**: If your code contains multiple functions, the entry point must be named `process`. If there is only one function, it can have any name.
+- **Parameter names**: Python parameter names do not need to match SQL parameter names, but they are passed positionally in the order defined.
+- **Return value**: Return the computed value directly. Return `None` to represent SQL `NULL`.
+- **NULL handling**: NULL SQL values are passed as Python `None`. Your code should handle `None` values appropriately.
+
+## Examples
+
+### Basic arithmetic function
+
+The following example creates a function that adds two integers:
+
+```sql
+CREATE FUNCTION add_numbers(a INT, b INT) RETURNS INT
+LANGUAGE PYTHON
+AS $$
+def process(a, b):
+    if a is None or b is None:
+        return None
+    return a + b
+$$;
+```
+
+Use the function in a query:
+
+```sql
+SELECT add_numbers(5, 3);
+```
+
+Returns: `8`
+
+### Function with no parameters
+
+```sql
+CREATE FUNCTION get_constant() RETURNS INT
+LANGUAGE PYTHON
+AS $$
+def process():
+    return 42
+$$;
+```
+
+### Using external packages
+
+The following example uses NumPy to compute the percentile of an array:
+
+```sql
+CREATE FUNCTION array_percentile(arr ARRAY(DOUBLE), percentile DOUBLE) RETURNS DOUBLE
+LANGUAGE PYTHON
+PACKAGES ['numpy']
+AS $$
+import numpy as np
+
+def process(arr, percentile):
+    if arr is None or percentile is None or len(arr) == 0:
+        return None
+    return float(np.percentile(arr, percentile))
+$$;
+```
+
+Use the function to find the median (50th percentile) of an array:
+
+```sql
+SELECT array_percentile([10.5, 20.3, 15.7, 8.2, 12.9], 50.0);
+```
+
+Returns: `12.9`
+
+### Working with dates
+
+```sql
+CREATE FUNCTION add_days(d DATE, n INT) RETURNS DATE
+LANGUAGE PYTHON
+AS $$
+from datetime import timedelta
+
+def process(d, n):
+    if d is None or n is None:
+        return None
+    return d + timedelta(days=int(n))
+$$;
+```
+
+Use the function to add days to a date:
+
+```sql
+SELECT add_days('2026-01-01', 32);
+```
+
+Returns: `2026-02-02`
+
+### Setting memory limit and description
+
+```sql
+CREATE FUNCTION complex_calculation(a INT, b INT) RETURNS INT
+LANGUAGE PYTHON
+SET memory_limit_mb=2048, description='Performs a complex calculation'
+AS $$
+def process(a, b):
+    return a * b + 100
+$$;
+
+SELECT complex_calculation(1, 2);
+```
+
+## Vectorized UDFs
+
+For improved performance when processing large datasets, you can write vectorized UDFs that process data in batches using PyArrow or Pandas.
+Vectorized UDFs receive entire columns of data at once instead of individual values.
+
+Unlike scalar UDFs, the Python function in a vectorized UDF must always have a single argument annotated with type `pandas.DataFrame` or `pyarrow.RecordBatch`. 
+This type annotation is what distinguishes vectorized UDFs from scalar UDFs.
+
+### Pandas vectorized UDF
+
+A Pandas vectorized UDF receives a `pandas.DataFrame` and must return a `pandas.Series`:
+
+Column names and positions in the DataFrame match the parameter names and order from the SQL function declaration. 
+You can access columns by name (e.g., `df['param_name']`) or by position (e.g., `df.iloc[:, 0]`), where position 0 corresponds to the first parameter, position 1 to the second, and so on.
+
+```sql
+CREATE FUNCTION vec_uppercase(s TEXT) RETURNS TEXT
+LANGUAGE PYTHON
+PACKAGES ['pandas']
+AS $$
+import pandas as pd
+
+def vec_uppercase(df: pd.DataFrame) -> pd.Series:
+    return df['s'].str.upper()
+$$;
+
+SELECT vec_uppercase('aBc') FROM GENERATE_SERIES(0, 1);
+```
+
+### PyArrow vectorized UDF
+
+A PyArrow vectorized UDF receives a `pyarrow.RecordBatch` and must return a `pyarrow.RecordBatch`:
+
+```sql
+CREATE FUNCTION vec_add_one(a INT) RETURNS INT
+LANGUAGE PYTHON
+AS $$
+import pyarrow as pa
+import pyarrow.compute as pc
+
+def process(batch: pa.RecordBatch) -> pa.RecordBatch:
+    col = batch.column(0)
+    result = pc.add(col, pa.scalar(1, type=col.type))
+    return pa.RecordBatch.from_arrays([result], names=[batch.schema.names[0]])
+$$;
+
+SELECT vec_add_one(1) FROM GENERATE_SERIES(0, 1);
+```
+
+<Note>
+Vectorized UDFs automatically handle NULL values according to the library's conventions.
+</Note>
+
+## Viewing user-defined functions
+
+Query `information_schema.routines` to view all user-defined functions:
+
+```sql
+SELECT 
+    routine_name,
+    routine_schema,
+    routine_parameters,
+    data_type,
+    description,
+    memory_limit,
+    created
+FROM information_schema.routines 
+WHERE routine_type = 'USER-DEFINED FUNCTION'
+ORDER BY routine_name;
+```
+
+## Limitations
+
+- **Language**: Only Python is supported. Other languages such as JavaScript or WebAssembly are not available.
+- **Unsupported types**: `GEOGRAPHY` and `STRUCT` types cannot be used as parameters or return types.
+- **Schema restriction**: User-defined functions can only be created in the `public` schema. Custom schemas are not supported.
+- **Name conflicts**: Function names cannot match existing built-in function names.
+- **Overloading**: Function overloading (multiple functions with the same name but different signatures) is not supported. Each function name must be unique.
+- **Package availability**: Only packages available on PyPI can be installed. Private or custom packages are not supported.
+- **Execution context**: UDFs run in isolated containers and cannot access external network resources, the file system, or other system resources.

@@ -1,0 +1,53 @@
+---
+description: Reference and syntax for the DROP FUNCTION command to remove user-defined functions.
+sidebarTitle: DROP FUNCTION
+title: DROP FUNCTION
+---
+
+<Warning>
+**Private Preview Feature**
+
+User-defined function functionality is currently available as a **private preview feature**. To enable UDF functionality for your account, please contact Firebolt Support.
+</Warning>
+
+Removes a user-defined function from the database. Once dropped, the function can no longer be used in queries.
+
+## Syntax
+
+```sql
+DROP FUNCTION [IF EXISTS] [<schema_name>.]<function_name>
+```
+
+## Parameters
+
+| Parameter | Description |
+|:----------|:------------|
+| `IF EXISTS` | Prevents an error if the function does not exist. If specified and the function does not exist, the statement completes successfully without error. |
+| `<schema_name>` | The schema containing the function. Currently, only the `public` schema is supported for user-defined functions. |
+| `<function_name>` | The name of the function to drop. Function names are case-insensitive. |
+
+## Examples
+
+### Drop a function
+
+```sql
+DROP FUNCTION add_numbers;
+```
+
+### Drop a function if it exists
+
+Use `IF EXISTS` to avoid errors when the function might not exist:
+
+```sql
+DROP FUNCTION IF EXISTS add_numbers;
+```
+
+## Limitations
+
+- **Built-in functions**: You cannot drop built-in Firebolt functions. Attempting to do so results in an error.
+- **CASCADE not supported**: The `CASCADE` option is not supported. If other database objects depend on the function, you must drop them separately.
+- **Schema restriction**: Only functions in the `public` schema can be dropped, as user-defined functions in custom schemas are not currently supported.
+
+## Related
+
+- [CREATE FUNCTION](/reference-sql/commands/data-definition/create-function) - Create a user-defined function
