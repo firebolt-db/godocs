@@ -15,7 +15,7 @@
 * [Contribute changes](#how-to-contribute-changes).
 
 ## Table of contents
-<!-- TOC -->
+[//]: # (TOC)
   * [Guides for tooling](#guides-for-tooling)
     * [How to preview locally](#how-to-preview-locally)
     * [How to check locally](#how-to-check-locally)
@@ -35,7 +35,8 @@
     * [Mintlify specifics](#mintlify-specifics)
     * [AI tools in Mintlify](#ai-tools-in-mintlify)
     * [Further references](#further-references)
-<!-- TOC -->
+
+[//]: # (/TOC)
 
 ## Guides for tooling
 

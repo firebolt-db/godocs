@@ -250,6 +250,7 @@
                   "guides/integrations/airflow",
                   "guides/integrations/connecting-to-apache-superset",
                   "guides/integrations/aws-glue",
+                  "guides/integrations/quicksight",
                   "guides/integrations/cube-js",
                   "guides/integrations/dbeaver",
                   "guides/integrations/connecting-with-dbt",
