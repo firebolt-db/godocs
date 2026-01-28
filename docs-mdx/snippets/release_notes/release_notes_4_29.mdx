@@ -62,7 +62,7 @@ For details, please refer to [CREATE ICEBERG TABLE AS SELECT](/reference-sql/com
 
 **Add `iceberg_unsafe_version_guessing_mode`**
 
-For file-based Apache Iceberg catalogs without a `version-hint.text` file, Firebolt can now [attempt to guess the correct metadata file to read](/reference/system-settings#guessing-iceberg-metadata-version).
+For file-based Apache Iceberg catalogs without a `version-hint.text` file, you can now enable Firebolt to [attempt to guess the correct metadata file to read](/reference/system-settings#guessing-iceberg-metadata-version) by setting `iceberg_unsafe_version_guessing_mode` to `version_num`. This behavior is disabled by default.
 
 **Added support for configurable query cache size at the engine level**
 
