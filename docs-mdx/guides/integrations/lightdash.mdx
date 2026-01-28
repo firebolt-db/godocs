@@ -1,0 +1,212 @@
+---
+description: Learn how to connect dbt to Firebolt using PostgreSQL adapter.
+sidebarTitle: Lightdash
+title: Lightdash
+---
+
+<Callout type="info">
+🧪 **Preview (Beta)** <br />
+Suitable for production read workloads.<br />
+Most PostgreSQL driver features are supported; some PostgreSQL features may not yet be tested and could behave differently or not work in some tools.
+</Callout>
+
+![lightdash](/assets/images/integrations/lightdash-logo.jpeg)
+
+# Lightdash integration with Firebolt
+
+[**Lightdash**](https://www.lightdash.com) is an open-source BI platform that enables teams to explore, visualize, and share insights on top of dbt projects. Lightdash relies entirely on dbt metadata and executes queries using standard database connectors.
+
+This guide explains how to connect **Lightdash** to **Firebolt** using the **PostgreSQL protocol** with **mutual TLS (mTLS)** authentication.
+
+---
+
+## Overview
+
+Lightdash connects to Firebolt through the PostgreSQL-compatible endpoint exposed by Firebolt.
+
+Key characteristics of this integration:
+
+- Lightdash uses the PostgreSQL protocol
+- Authentication is done using Firebolt service accounts
+- Connections use mutual TLS (mTLS)
+- Database names use a triple identifier format
+  `<account>@<database>@<engine>`
+- Lightdash relies on dbt to compile models and generate SQL
+- All dbt models must use the `public` schema
+
+**Note**
+Because Lightdash fully relies on dbt to execute queries, the prerequisites and constraints are very similar to connecting **dbt Cloud or dbt Core** to Firebolt using the PostgreSQL adapter.
+
+---
+
+## Prerequisites
+
+Before starting, make sure you have:
+
+1. **Lightdash**
+   - Cloud or self-hosted deployment
+
+2. **Firebolt account**
+   - With access to a database and engine
+
+3. **Firebolt [service account](/guides/managing-your-organization/service-accounts)**
+   - Client ID and client secret
+   - A user [associated](/guides/managing-your-organization/service-accounts#create-a-user)  with the service account
+
+4. **Permissions**
+   - [USAGE](/overview/security/rbac/database-permissions) on the database
+   - [OPERATE](/overview/security/rbac/engine-permissions) on the engine
+
+5. **dbt project**
+   - Models already built in Firebolt
+   - All models and sources use the `public` schema
+
+---
+
+## Authentication and security
+
+Lightdash connects to Firebolt using:
+
+- PostgreSQL protocol
+- Firebolt service account credentials
+- Mutual TLS (mTLS)
+
+From a security perspective, this setup is equivalent to **dbt Core over PostgreSQL**, with Lightdash acting as the client.
+
+---
+
+## Generate mTLS certificates for Lightdash
+
+### Step 1: Generate certificates
+
+Run the following script to generate client certificates for **Lightdash**:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+CLIENT_CN="${CLIENT_CN:-firebolt-lightdash}"
+DAYS_VALID="${DAYS_VALID:-730}"
+
+USE_LOCAL_CA="${USE_LOCAL_CA:-1}"
+
+CA_DIR="${CA_DIR:-./fb-ca}"
+OUT_DIR="${OUT_DIR:-./out}"
+
+CA_CERT="${CA_CERT:-$CA_DIR/ca.crt}"
+CA_KEY="${CA_KEY:-$CA_DIR/ca.key}"
+
+mkdir -p "$OUT_DIR"
+
+if [[ "$USE_LOCAL_CA" == "1" ]]; then
+  mkdir -p "$CA_DIR"
+  openssl genrsa -out "$CA_DIR/ca.key" 4096
+  openssl req -x509 -new -nodes -key "$CA_DIR/ca.key" \
+    -sha256 -days "$DAYS_VALID" \
+    -out "$CA_DIR/ca.crt" \
+    -subj "/CN=${CLIENT_CN}-ca"
+fi
+
+openssl genrsa -out "$OUT_DIR/fb-client.key" 2048
+openssl pkey -in "$OUT_DIR/fb-client.key" -pubout -out "$OUT_DIR/fb-public.pem"
+
+openssl req -new \
+  -key "$OUT_DIR/fb-client.key" \
+  -out "$OUT_DIR/fb-client.csr" \
+  -subj "/CN=$CLIENT_CN"
+
+openssl x509 -req \
+  -in "$OUT_DIR/fb-client.csr" \
+  -CA "$CA_CERT" \
+  -CAkey "$CA_KEY" \
+  -CAcreateserial \
+  -out "$OUT_DIR/fb-client.crt" \
+  -days "$DAYS_VALID" \
+  -sha256
+
+rm -f "$OUT_DIR/fb-client.csr"
+
+echo "Generated files:"
+echo "Client certificate : fb-client.crt"
+echo "Client key         : fb-client.key"
+echo "Service account key: fb-public.pem"
+```
+
+### Step 2: Configure the Firebolt service account
+
+Attach the generated public key to your Firebolt service account:
+
+```sql
+ALTER SERVICE ACCOUNT "<service_account_name>"
+SET PUBLIC_KEY = '-----BEGIN PUBLIC KEY-----
+<contents of fb-public.pem>
+-----END PUBLIC KEY-----';
+```
+
+---
+
+## Connect Lightdash to Firebolt
+
+### Step 1: Create a Lightdash project
+
+1. Open **Lightdash**
+2. Click **Create project**
+3. Select **PostgreSQL** as the warehouse
+4. Choose **Manual setup**
+
+### Step 2: Configure the PostgreSQL connection
+
+Fill in the connection details as follows.
+
+**Host:** `pg.<region>.app.firebolt.io`
+- Replace `<region>` with your Firebolt region (for example: `us-east-1`)
+
+**User:** `<service_account_client_id>`
+
+**Password:** `<service_account_client_secret>`
+
+**DB name:** `<account_name>@<database_name>@<engine_name>`
+- Where:
+    - `<account_name>` is your Firebolt account name
+    - `<database_name>` is your Firebolt database name
+    - `<engine_name>` is your Firebolt engine name
+
+### Step 3: Advanced connection options (mTLS)
+
+Expand **Advanced connection options** and configure:
+
+- **Port:** `5432`
+- **SSL mode:** `verify-ca`
+- **SSL certificate:** upload `fb-client.crt`
+- **SSL private key:** upload `fb-client.key`
+- **SSL root certificate:** leave empty (do not upload `ca.crt`)
+
+**Important**
+Uploading a locally generated server/root certificate will cause the connection test to fail.
+
+---
+
+## Integrate with your dbt project
+
+When prompted to integrate Lightdash with dbt:
+
+- Select your dbt project
+- **Make sure the schema is set to `public`**
+
+Firebolt requires the `public` schema when accessed via the PostgreSQL protocol.
+
+---
+
+## Test and deploy
+
+1. Click **Test connection**
+2. Verify the connection succeeds
+3. Deploy the project
+
+Once deployed, Lightdash will:
+- Read dbt metadata
+- Generate SQL queries
+- Execute them against Firebolt via pg_fire
+
+---
+

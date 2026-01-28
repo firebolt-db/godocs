@@ -253,7 +253,7 @@
                   "guides/integrations/quicksight",
                   "guides/integrations/cube-js",
                   "guides/integrations/dbeaver",
-                  "guides/integrations/connecting-with-dbt",
+                  "guides/integrations/dbt-firebolt-adaptor",
                   "guides/integrations/estuary",
                   "guides/integrations/kafka-sink-connector",
                   "guides/integrations/langchain",
@@ -4809,7 +4809,17 @@
     },
     {
       "source": "/Guides/integrations/connecting-with-dbt.html",
-      "destination": "/guides/integrations/connecting-with-dbt",
+      "destination": "/guides/integrations/dbt-firebolt-adaptor",
+      "permanent": false
+    },
+    {
+      "source": "/guides/integrations/connecting-with-dbt/",
+      "destination": "/guides/integrations/dbt-firebolt-adaptor",
+      "permanent": false
+    },
+    {
+      "source": "/guides/integrations/connecting-with-dbt",
+      "destination": "/guides/integrations/dbt-firebolt-adaptor",
       "permanent": false
     },
     {
@@ -5234,7 +5244,7 @@
     },
     {
       "source": "/Guides/integrations/connecting-with-dbt",
-      "destination": "/guides/integrations/connecting-with-dbt",
+      "destination": "/guides/integrations/dbt-firebolt-adaptor",
       "permanent": false
     },
     {
@@ -5739,6 +5749,11 @@
     },
     {
       "source": "/Guides/integrations/tableau.html",
+      "destination": "/guides/integrations/tableau",
+      "permanent": false
+    },
+    {
+      "source": "/integrations/business-intelligence/setting-up-tableau-desktop-jdbc-to-firebolt.html",
       "destination": "/guides/integrations/tableau",
       "permanent": false
     },
