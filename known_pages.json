@@ -443,6 +443,8 @@
   "/guides/integrations/quicksight/",
   "/guides/integrations/tableau",
   "/guides/integrations/tableau/",
+  "/guides/integrations/thoughtspot",
+  "/guides/integrations/thoughtspot/",
   "/guides/loading-data",
   "/guides/loading-data/",
   "/guides/loading-data/configuring-aws-role-to-access-amazon-s3",

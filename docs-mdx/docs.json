@@ -266,7 +266,8 @@
                   "guides/integrations/connecting-to-paradime",
                   "guides/integrations/power-bi",
                   "guides/integrations/connecting-to-preset",
-                  "guides/integrations/tableau"
+                  "guides/integrations/tableau",
+                  "guides/integrations/thoughtspot"
                 ]
               },
               {
