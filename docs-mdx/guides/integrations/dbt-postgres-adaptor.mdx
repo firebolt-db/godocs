@@ -38,7 +38,6 @@ When using dbt with Firebolt over the PostgreSQL protocol:
 - Authentication is done using **service accounts**
 - Database names use a **triple identifier** format:
   `<account>@<database>@<engine>`
-- dbt models must use the **public** schema
 
 
 ### Prerequisites
@@ -94,10 +93,9 @@ Fill the fields as follows:
 - **Connection:** Select the PostgreSQL connection created earlier
 - **Username:** `<service_account_client_id>`
 - **Password:**` <service_account_client_secret>`
-- **Schema:** `public`
-
-> Important
-> Firebolt requires using the **public** schema when connecting via the PostgreSQL protocol.
+    - Replace the placeholders with your service account's information:
+        - `<service_account_client_id>`: Client ID of your service account
+        - `<service_account_client_secret>`: Client secret of your service account
 
 Click **Test connection**, then continue with the project setup.
 
@@ -138,10 +136,16 @@ dbt Core connects to Firebolt using:
 - PostgreSQL adapter
 - Service account credentials
 - Mutual TLS (mTLS)
+- Full server certificate verification (verify-full)
 
-### Step 1: Generate mTLS certificates
+### Step 1: Generate certificates (client cert + Let’s Encrypt root)
 
-Run the following script to generate certificates for dbt Core:
+Run the following script to generate all certificates required by dbt Core and Firebolt.
+
+This script:
+- Generates a client private key and certificate
+- Downloads the Let’s Encrypt root CA used by Firebolt servers
+- Derives a public key to attach to the Firebolt service account
 
 ```bash
 #!/bin/bash
@@ -149,47 +153,71 @@ set -euo pipefail
 
 CLIENT_CN="${CLIENT_CN:-firebolt-dbt}"
 DAYS_VALID="${DAYS_VALID:-730}"
-
-USE_LOCAL_CA="${USE_LOCAL_CA:-1}"
-
-CA_DIR="${CA_DIR:-./fb-ca}"
 OUT_DIR="${OUT_DIR:-./out}"
 
-CA_CERT="${CA_CERT:-$CA_DIR/ca.crt}"
-CA_KEY="${CA_KEY:-$CA_DIR/ca.key}"
+LE_ROOT_URL="https://letsencrypt.org/certs/isrgrootx1.pem.txt"
 
 mkdir -p "$OUT_DIR"
 
-if [[ "$USE_LOCAL_CA" == "1" ]]; then
-  mkdir -p "$CA_DIR"
-  openssl genrsa -out "$CA_DIR/ca.key" 4096
-  openssl req -x509 -new -nodes -key "$CA_DIR/ca.key" -sha256 -days "$DAYS_VALID" \
-    -out "$CA_DIR/ca.crt" -subj "/CN=${CLIENT_CN}-ca"
-fi
+echo "==> Client CN        : $CLIENT_CN"
+echo "==> Validity (days)  : $DAYS_VALID"
+echo "==> Output directory : $OUT_DIR"
 
-cp -f "$CA_CERT" "$OUT_DIR/ca.crt"
+# ---- 1) Server root CA (verify Firebolt server cert) ----
+echo "==> Downloading Let's Encrypt root (ISRG Root X1)"
+curl -fsSL "$LE_ROOT_URL" -o "$OUT_DIR/isrgrootx1.pem"
 
+# Sanity check
+openssl x509 -in "$OUT_DIR/isrgrootx1.pem" -noout -subject >/dev/null
+
+# ---- 2) Client private key ----
+echo "==> Generating client private key"
 openssl genrsa -out "$OUT_DIR/fb-client.key" 2048
-openssl pkey -in "$OUT_DIR/fb-client.key" -pubout -out "$OUT_DIR/fb-public.pem"
 
-openssl req -new -key "$OUT_DIR/fb-client.key" -out "$OUT_DIR/fb-client.csr" -subj "/CN=$CLIENT_CN"
-openssl x509 -req -in "$OUT_DIR/fb-client.csr" \
-  -CA "$CA_CERT" -CAkey "$CA_KEY" -CAcreateserial \
-  -out "$OUT_DIR/fb-client.crt" -days "$DAYS_VALID" -sha256
+# ---- 3) CSR ----
+echo "==> Creating CSR"
+openssl req -new \
+  -key "$OUT_DIR/fb-client.key" \
+  -out "$OUT_DIR/fb-client.csr" \
+  -subj "/CN=$CLIENT_CN"
 
-rm -f "$OUT_DIR/fb-client.csr"
+# ---- 4) Self-sign client cert with clientAuth extensions ----
+cat > "$OUT_DIR/client.ext" <<'EOF'
+basicConstraints=CA:FALSE
+keyUsage=digitalSignature,keyEncipherment
+extendedKeyUsage=clientAuth
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid,issuer
+EOF
+
+echo "==> Creating self-signed client certificate (clientAuth)"
+openssl x509 -req \
+  -in "$OUT_DIR/fb-client.csr" \
+  -signkey "$OUT_DIR/fb-client.key" \
+  -out "$OUT_DIR/fb-client.crt" \
+  -days "$DAYS_VALID" \
+  -sha256 \
+  -extfile "$OUT_DIR/client.ext"
+
+rm -f "$OUT_DIR/fb-client.csr" "$OUT_DIR/client.ext"
+
+# ---- 5) Public key for Firebolt service account ----
+echo "==> Deriving public key for Firebolt service account"
+openssl pkey \
+  -in "$OUT_DIR/fb-client.key" \
+  -pubout \
+  -out "$OUT_DIR/fb-public.pem"
 
 echo ""
 echo "✅ Done. Generated files:"
 echo ""
-echo "dbt (Postgres mTLS):"
-echo "  SSL certificate      : $OUT_DIR/fb-client.crt"
-echo "  SSL key              : $OUT_DIR/fb-client.key"
-echo "  SSL root certificate : $OUT_DIR/ca.crt"
+echo "dbt Core / libpq SSL:"
+echo "  sslrootcert : $OUT_DIR/isrgrootx1.pem"
+echo "  sslcert     : $OUT_DIR/fb-client.crt"
+echo "  sslkey      : $OUT_DIR/fb-client.key"
 echo ""
 echo "Firebolt service account:"
-echo "  Public key to attach : $OUT_DIR/fb-public.pem"
-echo ""
+echo "  Public key  : $OUT_DIR/fb-public.pem"
 ```
 
 ### Step 2: Configure the Firebolt service account
@@ -211,14 +239,21 @@ firebolt_mtls:
       type: postgres
       host: pg.<region>.app.firebolt.io
       port: 5432
+
+      # Firebolt service account credentials
       user: <service_account_client_id>
       password: <service_account_client_secret>
+
+      # Firebolt database triple identifier
       dbname: <account_name>@<database_name>@<engine_name>
       schema: public
       threads: 1
-      sslmode: require
-      sslcert: /path/to/out/fb-client.crt
-      sslkey: /path/to/out/fb-client.key
+
+      # --- SSL / mTLS ---
+      sslmode: verify-full
+      sslrootcert: <path>/out/isrgrootx1.pem
+      sslcert: <path>/out/fb-client.crt
+      sslkey: <path>/out/fb-client.key
 ```
 Replace the placeholders with your account's information:
 - `<region>`: Your Firebolt region (for example: `us-east-1`)
@@ -227,21 +262,7 @@ Replace the placeholders with your account's information:
 - `<account_name>`: Your Firebolt account name
 - `<database_name>`: Your Firebolt database name
 - `<engine_name>`: Your Firebolt engine name
-- `/path/to/out/`: Path to the directory where the certificates were generated
----
-## Sources configuration
-Firebolt requires sources to reference the public schema explicitly.
-Example `__sources.yml`:
-```yaml
-version: 2
-
-sources:
-  - name: ecom
-    schema: public
-    tables:
-      - name: raw_customers
-```
-
+- `<path>`: Path to the directory where the certificates were generated
 ---
 
 # Troubleshooting, known limitations and workarounds
@@ -249,21 +270,6 @@ sources:
 This section lists known limitations when using Firebolt with dbt via the PostgreSQL protocol, along with recommended workarounds.
 
 These limitations apply to **both dbt Cloud and dbt Core** when using the PostgreSQL adapter.
-
-
-### Public schema requirement
-
-When connecting to Firebolt via the PostgreSQL protocol, dbt **must use the `public` schema**.
-
-- dbt models, seeds, and sources must all reference `public`
-- Using custom schemas (for example, per-developer schemas) is not supported
-
-**What to do**
-- Set `schema: public` in:
-  - dbt Cloud project configuration
-  - `profiles.yml` for dbt Core
-  - `dbt_project.yml` for models and seeds
-- Explicitly set `schema: public` in `__sources.yml`
 
 ---
 
@@ -360,60 +366,17 @@ Replace `dependent_view_name` with the actual name of the view that depends on t
 
 ---
 
-### GRANT statements and three-part identifiers
+## Additional resources
 
-When using Firebolt via the PostgreSQL protocol, dbt expands relation references
-(e.g. `{{ this }}`) into a **fully-qualified identifier**: `<account>@<database>@<engine>.schema.table`.
-While this is valid for many SQL statements, **some Firebolt statements do not
-support three-part identifiers**. One common example is `GRANT`.
+For more information about dbt Core and PostgreSQL-based integrations, see the official dbt documentation:
 
-#### Why this happens
+- [dbt documentation home](https://docs.getdbt.com/)
+- [Introduction to dbt](https://docs.getdbt.com/docs/introduction)
+- [Installing dbt Core](https://docs.getdbt.com/docs/core/installation-overview)
+- [Connecting dbt to PostgreSQL](https://docs.getdbt.com/docs/core/connect-data-platform/postgres-setup)
+- [Configuring profiles.yml](https://docs.getdbt.com/docs/core/connect-data-platform/profiles.yml)
+- [Building models in dbt](https://docs.getdbt.com/docs/build/models)
+- [dbt materializations](https://docs.getdbt.com/docs/build/materializations)
+- [Hooks in dbt (pre-hook and post-hook)](https://docs.getdbt.com/reference/resource-configs/pre-hook-post-hook)
 
-In dbt, macros, hooks, and custom SQL often use `{{ this }}` to reference the
-current model. When rendered, this becomes a triple-qualified identifier.
-
-For example, this macro looks correct and works in PostgreSQL:
-
-```jinja
-{% macro grant_access(access_type, object_type, object_name, role_name) %}
-    GRANT {{ access_type }} ON {{ object_type }} {{ this }} TO {{ role_name }};
-{% endmacro %}
-```
-However, in Firebolt this expands to:
-```sql
-GRANT SELECT
-ON TABLE "account@db@engine"."public"."orders"
-TO analytics;
-```
-Firebolt does not support three-part identifiers in GRANT statements,
-and the query fails.
-
-Recommended solution: grant on the table identifier only
-For Firebolt, GRANT statements should reference only the table name
-(not the fully-qualified relation).
-
-You can achieve this by extracting the table identifier from the relation object
-instead of using `{{ this }}` directly.
-```jinja
-{% macro grant_access_safe(access_type, object_type, role_name, object=None) %}
-  {# object should be a Relation (preferred); fallback to this #}
-  {% set rel = object if object is not none else this %}
-
-  {# Firebolt GRANT does not support 3-part identifiers #}
-  {% set ident = adapter.quote(rel.identifier) %}
-
-  GRANT {{ access_type }} ON {{ object_type }} {{ ident }} TO {{ role_name }};
-{% endmacro %}
-```
-
-This generates valid Firebolt SQL:
-```sql
-GRANT SELECT ON TABLE "orders" TO analytics;
-```
-
-### Key takeaway
-- `{{ this }}` expands to a triple-qualified identifier
-- Some Firebolt statements (such as GRANT) do not support this
-- Use rel.identifier when only the table name is required
-- This pattern applies beyond GRANT to any SQL that expects a single identifier
-
+These resources cover core dbt concepts, PostgreSQL connections, hooks, and the Semantic Layer, and are useful when running dbt against Firebolt using the PostgreSQL protocol.

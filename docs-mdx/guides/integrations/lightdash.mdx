@@ -32,7 +32,6 @@ Key characteristics of this integration:
 - Database names use a triple identifier format
   `<account>@<database>@<engine>`
 - Lightdash relies on dbt to compile models and generate SQL
-- All dbt models must use the `public` schema
 
 **Note**
 Because Lightdash fully relies on dbt to execute queries, the prerequisites and constraints are very similar to connecting **dbt Cloud or dbt Core** to Firebolt using the PostgreSQL adapter.
@@ -59,7 +58,6 @@ Before starting, make sure you have:
 
 5. **dbt project**
    - Models already built in Firebolt
-   - All models and sources use the `public` schema
 
 ---
 
@@ -70,6 +68,9 @@ Lightdash connects to Firebolt using:
 - PostgreSQL protocol
 - Firebolt service account credentials
 - Mutual TLS (mTLS)
+- Full server certificate verification (verify-full)
+
+Firebolt server certificates are issued by Let’s Encrypt, so the Let’s Encrypt root CA must be provided to Lightdash.
 
 From a security perspective, this setup is equivalent to **dbt Core over PostgreSQL**, with Lightdash acting as the client.
 
@@ -79,7 +80,12 @@ From a security perspective, this setup is equivalent to **dbt Core over Postgre
 
 ### Step 1: Generate certificates
 
-Run the following script to generate client certificates for **Lightdash**:
+Run the following script to generate all certificates required by Lightdash and Firebolt.
+
+This script:
+- Generates a client private key and certificate
+- Downloads the Let’s Encrypt root CA used by Firebolt servers
+- Derives a public key to attach to the Firebolt service account
 
 ```bash
 #!/bin/bash
@@ -87,49 +93,70 @@ set -euo pipefail
 
 CLIENT_CN="${CLIENT_CN:-firebolt-lightdash}"
 DAYS_VALID="${DAYS_VALID:-730}"
-
-USE_LOCAL_CA="${USE_LOCAL_CA:-1}"
-
-CA_DIR="${CA_DIR:-./fb-ca}"
 OUT_DIR="${OUT_DIR:-./out}"
 
-CA_CERT="${CA_CERT:-$CA_DIR/ca.crt}"
-CA_KEY="${CA_KEY:-$CA_DIR/ca.key}"
+LE_ROOT_URL="https://letsencrypt.org/certs/isrgrootx1.pem.txt"
 
 mkdir -p "$OUT_DIR"
 
-if [[ "$USE_LOCAL_CA" == "1" ]]; then
-  mkdir -p "$CA_DIR"
-  openssl genrsa -out "$CA_DIR/ca.key" 4096
-  openssl req -x509 -new -nodes -key "$CA_DIR/ca.key" \
-    -sha256 -days "$DAYS_VALID" \
-    -out "$CA_DIR/ca.crt" \
-    -subj "/CN=${CLIENT_CN}-ca"
-fi
+echo "==> Client CN        : $CLIENT_CN"
+echo "==> Validity (days)  : $DAYS_VALID"
+echo "==> Output directory : $OUT_DIR"
 
+# ---- 1) Download Firebolt server root CA (Let's Encrypt) ----
+echo "==> Downloading Let's Encrypt root CA"
+curl -fsSL "$LE_ROOT_URL" -o "$OUT_DIR/isrgrootx1.pem"
+
+openssl x509 -in "$OUT_DIR/isrgrootx1.pem" -noout -subject >/dev/null
+
+# ---- 2) Client private key ----
+echo "==> Generating client private key"
 openssl genrsa -out "$OUT_DIR/fb-client.key" 2048
-openssl pkey -in "$OUT_DIR/fb-client.key" -pubout -out "$OUT_DIR/fb-public.pem"
 
+# ---- 3) CSR ----
+echo "==> Creating CSR"
 openssl req -new \
   -key "$OUT_DIR/fb-client.key" \
   -out "$OUT_DIR/fb-client.csr" \
   -subj "/CN=$CLIENT_CN"
 
+# ---- 4) Self-signed client certificate ----
+cat > "$OUT_DIR/client.ext" <<'EOF'
+basicConstraints=CA:FALSE
+keyUsage=digitalSignature,keyEncipherment
+extendedKeyUsage=clientAuth
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid,issuer
+EOF
+
+echo "==> Creating client certificate"
 openssl x509 -req \
   -in "$OUT_DIR/fb-client.csr" \
-  -CA "$CA_CERT" \
-  -CAkey "$CA_KEY" \
-  -CAcreateserial \
+  -signkey "$OUT_DIR/fb-client.key" \
   -out "$OUT_DIR/fb-client.crt" \
   -days "$DAYS_VALID" \
-  -sha256
+  -sha256 \
+  -extfile "$OUT_DIR/client.ext"
 
-rm -f "$OUT_DIR/fb-client.csr"
+rm -f "$OUT_DIR/fb-client.csr" "$OUT_DIR/client.ext"
 
-echo "Generated files:"
-echo "Client certificate : fb-client.crt"
-echo "Client key         : fb-client.key"
-echo "Service account key: fb-public.pem"
+# ---- 5) Public key for Firebolt service account ----
+echo "==> Deriving public key for Firebolt service account"
+openssl pkey \
+  -in "$OUT_DIR/fb-client.key" \
+  -pubout \
+  -out "$OUT_DIR/fb-public.pem"
+
+echo ""
+echo "Done. Generated files:"
+echo ""
+echo "Lightdash:"
+echo "  sslrootcert : $OUT_DIR/isrgrootx1.pem"
+echo "  sslcert     : $OUT_DIR/fb-client.crt"
+echo "  sslkey      : $OUT_DIR/fb-client.key"
+echo ""
+echo "Firebolt service account:"
+echo "  Public key  : $OUT_DIR/fb-public.pem"
 ```
 
 ### Step 2: Configure the Firebolt service account
@@ -176,13 +203,10 @@ Fill in the connection details as follows.
 Expand **Advanced connection options** and configure:
 
 - **Port:** `5432`
-- **SSL mode:** `verify-ca`
+- **SSL mode:** `verify-full`
 - **SSL certificate:** upload `fb-client.crt`
 - **SSL private key:** upload `fb-client.key`
-- **SSL root certificate:** leave empty (do not upload `ca.crt`)
-
-**Important**
-Uploading a locally generated server/root certificate will cause the connection test to fail.
+- **SSL root certificate:** upload `isrgrootx1.pem`
 
 ---
 
@@ -191,9 +215,6 @@ Uploading a locally generated server/root certificate will cause the connection 
 When prompted to integrate Lightdash with dbt:
 
 - Select your dbt project
-- **Make sure the schema is set to `public`**
-
-Firebolt requires the `public` schema when accessed via the PostgreSQL protocol.
 
 ---
 
@@ -210,3 +231,12 @@ Once deployed, Lightdash will:
 
 ---
 
+## Additional resources
+
+For more details on using **Lightdash**, see:
+
+- [Lightdash documentation home](https://docs.lightdash.com)
+- [Lightdash + dbt projects reference](https://docs.lightdash.com/references/dbt-projects)
+- [Exploring data in Lightdash](https://docs.lightdash.com/get-started/exploring-data)
+
+These resources provide additional guidance on working with Lightdash and dbt-based analytics on top of Firebolt.
