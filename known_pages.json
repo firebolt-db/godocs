@@ -439,6 +439,8 @@
   "/guides/integrations/metabase-cloud/",
   "/guides/integrations/metabase-on-prem",
   "/guides/integrations/metabase-on-prem/",
+  "/guides/integrations/omni",
+  "/guides/integrations/omni/",
   "/guides/integrations/otel-exporter",
   "/guides/integrations/otel-exporter/",
   "/guides/integrations/pandas",

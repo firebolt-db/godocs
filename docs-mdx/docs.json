@@ -262,6 +262,7 @@
                   "guides/integrations/mcp",
                   "guides/integrations/metabase-on-prem",
                   "guides/integrations/otel-exporter",
+                  "guides/integrations/omni",
                   "guides/integrations/pandas",
                   "guides/integrations/connecting-to-paradime",
                   "guides/integrations/power-bi",

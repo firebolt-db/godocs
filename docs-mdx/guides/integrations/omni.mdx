@@ -1,0 +1,160 @@
+---
+description: Learn how to connect Omni to Firebolt using the PostgreSQL protocol.
+sidebarTitle: Omin
+title: Omni
+---
+
+<Callout type="info">
+🧪 **Preview (Beta)** <br />
+Suitable for production read workloads.<br />
+Most PostgreSQL driver features are supported; some PostgreSQL features may not yet be tested and could behave differently or not work in some tools.
+</Callout>
+
+![Omni](/assets/images/integrations/omni-logo.png)
+
+[Omni](https://www.omni.co) is a modern business intelligence and analytics platform that enables teams to explore data, define semantic models, and build interactive dashboards using a SQL-first workflow.
+
+---
+
+# Connect Omni to Firebolt using the PostgreSQL protocol
+
+This guide explains how to connect **Omni** to **Firebolt** using Firebolt’s **PostgreSQL-compatible (pgwire) interface**.
+
+Firebolt is exposed as a PostgreSQL endpoint, which allows Omni to query Firebolt databases using its built-in **Postgres connector**.
+
+
+## Overview
+
+When using Omni with Firebolt over the PostgreSQL protocol:
+
+- Firebolt is exposed as a PostgreSQL-compatible endpoint
+- Authentication is done using **Firebolt service accounts**
+- Database names use a **triple identifier** format:
+  `<account>@<database>@<engine>`
+
+## Prerequisites
+
+Before starting, make sure you have:
+
+1. **Omni account**
+   Access to an Omni workspace with permissions to create connections, views, topics, and dashboards.
+
+2. **Firebolt account**
+   An active Firebolt account. If you do not have one, you can [sign up](https://go.firebolt.io/signup).
+
+3. **Firebolt database and tables**
+   Access to a Firebolt database that contains data ready for analysis.
+   If needed, you can [create a database](/guides/getting-started/get-started-sql#create-a-database) and then [load data](/guides/loading-data) into it.
+
+4. **Firebolt service account**
+   An active Firebolt [service account](/guides/managing-your-organization/service-accounts), including:
+   - Service account ID
+   - Service account secret
+
+5. **Firebolt user**
+   A Firebolt user [associated](/guides/managing-your-organization/service-accounts#create-a-user) with the service account, with:
+   - [USAGE](/overview/security/rbac/database-permissions) permission on the database
+   - [OPERATE](/overview/security/rbac/engine-permissions) permission on the engine (if it is not already running)
+
+---
+
+## Connect Omni to Firebolt
+
+<Callout type="info">
+ℹ️ **Network access requirement** <br />
+Omni does not support mutual TLS (mTLS). In most cases, connections work without additional setup. <br />
+If you encounter connectivity issues, your Omni IP address may need to be allowlisted by Firebolt. See [Allowlisting Omni IP Addresses](#allowlisting-omni-ip-addresses).
+</Callout>
+
+### Step 1: Create a PostgreSQL connection
+
+1. In Omni, go to **Settings → Connections**
+2. Click **Add connection**
+3. Select **Postgres**
+
+
+### Step 2: Configure connection details
+
+Fill in the connection form with the following values.
+
+#### Basic settings
+
+- **Display Name**: Any descriptive name (for example: `Firebolt Production`)
+- **Host**: `pg.<region>.app.firebolt.io`
+    - Replace `<region>` with your Firebolt account region (for example: `us-east-1`)
+- **Port**: `5432`
+- **Database**: `<account_name>@<database_name>@<engine_name>`
+    - Where
+        - `<account_name>` is your Firebolt account name
+        - `<database_name>` is the target Firebolt database name
+        - `<engine_name>` is the target Firebolt engine name
+
+#### Authentication
+
+- **Username**: Firebolt service account ID
+- **Password**: Firebolt service account secret
+
+#### Schema configuration
+
+Firebolt does **not support custom schemas**.
+
+All objects in Firebolt are created and queried in the default `public` schema.
+As a result, schema configuration in Omni must be kept minimal.
+
+Use the following settings:
+
+- **Include schemas**: Leave empty or set to `public`
+- **Offloaded schemas**: Leave empty or set to `public`
+- **Schema for table uploads**: Leave empty or set to `public`
+
+<Callout type="warning">
+Do not specify custom schemas in the Omni connection configuration.<br />
+Firebolt currently supports only the <strong>public</strong> schema, and configuring other schemas may result in query errors.
+</Callout>
+
+#### Timezone configuration
+
+Firebolt supports timezone-aware timestamps (`TIMESTAMPTZ`).
+However, Omni timezone conversion features are **not currently compatible** with Firebolt.
+
+Use the following configuration:
+
+- **Database timezone** `UTC`
+- **Query timezone** Do not set
+- **Allow user-specific timezones** Disabled
+
+<Callout type="warning">
+Do not enable <strong>Query Timezone</strong> or <strong>Allow user-specific timezones</strong> in Omni.<br />
+Enabling these options may result in <strong>query execution errors</strong> when running queries against Firebolt.
+</Callout>
+
+---
+
+## Allowlisting Omni IP addresses
+
+Omni connects to Firebolt from a **fixed, stable set of outbound IP addresses**.
+
+If you experience connectivity issues when connecting Omni to Firebolt, your Omni IP address may need to be allowlisted by Firebolt.
+
+### How to allowlist Omni IPs
+
+1. In Omni, open the Firebolt connection configuration
+2. Locate the outbound IP addresses displayed in the connection screen
+3. Copy all listed IP addresses
+4. Contact **Firebolt Support** and request allowlisting
+    - See more about how to contact [Firebolt Support and the severity guidelines](/support/severity-guidelines).
+
+Include the following information in your request:
+
+- Your name and email address
+- Your organization name
+- The tool name (**Omni**)
+- The Omni IP addresses to allowlist
+
+---
+
+## Additional resources
+
+- [Omni documentation](https://docs.omni.co)
+- [Omni Postgres database connection](https://docs.omni.co/connect-data/setup/postgres)
+
