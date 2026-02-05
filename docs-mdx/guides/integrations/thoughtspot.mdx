@@ -38,11 +38,9 @@ If you encounter connectivity issues, your ThoughtSpot IP address may need to be
    |--------------|--------------------------------------------------------------|
    | **Host**     | `pg.<region_name>.app.firebolt.io`                           |
    | **Port**     | `5432`                                                       |
-   | **User**     | Service account ID |
+   | **User**     | `<account name>:<engine name>:<Service account ID>`            |
    | **Password** | Service account secret                                       |
-   | **Database** | `<account_name>@<database_name>@<engine_name>`               |
-
-    ![ThoughtSpot Connection Configuration](/assets/images/thoughtspot-connection.png)
+   | **Database** | Database name
 
    #### Host details
 
@@ -58,19 +56,19 @@ If you encounter connectivity issues, your ThoughtSpot IP address may need to be
    SELECT region FROM information_schema.accounts WHERE account_name = '<your_account>';
    ```
 
-   #### Database field details
+   #### User field details
 
-   Unlike traditional PostgreSQL databases, Firebolt uses a composite string in the Database field to specify:
+   Unlike traditional PostgreSQL databases, Firebolt uses a composite string in the User field to specify:
    - Account name
-   - Database name  
    - Engine name
+   - Service account ID
 
-   These are joined using `@` separators in a single string:
+   These are joined using `:` separators in a single string:
 
    ```
-   <account_name>@<database_name>@<engine_name>
+   <account name>:<engine name>:<service_account_id>
    ```
-   For example, if your account name is `my_account`, your database name is `sales_db`, and your engine name is `analytics_engine`, you would enter `my_account@sales_db@analytics_engine`.
+   For example, if your account name is `my_account`, your engine name is `analytics_engine`, and your service account id is `fbcid_xxx` you would enter `my_account:analytics_engine:fbcid_xxx`.
 
 5. Click **Next**.
 
