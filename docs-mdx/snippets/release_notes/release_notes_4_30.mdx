@@ -1,0 +1,114 @@
+## Firebolt Release Notes - Version 4.30
+
+### New Features
+{/* Jira ticket: FIR-48013 */}
+**Introduced vector search indexes for low-latency similarity search over high-dimensional embeddings**
+
+Introduced vector search indexes that provide sub-second top-K similarity search at scale using the HNSW algorithm. This feature enables fast approximate nearest neighbor (ANN) retrieval directly in SQL, powering semantic search, recommendations, and AI-driven analytics without requiring a separate vector database. Vector search indexes maintain full ACID consistency with base table data and support both in-memory and disk-backed serving modes with tunable precision and performance parameters.
+
+Create a vector search index on a column containing embeddings using the `CREATE INDEX ... USING HNSW` syntax:
+
+```sql
+CREATE INDEX doc_embeddings_idx ON documents USING HNSW (
+  embedding vector_cosine_ops
+) WITH (
+  dimension = 256,
+);
+```
+
+Query the index using the `vector_search()` table-valued function to find the most similar vectors:
+
+```sql
+SELECT *
+FROM vector_search (
+  INDEX doc_embeddings_idx,
+  target_vector => <target_vector>,
+  top_k => 10
+);
+```
+
+For more information, see the [vector search index overview](/overview/indexes/vector-search-index), [`CREATE VECTOR INDEX`](/reference-sql/commands/data-definition/create-vector-search-index), and [`vector_search()`](/reference-sql/functions-reference/vector/vector-search) documentation.
+
+{/* Jira ticket: FIR-50087 */}
+**Introduced the `AI_EMBED_TEXT` function for text embeddings with Amazon Bedrock**
+
+Introduced the `AI_EMBED_TEXT` function to generate text embeddings using Amazon Bedrock. This feature enhances text processing capabilities by enabling efficient embedding generation directly within the data warehouse.
+
+{/* Jira ticket: FIR-50890 */}
+**Automated Column Statistics**
+
+You can opt into collecting column statistics.
+This can potentially help the query optimizer make better decisions.
+You can enable this by using [`alter table ... add statistics`](/performance-and-observability/query-planning/automated-column-statistics/table-with-statistics)
+or by enabling the planner to [read from user-created aggregating indexes](/performance-and-observability/query-planning/automated-column-statistics/user-created-indexes).
+
+{/* Jira ticket: FIR-47944 */}
+**Revamped history-based statistics lifecycle is now in public preview**
+
+Users that want to collect history-based statistics (HBS) and utilize them for query optimization now have full control over the entire HBS lifecycle.
+The new lifecycle primitives (available from 4.30 as public preview) allow Firebolt users to decide:
+
+* For which queries you want to collect HBS.
+* What type of training examples and models you want to include in your HBS objects.
+* For which queries to use an HBS object and which HBS object to use.
+
+The controls can be used as building blocks for implementing different operational patterns (A/B testing of HBS objects, online vs offline training, etc.).
+We will discuss those in an upcoming blog post.s
+
+{/* Jira ticket: FIR-50759 */}
+**Enhanced the `ARRAY_SLICE` function to support arrays with `STRUCT` values**
+
+The `ARRAY_SLICE` function now supports arrays containing `STRUCT` values. This enhancement allows users to handle complex data types more efficiently.
+
+**Enabled viewing and customization of connection snippets for SDK access in Firebolt UI Connect**
+
+Users are now able to view and customize connection snippets for accessing Firebolt using available SDKs. This enhancement simplifies the integration process, offering more control and flexibility when connecting to the data warehouse.
+
+{/* Jira ticket: FIR-51109 */}
+**Added `number_of_shredded_columns` and `number_of_columns_streams` to `INFORMATION_SCHEMA.TABLES` for enhanced data storage management**
+
+Added `number_of_shredded_columns` and `number_of_columns_streams` to the `INFORMATION_SCHEMA.TABLES` system view. These additions provide access to details about the number of shredded STRUCT columns and the number of streams used for storing these columns. This information helps users better understand and manage data storage structures.
+
+{/* Jira ticket: FIR-51015 */}
+**Added partial support for Iceberg schema evolution with field reordering, addition, and removal functions**
+
+Introduced partial support for Iceberg schema evolution, allowing the reordering, addition, and removal of fields from a table. This enhancement provides greater flexibility when managing evolving table structures.
+
+### Behavior Changes
+
+### Performance Improvements
+{/* Jira ticket: FIR-49857 */}
+{/* Jira ticket: FIR-50921 */}
+**Type-based NDV Heuristics**
+
+The query optimizer now assumes the number of distinct values (NDV) for columns based on their data types.
+Users can disable this feature by setting `enable_type_based_ndv_heuristic` to `false`.
+Similarly, it also infers the number of distinct values for result columns of datetime functions such as `DATE_TRUNC`, `EXTRACT`, `TO_YYYYMM`, and `TO_YYYYMMDD`.
+Users can disable this feature by setting `enable_date_time_func_ndv_heuristic` to `false`.
+This can potentially help the query optimizer make better decisions. 
+Read more about [datetime function NDV heuristics](/reference/system-settings#enable-datetime-function-ndv-heuristic) and [type based NDV heuristic](/reference/system-settings#enable-type-based-ndv-heuristic)
+
+{/* Jira ticket: FIR-45958 */}
+**Added `max_table_partitions_on_insert` to limit total table partitions for table health.**
+Added the `max_table_partitions_on_insert` flag to [limit the total number of partitions in a table](/reference/system-settings#partition-limits). Excessive partitioning can degrade Firebolt table health and query performance. If an ingestion query would cause the total partition count to exceed this value, the query will fail. The default limit is 10000 partitions for accounts created after Dec 1 2025.
+
+### Bug Fixes
+{/* Jira ticket: FIR-49259 */}
+**Non-deterministic or order-dependent plans on dimension tables**
+
+Fixed potential incorrect results from non-deterministic or order-dependent plans directly on top of dimension table scans.
+
+{/* Jira ticket: FIR-50522 */}
+**Fixed an issue where `NULL` values in single-column `IN SELECT` expressions returned `FALSE` instead of `NULL` when the subquery was non-empty without `NULL` values**
+
+Resolved an issue where `NULL` values on the left side of a single-column `IN SELECT` expression incorrectly returned `FALSE` instead of `NULL`. This occurred when the subquery was non-empty and contained no `NULL` values. This correction ensures accurate query results.
+
+{/* Jira ticket: FIR-50563 */}
+**Invalid plans for queries with `array_agg(<struct_literal>)` expressions**
+
+Fixed an issue where `array_agg(<struct_literal>)` aggregates were causing the query planner to construct invalid plans in multi-node execution environments.
+
+{/* Jira ticket: FIR-49636 */}
+**Fixed CSV parsing to handle files with extra columns gracefully**
+
+Resolved an issue where `read_csv` queries failed when files contained more columns than expected. CSV parsing now automatically skips unknown fields.
