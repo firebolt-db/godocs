@@ -4,17 +4,23 @@ sidebarTitle: Looker Cloud
 title: Looker Cloud
 ---
 
+<Callout type="info">
+🧪 **Preview (Beta)** <br />
+Suitable for production read workloads.<br />
+Most PostgreSQL driver features are supported; some PostgreSQL features may not yet be tested and could behave differently or not work in some tools.
+</Callout>
+
 ![Looker Cloud](/assets/images/looker.png)
 
 Looker Cloud is a cloud-native business intelligence platform that enables teams to model, explore, and visualize their data. Using Looker’s PostgreSQL dialect, you can connect Looker Cloud directly to Firebolt. This integration allows analysts and business users to query Firebolt’s high-performance data warehouse from within Looker dashboards and Explores.
 
-Because Looker Cloud runs on managed Google Cloud infrastructure, some setup steps are required before the connection works. In particular, you must contact Firebolt Support to provide help in setting up the connection. Once this step is complete, you’ll configure a service account in Looker and finalize the connection.
-
-## Quickstart
-
 This guide walks through prerequisites, permissions, and connection setup. By the end, Looker Cloud will be connected to Firebolt and ready to run queries.
 
-If Firebolt Support has already confirmed connectivity, skip ahead to [Configure the connection in Looker Cloud](#step-2-configure-the-connection-in-looker-cloud).
+<Callout type="info">
+ℹ️ **Network access requirement** <br />
+Looker cloud does not support mutual TLS (mTLS). In most cases, connections work without additional setup. <br />
+If you encounter connectivity issues, your Looker cloud IP address may need to be allowlisted by Firebolt. See [Allowlisting Looker cloud IP Addresses](#allowlisting-looker-cloud-ip-addresses).
+</Callout>
 
 ### Prerequisites
 
@@ -26,51 +32,36 @@ Before starting, make sure you have:
 4. **Firebolt service account** &ndash; You must have access to an active Firebolt [service account](/guides/managing-your-organization/service-accounts), which facilitates programmatic access to Firebolt, its ID and secret.
 5. **Firebolt user** &ndash; You must have a user that is [associated](/guides/managing-your-organization/service-accounts#create-a-user) with your service account. The user should have [USAGE](/overview/security/rbac/database-permissions) permission to query your database, and [OPERATE](/overview/security/rbac/engine-permissions) permission to start and stop an engine if it is not already started.
 
-### Step 1: Contact Firebolt Support
+### Configure the Connection in Looker Cloud
 
-#### Using UI to contact Support
+#### Navigation path
 
-> Without this step, the connection will not be possible.
+1. In Looker, go to **Admin → Database → Connections**.
+2. Click **Add connection** (top-right).
+3. Follow the connection wizard, which is split into four steps.
 
-To enable Looker Cloud connectivity, you must request this to Firebolt Support. This can be done through the UI, as described in [Help Menu](/reference/help-menu).
-When contacting Support most of the information will already be filled in, but you must provide:
-* Your **account**.
-* The **severity** of your need to use Looker Cloud.
-* The **subject**: "Looker Cloud connectivity request".
-* The **description** which can be copied from below.:
+#### Step 1: General settings
 
-```
-Hello Support Team,
+- **Name** – A name for the connection (for example: `firebolt_connection`).
+- **SQL Dialect** – Select **PostgreSQL 9.5+**.
 
-We are requesting access to Looker Cloud from our Firebolt account <account_name>. Please provide steps to enable connectivity.
-```
+Click **Next**.
 
-#### Emailing Support directly
+#### Step 2: Database settings
 
-Alternatively, you can email Support at [support@firebolt.io](mailto:support@firebolt.io?subject=Looker%20Cloud%20connectivity%20request%20-%20<organization_name>&body=Hello%20Support%20Team%2C%0A%0AWe%20are%20requesting%20access%20to%20Looker%20Cloud%20from%20our%20Firebolt%20account%3A%20<account_name>.%20Please%20provide%20steps%20to%20enable%20connectivity.) with the same information as above, this time also having to provide:
-* Your **organization name**.
-* Your **account**.
+Fill in the following fields:
 
-The subject and description can be copied from above or by clicking the support email address.
+| Field | Value |
+|------|-------|
+| **Host** | `pg.<region>.app.firebolt.io` |
+| **Port** | `5432` |
+| **Database name** | `<database_name>` |
+| **Username** | `<account_name>:<engine_name>:<service_account_id>` |
+| **Password** | `<service_account_secret>` |
 
-### Step 2: Configure the Connection in Looker Cloud
+Click **Next**.
 
-With connectivity and permissions in place, set up the connection in Looker:
-
-1. Go to **Admin → Database → Connections** and click **New Connection**.
-2. Fill in the following details:
-
-| Key      | Value                                              |
-   | :------- | :------------------------------------------------- |
-| Name     | `firebolt_connection` (or any suitable name)       |
-| Dialect  | PostgreSQL 9.5+                                    |
-| Host     | `pg.<region_name>.app.firebolt.io`                 |
-| Port     | `5432`                                             |
-| Database | `<account_name>@<database_name>@<engine_name>`     |
-| Username | Firebolt service account ID                        |
-| Password | Firebolt service account secret                    |
-
-#### Host details
+##### **Host details**
 
 The host is based on your Firebolt region. Example:
 
@@ -86,24 +77,70 @@ FROM information_schema.accounts
 WHERE account_name = '<your_account>';
 ```
 
-#### Database field
+##### **Database name**
+The Database name field must contain only the Firebolt database name.
 
-The Database field must include three components joined with `@`:
 
+##### **Username format**
+The Username field must use the following format:
 ```
-<account_name>@<database_name>@<engine_name>
+<account_name>:<engine_name>:<service_account_id>
 ```
+Where:
+- `<account_name>` is your Firebolt account name
+- `<engine_name>` is your Firebolt engine name
+- `<service_account_id>` is the ID of your Firebolt service account
 
-### Step 3: Test and Connect
 
-1. Click **Test** to validate the connection.
-2. If successful, click **Connect**.
-3. If it fails, double-check:
+<Info>
+> **Deprecated** <br />
+> Older connection setups encoded the account and engine in the database field using: <br />
+> `<account_name>@<database_name>@<engine_name>`<br />
+> This format is deprecated and should not be used for new connections. While SQL execution may still work, metadata-driven features may behave incorrectly.
+</Info>
 
-* The host uses the correct region.
-* The Database field is formatted correctly.
-* The service account has sufficient privileges.
-* The ID and secret are valid.
+
+
+#### Step 3: Optional settings
+
+No additional configuration is required.
+
+Click **Next**.
+
+#### Step 4: Review
+- Optionally click Test connection to validate the setup.
+- Click **Save** to create the connection.
+
+
+## Allowlisting Looker Cloud IP Addresses
+
+Looker Cloud does not support mutual TLS (mTLS).
+Looker Cloud runs on managed infrastructure and sends outbound database traffic from a fixed set of public IP addresses.
+If your Firebolt account restricts inbound network access, these IP addresses must be allowlisted.
+
+If you experience connectivity issues when connecting Looker Cloud  to Firebolt, your Looker Cloud  IP address may need to be allowlisted by Firebolt.
+
+### Get your Looker Cloud IP address
+
+1. In Looker, go to **Admin → Database → Connections**.
+2. In the top-right corner, click **Public IP Addresses**.
+3. Copy the list of IP addresses displayed.
+
+### Request allowlisting
+
+Contact Firebolt Support and request to allowlist the Looker Cloud IP address for your account.
+
+See more about how to contact [Firebolt Support and the severity guidelines](/support/severity-guidelines).
+
+Include the following information in your request:
+
+- Your name and email address
+- Your organization name
+- Name of the tool you want to connect (Looker Cloud in this case)
+- The Looker Cloud IP address to allowlist
+
+After allowlisting is completed, return to Looker Cloud and retry the connection.
+
 
 ## Performance and Limits
 

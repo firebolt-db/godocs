@@ -4,8 +4,9 @@ sidebarTitle: SHOW ENGINES
 title: SHOW ENGINES
 ---
 
-
 Returns a table with a row for each Firebolt engine defined in the current Firebolt account, with columns containing information about each engine as listed below.
+
+For more information regarding engines, see [information_schema.engines](/reference-sql/information-schema/engines).
 
 ## Syntax
 
@@ -17,22 +18,23 @@ SHOW ENGINES;
 
 The returned table has the following columns.
 
-| Column name                 | Data Type   | Description |
-| :---------------------------| :-----------| :-----------|
-| engine_name                 | TEXT      | The name of the engine. |
-| engine_owner                | TEXT (5)  | Name of the user who created the engine. |
-| type                        | TEXT      | The specification of nodes comprising the engine. |
-| clusters                    | INT       | Collection of nodes, where each node is of a certain type. All the clusters in an engine have the same type and same number of nodes. |
-| nodes                       | INT       | The number of nodes for each cluster in an engine. Can be an integer ranging from `1` to `128`. |
-| status                      | TEXT      | The engine status. For more information, see [Viewing and understanding engine status](/overview/engine-fundamentals#viewing-and-understanding-engine-status) |
-| auto_stop                   | INT       | The amount of idle time (in minutes) after which the engine automatically stops. |
-| url                         | TEXT      | Engine endpoint. |
-| version                     | TEXT      | The engine version. |
-| initially_stopped           | BOOLEAN   | If `false`, engine was started as part of the `CREATE ENGINE` command.|
-| default_database            | TEXT      | The database an engine will attempt to use by default when dealing with queries that require a database.<br/><br/>If not specified, `NULL` is used as default. |
-| created                     | TIMESTAMPTZ | Creation time of the engine. |
-| last_altered_by             | TEXT       | Name of the last user who edited the engine. |
-| last_altered                | TIMESTAMPTZ | Last modified time of the engine. |
-| fbu_rate                    | INT        | Hourly FBU consumption rate of running engines based on engine topology at the time the view is invoked by the user. |
-| release_channel             | TEXT        | The release channel. |
-
+| Column Name       | Data Type   | Description                                                                                                                                                    |
+| :---------------- | :---------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| engine_name       | TEXT        | The name of the engine.                                                                                                                                        |
+| engine_owner      | TEXT        | The name of the user who created the engine.                                                                                                                   |
+| type              | TEXT        | Determines the capability of the nodes in the engine.                                                                                                          |
+| family            | TEXT        | The family of a given engine. Choose from `STORAGE_OPTIMIZED` or `COMPUTE_OPTIMIZED`.                                                                          |
+| nodes             | INTEGER     | The number of nodes in a cluster.                                                                                                                              |
+| clusters          | INTEGER     | The number of node groupings in an engine.                                                                                                                     |
+| status            | TEXT        | The engine status. For more information, see [Viewing and understanding engine status](/overview/engine-fundamentals#viewing-and-understanding-engine-status). |
+| auto_start        | BOOLEAN     | When true, queries issued to a stopped engine will attempt to start the engine first.                                                                          |
+| auto_stop         | INTEGER     | Indicates the amount of time (in minutes) after which the engine automatically stops.                                                                          |
+| initially_stopped | BOOLEAN     | When true, the engine will have attempted to start after creation.                                                                                             |
+| url               | TEXT        | A url which can be used to issue queries to this engine.                                                                                                       |
+| default_database  | TEXT        | The database an engine will attempt to use by default when dealing with queries that require a database.                                                       |
+| version           | TEXT        | The engine version.                                                                                                                                            |
+| last_started      | TIMESTAMPTZ | The last time this engine was started (UTC).                                                                                                                   |
+| last_stopped      | TIMESTAMPTZ | The last time this engine was stopped (UTC).                                                                                                                   |
+| description       | TEXT        | A user defined description for the engine.                                                                                                                     |
+| fbu_rate          | NUMERIC     | Hourly FBU consumption rate of engines based on engine topology at the time the view is invoked by the user.                                                   |
+| release_channel   | TEXT        | The release channel.                                                                                                                                           |

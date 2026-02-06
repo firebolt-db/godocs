@@ -255,6 +255,10 @@ You can use the automatic schema discovery feature in `COPY FROM` to handle even
 * **Parquet files** - Firebolt automatically reads metadata in Parquet files to create corresponding target tables.
 * **CSV files** - Firebolt infers column types based on the data content itself, which can streamline the initial data loading process significantly. Use `WITH HEADER=TRUE` if your CSV file contains column names in the first line.
 
+<Note>
+**When loading multiple files, Firebolt infers the schema from the most recently modified file.** The remaining files must have compatible data types. If types vary between files (e.g., a column contains integers in one file but doubles in another, or is numeric in one file but text in another), the inferred schema may not match all files and thus cause data type errors or query failures. In such cases, we recommend defining an explicit schema using either [external tables](/reference-sql/commands/data-definition/create-external-table) or [`COPY FROM`](/reference-sql/commands/data-management/copy-from) into existing tables.
+</Note>
+
 Automatic schema discovery operates on a "best effort" basis, and attempts to balance accuracy with practical usability, but it may not always be error-free.
 
 The following query reads `levels.csv`, a sample dataset from the fictional “Ultra Fast Gaming Inc.” company. The example implicitly uses automatic schema creation with `AUTO_CREATE=TRUE`, which defaults to `TRUE`, and also triggers automatic table creation:

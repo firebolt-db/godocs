@@ -10,15 +10,17 @@ The remainder of this page focuses specifically on importing, managing, and expo
 
 ## Importing External Data
 
-External data can be imported into Firebolt Core from several different sources and in several different formats.
+External data can be imported into Firebolt Core from different object storage providers.
 
-* Raw data files stored on [Amazon S3](https://aws.amazon.com/s3/) or [Google Cloud Storage](https://cloud.google.com/storage).
+In the default configuration, you can import data from [Amazon S3](https://aws.amazon.com/s3/) and [Google Cloud Storage](https://cloud.google.com/storage). In addition, Firebolt Core can work with any S3-compatible object store like [MinIO](https://www.min.io/) or [Cloudflare R2](https://www.cloudflare.com/developer-platform/products/r2/). To enable this, you can use the `default_s3_endpoint_override` config property in the [Firebolt Core Configuration File](/firebolt-core/firebolt-core-operation#configuration-file).
+
+* Raw data files in many different formats can be imported directly from object storage.
     * The easiest way to access such data is to import it into a SQL table using [COPY FROM](/reference-sql/commands/data-management/copy-from). `COPY FROM` supports many convenience features such as schema discovery or metadata filtering, and can easily adapt to different data loading workflows.
     * Alternatively, you can also create an [external table](/reference-sql/commands/data-definition/create-external-table) encompassing all relevant data files. This has the advantage that no data is persistently stored and thus duplicated on the Firebolt Core cluster itself, but fewer convenience features are available for external tables than for `COPY FROM`.
     * Data files can also be read directly with the [read_parquet(..)](/reference-sql/functions-reference/table-valued/read_parquet) or [read_csv(..)](/reference-sql/functions-reference/table-valued/read_csv) table-valued functions.
 * [Apache Iceberg](https://iceberg.apache.org/) tables can be read through the [read_iceberg(..)](/reference-sql/functions-reference/table-valued/read_iceberg) table-valued function.
-    * We currently support a subset of Iceberg catalogs, including file-based catalogs, REST catalogs, and the Databricks Unity catalog.
-    * We currently support data files stored on [Amazon S3](https://aws.amazon.com/s3/) or [Google Cloud Storage](https://cloud.google.com/storage).
+    * We currently support a subset of Iceberg catalogs, including file-based catalogs, the Databricks Unity catalog, the AWS Glue catalog, or any other catalog that implements the Iceberg REST Catalog API.
+    * The data files of the Iceberg table may be stored in any of the supported object stores.
 
 Note that data stored on [Google Cloud Storage](https://cloud.google.com/storage) can currently only be accessed through the S3 interoperability layer exposed by GCS. In order to access such data from Firebolt Core, you will need to navigate to the "Access keys for your user account" section of the [Interoperability](https://console.cloud.google.com/storage/settings;tab=interoperability) tab in your Cloud Storage settings and generate an access key & secret for your account there. These will then need to be specified as the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` parameters of the respective SQL command or function (e.g. [CREATE LOCATION](/reference-sql/commands/data-definition/create-location), [CREATE EXTERNAL TABLE](/reference-sql/commands/data-definition/create-external-table), or [read_iceberg(..)](/reference-sql/functions-reference/table-valued/read_iceberg)).
 

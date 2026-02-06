@@ -8,8 +8,20 @@
     "reason": "in private preview"
   },
   {
+    "path": "guides/integrations/lightdash.mdx",
+    "reason": "in private preview, requires packdb 4.31"
+  },
+  {
+    "path": "guides/integrations/dbt-postgres-adaptor.mdx",
+    "reason": "in private preview, requires packdb 4.31"
+  },
+  {
     "path": "reference/proof-of-concept-guide.mdx",
     "reason": "a non-public guide for private PoC"
+  },
+  {
+    "path": "legal/data-portability-and-export.mdx",
+    "reason": "no yet finalized"
   },
   {
     "path": "reference-sql/functions-reference/aggregate-array.mdx",
@@ -126,5 +138,9 @@
   {
     "path": "performance-and-observability/runtime.mdx",
     "reason": "not yet implemented"
+  },
+  {
+    "path": "support/severity-guidelines.mdx",
+    "reason": "access only via direct link"
   }
 ]

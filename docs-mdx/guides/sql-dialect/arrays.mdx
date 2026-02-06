@@ -120,7 +120,7 @@ Firebolt *Lambda functions* are a powerful tool that you can use on arrays to ex
 The general syntax pattern of a Lambda function is shown below. For detailed syntax and examples, see the reference topics for [Lambda functions](/reference-sql/functions-reference/lambda).
 
 ```
-<LAMBDA_FUNC>(<arr1_var>[, <arr2_var>][, ...<arrN_var>]) -> <operation>, <array1>[, <array2>][, ...<arrayN>])
+<LAMBDA_FUNC>(<arr1_var>[, <arr2_var>][, ...<arrN_var>] -> <operation>, <array1>[, <array2>][, ...<arrayN>])
 ```
 
 | Parameter                                     | Description    |
@@ -130,6 +130,11 @@ The general syntax pattern of a Lambda function is shown below. For detailed syn
 | `<operation>`                                 | The operation that is performed for each element of the array. This is typically a function or Boolean expression. |
 | `<array1>[, <array2>][, ...<arrayN>]`         | A comma-separated list of expressions, each of which evaluates to an `ARRAY` data type. |
 
+Optionally, you can enclose the variables in parentheses:
+
+```
+<LAMBDA_FUNC>((<arr1_var>[, <arr2_var>][, ...<arrN_var>]) -> <operation>, <array1>[, <array2>][, ...<arrayN>])
+```
 
 ### Lambda function example&ndash;single array
 
@@ -168,6 +173,12 @@ SELECT
   id,
   ARRAY_FIRST(v, k -> k = 'platform', agent_props_vals, agent_props_keys) AS platform
 FROM visits;
+
+-- Alternatively, you can enclose the variables in parentheses:
+SELECT
+  id,
+  ARRAY_FIRST((v, k) -> k = 'platform', agent_props_vals, agent_props_keys) AS platform
+FROM visits;
 ```
 
 **Returns**:
@@ -188,6 +199,10 @@ The example below sorts the first array by the positions defined in the second a
 ```sql
 SELECT
   ARRAY_SORT(x,y -> y, [ 'A','B','C'],[3,2,1]) AS res;
+
+-- Alternatively, you can enclose the variables in parentheses:
+SELECT
+  ARRAY_SORT((x,y) -> y, [ 'A','B','C'],[3,2,1]) AS res;
 ```
 **Returns**:
 

@@ -10,6 +10,57 @@ The Firebolt information schema consists of a set of system views that contain m
 Firebolt supports `information_schema` schema based on ANSI SQL standard, but extended with Firebolt specific information, both as additional columns in standard views, and as additional views.
 For better compatibility with applications that rely on Postgres specific system views, Firebolt also supports `pg_catalog` schema and subset of Postgres compatible views in it.
 
+### Available Information Schema Views
+
+Firebolt provides the following information schema views:
+
+#### Database Objects
+* [catalogs](/reference-sql/information-schema/catalogs) - Available databases
+* [schemata](/reference-sql/information-schema/schemata) - Database schemas
+* [tables](/reference-sql/information-schema/tables) - Tables in the database
+* [views](/reference-sql/information-schema/views) - Views in the database
+* [columns](/reference-sql/information-schema/columns) - Columns in tables
+* [indexes](/reference-sql/information-schema/indexes) - Indexes for tables
+* [routines](/reference-sql/information-schema/routines) - SQL functions
+* [locations](/reference-sql/information-schema/locations) - Connection details and credentials for external data sources
+
+#### Account and Organization
+* [accounts](/reference-sql/information-schema/accounts) - Accounts in the organization
+* [organization](/reference-sql/information-schema/organization) - Organization-level information
+
+#### Security and Access Control
+* [applicable_roles](/reference-sql/information-schema/applicable-roles) - Roles applicable to the current user
+* [enabled_roles](/reference-sql/information-schema/enabled-roles) - Currently enabled roles for the session
+* [transitive_applicable_roles](/reference-sql/information-schema/transitive-applicable-roles) - All roles transitively applicable to the current user
+* [logins](/reference-sql/information-schema/logins) - Logins in organization
+* [users](/reference-sql/information-schema/users) - Users in current account
+* [service_accounts](/reference-sql/information-schema/service-accounts) - Service accounts in organization
+* [network_policies](/reference-sql/information-schema/network_policies) - Network access policies
+* [object_privileges](/reference-sql/information-schema/object-privileges) - Privileges granted on database objects
+* [object_default_privileges](/reference-sql/information-schema/object-default-privileges) - Default privileges for database objects
+
+#### Engine Management
+* [engines](/reference-sql/information-schema/engines) - Available engines and their configurations
+* [engine_history](/reference-sql/information-schema/engine-history) - Historical engine state changes
+* [engine_caches](/reference-sql/information-schema/engine-caches) - Engine cache information
+
+#### Query Monitoring
+* [engine_query_history](/reference-sql/information-schema/engine-query-history) - Historical query execution data
+* [engine_user_query_history](/reference-sql/information-schema/engine-user-query-history) - User-specific query history
+* [engine_running_queries](/reference-sql/information-schema/engine-running-queries) - Currently executing queries
+* [transactions](/reference-sql/information-schema/transactions) - Active and historical transactions
+
+#### Billing and Usage
+* [engines_billing](/reference-sql/information-schema/engines-billing) - Engine billing information
+* [engine_metering_history](/reference-sql/information-schema/engine-metering-history) - Engine usage metering data
+* [engine_metrics_history](/reference-sql/information-schema/engine-metrics-history) - Historical engine performance metrics
+* [storage_billing](/reference-sql/information-schema/storage-billing) - Storage billing information
+* [storage_history](/reference-sql/information-schema/storage-history) - Historical storage usage
+* [storage_metering_history](/reference-sql/information-schema/storage-metering-history) - Storage metering data
+
+#### Resource Management
+* [quotas](/reference-sql/information-schema/quotas) - Resource quotas and limits
+
 Not all information schema views are available on Firebolt's system engine or within the **Firebolt Workspace**. The following views are unavailable:
 * `engine_metrics_history`
 * `engine_running_queries`

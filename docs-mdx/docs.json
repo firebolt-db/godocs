@@ -47,6 +47,7 @@
                   "overview/indexes",
                   "overview/indexes/aggregating-index",
                   "overview/indexes/primary-index",
+                  "overview/indexes/table-and-column-compression",
                   "overview/indexes/vector-search-index"
                 ]
               },
@@ -60,7 +61,6 @@
                   "overview/queries/understand-spilling"
                 ]
               },
-              "overview/table-and-column-compression",
               {
                 "group": "Security",
                 "pages": [
@@ -175,7 +175,6 @@
                   "guides/operate-engines/sizing-engines",
                   "guides/operate-engines/understand-autoscaling",
                   "guides/operate-engines/warming-up-engines",
-                  "guides/operate-engines/arm-co-opt-out",
                   "guides/operate-engines/engines-release-settings",
                   "guides/operate-engines/system-engine",
                   "guides/operate-engines/engine-warmpools"
@@ -259,9 +258,10 @@
                   "guides/integrations/airflow",
                   "guides/integrations/connecting-to-apache-superset",
                   "guides/integrations/aws-glue",
+                  "guides/integrations/quicksight",
                   "guides/integrations/cube-js",
                   "guides/integrations/dbeaver",
-                  "guides/integrations/connecting-with-dbt",
+                  "guides/integrations/dbt-firebolt-adaptor",
                   "guides/integrations/estuary",
                   "guides/integrations/kafka-sink-connector",
                   "guides/integrations/langchain",
@@ -270,11 +270,13 @@
                   "guides/integrations/mcp",
                   "guides/integrations/metabase-on-prem",
                   "guides/integrations/otel-exporter",
+                  "guides/integrations/omni",
                   "guides/integrations/pandas",
                   "guides/integrations/connecting-to-paradime",
                   "guides/integrations/power-bi",
                   "guides/integrations/connecting-to-preset",
-                  "guides/integrations/tableau"
+                  "guides/integrations/tableau",
+                  "guides/integrations/thoughtspot"
                 ]
               },
               {
@@ -506,6 +508,7 @@
                     "group": "AI functions",
                     "pages": [
                       "reference-sql/functions-reference/ai",
+                      "reference-sql/functions-reference/ai/ai-embed-text",
                       "reference-sql/functions-reference/ai/ai-query",
                       "reference-sql/functions-reference/ai/aws-bedrock-ai-query"
                     ]
@@ -4851,7 +4854,17 @@
     },
     {
       "source": "/Guides/integrations/connecting-with-dbt.html",
-      "destination": "/guides/integrations/connecting-with-dbt",
+      "destination": "/guides/integrations/dbt-firebolt-adaptor",
+      "permanent": false
+    },
+    {
+      "source": "/guides/integrations/connecting-with-dbt/",
+      "destination": "/guides/integrations/dbt-firebolt-adaptor",
+      "permanent": false
+    },
+    {
+      "source": "/guides/integrations/connecting-with-dbt",
+      "destination": "/guides/integrations/dbt-firebolt-adaptor",
       "permanent": false
     },
     {
@@ -5005,18 +5018,13 @@
       "permanent": false
     },
     {
-      "source": "/Overview/table-and-column-compression.html",
-      "destination": "/overview/table-and-column-compression",
+      "source": "/Overview/indexes/table-and-column-compression.html",
+      "destination": "/overview/indexes/table-and-column-compression",
       "permanent": false
     },
     {
       "source": "/Guides/operate-engines/sizing-engines.html",
       "destination": "/guides/operate-engines/sizing-engines",
-      "permanent": false
-    },
-    {
-      "source": "/Guides/operate-engines/arm-co-opt-out.html",
-      "destination": "/guides/operate-engines/arm-co-opt-out",
       "permanent": false
     },
     {
@@ -5291,7 +5299,7 @@
     },
     {
       "source": "/Guides/integrations/connecting-with-dbt",
-      "destination": "/guides/integrations/connecting-with-dbt",
+      "destination": "/guides/integrations/dbt-firebolt-adaptor",
       "permanent": false
     },
     {
@@ -5435,8 +5443,8 @@
       "permanent": false
     },
     {
-      "source": "/Overview/table-and-column-compression",
-      "destination": "/overview/table-and-column-compression",
+      "source": "/Overview/indexes/table-and-column-compression",
+      "destination": "/overview/indexes/table-and-column-compression",
       "permanent": false
     },
     {
@@ -5472,11 +5480,6 @@
     {
       "source": "/Guides/operate-engines/sizing-engines",
       "destination": "/guides/operate-engines/sizing-engines",
-      "permanent": false
-    },
-    {
-      "source": "/Guides/operate-engines/arm-co-opt-out",
-      "destination": "/guides/operate-engines/arm-co-opt-out",
       "permanent": false
     },
     {
@@ -5801,6 +5804,11 @@
     },
     {
       "source": "/Guides/integrations/tableau.html",
+      "destination": "/guides/integrations/tableau",
+      "permanent": false
+    },
+    {
+      "source": "/integrations/business-intelligence/setting-up-tableau-desktop-jdbc-to-firebolt.html",
       "destination": "/guides/integrations/tableau",
       "permanent": false
     },

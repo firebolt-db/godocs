@@ -58,9 +58,9 @@ The following settings can be configured using the `WITH` clause and the `SET` c
 - [enable_iceberg_partitioned_scan](#using-iceberg-partitioned-scans-for-co-located-joins-and-aggregations)
 - [iceberg_insert_sharding](#iceberg-insert-sharding)
 - [late_materialization_max_rows](#control-late-materialization)
+- [derive_ndv_from_unique_keys](#derive-ndv-from-unique-keys)
 - [enable_type_based_ndv_heuristic](#enable-type-based-ndv-heuristic)
 - [enable_date_time_func_ndv_heuristic](#enable-datetime-function-ndv-heuristic)
-
 
 The following settings can be configured only using the `SET` command:
 - [query_label](#query-labeling-and-tagging)
@@ -945,6 +945,80 @@ SELECT * FROM table ORDER BY a LIMIT 100
 WITH (late_materialization_max_rows = 100);
 ```
 
+## Derive NDV from unique keys
+
+The `derive_ndv_from_unique_keys` setting enables the query optimizer to derive the number of distinct values (NDV) for columns from a unique key. For example, if the optimizer sees that a column `a` is unique at some point and the row count is estimated to be 100, with the feature enabled, the optimizer assumes the NDV of column `a` is 100 because `a` is unique. When the feature is disabled, the optimizer does not make this assumption.
+
+When enabled, it can help the optimizer make better cardinality estimates and plan transformations, potentially leading to improved query performance.
+
+This is an opt-in feature. For more details on how unique constraints affect query planning, see [UNIQUE constraints as query hints](/performance-and-observability/query-planning/unique-constraint).
+
+**Default value:** `false`
+
+### Syntax
+
+```sql
+SET derive_ndv_from_unique_keys = [true|false];
+SELECT ... WITH (derive_ndv_from_unique_keys = [true|false]);
+```
+
+### Example
+
+The following example shows the difference in the join output cardinality estimation the optimizer produces with the feature turn on and off.
+
+- With the feature turned on, the optimizer understands that the join outputs at most the same number of rows as the `orders` table.
+- With the feature turned off, the optimizer over estimates by assuming the join is explosive.
+
+<CodeGroup>
+```sql Example case
+-- 1500000 rows
+CREATE FACT TABLE orders (
+   id INT NOT NULL,
+   price DOUBLE,
+   city TEXT
+);
+
+-- 10000 rows
+CREATE DIMENSION TABLE accounts (
+   id INT NOT NULL,
+   city TEXT UNIQUE  -- this column is unique
+)
+
+EXPLAIN (STATISTICS)
+SELECT *
+FROM orders o, accounts a
+WHERE o.city = a.city;
+```
+
+```text Plan with derive_ndv_from_unique_keys = true {4,10}
+[0] [Projection] orders.id, orders.price, orders.city, accounts.id, orders.city
+|   [Logical Profile]: [est. #rows=1.5e+06, column profiles={[orders.city: #distinct=10000]}, source: estimated]
+ \_[1] [Join] Mode: Inner [equals(orders.city, accounts.city)]
+   |   [Logical Profile]: [est. #rows=1.5e+06, column profiles={[orders.city: #distinct=10000], [accounts.city: #distinct=10000]}, source: estimated]
+    \_[2] [StoredTable] Name: "orders"
+    |     [Types]: orders.id: integer not null, orders.price: double precision not null, orders.city: text not null
+    |     [Logical Profile]: [est. #rows=1.5e+06, source: hinted]
+    \_[3] [StoredTable] Name: "accounts"
+          [Types]: accounts.id: integer not null, accounts.city: text not null
+          [Logical Profile]: [est. #rows=10000, column profiles={[accounts.city: #distinct=10000]}, source: hinted]
+```
+
+```text Plan with derive_ndv_from_unique_keys = false {4,10}
+[0] [Projection] orders.id, orders.price, orders.city, accounts.id, orders.city
+|   [Logical Profile]: [est. #rows=1.33118e+08, source: estimated]
+ \_[1] [Join] Mode: Inner [equals(orders.city, accounts.city)]
+   |   [Logical Profile]: [est. #rows=1.33118e+08, source: estimated]
+    \_[2] [StoredTable] Name: "orders"
+    |     [Types]: orders.id: integer not null, orders.price: double precision not null, orders.city: text not null
+    |     [Logical Profile]: [est. #rows=1.5e+06, source: hinted]
+    \_[3] [StoredTable] Name: "accounts"
+          [Types]: accounts.id: integer not null, accounts.city: text not null
+          [Logical Profile]: [est. #rows=10000, source: hinted]
+```
+
+</CodeGroup>
+
+
 ## Enable type based NDV heuristic
 
 The `enable_type_based_ndv_heuristic` setting enables the query optimizer to assume the number of distinct values (NDV) for columns based on their data types.
@@ -954,7 +1028,7 @@ When enabled:
 - Date columns are assumed to have 3650 distinct values (10 years of dates) if the row count is more than 13,322,500.
 
 <Note>
-The heuristic makes the optimizer estimate selectivity towards common cases ranther than edge cases. It does not guarantee the estimated values are strictly better. For example, it might seem that the feature strictly improves the filter selectivity on boolean columns. However, the actual data in a boolean column might be extremely skewed that the default wild guess is actually closer to reality. In that case, use [automated column statistics](/performance-and-observability/query-planning/automated-column-statistics) instead.
+The heuristic makes the optimizer estimate selectivity towards common cases rather than edge cases. It does not guarantee the estimated values are strictly better. For example, it might seem that the feature strictly improves the filter selectivity on boolean columns. However, the actual data in a boolean column might be extremely skewed that the default wild guess is actually closer to reality. In that case, use [automated column statistics](/performance-and-observability/query-planning/automated-column-statistics) instead.
 </Note>
 
 **Default value:** `true`
@@ -1010,7 +1084,6 @@ SELECT id FROM orders WHERE NOT cancelled;
           [Types]: orders.id: integer not null, orders.cancelled: boolean not null, orders.order_date: date not null
           [Logical Profile]: [est. #rows=1.5e+07, source: hinted]
 ```
-
 </CodeGroup>
 
 ## Enable datetime function NDV heuristic
@@ -1028,7 +1101,7 @@ The general heuristic is that a big data set contains about 10 years of data. Ba
 Some NDV inferences are independent from the above heuristic. For example, the NDV of the result of `extract(quarter from some_column)` is assumed to be 4. This is purely based on the semantics of the function, not the data size.
 
 <Note>
-The heuristic makes the optimizer estimate selectivity towards common cases ranther than edge cases. It does not guarantee the estimated values are strictly better.
+The heuristic makes the optimizer estimate selectivity towards common cases rather than edge cases. It does not guarantee the estimated values are strictly better.
 </Note>
 
 **Default value:** `true`
