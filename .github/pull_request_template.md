@@ -13,7 +13,7 @@ If it's part of a **future release**, please file the PR against the correspondi
 The preview URL will be available at https://firebolt-BRANCH.mintlify.app/ after the PR is created and built. `BRANCH` there is the name of your branch, in lowercase and with all special symbols except underscore replaced for dashes. E.g. `release/packdb-4.22` will be available at https://firebolt-release-packdb-4-22.mintlify.app/.
 
 # Documentation Checklist
-- [ ] I've previewed my documentation locally running `make start-local` (or using [this](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll) tutorial) 
+- [ ] I've previewed my documentation locally running `make start-local` 
 - [ ] I've validated that indexing works and that I'm able to navigate to the documentation page from the table of contents
 - [ ] If I added SQL examples, I have validated that they run correctly and as described. 
 

@@ -8,7 +8,7 @@ Optimizes tablets for query performance.
 
 `VACUUM` improves query efficiency by restructuring tablets for optimal performance. DML operations such as [DELETE](/reference-sql/commands/data-management/delete), [UPDATE](/reference-sql/commands/data-management/update), [INSERT](/reference-sql/commands/data-management/insert), and [COPY FROM](/reference-sql/commands/data-management/copy-from) might create tablets that are not optimally sized. Suboptimal tablets occur because DML efficiently utilizes resources in proportion to the cardinality of the data being inserted. In addition to standard SQL operations, tuples that are deleted by an update are not always physically removed from their table; they remain present until a `VACUUM` is finished operating. In other words, tablets are not necessarily optimal for running queries; therefore, it’s necessary to run `VACUUM` periodically, especially on frequently updated tables.
 
-By default, any engine that processes a DML operation automatically assesses the health of tables’ data layout and runs the `VACUUM` command when necessary to maintain the underlying table health. You can disable Auto `VACUUM` for a specific engine using the 'ALTER ENGINE' statement:
+By default, any engine that processes a DML operation automatically assesses the health of tables’ data layout and runs the `VACUUM` command when necessary to maintain the underlying table health. You can disable auto-VACUUM for a specific engine using the `ALTER ENGINE` statement:
 
 ```text
 ALTER ENGINE <name> SET AUTO_VACUUM = OFF;

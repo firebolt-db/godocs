@@ -4,6 +4,12 @@ sidebarTitle: Looker On-Prem
 title: Looker On-Prem
 ---
 
+<Callout type="info">
+🧪 **Preview (Beta)** <br />
+Suitable for production read workloads.<br />
+Most PostgreSQL driver features are supported; some PostgreSQL features may not yet be tested and could behave differently or not work in some tools.
+</Callout>
+
 ![Looker On-Prem](/assets/images/looker.png)
 # Connect Looker On‑Prem to Firebolt with mTLS (PostgreSQL Wire)
 
@@ -132,9 +138,9 @@ In Looker: **Admin → Connections → New Connection**
 | Dialect                    | PostgreSQL 9.5+                                                                                                   |
 | Host                       | `pg.<region_name>.app.firebolt.io`                                                                                |
 | Port                       | `5432`                                                                                                            |
-| Database                   | `<account_name>@<database_name>@<engine_name>`                                                                    |
-| Username                   | Firebolt service account **ID**                                                                                   |
-| Password                   | Firebolt service account **secret**                                                                               |
+| Database                   | `<database_name>`                                                                                                 |
+| Username                   | `<account_name>:<engine_name>:<service_account_id>`                                                               |
+| Password                   | `<service_account_secret>`                                                                                        |
 | SSL                        | Enabled                                                                                                           |
 | Verify SSL                 | Disabled                                                                                                          |
 | Additional JDBC parameters | `sslmode=require&sslfactory=org.postgresql.ssl.jdbc4.LibPQFactory&sslcert=/path/to/fb.crt&sslkey=/path/to/fb.pk8` |
@@ -149,11 +155,23 @@ Find your region:
 SELECT region FROM information_schema.accounts WHERE account_name = '<your_account>';
 ```
 
-### Database field format
+### Username field format
 
+The Username field must use the following format:
 ```
-<account_name>@<database_name>@<engine_name>
+<account_name>:<engine_name>:<service_account_id>
 ```
+Where:
+- `<account_name>` is your Firebolt account name
+- `<engine_name>` is your Firebolt engine name
+- `<service_account_id>` is the ID of your Firebolt service account
+
+<Info>
+> **Deprecated** <br />
+> Older connection setups encoded the account and engine in the database field using: <br />
+> `<account_name>@<database_name>@<engine_name>`<br />
+> This format is deprecated and should not be used for new connections. While SQL execution may still work, metadata-driven features may behave incorrectly.
+</Info>
 
 ---
 

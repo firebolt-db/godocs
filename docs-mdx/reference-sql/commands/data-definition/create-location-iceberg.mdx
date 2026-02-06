@@ -312,11 +312,7 @@ SELECT * FROM READ_ICEBERG(LOCATION => 'my_location') LIMIT 5;
 
 ### AWS Glue catalog
 
-Used to access Iceberg tables in AWS Glue Data Catalog. 
-
-Firebolt automatically chooses the appropriate authentication method:
-- **Vended credentials**: If Lake Formation is enabled and returns vended credentials, Firebolt uses those credentials to access your data storage.
-- **Standard credentials**: When vended credentials are unavailable, Firebolt uses your provided credentials to access both the Glue catalog and underlying storage.
+Used to access Iceberg tables in AWS Glue Data Catalog.
 
 **With access key and secret:**
 ```sql
@@ -376,12 +372,13 @@ Your IAM credentials must have the following permissions:
 }
 ```
 
-Your IAM credentials must also have permissions to access the underlying data through **one of the following methods**:
+Your IAM credentials must also have permissions to access the underlying S3 storage. See [Use AWS roles to access S3](/guides/loading-data/configuring-aws-role-to-access-amazon-s3) for details. (Note that this may not be needed if you are using Lake Formation to manage access.)
 
-**Option 1: Lake Formation**
+**(Optional) Lake Formation**
 
-Use Lake Formation to grant data permissions. See the [Amazon documentation](https://docs.aws.amazon.com/lake-formation/latest/dg/granting-catalog-permissions.html) for details.
-You'll also need to grant `getDataAccess` permission to your IAM credentials:
+If you use Lake Formation for access control, you'll need to grant your IAM credentials permissions to Lake Formation, and register the underlying S3 location with Lake Formation:
+
+Your IAM credentials will need the `GetDataAccess` permission - see [AWS Lake Formation: Underlying data access control](https://docs.aws.amazon.com/lake-formation/latest/dg/access-control-underlying-data.html).
 ```
 {
     "Version": "2012-10-17",
@@ -395,6 +392,8 @@ You'll also need to grant `getDataAccess` permission to your IAM credentials:
 }
 ```
 
-**Option 2: Direct Storage Access**
+You'll need to register your underlying S3 storage location with Lake Formation - see [AWS Lake Formation: Adding an Amazon S3 location to your data lake](https://docs.aws.amazon.com/lake-formation/latest/dg/register-data-lake.html).
 
-Ensure your IAM credentials have permissions to access the underlying storage directly. See [Use AWS roles to access S3](/guides/loading-data/configuring-aws-role-to-access-amazon-s3) for details.
+If you want Lake Formation to vend temporary credentials to access your underlying storage, you will need to configure Lake Formation to allow Firebolt's external engine to access data in your S3 - see [AWS Lake Formation: Application integration for full table access](https://docs.aws.amazon.com/lake-formation/latest/dg/full-table-credential-vending.html).
+
+If credential vending is enabled, it is recommended to *not* grant your IAM credentials access to your underlying S3 storage. This helps ensure that any storage access is using the vended credentials only.

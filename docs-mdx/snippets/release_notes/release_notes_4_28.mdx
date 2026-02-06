@@ -39,27 +39,6 @@ ALTER DEFAULT PRIVILEGES GRANT USAGE ON SCHEMAS TO role_name;
 
 Users can view current assigned default privileges by querying `information_schema.object_default_privileges`.
 
-**Enhanced Compression Support**
-
-This release introduces new compression capabilities to optimize storage and query performance:
-
-- Support for chaining multiple compression codecs for optimal results.
-- Supported Codecs
-    - **LZ4**: Fast compression (default).
-    - **LZ4HC**: High-compression variant with configurable levels (1-12).
-    - **ZSTD**: Modern high-compression algorithm with configurable compression levels (1-22).
-    - **Delta**: Preprocessing codec for sequential numeric data, timestamps, and IDs.
-
-Syntax Examples:
-
-```sql
--- Column-level compression with chaining
-CREATE TABLE events (
-    event_id INTEGER NOT NULL COMPRESSION (delta, lz4),
-    data TEXT COMPRESSION (zstd(5))
-);
-```
-
 **Added support for reading non-UTF-8 values in string columns from Parquet**
 
 When reading Parquet string columns, you can now choose to have invalid UTF-8 bytes replaced with the unicode replacement character � (U+FFFD) instead of raising an error. This is available across [`read_parquet`](/reference-sql/functions-reference/table-valued/read_parquet), [COPY FROM](/reference-sql/commands/data-management/copy-from), and [external table definitions](/reference-sql/commands/data-definition/create-external-table). In all cases, set `replace_non_utf_bytes` to `true`, for example:
@@ -138,12 +117,6 @@ It also detects contradictions like `x < 2 and x > 2`, which can achieve signifi
 `NOT IN` expressions are now being evaluated as an anti-join when compared with the `TRUE` constant using an equality predicate.
 
 ### Bug Fixes
-
-**Fix potential incorrect results with order-dependent operations in non-materialized common table expressions**
-
-Operations that depend on the order they are executed in (such as the sum of floating point numbers) should be guaranteed to give the same result when used multiple times in the same query.
-Firebolt now automatically materializes these results to ensure that they are always consistent.
-Previously, different executions of such CTEs could have resulted in different results, all of which were correct in isolation, but violated the expectation that they all be exactly equal.
 
 **Fixed AWS role ARN credentials being ignored in `LOCATION` objects for Iceberg table queries**
 

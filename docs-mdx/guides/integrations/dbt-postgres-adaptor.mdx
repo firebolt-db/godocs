@@ -1,0 +1,382 @@
+---
+description: Learn how to connect dbt to Firebolt using PostgreSQL adapter.
+sidebarTitle: dbt - PostgreSQL adapter (cloud and core)
+title: dbt - PostgreSQL adapter (cloud and core)
+---
+
+<Callout type="info">
+🧪 **Preview (Beta)** <br />
+Suitable for production read workloads.<br />
+Most PostgreSQL driver features are supported; some PostgreSQL features may not yet be tested and could behave differently or not work in some tools.
+</Callout>
+
+![DBT](/assets/images/dbt-logo.png)
+
+[DBT](https://www.getdbt.com), or Data Build Tool, is a framework designed for managing and executing data transformations within modern data warehousing architectures. It facilitates the development and deployment of SQL-based transformations in a version-controlled environment, enabling collaboration and ensuring reproducibility of data pipelines. DBT streamlines the process of transforming raw data into analytics-ready datasets, accelerating the delivery of insights.
+
+
+
+# Connect dbt to Firebolt using the PostgreSQL protocol
+
+This guide explains how to connect **dbt** to **Firebolt** using the **PostgreSQL protocol**.
+
+Firebolt supports two dbt connection paths:
+- **dbt Cloud** using the PostgreSQL adapter
+- **dbt Core** using the PostgreSQL adapter with mutual TLS (mTLS)
+
+> Note
+> Firebolt also provides a native dbt adapter, but it is currently limited to **Firebolt Core only**.
+> This guide focuses on the PostgreSQL protocol, which works for both **Cloud** and **Core**.
+
+---
+
+## Overview
+
+When using dbt with Firebolt over the PostgreSQL protocol:
+
+- Firebolt is exposed as a PostgreSQL-compatible endpoint
+- Authentication is done using **service accounts**
+- Database names use a **triple identifier** format:
+  `<account>@<database>@<engine>`
+
+
+### Prerequisites
+
+Before starting, make sure you have:
+1. **dbt Cloud or dbt Core** – Depending on your choice, have access to either a dbt Cloud account or a local installation of dbt Core.
+2. **Firebolt account** &ndash; You need an active Firebolt account. If you do not have one, you can [sign up](https://go.firebolt.io/signup) for one.
+3. **Firebolt database and table** &ndash; You must have access to a Firebolt database that contains a table with data ready for transformation. If you don't have access, you can [create a database](/guides/getting-started/get-started-sql#create-a-database) and then [load data](/guides/loading-data) into it.
+4. **Firebolt service account** &ndash; You must have access to an active Firebolt [service account](/guides/managing-your-organization/service-accounts), which facilitates programmatic access to Firebolt, its ID and secret.
+5. **Firebolt user** &ndash; You must have a user that is [associated](/guides/managing-your-organization/service-accounts#create-a-user) with your service account. The user should have [USAGE](/overview/security/rbac/database-permissions) permission to query your database, and [OPERATE](/overview/security/rbac/engine-permissions) permission to start and stop an engine if it is not already started.
+
+---
+
+## Connect dbt Cloud to Firebolt
+
+<Callout type="info">
+ℹ️ **Network access requirement** <br />
+dbt Cloud does not support mutual TLS (mTLS). In most cases, connections work without additional setup. <br />
+If you encounter connectivity issues, your dbt Cloud IP address may need to be allowlisted by Firebolt. See [Allowlisting dbt Cloud IP Addresses](#allowlisting-dbt-cloud-ip-addresses).
+</Callout>
+
+### Step 1: Create a PostgreSQL connection
+
+1. Go to **Settings → Connections**
+2. Click **New connection**
+3. Select **PostgreSQL**
+
+- Fill in the required fields:
+    - **Connection name:** Any descriptive name (for example: `Firebolt PostgreSQL`)
+    - **Server hostname:** `pg.<region>.app.firebolt.io`
+        - Replace `<region>` with your Firebolt account region (for example: `us-east-1`)
+    - **Port:** `5432`
+- Expand **Optional settings** and set:
+    - **Database name:** `<account_name>@<database_name>@<engine_name>`
+        - Replace the placeholders with your account's information:
+            - `<account_name>`: Your Firebolt account name
+            - `<database_name>`: Your Firebolt database name
+            - `<engine_name>`: Your Firebolt engine name
+- Click **Save**.
+
+### Step 2: Create a dbt Cloud project
+
+1. Go to **Projects**
+2. Click **+ New project**
+3. Enter a **Project name**
+4. Continue to **Configure your development environment**
+#### Configure development credentials
+
+When setting up the project, dbt Cloud will request **development credentials**.
+Firebolt requires **service account credentials**.
+
+Fill the fields as follows:
+- **Connection:** Select the PostgreSQL connection created earlier
+- **Username:** `<service_account_client_id>`
+- **Password:**` <service_account_client_secret>`
+    - Replace the placeholders with your service account's information:
+        - `<service_account_client_id>`: Client ID of your service account
+        - `<service_account_client_secret>`: Client secret of your service account
+
+Click **Test connection**, then continue with the project setup.
+
+### Allowlisting dbt Cloud IP Addresses
+
+dbt Cloud does not support mutual TLS (mTLS).
+
+If you experience connectivity issues when connecting dbt Cloud to Firebolt, your dbt Cloud IP address may need to be allowlisted by Firebolt.
+
+#### Get your dbt Cloud IP address
+
+dbt Cloud displays the outbound IP addresses directly in the PostgreSQL connection setup screen.
+
+1. While creating or editing the **PostgreSQL** connection in dbt Cloud, scroll to the **Settings** section
+2. Locate the message indicating the IP addresses dbt Cloud will connect from.
+3. Copy **all IP addresses** listed in that message
+
+#### Request allowlisting
+
+Contact Firebolt Support and request to allowlist the ThoughtSpot IP address for your account.
+
+See more about how to contact [Firebolt Support and the severity guidelines](/support/severity-guidelines).
+
+Include the following information in your request:
+
+- Your name and email address
+- Your organization name
+- Name of the tool you want to connect (dbt Cloud in this case)
+- The dbt Cloud IPs addresses to allowlist
+
+After allowlisting is completed, return to dbt Cloud and retry the connection.
+
+---
+
+## Connect dbt Core to Firebolt (mTLS)
+
+dbt Core connects to Firebolt using:
+- PostgreSQL adapter
+- Service account credentials
+- Mutual TLS (mTLS)
+- Full server certificate verification (verify-full)
+
+### Step 1: Generate certificates (client cert + Let’s Encrypt root)
+
+Run the following script to generate all certificates required by dbt Core and Firebolt.
+
+This script:
+- Generates a client private key and certificate
+- Downloads the Let’s Encrypt root CA used by Firebolt servers
+- Derives a public key to attach to the Firebolt service account
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+CLIENT_CN="${CLIENT_CN:-firebolt-dbt}"
+DAYS_VALID="${DAYS_VALID:-730}"
+OUT_DIR="${OUT_DIR:-./out}"
+
+LE_ROOT_URL="https://letsencrypt.org/certs/isrgrootx1.pem.txt"
+
+mkdir -p "$OUT_DIR"
+
+echo "==> Client CN        : $CLIENT_CN"
+echo "==> Validity (days)  : $DAYS_VALID"
+echo "==> Output directory : $OUT_DIR"
+
+# ---- 1) Server root CA (verify Firebolt server cert) ----
+echo "==> Downloading Let's Encrypt root (ISRG Root X1)"
+curl -fsSL "$LE_ROOT_URL" -o "$OUT_DIR/isrgrootx1.pem"
+
+# Sanity check
+openssl x509 -in "$OUT_DIR/isrgrootx1.pem" -noout -subject >/dev/null
+
+# ---- 2) Client private key ----
+echo "==> Generating client private key"
+openssl genrsa -out "$OUT_DIR/fb-client.key" 2048
+
+# ---- 3) CSR ----
+echo "==> Creating CSR"
+openssl req -new \
+  -key "$OUT_DIR/fb-client.key" \
+  -out "$OUT_DIR/fb-client.csr" \
+  -subj "/CN=$CLIENT_CN"
+
+# ---- 4) Self-sign client cert with clientAuth extensions ----
+cat > "$OUT_DIR/client.ext" <<'EOF'
+basicConstraints=CA:FALSE
+keyUsage=digitalSignature,keyEncipherment
+extendedKeyUsage=clientAuth
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid,issuer
+EOF
+
+echo "==> Creating self-signed client certificate (clientAuth)"
+openssl x509 -req \
+  -in "$OUT_DIR/fb-client.csr" \
+  -signkey "$OUT_DIR/fb-client.key" \
+  -out "$OUT_DIR/fb-client.crt" \
+  -days "$DAYS_VALID" \
+  -sha256 \
+  -extfile "$OUT_DIR/client.ext"
+
+rm -f "$OUT_DIR/fb-client.csr" "$OUT_DIR/client.ext"
+
+# ---- 5) Public key for Firebolt service account ----
+echo "==> Deriving public key for Firebolt service account"
+openssl pkey \
+  -in "$OUT_DIR/fb-client.key" \
+  -pubout \
+  -out "$OUT_DIR/fb-public.pem"
+
+echo ""
+echo "✅ Done. Generated files:"
+echo ""
+echo "dbt Core / libpq SSL:"
+echo "  sslrootcert : $OUT_DIR/isrgrootx1.pem"
+echo "  sslcert     : $OUT_DIR/fb-client.crt"
+echo "  sslkey      : $OUT_DIR/fb-client.key"
+echo ""
+echo "Firebolt service account:"
+echo "  Public key  : $OUT_DIR/fb-public.pem"
+```
+
+### Step 2: Configure the Firebolt service account
+Create or update a service account with the generated public key:
+```sql
+ALTER SERVICE ACCOUNT "<service_account_name>"
+SET PUBLIC_KEY = '-----BEGIN PUBLIC KEY-----
+<contents of fb-public.pem>
+-----END PUBLIC KEY-----';
+```
+
+### Step 3: Configure profiles.yml
+Example profiles.yml for dbt Core:
+```yaml
+firebolt_mtls:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: pg.<region>.app.firebolt.io
+      port: 5432
+
+      # Firebolt service account credentials
+      user: <service_account_client_id>
+      password: <service_account_client_secret>
+
+      # Firebolt database triple identifier
+      dbname: <account_name>@<database_name>@<engine_name>
+      schema: public
+      threads: 1
+
+      # --- SSL / mTLS ---
+      sslmode: verify-full
+      sslrootcert: <path>/out/isrgrootx1.pem
+      sslcert: <path>/out/fb-client.crt
+      sslkey: <path>/out/fb-client.key
+```
+Replace the placeholders with your account's information:
+- `<region>`: Your Firebolt region (for example: `us-east-1`)
+- `<service_account_client_id>`: Client ID of your service account
+- `<service_account_client_secret>`: Client secret of your service account
+- `<account_name>`: Your Firebolt account name
+- `<database_name>`: Your Firebolt database name
+- `<engine_name>`: Your Firebolt engine name
+- `<path>`: Path to the directory where the certificates were generated
+---
+
+# Troubleshooting, known limitations and workarounds
+
+This section lists known limitations when using Firebolt with dbt via the PostgreSQL protocol, along with recommended workarounds.
+
+These limitations apply to **both dbt Cloud and dbt Core** when using the PostgreSQL adapter.
+
+---
+
+## Dependent views and model rebuild failures
+
+Firebolt does not allow altering or replacing tables that have dependent views.
+
+In dbt, this can cause failures during:
+
+- `dbt run`
+- `dbt build`
+- `dbt run --full-refresh`
+
+Typical error messages include:
+
+- references to **dependent views**
+- failures to **ALTER TABLE** or **RENAME** objects
+- messages indicating the object does not exist, even though dbt expects it to
+
+### Why this happens
+
+dbt commonly rebuilds models using the following pattern:
+
+1. Create a temporary relation (`__dbt_tmp`)
+2. Rename the existing relation to a backup (`__dbt_backup`)
+3. Rename the temporary relation to the target name
+
+If a **view depends on the target table**, Firebolt blocks the rename operation.
+
+A common workaround is to drop the dependent view before rebuilding the table.
+However, **dropping views using raw SQL (`DROP VIEW`) in hooks is unsafe**.
+
+Why?
+
+- dbt maintains an internal **relation cache**
+- Executing raw SQL does **not update dbt’s cache**
+- dbt may still think the view exists and attempt to rename it
+- This leads to flaky behavior (for example: every second run fails)
+
+### Recommended workaround (safe and stable)
+
+Use an **adapter-aware macro** to drop dependent views.
+This ensures dbt updates its internal cache correctly.
+
+#### 1. Define a helper macro
+
+Create the following macro (for example: `macros/firebolt_drop_view.sql`):
+
+```jinja
+{% macro firebolt_drop_view_if_exists(schema_name, view_name) %}
+  {% if execute %}
+    {% set rel = adapter.get_relation(
+        database=this.database,
+        schema=schema_name,
+        identifier=view_name
+    ) %}
+    {% if rel is not none %}
+      {% do adapter.drop_relation(rel) %}
+    {% endif %}
+  {% endif %}
+{% endmacro %}
+```
+This macro:
+- Checks whether the view exists
+- Drops it using dbt’s adapter API
+- Keeps dbt’s internal state consistent
+
+#### 1. Call the macro from a model pre-hook
+Apply the pre-hook to the model that owns the base table (for example, orders).
+Using model config in SQL:
+```jinja
+{{
+  config(
+    pre_hook=[
+      "{{ firebolt_drop_view_if_exists('public', 'dependent_view_name') }}"
+    ]
+  )
+}}
+```
+Or using YAML configuration:
+```sql
+models:
+  - name: orders
+    pre_hook:
+      - "{{ firebolt_drop_view_if_exists('public', 'dependent_view_name') }}"
+```
+Replace `dependent_view_name` with the actual name of the view that depends on this table.
+
+
+### Note and limitations
+- Do not use raw DROP VIEW statements in hooks
+- Avoid recreating views manually inside hooks, as this can introduce cycles
+- The drop must run on the upstream table model, not on the view itself
+
+---
+
+## Additional resources
+
+For more information about dbt Core and PostgreSQL-based integrations, see the official dbt documentation:
+
+- [dbt documentation home](https://docs.getdbt.com/)
+- [Introduction to dbt](https://docs.getdbt.com/docs/introduction)
+- [Installing dbt Core](https://docs.getdbt.com/docs/core/installation-overview)
+- [Connecting dbt to PostgreSQL](https://docs.getdbt.com/docs/core/connect-data-platform/postgres-setup)
+- [Configuring profiles.yml](https://docs.getdbt.com/docs/core/connect-data-platform/profiles.yml)
+- [Building models in dbt](https://docs.getdbt.com/docs/build/models)
+- [dbt materializations](https://docs.getdbt.com/docs/build/materializations)
+- [Hooks in dbt (pre-hook and post-hook)](https://docs.getdbt.com/reference/resource-configs/pre-hook-post-hook)
+
+These resources cover core dbt concepts, PostgreSQL connections, hooks, and the Semantic Layer, and are useful when running dbt against Firebolt using the PostgreSQL protocol.

@@ -1,24 +1,20 @@
 ---
 description: Understanding compression codecs in Firebolt - what they do and how to choose the right one
-sidebarTitle: Understanding Compression Codecs
+sidebarTitle: Compression Codecs
 title: Understanding Compression Codecs
 ---
 
-This guide explains all the compression codecs available in Firebolt, helping you understand what each one does, when to use them, and how they perform with different types of data.
+This guide explains the compression codecs available in Firebolt, helping you understand what each one does, when to use them, and how they perform with different types of data.
 
 <Note>
-For practical examples, getting started guidance, and compression best practices, see the [Table and Column Compression](/overview/table-and-column-compression) overview.
+For practical examples, getting started guidance, and compression best practices, see the [Table and Column Compression](/overview/indexes/table-and-column-compression) overview.
 </Note>
 
-## General-purpose codecs
+## Supported codecs
 
 ### LZ4
 
-**Syntax:** `lz4` or `lz4()`
-
-**Description:** Fast lossless compression algorithm optimized for speed over compression ratio. Default compression codec in Firebolt.
-
-**Parameters:** None
+**Description:** Fast lossless compression algorithm optimized for speed over compression ratio. This is the default compression codec in Firebolt.
 
 **Performance characteristics:**
 - Compression speed: Very fast
@@ -36,54 +32,15 @@ For practical examples, getting started guidance, and compression best practices
 
 ---
 
-### LZ4HC (LZ4 High Compression)
-
-**Syntax:** `lz4hc(level)` where level is 1-12
-
-**Description:** High-compression variant of LZ4 that trades slower compression for better compression ratios while maintaining fast decompression.
-
-**Parameters:**
-- `level`: Compression level (1-12, default: 9)
-  - Levels 1-6: Faster compression, lower ratio
-  - Levels 7-9: Balanced performance (recommended)
-  - Levels 10-12: Maximum compression, slower writes
-
-**Performance characteristics:**
-- Compression speed: Moderate
-- Decompression speed: Very fast
-- Typical compression ratio: Better than LZ4
-- CPU usage: Low to moderate
-
-**Best for:**
-- Write-heavy workloads where read performance is critical
-- Balanced storage and performance requirements
-- Data with moderate access patterns
-
-**Data type compatibility:** All types
-
-**Examples:**
-```sql
--- Balanced performance
-column_name TYPE COMPRESSION lz4hc(6)
-
--- Maximum LZ4HC compression  
-column_name TYPE COMPRESSION lz4hc(12)
-```
-
----
-
 ### ZSTD (Zstandard)
 
-**Syntax:** `zstd(level)` where level is 1-22
-
-**Description:** Modern compression algorithm providing excellent balance between compression ratio and speed with highly configurable compression levels.
+**Description:** Modern compression algorithm providing excellent balance between compression ratio and speed with configurable compression levels.
 
 **Parameters:**
-- `level`: Compression level (1-22, default: 1)
-  - Levels 1-5: Fast compression, good for online workloads
-  - Levels 6-10: Balanced performance
-  - Levels 11-15: High compression for archival data
-  - Levels 16-22: Maximum compression, very slow
+- `COMPRESSION_LEVEL`: Compression level (1-22, default: 1)
+  - Levels 1-3: Fast compression, good for online workloads
+  - Levels 4-10: Balanced performance
+  - Levels 11-22: High compression, slower writes
 
 **Performance characteristics by level:**
 
@@ -93,10 +50,13 @@ column_name TYPE COMPRESSION lz4hc(12)
 | 3     | Fast             | Better            | General workloads |
 | 7     | Moderate         | Better            | Balanced storage/speed |
 | 15    | Slow             | Excellent         | Archival data |
-| 22    | Very slow        | Excellent         | Maximum compression |
+
+<Note>
+ZSTD compression levels higher than 3 typically reach the point of diminishing returns for most workloads.
+</Note>
 
 **Best for:**
-- General analytics workloads (levels 1-5)
+- General analytics workloads (levels 1-3)
 - Archival data storage (levels 10+)
 - Data with good compressibility (JSON, text, logs)
 
@@ -105,225 +65,19 @@ column_name TYPE COMPRESSION lz4hc(12)
 **Examples:**
 ```sql
 -- Fast ZSTD for hot data
-log_data TEXT COMPRESSION zstd(3)
+CREATE TABLE logs (
+    log_data TEXT
+) WITH (COMPRESSION = zstd, COMPRESSION_LEVEL = 1);
 
--- High compression for cold data
-archived_events TEXT COMPRESSION zstd(15)
+-- Higher compression for less frequently accessed data
+CREATE TABLE archived_events (
+    event_data TEXT
+) WITH (COMPRESSION = zstd, COMPRESSION_LEVEL = 3);
 ```
-
----
-
-### NONE
-
-**Syntax:** `none`
-
-**Description:** Disables compression entirely. Data is stored uncompressed.
-
-**Parameters:** None
-
-**Performance characteristics:**
-- Compression speed: N/A (no compression)
-- Decompression speed: N/A (no decompression)
-- Compression ratio: None (no compression)
-- CPU usage: None
-
-**Best for:**
-- Already compressed data (images, videos, compressed files)
-- Data that compresses poorly
-- Debugging compression issues
-- Maximum query performance at cost of storage
-
-**Data type compatibility:** All types
-
-**Limitations:** Cannot be chained with other codecs
-
----
-
-### DEFAULT
-
-**Syntax:** `default`
-
-**Description:** Uses system default compression, which is equivalent to `lz4`.
-
-**Parameters:** None
-
-**Best for:** 
-- Inheriting table-level compression settings
-- Removing column-specific compression overrides
-
-## Specialized (preprocessing) codecs
-
-### Delta
-
-**Syntax:** `delta`
-
-**Description:** Stores differences between consecutive values instead of absolute values. Highly effective for sequential or slowly-changing numeric data.
-
-**Parameters:** None
-
-**Performance characteristics:**
-- Compression speed: Fast
-- Decompression speed: Fast
-- Compression ratio: Highly variable, excellent for sequential data
-- CPU usage: Very low
-
-**Data type compatibility:** Integers, dates, timestamps (`NOT NULL` only)
-
-**Best for:**
-- Sequential IDs (user_id, order_id, event_id)
-- Monotonic counters
-- Timestamps in time-series data
-- Any slowly changing numeric values
-
-**Must be chained with a general-purpose codec**
-
-**Examples:**
-```sql
--- Sequential user IDs
-user_id INTEGER NOT NULL COMPRESSION (delta, lz4)
-
--- Timestamp optimization
-created_at TIMESTAMPTZ NOT NULL COMPRESSION (delta, zstd(3))
-```
-
----
-
-### DoubleDelta
-
-**Syntax:** `doubledelta`
-
-**Description:** Stores differences of differences, optimized for monotonic sequences with relatively constant intervals (like regular time series).
-
-**Parameters:** None
-
-**Performance characteristics:**
-- Compression speed: Fast
-- Decompression speed: Fast  
-- Compression ratio: Excellent for regular time series
-- CPU usage: Low
-
-**Data type compatibility:** Integers, dates, timestamps (NOT NULL only)
-
-**Best for:**
-- Regular time-series timestamps (every minute, hour, day)
-- Monotonic sequences with consistent intervals
-- Event timestamps in ordered data
-
-**Must be chained with a general-purpose codec**
-
-**Examples:**
-```sql  
--- Regular time series timestamps
-timestamp TIMESTAMPTZ NOT NULL COMPRESSION (doubledelta, lz4)
-
--- Sequential event IDs with consistent gaps
-event_sequence INTEGER NOT NULL COMPRESSION (doubledelta, lz4hc(6))
-```
-
----
-
-### Gorilla
-
-**Syntax:** `gorilla`
-
-**Description:** Optimized for floating-point values that change slowly over time. Uses XOR-based encoding to efficiently store small changes between consecutive values.
-
-**Parameters:** None
-
-**Performance characteristics:**
-- Compression speed: Moderate
-- Decompression speed: Fast
-- Compression ratio: Excellent for time-series floats
-- CPU usage: Low to moderate
-
-**Data type compatibility:** FLOAT, DOUBLE, dates, timestamps
-
-**Best for:**
-- Sensor readings that change gradually
-- Financial time series (prices, rates) 
-- IoT device metrics
-- Any slowly-changing floating-point data
-
-**Must be chained with a general-purpose codec**
-
-**Examples:**
-```sql
--- Temperature sensor readings
-temperature FLOAT NOT NULL COMPRESSION (gorilla, lz4)
-
--- Stock prices  
-price DOUBLE NOT NULL COMPRESSION (gorilla, zstd(3))
-
--- Time series with timestamps
-timestamp TIMESTAMPTZ NOT NULL COMPRESSION (gorilla, lz4hc(6))
-```
-
-## Chaining strategies
-
-### Two-stage chains (Recommended)
-
-Most effective combinations for common use cases:
-
-```sql
--- Sequential data with fast access
-id INTEGER NOT NULL COMPRESSION (delta, lz4)
-
--- Time series with balanced compression
-sensor_value FLOAT NOT NULL COMPRESSION (gorilla, zstd(3))
-
--- Regular timestamps  
-recorded_at TIMESTAMPTZ NOT NULL COMPRESSION (doubledelta, lz4hc(6))
-```
-
-### Three-stage chains (Advanced)
-
-For maximum compression on specific data patterns:
-
-```sql
--- Complex time series optimization
-timestamp TIMESTAMPTZ NOT NULL COMPRESSION (doubledelta, gorilla, zstd(7))
-
--- Highly sequential float data
-sequence_value DOUBLE NOT NULL COMPRESSION (delta, gorilla, lz4hc(9))
-```
-
-**Note:** Three-stage chains increase CPU overhead. Test performance before production use.
-
-## Backward compatibility
-
-### Legacy syntax support
-
-For backward compatibility, the older compression syntax remains supported for `lz4` and `zstd` codecs only:
-
-```sql
--- Legacy syntax (supported for lz4 and zstd only)  
-CREATE TABLE old_style (
-    id INTEGER COMPRESSION zstd COMPRESSION_LEVEL 5,
-    name TEXT COMPRESSION lz4
-);
-
--- New syntax (recommended for all features)
-CREATE TABLE new_style (
-    id INTEGER COMPRESSION (zstd(5)),
-    name TEXT COMPRESSION (lz4)
-);
-```
-
-**Legacy syntax limitations:**
-- Only `lz4` and `zstd` codecs supported
-- No specialized codecs (`delta`, `gorilla`, `doubledelta`)
-- No compression chaining capabilities
-- No access to advanced parameters
-
-**New syntax benefits:**
-- Support for all compression codecs
-- Compression chaining capabilities
-- Access to specialized codecs
-- Consistent parameter syntax
-- Future feature compatibility
 
 ---
 
 ## See also
 
-- [Table and Column Compression](/overview/table-and-column-compression) - Practical guide with examples, best practices, and getting started information
+- [Table and Column Compression](/overview/indexes/table-and-column-compression) - Practical guide with examples, best practices, and getting started information
+

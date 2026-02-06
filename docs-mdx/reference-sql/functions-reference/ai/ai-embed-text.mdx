@@ -1,0 +1,69 @@
+---
+description: Generate a text embedding with an Amazon Bedrock model and return a numeric vector.
+sidebarTitle: AI_EMBED_TEXT
+title: AI_EMBED_TEXT
+---
+
+Generates a vector embedding for the provided input text using an embedding model and returns it as an `ARRAY(DOUBLE)`. Provide the model identifier, the plain-text input in `INPUT_TEXT`, and a `LOCATION` that holds AWS Bedrock credentials. Optionally specify the embedding `DIMENSION` and whether to return `NULL` on errors.
+
+For setup guidance and end-to-end examples, see [Getting started with AI](/guides/ai/getting-started-with-ai).
+
+<Note>
+Initially, this function uses Amazon Bedrock as its backend. The `LOCATION` must reference a Bedrock `LOCATION`. For now, the only supported model is Amazon Titan Embeddings v2 for text: the `MODEL` must be `'amazon.titan-embed-text-v2:0'`.
+</Note>
+
+## Syntax
+
+```sql
+AI_EMBED_TEXT(
+  MODEL => <model_name>,
+  INPUT_TEXT => <input_text>,
+  [ DIMENSION => <dimension> ],
+  LOCATION => <location>,
+  [ NULL_ON_ERROR => <bool> ]
+)
+```
+
+## Parameters
+
+| Parameter          | Description                                                                                                                                                                                                                                   | Supported input types |
+|:-------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------|
+| `MODEL`            | The embedding model to invoke. For now, must be `'amazon.titan-embed-text-v2:0'`. The value is forwarded to Bedrock without further validation.                                                                                               | `TEXT` |
+| `INPUT_TEXT`       | The plain-text content to embed.                                                                                                                                                                                                              | `TEXT` |
+| `DIMENSION`        | Optional. The dimension of the generated embedding. For `'amazon.titan-embed-text-v2:0'`, must be one of `1024`, `512`, or `256`. Defaults to the model’s default dimension if omitted.                                         | `INTEGER` |
+| `LOCATION`         | The name of the `LOCATION` to use for AWS credentials. Must be a literal constant. See [CREATE LOCATION (Amazon Bedrock)](/reference-sql/commands/data-definition/create-location-bedrock).                                                | `TEXT` |
+| `NULL_ON_ERROR`    | Optional. Whether to return `NULL` instead of raising an error when a Bedrock invocation error occurs. Default `FALSE`. Must be a literal constant.                                                                                          | `BOOL` |
+
+## Return type
+
+`ARRAY(DOUBLE)`
+
+- Returns the model’s generated embedding vector.
+- If `INPUT_TEXT` is `NULL`, the function returns `NULL`.
+
+## LLM token budget
+
+Queries executed with `AI_EMBED_TEXT` count towards your account’s daily LLM token budget. If your account exceeds its allotted token budget, invocations of `AI_EMBED_TEXT` will fail until the budget is increased or the daily limit resets. For details on setting and monitoring your token budget, see [Set your LLM token budget](/guides/ai/getting-started-with-ai#set-your-llm-token-budget) and [Check your LLM token quota usage](/guides/ai/getting-started-with-ai#check-your-llm-token-quota-usage).
+
+<Note>
+LLM token budget accounting is not available in Firebolt Core.
+</Note>
+
+## Example
+
+```sql
+SELECT AI_EMBED_TEXT(
+    MODEL => 'amazon.titan-embed-text-v2:0',
+    INPUT_TEXT => 'lightning fast analytics',
+    DIMENSION => 256,
+    LOCATION => 'my_bedrock_location'
+);
+```
+
+**Returns (example):**
+
+```text
+[0.12341234, 0.754376, 0.98763459, …]
+```
+
+
