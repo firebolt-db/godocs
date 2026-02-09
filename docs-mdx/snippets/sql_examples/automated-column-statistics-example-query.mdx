@@ -1,0 +1,62 @@
+<CodeGroup>
+```sql Example query
+SELECT
+    d.dept_name,
+    e.gender,
+    COUNT(*) as employee_count,
+    AVG(e.salary) as avg_salary
+FROM employees e
+JOIN departments d ON e.dept_id = d.dept_id
+WHERE d.location = 'New York'
+  AND e.title = 'Senior Developer'
+GROUP BY d.dept_name, e.gender
+ORDER BY employee_count DESC;
+```
+
+```plain EXPLAIN plan with statistics {9,13,17,20,24,27}
+explain TEXT
+[0] [Projection] departments.dept_name, employees.gender, employee_count: count_0, avg_salary: avg2_0
+|   [Types]: employee_count: bigint not null, avg_salary: double precision null
+|   [Logical Profile]: [est. #rows=5, source: estimated]
+ \_[1] [Sort] OrderBy: [count_0 Descending First, departments.dept_name Ascending Last, employees.gender Ascending Last]
+   |   [Logical Profile]: [est. #rows=5, source: estimated]
+    \_[2] [Aggregate] GroupBy: [employees.gender, departments.dept_name] Aggregates: [count_0: count(*), avg2_0: avg2(employees.salary)]
+      |   [Types]: count_0: bigint not null, avg2_0: double precision null
+      |   [Logical Profile]: [est. #rows=5, column profiles={[employees.gender: #distinct=2], [departments.dept_name: #distinct=3]}, source: estimated]
+       \_[3] [Projection] employees.gender, employees.salary, departments.dept_name
+         |   [Logical Profile]: [est. #rows=5, column profiles={[employees.gender: #distinct=2], [departments.dept_name: #distinct=3]}, source: estimated]
+          \_[4] [Join] Mode: Inner [(employees.dept_id = departments.dept_id)]
+            |   [Logical Profile]: [est. #rows=5, column profiles={[employees.gender: #distinct=2], [employees.dept_id: #distinct=3], [departments.dept_id: #distinct=3], [departments.dept_name: #distinct=3]}, source: estimated]
+             \_[5] [Projection] employees.gender, employees.salary, employees.dept_id
+             | |   [Logical Profile]: [est. #rows=6, column profiles={[employees.gender: #distinct=2], [employees.dept_id: #distinct=4]}, source: estimated]
+             |  \_[6] [Filter] (employees.title = 'Senior Developer')
+             |    |   [Logical Profile]: [est. #rows=6, column profiles={[employees.gender: #distinct=2], [employees.title: #distinct=1], [employees.dept_id: #distinct=4]}, source: estimated]
+             |     \_[7] [StoredTable] Name: "employees"
+             |           [Types]: employees.gender: text null, employees.title: text null, employees.salary: real null, employees.dept_id: integer null
+             |           [Logical Profile]: [est. #rows=141, column profiles={[employees.gender: #distinct=2], [employees.title: #distinct=27], [employees.dept_id: #distinct=8]}, source: automated column statistics]
+             \_[8] [Projection] departments.dept_id, departments.dept_name
+               |   [Logical Profile]: [est. #rows=3, column profiles={[departments.dept_id: #distinct=3], [departments.dept_name: #distinct=3]}, source: estimated]
+                \_[9] [Filter] (departments.location = 'New York')
+                  |   [Logical Profile]: [est. #rows=3, column profiles={[departments.dept_id: #distinct=3], [departments.dept_name: #distinct=3], [departments.location: #distinct=1]}, source: estimated]
+                   \_[10] [StoredTable] Name: "departments"
+                         [Types]: departments.dept_id: integer null, departments.dept_name: text null, departments.location: text null
+                         [Logical Profile]: [est. #rows=8, column profiles={[departments.dept_id: #distinct=8], [departments.dept_name: #distinct=6], [departments.location: #distinct=3]}, source: automated column statistics]
+```
+</CodeGroup>
+
+We can observe that the logical profiles contain distinct counts for `departments.dept_name`, `departments.location`, `employees.gender`, `employees.title`, and `employees.dept_id`.
+These statistics help with further estimation.
+Here are some key observations:
+
+- The filter `[6] [Filter] (employees.title = 'Senior Developer')` is estimated to produce 6 rows because ACS provides an appropriate distinct count of 27 for `employees.title`.
+  This estimation can be far off if data is skewed, but it often improves significantly over default estimations.
+- The filter `[9] [Filter] (departments.location = 'New York')` is estimated to produce only 3 rows because ACS provides an appropriate distinct count of 3 for `departments.location`.
+  This estimation can be far off if data is skewed, but it often improves significantly over default estimations.
+- The join `[4] [Join] Mode: Inner [(employees.dept_id = departments.dept_id)]` is estimated to produce 5 rows.
+  The query planner is able to infer from the distinct count statistics on `departments.dept_id` that this column is unique (and *likely* a primary key).
+  Consequently, the join cannot produce more rows than are coming from the foreign key side.
+  Because some rows from `departments` have been filtered out, the planner cannot guarantee that every row from the foreign key side will find a join partner and be produced.
+  It performs a conservative estimation that one row will not be produced and the other 5 rows will be produced.
+- The aggregation `[2] [Aggregate] GroupBy: [employees.gender, departments.dept_name] Aggregates: [count_0: count(*), avg2_0: avg2(employees.salary)]` is estimated to produce 5 groups.
+  While ACS suggests 2 distinct genders and 3 distinct department names, the product `2 * 3 = 6` is bounded by the expected row count of 5.
+  Hence, the planner predicts 5 groups.

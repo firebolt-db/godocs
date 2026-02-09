@@ -1,0 +1,53 @@
+---
+description: Hash value into a bucket according to Iceberg partition transforms
+sidebarTitle: ICEBERG_BUCKET
+title: ICEBERG_BUCKET
+---
+
+Hashes a value using MurmurHash3 and assigns it to a bucket number, according to the [Iceberg partition transforms specification](https://iceberg.apache.org/spec/#partition-transforms).
+
+## Syntax
+
+```sql
+ICEBERG_BUCKET(<value>, <num_buckets>)
+```
+
+## Parameters
+
+| Parameter | Description | Supported input types |
+|:----------|:------------|:----------------------|
+| `<value>` | The value to hash into a bucket. | `INTEGER`, `BIGINT`, `TEXT`, `BYTEA`, `DATE`, `TIMESTAMP`, `TIMESTAMPTZ` |
+| `<num_buckets>` | The number of buckets. Must be a positive constant. | `BIGINT` |
+
+## Return type
+
+`INTEGER`
+
+Returns a bucket number from 0 to `num_buckets - 1`.
+
+## Remarks
+
+The `ICEBERG_BUCKET` function can be used in the `PARTITION BY` clause of [`CREATE ICEBERG TABLE`](/reference-sql/commands/data-definition/create-iceberg-table-as-select) commands.
+
+```sql
+CREATE ICEBERG TABLE events
+  PARTITION BY (iceberg_bucket(user_id, 16))
+  AS SELECT * FROM source_events
+WITH LOCATION = my_iceberg_location;
+```
+
+The bucket number is calculated by applying MurmurHash3 to the value, then taking the modulo with the number of buckets. The hash calculation follows the [Iceberg 32-bit hash requirements](https://iceberg.apache.org/spec/#appendix-b-32-bit-hash-requirements).
+
+The `<num_buckets>` parameter must be a positive constant value. Using zero, negative values, or non-constant expressions results in an error.
+
+## Example
+
+```sql
+SELECT iceberg_bucket(34, 1024) AS bucket_partition;
+```
+
+**Returns:**
+
+| bucket_partition |
+|:-----------------|
+| 339 |

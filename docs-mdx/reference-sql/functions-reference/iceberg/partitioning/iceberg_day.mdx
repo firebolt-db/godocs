@@ -1,0 +1,48 @@
+---
+description: Extract day as days from 1970-01-01 according to Iceberg partition transforms
+sidebarTitle: ICEBERG_DAY
+title: ICEBERG_DAY
+---
+
+Extracts the day from a date or timestamp value and returns it as the number of days since 1970-01-01, according to the [Iceberg partition transforms specification](https://iceberg.apache.org/spec/#partition-transforms).
+
+## Syntax
+
+```sql
+ICEBERG_DAY(<value>)
+```
+
+## Parameters
+
+| Parameter | Description | Supported input types |
+|:----------|:------------|:----------------------|
+| `<value>` | The date or timestamp value to extract the day from. | `DATE`, `TIMESTAMP`, `TIMESTAMPTZ` |
+
+## Return type
+
+`INTEGER`
+
+Returns the number of days since 1970-01-01. For dates before 1970-01-01, returns a negative value.
+
+## Remarks
+
+The `ICEBERG_DAY` function can be used in the `PARTITION BY` clause of [`CREATE ICEBERG TABLE`](/reference-sql/commands/data-definition/create-iceberg-table-as-select) commands.
+
+```sql
+CREATE ICEBERG TABLE events
+  PARTITION BY (iceberg_day(event_date))
+  AS SELECT * FROM source_events
+WITH LOCATION = my_iceberg_location;
+```
+
+## Example
+
+```sql
+SELECT iceberg_day('2025-12-15'::DATE) AS day_partition;
+```
+
+**Returns:**
+
+| day_partition |
+|:--------------|
+| 20437 |

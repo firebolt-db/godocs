@@ -29,18 +29,20 @@ To perform actions on a table, roles must also have **USAGE** permissions on bot
 To grant permissions across all tables in a schema, use [schema-level privileges](/overview/security/rbac/database-permissions/schema-permissions). For example, privileges like **SELECT ANY**, **INSERT ANY**, or **DELETE ANY** at the schema level will apply to all current and future tables within that schema.
 </Note>
 
-## Aggregating Indexes
+## Indexes
 
-An [aggregating index](/overview/indexes/aggregating-index) in Firebolt accelerates queries involving aggregate functions on large tables. This reduces compute usage and improves query performance.
+In Firebolt, indexes can be used to accelerate query performance.
+An [aggregating index](/overview/indexes/aggregating-index) accelerates queries involving aggregate functions on large tables. 
+A [vector search index] allows to quickly find vectors that are similar (i.e., in close distance) to a query vector.
 
-To **create** or **drop** an aggregating index, a role must have the following permissions:
+To **create** or **drop** an index, a role must have the following permissions:
 
 * `MODIFY` permission on the table.
 * `CREATE` permission on the parent schema.
 * `USAGE` permission on the parent schema.
 * `USAGE` permission on the parent database.
 
-To drop an aggregating index, the role requires:
+To drop an index, the role requires:
 
 * `MODIFY` permission on the table.
 * `USAGE` permission on the parent schema.

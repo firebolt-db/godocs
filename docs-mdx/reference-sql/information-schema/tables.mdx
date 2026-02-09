@@ -37,6 +37,8 @@ Each row has the following columns with information about each table.
 | uncompressed_bytes          | BIGINT      | The uncompressed size of the table in bytes. |
 | compression_ratio           | NUMERIC     | The compression ratio (`<uncompressed_bytes>`/`<compressed_bytes>`). |
 | number_of_tablets           | INTEGER     | The number of tablets that comprise the table. |
+| number_of_shredded_columns  | INTEGER     | The number of internal columns after STRUCT and ARRAY types are decomposed for storage. |
+| number_of_column_streams    | INTEGER     | The number of storage streams required to store the table's column data, including streams for nullability and array sizes. |
 | fragmentation               | DECIMAL     | The table fragmentation percentage (between 0-100). |
 | type                        | TEXT        | The table's type. |
 | location_name               | TEXT        | The name of the location object used in the table definition, if any. |

@@ -21,6 +21,7 @@ To address these requirements, Firebolt supports concepts of organizations and a
         - [System administrative role](#system-administrative-role)
         - [Account administrative role](#account-administrative-role)
         - [Organizational administrative role](#organizational-administrative-role)
+  - [System databases](#system-databases)
   - [Additional resources](#additional-resources)
     - [Billing](#billing)
     - [Security](#security)
@@ -119,21 +120,6 @@ The role grants the user permission to access resources inside the account that 
 
 Firebolt has the following built-in roles with associated permissions for objects including databases, engines, users, network policies, and accounts:
 
-- [Organizations and accounts](#organizations-and-accounts)
-  - [Organizations](#organizations)
-  - [Accounts](#accounts)
-    - [Users](#users)
-    - [Roles](#roles)
-      - [Firebolt built-in roles](#firebolt-built-in-roles)
-        - [Public role](#public-role)
-        - [System administrative role](#system-administrative-role)
-        - [Account administrative role](#account-administrative-role)
-        - [Organizational administrative role](#organizational-administrative-role)
-  - [Additional resources](#additional-resources)
-    - [Billing](#billing)
-    - [Security](#security)
-    - [Available regions](#available-regions)
-
 ##### Public role
 
 A public role is associated with a user that can:
@@ -198,6 +184,63 @@ An organizational administrative role has the **highest** access privileges of a
 - **Global authentication method:** Firebolt handles user authentication and access control at the organization level. A login (represented by an email) is created for each user accessing Firebolt.
 - **Programmatic access:** [Service accounts](/guides/managing-your-organization/service-accounts) enable programmatic access to Firebolt.
 - **Network policy enforcement:** [Network policies](/guides/security/network-policies) provide fine-grain control of IP ranges that are allowed or blocked from accessing an organization.
+
+## System databases
+
+Firebolt assigns two built-in system databases: `account_db` and `org_db`. These databases are automatically created for every account and organization respectively and are designed to provide a clear, hierarchical model for accessing system-level metadata. Both are strictly read-only, containing only system views. Their primary purpose is to help maintain the system model by relating metadata to the correct organizational level (Account or Organization).
+
+### Syntax example
+
+To retrieve all roles defined at the account level:
+
+```sql
+SELECT * FROM account_db.information_schema.enabled_roles;
+```
+
+To see a list of all accounts within your organization:
+
+```sql
+SELECT * FROM org_db.information_schema.accounts;
+```
+
+### The account database (account_db)
+
+The `account_db` is scoped specifically to the current account. It contains system metadata relevant only to the administrative and operational scope of that individual account.
+
+<Note>
+If the request does not specify a database and no default database is configured for the connecting engine, `account_db` will be used as the default fallback database.
+</Note>
+
+The views within `account_db.information_schema` expose details about resources and configurations that are managed at the account level, such as:
+
+* **Catalogs** – All databases within the account
+* **Users** – User accounts and permissions
+* **Transactions** – Transaction history and details
+* **Engine metrics views** – Engine performance data (for example, `engine_history`)
+* **Storage metric views** – Storage usage and history (for example, `storage_history`)
+
+### The organization database (org_db)
+
+The `org_db` is scoped to the entire organization that the current account belongs to. It contains higher-level, cross-account metadata relevant to the overall corporate entity.
+
+The views within `org_db.information_schema` expose details about entities that exist at the organization level, such as:
+
+* **Accounts** – All accounts within the organization
+* **Invoices** – Billing and invoice information
+* **Logins** – Login activity across the organization
+* **Billing** – Organization-wide billing details
+
+## Information schema visibility hierarchy
+
+It is important to note that the `information_schema` views follow a hierarchical visibility model.
+
+The `information_schema` in a regular user database provides a unified view of system metadata, consolidating information from its own scope and the upper system levels:
+
+* **Database level** – Metadata specific to the current database (for example, only its tables, functions)
+* **Account level** – Metadata from the `account_db` (for example, all databases in the account)
+* **Organization level** – Metadata from the `org_db` (for example, all accounts in the organization)
+
+This hierarchy means that a user querying their database's `information_schema` will see an aggregate list of system objects relevant to all three levels, ensuring comprehensive system awareness without needing to switch contexts.
 
 ## Additional resources
 

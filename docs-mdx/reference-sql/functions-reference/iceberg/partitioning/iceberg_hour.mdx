@@ -1,0 +1,48 @@
+---
+description: Extract hour as hours from 1970-01-01 00:00:00 according to Iceberg partition transforms
+sidebarTitle: ICEBERG_HOUR
+title: ICEBERG_HOUR
+---
+
+Extracts the hour from a date or timestamp value and returns it as the number of hours since 1970-01-01 00:00:00 UTC, according to the [Iceberg partition transforms specification](https://iceberg.apache.org/spec/#partition-transforms).
+
+## Syntax
+
+```sql
+ICEBERG_HOUR(<value>)
+```
+
+## Parameters
+
+| Parameter | Description | Supported input types |
+|:----------|:------------|:----------------------|
+| `<value>` | The date or timestamp value to extract the hour from. | `DATE`, `TIMESTAMP`, `TIMESTAMPTZ` |
+
+## Return type
+
+`INTEGER`
+
+Returns the number of hours since 1970-01-01 00:00:00 UTC. For timestamps before this epoch, returns a negative value.
+
+## Remarks
+
+The `ICEBERG_HOUR` function can be used in the `PARTITION BY` clause of [`CREATE ICEBERG TABLE`](/reference-sql/commands/data-definition/create-iceberg-table-as-select) commands.
+
+```sql
+CREATE ICEBERG TABLE events
+  PARTITION BY (iceberg_hour(event_timestamp))
+  AS SELECT * FROM source_events
+WITH LOCATION = my_iceberg_location;
+```
+
+## Example
+
+```sql
+SELECT iceberg_hour('2025-12-15 14:30:00'::TIMESTAMP) AS hour_partition;
+```
+
+**Returns:**
+
+| hour_partition |
+|:---------------|
+| 490502 |

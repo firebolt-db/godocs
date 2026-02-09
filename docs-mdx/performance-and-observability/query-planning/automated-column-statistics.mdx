@@ -1,11 +1,10 @@
 ---
-description: Learn how to use automated column statistics to improve query planning performance by leveraging existing aggregating indexes.
-sidebarTitle: Automated column statistics
+description: Learn how to use automated column statistics to improve query performance.
+sidebarTitle: Overview
 title: Automated Column Statistics (ACS)
 ---
 
-*Automated column statistics* (ACS) is a feature that enables Firebolt's query planner to leverage existing aggregating indexes to obtain statistical information about columns, leading to better query planning and improved performance.
-This feature provides a selection of statistics automatically from aggregating indexes, without requiring manual computation.
+*Automated column statistics* (ACS) is a feature that enables Firebolt's query planner to leverage aggregating indexes to obtain statistical information about columns, leading to better query plans and improved performance.
 For example, it provides distinct count statistics (also known as *ndistinct* or *number of distinct values* (NDV) statistics).
 
 ## Overview
@@ -18,22 +17,24 @@ With automated column statistics enabled, the query planner can automatically ex
 
 Statistics are refreshed under transactional consistency, so they are consistent with the underlying data at all times.
 
-## Configuration
+## Usage
 
-Automated column statistics is controlled by the boolean query-level setting `enable_automated_column_statistics`.
-
-**Default value:** `false` (opt-in feature)
-
-```sql
--- Enable automated column statistics for the current session
-SET enable_automated_column_statistics = true;
-```
+There are two ways of using automated column statistics:
+1. By requesting statistics when creating a table (which manages aggregating indexes automatically).
+When creating a table, you can request Firebolt to automatically collect statistics for the columns you specify:
+`CREATE TABLE employees (name TEXT, dept_id INT STATISTICS)`.
+You can read more about this in [Create tables with statistics](/performance-and-observability/query-planning/automated-column-statistics/table-with-statistics).
+2. By configuring Firebolt to read already existing aggregating indexes.
+This has the advantage that you get the benefits of ACS without Firebolt having to manage additional aggregating indexes.
+However, the information that the planner can use depends on what it can extract from the aggregating indexes.
+This is controlled by the boolean query-level setting `automated_column_statistics_read_user_created_indexes` to `true`.
+You can read more about this in [Use existing aggregating indexes](/performance-and-observability/query-planning/automated-column-statistics/user-created-indexes).
 
 ## How it works
 
 ### Statistical Information Extraction
 
-When `enable_automated_column_statistics` is enabled, the query planner:
+When automated column statistics are enabled, the query planner:
 
 1. **Identifies relevant aggregating indexes** - Scans for aggregating indexes on tables referenced in the query that provide statistical information
 1. **Extracts statistics** - Reads the precomputed statistics from the aggregating indexes into the in-memory cache
@@ -46,151 +47,6 @@ When `enable_automated_column_statistics` is enabled, the query planner:
 - **Initial read**: Reading statistics from aggregating indexes typically takes tens of milliseconds
 - **Cached access**: Subsequent queries access cached statistics within microseconds
 - **Automatic refresh**: Cache is invalidated and refreshed after DML operations on the *origin* table (the table that the aggregating index is defined on)
-
-## Example Usage
-
-Consider two tables with columns that are frequently used for grouping, filtering, or joining:
-
-```sql
-CREATE TABLE employees
-(
-    name TEXT,
-    date_of_birth DATE,
-    gender TEXT,
-    title TEXT,
-    salary REAL,
-    dept_id INT
-);
-
-CREATE TABLE departments
-(
-    dept_id INT,
-    dept_name TEXT,
-    location TEXT,
-    budget REAL,
-    manager_id INT
-);
-```
-
-### Creating an Aggregating Index for Statistics
-
-To enable automated column statistics collection for relevant columns, create an aggregating index:
-
-```sql
-CREATE AGGREGATING INDEX employees_statistics
-ON employees
-(
-    APPROX_COUNT_DISTINCT(gender),      -- for filtering by gender
-    APPROX_COUNT_DISTINCT(title),       -- for filtering by title
-    APPROX_COUNT_DISTINCT(dept_id)      -- for joining on department id
-);
-
-CREATE AGGREGATING INDEX departments_statistics
-ON departments
-(
-    APPROX_COUNT_DISTINCT(dept_id),     -- for joining on department id
-    APPROX_COUNT_DISTINCT(dept_name),   -- for grouping by department name
-    APPROX_COUNT_DISTINCT(location)     -- for filtering by location
-);
-```
-
-### Using Automated Column Statistics
-
-Let's run a query with the aggregating index in place and the feature enabled.
-
-<CodeGroup>
-```sql Example query
--- Enable the feature
-SET enable_automated_column_statistics = true;
-
--- Example query
-SELECT
-    d.dept_name,
-    e.gender,
-    COUNT(*) as employee_count,
-    AVG(e.salary) as avg_salary
-FROM employees e
-JOIN departments d ON e.dept_id = d.dept_id
-WHERE d.location = 'New York'
-  AND e.title = 'Senior Developer'
-GROUP BY d.dept_name, e.gender
-ORDER BY employee_count DESC;
-```
-
-```plain EXPLAIN plan with statistics {9,13,17,20,24,27}
-explain TEXT
-[0] [Projection] departments.dept_name, employees.gender, employee_count: count_0, avg_salary: avg2_0
-|   [Types]: employee_count: bigint not null, avg_salary: double precision null
-|   [Logical Profile]: [est. #rows=5, source: estimated]
- \_[1] [Sort] OrderBy: [count_0 Descending First, departments.dept_name Ascending Last, employees.gender Ascending Last]
-   |   [Logical Profile]: [est. #rows=5, source: estimated]
-    \_[2] [Aggregate] GroupBy: [employees.gender, departments.dept_name] Aggregates: [count_0: count(*), avg2_0: avg2(employees.salary)]
-      |   [Types]: count_0: bigint not null, avg2_0: double precision null
-      |   [Logical Profile]: [est. #rows=5, column profiles={[employees.gender: #distinct=2], [departments.dept_name: #distinct=3]}, source: estimated]
-       \_[3] [Projection] employees.gender, employees.salary, departments.dept_name
-         |   [Logical Profile]: [est. #rows=5, column profiles={[employees.gender: #distinct=2], [departments.dept_name: #distinct=3]}, source: estimated]
-          \_[4] [Join] Mode: Inner [(employees.dept_id = departments.dept_id)]
-            |   [Logical Profile]: [est. #rows=5, column profiles={[employees.gender: #distinct=2], [employees.dept_id: #distinct=3], [departments.dept_id: #distinct=3], [departments.dept_name: #distinct=3]}, source: estimated]
-             \_[5] [Projection] employees.gender, employees.salary, employees.dept_id
-             | |   [Logical Profile]: [est. #rows=6, column profiles={[employees.gender: #distinct=2], [employees.dept_id: #distinct=4]}, source: estimated]
-             |  \_[6] [Filter] (employees.title = 'Senior Developer')
-             |    |   [Logical Profile]: [est. #rows=6, column profiles={[employees.gender: #distinct=2], [employees.title: #distinct=1], [employees.dept_id: #distinct=4]}, source: estimated]
-             |     \_[7] [StoredTable] Name: "employees"
-             |           [Types]: employees.gender: text null, employees.title: text null, employees.salary: real null, employees.dept_id: integer null
-             |           [Logical Profile]: [est. #rows=141, column profiles={[employees.gender: #distinct=2], [employees.title: #distinct=27], [employees.dept_id: #distinct=8]}, source: automated column statistics]
-             \_[8] [Projection] departments.dept_id, departments.dept_name
-               |   [Logical Profile]: [est. #rows=3, column profiles={[departments.dept_id: #distinct=3], [departments.dept_name: #distinct=3]}, source: estimated]
-                \_[9] [Filter] (departments.location = 'New York')
-                  |   [Logical Profile]: [est. #rows=3, column profiles={[departments.dept_id: #distinct=3], [departments.dept_name: #distinct=3], [departments.location: #distinct=1]}, source: estimated]
-                   \_[10] [StoredTable] Name: "departments"
-                         [Types]: departments.dept_id: integer null, departments.dept_name: text null, departments.location: text null
-                         [Logical Profile]: [est. #rows=8, column profiles={[departments.dept_id: #distinct=8], [departments.dept_name: #distinct=6], [departments.location: #distinct=3]}, source: automated column statistics]
-```
-</CodeGroup>
-
-We can observe that the logical profiles contain distinct counts for `departments.dept_name`, `departments.location`, `employees.gender`, `employees.title`, and `employees.dept_id`.
-These statistics help with further estimation.
-Here are some key observations:
-
-- The filter `[6] [Filter] (employees.title = 'Senior Developer')` is estimated to produce 6 rows because ACS provides an appropriate distinct count of 27 for `employees.title`.
-  This estimation can be far off if data is skewed, but it often improves significantly over default estimations.
-- The filter `[9] [Filter] (departments.location = 'New York')` is estimated to produce only 3 rows because ACS provides an appropriate distinct count of 3 for `departments.location`.
-  This estimation can be far off if data is skewed, but it often improves significantly over default estimations.
-- The join `[4] [Join] Mode: Inner [(employees.dept_id = departments.dept_id)]` is estimated to produce 5 rows.
-  The query planner is able to infer from the distinct count statistics on `departments.dept_id` that this column is unique (and *likely* a primary key).
-  Consequently, the join cannot produce more rows than are coming from the foreign key side.
-  Because some rows from `departments` have been filtered out, the planner cannot guarantee that every row from the foreign key side will find a join partner and be produced.
-  It performs a conservative estimation that one row will not be produced and the other 5 rows will be produced.
-- The aggregation `[2] [Aggregate] GroupBy: [employees.gender, departments.dept_name] Aggregates: [count_0: count(*), avg2_0: avg2(employees.salary)]` is estimated to produce 5 groups.
-  While ACS suggests 2 distinct genders and 3 distinct department names, the product `2 * 3 = 6` is bounded by the expected row count of 5.
-  Hence, the planner predicts 5 groups.
-
-## Current Limitations
-
-Currently, automated column statistics supports only **distinct count statistics** (`APPROX_COUNT_DISTINCT`).
-
-We plan to extend ACS by:
-
-- **Minimum and maximum value statistics** for better range estimation
-- **Additional aggregate statistics** from aggregating indexes
-
-The current implementation, which we consider the first milestone of the ACS feature, requires from the user **manual index creation**, meaning that users must manually create aggregating indexes with appropriate `APPROX_COUNT_DISTINCT()` functions.
-
-In the second milestone of ACS, we will enable users to define through DDL for which columns ACS should be provided.
-This allows for a more declarative style of leveraging ACS and unburdens users from manual index creation, design, and management.
-The syntax will be roughly
-
-```sql
-CREATE TABLE employees
-(
-    name TEXT,
-    date_of_birth DATE,
-    gender TEXT STATISTICS,
-    title TEXT STATISTICS,
-    salary REAL,
-    dept_id INT STATISTICS
-);
-```
 
 ## Best Practices
 
@@ -206,7 +62,8 @@ CREATE TABLE employees
 
 ### Query Optimization
 
-1. **Enable selectively** - Use `enable_automated_column_statistics = true` for queries that can benefit from better cardinality estimation
+1. **Enable selectively** - Use `automated_column_statistics_read_user_created_indexes = true` for queries that can benefit from better cardinality estimation,
+or create selected tables with statistics.
 
 2. **Monitor performance** - Compare query plans and execution times with and without the feature enabled
 
@@ -219,7 +76,7 @@ CREATE TABLE employees
 Use `EXPLAIN` with the `statistics` option to see how automated column statistics affect query planning:
 
 ```sql
-SET enable_automated_column_statistics = true;
+SET automated_column_statistics_read_user_created_indexes = true; -- when using the manual approach
 
 EXPLAIN (logical, statistics)
 SELECT gender, COUNT(*)

@@ -47,7 +47,8 @@
                   "overview/indexes",
                   "overview/indexes/aggregating-index",
                   "overview/indexes/primary-index",
-                  "overview/indexes/table-and-column-compression"
+                  "overview/indexes/table-and-column-compression",
+                  "overview/indexes/vector-search-index"
                 ]
               },
               "overview/data-management",
@@ -108,7 +109,14 @@
                   "performance-and-observability/query-planning",
                   "performance-and-observability/query-planning/inspecting-query-plans",
                   "performance-and-observability/query-planning/cardinality-estimation",
-                  "performance-and-observability/query-planning/automated-column-statistics",
+                  {
+                    "group": "Automated Column Statistics",
+                    "pages": [
+                      "performance-and-observability/query-planning/automated-column-statistics",
+                      "performance-and-observability/query-planning/automated-column-statistics/table-with-statistics",
+                      "performance-and-observability/query-planning/automated-column-statistics/user-created-indexes"
+                    ]
+                  },
                   "performance-and-observability/query-planning/unique-constraint",
                   {
                     "group": "Query Hints",
@@ -301,6 +309,7 @@
                 "group": "Information schema",
                 "pages": [
                   "reference-sql/information-schema",
+                  "reference-sql/information-schema/account_info",
                   "reference-sql/information-schema/accounts",
                   "reference-sql/information-schema/applicable-roles",
                   "reference-sql/information-schema/catalogs",
@@ -382,6 +391,7 @@
                       "reference-sql/commands/data-definition/comment-on",
                       "reference-sql/commands/data-definition/create-account",
                       "reference-sql/commands/data-definition/create-aggregating-index",
+                      "reference-sql/commands/data-definition/create-vector-search-index",
                       "reference-sql/commands/data-definition/create-database",
                       "reference-sql/commands/data-definition/create-external-table",
                       "reference-sql/commands/data-definition/create-fact-dimension-table-as-select",
@@ -602,6 +612,24 @@
                     ]
                   },
                   {
+                    "group": "Iceberg functions",
+                    "pages": [
+                      "reference-sql/functions-reference/iceberg",
+                      "reference-sql/functions-reference/iceberg/read_iceberg",
+                      {
+                        "group": "Partition transform functions",
+                        "pages": [
+                          "reference-sql/functions-reference/iceberg/partitioning/iceberg_year",
+                          "reference-sql/functions-reference/iceberg/partitioning/iceberg_month",
+                          "reference-sql/functions-reference/iceberg/partitioning/iceberg_day",
+                          "reference-sql/functions-reference/iceberg/partitioning/iceberg_hour",
+                          "reference-sql/functions-reference/iceberg/partitioning/iceberg_bucket",
+                          "reference-sql/functions-reference/iceberg/partitioning/iceberg_truncate"
+                        ]
+                      }
+                    ]
+                  },
+                  {
                     "group": "JSON functions",
                     "pages": [
                       "reference-sql/functions-reference/json",
@@ -736,6 +764,7 @@
                       "reference-sql/functions-reference/vector/vector-euclidean-distance",
                       "reference-sql/functions-reference/vector/vector-inner-product",
                       "reference-sql/functions-reference/vector/vector-manhattan-distance",
+                      "reference-sql/functions-reference/vector/vector-search",
                       "reference-sql/functions-reference/vector/vector-squared-euclidean-distance",
                       "reference-sql/functions-reference/vector/vector-subtract"
                     ]
@@ -1344,6 +1373,11 @@
       "permanent": false
     },
     {
+      "source": "/sql_reference/commands/data-definition/create-vector-search-index.html",
+      "destination": "/reference-sql/commands/data-definition/create-vector-search-index",
+      "permanent": false
+    },
+    {
       "source": "/Overview/Security/Role-Based Access Control/account-permissions.html",
       "destination": "/overview/security/rbac/account-permissions",
       "permanent": false
@@ -1691,6 +1725,11 @@
     {
       "source": "/sql_reference/commands/data-definition/create-aggregating-index",
       "destination": "/reference-sql/commands/data-definition/create-aggregating-index",
+      "permanent": false
+    },
+    {
+      "source": "/sql_reference/commands/data-definition/create-vector-search-index",
+      "destination": "/reference-sql/commands/data-definition/create-vector-search-index",
       "permanent": false
     },
     {
@@ -4379,6 +4418,11 @@
       "permanent": false
     },
     {
+      "source": "/sql_reference/information-schema/account_info.html",
+      "destination": "/reference-sql/information-schema/account_info",
+      "permanent": false
+    },
+    {
       "source": "/sql_reference/information-schema/accounts.html",
       "destination": "/reference-sql/information-schema/accounts",
       "permanent": false
@@ -5039,6 +5083,11 @@
       "permanent": false
     },
     {
+      "source": "/sql_reference/information-schema/account_info",
+      "destination": "/reference-sql/information-schema/account_info",
+      "permanent": false
+    },
+    {
       "source": "/sql_reference/information-schema/accounts",
       "destination": "/reference-sql/information-schema/accounts",
       "permanent": false
@@ -5226,6 +5275,11 @@
     {
       "source": "/Overview/indexes/aggregating-index.html",
       "destination": "/overview/indexes/aggregating-index",
+      "permanent": false
+    },
+    {
+      "source": "/Overview/indexes/vector-search-index.html",
+      "destination": "/overview/indexes/vector-search-index",
       "permanent": false
     },
     {

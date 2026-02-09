@@ -1,0 +1,211 @@
+---
+description: Vector search index overview
+sidebarTitle: Vector search index
+title: Vector search index 
+---
+
+## Overview
+
+Vector search indexes in Firebolt provide low‑latency similarity search over high‑dimensional embeddings using the [HNSW](https://en.wikipedia.org/wiki/Hierarchical_navigable_small_world) algorithm. They are optimized for ANN (approximate nearest neighbor) retrieval and power semantic search, recommendations, and AI‑driven analytics directly in SQL.
+
+<Note>
+  Vector search indexes return **approximate nearest neighbors**. Result quality depends on index parameters, data distribution, and query settings.
+</Note>
+
+### Key capabilities
+- Sub‑second top‑K vector search at scale
+- Full ACID consistency with base table data
+- In‑memory or disk‑backed serving modes
+- Tunable precision/performance via index and query parameters
+
+### When to use
+- Use vector search indexes when you need fast, scalable top‑k similarity search in SQL without operating a separate vector database.
+- Choose them when approximate results are acceptable in exchange for lower latency and cost.
+
+## Syntax
+
+### Create a vector search index
+
+You can create multiple vector search indexes per table and column. Each index must have a unique name. Indexes can reference the same column with identical or different configurations.
+
+```sql
+CREATE INDEX <index_name> ON <table_name> USING HNSW (
+  <column_name> <distance_metric>
+) WITH (
+  dimension = <dimension>
+  -- Optional parameters for index optimization
+  [, m = 16]
+  [, ef_construction = 128]
+  [, quantization = 'bf16']
+)
+```
+
+For more information on creating vector search indexes, see [CREATE VECTOR INDEX](/reference-sql/commands/data-definition/create-vector-search-index).
+### Use a vector search index
+
+Use the `vector_search()` table‑valued function (TVF) and reference the index by name.
+
+```sql
+SELECT *
+FROM vector_search (
+  INDEX <index_name>,
+  target_vector => <target_vector>,
+  top_k => <top_k>
+  [, ef_search => 64] 
+  [, load_strategy => 'in_memory']
+);
+```
+
+See the [vector_search](/reference-sql/functions-reference/vector/vector-search) reference for full parameter details.
+
+### Drop a vector search index
+
+Dropping a vector search index via `DROP INDEX <index_name>` is a pure metadata operation and will not free up memory on storage level.
+In order to free up space on the storage level, `VACUUM` on the table after the index has been dropped.
+
+### Rename a vector search index
+
+To rename a vector search index, use `ALTER INDEX ... RENAME TO`:
+
+```sql
+ALTER INDEX <current_index_name> RENAME TO <new_index_name>;
+```
+
+## How it works
+
+Each table is partitioned into tablets. For every vector search index, Firebolt maintains one vector index file per tablet, built using the [USearch](https://github.com/unum-cloud/USearch) library. During a query:
+
+1. The engine searches each tablet’s vector index for up to `top_k` closest row numbers to `<target_vector>`.
+2. Results across tablets are merged and ordered by distance to produce the overall top‑K.
+3. Only the identified base‑table rows are read using semi‑join reduction, avoiding a full table scan.
+
+## Performance and observability
+
+Optimizing vector search performance requires tuning both the index and the table layout. For guidance on choosing index and search parameters, see [CREATE VECTOR INDEX](/reference-sql/commands/data-definition/create-vector-search-index) and [`vector_search()`](/reference-sql/functions-reference/vector/vector-search).
+
+### Engine sizing
+
+For best latency, ensure the entire vector index fits into memory. Once loaded, index files are cached to serve subsequent queries from RAM.
+
+Use [`information_schema.indexes`](/reference-sql/information-schema/indexes) to inspect index sizes and plan engine memory:
+
+The in‑memory vector index cache size is controlled by `VECTOR_INDEX_CACHE_MEMORY_FRACTION`:
+
+```sql
+ALTER ENGINE <engine_name>
+SET VECTOR_INDEX_CACHE_MEMORY_FRACTION = 0.6;
+```
+
+Choose an engine with enough memory to fit the index within the allocated cache fraction. Example: 250 GiB index with `VECTOR_INDEX_CACHE_MEMORY_FRACTION = 0.6` requires ≥ 417 GiB available memory. See [engine sizing](/guides/operate-engines/sizing-engines).
+
+```sql
+SELECT
+  index_name,
+  index_type,
+  uncompressed_bytes, -- the total size of the vector index
+  index_definition
+FROM
+  information_schema.indexes
+WHERE
+  index_name = <index_name>;
+```
+
+After sizing, validate serving behavior using telemetry in [`information_schema.engine_query_history`](/reference-sql/information-schema/engine-query-history) or `EXPLAIN (ANALYZE)`. Confirm that the index is served from memory:
+
+```sql
+EXPLAIN(ANALYZE) SELECT * from vector_search(...)
+```
+
+```
+  The execution metrics of the index scan contains the relevant telemetry, e.g.,
+  [TableFuncScan] read_top_k_closest_vectors [...]
+  |   $0 = read_top_k_closest_vectors( [...] )
+  |   [Types]: [...]
+  |   [Execution Metrics]: [...], index files downloaded from cloud storage: 0/3, index files loaded from disk: 1/3
+```
+
+Non‑zero "loaded from disk" indicates disk I/O and higher latency. Warm up engines by running a small `vector_search(...)` and optionally caching base‑table data using a `CHECKSUM` scan on relevant columns.
+
+### Table index granularity
+
+The table's [index_granularity](/overview/indexes/primary-index#advanced-option%3A-index-granularity) defines the maximum number of rows per granule, which directly impacts how data is retrieved.
+The default granularity is 8,192 rows per granule. It is likely that the top K closest vectors are not stored in the same granule despite being semantically close to each other.
+Therefore, decreasing the index_granularity can improve vector search performance but might cause regressions for other analytical workload on the same table.
+
+## Index creation on populated tables
+
+Vector search indexes can be created on both empty and populated tables as a pure metadata operation. All data inserted after index creation is automatically indexed as part of the transaction.
+
+When you create an index on a populated table, existing data is not automatically indexed. However, that data is still considered when using the `vector_search()` TVF. During query execution, a hybrid search is performed across both indexed and non‑indexed tablets.
+This increases latency because non‑indexed data must be fully scanned.
+
+To backfill existing data after creating an index on a populated table, run [`VACUUM (REINDEX = TRUE)`](#vacuum-and-reindex).
+
+## Examples
+
+Consider a table storing document embeddings generated by a language model:
+
+```sql
+CREATE TABLE documents (
+  id INT,
+  title TEXT,
+  content TEXT,
+  embedding ARRAY(FLOAT NOT NULL) NOT NULL
+);
+```
+
+Create a vector search index on the embedding column that enables fast cosine distance search across the 256-dimensional embeddings:
+
+```sql
+CREATE INDEX doc_embeddings_idx ON documents USING HNSW (
+  embedding vector_cosine_ops
+) WITH (
+  dimension = 256, -- the dimension of the embedding
+  m = 16,
+  ef_construction = 128,
+  quantization = 'bf16'
+);
+```
+
+Next, ensure the vector index is fully populated for all tablets.
+
+```sql
+-- If you have already inserted data into the documents table before running the CREATE INDEX query, trigger reindexing. Otherwise, skip this step.
+VACUUM (REINDEX = TRUE) documents
+```
+
+Vector search indexes appear in [`information_schema.indexes`](/reference-sql/information-schema/indexes) together with other types of indexes (e.g., aggregating indexes).
+
+```sql
+SELECT
+  index_name,
+  index_type,
+  uncompressed_bytes, -- the total size of the vector index
+  index_definition
+FROM
+  information_schema.indexes
+WHERE
+  table_name = 'documents';
+```
+
+The index can now be used to perform semantic search to find documents similar to a query. This example finds the 10 most similar documents to a query embedding:
+
+```sql
+-- Find the top 10 documents semantically similar to the target vector obtained from AWS bedrock using the amazon.titan-embed-text-v2:0 model for the input 'low latency analytics'
+SELECT
+  *
+  FROM
+  vector_search (
+    INDEX doc_embeddings_idx,
+    target_vector => (
+      SELECT
+        AI_EMBED_TEXT (
+          MODEL => 'amazon.titan-embed-text-v2:0',
+          INPUT_TEXT => 'low latency analytics',
+          LOCATION => 'bedrock_location_object',
+          DIMENSION => 256
+        )
+    ),
+    top_k => 10
+  );
+```
