@@ -29,8 +29,8 @@ When using Omni with Firebolt over the PostgreSQL protocol:
 
 - Firebolt is exposed as a PostgreSQL-compatible endpoint
 - Authentication is done using **Firebolt service accounts**
-- Database names use a **triple identifier** format:
-  `<account>@<database>@<engine>`
+- Account and engine are provided via the username field
+    - Username use a **triple identifier** format: `<account>:<engine>:<service_account_id>`
 
 ## Prerequisites
 
@@ -83,15 +83,14 @@ Fill in the connection form with the following values.
 - **Host**: `pg.<region>.app.firebolt.io`
     - Replace `<region>` with your Firebolt account region (for example: `us-east-1`)
 - **Port**: `5432`
-- **Database**: `<account_name>@<database_name>@<engine_name>`
-    - Where
-        - `<account_name>` is your Firebolt account name
-        - `<database_name>` is the target Firebolt database name
-        - `<engine_name>` is the target Firebolt engine name
+- **Database**: `<database_name>`
 
 #### Authentication
 
-- **Username**: Firebolt service account ID
+- **Username**: `<account_name>:<engine_name>:<service_account_id>`
+    - Replace `<account_name>` with your Firebolt account name
+    - Replace `<engine_name>` with the name of the Firebolt engine to use
+    - Replace `<service_account_id>` with your Firebolt service account ID
 - **Password**: Firebolt service account secret
 
 #### Schema configuration

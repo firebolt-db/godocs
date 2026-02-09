@@ -29,8 +29,8 @@ Key characteristics of this integration:
 - Lightdash uses the PostgreSQL protocol
 - Authentication is done using Firebolt service accounts
 - Connections use mutual TLS (mTLS)
-- Database names use a triple identifier format
-  `<account>@<database>@<engine>`
+- Account and engine are provided via the username field
+    - Username use a **triple identifier** format: `<account>:<engine>:<service_account_id>`
 - Lightdash relies on dbt to compile models and generate SQL
 
 **Note**
@@ -188,15 +188,15 @@ Fill in the connection details as follows.
 **Host:** `pg.<region>.app.firebolt.io`
 - Replace `<region>` with your Firebolt region (for example: `us-east-1`)
 
-**User:** `<service_account_client_id>`
+**User:** `<account_name>:<engine_name>:<service_account_client_id>`
+- Where:
+    - `<account_name>` is your Firebolt account name
+    - `<engine_name>` is your Firebolt engine name
+    - `<service_account_client_id>` is the client ID of your Firebolt service account
 
 **Password:** `<service_account_client_secret>`
 
-**DB name:** `<account_name>@<database_name>@<engine_name>`
-- Where:
-    - `<account_name>` is your Firebolt account name
-    - `<database_name>` is your Firebolt database name
-    - `<engine_name>` is your Firebolt engine name
+**DB name:** `<database_name>`
 
 ### Step 3: Advanced connection options (mTLS)
 
