@@ -424,6 +424,8 @@
   "/guides/integrations/debezium/",
   "/guides/integrations/estuary",
   "/guides/integrations/estuary/",
+  "/guides/integrations/hex",
+  "/guides/integrations/hex/",
   "/guides/integrations/kafka-sink-connector",
   "/guides/integrations/kafka-sink-connector/",
   "/guides/integrations/langchain",
