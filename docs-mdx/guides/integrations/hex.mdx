@@ -241,6 +241,52 @@ Hex translates these questions into SQL, executes them on Firebolt, and evaluate
 
 ---
 
+## Known limitations and workarounds
+
+Hex provides a rich UI for building calculated fields, measures, and formulas on top of connected data sources.
+However, not all Hex-generated calculation formulas are currently supported by Firebolt’s PostgreSQL-compatible SQL dialect.
+
+Because Hex dynamically generates SQL for these calculations, some functions may fail at query execution time even though the connection itself is working correctly.
+
+### Calculation functions that may not work
+
+Based on current testing, the following categories of Hex calculation formulas are **not fully supported**:
+
+#### Date & time calculations
+- `Diff*` functions (for example: DiffHours, DiffMinutes, DiffSeconds)
+- `Second()` and `Millisecond()` extraction
+- Some `Trunc*` functions on older Firebolt versions (for example, Firebolt 4.29)
+  - These work correctly on newer versions (for example, 4.31)
+
+#### String functions
+- `Left()`
+- `Right()`
+- `StartsWith()`
+- `EndsWith()` (may be generated using `RIGHT()` internally)
+
+> ⚠️ This list is not guaranteed to be exhaustive.
+> Hex may generate additional SQL expressions depending on the UI feature used.
+
+### Recommended workaround
+
+If a calculation or formula does not work in Hex UI:
+
+👉 **Write plain SQL instead of using the Hex formula builder**
+
+Hex allows you to:
+- Write raw SQL queries
+- Build charts and dashboards on top of SQL results
+- Use Firebolt-supported SQL functions directly
+
+This approach avoids unsupported generated SQL and provides full control over query logic.
+
+### Ongoing improvements
+
+Firebolt continues to expand PostgreSQL SQL compatibility.
+Additional functions may become supported over time, reducing the need for manual SQL workarounds.
+
+---
+
 ## Additional resources
 
 For more details on using **Hex** and configuring PostgreSQL connections, refer to the official Hex documentation:
