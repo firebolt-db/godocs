@@ -34,14 +34,6 @@ For more information, see the [vector search index overview](/overview/indexes/v
 
 Introduced the `AI_EMBED_TEXT` function to generate text embeddings using Amazon Bedrock. This feature enhances text processing capabilities by enabling efficient embedding generation directly within the data warehouse.
 
-{/* Jira ticket: FIR-50890 */}
-**Automated Column Statistics**
-
-You can opt into collecting column statistics.
-This can potentially help the query optimizer make better decisions.
-You can enable this by using [`alter table ... add statistics`](/performance-and-observability/query-planning/automated-column-statistics/table-with-statistics)
-or by enabling the planner to [read from user-created aggregating indexes](/performance-and-observability/query-planning/automated-column-statistics/user-created-indexes).
-
 {/* Jira ticket: FIR-47944 */}
 **Revamped history-based statistics lifecycle is now in public preview**
 
@@ -77,17 +69,6 @@ Introduced partial support for Iceberg schema evolution, allowing the reordering
 ### Behavior Changes
 
 ### Performance Improvements
-{/* Jira ticket: FIR-49857 */}
-{/* Jira ticket: FIR-50921 */}
-**Type-based NDV Heuristics**
-
-The query optimizer now assumes the number of distinct values (NDV) for columns based on their data types.
-Users can disable this feature by setting `enable_type_based_ndv_heuristic` to `false`.
-Similarly, it also infers the number of distinct values for result columns of datetime functions such as `DATE_TRUNC`, `EXTRACT`, `TO_YYYYMM`, and `TO_YYYYMMDD`.
-Users can disable this feature by setting `enable_date_time_func_ndv_heuristic` to `false`.
-This can potentially help the query optimizer make better decisions. 
-Read more about [datetime function NDV heuristics](/reference/system-settings#enable-datetime-function-ndv-heuristic) and [type based NDV heuristic](/reference/system-settings#enable-type-based-ndv-heuristic)
-
 {/* Jira ticket: FIR-45958 */}
 **Added `max_table_partitions_on_insert` to limit total table partitions for table health.**
 Added the `max_table_partitions_on_insert` flag to [limit the total number of partitions in a table](/reference/system-settings#partition-limits). Excessive partitioning can degrade Firebolt table health and query performance. If an ingestion query would cause the total partition count to exceed this value, the query will fail. The default limit is 10000 partitions for accounts created after Dec 1 2025.
