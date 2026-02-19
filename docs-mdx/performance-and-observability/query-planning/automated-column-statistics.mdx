@@ -27,7 +27,7 @@ You can read more about this in [Create tables with statistics](/performance-and
 2. By configuring Firebolt to read already existing aggregating indexes.
 This has the advantage that you get the benefits of ACS without Firebolt having to manage additional aggregating indexes.
 However, the information that the planner can use depends on what it can extract from the aggregating indexes.
-This is controlled by the boolean query-level setting `automated_column_statistics_read_user_created_indexes` to `true`.
+This is controlled by the boolean query-level setting `infer_statistics_from_indexes` to `true`.
 You can read more about this in [Use existing aggregating indexes](/performance-and-observability/query-planning/automated-column-statistics/user-created-indexes).
 
 ## How it works
@@ -62,7 +62,7 @@ When automated column statistics are enabled, the query planner:
 
 ### Query Optimization
 
-1. **Enable selectively** - Use `automated_column_statistics_read_user_created_indexes = true` for queries that can benefit from better cardinality estimation,
+1. **Enable selectively** - Use `infer_statistics_from_indexes = true` for queries that can benefit from better cardinality estimation,
 or create selected tables with statistics.
 
 2. **Monitor performance** - Compare query plans and execution times with and without the feature enabled
@@ -76,7 +76,7 @@ or create selected tables with statistics.
 Use `EXPLAIN` with the `statistics` option to see how automated column statistics affect query planning:
 
 ```sql
-SET automated_column_statistics_read_user_created_indexes = true; -- when using the manual approach
+SET infer_statistics_from_indexes = true; -- when using the manual approach
 
 EXPLAIN (logical, statistics)
 SELECT gender, COUNT(*)

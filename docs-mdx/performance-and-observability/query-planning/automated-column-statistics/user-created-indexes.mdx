@@ -11,11 +11,11 @@ On this page, we explain how to create tables that automatically collect statist
 
 ## Syntax
 
-To enable inferring column statistics from existing aggregating indexes, use the query-level setting `automated_column_statistics_read_user_created_indexes`.
+To enable inferring column statistics from existing aggregating indexes, use the query-level setting `infer_statistics_from_indexes`.
 The default value is `false`, so this is an opt-in feature.
 
 ```sql
-SET automated_column_statistics_read_user_created_indexes = true;
+SET infer_statistics_from_indexes = true;
 SELECT ...;
 ```
 
@@ -70,7 +70,7 @@ ON departments
 );
 ```
 
-Finally, before running a query, enable the feature by calling `SET automated_column_statistics_read_user_created_indexes = true;`.
+Finally, before running a query, enable the feature by calling `SET infer_statistics_from_indexes = true;`.
 Then you can see the following effect on the query plan:
 
 import SqlExamplesAutomatedColumnStatisticsExampleQuery from '/snippets/sql_examples/automated-column-statistics-example-query.mdx';
