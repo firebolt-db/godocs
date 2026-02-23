@@ -36,8 +36,8 @@ When using dbt with Firebolt over the PostgreSQL protocol:
 
 - Firebolt is exposed as a PostgreSQL-compatible endpoint
 - Authentication is done using **service accounts**
-- Database names use a **triple identifier** format:
-  `<account>@<database>@<engine>`
+- Account and engine are provided via the username field
+    - Username use a **triple identifier** format: `<account>:<engine>:<service_account_id>`
 
 
 ### Prerequisites
@@ -59,6 +59,37 @@ dbt Cloud does not support mutual TLS (mTLS). In most cases, connections work wi
 If you encounter connectivity issues, your dbt Cloud IP address may need to be allowlisted by Firebolt. See [Allowlisting dbt Cloud IP Addresses](#allowlisting-dbt-cloud-ip-addresses).
 </Callout>
 
+<Callout type="warning">
+⚠️ <strong>dbt Cloud limitation (important)</strong><br /><br />
+
+dbt Cloud enforces a PostgreSQL-style limit on the <strong>username length</strong>.
+
+When using the new Firebolt PostgreSQL connection model, the full username value: `<account_name>:<engine_name>:<service_account_id>` must be <strong>63 characters or fewer</strong>.
+
+If this limit is exceeded:
+<ul>
+  <li>The connection test may succeed</li>
+  <li>But the connection <strong>cannot be saved</strong> in dbt Cloud</li>
+  <li>dbt Cloud displays a generic <em>“Something went wrong”</em> error</li>
+</ul>
+
+<strong>Service account ID requirement</strong><br />
+Firebolt service accounts with a <strong>57-character</strong> client ID cannot be used with dbt Cloud.
+
+To connect dbt Cloud to Firebolt, you must use a service account with a <strong>shorter client ID</strong> (26 characters).
+
+If the service account you are using has a 57-character client ID,
+<strong>[create a new service account](/reference-sql/commands/access-control/create-service-account)</strong> with a shorter ID and use it for the connection.
+
+<strong>Engine name length</strong><br />
+If the combined username exceeds 63 characters due to a long engine name,
+rename the engine to a shorter name for use with dbt Cloud.
+
+<strong>Note</strong><br />
+This limitation is specific to <strong>dbt Cloud</strong> and PostgreSQL compatibility.
+It does <strong>not</strong> apply to <strong>dbt Core</strong>.
+</Callout>
+
 ### Step 1: Create a PostgreSQL connection
 
 1. Go to **Settings → Connections**
@@ -71,11 +102,9 @@ If you encounter connectivity issues, your dbt Cloud IP address may need to be a
         - Replace `<region>` with your Firebolt account region (for example: `us-east-1`)
     - **Port:** `5432`
 - Expand **Optional settings** and set:
-    - **Database name:** `<account_name>@<database_name>@<engine_name>`
+    - **Database name:** `<database_name>`
         - Replace the placeholders with your account's information:
-            - `<account_name>`: Your Firebolt account name
-            - `<database_name>`: Your Firebolt database name
-            - `<engine_name>`: Your Firebolt engine name
+
 - Click **Save**.
 
 ### Step 2: Create a dbt Cloud project
@@ -91,9 +120,11 @@ Firebolt requires **service account credentials**.
 
 Fill the fields as follows:
 - **Connection:** Select the PostgreSQL connection created earlier
-- **Username:** `<service_account_client_id>`
+- **Username:** `<account_name>:<engine_name>:<service_account_client_id>`
 - **Password:**` <service_account_client_secret>`
     - Replace the placeholders with your service account's information:
+        - `<account_name>`: Your Firebolt account name
+        - `<engine_name>`: Your Firebolt engine name
         - `<service_account_client_id>`: Client ID of your service account
         - `<service_account_client_secret>`: Client secret of your service account
 
@@ -240,12 +271,11 @@ firebolt_mtls:
       host: pg.<region>.app.firebolt.io
       port: 5432
 
-      # Firebolt service account credentials
-      user: <service_account_client_id>
+      # Firebolt service account credentials (triple identifier)
+      user:  <account_name>:<engine_name>:<service_account_client_id>
       password: <service_account_client_secret>
 
-      # Firebolt database triple identifier
-      dbname: <account_name>@<database_name>@<engine_name>
+      dbname: <database_name>
       schema: public
       threads: 1
 
