@@ -1,0 +1,173 @@
+---
+description: Learn how to use parametrized queries across Firebolt SDKs and drivers to safely execute queries with dynamic values.
+sidebarTitle: Parametrized queries
+title: Parametrized queries
+---
+
+Parametrized queries allow you to write SQL statements with `$1`, `$2`, … placeholders instead of hard-coded values. The actual values are supplied separately at execution time and substituted on the server side. This approach provides two key benefits:
+
+- **SQL injection protection** &ndash; Parameter values are validated and escaped by Firebolt before being applied to the query, preventing malicious input from altering query logic.
+- **Code clarity** &ndash; Queries remain readable and reusable regardless of the values being substituted.
+
+---
+
+## .NET SDK
+
+**Repository:** [firebolt-db/firebolt-net-sdk](https://github.com/firebolt-db/firebolt-net-sdk)
+
+Add `preparedStatementParamStyle=FbNumeric` to your connection string to enable server-side parametrized queries, then use `$1`, `$2`, … as placeholders.
+
+```plaintext
+account=my_account;clientid=...;clientsecret=...;database=my_db;preparedStatementParamStyle=FbNumeric
+```
+
+```csharp
+var command = (FireboltCommand)conn.CreateCommand();
+command.CommandText = "SELECT * FROM my_table WHERE id = $1 AND name = $2";
+command.Parameters.AddWithValue("$1", 123);
+command.Parameters.AddWithValue("$2", "Alice");
+command.Prepare();
+
+using var reader = command.ExecuteReader();
+```
+
+**Supported types:** `bool`, `byte`, `short`, `int`, `long`, `float`, `double`, `decimal`, `string`, `Guid`, `DateTime`, `DateOnly`, `DateTimeOffset`, `TimeOnly`, `byte[]`, and `IList` (arrays).
+
+For more details, see the [.NET SDK README](https://github.com/firebolt-db/firebolt-net-sdk/blob/main/README.md#server-side-prepared-statement-execution).
+
+---
+
+## Go SDK
+
+**Repository:** [firebolt-db/firebolt-go-sdk](https://github.com/firebolt-db/firebolt-go-sdk)
+
+Pass a context with the `FbNumeric` style enabled when preparing or executing statements. Use `$1`, `$2`, … as placeholders.
+
+```go
+import (
+    "context"
+    "database/sql"
+    _ "github.com/firebolt-db/firebolt-go-sdk"
+    fireboltContext "github.com/firebolt-db/firebolt-go-sdk/context"
+)
+
+db, _ := sql.Open("firebolt", dsn)
+
+serverSideCtx := fireboltContext.WithPreparedStatementsStyle(
+    context.Background(),
+    fireboltContext.PreparedStatementsStyleFbNumeric,
+)
+
+// With an explicit prepared statement
+stmt, _ := db.PrepareContext(serverSideCtx, "INSERT INTO my_table VALUES ($1, $2)")
+stmt.Exec(1, "value")
+
+// Or directly without preparing first
+db.ExecContext(serverSideCtx, "INSERT INTO my_table VALUES ($1, $2)", 2, "another value")
+```
+
+For more details, see the [Go SDK README](https://github.com/firebolt-db/firebolt-go-sdk/blob/main/README.md#prepared-statements).
+
+---
+
+## JDBC driver
+
+**Repository:** [firebolt-db/jdbc](https://github.com/firebolt-db/jdbc)  
+**Documentation:** [Connecting with JDBC](/guides/developing-with-firebolt/connecting-with-jdbc)
+
+Add `preparedStatementParamStyle=FbNumeric` to your JDBC connection properties to enable server-side parametrized queries, then use `$1`, `$2`, … as placeholders.
+
+```java
+import java.sql.*;
+
+Properties props = new Properties();
+props.setProperty("preparedStatementParamStyle", "FbNumeric");
+Connection conn = DriverManager.getConnection(jdbcUrl, props);
+
+PreparedStatement stmt = conn.prepareStatement(
+    "SELECT * FROM my_table WHERE id = $1 AND name = $2"
+);
+stmt.setInt(1, 123);
+stmt.setString(2, "Alice");
+
+ResultSet rs = stmt.executeQuery();
+```
+
+**Batch execution** is also supported using `addBatch()` and `executeBatch()`.
+
+**Supported types:** `boolean`, `byte`, `short`, `int`, `long`, `float`, `double`, `BigDecimal`, `String`, `Date`, `Timestamp`, `byte[]`, and `Array`.
+
+For more details, see the [JDBC driver documentation](/guides/developing-with-firebolt/connecting-with-jdbc).
+
+---
+
+## Node.js SDK
+
+**Repository:** [firebolt-db/firebolt-node-sdk](https://github.com/firebolt-db/firebolt-node-sdk)  
+**Documentation:** [Connecting with Node.js](/guides/developing-with-firebolt/connecting-with-nodejs)
+
+Set `preparedStatementParamStyle: 'fb_numeric'` in the connection options to enable server-side parametrized queries, then use `$1`, `$2`, … as placeholders.
+
+```typescript
+const connection = await firebolt.connect({
+    auth: { client_id: "...", client_secret: "..." },
+    account: "my_account",
+    database: "my_database",
+    engineName: "my_engine",
+    preparedStatementParamStyle: "fb_numeric",
+});
+
+const statement = await connection.execute(
+    "SELECT * FROM my_table WHERE id = $1 AND name = $2",
+    { parameters: [123, "Alice"] }
+);
+```
+
+You can also reference parameters by name using `namedParameters`:
+
+```typescript
+const statement = await connection.execute(
+    "SELECT * FROM my_table WHERE id = $1 AND name = $2",
+    { namedParameters: { $1: 123, $2: "Alice" } }
+);
+```
+
+For more details, see the [Node.js SDK README](https://github.com/firebolt-db/firebolt-node-sdk/blob/main/README.md#server-side-prepared-statement).
+
+---
+
+## REST API
+
+When calling the Firebolt query API directly (without an SDK), pass `query_parameters` as a URL query string parameter containing a JSON array that maps each `$number` placeholder to its value.
+
+**Format:**
+
+```json
+[
+  { "name": "$1", "value": <value> },
+  { "name": "$2", "value": <value> }
+]
+```
+
+**Example:**
+
+```bash
+curl --location \
+  'https://<engine-url>?database=my_db&query_parameters=[{"name":"$1","value":123},{"name":"$2","value":"Alice"}]' \
+  --header 'Authorization: Bearer <access_token>' \
+  --data 'SELECT * FROM my_table WHERE id = $1 AND name = $2'
+```
+
+The `query_parameters` value must be URL-encoded when passed as a query string. The example above shows it unencoded for readability.
+
+---
+
+## Summary
+
+| SDK / Driver | Placeholder syntax | How to enable |
+|---|---|---|
+| [REST API](/guides/run-queries/using-the-api) | `$1`, `$2`, … | `query_parameters` URL query string parameter |
+| [.NET SDK](https://github.com/firebolt-db/firebolt-net-sdk) | `$1`, `$2`, … | Connection string: `preparedStatementParamStyle=FbNumeric` |
+| [Go SDK](https://github.com/firebolt-db/firebolt-go-sdk) | `$1`, `$2`, … | `fireboltContext.WithPreparedStatementsStyle(..., PreparedStatementsStyleFbNumeric)` |
+| [JDBC driver](https://github.com/firebolt-db/jdbc) | `$1`, `$2`, … | Connection property: `preparedStatementParamStyle=FbNumeric` |
+| [Node.js SDK](https://github.com/firebolt-db/firebolt-node-sdk) | `$1`, `$2`, … | Connection option: `preparedStatementParamStyle: 'fb_numeric'` |

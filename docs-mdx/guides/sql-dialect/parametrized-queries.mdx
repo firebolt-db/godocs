@@ -1,0 +1,52 @@
+---
+description: Learn how to write parametrized SQL queries in Firebolt using $1, $2 placeholders.
+sidebarTitle: Parametrized queries
+title: Parametrized queries
+---
+
+Firebolt supports parametrized SQL queries, allowing you to write query templates with placeholders whose values are supplied separately at execution time. This separates query logic from data, preventing SQL injection and making queries easier to reuse.
+
+## Placeholder syntax
+
+Use `$1`, `$2`, `$3`, … as positional placeholders anywhere a value expression is valid in a SQL statement:
+
+```sql
+SELECT * FROM orders WHERE customer_id = $1 AND status = $2;
+```
+
+Parameter values are passed alongside the query via the `query_parameters` request property. Firebolt substitutes the values server-side before executing the query.
+
+## Specifying parameters
+
+### In the SQL Workspace
+
+Use the `SET` statement to define parameters before running the query:
+
+```sql
+SET query_parameters = [{ "name": "$1", "value": 42 }, { "name": "$2", "value": "shipped" }];
+
+SELECT * FROM orders WHERE customer_id = $1 AND status = $2;
+```
+
+A single parameter can be passed as a JSON object instead of an array:
+
+```sql
+SET query_parameters = { "name": "$1", "value": 42 };
+```
+
+### Via the REST API
+
+Pass `query_parameters` as a URL query string parameter when calling the query endpoint:
+
+```bash
+curl --location \
+  'https://<engine-url>?database=my_db&query_parameters=[{"name":"$1","value":42},{"name":"$2","value":"shipped"}]' \
+  --header 'Authorization: Bearer <access_token>' \
+  --data 'SELECT * FROM orders WHERE customer_id = $1 AND status = $2'
+```
+
+## Using parametrized queries from an SDK
+
+When connecting via an SDK or driver, parameters are set through the SDK's prepared statement API rather than via `SET`. Each SDK uses the same `$1`, `$2`, … placeholder syntax in the query string.
+
+For implementation details across all supported SDKs and drivers, see [Parametrized queries](/guides/developing-with-firebolt/parametrized-queries).

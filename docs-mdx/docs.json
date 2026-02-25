@@ -185,7 +185,8 @@
                 "pages": [
                   "guides/sql-dialect/arrays",
                   "guides/sql-dialect/collations",
-                  "guides/sql-dialect/sql-pipe-syntax"
+                  "guides/sql-dialect/sql-pipe-syntax",
+                  "guides/sql-dialect/parametrized-queries"
                 ]
               },
               {
@@ -248,7 +249,8 @@
                   "guides/developing-with-firebolt/connecting-with-sqlalchemy",
                   "guides/developing-with-firebolt/connecting-with-net-sdk",
                   "guides/developing-with-firebolt/connecting-with-go",
-                  "guides/developing-with-firebolt/connecting-with-rust"
+                  "guides/developing-with-firebolt/connecting-with-rust",
+                  "guides/developing-with-firebolt/parametrized-queries"
                 ]
               },
               {
