@@ -6,27 +6,33 @@ title: Amazon S3
 Firebolt Core supports using object storage for your data. You must configure the object storage scheme that you'd like to use via `managed_table_storage_api_scheme` and set the bucket name via `managed_table_bucket_name_override` that will be used to store your data.
 
 ## Prerequisites
-- An existing Kubernetes cluster (EKS)
-- `kubectl` access
-- Permissions to create S3 Buckets, IAM Roles and IAM policies
+
+Before you begin, ensure that you have the following installed and configured:
+
+* A [Kubernetes](https://kubernetes.io/) cluster (v1.19+)
+* `kubectl` command-line tool configured to access your cluster
+* `helm` (v3+) installed on your local machine
+* An AWS account with permissions to create S3 buckets, IAM roles, and IAM policies
 
 ## Use Amazon S3
 
-The following examples use a S3 bucket named `firebolt-core-demo-data` but you can choose any name you like.
+The following examples use an S3 bucket named `firebolt-core-demo-data` but you can choose any name you like.
 
 ### Create an S3 bucket
-```
+```bash
+export AWS_DEFAULT_REGION=us-east-1
+export FIREBOLT_CORE_MANAGED_BUCKET_NAME=firebolt-core-demo-data
+
 aws s3api create-bucket \
-  --bucket firebolt-core-demo-data \
-  --region us-east-1
+  --bucket "${FIREBOLT_CORE_MANAGED_BUCKET_NAME}"
 
 aws s3api put-public-access-block \
-  --bucket firebolt-core-demo-data \
+  --bucket "${FIREBOLT_CORE_MANAGED_BUCKET_NAME}" \
   --public-access-block-configuration \
   BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true
 
 aws s3api put-bucket-encryption \
-  --bucket firebolt-core-demo-data \
+  --bucket "${FIREBOLT_CORE_MANAGED_BUCKET_NAME}" \
   --server-side-encryption-configuration '{
     "Rules": [
       {
@@ -38,8 +44,7 @@ aws s3api put-bucket-encryption \
   }'
 
 aws s3api put-bucket-lifecycle-configuration \
-  --bucket firebolt-core-demo-data \
-  --region us-east-1 \
+  --bucket "${FIREBOLT_CORE_MANAGED_BUCKET_NAME}" \
   --lifecycle-configuration '{
     "Rules": [
       {
@@ -69,9 +74,9 @@ aws s3api put-bucket-lifecycle-configuration \
   }'
 ```
 
-### IAM Role and Policy
-Create an IAM Role with the following IAM Policy that grants Firebolt Core permissions to manage objects in this bucket. Use a mechanism like [AWS IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) or [AWS Pod Identity](https://docs.aws.amazon.com/eks/latest/userguide/pod-identities.html) to assign an IAM role with these permissions to your Firebolt Core workload.
-```
+### IAM role and IAM policy
+Create an IAM role with the following IAM policy that grants Firebolt Core permissions to manage objects in this bucket. Use a mechanism like [AWS IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) or [AWS Pod Identity](https://docs.aws.amazon.com/eks/latest/userguide/pod-identities.html) to assign an IAM role with these permissions to your Firebolt Core workload.
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -82,7 +87,7 @@ Create an IAM Role with the following IAM Policy that grants Firebolt Core permi
             ],
             "Effect": "Allow",
             "Resource": [
-                "arn:aws:s3:::firebolt-core-demo-data"
+                "arn:aws:s3:::{{FIREBOLT_CORE_MANAGED_BUCKET_NAME}}"
             ],
             "Sid": "StorageBuckets"
         },
@@ -93,7 +98,7 @@ Create an IAM Role with the following IAM Policy that grants Firebolt Core permi
             ],
             "Effect": "Allow",
             "Resource": [
-                "arn:aws:s3:::firebolt-core-demo-data/*"
+                "arn:aws:s3:::{{FIREBOLT_CORE_MANAGED_BUCKET_NAME}}/*"
             ],
             "Sid": "ObjectAccess"
         }
@@ -102,34 +107,40 @@ Create an IAM Role with the following IAM Policy that grants Firebolt Core permi
 ```
 
 ### Configure Core to use S3
-```
+Set `aws_region`, `managed_table_storage_api_scheme` and `managed_table_bucket_name_override` in your Firebolt Core node configuration.
+```bash
 cat <<EOF > firebolt-core-config.json
 {
   "config": {
+    "aws_region": "${AWS_DEFAULT_REGION}"
     "managed_table_storage_api_scheme": "s3://",
-    "managed_table_bucket_name_override": "firebolt-core-demo-data"
+    "managed_table_bucket_name_override": "${FIREBOLT_CORE_MANAGED_BUCKET_NAME}"
   }
 }
 EOF
 
-helm install core-demo ../firebolt-core/helm/ -n firebolt-core --set-json customNodeConfig="$(cat firebolt-core-config.json)"
+helm install core-demo ../firebolt-core/helm/ -n firebolt-core \
+  --set-json customNodeConfig="$(cat firebolt-core-config.json)"
 ```
 
-#### Custom Kubernetes Service Account
+#### Custom Kubernetes ServiceAccount
 If you use [AWS IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) and created your own Kubernetes ServiceAccount, you can set it in the Helm chart via:
-```
-helm install core-demo ../firebolt-core/helm/ -n firebolt-core --set-json customNodeConfig="$(cat firebolt-core-config.json)" --set serviceAccount=core-demo
+```bash
+helm install core-demo ../firebolt-core/helm/ -n firebolt-core \
+  --set-json customNodeConfig="$(cat firebolt-core-config.json)" \
+  --set serviceAccount=core-demo
 ```
 
 ### Confirm that object storage is working
-To confirm that your managed storage works you can create a table and see if new prefixes are created in your bucket. If the queries hang, make sure to check the logs of Firebolt Core and look out for any AWS IAM access denied error logs.
-```
+To confirm that your managed storage works, you can create a table and see if new prefixes are created in your bucket. If the queries hang, make sure to check the logs of Firebolt Core and look out for any AWS IAM access denied error logs.
+```bash
 kubectl port-forward pod/core-demo-firebolt-core-0 3473:3473 -n firebolt-core
 
 curl -s "http://localhost:3473" --data-binary "create table test (val int);";
 curl -s "http://localhost:3473" --data-binary "insert into test values (1);";
 
 aws s3 ls firebolt-core-demo-data
-    PRE SRd8FBoIadUX_Jd-pxV9qQ~31~all~0/
-    PRE drU1S3fjduVWesJyToDXDQ~33~all~0/
+# expected output similar to:
+#    PRE SRd8FBoIadUX_Jd-pxV9qQ~31~all~0/
+#    PRE drU1S3fjduVWesJyToDXDQ~33~all~0/
 ```

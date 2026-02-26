@@ -1,7 +1,6 @@
 name: "Lint PR"
 
 on:
-
   pull_request:
     branches:
       - gh-pages
@@ -13,21 +12,18 @@ on:
       - synchronize
 
 jobs:
-
   # Validate PR conventions.
   conventions:
     runs-on: ubuntu-latest
     steps:
-
       # Validate PR title.
       # Documentation: https://github.com/marketplace/actions/semantic-pull-request
       - name: Validate PR title
-        uses: amannn/action-semantic-pull-request@48f256284bd46cdaab1048c3721360e808335d50  # v6.1.1
+        uses: amannn/action-semantic-pull-request@48f256284bd46cdaab1048c3721360e808335d50 # v6.1.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: ${{ !startsWith(github.head_ref, 'dependabot') && !startsWith(github.head_ref, 'release-please') }}
         with:
-
           # Configure which types are allowed.
           types: |
             build
@@ -43,22 +39,22 @@ jobs:
             test
 
           # Ensures jira link.
-          subjectPattern: ^([a-zA-Z0-9_]).+\s\(FIR\-\d+\)$
+          subjectPattern: ^([a-zA-Z0-9_]).+\s\(FIR|FB\-\d+\)$
 
           # If `subjectPattern` is configured, you can use this property to override
           # the default error message that is shown when the pattern doesn't match.
           # The variables `subject` and `title` can be used within the message.
           subjectPatternError: |
             The subject "{subject}" found in the pull request title "{title}" didn't match the configured pattern.
-            
+
             We follow the [Firebolt PR convention](https://packboard.atlassian.net/wiki/spaces/PACB/pages/3854237702/Firebolt+PR+Convention).
             Our CI is configured to forbidden PRs with titles that don't follow this standard.
             That's it, all commits landing in the `main` branch should be formatted in this way.
             Please make sure you read and understand this convention.
-            
+
             Good commit message examples:
-            
-              - `feat(api): my awesome feature (FIR-???)` 
+
+              - `feat(api): my awesome feature (FIR-???)`
               - `fix(infra): fix a memory leak (FIR-???)`
               - `chore: update GitHub workflow (FIR-???)`
               - `docs: update README.md (FIR-???)`
