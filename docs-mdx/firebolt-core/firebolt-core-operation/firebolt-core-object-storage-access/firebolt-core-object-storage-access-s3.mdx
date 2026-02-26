@@ -1,0 +1,135 @@
+---
+sidebarTitle: Amazon S3
+title: Amazon S3
+---
+
+Firebolt Core supports using object storage for your data. You must configure the object storage scheme that you'd like to use via `managed_table_storage_api_scheme` and set the bucket name via `managed_table_bucket_name_override` that will be used to store your data.
+
+## Prerequisites
+- An existing Kubernetes cluster (EKS)
+- `kubectl` access
+- Permissions to create S3 Buckets, IAM Roles and IAM policies
+
+## Use Amazon S3
+
+The following examples use a S3 bucket named `firebolt-core-demo-data` but you can choose any name you like.
+
+### Create an S3 bucket
+```
+aws s3api create-bucket \
+  --bucket firebolt-core-demo-data \
+  --region us-east-1
+
+aws s3api put-public-access-block \
+  --bucket firebolt-core-demo-data \
+  --public-access-block-configuration \
+  BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true
+
+aws s3api put-bucket-encryption \
+  --bucket firebolt-core-demo-data \
+  --server-side-encryption-configuration '{
+    "Rules": [
+      {
+        "ApplyServerSideEncryptionByDefault": {
+          "SSEAlgorithm": "AES256"
+        }
+      }
+    ]
+  }'
+
+aws s3api put-bucket-lifecycle-configuration \
+  --bucket firebolt-core-demo-data \
+  --region us-east-1 \
+  --lifecycle-configuration '{
+    "Rules": [
+      {
+        "ID": "expire_soft_deleted_objects",
+        "Status": "Enabled",
+        "Filter": {
+          "Tag": {
+            "Key": "IsDeleted",
+            "Value": "true"
+          }
+        },
+        "Expiration": {
+          "Date": "2016-01-12T00:00:00+00:00"
+        }
+      },
+      {
+        "ID": "abort_incomplete_multipart_upload",
+        "Status": "Enabled",
+        "Filter": {
+          "Prefix": ""
+        },
+        "AbortIncompleteMultipartUpload": {
+          "DaysAfterInitiation": 1
+        }
+      }
+    ]
+  }'
+```
+
+### IAM Role and Policy
+Create an IAM Role with the following IAM Policy that grants Firebolt Core permissions to manage objects in this bucket. Use a mechanism like [AWS IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) or [AWS Pod Identity](https://docs.aws.amazon.com/eks/latest/userguide/pod-identities.html) to assign an IAM role with these permissions to your Firebolt Core workload.
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "s3:GetBucketLocation",
+                "s3:ListBucket"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+                "arn:aws:s3:::firebolt-core-demo-data"
+            ],
+            "Sid": "StorageBuckets"
+        },
+        {
+            "Action": [
+                "s3:GetObject*",
+                "s3:PutObject*"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+                "arn:aws:s3:::firebolt-core-demo-data/*"
+            ],
+            "Sid": "ObjectAccess"
+        }
+    ]
+}
+```
+
+### Configure Core to use S3
+```
+cat <<EOF > firebolt-core-config.json
+{
+  "config": {
+    "managed_table_storage_api_scheme": "s3://",
+    "managed_table_bucket_name_override": "firebolt-core-demo-data"
+  }
+}
+EOF
+
+helm install core-demo ../firebolt-core/helm/ -n firebolt-core --set-json customNodeConfig="$(cat firebolt-core-config.json)"
+```
+
+#### Custom Kubernetes Service Account
+If you use [AWS IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) and created your own Kubernetes ServiceAccount, you can set it in the Helm chart via:
+```
+helm install core-demo ../firebolt-core/helm/ -n firebolt-core --set-json customNodeConfig="$(cat firebolt-core-config.json)" --set serviceAccount=core-demo
+```
+
+### Confirm that object storage is working
+To confirm that your managed storage works you can create a table and see if new prefixes are created in your bucket. If the queries hang, make sure to check the logs of Firebolt Core and look out for any AWS IAM access denied error logs.
+```
+kubectl port-forward pod/core-demo-firebolt-core-0 3473:3473 -n firebolt-core
+
+curl -s "http://localhost:3473" --data-binary "create table test (val int);";
+curl -s "http://localhost:3473" --data-binary "insert into test values (1);";
+
+aws s3 ls firebolt-core-demo-data
+    PRE SRd8FBoIadUX_Jd-pxV9qQ~31~all~0/
+    PRE drU1S3fjduVWesJyToDXDQ~33~all~0/
+```

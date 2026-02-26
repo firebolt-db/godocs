@@ -857,7 +857,13 @@
                 "pages": [
                   "firebolt-core/firebolt-core-operation",
                   "firebolt-core/firebolt-core-operation/firebolt-core-deployment-compose",
-                  "firebolt-core/firebolt-core-operation/firebolt-core-deployment-k8s"
+                  "firebolt-core/firebolt-core-operation/firebolt-core-deployment-k8s",
+                  {
+                    "group": "Object Storage Access",
+                    "pages": [
+                      "firebolt-core/firebolt-core-operation/firebolt-core-object-storage-access/firebolt-core-object-storage-access-s3"
+                    ]
+                  }
                 ]
               },
               "firebolt-core/firebolt-core-roadmap",
