@@ -116,4 +116,20 @@ helm install core-demo ../firebolt-core/helm/ -n firebolt-core --set-json custom
 ```
 
 #### Custom Kubernetes Service Account
-If you use [AWS IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) and created your own Kubernetes ServiceAccount, you can set it in the Helm chart via `--set serviceAccount=my-sa`.
+If you use [AWS IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) and created your own Kubernetes ServiceAccount, you can set it in the Helm chart via:
+```
+helm install core-demo ../firebolt-core/helm/ -n firebolt-core --set-json customNodeConfig="$(cat firebolt-core-config.json)" --set serviceAccount=core-demo
+```
+
+### Confirm that object storage is working
+To confirm that your managed storage works you can create a table and see if new prefixes are created in your bucket. If the queries hang, make sure to check the logs of Firebolt Core and look out for any AWS IAM access denied error logs.
+```
+kubectl port-forward pod/core-demo-firebolt-core-0 3473:3473 -n firebolt-core
+
+curl -s "http://localhost:3473" --data-binary "create table test (val int);";
+curl -s "http://localhost:3473" --data-binary "insert into test values (1);";
+
+aws s3 ls firebolt-core-demo-data
+    PRE SRd8FBoIadUX_Jd-pxV9qQ~31~all~0/
+    PRE drU1S3fjduVWesJyToDXDQ~33~all~0/
+```
