@@ -10,7 +10,7 @@ SELECT STRING_TO_ARRAY('stephen70|esimpson|ruthgill|', '|') AS nicknames;
 
 | nicknames (ARRAY(TEXT)) |
 | :--- |
-| {stephen70,esimpson,ruthgill,""} |
+| `{stephen70,esimpson,ruthgill,""}` |
 
 **Example**
 
@@ -24,7 +24,7 @@ SELECT STRING_TO_ARRAY('firebolt', '') as size_one_array;
 
 | size_one_array (ARRAY(TEXT)) |
 | :--- |
-| {firebolt} |
+| `{firebolt}` |
 
 **Example**
 
@@ -38,4 +38,4 @@ SELECT STRING_TO_ARRAY('firebolt', NULL) AS single_characters;
 
 | single_characters (ARRAY(TEXT)) |
 | :--- |
-| {f,i,r,e,b,o,l,t} |
+| `{f,i,r,e,b,o,l,t}` |
