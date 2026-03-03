@@ -42,6 +42,8 @@ Refer to the [Helm Chart README](https://github.com/firebolt-db/firebolt-core/bl
 
 One of the most important values is `useStatefulSet`: when explicitly set to `false` it will cause the Helm chart to use 1 Kubernetes deployment per node, which facilitates operations like image updates and [scaling up/down](#scaling-up/down).
 
+When `useStatefulSet=true` (the default), the Helm chart creates a headless service alongside the StatefulSet. This gives each pod a stable, fully-qualified domain name (FQDN) resolved via [CoreDNS](https://coredns.io/) — the same service discovery pattern used by most databases on Kubernetes (PostgreSQL, Cassandra, Kafka, and others). When `useStatefulSet=false`, each node runs as a separate Deployment and is addressed through its own ClusterIP service.
+
 ## 3: Install the Helm Chart
 
 Once your values are configured, install the chart into the `firebolt-core` namespace:
@@ -95,11 +97,27 @@ This approach is particularly useful for local testing and debugging.
 
 ## 6. Operations
 
-ℹ️ It is advised to setup backups for the mounted storage volumes to prevent data loss, and monitor iops usage to avoid slowdowns and latencies.
+Monitor IOPS usage on storage volumes to avoid slowdowns and latencies. For a full discussion of failure modes and recovery behavior, see [Fault tolerance](/firebolt-core/firebolt-core-operation/firebolt-core-fault-tolerance).
+
+### Volume backup
+
+No built-in backup mechanism is provided. The **node 0 persistent volume** is the only volume that always requires backup: it holds the SQLite metadata store containing the entire database catalog (schemas, table definitions, indexes).
+
+When object storage is configured, data volumes on non-zero nodes hold only a local cache of tablet data — the authoritative copy is in object storage, so those volumes do not need to be backed up separately.
+
+When object storage is **not** configured, data volumes on non-zero nodes are the only copy of their tablets. In this case, back up all node volumes, or ensure data can be fully re-ingested from the original source if a volume is lost.
+
+It is strongly recommended to configure regular snapshots or backups of the node 0 persistent volume using your storage infrastructure or Kubernetes-native tooling.
+
+<Note>
+A future version of Firebolt Core will manage metadata through PostgreSQL, which has its own backup and recovery ecosystem. At that point, dedicated volume-level backups for metadata will no longer be necessary.
+</Note>
 
 ### Scaling up/down
-⚠️ changing the number of nodes is currently supported for clusters which are only reading data, without performing any write - or anyways not using local tables.
-For any other use case it will also be necessary to erase the data volume when performing the scaling operation, otherwise data loss and/or inefficiency will happen.
+
+When object storage is configured, scaling does not risk data loss — all table data remains in the object store. Update `nodesCount` in your Helm values and run `helm upgrade` (requires `useStatefulSet=false`); nodes restart and rehydrate from object storage.
+
+When object storage is **not** configured, changing the number of nodes is only safe for clusters that are not using locally managed tables. For any other case it will be necessary to erase data volumes during the scaling operation, otherwise data inconsistency will occur.
 
 ### Changing resources
 

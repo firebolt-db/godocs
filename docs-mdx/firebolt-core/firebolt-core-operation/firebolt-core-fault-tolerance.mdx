@@ -1,0 +1,94 @@
+---
+sidebarTitle: Fault tolerance
+title: Fault tolerance
+---
+
+This page describes the fault tolerance characteristics of Firebolt Core: the durability guarantees it provides, its current operational constraints, and plans for improvements.
+
+## Data durability
+
+Firebolt Core separates compute from storage. The durability model depends on which storage tier holds the authoritative copy of your data.
+
+### Object storage (recommended)
+
+When Firebolt Core is configured to use object storage (see [Amazon S3](/firebolt-core/firebolt-core-operation/firebolt-core-object-storage-access/firebolt-core-object-storage-access-s3)), all table data is durably written to the object store before a write transaction is acknowledged. Object storage is the authoritative copy of all data - a complete loss of the persistent volumes mounted to any or all nodes **does not cause data loss**. The cluster can be restarted from scratch and all data remains available from object storage.
+
+<Tip>
+This is the recommended configuration for all production deployments.
+</Tip>
+
+If persistent volumes are available when a pod is rescheduled, they are reattached and on-disk caches are reused immediately with no warm-up required - this is a performance advantage, not a durability requirement. Node and pod failures affect **availability** but never **durability**.
+
+### Shared-nothing local volumes
+
+When object storage is not configured, each node writes table data exclusively to its own persistent volume. The volume is then the only copy of the tablets assigned to that node: losing a volume means losing those tablets permanently. **This mode is not recommended for production deployments.**
+
+Within this mode, pod restarts do not cause data loss as long as the volume is reattached. The same availability impact applies - queries against tablets on an unavailable node fail until the node and its volume are back online.
+
+## Node health monitoring
+
+Firebolt Core exposes dedicated Kubernetes liveness and readiness probes on port `8122` (see [Troubleshoot](/firebolt-core/firebolt-core-troubleshooting#liveness--readiness-probes)).
+
+The readiness probe (`/health/ready`) runs a series of startup checks before a node begins accepting traffic: connectivity to all peer nodes, version consistency across the cluster, filesystem access, and cluster topology agreement. While these checks are in progress the probe returns HTTP 503, preventing traffic from being routed to the node. Once all checks pass, the node is marked ready and the startup checks do not run again during the pod's lifetime. The readiness probe also returns HTTP 503 during graceful shutdown, ensuring the node is removed from load balancing before terminating.
+
+The liveness probe (`/health/live`) confirms that the process is alive and responsive, and always returns HTTP 200.
+
+The query planner and orchestrator does not perform active health checks on peer nodes during query execution. If a query stage tries to distribute work to a node that's not available, the query fails.
+
+A query that only works on `DIMENSION` tables does not require additional nodes to be available to run the query. As soon as `FACT` tables or external data is accessed, all nodes in the cluster need to be available for the query to reliably complete. 
+
+Clients are responsible for detecting these failures and retrying (see also [Connect](/firebolt-core/firebolt-core-connect)).
+
+## Query failure behavior
+
+If node 0 becomes unavailable, all queries fail - reads and writes alike - since every query requires the metadata and coordination service running on node 0.
+
+The engine internally retries metadata and coordination calls with exponential backoff (starting at 1 ms, doubling up to 1 s per attempt, until the query's statement timeout is reached). These retries absorb transient connectivity hiccups and are transparent to the client. If node 0 is actually down (pod being rescheduled), the retries will exhaust and the client receives an error.
+
+If a non-zero node becomes unavailable during query execution, the query fails immediately. For write queries, the transaction is never committed and no changes become effective; the statement can be safely re-issued once the cluster has recovered. For read queries, the client should retry.
+
+## Metadata node availability
+
+The database catalog (schema information, transaction coordination) is managed exclusively by node 0 and persisted as a [SQLite](https://www.sqlite.org/) database on its persistent volume. SQLite requires no external dependencies, which simplifies deployment and operations. If node 0 becomes unavailable, no queries can be executed until it is rescheduled and its volume is reattached. Because data is on a persistent volume, there is no data loss - only a temporary outage.
+
+Transaction commits are serialized through node 0; concurrent writes are permitted. See [Transactions](/firebolt-core/firebolt-core-architecture#transactions) for details.
+
+<Note>
+A future version will introduce a decoupled PostgreSQL-based metadata store, eliminating the node 0 single point of failure and adding full high availability support.
+</Note>
+
+## Tablet availability under node failure
+
+Table data is sharded across all nodes. Each shard (tablet) is assigned to exactly one node. If a node becomes unavailable, queries against the tablets on that node fail until it is rescheduled.
+
+When object storage is configured (see [Object storage](#object-storage-recommended)), this is an **availability** concern only - all data remains durably stored on the object store and is fully accessible once the node is back. No data is lost regardless of whether the persistent volume survives.
+
+When using shared-nothing local volumes, recovery depends on the node's volume being reattached. If the volume is lost, the tablets stored on it are permanently lost.
+
+<Note>
+A future version will support dynamic tablet reassignment on node failure, so that tablets from an unavailable node are automatically served by surviving nodes.
+</Note>
+
+## Cluster scaling requires a restart
+
+Cluster membership is defined statically in the `config.json` configuration file (see [Deployment and Operational Guide](/firebolt-core/firebolt-core-operation#configuration-file)). Changing the number of nodes - scaling up or down - requires updating this file and restarting all nodes. A hot config reload is not supported.
+
+When using the Helm chart's multi-deployments mode (`useStatefulSet=false`), each node runs as a separate Kubernetes Deployment with its own PVC. Scaling is performed by updating the `nodesCount` Helm value and running `helm upgrade`: all nodes restart and reattach to their existing PVCs, so on-disk caches are preserved. For the full procedure and its constraints, see [Scaling up/down](/firebolt-core/firebolt-core-operation/firebolt-core-deployment-k8s#scaling-updown).
+
+Pod-level restarts within the existing topology do not require any configuration changes; caches are preserved and reused automatically (see [Data durability](#data-durability)).
+
+Version upgrades follow the same restart requirement. During the startup health checks, each node verifies that all peers are running the same version. If a mismatch is detected, the node refuses to become ready until all nodes in the cluster have been updated. This prevents mixed-version query execution.
+
+<Note>
+Manual scaling is currently supported using the Helm chart's multi-deployments mode (`useStatefulSet=false`) — see [Scaling up/down](/firebolt-core/firebolt-core-operation/firebolt-core-deployment-k8s#scaling-updown). A future control plane operator will support dynamic cluster reconfiguration and automatic elastic scaling without requiring manual restarts.
+</Note>
+
+## Cluster recovery after node restart
+
+When a failed node is rescheduled and its persistent volume is reattached, the node automatically runs the startup health checks described in [Node health monitoring](#node-health-monitoring). The readiness probe returns HTTP 503 until all checks pass, after which the node begins accepting traffic without any manual intervention.
+
+If node 0 is unavailable, queries will fail with an error until it is rescheduled and ready. Clients must implement their own retry logic. Once node 0 completes its startup checks and becomes ready, the cluster resumes normal operation without any manual intervention (see [Architecture](/firebolt-core/firebolt-core-architecture#state-management) for node 0's role in transaction coordination and catalog serving).
+
+<Note>
+A future version will replace the node 0 metadata service with a fully decoupled, highly available metadata store backed by PostgreSQL. This eliminates the node 0 single point of failure: metadata will remain available even when individual nodes are restarted or rescheduled.
+</Note>

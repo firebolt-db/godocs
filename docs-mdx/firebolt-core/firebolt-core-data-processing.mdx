@@ -26,9 +26,11 @@ Note that data stored on [Google Cloud Storage](https://cloud.google.com/storage
 
 ## Managing Metadata & Data
 
-In addition to processing external data, Firebolt Core can also manage relational data itself. Most [DDL](/reference-sql/commands/data-definition) and all [DML](/reference-sql/commands/data-management) commands are supported in Firebolt Core for this purpose. It is important to note, however, that Firebolt Core provides no compute-storage isolation. In other words, data managed by one Firebolt Core cluster cannot be shared with any other Firebolt Core cluster. Furthermore, tables are sharded across all nodes, which means that a Firebolt Core cluster containing such tables cannot be resized to a different number of nodes (see also [Differences between Firebolt Core and managed Firebolt](/firebolt-core/firebolt-core-differences)).
+In addition to processing external data, Firebolt Core can also manage relational data itself. Most [DDL](/reference-sql/commands/data-definition) and all [DML](/reference-sql/commands/data-management) commands are supported in Firebolt Core for this purpose.
 
-Please refer to [Deployment and Operational Guide](/firebolt-core/firebolt-core-operation) for further details about setting up persistent storage for the managed data used in Firebolt Core nodes.
+For production deployments, configure object storage (e.g. [Amazon S3](/firebolt-core/firebolt-core-operation/firebolt-core-object-storage-access/firebolt-core-object-storage-access-s3)) as the backing store for managed table data. With object storage, the authoritative copy of all data resides in the object store, and node volumes serve as a local cache. This provides strong durability guarantees — data survives complete volume loss — and enables cluster resizing without data loss. See [Data durability](/firebolt-core/firebolt-core-operation/firebolt-core-fault-tolerance#data-durability) for a full discussion.
+
+Without object storage, data is stored exclusively on each node's local volume and cannot be shared between clusters. Tables are sharded across all nodes, which means a cluster containing such tables cannot be resized to a different number of nodes without data loss (see also [Differences between Firebolt Core and managed Firebolt](/firebolt-core/firebolt-core-differences)).
 
 ## Exporting Data
 

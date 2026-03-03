@@ -30,6 +30,10 @@ And then create the following `config.json` file.
 }
 ```
 
+<Note>
+Docker Compose deployments use local directory bind mounts for persistence. This means the local filesystem is the only copy of your data — there is no object storage backing. This setup is suitable for development and testing, but is **not recommended for production**. For production deployments, use the [Kubernetes deployment](/firebolt-core/firebolt-core-operation/firebolt-core-deployment-k8s) with [object storage configured](/firebolt-core/firebolt-core-operation/firebolt-core-object-storage-access/firebolt-core-object-storage-access-s3). See [Data durability](/firebolt-core/firebolt-core-operation/firebolt-core-fault-tolerance#data-durability) for details.
+</Note>
+
 Persistence is already enabled by default on each of the nodes through the mounted local directory `firebolt-core-data`, which you will need to create and assign correct permissions:
 ```bash
 mkdir -p ./firebolt-core-data

@@ -3,7 +3,9 @@ sidebarTitle: Amazon S3
 title: Amazon S3
 ---
 
-Firebolt Core supports using object storage for your data. You must configure the object storage scheme that you'd like to use via `managed_table_storage_api_scheme` and set the bucket name via `managed_table_bucket_name_override` that will be used to store your data.
+Configuring object storage is the recommended setup for all production deployments of Firebolt Core. With object storage as the backing store for table data, durability does not depend on the persistent volumes mounted to each node — even a complete loss of all volumes does not cause data loss. See [Data durability](/firebolt-core/firebolt-core-operation/firebolt-core-fault-tolerance#data-durability) for a full explanation.
+
+To enable object storage, configure the storage scheme via `managed_table_storage_api_scheme` and set the bucket name via `managed_table_bucket_name_override`.
 
 ## Prerequisites
 

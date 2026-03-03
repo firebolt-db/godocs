@@ -863,7 +863,8 @@
                     "pages": [
                       "firebolt-core/firebolt-core-operation/firebolt-core-object-storage-access/firebolt-core-object-storage-access-s3"
                     ]
-                  }
+                  },
+                  "firebolt-core/firebolt-core-operation/firebolt-core-fault-tolerance"
                 ]
               },
               "firebolt-core/firebolt-core-roadmap",
