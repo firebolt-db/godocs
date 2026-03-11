@@ -4,18 +4,6 @@
     "reason": "in private preview, https://firebolt-analytics.slack.com/archives/C016HSVDP9U/p1750158214516229"
   },
   {
-    "path": "guides/integrations/metabase-cloud.mdx",
-    "reason": "in private preview"
-  },
-  {
-    "path": "guides/integrations/lightdash.mdx",
-    "reason": "in private preview, requires packdb 4.31"
-  },
-  {
-    "path": "guides/integrations/dbt-postgres-adaptor.mdx",
-    "reason": "in private preview, requires packdb 4.31"
-  },
-  {
     "path": "reference/proof-of-concept-guide.mdx",
     "reason": "a non-public guide for private PoC"
   },
