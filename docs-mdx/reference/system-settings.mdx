@@ -61,6 +61,8 @@ The following settings can be configured using the `WITH` clause and the `SET` c
 - [derive_ndv_from_unique_keys](#derive-ndv-from-unique-keys)
 - [enable_type_based_ndv_heuristic](#enable-type-based-ndv-heuristic)
 - [enable_date_time_func_ndv_heuristic](#enable-datetime-function-ndv-heuristic)
+- [as_hbs_training_data](#marking-queries-as-hbs-training-data)
+- [hbs_object_id](#using-an-hbs-snapshot-for-query-planning)
 
 The following settings can be configured only using the `SET` command:
 - [query_label](#query-labeling-and-tagging)
@@ -1160,3 +1162,37 @@ SELECT id, to_yyyymm(order_date), date_trunc('year', order_date), extract(dow FR
 ```
 
 </CodeGroup>
+
+## Marking queries as HBS training data
+
+The `as_hbs_training_data` setting marks queries so that their execution metrics are collected for [History-based statistics](/performance-and-observability/query-planning/history-based-statistics).
+When set to `true` for a session or for individual queries, those queries are used as training data to build an HBS snapshot.
+
+**Default value:** `false`
+
+### Syntax
+
+```sql
+SET as_hbs_training_data = [true|false];
+```
+
+```sql
+SELECT ... WITH (as_hbs_training_data = [true|false]);
+```
+
+## Using an HBS snapshot for query planning
+
+The `hbs_object_id` setting specifies which [History-based statistics](/performance-and-observability/query-planning/history-based-statistics) snapshot the optimizer should use when planning the next query.
+Set it to the UUID returned by `CALL CREATE_HBS_OBJECT();` (see [History-based statistics](/performance-and-observability/query-planning/history-based-statistics#snapshot-creation)) or from `fb_catalog.public.history_based_statistics`.
+
+**Default value:** not set (no HBS snapshot used)
+
+### Syntax
+
+```sql
+SET hbs_object_id = '<uuid>';
+```
+
+```sql
+SELECT ... WITH (hbs_object_id = '<uuid>');
+```

@@ -4,10 +4,23 @@ sidebarTitle: Overview
 title: Automated Column Statistics (ACS)
 ---
 
-*Automated column statistics* (ACS) is a feature that enables Firebolt's query planner to leverage aggregating indexes to obtain statistical information about columns, leading to better query plans and improved performance.
-For example, it provides distinct count statistics (also known as *ndistinct* or *number of distinct values* (NDV) statistics).
+Good query plans depend on the planner knowing about the data in your tables.
+Firebolt offers two ways of collecting statistics about your data,
+[Automated column statistics](/performance-and-observability/query-planning/automated-column-statistics)
+and [History-based statistics](/performance-and-observability/query-planning/history-based-statistics).
+History-based statistics use machine learning to derive information from past query executions.
+These offer a holistic view on the plans, with statistics for intermediate results.
+Automated column statistics deliver transactionally consistent information about the data stored in your base tables.
+This makes them more predictable but their collection affects insert/update performance.
+
+Both statistics sources have their own strengths and weaknesses, and you can combine them based on your workload.
+This page describes how to collect automated column statistics and how they enable the optimizer to make better decisions during planning.
+
 
 ## Overview
+
+*Automated column statistics* (ACS) is a feature that enables Firebolt's query planner to leverage aggregating indexes to obtain statistical information about columns, leading to better query plans and improved performance.
+For example, it provides distinct count statistics (also known as *ndistinct* or *number of distinct values* (NDV) statistics).
 
 With automated column statistics enabled, the query planner can automatically extract and utilize statistical information from aggregating indexes to make more informed decisions during query optimization. This results in:
 
@@ -89,9 +102,10 @@ You can find an explained query plan with statistics in [Using Automated Column 
 
 ### Cache Behavior
 
-- **Cache invalidation** - Statistics cache is automatically invalidated after DML statements
-- **Memory usage** - Cached statistics consume memory; monitor engine memory usage (however, the amount of memory required should be negligible)
-- **Refresh timing** - First query after data modification will refresh the cache
+Collected statistics remain cached to reduce the impact on planning times.
+The cache is updated automatically and atomically after DML statements.
+You can monitor the size of the cache using the `information_schema.engine_caches` view,
+and clear the cache using the `CLEAR AUTOMATED COLUMN STATISTICS CACHE` command.
 
 ## Related Topics
 

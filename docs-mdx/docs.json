@@ -56,7 +56,6 @@
                 "group": "Queries",
                 "pages": [
                   "overview/queries",
-                  "overview/queries/understand-query-performance-hbs",
                   "overview/queries/understand-query-performance-subresult",
                   "overview/queries/understand-spilling"
                 ]
@@ -117,6 +116,7 @@
                       "performance-and-observability/query-planning/automated-column-statistics/user-created-indexes"
                     ]
                   },
+                  "performance-and-observability/query-planning/history-based-statistics",
                   "performance-and-observability/query-planning/unique-constraint",
                   {
                     "group": "Query Hints",
@@ -5154,6 +5154,16 @@
     {
       "source": "/Overview/queries/understand-spilling.html",
       "destination": "/overview/queries/understand-spilling",
+      "permanent": false
+    },
+    {
+      "source": "/overview/queries/understand-query-performance-hbs/",
+      "destination": "/performance-and-observability/query-planning/history-based-statistics",
+      "permanent": false
+    },
+    {
+      "source": "/overview/queries/understand-query-performance-hbs",
+      "destination": "/performance-and-observability/query-planning/history-based-statistics",
       "permanent": false
     },
     {

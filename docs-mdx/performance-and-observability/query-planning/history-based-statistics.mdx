@@ -1,0 +1,172 @@
+---
+description: How to use statistics about past query executions to improve future query plans
+sidebarTitle: History-based statistics
+title: History-Based Statistics
+---
+
+Good query plans depend on the planner knowing about the data in your tables.
+Firebolt offers two ways of collecting statistics about your data,
+[Automated column statistics](/performance-and-observability/query-planning/automated-column-statistics)
+and [History-based statistics](/performance-and-observability/query-planning/history-based-statistics).
+Automated column statistics deliver transactionally consistent information but their collection affects insert/update performance.
+History-based statistics use machine learning to derive information from past query executions.
+These offer a more holistic view on the plans, with statistics not only for the base tables but also intermediate results.
+
+Both statistics sources have their own strengths and weaknesses, and you can combine them based on your workload.
+This page describes how to collect history-based statistics and how the optimizer uses them during planning.
+
+## Overview
+
+*History-based statistics* (HBS) is a feature that enables Firebolt's query optimizer to derive information from past query executions.
+With HBS enabled, you can record a snapshot considting of cardinality information from past query executions and estimation models learned from these examples.
+This results in:
+
+- **Better query plans** - The planner can choose more optimal join orders, aggregation strategies, and execution paths
+- **Improved performance** - Statistical information helps estimate cardinalities more accurately
+- **Minimal impact on query planning times** - Statistics are cached in memory for fast access to reduce impact on query planning times to a minimum (usually only a few microseconds)
+
+<img src="/assets/images/history-based-optimization.png" alt="Telemetry data flows back from the runtime into the query optimizer where the next run is planned." width="700"/>
+
+As a running example, consider a movie streaming service that wants to determine the average duration of movies watched on different devices.
+For this, we have the following schema.
+
+```sql
+CREATE TABLE views(movie_title text, customer text, device_type text);
+CREATE TABLE movies(title text UNIQUE, duration int);
+```
+
+## Data Collection
+
+In order to start collecting data from a clean training state, we recommend creating or starting up a fresh dedicated engine.
+At the moment, we recommend using an engine with 1 cluster and 1 node.
+Now you can send representative queries to that engine, and mark them to be collected as training data.
+If you are using the Firebolt UI, set the session-level setting [as_hbs_training_data](/reference/system-settings#marking-queries-as-hbs-training-data) by running `SET as_hbs_training_data = true;`.
+If you run the queries from an SDK or via a client library, pass `as_hbs_training_data = true` for each query (see [System settings](/reference/system-settings#marking-queries-as-hbs-training-data)).
+Send a variety of queries that cover your workload so the model has enough training data and does not overfit.
+
+```sql
+SET as_hbs_training_data = true;
+SELECT avg(duration) FROM views JOIN movies ON views.movie_title=movies.title WHERE device_type = 'TV';
+SELECT avg(duration) FROM views JOIN movies ON views.movie_title=movies.title WHERE device_type = 'Tablet';
+SELECT avg(duration) FROM views JOIN movies ON views.movie_title=movies.title WHERE device_type = 'Laptop';
+SELECT avg(duration) FROM views JOIN movies ON views.movie_title=movies.title WHERE device_type = 'Phone';
+-- ...
+```
+
+You can inspect the training data collected so far in the `information_schema.engine_query_history` table.
+Note that the training data is not persisted, so if you restart the engine, all training data accumulated so far will be lost.
+
+## Snapshot Creation
+
+Once you have collected enough training data, create a snapshot so it can be used for query planning.
+
+### CALL CREATE_HBS_OBJECT()
+
+```sql
+CALL CREATE_HBS_OBJECT();
+```
+
+This call packages the training data collected using [as_hbs_training_data](/reference/system-settings#marking-queries-as-hbs-training-data)) into an HBS snapshot and returns the ID of the snapshot.
+You can inspect stored snapshots and their contents in the `fb_catalog.public.history_based_statistics` table:
+
+```sql
+SELECT * FROM fb_catalog.public.history_based_statistics;
+
+                  id                  |            database_name             |  size_bytes  | join_cardinality_examples | plan_cardinality_examples | quicksel_models |         created_at        
+--------------------------------------+--------------------------------------+--------------+---------------------------+---------------------------+-----------------+---------------------------
+ 033895e1-bd76-43a3-b3f5-73a0b26dd66d | local_dev_db                         |         7068 |                         4 |                        11 |               0 | 2026-02-20 13:09:51.978852
+
+```
+
+Under the hood, history-based statistics use a collection of different techniques:
+- Specific join cardinality examples remembering the actual row count from past queries for the same join structure.
+- Specific plan cardinality examples remembering the actual row count from past queries for the exact same subplan.
+- [QuickSel](https://arxiv.org/pdf/1812.10568) model to learn the data distribution of filter selectivities.
+
+## Statistics Inference
+
+To use a snapshot for query planning, set it per query with the [hbs_object_id](/reference/system-settings#using-an-hbs-snapshot-for-query-planning) setting:
+
+```sql
+-- session-level setting
+SET hbs_object_id = '<uuid>';
+EXPLAIN (statistics) SELECT ...;
+
+
+-- query-level setting
+EXPLAIN (statistics) SELECT ... WITH (hbs_object_id = '<uuid>');
+```
+
+Following our example, you can now see that the optimizer uses the HBS object as statistics source to estimate cardinalities and select the join order accordingly.
+Depending on the used filter value, we get a different estimate for the selectivity and therefore also a different join order.
+This makes sure that the smaller input of the join is used as the build side (bottom-most in the plan).
+Of course, this example does not show how the model generalizes to other queries.
+
+<CodeGroup>
+```sql Filter for device_type = TV {15,16}
+EXPLAIN (statistics)
+SELECT avg(duration) FROM views JOIN movies ON views.movie_title=movies.title WHERE device_type = 'TV';
+
+[0] [Projection] avg_0
+|   [Logical Profile]: [est. #rows=1, column profiles={[avg_0: #distinct=1]}, source: estimated]
+ \_[1] [Aggregate] GroupBy: [] Aggregates: [avg_0: avg(movies.duration)]
+   |   [Types]: avg_0: double precision null
+   |   [Logical Profile]: [est. #rows=1, column profiles={[avg_0: #distinct=1]}, source: estimated]
+    \_[2] [Projection] movies.duration
+      |   [Logical Profile]: [est. #rows=6.00154e+06, source: history]
+       \_[3] [Join] Mode: Inner [(views.movie_title = movies.title)]
+         |   [Logical Profile]: [est. #rows=6.00154e+06, source: history]
+          \_[4] [Projection] views.movie_title
+          | |   [Logical Profile]: [est. #rows=6.00159e+06, source: history]
+          |  \_[5] [Filter] (views.device_type = 'TV')
+          |    |   [Logical Profile]: [est. #rows=6.00159e+06, source: history]
+          |     \_[6] [StoredTable] Name: "views"
+          |           [Types]: views.movie_title: text null, views.device_type: text null
+          |           [Logical Profile]: [est. #rows=1e+07, source: metadata]
+          \_[7] [StoredTable] Name: "movies"
+                [Types]: movies.title: text null, movies.duration: integer null
+                [Logical Profile]: [est. #rows=100000, source: history]
+```
+
+```sql Filter for device_type = Phone {18,19}
+explain(statistics)
+SELECT avg(duration) FROM views JOIN movies ON views.movie_title=movies.title WHERE device_type = 'Phone';
+
+[0] [Projection] avg_0
+|   [Logical Profile]: [est. #rows=1, column profiles={[avg_0: #distinct=1]}, source: estimated]
+ \_[1] [Aggregate] GroupBy: [] Aggregates: [avg_0: avg(movies.duration)]
+   |   [Types]: avg_0: double precision null
+   |   [Logical Profile]: [est. #rows=1, column profiles={[avg_0: #distinct=1]}, source: estimated]
+    \_[2] [Projection] movies.duration
+      |   [Logical Profile]: [est. #rows=6.00159e+06, source: history]
+       \_[3] [Join] Mode: Inner [(movies.title = views.movie_title)]
+         |   [Logical Profile]: [est. #rows=6.00159e+06, source: history]
+          \_[4] [StoredTable] Name: "movies"
+          |     [Types]: movies.title: text null, movies.duration: integer null
+          |     [Logical Profile]: [est. #rows=100000, source: history]
+          \_[5] [Projection] views.movie_title
+            |   [Logical Profile]: [est. #rows=3163, source: history]
+             \_[6] [Filter] (views.device_type = 'Phone')
+               |   [Logical Profile]: [est. #rows=3163, source: history]
+                \_[7] [StoredTable] Name: "views"
+                      [Types]: views.movie_title: text null, views.device_type: text null
+                      [Logical Profile]: [est. #rows=1e+07, source: metadata]
+```
+</CodeGroup>
+
+Because you can create and set the snapshot explicitly by ID, you can switch back to an older snapshot if the current one does not work well for you.
+Additionally, you can choose when and how to train new snapshots.
+
+### Cache Behavior
+
+Collected statistics are stored in the `fb_catalog` database, but to reduce planning time, they are cached in memory.
+You can monitor the cache in [information_schema.engine_caches](/reference-sql/information-schema/engine-caches) (filter by `type = 'history_based_statistics'`),
+and clear it with [CLEAR HISTORY BASED STATISTICS CACHE](/reference-sql/commands/engines/clear-cache).
+
+## Related Topics
+
+- [CLEAR CACHE](/reference-sql/commands/engines/clear-cache) - clear caches, including the one for HBS
+- [information_schema.engine_caches](/reference-sql/information-schema/engine-caches) - inspect the HBS in-memory cache
+- [Cardinality Estimation](/performance-and-observability/query-planning/cardinality-estimation) - how statistics affect query planning
+- [Inspecting Query Plans](/performance-and-observability/query-planning/inspecting-query-plans) - analyze query execution plans
+- [System settings](/reference/system-settings) - full reference (including [as_hbs_training_data](/reference/system-settings#marking-queries-as-hbs-training-data) and [hbs_object_id](/reference/system-settings#using-an-hbs-snapshot-for-query-planning))
