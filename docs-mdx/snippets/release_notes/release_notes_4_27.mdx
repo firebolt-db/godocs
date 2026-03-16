@@ -51,7 +51,7 @@ Changed compression settings affect newly ingested data. Full Documentation is a
 
 **Added AWS Glue support to the `READ_ICEBERG` function for querying Iceberg tables with optional Lake Formation integration**
 
-AWS Glue support was added to the [`READ_ICEBERG`](/reference-sql/functions-reference/table-valued/read_iceberg) table-valued function. This allows querying Iceberg tables with AWS Glue as the metadata catalog. Additionally, it offers optional Lake Formation integration. This enhances flexibility and expands integration options for users. To use Glue, set `CATALOG=AWS_GLUE` when creating a location object or simply pass the Glue endpoint as URL.
+AWS Glue support was added to the [`READ_ICEBERG`](/reference-sql/functions-reference/iceberg/read_iceberg) table-valued function. This allows querying Iceberg tables with AWS Glue as the metadata catalog. Additionally, it offers optional Lake Formation integration. This enhances flexibility and expands integration options for users. To use Glue, set `CATALOG=AWS_GLUE` when creating a location object or simply pass the Glue endpoint as URL.
 
 **Added support for creating struct values using the `STRUCT(...)` function and named fields syntax.**
 
@@ -105,7 +105,7 @@ For a step-by-step introduction, see the [Getting started with AI guide](/guides
 ### Performance Improvements
 **Added Parquet row group pruning**
 
-Filtered Parquet scans now utilize embedded column minimum and maximum metadata to remove row groups that do not meet filter conditions. This can significantly reduce the amount of data scanned and is available for all Parquet scans ([`READ_ICEBERG`](/reference-sql/functions-reference/table-valued/read_iceberg), [`READ_PARQUET`](/reference-sql/functions-reference/table-valued/read_parquet), and external tables). To see whether Parquet pruning is used, consult `EXPLAIN (PHYSICAL)` or `EXPLAIN (ANALYZE)` and look for a `pruning_predicate` in the `read_from_s3` TVF's arguments.
+Filtered Parquet scans now utilize embedded column minimum and maximum metadata to remove row groups that do not meet filter conditions. This can significantly reduce the amount of data scanned and is available for all Parquet scans ([`READ_ICEBERG`](/reference-sql/functions-reference/iceberg/read_iceberg), [`READ_PARQUET`](/reference-sql/functions-reference/table-valued/read_parquet), and external tables). To see whether Parquet pruning is used, consult `EXPLAIN (PHYSICAL)` or `EXPLAIN (ANALYZE)` and look for a `pruning_predicate` in the `read_from_s3` TVF's arguments.
 
 **Added support for join pruning with `UNNEST` on the probe side**
 

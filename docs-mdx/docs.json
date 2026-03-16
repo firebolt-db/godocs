@@ -757,7 +757,6 @@
                       "reference-sql/functions-reference/table-valued/list-objects",
                       "reference-sql/functions-reference/table-valued/read_avro",
                       "reference-sql/functions-reference/table-valued/read_csv",
-                      "reference-sql/functions-reference/table-valued/read_iceberg",
                       "reference-sql/functions-reference/table-valued/read_parquet"
                     ]
                   },
@@ -1593,7 +1592,7 @@
     },
     {
       "source": "/sql_reference/functions-reference/table-valued/read_iceberg.html",
-      "destination": "/reference-sql/functions-reference/table-valued/read_iceberg",
+      "destination": "/reference-sql/functions-reference/iceberg/read_iceberg",
       "permanent": false
     },
     {
@@ -2138,7 +2137,7 @@
     },
     {
       "source": "/sql_reference/functions-reference/table-valued/read_iceberg",
-      "destination": "/reference-sql/functions-reference/table-valued/read_iceberg",
+      "destination": "/reference-sql/functions-reference/iceberg/read_iceberg",
       "permanent": false
     },
     {
@@ -6550,6 +6549,16 @@
       "source": "/",
       "destination": "/intro",
       "permanent": false
+    },
+    {
+      "source": "/reference-sql/functions-reference/table-valued/read_iceberg",
+      "destination": "/reference-sql/functions-reference/iceberg/read_iceberg",
+      "permanent": true
+    },
+    {
+      "source": "/reference-sql/functions-reference/table-valued/read_iceberg/",
+      "destination": "/reference-sql/functions-reference/iceberg/read_iceberg",
+      "permanent": true
     }
   ]
 }

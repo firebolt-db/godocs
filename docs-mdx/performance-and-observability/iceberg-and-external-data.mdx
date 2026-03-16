@@ -6,7 +6,7 @@ title: Iceberg and External Data
 
 Firebolt supports several ways to query externally hosted data:
 
-- using a table-valued function such as [`read_iceberg`](/reference-sql/functions-reference/table-valued/read_iceberg) to read a specific open table format,
+- using a table-valued function such as [`read_iceberg`](/reference-sql/functions-reference/iceberg/read_iceberg) to read a specific open table format,
 - using a table-valued function such as [`read_parquet`](/reference-sql/functions-reference/table-valued/read_parquet) to read a specific file format, and
 - using [external tables](/guides/loading-data/working-with-external-tables).
 
@@ -15,7 +15,7 @@ This guide helps you choose the right option and get the most out of it.
 
 ## Reasons to choose Apache Iceberg over a plain collection of files
 
-[Apache Iceberg](https://iceberg.apache.org/) is a popular open table format for analytics and supported in Firebolt using the [`read_iceberg`](/reference-sql/functions-reference/table-valued/read_iceberg) table-valued function.
+[Apache Iceberg](https://iceberg.apache.org/) is a popular open table format for analytics and supported in Firebolt using the [`read_iceberg`](/reference-sql/functions-reference/iceberg/read_iceberg) table-valued function.
 Iceberg has surged in popularity in recent years because it provides ACID transactions on data lakes and allows interoperability between query engines.
 The transactionality eliminates "data swamps" when a job fails halfway through, while the interoperability prevents vendor lock-in, enabling users to mix and match query engines according to their strengths.
 
@@ -78,7 +78,7 @@ Cache entries for all of the old files remain valid, and only the new files have
 ### Configurable data freshness with `MAX_STALENESS`
 
 For many interactive use cases, having data that is a few seconds or minutes out of date is acceptable if it enables dramatically faster queries.
-The `MAX_STALENESS` parameter of [`read_iceberg`](/reference-sql/functions-reference/table-valued/read_iceberg) lets you define this tolerance (for example, `INTERVAL '30 seconds'`).
+The `MAX_STALENESS` parameter of [`read_iceberg`](/reference-sql/functions-reference/iceberg/read_iceberg) lets you define this tolerance (for example, `INTERVAL '30 seconds'`).
 When specified, Firebolt can use a cached metadata file and vended credentials if they are within the allowed staleness, avoiding costly round trips to the Iceberg catalog.
 The default is 0 seconds, ensuring queries always see the latest snapshot if no staleness is specified.
 Setting `MAX_STALENESS` will typically reduce query latency by tens to hundreds of milliseconds and is highly recommended for scans that are allowed to read slightly stale data.
