@@ -1,0 +1,140 @@
+## Firebolt Release Notes - Version 4.31
+
+### New Features
+{/* Jira ticket: FIR-50527 */}
+**Native JSON Type**
+Firebolt now supports a native [`JSON`](/reference-sql/data-types/json) type as an alternative to storing JSON data in `TEXT` columns. This data type is optimized in such a way that JSON data can be processed as efficiently as possible, especially when there are frequent field accesses into the same `JSON` column. Furthermore, it offers improved usability through a set of [struct-like access operators](/reference-sql/functions-reference/json/json-operators).
+
+{/* Jira ticket: FIR-49518 */}
+**User defined schema Support**  
+Firebolt now supports user-defined schemas for organizing database objects. Every database includes a default schema named `public`. Supported operations include:
+
+* Creating and dropping schemas using [`CREATE SCHEMA`](/reference-sql/commands/data-definition/create-schema) and [`DROP SCHEMA`](/reference-sql/commands/data-definition/drop-schema).
+* Creating tables, views, and other objects within a schema.
+* Referencing objects using two-part identifiers (`schema.object`) or fully qualified three-part identifiers (`database.schema.object`).
+
+```sql
+CREATE SCHEMA my_schema;
+
+CREATE TABLE my_schema.t (a INT, b TEXT);
+
+SELECT * FROM my_schema.t;
+
+SELECT * FROM my_db.my_schema.t;
+
+DROP SCHEMA my_schema CASCADE;
+```
+
+{/* Jira ticket: FIR-51716 */}
+**Union By Name**
+Added support for `UNION [ALL] BY NAME`, which combines columns by their names instead of their positions.
+This change enhances usability for unions with a large number of columns.
+
+{/* Jira ticket: FIR-51015 */}
+**Initial support for Iceberg schema evolution**
+Partial support for Iceberg schema evolution was added, allowing users to reorder, add, and remove fields from a table. This update simplifies managing table structures and enhances flexibility when making schema changes.
+
+{/* Jira ticket: FIR-51465 */}
+**`ALTER TABLE ... RENAME TO` on Views**  
+The `ALTER TABLE ... RENAME TO` statement can now also be used to rename views. Note that the target object is a view, but the `ALTER TABLE` syntax is used.
+
+```sql
+ALTER TABLE v RENAME TO v2;
+```
+
+{/* Jira ticket: FIR-51338 */}
+**`ALTER TABLE` Operations on Tables with Dependent Views**  
+`ALTER TABLE` operations are now permitted on tables that have dependent views. Previously, any `ALTER TABLE` operation on a table with dependent views would fail. Note that renaming a table that has dependent views is still blocked to prevent silently breaking view definitions.
+
+{/* Jira ticket: FIR-52069 */}
+**Two-Part and Three-Part Identifiers in `GRANT` and `REVOKE` Statements**  
+`GRANT` and `REVOKE` statements now support two-part (`schema.object`) and three-part (`database.schema.object`) identifiers for specifying target objects. Qualified identifiers are also supported in `IN SCHEMA` clauses. This allows granting privileges on objects within specific schemas directly.
+
+```sql
+-- Two-part identifier table grant
+GRANT SELECT ON TABLE my_schema.t TO my_role;
+
+-- Three-part identifier table grant
+GRANT SELECT ON TABLE my_db.my_schema.t TO my_role;
+
+-- IN SCHEMA clause table grant with two-part identifier
+GRANT SELECT ON TABLE t IN SCHEMA my_db.my_schema TO my_role;
+
+-- Schema-level grant with qualified schema name
+GRANT SELECT ANY ON SCHEMA my_db.my_schema TO my_role;
+```
+
+{/* Jira ticket: FIR-51560 */}
+{/* Jira ticket: FIR-51535 */}
+**Automated Column Statistics Types**
+You can now specify which types of statistics to collect.
+Also, the feature now uses counting sketches to update more quickly in the presence of deletions.
+
+{/* Jira ticket: FIR-46749 */}
+**Telemetry data in `INFORMATION_SCHEMA.ENGINE_QUERY_HISTORY`**
+The column `telemetry` in `INFORMATION_SCHEMA.ENGINE_QUERY_HISTORY` now shows telemetry data about the query processing. This addition helps users monitor and analyze query performance effectively.
+
+{/* Jira ticket: FIR-50958 */}
+**Vector search indexes on `ARRAY(FLOAT)` and `ARRAY(REAL)`.**
+Firebolt now supports vector search indexes on `ARRAY(FLOAT)` and `ARRAY(REAL)` columns using the HNSW algorithm.
+
+{/* Jira ticket: FIR-52003 */}
+**`LOCATION` has `SOURCE` = `CLOUD_STORAGE` for automatic storage backend identification in URLs.**
+A new value `SOURCE` value `CLOUD_STORAGE` in `LOCATION` object that automatically identify the storage backend from the URL. Currently, it supports Amazon S3. Locations created with `SOURCE = AMAZON_S3` now appear as `CLOUD_STORAGE (S3)` in `information_schema.locations`.
+
+{/* Jira ticket: FIR-51419 */}
+**`FORCE_HASH_SHUFFLE_FOR_JOIN` setting**
+On multi-node engines, users can override the optimizer's decision to use a broadcast join. By adding `WITH (FORCE_HASH_SHUFFLE_FOR_JOIN=true)` to the query or setting `FORCE_HASH_SHUFFLE_FOR_JOIN=true` in the user interface or connection string, a hash-shuffled join is enforced. This feature provides users with more control over query execution plans, potentially improving performance for specific workloads.
+
+### Behavior Changes
+
+{/* Jira ticket: FIR-50527 */}
+**Default Inferred Type for Native Parquet JSON Columns Changed from TEXT to JSON**
+The Parquet file format supports a logical `JSON` column type. In prior Firebolt versions, the SQL type of such columns was inferred as `TEXT` by the `read_parquet` table-valued function and when using `COPY INTO` with `AUTO_CREATE = TRUE`. Going forward, the default inferred type for such columns will change to the newly introduced `JSON` type.
+
+Both `read_parquet` and `COPY INTO` now accept the argument `PARSE_JSON_AS` which can be set to `PARSE_JSON_AS = 'TEXT'` to restore the previous type inference behavior for Parquet columns with logical type `JSON`.
+
+Note that Firebolt continues to support ingesting Parquet `JSON` columns into existing `TEXT` columns. This occurs when using external tables with columns of type `TEXT`, or when using `COPY INTO` to ingest into an existing managed table with columns of type `TEXT`. Note that the newly added Firebolt `JSON` type is not castable to `TEXT`, so this conversion can only occur at the point of ingesting from Parquet.
+
+{/* Jira ticket: FIR-51793 */}
+**Postgres Compliant Regex**
+Corrected the `m` flag in the [`REGEXP_LIKE`](/reference-sql/functions-reference/string/regexp-like) function to ensure it identifies `^` and `$` as line boundaries.
+
+{/* Jira ticket: FIR-51279 */}
+{/* Jira ticket: FIR-49424 */}
+**Column Name Changes**
+
+Default column names for unaliased columns are now generated following PostgreSQL naming scheme where column names are derived from the top-level expression node in the syntax tree, without enforcing uniqueness disambiguating duplicate names, following the following rules:
+
+* Explicit aliases are always used as column names.
+* Simple column references use the name of the referenced column, dropping the table qualifier.
+* Function calls, such as `count(*)` or `now()` use the name of the function as column name.
+* Casts use the column name of the underlying expression. Note that PostgreSQL uses the internal name of the type if the underlying expression is a constant or a complex expression that would otherwise use `?column?` as column name. However, Firebolt just uses `?column?`.
+* Scalar subquery expressions, such as `(select now())`, take the column name of the underlying projected column, computed using these rules.
+* For other complex expressions and constants `?column?` is used as column name.
+
+These generated column names are used when resolving column references during query validation and are part of the metadata of the returned result set to the client. As a result of this change expect fewer columns to be called `?column?`.
+If you rely on this name explicitly on the client side, migrate by using an explicit column alias.
+
+The column of the `EXPLAIN` output is now named `QUERY PLAN` to align with PostgreSQL.
+
+{/* Jira ticket: FIR-51813 */}
+**Struct Type Conversion**
+Type conversion between two named struct types now matches field names. Type conversion for unnamed structs or a mix of named and unnamed structs remains the same.
+
+The behavior of explicit casts between named structs has changed. This change may affect existing queries where such casts are used.
+
+
+### Performance Improvements
+{/* Jira ticket: FIR-51709 */}
+**Extended late materialization support to tables with `STRUCT` columns**
+Late materialization now supports tables containing `STRUCT` columns. This enhancement improves query performance by delaying data retrieval until necessary, resulting in faster and more efficient query execution.
+
+### Bug Fixes
+{/* Jira ticket: FIR-52238 */}
+**Addressed incorrect results for multi-column `NOT IN` subquery predicates involving constants and potential `NULL` returns**
+Fixed an issue that caused incorrect results for multi-column `NOT IN` subquery predicates when evaluated with constants, and the predicate potentially returned `NULL`. This fix ensures accurate query results.
+
+{/* Jira ticket: FIR-51481 */}
+**Improved compatibility with legacy Parquet files by accurately reading list encodings as `array(array(integer))`**
+Firebolt now correctly reads Parquet files with legacy list encodings. Previously, Parquet files using certain structures were incorrectly interpreted as arrays of a struct containing arrays. For example, an array of arrays of integers was read as `array(struct("array" array(integer)))`, such as `{"{array:{1,2}}","{array:{3,4}}"}`. This data is now accurately read as `array(array(integer))`, or `{{1,2},{3,4}}`. This change ensures better compatibility with legacy Parquet files and improves data handling.
