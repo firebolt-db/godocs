@@ -15,11 +15,11 @@ Exports the results of a `SELECT` query to Amazon S3 in your specified file form
 ```sql
 COPY (<select_query>)
   TO <location_name>
-  [ WITH ( <option> [, ...] ) ]
+  [ WITH ] ( <option> [, ...] )
 
 COPY (<select_query>)
   TO '<url>'
-  [ WITH ( <option> [, ...] ) ]
+  [ WITH ] ( <option> [, ...] )
 
 <option>:
     [ CREDENTIALS = ( <credentials> ) ] 
@@ -44,6 +44,9 @@ COPY (<select_query>)
 )
 ```
 
+<Note>
+The `WITH` keyword before the options list is optional. Additionally, you can use either `=` or a space to separate option names from their values. For example, both `TYPE = JSON` and `TYPE JSON` are valid.
+</Note>
 
 ## Parameters  
 
