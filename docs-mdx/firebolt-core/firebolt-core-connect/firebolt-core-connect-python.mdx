@@ -8,13 +8,13 @@ You can use the [Python SDK](https://github.com/firebolt-db/firebolt-python-sdk/
 
 ## Prerequisites
 
-* Python 3.10 and up
+* Python >=3.10
 * Firebolt Core running locally
 
 ## Installation
 
 ```shell
-pip install "firebolt-sdk>=1.13.0"
+pip install "firebolt-sdk>=1.18.3"
 ```
 
 ## Connection
@@ -37,7 +37,7 @@ with connect(
     cursor.execute("SELECT 1")
 ```
 
-`url` and `database` parameters are optional and can be omitted. In such case they default to `http://localhost:3473` and `firebolt` respectively.
+The `url` and `database` parameters are optional and can be omitted. In such case they default to `http://localhost:3473` and `firebolt` respectively.
 
 `auth=FireboltCore()` is a required parameter and tells the SDK to connect to the Core instance.
 

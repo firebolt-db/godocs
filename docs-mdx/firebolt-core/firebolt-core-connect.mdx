@@ -200,7 +200,7 @@ Firebolt Core is fully transactional (see also [Architecture](/firebolt-core/fir
 
 ## Load Balancing & Data Locality
 
-Firebolt Core contains the same distributed execution engine that also powers Firebolt's managed Cloud data warehouse. In general, this execution engine distributes most query processing work evenly across all nodes within a cluster. However, clients should nevertheless ensure that they submit queries to all nodes within a cluster in a balanced way for the following reasons.
+Firebolt Core contains the same distributed execution engine that also powers Firebolt's managed cloud data warehouse. In general, this execution engine distributes most query processing work evenly across all nodes within a cluster. However, clients should nevertheless ensure that they submit queries to all nodes within a cluster in a balanced way for the following reasons.
 
 First, the node to which a query is submitted becomes the leader node for that query and usually has to do slightly more work than the follower nodes. Most importantly, all query planning is done on the leader node which may require substantial compute resources for complex queries. Furthermore, the final query result is gathered on the leader node and streamed back to the client from there. If the query result is large, this may also require substantial compute resources. Finally, some stages of the distribution execution plan may run only on the leader node. For example, this is the case for the final sorting step for queries with an `ORDER BY` clause, or for queries that do not access any tables at all.
 
@@ -249,7 +249,7 @@ curl --silent "localhost:3473" --data-binary "EXPLAIN (PHYSICAL) INSERT INTO foo
 #          |   $0 = list_tablets(table_name => bar)
 #          |   [RowType]: tablet not null
 #           \_[4] [Projection]
-#             |   [RowType]: 
+#             |   [RowType]:
 #              \_[5] [SystemOneTable]
 #                    [RowType]: integer not null
 ```
@@ -263,10 +263,9 @@ Firebolt Core does not have any built-in provisions to authenticate and secure c
 
 ## Client SDKs
 
-Firebolt offers a number of [client SDKs](/guides/developing-with-firebolt) for its managed Cloud data warehouse. However, most of these SDKs cannot yet be used to connect to Firebolt Core. We will gradually extend SDK coverage as Firebolt Core moves beyond public preview (see also [Roadmap](/firebolt-core/firebolt-core-roadmap)). The following client SDKs are currently supported.
+Firebolt offers a number of [client SDKs](/guides/developing-with-firebolt) for its managed cloud data warehouse. Not all of our SDKs can be used to connect to Firebolt Core yet. We will gradually extend SDK coverage as Firebolt Core moves beyond public preview (see also [Roadmap](/firebolt-core/firebolt-core-roadmap)). The following client SDKs are currently supported.
 
+* The [Firebolt Go SDK](https://github.com/firebolt-db/firebolt-go-sdk) from version 1.14.1. See [Connect with JDBC](/firebolt-core/firebolt-core-connect/firebolt-core-connect-go) for details.
 * The [Firebolt JDBC driver](https://github.com/firebolt-db/jdbc) from version 3.6.3. See [Connect with JDBC](/firebolt-core/firebolt-core-connect/firebolt-core-connect-jdbc) for details.
-* The [Firebolt Python driver](https://github.com/firebolt-db/firebolt-python-sdk/) from version 1.13.0. See [Connect with Python](/firebolt-core/firebolt-core-connect/firebolt-core-connect-python) for details.
+* The [Firebolt Python SDK](https://github.com/firebolt-db/firebolt-python-sdk/) from version 1.13.0. See [Connect with Python](/firebolt-core/firebolt-core-connect/firebolt-core-connect-python) for details.
 * The UI Interface. See [Connect via UI](/firebolt-core/firebolt-core-connect/firebolt-core-connect-ui) for details.
-
-

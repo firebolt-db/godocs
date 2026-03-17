@@ -11,14 +11,13 @@ The [official Firebolt Go SDK driver](https://github.com/firebolt-db/firebolt-go
 In order to connect to a Firebolt Core cluster with Go SDK, you need to specify the address of the HTTP endpoint in the `url` connection parameter. For example, if you followed the [Get Started](/firebolt-core/firebolt-core-get-started) guide to start a single-node Firebolt Core cluster on your local machine, its HTTP endpoint is exposed at `localhost:3473` and you can use the following connection string to connect to the default database.
 
 ```
-firebolt:///?url=http://localhost:443
+firebolt://?url=http://localhost:3473
 ```
 
 More generally, the form of the connection string should be as follows.
 
 ```
-firebolt:///<database>?url=<http_endpoint_url>
+firebolt://[/<database>]?url=<http_endpoint_url>
 ```
 
 Recall that Firebolt Core [does not support authentication](/firebolt-core/firebolt-core-connect#security), so the respective instructions outlined in the dedicated [Go SDK documentation page](/guides/developing-with-firebolt/connecting-with-go#connect-to-firebolt) do not apply.
-
