@@ -1,0 +1,346 @@
+---
+description: Describes the lexical structure of SQL in Firebolt, including identifiers, literals, operators, comments, and query parameters.
+sidebarTitle: Lexical structure
+title: Lexical structure
+---
+
+SQL input consists of a sequence of commands, each terminated by a semicolon (`;`). Each command is composed of a sequence of tokens. Tokens can be keywords, identifiers, literals, operators, or special characters. Tokens are normally separated by whitespace (spaces, tabs, newlines), but need not be if there is no ambiguity.
+
+## Identifiers
+
+Identifiers are names used to refer to database objects such as tables, columns, views, indexes, and engines. For detailed rules about identifier syntax and naming requirements, see [Object identifiers](/reference/object-identifiers).
+
+### Key rules
+
+Identifiers must contain at least one character and no more than 255 characters.
+
+**Unquoted identifiers:**
+- Must begin with a letter (a-z) or underscore (`_`)
+- Subsequent characters can be letters, underscores, or digits (0-9)
+- Are case-insensitive and evaluated entirely in lowercase
+
+**Quoted identifiers:**
+- Are enclosed in double quotes (`"`)
+- Can contain any UTF-8 characters, including spaces and special characters
+- Are case-sensitive
+
+```sql
+-- These are all equivalent (unquoted identifiers are lowercased)
+SELECT my_column FROM my_table
+SELECT MY_COLUMN FROM MY_TABLE
+SELECT mY_cOlUmn FROM mY_tAbLe
+
+-- These are distinct (quoted identifiers preserve case)
+SELECT "COLUMN_NAME" FROM my_table
+SELECT "column_name" FROM my_table
+SELECT "Column_Name" FROM my_table
+```
+
+### Reserved words
+
+Certain words are reserved by the SQL language and cannot be used as unquoted identifiers. If you need to use a reserved word as an identifier, enclose it in double quotes. For a complete list, see [Reserved words](/reference/reserved-words).
+
+```sql
+-- 'SELECT' is a reserved word, so it must be quoted when used as an identifier
+CREATE TABLE my_table ("SELECT" INT);
+```
+
+## Literals
+
+Literals (also called constants) are fixed data values written directly in SQL statements.
+
+### String literals
+
+String literals are enclosed in single quotes (`'`). To include a single quote within a string, write two adjacent single quotes.
+
+```sql
+SELECT 'Hello, World!'
+SELECT 'It''s a sunny day'  -- Embedded single quote
+SELECT 'Line 1'             -- Simple string
+```
+
+Two string literals separated only by whitespace with at least one newline are concatenated into a single string.
+
+```sql
+SELECT 'Hello, '
+'World!'  -- Results in 'Hello, World!'
+```
+
+### Dollar-quoted string literals
+
+For strings containing single quotes, newlines, or other special characters, you can use dollar-quoted strings. These are enclosed by `$$` markers and do not require escaping.
+
+```sql
+SELECT $$This string contains 'single quotes' without escaping$$
+
+SELECT $$
+This is a
+  multi-line
+    string
+      literal
+$$
+
+-- Useful for embedding JSON or code
+SELECT $${"key": "value", "name": "O'Brien"}$$
+```
+
+Dollar-quoted strings are particularly useful when creating [user-defined functions](/reference-sql/commands/data-definition/create-function) with embedded code.
+
+### Escape string literals
+
+Escape string literals are prefixed with the letter `E` (case-insensitive) before the opening single quote. They support backslash escape sequences for special characters.
+
+```sql
+SELECT E'Line 1\nLine 2'         -- Newline character
+SELECT E'Tab\there'               -- Tab character
+SELECT E'Firebolt \U0001F525'     -- Unicode character (🔥)
+```
+
+| Escape sequence | Interpretation |
+|-----------------|----------------|
+| `\b` | Backspace |
+| `\f` | Form feed |
+| `\n` | Newline |
+| `\r` | Carriage return |
+| `\t` | Tab |
+| `\o`, `\oo`, `\ooo` | Octal byte value (1-255) |
+| `\xh`, `\xhh` | Hexadecimal byte value |
+| `\uxxxx` | 16-bit Unicode character |
+| `\Uxxxxxxxx` | 32-bit Unicode character |
+| `\\` | Literal backslash |
+
+Any other character following a backslash is taken literally.
+
+<Note>
+For compatibility, the `standard_conforming_strings` setting can be set to `false` to make regular string literals also recognize backslash escape sequences. However, using `E''` syntax is recommended for clarity.
+</Note>
+
+### Numeric literals
+
+Numeric literals represent integer and floating-point values.
+
+**Integer literals:**
+
+```sql
+SELECT 42           -- INTEGER
+SELECT 9223372036854775807  -- BIGINT (large values automatically use BIGINT)
+SELECT -100         -- Negative integer
+```
+
+**Floating-point literals:**
+
+```sql
+SELECT 3.14         -- NUMERIC or DOUBLE PRECISION
+SELECT 3.14e10      -- Scientific notation
+SELECT 2.5E-3       -- Scientific notation (0.0025)
+SELECT .5           -- Fractional (0.5)
+SELECT 5.           -- Whole number as float (5.0)
+```
+
+**NUMERIC literals with precision:**
+
+```sql
+SELECT 123.456::NUMERIC(10,3)  -- Explicit precision and scale
+SELECT CAST(99.99 AS NUMERIC(5,2))
+```
+
+### Boolean literals
+
+Boolean literals represent true or false values.
+
+```sql
+SELECT TRUE
+SELECT FALSE
+SELECT true   -- Case-insensitive
+SELECT false
+```
+
+### NULL literal
+
+The `NULL` literal represents a missing or unknown value.
+
+```sql
+SELECT NULL
+SELECT NULL::TEXT  -- NULL with explicit type
+```
+
+### Date and time literals
+
+Date and time literals can be written using the type name followed by a string literal, or by casting a string.
+
+**DATE literals:**
+
+```sql
+SELECT DATE '2024-01-15'
+SELECT '2024-01-15'::DATE
+SELECT CAST('2024-01-15' AS DATE)
+```
+
+**TIMESTAMP literals:**
+
+```sql
+SELECT TIMESTAMP '2024-01-15 14:30:00'
+SELECT TIMESTAMP '2024-01-15 14:30:00.123456'  -- With microseconds
+SELECT '2024-01-15 14:30:00'::TIMESTAMP
+```
+
+**TIMESTAMPTZ literals:**
+
+```sql
+SELECT TIMESTAMPTZ '2024-01-15 14:30:00+00'       -- With UTC offset
+SELECT TIMESTAMPTZ '2024-01-15 14:30:00 UTC'      -- With timezone name
+SELECT TIMESTAMPTZ '2024-01-15 America/New_York'  -- With timezone
+```
+
+For more details on date and time types, see [DATE](/reference-sql/data-types/date), [TIMESTAMP](/reference-sql/data-types/timestampntz), and [TIMESTAMPTZ](/reference-sql/data-types/timestamptz).
+
+### Interval literals
+
+Interval literals represent a duration of time and are used in date/time arithmetic. Intervals must be used as part of an arithmetic expression with a date or timestamp value.
+
+```sql
+SELECT NOW() + INTERVAL '1 year 2 months 3 days'
+SELECT DATE '2024-01-15' + INTERVAL '4 hours 30 minutes'
+SELECT CURRENT_TIMESTAMP - INTERVAL '1' DAY
+SELECT CURRENT_DATE() + '2 weeks'::INTERVAL
+```
+
+For complete syntax and unit options, see [Arithmetic with date/time and intervals](/reference-sql/operators#arithmetic-with-datetime-and-intervals).
+
+### Array literals
+
+Array literals are enclosed in square brackets with elements separated by commas.
+
+```sql
+SELECT [1, 2, 3, 4, 5]
+SELECT ['apple', 'banana', 'cherry']
+SELECT [1, NULL, 3]           -- Arrays can contain NULL
+SELECT [[1, 2], [3, 4]]       -- Nested arrays
+SELECT []::INTEGER[]          -- Empty array with explicit type
+```
+
+For more information, see [ARRAY data type](/reference-sql/data-types#array).
+
+### STRUCT literals
+
+STRUCT literals are written using the `STRUCT` keyword.
+
+```sql
+SELECT STRUCT('Alice', 30, TRUE)
+```
+
+For more information, see [STRUCT data type](/reference-sql/data-types/struct).
+
+### Type casting
+
+Literals can be cast to specific data types using the `::` operator, the `CAST` function, or type name prefix syntax.
+
+```sql
+-- Using :: operator
+SELECT '42'::INTEGER
+SELECT '2024-01-15'::DATE
+
+-- Using CAST function
+SELECT CAST('42' AS INTEGER)
+SELECT CAST('2024-01-15' AS DATE)
+
+-- Using type name prefix (for date/time types)
+SELECT DATE '2024-01-15'
+SELECT TIMESTAMP '2024-01-15 10:30:00'
+```
+
+For complete type conversion rules, see [Type conversion](/reference-sql/data-types#type-conversion).
+
+## Operators
+
+Operators are special symbols or keywords that perform operations on values. Firebolt supports arithmetic, comparison, logical, string, and other operators.
+
+```sql
+-- Arithmetic
+SELECT 10 + 5, 10 - 5, 10 * 5, 10 / 5, 10 % 3
+
+-- Comparison
+SELECT price > 100, name = 'Alice', status <> 'inactive'
+
+-- Logical
+SELECT active AND verified, premium OR trial, NOT deleted
+
+-- String concatenation
+SELECT 'Hello' || ' ' || 'World'
+
+-- Type cast
+SELECT '42'::INTEGER
+```
+
+For the complete list of operators and their precedence, see [Operators](/reference-sql/operators).
+
+## Comments
+
+Comments are used to add notes or temporarily disable portions of SQL code. Firebolt supports two styles of comments.
+
+### Single-line comments
+
+Single-line comments begin with two dashes (`--`) and extend to the end of the line.
+
+```sql
+-- This is a single-line comment
+SELECT * FROM users;  -- Fetch all users
+
+-- The following line is commented out:
+-- DROP TABLE users;
+```
+
+### Block comments
+
+Block comments begin with `/*` and end with `*/`. They can span multiple lines.
+
+```sql
+/* This is a block comment */
+SELECT * FROM users;
+
+/*
+  This is a multi-line
+  block comment explaining
+  the following query.
+*/
+SELECT 
+    user_id,
+    /* created_at, */  -- This column is temporarily excluded
+    email
+FROM users;
+```
+
+## Query parameters
+
+Firebolt supports parameterized queries using positional placeholders (`$1`, `$2`, `$3`, etc.). Parameters allow you to write query templates and supply values at execution time.
+
+```sql
+SELECT * FROM orders WHERE customer_id = $1 AND status = $2;
+```
+
+Parameters provide several benefits:
+- **Security**: Prevents SQL injection by separating query logic from data
+- **Reusability**: The same query template can be executed with different values
+
+For complete details on specifying parameters via the SQL workspace, REST API, or SDKs, see [Parameterized queries](/guides/sql-dialect/parametrized-queries).
+
+## Whitespace
+
+Whitespace (spaces, tabs, newlines) separates tokens and is generally ignored except within string literals. Multiple whitespace characters are equivalent to a single space.
+
+```sql
+-- These are equivalent
+SELECT    *    FROM    users    WHERE    id=1;
+SELECT * FROM users WHERE id=1;
+SELECT *
+FROM users
+WHERE id = 1;
+```
+
+Since query result caching is based on the plan fingerprint rather than the literal query text, all of the above queries will also share the same cached query result.
+
+Note that whitespace within string literals is preserved:
+
+```sql
+SELECT '  spaces  are  preserved  ';
+```

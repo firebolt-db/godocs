@@ -298,6 +298,7 @@
           {
             "group": "SQL reference",
             "pages": [
+              "reference-sql/lexical-structure",
               "reference-sql/explicit-transactions",
               {
                 "group": "Data types",
