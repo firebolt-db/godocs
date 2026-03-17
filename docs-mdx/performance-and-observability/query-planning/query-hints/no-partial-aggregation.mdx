@@ -52,9 +52,9 @@ group by
 [0] [MaybeCache]
  \_[1] [Shuffle] Gather
    |   [Affinity]: many nodes
-    \_[2] [Projection] avg2_0, fact_sales.location_id
-       \_[3] [Aggregate] GroupBy: [fact_sales.location_id] Aggregates: [avg2_0: avg2(fact_sales.quantity)]
-         |   [Types]: avg2_0: double precision null
+    \_[2] [Projection] avg_0, fact_sales.location_id
+       \_[3] [Aggregate] GroupBy: [fact_sales.location_id] Aggregates: [avg_0: avg(fact_sales.quantity)]
+         |   [Types]: avg_0: double precision null
           \_[4] [Shuffle] Hash by [fact_sales.location_id]
             |   [Affinity]: many nodes
              \_[5] [TableFuncScan] fact_sales.location_id: $0.location_id, fact_sales.quantity: $0.quantity
@@ -81,13 +81,13 @@ group by
 [0] [MaybeCache]
  \_[1] [Shuffle] Gather
    |   [Affinity]: many nodes
-    \_[2] [Projection] avg2_1, fact_sales.location_id
-       \_[3] [AggregateMerge] GroupBy: [fact_sales.location_id] Aggregates: [avg2_1: avg2merge(avg2_0)]
-         |   [Types]: avg2_1: double precision null
+    \_[2] [Projection] avg_1, fact_sales.location_id
+       \_[3] [AggregateMerge] GroupBy: [fact_sales.location_id] Aggregates: [avg_1: avgmerge(avg_0)]
+         |   [Types]: avg_1: double precision null
           \_[4] [Shuffle] Hash by [fact_sales.location_id]
             |   [Affinity]: many nodes
-             \_[5] [AggregateState partial] GroupBy: [fact_sales.location_id] Aggregates: [avg2_0: avg2(fact_sales.quantity)]
-               |   [Types]: avg2_0: aggregatefunction(avg2ornull, integer null) not null
+             \_[5] [AggregateState partial] GroupBy: [fact_sales.location_id] Aggregates: [avg_0: avg(fact_sales.quantity)]
+               |   [Types]: avg_0: aggregatefunction(avg2ornull, integer null) not null
                 \_[6] [TableFuncScan] fact_sales.location_id: $0.location_id, fact_sales.quantity: $0.quantity
                   |   $0 = read_tablets(table_name => fact_sales, tablet)
                   |   [Types]: fact_sales.location_id: text null, fact_sales.quantity: integer null

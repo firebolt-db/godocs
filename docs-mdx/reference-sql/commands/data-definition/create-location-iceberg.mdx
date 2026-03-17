@@ -72,7 +72,7 @@ CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
 | Parameter | Description |
 | :-------- | :---------- |
 | `<location_name>` | A unique identifier for the location within your account. |
-| `SOURCE` | The external data source type. Currently, `AMAZON_S3` and `ICEBERG` are supported. This should be `ICEBERG` for Iceberg locations. |
+| `SOURCE` | The external data source type. Currently, `CLOUD_STORAGE` and `ICEBERG` are supported. Additionally, `AMAZON_S3` is supported as an alias for `CLOUD_STORAGE` with an S3 URL. This should be `ICEBERG` for Iceberg locations. |
 | `DESCRIPTION` | Optional metadata describing the location's purpose. |
 
 ### Iceberg Parameters

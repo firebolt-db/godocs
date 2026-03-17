@@ -56,9 +56,9 @@ with (
 ```
 
 ```text plan in automatic mode  {5,7}
-[0] [Projection] c_0: 2000, brand_id: item.i_brand_id, brand: item.i_brand, sum_agg: sum2_0
- \_[1] [Sort] OrderBy: [sum2_0 Descending First, item.i_brand_id Ascending Last] Limit: [10]
-    \_[2] [Aggregate] GroupBy: [item.i_brand_id, item.i_brand] Aggregates: [sum2_0: sum2(store_sales.ss_ext_sales_price)]
+[0] [Projection] c_0: 2000, brand_id: item.i_brand_id, brand: item.i_brand, sum_agg: sum_0
+ \_[1] [Sort] OrderBy: [sum_0 Descending First, item.i_brand_id Ascending Last] Limit: [10]
+    \_[2] [Aggregate] GroupBy: [item.i_brand_id, item.i_brand] Aggregates: [sum_0: sum(store_sales.ss_ext_sales_price)]
        \_[3] [Projection] store_sales.ss_ext_sales_price, item.i_brand_id, item.i_brand
           \_[4] [Join] Mode: Inner [(store_sales.ss_sold_date_sk = date_dim.d_date_sk)]
              \_[5] [Projection] store_sales.ss_sold_date_sk, store_sales.ss_ext_sales_price, item.i_brand_id, item.i_brand
@@ -73,9 +73,9 @@ with (
 ```
 
 ```text plan in user-guided mode {5,7}
-[0] [Projection] c_0: 2000, brand_id: item.i_brand_id, brand: item.i_brand, sum_agg: sum2_0
- \_[1] [Sort] OrderBy: [sum2_0 Descending First, item.i_brand_id Ascending Last] Limit: [10]
-    \_[2] [Aggregate] GroupBy: [item.i_brand_id, item.i_brand] Aggregates: [sum2_0: sum2(store_sales.ss_ext_sales_price)]
+[0] [Projection] c_0: 2000, brand_id: item.i_brand_id, brand: item.i_brand, sum_agg: sum_0
+ \_[1] [Sort] OrderBy: [sum_0 Descending First, item.i_brand_id Ascending Last] Limit: [10]
+    \_[2] [Aggregate] GroupBy: [item.i_brand_id, item.i_brand] Aggregates: [sum_0: sum(store_sales.ss_ext_sales_price)]
        \_[3] [Projection] store_sales.ss_ext_sales_price, item.i_brand_id, item.i_brand
           \_[4] [Join] Mode: Inner [(store_sales.ss_item_sk = item.i_item_sk)]
              \_[5] [Projection] store_sales.ss_item_sk, store_sales.ss_ext_sales_price

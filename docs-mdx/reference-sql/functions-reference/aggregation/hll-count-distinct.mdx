@@ -66,3 +66,8 @@ Assuming 8,388,608 unique pk values, the previous code example returns the follo
 
 In the previous result, `approx_count` is using precision 17, `hll12_count` is using precision 12, and `hll20_count` is using precision 20, which is the most precise value.  
 
+## Use in Aggregating Indexes
+
+If you use `HLL_COUNT_DISTINCT` in an aggregating index, every deletion from the base table requires a full table scan to update the index.
+Firebolt performs this automatically and transactionally consistent.
+However, to achieve better performance in the presence of regular deletions, you can use [`COUNTING_HLL_COUNT_DISTINCT`](/reference-sql/functions-reference/aggregation/counting-hll-count-distinct) instead, where no full table scan is required.

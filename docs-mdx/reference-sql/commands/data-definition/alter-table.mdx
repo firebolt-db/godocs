@@ -127,7 +127,7 @@ ALTER TABLE <table> OWNER TO <user>
 
 ## ALTER TABLE RENAME TO
 
-Renames a table.
+Renames a table or a view.
 
 ### Syntax
 
@@ -140,14 +140,31 @@ ALTER TABLE [IF EXISTS] <table_name> RENAME TO <new_table_name>
 
 | Parameter          | Description                                  |
 | :------------------ | :-------------------------------------------- |
-| `<table_name>`     | The name of the table to rename. |
-| `<new_table_name>` | The new name of the table. |
+| `<table_name>`     | The name of the table or view to rename. |
+| `<new_table_name>` | The new name for the table or view. |
+
+### Examples
+
+Rename a table:
+```sql
+ALTER TABLE orders RENAME TO archived_orders;
+```
+
+Rename a view:
+```sql
+ALTER TABLE my_view RENAME TO renamed_view;
+```
+
+Rename only if the table or view exists:
+```sql
+ALTER TABLE IF EXISTS my_view RENAME TO renamed_view;
+```
 
 ### Limitations
 The query can only be executed under the following conditions:
-* Only for managed tables created on Firebolt version 4.10 or higher (external tables are not supported).
-* The table must not have any dependent views.
-* Renaming tables across schemas and databases is not supported. Consider using [CREATE TABLE CLONE](/reference-sql/commands/data-definition/create-table-clone)
+* External tables are not supported.
+* The table or view must not have any dependent views.
+* Renaming across schemas and databases is not supported. Consider using [CREATE TABLE CLONE](/reference-sql/commands/data-definition/create-table-clone) for tables.
 
 ## ALTER TABLE SET PRIMARY INDEX
 

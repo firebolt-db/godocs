@@ -44,7 +44,7 @@ LOCATION objects operate at the account level. This design provides several adva
 USE DATABASE data_warehouse;
 
 CREATE LOCATION shared_s3_data WITH
-  SOURCE = AMAZON_S3
+  SOURCE = CLOUD_STORAGE
   CREDENTIALS = (AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/S3Access')
   URL = 's3://company-data-lake/';
 
@@ -78,7 +78,7 @@ For detailed information about location permissions, see [Location permissions](
 ```sql
 -- Admin: Create a secure LOCATION with sensitive credentials
 CREATE LOCATION production_data WITH
-  SOURCE = AMAZON_S3
+  SOURCE = CLOUD_STORAGE
   CREDENTIALS = (AWS_ACCESS_KEY_ID = 'AKIAIOSFODNN7EXAMPLE' AWS_SECRET_ACCESS_KEY = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY')
   URL = 's3://production-bucket/';
 
@@ -110,7 +110,7 @@ Replace inline credentials with a LOCATION reference:
 ```sql
 -- Create the LOCATION once
 CREATE LOCATION my_data_source WITH
-  SOURCE = AMAZON_S3
+  SOURCE = CLOUD_STORAGE
   CREDENTIALS = (AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/DataAccess')
   URL = 's3://my-data-bucket/';
 
@@ -165,7 +165,7 @@ WHERE object_name LIKE '%.parquet';
 
 -- Admin: Create a secure LOCATION for your path. This path contains only csv files so can be used in READ_CSV
 CREATE LOCATION my_data_source WITH
-  SOURCE = AMAZON_S3
+  SOURCE = CLOUD_STORAGE
   CREDENTIALS = (AWS_ACCESS_KEY_ID = 'AKIAIOSFODNN7EXAMPLE' AWS_SECRET_ACCESS_KEY = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY')
   URL = 's3://production-bucket/'; -- only contains csv files
 
@@ -179,7 +179,7 @@ WHERE signup_date >= '2024-01-01';
 
 -- Admin: Create a secure LOCATION for your path that contains multiple file types, targeting parquet only
 CREATE LOCATION my_parquet_data_source WITH
-  SOURCE = AMAZON_S3
+  SOURCE = CLOUD_STORAGE
   CREDENTIALS = (AWS_ACCESS_KEY_ID = 'AKIAIOSFODNN7EXAMPLE' AWS_SECRET_ACCESS_KEY = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY')
   URL = 's3://production-bucket/*.parquet';
 
@@ -205,15 +205,21 @@ LOCATION objects currently support multiple data source types:
 For S3-based data storage with AWS authentication:
 
 ```sql
--- Using access keys
+-- Using CLOUD_STORAGE (recommended, auto-infers backend from URL)
 CREATE LOCATION s3_with_keys WITH
+  SOURCE = CLOUD_STORAGE
+  CREDENTIALS = ( AWS_ACCESS_KEY_ID = 'AKIAIOSFODNN7EXAMPLE' AWS_SECRET_ACCESS_KEY = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY' )
+  URL = 's3://my-bucket/data/';
+
+-- Using AMAZON_S3 (alias for CLOUD_STORAGE with S3 URL)
+CREATE LOCATION s3_with_keys_alt WITH
   SOURCE = AMAZON_S3
   CREDENTIALS = ( AWS_ACCESS_KEY_ID = 'AKIAIOSFODNN7EXAMPLE' AWS_SECRET_ACCESS_KEY = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY' )
   URL = 's3://my-bucket/data/';
 
 -- Using IAM roles (recommended)
 CREATE LOCATION s3_with_role WITH
-  SOURCE = AMAZON_S3
+  SOURCE = CLOUD_STORAGE
   CREDENTIALS = (AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/S3Access')
   URL = 's3://my-bucket/data/';
 ```
@@ -287,7 +293,7 @@ For more details about Iceberg LOCATION objects, see [CREATE LOCATION (Iceberg)]
 
 ```sql
 CREATE LOCATION customer_data_lake WITH
-  SOURCE = AMAZON_S3
+  SOURCE = CLOUD_STORAGE
   CREDENTIALS = (AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/CustomerDataAccess')
   URL = 's3://company-customer-data/'
   DESCRIPTION = 'Production customer data lake containing PII - requires data governance approval';
@@ -300,7 +306,7 @@ Grant only the minimum required permissions:
 ```sql
 -- Create role-specific LOCATION objects
 CREATE LOCATION analytics_readonly WITH
-  SOURCE = AMAZON_S3
+  SOURCE = CLOUD_STORAGE
   CREDENTIALS = (AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/AnalyticsReadOnly')
   URL = 's3://analytics-data/';
 
@@ -313,14 +319,14 @@ GRANT USAGE ON LOCATION analytics_readonly TO ROLE business_intelligence;
 
 ```sql
 -- Environment-based organization
-CREATE LOCATION prod_data_lake WITH SOURCE = AMAZON_S3 ...;
-CREATE LOCATION staging_data_lake WITH SOURCE = AMAZON_S3 ...;
-CREATE LOCATION dev_data_lake WITH SOURCE = AMAZON_S3 ...;
+CREATE LOCATION prod_data_lake WITH SOURCE = CLOUD_STORAGE ...;
+CREATE LOCATION staging_data_lake WITH SOURCE = CLOUD_STORAGE ...;
+CREATE LOCATION dev_data_lake WITH SOURCE = CLOUD_STORAGE ...;
 
 -- Purpose-based organization
-CREATE LOCATION customer_analytics WITH SOURCE = AMAZON_S3 ...;
-CREATE LOCATION financial_reporting WITH SOURCE = AMAZON_S3 ...;
-CREATE LOCATION ml_training_data WITH SOURCE = AMAZON_S3 ...;
+CREATE LOCATION customer_analytics WITH SOURCE = CLOUD_STORAGE ...;
+CREATE LOCATION financial_reporting WITH SOURCE = CLOUD_STORAGE ...;
+CREATE LOCATION ml_training_data WITH SOURCE = CLOUD_STORAGE ...;
 ```
 
 ### 4. Regular credential rotation
@@ -413,7 +419,7 @@ Use CREATE LOCATION to create new LOCATION objects:
 
 ```sql
 CREATE LOCATION IF NOT EXISTS my_secure_data WITH
-  SOURCE = AMAZON_S3
+  SOURCE = CLOUD_STORAGE
   CREDENTIALS = (AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/SecureAccess')
   URL = 's3://secure-data-bucket/'
   DESCRIPTION = 'Secure data requiring elevated permissions';

@@ -71,6 +71,7 @@ FROM '<url>'
 <parquet_options>:
     [ SUPPORT_STRUCTS = { FALSE | TRUE } ]
     [ REPLACE_NON_UTF8_BYTES = { FALSE | TRUE } ]
+    [ PARSE_JSON_AS = { 'TEXT' | 'JSON' }]
 ```
 
 ## Parameters
@@ -119,6 +120,7 @@ FROM '<url>'
 |:----------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `SUPPORT_STRUCTS`     |  A boolean which specifies whether structs in the source data are to be inferred as STRUCT data types. The default value is `TRUE` for new accounts (previously `FALSE`), and existing accounts are being migrated based on usage. This parameter is expected to be deprecated in the future. For more information, see [Load Parquet structs](/reference-sql/commands/data-management/copy-from#load-parquet-structs). |
 | `REPLACE_NON_UTF8_BYTES`  | Whether to replace non-UTF8 bytes in string columns with the Unicode replacement character. Since Firebolt's [TEXT data type](/reference-sql/data-types#text) requires all values to be valid UTF8, non-UTF8 bytes in Parquet string columns are replaced with the Unicode replacement character (�, U+FFFD) when using this option. Otherwise, an error is raised. Default: false. |
+| `PARSE_JSON_AS` | Specifies the Firebolt data type which should be inferred for source columns of the native Parquet JSON type. Can be either `'TEXT'` or `'JSON'`, with the default being `'JSON'`. |
 
 ## Best practice
 

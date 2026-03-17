@@ -1,0 +1,98 @@
+---
+description: Reference material for the TO_JSON function
+sidebarTitle: TO_JSON
+title: TO_JSON
+---
+
+Converts arbitrary values to `JSON` values, without parsing any JSON strings in the input. Arrays and structs are converted recursively into JSON arrays and JSON objects, respectively. Scalar values other than `BOOLEAN`, `INTEGER`, `BIGINT`, `REAL`, `DOUBLE`, or `TEXT` are converted to `TEXT` using the regular `CAST` function.
+
+## Syntax
+
+```sql
+TO_JSON(<value>)
+```
+
+## Parameters
+
+| Parameter | Description | Supported Input Types |
+|:----------|:------------|:----------------------|
+| `<value>` | The value that should be converted to JSON. | Any |
+
+## Return Type
+
+`JSON`
+
+* If `<value>` is `NULL` the return value is SQL `NULL`.
+* If `<value>` is an array or struct containing nested SQL `NULL` values, these nested SQL `NULL`s are converted to JSON `null`s.
+
+## Examples
+
+**Example**
+
+The following query converts a `STRUCT` value containing nested `STRUCT`, `ARRAY`, and scalar values to JSON. All of the scalar data types involved are natively representable in JSON.
+
+```sql
+SELECT TO_JSON({'a':[{'b':{'message':'hello world!','42':'the answer'}}]});
+```
+
+Returns:
+
+| ?column? (JSON) |
+| :--- |
+| `{"a":[{"b":{"42":"the answer","message":"hello world!"}}]}` |
+
+**Example**
+
+The following query converts a `STRUCT` value containing nested `STRUCT`, `ARRAY`, and `NULL` values to JSON.
+
+```sql
+SELECT TO_JSON({'a':[{'b':{'message':NULL}}]});
+```
+
+Returns:
+
+| ?column? (JSON) |
+| :--- |
+| `{"a":[{"b":{"message":null}}]}` |
+
+**Example**
+
+The following query converts a plain SQL `NULL` value to JSON. Since the value is not nested within an `ARRAY` or `STRUCT`, it remains a SQL `NULL` value.
+
+```sql
+SELECT TO_JSON(NULL);
+```
+
+Returns a SQL `NULL` value:
+
+| ?column? (JSON) |
+| :--- |
+| NULL |
+
+**Example**
+
+The following query converts a `TIMESTAMP` value to JSON. Since `TIMESTAMP` values are not natively representable in JSON, they are converted to `TEXT` and represented as JSON strings.
+
+```sql
+SELECT TO_JSON('2026-01-01T00:00:00'::TIMESTAMP);
+```
+
+Returns:
+
+| ?column? (JSON) |
+| :--- |
+| `"2026-01-01 00:00:00"` |
+
+**Example**
+
+The following query converts a `TEXT` value containing valid JSON data to JSON. Note that the return value simply consists of a single JSON string though, i.e. the `TO_JSON` function does not parse JSON data contained in strings.
+
+```sql
+SELECT TO_JSON('{"a":"b"}');
+```
+
+Returns:
+
+| ?column? (JSON) |
+| :--- |
+| `"{\"a\":\"b\"}"` |

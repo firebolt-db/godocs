@@ -4,8 +4,21 @@ sidebarTitle: Overview
 title: JSON functions
 ---
 
+# JSON Functions Operating on JSON Data
 
-The JSON functions provide means to process JSON documents.
+These JSON functions provide means to process JSON documents stored in native `JSON` columns. This should be preferred over storing JSON data in `TEXT` columns.
+
+1. These operators extract a field from a JSON value, returing another JSON value:
+    * [Dot Operator](/reference-sql/functions-reference/json/json-operators#dot-operator) (`.`)
+    * [Subscript Operator](/reference-sql/functions-reference/json/json-operators#subscript-operator-[]) (`[]`)
+2. These functions convert a JSON value to a SQL value:
+    * [JSON_VALUE](/reference-sql/functions-reference/json/json-value)
+3. These functions convert a SQL value to a JSON value:
+    * [TO_JSON](/reference-sql/functions-reference/json/to-json)
+
+# JSON Functions Operating on TEXT Data
+
+These JSON functions provide means to process JSON documents stored in `TEXT` columns.
 There are three types of JSON functions for extracting values:
 1. These functions extract part of the document, but preserve the original data in the result:
     * [JSON_EXTRACT](/reference-sql/functions-reference/json/json-extract)

@@ -177,21 +177,125 @@ When there is no such ambiguity, both syntaxes resolve to the same object and th
 
 At the moment, a `STRUCT` value cannot be converted to or from any other non-struct data type.
 
-Struct types consider both field names and field positions. To determine a common type of two struct types or whether one struct type can be converted to another struct type, the two struct types must have exactly the same structure. 
+Struct types consider both field names and field positions. How Firebolt determines a common type between two struct types, or whether one struct type can be converted to another, depends on whether the struct types are named or unnamed.
 
 #### Common type of two struct types
 
-- A common type of struct types is derived as a struct type whose field types are common types of each input field type at the same position. If at any position the struct field types do not have a common type, the struct types do not have a common type.
-- The common type of unnamed struct types is still unnamed.
-- The common type of an unnamed struct and a named struct is named, following the struct field names of the named struct type.
-- Two named struct types only have a common type if their field names are equal at each position.
+- If at least one of the two struct types is unnamed, the two struct types must have exactly the same structure.
+  - Firebolt derives a common type by matching fields at the same position. For each position, Firebolt finds the common type of the corresponding field types. If any position lacks a common type, the struct types do not have a common type.
+  - The common type of two unnamed struct types remains unnamed.
+  - The common type of an unnamed struct and a named struct is named, using the field names from the named struct type.
+
+- If both struct types are named, the two struct types do not need to have the same number of fields.
+  - Firebolt derives a common type by combining fields that share the same name. For each shared field name, Firebolt finds the common type of the corresponding field types. If any pair of fields with the same name lacks a common type, the struct types do not have a common type.
+  - The common type of two named struct types remains named. Field order starts with fields from the left operand, followed by fields from the right operand that don't match any left operand fields.
+  - Fields in the common type that do not exist in an original struct type are set to NULL.
+
+For example, two unnamed structs are unioned together by position:
+```sql
+SELECT STRUCT(1, 2) AS result UNION ALL SELECT STRUCT(3, 4);
+```
+
+Example output:
+```
+result struct(f1 integer, f2 integer)
+{f1:1,f2:2}
+{f1:3,f2:4}
+```
+
+If two unnamed structs do not have the same number of fields, they cannot be unioned together:
+```sql
+SELECT STRUCT(1) AS result UNION ALL SELECT STRUCT(3, 4);
+```
+
+Example output:
+```
+ERROR: Line 1, Column 28: (struct(integer), struct(integer, integer)) have no common type
+```
+
+Two named structs are unioned together by name:
+```sql
+SELECT {'a': 1, 'b': 2} AS result UNION ALL SELECT {'b': 1, 'a': 2};
+```
+
+Example output:
+```
+result struct(a integer, b integer)
+{a:1,b:2}
+{a:2,b:1}
+```
+
+Named structs can always be unioned together, regardless of the number of fields each has.
+```sql
+SELECT {'a': 1} AS result UNION ALL SELECT {'b': 1} UNION ALL SELECT {'a': 3, 'c': 4};
+```
+
+Example output:
+```
+result struct(a integer null, b integer null, c integer null)
+{a:1,b:NULL,c:NULL}
+{a:NULL,b:1,c:NULL}
+{a:3,b:NULL,c:4}
+```
 
 #### Assigning struct values to another struct type
 
-- A struct value can be assigned to another struct type if each source field type can be assigned to the target field type at the same position.
-- Unnamed struct types can be assigned to both unnamed and named struct types.
-- Named struct types can only be assigned to other named struct types if each struct field name matches the target struct field name at the same position, unless the conversion is forced by an explicit cast to override field names.
+- If at least one of the two struct types is unnamed, the source and target struct types must have exactly the same structure.
+  - An unnamed struct value can be assigned to another struct type if each source field type can be assigned to the corresponding target field type at the same position.
+  - Unnamed struct values can be assigned to both unnamed and named struct types.
+  - A named struct value cannot be assigned to an unnamed struct type.
 
+- If both struct types are named, the two struct types do not need to have the same number of fields.
+  - A named struct value can be assigned to another named struct type if the two struct types share at least one field with the same name, and each shared source field type can be converted to the corresponding target field type.
+  - Fields in the target struct type that do not exist in the source struct type are set to NULL.
+  - Assignment fails if the two struct types do not share any fields with the same name.
+
+For example, casting an unnamed struct value to a named struct type is by position:
+```sql
+SELECT STRUCT(1, 2)::STRUCT(a INT, b DOUBLE) AS result;
+```
+
+Example output:
+```
+result struct(a integer, b double precision)
+{a:1,b:2}
+```
+
+The type conversion is not possible if the source struct type and the target struct type do not have the same number of fields:
+```sql
+SELECT STRUCT(1)::STRUCT(a INT, b DOUBLE);
+```
+
+Example output:
+```
+ERROR: Line 1, Column 17: cannot cast type struct(integer) to type struct("a" integer, "b" double precision)
+```
+
+Casting a named struct value to another named struct type is done by name. The source struct type and the target struct type can have different numbers of fields.
+```sql
+SELECT {'a': 1, 'b': 2}::STRUCT(b DOUBLE, c TEXT, d DATE) AS result;
+```
+
+Example output:
+```
+result struct(b double precision, c text null, d date null)
+{b:2,c:NULL,d:NULL}
+```
+
+However, a named struct cannot be converted to another named struct type if they do not share any fields with the same name:
+```sql
+SELECT {'a': 1}::STRUCT(b DOUBLE) AS result;
+```
+
+Example output:
+```
+ERROR: Line 1, Column 16: cannot cast type struct("a" integer) to type struct("b" double precision)
+```
+
+
+To summarize type conversion behavior for struct types:
+- If at least one struct type is unnamed, conversion matches fields by position.
+- If all struct types are named, conversion matches fields by name.
 
 ### Grouping and ordering
 

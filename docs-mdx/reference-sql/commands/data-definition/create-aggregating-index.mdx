@@ -97,7 +97,7 @@ The following code example groups products by name and replaces names longer tha
 ```sql
 SELECT
   CASE WHEN LENGTH(product_name) < 100 THEN product_name ELSE 'Other' END AS product_name,
-  APPROX_COUNT_DISTINCT(brand)
+  COUNTING_HLL_COUNT_DISTINCT(brand)
 FROM
   my_table
 WHERE
@@ -105,18 +105,23 @@ WHERE
 GROUP BY
   product_name;
 ```
-To optimize the previous query, create an aggregating index on `my_table` that precomputes `APPROX_COUNT_DISTINCT(brand)`, grouped by `origin_country`, `amount`, and `product_name` as follows:
+To optimize the previous query, create an aggregating index on `my_table` that precomputes `COUNTING_HLL_COUNT_DISTINCT(brand)`, grouped by `origin_country`, `amount`, and `product_name` as follows:
 
 ```sql
 CREATE AGGREGATING INDEX my_table_agg_idx2 ON my_table (
   origin_country,
   amount,
   product_name,
-  APPROX_COUNT_DISTINCT(brand)
+  COUNTING_HLL_COUNT_DISTINCT(brand)
 );
 ```
 
 In order to use the aggregating index, **a query must group by all indexed columns in the index**. In the previous code example, you must include `origin_country` and `amount` as filter expressions because aggregating indexes store grouped data hierarchically based on the first columns listed. If you don't include the first grouping column, the entire table is scanned, reducing performance benefits. The second grouping column `amount` is necessary to efficiently filter down results. Without both groupings, Firebolt cannot sufficiently narrow the dataset efficiently.
+
+<Note>
+For tables with frequent `DELETE` operations, consider using [`COUNTING_HLL_COUNT_DISTINCT`](/reference-sql/functions-reference/aggregation/counting-hll-count-distinct) instead of `APPROX_COUNT_DISTINCT` in aggregating indexes.
+`COUNTING_HLL_COUNT_DISTINCT` efficiently handles deletions without requiring full table scans, maintaining query performance even with frequent data modifications.
+</Note>
 
 ## Compute `AVG` with multiple filters
 

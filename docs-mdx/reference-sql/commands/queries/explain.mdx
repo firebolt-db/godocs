@@ -61,10 +61,10 @@ ORDER BY
 ```
 
 ```text EXPLAIN result
-[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, avg2_0
- \_[1] [Sort] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg2_0 Ascending Last]
-    \_[2] [Aggregate] GroupBy: [lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg2_0: avg2(lineitem.l_discount)]
-      |   [Types]: avg2_0: double precision not null
+[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, avg_0
+ \_[1] [Sort] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg_0 Ascending Last]
+    \_[2] [Aggregate] GroupBy: [lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg_0: avg(lineitem.l_discount)]
+      |   [Types]: avg_0: double precision not null
        \_[3] [Projection] lineitem.l_discount, lineitem.l_linestatus, lineitem.l_shipdate
           \_[4] [Filter] (lineitem.l_returnflag = 'N'), (lineitem.l_shipdate > DATE '1996-01-01')
              \_[5] [StoredTable] Name: "lineitem"
@@ -116,10 +116,10 @@ ORDER BY
 ```
 
 ```text EXPLAIN (LOGICAL)
-[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, avg2_0
- \_[1] [Sort] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg2_0 Ascending Last]
-    \_[2] [Aggregate] GroupBy: [lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg2_0: avg2(lineitem.l_discount)]
-      |   [Types]: avg2_0: double precision not null
+[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, avg_0
+ \_[1] [Sort] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg_0 Ascending Last]
+    \_[2] [Aggregate] GroupBy: [lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg_0: avg(lineitem.l_discount)]
+      |   [Types]: avg_0: double precision not null
        \_[3] [Projection] lineitem.l_discount, lineitem.l_linestatus, lineitem.l_shipdate
           \_[4] [Filter] (lineitem.l_returnflag = 'N'), (lineitem.l_shipdate > DATE '1996-01-01')
              \_[5] [StoredTable] Name: "lineitem"
@@ -127,18 +127,18 @@ ORDER BY
 ```
 
 ```text EXPLAIN (PHYSICAL) 
-[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, avg2_1
+[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, avg_1
  \_[1] [MaybeCache]
-    \_[2] [SortMerge] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg2_1 Ascending Last]
+    \_[2] [SortMerge] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg_1 Ascending Last]
        \_[3] [Shuffle] Gather
          |   [Affinity]: many nodes
-          \_[4] [Sort] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg2_1 Ascending Last]
-             \_[5] [AggregateMerge] GroupBy: [lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg2_1: avg2merge(avg2_0)]
-               |   [Types]: avg2_1: double precision not null
+          \_[4] [Sort] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg_1 Ascending Last]
+             \_[5] [AggregateMerge] GroupBy: [lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg_1: avgmerge(avg_0)]
+               |   [Types]: avg_1: double precision not null
                 \_[6] [Shuffle] Hash by [lineitem.l_linestatus, lineitem.l_shipdate]
                   |   [Affinity]: many nodes
-                   \_[7] [AggregateState partial] GroupBy: [lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg2_0: avg2(lineitem.l_discount)]
-                     |   [Types]: avg2_0: aggregatefunction(avg2, double precision not null) not null
+                   \_[7] [AggregateState partial] GroupBy: [lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg_0: avg(lineitem.l_discount)]
+                     |   [Types]: avg_0: aggregatefunction(avg, double precision not null) not null
                       \_[8] [Projection] lineitem.l_discount, lineitem.l_linestatus, lineitem.l_shipdate
                          \_[9] [Filter] (lineitem.l_returnflag = 'N'), (lineitem.l_shipdate > DATE '1996-01-01')
                             \_[10] [TableFuncScan] lineitem.l_discount: $0.l_discount, lineitem.l_returnflag: $0.l_returnflag, lineitem.l_linestatus: $0.l_linestatus, lineitem.l_shipdate: $0.l_shipdate
@@ -152,25 +152,25 @@ ORDER BY
 ```
 
 ```text EXPLAIN (ANALYZE)
-[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, avg2_1
+[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, avg_1
 |   [Execution Metrics]: Optimized out
  \_[1] [MaybeCache]
    |   [Execution Metrics]: output cardinality = 1065, thread time = 0ms, cpu time = 0ms, 0/2 nodes read from subresult cache, 2/2 nodes wrote to subresult cache
-    \_[2] [SortMerge] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg2_1 Ascending Last]
+    \_[2] [SortMerge] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg_1 Ascending Last]
       |   [Execution Metrics]: output cardinality = 1065, thread time = 0ms, cpu time = 0ms
        \_[3] [Shuffle] Gather
          |   [Affinity]: many nodes
          |   [Execution Metrics]: output cardinality = 1065, thread time = 0ms, cpu time = 0ms
-          \_[4] [Sort] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg2_1 Ascending Last]
+          \_[4] [Sort] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg_1 Ascending Last]
             |   [Execution Metrics]: output cardinality = 1065, thread time = 4ms, cpu time = 3ms
-             \_[5] [AggregateMerge] GroupBy: [lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg2_1: avg2merge(avg2_0)]
-               |   [Types]: avg2_1: double precision not null
+             \_[5] [AggregateMerge] GroupBy: [lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg_1: avgmerge(avg_0)]
+               |   [Types]: avg_1: double precision not null
                |   [Execution Metrics]: output cardinality = 1065, thread time = 27ms, cpu time = 26ms
                 \_[6] [Shuffle] Hash by [lineitem.l_linestatus, lineitem.l_shipdate]
                   |   [Affinity]: many nodes
                   |   [Execution Metrics]: output cardinality = 2130, thread time = 137ms, cpu time = 69ms
-                   \_[7] [AggregateState partial] GroupBy: [lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg2_0: avg2(lineitem.l_discount)]
-                     |   [Types]: avg2_0: aggregatefunction(avg2, double precision not null) not null
+                   \_[7] [AggregateState partial] GroupBy: [lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg_0: avg(lineitem.l_discount)]
+                     |   [Types]: avg_0: aggregatefunction(avg, double precision not null) not null
                      |   [Execution Metrics]: output cardinality = 2130, thread time = 9921ms, cpu time = 9686ms
                       \_[8] [Projection] lineitem.l_discount, lineitem.l_linestatus, lineitem.l_shipdate
                         |   [Execution Metrics]: Optimized out
@@ -235,19 +235,19 @@ On a cold query run, where data must be retrieved from an Amazon S3 bucket, `thr
 Additionally, a significant amount of time is devoted to performing the distributed pre-aggregation:
 
 ```
-\_[7] [AggregateState partial] GroupBy: [lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg2_0: avg2(lineitem.l_discount)]
-  |   [Types]: avg2_0: aggregatefunction(avg2, double precision not null) not null
+\_[7] [AggregateState partial] GroupBy: [lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg_0: avg(lineitem.l_discount)]
+  |   [Types]: avg_0: aggregatefunction(avg, double precision not null) not null
   |   [Execution Metrics]: output cardinality = 2130, thread time = 9921ms, cpu time = 9686ms
 ```
 
 When running the query a second time, we can see that the [result cache](/overview/queries/understand-query-performance-subresult) is used to return the results immediately:
 
 ```text {4}
-[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, avg2_1
+[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, avg_1
 |   [Execution Metrics]: Optimized out
  \_[1] [MaybeCache]
    |   [Execution Metrics]: output cardinality = 1065, thread time = 0ms, cpu time = 0ms, 2/2 nodes read from subresult cache, 0/2 nodes wrote to subresult cache
-    \_[2] [SortMerge] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg2_1 Ascending Last]
+    \_[2] [SortMerge] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg_1 Ascending Last]
       |   [Execution Metrics]: Nothing was executed
 ```
 
@@ -275,12 +275,12 @@ ORDER BY
 ```
 
 ```text EXPLAIN (STATISTICS)
-[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, avg2_0
+[0] [Projection] lineitem.l_shipdate, lineitem.l_linestatus, avg_0
 |   [Logical Profile]: [est. #rows=1898, source: estimated]
- \_[1] [Sort] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg2_0 Ascending Last]
+ \_[1] [Sort] OrderBy: [lineitem.l_shipdate Ascending Last, lineitem.l_linestatus Ascending Last, avg_0 Ascending Last]
    |   [Logical Profile]: [est. #rows=1898, source: estimated]
-    \_[2] [Aggregate] GroupBy: [lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg2_0: avg2(lineitem.l_discount)]
-      |   [Types]: avg2_0: double precision not null
+    \_[2] [Aggregate] GroupBy: [lineitem.l_linestatus, lineitem.l_shipdate] Aggregates: [avg_0: avg(lineitem.l_discount)]
+      |   [Types]: avg_0: double precision not null
       |   [Logical Profile]: [est. #rows=1898, source: estimated]
        \_[3] [Projection] lineitem.l_discount, lineitem.l_linestatus, lineitem.l_shipdate
          |   [Logical Profile]: [est. #rows=23489, source: estimated]

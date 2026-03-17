@@ -306,6 +306,7 @@
                   "reference-sql/data-types/bytea",
                   "reference-sql/data-types/date",
                   "reference-sql/data-types/geography",
+                  "reference-sql/data-types/json",
                   "reference-sql/data-types/numeric",
                   "reference-sql/data-types/struct",
                   "reference-sql/data-types/timestampntz",
@@ -409,6 +410,7 @@
                       "reference-sql/commands/data-definition/create-location-iceberg",
                       "reference-sql/commands/data-definition/create-location-s3",
                       "reference-sql/commands/data-definition/create-location",
+                      "reference-sql/commands/data-definition/create-schema",
                       "reference-sql/commands/data-definition/create-table-clone",
                       "reference-sql/commands/data-definition/create-view",
                       "reference-sql/commands/data-definition/drop-account",
@@ -416,6 +418,7 @@
                       "reference-sql/commands/data-definition/drop-function",
                       "reference-sql/commands/data-definition/drop-index",
                       "reference-sql/commands/data-definition/drop-location",
+                      "reference-sql/commands/data-definition/drop-schema",
                       "reference-sql/commands/data-definition/drop-table",
                       "reference-sql/commands/data-definition/drop-view",
                       "reference-sql/commands/data-definition/use-database"
@@ -491,6 +494,7 @@
                       "reference-sql/functions-reference/aggregation/bool_or",
                       "reference-sql/functions-reference/aggregation/corr",
                       "reference-sql/functions-reference/aggregation/count",
+                      "reference-sql/functions-reference/aggregation/counting-hll-count-distinct",
                       "reference-sql/functions-reference/aggregation/covar-pop",
                       "reference-sql/functions-reference/aggregation/covar-samp",
                       "reference-sql/functions-reference/aggregation/grouping",
@@ -650,7 +654,8 @@
                       "reference-sql/functions-reference/json/json-value",
                       "reference-sql/functions-reference/json/json-format",
                       "reference-sql/functions-reference/json/json-is-valid",
-                      "reference-sql/functions-reference/json/json-operators"
+                      "reference-sql/functions-reference/json/json-operators",
+                      "reference-sql/functions-reference/json/to-json"
                     ]
                   },
                   {

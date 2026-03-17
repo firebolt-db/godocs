@@ -95,17 +95,17 @@ Continue on the example in the previous section. Using the last execution strate
 ```text c_custkey is not declared as unique {7,8,11,14,20}
 [0] [Projection] customer.c_custkey, customer.c_name, orders.o_totalprice
 |   [Logical Profile]: [est. #rows=9.67374e+14, source: estimated]
- \_[1] [Join] Mode: Inner [(customer.c_custkey = orders.o_custkey), (avg2_0 < orders.o_totalprice)]
+ \_[1] [Join] Mode: Inner [(customer.c_custkey = orders.o_custkey), (avg_0 < orders.o_totalprice)]
    |   [Logical Profile]: [est. #rows=9.67374e+14, source: estimated]
-    \_[2] [Projection] customer.c_custkey, customer.c_name, avg2_0
+    \_[2] [Projection] customer.c_custkey, customer.c_name, avg_0
     | |   [Logical Profile]: [est. #rows=1.47294e+09, source: estimated]
     |  \_[3] [Join] Mode: Inner [(customer.c_custkey = orders.o_custkey)]
     |    |   [Logical Profile]: [est. #rows=1.47294e+09, source: estimated]
     |     \_[4] [StoredTable] Name: "customer"
     |     |     [Types]: customer.c_custkey: bigint not null, customer.c_name: text not null
     |     |     [Logical Profile]: [est. #rows=1.5e+07, source: metadata]
-    |     \_[5] [Aggregate] GroupBy: [orders.o_custkey] Aggregates: [avg2_0: avg2(orders.o_totalprice)]
-    |       |   [Types]: avg2_0: double precision not null
+    |     \_[5] [Aggregate] GroupBy: [orders.o_custkey] Aggregates: [avg_0: avg(orders.o_totalprice)]
+    |       |   [Types]: avg_0: double precision not null
     |       |   [Logical Profile]: [est. #rows=12248, source: estimated]
     |        \_[6] [StoredTable] Name: "orders"
     |              [Types]: orders.o_custkey: bigint not null, orders.o_totalprice: double precision not null
@@ -124,20 +124,20 @@ By declaring `c_custkey` unique, the query optimizer fixes the join order immedi
 ```text c_custkey is declared as unique {10,11,14,17}
 [0] [Projection] orders.o_custkey, customer.c_name
 |   [Logical Profile]: [est. #rows=1.26134e+08, source: estimated]
- \_[1] [Join] Mode: Inner [(orders.o_custkey = customer.c_custkey), (orders.o_totalprice > avg2_0)]
+ \_[1] [Join] Mode: Inner [(orders.o_custkey = customer.c_custkey), (orders.o_totalprice > avg_0)]
    |   [Logical Profile]: [est. #rows=1.26134e+08, column profiles={[customer.c_custkey: #distinct=12248]}, source: estimated]
     \_[2] [StoredTable] Name: "orders"
     |     [Types]: orders.o_custkey: bigint not null, orders.o_totalprice: double precision not null
     |     [Logical Profile]: [est. #rows=1.5e+08, source: metadata]
-    \_[3] [Projection] customer.c_custkey, customer.c_name, avg2_0
+    \_[3] [Projection] customer.c_custkey, customer.c_name, avg_0
       |   [Logical Profile]: [est. #rows=12248, column profiles={[customer.c_custkey: #distinct=12248]}, source: estimated]
        \_[4] [Join] Mode: Inner [(customer.c_custkey = orders.o_custkey)]
          |   [Logical Profile]: [est. #rows=12248, column profiles={[customer.c_custkey: #distinct=12248]}, source: estimated]
           \_[5] [StoredTable] Name: "customer"
           |     [Types]: customer.c_custkey: bigint not null, customer.c_name: text not null
           |     [Logical Profile]: [est. #rows=1.5e+07, column profiles={[customer.c_custkey: #distinct=1.5e+07]}, source: metadata]
-          \_[6] [Aggregate] GroupBy: [orders.o_custkey] Aggregates: [avg2_0: avg2(orders.o_totalprice)]
-            |   [Types]: avg2_0: double precision not null
+          \_[6] [Aggregate] GroupBy: [orders.o_custkey] Aggregates: [avg_0: avg(orders.o_totalprice)]
+            |   [Types]: avg_0: double precision not null
             |   [Logical Profile]: [est. #rows=12248, source: estimated]
              \_[7] [StoredTable] Name: "orders"
                    [Types]: orders.o_custkey: bigint not null, orders.o_totalprice: double precision not null

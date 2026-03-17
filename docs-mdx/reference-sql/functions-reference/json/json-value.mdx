@@ -10,7 +10,7 @@ For JSON strings, removes the outermost quotes and unescapes the values.
 Other JSON scalars are not changed.
 Returns a SQL `NULL` if a non-scalar value is given.
 
-This function pairs with the [JSON_EXTRACT](/reference-sql/functions-reference/json/json-extract) function, which doesn't convert the JSON values to SQL values.
+For `TEXT` input, this function pairs with the [JSON_EXTRACT](/reference-sql/functions-reference/json/json-extract) function, which doesn't convert the JSON values to SQL values.
 
 ## Syntax
 
@@ -22,7 +22,7 @@ JSON_VALUE(<json>)
 
 | Parameter                | Description                                                                                      | Supported input types |
 |:-------------------------|:-------------------------------------------------------------------------------------------------|:----------------------|
-| `<json>`                 | The JSON document.                                                                               | `TEXT`                |
+| `<json>`                 | The JSON document.                                                                               | `JSON` or `TEXT`      |
 
 ## Return Type
 

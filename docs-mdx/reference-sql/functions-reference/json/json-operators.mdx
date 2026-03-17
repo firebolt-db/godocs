@@ -4,7 +4,173 @@ sidebarTitle: JSON operators
 title: JSON Operators
 ---
 
-This page lists operators that can be used on text values storing JSON.
+# Operators for Native JSON Values
+
+The following operators are supported on `JSON` values.
+
+## Dot Operator `.`
+
+Extract the nested `JSON` value with a given field name from a `JSON` object. If a nested value with the requested field name does not exist `NULL` is returned.
+
+### Syntax
+
+```sql
+<json>.<field_name>
+```
+
+### Parameters
+
+| Parameter | Description | Supported Input Types |
+|:----------|:------------|:----------------------|
+| `<json>` | The JSON value from which the field should be extracted. | `JSON` |
+| `<field_name>` | A SQL identifier specifying the field name that should be extracted. | SQL identifier |
+
+Note that `<field_name>` can be double-quoted if necessary, e.g. in order to write `<json>."key with spaces"` or `<json>."1"`. The dot operator can only be used to extract nested values from JSON objects, i.e. it returns a non-NULL result only if `<json>` is a JSON object that contains `<field_name>` as a key. If `<json>` is a JSON array the operator returns NULL unconditionally, even if `<field_name>` happens to contains a valid zero-based array index.
+
+### Return Type
+
+`JSON`
+
+* If the `<json>` input value is `NULL` the operator will return `NULL`.
+* If a field with the requested name does not exist the operator will return `NULL`.
+
+## Subscript Operator `[]`
+
+Extract a field of a `JSON` value as another `JSON` value. Matches against both JSON object entries and JSON array entries in the input. If a field with the requested name or index does not exist `NULL` is returned.
+
+### Syntax
+
+```sql
+<json>[<field_name_or_array_index>]
+```
+
+### Parameters
+
+| Parameter | Description | Supported Input Types |
+|:----------|:------------|:----------------------|
+| `<json>` | The JSON value from which the field should be extracted. | `JSON` |
+| `<field_name_or_array_index>` | A TEXT, INTEGER, or BIGINT value specifying the field name or array index that should be extracted. | `TEXT`, `INTEGER`, or `BIGINT` |
+
+This operator does not distinguish between JSON objects and JSON arrays in any way, i.e. it returns a non-NULL result both if `<json>` is a JSON object that contains `<field_name_or_array_index>` as a key and if `<json>` is a JSON array and `<field_name_or_array_index>` contains a valid zero-based array index. The type of the `<field_name_or_array_index>` parameter has no effect on the query result. More specifically, when `<json>` contains a JSON object the parameter value is always converted to `TEXT` internally. Conversely, when `<json>` contains a JSON array the parameter value is always converted to `BIGINT` internally. If this conversion fails the operator will return `NULL`. Unlike the dot operator, the subscript operator accepts non-literal `<field_name_or_array_index>` parameters.
+
+### Return Type
+
+`JSON`
+
+* If the `<json>` input value is `NULL` the operator will return `NULL`.
+* If a field with the requested name or index does not exist the operator will return `NULL`.
+
+## Examples
+
+The following table is used in all examples:
+
+```sql
+CREATE TABLE t (col JSON);
+INSERT INTO t VALUES ('
+{
+  "a": [
+    42,
+    {
+      "b": {
+        "message": "hello world!",
+        "42": "the answer"
+      }
+    },
+    42
+  ]
+}
+');
+```
+
+**Example**
+
+The following queries attempt to extract various non-existent values, leading to a `NULL` return value in all cases:
+
+```sql
+SELECT col.non_existent    FROM t;  -- JSON object has no entry with key "non_existent"
+SELECT col['non_existent'] FROM t;  -- JSON object has no entry with key "non_existent"
+
+SELECT col.a."1"           FROM t;  -- Dot operator cannot be used to access JSON array elements
+SELECT col.a[3]            FROM t;  -- Index 3 is out of bounds for JSON array of length 3
+SELECT col.a['3']          FROM t;  -- Index 3 is out of bounds for JSON array of length 3
+
+SELECT col.a['foo']        FROM t;  -- col.a is a JSON array but "foo" cannot be converted to BIGINT
+```
+
+Returns in all cases:
+
+| ?column? (JSON) |
+| :--- |
+| NULL |
+
+**Example**
+
+The following query extracts an existing field from a JSON object.
+
+```sql
+SELECT col.a    FROM t;
+SELECT col."a"  FROM t;
+SELECT col['a'] FROM t;
+```
+
+Returns in all cases:
+
+| ?column? (JSON) |
+| :--- |
+| `[42,{"b":{"message":"hello world!","42":"the answer"}},42]` |
+
+**Example**
+
+The following queries extract an existing element from a JSON array. Note that the parameter type passed to the subscript operator has no effect on the query result.
+
+```sql
+SELECT col.a[0]   FROM t;
+SELECT col.a['0'] FROM t;
+```
+
+Returns in all cases:
+
+| ?column? (JSON) |
+| :--- |
+| `42` |
+
+**Example**
+
+The following query extracts an existing field from a JSON object. Note that the parameter type passed to the subscript operator has no effect on the query result.
+
+```sql
+SELECT col.a[1].b."42"  FROM t;
+SELECT col.a[1].b[42]   FROM t;
+SELECT col.a[1].b['42'] FROM t;
+```
+
+Returns in all cases:
+
+| ?column? (JSON) |
+| :--- |
+| `"the answer"` |
+
+**Example**
+
+The following query passes a non-literal `<field_name_or_array_index>` parameter to the subscript operator.
+
+```sql
+SELECT index, col.a[index] FROM t, generate_series(-1,3) g(index);
+```
+
+Returns:
+
+| index INTEGER | ?column? (JSON) |
+| :--- | :--- |
+| `-1` | `NULL` |
+| `0`  | `'42'` |
+| `1`  | `'{"b":{"42":"the answer","message":"hello world!"}}'` |
+| `2`  | `'42'` |
+| `3`  | `NULL` |
+
+# Operators for TEXT Values Storing JSON Strings
+
+The following operators are supported on `TEXT` values storing JSON strings. Note that each invocation of these operators has to re-parse the input JSON string from scratch, making them substantially less efficient than the native JSON operators described above.
 
 ## Operator `->>`
 

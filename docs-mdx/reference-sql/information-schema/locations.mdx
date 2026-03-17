@@ -30,7 +30,7 @@ Each row has the following columns with information about each location:
 | Column Name      | Data Type   | Description |
 | :---------------| :-----------| :-----------|
 | location_name   | TEXT        | The name of the location. |
-| source          | TEXT        | The type of the external data source. Firebolt currently supports `AMAZON_S3` and `ICEBERG`. |
+| source          | TEXT        | The type of the external data source. For locations created with `CLOUD_STORAGE` (with an S3 URL) or `AMAZON_S3`, the source column displays `CLOUD_STORAGE (S3)`. Firebolt also supports `ICEBERG` and `AMAZON_BEDROCK`. |
 | url             | TEXT        | The data source URL. For Amazon S3, the format is `s3://{bucket_name}/{path}`. For Iceberg, this may be an S3 URL for file-based catalogs or an API endpoint for REST catalogs. |
 | description     | TEXT        | Optional metadata describing the location's purpose. |
 | location_owner  | TEXT        | The owner of the location. |
@@ -64,7 +64,7 @@ You can filter locations by their source type:
 -- View only Amazon S3 locations
 SELECT location_name, url, description, created
 FROM information_schema.locations
-WHERE source = AMAZON_S3;
+WHERE source = 'CLOUD_STORAGE (S3)';
 
 -- View only Iceberg locations  
 SELECT location_name, url, description, created
@@ -88,10 +88,10 @@ WHERE location_name = 'my_location';
 
 **Example output:**
 ```
-location_name    | source    | ddl
-----------------|-----------|----------------------------------------------------
-my_s3_location  | AMAZON_S3 | CREATE LOCATION "my_s3_location" WITH SOURCE=AMAZON_S3 URL='s3://my-bucket/data/' CREDENTIALS=(AWS_ROLE_ARN='****')
-my_iceberg_loc  | ICEBERG   | CREATE LOCATION "my_iceberg_loc" WITH SOURCE=ICEBERG CATALOG=REST CATALOG_OPTIONS=(URL='https://catalog.example.com/v1' WAREHOUSE='prod' NAMESPACE='analytics' TABLE='events') CREDENTIALS=(OAUTH_CLIENT_ID='****' OAUTH_CLIENT_SECRET='****')
+location_name    | source              | ddl
+----------------|---------------------|----------------------------------------------------
+my_s3_location  | CLOUD_STORAGE (S3)  | CREATE LOCATION "my_s3_location" WITH SOURCE=CLOUD_STORAGE URL='s3://my-bucket/data/' CREDENTIALS=(AWS_ROLE_ARN='****')
+my_iceberg_loc  | ICEBERG             | CREATE LOCATION "my_iceberg_loc" WITH SOURCE=ICEBERG CATALOG=REST CATALOG_OPTIONS=(URL='https://catalog.example.com/v1' WAREHOUSE='prod' NAMESPACE='analytics' TABLE='events') CREDENTIALS=(OAUTH_CLIENT_ID='****' OAUTH_CLIENT_SECRET='****')
 ```
 
 ### Find locations by owner

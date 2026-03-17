@@ -1,0 +1,52 @@
+---
+description: Reference material for COUNTING_HLL_COUNT_DISTINCT
+sidebarTitle: COUNTING_HLL_COUNT_DISTINCT
+title: COUNTING_HLL_COUNT_DISTINCT
+---
+
+Counts the approximate number of unique or not NULL values using counting HLL sketches.
+`COUNTING_HLL_COUNT_DISTINCT` is similar to [`HLL_COUNT_DISTINCT`](/reference-sql/functions-reference/aggregation/hll-count-distinct),
+but with a key advantage: it supports `DELETE` operations efficiently when used with [aggregating indexes](/overview/indexes/aggregating-index).
+
+If you use the `HLL_COUNT_DISTINCT` function in an aggregating index, every deletion from the base table requires a full table scan to update the index.
+Firebolt performs this automatically and transactionally consistently.
+However, to achieve better `DELETE` performance in the presence of aggregating indexes, you can use `COUNTING_HLL_COUNT_DISTINCT` instead, where no full table scan is required.
+
+<Note>
+If you want to calculate approximate distinct counts without using an aggregating index,
+prefer using the [`HLL_COUNT_DISTINCT`](/reference-sql/functions-reference/aggregation/hll-count-distinct) function instead
+because it needs less memory for the same accuracy.
+</Note>
+
+## Syntax
+
+```sql
+COUNTING_HLL_COUNT_DISTINCT(<expression>)
+```
+
+## Parameters
+
+| Parameter | Description                                                                                        | Supported input types |
+| :-------------- |:---------------------------------------------------------------------------------------------|:----------------------|
+| `<expression>`  | Valid values for the expression include column names or functions that return a column name. | Any type              |
+
+Unlike `HLL_COUNT_DISTINCT`, this function does not currently support a precision parameter.
+It uses the fixed precision level of 6, which is optimized for the trade-off between accuracy and space consumption.
+
+## Return Type
+`BIGINT`
+
+## Example
+
+The following example creates an aggregating index that uses `COUNTING_HLL_COUNT_DISTINCT` to track approximate distinct user counts:
+
+```sql
+CREATE AGGREGATING INDEX user_activity_agg
+ON activity_log (
+    date,
+    product_id,
+    COUNTING_HLL_COUNT_DISTINCT(user_id)
+);
+```
+
+If rows are deleted from the `activity_log` table, Firebolt automatically applies a delta update to the aggregating index instead of having to perform a full table scan.

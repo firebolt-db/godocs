@@ -76,10 +76,10 @@ The format of `EXPLAIN` output was changed to use meaningful variable names inst
 Example of explaining TPC-H Q6:
 
 ```
-[0] [Projection] revenue: (CASE WHEN any_0 THEN sum2_0 ELSE NULL END)
+[0] [Projection] revenue: (CASE WHEN any_0 THEN sum_0 ELSE NULL END)
 |   [Types]: revenue: double precision null
- \_[1] [Aggregate] GroupBy: [] Aggregates: [any_0: any(c_0), sum2_0: sum2(multiply_checked_0)]
-   |   [Types]: any_0: boolean not null, sum2_0: double precision not null
+ \_[1] [Aggregate] GroupBy: [] Aggregates: [any_0: any(c_0), sum_0: sum(multiply_checked_0)]
+   |   [Types]: any_0: boolean not null, sum_0: double precision not null
     \_[2] [Projection] multiply_checked_0: (lineitem.l_extendedprice * lineitem.l_discount), c_0: TRUE
       |   [Types]: multiply_checked_0: double precision not null, c_0: boolean not null
        \_[3] [Filter] (lineitem.l_shipdate >= DATE '1994-01-01'), (cast(lineitem.l_shipdate as timestamp) < TIMESTAMP '1995-01-01 00:00:00'), (lineitem.l_discount >= 0.05), (lineitem.l_discount <= 0.07), (lineitem.l_quantity < 24)

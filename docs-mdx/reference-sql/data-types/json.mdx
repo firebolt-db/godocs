@@ -1,0 +1,183 @@
+---
+description: Describes Firebolt's implementation of the `JSON` data type.
+sidebarTitle: JSON
+title: JSON Data Type
+---
+
+<Note>
+Firebolt's JSON data type is currently in public preview. We are gathering feedback and further refining this feature.
+</Note>
+
+## Overview
+
+The `JSON` data type stores semi-structured JSON documents in a single logical column. It is optimized in such a way that JSON data can be processed as efficiently as possible, especially when only some parts of the stored JSON documents are relevant for a specific query.
+
+## Working with JSON
+
+### Casting
+
+Casting from `TEXT` to `JSON` is the only supported `CAST` involving the `JSON` data type, interpreting the textual input as outlined [below](#textual-input).
+
+The [to_json](../functions-reference/json/to-json) function can be used to convert arbitrary types to `JSON`, but unlike casting it will not parse textual input. Consider the following example illustrating this difference:
+
+```sql
+SELECT '[1,2,3]'::JSON;     -- Returns the JSON array [1,2,3]
+SELECT to_json('[1,2,3]');  -- Returns the JSON string "[1,2,3]"
+```
+
+### Extracting Individual Fields
+
+Individual fields of a `JSON` value can be extracted by using any combination of the [dot](/reference-sql/functions-reference/json/json-operators#dot-operator) (`.`) and [subscript](/reference-sql/functions-reference/json/json-operators#subscript-operator-[]) (`[]`) operators. Consider the following examples:
+
+```sql
+CREATE TABLE t (col JSON);
+INSERT INTO t VALUES ('
+{
+  "a": [
+    42,
+    {
+      "b": {
+        "message": "hello world!"
+      }
+    },
+    42
+  ]
+}
+');
+
+SELECT col.non_existent FROM t;               -- Returns NULL::JSON
+
+SELECT col.a[1].b.message FROM t;             -- Returns '"hello world!"'::JSON
+SELECT col['a'][1]['b']['message'] FROM t;    -- Returns '"hello world!"'::JSON
+SELECT col['a']['1']['b']['message'] FROM t;  -- Returns '"hello world!"'::JSON
+
+SELECT col.a[1].b FROM t;                     -- Returns '{"message":"hello world!"}'::JSON
+SELECT col['a'][1]['b'] FROM t;               -- Returns '{"message":"hello world!"}'::JSON
+SELECT col['a']['1']['b'] FROM t;             -- Returns '{"message":"hello world!"}'::JSON
+```
+
+In order to convert a scalar JSON value to a different type, the [json_value](../functions-reference/json/json-value) function must be used, potentially in combination with a suitable `CAST`. Continuing the example above, consider the following queries:
+
+```sql
+SELECT json_value(col.non_existent) FROM t;    -- Returns NULL::TEXT
+SELECT json_value(col.a[1].b.message) FROM t;  -- Returns 'hello world!'::TEXT
+SELECT json_value(col.a[0])::INTEGER FROM t;   -- Returns 42::INTEGER
+```
+
+### Comparisons
+
+Values of type `JSON` cannot be compared to each other. As a result, none of the following operations are supported:
+
+  * Passing `JSON` values to any function or operator that requires its arguments to be comparable. In particular, this includes any comparison functions or operators, and any aggregate functions like `MIN`, `MAX`, etc.
+  * Including `JSON` columns in the `PRIMARY INDEX` or `PARTITION BY` clauses of a `CREATE TABLE` statement.
+  * Including `JSON` columns in a `JOIN`, `GROUP BY`, or `ORDER BY` key.
+  * Including `JSON` columns in a `SELECT DISTINCT` or `UNION` clause.
+  * Including `JSON` columns in the `ORDER BY` or `PARTITION BY` clauses of a window function.
+  * Computing the hash of a `JSON` value.
+
+All of the above restrictions also apply to composite values containing `JSON` sub-values, for example `ARRAY`s or `STRUCT`s containing `JSON`.
+
+## Textual Input
+
+Firebolt supports creating `JSON` values from any UTF-8 encoded string that contains a valid JSON document that can be parsed by the [SimdJSON](https://github.com/simdjson/simdjson) library. When creating a `JSON` value in this way, the input string is parsed eagerly exactly once and converted to an internal binary representation of the respective JSON value. Subsequent operations on `JSON` values can be performed directly on this binary representation without having to re-parse the input string, making them considerably faster than JSON functions that operate on `TEXT` input data.
+
+The internal binary representation does not store an exact copy of the original input string itself. As a result, `JSON` values do not preserve any white space that is present in the original input string. Similarly, `JSON` values do not preserve the exact format of numbers (e.g. `3e3` becomes `3000`) or escape sequences in strings (e.g. `"\u00e1"` becomes `"á"`). Finally, they do not preserve the order of object keys and do not preserve duplicate object keys. If there are duplicate object keys in the input, only the last value is retained. 
+
+The parser used in the `JSON` data type implementation is fully compliant with the [RFC 8259](https://www.tbray.org/ongoing/When/201x/2017/12/14/rfc8259.html) JSON specification. Nevertheless, the `JSON` data type imposes some minor restrictions on what constitutes valid textual JSON input that are allowed under RFC 8259. Note that these restrictions also apply to all JSON functions operating directly on `TEXT` input data.
+
+  * Only space, horizontal tab, line feed and carriage return are allowed as whitespace characters.
+  * Numbers are fully validated according to the JSON specification. For example, the string `01` will be rejected since leading zeros are not allowed.
+  * Numbers not representable as 64-bit signed integers, 64-bit unsigned integers, or 64-bit floating point numbers are rejected.
+  * Strings must not contain unescaped control characters. For example, strings containing unescaped line breaks or tabs are rejected. Note that whitespace outside of strings does not have to be escaped. 
+  * Textual JSON input must be encoded as UTF-8 and is fully validated during parsing. Documents starting with a byte order mark are rejected.
+  * Documents larger than 4294967295 bytes or documents whose binary representation is larger than 4294967295 bytes are rejected.
+  * Documents with a nesting depth larger than 1024 are rejected.
+
+The following additional restriction applies due to limitations of the Firebolt `TEXT` data type.
+
+  * Strings containing either escaped or unescaped NULL characters (`"\u0000"`) are rejected.
+
+## Import & Export
+
+Firebolt supports importing or exporting JSON data in various different data formats, most of which support the `JSON` data type.
+
+### Avro
+
+Avro files can be *imported* into Firebolt through the [read_avro](../functions-reference/table-valued/read_avro) table-valued function, or [external tables](../commands/data-definition/create-external-table) with `TYPE = (AVRO)`. Since Avro does not natively provide a true semi-structured data type, there are the following primary ways to import Avro data into a `JSON` column:
+
+1. Explicitly defining the type of an external table column as `JSON`. This is supported for Avro string columns containing valid UTF-8 encoded JSON strings, and parsing is performed as outlined [above](#textual-input).
+2. Converting a column with inferred SQL type `TEXT` to `JSON` through the [CAST](../functions-reference/conditional-and-miscellaneous/cast) or [TRY_CAST](../functions-reference/conditional-and-miscellaneous/try-cast) functions. This is supported for Avro string columns containing valid UTF-8 encoded JSON strings, and parsing is performed as outlined [above](#textual-input). There is currently no support for automatically inferring the type of such string columns as `JSON`.
+3. Converting any column to `JSON` through the [to_json](../functions-reference/json/to-json) function. Note that this will not parse any JSON strings in the input, unlike casting.
+
+There is currently no support for *exporting* Avro files from Firebolt.
+
+### CSV
+
+CSV files can be *imported* into Firebolt through [COPY FROM](../commands/data-management/copy-from), the [read_csv](../functions-reference/table-valued/read_csv) table-valued function, or [external tables](../commands/data-definition/create-external-table) with `TYPE = (CSV)`. Since CSV does not natively provide a true semi-structured data type, there are the following primary ways to import CSV data into a `JSON` column:
+
+1. Explicitly defining the type of an external table column as `JSON`, or using `COPY FROM` with a pre-existing table containing `JSON` columns. This is supported for CSV columns containing valid UTF-8 encoded JSON strings, and parsing is performed as outlined [above](#textual-input).
+2. Converting a column with inferred SQL type `TEXT` to `JSON` through the [CAST](../functions-reference/conditional-and-miscellaneous/cast) or [TRY_CAST](../functions-reference/conditional-and-miscellaneous/try-cast) functions. This is supported for CSV columns containing valid UTF-8 encoded JSON strings, and parsing is performed as outlined [above](#textual-input). There is currently no support for automatically inferring the type of such columns as `JSON`.
+3. Converting any column to `JSON` through the [to_json](../functions-reference/json/to-json) function. Note that this will not parse any JSON strings in the input, unlike casting.
+
+Data can be *exported* from Firebolt in CSV format through [COPY TO](../commands/data-management/copy-to) with `TYPE = CSV`. Any `JSON` values in the source table will be written as UTF-8 encoded JSON strings.
+
+### JSON
+
+JSON files can be *imported* into Firebolt through [external tables](../commands/data-definition/create-external-table) with `TYPE = (JSON)`. There are the following primary ways to import JSON data into a `JSON` column:
+
+1. Explicitly defining the type of an external table column as `JSON`. In this case, the corresponding input JSON values are parsed as outlined [above](#textual-input).
+2. Converting a column with inferred SQL type `TEXT` to `JSON` through the [CAST](../functions-reference/conditional-and-miscellaneous/cast) or [TRY_CAST](../functions-reference/conditional-and-miscellaneous/try-cast) functions. This is supported for input JSON strings containing valid and properly escaped UTF-8 encoded JSON strings (e.g. `"{\"a\":\"b\"}"`), and parsing is performed as outlined [above](#textual-input). There is currently no support for automatically inferring the type of such columns as `JSON`.
+3. Converting any column to `JSON` through the [to_json](../functions-reference/json/to-json) function. Note that this will not parse any JSON strings in the input, unlike casting.
+4. Reading each line in the input as a single `JSON` value. This can be achieved by creating an external table with a single `TEXT` column and `TYPE = (JSON PARSE_AS_TEXT = TRUE)`. Subsequently this column can be converted to `JSON` through the [CAST](../functions-reference/conditional-and-miscellaneous/cast) or [TRY_CAST](../functions-reference/conditional-and-miscellaneous/try-cast) functions.
+
+Data can be *exported* from Firebolt in JSON format through [COPY TO](../commands/data-management/copy-to) with `TYPE = JSON`. Any `JSON` values in the source table will be written as native JSON values to the output.
+
+A minor edge case exists when exporting or importing nullable `JSON` columns. Specifically, Firebolt distinguishes between SQL `NULL` values and scalar JSON `null` values stored in a `JSON` column. However, this distinction will be lost when exporting a `JSON` column to a JSON file, where both of these values will be represented by a JSON `null` value. Conversely, when importing a JSON file into a nullable `JSON` column, all scalar JSON `null` values will be interpreted as SQL `NULL`. Consider the following example:
+
+```sql
+CREATE TABLE t (col JSON NULL);
+INSERT INTO t VALUES (NULL), ('null'), ('{"a":null}');
+SELECT col IS NULL FROM t; -- Returns TRUE, FALSE, FALSE
+
+COPY (SELECT * FROM t) TO '...' TYPE = JSON;
+```
+
+This will result in the following JSON data being written:
+
+```json
+{"col":null}
+{"col":null}
+{"col":{"a":null}}
+```
+
+When importing this JSON data back into Firebolt through an external table, the following differences from the original data arise:
+
+```sql
+CREATE EXTERNAL TABLE t_ext_null (col JSON NULL) URL = '...' OBJECT_PATTERN = '...' TYPE = (JSON);
+CREATE EXTERNAL TABLE t_ext_not_null (col JSON NOT NULL) URL = '...' OBJECT_PATTERN = '...' TYPE = (JSON);
+
+SELECT col IS NULL FROM t_ext_null; -- Returns TRUE, TRUE, FALSE
+SELECT col IS NULL FROM t_ext_not_null; -- Returns FALSE, FALSE, FALSE
+```
+
+### Parquet
+
+Parquet files can be *imported* into Firebolt through [COPY FROM](../commands/data-management/copy-from), the [read_parquet](../functions-reference/table-valued/read_parquet) table-valued function, or [external tables](../commands/data-definition/create-external-table) with `TYPE = (PARQUET)`. Unlike the other supported file formats described above, Parquet defines a dedicated [JSON logical type](https://github.com/apache/parquet-format/blob/master/LogicalTypes.md#json) which is automatically inferred as `JSON` in Firebolt by `COPY FROM` and `read_parquet`. This provides a seamless approach for importing JSON data into Firebolt from Parquet. In addition, the following alternatives are also supported when the underlying Parquet type of a column is *not* JSON:
+
+1. Explicitly defining the type of an external table column as `JSON`, or using `COPY FROM` with a pre-existing table containing `JSON` columns. This is supported for Parquet string columns containing valid UTF-8 encoded JSON strings, and parsing is performed as outlined [above](#textual-input).
+2. Converting a column with inferred SQL type `TEXT` to `JSON` through the [CAST](../functions-reference/conditional-and-miscellaneous/cast) or [TRY_CAST](../functions-reference/conditional-and-miscellaneous/try-cast) functions. This is supported for Parquet string columns containing valid UTF-8 encoded JSON strings, and parsing is performed as outlined [above](#textual-input). There is currently no support for automatically inferring the type of such string columns as `JSON`.
+3. Converting any column to `JSON` through the [to_json](../functions-reference/json/to-json) function. Note that this will not parse any JSON strings in the input, unlike casting.
+
+Finally, it is also possible to import Parquet JSON columns into `TEXT` columns, in which case the input JSON string will be imported unmodified.
+
+Data can be *exported* from Firebolt in Parquet format through [COPY TO](../commands/data-management/copy-to) with `TYPE = PARQUET`. Here, `JSON` columns are always written as Parquet columns with `JSON` logical type.
+
+## Driver Version Requirements
+
+The following minimum driver versions are required to use the `JSON` data type:
+
+- [JDBC](/guides/developing-with-firebolt/connecting-with-jdbc) -- version 3.10.0
+- [Python](/guides/developing-with-firebolt/connecting-with-python) -- not yet supported
+- [Node.js](/guides/developing-with-firebolt/connecting-with-nodejs) -- not yet supported
+- [Go](/guides/developing-with-firebolt/connecting-with-go) -- not yet supported
+- [.NET](/guides/developing-with-firebolt/connecting-with-net-sdk) -- not yet supported

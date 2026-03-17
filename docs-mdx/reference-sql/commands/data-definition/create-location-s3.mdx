@@ -8,7 +8,7 @@ title: CREATE LOCATION (Amazon S3)
 
 Creates a new location object in your Firebolt account, which is a secure, reusable object that stores the connection details and credentials for Amazon S3 data sources. Instead of entering these details each time you run a query or create a table, you can use a location object.
 
-This document captures specifics and examples for location objects for Amazon S3. For a comprehensive guide to LOCATION objects, see [LOCATION objects](/guides/security/location). For more on location objects syntax in general, see [CREATE LOCATION](/reference-sql/commands/data-definition/create-location).
+This document captures specifics and examples for location objects for Amazon S3. Both options are supported and will appear as `CLOUD_STORAGE (S3)` in the `information_schema.locations` view. For a comprehensive guide to LOCATION objects, see [LOCATION objects](/guides/security/location). For more on location objects syntax in general, see [CREATE LOCATION](/reference-sql/commands/data-definition/create-location).
 
  **Topics:**
  * [Syntax](#syntax)
@@ -19,7 +19,7 @@ This document captures specifics and examples for location objects for Amazon S3
 
 ```sql
 CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
-  SOURCE = AMAZON_S3
+  SOURCE = CLOUD_STORAGE
   CREDENTIALS = {
     ( AWS_ACCESS_KEY_ID = '<aws_access_key_id>'
       AWS_SECRET_ACCESS_KEY = '<aws_secret_access_key>'
@@ -32,6 +32,8 @@ CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
   [ DESCRIPTION = '<description>' ]
 ```
 
+`AMAZON_S3` is supported as an alias for `CLOUD_STORAGE`.
+
 ## Parameters
 
 ### Common Parameters
@@ -39,14 +41,14 @@ CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
 | Parameter | Description |
 | :-------- | :---------- |
 | `<location_name>` | A unique identifier for the location within your account. |
-| `SOURCE` | The external data source type. Currently, `AMAZON_S3` and `ICEBERG` are supported. This should be `AMAZON_S3` for Amazon S3 locations. |
+| `SOURCE` | The external data source type. For Amazon S3 locations, you can use either `CLOUD_STORAGE` (which auto-infers the storage backend from the URL) or `AMAZON_S3` (which is an alias for `CLOUD_STORAGE` with an S3 URL). |
 | `DESCRIPTION` | Optional metadata describing the location's purpose. |
 
 ### Amazon S3 Parameters
 
 | Parameter | Description |
 | :-------- | :---------- |
-| `SOURCE` | Must be set to AMAZON_S3 for Amazon S3 locations. |
+| `SOURCE` | Can be set to `CLOUD_STORAGE` (recommended, auto-infers backend from URL) or `AMAZON_S3` (alias for `CLOUD_STORAGE` with S3 URL) for Amazon S3 locations. |
 | `CREDENTIALS` | Authentication credentials for Amazon S3 access. |
 | `URL` | The data source URL in the format: `s3://{bucket_name}/{path}`. This must be a valid S3 URL. |
 
@@ -68,9 +70,16 @@ CREATE LOCATION [ IF NOT EXISTS ] <location_name> WITH
 
 ### Authenticate using an access key
 
-The following code example uses keys to authenticate to AWS:
+The following code examples use keys to authenticate to AWS. Both `CLOUD_STORAGE` and `AMAZON_S3` are shown:
 
 ```sql
+-- Using CLOUD_STORAGE (recommended)
+CREATE LOCATION my_location WITH
+  SOURCE = CLOUD_STORAGE
+  CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' )
+  URL = 's3://my-bucket/path/to/data'
+
+-- Using AMAZON_S3 (alias)
 CREATE LOCATION my_location WITH
   SOURCE = AMAZON_S3
   CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' )
@@ -78,9 +87,16 @@ CREATE LOCATION my_location WITH
 ```
 
 ### Authenticate using a role
-The following code example use a role to authenticate to AWS:
+The following code examples use a role to authenticate to AWS. Both `CLOUD_STORAGE` and `AMAZON_S3` are shown:
 
 ```sql
+-- Using CLOUD_STORAGE (recommended)
+CREATE LOCATION my_location WITH
+  SOURCE = CLOUD_STORAGE
+  CREDENTIALS = ( AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/S3Access' )
+  URL = 's3://my-bucket/path/to/data'
+
+-- Using AMAZON_S3 (alias)
 CREATE LOCATION my_location WITH
   SOURCE = AMAZON_S3
   CREDENTIALS = ( AWS_ROLE_ARN = 'arn:aws:iam::123456789012:role/S3Access' )
@@ -89,9 +105,16 @@ CREATE LOCATION my_location WITH
 
 ### Create a location with an AWS session token
 
-The following code example creates a location object named `my_location`, for an Amazon S3 data source with the specified URL and AWS session token:
+The following code examples create a location object named `my_location`, for an Amazon S3 data source with the specified URL and AWS session token. Both `CLOUD_STORAGE` and `AMAZON_S3` are shown:
 
 ```sql
+-- Using CLOUD_STORAGE (recommended)
+CREATE LOCATION my_location WITH
+  SOURCE = CLOUD_STORAGE
+  CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' AWS_SESSION_TOKEN = 'session-token' )
+  URL = 's3://my-bucket/path/to/data'
+
+-- Using AMAZON_S3 (alias)
 CREATE LOCATION my_location WITH
   SOURCE = AMAZON_S3
   CREDENTIALS = ( AWS_ACCESS_KEY_ID = '1231' AWS_SECRET_ACCESS_KEY = '567' AWS_SESSION_TOKEN = 'session-token' )

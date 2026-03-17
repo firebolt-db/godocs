@@ -41,7 +41,7 @@ order by
 [0] [Projection] store_sales.ss_item_sk, total_profit
  \_[1] [Sort] OrderBy: [total_profit Descending First]
     \_[2] [Filter] (total_profit > 0.00)
-       \_[3] [Aggregate] GroupBy: [store_sales.ss_item_sk] Aggregates: [total_profit: sum2(store_sales.ss_net_profit)]
+       \_[3] [Aggregate] GroupBy: [store_sales.ss_item_sk] Aggregates: [total_profit: sum(store_sales.ss_net_profit)]
           \_[4] [Projection] store_sales.ss_item_sk, store_sales.ss_net_profit
              \_[5] [Filter] (store_sales.ss_sold_date_sk >= 2451666), (store_sales.ss_sold_date_sk <= 2451696)
                 \_[6] [StoredTable] Name: "store_sales"
@@ -51,7 +51,7 @@ order by
 [0] [Projection] store_sales.ss_item_sk, total_profit
  \_[1] [Sort] OrderBy: [total_profit Descending First]
     \_[2] [Filter] (total_profit > 0.00)
-       \_[3] [Aggregate] GroupBy: [store_sales.ss_item_sk] Aggregates: [total_profit: sum2(store_sales.ss_net_profit)]
+       \_[3] [Aggregate] GroupBy: [store_sales.ss_item_sk] Aggregates: [total_profit: sum(store_sales.ss_net_profit)]
           \_[4] [Projection] store_sales.ss_item_sk, store_sales.ss_net_profit
              \_[5] [Filter] (store_sales.ss_sold_date_sk >= 2451666), (store_sales.ss_sold_date_sk <= 2451696)
                 \_[6] [TableFuncScan] store_sales.ss_sold_date_sk: $0.ss_sold_date_sk, store_sales.ss_item_sk: $0.ss_item_sk, store_sales.ss_net_profit: $0.ss_net_profit
@@ -71,7 +71,7 @@ order by
    |   [Execution Metrics]: output cardinality = 1527, thread time = 0ms, cpu time = 0ms
     \_[2] [Filter] (total_profit > 0.00)
       |   [Execution Metrics]: output cardinality = 1527, thread time = 0ms, cpu time = 0ms
-       \_[3] [Aggregate] GroupBy: [store_sales.ss_item_sk] Aggregates: [total_profit: sum2(store_sales.ss_net_profit)]
+       \_[3] [Aggregate] GroupBy: [store_sales.ss_item_sk] Aggregates: [total_profit: sum(store_sales.ss_net_profit)]
          |   [Execution Metrics]: output cardinality = 8476, thread time = 2ms, cpu time = 2ms
           \_[4] [Projection] store_sales.ss_item_sk, store_sales.ss_net_profit
             |   [Execution Metrics]: Optimized out

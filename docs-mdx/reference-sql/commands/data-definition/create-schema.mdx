@@ -1,0 +1,72 @@
+---
+description: Reference and syntax for the CREATE SCHEMA command.
+sidebarTitle: CREATE SCHEMA
+title: CREATE SCHEMA
+---
+
+Creates a new schema in the current database. Schemas are logical namespaces that organize tables, views, and other database objects.
+
+Every database includes a default schema named `public`. You can create additional schemas to separate and organize objects by function, team, or access level.
+
+## Syntax
+
+```sql
+CREATE SCHEMA [IF NOT EXISTS] <schema_name>
+```
+
+## Parameters
+
+| Parameter       | Description                                                                                                   |
+| :-------------- | :------------------------------------------------------------------------------------------------------------ |
+| `IF NOT EXISTS` | Prevents an error if a schema with the same name already exists. Without this clause, the statement fails if the schema already exists. |
+| `<schema_name>` | The name of the schema to create. Must be unique within the database.                                         |
+
+All identifiers are case-insensitive unless enclosed in double-quotes. For more information, see [Object identifiers](/reference/object-identifiers).
+
+## Examples
+
+**Create a schema**
+
+```sql
+CREATE SCHEMA analytics;
+```
+
+**Create a schema only if it does not already exist**
+
+```sql
+CREATE SCHEMA IF NOT EXISTS staging;
+```
+
+**Create objects within a schema**
+
+After creating a schema, you can create tables, views, and other objects inside it by qualifying the object name with the schema:
+
+```sql
+CREATE SCHEMA IF NOT EXISTS analytics;
+
+CREATE TABLE analytics.events (
+    event_id INTEGER,
+    event_type TEXT,
+    event_date DATE
+);
+
+CREATE VIEW analytics.recent_events AS
+SELECT * FROM analytics.events WHERE event_date > '2025-01-01';
+```
+
+**Reference objects using two-part and three-part identifiers**
+
+You can reference objects using a two-part identifier (`schema.object`) when the database context is already set, or a three-part identifier (`database.schema.object`) to fully qualify the object across databases:
+
+```sql
+USE DATABASE my_db;
+
+SELECT * FROM analytics.events;
+
+SELECT * FROM my_db.analytics.events;
+```
+
+## Related commands
+
+- [DROP SCHEMA](/reference-sql/commands/data-definition/drop-schema) - Delete a schema
+- [ALTER SCHEMA](/reference-sql/commands/data-definition/alter-schema) - Modify schema properties

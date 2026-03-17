@@ -1,0 +1,55 @@
+---
+description: Reference and syntax for the DROP SCHEMA command.
+sidebarTitle: DROP SCHEMA
+title: DROP SCHEMA
+---
+
+Deletes a schema from the current database.
+
+## Syntax
+
+```sql
+DROP SCHEMA [IF EXISTS] <schema_name> [CASCADE | RESTRICT]
+```
+
+## Parameters
+
+| Parameter       | Description                                                                                                     |
+| :-------------- | :-------------------------------------------------------------------------------------------------------------- |
+| `<schema_name>` | The name of the schema to delete.                                                                               |
+| `IF EXISTS`     | Prevents an error if the schema does not exist. Without this clause, the statement fails if the schema is missing. |
+| `CASCADE`       | Drops the schema and all objects it contains, including tables, views, and aggregating indexes.                  |
+| `RESTRICT`      | Prevents the schema from being dropped if it contains any objects. This is the default behavior.                |
+
+## Examples
+
+**Drop an empty schema**
+
+```sql
+DROP SCHEMA staging;
+```
+
+**Drop a schema only if it exists**
+
+```sql
+DROP SCHEMA IF EXISTS staging;
+```
+
+**Drop a schema and all its objects**
+
+```sql
+DROP SCHEMA analytics CASCADE;
+```
+
+**Prevent dropping a schema that contains objects**
+
+The following statement fails if the `analytics` schema contains any tables, views, or other objects:
+
+```sql
+DROP SCHEMA analytics RESTRICT;
+```
+
+## Related commands
+
+- [CREATE SCHEMA](/reference-sql/commands/data-definition/create-schema) - Create a schema
+- [ALTER SCHEMA](/reference-sql/commands/data-definition/alter-schema) - Modify schema properties

@@ -96,5 +96,11 @@ FROM
 
 | approximate | exact | 
 |:----------------|:--------------|
-|4 | 4 |  
+|4 | 4 |
+
+## Use in Aggregating Indexes
+
+If you use `APPROX_COUNT_DISTINCT` in an aggregating index, every deletion from the base table requires a full table scan to update the index.
+Firebolt performs this automatically and transactionally consistent.
+However, to achieve better performance in the presence of regular deletions, you can use [`COUNTING_HLL_COUNT_DISTINCT`](/reference-sql/functions-reference/aggregation/counting-hll-count-distinct) instead, where no full table scan is required.
 
