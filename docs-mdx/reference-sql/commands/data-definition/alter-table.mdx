@@ -241,6 +241,38 @@ The query can only be executed under the following conditions:
 The ALTER TABLE operation only updates the table's metadata definition. Existing data in tablets retains the original primary index structure until `VACUUM (UPGRADE=TRUE)` is run.
 </Note>
 
+## ALTER TABLE ADD STATISTICS
+
+Add accitional [automated column statistics][acs] to collect for a column.
+
+### Syntax
+
+```sql
+ALTER TABLE <table_name> ADD STATISTICS (<column_name>) [TYPE <statistics_type>] [TYPE ...n];
+```
+
+### Parameters
+
+| Parameter           | Description                                                                                              |
+| :------------------ | :------------------------------------------------------------------------------------------------------- |
+| `<table_name>`      | The name of the table to modify.                                                                         |
+| `<column_name>`     | The column to add statistics for.                                                                        |
+| `<statistics_type>` | Type of [automated column statistics][acs] to collect. Possible values: `NDISTINCT`, `MINMAX`.           |
+
+### Examples
+
+Collect the number of distinct values (`NDISTINCT`) for the column `customer_id`:
+
+```sql
+ALTER TABLE sales_data ADD STATISTICS (customer_id) TYPE NDISTINCT;
+```
+
+Collect all types of statistics for the column `customer_id`:
+
+```sql
+ALTER TABLE sales_data ADD STATISTICS (customer_id);
+```
+
 ## ALTER TABLE ALTER COLUMN SET UNIQUE
 
 Adds a UNIQUE constraint to an existing column to indicate your intent for the column's values to be unique. Firebolt does not validate existing data or enforce uniqueness for future writes.

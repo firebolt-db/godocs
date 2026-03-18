@@ -15,9 +15,11 @@ Creates a new table in the current database.
 ```sql
 CREATE [FACT|DIMENSION] TABLE [IF NOT EXISTS] <table_name>
 (
-    <column_name> <column_type> [constraints] [DESCRIPTION = <column_description>]
-    [, <column_name> <column_type> [constraints] [DESCRIPTION = <column_description>]
+    <column_name> <column_type> [constraints] [DESCRIPTION = <column_description>] [STATISTICS [(<statistics_type> [, <statistics_type> [, ...n]])]]
+    [, <column_name> <column_type> [constraints] [DESCRIPTION = <column_description>] [STATISTICS [(<statistics_type> [, <statistics_type> [, ...n]])]]
     [, ...n]]
+    [, STATISTICS [ALL|(<column_name>)] [TYPE <statistics_type>] [TYPE ...n]
+    [, STATISTICS ...n]]
 )
 [PRIMARY INDEX <column_name>[, <column_name>[, ...k]]]
 [PARTITION BY <column_name>[, <column_name>[, ...m]]]
@@ -36,6 +38,9 @@ CREATE [FACT|DIMENSION] TABLE [IF NOT EXISTS] <table_name>
 | `<storage_parameter>`       | The name of a [storage parameter](#storage-parameters) for controlling behaviors related to storage and indexes. |
 | `<storage_parameter_value>` | The value assigned to a `<storage_parameter>`.                                                                   |
 | `<table_description>`       | The optional description of the table.                                                                           |
+| `<statistics_type>`         | Type of [automated column statistics][acs] to collect. Possible values: `NDISTINCT`, `MINMAX`                    |
+
+[acs]: /performance-and-observability/query-planning/automated-column-statistics
 
 All identifiers are case-insensitive unless enclosed in double-quotes. For more information, see [Object identifiers](/reference/object-identifiers).
 
