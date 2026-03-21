@@ -37,8 +37,9 @@ AS SELECT <select_statement>
 | `<column_list>`        | An optional list of column names to be used for columns of the view. If not specified, the column names are deduced from the query. |
 | `<select_statement>`   | The select statement for creating the view. |
 
-## Example
+## Examples
 
+### Filtering a table
 
 ```sql
 CREATE VIEW fob_shipments
@@ -50,4 +51,21 @@ FROM    lineitem
 WHERE   l_shipdate > 1990-01-01
 AND     l_shipmode = 'FOB';
 ```
+
+### Wrapping an Iceberg table
+
+You can wrap a [`READ_ICEBERG`](/reference-sql/functions-reference/iceberg/read_iceberg) TVF call in a view for easier querying of Iceberg tables:
+
+```sql
+CREATE VIEW lineitem AS SELECT * FROM READ_ICEBERG(
+    URL => 's3://firebolt-core-us-east-1/test_data/tpch/iceberg/tpch.db/lineitem'
+  );
+
+SELECT l_shipmode, l_extendedprice
+FROM lineitem
+WHERE l_shipdate > '1995-01-01'
+LIMIT 10;
+```
+
+For a complete guide, see [Simplifying queries with views](/reference-sql/functions-reference/iceberg/read_iceberg#simplifying-queries-with-views).
 

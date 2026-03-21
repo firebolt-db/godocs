@@ -13,6 +13,7 @@ A table-valued function (TVF) that reads data from [Apache Iceberg](https://iceb
  * [Return Type](#return-type)
  * [Best Practices](#best-practices)
  * [Examples](#examples)
+   * [Simplifying queries with views](#simplifying-queries-with-views)
  * [About Metadata Versions in File-Based Catalogs](#about-metadata-versions-in-file-based-catalogs)
  * [Limitations](#limitations)
 
@@ -114,10 +115,41 @@ The result is a table with data from the Iceberg files. Columns are read and par
 ## Best practices
 
 - Use a `LOCATION` object to store credentials for authentication. This approach centralizes credential management and eliminates the need to specify individual credential parameters in each query. See [CREATE LOCATION (Iceberg)](/reference-sql/commands/data-definition/create-location-iceberg).
+- **Use views to simplify repeated queries.** Wrap `READ_ICEBERG` in a [view](/reference-sql/commands/data-definition/create-view) so you can query Iceberg tables without repeating the TVF call. See [example below](#simplifying-queries-with-views).
 - Specifying a value for `MAX_STALENESS` can help improve performance in tight loops and infrequently-updated tables.
 - It is recommended to specify all parameters using the named-parameter syntax rather than relying on parameter positions. For example: use `URL => 'http://example.com'` rather than omitting the `URL =>` parameter name specifier.
 
 ## Examples
+
+### Simplifying queries with views
+
+You can wrap `READ_ICEBERG` TVFs in a view for easier querying of Iceberg tables. This also works with `LOCATION`-based `READ_ICEBERG` calls.
+
+```sql
+CREATE VIEW lineitem AS SELECT * FROM READ_ICEBERG(
+    URL => 's3://firebolt-core-us-east-1/test_data/tpch/iceberg/tpch.db/lineitem'
+  );
+
+SELECT * FROM lineitem LIMIT 10;
+
+CREATE VIEW orders AS SELECT * FROM READ_ICEBERG(
+    URL => 's3://firebolt-core-us-east-1/test_data/tpch/iceberg/tpch.db/orders'
+  );
+
+SELECT * FROM orders LIMIT 10;
+```
+
+Once views are created, you can use them in joins and complex queries without referencing `READ_ICEBERG` directly:
+
+```sql
+SELECT o.o_orderkey, l.l_extendedprice
+FROM orders o
+JOIN lineitem l ON o.o_orderkey = l.l_orderkey
+WHERE o.o_orderdate > '1995-01-01'
+LIMIT 10;
+```
+
+For more information about views, see [CREATE VIEW](/reference-sql/commands/data-definition/create-view).
 
 ### Reading using a LOCATION
 
