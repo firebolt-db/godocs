@@ -49,7 +49,7 @@ TYPE = ( <type> ) [ <type_option> ]
 
 | Parameter                 | Description                                                                                                                                                                                                                                                                                                                        |
 |:--------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<table>`    | An identifier that specifies the name of the external table. This name should be unique within the database. For identifier usage and syntax, see [Object identifiers](/reference/object-identifiers).                                                                                                                  |
+| `<table>`    | An identifier that specifies the name of the external table. This name should be unique within the database. For identifier usage and syntax, see [Object identifiers](/reference-sql/lexical-structure/object-identifiers).                                                                                                                  |
 | `<column_name>`           | An identifier that specifies the name of the column. This name should be unique within the table.<br/><b>Note:</b> If column names are using mixed case, wrap your column name definitions in double quotes (`"`); otherwise they will be translated to lower case and will not match the mixed case Parquet schema.                |
 | `<column_type>`           | Specifies the data type for the column.                                                                                                                                                                                                                                                                                            |
 | `PARTITION`               | An optional keyword. When specified, allows you to use a regular expression `<regex>` to extract a value from the file prefix to be stored as the column value. For more information, see [PARTITION](#partition).                                                                                                                 |
@@ -394,7 +394,7 @@ Unlike query-level settings, this parameter is specified only during external ta
 
 Note that query-level settings cannot be applied to CREATE TABLE operations, as these settings are not enabled for table creation. The table-level parameter is required for file validation during table creation. If the system setting is specified during SELECT queries, the table-level parameter will override it, so it will have no effect.
 
-It has three modes: `disabled`, `auto`, and `enforced`, where `disabled` is the default mode. For detailed explanations of each mode, see the [cross-region data access documentation](/reference/system-settings#access-cross-region-data).
+It has three modes: `disabled`, `auto`, and `enforced`, where `disabled` is the default mode. For detailed explanations of each mode, see the [cross-region data access documentation](/reference-sql/system-settings#access-cross-region-data).
 
 #### Example
 

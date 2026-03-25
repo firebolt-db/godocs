@@ -18,7 +18,7 @@ By default, Firebolt's query planner optimizes the join order based on estimatin
 However, there are scenarios where you may want to overwrite this because you have better manual estimates.
 The `no_join_ordering` hint gives you explicit control over the planner's behavior.
 If you specify this hint, the planner will not optimize the join order and instead use the order that is given in the query.
-The hint provides more granular control than [`optimizer_mode = 'user_guided'`](/reference/system-settings#changing-the-optimizer-mode).
+The hint provides more granular control than [`optimizer_mode = 'user_guided'`](/reference-sql/system-settings#changing-the-optimizer-mode).
 
 ## Example
 As an example, assume that we have tables `t1` with 100 rows and `t2` with 10000 rows.

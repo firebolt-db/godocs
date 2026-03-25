@@ -17,7 +17,7 @@ curl --silent "localhost:3473" --data-binary "SELECT 42"
 # 42
 ```
 
-If necessary, [system settings](/reference/system-settings) can be adjusted for individual queries by appending them as parameters to the HTTP query string. For example, the `timezone` setting can be adjusted as follows.
+If necessary, [system settings](/reference-sql/system-settings) can be adjusted for individual queries by appending them as parameters to the HTTP query string. For example, the `timezone` setting can be adjusted as follows.
 
 ```bash
 curl --silent "localhost:3473/?timezone=utc" --data-binary "SELECT TIMESTAMPTZ '1996-09-03 11:19:33.123456 Europe/Berlin' AS ts"

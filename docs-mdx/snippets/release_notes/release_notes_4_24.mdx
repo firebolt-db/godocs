@@ -90,7 +90,7 @@ ALTER ENGINE myengine SET AUTO_STOP TO 30;
 
 **Introduced new ingestion related setting**
 
-Introduced `max_insert_threads` to [control the maximum number of threads](/reference/system-settings#limiting-max-insert-threads) for `INSERT` statements, limiting the degree of parallelism for tablet writing operations.
+Introduced `max_insert_threads` to [control the maximum number of threads](/reference-sql/system-settings#limiting-max-insert-threads) for `INSERT` statements, limiting the degree of parallelism for tablet writing operations.
 This can reduce memory footprint during ingestion.
 
 **Output of EXPLAIN**

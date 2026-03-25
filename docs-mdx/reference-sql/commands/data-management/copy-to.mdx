@@ -64,7 +64,7 @@ The `WITH` keyword before the options list is optional. Additionally, you can us
 | `MAX_FILE_SIZE`                  | Specifies the max file size in bytes. If omitted, the default value is 16,000,000 bytes (about 16 MB). The maximum file size that can be specified is 5,368,709,120 bytes (5 GB).                                                                                                                                                                                                                                                                                                                                     |
 | `OVERWRITE_EXISTING_FILES`       | Specifies whether exported files should overwrite existing files of the same name in the specified Amazon S3 URL. If omitted, defaults to `FALSE`, and files of the same name are not overwritten.                                                                                                                                                                                                                                                                                                  |
 | `HEADER`       | Specifies whether CSV files should contain a header line containing the column names. If omitted, defaults to `TRUE`. Must be omitted for TSV, JSON, or Parquet files. |
-| `<settings>` | List of [query-specific settings](/reference/system-settings#setting-via-with) overrides.  |
+| `<settings>` | List of [query-specific settings](/reference-sql/system-settings#setting-via-with) overrides.  |
 
 ## Credentials
 

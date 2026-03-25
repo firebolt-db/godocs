@@ -60,7 +60,7 @@ SELECT checksum(*) FROM my_table WHERE date_of_event = AGO('1 day');
 
 ### Explicitly warming up a multi-cluster engine. 
 
-A query submitted to a multi-cluster engine is only sent to one cluster. If you want to explicitly warm up a multi-cluster engine you should use the [Multi-Cluster Engine Warmup](/reference/system-settings#multi-cluster-engine-warmup) setting to send that query to all clusters of the engine.
+A query submitted to a multi-cluster engine is only sent to one cluster. If you want to explicitly warm up a multi-cluster engine you should use the [Multi-Cluster Engine Warmup](/reference-sql/system-settings#multi-cluster-engine-warmup) setting to send that query to all clusters of the engine.
 
 ### Async warmup
 

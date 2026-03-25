@@ -137,11 +137,11 @@ You can either devote some resources to storage optimization, or make sure all r
 
 ### Query-level control
 Some levers give you control at a per-query basis.
-Look at our [system settings](/reference/system-settings) for an exhaustive list of all settings in Firebolt.
+Look at our [system settings](/reference-sql/system-settings) for an exhaustive list of all settings in Firebolt.
 Compared to engine-level control, settings allow you to change the behaviour of a single query.
 Different queries running on the same engine can have different settings.
 
-For example, you can control the [target tablet size](/reference/system-settings#target-tablet-size) for an `INSERT` query.
+For example, you can control the [target tablet size](/reference-sql/system-settings#target-tablet-size) for an `INSERT` query.
 This gives you fine-grained control over whether you want fast inserts that produce smaller tablets, or longer-running inserts that give you very large tablets.
 ```sql
 -- Option 1: Use an explicit SET command before running the query.

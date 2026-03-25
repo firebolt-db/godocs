@@ -64,7 +64,7 @@ To correctly size an engine for querying data, there are several factors to cons
 
 For query processing, our recommendation is to start with a S or M storage-optimized instance type. Then, run a checksum over the dataset you expect to be queried frequently. Firebolt Engines cache the data locally, which helps serve queries at low latencies. The cache size provided by the engines varies depending on the type of node used in your engines, with each size having twice the cache of the next smallest size. Compute-optimized instances have approximately one quarter of the cache size of storage-optimized instances. After the checksum, you can use [Information_Schema.engine_metrics_history](/reference-sql/information-schema/engine-metrics-history) to see the cache utilization percentage. If an acceptable percentage of your active dataset fits, you can then run queries at your expected QPS on the engine. <br/>
 
-**TIP:** You can use [Multi-Cluster Engine Warmup](/reference/system-settings#multi-cluster-engine-warmup) to submit your checksum queries to all clusters in a multi-cluster engine. 
+**TIP:** You can use [Multi-Cluster Engine Warmup](/reference-sql/system-settings#multi-cluster-engine-warmup) to submit your checksum queries to all clusters in a multi-cluster engine. 
 
 <Note>
 Small and medium storage-optimized engines are available for use right away. Compute-optimized instance types are available, but may see longer engine start times. If you want to use a large or extra-large engine, reach out to [support@firebolt.io](mailto:support@firebolt.io).

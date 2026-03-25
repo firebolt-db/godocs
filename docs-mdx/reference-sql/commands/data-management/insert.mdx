@@ -23,7 +23,7 @@ INSERT INTO <table> [ ( <column_name> [ , ... ] ) ]
 | `<table>`| The table to insert into. |
 | `( <column_name> [ , ... ] )`| List of column names to be inserted into. If not defined, the columns will be deduced from the expression. |
 | `<expression>`<br/>--OR--<br/> `VALUES ( <value> [ , ... ] ) [, ... ]` | Either a [`SELECT` query](/reference-sql/commands/queries/select) or an explicit list of `VALUES` tuples to be inserted.|
-| `<settings>` | List of [query-specific settings](/reference/system-settings#setting-via-with) overrides. |
+| `<settings>` | List of [query-specific settings](/reference-sql/system-settings#setting-via-with) overrides. |
 
 
 ## INSERT ON CONFLICT
@@ -124,6 +124,6 @@ ON CONFLICT (guest_id) DO UPDATE SET
 
 ## Settings to control behavior
 
-- `insert_sharding` to [enforce partition locality](/reference/system-settings#insert-sharding) during ingestion into partitioned tables.
-- `tablet_min_size_bytes` and `tablet_max_size_bytes` to [control](/reference/system-settings#target-tablet-size) min/max tablet sizes during ingestion.
-- `max_insert_threads` to [control the maximum number of threads](/reference/system-settings#limiting-max-insert-threads) for `INSERT` statements, limiting the degree of parallelism for tablet writing operations. This can reduce memory footprint during ingestion.
+- `insert_sharding` to [enforce partition locality](/reference-sql/system-settings#insert-sharding) during ingestion into partitioned tables.
+- `tablet_min_size_bytes` and `tablet_max_size_bytes` to [control](/reference-sql/system-settings#target-tablet-size) min/max tablet sizes during ingestion.
+- `max_insert_threads` to [control the maximum number of threads](/reference-sql/system-settings#limiting-max-insert-threads) for `INSERT` statements, limiting the degree of parallelism for tablet writing operations. This can reduce memory footprint during ingestion.

@@ -287,7 +287,7 @@ Replaced `engine_cluster` with [cluster_ordinal](/reference-sql/information-sche
 
  **Configurable cancellation behavior on connection drop**
 
-Introduced the `cancel_query_on_connection_drop` setting, allowing clients to control query cancellation on HTTP connection drop. Options include `NONE`, `ALL`, and `TYPE_DEPENDENT`. Refer to [system settings](/reference/system-settings#query-cancellation-mode-on-connection-drop) for examples and usage. 
+Introduced the `cancel_query_on_connection_drop` setting, allowing clients to control query cancellation on HTTP connection drop. Options include `NONE`, `ALL`, and `TYPE_DEPENDENT`. Refer to [system settings](/reference-sql/system-settings#query-cancellation-mode-on-connection-drop) for examples and usage. 
 
  **JSON format as default for error output**
 
@@ -650,7 +650,7 @@ Aggregating index is now placed in the same namespace as tables and views.
 
 **Syntax and planner support for LATERAL scoping**
 
-[LATERAL](/reference/reserved-words) is now a reserved keyword. It must now be used within double-quotes when using it as an object identifier.
+[LATERAL](/reference-sql/lexical-structure/reserved-words) is now a reserved keyword. It must now be used within double-quotes when using it as an object identifier.
 
 ### Resolved issues
 
@@ -678,7 +678,7 @@ TRY_CAST from TEXT to NUMERIC now works as expected: if the value cannot be pars
 
  **New comparison operators**
 
-[New comparison operators](/reference-sql/operators) `IS DISTINCT FROM` and `IS NOT DISTINCT FROM` have been added.
+[New comparison operators](/reference-sql/lexical-structure/operators) `IS DISTINCT FROM` and `IS NOT DISTINCT FROM` have been added.
 
 ### Enhancements, changes and new integrations
 

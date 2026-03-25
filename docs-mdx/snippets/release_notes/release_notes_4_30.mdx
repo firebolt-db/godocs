@@ -71,7 +71,7 @@ Introduced partial support for Iceberg schema evolution, allowing the reordering
 ### Performance Improvements
 {/* Jira ticket: FIR-45958 */}
 **Added `max_table_partitions_on_insert` to limit total table partitions for table health.**
-Added the `max_table_partitions_on_insert` flag to [limit the total number of partitions in a table](/reference/system-settings#partition-limits). Excessive partitioning can degrade Firebolt table health and query performance. If an ingestion query would cause the total partition count to exceed this value, the query will fail. The default limit is 10000 partitions for accounts created after Dec 1 2025.
+Added the `max_table_partitions_on_insert` flag to [limit the total number of partitions in a table](/reference-sql/system-settings#partition-limits). Excessive partitioning can degrade Firebolt table health and query performance. If an ingestion query would cause the total partition count to exceed this value, the query will fail. The default limit is 10000 partitions for accounts created after Dec 1 2025.
 
 ### Bug Fixes
 {/* Jira ticket: FIR-49259 */}

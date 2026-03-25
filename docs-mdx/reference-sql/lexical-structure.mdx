@@ -1,6 +1,6 @@
 ---
 description: Describes the lexical structure of SQL in Firebolt, including identifiers, literals, operators, comments, and query parameters.
-sidebarTitle: Lexical structure
+sidebarTitle: Overview
 title: Lexical structure
 ---
 
@@ -8,7 +8,7 @@ SQL input consists of a sequence of commands, each terminated by a semicolon (`;
 
 ## Identifiers
 
-Identifiers are names used to refer to database objects such as tables, columns, views, indexes, and engines. For detailed rules about identifier syntax and naming requirements, see [Object identifiers](/reference/object-identifiers).
+Identifiers are names used to refer to database objects such as tables, columns, views, indexes, and engines. For detailed rules about identifier syntax and naming requirements, see [Object identifiers](/reference-sql/lexical-structure/object-identifiers).
 
 ### Key rules
 
@@ -38,7 +38,7 @@ SELECT "Column_Name" FROM my_table
 
 ### Reserved words
 
-Certain words are reserved by the SQL language and cannot be used as unquoted identifiers. If you need to use a reserved word as an identifier, enclose it in double quotes. For a complete list, see [Reserved words](/reference/reserved-words).
+Certain words are reserved by the SQL language and cannot be used as unquoted identifiers. If you need to use a reserved word as an identifier, enclose it in double quotes. For a complete list, see [Reserved words](/reference-sql/lexical-structure/reserved-words).
 
 ```sql
 -- 'SELECT' is a reserved word, so it must be quoted when used as an identifier
@@ -205,7 +205,7 @@ SELECT CURRENT_TIMESTAMP - INTERVAL '1' DAY
 SELECT CURRENT_DATE() + '2 weeks'::INTERVAL
 ```
 
-For complete syntax and unit options, see [Arithmetic with date/time and intervals](/reference-sql/operators#arithmetic-with-datetime-and-intervals).
+For complete syntax and unit options, see [Arithmetic with date/time and intervals](/reference-sql/lexical-structure/operators#arithmetic-with-datetime-and-intervals).
 
 ### Array literals
 
@@ -272,7 +272,7 @@ SELECT 'Hello' || ' ' || 'World'
 SELECT '42'::INTEGER
 ```
 
-For the complete list of operators and their precedence, see [Operators](/reference-sql/operators).
+For the complete list of operators and their precedence, see [Operators](/reference-sql/lexical-structure/operators).
 
 ## Comments
 

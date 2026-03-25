@@ -130,5 +130,13 @@
   {
     "path": "support/severity-guidelines.mdx",
     "reason": "access only via direct link"
+  },
+  {
+    "path": "guides/run-queries.mdx",
+    "reason": "Run queries section removed as top-level nav; page kept for redirects"
+  },
+  {
+    "path": "guides/developing-with-firebolt.mdx",
+    "reason": "Overview replaced by API Reference Overview (reference-api) via href in nav"
   }
 ]

@@ -39,15 +39,15 @@ Added support for reading the following data types from Parquet files:
 
 
 **Introduced new ingestion related settings**
-Introduced `insert_sharding` to [enforce partition locality](/reference/system-settings#insert-sharding) during ingestion into partitioned tables.
-Introduced `tablet_min_size_bytes` and `tablet_max_size_bytes` to [control](/reference/system-settings#target-tablet-size) min/max tablet sizes during ingestion.
+Introduced `insert_sharding` to [enforce partition locality](/reference-sql/system-settings#insert-sharding) during ingestion into partitioned tables.
+Introduced `tablet_min_size_bytes` and `tablet_max_size_bytes` to [control](/reference-sql/system-settings#target-tablet-size) min/max tablet sizes during ingestion.
 
 
 
 **Added an ability to override public settings per query**
 You can now override settings by appending `WITH (<setting_1_name> = <setting_1_value>, ...)` to queries.
 This lets you apply settings directly to specific queries without affecting the entire session.
-Documentation is available [here](/reference/system-settings#setting-via-with).
+Documentation is available [here](/reference-sql/system-settings#setting-via-with).
 
 
 ### Performance Improvements

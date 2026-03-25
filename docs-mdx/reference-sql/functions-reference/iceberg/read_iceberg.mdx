@@ -405,7 +405,7 @@ FROM READ_ICEBERG(
 LIMIT 5;
 ```
 
-Alternatively, Firebolt can also attempt to 'guess' the correct metadata file. Because this approach may violate atomicity guarantees, it is disabled by default. For details, see [Guessing Iceberg metadata version](/reference/system-settings#guessing-iceberg-metadata-version).
+Alternatively, Firebolt can also attempt to 'guess' the correct metadata file. Because this approach may violate atomicity guarantees, it is disabled by default. For details, see [Guessing Iceberg metadata version](/reference-sql/system-settings#guessing-iceberg-metadata-version).
 
 ## Limitations
 - Iceberg tables with Parquet data files in S3 are currently supported.
@@ -421,4 +421,4 @@ Alternatively, Firebolt can also attempt to 'guess' the correct metadata file. B
 - Reading past snapshots with time travel is currently not supported.
 - Nested complex types such as `struct`, `list`, and `map` are currently read as nullable even if Iceberg defines the field to be non-nullable. This only applies to nested complex types (`struct`/`list`/`map` nested inside another `struct`/`list`/`map`).
 - [Returning partition values for Identity Transforms from partition metadata](https://iceberg.apache.org/spec/#column-projection) is currently not supported.
-- By default, cross-region reads for S3 are disabled for `read_iceberg`, as they may incur additional costs. They may be enabled on a per-query basis using the [cross_region_request_mode](/reference/system-settings#access-cross-region-data) setting.
+- By default, cross-region reads for S3 are disabled for `read_iceberg`, as they may incur additional costs. They may be enabled on a per-query basis using the [cross_region_request_mode](/reference-sql/system-settings#access-cross-region-data) setting.

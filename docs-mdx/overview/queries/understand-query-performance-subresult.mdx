@@ -97,7 +97,7 @@ Firebolt supports subresult caching for as many queries as possible. The followi
 
 ### Disabling subresult reuse
 
-Firebolt exposes [system settings](/reference/system-settings) that allow turning off subresult caching at a per-query basis:
+Firebolt exposes [system settings](/reference-sql/system-settings) that allow turning off subresult caching at a per-query basis:
 - Setting `enable_result_cache` to `FALSE` ensures that full query results aren't retrieved from cache, while still allowing for semantic cross-query subresult reuse.
 - Setting `enable_subresult_cache` to `FALSE` disables Firebolt's entire subresult caching layer.
 

@@ -27,7 +27,7 @@ WITH LOCATION = <location_name> [<setting_name> = <setting_value> ...]
 | `<table_name>`    | Table name. Currently not used, but a value must be provided. |
 | `<select_query`>  | Any valid select query.                                       |
 | `<location_name>` | The name of an [Iceberg `LOCATION`](/reference-sql/commands/data-definition/create-location-iceberg) object with `CATALOG = FILE_BASED`. |
-| `<setting_name>`  | The name of a [system setting](/reference/system-settings).   |
+| `<setting_name>`  | The name of a [system setting](/reference-sql/system-settings).   |
 | `<setting_value>` | The value to assign to system setting `<setting_name>`.       |
 
 ### PARTITION BY
@@ -96,7 +96,7 @@ WITH LOCATION = my_location;
 
 ## Remarks
 
-You can use the [`iceberg_insert_sharding`](/reference/system-settings#iceberg-insert-sharding) setting to control the trade-off between parallelism and the number of output files per partition. By default, Firebolt tries to group files of the same partition on the same nodes, resulting in less load per node and fewer output files, which is usually preferred for query performance.
+You can use the [`iceberg_insert_sharding`](/reference-sql/system-settings#iceberg-insert-sharding) setting to control the trade-off between parallelism and the number of output files per partition. By default, Firebolt tries to group files of the same partition on the same nodes, resulting in less load per node and fewer output files, which is usually preferred for query performance.
 
 ## Limitations:
 

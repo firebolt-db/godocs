@@ -139,14 +139,6 @@
             "group": "Guides",
             "pages": [
               {
-                "group": "Run queries",
-                "pages": [
-                  "guides/run-queries",
-                  "guides/run-queries/using-the-develop-workspace",
-                  "guides/run-queries/using-the-api"
-                ]
-              },
-              {
                 "group": "Manage organization",
                 "pages": [
                   "guides/managing-your-organization",
@@ -162,6 +154,7 @@
                 "group": "Get started",
                 "pages": [
                   "guides/getting-started",
+                  "guides/getting-started/using-the-develop-workspace",
                   "guides/getting-started/get-started-load-data-wizard",
                   "guides/getting-started/get-started-sql",
                   "guides/getting-started/get-started-next"
@@ -243,7 +236,8 @@
               {
                 "group": "Develop with Firebolt",
                 "pages": [
-                  "guides/developing-with-firebolt",
+                  {"href": "/reference-api", "title": "Overview"},
+                  "guides/developing-with-firebolt/using-the-api",
                   "guides/developing-with-firebolt/connecting-with-nodejs",
                   "guides/developing-with-firebolt/connecting-with-python",
                   "guides/developing-with-firebolt/connecting-with-jdbc",
@@ -299,7 +293,15 @@
           {
             "group": "SQL reference",
             "pages": [
-              "reference-sql/lexical-structure",
+              {
+                "group": "Lexical structure",
+                "pages": [
+                  "reference-sql/lexical-structure",
+                  "reference-sql/lexical-structure/object-identifiers",
+                  "reference-sql/lexical-structure/reserved-words",
+                  "reference-sql/lexical-structure/operators"
+                ]
+              },
               "reference-sql/explicit-transactions",
               {
                 "group": "Data types",
@@ -355,7 +357,6 @@
                   "reference-sql/information-schema/views"
                 ]
               },
-              "reference-sql/operators",
               {
                 "group": "SQL commands",
                 "pages": [
@@ -802,7 +803,8 @@
                     ]
                   }
                 ]
-              }
+              },
+              "reference-sql/system-settings"
             ]
           },
           {
@@ -816,10 +818,6 @@
                 ]
               },
               "reference/available-regions",
-              "reference/compression-codecs",
-              "reference/system-settings",
-              "reference/object-identifiers",
-              "reference/reserved-words",
               "reference/help-menu"
             ]
           },
@@ -953,23 +951,93 @@
       "permanent": false
     },
     {
+      "source": "/guides/run-queries/using-the-develop-workspace",
+      "destination": "/guides/getting-started/using-the-develop-workspace",
+      "permanent": false
+    },
+    {
+      "source": "/guides/run-queries/using-the-develop-workspace/",
+      "destination": "/guides/getting-started/using-the-develop-workspace",
+      "permanent": false
+    },
+    {
+      "source": "/guides/run-queries/using-the-api",
+      "destination": "/guides/developing-with-firebolt/using-the-api",
+      "permanent": false
+    },
+    {
+      "source": "/guides/run-queries/using-the-api/",
+      "destination": "/guides/developing-with-firebolt/using-the-api",
+      "permanent": false
+    },
+    {
+      "source": "/reference/object-identifiers",
+      "destination": "/reference-sql/lexical-structure/object-identifiers",
+      "permanent": false
+    },
+    {
+      "source": "/reference/object-identifiers/",
+      "destination": "/reference-sql/lexical-structure/object-identifiers",
+      "permanent": false
+    },
+    {
+      "source": "/reference/reserved-words",
+      "destination": "/reference-sql/lexical-structure/reserved-words",
+      "permanent": false
+    },
+    {
+      "source": "/reference/reserved-words/",
+      "destination": "/reference-sql/lexical-structure/reserved-words",
+      "permanent": false
+    },
+    {
+      "source": "/reference-sql/operators",
+      "destination": "/reference-sql/lexical-structure/operators",
+      "permanent": false
+    },
+    {
+      "source": "/reference-sql/operators/",
+      "destination": "/reference-sql/lexical-structure/operators",
+      "permanent": false
+    },
+    {
+      "source": "/reference/system-settings",
+      "destination": "/reference-sql/system-settings",
+      "permanent": false
+    },
+    {
+      "source": "/reference/system-settings/",
+      "destination": "/reference-sql/system-settings",
+      "permanent": false
+    },
+    {
+      "source": "/reference/compression-codecs",
+      "destination": "/overview/indexes/table-and-column-compression",
+      "permanent": false
+    },
+    {
+      "source": "/reference/compression-codecs/",
+      "destination": "/overview/indexes/table-and-column-compression",
+      "permanent": false
+    },
+    {
       "source": "/guides/query-data",
       "destination": "/guides/run-queries",
       "permanent": false
     },
     {
       "source": "/guides/query-data/using-the-develop-workspace",
-      "destination": "/guides/run-queries/using-the-develop-workspace",
+      "destination": "/guides/getting-started/using-the-develop-workspace",
       "permanent": false
     },
     {
       "source": "/guides/query-data/keyboard-shortcuts-for-sql-editor",
-      "destination": "/guides/run-queries/using-the-develop-workspace#keyboard-shortcuts-for-the-develop-space",
+      "destination": "/guides/getting-started/using-the-develop-workspace#keyboard-shortcuts-for-the-develop-space",
       "permanent": false
     },
     {
       "source": "/guides/query-data/using-the-api",
-      "destination": "/guides/run-queries/using-the-api",
+      "destination": "/guides/developing-with-firebolt/using-the-api",
       "permanent": false
     },
     {
@@ -2769,7 +2837,7 @@
     },
     {
       "source": "/Guides/query-data/keyboard-shortcuts-for-sql-editor.html",
-      "destination": "/guides/run-queries/using-the-develop-workspace#keyboard-shortcuts-for-the-develop-space",
+      "destination": "/guides/getting-started/using-the-develop-workspace#keyboard-shortcuts-for-the-develop-space",
       "permanent": false
     },
     {
@@ -3734,7 +3802,7 @@
     },
     {
       "source": "/Guides/query-data/keyboard-shortcuts-for-sql-editor",
-      "destination": "/guides/run-queries/using-the-develop-workspace#keyboard-shortcuts-for-the-develop-space",
+      "destination": "/guides/getting-started/using-the-develop-workspace#keyboard-shortcuts-for-the-develop-space",
       "permanent": false
     },
     {
@@ -3944,7 +4012,7 @@
     },
     {
       "source": "/Guides/query-data/using-the-develop-workspace.html",
-      "destination": "/guides/run-queries/using-the-develop-workspace",
+      "destination": "/guides/getting-started/using-the-develop-workspace",
       "permanent": false
     },
     {
@@ -4749,7 +4817,7 @@
     },
     {
       "source": "/Guides/query-data/using-the-develop-workspace",
-      "destination": "/guides/run-queries/using-the-develop-workspace",
+      "destination": "/guides/getting-started/using-the-develop-workspace",
       "permanent": false
     },
     {
@@ -5584,7 +5652,7 @@
     },
     {
       "source": "/Guides/query-data/using-the-api.html",
-      "destination": "/guides/run-queries/using-the-api",
+      "destination": "/guides/developing-with-firebolt/using-the-api",
       "permanent": false
     },
     {
@@ -5669,7 +5737,7 @@
     },
     {
       "source": "/Reference/interval-arithmetic.html",
-      "destination": "/reference-sql/operators#arithmetic-with-datetime-and-intervals",
+      "destination": "/reference-sql/lexical-structure/operators#arithmetic-with-datetime-and-intervals",
       "permanent": false
     },
     {
@@ -5729,7 +5797,7 @@
     },
     {
       "source": "/Reference/object-identifiers.html",
-      "destination": "/reference/object-identifiers",
+      "destination": "/reference-sql/lexical-structure/object-identifiers",
       "permanent": false
     },
     {
@@ -5924,7 +5992,7 @@
     },
     {
       "source": "/Guides/query-data/using-the-api",
-      "destination": "/guides/run-queries/using-the-api",
+      "destination": "/guides/developing-with-firebolt/using-the-api",
       "permanent": false
     },
     {
@@ -5949,7 +6017,7 @@
     },
     {
       "source": "/Reference/system-settings.html",
-      "destination": "/reference/system-settings",
+      "destination": "/reference-sql/system-settings",
       "permanent": false
     },
     {
@@ -6024,12 +6092,12 @@
     },
     {
       "source": "/Reference/reserved-words.html",
-      "destination": "/reference/reserved-words",
+      "destination": "/reference-sql/lexical-structure/reserved-words",
       "permanent": false
     },
     {
       "source": "/Reference/interval-arithmetic",
-      "destination": "/reference-sql/operators#arithmetic-with-datetime-and-intervals",
+      "destination": "/reference-sql/lexical-structure/operators#arithmetic-with-datetime-and-intervals",
       "permanent": false
     },
     {
@@ -6064,7 +6132,7 @@
     },
     {
       "source": "/sql_reference/operators.html",
-      "destination": "/reference-sql/operators",
+      "destination": "/reference-sql/lexical-structure/operators",
       "permanent": false
     },
     {
@@ -6079,7 +6147,7 @@
     },
     {
       "source": "/Reference/object-identifiers",
-      "destination": "/reference/object-identifiers",
+      "destination": "/reference-sql/lexical-structure/object-identifiers",
       "permanent": false
     },
     {
@@ -6209,7 +6277,7 @@
     },
     {
       "source": "/Reference/system-settings",
-      "destination": "/reference/system-settings",
+      "destination": "/reference-sql/system-settings",
       "permanent": false
     },
     {
@@ -6249,7 +6317,7 @@
     },
     {
       "source": "/Reference/reserved-words",
-      "destination": "/reference/reserved-words",
+      "destination": "/reference-sql/lexical-structure/reserved-words",
       "permanent": false
     },
     {
@@ -6284,7 +6352,7 @@
     },
     {
       "source": "/sql_reference/operators",
-      "destination": "/reference-sql/operators",
+      "destination": "/reference-sql/lexical-structure/operators",
       "permanent": false
     },
     {

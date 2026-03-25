@@ -68,7 +68,7 @@ with connect(
 
 #### Handling long-running synchronous queries
 
-Synchronous queries maintain an open HTTP connection for the duration of the query, and stream results back as they become available. While there is no strict time limit, queries running longer than one hour may experience connectivity interruptions. If the HTTP connection is lost, some SQL statements, including `INSERT`, continue to run by default, while `SELECT` statements are cancelled. You can modify this behavior using the [cancel_query_on_connection_drop](/reference/system-settings#query-cancellation-mode-on-connection-drop) setting. 
+Synchronous queries maintain an open HTTP connection for the duration of the query, and stream results back as they become available. While there is no strict time limit, queries running longer than one hour may experience connectivity interruptions. If the HTTP connection is lost, some SQL statements, including `INSERT`, continue to run by default, while `SELECT` statements are cancelled. You can modify this behavior using the [cancel_query_on_connection_drop](/reference-sql/system-settings#query-cancellation-mode-on-connection-drop) setting. 
 
 To avoid connection issues, consider submitting long-running queries as [asynchronous](/reference-api/using-async-queries) queries. 
 

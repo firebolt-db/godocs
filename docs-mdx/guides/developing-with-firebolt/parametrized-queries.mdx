@@ -166,7 +166,7 @@ The `query_parameters` value must be URL-encoded when passed as a query string. 
 
 | SDK / Driver | Placeholder syntax | How to enable |
 |---|---|---|
-| [REST API](/guides/run-queries/using-the-api) | `$1`, `$2`, … | `query_parameters` URL query string parameter |
+| [REST API](/guides/developing-with-firebolt/using-the-api) | `$1`, `$2`, … | `query_parameters` URL query string parameter |
 | [.NET SDK](https://github.com/firebolt-db/firebolt-net-sdk) | `$1`, `$2`, … | Connection string: `preparedStatementParamStyle=FbNumeric` |
 | [Go SDK](https://github.com/firebolt-db/firebolt-go-sdk) | `$1`, `$2`, … | `fireboltContext.WithPreparedStatementsStyle(..., PreparedStatementsStyleFbNumeric)` |
 | [JDBC driver](https://github.com/firebolt-db/jdbc) | `$1`, `$2`, … | Connection property: `preparedStatementParamStyle=FbNumeric` |

@@ -106,7 +106,7 @@ For example, for an inner join between tables that are both bucketed on the join
 
 Similar to joins, if an aggregation key matches the Iceberg table's partitioning key, Firebolt can optimize the aggregation process, potentially making local aggregations more efficient and even eliminating entire global aggregation stages.
 
-Use the [`enable_iceberg_partitioned_scan` setting](/reference/system-settings#using-iceberg-partitioned-scans-for-co-located-joins-and-aggregations) to enable these optimizations when the number of partitions is high enough and their size is sufficiently balanced to make this worthwhile.
+Use the [`enable_iceberg_partitioned_scan` setting](/reference-sql/system-settings#using-iceberg-partitioned-scans-for-co-located-joins-and-aggregations) to enable these optimizations when the number of partitions is high enough and their size is sufficiently balanced to make this worthwhile.
 
 ## Configuring Iceberg writers for best performance
 

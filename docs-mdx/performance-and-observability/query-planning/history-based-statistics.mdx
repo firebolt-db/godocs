@@ -40,8 +40,8 @@ CREATE TABLE movies(title text UNIQUE, duration int);
 In order to start collecting data from a clean training state, we recommend creating or starting up a fresh dedicated engine.
 At the moment, we recommend using an engine with 1 cluster and 1 node.
 Now you can send representative queries to that engine, and mark them to be collected as training data.
-If you are using the Firebolt UI, set the session-level setting [as_hbs_training_data](/reference/system-settings#marking-queries-as-hbs-training-data) by running `SET as_hbs_training_data = true;`.
-If you run the queries from an SDK or via a client library, pass `as_hbs_training_data = true` for each query (see [System settings](/reference/system-settings#marking-queries-as-hbs-training-data)).
+If you are using the Firebolt UI, set the session-level setting [as_hbs_training_data](/reference-sql/system-settings#marking-queries-as-hbs-training-data) by running `SET as_hbs_training_data = true;`.
+If you run the queries from an SDK or via a client library, pass `as_hbs_training_data = true` for each query (see [System settings](/reference-sql/system-settings#marking-queries-as-hbs-training-data)).
 Send a variety of queries that cover your workload so the model has enough training data and does not overfit.
 
 ```sql
@@ -66,7 +66,7 @@ Once you have collected enough training data, create a snapshot so it can be use
 CALL CREATE_HBS_OBJECT();
 ```
 
-This call packages the training data collected using [as_hbs_training_data](/reference/system-settings#marking-queries-as-hbs-training-data)) into an HBS snapshot and returns the ID of the snapshot.
+This call packages the training data collected using [as_hbs_training_data](/reference-sql/system-settings#marking-queries-as-hbs-training-data)) into an HBS snapshot and returns the ID of the snapshot.
 You can inspect stored snapshots and their contents in the `fb_catalog.public.history_based_statistics` table:
 
 ```sql
@@ -85,7 +85,7 @@ Under the hood, history-based statistics use a collection of different technique
 
 ## Statistics Inference
 
-To use a snapshot for query planning, set it per query with the [hbs_object_id](/reference/system-settings#using-an-hbs-snapshot-for-query-planning) setting:
+To use a snapshot for query planning, set it per query with the [hbs_object_id](/reference-sql/system-settings#using-an-hbs-snapshot-for-query-planning) setting:
 
 ```sql
 -- session-level setting
@@ -169,4 +169,4 @@ and clear it with [CLEAR HISTORY BASED STATISTICS CACHE](/reference-sql/commands
 - [information_schema.engine_caches](/reference-sql/information-schema/engine-caches) - inspect the HBS in-memory cache
 - [Cardinality Estimation](/performance-and-observability/query-planning/cardinality-estimation) - how statistics affect query planning
 - [Inspecting Query Plans](/performance-and-observability/query-planning/inspecting-query-plans) - analyze query execution plans
-- [System settings](/reference/system-settings) - full reference (including [as_hbs_training_data](/reference/system-settings#marking-queries-as-hbs-training-data) and [hbs_object_id](/reference/system-settings#using-an-hbs-snapshot-for-query-planning))
+- [System settings](/reference-sql/system-settings) - full reference (including [as_hbs_training_data](/reference-sql/system-settings#marking-queries-as-hbs-training-data) and [hbs_object_id](/reference-sql/system-settings#using-an-hbs-snapshot-for-query-planning))

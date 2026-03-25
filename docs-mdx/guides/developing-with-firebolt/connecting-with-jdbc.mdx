@@ -167,14 +167,14 @@ The following table lists the available parameters that can be added to a Firebo
 
 ### System settings as connection parameters
 
-In addition to the parameters specified in the previous table, any [system setting](/reference/system-settings) can be passed as a connection string parameter. For example, to set a custom time zone, use the following format:
+In addition to the parameters specified in the previous table, any [system setting](/reference-sql/system-settings) can be passed as a connection string parameter. For example, to set a custom time zone, use the following format:
 ```
 jdbc:firebolt:my_database?time_zone=UTC&<other_connection_params>
 ```
     
 ## Applying system settings using SET
 
-In addition to passing system settings as connection string parameters, any [system setting](/reference/system-settings) can be passed using the SQL `SET` command. Multiple `SET` statements can be run consecutively, separated by semicolons, as shown below:
+In addition to passing system settings as connection string parameters, any [system setting](/reference-sql/system-settings) can be passed using the SQL `SET` command. Multiple `SET` statements can be run consecutively, separated by semicolons, as shown below:
 
 ```sql
     SET time_zone = 'UTC';
