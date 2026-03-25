@@ -225,6 +225,7 @@
                     ]
                   },
                   "guides/security/rbac",
+                  "guides/security/rbac-views-security",
                   "guides/security/location",
                   "guides/security/network-policies",
                   "guides/security/enabling-mfa",

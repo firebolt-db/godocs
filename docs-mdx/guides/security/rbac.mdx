@@ -210,6 +210,8 @@ SELECT * FROM view_over_base_table; -- executed by user2 and fails because the v
 ```
 If the view owner's privileges are revoked, the query will fail even if the user has access to the view.
 
+For a detailed guide on using the owner rights model to implement column-level and row-level security with views, see [Using secure views](/guides/security/rbac-views-security).
+
 
 ## Grant default permissions to a role
 

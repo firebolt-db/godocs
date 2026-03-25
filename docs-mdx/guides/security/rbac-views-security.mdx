@@ -1,0 +1,423 @@
+---
+description: Learn how to use views with Firebolt's RBAC system to implement column-level
+  security, data masking, and row-level security, using owner rights to control access
+  to underlying data.
+sidebarTitle: Secure views
+title: Using secure views
+---
+
+[Views](/reference-sql/commands/data-definition/create-view) combined with [Role-Based Access Control (RBAC)](/overview/security/rbac) in Firebolt are very flexible and allow you to implement many important real-world security scenarios. This approach uses the **owner rights** model that Firebolt applies to views, where access to underlying data is checked against the **view owner's** permissions rather than the querying user's permissions.
+
+This guide walks through three common use cases with end-to-end examples:
+
+1. **Column-level security** — control which columns users can see.
+2. **Data masking** — expose columns in a transformed or redacted form rather than hiding them entirely.
+3. **Row-level security** — control which rows users can see.
+
+## How owner rights work in views
+
+When a user queries a view, Firebolt checks two sets of permissions:
+
+1. The **querying user** must have `SELECT` on the view.
+2. The **view owner** (the user who created the view) must have `SELECT` on every underlying table or view that the view references.
+
+The querying user does **not** need any direct permissions on the underlying tables. This is the **owner rights** model: the view owner's privileges determine whether the view can access the base data, and the querying user's privileges determine whether they can access the view.
+
+This model lets you grant users access to specific slices of data through views while keeping the underlying tables locked down.
+
+<Note>
+If the view owner loses access to any referenced object (for example, if `USAGE` on the schema or `SELECT` on a table is revoked from the owner's role), all users who query the view will receive an authorization error — even if their own `SELECT` on the view is still in place. For more details, see [View permissions](/overview/security/rbac/database-permissions/view-permissions).
+</Note>
+
+## Prerequisites
+
+Before implementing view-based security, ensure the following:
+
+- You have a user with privileges to create views, tables, and roles (typically an `account_admin` or a user with the relevant `CREATE` and `GRANT` privileges).
+- You understand [RBAC basics](/overview/security/rbac) and [view permissions](/overview/security/rbac/database-permissions/view-permissions).
+- The database and schema already exist, and you have `USAGE` on both.
+
+## Column-level security
+
+Column-level security restricts which columns a user can see. To implement it, create a view that exposes only the permitted columns from the base table, then grant users `SELECT` on the view instead of the table.
+
+There are two approaches to choosing which columns a view exposes:
+
+- **Allowlist** — explicitly list the columns that should be visible. Any new columns added to the base table later are **not** visible through the view by default. This is the more restrictive approach.
+- **Denylist** — use the [`EXCLUDE` clause](/reference-sql/commands/queries/select) to remove specific columns that must be secured. Any new columns added to the base table later **are** visible through the view by default. This is more convenient but requires you to update the view whenever a new sensitive column is added.
+
+### Example: Hiding sensitive columns
+
+Suppose you have an `employees` table with sensitive salary and SSN data:
+
+```sql
+CREATE TABLE employees (
+  employee_id INT,
+  name TEXT,
+  department TEXT,
+  salary NUMERIC(10,2),
+  ssn TEXT
+);
+```
+
+**Allowlist approach** — explicitly list only the columns to expose:
+
+```sql
+-- Created by the admin user (who becomes the view owner)
+CREATE VIEW employees_public AS
+SELECT
+  employee_id,
+  name,
+  department
+FROM employees;
+```
+
+If a `hire_date` column is later added to the `employees` table, it will **not** appear in `employees_public` until the view is updated.
+
+**Denylist approach** — exclude only the sensitive columns using [`EXCLUDE`](/reference-sql/commands/queries/select):
+
+```sql
+-- Created by the admin user (who becomes the view owner)
+CREATE VIEW employees_public AS
+SELECT * EXCLUDE(salary, ssn)
+FROM employees;
+```
+
+If a `hire_date` column is later added to the `employees` table, it will **automatically** appear in `employees_public`. If a new sensitive column is added, you must update the `EXCLUDE` list.
+
+**Set up roles and permissions** (same for either approach):
+
+```sql
+-- Create a role for general staff
+CREATE ROLE staff_role;
+
+-- Grant access to the database and schema
+GRANT USAGE ON DATABASE my_db TO staff_role;
+GRANT USAGE ON SCHEMA public TO staff_role;
+
+-- Grant SELECT on the view — NOT on the base table
+GRANT SELECT ON VIEW employees_public TO staff_role;
+
+-- Assign the role to a user
+GRANT ROLE staff_role TO USER alice;
+```
+
+**Verify access:**
+
+```sql
+-- As alice:
+SELECT * FROM employees_public;       -- succeeds, returns only permitted columns
+SELECT * FROM employees;              -- fails with authorization error
+SELECT salary FROM employees_public;  -- fails with "column not found"
+```
+
+Alice can query the view and see only the non-sensitive columns. She has no direct access to the `employees` table, so she cannot see `salary` or `ssn`.
+
+### Multiple views for different access levels
+
+You can create multiple views on the same table to provide different levels of column visibility. You can mix and match allowlist and denylist approaches:
+
+```sql
+-- HR view (denylist): includes everything except SSN
+CREATE VIEW employees_hr AS
+SELECT * EXCLUDE(ssn)
+FROM employees;
+
+-- Full access view: includes all columns
+CREATE VIEW employees_full AS
+SELECT * FROM employees;
+
+-- Grant each view to the appropriate role
+GRANT SELECT ON VIEW employees_hr TO hr_role;
+GRANT SELECT ON VIEW employees_full TO admin_role;
+```
+
+## Row-level security
+
+Row-level security restricts which rows a user can see. To implement it, create a view with a `WHERE` clause that filters rows, then grant users `SELECT` on the view instead of the table.
+
+### Static row-level security
+
+Use a static filter when specific roles should see a fixed subset of rows.
+
+```sql
+-- Only North America region data
+CREATE VIEW orders_na AS
+SELECT * FROM orders
+WHERE region = 'NA';
+
+-- Only EMEA region data
+CREATE VIEW orders_emea AS
+SELECT * FROM orders
+WHERE region = 'EMEA';
+
+-- Grant each view to the appropriate role
+GRANT SELECT ON VIEW orders_na TO na_team_role;
+GRANT SELECT ON VIEW orders_emea TO emea_team_role;
+```
+
+### Dynamic row-level security using SESSION_USER
+
+For more flexible row-level security, use the [`SESSION_USER`](/reference-sql/functions-reference/session/session-user) function inside a view. `SESSION_USER()` returns the name of the user who is running the query, so the view dynamically filters rows based on the current user.
+
+**Step 1 — Create a mapping table that associates users with the data they are allowed to see:**
+
+```sql
+CREATE TABLE user_region_access (
+  user_name TEXT,
+  region TEXT
+);
+
+INSERT INTO user_region_access VALUES
+  ('alice', 'NA'),
+  ('alice', 'EMEA'),
+  ('bob', 'NA');
+```
+
+**Step 2 — Create a view that joins the base table with the mapping table using `SESSION_USER()`:**
+
+```sql
+CREATE VIEW orders_secure AS
+SELECT o.*
+FROM orders o
+JOIN user_region_access a
+  ON o.region = a.region
+WHERE a.user_name = SESSION_USER();
+```
+
+**Step 3 — Set up roles and permissions:**
+
+```sql
+CREATE ROLE analyst_role;
+
+GRANT USAGE ON DATABASE my_db TO analyst_role;
+GRANT USAGE ON SCHEMA public TO analyst_role;
+GRANT SELECT ON VIEW orders_secure TO analyst_role;
+
+GRANT ROLE analyst_role TO USER alice;
+GRANT ROLE analyst_role TO USER bob;
+```
+
+**Step 4 — Verify access:**
+
+```sql
+-- As alice:
+SELECT * FROM orders_secure;
+-- Returns rows where region IN ('NA', 'EMEA')
+
+-- As bob:
+SELECT * FROM orders_secure;
+-- Returns rows where region = 'NA' only
+```
+
+Both users query the same view, but each sees only the rows they are authorized to access.
+
+<Note>
+The view owner must have `SELECT` on both the `orders` table and the `user_region_access` table. The querying users only need `SELECT` on the `orders_secure` view.
+</Note>
+
+## Data masking
+
+Data masking lets users see that a column exists, but replaces the actual values with redacted or transformed versions. This is useful when users need to know that data is present — for example, to join or group on a column — without seeing the sensitive values.
+
+To implement data masking, create a view that applies transformation functions to sensitive columns. The following subsections describe common masking techniques.
+
+### Nulling out
+
+Replace sensitive data with `NULL`. This is the simplest form of masking — the column is present in the result set but contains no usable value.
+
+```sql
+CREATE VIEW employees_nulled AS
+SELECT
+  employee_id,
+  name,
+  department,
+  NULL AS ssn,
+  NULL AS salary
+FROM employees;
+```
+
+A query against `employees_nulled` returns every row, but `ssn` and `salary` are always `NULL`.
+
+### Substitution
+
+Replace real data with fake but realistic values from a lookup table. This preserves the look and feel of the data, which can be useful for testing or demo environments.
+
+```sql
+-- Lookup table with substitute names
+CREATE TABLE fake_names (
+  original_name TEXT,
+  substitute_name TEXT
+);
+
+INSERT INTO fake_names VALUES
+  ('John Smith', 'James Miller'),
+  ('Jane Doe', 'Sarah Johnson');
+
+CREATE VIEW employees_substituted AS
+SELECT
+  e.employee_id,
+  COALESCE(f.substitute_name, 'Redacted User') AS name,
+  e.department
+FROM employees e
+LEFT JOIN fake_names f
+  ON e.name = f.original_name;
+```
+
+Users see realistic-looking names (`James Miller`) instead of the real employee names.
+
+### Hashing (pseudonymization)
+
+Use a cryptographic hash function such as [`MD5`](/reference-sql/functions-reference/string/md5) to turn data into a fixed-length string. The same input always produces the same output, so hashed values can still be used for joins, grouping, and deduplication without revealing the original data.
+
+```sql
+CREATE VIEW employees_hashed AS
+SELECT
+  employee_id,
+  MD5(name) AS name_hash,
+  department,
+  MD5(ssn) AS ssn_hash
+FROM employees;
+```
+
+A query returns values like `c14fa496dfd5ebbb08aaca16a7c2781b` instead of the real name or SSN.
+
+### Redaction (masking out)
+
+Replace specific characters with a generic character such as `*` while preserving enough structure for the value to remain recognizable. This is especially useful for email addresses, phone numbers, and identifiers.
+
+```sql
+-- Email redaction: moshap@acme.com → m...p@acme.com
+CREATE VIEW customers_redacted AS
+SELECT
+  customer_id,
+  CONCAT(
+    LEFT(SPLIT_PART(email, '@', 1), 1),
+    '...',
+    SUBSTRING(SPLIT_PART(email, '@', 1), LENGTH(SPLIT_PART(email, '@', 1)), 1),
+    '@',
+    SPLIT_PART(email, '@', 2)
+  ) AS email,
+  account_status
+FROM customers;
+```
+
+Users see emails like `m...p@acme.com` — enough to identify the domain and rough address without revealing the full mailbox name.
+
+### Blurring (generalization)
+
+Replace a specific value with a range or a more general category to prevent precise identification. This is common for numeric data such as age, salary, or transaction amounts.
+
+```sql
+CREATE VIEW employees_blurred AS
+SELECT
+  employee_id,
+  name,
+  department,
+  CONCAT(
+    CAST(FLOOR(salary / 10000) * 10000 AS INT),
+    '-',
+    CAST(FLOOR(salary / 10000) * 10000 + 9999 AS INT)
+  ) AS salary_range
+FROM employees;
+```
+
+Instead of seeing an exact salary like `72500`, users see a range like `70000-79999`.
+
+### Combining masking with column exclusion
+
+You can combine data masking with column-level security to mask some columns and hide others entirely:
+
+```sql
+CREATE VIEW employees_general AS
+SELECT
+  employee_id,
+  name,
+  department,
+  CONCAT(
+    LEFT(SPLIT_PART(email, '@', 1), 1),
+    '...',
+    SUBSTRING(SPLIT_PART(email, '@', 1), LENGTH(SPLIT_PART(email, '@', 1)), 1),
+    '@',
+    SPLIT_PART(email, '@', 2)
+  ) AS email
+  -- salary and ssn are excluded entirely
+FROM employees;
+```
+
+## Combining column-level, masking, and row-level security
+
+You can combine all three techniques in a single view to control which columns are visible, how sensitive values are displayed, and which rows a user can see:
+
+```sql
+CREATE VIEW orders_restricted AS
+SELECT
+  order_id,
+  customer_name,
+  order_date,
+  region,
+  CONCAT('$', ROUND(amount / 1000, 0), 'K') AS amount_range
+  -- internal_notes is excluded entirely
+FROM orders o
+JOIN user_region_access a
+  ON o.region = a.region
+WHERE a.user_name = SESSION_USER();
+```
+
+This view hides `internal_notes` entirely, masks `amount` into a rounded range, and filters rows based on the querying user's region access.
+
+## Managing view ownership
+
+The owner rights model means that the view owner's permissions are critical. Keep the following best practices in mind:
+
+- **Use a dedicated admin user or role to create security views.** This ensures the view owner always has the necessary permissions on the underlying tables.
+- **Do not revoke base table permissions from the view owner.** If the view owner loses `SELECT` on a referenced table or `USAGE` on the schema, all queries through the view will fail.
+- **Transfer ownership deliberately.** If you need to change the view owner, use [`ALTER VIEW`](/reference-sql/commands/data-definition/alter-view) to transfer ownership and ensure the new owner has all required permissions:
+
+  ```sql
+  ALTER VIEW employees_public OWNER TO new_admin_user;
+  ```
+
+  For more information about ownership, see [Ownership](/overview/security/rbac/ownership).
+
+- **Audit view ownership regularly.** Query `information_schema.views` to check who owns each view and verify they still have the correct permissions:
+
+  ```sql
+  SELECT
+    table_name AS view_name,
+    table_owner AS view_owner
+  FROM information_schema.views;
+  ```
+
+## Setting up default privileges for security views
+
+If you create security views regularly, use [ALTER DEFAULT PRIVILEGES](/reference-sql/commands/access-control/alter-default-privileges) to automatically grant `SELECT` on new views to the appropriate roles:
+
+```sql
+ALTER DEFAULT PRIVILEGES GRANT SELECT ON VIEWS TO analyst_role;
+```
+
+This ensures that every new view created in the account is automatically accessible to `analyst_role`, reducing manual grant overhead.
+
+## Summary
+
+| Security type | Technique | Key mechanism |
+|---|---|---|
+| Column-level | Create a view that selects only permitted columns | View exposes a subset of columns; users have no direct table access |
+| Data masking | Create a view that transforms sensitive column values | View exposes columns with redacted or generalized values |
+| Row-level (static) | Create a view with a `WHERE` clause | View filters rows to a fixed subset |
+| Row-level (dynamic) | Create a view using `SESSION_USER()` in a `WHERE` clause | View filters rows based on the querying user's identity |
+| Combined | Combine column selection, masking, and `WHERE` filtering | View restricts columns, masks values, and filters rows |
+
+In all cases, the **owner rights** model ensures that:
+- The **view owner's** permissions on underlying tables control whether the view can access the data.
+- The **querying user** only needs `SELECT` on the view, not on the underlying tables.
+
+## Related topics
+
+- [View permissions](/overview/security/rbac/database-permissions/view-permissions) -- Permissions that control access to views
+- [Ownership](/overview/security/rbac/ownership) -- How ownership works in Firebolt
+- [Role-Based Access Control](/overview/security/rbac) -- Overview of Firebolt's RBAC model
+- [CREATE VIEW](/reference-sql/commands/data-definition/create-view) -- Syntax reference for creating views
+- [SESSION_USER](/reference-sql/functions-reference/session/session-user) -- Function reference for dynamic row-level security
+- [Role-based access control guide](/guides/security/rbac) -- How-to guide for managing RBAC

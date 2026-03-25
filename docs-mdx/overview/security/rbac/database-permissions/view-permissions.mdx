@@ -42,6 +42,10 @@ GRANT SELECT ON TABLE "referenced_table" TO view_owner;
 If the **view owner** loses access to any of these referenced objects, users with **SELECT** on the view will no longer be able to query it, even if their **SELECT** privilege remains.
 </Warning>
 
+<Tip>
+You can use this owner rights model to implement **column-level** and **row-level security** by creating views that expose only specific columns or filter rows, then granting users `SELECT` on the view instead of the underlying table. For a detailed walkthrough, see [Using secure views](/guides/security/rbac-views-security).
+</Tip>
+
 ### MODIFY permission
 The following code example grants the role `developer_role` permission to alter or drop the `my_view` view:
 
