@@ -19,7 +19,9 @@ def group_collect_pages(pages) -> Iterator[str]:
         if isinstance(p, str):
             yield p
         elif isinstance(p, dict):
-            if "pages" in p:
+            if "groups" in p:
+                yield from group_collect_pages(p["groups"])
+            elif "pages" in p:
                 yield from group_collect_pages(p["pages"])
             elif "href" in p:
                 continue

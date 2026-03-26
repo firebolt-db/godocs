@@ -32,7 +32,15 @@ def check_group_structure(pages: list[str|dict], level: int) -> list[str]:
             elif p_parts[:level] != common_path:
                 raise GroupStructureError(f"Expected all pages in the group to have the same path prefix, got {p} with prefix {p_parts[:level]} instead of {common_path}")
         elif isinstance(p, dict):
-            if "pages" in p:
+            if "groups" in p:
+                sub_common_path = check_group_structure(p["groups"], level + 1)
+                if len(sub_common_path) != level + 1:
+                    raise GroupStructureError(f"Unexpected common path {sub_common_path} at depth {level + 1}")
+                if common_path is None:
+                    common_path = sub_common_path[:level]
+                elif sub_common_path[:level] != common_path:
+                    raise GroupStructureError(f"Expected all pages in the group to have the same path prefix, got {p} with prefix {sub_common_path} instead of {common_path}")
+            elif "pages" in p:
                 sub_common_path = check_group_structure(p["pages"], level + 1)
                 if len(sub_common_path) != level + 1:
                     raise GroupStructureError(f"Unexpected common path {sub_common_path} at depth {level + 1}")

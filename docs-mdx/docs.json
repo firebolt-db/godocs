@@ -20,7 +20,7 @@
     "tabs": [
       {
         "tab": "Documentation",
-        "pages": [
+        "groups": [
           {
             "group": "What is Firebolt?",
             "pages": [
@@ -236,7 +236,6 @@
               {
                 "group": "Develop with Firebolt",
                 "pages": [
-                  {"href": "/reference-api", "title": "Overview"},
                   "guides/developing-with-firebolt/using-the-api",
                   "guides/developing-with-firebolt/connecting-with-nodejs",
                   "guides/developing-with-firebolt/connecting-with-python",
@@ -833,7 +832,7 @@
       },
       {
         "tab": "Firebolt Core",
-        "pages": [
+        "groups": [
           {
             "group": "Firebolt Core",
             "pages": [
