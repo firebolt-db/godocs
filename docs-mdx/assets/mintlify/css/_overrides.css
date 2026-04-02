@@ -7,6 +7,33 @@ div#navbar > div {
     max-width: 100%;
 }
 
+/* Widen the main content area for better information density */
+.mx-auto.max-w-5xl {
+    max-width: none !important;
+}
+
+/* Remove the color break (grey overlay + border) between navbar and content area */
+div[class*="bg-gray-950"] {
+    background-color: transparent !important;
+    border-bottom-color: transparent !important;
+}
+
+/* Dark mode variant of the navbar overlay */
+.dark div[class*="bg-white"][class*="0.03"] {
+    background-color: transparent !important;
+    border-bottom-color: transparent !important;
+}
+
+/* Remove border from the navbar card container */
+div#navbar div[class*="rounded-2xl"][class*="pointer-events-auto"] {
+    border-color: transparent !important;
+}
+
+/* Shrink the "On this page" TOC sidebar to give more space to content */
+.max-w-5xl > div[class*="max-w-"][class*="28rem"] {
+    max-width: 16rem !important;
+}
+
 h2.header-home {
     padding-top: 20px;
     padding-bottom: 20px;

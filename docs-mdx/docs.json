@@ -1,15 +1,40 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
+  "theme": "palm",
   "name": "Firebolt Documentation",
   "colors": {
     "primary": "#f72a31",
-    "light": "#f72a31",
+    "light": "#ff5a5f",
     "dark": "#f72a31"
   },
   "favicon": "assets/mintlify/firebolt-favicon.png",
   "background": {
-    "decoration": "gradient"
+    "color": {
+      "light": "#FFFFFF",
+      "dark": "#111113"
+    }
+  },
+  "appearance": {
+    "default": "system"
+  },
+  "fonts": {
+    "heading": {
+      "family": "Inter",
+      "weight": 600
+    },
+    "body": {
+      "family": "Inter",
+      "weight": 400
+    }
+  },
+  "styling": {
+    "eyebrow": "breadcrumbs",
+    "codeblocks": {
+      "theme": {
+        "light": "github-light",
+        "dark": "github-dark"
+      }
+    }
   },
   "integrations": {
     "gtm": {
@@ -889,19 +914,14 @@
   },
   "logo": {
     "light": "/assets/images/firebolt_logo_website.svg",
-    "dark": "/assets/images/firebolt_logo_website.svg"
+    "dark": "/assets/images/firebolt_logo_website_dark.svg",
+    "href": "https://docs.firebolt.io"
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Contact us",
-        "href": "https://www.firebolt.io/contact"
-      }
-    ],
     "primary": {
       "type": "button",
-      "label": "Book a demo",
-      "href": "https://www.firebolt.io/book-a-demo"
+      "label": "Sign Up",
+      "href": "https://go.firebolt.io/signup"
     }
   },
   "footer": {
