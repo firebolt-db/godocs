@@ -40,6 +40,15 @@ All examples in this topic are based on the table below, named `visits`. The col
 
 ![](/assets/images/array_example_table.png)
 
+## Comparing values against arrays
+
+You can compare a scalar value against the elements of an array using the [ANY/ALL (array)](/reference-sql/lexical-structure/any-all-array) quantified comparison operators. `ANY` returns `TRUE` if the comparison holds for at least one element, and `ALL` returns `TRUE` if it holds for every element.
+
+```sql
+SELECT 2 = ANY(ARRAY[1, 2, 3]);  --> true
+SELECT 5 > ALL(ARRAY[1, 2, 3]);  --> true
+```
+
 ## Simple array functions
 
 There are several fundamental functions that you can use to work with arrays, including [ARRAY_LENGTH](/reference-sql/functions-reference/array/array-length), [ARRAY_CONCAT](/reference-sql/functions-reference/array/array-concat), and [ARRAY_FLATTEN](/reference-sql/functions-reference/array/flatten). See the respective reference for a full description. Brief examples are shown below.

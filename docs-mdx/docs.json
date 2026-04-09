@@ -323,7 +323,8 @@
                   "reference-sql/lexical-structure",
                   "reference-sql/lexical-structure/object-identifiers",
                   "reference-sql/lexical-structure/reserved-words",
-                  "reference-sql/lexical-structure/operators"
+                  "reference-sql/lexical-structure/operators",
+                  "reference-sql/lexical-structure/any-all-array"
                 ]
               },
               "reference-sql/explicit-transactions",

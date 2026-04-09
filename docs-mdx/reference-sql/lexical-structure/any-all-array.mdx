@@ -1,0 +1,148 @@
+---
+description: Reference for ANY(array) and ALL(array) quantified comparison operators in Firebolt.
+sidebarTitle: ANY/ALL (array)
+title: ANY/ALL (array)
+---
+
+Quantified comparison operators compare a scalar value against the elements of an array using a `<comparison>` operator combined with an `ANY` or `ALL` quantifier.
+
+- `ANY` returns `TRUE` if the comparison is true for at least one element in the array.
+- `ALL` returns `TRUE` if the comparison is true for every element in the array.
+
+## Syntax
+
+```sql
+<value> <comparison> ANY(<array>)
+<value> <comparison> ALL(<array>)
+```
+
+## Parameters
+
+| Parameter       | Description                                                                 | Supported input types                          |
+| :-------------- | :-------------------------------------------------------------------------- | :--------------------------------------------- |
+| `<value>`       | A scalar value to compare against each element of the array.                | Any comparable type                            |
+| `<comparison>`  | A [comparison operator](/reference-sql/lexical-structure/operators#comparison): `=`, `<>`, `!=`, `<`, `>`, `<=`, or `>=`. | See [Comparison operators](/reference-sql/lexical-structure/operators#comparison) |
+| `<array>`       | The array whose elements are compared against `<value>`.                    | `ARRAY` with elements of a comparable type     |
+
+The type of `<value>` and the element type of `<array>` must be comparable.
+
+## Return type
+
+`BOOLEAN`
+
+## NULL handling
+
+- If `<array>` is `NULL`, the result is `NULL`.
+- If `<array>` is empty, `ANY` returns `FALSE` and `ALL` returns `TRUE`.
+- For `ANY`: returns `TRUE` as soon as a matching element is found, even if other elements are `NULL`. If no element matches and at least one element is `NULL`, the result is `NULL`.
+- For `ALL`: returns `FALSE` as soon as a non-matching element is found, even if other elements are `NULL`. If every non-NULL element matches and at least one element is `NULL`, the result is `NULL`.
+
+## Examples
+
+### Check whether a value exists in an array
+
+```sql
+SELECT 2 = ANY(ARRAY[1, 2, 3]);
+```
+
+**Returns**: `true`
+
+### Check whether a value equals every element
+
+```sql
+SELECT 1 = ALL(ARRAY[1, 1, 1]);
+```
+
+**Returns**: `true`
+
+```sql
+SELECT 1 = ALL(ARRAY[1, 2, 1]);
+```
+
+**Returns**: `false`
+
+### Use inequality operators
+
+```sql
+SELECT 5 <> ALL(ARRAY[1, 2, 3]);
+```
+
+**Returns**: `true` &mdash; `5` differs from every element.
+
+```sql
+SELECT 1 <> ANY(ARRAY[1, 2, 3]);
+```
+
+**Returns**: `true` &mdash; `1` differs from at least one element.
+
+### Use range comparisons
+
+```sql
+SELECT 100 > ALL(ARRAY[10, 20, 30]);
+```
+
+**Returns**: `true` &mdash; `100` is greater than every element.
+
+```sql
+SELECT 2 < ANY(ARRAY[1, 5, 10]);
+```
+
+**Returns**: `true` &mdash; `2` is less than at least one element.
+
+### Empty arrays
+
+```sql
+SELECT 1 = ANY(ARRAY[]::INT[]);
+```
+
+**Returns**: `false` &mdash; no elements to match against.
+
+```sql
+SELECT 1 = ALL(ARRAY[]::INT[]);
+```
+
+**Returns**: `true` &mdash; the condition holds vacuously for an empty array.
+
+### NULL values in the array
+
+```sql
+SELECT 1 = ANY(ARRAY[1, NULL, 3]);
+```
+
+**Returns**: `true` &mdash; a match is found before the `NULL` matters.
+
+```sql
+SELECT 4 = ANY(ARRAY[1, NULL, 3]);
+```
+
+**Returns**: `NULL` &mdash; no match is found, but a `NULL` element prevents a definitive `false`.
+
+### Use with table columns
+
+The following example checks each row's `quantity` against its own `valid_quantities` array.
+
+```sql
+CREATE DIMENSION TABLE inventory (
+    product_id INT,
+    quantity INT,
+    valid_quantities ARRAY(INT)
+);
+
+INSERT INTO inventory VALUES
+    (1, 10, [10, 20, 30]),
+    (2, 15, [10, 20, 30]),
+    (3, 20, [10, 20, 30]);
+
+SELECT
+    product_id,
+    quantity = ANY(valid_quantities) AS is_valid
+FROM inventory;
+```
+
+**Returns**:
+
+| product_id | is_valid |
+| :--------- | :------- |
+| 1          | true     |
+| 2          | false    |
+| 3          | true     |
