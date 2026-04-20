@@ -1,0 +1,36 @@
+name: Legacy docs notice on PR
+
+on:
+  pull_request:
+    types:
+      - opened
+
+permissions:
+  pull-requests: write
+
+jobs:
+  post-legacy-notice:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Post legacy documentation notice
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7.1.0
+        with:
+          script: |
+            const body = [
+              '> [!CAUTION]',
+              '> # Legacy documentation',
+              '>',
+              '> **This repository hosts the legacy Firebolt documentation.**',
+              '> ALL changes will be overwritten once we release the New Firebolt, no merging is planned.',
+              '> Only add backports here!',
+              '',
+              '> [!WARNING]',
+              '> Before you merge, confirm whether updates also belong in the new docs page that is developed in the packdb repository.',
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body,
+            });
