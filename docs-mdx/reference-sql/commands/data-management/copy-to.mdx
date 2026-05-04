@@ -193,14 +193,14 @@ WITH (
 );
 ```
 
-Firebolt assigns the query ID `16B903C4206098FD` to the query at runtime. The compressed output is 40 MB, exceeding the default of 16 MB, so Firebolt writes 4 files as shown below.
+Firebolt assigns a UUID formatted query ID, to the query at runtime. The compressed output is 40 MB, exceeding the default of 16 MB, so Firebolt writes 4 files as shown below.
 
 ```bash
 s3://my_bucket/my_fb_queries/
-  16B903C4206098FD_0.csv.gz
-  16B903C4206098FD_1.csv.gz
-  16B903C4206098FD_2.csv.gz
-  16B903C4206098FD_3.csv.gz
+  153831d6-c400-4014-aa58-7bdce3918019_0.csv.gz
+  153831d6-c400-4014-aa58-7bdce3918019_1.csv.gz
+  153831d6-c400-4014-aa58-7bdce3918019_2.csv.gz
+  153831d6-c400-4014-aa58-7bdce3918019_3.csv.gz
 ```
 
 ### COPY TO with single file and AWS access keys

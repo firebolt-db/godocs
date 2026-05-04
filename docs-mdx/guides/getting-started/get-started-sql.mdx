@@ -366,14 +366,14 @@ COPY (SELECT * FROM test_table)
 ```
 In the previous code example, the role ARN ([Amazon Resource Name](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html)) identifies the AWS IAM role that specifies the access for users or services. An ARN follows the following structure: arn:aws:iam::account-id:role/role-name. Because TYPE is omitted from `COPY TO`, the file or files will be written in the default CSV format. Because `COMPRESSION` is also omitted, the output data is compressed using GZIP (*.csv.gz) format.
 
-Firebolt assigns a query ID, that has the following example format `16B903C4206098FD`, to the query at runtime. If the size of the compressed output exceeds the default of `16` MB, Firebolt writes multiple GZIP files. In the following example, the size of the output is `40` MB, so Firebolt writes `4` files.
+Firebolt assigns a UUID formatted query ID (e.g., `153831d6-c400-4014-aa58-7bdce3918019`), to the query at runtime. If the size of the compressed output exceeds the default of `16` MB, Firebolt writes multiple GZIP files. In the following example, the size of the output is `40` MB, so Firebolt writes `4` files.
 
 ```shell
 s3://my_bucket/my_fb_queries/
-16B903C4206098FD_0.csv.gz
-16B903C4206098FD_1.csv.gz
-16B903C4206098FD_2.csv.gz
-16B903C4206098FD_3.csv.gz
+153831d6-c400-4014-aa58-7bdce3918019_0.csv.gz
+153831d6-c400-4014-aa58-7bdce3918019_1.csv.gz
+153831d6-c400-4014-aa58-7bdce3918019_2.csv.gz
+153831d6-c400-4014-aa58-7bdce3918019_3.csv.gz
 ```
 
 ## Next steps
