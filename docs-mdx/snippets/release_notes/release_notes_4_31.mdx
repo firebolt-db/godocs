@@ -118,6 +118,10 @@ If you rely on this name explicitly on the client side, migrate by using an expl
 
 The column of the `EXPLAIN` output is now named `QUERY PLAN` to align with PostgreSQL.
 
+{/* Jira ticket: FIR-28971 */}
+**`ANY` Function Alias Removed**
+The function alias `ANY` for the [`ANY_VALUE`](/reference-sql/functions-reference/aggregation/any_value) aggregation function has been removed. `ANY` is now a reserved keyword used for PostgreSQL-compliant quantified comparison operators such as `= ANY(array)` and `= ALL(array)`. If your queries use `ANY()` as a function, replace them with `ANY_VALUE()`.
+
 {/* Jira ticket: FIR-51813 */}
 **Struct Type Conversion**
 Type conversion between two named struct types now matches field names. Type conversion for unnamed structs or a mix of named and unnamed structs remains the same.
