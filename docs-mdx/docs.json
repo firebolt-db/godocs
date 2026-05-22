@@ -302,6 +302,7 @@
                     "guides/integrations/power-bi",
                     "guides/integrations/connecting-to-preset",
                     "guides/integrations/tableau",
+                    "guides/integrations/textql",
                     "guides/integrations/thoughtspot"
                   ]
               },
