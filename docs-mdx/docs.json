@@ -5146,6 +5146,26 @@
       "permanent": false
     },
     {
+      "source": "/Guides/operate-engines/arm-co-opt-out.html",
+      "destination": "/guides/operate-engines/engines-release-settings",
+      "permanent": false
+    },
+    {
+      "source": "/Guides/operate-engines/arm-co-opt-out",
+      "destination": "/guides/operate-engines/engines-release-settings",
+      "permanent": false
+    },
+    {
+      "source": "/guides/operate-engines/arm-co-opt-out",
+      "destination": "/guides/operate-engines/engines-release-settings",
+      "permanent": false
+    },
+    {
+      "source": "/guides/operate-engines/arm-co-opt-out/",
+      "destination": "/guides/operate-engines/engines-release-settings",
+      "permanent": false
+    },
+    {
       "source": "/Guides/operate-engines/engine-warmpools.html",
       "destination": "/guides/operate-engines/engine-warmpools",
       "permanent": false
