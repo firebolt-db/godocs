@@ -111,7 +111,92 @@ A DAG file in Airflow is a Python script that defines tasks and their execution 
 
 The following DAG script creates a DAG named `firebolt_provider_trip_data`. It uses an Airflow connection to Firebolt named `my_firebolt_connection`. For the contents of the SQL scripts that the DAG runs, see the following [SQL script examples](#sql-script-examples). You can run this example with your own database and engine by updating the connector values in Airflow, setting the `FIREBOLT_CONN_ID ` to match your connector, and creating the necessary custom variables in Airflow.
 
-```python
+<CodeGroup>
+
+```python Airflow 3.*
+from datetime import datetime
+from airflow.sdk import dag, task, Variable
+from firebolt_provider.hooks.firebolt import FireboltHook
+from firebolt_provider.operators.firebolt import FireboltStartEngineOperator, FireboltStopEngineOperator
+
+# Set up the Firebolt connection ID
+firebolt_conn_id = 'firebolt'
+
+# Function to get Firebolt connection parameters
+def get_connection_params(conn_id, field):
+    hook = FireboltHook(firebolt_conn_id=conn_id)
+    conn_parameters = hook._get_conn_params()
+    return getattr(conn_parameters, field)
+
+# Function to open query files saved locally
+def get_query(query_file):
+    return open(query_file, "r").read()
+
+@dag(
+    dag_id='firebolt_provider_startstop_trip_data',
+    start_date=datetime(2023, 1, 1),
+    schedule=None,
+    catchup=False,
+    tags=["firebolt"]
+)
+def firebolt_trip_data_dag():
+    
+    firebolt_engine_name = get_connection_params(firebolt_conn_id, 'engine_name')
+    tmpl_search_path = Variable.get("firebolt_sql_path")
+    
+    @task
+    def start_engine():
+        start_op = FireboltStartEngineOperator(
+            task_id="START_ENGINE",
+            firebolt_conn_id=firebolt_conn_id,
+            engine_name=firebolt_engine_name
+        )
+        return start_op.execute({})
+    
+    @task
+    def create_external_table():
+        hook = FireboltHook(firebolt_conn_id=firebolt_conn_id)
+        sql = get_query(f'{tmpl_search_path}/trip_data__create_external_table.sql')
+        hook.run(sql)
+        return "External table created"
+    
+    @task
+    def create_fact_table():
+        hook = FireboltHook(firebolt_conn_id=firebolt_conn_id)
+        sql = get_query(f'{tmpl_search_path}/trip_data__create_table.sql')
+        hook.run(sql)
+        return "Fact table created"
+    
+    @task
+    def process_data():
+        hook = FireboltHook(firebolt_conn_id=firebolt_conn_id)
+        sql = get_query(f'{tmpl_search_path}/trip_data__process.sql')
+        hook.run(sql)
+        return "Data processed"
+    
+    @task
+    def stop_engine():
+        stop_op = FireboltStopEngineOperator(
+            task_id="STOP_ENGINE",
+            firebolt_conn_id=firebolt_conn_id,
+            engine_name=firebolt_engine_name
+        )
+        return stop_op.execute({})
+    
+    # Define task dependencies
+    start_task = start_engine()
+    external_table_task = create_external_table()
+    fact_table_task = create_fact_table()
+    process_task = process_data()
+    stop_task = stop_engine()
+    
+    start_task >> external_table_task >> fact_table_task >> process_task >> stop_task
+
+# Instantiate the DAG
+dag_instance = firebolt_trip_data_dag()
+```
+
+```python Airflow 2.*
 import time
 import airflow
 from airflow.models import DAG, Variable
@@ -186,6 +271,8 @@ with DAG('firebolt_provider_startstop_trip_data',
     (task_start_engine >> task_trip_data__external_table >>
      task_trip_data__create_table >> task_trip_data__process_data >> task_stop_engine)
 ```
+
+</CodeGroup>
 
 <Note>
 This DAG showcases various Firebolt tasks as an example and is not intended to represent a typical real-world workflow or pipeline.
