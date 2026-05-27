@@ -848,7 +848,7 @@
                 ]
               },
               "reference/available-regions",
-              "reference/help-menu"
+              "reference/support"
             ]
           },
           {
@@ -6362,7 +6362,7 @@
     },
     {
       "source": "/Reference/help-menu.html",
-      "destination": "/reference/help-menu",
+      "destination": "/reference/support",
       "permanent": false
     },
     {
@@ -6477,7 +6477,17 @@
     },
     {
       "source": "/Reference/help-menu",
-      "destination": "/reference/help-menu",
+      "destination": "/reference/support",
+      "permanent": false
+    },
+    {
+      "source": "/reference/help-menu",
+      "destination": "/reference/support",
+      "permanent": false
+    },
+    {
+      "source": "/reference/help-menu/",
+      "destination": "/reference/support",
       "permanent": false
     },
     {
