@@ -279,6 +279,7 @@
                     "guides/integrations/airbyte",
                     "guides/integrations/airflow",
                     "guides/integrations/connecting-to-apache-superset",
+                    "guides/integrations/connecting-to-databrain",
                     "guides/integrations/aws-glue",
                     "guides/integrations/quicksight",
                     "guides/integrations/cube-js",
