@@ -12,7 +12,7 @@ A table-valued function (TVF) that reads data from Parquet files stored in Amazo
 ```sql
 -- Using location object (recommended)
 READ_PARQUET (
-  LOCATION => location_name
+  LOCATION => 'location_name'
   [, PATTERN => <pattern>]
   [, REPLACE_NON_UTF8_BYTES => { TRUE | FALSE }]
   [, ESTIMATED_ROWS => <estimated_rows>]

@@ -172,7 +172,7 @@ The data source can be any Table Valued Function (TVF), not just a subquery or s
 ```sql
 MERGE INTO main_table AS target
 USING read_parquet(
-  location => my_external_location
+  location => 'my_external_location'
 )
 ON target.id = read_parquet.id
 WHEN NOT MATCHED THEN INSERT (id, col1, col2) VALUES (read_parquet.id, read_parquet.col1, regexp_extract(read_parquet.col2, '\d+')::INT)
