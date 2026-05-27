@@ -46,6 +46,11 @@ This guide explains how to create an AWS IAM permissions policy and an IAM role 
           },
           {
               "Effect": "Allow",
+              "Action": "s3:PutObject",
+              "Resource": "arn:aws:s3:::<bucket>/*"
+          },
+          {
+              "Effect": "Allow",
               "Action": "s3:ListBucket",
               "Resource": "arn:aws:s3:::<bucket>",
               "Condition": {
@@ -59,6 +64,8 @@ This guide explains how to create an AWS IAM permissions policy and an IAM role 
       ]
    }
    ```
+
+   <Note>The `s3:PutObject` permission block above is optional and may be omitted if your use case doesn't require writing objects to S3.</Note>
 
 8. Select **Next** in the bottom-right corner of the workspace.
 9. In the **Review and create** pane, under **Policy details**, enter the **Policy name**. For example, `_firebolt-s3-access_`.

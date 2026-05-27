@@ -93,6 +93,9 @@ Now that you have created the user, you will now assign this user appropriate pe
       ]
    }
    ```
+
+   <Note>The `s3:PutObject` permission block above is optional and may be omitted if your use case doesn't require writing objects to S3.</Note>
+
 **IMPORTANT:** Replace `<bucket>` with the S3 bucket that you want to provide access to.
 
 5. Enter a description for the policy and select **Create Policy**.
