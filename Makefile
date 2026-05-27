@@ -18,7 +18,8 @@ MAKEFLAGS += --no-builtin-rules
 MINT := npx -y mint@latest
 MUFFET_GO_PKG := github.com/raviqqe/muffet/v2@v2.11.0
 MUFFET_DOCKER := raviqqe/muffet:2.11.0
-MUFFET_BIN := $(CURDIR)/.bin/muffet
+MUFFET_BIN_DIR := $(CURDIR)/.bin
+MUFFET_BIN := $(MUFFET_BIN_DIR)/muffet
 
 .PHONY: default
 default: check-all
@@ -100,17 +101,15 @@ check-links-using-crawler:
 	muffet_exclude='https://twitter[.]com/.*|https://(.*[.]|)mintlify[.](com|app)[/?].*|https://regex101[.]com|https://signin[.]aws[.]amazon[.]com/.*|sitemap\.xml'
 	if [[ "$$(uname -s)" == "Darwin" ]]; then
 		# Docker Desktop cannot use --network host; run muffet natively against localhost.
-		repo_root=$$(cd .. && pwd)
-		muffet_bin="$$repo_root/.bin/muffet"
-		if [[ ! -x "$$muffet_bin" ]]; then
+		if [[ ! -x '$(MUFFET_BIN)' ]]; then
 			if ! command -v go >/dev/null; then
 				echo 'Go is required on macOS to install muffet (brew install go)' 1>&2
 				exit 1
 			fi
-			echo "Installing muffet to $$repo_root/.bin ..." 1>&2
-			GOBIN="$$repo_root/.bin" go install $(MUFFET_GO_PKG)
+			echo "Installing muffet to $(MUFFET_BIN_DIR) ..." 1>&2
+			GOBIN='$(MUFFET_BIN_DIR)' go install $(MUFFET_GO_PKG)
 		fi
-		"$$muffet_bin" \
+		'$(MUFFET_BIN)' \
 			"--exclude=$$muffet_exclude" \
 			--color=auto \
 			--buffer-size=100000 \
