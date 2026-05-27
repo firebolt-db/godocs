@@ -1,0 +1,110 @@
+---
+description: Connect Dot AI Data Analyst to Firebolt to query your data using natural language.
+sidebarTitle: Dot
+title: Dot
+---
+
+# Dot integration with Firebolt
+
+[**Dot**](https://getdot.ai) is an AI Data Analyst that connects directly to your database and lets anyone on your team ask questions in plain English. Dot translates natural language into SQL, executes it against your database, and returns answers as charts, tables, or summaries — in Slack, Microsoft Teams, or the Dot web app.
+
+This guide explains how to connect **Dot** to **Firebolt** so your team can query Firebolt data using natural language.
+
+---
+
+## Overview
+
+Dot connects to Firebolt using the [firebolt-sdk](https://github.com/firebolt-db/firebolt-python-sdk) Python driver with service account authentication. All query computation is pushed down to Firebolt — Dot provides the AI layer that translates questions into SQL and presents the results.
+
+Key characteristics of this integration:
+
+- Dot uses the native Firebolt Python SDK (`firebolt-sdk`)
+- Authentication uses Firebolt service account credentials (client ID and client secret)
+- All SQL execution happens on your Firebolt engine
+- Dot syncs your database schema (tables, columns, types) to generate accurate SQL
+- Supports natural language queries, automated visualizations, and scheduled reports
+
+---
+
+## Prerequisites
+
+Before starting, make sure you have:
+
+1. **Dot account**
+   - Sign up at [app.getdot.ai](https://app.getdot.ai)
+   - Admin access to configure data connections
+
+2. **Firebolt account**
+   - With access to a database and engine
+
+3. **Firebolt [service account](/guides/managing-your-organization/service-accounts)**
+   - Client ID and client secret
+   - A user [associated](/guides/managing-your-organization/service-accounts#create-a-user) with the service account
+
+4. **Permissions**
+   - [USAGE](/overview/security/rbac/database-permissions) on the database
+   - [OPERATE](/overview/security/rbac/engine-permissions) on the engine
+   - SELECT access on the tables you want to query
+
+---
+
+## Connect Dot to Firebolt
+
+### Step 1: Open the connections page in Dot
+
+1. Log in to [Dot](https://app.getdot.ai)
+2. Go to **Settings** (gear icon)
+3. Click **Connections**
+4. Click **Add Connection**
+5. Select **Firebolt**
+
+### Step 2: Enter your Firebolt connection details
+
+Fill in the connection form with the following parameters:
+
+| Parameter         | Description                                                                 |
+|-------------------|-----------------------------------------------------------------------------|
+| **Account name**  | Your Firebolt account name                                                  |
+| **Client ID**     | The client ID of your Firebolt [service account](/guides/managing-your-organization/service-accounts) |
+| **Client secret** | The client secret of your Firebolt service account                          |
+| **Database**      | The name of the Firebolt database to query                                  |
+| **Engine name**   | *(Optional)* The name of the Firebolt engine to use. If omitted, the default engine for the database is used |
+
+### Step 3: Connect and sync
+
+1. Click **Connect**
+2. Dot will test the connection and sync your database schema
+3. Once the sync completes, select which tables and columns to make available for querying
+
+After connecting, Dot automatically discovers your tables, columns, and data types so it can generate accurate SQL for your Firebolt database.
+
+---
+
+## Query pushdown
+
+All SQL queries are executed directly on your Firebolt engine. Dot does not copy or extract your data — it sends SQL to Firebolt and receives only the query results. This means:
+
+- You get the full performance of Firebolt's columnar engine
+- Data never leaves your Firebolt environment
+- Row-level security and access controls in Firebolt are respected
+
+---
+
+## What you can do with Dot and Firebolt
+
+Once connected, your team can:
+
+- **Ask questions in natural language** — "What were the top 10 customers by revenue last month?" Dot translates it into SQL and runs it on Firebolt.
+- **Get automatic visualizations** — Dot generates charts and tables based on query results.
+- **Query from Slack or Microsoft Teams** — Ask questions directly in your team's messaging tools without switching to a SQL editor.
+- **Schedule recurring reports** — Set up automated queries that run on a schedule and deliver results to Slack or email.
+- **Explore data iteratively** — Ask follow-up questions that build on previous results.
+
+---
+
+## Additional resources
+
+- [Dot website](https://getdot.ai)
+- [Dot documentation](https://docs.getdot.ai)
+- [Sign up for Dot](https://app.getdot.ai)
+- [Firebolt Python SDK](https://github.com/firebolt-db/firebolt-python-sdk)
