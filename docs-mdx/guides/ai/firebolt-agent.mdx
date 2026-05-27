@@ -1,0 +1,118 @@
+---
+title: Firebolt Agent
+sidebarTitle: Firebolt Agent
+description: Use Firebolt Agent to get answers, generate SQL, and fix queries with AI directly in the Firebolt Workspace.
+---
+
+Firebolt Agent is an AI-powered assistant built into the Firebolt Workspace. It can answer questions about Firebolt documentation and features, generate SQL queries from natural language descriptions, fix invalid SQL, and help optimize your queries — all without leaving the query editor.
+
+Whether you need to quickly draft a complex query, understand an unfamiliar Firebolt feature, or troubleshoot a failing statement, Firebolt Agent provides contextual help directly in the query editor. Use the **chat panel** for open-ended questions and documentation lookups, the **inline SQL generation** shortcut to turn plain English into ready-to-run queries, or the **Fix with AI** button to get instant corrections when a query returns an error.
+
+<Note>
+The Firebolt Agent uses industry-leading, enterprise-grade Large Language Models (LLMs) to provide automated insights. All data is encrypted in transit. In accordance with our privacy commitment, customer data processed by this feature is not used to train the foundation models.
+</Note>
+
+## Enable Firebolt Agent
+
+Firebolt Agent is disabled by default. An organization admin must enable it before anyone in the organization can use it. Once enabled, every user in the organization can access the agent from the query editor — no additional per-user configuration is required.
+
+To enable Firebolt Agent:
+
+1. Select the **Configure** icon in the left navigation pane.
+2. Select **Organization details**.
+3. Under **Enable new organization features**, toggle on **Enable Firebolt Agent**.
+
+<img src="/assets/images/ai/firebolt-agent/enable_agent.png" alt="Organization Settings page showing the Enable Firebolt Agent toggle under Enable new organization features." width="700"/>
+
+## Chat with Firebolt Agent
+
+The chat panel provides a conversational interface where you can ask questions and get answers grounded in Firebolt's official documentation. The agent maintains context within a conversation, so you can ask follow-up questions to refine or expand on a previous response.
+
+### Open the chat panel
+
+1. Open the **Develop Space** and navigate to the query editor.
+2. Select **Chat with Firebolt Agent** in the top-right toolbar, next to the **Run** button.
+
+<img src="/assets/images/ai/firebolt-agent/chat_with_firebolt_agent.png" alt="Query editor toolbar with the Chat with Firebolt Agent button highlighted." width="700"/>
+
+### Ask questions
+
+The chat panel opens on the right side of the editor. Type your question or request in the input field at the bottom of the panel. The agent responds with relevant documentation, examples, and step-by-step instructions.
+
+<img src="/assets/images/ai/firebolt-agent/chat_interface.png" alt="Chat panel showing a conversation with the Firebolt Agent about creating an engine." width="700"/>
+
+You can ask the agent about:
+
+- Firebolt features, configuration, and best practices
+- SQL functions and syntax
+- Platform troubleshooting and issue resolution
+- Query optimization strategies
+
+For example, try prompts like:
+
+- *"How do I create an aggregating index?"*
+- *"What is the difference between a dimension and a fact table in Firebolt?"*
+- *"Why is my query running slowly on a large table?"*
+- *"Show me the syntax for COPY FROM with error handling."*
+
+For best results, be specific in your questions. Mention table names, column names, or error messages when relevant so the agent can give you a more targeted answer. If the first response doesn't fully address your question, ask a follow-up — the agent uses the conversation history to provide more accurate responses in subsequent turns.
+
+## Generate SQL from natural language
+
+Instead of writing SQL from scratch, you can describe what you need in plain English and let the agent generate the query for you. This works well for a wide range of queries, including `SELECT` statements, `JOIN` operations, aggregations, window functions, and filtering logic. The agent is aware of your current database schema, so it can reference the correct table and column names in the generated SQL.
+
+To generate SQL inline:
+
+1. Place your cursor in an empty line of the query editor. A hint appears: **Press ⌘+K to generate SQL** (or **Ctrl+K** on Windows/Linux).
+
+<img src="/assets/images/ai/firebolt-agent/inline_chat_hint.png" alt="Query editor showing the Cmd+K hint to generate SQL." width="700"/>
+
+2. Press **⌘+K** (or **Ctrl+K**) and type a natural language description of the query you need.
+3. The agent generates a SQL query based on your description.
+4. Select **Accept** to insert the generated SQL into the editor, or press **Esc** to reject it.
+
+<img src="/assets/images/ai/firebolt-agent/inline_chat_suggestion.png" alt="Inline SQL generation showing a generated query with Accept and Reject options." width="700"/>
+
+Here are some example prompts you can use with inline SQL generation:
+
+- *"Show the top 10 customers by total revenue"*
+- *"Count active users per day for the last 30 days"*
+- *"Find duplicate rows in the orders table based on order_id"*
+- *"Calculate a 7-day rolling average of daily sales"*
+
+<Note>
+Always review the generated SQL before running it. The agent produces queries based on your schema and prompt, but you should verify that the logic, filters, and column references match your intent.
+</Note>
+
+## Fix SQL errors with AI
+
+When a query fails with a syntax or execution error, the Firebolt Agent can analyze the error and suggest a fix. The agent reads the full error message and inspects the query to identify the root cause — whether it's a misspelled keyword, an incorrect function signature, a missing clause, or a type mismatch. It then proposes a corrected version of your query with the changes highlighted.
+
+To fix a query with AI:
+
+1. Run a query that produces an error. The error details appear in the **Results** panel.
+2. Select **Fix with AI** next to the error message.
+
+<img src="/assets/images/ai/firebolt-agent/fix_with_ai.png" alt="A failed query with the Fix with AI button next to the error message." width="700"/>
+
+3. The agent analyzes the error and suggests a corrected query. Changes are highlighted in the editor.
+4. Select **Accept** to apply the fix, or press **Esc** to reject it.
+
+<img src="/assets/images/ai/firebolt-agent/fix_with_ai_suggestion.png" alt="AI fix suggestion showing the corrected query with Accept and Reject options." width="700"/>
+
+## Tips for using Firebolt Agent
+
+Keep the following in mind to get the most out of the Firebolt Agent:
+
+- **Review generated SQL before running it.** AI-generated queries are a starting point. Always verify that the logic, table references, and filters match your intent before executing.
+- **Use the right tool for the task.** Use the chat panel for exploratory questions, documentation lookups, and troubleshooting. Use the inline shortcut (**⌘+K** / **Ctrl+K**) when you want to quickly draft a query without leaving the editor.
+- **Break complex requests into smaller steps.** For multi-step queries or advanced logic, describe one piece at a time. You can generate a base query first, then ask the agent to add filters, joins, or aggregations.
+- **Be specific in your prompts.** Include table names, column names, conditions, and expected output formats. The more context you provide, the more accurate the result.
+- **The agent does not access your data.** Firebolt Agent uses your database schema and Firebolt documentation to generate responses. It does not read or return the actual data stored in your tables.
+
+## Related resources
+
+- [Getting started with AI](/guides/ai/getting-started-with-ai) – Call LLMs directly from SQL using Amazon Bedrock.
+- [Use AWS roles to access Bedrock](/guides/ai/use-aws-roles-to-access-bedrock) – Configure IAM roles for secure Bedrock access.
+- [`AI_QUERY`](/reference-sql/functions-reference/ai/ai-query) – Invoke a language model with a simple text prompt in SQL.
+- [`AI_EMBED_TEXT`](/reference-sql/functions-reference/ai/ai-embed-text) – Generate text embeddings from SQL.

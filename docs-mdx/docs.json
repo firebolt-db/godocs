@@ -254,6 +254,7 @@
               {
                 "group": "AI and Machine Learning",
                 "pages": [
+                  "guides/ai/firebolt-agent",
                   "guides/ai/getting-started-with-ai",
                   "guides/ai/use-aws-roles-to-access-bedrock"
                 ]
@@ -5584,6 +5585,11 @@
       "permanent": false
     },
     {
+      "source": "/Guides/ai/firebolt-agent",
+      "destination": "/guides/ai/firebolt-agent",
+      "permanent": false
+    },
+    {
       "source": "/Guides/ai/getting-started-with-ai",
       "destination": "/guides/ai/getting-started-with-ai",
       "permanent": false
@@ -5591,6 +5597,11 @@
     {
       "source": "/Guides/ai/use-aws-roles-to-access-bedrock",
       "destination": "/guides/ai/use-aws-roles-to-access-bedrock",
+      "permanent": false
+    },
+    {
+      "source": "/Guides/ai/firebolt-agent.html",
+      "destination": "/guides/ai/firebolt-agent",
       "permanent": false
     },
     {
