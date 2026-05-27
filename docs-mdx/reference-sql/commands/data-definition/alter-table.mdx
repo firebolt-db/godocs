@@ -23,7 +23,7 @@ ALTER TABLE <table> ADD COLUMN [IF NOT EXISTS] <column_name> <column_type> [NULL
 | Parameter          | Description                                  |
 | :------------------ | :-------------------------------------------- |
 | `<table>`       | Name of the table to which to add the column. |
-| `<column_name>` | An identifier that specifies the name of the column that will be added to the table. |
+| `<column_name>` | Name of the column to add to the table. |
 | `<column_type>` | Specifies the data type for the column. |
 | `IF NOT EXISTS` | If specified, this clause prevents an error message that would occur if the column already exists in the table. |
 
@@ -41,6 +41,83 @@ The query can only be executed under the following conditions:
 * Only on managed tables, external tables are not supported.
 * The table must not have any dependent views.
 * The default expression must contain only literals or functions `CURRENT_DATE()`, `LOCALTIMESTAMP()`, `CURRENT_TIMESTAMP()`, and `NOW()`.
+
+## ALTER TABLE DROP COLUMN
+
+Removes a column from an existing table.
+
+### Syntax
+
+```sql
+ALTER TABLE <table> DROP COLUMN [IF EXISTS] <column_name>
+```
+
+### Parameters
+
+| Parameter          | Description                                  |
+| :------------------ | :-------------------------------------------- |
+| `<table>`       | Name of the table from which to drop the column. |
+| `<column_name>` | Name of the column to remove from the table. |
+| `IF EXISTS` | If specified, this clause prevents an error message that would occur if the column does not exist in the table. |
+
+### Limitations
+The query can only be executed under the following conditions:
+* Only on managed tables, external tables are not supported.
+* The table must not have any dependent views.
+* The column must not be part of the table's primary index or partition key.
+* The column must not be used by any aggregating index on the table (as a grouping key or within the index's aggregation expressions). Drop or alter those indexes first. See [DROP INDEX](/reference-sql/commands/data-definition/drop-index).
+
+### Examples
+
+Drop a column from a table:
+```sql
+ALTER TABLE my_table DROP COLUMN old_column;
+```
+
+Drop a column only if it exists:
+```sql
+ALTER TABLE my_table DROP COLUMN IF EXISTS optional_column;
+```
+
+## ALTER TABLE RENAME COLUMN
+
+Renames a column in an existing table while preserving all data.
+
+### Syntax
+
+```sql
+ALTER TABLE [IF EXISTS] <table_name> RENAME COLUMN [IF EXISTS] <old_column_name> TO <new_column_name>
+```
+
+### Parameters
+
+| Parameter | Description |
+| :-------- | :---------- |
+| `<table_name>` | Name of the table containing the column to rename. |
+| `<old_column_name>` | Current name of the column to rename. |
+| `<new_column_name>` | New name for the column. |
+| `IF EXISTS` (table level) | Prevents error if table doesn't exist. |
+| `IF EXISTS` (column level) | Prevents error if column doesn't exist. |
+
+### Limitations
+
+The query can only be executed under the following conditions:
+* Only on managed tables, external tables are not supported.
+* The table must not have any dependent views.
+* Cannot rename to an existing column name.
+* Column must exist (unless `IF EXISTS` specified).
+
+### Examples
+
+Rename a column:
+```sql
+ALTER TABLE users RENAME COLUMN name TO full_name;
+```
+
+Rename a column with IF EXISTS:
+```sql
+ALTER TABLE users RENAME COLUMN IF EXISTS middle_name TO mi;
+```
 
 ## ALTER TABLE MODIFY COLUMN
 
