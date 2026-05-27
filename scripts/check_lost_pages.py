@@ -25,6 +25,8 @@ def group_collect_pages(pages) -> Iterator[str]:
                 yield from group_collect_pages(p["pages"])
             elif "href" in p:
                 continue
+            elif "openapi" in p:
+                continue
             else:
                 raise LostPagesError(f"Unexpected entry: {p}")
         else:

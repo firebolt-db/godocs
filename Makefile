@@ -98,7 +98,7 @@ check-links-using-crawler:
 	fi
 	echo "Service ready on http://127.0.0.1:3000" 1>&2
 	muffet_url='http://127.0.0.1:3000'
-	muffet_exclude='https://twitter[.]com/.*|https://(.*[.]|)mintlify[.](com|app)[/?].*|https://regex101[.]com|https://signin[.]aws[.]amazon[.]com/.*|sitemap\.xml'
+	muffet_exclude='https://twitter[.]com/.*|https://(.*[.]|)mintlify[.](com|app)[/?].*|https://regex101[.]com|https://signin[.]aws[.]amazon[.]com/.*|https://opentelemetry[.]io/.*|sitemap\.xml'
 	if [[ "$$(uname -s)" == "Darwin" ]]; then
 		# Docker Desktop cannot use --network host; run muffet natively against localhost.
 		if [[ ! -x '$(MUFFET_BIN)' ]]; then

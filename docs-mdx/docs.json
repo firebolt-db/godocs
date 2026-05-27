@@ -852,7 +852,11 @@
             "pages": [
               "reference-api",
               "reference-api/using-sync-queries",
-              "reference-api/using-async-queries"
+              "reference-api/using-async-queries",
+              {
+                "group": "OpenAPI spec",
+                "openapi": "https://raw.githubusercontent.com/firebolt-db/openapi/main/specification/yaml/firebolt_query_v2.3.yaml"
+              }
             ]
           }
         ]

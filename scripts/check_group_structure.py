@@ -50,6 +50,8 @@ def check_group_structure(pages: list[str|dict], level: int) -> list[str]:
                     raise GroupStructureError(f"Expected all pages in the group to have the same path prefix, got {p} with prefix {sub_common_path} instead of {common_path}")
             elif "href" in p:
                 continue
+            elif "openapi" in p:
+                continue
             else:
                 raise GroupStructureError(f"Unexpected entry: {p}")
         else:
