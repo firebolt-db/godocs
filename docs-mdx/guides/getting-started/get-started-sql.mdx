@@ -89,7 +89,9 @@ Each FBU is related to the amount of time as follows:
 
 Each engine node can cache data locally to improve performance.
 
-Small and medium engines are available for use right away. If you want to use a large or extra-large engine, reach out to support@firebolt.io. The default engine configuration uses a small node, which is sufficient for this tutorial. To learn more about how to select the correct engine size for your workload, see [Sizing Engines](/guides/operate-engines/sizing-engines).
+The maximum number of nodes per engine depends on the instance type, family, and region, and may also be constrained by availability. Large and extra-large engines are restricted to a single node and a single cluster. If you require engine sizes beyond these limits, please contact support@firebolt.io. 
+
+By default, engines are provisioned with a small node, which is sufficient for this tutorial. To learn more about how to select the correct engine size for your workload, see [Sizing Engines](/guides/operate-engines/sizing-engines).
 
 By default, when you login to **Firebolt’s Workspace** for the first time, Firebolt creates a tab in the **Develop Space** called **Script 1**. The following apply:
 * The database that **Script 1** will run using is located directly below the tab name. If you want to change the database, select another database from the drop-down list.
@@ -270,7 +272,7 @@ The following guidance applies:
   ```
 
 #### Cache eviction
-When your cache usage exceeds approximately 80% of its capacity, Firebolt automatically evicts the some data from the cache. If you query this data later, Firebolt reloads it into the cache before processing the query. The total available cache size depends on your engine's size and family. Larger engine sizes provide more cache space, and the storage-optimized family offers more cache than the compute-optimized family. Small and medium sized engines are available for use right away. If you want to use a large or extra-large engine, reach out to [support@firebolt.io](mailto:support@firebolt.io).
+When your cache usage exceeds approximately 80% of its capacity, Firebolt automatically evicts the some data from the cache. If you query this data later, Firebolt reloads it into the cache before processing the query. The total available cache size depends on your engine's size and family. Larger engine sizes provide more cache space, and the storage-optimized family offers more cache than the compute-optimized family.
 
 You can check the size of your cache using the following example code:
 ```sql

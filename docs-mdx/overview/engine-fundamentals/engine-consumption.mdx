@@ -34,7 +34,7 @@ Each node type provides a minimum number of FBUs as shown in the following table
 
 
 <Note>
-Small and medium engines are available for use right away. If you want to use a large or extra-large engine, reach out to support@firebolt.io.
+The maximum number of nodes per engine depends on the instance type, family, and region, and may also be constrained by availability. If you require engine sizes beyond these limits, please contact support@firebolt.io.
 </Note>
 
 As you add more nodes and more clusters to your engine, the number of FBUs available to the engine increases linearly. The available FBUs for a given engine configuration are calculated as follows:
@@ -48,8 +48,8 @@ As you add more nodes and more clusters to your engine, the number of FBUs avail
 
 ### Calculating FBUs-per-hour for a given Engine - Example 2:
 
-- If you create an engine with the following configuration: TYPE = “L”, NODES = 3, CLUSTERS=2, it will have 192 FBUs available per hour (32 x 3 x 2). 
-- If you scale down the engine to use a “M” type node, the available FBUs per hour will decrease to 96 FBUs (16 x 3 x 2).
+- If you create an engine with the following configuration: TYPE = “M”, NODES = 3, CLUSTERS=2, it will have 96 FBUs available per hour (16 x 3 x 2). 
+- If you scale down the engine to use a “S” type node, the available FBUs per hour will decrease to 48 FBUs (8 x 3 x 2).
 
 FBUs are consumed only when an engine is in a running state. The FBUs consumed by an engine depends on both the current configuration of the engine (node type, number of nodes and number of clusters) and the duration for which the engine has been running in that configuration. Since Firebolt provides per-second billing, the consumed FBU is calculated at per-second granularity, as shown in the following examples: 
 

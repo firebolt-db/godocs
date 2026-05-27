@@ -960,10 +960,10 @@ CREATE ENGINE "small_engine" WITH
 TYPE = "S"
 NODES = 2;
 
--- Create a large engine
+-- Create a large engine. By default, large and extra-large engines are limited to one node.
 CREATE ENGINE "large_engine" WITH
 TYPE = "L"
-NODES = 8;
+NODES = 1;
 
 -- Activate the small engine for running the query
 SELECT * FROM system_engines WHERE engine_name = 'small_engine';

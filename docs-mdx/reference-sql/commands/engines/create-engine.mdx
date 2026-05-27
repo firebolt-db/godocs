@@ -53,12 +53,21 @@ CREATE ENGINE [IF NOT EXISTS] <engine_name>
 | `VECTOR_INDEX_CACHE_MEMORY_FRACTION = <fraction>` | Sets the fraction of the engines memory that can be used to cache vector indexes. See [Vector Search Indexes](/overview/indexes/vector-search-index) for details. `VECTOR_INDEX_CACHE_MEMORY_FRACTION` + `QUERY_CACHE_MEMORY_FRACTION` can be at most 0.8. |
 
 **Limitations:**
-* The number of clusters per engine is limited to two.
-* The number of nodes per cluster is limited to ten.
-* The total number of nodes x clusters cannot exceed 15.
-* Only small and medium engines are available for use right away.
 
-If you would like to remove the above limitations or use a large or extra-large engine, reach out to Firebolt Support at [support@firebolt.io](mailto:support@firebolt.io).
+For small and medium instance types: 
+* Each engine is limited to a maximum of two clusters
+* Each cluster can have up to ten nodes
+* The total number of nodes across all clusters cannot exceed 15
+* When scaling a running engine either vertically or horizontally, new queries will be directed to the new cluster. Queries running on the original clusters will continue until completion. The clusters will wait up to 24 hours for these queries to finish, after which any unfinished queries may be stopped.
+
+For large and extra-large instance types:
+* Each engine is limited to a maximum of one node and one cluster
+
+If you would like to remove the following limitations, reach out to Firebolt support at [support@firebolt.io](mailto:support@firebolt.io) to do the following:
+
+*  Use more than ten nodes per cluster.
+*  Use more than 15 nodes across all clusters. 
+*  Use more than one large or extra-large node per engine.
 
 ## Examples
 
@@ -100,10 +109,6 @@ The following example creates an engine with auto-warmup. When an engine starts,
 CREATE ENGINE my_engine
 WITH TYPE="M" NODES=3 AUTO_WARMUP=true;
 ```
-
-<Note>
-If you need to use a large or extra-large engine, reach out to [support@firebolt.io](mailto:support@firebolt.io).
-</Note>
 
 ### Create an engine with concurrency auto-scaling
 The following example creates an engine that automatic concurrency scaling. The engine adjusts the number of clusters based on workload demand, maintaining between one and two clusters.
