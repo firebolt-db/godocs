@@ -1,0 +1,84 @@
+---
+description: Learn about connecting Embeddable to Firebolt.
+sidebarTitle: Embeddable
+title: Embeddable
+---
+
+# Embeddable integration with Firebolt
+
+[Embeddable](https://embeddable.com) is a developer-first toolkit for building lightning-fast, fully-custom analytics directly inside your product. Its headless architecture lets you craft analytics that look and feel native, while product, data, and customer-facing teams can iterate on dashboards without engineering bottlenecks.
+
+When paired with **Firebolt**, Embeddable lets you serve interactive dashboards over huge datasets while keeping millisecond-level response times for your end-users.
+
+---
+
+## Prerequisites
+
+Embeddable is a managed SaaS platform, so most deployment tasks are handled for you.
+
+You'll need:
+
+* **Embeddable workspace**: [Set up an account](https://embeddable.com) and create a workspace.
+* **Firebolt account**: You need an active [Firebolt account](https://www.firebolt.io/).
+* **Firebolt service account** client ID and client secret (see [Service accounts](/guides/managing-your-organization/service-accounts)).
+* A Firebolt **database**, **engine**, and **loaded data** you want to visualize (see [Loading data](/guides/loading-data)).
+
+<Note>
+**Network policy**
+
+Ensure the service account's network policy allows ingress from the fixed [Embeddable IP ranges](https://docs.embeddable.com/data/connect-your-database#ip-whitelisting).
+</Note>
+
+---
+
+## Quick-start
+
+### 1. Set up your Embeddable account
+
+Follow the [Quickstart Guide](https://docs.embeddable.com/getting-started/download-repo) to set up your Embeddable workspace and local environment.
+
+### 2. Connect Firebolt
+
+Use the [Connections API](https://docs.embeddable.com/data/connect-your-database) to connect Firebolt, obtaining your API key from the homepage of your Embeddable workspace.
+
+```javascript
+// Example only — store Embeddable API keys and Firebolt credentials securely (env vars or a secrets manager), not in source control.
+const apiKey = '<your API Key>';
+const connectionName = 'firebolt-prod';
+const baseUrl = 'https://api.<your-region>.embeddable.com';
+
+const resp = await fetch(`${baseUrl}/api/v1/connections`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${apiKey}`,
+  },
+  body: JSON.stringify({
+    name: connectionName,
+    type: 'firebolt',
+    credentials: {
+      database: '<your Firebolt database name>',
+      account: '<your account name>',
+      engine_name: '<your Firebolt engine name>',
+      id: '<your service account ID>',
+      secret: '<your service account secret>',
+    },
+  }),
+});
+```
+
+### 3. Define your data models
+
+You can now [define your data models](https://docs.embeddable.com/data-modeling/defining-models) in preparation for building customer-facing dashboards, and test these in the Data Playground tab of your Embeddable workspace.
+
+---
+
+## Next steps
+
+Congratulations! You're now ready to model, visualize, and embed.
+
+**Further reading**
+
+- Implementing [row-level security](https://docs.embeddable.com/data-modeling/row-level-security).
+- [Building dashboards](https://docs.embeddable.com/dashboards/building-dashboards).
+- [Embedding with JWT](https://docs.embeddable.com/deployment/embedding).
