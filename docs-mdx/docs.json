@@ -880,6 +880,7 @@
                   "firebolt-core/firebolt-core-connect/firebolt-core-connect-cli",
                   "firebolt-core/firebolt-core-connect/firebolt-core-connect-go",
                   "firebolt-core/firebolt-core-connect/firebolt-core-connect-jdbc",
+                  "firebolt-core/firebolt-core-connect/firebolt-core-connect-nodejs",
                   "firebolt-core/firebolt-core-connect/firebolt-core-connect-python",
                   "firebolt-core/firebolt-core-connect/firebolt-core-connect-ui"
                 ]

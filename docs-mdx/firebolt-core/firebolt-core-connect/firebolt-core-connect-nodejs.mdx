@@ -1,0 +1,44 @@
+---
+sidebarTitle: Connect With Node.js
+title: Connect With Node.js
+---
+
+You can use the [Node.js SDK](https://github.com/firebolt-db/firebolt-node-sdk/) to work with Firebolt Core.
+
+## Prerequisites
+
+* Node.js 20 and up
+* Firebolt Node.js SDK version 1.14.3 or higher
+* An endpoint running Firebolt Core 
+
+## Installation
+
+```shell
+npm install firebolt-sdk@^1.14.3
+```
+
+## Connection
+
+```javascript
+const { Firebolt, FireboltCore } = require('firebolt-sdk');
+
+// Initialize the Firebolt client
+const firebolt = Firebolt();
+
+// Connect to Firebolt Core
+const connection = await firebolt.connect({
+  auth: FireboltCore(),
+  engineEndpoint: 'http://localhost:3473',
+  database: 'firebolt'
+});
+
+// Execute a query
+const statement = await connection.execute('SELECT 1');
+const { data, meta } = await statement.fetchResult();
+```
+
+## Further reading
+
+* The [firebolt-node-sdk repository](https://github.com/firebolt-db/firebolt-node-sdk/) on GitHub
+* [Code examples](https://github.com/firebolt-db/firebolt-node-sdk/tree/main/test/integration/core) in the SDK repository that demonstrate common data tasks with Firebolt Core
+
