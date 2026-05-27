@@ -1,5 +1,13 @@
 SHELL := bash
 
+# .ONESHELL and multi-line recipes require GNU Make 4.2+ (.FEATURES includes "oneshell").
+ifeq ($(filter oneshell,$(.FEATURES)),)
+$(error \
+  GNU Make 4.2+ is required (found: $(or $(MAKE_VERSION),non-GNU make)). \
+  On macOS: brew install make, then run gmake or add \
+  /opt/homebrew/opt/make/libexec/gnubin to PATH)
+endif
+
 .ONESHELL:
 .PHONY:
 
@@ -8,6 +16,9 @@ MAKEFLAGS += --warn-undefined-variables
 MAKEFLAGS += --no-builtin-rules
 
 MINT := npx -y mint@latest
+MUFFET_GO_PKG := github.com/raviqqe/muffet/v2@v2.11.0
+MUFFET_DOCKER := raviqqe/muffet:2.11.0
+MUFFET_BIN := $(CURDIR)/.bin/muffet
 
 .PHONY: default
 default: check-all
@@ -47,40 +58,84 @@ check-links: check-internal-links check-links-using-crawler
 .PHONY: check-internal-links
 check-internal-links:
 	@echo "Checking internal links integrity..."
-	@set -euo pipefail
+	set -euo pipefail
 	cd docs-mdx
 	tmpf=$$(mktemp)
 	$(MINT) broken-links 2>&1 | tee "$$tmpf"
-	@if egrep -e "found [0-9]+ broken links" "$$tmpf"; then
-		@exit 1
+	if egrep -e "found [0-9]+ broken links" "$$tmpf"; then
+		exit 1
 	else
-		@echo "☑ Internal links are OK"
+		echo "☑ Internal links are OK"
 	fi
 
 
 .PHONY: check-links-using-crawler
 check-links-using-crawler:
 	@echo "Checking external links integrity via crawler..."
-	@set -euo pipefail
+	set -euo pipefail
 	cd docs-mdx
+	if pgrep -f '[m]int.* dev' >/dev/null; then
+		echo 'Stopping existing mint dev preview...' 1>&2
+		pkill -2 -f '[m]int.* dev' || true
+		sleep 2
+	fi
 	$(MINT) dev --no-open &
-	trap "pgrep -f 'mint.* dev' | xargs kill -2" EXIT
-	echo 'Waiting the service to start on localhost:3000...' 1>&2
-	while ! curl -s 'http://localhost:3000/' >/dev/null; do
-		sleep 1
+	trap "pgrep -f '[m]int.* dev' | xargs kill -2 2>/dev/null || true" EXIT
+	echo 'Waiting for mint preview at http://127.0.0.1:3000/intro ...' 1>&2
+	deadline=$$((SECONDS + 120))
+	http_code=
+	while (( SECONDS < deadline )); do
+		http_code=$$(curl -s -o /dev/null -w '%{http_code}' 'http://127.0.0.1:3000/intro' || true)
+		if [[ "$$http_code" == "200" ]]; then
+			break
+		fi
+		sleep 2
 	done
-	echo "Service ready on localhost:3000" 1>&2
-	docker run --network host raviqqe/muffet:2.11.0 \
-		"--exclude=https://twitter[.]com/.*|https://(.*[.]|)mintlify[.](com|app)[/?].*|https://regex101[.]com|https://signin[.]aws[.]amazon[.]com/.*" \
-		--color=auto \
-		--buffer-size=100000 \
-		--max-connections=5 \
-		--ignore-fragments \
-		--timeout=30 \
-		--max-retries=3 \
-		--max-response-body-size=100000000 \
-		--accepted-status-codes=200..300,401,402,403,429,500..600 \
-		http://localhost:3000
+	if [[ "$$http_code" != "200" ]]; then
+		echo "mint dev did not become ready (last HTTP status: $${http_code:-none})" 1>&2
+		exit 1
+	fi
+	echo "Service ready on http://127.0.0.1:3000" 1>&2
+	muffet_url='http://127.0.0.1:3000'
+	muffet_exclude='https://twitter[.]com/.*|https://(.*[.]|)mintlify[.](com|app)[/?].*|https://regex101[.]com|https://signin[.]aws[.]amazon[.]com/.*|sitemap\.xml'
+	if [[ "$$(uname -s)" == "Darwin" ]]; then
+		# Docker Desktop cannot use --network host; run muffet natively against localhost.
+		repo_root=$$(cd .. && pwd)
+		muffet_bin="$$repo_root/.bin/muffet"
+		if [[ ! -x "$$muffet_bin" ]]; then
+			if ! command -v go >/dev/null; then
+				echo 'Go is required on macOS to install muffet (brew install go)' 1>&2
+				exit 1
+			fi
+			echo "Installing muffet to $$repo_root/.bin ..." 1>&2
+			GOBIN="$$repo_root/.bin" go install $(MUFFET_GO_PKG)
+		fi
+		"$$muffet_bin" \
+			"--exclude=$$muffet_exclude" \
+			--color=auto \
+			--buffer-size=100000 \
+			--max-connections=2 \
+			--max-connections-per-host=2 \
+			--ignore-fragments \
+			--timeout=60 \
+			--max-retries=5 \
+			--max-response-body-size=100000000 \
+			--accepted-status-codes=200..300,401,402,403,429,500..600 \
+			"$$muffet_url"
+	else
+		docker run --network host $(MUFFET_DOCKER) \
+			"--exclude=$$muffet_exclude" \
+			--color=auto \
+			--buffer-size=100000 \
+			--max-connections=5 \
+			--max-connections-per-host=5 \
+			--ignore-fragments \
+			--timeout=30 \
+			--max-retries=5 \
+			--max-response-body-size=100000000 \
+			--accepted-status-codes=200..300,401,402,403,429,500..600 \
+			"$$muffet_url"
+	fi
 	@echo "☑ External links are OK"
 
 

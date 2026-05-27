@@ -1,6 +1,7 @@
 .DS_Store
 .idea/
 .venv/
+.bin/
 **/__pycache__/
 docs/_site/
 **/.DS_Store

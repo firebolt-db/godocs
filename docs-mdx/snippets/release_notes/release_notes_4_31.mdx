@@ -6,7 +6,7 @@
 Firebolt now supports a native [`JSON`](/reference-sql/data-types/json) type as an alternative to storing JSON data in `TEXT` columns. This data type is optimized in such a way that JSON data can be processed as efficiently as possible, especially when there are frequent field accesses into the same `JSON` column. Furthermore, it offers improved usability through a set of [struct-like access operators](/reference-sql/functions-reference/json/json-operators).
 
 {/* Jira ticket: FIR-49518 */}
-**User defined schema Support**  
+**User defined schema Support**
 Firebolt now supports user-defined schemas for organizing database objects. Every database includes a default schema named `public`. Supported operations include:
 
 * Creating and dropping schemas using [`CREATE SCHEMA`](/reference-sql/commands/data-definition/create-schema) and [`DROP SCHEMA`](/reference-sql/commands/data-definition/drop-schema).
@@ -35,7 +35,7 @@ This change enhances usability for unions with a large number of columns.
 Partial support for Iceberg schema evolution was added, allowing users to reorder, add, and remove fields from a table. This update simplifies managing table structures and enhances flexibility when making schema changes.
 
 {/* Jira ticket: FIR-51465 */}
-**`ALTER TABLE ... RENAME TO` on Views**  
+**`ALTER TABLE ... RENAME TO` on Views**
 The `ALTER TABLE ... RENAME TO` statement can now also be used to rename views. Note that the target object is a view, but the `ALTER TABLE` syntax is used.
 
 ```sql
@@ -43,11 +43,11 @@ ALTER TABLE v RENAME TO v2;
 ```
 
 {/* Jira ticket: FIR-51338 */}
-**`ALTER TABLE` Operations on Tables with Dependent Views**  
+**`ALTER TABLE` Operations on Tables with Dependent Views**
 `ALTER TABLE` operations are now permitted on tables that have dependent views. Previously, any `ALTER TABLE` operation on a table with dependent views would fail. Note that renaming a table that has dependent views is still blocked to prevent silently breaking view definitions.
 
 {/* Jira ticket: FIR-52069 */}
-**Two-Part and Three-Part Identifiers in `GRANT` and `REVOKE` Statements**  
+**Two-Part and Three-Part Identifiers in `GRANT` and `REVOKE` Statements**
 `GRANT` and `REVOKE` statements now support two-part (`schema.object`) and three-part (`database.schema.object`) identifiers for specifying target objects. Qualified identifiers are also supported in `IN SCHEMA` clauses. This allows granting privileges on objects within specific schemas directly.
 
 ```sql

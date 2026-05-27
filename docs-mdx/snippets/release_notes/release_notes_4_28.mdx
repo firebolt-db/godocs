@@ -50,7 +50,7 @@ copy into invoices from ... with (type = parquet, replace_non_utf_bytes = true);
 
 **Extended `MERGE` and `INSERT ON CONFLICT` syntax to support `INSERT *` and `UPDATE SET *`**
 
-`MERGE` and `INSERT ON CONFLICT` now support `INSERT *` and `UPDATE SET *` (see full [syntax](/reference-sql/commands/data-management/merge.mdx)). This is syntactic sugar for previously existing functionality, that can be used to ingest or overwrite rows without any data transformation. Note that these substitutions are allowed _only_ when the source and target tables have precisely matching column names. 
+`MERGE` and `INSERT ON CONFLICT` now support `INSERT *` and `UPDATE SET *` (see full [syntax](/reference-sql/commands/data-management/merge)). This is syntactic sugar for previously existing functionality, that can be used to ingest or overwrite rows without any data transformation. Note that these substitutions are allowed _only_ when the source and target tables have precisely matching column names.
 
 **Information schema to inspect engine caches**
 
@@ -125,4 +125,3 @@ Resolved an issue where AWS role ARN credentials were ignored in `LOCATION` obje
 **Fixed a bug in handling escaped non-wildcard characters in `LIKE` patterns with trailing wildcards**
 
 A bug was fixed in the handling of escaped non-wildcard characters in LIKE patterns with trailing wildcards. Previously, any backslash in a LIKE pattern was incorrectly assumed to refer to the next wildcard character. This caused issues when the pattern contained only `%` wildcards, and these wildcards were positioned at the end of the pattern. For example, when a column `t1.t` contains the string `'abbcd'`, the query `SELECT t LIKE 'a\\b%c%' FROM t1` would incorrectly return `FALSE`. This fix ensures accurate pattern matching, improving query reliability.
-

@@ -1177,6 +1177,8 @@ This setting is only applicable on multi-node engines.
 SELECT * FROM orders
 WHERE user_id IN (SELECT user_id FROM users WHERE email IS NOT NULL)
 WITH (force_shuffle_hash_join=true);
+```
+
 ## Marking queries as HBS training data
 
 The `as_hbs_training_data` setting marks queries so that their execution metrics are collected for [History-based statistics](/performance-and-observability/query-planning/history-based-statistics).
