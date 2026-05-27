@@ -95,12 +95,13 @@ You need to understand this to fully leverage control over runtime, planner, and
 ## How you can control Firebolt
 There are different ways to control Firebolt.
 By knowing what types of levers we support, you get full control of Firebolt.
-Levers can be tied to the storage format, give you workload-level control, or control the behaviour of a specific query. 
+Levers can be tied to persistent data layout, give you workload-level control, or control the behaviour of specific queries and query fragments.
 
 ### Schema-level control
-Some levers are tied to your schema objects.
-These levers give you control over your physical data layout.
+Some levers are tied to your schema objects and affect persistent data layout.
+These levers give you control over your physical data layout and storage characteristics.
 Any engine and query that uses these schema objects will be affected.
+Changing these settings, especially on large datasets, can be expensive as they require data reorganization.
 
 For example, you get fine-grained control over [managed tables](/reference-sql/commands/data-definition/create-fact-dimension-table) in Firebolt.
 
@@ -135,10 +136,13 @@ By turning auto vacuum on and off at the engine level, you can control how compu
 You can either devote some resources to storage optimization, or make sure all resources go to user-sent queries.
 {/* Read more in our performance section on [data pruning and storage](/performance-and-observability/data-pruning-and-storage). */}
 
-### Query-level control
-Some levers give you control at a per-query basis.
-Look at our [system settings](/reference-sql/system-settings) for an exhaustive list of all settings in Firebolt.
-Compared to engine-level control, settings allow you to change the behaviour of a single query.
+### Statement-level control
+Some levers give you control at the individual statement level, allowing you to modify behavior for specific queries or query fragments.
+These controls are completely transient - you can change them immediately and have different variations running on the same data.
+
+#### Generic syntax extensions
+Look at our [system settings](/reference/system-settings) for an exhaustive list of all settings in Firebolt.
+These settings allow you to change the behaviour of a single query using either `SET` commands or the `WITH` clause.
 Different queries running on the same engine can have different settings.
 
 For example, you can control the [target tablet size](/reference-sql/system-settings#target-tablet-size) for an `INSERT` query.
@@ -157,10 +161,9 @@ INSERT INTO playstats
 WITH (tablet_min_size_bytes = 4294967296, tablet_max_size_bytes = 4294967296);
 ```
 
-### Syntax-level control
+#### Bespoke syntax extensions
 Sometimes, you want to control individual fragments of your query.
-In these cases, Firebolt gives you syntax-level control.
-This is the most fine-grained way to control Firebolt's behaviour.
+In these cases, Firebolt provides bespoke syntactic extensions that give you the most fine-grained control over Firebolt's behaviour.
 
 An example are [`MATERIALIZED` CTEs](/reference-sql/commands/queries/select#materialized-common-table-expressions).
 These give you control over how exactly a CTE is treated by our optimizer and runtime.
