@@ -1213,6 +1213,8 @@
   "/reference-sql/functions-reference/json/json-value/",
   "/reference-sql/functions-reference/json/to-json",
   "/reference-sql/functions-reference/json/to-json/",
+  "/reference-sql/functions-reference/json/to-json-string",
+  "/reference-sql/functions-reference/json/to-json-string/",
   "/reference-sql/functions-reference/lambda",
   "/reference-sql/functions-reference/lambda/",
   "/reference-sql/functions-reference/lambda/array-all-match",

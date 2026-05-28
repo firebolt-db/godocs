@@ -1,0 +1,1 @@
+SELECT TO_JSON_STRING(STRUCT(true, 1, 'x', null)) AS js;

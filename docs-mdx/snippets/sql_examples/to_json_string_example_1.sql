@@ -1,0 +1,1 @@
+SELECT TO_JSON_STRING(STRUCT(30, 'text')::STRUCT(id INT, desc TEXT)) AS js;

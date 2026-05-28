@@ -1,0 +1,55 @@
+---
+description: Reference material for TO_JSON_STRING function
+sidebarTitle: TO_JSON_STRING
+title: TO_JSON_STRING
+---
+
+Converts SQL STRUCT value to a valid JSON string representation. Struct field names become JSON object keys, and nested structures are converted to nested JSON objects and arrays.
+
+## Syntax
+
+```sql
+TO_JSON_STRING(<input>)
+```
+
+## Parameters
+
+| Parameter | Description | Supported input types |
+|:----------|:------------|:---------------------|
+| `<input>` | Any STRUCT expression to convert to JSON string format. | STRUCT |
+
+## Return Type
+
+`TEXT`
+
+- If the input is `NULL`, the function returns `NULL`.
+- The function always produces a valid JSON string for non-null inputs.
+
+## Type Conversions
+
+The following table shows how Firebolt data types are converted to JSON:
+
+| Firebolt Type | JSON Representation | Example |
+|:--------------|:-------------------|:--------|
+| `TEXT` | JSON string | `'hello'` → `"hello"` |
+| `BYTEA` | Hex string with `\x` prefix | `'string'::BYTEA` → `"\\x737472696e67"` |
+| `BOOLEAN` | JSON boolean | `true` → `true`, `false` → `false` |
+| `INT`, `REAL`, `FLOAT` | JSON number | `42` → `42`, `3.14` → `3.14` |
+| `BIGINT`, `NUMERIC` | JSON string | `123456789` → `"123456789"` |
+| `DATE` | ISO date string | `'1998-01-01'::DATE` → `"1998-01-01"` |
+| `TIMESTAMP`, `TIMESTAMPNTZ` | ISO datetime string | `'1998-01-01'::TIMESTAMP` → `"1998-01-01 00:00:00"` |
+| `GEOGRAPHY` | WKB hex string | Geography point → `"0101000020E610000..."` |
+| `NULL` | JSON null | `null` → `null` |
+
+## Behavior
+
+- **Struct conversion**: Struct field names become JSON object keys. If a struct has unnamed fields, they are automatically named `f1`, `f2`, `f3`, etc.
+- **Nested structures**: Nested structs become nested JSON objects, and arrays become JSON arrays.
+- **NULL handling**: NULL input returns NULL. NULL fields within structs become JSON null values.
+- **Escaping**: The function uses [official](https://www.json.org/json-en.html) json escaping that includes forward slashes (`/` becomes `\/`).
+
+## Examples
+
+import ToJsonStringExecutable from '/snippets/sql_examples/to_json_string_executable.mdx';
+
+<ToJsonStringExecutable />

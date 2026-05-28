@@ -688,7 +688,8 @@
                       "reference-sql/functions-reference/json/json-format",
                       "reference-sql/functions-reference/json/json-is-valid",
                       "reference-sql/functions-reference/json/json-operators",
-                      "reference-sql/functions-reference/json/to-json"
+                      "reference-sql/functions-reference/json/to-json",
+                      "reference-sql/functions-reference/json/to-json-string"
                     ]
                   },
                   {

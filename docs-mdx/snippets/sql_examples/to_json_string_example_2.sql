@@ -1,0 +1,1 @@
+SELECT TO_JSON_STRING({'id': 30, 'desc': 'text'}) AS js;

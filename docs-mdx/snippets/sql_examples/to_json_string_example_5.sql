@@ -1,0 +1,1 @@
+SELECT TO_JSON_STRING({'~a': 1, '/b\': 2}) AS js;
